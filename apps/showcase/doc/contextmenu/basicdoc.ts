@@ -1,10 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'context-menu-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [ContextMenuModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

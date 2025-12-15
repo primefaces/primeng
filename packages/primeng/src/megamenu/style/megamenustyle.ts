@@ -1,16 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/megamenu';
-
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-.p-megamenu-submenu-icon.p-iconwrapper {
-        margin-left: auto;
-    }
-`;
+import { BaseStyle } from 'primeng/base';
 
 const inlineStyles = {
     rootList: ({ instance }) => ({ 'max-height': instance.scrollHeight, overflow: 'auto' })
@@ -19,9 +9,8 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-megamenu p-component',
-        instance.styleClass,
         {
-            'p-megamenu-mobile': instance.queryMatches,
+            'p-megamenu-mobile': instance.queryMatches(),
             'p-megamenu-mobile-active': instance.mobileActive,
             'p-megamenu-horizontal': instance.orientation === 'horizontal',
             'p-megamenu-vertical': instance.orientation === 'vertical'
@@ -57,7 +46,7 @@ const classes = {
         let length = instance.isItemGroup(processedItem) ? processedItem.items.length : 0;
         let columnClass;
 
-        if (instance.megaMenu.queryMatches) columnClass = 'p-megamenu-col-12';
+        if (instance.megaMenu.queryMatches()) columnClass = 'p-megamenu-col-12';
         else {
             switch (length) {
                 case 2:
@@ -93,7 +82,7 @@ const classes = {
 export class MegaMenuStyle extends BaseStyle {
     name = 'megamenu';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 

@@ -17,7 +17,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         `p-speeddial p-component p-speeddial-${instance.type}`,
-        instance.className,
         {
             [`p-speeddial-direction-${instance.direction}`]: instance.type !== 'circle',
             'p-speeddial-open': instance.visible,
@@ -32,21 +31,16 @@ const classes = {
     ],
     list: 'p-speeddial-list',
     item: ({ instance, item, i }) => ['p-speeddial-item', { 'p-hidden': item.visible === false, 'p-focus': instance.focusedOptionId == instance.id + '_' + i }],
-    action: 'p-speeddial-action',
+    pcAction: 'p-speeddial-action',
     actionIcon: 'p-speeddial-action-icon',
-    mask: ({ instance }) => [
-        'p-speeddial-mask',
-        {
-            'p-speeddial-mask-visible': instance.visible
-        }
-    ]
+    mask: 'p-speeddial-mask p-overlay-mask'
 };
 
 @Injectable()
 export class SpeedDialStyle extends BaseStyle {
     name = 'speeddial';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 
@@ -82,7 +76,7 @@ export enum SpeedDialClasses {
     /**
      * Class name of the action element
      */
-    action = 'p-speeddial-action',
+    pcAction = 'p-speeddial-action',
     /**
      * Class name of the action icon element
      */

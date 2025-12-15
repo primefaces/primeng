@@ -1,12 +1,38 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Injectable, Injector, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    inject,
+    Injectable,
+    InjectionToken,
+    Injector,
+    input,
+    Input,
+    NgModule,
+    numberAttribute,
+    OnDestroy,
+    OnInit,
+    Output,
+    ViewChild
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind } from 'primeng/bind';
+import { BindModule } from 'primeng/bind';
 import { Nullable } from 'primeng/ts-helpers';
-import { RadioButtonClickEvent } from './radiobutton.interface';
+import { RadioButtonPassThrough } from 'primeng/types/radiobutton';
+import type { RadioButtonClickEvent } from 'primeng/types/radiobutton';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
-import { BaseInput } from 'primeng/baseinput';
+
+const RADIOBUTTON_INSTANCE = new InjectionToken<RadioButton>('RADIOBUTTON_INSTANCE');
 
 export const RADIO_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -53,7 +79,7 @@ export class RadioControlRegistry {
 @Component({
     selector: 'p-radioButton, p-radiobutton, p-radio-button',
     standalone: true,
-    imports: [CommonModule, AutoFocus, SharedModule],
+    imports: [CommonModule, AutoFocus, SharedModule, BindModule],
     template: `
         <input
             #input
@@ -61,32 +87,43 @@ export class RadioControlRegistry {
             type="radio"
             [class]="cx('input')"
             [attr.name]="name()"
-            [attr.disabled]="disabled()"
-            [attr.required]="required()"
+            [attr.required]="required() ? '' : undefined"
+            [attr.disabled]="$disabled() ? '' : undefined"
             [checked]="checked"
-            [value]="modelValue()"
+            [attr.value]="modelValue()"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
-            [attr.tabindex]="tabindex"
             [attr.aria-checked]="checked"
+            [attr.tabindex]="tabindex"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (change)="onChange($event)"
             [pAutoFocus]="autofocus"
+            [pBind]="ptm('input')"
         />
-        <div [class]="cx('box')" [attr.data-pc-section]="'input'">
-            <div [class]="cx('icon')" [attr.data-pc-section]="'icon'"></div>
+        <div [class]="cx('box')" [pBind]="ptm('box')">
+            <div [class]="cx('icon')" [pBind]="ptm('icon')"></div>
         </div>
     `,
-    providers: [RADIO_VALUE_ACCESSOR, RadioButtonStyle],
+    providers: [RADIO_VALUE_ACCESSOR, RadioButtonStyle, { provide: RADIOBUTTON_INSTANCE, useExisting: RadioButton }, { provide: PARENT_INSTANCE, useExisting: RadioButton }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[attr.data-pc-name]': "'radiobutton'",
-        '[attr.data-pc-section]': "'root'",
-        '[class]': "cx('root')"
-    }
+        '[class]': "cx('root')",
+        '[attr.data-p-disabled]': '$disabled()',
+        '[attr.data-p-checked]': 'checked',
+        '[attr.data-p]': 'dataP'
+    },
+    hostDirectives: [Bind]
 })
-export class RadioButton extends BaseInput implements ControlValueAccessor, OnInit, OnDestroy {
+export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
+    $pcRadioButton: RadioButton | undefined = inject(RADIOBUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Value of the radiobutton.
      * @group Props
@@ -129,6 +166,18 @@ export class RadioButton extends BaseInput implements ControlValueAccessor, OnIn
      */
     @Input({ transform: booleanAttribute }) binary: boolean | undefined;
     /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
      * Callback to invoke on radio button click.
      * @param {RadioButtonClickEvent} event - Custom click event.
      * @group Emits
@@ -149,9 +198,7 @@ export class RadioButton extends BaseInput implements ControlValueAccessor, OnIn
 
     @ViewChild('input') inputViewChild!: ElementRef;
 
-    public onModelChange: Function = () => {};
-
-    public onModelTouched: Function = () => {};
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     public checked: Nullable<boolean>;
 
@@ -165,40 +212,25 @@ export class RadioButton extends BaseInput implements ControlValueAccessor, OnIn
 
     registry = inject(RadioControlRegistry);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.control = this.injector.get(NgControl);
         this.registry.add(this.control, this);
     }
 
     onChange(event) {
-        if (!this.disabled()) {
+        if (!this.$disabled()) {
             this.select(event);
         }
     }
 
     select(event: Event) {
-        if (!this.disabled()) {
+        if (!this.$disabled()) {
             this.checked = true;
             this.writeModelValue(this.checked);
             this.onModelChange(this.value);
             this.registry.select(this);
             this.onClick.emit({ originalEvent: event, value: this.value });
         }
-    }
-
-    writeValue(value: any): void {
-        this.checked = !this.binary ? value == this.value : !!value;
-        this.writeModelValue(this.checked);
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     onInputFocus(event: Event) {
@@ -220,9 +252,30 @@ export class RadioButton extends BaseInput implements ControlValueAccessor, OnIn
         this.inputViewChild.nativeElement.focus();
     }
 
-    ngOnDestroy() {
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.checked = !this.binary ? value == this.value : !!value;
+        setModelValue(this.checked);
+        this.cd.markForCheck();
+    }
+
+    onDestroy() {
         this.registry.remove(this);
-        super.ngOnDestroy();
+    }
+
+    get dataP() {
+        return this.cn({
+            invalid: this.invalid(),
+            checked: this.checked,
+            disabled: this.$disabled(),
+            filled: this.$variant() === 'filled',
+            [this.size() as string]: this.size()
+        });
     }
 }
 

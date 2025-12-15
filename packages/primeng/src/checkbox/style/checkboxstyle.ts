@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
-import { style } from '@primeuix/styles/checkbox';
+import { style as checkbox_style } from '@primeuix/styles/checkbox';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+    ${checkbox_style}
 
     /* For PrimeNG */
     p-checkBox.ng-invalid.ng-dirty .p-checkbox-box,
     p-check-box.ng-invalid.ng-dirty .p-checkbox-box,
     p-checkbox.ng-invalid.ng-dirty .p-checkbox-box {
-        border-color: ${dt('checkbox.invalid.border.color')};
+        border-color: dt('checkbox.invalid.border.color');
     }
 `;
 
@@ -19,7 +18,7 @@ const classes = {
         'p-checkbox p-component',
         {
             'p-checkbox-checked p-highlight': instance.checked,
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-variant-filled': instance.$variant() === 'filled',
             'p-checkbox-sm p-inputfield-sm': instance.size() === 'small',
@@ -35,7 +34,7 @@ const classes = {
 export class CheckboxStyle extends BaseStyle {
     name = 'checkbox';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'button-icon-only-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>Buttons can have icons without labels.</p>

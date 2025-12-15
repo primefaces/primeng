@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/tag';
+export * from '@primeuix/themes/nora/tag';
+export { default } from '@primeuix/themes/nora/tag';

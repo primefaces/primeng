@@ -1,12 +1,17 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'cascade-select-invalid-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, CascadeSelectModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>Invalid state is displayed using the <i>invalid</i> prop to indicate a failed validation. You can use this style when integrating with form validation libraries.</p>
+            <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
             <p-cascadeselect [(ngModel)]="selectedCity1" [invalid]="!selectedCity1" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full sm:w-56" placeholder="Select a City" />

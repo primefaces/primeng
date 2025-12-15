@@ -1,27 +1,13 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/fieldset';
 import { BaseStyle } from 'primeng/base';
-
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-    .p-fieldset-toggleable.p-fieldset-expanded > .p-fieldset-content-container:not(.ng-animating) {
-        overflow: visible;
-    }
-
-    .p-fieldset-toggleable .p-fieldset-content-container {
-        overflow: hidden;
-    }
-`;
 
 const classes = {
     root: ({ instance }) => [
         'p-fieldset p-component',
-        instance.styleClass,
         {
-            'p-fieldset-toggleable': instance.toggleable
+            'p-fieldset-toggleable': instance.toggleable,
+            'p-fieldset-collapsed': instance.collapsed && instance.toggleable
         }
     ],
     legend: 'p-fieldset-legend',
@@ -29,6 +15,7 @@ const classes = {
     toggleButton: 'p-fieldset-toggle-button',
     toggleIcon: 'p-fieldset-toggle-icon',
     contentContainer: 'p-fieldset-content-container',
+    contentWrapper: 'p-fieldset-content-wrapper',
     content: 'p-fieldset-content'
 };
 
@@ -36,7 +23,7 @@ const classes = {
 export class FieldsetStyle extends BaseStyle {
     name = 'fieldset';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }
@@ -71,6 +58,10 @@ export enum FieldsetClasses {
      * Class name of the content container element
      */
     contentContainer = 'p-fieldset-content-container',
+    /**
+     * Class name of the content wrapper element
+     */
+    contentWrapper = 'p-fieldset-content-wrapper',
     /**
      * Class name of the content element
      */

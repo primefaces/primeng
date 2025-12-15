@@ -1,22 +1,29 @@
-import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { absolutePosition, appendChild, isTouchDevice, relativePosition } from '@primeuix/utils';
-import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, input, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MotionOptions } from '@primeuix/motion';
+import { OverlayOptions, OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { MotionModule } from 'primeng/motion';
+import { OverlayModule } from 'primeng/overlay';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import type { ColorPickerChangeEvent } from 'primeng/types/colorpicker';
+import { ColorPickerPassThrough } from 'primeng/types/colorpicker';
 import { ZIndexUtils } from 'primeng/utils';
-import { ColorPickerChangeEvent } from './colorpicker.interface';
 import { ColorPickerStyle } from './style/colorpickerstyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => ColorPicker),
     multi: true
 };
+
+const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTANCE');
+
 /**
  * ColorPicker groups a collection of contents in tabs.
  * @group Components
@@ -24,67 +31,92 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-colorPicker, p-colorpicker, p-color-picker',
     standalone: true,
-    imports: [CommonModule, AutoFocusModule, SharedModule],
+    imports: [CommonModule, AutoFocusModule, SharedModule, Bind, MotionModule, OverlayModule],
+    hostDirectives: [Bind],
     template: `
         <input
             *ngIf="!inline"
             #input
             type="text"
             [class]="cx('preview')"
-            readonly="readonly"
+            readonly
             [attr.tabindex]="tabindex"
-            [disabled]="disabled()"
+            [attr.disabled]="$disabled() ? '' : undefined"
             (click)="onInputClick()"
             (keydown)="onInputKeydown($event)"
             (focus)="onInputFocus()"
             [attr.id]="inputId"
             [style.backgroundColor]="inputBgColor"
-            [attr.data-pc-section]="'input'"
             [attr.aria-label]="ariaLabel"
             [pAutoFocus]="autofocus"
+            [pBind]="ptm('preview')"
         />
-        <div
-            *ngIf="inline || overlayVisible"
-            [class]="cx('panel')"
-            (click)="onOverlayClick($event)"
-            [@overlayAnimation]="{
-                value: 'visible',
-                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-            }"
-            [@.disabled]="inline === true"
-            (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-            (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
-            [attr.data-pc-section]="'panel'"
+
+        <p-overlay
+            #overlay
+            [hostAttrSelector]="$attrSelector"
+            [(visible)]="overlayVisible"
+            [options]="overlayOptions()"
+            [target]="'@parent'"
+            [inline]="inline"
+            [appendTo]="$appendTo()"
+            [unstyled]="unstyled()"
+            [pt]="ptm('pcOverlay')"
+            [motionOptions]="motionOptions()"
+            (onBeforeEnter)="onOverlayBeforeEnter()"
+            (onAfterLeave)="onOverlayAfterLeave()"
+            (onHide)="hide()"
         >
-            <div [class]="cx('content')" [attr.data-pc-section]="'content'">
-                <div #colorSelector [class]="cx('colorSelector')" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [attr.data-pc-section]="'selector'">
-                    <div [class]="cx('colorBackground')" [attr.data-pc-section]="'color'">
-                        <div #colorHandle [class]="cx('colorHandle')" [attr.data-pc-section]="'colorHandle'"></div>
+            <ng-template #content>
+                <div [class]="cx('panel')" [pBind]="ptm('panel')">
+                    <div [class]="cx('content')" [pBind]="ptm('content')">
+                        <div #colorSelector [class]="cx('colorSelector')" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [pBind]="ptm('colorSelector')">
+                            <div [class]="cx('colorBackground')" [pBind]="ptm('colorBackground')">
+                                <div #colorHandle [class]="cx('colorHandle')" [pBind]="ptm('colorHandle')"></div>
+                            </div>
+                        </div>
+                        <div #hue [class]="cx('hue')" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [pBind]="ptm('hue')">
+                            <div #hueHandle [class]="cx('hueHandle')" [pBind]="ptm('hueHandle')"></div>
+                        </div>
                     </div>
                 </div>
-                <div #hue [class]="cx('hue')" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [attr.data-pc-section]="'hue'">
-                    <div #hueHandle [class]="cx('hueHandle')" [attr.data-pc-section]="'hueHandle'"></div>
-                </div>
-            </div>
-        </div>
+            </ng-template>
+        </p-overlay>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
-    providers: [COLORPICKER_VALUE_ACCESSOR, ColorPickerStyle],
+    providers: [COLORPICKER_VALUE_ACCESSOR, ColorPickerStyle, { provide: COLORPICKER_INSTANCE, useExisting: ColorPicker }, { provide: PARENT_INSTANCE, useExisting: ColorPicker }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
-        '[attr.data-pc-name]': '"colorpicker"',
-        '[attr.data-pc-section]': '"root"'
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDestroy, AfterViewInit {
+export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> implements AfterViewChecked {
+    $pcColorPicker: ColorPicker | undefined = inject(COLORPICKER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
+     */
+    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
+     */
+    @Input() hideTransitionOptions: string = '.1s linear';
     /**
      * Whether to display as an overlay or not.
      * @group Props
@@ -95,11 +127,6 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
      * @group Props
      */
     @Input() format: 'hex' | 'rgb' | 'hsb' = 'hex';
-    /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -116,25 +143,31 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
      */
     @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
-     * Base zIndex value to use in layering.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
-    /**
-     * Transition options of the show animation.
-     * @group Props
-     */
-    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-    /**
-     * Transition options of the hide animation.
-     * @group Props
-     */
-    @Input() hideTransitionOptions: string = '.1s linear';
-    /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
+     * Default color to display initially when model value is not present.
+     * @group Props
+     */
+    @Input() defaultColor: string | undefined = 'ff0000';
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
+     * Whether to use overlay API feature. The properties of overlay API can be used like an object in it.
+     * @group Props
+     */
+    overlayOptions = input<OverlayOptions | undefined>(undefined);
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
     /**
      * Callback to invoke on value change.
      * @param {ColorPickerChangeEvent} event - Custom value change event.
@@ -154,6 +187,10 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
 
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
+    @ViewChild('overlay') overlayViewChild!: ElementRef<HTMLDivElement>;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
+
     value: any = { h: 0, s: 100, b: 100 };
 
     inputBgColor: string | undefined;
@@ -162,16 +199,6 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
 
     overlayVisible: Nullable<boolean>;
 
-    defaultColor: string = 'ff0000';
-
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
-    documentClickListener: VoidListener;
-
-    documentResizeListener: VoidListener;
-
     documentMousemoveListener: VoidListener;
 
     documentMouseupListener: VoidListener;
@@ -179,8 +206,6 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
     documentHueMoveListener: VoidListener;
 
     scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
-
-    selfClick: Nullable<boolean>;
 
     colorDragging: Nullable<boolean>;
 
@@ -223,7 +248,7 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
     }
 
     onHueMousedown(event: MouseEvent) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -235,7 +260,7 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
     }
 
     onHueDragStart(event: TouchEvent) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -244,12 +269,13 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
     }
 
     onColorDragStart(event: TouchEvent) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             return;
         }
 
         this.colorDragging = true;
         this.pickColor(event, (event as TouchEvent).changedTouches[0]);
+        this.el.nativeElement.setAttribute('p-colorpicker-dragging', 'true');
     }
 
     pickHue(event: MouseEvent | TouchEvent, position?: any) {
@@ -268,7 +294,7 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
     }
 
     onColorMousedown(event: MouseEvent) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -294,7 +320,7 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
     onDragEnd() {
         this.colorDragging = false;
         this.hueDragging = false;
-
+        this.el.nativeElement.setAttribute('p-colorpicker-dragging', 'false');
         this.unbindDocumentMousemoveListener();
         this.unbindDocumentMouseupListener();
     }
@@ -342,30 +368,6 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
         this.cd.markForCheck();
     }
 
-    writeValue(value: any): void {
-        if (value) {
-            switch (this.format) {
-                case 'hex':
-                    this.value = this.HEXtoHSB(value);
-                    break;
-
-                case 'rgb':
-                    this.value = this.RGBtoHSB(value);
-                    break;
-
-                case 'hsb':
-                    this.value = value;
-                    break;
-            }
-        } else {
-            this.value = this.HEXtoHSB(this.defaultColor);
-        }
-
-        this.updateColorSelector();
-        this.updateUI();
-        this.cd.markForCheck();
-    }
-
     updateColorSelector() {
         if (this.colorSelectorViewChild) {
             const hsb: any = {};
@@ -396,67 +398,18 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
         this.cd.markForCheck();
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                if (!this.inline) {
-                    this.overlay = event.element;
-                    this.appendOverlay();
-
-                    if (this.autoZIndex) {
-                        ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
-                    }
-
-                    this.alignOverlay();
-                    this.bindDocumentClickListener();
-                    this.bindDocumentResizeListener();
-                    this.bindScrollListener();
-
-                    this.updateColorSelector();
-                    this.updateUI();
-                }
-                break;
-
-            case 'void':
-                this.onOverlayHide();
-                break;
+    onOverlayBeforeEnter() {
+        if (!this.inline) {
+            this.updateColorSelector();
+            this.updateUI();
+            this.onShow.emit({});
         }
     }
 
-    onOverlayAnimationEnd(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                if (!this.inline) {
-                    this.onShow.emit({});
-                }
-                break;
-
-            case 'void':
-                if (this.autoZIndex) {
-                    ZIndexUtils.clear(event.element);
-                }
-
-                this.onHide.emit({});
-                break;
+    onOverlayAfterLeave() {
+        if (!this.inline) {
+            this.onHide.emit({});
         }
-    }
-
-    appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.overlay);
-            else appendChild(this.appendTo, this.overlay);
-        }
-    }
-
-    restoreOverlayAppend() {
-        if (this.overlay && this.appendTo) {
-            this.renderer.appendChild(this.el.nativeElement, this.overlay);
-        }
-    }
-
-    alignOverlay() {
-        if (this.appendTo) absolutePosition(this.overlay, this.inputViewChild?.nativeElement);
-        else relativePosition(this.overlay, this.inputViewChild?.nativeElement);
     }
 
     hide() {
@@ -465,7 +418,6 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
     }
 
     onInputClick() {
-        this.selfClick = true;
         this.togglePanel();
     }
 
@@ -497,39 +449,6 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
             originalEvent: event,
             target: this.el.nativeElement
         });
-
-        this.selfClick = true;
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
-    bindDocumentClickListener() {
-        if (!this.documentClickListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
-
-            this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
-                if (!this.selfClick) {
-                    this.overlayVisible = false;
-                    this.unbindDocumentClickListener();
-                }
-
-                this.selfClick = false;
-                this.cd.markForCheck();
-            });
-        }
-    }
-
-    unbindDocumentClickListener() {
-        if (this.documentClickListener) {
-            this.documentClickListener();
-            this.documentClickListener = null;
-        }
     }
 
     bindDocumentMousemoveListener() {
@@ -575,43 +494,6 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
         }
     }
 
-    bindDocumentResizeListener() {
-        if (isPlatformBrowser(this.platformId)) {
-            this.documentResizeListener = this.renderer.listen(this.document.defaultView, 'resize', this.onWindowResize.bind(this));
-        }
-    }
-
-    unbindDocumentResizeListener() {
-        if (this.documentResizeListener) {
-            this.documentResizeListener();
-            this.documentResizeListener = null;
-        }
-    }
-
-    onWindowResize() {
-        if (this.overlayVisible && !isTouchDevice()) {
-            this.hide();
-        }
-    }
-
-    bindScrollListener() {
-        if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.el?.nativeElement, () => {
-                if (this.overlayVisible) {
-                    this.hide();
-                }
-            });
-        }
-
-        this.scrollHandler.bindScrollListener();
-    }
-
-    unbindScrollListener() {
-        if (this.scrollHandler) {
-            this.scrollHandler.unbindScrollListener();
-        }
-    }
-
     validateHSB(hsb: { h: number; s: number; b: number }) {
         return {
             h: Math.min(360, Math.max(0, hsb.h)),
@@ -631,7 +513,7 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
     validateHEX(hex: string) {
         var len = 6 - hex.length;
         if (len > 0) {
-            var o = [];
+            var o: any = [];
             for (var i = 0; i < len; i++) {
                 o.push('0');
             }
@@ -642,6 +524,9 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
     }
 
     HEXtoRGB(hex: string) {
+        if (!hex || typeof hex !== 'string') {
+            return { r: 0, g: 0, b: 0 };
+        }
         let hexValue = parseInt(hex.indexOf('#') > -1 ? hex.substring(1) : hex, 16);
         return { r: hexValue >> 16, g: (hexValue & 0x00ff00) >> 8, b: hexValue & 0x0000ff };
     }
@@ -750,32 +635,52 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
         return this.RGBtoHEX(this.HSBtoRGB(hsb));
     }
 
-    onOverlayHide() {
-        this.unbindScrollListener();
-        this.unbindDocumentResizeListener();
-        this.unbindDocumentClickListener();
-        this.overlay = null;
-    }
-
-    ngAfterViewInit() {
+    onAfterViewInit() {
         if (this.inline) {
             this.updateColorSelector();
             this.updateUI();
         }
     }
 
-    ngOnDestroy() {
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any): void {
+        if (value) {
+            switch (this.format) {
+                case 'hex':
+                    this.value = this.HEXtoHSB(value);
+                    break;
+
+                case 'rgb':
+                    this.value = this.RGBtoHSB(value);
+                    break;
+
+                case 'hsb':
+                    this.value = value;
+                    break;
+            }
+        } else {
+            this.value = this.HEXtoHSB(this.defaultColor as string);
+        }
+
+        this.updateColorSelector();
+        this.updateUI();
+        this.cd.markForCheck();
+    }
+
+    onDestroy() {
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
         }
 
-        if (this.overlay && this.autoZIndex) {
-            ZIndexUtils.clear(this.overlay);
+        if (this.overlayViewChild?.nativeElement && this.autoZIndex) {
+            ZIndexUtils.clear(this.overlayViewChild?.nativeElement);
         }
-
-        this.restoreOverlayAppend();
-        this.onOverlayHide();
     }
 }
 

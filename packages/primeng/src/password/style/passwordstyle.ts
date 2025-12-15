@@ -1,56 +1,58 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
-import { style } from '@primeuix/styles/password';
+import { style as password_style } from '@primeuix/styles/password';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+${password_style}
 
-    /* For PrimeNG */
+/* For PrimeNG */
+.p-password-overlay {
+    min-width: 100%;
+}
 
-    .p-password-overlay {
-        position: absolute;
-        padding: ${dt('password.overlay.padding')};
-        background: ${dt('password.overlay.background')};
-        color: ${dt('password.overlay.color')};
-        border: 1px solid ${dt('password.overlay.border.color')};
-        box-shadow: ${dt('password.overlay.shadow')};
-        border-radius: ${dt('password.overlay.border.radius')};
+p-password.ng-invalid.ng-dirty .p-inputtext {
+    border-color: dt('inputtext.invalid.border.color');
+}
+
+p-password.ng-invalid.ng-dirty .p-inputtext:enabled:focus {
+    border-color: dt('inputtext.focus.border.color');
+}
+
+p-password.ng-invalid.ng-dirty .p-inputtext::placeholder {
+    color: dt('inputtext.invalid.placeholder.color');
+}
+
+.p-password-fluid-directive {
+    width: 100%;
+}
+
+/* Animations */
+.p-password-enter {
+    animation: p-animate-password-enter 300ms cubic-bezier(.19,1,.22,1);
+}
+
+.p-password-leave {
+    animation: p-animate-password-leave 300ms cubic-bezier(.19,1,.22,1);
+}
+
+@keyframes p-animate-password-enter {
+    from {
+        opacity: 0;
+        transform: scale(0.93);
     }
+}
 
-    p-password.ng-invalid.ng-dirty .p-inputtext {
-        border-color: ${dt('inputtext.invalid.border.color')};
+@keyframes p-animate-password-leave {
+    to {
+        opacity: 0;
+        transform: scale(0.93);
     }
-
-    p-password.ng-invalid.ng-dirty .p-inputtext:enabled:focus {
-        border-color: ${dt('inputtext.focus.border.color')};
-    }
-
-    p-password.ng-invalid.ng-dirty .p-inputtext::placeholder {
-        color: ${dt('inputtext.invalid.placeholder.color')};
-    }
-
-    .p-password-clear-icon {
-        position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
-        cursor: pointer;
-        inset-inline-end: ${dt('form.field.padding.x')};
-        color: ${dt('form.field.icon.color')};
-    }
-
-    .p-password:has(.p-password-toggle-mask-icon) .p-password-clear-icon,
-    .p-password:has(.p-password-toggle-mask-icon) .p-password-input {
-        padding-inline-end: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
-    }
-
-    .p-password-fluid-directive {
-        width: 100%;
-    }
+}
 `;
 
 const inlineStyles = {
-    root: ({ instance }) => ({ position: instance.appendTo === 'self' ? 'relative' : undefined })
+    root: ({ instance }) => ({ position: instance.$appendTo() === 'self' ? 'relative' : undefined }),
+    overlay: { position: 'absolute' }
 };
 
 const classes = {
@@ -86,7 +88,7 @@ const classes = {
 export class PasswordStyle extends BaseStyle {
     name = 'password';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 

@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
-import { style } from '@primeuix/styles/inputtext';
+import { style as inputtext_style } from '@primeuix/styles/inputtext';
 import { BaseStyle } from 'primeng/base';
-const theme = css`
-    ${style}
+
+const style = /*css*/ `
+    ${inputtext_style}
 
     /* For PrimeNG */
    .p-inputtext.ng-invalid.ng-dirty {
-        border-color: ${dt('inputtext.invalid.border.color')};
+        border-color: dt('inputtext.invalid.border.color');
     }
 
     .p-inputtext.ng-invalid.ng-dirty::placeholder {
-        color: ${dt('inputtext.invalid.placeholder.color')};
+        color: dt('inputtext.invalid.placeholder.color');
     }
 `;
 
@@ -33,7 +33,7 @@ const classes = {
 export class InputTextStyle extends BaseStyle {
     name = 'inputtext';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

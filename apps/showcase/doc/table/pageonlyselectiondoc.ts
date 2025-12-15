@@ -2,10 +2,15 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'page-only-selection-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TableModule, AppCode, DeferredDemo],
     template: ` <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [paginator]="true" [rows]="5" [selectionPageOnly]="true" [tableStyle]="{ 'min-width': '50rem' }">

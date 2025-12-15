@@ -5,7 +5,6 @@ import { BaseStyle } from 'primeng/base';
 const classes = {
     root: ({ instance }) => [
         'p-avatar p-component',
-        instance.styleClass,
         {
             'p-avatar-image': instance.image != null,
             'p-avatar-circle': instance.shape === 'circle',
@@ -21,7 +20,7 @@ const classes = {
 export class AvatarStyle extends BaseStyle {
     name = 'avatar';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }
@@ -47,7 +46,23 @@ export enum AvatarClasses {
     /**
      * Class name of the icon element
      */
-    icon = 'p-avatar-icon'
+    icon = 'p-avatar-icon',
+    /**
+     * Container element in image mode
+     */
+    image = 'p-avatar-image',
+    /**
+     * Container element with a circle shape
+     */
+    circle = 'p-avatar-circle',
+    /**
+     *  Container element with a large size
+     */
+    large = 'p-avatar-lg',
+    /**
+     *  Container element with an xlarge size
+     */
+    xlarge = 'p-avatar-xl'
 }
 
 export interface AvatarStyle extends BaseStyle {}

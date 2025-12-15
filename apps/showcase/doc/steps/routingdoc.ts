@@ -1,12 +1,18 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { TicketService } from '@/service/ticketservice';
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
+import { StepsModule } from 'primeng/steps';
+import { ToastModule } from 'primeng/toast';
 import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'routing-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, ToastModule, StepsModule, RouterModule, AppCode],
     template: `
         <app-docsectiontext>
             <p>Example below uses nested routes with Steps.</p>

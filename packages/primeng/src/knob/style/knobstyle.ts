@@ -3,7 +3,7 @@ import { style } from '@primeuix/styles/knob';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-knob p-component', { 'p-disabled': instance.disabled() }],
+    root: ({ instance }) => ['p-knob p-component', { 'p-disabled': instance.$disabled() }],
     range: 'p-knob-range',
     value: 'p-knob-value',
     text: 'p-knob-text'
@@ -13,7 +13,7 @@ const classes = {
 export class KnobStyle extends BaseStyle {
     name = 'knob';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

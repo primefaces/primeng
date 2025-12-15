@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/tabs';
+export * from '@primeuix/themes/nora/tabs';
+export { default } from '@primeuix/themes/nora/tabs';

@@ -1,91 +1,107 @@
 import { Injectable } from '@angular/core';
+import { style as drawer_style } from '@primeuix/styles/drawer';
 import { BaseStyle } from 'primeng/base';
-import { css } from '@primeuix/styled';
-import { style } from '@primeuix/styles/drawer';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+${drawer_style}
 
-    /** For PrimeNG **/
+/** For PrimeNG **/
 .p-drawer {
-        position: fixed;
-        display: flex;
-        flex-direction: column;
-    }
+    position: fixed;
+}
 
-    .p-drawer-left {
-        top: 0;
-        left: 0;
-        width: 20rem;
-        height: 100%;
-    }
+.p-drawer-left {
+    top: 0;
+    left: 0;
+    width: 20rem;
+    height: 100%;
+    border-inline-end-width: 1px;
+}
 
-    .p-drawer-right {
-        top: 0;
-        right: 0;
-        width: 20rem;
-        height: 100%;
-    }
+.p-drawer-right {
+    top: 0;
+    right: 0;
+    width: 20rem;
+    height: 100%;
+    border-inline-start-width: 1px;
+}
 
-    .p-drawer-top {
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 10rem;
-    }
+.p-drawer-top {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10rem;
+    border-block-end-width: 1px;
+}
 
-    .p-drawer-bottom {
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 10rem;
-    }
+.p-drawer-bottom {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10rem;
+    border-block-start-width: 1px;
+}
 
-    .p-drawer-full {
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        -webkit-transition: none;
-        transition: none;
-    }
+.p-drawer-full {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    -webkit-transition: none;
+    transition: none;
+}
 
-    .p-overlay-mask-enter {
-        animation: p-overlay-mask-enter-animation 150ms forwards;
-    }
+/* Animations */
+.p-drawer-enter-left {
+    animation: p-animate-drawer-enter-left 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
 
-    .p-overlay-mask-leave {
-        animation: p-overlay-mask-leave-animation 150ms forwards;
-    }
+.p-drawer-leave-left {
+    animation: p-animate-drawer-leave-left 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
 
-    @keyframes p-overlay-mask-enter-animation {
-        from {
-            background-color: transparent;
-        }
-        to {
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-    }
-    @keyframes p-overlay-mask-leave-animation {
-        from {
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-        to {
-            background-color: transparent;
-        }
-    }
+.p-drawer-enter-right {
+    animation: p-animate-drawer-enter-right 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.p-drawer-leave-right {
+    animation: p-animate-drawer-leave-right 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.p-drawer-enter-top {
+    animation: p-animate-drawer-enter-top 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.p-drawer-leave-top {
+    animation: p-animate-drawer-leave-top 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.p-drawer-enter-bottom {
+    animation: p-animate-drawer-enter-bottom 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.p-drawer-leave-bottom {
+    animation: p-animate-drawer-leave-bottom 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.p-drawer-enter-full {
+    animation: p-animate-drawer-enter-full 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.p-drawer-leave-full {
+    animation: p-animate-drawer-leave-full 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
 `;
 
 const classes = {
-    mask: ({ instance }) => ['p-drawer-mask', { 'p-overlay-mask p-overlay-mask-enter': instance.modal }, { 'p-drawer-full': instance.fullScreen }],
+    mask: ({ instance }) => ['p-drawer-mask', { [`p-overlay-mask p-overlay-mask-enter-active`]: instance.modal }, { 'p-drawer-full': instance.fullScreen() }],
     root: ({ instance }) => [
         'p-drawer p-component',
         {
-            'p-drawer-full': instance.fullScreen,
+            'p-drawer-full': instance.fullScreen(),
             'p-drawer-open': instance.visible
         },
-        `p-drawer-${instance.position}`,
-        instance.styleClass
+        `p-drawer-${instance.position()}`
     ],
     header: 'p-drawer-header',
     title: 'p-drawer-title',
@@ -98,7 +114,7 @@ const classes = {
 export class DrawerStyle extends BaseStyle {
     name = 'drawer';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

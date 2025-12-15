@@ -1,131 +1,124 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
-import { style } from '@primeuix/styles/datatable';
+import { style as datatable_style } from '@primeuix/styles/datatable';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+${datatable_style}
 
-    /* For PrimeNG */
-    .p-datatable-scrollable-table > .p-datatable-thead {
-        top: 0;
-        z-index: 2;
-    }
+/* For PrimeNG */
+.p-datatable-scrollable-table > .p-datatable-thead {
+    top: 0;
+    z-index: 2;
+}
 
-    .p-datatable-scrollable-table > .p-datatable-frozen-tbody {
-        position: sticky;
-        z-index: 2;
-    }
+.p-datatable-scrollable-table > .p-datatable-frozen-tbody {
+    position: sticky;
+    z-index: 2;
+}
 
-    .p-datatable-scrollable-table > .p-datatable-frozen-tbody + .p-datatable-frozen-tbody {
-        z-index: 1;
-    }
+.p-datatable-scrollable-table > .p-datatable-frozen-tbody + .p-datatable-frozen-tbody {
+    z-index: 1;
+}
 
-    .p-datatable-scrollable > tr:not(:has(.p-datatable-selectable-row)) > .p-datatable-frozen-column {
-        position: sticky;
-        background: ${dt('datatable.header.cell.background')};
-    }
+.p-datatable-mask.p-overlay-mask {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
 
-    .p-datatable-scrollable th.p-datatable-frozen-column {
-        z-index: 1;
-        position: sticky;
-        background: ${dt('datatable.header.cell.background')};
-    }
-    .p-datatable-scrollable td.p-datatable-frozen-column {
-        z-index: 1;
-        position: sticky;
-        background: ${dt('datatable.header.cell.background')};
-    }
+.p-datatable-filter-overlay {
+    position: absolute;
+    background: dt('datatable.filter.overlay.select.background');
+    color: dt('datatable.filter.overlay.select.color');
+    border: 1px solid dt('datatable.filter.overlay.select.border.color');
+    border-radius: dt('datatable.filter.overlay.select.border.radius');
+    box-shadow: dt('datatable.filter.overlay.select.shadow');
+    min-width: 12.5rem;
+}
 
-    .p-datatable-mask {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 3;
-    }
+.p-datatable-filter-rule {
+    border-bottom: 1px solid dt('datatable.filter.rule.border.color');
+}
 
-    .p-datatable-filter-overlay {
-        position: absolute;
-        background: ${dt('datatable.filter.overlay.select.background')};
-        color: ${dt('datatable.filter.overlay.select.color')};
-        border: 1px solid ${dt('datatable.filter.overlay.select.border.color')};
-        border-radius: ${dt('datatable.filter.overlay.select.border.radius')};
-        box-shadow: ${dt('datatable.filter.overlay.select.shadow')};
-        min-width: 12.5rem;
-    }
+.p-datatable-filter-rule:last-child {
+    border-bottom: 0 none;
+}
 
-    .p-datatable-filter-rule {
-        border-bottom: 1px solid ${dt('datatable.filter.rule.border.color')};
-    }
+.p-datatable-filter-add-rule-button,
+.p-datatable-filter-remove-rule-button {
+    width: 100%;
+}
 
-    .p-datatable-filter-rule:last-child {
-        border-bottom: 0 none;
-    }
+.p-datatable-filter-remove-button {
+    width: 100%;
+}
 
-    .p-datatable-filter-add-rule-button,
-    .p-datatable-filter-remove-rule-button {
-        width: 100%;
-    }
+.p-datatable-thead > tr > th {
+    padding: dt('datatable.header.cell.padding');
+    background: dt('datatable.header.cell.background');
+    border-color: dt('datatable.header.cell.border.color');
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    color: dt('datatable.header.cell.color');
+    font-weight: dt('datatable.column.title.font.weight');
+    text-align: start;
+    transition:
+        background dt('datatable.transition.duration'),
+        color dt('datatable.transition.duration'),
+        border-color dt('datatable.transition.duration'),
+        outline-color dt('datatable.transition.duration'),
+        box-shadow dt('datatable.transition.duration');
+}
 
-    .p-datatable-filter-remove-button {
-        width: 100%;
-    }
+.p-datatable-thead > tr > th p-columnfilter {
+    font-weight: normal;
+}
 
-    .p-datatable-thead > tr > th {
-        padding: ${dt('datatable.header.cell.padding')};
-        background: ${dt('datatable.header.cell.background')};
-        border-color: ${dt('datatable.header.cell.border.color')};
-        border-style: solid;
-        border-width: 0 0 1px 0;
-        color: ${dt('datatable.header.cell.color')};
-        font-weight: ${dt('datatable.column.title.font.weight')};
-        text-align: start;
-        transition:
-            background ${dt('datatable.transition.duration')},
-            color ${dt('datatable.transition.duration')},
-            border-color ${dt('datatable.transition.duration')},
-            outline-color ${dt('datatable.transition.duration')},
-            box-shadow ${dt('datatable.transition.duration')};
-    }
+.p-datatable-thead > tr > th,
+.p-datatable-sort-icon,
+.p-datatable-sort-badge {
+    vertical-align: middle;
+}
 
-    .p-datatable-thead > tr > th p-columnfilter {
-        font-weight: normal;
-    }
+.p-datatable-thead > tr > th.p-datatable-column-sorted {
+    background: dt('datatable.header.cell.selected.background');
+    color: dt('datatable.header.cell.selected.color');
+}
 
-    .p-datatable-tbody:has(+ .p-datatable-tfoot) > tr:last-child > td {
-        border-width: 0;
-    }
+.p-datatable-thead > tr > th.p-datatable-column-sorted .p-datatable-sort-icon {
+    color: dt('datatable.header.cell.selected.color');
+}
 
-    .p-datatable-thead > tr > th,
-    .p-datatable-sort-icon,
-    .p-datatable-sort-badge {
-        vertical-align: middle;
-    }
+.p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd) {
+    background: dt('datatable.row.striped.background');
+}
 
-    .p-datatable-thead > tr > th.p-datatable-column-sorted {
-        background: ${dt('datatable.header.cell.selected.background')};
-        color: ${dt('datatable.header.cell.selected.color')};
-    }
+.p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd).p-datatable-row-selected {
+    background: dt('datatable.row.selected.background');
+    color: dt('datatable.row.selected.color');
+}
 
-    .p-datatable-thead > tr > th.p-datatable-column-sorted .p-datatable-sort-icon {
-        color: ${dt('datatable.header.cell.selected.color')};
-    }
+p-sortIcon, p-sort-icon, p-sorticon {
+    display: inline-flex;
+    align-items: center;
+    gap: dt('datatable.header.cell.gap');
+}
 
-    .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd) {
-        background: ${dt('datatable.row.striped.background')};
-    }
+.p-datatable .p-editable-column.p-cell-editing {
+    padding: 0;
+}
 
-    .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd).p-datatable-row-selected {
-        background: ${dt('datatable.row.selected.background')};
-        color: ${dt('datatable.row.selected.color')};
-    }
+.p-datatable .p-editable-column.p-cell-editing p-celleditor {
+    display: block;
+    width: 100%;
+}
 `;
 
 const classes = {
     root: ({ instance }) => [
         'p-datatable p-component',
-        instance.styleClass,
         {
             'p-datatable-hoverable': instance.rowHover || instance.selectionMode,
             'p-datatable-resizable': instance.resizableColumns,
@@ -171,7 +164,11 @@ const classes = {
         'p-datatable-filter-overlay-popover': instance.display === 'menu'
     }),
     filterConstraintList: 'p-datatable-filter-constraint-list',
-    filterConstraint: 'p-datatable-filter-constraint',
+
+    filterConstraint: ({ selected }) => ({
+        'p-datatable-filter-constraint': true,
+        'p-datatable-filter-constraint-selected': selected
+    }),
     filterConstraintSeparator: 'p-datatable-filter-constraint-separator',
     filterOperator: 'p-datatable-filter-operator',
     pcFilterOperatorDropdown: 'p-datatable-filter-operator-dropdown',
@@ -214,7 +211,7 @@ const classes = {
         'p-datatable-sortable-column': instance.isEnabled(),
         ' p-datatable-column-sorted': instance.sorted
     }),
-    sortableColumnIcon: 'p-sortable-column-icon',
+    sortableColumnIcon: 'p-datatable-sort-icon',
     sortableColumnBadge: 'p-sortable-column-badge',
     selectableRow: ({ instance }) => ({
         'p-datatable-selectable-row': instance.isEnabled(),
@@ -222,7 +219,14 @@ const classes = {
     }),
     resizableColumn: 'p-datatable-resizable-column',
     reorderableColumn: 'p-datatable-reorderable-column',
-    rowEditorCancel: 'p-datatable-row-editor-cancel'
+    rowEditorCancel: 'p-datatable-row-editor-cancel',
+    frozenColumn: ({ instance }) => ({
+        'p-datatable-frozen-column': instance.frozen,
+        'p-datatable-frozen-column-left': instance.alignFrozenLeft === 'left'
+    }),
+    contextMenuRowSelected: ({ instance }) => ({
+        'p-datatable-contextmenu-row-selected': instance.selected
+    })
 };
 
 const inlineStyles = {
@@ -231,14 +235,17 @@ const inlineStyles = {
         overflow: 'auto'
     }),
     thead: { position: 'sticky' },
-    tfoot: { position: 'sticky' }
+    tfoot: { position: 'sticky' },
+    rowGroupHeader: ({ instance }) => ({
+        top: instance.getFrozenRowGroupHeaderStickyPosition
+    })
 };
 
 @Injectable()
 export class TableStyle extends BaseStyle {
     name = 'datatable';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 
@@ -470,5 +477,13 @@ export enum TableClasses {
     /**
      * Class name of the row editor cancel element
      */
-    rowEditorCancel = 'p-datatable-row-editor-cancel'
+    rowEditorCancel = 'p-datatable-row-editor-cancel',
+    /**
+     * Class name of the frozen column element
+     */
+    frozenColumn = 'p-datatable-frozen-column',
+    /**
+     * Class name of the contextmenu row selected element
+     */
+    contextMenuRowSelected = 'p-datatable-contextmenu-row-selected'
 }

@@ -1,9 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
     selector: 'floatlabel-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, RouterModule, AppCode, AppDocSectionText, FloatLabelModule, TextareaModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -18,12 +25,12 @@ import { Component } from '@angular/core';
             </p-floatlabel>
 
             <p-floatlabel variant="in">
-                <textarea pTextarea id="over_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                <textarea pTextarea id="in_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
                 <label for="in_label">In Label</label>
             </p-floatlabel>
 
             <p-floatlabel variant="on">
-                <textarea pTextarea id="over_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                <textarea pTextarea id="on_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
                 <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
@@ -44,12 +51,12 @@ export class FloatlabelDoc {
 </p-floatlabel>
 
 <p-floatlabel variant="in">
-    <textarea pTextarea id="over_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+    <textarea pTextarea id="in_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
     <label for="in_label">In Label</label>
 </p-floatlabel>
 
 <p-floatlabel variant="on">
-    <textarea pTextarea id="over_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+    <textarea pTextarea id="on_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
     <label for="on_label">On Label</label>
 </p-floatlabel>`,
 
@@ -60,12 +67,12 @@ export class FloatlabelDoc {
     </p-floatlabel>
 
     <p-floatlabel variant="in">
-        <textarea pTextarea id="over_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+        <textarea pTextarea id="in_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
         <label for="in_label">In Label</label>
     </p-floatlabel>
 
     <p-floatlabel variant="on">
-        <textarea pTextarea id="over_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+        <textarea pTextarea id="on_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
         <label for="on_label">On Label</label>
     </p-floatlabel>
 </div>`,

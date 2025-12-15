@@ -2,6 +2,12 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 interface Column {
     field: string;
@@ -16,13 +22,14 @@ interface ExportColumn {
 
 @Component({
     selector: 'export-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TableModule, ButtonModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Table can export its data to CSV format.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-table #dt [columns]="cols" [value]="products" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #caption>
                         <div class="text-end pb-4">
                             <p-button icon="pi pi-external-link" label="Export" (click)="dt.exportCSV()" />
@@ -36,7 +43,7 @@ interface ExportColumn {
                         </tr>
                     </ng-template>
                     <ng-template #body let-rowData let-columns="columns">
-                        <tr [pSelectableRow]="rowData">
+                        <tr>
                             <td *ngFor="let col of columns">
                                 {{ rowData[col.field] }}
                             </td>
@@ -79,7 +86,7 @@ export class ExportDoc {
     }
 
     code: Code = {
-        basic: `<p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
+        basic: `<p-table #dt [columns]="cols" [value]="products" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #caption>
         <div class="text-end pb-4">
             <p-button icon="pi pi-external-link" label="Export" (click)="dt.exportCSV()" />
@@ -93,7 +100,7 @@ export class ExportDoc {
         </tr>
     </ng-template>
     <ng-template #body let-rowData let-columns="columns">
-        <tr [pSelectableRow]="rowData">
+        <tr>
             <td *ngFor="let col of columns">
                 {{ rowData[col.field] }}
             </td>
@@ -101,7 +108,7 @@ export class ExportDoc {
     </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table #dt [columns]="cols" [value]="products" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #caption>
             <div class="text-end pb-4">
                 <p-button icon="pi pi-external-link" label="Export" (click)="dt.exportCSV()" />
@@ -115,7 +122,7 @@ export class ExportDoc {
             </tr>
         </ng-template>
         <ng-template #body let-rowData let-columns="columns">
-            <tr [pSelectableRow]="rowData">
+            <tr>
                 <td *ngFor="let col of columns">
                     {{ rowData[col.field] }}
                 </td>

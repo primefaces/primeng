@@ -1,16 +1,7 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/slider';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-    .p-slider {
-        display: block;
-    }
-`;
 const inlineStyles = {
     handle: { position: 'absolute' },
     range: { position: 'absolute' }
@@ -20,7 +11,7 @@ const classes = {
     root: ({ instance }) => [
         'p-slider p-component',
         {
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-slider-horizontal': instance.orientation === 'horizontal',
             'p-slider-vertical': instance.orientation === 'vertical',
@@ -35,7 +26,7 @@ const classes = {
 export class SliderStyle extends BaseStyle {
     name = 'slider';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 

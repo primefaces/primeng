@@ -4,6 +4,27 @@ import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { FileUploadModule } from 'primeng/fileupload';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { SelectModule } from 'primeng/select';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { TagModule } from 'primeng/tag';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { RatingModule } from 'primeng/rating';
+import { TextareaModule } from 'primeng/textarea';
 
 interface Column {
     field: string;
@@ -18,14 +39,37 @@ interface ExportColumn {
 
 @Component({
     selector: 'products-doc',
-    standalone: false,
+    standalone: true,
+    imports: [
+        CommonModule,
+        IconFieldModule,
+        InputIconModule,
+        FormsModule,
+        TableModule,
+        ToastModule,
+        ToolbarModule,
+        ButtonModule,
+        FileUploadModule,
+        RatingModule,
+        DialogModule,
+        InputTextModule,
+        InputNumberModule,
+        SelectModule,
+        RadioButtonModule,
+        TagModule,
+        AppDocSectionText,
+        AppCode,
+        DeferredDemo,
+        ConfirmDialogModule,
+        TextareaModule
+    ],
     template: ` <app-docsectiontext>
             <p>CRUD implementation example with a Dialog.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-toast />
-                <p-toolbar styleClass="mb-6">
+                <p-toolbar class="mb-6">
                     <ng-template #start>
                         <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
                         <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
@@ -55,7 +99,7 @@ interface ExportColumn {
                         <div class="flex items-center justify-between">
                             <h5 class="m-0">Manage Products</h5>
                             <p-iconfield>
-                                <p-inputicon styleClass="pi pi-search" />
+                                <p-inputicon class="pi pi-search" />
                                 <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
                             </p-iconfield>
                         </div>
@@ -67,25 +111,35 @@ interface ExportColumn {
                             </th>
                             <th style="min-width: 16rem">Code</th>
                             <th pSortableColumn="name" style="min-width:16rem">
-                                Name
-                                <p-sortIcon field="name" />
+                                <div class="flex items-center gap-2">
+                                    Name
+                                    <p-sortIcon field="name" />
+                                </div>
                             </th>
                             <th>Image</th>
                             <th pSortableColumn="price" style="min-width: 8rem">
-                                Price
-                                <p-sortIcon field="price" />
+                                <div class="flex items-center gap-2">
+                                    Price
+                                    <p-sortIcon field="price" />
+                                </div>
                             </th>
                             <th pSortableColumn="category" style="min-width:10rem">
-                                Category
-                                <p-sortIcon field="category" />
+                                <div class="flex items-center gap-2">
+                                    Category
+                                    <p-sortIcon field="category" />
+                                </div>
                             </th>
                             <th pSortableColumn="rating" style="min-width: 12rem">
-                                Reviews
-                                <p-sortIcon field="rating" />
+                                <div class="flex items-center gap-2">
+                                    Reviews
+                                    <p-sortIcon field="rating" />
+                                </div>
                             </th>
                             <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
-                                Status
-                                <p-sortIcon field="inventoryStatus" />
+                                <div class="flex items-center gap-2">
+                                    Status
+                                    <p-sortIcon field="inventoryStatus" />
+                                </div>
                             </th>
                             <th style="min-width: 12rem"></th>
                         </tr>
@@ -114,9 +168,6 @@ interface ExportColumn {
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template #summary>
-                        <div class="flex items-center justify-between">In total there are {{ products ? products.length : 0 }} products.</div>
-                    </ng-template>
                 </p-table>
 
                 <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
@@ -135,7 +186,7 @@ interface ExportColumn {
 
                             <div>
                                 <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
-                                <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" placeholder="Select a Status" fluid />
+                                <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="Select a Status" fluid />
                             </div>
 
                             <div>
@@ -179,7 +230,7 @@ interface ExportColumn {
                     </ng-template>
                 </p-dialog>
 
-                <p-confirmDialog [style]="{ width: '450px' }" />
+                <p-confirmdialog [style]="{ width: '450px' }" />
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-products-demo" [extFiles]="extFiles"></app-code>`,
@@ -188,7 +239,7 @@ interface ExportColumn {
 })
 export class ProductsDoc {
     code: Code = {
-        basic: `<p-toolbar styleClass="mb-6">
+        basic: `<p-toolbar class="mb-6">
     <ng-template #start>
         <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
         <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
@@ -218,7 +269,7 @@ export class ProductsDoc {
         <div class="flex items-center justify-between">
             <h5 class="m-0">Manage Products</h5>
             <p-iconfield>
-                <p-inputicon styleClass="pi pi-search" />
+                <p-inputicon class="pi pi-search" />
                 <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
             </p-iconfield>
         </div>
@@ -230,25 +281,35 @@ export class ProductsDoc {
             </th>
             <th style="min-width: 16rem">Code</th>
             <th pSortableColumn="name" style="min-width:16rem">
-                Name
-                <p-sortIcon field="name" />
+                <div class="flex items-center gap-2">
+                    Name
+                    <p-sortIcon field="name" />
+                </div>
             </th>
             <th>Image</th>
             <th pSortableColumn="price" style="min-width: 8rem">
-                Price
-                <p-sortIcon field="price" />
+                <div class="flex items-center gap-2">
+                    Price
+                    <p-sortIcon field="price" />
+                </div>
             </th>
             <th pSortableColumn="category" style="min-width:10rem">
-                Category
-                <p-sortIcon field="category" />
+                <div class="flex items-center gap-2">
+                    Category
+                    <p-sortIcon field="category" />
+                </div>
             </th>
             <th pSortableColumn="rating" style="min-width: 12rem">
-                Reviews
-                <p-sortIcon field="rating" />
+                <div class="flex items-center gap-2">
+                    Reviews
+                    <p-sortIcon field="rating" />
+                </div>
             </th>
             <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
-                Status
-                <p-sortIcon field="inventoryStatus" />
+                <div class="flex items-center gap-2">
+                    Status
+                    <p-sortIcon field="inventoryStatus" />
+                </div>
             </th>
             <th style="min-width: 12rem"></th>
         </tr>
@@ -277,9 +338,6 @@ export class ProductsDoc {
             </td>
         </tr>
     </ng-template>
-    <ng-template #summary>
-        <div class="flex items-center justify-between">In total there are {{ products ? products.length : 0 }} products.</div>
-    </ng-template>
 </p-table>
 
 <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
@@ -298,7 +356,7 @@ export class ProductsDoc {
 
             <div>
                 <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
-                <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" placeholder="Select a Status" fluid />
+                <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="Select a Status" fluid />
             </div>
 
             <div>
@@ -345,7 +403,7 @@ export class ProductsDoc {
 <p-confirmDialog [style]="{ width: '450px' }" />`,
         html: `<div class="card">
     <p-toast />
-    <p-toolbar styleClass="mb-6">
+    <p-toolbar class="mb-6">
         <ng-template #start>
             <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
             <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
@@ -375,7 +433,7 @@ export class ProductsDoc {
             <div class="flex items-center justify-between">
                 <h5 class="m-0">Manage Products</h5>
                 <p-iconfield>
-                    <p-inputicon styleClass="pi pi-search" />
+                    <p-inputicon class="pi pi-search" />
                     <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
                 </p-iconfield>
             </div>
@@ -387,25 +445,35 @@ export class ProductsDoc {
                 </th>
                 <th style="min-width: 16rem">Code</th>
                 <th pSortableColumn="name" style="min-width:16rem">
-                    Name
-                    <p-sortIcon field="name" />
+                    <div class="flex items-center gap-2">
+                        Name
+                        <p-sortIcon field="name" />
+                    </div>
                 </th>
                 <th>Image</th>
                 <th pSortableColumn="price" style="min-width: 8rem">
-                    Price
-                    <p-sortIcon field="price" />
+                    <div class="flex items-center gap-2">
+                        Price
+                        <p-sortIcon field="price" />
+                    </div>
                 </th>
                 <th pSortableColumn="category" style="min-width:10rem">
-                    Category
-                    <p-sortIcon field="category" />
+                    <div class="flex items-center gap-2">
+                        Category
+                        <p-sortIcon field="category" />
+                    </div>
                 </th>
                 <th pSortableColumn="rating" style="min-width: 12rem">
-                    Reviews
-                    <p-sortIcon field="rating" />
+                    <div class="flex items-center gap-2">
+                        Reviews
+                        <p-sortIcon field="rating" />
+                    </div>
                 </th>
                 <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
-                    Status
-                    <p-sortIcon field="inventoryStatus" />
+                    <div class="flex items-center gap-2">
+                        Status
+                        <p-sortIcon field="inventoryStatus" />
+                    </div>
                 </th>
                 <th style="min-width: 12rem"></th>
             </tr>
@@ -434,9 +502,6 @@ export class ProductsDoc {
                 </td>
             </tr>
         </ng-template>
-        <ng-template #summary>
-            <div class="flex items-center justify-between">In total there are {{ products ? products.length : 0 }} products.</div>
-        </ng-template>
     </p-table>
 
     <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
@@ -455,7 +520,7 @@ export class ProductsDoc {
 
                 <div>
                     <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
-                    <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" placeholder="Select a Status" fluid />
+                    <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="Select a Status" fluid />
                 </div>
 
                 <div>
@@ -624,6 +689,15 @@ export class TableProductsDemo implements OnInit{
             message: 'Are you sure you want to delete the selected products?',
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'No',
+                severity: 'secondary',
+                variant: 'text'
+            },
+            acceptButtonProps: {
+                severity: 'danger',
+                label: 'Yes'
+            },
             accept: () => {
                 this.products = this.products.filter((val) => !this.selectedProducts?.includes(val));
                 this.selectedProducts = null;
@@ -647,6 +721,15 @@ export class TableProductsDemo implements OnInit{
             message: 'Are you sure you want to delete ' + product.name + '?',
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'No',
+                severity: 'secondary',
+                variant: 'text'
+            },
+            acceptButtonProps: {
+                severity: 'danger',
+                label: 'Yes'
+            },
             accept: () => {
                 this.products = this.products.filter((val) => val.id !== product.id);
                 this.product = {};
@@ -831,6 +914,15 @@ export interface Product {
             message: 'Are you sure you want to delete the selected products?',
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'No',
+                severity: 'secondary',
+                variant: 'text'
+            },
+            acceptButtonProps: {
+                severity: 'danger',
+                label: 'Yes'
+            },
             accept: () => {
                 this.products = this.products.filter((val) => !this.selectedProducts?.includes(val));
                 this.selectedProducts = null;
@@ -854,6 +946,15 @@ export interface Product {
             message: 'Are you sure you want to delete ' + product.name + '?',
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'No',
+                severity: 'secondary',
+                variant: 'text'
+            },
+            acceptButtonProps: {
+                severity: 'danger',
+                label: 'Yes'
+            },
             accept: () => {
                 this.products = this.products.filter((val) => val.id !== product.id);
                 this.product = {};
@@ -913,6 +1014,7 @@ export interface Product {
                 });
             } else {
                 this.product.id = this.createId();
+                this.product.code = this.createId();
                 this.product.image = 'product-placeholder.svg';
                 this.products.push(this.product);
                 this.messageService.add({

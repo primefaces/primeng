@@ -1,12 +1,16 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, effect, ElementRef, forwardRef, inject, QueryList, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, effect, ElementRef, forwardRef, inject, InjectionToken, QueryList, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
 import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
 import { RippleModule } from 'primeng/ripple';
-import { Tabs } from './tabs';
 import { TabListStyle } from './style/tabliststyle';
+import { Tabs } from './tabs';
+import { TabListPassThrough } from 'primeng/types/tabs';
+
+const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
 
 /**
  * TabList is a helper component for Tabs component.
@@ -15,29 +19,49 @@ import { TabListStyle } from './style/tabliststyle';
 @Component({
     selector: 'p-tablist',
     standalone: true,
-    imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule],
+    imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule, BindModule],
     template: `
         @if (showNavigators() && isPrevButtonEnabled()) {
-            <button type="button" #prevButton pRipple [class]="cx('prevButton')" [attr.aria-label]="prevButtonAriaLabel" [attr.tabindex]="tabindex()" [attr.data-pc-group-section]="'navigator'" (click)="onPrevButtonClick()">
+            <button
+                type="button"
+                #prevButton
+                pRipple
+                [pBind]="ptm('prevButton')"
+                [class]="cx('prevButton')"
+                [attr.aria-label]="prevButtonAriaLabel"
+                [attr.tabindex]="tabindex()"
+                [attr.data-pc-group-section]="'navigator'"
+                (click)="onPrevButtonClick()"
+            >
                 @if (prevIconTemplate || _prevIconTemplate) {
                     <ng-container *ngTemplateOutlet="prevIconTemplate || _prevIconTemplate" />
                 } @else {
-                    <ChevronLeftIcon />
+                    <svg data-p-icon="chevron-left" />
                 }
             </button>
         }
-        <div #content [class]="cx('content')" (scroll)="onScroll($event)">
-            <div #tabs [class]="cx('tabList')" role="tablist">
+        <div #content [pBind]="ptm('content')" [class]="cx('content')" (scroll)="onScroll($event)">
+            <div #tabs [pBind]="ptm('tabList')" [class]="cx('tabList')" role="tablist">
                 <ng-content />
-                <span #inkbar role="presentation" [class]="cx('activeBar')" [attr.data-pc-section]="'inkbar'"></span>
+                <span #inkbar [pBind]="ptm('activeBar')" role="presentation" [class]="cx('activeBar')"></span>
             </div>
         </div>
         @if (showNavigators() && isNextButtonEnabled()) {
-            <button type="button" #nextButton pRipple [class]="cx('nextButton')" [attr.aria-label]="nextButtonAriaLabel" [attr.tabindex]="tabindex()" [attr.data-pc-group-section]="'navigator'" (click)="onNextButtonClick()">
+            <button
+                type="button"
+                #nextButton
+                pRipple
+                [pBind]="ptm('nextButton')"
+                [class]="cx('nextButton')"
+                [attr.aria-label]="nextButtonAriaLabel"
+                [attr.tabindex]="tabindex()"
+                [attr.data-pc-group-section]="'navigator'"
+                (click)="onNextButtonClick()"
+            >
                 @if (nextIconTemplate || _nextIconTemplate) {
                     <ng-container *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate" />
                 } @else {
-                    <ChevronRightIcon />
+                    <svg data-p-icon="chevron-right" />
                 }
             </button>
         }
@@ -45,12 +69,19 @@ import { TabListStyle } from './style/tabliststyle';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': 'cx("root")',
-        '[attr.data-pc-name]': '"tablist"'
+        '[class]': 'cx("root")'
     },
-    providers: [TabListStyle]
+    providers: [TabListStyle, { provide: TABLIST_INSTANCE, useExisting: TabList }, { provide: PARENT_INSTANCE, useExisting: TabList }],
+    hostDirectives: [Bind]
 })
-export class TabList extends BaseComponent implements AfterViewInit, AfterContentInit {
+export class TabList extends BaseComponent<TabListPassThrough> {
+    $pcTabList: TabList | undefined = inject(TABLIST_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * A template reference variable that represents the previous icon in a UI component.
      * @type {TemplateRef<any> | undefined}
@@ -105,15 +136,14 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
     }
 
     get prevButtonAriaLabel() {
-        return this.config.translation.aria.previous;
+        return this.config?.translation?.aria?.previous;
     }
 
     get nextButtonAriaLabel() {
-        return this.config.translation.aria.next;
+        return this.config?.translation?.aria?.next;
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (this.showNavigators() && isPlatformBrowser(this.platformId)) {
             this.updateButtonState();
             this.bindResizeObserver();
@@ -124,8 +154,8 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
 
     _nextIconTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
-        this.templates.forEach((t) => {
+    onAfterContentInit() {
+        this.templates?.forEach((t) => {
             switch (t.getType()) {
                 case 'previcon':
                     this._prevIconTemplate = t.template;
@@ -137,9 +167,8 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
         });
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindResizeObserver();
-        super.ngOnDestroy();
     }
 
     onScroll(event: Event) {
@@ -176,7 +205,7 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
         const width = getWidth(_content);
 
         this.isPrevButtonEnabled.set(scrollLeft !== 0);
-        this.isNextButtonEnabled.set(_list.offsetWidth >= offsetWidth && scrollLeft !== scrollWidth - width);
+        this.isNextButtonEnabled.set(_list.offsetWidth >= offsetWidth && Math.abs(scrollLeft - scrollWidth + width) > 1);
     }
 
     updateInkBar() {
@@ -206,7 +235,7 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
     unbindResizeObserver() {
         if (this.resizeObserver) {
             this.resizeObserver.unobserve(this.el.nativeElement);
-            this.resizeObserver = null;
+            this.resizeObserver = null!;
         }
     }
 }

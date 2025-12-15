@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/progressspinner';
+export * from '@primeuix/themes/lara/progressspinner';
+export { default } from '@primeuix/themes/lara/progressspinner';

@@ -1,9 +1,12 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
     selector: 'options-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The properties of scroller component can be used like an object in it.</p>
@@ -13,8 +16,7 @@ import { Component } from '@angular/core';
 })
 export class ScrollOptionsDoc {
     code: Code = {
-        html: `
-<ng-template #item let-item let-scrollOptions="options">
+        html: `<ng-template #item let-item let-scrollOptions="options">
     // item: Current item.
     // scrollOptions.index: Index of the item.
     // scrollOptions.count: Total numbers of items.

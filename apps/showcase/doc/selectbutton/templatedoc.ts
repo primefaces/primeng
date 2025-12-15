@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectButton } from 'primeng/selectbutton';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, SelectButton, AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
             <p>For custom content support define a template named <i>item</i> where the default local template variable refers to an option.</p>

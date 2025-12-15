@@ -13,8 +13,7 @@ const classes = {
             'p-tag-secondary': instance.severity === 'secondary',
             'p-tag-contrast': instance.severity === 'contrast',
             'p-tag-rounded': instance.rounded
-        },
-        instance.styleClass
+        }
     ],
     icon: 'p-tag-icon',
     label: 'p-tag-label'
@@ -24,7 +23,7 @@ const classes = {
 export class TagStyle extends BaseStyle {
     name = 'tag';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

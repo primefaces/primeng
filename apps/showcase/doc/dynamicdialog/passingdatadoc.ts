@@ -2,10 +2,13 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'passingdata-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
             <p>

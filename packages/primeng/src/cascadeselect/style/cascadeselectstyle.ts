@@ -1,36 +1,21 @@
 import { Injectable } from '@angular/core';
+import { style as cascadeselect_style } from '@primeuix/styles/cascadeselect';
 import { BaseStyle } from 'primeng/base';
-import { style } from '@primeuix/styles/cascadeselect';
-import { css, dt } from '@primeuix/styled';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+    ${cascadeselect_style}
 
     /* For PrimeNG */
     .p-cascadeselect.ng-invalid.ng-dirty:not(.ng-untouched):not(.ng-pristine) {
-        border-color: ${dt('cascadeselect.invalid.border.color')};
-    }
-
-    .p-cascadeselect:not(.p-disabled).p-focus {
-        border-color: ${dt('cascadeselect.focus.border.color')};
+        border-color: dt('cascadeselect.invalid.border.color');
     }
 
     .p-cascadeselect.ng-invalid.ng-dirty:not(.ng-untouched):not(.ng-pristine) .p-cascadeselect-label.p-placeholder {
-        color: ${dt('cascadeselect.invalid.placeholder.color')};
-    }
-
-    .p-cascadeselect-clear-icon {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        background: transparent;
-        color: ${dt('cascadeselect.clear.icon.color')};
+        color: dt('cascadeselect.invalid.placeholder.color');
     }
 `;
 const inlineStyles = {
-    root: ({ instance }) => ({ position: instance.appendTo === 'self' ? 'relative' : undefined })
+    root: ({ instance }) => ({ position: instance.$appendTo() === 'self' ? 'relative' : undefined })
 };
 
 const classes = {
@@ -38,9 +23,9 @@ const classes = {
         'p-cascadeselect p-component p-inputwrapper',
         {
             'p-cascadeselect p-component p-inputwrapper': true,
-            'p-cascadeselect-clearable': instance.showClear && !instance.disabled(),
+            'p-cascadeselect-clearable': instance.showClear && !instance.$disabled(),
             'p-cascadeselect-mobile': instance.queryMatches(),
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-focus': instance.focused,
             'p-inputwrapper-filled': instance.modelValue(),
@@ -64,7 +49,7 @@ const classes = {
     loadingIcon: 'p-cascadeselect-loading-icon',
     dropdownIcon: 'p-cascadeselect-dropdown-icon',
     overlay: ({ instance }) => [
-        'p-cascadeselect-overlay p-component',
+        'p-cascadeselect-overlay p-component-overlay p-component',
         {
             'p-cascadeselect-mobile-active': instance.queryMatches()
         }
@@ -91,7 +76,7 @@ const classes = {
 export class CascadeSelectStyle extends BaseStyle {
     name = 'cascadeselect';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 

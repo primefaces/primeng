@@ -1,15 +1,18 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/fieldset/accessibilitydoc';
 import { BasicDoc } from '@/doc/fieldset/basicdoc';
-import { FieldsetDocModule } from '@/doc/fieldset/fieldsetdoc.module';
 import { ImportDoc } from '@/doc/fieldset/importdoc';
+import { PTComponent } from '@/doc/fieldset/pt/PTComponent';
 import { TemplateDoc } from '@/doc/fieldset/templatedoc';
 import { ToggleableDoc } from '@/doc/fieldset/toggleabledoc';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
-    imports: [FieldsetDocModule],
-    template: ` <app-doc docTitle="Angular Fieldset Component" header="Fieldset" description="Fieldset is a grouping component with a content toggle feature." [docs]="docs" [apiDocs]="['Fieldset']" themeDocs="fieldset"></app-doc> `
+    imports: [AppDoc],
+    template: `
+        <app-doc docTitle="Angular Fieldset Component" header="Fieldset" description="Fieldset is a grouping component with a content toggle feature." [docs]="docs" [apiDocs]="['Fieldset']" themeDocs="fieldset" [ptDocs]="ptComponent"></app-doc>
+    `
 })
 export class FieldsetDemo {
     docs = [
@@ -33,11 +36,12 @@ export class FieldsetDemo {
             label: 'Template',
             component: TemplateDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

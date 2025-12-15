@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -9,6 +8,7 @@ import {
     ElementRef,
     EventEmitter,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     Output,
@@ -18,14 +18,19 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { find, findSingle, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { Badge } from 'primeng/badge';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
+import { DockItemTemplateContext, DockPassThrough } from 'primeng/types/dock';
 import { DockStyle } from './style/dockstyle';
+
+const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
 
 /**
  * Dock is a navigation component consisting of menuitems.
@@ -34,9 +39,9 @@ import { DockStyle } from './style/dockstyle';
 @Component({
     selector: 'p-dock',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, SharedModule],
+    imports: [CommonModule, RouterModule, RouterLink, RouterLinkActive, Ripple, TooltipModule, SharedModule, Bind, Badge],
     template: `
-        <div [class]="cx('listContainer')">
+        <div [class]="cx('listContainer')" [pBind]="ptm('listContainer')">
             <ul
                 #list
                 [attr.id]="id"
@@ -47,38 +52,44 @@ import { DockStyle } from './style/dockstyle';
                 [tabindex]="tabindex"
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.data-pc-section]="'menu'"
                 (focus)="onListFocus($event)"
                 (blur)="onListBlur($event)"
                 (keydown)="onListKeyDown($event)"
                 (mouseleave)="onListMouseLeave()"
+                [pBind]="ptm('list')"
             >
                 @for (item of model; track item.label; let i = $index) {
                     <li
                         *ngIf="item.visible !== false"
                         [attr.id]="getItemId(item, i)"
                         [class]="cn(cx('item', { item, id: getItemId(item, i) }), item?.styleClass)"
+                        [ngStyle]="item.style"
                         role="menuitem"
                         [attr.aria-label]="item.label"
-                        [attr.aria-disabled]="disabled(item)"
+                        [attr.aria-disabled]="disabled(item) || false"
                         (click)="onItemClick($event, item)"
                         (mouseenter)="onItemMouseEnter(i)"
-                        [attr.data-pc-section]="'menuitem'"
+                        [pBind]="getPTOptions(item, i, 'item')"
                         [attr.data-p-focused]="isItemActive(getItemId(item, i))"
                         [attr.data-p-disabled]="disabled(item) || false"
                     >
-                        <div [class]="cx('itemContent')" [attr.data-pc-section]="'content'">
+                        <div [class]="cx('itemContent')" [pBind]="getPTOptions(item, i, 'itemContent')">
                             <a
                                 *ngIf="isClickableRouterLink(item); else elseBlock"
                                 pRipple
                                 [routerLink]="item.routerLink"
                                 [queryParams]="item.queryParams"
-                                [class]="cx('itemLink')"
+                                [class]="cn(cx('itemLink'), item?.linkClass)"
+                                [ngStyle]="item?.linkStyle"
+                                routerLinkActive="router-link-active"
                                 [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
                                 [target]="item.target"
+                                [attr.title]="item.title"
+                                [attr.data-automationid]="item.automationId"
                                 [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
                                 pTooltip
                                 [tooltipOptions]="item.tooltipOptions"
+                                [pTooltipUnstyled]="unstyled()"
                                 [fragment]="item.fragment"
                                 [queryParamsHandling]="item.queryParamsHandling"
                                 [preserveFragment]="item.preserveFragment"
@@ -86,24 +97,32 @@ import { DockStyle } from './style/dockstyle';
                                 [replaceUrl]="item.replaceUrl"
                                 [state]="item.state"
                                 [attr.aria-hidden]="true"
+                                [pBind]="getPTOptions(item, i, 'itemLink')"
                             >
-                                <span [class]="cn(cx('itemIcon'), item.icon)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle"></span>
+                                <span [class]="cn(cx('itemIcon'), item.icon, item.iconClass)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle" [pBind]="getPTOptions(item, i, 'itemIcon')"></span>
                                 <ng-container *ngTemplateOutlet="itemTemplate || itemTemplate; context: { $implicit: item }"></ng-container>
+                                <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" [pt]="getPTOptions(item, i, 'pcBadge')" [unstyled]="unstyled()" />
                             </a>
                             <ng-template #elseBlock>
                                 <a
                                     [tooltipPosition]="item.tooltipPosition"
                                     [attr.href]="item.url || null"
-                                    [class]="cx('itemLink')"
+                                    [class]="cn(cx('itemLink'), item?.linkClass)"
+                                    [ngStyle]="item?.linkStyle"
                                     pRipple
                                     pTooltip
                                     [tooltipOptions]="item.tooltipOptions"
+                                    [pTooltipUnstyled]="unstyled()"
                                     [target]="item.target"
+                                    [attr.title]="item.title"
+                                    [attr.data-automationid]="item.automationId"
                                     [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
                                     [attr.aria-hidden]="true"
+                                    [pBind]="getPTOptions(item, i, 'itemLink')"
                                 >
-                                    <span [class]="cn(cx('itemIcon'), item.icon)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle"></span>
+                                    <span [class]="cn(cx('itemIcon'), item.icon, item.iconClass)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle" [pBind]="getPTOptions(item, i, 'itemIcon')"></span>
                                     <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
+                                    <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" [pt]="getPTOptions(item, i, 'pcBadge')" [unstyled]="unstyled()" />
                                 </a>
                             </ng-template>
                         </div>
@@ -114,26 +133,21 @@ import { DockStyle } from './style/dockstyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [DockStyle],
+    providers: [DockStyle, { provide: DOCK_INSTANCE, useExisting: Dock }, { provide: PARENT_INSTANCE, useExisting: Dock }],
     host: {
-        '[class]': 'cx("root")',
-        '[style]': 'style',
-        'data-pc-name': 'dock'
-    }
+        '[class]': 'cn(cx("root"), styleClass)'
+    },
+    hostDirectives: [Bind]
 })
-export class Dock extends BaseComponent implements AfterContentInit {
+export class Dock extends BaseComponent<DockPassThrough> {
     /**
      * Current id state as a string.
      * @group Props
      */
     @Input() id: string | undefined;
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -184,9 +198,13 @@ export class Dock extends BaseComponent implements AfterContentInit {
 
     focused: boolean = false;
 
-    focusedOptionIndex: number = -1;
+    focusedOptionIndex: string | number = -1;
 
     _componentStyle = inject(DockStyle);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcDock: Dock | undefined = inject(DOCK_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     matchMediaListener: any;
 
@@ -197,7 +215,7 @@ export class Dock extends BaseComponent implements AfterContentInit {
     mobileActive = signal<boolean>(false);
 
     get focusedOptionId() {
-        return this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null;
+        return this.focusedOptionIndex !== -1 && this.focusedOptionIndex !== '-1' ? String(this.focusedOptionIndex) : null;
     }
 
     constructor(public cd: ChangeDetectorRef) {
@@ -205,20 +223,23 @@ export class Dock extends BaseComponent implements AfterContentInit {
         this.currentIndex = -3;
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.id = this.id || uuid('pn_id_');
         this.bindMatchMediaListener();
     }
 
-    ngOnDestroy() {
-        super.ngOnDestroy();
+    onDestroy() {
         this.unbindMatchMediaListener();
     }
 
-    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom item template.
+     * @param {DockItemTemplateContext} context - item template context.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<DockItemTemplateContext> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<DockItemTemplateContext> | undefined;
 
     getItemId(item, index) {
         return item && item?.id ? item.id : `${index}`;
@@ -229,11 +250,11 @@ export class Dock extends BaseComponent implements AfterContentInit {
     }
 
     disabled(item) {
-        return typeof item.disabled === 'function' ? item.disabled() : item.disabled;
+        return typeof item.disabled === 'function' ? item.disabled() : item.disabled || false;
     }
 
     isItemActive(id) {
-        return id === this.focusedOptionIndex;
+        return String(id) === String(this.focusedOptionIndex);
     }
 
     onListMouseLeave() {
@@ -336,45 +357,45 @@ export class Dock extends BaseComponent implements AfterContentInit {
     }
 
     onEndKey() {
-        this.changeFocusedOptionIndex(find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
+        this.changeFocusedOptionIndex(find(this.listViewChild?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]').length - 1);
     }
 
     onSpaceKey() {
-        const element = <any>findSingle(this.listViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex}`}"]`);
-        const anchorElement = element && <any>findSingle(element, '[data-pc-section="action"]');
+        const element = <HTMLElement>findSingle(this.listViewChild?.nativeElement, `li[id="${`${this.focusedOptionIndex}`}"]`);
+        const anchorElement = element && <HTMLElement>findSingle(element, 'a,button');
 
         anchorElement ? anchorElement.click() : element && element.click();
     }
 
     findNextOptionIndex(index) {
-        const menuitems = find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const menuitems = find(this.listViewChild?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
         const matchedOptionIndex = [...menuitems].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     changeFocusedOptionIndex(index) {
-        const menuitems = <any>find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const menuitems = <any>find(this.listViewChild?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
 
         let order = index >= menuitems.length ? menuitems.length - 1 : index < 0 ? 0 : index;
 
-        this.focusedOptionIndex = menuitems[order].getAttribute('id');
+        this.focusedOptionIndex = menuitems[order]?.getAttribute('id');
     }
 
     findPrevOptionIndex(index) {
-        const menuitems = find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const menuitems = find(this.listViewChild?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
         const matchedOptionIndex = [...menuitems].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
     }
 
     isClickableRouterLink(item: any) {
-        return item.routerLink && !item.disabled;
+        return !!item.routerLink && !this.disabled(item);
     }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'item':
@@ -384,6 +405,19 @@ export class Dock extends BaseComponent implements AfterContentInit {
                 default:
                     this._itemTemplate = item.template;
                     break;
+            }
+        });
+    }
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
+    getPTOptions(item: MenuItem, index: number, key: string) {
+        return this.ptm(key, {
+            context: {
+                item,
+                index
             }
         });
     }

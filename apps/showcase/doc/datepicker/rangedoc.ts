@@ -1,9 +1,14 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-range-demo',
-    standalone: false,
+    selector: 'date-picker-range-demo',
+    standalone: true,
+    imports: [FormsModule, DatePickerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>A range of dates can be selected by defining <i>selectionMode</i> as <i>range</i>, in this case the bound value would be an array with two values where first date is the start of the range and second date is the end.</p>
@@ -11,7 +16,7 @@ import { Component } from '@angular/core';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" />
         </div>
-        <app-code [code]="code" selector="datepicker-range-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-range-demo"></app-code>
     `
 })
 export class RangeDoc {
@@ -29,8 +34,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-range-demo',
-    templateUrl: './datepicker-range-demo.html',
+    selector: 'date-picker-range-demo',
+    templateUrl: './date-picker-range-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

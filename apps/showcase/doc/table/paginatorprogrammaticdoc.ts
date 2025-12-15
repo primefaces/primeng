@@ -2,10 +2,16 @@ import { Code } from '@/domain/code';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'paginator-programmatic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TableModule, ButtonModule, AppDocSectionText, AppCode, DeferredDemo],
     template: `
         <app-docsectiontext>
             <p>Paginator can also be controlled via model using a binding to the <i>first</i> property where changes trigger a pagination.</p>

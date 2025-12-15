@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, AppCode, AppDocSectionText, FloatLabelModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>FloatLabel is used by wrapping the input and its label.</p>

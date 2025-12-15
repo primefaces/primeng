@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/rating';
+export * from '@primeuix/themes/lara/rating';
+export { default } from '@primeuix/themes/lara/rating';

@@ -3,7 +3,7 @@ import { style } from '@primeuix/styles/breadcrumb';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-breadcrumb p-component', instance.styleClass],
+    root: () => ['p-breadcrumb p-component'],
     list: 'p-breadcrumb-list',
     homeItem: 'p-breadcrumb-home-item',
     separator: 'p-breadcrumb-separator',
@@ -17,7 +17,7 @@ const classes = {
 export class BreadCrumbStyle extends BaseStyle {
     name = 'breadcrumb';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

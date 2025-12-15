@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/treetable';
+export * from '@primeuix/themes/lara/treetable';
+export { default } from '@primeuix/themes/lara/treetable';

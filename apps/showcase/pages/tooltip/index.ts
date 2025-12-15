@@ -6,8 +6,9 @@ import { EventDoc } from '@/doc/tooltip/eventdoc';
 import { ImportDoc } from '@/doc/tooltip/importdoc';
 import { OptionsDoc } from '@/doc/tooltip/optionsdoc';
 import { PositionDoc } from '@/doc/tooltip/positiondoc';
-import { TooltipDocModule } from '@/doc/tooltip/tooltipdoc.module';
+import { PTComponent } from '@/doc/tooltip/pt/PTComponent';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc
@@ -16,10 +17,11 @@ import { Component } from '@angular/core';
         description="Tooltip directive provides advisory information for a component. Tooltip is integrated within various PrimeNG components."
         [docs]="docs"
         [apiDocs]="['Tooltip', 'TooltipOptions']"
+        [ptDocs]="ptComponent"
         themeDocs="tooltip"
     ></app-doc>`,
     standalone: true,
-    imports: [TooltipDocModule]
+    imports: [AppDoc]
 })
 export class TooltipDemo {
     docs = [
@@ -65,4 +67,6 @@ export class TooltipDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

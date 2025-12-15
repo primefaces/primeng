@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'list-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, SkeletonModule],
     template: `
         <app-docsectiontext>
             <p>Sample List implementation using different Skeleton components and Tailwind CSS utilities.</p>
@@ -13,36 +17,36 @@ import { Component } from '@angular/core';
                 <ul class="m-0 p-0 list-none">
                     <li class="mb-4">
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
                             <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" styleClass="mb-2" />
+                                <p-skeleton width="100%" class="mb-2" />
                                 <p-skeleton width="75%" />
                             </div>
                         </div>
                     </li>
                     <li class="mb-4">
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
                             <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" styleClass="mb-2" />
+                                <p-skeleton width="100%" class="mb-2" />
                                 <p-skeleton width="75%" />
                             </div>
                         </div>
                     </li>
                     <li class="mb-4">
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
                             <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" styleClass="mb-2" />
+                                <p-skeleton width="100%" class="mb-2" />
                                 <p-skeleton width="75%" />
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
                             <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" styleClass="mb-2" />
+                                <p-skeleton width="100%" class="mb-2" />
                                 <p-skeleton width="75%" />
                             </div>
                         </div>
@@ -59,36 +63,36 @@ export class ListDoc {
     <ul class="m-0 p-0 list-none">
         <li class="mb-4">
             <div class="flex">
-                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <p-skeleton shape="circle" size="4rem" class="mr-2" />
                 <div class="self-center" style="flex: 1">
-                    <p-skeleton width="100%" styleClass="mb-2" />
+                    <p-skeleton width="100%" class="mb-2" />
                     <p-skeleton width="75%" />
                 </div>
             </div>
         </li>
         <li class="mb-4">
             <div class="flex">
-                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <p-skeleton shape="circle" size="4rem" class="mr-2" />
                 <div class="self-center" style="flex: 1">
-                    <p-skeleton width="100%" styleClass="mb-2" />
+                    <p-skeleton width="100%" class="mb-2" />
                     <p-skeleton width="75%" />
                 </div>
             </div>
         </li>
         <li class="mb-4">
             <div class="flex">
-                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <p-skeleton shape="circle" size="4rem" class="mr-2" />
                 <div class="self-center" style="flex: 1">
-                    <p-skeleton width="100%" styleClass="mb-2" />
+                    <p-skeleton width="100%" class="mb-2" />
                     <p-skeleton width="75%" />
                 </div>
             </div>
         </li>
         <li>
             <div class="flex">
-                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <p-skeleton shape="circle" size="4rem" class="mr-2" />
                 <div class="self-center" style="flex: 1">
-                    <p-skeleton width="100%" styleClass="mb-2" />
+                    <p-skeleton width="100%" class="mb-2" />
                     <p-skeleton width="75%" />
                 </div>
             </div>
@@ -100,36 +104,36 @@ export class ListDoc {
         <ul class="m-0 p-0 list-none">
             <li class="mb-4">
                 <div class="flex">
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                    <p-skeleton shape="circle" size="4rem" class="mr-2" />
                     <div class="self-center" style="flex: 1">
-                        <p-skeleton width="100%" styleClass="mb-2" />
+                        <p-skeleton width="100%" class="mb-2" />
                         <p-skeleton width="75%" />
                     </div>
                 </div>
             </li>
             <li class="mb-4">
                 <div class="flex">
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                    <p-skeleton shape="circle" size="4rem" class="mr-2" />
                     <div class="self-center" style="flex: 1">
-                        <p-skeleton width="100%" styleClass="mb-2" />
+                        <p-skeleton width="100%" class="mb-2" />
                         <p-skeleton width="75%" />
                     </div>
                 </div>
             </li>
             <li class="mb-4">
                 <div class="flex">
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                    <p-skeleton shape="circle" size="4rem" class="mr-2" />
                     <div class="self-center" style="flex: 1">
-                        <p-skeleton width="100%" styleClass="mb-2" />
+                        <p-skeleton width="100%" class="mb-2" />
                         <p-skeleton width="75%" />
                     </div>
                 </div>
             </li>
             <li>
                 <div class="flex">
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                    <p-skeleton shape="circle" size="4rem" class="mr-2" />
                     <div class="self-center" style="flex: 1">
-                        <p-skeleton width="100%" styleClass="mb-2" />
+                        <p-skeleton width="100%" class="mb-2" />
                         <p-skeleton width="75%" />
                     </div>
                 </div>

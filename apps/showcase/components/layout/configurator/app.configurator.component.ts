@@ -1,5 +1,6 @@
 import { AppConfigService } from '@/service/appconfigservice';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { DesignerService } from '@/service/designerservice';
+import { CommonModule } from '@angular/common';
 import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { $t, updatePreset, updateSurfacePalette } from '@primeuix/themes';
@@ -9,7 +10,6 @@ import Material from '@primeuix/themes/material';
 import Nora from '@primeuix/themes/nora';
 import { ButtonModule } from 'primeng/button';
 import { PrimeNG } from 'primeng/config';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButton } from 'primeng/selectbutton';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
@@ -83,7 +83,7 @@ const presets = {
     host: {
         class: 'config-panel hidden'
     },
-    imports: [CommonModule, FormsModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButton, ToggleSwitchModule]
+    imports: [CommonModule, FormsModule, ButtonModule, RadioButtonModule, SelectButton, ToggleSwitchModule]
 })
 export class AppConfiguratorComponent {
     get ripple() {
@@ -106,6 +106,8 @@ export class AppConfiguratorComponent {
 
     presets = Object.keys(presets);
 
+    designerService = inject(DesignerService);
+
     onRTLChange(value: boolean) {
         this.configService.appState.update((state) => ({ ...state, RTL: value }));
         if (!(document as any).startViewTransition) {
@@ -123,13 +125,6 @@ export class AppConfiguratorComponent {
             htmlElement.setAttribute('dir', 'rtl');
         } else {
             htmlElement.removeAttribute('dir');
-        }
-    }
-
-    ngOnInit() {
-        if (isPlatformBrowser(this.platformId)) {
-            this.onPresetChange(this.configService.appState().preset);
-            this.toggleRTL(this.configService.appState().RTL);
         }
     }
 
@@ -466,7 +461,6 @@ export class AppConfiguratorComponent {
             this.configService.appState.update((state) => ({ ...state, surface: color.name }));
         }
         this.applyTheme(type, color);
-
         event.stopPropagation();
     }
 

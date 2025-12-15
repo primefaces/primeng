@@ -5,17 +5,28 @@ import { DisabledDoc } from '@/doc/togglebutton/disableddoc';
 import { ImportDoc } from '@/doc/togglebutton/importdoc';
 import { InvalidDoc } from '@/doc/togglebutton/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/togglebutton/reactiveformsdoc';
-import { TemplateDrivenFormsDoc } from '@/doc/togglebutton/templatedrivenformsdoc';
 import { SizesDoc } from '@/doc/togglebutton/sizesdoc';
-import { ToggleButtonDocModule } from '@/doc/togglebutton/togglebuttondoc.module';
+import { TemplateDrivenFormsDoc } from '@/doc/togglebutton/templatedrivenformsdoc';
+import { FluidDoc } from '@/doc/togglebutton/fluiddoc';
+import { PTComponent } from '@/doc/togglebutton/pt/PTComponent';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular ToggleButton Component" header="ToggleButton" description="ToggleButton is used to select a boolean value using a button." [docs]="docs" [apiDocs]="['ToggleButton']" themeDocs="togglebutton"></app-doc>`,
+    template: `<app-doc
+        docTitle="Angular ToggleButton Component"
+        header="ToggleButton"
+        description="ToggleButton is used to select a boolean value using a button."
+        [docs]="docs"
+        [apiDocs]="['ToggleButton']"
+        [ptDocs]="ptComponent"
+        themeDocs="togglebutton"
+    ></app-doc>`,
     standalone: true,
-    imports: [ToggleButtonDocModule]
+    imports: [AppDoc]
 })
 export class ToggleButtonDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',
@@ -38,12 +49,14 @@ export class ToggleButtonDemo {
             component: SizesDoc
         },
         {
-            id: 'forms',
-            label: 'Forms',
-            children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
-            ]
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
+        },
+        {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
         },
         {
             id: 'invalid',
@@ -51,9 +64,12 @@ export class ToggleButtonDemo {
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'accessibility',

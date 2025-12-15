@@ -1,47 +1,29 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/panel';
 import { BaseStyle } from 'primeng/base';
-
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-    .p-panel {
-        display: block;
-    }
-
-    .p-panel-toggleable.p-panel-expanded > .p-panel-content-container:not(.ng-animating) {
-        overflow: visible;
-    }
-
-    .p-panel-toggleable .p-panel-content-container {
-        overflow: hidden;
-    }
-`;
 
 const classes = {
     root: ({ instance }) => [
         'p-panel p-component',
-        instance.styleClass,
         {
             'p-panel-toggleable': instance.toggleable,
-            'p-panel-expanded': !instance.collapsed && instance.toggleable
+            'p-panel-expanded': !instance._collapsed && instance.toggleable,
+            'p-panel-collapsed': instance._collapsed && instance.toggleable
         }
     ],
-    icons: ({ instance }) => [
-        'p-panel-icons',
+    header: 'p-panel-header',
+    title: 'p-panel-title',
+    headerActions: ({ instance }) => [
+        'p-panel-header-actions',
         {
             'p-panel-icons-start': instance.iconPos === 'start',
             'p-panel-icons-end': instance.iconPos === 'end',
             'p-panel-icons-center': instance.iconPos === 'center'
         }
     ],
-    header: 'p-panel-header',
-    title: 'p-panel-title',
-    headerActions: 'p-panel-header-actions',
     pcToggleButton: 'p-panel-toggle-button',
     contentContainer: 'p-panel-content-container',
+    contentWrapper: 'p-panel-content-wrapper',
     content: 'p-panel-content',
     footer: 'p-panel-footer'
 };
@@ -49,7 +31,7 @@ const classes = {
 export class PanelStyle extends BaseStyle {
     name = 'panel';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }
@@ -88,6 +70,10 @@ export enum PanelClasses {
      * Class name of the content container element
      */
     contentContainer = 'p-panel-content-container',
+    /**
+     * Class name of the content wrapper element
+     */
+    contentWrapper = 'p-panel-content-wrapper',
     /**
      * Class name of the content element
      */

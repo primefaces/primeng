@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/knob';
+export * from '@primeuix/themes/nora/knob';
+export { default } from '@primeuix/themes/nora/knob';

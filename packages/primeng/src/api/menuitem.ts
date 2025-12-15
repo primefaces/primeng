@@ -134,6 +134,22 @@ export interface MenuItem {
      */
     iconClass?: string;
     /**
+     * Inline style of the item's label.
+     */
+    labelStyle?: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the item's label.
+     */
+    labelClass?: string;
+    /**
+     * Inline style of the item's link.
+     */
+    linkStyle?: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the item's link.
+     */
+    linkClass?: string;
+    /**
      * Developer-defined state that can be passed to any navigation.
      * @see {MenuItemState}
      */

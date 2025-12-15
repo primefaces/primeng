@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ScrollerModule } from 'primeng/scroller';
+import { Skeleton } from 'primeng/skeleton';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'loader-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ScrollerModule, Skeleton, AppCode, AppDocSectionText, CommonModule],
     template: `
         <app-docsectiontext>
             <p>Busy state is enabled by adding <i>showLoader</i> property which blocks the UI with a modal by default. Alternatively, <i>loader</i> template can be used to customize items e.g. with <a href="/skeleton" class="">Skeleton</a>.</p>

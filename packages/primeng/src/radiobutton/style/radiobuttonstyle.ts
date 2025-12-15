@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/radiobutton';
-import { css, dt } from '@primeuix/styled';
+import { style as radiobutton_style } from '@primeuix/styles/radiobutton';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+    ${radiobutton_style}
 
     /* For PrimeNG */
-        p-radioButton.ng-invalid.ng-dirty .p-radiobutton-box,
-        p-radio-button.ng-invalid.ng-dirty .p-radiobutton-box,
-        p-radiobutton.ng-invalid.ng-dirty .p-radiobutton-box {
-        border-color: ${dt('radiobutton.invalid.border.color')};
+    p-radioButton.ng-invalid.ng-dirty .p-radiobutton-box,
+    p-radio-button.ng-invalid.ng-dirty .p-radiobutton-box,
+    p-radiobutton.ng-invalid.ng-dirty .p-radiobutton-box {
+        border-color: dt('radiobutton.invalid.border.color');
     }
 `;
 
@@ -19,7 +18,7 @@ const classes = {
         'p-radiobutton p-component',
         {
             'p-radiobutton-checked': instance.checked,
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-variant-filled': instance.$variant() === 'filled',
             'p-radiobutton-sm p-inputfield-sm': instance.size() === 'small',
@@ -35,7 +34,7 @@ const classes = {
 export class RadioButtonStyle extends BaseStyle {
     name = 'radiobutton';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

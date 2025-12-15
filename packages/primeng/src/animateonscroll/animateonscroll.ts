@@ -1,10 +1,10 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, Directive, Input, NgModule, numberAttribute, OnInit } from '@angular/core';
+import { booleanAttribute, Directive, Input, NgModule, numberAttribute } from '@angular/core';
 import { addClass, removeClass } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 
 interface AnimateOnScrollOptions {
-    root?: HTMLElement;
+    root?: HTMLElement | null;
     rootMargin?: string;
     threshold?: number;
 }
@@ -20,7 +20,7 @@ interface AnimateOnScrollOptions {
         '[class.p-animateonscroll]': 'true'
     }
 })
-export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewInit {
+export class AnimateOnScroll extends BaseComponent {
     /**
      * Selector to define the CSS class for enter animation.
      * @group Props
@@ -45,12 +45,12 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
      * Specifies the threshold option of the IntersectionObserver API
      * @group Props
      */
-    @Input({ transform: numberAttribute }) threshold: number | undefined;
+    @Input({ transform: numberAttribute }) threshold: number | undefined = 0.5;
     /**
      * Whether the scroll event listener should be removed after initial run.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) once: boolean = true;
+    @Input({ transform: booleanAttribute }) once: boolean = false;
 
     observer: IntersectionObserver | undefined;
 
@@ -60,17 +60,15 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
 
     animationState: any;
 
-    animationEndListener: VoidFunction | undefined;
+    animationEndListener: VoidFunction | null | undefined;
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.renderer.setStyle(this.el.nativeElement, 'opacity', this.enterClass ? '0' : '');
         }
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.bindIntersectionObserver();
         }
@@ -80,7 +78,7 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
         return {
             root: this.root,
             rootMargin: this.rootMargin,
-            threshold: this.threshold
+            threshold: this.threshold || 0.5
         };
     }
 
@@ -97,7 +95,7 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
             this.isObserverActive = true;
         }, this.options);
 
-        setTimeout(() => this.observer.observe(this.el.nativeElement), 0);
+        setTimeout(() => this.observer?.observe(this.el.nativeElement), 0);
 
         // Reset
 
@@ -163,11 +161,9 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
         this.isObserverActive = false;
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindAnimationEvents();
         this.unbindIntersectionObserver();
-
-        super.ngOnDestroy();
     }
 }
 

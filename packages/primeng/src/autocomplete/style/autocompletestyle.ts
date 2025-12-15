@@ -1,53 +1,39 @@
 import { Injectable } from '@angular/core';
+import { style as autocomplete_style } from '@primeuix/styles/autocomplete';
 import { BaseStyle } from 'primeng/base';
-import { style } from '@primeuix/styles/autocomplete';
-import { css, dt } from '@primeuix/styled';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+${autocomplete_style}
 
-    /* For PrimeNG */
-   .p-autocomplete-clear-icon {
-        position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
-        cursor: pointer;
-        right: ${dt('autocomplete.padding.x')};
-        color: ${dt('autocomplete.dropdown.color')};
-    }
+/* For PrimeNG */
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input,
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input-multiple p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input,
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple {
+    border-color: dt('autocomplete.invalid.border.color');
+}
 
-    .p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-clear-icon {
-        right: calc(${dt('autocomplete.padding.x')} + ${dt('autocomplete.dropdown.width')});
-    }
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
+p-autoComplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
+p-auto-complete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple,
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
+p-autocomplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple {
+    border-color: dt('autocomplete.focus.border.color');
+}
 
-    p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input,
-    p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple,
-    p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input,
-    p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input-multiple p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input,
-    p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple {
-        border-color: ${dt('autocomplete.invalid.border.color')};
-    }
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder,
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder {
+    color: dt('autocomplete.invalid.placeholder.color');
+}
 
-    p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
-    p-autoComplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple,
-    p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
-    p-auto-complete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple,
-    p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
-    p-autocomplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple {
-        border-color: ${dt('autocomplete.focus.border.color')};
-    }
-
-    p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder,
-    p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder,
-    p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder {
-        color: ${dt('autocomplete.invalid.placeholder.color')};
-    }
-
-    p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder,
-    p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder,
-    p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder {
-        color: ${dt('autocomplete.invalid.placeholder.color')};
-    }
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder,
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder {
+    color: dt('autocomplete.invalid.placeholder.color');
+}
 `;
 
 const inlineStyles = {
@@ -58,21 +44,23 @@ const classes = {
     root: ({ instance }) => [
         'p-autocomplete p-component p-inputwrapper',
         {
-            'p-disabled': instance.disabled(),
             'p-invalid': instance.invalid(),
             'p-focus': instance.focused,
             'p-inputwrapper-filled': instance.$filled(),
-            'p-inputwrapper-focus': (instance.focused && !instance.disabled()) || instance.autofocus || instance.overlayVisible,
+            'p-inputwrapper-focus': (instance.focused && !instance.$disabled()) || instance.autofocus || instance.overlayVisible,
             'p-autocomplete-open': instance.overlayVisible,
-            'p-autocomplete-clearable': instance.showClear && !instance.disabled(),
+            'p-autocomplete-clearable': instance.showClear && !instance.$disabled(),
             'p-autocomplete-fluid': instance.hasFluid
         }
     ],
     pcInputText: 'p-autocomplete-input',
-    inputMultiple: ({ instance }) => ({
-        'p-autocomplete-input-multiple': true,
-        'p-variant-filled': instance.$variant() === 'filled'
-    }),
+    inputMultiple: ({ instance }) => [
+        'p-autocomplete-input-multiple',
+        {
+            'p-disabled': instance.$disabled(),
+            'p-variant-filled': instance.$variant() === 'filled'
+        }
+    ],
     chipItem: ({ instance, i }) => [
         'p-autocomplete-chip-item',
         {
@@ -84,7 +72,7 @@ const classes = {
     inputChip: 'p-autocomplete-input-chip',
     loader: 'p-autocomplete-loader',
     dropdown: 'p-autocomplete-dropdown',
-    overlay: ({ instance }) => ['p-autocomplete-overlay p-component', { 'p-input-filled': instance.$variant() === 'filled', 'p-ripple-disabled': instance.config.ripple() === false }],
+    overlay: ({ instance }) => ['p-autocomplete-overlay p-component-overlay p-component', { 'p-input-filled': instance.$variant() === 'filled', 'p-ripple-disabled': instance.config.ripple() === false }],
     listContainer: 'p-autocomplete-list-container',
     list: 'p-autocomplete-list',
     optionGroup: 'p-autocomplete-option-group',
@@ -102,7 +90,7 @@ const classes = {
 export class AutoCompleteStyle extends BaseStyle {
     name = 'autocomplete';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 

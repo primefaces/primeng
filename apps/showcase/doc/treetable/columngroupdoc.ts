@@ -1,10 +1,14 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
 import { Code } from '@/domain/code';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
     selector: 'column-group-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeTableModule, DeferredDemo, AppCode],
     template: `
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
@@ -28,8 +32,10 @@ import { TreeNode } from 'primeng/api';
                     <ng-template #body let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treetable-toggler [rowNode]="rowNode" />
-                                {{ rowData.brand }}
+                                <div class="flex items-center gap-2">
+                                    <p-treetable-toggler [rowNode]="rowNode" />
+                                    <span>{{ rowData.brand }}</span>
+                                </div>
                             </td>
                             <td>{{ rowData.lastYearSale }}</td>
                             <td>{{ rowData.thisYearSale }}</td>
@@ -329,8 +335,10 @@ export class ColumnGroupDoc {
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr>
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.brand }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.brand }}</span>
+                </div>
             </td>
             <td>{{ rowData.lastYearSale }}</td>
             <td>{{ rowData.thisYearSale }}</td>
@@ -368,8 +376,10 @@ export class ColumnGroupDoc {
         <ng-template #body let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
-                    <p-treetable-toggler [rowNode]="rowNode" />
-                    {{ rowData.brand }}
+                    <div class="flex items-center gap-2">
+                        <p-treetable-toggler [rowNode]="rowNode" />
+                        <span>{{ rowData.brand }}</span>
+                    </div>
                 </td>
                 <td>{{ rowData.lastYearSale }}</td>
                 <td>{{ rowData.thisYearSale }}</td>

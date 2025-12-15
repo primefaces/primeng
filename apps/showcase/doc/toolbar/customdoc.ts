@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     selector: 'custom-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, ToolbarModule, ButtonModule, AvatarModule],
     template: `
         <app-docsectiontext>
             <p>Content can also be placed using the <i>start</i>, <i>center</i> and <i>end</i> templates.</p>
@@ -65,7 +71,7 @@ export class CustomDoc {
         <div class="flex items-center gap-2">
             <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 2rem; margin-right: 1rem">
                 <path d="..." fill="var(--p-primary-color)" />
-                <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
+                <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33"></mask>
             </svg>
             <p-button label="Files" text plain />
             <p-button label="Edit" text plain />

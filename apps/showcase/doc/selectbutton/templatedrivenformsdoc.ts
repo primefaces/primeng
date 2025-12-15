@@ -1,10 +1,19 @@
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { SelectButton } from 'primeng/selectbutton';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'template-driven-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, SelectButton, ToastModule, ButtonModule, MessageModule, AppDocSectionText, AppCode, CommonModule],
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />
@@ -16,7 +25,7 @@ import { MessageService } from 'primeng/api';
                         <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
         <app-code [code]="code" selector="selectbutton-template-driven-forms-demo"></app-code>
@@ -47,7 +56,7 @@ export class TemplateDrivenFormsDoc {
             <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
         }
     </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+    <button pButton type="submit"><span pButtonLabel>Submit</span></button>
 </form>`,
 
         html: `<p-toast />
@@ -59,7 +68,7 @@ export class TemplateDrivenFormsDoc {
                 <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
             }
         </div>
-        <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+        <button pButton type="submit"><span pButtonLabel>Submit</span></button>
     </form>
 </div>`,
 

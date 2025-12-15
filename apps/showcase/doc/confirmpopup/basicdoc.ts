@@ -1,10 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'confirm-popup-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [ConfirmPopupModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>ConfirmPopup is defined using <i>p-confirmPopup</i> tag and an instance of <i>ConfirmationService</i> is required to display it bycalling confirm method.</p>
@@ -27,7 +33,7 @@ export class BasicDoc {
 
     confirm1(event: Event) {
         this.confirmationService.confirm({
-            target: event.target as EventTarget,
+            target: event.currentTarget as EventTarget,
             message: 'Are you sure you want to proceed?',
             icon: 'pi pi-exclamation-triangle',
             rejectButtonProps: {
@@ -49,7 +55,7 @@ export class BasicDoc {
 
     confirm2(event: Event) {
         this.confirmationService.confirm({
-            target: event.target as EventTarget,
+            target: event.currentTarget as EventTarget,
             message: 'Do you want to delete this record?',
             icon: 'pi pi-info-circle',
             rejectButtonProps: {
@@ -101,7 +107,7 @@ export class ConfirmPopupBasicDemo {
 
     confirm1(event: Event) {
         this.confirmationService.confirm({
-            target: event.target as EventTarget,
+            target: event.currentTarget as EventTarget,
             message: 'Are you sure you want to proceed?',
             icon: 'pi pi-exclamation-triangle',
             rejectButtonProps: {
@@ -123,7 +129,7 @@ export class ConfirmPopupBasicDemo {
 
     confirm2(event: Event) {
         this.confirmationService.confirm({
-            target: event.target as EventTarget,
+            target: event.currentTarget as EventTarget,
             message: 'Do you want to delete this record?',
             icon: 'pi pi-info-circle',
             rejectButtonProps: {

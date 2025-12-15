@@ -1,28 +1,31 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
-import { style } from '@primeuix/styles/treeselect';
+import { style as treeselect_style } from '@primeuix/styles/treeselect';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+    ${treeselect_style}
 
     /* For PrimeNG */
 
     .p-treeselect.ng-invalid.ng-dirty {
-        border-color: ${dt('treeselect.invalid.border.color')};
+        border-color: dt('treeselect.invalid.border.color');
     }
 
     p-treeselect.ng-invalid.ng-dirty.p-focus {
-        border-color: ${dt('treeselect.focus.border.color')};
+        border-color: dt('treeselect.focus.border.color');
     }
 
     p-treeselect.ng-invalid.ng-dirty .p-treeselect-label.p-placeholder {
-        color: ${dt('treeselect.invalid.placeholder.color')};
+        color: dt('treeselect.invalid.placeholder.color');
+    }
+
+    .p-treeselect-clear-icon.p-icon {
+        flex-shrink: 0;
     }
 `;
 
 const inlineStyles = {
-    root: ({ instance }) => ({ position: instance.appendTo === 'self' ? 'relative' : undefined, ...instance.containerStyle })
+    root: ({ instance }) => ({ position: instance.$appendTo() === 'self' ? 'relative' : undefined, ...instance.containerStyle })
 };
 
 const classes = {
@@ -30,7 +33,7 @@ const classes = {
         'p-treeselect p-component p-inputwrapper',
         {
             'p-treeselect-display-chip': instance.display === 'chip',
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-focus': instance.focused,
             'p-variant-filled': instance.$variant() === 'filled',
@@ -51,11 +54,12 @@ const classes = {
             'p-treeselect-label-empty': !instance.placeholder && instance.emptyValue
         }
     ],
+    clearIcon: 'p-treeselect-clear-icon',
     chip: 'p-treeselect-chip-item',
     pcChip: 'p-treeselect-chip',
     dropdown: 'p-treeselect-dropdown',
     dropdownIcon: 'p-treeselect-dropdown-icon',
-    panel: 'p-treeselect-overlay p-component',
+    panel: 'p-treeselect-overlay p-component-overlay p-component',
     treeContainer: 'p-treeselect-tree-container',
     emptyMessage: 'p-treeselect-empty-message'
 };
@@ -64,7 +68,7 @@ const classes = {
 export class TreeSelectStyle extends BaseStyle {
     name = 'treeselect';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 
@@ -97,6 +101,10 @@ export enum TreeSelectClasses {
      * Class name of the chip item element
      */
     chipItem = 'p-treeselect-chip-item',
+    /**
+     * Class name of the clear icon element
+     */
+    clearIcon = 'p-treeselect-clear-icon',
     /**
      * Class name of the chip element
      */

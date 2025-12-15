@@ -11,29 +11,33 @@ export class UseStyle {
     use(css, options: any = {}) {
         let isLoaded = false;
         let cssRef = css;
-        let styleRef = null;
+        let styleRef: HTMLStyleElement | null = null;
 
         const { immediate = true, manual = false, name = `style_${++_id}`, id = undefined, media = undefined, nonce = undefined, first = false, props = {} } = options;
 
         if (!this.document) return;
-        styleRef = this.document.querySelector(`style[data-primeng-style-id="${name}"]`) || (id && this.document.getElementById(id)) || this.document.createElement('style');
+        styleRef = (this.document.querySelector(`style[data-primeng-style-id="${name}"]`) || (id && this.document.getElementById(id)) || this.document.createElement('style')) as HTMLStyleElement;
 
-        if (!styleRef.isConnected) {
-            cssRef = css;
-            setAttributes(styleRef, {
-                type: 'text/css',
-                media,
-                nonce
-            });
+        if (styleRef) {
+            if (!styleRef.isConnected) {
+                cssRef = css;
 
-            const HEAD = this.document.head;
+                const HEAD = this.document.head;
 
-            first && HEAD.firstChild ? HEAD.insertBefore(styleRef, HEAD.firstChild) : HEAD.appendChild(styleRef);
-            setAttribute(styleRef, 'data-primeng-style-id', name);
-        }
+                setAttribute(styleRef, 'nonce', nonce);
 
-        if (styleRef.textContent !== cssRef) {
-            styleRef.textContent = cssRef;
+                first && HEAD.firstChild ? HEAD.insertBefore(styleRef, HEAD.firstChild) : HEAD.appendChild(styleRef);
+                setAttributes(styleRef, {
+                    type: 'text/css',
+                    media,
+                    nonce,
+                    'data-primeng-style-id': name
+                });
+            }
+
+            if (styleRef.textContent !== cssRef) {
+                styleRef.textContent = cssRef;
+            }
         }
 
         return {

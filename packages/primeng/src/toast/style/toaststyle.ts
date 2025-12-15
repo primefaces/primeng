@@ -18,7 +18,7 @@ const inlineStyles = {
 };
 
 const classes = {
-    root: ({ instance }) => ['p-toast p-component', `p-toast-${instance._position}`, instance.styleClass],
+    root: ({ instance }) => ['p-toast p-component', `p-toast-${instance._position}`],
 
     message: ({ instance }) => ({
         'p-toast-message': true,
@@ -48,7 +48,7 @@ const classes = {
 export class ToastStyle extends BaseStyle {
     name = 'toast';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 

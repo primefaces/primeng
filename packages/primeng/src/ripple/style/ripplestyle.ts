@@ -1,26 +1,14 @@
 import { Injectable } from '@angular/core';
+import { style as ripple_style } from '@primeuix/styles/ripple';
 import { BaseStyle } from 'primeng/base';
-import { style } from '@primeuix/styles/ripple';
-import { css } from '@primeuix/styled';
 
-const theme = ({ dt }) => css`
-    ${style}
+const style = /*css*/ `
+    ${ripple_style}
+
     /* For PrimeNG */
-.p-ripple {
+    .p-ripple {
         overflow: hidden;
         position: relative;
-    }
-
-    .p-ink {
-        display: block;
-        position: absolute;
-        background: ${dt('ripple.background')};
-        border-radius: 100%;
-        transform: scale(0);
-    }
-
-    .p-ink-active {
-        animation: ripple 0.4s linear;
     }
 
     .p-ripple-disabled .p-ink {
@@ -43,7 +31,7 @@ const classes = {
 export class RippleStyle extends BaseStyle {
     name = 'ripple';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

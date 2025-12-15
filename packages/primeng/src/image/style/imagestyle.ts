@@ -5,14 +5,13 @@ import { BaseStyle } from 'primeng/base';
 const classes = {
     root: ({ instance }) => [
         'p-image p-component',
-        instance.styleClass,
         {
             'p-image-preview': instance.preview
         }
     ],
     previewMask: 'p-image-preview-mask',
     previewIcon: 'p-image-preview-icon',
-    mask: 'p-image-mask p-overlay-mask p-overlay-mask-enter',
+    mask: 'p-image-mask p-overlay-mask',
     toolbar: 'p-image-toolbar',
     rotateRightButton: 'p-image-action p-image-rotate-right-button',
     rotateLeftButton: 'p-image-action p-image-rotate-left-button',
@@ -36,7 +35,7 @@ const classes = {
 export class ImageStyle extends BaseStyle {
     name = 'image';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

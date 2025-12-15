@@ -1,15 +1,21 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'sizes-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>SplitButton provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-center gap-4">
+        <div class="card flex flex-wrap justify-center items-center gap-4">
             <p-toast />
             <p-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="small" />
             <p-splitbutton label="Normal" [model]="items" (onClick)="save('info')" />
@@ -34,7 +40,7 @@ export class SizesDoc {
                     this.delete();
                 }
             },
-            { label: 'Angular Website', url: 'http://angular.io' },
+            { label: 'Angular.dev', url: 'https://angular.dev' },
             { separator: true },
             { label: 'Upload', routerLink: ['/fileupload'] }
         ];
@@ -59,7 +65,7 @@ export class SizesDoc {
 <p-splitbutton label="Normal" [model]="items" (onClick)="save('info')" />
 <p-splitbutton label="Large" [model]="items" (onClick)="save('info')" size="large" />`,
 
-        html: `<div class="card flex flex-wrap gap-4 justify-center">
+        html: `<div class="card flex flex-wrap justify-center items-center gap-4">
     <p-toast />
     <p-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="small" />
     <p-splitbutton label="Normal" [model]="items" (onClick)="save('info')" />
@@ -95,7 +101,7 @@ export class SplitButtonSizesDemo {
                     this.delete();
                 }
             },
-            { label: 'Angular Website', url: 'http://angular.io' },
+            { label: 'Angular.dev', url: 'https://angular.dev' },
             { separator: true },
             { label: 'Upload', routerLink: ['/fileupload'] }
         ];

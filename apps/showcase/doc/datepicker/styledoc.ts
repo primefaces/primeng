@@ -1,8 +1,11 @@
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'datepicker-style-doc',
-    standalone: false,
+    selector: 'date-picker-style-doc',
+    standalone: true,
+    imports: [RouterModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

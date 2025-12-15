@@ -1,21 +1,10 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/tree';
 import { BaseStyle } from 'primeng/base';
-
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-    .p-tree {
-        display: block;
-    }
-`;
 
 const classes = {
     root: ({ instance }) => [
         'p-tree p-component',
-        instance.styleClass,
         {
             'p-tree-selectable': instance.selectionMode != null,
             'p-tree-loading': instance.loading,
@@ -32,8 +21,9 @@ const classes = {
     nodeContent: ({ instance }) => ({
         'p-tree-node-content': true,
         'p-tree-node-selectable': instance.selectable,
-        'p-tree-node-dragover': instance.draghoverNode,
-        'p-tree-node-selected': instance.selectionMode === 'checkbox' && instance.tree.highlightOnSelect ? instance.checked : instance.selected
+        'p-tree-node-dragover': instance.isNodeDropActive(),
+        'p-tree-node-selected': instance.selectionMode === 'checkbox' && instance.tree.highlightOnSelect ? instance.checked : instance.selected,
+        'p-tree-node-contextmenu-selected': instance.isContextMenuSelected()
     }),
     nodeToggleButton: 'p-tree-node-toggle-button',
     nodeToggleIcon: 'p-tree-node-toggle-icon',
@@ -42,14 +32,14 @@ const classes = {
     nodeLabel: 'p-tree-node-label',
     nodeChildren: 'p-tree-node-children',
     emptyMessage: 'p-tree-empty-message',
-    dropPoint: ({ param }) => ['p-tree-node-droppoint', { 'p-tree-node-droppoint-active': param }]
+    dropPoint: 'p-tree-node-drop-point'
 };
 
 @Injectable()
 export class TreeStyle extends BaseStyle {
     name = 'tree';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }
