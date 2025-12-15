@@ -31,7 +31,7 @@ import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
-import { MegaMenuPassThrough } from 'primeng/types/megamenu';
+import { MegaMenuItemTemplateContext, MegaMenuPassThrough } from 'primeng/types/megamenu';
 import { ZIndexUtils } from 'primeng/utils';
 import { MegaMenuStyle } from './style/megamenustyle';
 
@@ -75,6 +75,7 @@ const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INST
                 pTooltip
                 [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 [pBind]="getPTOptions(processedItem, index, 'item')"
+                [pTooltipUnstyled]="unstyled()"
             >
                 <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                     <ng-container *ngIf="!itemTemplate">
@@ -82,27 +83,39 @@ const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INST
                             *ngIf="!getItemProp(processedItem, 'routerLink')"
                             [attr.href]="getItemProp(processedItem, 'url')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [attr.title]="getItemProp(processedItem, 'title')"
                             [target]="getItemProp(processedItem, 'target')"
-                            [class]="cx('itemLink')"
+                            [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
+                            [ngStyle]="getItemProp(processedItem, 'linkStyle')"
                             [attr.tabindex]="-1"
                             [pBind]="getPTOptions(processedItem, index, 'itemLink')"
                             pRipple
                         >
                             <span
                                 *ngIf="getItemProp(processedItem, 'icon')"
-                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
                                 [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                 [attr.tabindex]="-1"
                                 [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                             >
                             </span>
-                            <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">
+                            <span
+                                *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                            >
                                 {{ getItemLabel(processedItem) }}
                             </span>
                             <ng-template #htmlLabel>
-                                <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
+                                <span
+                                    [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                    [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                    [innerHTML]="getItemLabel(processedItem)"
+                                    [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                ></span>
                             </ng-template>
-                            <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                            <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [unstyled]="unstyled()" />
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!megaMenu.submenuIconTemplate && !megaMenu._submenuIconTemplate">
                                     @if (orientation === 'horizontal' || mobileActive) {
@@ -118,12 +131,14 @@ const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INST
                             *ngIf="getItemProp(processedItem, 'routerLink')"
                             [routerLink]="getItemProp(processedItem, 'routerLink')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [attr.title]="getItemProp(processedItem, 'title')"
                             [attr.tabindex]="-1"
                             [queryParams]="getItemProp(processedItem, 'queryParams')"
                             [routerLinkActive]="'p-megamenu-item-link-active'"
                             [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
                             [target]="getItemProp(processedItem, 'target')"
-                            [class]="cx('itemLink')"
+                            [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
+                            [ngStyle]="getItemProp(processedItem, 'linkStyle')"
                             [fragment]="getItemProp(processedItem, 'fragment')"
                             [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
                             [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
@@ -134,15 +149,28 @@ const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INST
                             pRipple
                         >
                             <span
-                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
                                 *ngIf="getItemProp(processedItem, 'icon')"
                                 [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                 [attr.tabindex]="-1"
                                 [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                             ></span>
-                            <span [class]="cx('itemLabel')" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">{{ getItemLabel(processedItem) }}</span>
-                            <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span></ng-template>
-                            <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                            <span
+                                [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel"
+                                [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                >{{ getItemLabel(processedItem) }}</span
+                            >
+                            <ng-template #htmlRouteLabel
+                                ><span
+                                    [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                    [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                    [innerHTML]="getItemLabel(processedItem)"
+                                    [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                ></span
+                            ></ng-template>
+                            <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [unstyled]="unstyled()" />
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!megaMenu.submenuIconTemplate && !megaMenu._submenuIconTemplate">
                                     <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
@@ -174,6 +202,7 @@ const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INST
                                 (itemClick)="itemClick.emit($event)"
                                 (itemMouseEnter)="onItemMouseEnter($event)"
                                 [pt]="pt()"
+                                [unstyled]="unstyled()"
                             ></ul>
                         </div>
                     </div>
@@ -198,7 +227,8 @@ const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INST
         '[attr.data-pc-section]': 'root ? "rootlist" : "submenu"',
         '(keydown)': 'menuKeydown.emit($event)',
         '(focus)': 'menuFocus.emit($event)',
-        '(blur)': 'menuBlur.emit($event)'
+        '(blur)': 'menuBlur.emit($event)',
+        '(mousedown)': 'menuMouseDown.emit($event)'
     },
     hostDirectives: [Bind]
 })
@@ -213,7 +243,7 @@ export class MegaMenuSub extends BaseComponent<MegaMenuPassThrough> {
 
     @Input() items: any[] | undefined;
 
-    @Input() itemTemplate: TemplateRef<any> | undefined;
+    @Input() itemTemplate: TemplateRef<MegaMenuItemTemplateContext> | undefined;
 
     @Input() menuId: string | undefined;
 
@@ -252,6 +282,8 @@ export class MegaMenuSub extends BaseComponent<MegaMenuPassThrough> {
     @Output() menuBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() menuKeydown: EventEmitter<any> = new EventEmitter();
+
+    @Output() menuMouseDown: EventEmitter<any> = new EventEmitter();
 
     megaMenu: MegaMenu = inject(forwardRef(() => MegaMenu));
 
@@ -390,10 +422,12 @@ export class MegaMenuSub extends BaseComponent<MegaMenuPassThrough> {
             (menuFocus)="onMenuFocus($event)"
             (menuBlur)="onMenuBlur($event)"
             (menuKeydown)="onKeyDown($event)"
+            (menuMouseDown)="onMenuMouseDown($event)"
             (itemMouseEnter)="onItemMouseEnter($event)"
-            [queryMatches]="queryMatches"
+            [queryMatches]="queryMatches()"
             [scrollHeight]="scrollHeight"
             [pt]="pt()"
+            [unstyled]="unstyled()"
         ></ul>
         <div [class]="cx('end')" *ngIf="endTemplate || _endTemplate" [pBind]="ptm('end')">
             <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
@@ -471,37 +505,39 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
      * Defines template option for start.
      * @group Templates
      */
-    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<any> | undefined;
+    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<void> | undefined;
     /**
      * Defines template option for end.
      * @group Templates
      */
-    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<any> | undefined;
+    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<void> | undefined;
     /**
      * Defines template option for menu icon.
      * @group Templates
      */
-    @ContentChild('menuicon', { descendants: false }) menuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('menuicon', { descendants: false }) menuIconTemplate: TemplateRef<void> | undefined;
     /**
      * Defines template option for submenu icon.
      * @group Templates
      */
-    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<void> | undefined;
     /**
-     * Defines template option for submenu icon.
+     * Custom item template.
+     * @param {MegaMenuItemTemplateContext} context - item context.
+     * @see {@link MegaMenuItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<MegaMenuItemTemplateContext> | undefined;
     /**
      * Custom menu button template on responsive mode.
      * @group Templates
      */
-    @ContentChild('button', { descendants: false }) buttonTemplate: TemplateRef<any> | undefined;
+    @ContentChild('button', { descendants: false }) buttonTemplate: TemplateRef<void> | undefined;
     /**
      * Custom menu button icon template on responsive mode.
      * @group Templates
      */
-    @ContentChild('buttonicon', { descendants: false }) buttonIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('buttonicon', { descendants: false }) buttonIconTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -509,19 +545,19 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
 
     @ViewChild('rootmenu') rootmenu: MegaMenuSub | undefined;
 
-    _startTemplate: TemplateRef<any> | undefined;
+    _startTemplate: TemplateRef<void> | undefined;
 
-    _endTemplate: TemplateRef<any> | undefined;
+    _endTemplate: TemplateRef<void> | undefined;
 
-    _menuIconTemplate: TemplateRef<any> | undefined;
+    _menuIconTemplate: TemplateRef<void> | undefined;
 
-    _submenuIconTemplate: TemplateRef<any> | undefined;
+    _submenuIconTemplate: TemplateRef<void> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<MegaMenuItemTemplateContext> | undefined;
 
-    _buttonTemplate: TemplateRef<any> | undefined;
+    _buttonTemplate: TemplateRef<void> | undefined;
 
-    _buttonIconTemplate: TemplateRef<any> | undefined;
+    _buttonIconTemplate: TemplateRef<void> | undefined;
 
     outsideClickListener: VoidListener;
 
@@ -549,7 +585,7 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
 
     private query: MediaQueryList;
 
-    public queryMatches: boolean = false;
+    public queryMatches = signal<boolean>(false);
 
     public mobileActive: boolean = false;
 
@@ -648,10 +684,10 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
                 const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
 
                 this.query = query;
-                this.queryMatches = query.matches;
+                this.queryMatches.set(query.matches);
 
                 this.matchMediaListener = () => {
-                    this.queryMatches = query.matches;
+                    this.queryMatches.set(query.matches);
                     this.mobileActive = false;
                     this.cd.markForCheck();
                 };
@@ -698,6 +734,7 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
     }
 
     onItemClick(event: any) {
+        this.dirty = true;
         const { originalEvent, processedItem } = event;
         const grouped = this.isProcessedItemGroup(processedItem);
         const root = isEmpty(processedItem.parent);
@@ -764,7 +801,7 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
 
         let element;
 
-        if (id === null && this.queryMatches) {
+        if (id === null && this.queryMatches()) {
             element = this.menubuttonViewChild?.nativeElement;
         } else {
             element = findSingle(this.rootmenu?.el?.nativeElement, `li[id="${id}"]`);
@@ -808,9 +845,17 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
         this.dirty = false;
     }
 
+    onMenuMouseDown(event: any) {
+        this.dirty = true;
+    }
+
     onMenuFocus(event: any) {
         this.focused = true;
-        if (this.focusedItemInfo().index === -1) {
+
+        const relatedTarget = event.relatedTarget;
+        const isFromOutside = !relatedTarget || !this.el.nativeElement.contains(relatedTarget);
+
+        if (isFromOutside && this.focusedItemInfo().index === -1 && isEmpty(this.activeItem()) && !this.dirty) {
             const index = this.findFirstFocusedItemIndex();
             const processedItem = this.findVisibleItem(index);
 
@@ -819,10 +864,22 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
     }
 
     onMenuBlur(event: any) {
-        this.focused = false;
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
-        this.searchValue = '';
-        this.dirty = false;
+        const relatedTarget = event.relatedTarget;
+        if (relatedTarget && this.el.nativeElement.contains(relatedTarget)) {
+            return;
+        }
+
+        setTimeout(() => {
+            const activeElement = this.document.activeElement;
+            if (activeElement && this.el.nativeElement.contains(activeElement)) {
+                return;
+            }
+
+            this.focused = false;
+            this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
+            this.searchValue = '';
+            this.dirty = false;
+        });
     }
 
     onKeyDown(event: KeyboardEvent) {

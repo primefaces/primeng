@@ -1,4 +1,3 @@
-import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
@@ -26,6 +25,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MotionOptions } from '@primeuix/motion';
 import { equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
 import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -40,7 +40,20 @@ import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
-import { AutoCompleteAddEvent, AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompletePassThrough, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from 'primeng/types/autocomplete';
+import {
+    AutoCompleteAddEvent,
+    AutoCompleteCompleteEvent,
+    AutoCompleteDropdownClickEvent,
+    AutoCompleteGroupTemplateContext,
+    AutoCompleteItemTemplateContext,
+    AutoCompleteLazyLoadEvent,
+    AutoCompleteLoaderTemplateContext,
+    AutoCompletePassThrough,
+    AutoCompleteRemoveIconTemplateContext,
+    AutoCompleteSelectedItemTemplateContext,
+    AutoCompleteSelectEvent,
+    AutoCompleteUnselectEvent
+} from 'primeng/types/autocomplete';
 import { AutoCompleteStyle } from './style/autocompletestyle';
 
 const AUTOCOMPLETE_INSTANCE = new InjectionToken<AutoComplete>('AUTOCOMPLETE_INSTANCE');
@@ -103,6 +116,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             (paste)="onInputPaste($event)"
             (keyup)="onInputKeyUp($event)"
             [fluid]="hasFluid"
+            [unstyled]="unstyled()"
         />
         <ng-container *ngIf="$filled() && !$disabled() && showClear && !loading">
             <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
@@ -116,6 +130,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             #multiContainer
             [pBind]="ptm('inputMultiple')"
             [class]="cx('inputMultiple')"
+            [attr.data-p]="inputMultipleDataP"
             [tabindex]="-1"
             role="listbox"
             [attr.aria-orientation]="'horizontal'"
@@ -136,7 +151,15 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-posinset]="i + 1"
                 [attr.aria-selected]="true"
             >
-                <p-chip [pt]="ptm('pcChip')" [class]="cx('pcChip')" [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)" [disabled]="$disabled()" [removable]="true" (onRemove)="!readonly ? removeOption($event, i) : ''">
+                <p-chip
+                    [pt]="ptm('pcChip')"
+                    [class]="cx('pcChip')"
+                    [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)"
+                    [disabled]="$disabled()"
+                    [removable]="true"
+                    (onRemove)="!readonly ? removeOption($event, i) : ''"
+                    [unstyled]="unstyled()"
+                >
                     <ng-container *ngTemplateOutlet="selectedItemTemplate || _selectedItemTemplate; context: { $implicit: option }"></ng-container>
                     <ng-template #removeicon>
                         <span *ngIf="!removeIconTemplate && !_removeIconTemplate" [pBind]="ptm('chipIcon')" [class]="cx('chipIcon')" (click)="!readonly && !$disabled() ? removeOption($event, i) : ''">
@@ -204,24 +227,26 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         </button>
         <p-overlay
             #overlay
-            [pt]="ptm('pcOverlay')"
             [hostAttrSelector]="$attrSelector"
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
-            (onAnimationStart)="onOverlayAnimationStart($event)"
+            [unstyled]="unstyled()"
+            [pt]="ptm('pcOverlay')"
+            [motionOptions]="motionOptions()"
+            (onBeforeEnter)="onOverlayBeforeEnter()"
             (onHide)="hide()"
+            [attr.data-p]="overlayDataP"
         >
             <ng-template #content>
                 <div [pBind]="ptm('overlay')" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                    <div [pBind]="ptm('listContainer')" [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight">
+                    <div [pBind]="ptm('listContainer')" [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [tabindex]="-1">
                         <p-scroller
                             *ngIf="virtualScroll"
                             #scroller
+                            [tabindex]="-1"
                             [pt]="ptm('virtualScroller')"
                             [items]="visibleOptions()"
                             [style]="{ height: scrollHeight }"
@@ -264,6 +289,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                         role="option"
                                         [attr.aria-label]="getOptionLabel(option)"
                                         [attr.aria-selected]="isSelected(option)"
+                                        [attr.data-p-selected]="isSelected(option)"
                                         [attr.aria-disabled]="isOptionDisabled(option)"
                                         [attr.data-p-focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
                                         [attr.aria-setsize]="ariaSetSize"
@@ -305,7 +331,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[style]': "sx('root')"
+        '[style]': "sx('root')",
+        '[attr.data-p]': 'containerDataP'
     },
     hostDirectives: [Bind]
 })
@@ -504,11 +531,13 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     /**
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '.1s linear';
     /**
@@ -632,6 +661,11 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+    /**
      * Callback to invoke to search for suggestions.
      * @param {AutoCompleteCompleteEvent} event - Custom complete event.
      * @group Emits
@@ -730,67 +764,67 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
      * Custom item template.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('item') itemTemplate: Nullable<TemplateRef<AutoCompleteItemTemplateContext>>;
 
     /**
      * Custom empty message template.
      * @group Templates
      */
-    @ContentChild('empty') emptyTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('empty') emptyTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom header template.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header') headerTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom selected item template.
      * @group Templates
      */
-    @ContentChild('selecteditem') selectedItemTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('selecteditem') selectedItemTemplate: Nullable<TemplateRef<AutoCompleteSelectedItemTemplateContext>>;
 
     /**
-     * Custom group item template.
+     * Custom group template.
      * @group Templates
      */
-    @ContentChild('group') groupTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('group') groupTemplate: Nullable<TemplateRef<AutoCompleteGroupTemplateContext>>;
 
     /**
      * Custom loader template.
      * @group Templates
      */
-    @ContentChild('loader') loaderTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loader') loaderTemplate: Nullable<TemplateRef<AutoCompleteLoaderTemplateContext>>;
 
     /**
      * Custom remove icon template.
      * @group Templates
      */
-    @ContentChild('removeicon') removeIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('removeicon') removeIconTemplate: Nullable<TemplateRef<AutoCompleteRemoveIconTemplateContext>>;
 
     /**
      * Custom loading icon template.
      * @group Templates
      */
-    @ContentChild('loadingicon') loadingIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loadingicon') loadingIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom clear icon template.
      * @group Templates
      */
-    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom dropdown icon template.
      * @group Templates
      */
-    @ContentChild('dropdownicon') dropdownIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('dropdownicon') dropdownIconTemplate: Nullable<TemplateRef<void>>;
 
     @HostListener('click', ['$event'])
     onHostClick(event: MouseEvent) {
@@ -823,27 +857,27 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     dirty: boolean = false;
 
-    _itemTemplate: TemplateRef<any>;
+    _itemTemplate: TemplateRef<AutoCompleteItemTemplateContext> | undefined;
 
-    _groupTemplate: TemplateRef<any>;
+    _groupTemplate: TemplateRef<AutoCompleteGroupTemplateContext> | undefined;
 
-    _selectedItemTemplate: TemplateRef<any>;
+    _selectedItemTemplate: TemplateRef<AutoCompleteSelectedItemTemplateContext> | undefined;
 
-    _headerTemplate: TemplateRef<any>;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _emptyTemplate: TemplateRef<any>;
+    _emptyTemplate: TemplateRef<void> | undefined;
 
-    _footerTemplate: TemplateRef<any>;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _loaderTemplate: TemplateRef<any>;
+    _loaderTemplate: TemplateRef<AutoCompleteLoaderTemplateContext> | undefined;
 
-    _removeIconTemplate: TemplateRef<any>;
+    _removeIconTemplate: TemplateRef<AutoCompleteRemoveIconTemplateContext> | undefined;
 
-    _loadingIconTemplate: TemplateRef<any>;
+    _loadingIconTemplate: TemplateRef<void> | undefined;
 
-    _clearIconTemplate: TemplateRef<any>;
+    _clearIconTemplate: TemplateRef<void> | undefined;
 
-    _dropdownIconTemplate: TemplateRef<any>;
+    _dropdownIconTemplate: TemplateRef<void> | undefined;
 
     focusedMultipleOptionIndex = signal<number>(-1);
 
@@ -1536,6 +1570,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
                     } else if (this.inputEL?.nativeElement) {
                         this.inputEL.nativeElement.value = '';
                     }
+
                     this.updateInputValue();
                     event.preventDefault(); // Keep focus on the component
                     this.overlayVisible && this.hide();
@@ -1633,7 +1668,10 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     }
 
     updateModel(options) {
-        const value = this.multiple ? options.map((option) => this.getOptionValue(option)) : this.getOptionValue(options);
+        let value = null;
+        if (options) {
+            value = this.multiple ? options.map((option) => this.getOptionValue(option)) : this.getOptionValue(options);
+        }
 
         this.value = value;
         this.writeModelValue(options);
@@ -1766,30 +1804,52 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
         });
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
-        if (event.toState === 'visible') {
-            this.itemsWrapper = <any>findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
+    onOverlayBeforeEnter() {
+        this.itemsWrapper = <any>findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '[data-pc-name="virtualscroller"]' : '[data-pc-name="pcoverlay"]');
 
+        if (this.virtualScroll) {
+            this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
+            this.scroller?.viewInit();
+        }
+        if (this.visibleOptions() && this.visibleOptions().length) {
             if (this.virtualScroll) {
-                this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
-                this.scroller?.viewInit();
-            }
-            if (this.visibleOptions() && this.visibleOptions().length) {
-                if (this.virtualScroll) {
-                    const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
+                const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
 
-                    if (selectedIndex !== -1) {
-                        this.scroller?.scrollToIndex(selectedIndex);
-                    }
-                } else {
-                    let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '.p-autocomplete-item.p-highlight');
+                if (selectedIndex !== -1) {
+                    this.scroller?.scrollToIndex(selectedIndex);
+                }
+            } else {
+                let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '[data-pc-section="option"][data-p-selected="true"]');
 
-                    if (selectedListItem) {
-                        selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
-                    }
+                if (selectedListItem) {
+                    selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
                 }
             }
         }
+    }
+
+    get containerDataP() {
+        return this.cn({
+            fluid: this.hasFluid
+        });
+    }
+
+    get overlayDataP() {
+        return this.cn({
+            [`overlay-${this.$appendTo()}`]: true
+        });
+    }
+
+    get inputMultipleDataP() {
+        return this.cn({
+            invalid: this.invalid(),
+            disabled: this.$disabled(),
+            focus: this.focused,
+            fluid: this.hasFluid,
+            filled: this.$variant() === 'filled',
+            empty: !this.$filled(),
+            [this.size() as string]: this.size()
+        });
     }
 
     /**

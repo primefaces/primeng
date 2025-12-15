@@ -1,30 +1,32 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
     InjectionToken,
+    input,
     Input,
     NgModule,
     Output,
     QueryList,
-    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { Nullable } from 'primeng/ts-helpers';
 import type { PanelAfterToggleEvent, PanelBeforeToggleEvent, PanelHeaderIconsTemplateContext, PanelPassThrough } from 'primeng/types/panel';
 import { PanelStyle } from './style/panelstyle';
@@ -38,9 +40,9 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
 @Component({
     selector: 'p-panel',
     standalone: true,
-    imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule, BindModule],
+    imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule, BindModule, MotionModule],
     template: `
-        <div [pBind]="ptm('header')" [class]="cx('header')" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
+        <div [pBind]="ptm('header')" [class]="cx('header')" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'" [attr.data-p]="dataP">
             <span [pBind]="ptm('title')" [class]="cx('title')" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
             <ng-content select="p-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
@@ -62,6 +64,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
                     (keydown)="onKeyDown($event)"
                     [buttonProps]="toggleButtonProps"
                     [pt]="ptm('pcToggleButton')"
+                    [unstyled]="unstyled()"
                 >
                     <ng-template #icon>
                         <ng-container *ngIf="!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon">
@@ -81,77 +84,37 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
         </div>
         <div
             [pBind]="ptm('contentContainer')"
+            [pMotion]="!toggleable || (toggleable && !collapsed)"
+            pMotionName="p-collapsible"
+            [pMotionOptions]="computedMotionOptions()"
             [class]="cx('contentContainer')"
             [id]="id + '_content'"
             role="region"
             [attr.aria-labelledby]="id + '_header'"
             [attr.aria-hidden]="collapsed"
             [attr.tabindex]="collapsed ? '-1' : undefined"
-            [@panelContent]="
-                collapsed
-                    ? {
-                          value: 'hidden',
-                          params: {
-                              transitionParams: animating() ? transitionOptions : '0ms',
-                              height: '0',
-                              opacity: '0'
-                          }
-                      }
-                    : {
-                          value: 'visible',
-                          params: {
-                              transitionParams: animating() ? transitionOptions : '0ms',
-                              height: '*',
-                              opacity: '1'
-                          }
-                      }
-            "
-            (@panelContent.done)="onToggleDone($event)"
+            (pMotionOnAfterEnter)="onToggleDone($event)"
         >
-            <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
-                <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-            </div>
+            <div [pBind]="ptm('contentWrapper')" [class]="cx('contentWrapper')">
+                <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
+                    <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                </div>
 
-            <div [pBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
-                <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                <div [pBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
+                    <ng-content select="p-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                </div>
             </div>
         </div>
     `,
-    animations: [
-        trigger('panelContent', [
-            state(
-                'hidden',
-                style({
-                    height: '0'
-                })
-            ),
-            state(
-                'void',
-                style({
-                    height: '{{height}}'
-                }),
-                { params: { height: '0' } }
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*'
-                })
-            ),
-            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
-            transition('void => hidden', animate('{{transitionParams}}')),
-            transition('void => visible', animate('{{transitionParams}}'))
-        ])
-    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [PanelStyle, { provide: PANEL_INSTANCE, useExisting: Panel }, { provide: PARENT_INSTANCE, useExisting: Panel }],
     host: {
         '[id]': 'id',
         '[class]': "cn(cx('root'), styleClass)",
-        '[attr.data-p]': 'dataP()'
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -227,6 +190,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
     /**
      * Transition options of the animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
@@ -235,6 +199,19 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * @group Props
      */
     @Input() toggleButtonProps: any;
+
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
 
     /**
      * Emitted when the collapsed changes.
@@ -257,14 +234,12 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      */
     @Output() onAfterToggle: EventEmitter<PanelAfterToggleEvent> = new EventEmitter<PanelAfterToggleEvent>();
 
-    animating = signal<boolean>(false);
-
-    @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
+    @ContentChild(Footer) footerFacet: Nullable<TemplateRef<void>>;
     /**
      * Defines template option for header.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
     /**
      * Defines template option for icon.
      * @example
@@ -273,7 +248,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * ```
      * @group Templates
      */
-    @ContentChild('icons', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icons', { descendants: false }) iconTemplate: TemplateRef<void> | undefined;
 
     /**
      * Defines template option for content.
@@ -283,7 +258,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * ```
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<void> | undefined;
 
     /**
      * Defines template option for footer.
@@ -293,11 +268,11 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * ```
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<void> | undefined;
 
     /**
      * Defines template option for headerIcon.
-     * @type {TemplateRef<PanelHeaderIconsTemplateContext>} context - context of the template.
+     * @param {PanelHeaderIconsTemplateContext} context - context of the template.
      * @example
      * ```html
      * <ng-template #headericons let-collapsed> </ng-template>
@@ -307,15 +282,15 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      */
     @ContentChild('headericons', { descendants: false }) headerIconsTemplate: TemplateRef<PanelHeaderIconsTemplateContext> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<void> | undefined;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<void> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _headerIconsTemplate: TemplateRef<any> | undefined;
+    _headerIconsTemplate: TemplateRef<PanelHeaderIconsTemplateContext> | undefined;
 
     @ViewChild('contentWrapper') contentWrapperViewChild: ElementRef;
 
@@ -336,17 +311,10 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
     }
 
     toggle(event: MouseEvent) {
-        if (this.animating()) {
-            return false;
-        }
-
-        this.animating.set(true);
         this.onBeforeToggle.emit({ originalEvent: event, collapsed: this.collapsed });
 
-        if (this.toggleable) {
-            if (this.collapsed) this.expand();
-            else this.collapse();
-        }
+        if (this.collapsed) this.expand();
+        else this.collapse();
 
         event.preventDefault();
     }
@@ -387,9 +355,8 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
         }
     }
 
-    onToggleDone(event: any) {
-        this.animating.set(false);
-        this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
+    onToggleDone(event: MotionEvent) {
+        this.onAfterToggle.emit({ originalEvent: event as any, collapsed: this.collapsed });
     }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
@@ -424,7 +391,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
         });
     }
 
-    dataP() {
+    get dataP() {
         return this.cn({
             toggleable: this.toggleable
         });

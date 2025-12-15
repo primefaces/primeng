@@ -25,7 +25,7 @@ export class ClassNames {
      */
     classNames = input<PClassValue>(undefined, { alias: 'pClass' });
 
-    private classes = computed(() => cn(this.classNames()));
+    classes = computed(() => cn(this.classNames()));
 }
 
 @NgModule({

@@ -1,9 +1,8 @@
-import { Component, DebugElement, Input, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, DebugElement, Input, TemplateRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { Toolbar, ToolbarModule } from './toolbar';
-import { PrimeTemplate } from 'primeng/api';
 
 @Component({
     standalone: false,
@@ -187,7 +186,7 @@ describe('Toolbar', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ToolbarModule, NoopAnimationsModule],
+            imports: [ToolbarModule],
             declarations: [
                 TestBasicToolbarComponent,
                 TestTemplateToolbarComponent,
@@ -199,7 +198,8 @@ describe('Toolbar', () => {
                 TestCenterOnlyToolbarComponent,
                 TestEndOnlyToolbarComponent,
                 TestPTToolbarComponent
-            ]
+            ],
+            providers: [provideZonelessChangeDetection()]
         });
 
         fixture = TestBed.createComponent(TestBasicToolbarComponent);
@@ -237,26 +237,34 @@ describe('Toolbar', () => {
     });
 
     describe('Accessibility', () => {
-        it('should bind ariaLabelledBy attribute', () => {
+        it('should bind ariaLabelledBy attribute', async () => {
             component.ariaLabelledBy = 'my-toolbar-label';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(toolbarEl.nativeElement.getAttribute('aria-labelledby')).toBe('my-toolbar-label');
         });
 
-        it('should handle undefined ariaLabelledBy', () => {
+        it('should handle undefined ariaLabelledBy', async () => {
             component.ariaLabelledBy = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(toolbarEl.nativeElement.hasAttribute('aria-labelledby')).toBe(false);
         });
 
-        it('should update ariaLabelledBy dynamically', () => {
+        it('should update ariaLabelledBy dynamically', async () => {
             component.ariaLabelledBy = 'label-1';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(toolbarEl.nativeElement.getAttribute('aria-labelledby')).toBe('label-1');
 
             component.ariaLabelledBy = 'label-2';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(toolbarEl.nativeElement.getAttribute('aria-labelledby')).toBe('label-2');
         });
@@ -407,7 +415,7 @@ describe('Toolbar', () => {
             expect(endSection).toBeFalsy();
         });
 
-        it('should handle dynamic aria label', () => {
+        it('should handle dynamic aria label', async () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicToolbarComponent);
             const dynamicComponent = dynamicFixture.componentInstance;
             dynamicFixture.detectChanges();
@@ -416,6 +424,8 @@ describe('Toolbar', () => {
             expect(toolbar.nativeElement.getAttribute('aria-labelledby')).toBe('toolbar-label');
 
             dynamicComponent.ariaLabel = 'new-label';
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
             dynamicFixture.detectChanges();
             expect(toolbar.nativeElement.getAttribute('aria-labelledby')).toBe('new-label');
         });
@@ -445,10 +455,12 @@ describe('Toolbar', () => {
     });
 
     describe('Edge Cases', () => {
-        it('should handle toolbar without any content', () => {
+        it('should handle toolbar without any content', async () => {
             // Using existing basic component without any content except default
             const basicFixture = TestBed.createComponent(TestBasicToolbarComponent);
             basicFixture.componentInstance.ariaLabelledBy = undefined as any;
+            basicFixture.changeDetectorRef.markForCheck();
+            await basicFixture.whenStable();
             basicFixture.detectChanges();
 
             const toolbar = basicFixture.debugElement.query(By.directive(Toolbar));
@@ -681,7 +693,7 @@ describe('Toolbar', () => {
             ptComponent = ptFixture.componentInstance;
         });
 
-        it('should apply simple string classes to PT sections', fakeAsync(() => {
+        it('should apply simple string classes to PT sections', async () => {
             ptComponent.pt = {
                 root: 'ROOT_CLASS',
                 host: 'HOST_CLASS',
@@ -689,8 +701,11 @@ describe('Toolbar', () => {
                 center: 'CENTER_CLASS',
                 end: 'END_CLASS'
             };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
             ptFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
             ptFixture.detectChanges();
 
             const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
@@ -703,11 +718,9 @@ describe('Toolbar', () => {
             expect(startSection.nativeElement.className).toContain('START_CLASS');
             expect(centerSection.nativeElement.className).toContain('CENTER_CLASS');
             expect(endSection.nativeElement.className).toContain('END_CLASS');
+        });
 
-            flush();
-        }));
-
-        it('should apply object-based PT options with class and attributes', fakeAsync(() => {
+        it('should apply object-based PT options with class and attributes', async () => {
             ptComponent.pt = {
                 root: {
                     class: 'PT_ROOT_CLASS',
@@ -720,8 +733,11 @@ describe('Toolbar', () => {
                     'data-section': 'start'
                 }
             };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
             ptFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
             ptFixture.detectChanges();
 
             const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
@@ -733,11 +749,9 @@ describe('Toolbar', () => {
             expect(toolbarEl.nativeElement.getAttribute('data-role')).toBe('toolbar-role');
             expect(startSection.nativeElement.className).toContain('PT_START_CLASS');
             expect(startSection.nativeElement.getAttribute('data-section')).toBe('start');
+        });
 
-            flush();
-        }));
-
-        it('should apply mixed object and string PT values', fakeAsync(() => {
+        it('should apply mixed object and string PT values', async () => {
             ptComponent.pt = {
                 root: {
                     class: 'PT_ROOT_CLASS'
@@ -745,8 +759,11 @@ describe('Toolbar', () => {
                 host: 'PT_HOST_CLASS',
                 start: 'PT_START_STRING'
             };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
             ptFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
             ptFixture.detectChanges();
 
             const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
@@ -755,11 +772,9 @@ describe('Toolbar', () => {
             expect(toolbarEl.nativeElement.className).toContain('PT_ROOT_CLASS');
             expect(toolbarEl.nativeElement.className).toContain('PT_HOST_CLASS');
             expect(startSection.nativeElement.className).toContain('PT_START_STRING');
+        });
 
-            flush();
-        }));
-
-        it('should use instance variables in PT functions', fakeAsync(() => {
+        it('should use instance variables in PT functions', async () => {
             ptComponent.pt = {
                 root: ({ instance }) => {
                     return {
@@ -768,19 +783,20 @@ describe('Toolbar', () => {
                     };
                 }
             };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
             ptFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
             ptFixture.detectChanges();
 
             const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
             ptToolbar = ptFixture.debugElement.query(By.directive(Toolbar)).componentInstance;
 
             expect(toolbarEl.nativeElement.className).toContain('NO_ARIA');
+        });
 
-            flush();
-        }));
-
-        it('should handle event binding in PT options', fakeAsync(() => {
+        it('should handle event binding in PT options', async () => {
             let clicked = false;
             ptComponent.pt = {
                 root: {
@@ -789,22 +805,26 @@ describe('Toolbar', () => {
                     }
                 }
             };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
             ptFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
             ptFixture.detectChanges();
 
             const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
             toolbarEl.nativeElement.click();
 
             expect(clicked).toBe(true);
+        });
 
-            flush();
-        }));
-
-        it('should apply PT options using setInput', fakeAsync(() => {
+        it('should apply PT options using setInput', async () => {
             ptFixture.componentRef.setInput('pt', { root: 'SETINPUT_ROOT_CLASS', start: 'SETINPUT_START_CLASS' });
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
             ptFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
             ptFixture.detectChanges();
 
             const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
@@ -812,8 +832,6 @@ describe('Toolbar', () => {
 
             expect(toolbarEl.nativeElement.className).toContain('SETINPUT_ROOT_CLASS');
             expect(startSection.nativeElement.className).toContain('SETINPUT_START_CLASS');
-
-            flush();
-        }));
+        });
     });
 });

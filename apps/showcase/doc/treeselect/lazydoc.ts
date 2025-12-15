@@ -1,10 +1,10 @@
-import { Code } from '@/domain/code';
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { ChangeDetectorRef, Component, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TreeNode } from 'primeng/api';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
     selector: 'lazy-doc',
@@ -21,14 +21,14 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p-treeselect
                 class="w-full md:w-80"
                 [(ngModel)]="selectedNodes"
-                [loading]="loading"
                 (onNodeExpand)="onNodeExpand($event)"
-                [options]="nodes"
+                [options]="nodes()"
                 display="chip"
                 [metaKeySelection]="false"
                 selectionMode="checkbox"
                 placeholder="Select Item"
                 [loading]="loading"
+                loadingMode="icon"
             />
         </div>
         <app-code [code]="code" selector="tree-select-basic-demo"></app-code>
@@ -37,20 +37,15 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 export class LazyDoc {
     selectedNodes: TreeNode[] = [];
 
-    nodes!: TreeNode[];
+    nodes = signal<TreeNode[]>(undefined);
 
-    loading: boolean = false;
+    loading = signal<boolean>(false);
 
     constructor(private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.loading = true;
-
-        setTimeout(() => {
-            this.nodes = this.initiateNodes();
-            this.loading = false;
-            this.cd.markForCheck();
-        }, 2000);
+        this.loading.set(true);
+        this.nodes.set(this.initiateNodes());
     }
 
     initiateNodes(): TreeNode[] {
@@ -58,54 +53,57 @@ export class LazyDoc {
             {
                 key: '0',
                 label: 'Node 0',
-                leaf: false
+                leaf: false,
+                loading: false
             },
             {
                 key: '1',
                 label: 'Node 1',
-                leaf: false
+                leaf: false,
+                loading: false
             },
             {
                 key: '2',
                 label: 'Node 2',
-                leaf: false
+                leaf: false,
+                loading: false
             }
         ];
     }
 
     onNodeExpand(event: any) {
         if (!event.node.children) {
-            this.loading = true;
+            event.node.loading = true;
 
             setTimeout(() => {
+                const _nodes = this.nodes();
                 let _node = { ...event.node };
                 _node.children = [];
 
-                for (let i = 0; i < 1500; i++) {
+                for (let i = 0; i < 3; i++) {
                     _node.children.push({
                         key: event.node.key + '-' + i,
                         label: 'Lazy ' + event.node.label + '-' + i
                     });
                 }
 
-                this.nodes[parseInt(event.node.key, 10)] = _node;
-
-                this.loading = false;
-                this.cd.markForCheck();
+                const key = parseInt(_node.key, 10);
+                _nodes[key] = { ..._node, loading: false };
+                this.nodes.set([..._nodes]);
             }, 500);
         }
     }
 
     code: Code = {
-        basic: `<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [loading]="loading"/>`,
+        basic: `<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes()" (onNodeExpand)="onNodeExpand($event)" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" loadingMode="icon"/>`,
 
         html: `<div class="card flex justify-center">
-    <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [loading]="loading"/>
+    <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes()" (onNodeExpand)="onNodeExpand($event)" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" loadingMode="icon"/>
 </div>`,
 
-        typescript: `import { Component } from '@angular/core';
-import { NodeService } from '@/service/nodeservice';
+        typescript: `import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TreeNode } from 'primeng/api';
 import { TreeSelect } from 'primeng/treeselect';
 
 @Component({
@@ -113,24 +111,14 @@ import { TreeSelect } from 'primeng/treeselect';
     templateUrl: './tree-select-lazy-demo.html',
     standalone: true,
     imports: [FormsModule, TreeSelect]
-  })
+})
 export class TreeSelectLazyDemo {
     selectedNodes: TreeNode[] = [];
 
-    nodes!: TreeNode[];
-
-    loading: boolean = false;
-
-    constructor(private cd: ChangeDetectorRef) {}
+    nodes = signal<TreeNode[]>(undefined);
 
     ngOnInit() {
-        this.loading = true;
-
-        setTimeout(() => {
-            this.nodes = this.initiateNodes();
-            this.loading = false;
-            this.cd.markForCheck();
-        }, 2000);
+        this.nodes.set(this.initiateNodes());
     }
 
     initiateNodes(): TreeNode[] {
@@ -138,73 +126,53 @@ export class TreeSelectLazyDemo {
             {
                 key: '0',
                 label: 'Node 0',
-                leaf: false
+                leaf: false,
+                loading: false
             },
             {
                 key: '1',
                 label: 'Node 1',
-                leaf: false
+                leaf: false,
+                loading: false
             },
             {
                 key: '2',
                 label: 'Node 2',
-                leaf: false
+                leaf: false,
+                loading: false
             }
         ];
     }
 
     onNodeExpand(event: any) {
         if (!event.node.children) {
-            this.loading = true;
+            event.node.loading = true;
 
             setTimeout(() => {
+                const _nodes = this.nodes();
                 let _node = { ...event.node };
                 _node.children = [];
 
-                for (let i = 0; i < 150; i++) {
+                for (let i = 0; i < 3; i++) {
                     _node.children.push({
                         key: event.node.key + '-' + i,
                         label: 'Lazy ' + event.node.label + '-' + i
                     });
                 }
 
-                this.nodes[parseInt(event.node.key, 10)] = _node;
-
-                this.loading = false;
-                this.cd.markForCheck();
+                const key = parseInt(_node.key, 10);
+                _nodes[key] = { ..._node, loading: false };
+                this.nodes.set([..._nodes]);
             }, 500);
         }
     }
 }`,
 
-        service: ['NodeService'],
-
-        data: `
-    /* NodeService */
-{
+        data: `{
     key: '0',
-    label: 'Documents',
-    data: 'Documents Folder',
-    icon: 'pi pi-fw pi-inbox',
-    children: [
-        {
-            key: '0-0',
-            label: 'Work',
-            data: 'Work Folder',
-            icon: 'pi pi-fw pi-cog',
-            children: [
-                { key: '0-0-0', label: 'Expenses.doc', icon: 'pi pi-fw pi-file', data: 'Expenses Document' },
-                { key: '0-0-1', label: 'Resume.doc', icon: 'pi pi-fw pi-file', data: 'Resume Document' }
-            ]
-        },
-        {
-            key: '0-1',
-            label: 'Home',
-            data: 'Home Folder',
-            icon: 'pi pi-fw pi-home',
-            children: [{ key: '0-1-0', label: 'Invoices.txt', icon: 'pi pi-fw pi-file', data: 'Invoices for this month' }]
-        }
-    ]
+    label: 'Node 0',
+    leaf: false,
+    loading: false
 },
 ...`
     };

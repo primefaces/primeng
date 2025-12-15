@@ -1,17 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as panel_style } from '@primeuix/styles/panel';
+import { style } from '@primeuix/styles/panel';
 import { BaseStyle } from 'primeng/base';
-
-const style = /*css*/ `
-    ${panel_style}
-
-    /* For PrimeNG */
-    .p-panel-collapsed .p-panel-content-container,
-    .p-panel-content-container.ng-animating {
-        overflow: hidden !important;
-    }
-
-`;
 
 const classes = {
     root: ({ instance }) => [
@@ -34,6 +23,7 @@ const classes = {
     ],
     pcToggleButton: 'p-panel-toggle-button',
     contentContainer: 'p-panel-content-container',
+    contentWrapper: 'p-panel-content-wrapper',
     content: 'p-panel-content',
     footer: 'p-panel-footer'
 };
@@ -80,6 +70,10 @@ export enum PanelClasses {
      * Class name of the content container element
      */
     contentContainer = 'p-panel-content-container',
+    /**
+     * Class name of the content wrapper element
+     */
+    contentWrapper = 'p-panel-content-wrapper',
     /**
      * Class name of the content element
      */

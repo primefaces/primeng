@@ -1,7 +1,5 @@
 import { AccessibilityDoc } from '@/doc/avatar/accessibilitydoc';
 import { GroupDoc } from '@/doc/avatar/avatargroupdoc';
-import { AvatarGroupStyleDoc } from '@/doc/avatar/avatargroupstyledoc';
-import { AvatarStyleDoc } from '@/doc/avatar/avatarstyledoc';
 import { BadgeDoc } from '@/doc/avatar/badgedoc';
 import { IconDoc } from '@/doc/avatar/icondoc';
 import { ImageDoc } from '@/doc/avatar/imagedoc';
@@ -74,16 +72,6 @@ export class AvatarDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
-        },
-        {
-            id: 'style',
-            label: 'Style',
-            component: AvatarStyleDoc
-        },
-        {
-            id: 'avatargroup-style',
-            label: 'AvatarGroup Style',
-            component: AvatarGroupStyleDoc
         },
         {
             id: 'accessibility',

@@ -21,12 +21,13 @@ import {
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { find, findSingle, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
+import { Badge } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
-import { DockPassThrough } from 'primeng/types/dock';
+import { DockItemTemplateContext, DockPassThrough } from 'primeng/types/dock';
 import { DockStyle } from './style/dockstyle';
 
 const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
@@ -38,7 +39,7 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
 @Component({
     selector: 'p-dock',
     standalone: true,
-    imports: [CommonModule, RouterModule, RouterLink, RouterLinkActive, Ripple, TooltipModule, SharedModule, Bind],
+    imports: [CommonModule, RouterModule, RouterLink, RouterLinkActive, Ripple, TooltipModule, SharedModule, Bind, Badge],
     template: `
         <div [class]="cx('listContainer')" [pBind]="ptm('listContainer')">
             <ul
@@ -62,6 +63,7 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
                         *ngIf="item.visible !== false"
                         [attr.id]="getItemId(item, i)"
                         [class]="cn(cx('item', { item, id: getItemId(item, i) }), item?.styleClass)"
+                        [ngStyle]="item.style"
                         role="menuitem"
                         [attr.aria-label]="item.label"
                         [attr.aria-disabled]="disabled(item) || false"
@@ -77,13 +79,17 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
                                 pRipple
                                 [routerLink]="item.routerLink"
                                 [queryParams]="item.queryParams"
-                                [class]="cx('itemLink')"
+                                [class]="cn(cx('itemLink'), item?.linkClass)"
+                                [ngStyle]="item?.linkStyle"
                                 routerLinkActive="router-link-active"
                                 [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
                                 [target]="item.target"
+                                [attr.title]="item.title"
+                                [attr.data-automationid]="item.automationId"
                                 [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
                                 pTooltip
                                 [tooltipOptions]="item.tooltipOptions"
+                                [pTooltipUnstyled]="unstyled()"
                                 [fragment]="item.fragment"
                                 [queryParamsHandling]="item.queryParamsHandling"
                                 [preserveFragment]="item.preserveFragment"
@@ -93,24 +99,30 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
                                 [attr.aria-hidden]="true"
                                 [pBind]="getPTOptions(item, i, 'itemLink')"
                             >
-                                <span [class]="cn(cx('itemIcon'), item.icon)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle" [pBind]="getPTOptions(item, i, 'itemIcon')"></span>
+                                <span [class]="cn(cx('itemIcon'), item.icon, item.iconClass)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle" [pBind]="getPTOptions(item, i, 'itemIcon')"></span>
                                 <ng-container *ngTemplateOutlet="itemTemplate || itemTemplate; context: { $implicit: item }"></ng-container>
+                                <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" [pt]="getPTOptions(item, i, 'pcBadge')" [unstyled]="unstyled()" />
                             </a>
                             <ng-template #elseBlock>
                                 <a
                                     [tooltipPosition]="item.tooltipPosition"
                                     [attr.href]="item.url || null"
-                                    [class]="cx('itemLink')"
+                                    [class]="cn(cx('itemLink'), item?.linkClass)"
+                                    [ngStyle]="item?.linkStyle"
                                     pRipple
                                     pTooltip
                                     [tooltipOptions]="item.tooltipOptions"
+                                    [pTooltipUnstyled]="unstyled()"
                                     [target]="item.target"
+                                    [attr.title]="item.title"
+                                    [attr.data-automationid]="item.automationId"
                                     [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
                                     [attr.aria-hidden]="true"
                                     [pBind]="getPTOptions(item, i, 'itemLink')"
                                 >
-                                    <span [class]="cn(cx('itemIcon'), item.icon)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle" [pBind]="getPTOptions(item, i, 'itemIcon')"></span>
+                                    <span [class]="cn(cx('itemIcon'), item.icon, item.iconClass)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle" [pBind]="getPTOptions(item, i, 'itemIcon')"></span>
                                     <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
+                                    <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" [pt]="getPTOptions(item, i, 'pcBadge')" [unstyled]="unstyled()" />
                                 </a>
                             </ng-template>
                         </div>
@@ -123,8 +135,7 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     providers: [DockStyle, { provide: DOCK_INSTANCE, useExisting: Dock }, { provide: PARENT_INSTANCE, useExisting: Dock }],
     host: {
-        '[class]': 'cn(cx("root"), styleClass)',
-        'data-pc-name': 'dock'
+        '[class]': 'cn(cx("root"), styleClass)'
     },
     hostDirectives: [Bind]
 })
@@ -221,9 +232,14 @@ export class Dock extends BaseComponent<DockPassThrough> {
         this.unbindMatchMediaListener();
     }
 
-    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom item template.
+     * @param {DockItemTemplateContext} context - item template context.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<DockItemTemplateContext> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<DockItemTemplateContext> | undefined;
 
     getItemId(item, index) {
         return item && item?.id ? item.id : `${index}`;

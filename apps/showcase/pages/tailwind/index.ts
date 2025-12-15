@@ -11,7 +11,7 @@ import { DarkModeDoc } from '@/doc/tailwind/darkmodedoc';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Tailwind CSS - PrimeNG" header="Tailwind CSS" description="Integration between PrimeNG and Tailwind CSS." [docs]="docs"></app-doc>`,
+    template: `<app-doc docTitle="Tailwind CSS - PrimeNG" header="Tailwind CSS" description="Integration between PrimeNG and Tailwind CSS." [docs]="docs" docType="page"></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })

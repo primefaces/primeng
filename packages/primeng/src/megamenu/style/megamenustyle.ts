@@ -10,7 +10,7 @@ const classes = {
     root: ({ instance }) => [
         'p-megamenu p-component',
         {
-            'p-megamenu-mobile': instance.queryMatches,
+            'p-megamenu-mobile': instance.queryMatches(),
             'p-megamenu-mobile-active': instance.mobileActive,
             'p-megamenu-horizontal': instance.orientation === 'horizontal',
             'p-megamenu-vertical': instance.orientation === 'vertical'
@@ -46,7 +46,7 @@ const classes = {
         let length = instance.isItemGroup(processedItem) ? processedItem.items.length : 0;
         let columnClass;
 
-        if (instance.megaMenu.queryMatches) columnClass = 'p-megamenu-col-12';
+        if (instance.megaMenu.queryMatches()) columnClass = 'p-megamenu-col-12';
         else {
             switch (length) {
                 case 2:

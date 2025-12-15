@@ -1,12 +1,12 @@
-import { Code } from '@/domain/code';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MenuItem } from 'primeng/api';
-import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { BadgeModule } from 'primeng/badge';
-import { Ripple } from 'primeng/ripple';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
+import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
+import { Ripple } from 'primeng/ripple';
 @Component({
     selector: 'context-menu-template-demo',
     standalone: true,
@@ -16,7 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>ContextMenu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter.</p>
         </app-docsectiontext>
         <div class="card flex md:justify-center">
-            <ul class="m-0 p-0 list-none border border-surface-200 dark:border-surface-700 rounded p-4 flex flex-col gap-2 w-full md:w-[30rem]">
+            <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded p-4 flex flex-col gap-2 w-full md:w-[30rem]">
                 <li
                     *ngFor="let product of data"
                     class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
@@ -39,12 +39,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
             <p-contextmenu #cm [model]="items" (onHide)="onHide()">
                 <ng-template #item let-item>
-                    <a pRipple class="flex items-center p-contextmenu-item-link">
+                    <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
                         <span [class]="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-                        <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
+                        <span class="ms-2">{{ item.label }}</span>
+                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                        <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        <i *ngIf="item.items" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
                     </a>
                 </ng-template>
             </p-contextmenu>
@@ -190,18 +190,18 @@ export class TemplateDoc implements OnInit {
 
 <p-contextmenu #cm [model]="items" (onHide)="onHide()">
     <ng-template #item let-item>
-        <a pRipple class="flex items-center p-contextmenu-item-link">
+        <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
             <span [class]="item.icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-            <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
+            <span class="ms-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+            <i *ngIf="item.items" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
         </a>
     </ng-template>
 </p-contextmenu>`,
 
         html: `<div class="card flex md:justify-center">
-    <ul class="m-0 p-0 list-none border border-surface-200 dark:border-surface-700 rounded p-4 flex flex-col gap-2 w-full md:w-[30rem]">
+    <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded p-4 flex flex-col gap-2 w-full md:w-[30rem]">
             <li
                 *ngFor="let product of data"
                 class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
@@ -224,12 +224,12 @@ export class TemplateDoc implements OnInit {
 
     <p-contextmenu #cm [model]="items" (onHide)="onHide()">
         <ng-template #item let-item>
-            <a pRipple class="flex items-center p-contextmenu-item-link">
+            <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
                 <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-                <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-                <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
+                <span class="ms-2">{{ item.label }}</span>
+                <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                <i *ngIf="item.items" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
             </a>
         </ng-template>
     </p-contextmenu>

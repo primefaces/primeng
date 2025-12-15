@@ -1,9 +1,9 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { StyleClassModule } from 'primeng/styleclass';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { StyleClassModule } from 'primeng/styleclass';
 
 @Component({
     selector: 'hide-on-resize-doc',
@@ -17,7 +17,7 @@ import { ButtonModule } from 'primeng/button';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex justify-center">
+            <div class="flex flex-wrap justify-center gap-4">
                 <div class="flex flex-col items-center gap-4 w-[25rem]">
                     <p-button
                         pStyleClass=".window-responsive-box"
@@ -65,7 +65,7 @@ import { ButtonModule } from 'primeng/button';
 })
 export class HideOnResizeDoc {
     code: Code = {
-        basic: `<div class="flex justify-center">
+        basic: `<div class="flex flex-wrap justify-center gap-4">
     <div class="flex flex-col items-center gap-4 w-[25rem]">
         <p-button pStyleClass=".window-responsive-box" enterFromClass="hidden" enterActiveClass="animate-fadein" leaveActiveClass="animate-fadeout" leaveToClass="hidden" [hideOnResize]="true" label="Show Window Responsive Content" />
         <div class="window-responsive-box hidden animate-duration-300 border border-lg border-surface">
@@ -99,7 +99,7 @@ export class HideOnResizeDoc {
     </div>
 </div>`,
         html: `<div class="card">
-    <div class="flex justify-center">
+    <div class="flex flex-wrap justify-center gap-4">
         <div class="flex flex-col items-center gap-4 w-[25rem]">
             <p-button pStyleClass=".window-responsive-box" enterFromClass="hidden" enterActiveClass="animate-fadein" leaveActiveClass="animate-fadeout" leaveToClass="hidden" [hideOnResize]="true" resizeSelector="window" label="Show Window Responsive Content" />
             <div class="window-responsive-box hidden animate-duration-300 border border-lg border-surface">

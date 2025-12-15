@@ -7,6 +7,8 @@ import { TableModule } from 'primeng/table';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { RatingModule } from 'primeng/rating';
+import { TagModule } from 'primeng/tag';
 
 interface Column {
     field: string;
@@ -16,7 +18,7 @@ interface Column {
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo, RatingModule, TagModule],
     template: ` <app-docsectiontext>
             <p>Custom content at <i>header</i>, <i>body</i> and <i>footer</i> sections are supported via templating.</p>
         </app-docsectiontext>

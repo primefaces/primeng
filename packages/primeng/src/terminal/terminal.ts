@@ -92,7 +92,7 @@ export class Terminal extends BaseComponent<TerminalPassThrough> implements Afte
     }
 
     onAfterViewInit() {
-        this.container = find(this.el.nativeElement, '.p-terminal')[0];
+        this.container = this.el.nativeElement;
     }
 
     onAfterViewChecked() {

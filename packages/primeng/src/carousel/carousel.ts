@@ -19,13 +19,13 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { find, findSingle, getAttribute, setAttribute, uuid } from '@primeuix/utils';
+import { addClass, find, findSingle, getAttribute, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ButtonModule, ButtonProps } from 'primeng/button';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from 'primeng/icons';
-import { CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types/carousel';
+import { CarouselItemTemplateContext, CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types/carousel';
 import { CarouselStyle } from './style/carouselstyle';
 
 /**
@@ -51,6 +51,7 @@ import { CarouselStyle } from './style/carouselstyle';
                     [text]="true"
                     [buttonProps]="prevButtonProps"
                     [pt]="ptm('pcPrevButton')"
+                    [unstyled]="unstyled()"
                     attr.data-pc-group-section="navigator"
                 >
                     <ng-template #icon>
@@ -113,6 +114,7 @@ import { CarouselStyle } from './style/carouselstyle';
                     [buttonProps]="nextButtonProps"
                     [text]="true"
                     [pt]="ptm('pcNextButton')"
+                    [unstyled]="unstyled()"
                     attr.data-pc-group-section="navigator"
                 >
                     <ng-template #icon>
@@ -381,44 +383,44 @@ export class Carousel extends BaseComponent {
     swipeThreshold: number = 20;
 
     /**
-     * Template for carousel items.
+     * Custom item template.
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<CarouselItemTemplateContext> | undefined;
 
     /**
-     * Template for the carousel header.
+     * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Template for the carousel footer.
+     * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Template for the previous button icon.
+     * Custom previous icon template.
      * @group Templates
      */
-    @ContentChild('previousicon', { descendants: false }) previousIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('previousicon', { descendants: false }) previousIconTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Template for the next button icon.
+     * Custom next icon template.
      * @group Templates
      */
-    @ContentChild('nexticon', { descendants: false }) nextIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('nexticon', { descendants: false }) nextIconTemplate: TemplateRef<void> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<CarouselItemTemplateContext> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _previousIconTemplate: TemplateRef<any> | undefined;
+    _previousIconTemplate: TemplateRef<void> | undefined;
 
-    _nextIconTemplate: TemplateRef<any> | undefined;
+    _nextIconTemplate: TemplateRef<void> | undefined;
 
     window: Window;
 
@@ -605,7 +607,7 @@ export class Carousel extends BaseComponent {
 			}
         `;
 
-        if (this.responsiveOptions) {
+        if (this.responsiveOptions && !this.$unstyled()) {
             this.responsiveOptions.sort((data1, data2) => {
                 const value1 = data1.breakpoint;
                 const value2 = data2.breakpoint;
@@ -873,6 +875,7 @@ export class Carousel extends BaseComponent {
         }
 
         if (this.itemsContainer) {
+            !this.$unstyled() && removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
             this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
@@ -916,6 +919,7 @@ export class Carousel extends BaseComponent {
 
     onTransitionEnd() {
         if (this.itemsContainer) {
+            !this.$unstyled() && addClass(this.itemsContainer.nativeElement, 'p-items-hidden');
             this.itemsContainer.nativeElement.style.transition = '';
 
             if ((this.page === 0 || this.page === this.totalDots() - 1) && this.isCircular()) {

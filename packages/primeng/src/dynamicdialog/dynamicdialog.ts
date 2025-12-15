@@ -54,8 +54,9 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
             (onResizeInit)="onDialogResizeInit($event)"
             (onResizeEnd)="onDialogResizeEnd($event)"
             (onDragEnd)="onDialogDragEnd($event)"
-            [pt]="ptm('pcDialog')"
+            [pt]="ddconfig.pt"
             hostName="DynamicDialog"
+            [unstyled]="isUnstyled"
         >
             <ng-template #header *ngIf="headerTemplate">
                 <ng-container *ngComponentOutlet="headerTemplate"></ng-container>
@@ -192,6 +193,10 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
 
     get dialogId() {
         return this.$attrSelector;
+    }
+
+    get isUnstyled() {
+        return this.ddconfig.unstyled || this.$unstyled();
     }
 
     maximized: boolean | undefined;

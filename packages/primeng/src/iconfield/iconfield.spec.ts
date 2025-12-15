@@ -1,5 +1,5 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { IconField } from './iconfield';
@@ -57,7 +57,8 @@ describe('IconField', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicIconFieldComponent]
+                imports: [TestBasicIconFieldComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicIconFieldComponent);
@@ -92,7 +93,8 @@ describe('IconField', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestPositionIconFieldComponent]
+                imports: [TestPositionIconFieldComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestPositionIconFieldComponent);
@@ -105,24 +107,27 @@ describe('IconField', () => {
             expect(iconFieldInstance.iconPosition).toBe('left');
         });
 
-        it('should apply iconPosition "right"', () => {
+        it('should apply iconPosition "right"', async () => {
             component.position = 'right';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(iconFieldInstance.iconPosition).toBe('right');
         });
 
-        it('should have correct position classes', () => {
+        it('should have correct position classes', async () => {
             const iconFieldElement = fixture.debugElement.query(By.directive(IconField));
 
             // Test 'left' position (default)
             component.position = 'left';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(iconFieldElement.nativeElement.classList.contains('p-iconfield-left')).toBe(true);
 
             // Test 'right' position
             component.position = 'right';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(iconFieldElement.nativeElement.classList.contains('p-iconfield-right')).toBe(true);
         });
     });
@@ -134,7 +139,8 @@ describe('IconField', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestStyledIconFieldComponent]
+                imports: [TestStyledIconFieldComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestStyledIconFieldComponent);
@@ -150,9 +156,10 @@ describe('IconField', () => {
             expect(iconFieldElement.nativeElement.classList.contains('custom-icon-field')).toBe(true);
         });
 
-        it('should update styleClass dynamically', () => {
+        it('should update styleClass dynamically', async () => {
             component.customClass = 'new-custom-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(iconFieldInstance.styleClass).toBe('new-custom-class');
 
@@ -167,7 +174,8 @@ describe('IconField', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicIconFieldComponent]
+                imports: [TestBasicIconFieldComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicIconFieldComponent);
@@ -180,14 +188,14 @@ describe('IconField', () => {
             expect(inputElement.nativeElement.value).toBe('' as any);
         });
 
-        it('should update input value when model changes', fakeAsync(() => {
+        it('should update input value when model changes', async () => {
             component.value = 'search term';
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
             expect(inputElement.nativeElement.value).toBe('search term');
-        }));
+        });
 
         it('should handle multiple input types', () => {
             // This is tested in the styled component which uses email type
@@ -207,7 +215,8 @@ describe('IconField PassThrough Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [IconField, FormsModule]
+            imports: [IconField, FormsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(IconField);
@@ -249,14 +258,15 @@ describe('IconField PassThrough Tests', () => {
     });
 
     describe('PT Case 3: Instance variables', () => {
-        it('should access instance variables in PT function', () => {
+        it('should access instance variables in PT function', async () => {
             component.iconPosition = 'right';
             fixture.componentRef.setInput('pt', {
                 root: ({ instance }: any) => ({
                     class: instance?.iconPosition === 'right' ? 'ICON_RIGHT' : ''
                 })
             });
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(hostElement.classList.contains('ICON_RIGHT')).toBe(true);
         });
@@ -286,6 +296,7 @@ describe('IconField PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [IconField, FormsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             iconField: {
@@ -313,6 +324,7 @@ describe('IconField PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [IconField, FormsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             iconField: {

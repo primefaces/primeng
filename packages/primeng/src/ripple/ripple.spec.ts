@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Ripple } from './ripple';
@@ -56,7 +56,8 @@ describe('Ripple', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestBasicRippleComponent, TestStyledRippleComponent, TestMultipleRippleComponent, TestNestedRippleComponent, TestCustomStyledComponent],
-            imports: [Ripple]
+            imports: [Ripple],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicRippleComponent);
