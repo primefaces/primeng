@@ -12,9 +12,7 @@ import { Component } from '@angular/core';
             <p>Edit <i>~/.codeium/windsurf/mcp_config.json</i> to add the PrimeNG MCP server.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-        <p class="doc-section-description">
-            See <a href="https://docs.windsurf.com/windsurf/cascade/mcp" class="font-medium hover:underline text-primary" target="_blank" rel="noopener noreferrer">Windsurf MCP Documentation</a> for more details.
-        </p>
+        <p class="doc-section-description">See <a href="https://docs.windsurf.com/windsurf/cascade/mcp" class="font-medium hover:underline text-primary" target="_blank" rel="noopener noreferrer">Windsurf MCP Documentation</a> for more details.</p>
     `
 })
 export class WindsurfDoc {

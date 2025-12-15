@@ -1,5 +1,4 @@
 import { IntroductionDoc } from '@/doc/mcp/introductiondoc';
-import { QuickStartDoc } from '@/doc/mcp/quickstartdoc';
 import { ClaudeCodeDoc } from '@/doc/mcp/claudecodedoc';
 import { VSCodeDoc } from '@/doc/mcp/vscodedoc';
 import { OpenAICodexDoc } from '@/doc/mcp/openaicodexdoc';
@@ -15,7 +14,15 @@ import { AppDoc } from '@/components/doc/app.doc';
     selector: 'mcp-demo',
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="MCP Server - PrimeNG" header="MCP Server" description="Model Context Protocol (MCP) server for PrimeNG component library. Provides AI assistants with comprehensive access to PrimeNG component documentation." [docs]="docs" docType="page"></app-doc> `
+    template: `
+        <app-doc
+            docTitle="MCP Server - PrimeNG"
+            header="MCP Server"
+            description="Model Context Protocol (MCP) server for PrimeNG component library. Provides AI assistants with comprehensive access to PrimeNG component documentation."
+            [docs]="docs"
+            docType="page"
+        ></app-doc>
+    `
 })
 export class MCPDemo {
     docs = [
@@ -23,11 +30,6 @@ export class MCPDemo {
             id: 'introduction',
             label: 'Introduction',
             component: IntroductionDoc
-        },
-        {
-            id: 'quickstart',
-            label: 'Quick Start',
-            component: QuickStartDoc
         },
         {
             id: 'installation',
