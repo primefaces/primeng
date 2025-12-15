@@ -1,6 +1,6 @@
 {
-    "id": 93,
-    "content": "PrimeNG v21.0.0 has landed 🎉",
+    "id": 94,
+    "content": "Introducing PrimeNG MCP Server ✨",
     "linkText": "Learn More",
-    "routerLink": "/migration/v21"
+    "routerLink": "/mcp"
 }
