@@ -135,4 +135,5 @@ export interface Aria {
     removeLabel?: string;
     browseFiles?: string;
     maximizeLabel?: string;
+    minimizeLabel?: string;
 }

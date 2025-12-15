@@ -1,13 +1,24 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { RatingModule } from 'primeng/rating';
+import { RippleModule } from 'primeng/ripple';
+import { TableModule, TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'row-expansion-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TableModule, ToastModule, ButtonModule, FormsModule, RippleModule, AppDocSectionText, AppCode, DeferredDemo, CommonModule, RatingModule, TagModule],
     template: ` <app-docsectiontext>
             <p>
                 Row expansion allows displaying detailed content for a particular row. To use this feature, define a <i>dataKey</i>, add a template named <i>expandedrow</i> and use the <i>pRowToggler</i> directive on an element as the target to
@@ -47,7 +58,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                             <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td>
-                                <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" />
+                                <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
                             </td>
                             <td>
                                 <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
@@ -383,6 +394,7 @@ import { Product } from '@/domain/product';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ProductService } from '@/service/productservice';
 import { MessageService } from 'primeng/api';
@@ -393,7 +405,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
     selector: 'table-row-expansion-demo',
     templateUrl: 'table-row-expansion-demo.html',
     standalone: true,
-    imports: [TableModule, TagModule, ToastModule, RatingModule, ButtonModule, CommonModule],
+    imports: [TableModule, TagModule, ToastModule, RatingModule, ButtonModule, FormsModule, CommonModule],
     providers: [ProductService, MessageService]
 })
 export class TableRowExpansionDemo implements OnInit{

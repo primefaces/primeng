@@ -1,17 +1,11 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/panelmenu';
+import { style as panelmenu_style } from '@primeuix/styles/panelmenu';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${panelmenu_style}
     /*For PrimeNG*/
-    .p-panelmenu-item:not(.ng-animating) {
-        overflow: hidden;
-    }
 
-    .p-panelmenu-panel {
-        overflow: hidden;
-    }
 
     .p-panelmenu-root-list,
     .p-panelmenu-submenu,
@@ -35,6 +29,7 @@ const classes = {
     headerIcon: 'p-panelmenu-header-icon',
     headerLabel: 'p-panelmenu-header-label',
     contentContainer: ({ instance, processedItem }) => ['p-panelmenu-content-container', { 'p-panelmenu-expanded': instance.isItemActive(processedItem) }],
+    contentWrapper: 'p-panelmenu-content-wrapper',
     content: 'p-panelmenu-content',
     rootList: 'p-panelmenu-root-list',
     item: ({ instance, processedItem }) => [
@@ -58,7 +53,7 @@ const classes = {
 export class PanelMenuStyle extends BaseStyle {
     name = 'panelmenu';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

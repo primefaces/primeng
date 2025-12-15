@@ -1,5 +1,9 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface City {
     name: string;
@@ -8,7 +12,8 @@ interface City {
 
 @Component({
     selector: 'chips-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Selected values are displayed as a comma separated list by default, setting <i>display</i> as <i>chip</i> displays them as chips.</p>

@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
+import { SkeletonPassThrough } from 'primeng/types/skeleton';
 import { SkeletonStyle } from './style/skeletonstyle';
+
+const SKELETON_INSTANCE = new InjectionToken<Skeleton>('SKELETON_INSTANCE');
 
 /**
  * Skeleton is a placeholder to display instead of the actual content.
@@ -15,16 +19,24 @@ import { SkeletonStyle } from './style/skeletonstyle';
     template: ``,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [SkeletonStyle],
+    providers: [SkeletonStyle, { provide: SKELETON_INSTANCE, useExisting: Skeleton }, { provide: PARENT_INSTANCE, useExisting: Skeleton }],
     host: {
         '[attr.aria-hidden]': 'true',
-        '[attr.data-pc-name]': "'skeleton'",
-        '[attr.data-pc-section]': "'root'",
         '[class]': "cn(cx('root'), styleClass)",
-        '[style]': 'containerStyle'
-    }
+        '[style]': 'containerStyle',
+        '[attr.data-p]': 'dataP'
+    },
+    hostDirectives: [Bind]
 })
-export class Skeleton extends BaseComponent {
+export class Skeleton extends BaseComponent<SkeletonPassThrough> {
+    $pcSkeleton: Skeleton | undefined = inject(SKELETON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Class of the element.
      * @deprecated since v20.0.0, use `class` instead.
@@ -67,10 +79,18 @@ export class Skeleton extends BaseComponent {
     get containerStyle() {
         const inlineStyles = this._componentStyle?.inlineStyles['root'];
         let style;
-        if (this.size) style = { ...inlineStyles, width: this.size, height: this.size, borderRadius: this.borderRadius };
-        else style = { ...inlineStyles, width: this.width, height: this.height, borderRadius: this.borderRadius };
+        if (!this.$unstyled()) {
+            if (this.size) style = { ...inlineStyles, width: this.size, height: this.size, borderRadius: this.borderRadius };
+            else style = { ...inlineStyles, width: this.width, height: this.height, borderRadius: this.borderRadius };
+        }
 
         return style;
+    }
+
+    get dataP() {
+        return this.cn({
+            [this.shape]: this.shape
+        });
     }
 }
 

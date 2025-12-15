@@ -1,9 +1,12 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'fontawesome-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p><a href="https://fontawesome.com/">Font Awesome</a> is a popular icon library with a wide range of icons.</p>

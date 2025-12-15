@@ -1,17 +1,23 @@
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { OrderListModule } from 'primeng/orderlist';
 
 @Component({
     selector: 'filter-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, OrderListModule, AppCodeModule, AppDocSectionText],
+    providers: [ProductService],
     template: `
         <app-docsectiontext>
             <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property</p>
         </app-docsectiontext>
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+            <p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -62,7 +68,7 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+        basic: `<p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img
@@ -88,7 +94,7 @@ export class FilterDoc implements OnInit {
 </p-orderlist>`,
 
         html: `<div class="card sm:flex sm:justify-center">
-    <p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+    <p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
         <ng-template let-option let-selected="selected" #item>
             <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                 <img

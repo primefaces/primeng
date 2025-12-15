@@ -1,7 +1,5 @@
-import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
     ChangeDetectionStrategy,
     Component,
     computed,
@@ -10,28 +8,32 @@ import {
     ElementRef,
     EventEmitter,
     inject,
+    InjectionToken,
     input,
     Input,
     NgModule,
     NgZone,
-    OnDestroy,
     Output,
     QueryList,
+    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, focus, getTargetElement, isTouchDevice, removeClass } from '@primeuix/utils';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
+import { absolutePosition, addClass, appendChild, focus, getOuterWidth, getTargetElement, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
 import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { MotionModule } from 'primeng/motion';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
+import { OverlayContentTemplateContext } from 'primeng/types/overlay';
 import { OverlayStyle } from './style/overlaystyle';
 
-const showOverlayContentAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{showTransitionParams}}')]);
+const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
 
-const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 /**
  * This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.
  * @group Components
@@ -39,61 +41,43 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
 @Component({
     selector: 'p-overlay',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, Bind, MotionModule],
+    hostDirectives: [Bind],
     template: `
-        <div
-            *ngIf="modalVisible"
-            #overlay
-            [ngStyle]="style"
-            [class]="styleClass"
-            [ngClass]="{
-                'p-overlay p-component': true,
-                'p-overlay-modal p-overlay-mask p-overlay-mask-enter': modal,
-                'p-overlay-center': modal && overlayResponsiveDirection === 'center',
-                'p-overlay-top': modal && overlayResponsiveDirection === 'top',
-                'p-overlay-top-start': modal && overlayResponsiveDirection === 'top-start',
-                'p-overlay-top-end': modal && overlayResponsiveDirection === 'top-end',
-                'p-overlay-bottom': modal && overlayResponsiveDirection === 'bottom',
-                'p-overlay-bottom-start': modal && overlayResponsiveDirection === 'bottom-start',
-                'p-overlay-bottom-end': modal && overlayResponsiveDirection === 'bottom-end',
-                'p-overlay-left': modal && overlayResponsiveDirection === 'left',
-                'p-overlay-left-start': modal && overlayResponsiveDirection === 'left-start',
-                'p-overlay-left-end': modal && overlayResponsiveDirection === 'left-end',
-                'p-overlay-right': modal && overlayResponsiveDirection === 'right',
-                'p-overlay-right-start': modal && overlayResponsiveDirection === 'right-start',
-                'p-overlay-right-end': modal && overlayResponsiveDirection === 'right-end'
-            }"
-            (click)="onOverlayClick()"
-        >
-            <div
-                *ngIf="visible"
-                #content
-                [ngStyle]="contentStyle"
-                [class]="contentStyleClass"
-                [ngClass]="'p-overlay-content'"
-                (click)="onOverlayContentClick($event)"
-                [@overlayContentAnimation]="{
-                    value: 'visible',
-                    params: {
-                        showTransitionParams: showTransitionOptions,
-                        hideTransitionParams: hideTransitionOptions,
-                        transform: transformOptions[modal ? overlayResponsiveDirection : 'default']
-                    }
-                }"
-                (@overlayContentAnimation.start)="onOverlayContentAnimationStart($event)"
-                (@overlayContentAnimation.done)="onOverlayContentAnimationDone($event)"
-            >
-                <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: overlayMode } }"></ng-container>
+        @if (inline()) {
+            <ng-content></ng-content>
+            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: null } }"></ng-container>
+        } @else {
+            <div *ngIf="modalVisible" #overlay [class]="cn(cx('root'), styleClass)" [style]="sx('root')" [pBind]="ptm('root')" (click)="onOverlayClick()">
+                <p-motion
+                    [visible]="visible"
+                    name="p-anchored-overlay"
+                    [appear]="true"
+                    [options]="computedMotionOptions()"
+                    (onBeforeEnter)="onOverlayBeforeEnter($event)"
+                    (onEnter)="onOverlayEnter($event)"
+                    (onAfterEnter)="onOverlayAfterEnter($event)"
+                    (onBeforeLeave)="onOverlayBeforeLeave($event)"
+                    (onLeave)="onOverlayLeave($event)"
+                    (onAfterLeave)="onOverlayAfterLeave($event)"
+                >
+                    <div #content [class]="cn(cx('content'), contentStyleClass)" [pBind]="ptm('content')" (click)="onOverlayContentClick($event)">
+                        <ng-content></ng-content>
+                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: overlayMode } }"></ng-container>
+                    </div>
+                </p-motion>
             </div>
-        </div>
+        }
     `,
-    animations: [trigger('overlayContentAnimation', [transition(':enter', [useAnimation(showOverlayContentAnimation)]), transition(':leave', [useAnimation(hideOverlayContentAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [OverlayStyle]
+    providers: [OverlayStyle, { provide: OVERLAY_INSTANCE, useExisting: Overlay }, { provide: PARENT_INSTANCE, useExisting: Overlay }]
 })
-export class Overlay extends BaseComponent implements AfterContentInit, OnDestroy {
+export class Overlay extends BaseComponent {
+    $pcOverlay: Overlay | undefined = inject(OVERLAY_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    @Input() hostName: string = '';
+
     /**
      * The visible property is an input that determines the visibility of the component.
      * @defaultValue false
@@ -204,6 +188,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
      * Transition options of the show or hide animation.
      * @defaultValue .12s cubic-bezier(0, 0, 0.2, 1)
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() get showTransitionOptions(): string {
         const value = this._showTransitionOptions || this.overlayOptions?.showTransitionOptions;
@@ -216,6 +201,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
      * The hideTransitionOptions property is an input that determines the CSS transition options for hiding the component.
      * @defaultValue .1s linear
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() get hideTransitionOptions(): string {
         const value = this._hideTransitionOptions || this.overlayOptions?.hideTransitionOptions;
@@ -264,6 +250,24 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
+     * Specifies whether the overlay should be rendered inline within the current component's template.
+     * @defaultValue false
+     * @group Props
+     */
+    inline = input<boolean>(false);
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...(this.motionOptions() || this.overlayOptions?.motionOptions)
+        };
+    });
+    /**
      * This EventEmitter is used to notify changes in the visibility state of a component.
      * @param {Boolean} boolean - Value of visibility as boolean.
      * @group Emits
@@ -297,31 +301,71 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
      * Callback to invoke when the animation is started.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
+     * @deprecated since v21.0.0. Use onOverlayBeforeEnter and onOverlayBeforeLeave instead.
      */
     @Output() onAnimationStart: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
     /**
      * Callback to invoke when the animation is done.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
+     * @deprecated since v21.0.0. Use onOverlayAfterEnter and onOverlayAfterLeave instead.
      */
     @Output() onAnimationDone: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
+    /**
+     * Callback to invoke before the overlay enters.
+     * @param {MotionEvent} event - Event before enter.
+     * @group Emits
+     */
+    @Output() onBeforeEnter: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
+    /**
+     * Callback to invoke when the overlay enters.
+     * @param {MotionEvent} event - Event on enter.
+     * @group Emits
+     */
+    @Output() onEnter: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
+    /**
+     * Callback to invoke after the overlay has entered.
+     * @param {MotionEvent} event - Event after enter.
+     * @group Emits
+     */
+    @Output() onAfterEnter: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
+    /**
+     * Callback to invoke before the overlay leaves.
+     * @param {MotionEvent} event - Event before leave.
+     * @group Emits
+     */
+    @Output() onBeforeLeave: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
+    /**
+     * Callback to invoke when the overlay leaves.
+     * @param {MotionEvent} event - Event on leave.
+     * @group Emits
+     */
+    @Output() onLeave: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
+    /**
+     * Callback to invoke after the overlay has left.
+     * @param {MotionEvent} event - Event after leave.
+     * @group Emits
+     */
+    @Output() onAfterLeave: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
 
     @ViewChild('overlay') overlayViewChild: ElementRef | undefined;
 
     @ViewChild('content') contentViewChild: ElementRef | undefined;
     /**
      * Content template of the component.
+     * @param {OverlayContentTemplateContext} context - content context.
+     * @see {@link OverlayContentTemplateContext}
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<OverlayContentTemplateContext> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any> | undefined;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     hostAttrSelector = input<string>();
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<OverlayContentTemplateContext> | undefined;
 
     _visible: boolean = false;
 
@@ -364,6 +408,8 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
     documentResizeListener: any;
 
     _componentStyle = inject(OverlayStyle);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
 
     private documentKeyboardListener: VoidListener;
 
@@ -427,7 +473,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         super();
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -439,6 +485,10 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
                     break;
             }
         });
+    }
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
     }
 
     show(overlay?: HTMLElement, isFocus: boolean = false) {
@@ -460,10 +510,6 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         }
     }
 
-    alignOverlay() {
-        !this.modal && DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.$appendTo());
-    }
-
     onVisibleChange(visible: boolean) {
         this._visible = visible;
         this.visibleChange.emit(visible);
@@ -482,64 +528,82 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         this.isOverlayContentClicked = true;
     }
 
-    onOverlayContentAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
+    container = signal<any>(undefined);
 
-                if (this.autoZIndex) {
-                    ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
-                }
+    onOverlayBeforeEnter(event: MotionEvent) {
+        this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
+        this.container.set(this.overlayEl || event.element);
+        this.show(this.overlayEl, true);
+        this.hostAttrSelector() && this.overlayEl && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
+        this.appendOverlay();
+        this.alignOverlay();
+        this.setZIndex();
 
-                this.hostAttrSelector() && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
-                DomHandler.appendOverlay(this.overlayEl, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
-                this.alignOverlay();
-                break;
-
-            case 'void':
-                this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-
-                this.modal && addClass(this.overlayEl, 'p-overlay-mask-leave');
-
-                break;
-        }
-
-        this.handleEvents('onAnimationStart', event);
+        this.handleEvents('onBeforeEnter', event);
     }
 
-    onOverlayContentAnimationDone(event: AnimationEvent) {
-        const container = this.overlayEl || event.element.parentElement;
+    onOverlayEnter(event: MotionEvent) {
+        this.handleEvents('onEnter', event);
+    }
 
-        switch (event.toState) {
-            case 'visible':
-                if (this.visible) {
-                    this.show(container, true);
-                    this.bindListeners();
-                }
+    onOverlayAfterEnter(event: MotionEvent) {
+        this.bindListeners();
+        this.handleEvents('onAfterEnter', event);
+    }
 
-                break;
+    onOverlayBeforeLeave(event: MotionEvent) {
+        this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
+        this.handleEvents('onBeforeLeave', event);
+    }
 
-            case 'void':
-                if (!this.visible) {
-                    this.hide(container, true);
-                    this.modalVisible = false;
-                    this.unbindListeners();
+    onOverlayLeave(event: MotionEvent) {
+        this.handleEvents('onLeave', event);
+    }
 
-                    DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.$appendTo());
-                    ZIndexUtils.clear(container);
-                    this.cd.markForCheck();
-
-                    break;
-                }
-        }
-
-        this.handleEvents('onAnimationDone', event);
+    onOverlayAfterLeave(event: MotionEvent) {
+        this.hide(this.overlayEl, true);
+        this.container.set(null);
+        this.unbindListeners();
+        this.appendOverlay();
+        ZIndexUtils.clear(this.overlayEl);
+        this.modalVisible = false;
+        this.cd.markForCheck();
+        this.handleEvents('onAfterLeave', event);
     }
 
     handleEvents(name: string, params: any) {
         (this as any)[name].emit(params);
         this.options && (this.options as any)[name] && (this.options as any)[name](params);
         this.config?.overlayOptions && (this.config?.overlayOptions as any)[name] && (this.config?.overlayOptions as any)[name](params);
+    }
+
+    setZIndex() {
+        if (this.autoZIndex) {
+            ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
+        }
+    }
+
+    appendOverlay() {
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') {
+                appendChild(this.document.body, this.overlayEl);
+            } else {
+                appendChild(this.$appendTo(), this.overlayEl);
+            }
+        }
+    }
+
+    alignOverlay() {
+        if (!this.modal) {
+            if (this.overlayEl && this.targetEl) {
+                this.overlayEl.style.minWidth = getOuterWidth(this.targetEl) + 'px';
+                if (this.$appendTo() === 'self') {
+                    relativePosition(this.overlayEl, this.targetEl);
+                } else {
+                    absolutePosition(this.overlayEl, this.targetEl);
+                }
+            }
+        }
     }
 
     bindListeners() {
@@ -640,7 +704,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.hide(this.overlayEl, true);
 
         if (this.overlayEl && this.$appendTo() !== 'self') {
@@ -654,7 +718,6 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         }
 
         this.unbindListeners();
-        super.ngOnDestroy();
     }
 }
 

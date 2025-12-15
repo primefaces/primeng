@@ -1,10 +1,10 @@
+import { DesignerService } from '@/service/designerservice';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { DesignerService } from '@/service/designerservice';
 import { usePreset } from '@primeuix/styled';
-import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'design-custom-tokens',
@@ -18,14 +18,22 @@ import { MessageService } from 'primeng/api';
                 <div class="flex items-center gap-4">
                     <label class="flex items-center gap-2 flex-auto">
                         <span class="text-sm">Name</span>
-                        <input [(ngModel)]="token['name']" type="text" class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full" placeholder="custom.token.name" maxlength="100" />
+                        <input
+                            [(ngModel)]="token['name']"
+                            type="text"
+                            class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full"
+                            placeholder="custom.token.name"
+                            maxlength="100"
+                            [disabled]="designerService.isThemeViewOnly()"
+                        />
                     </label>
                     <label class="flex items-center gap-2 flex-auto">
                         <span class="text-sm">Value</span>
-                        <input [(ngModel)]="token['value']" type="text" class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full" placeholder="token value" maxlength="100" />
+                        <input [(ngModel)]="token['value']" type="text" class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full" placeholder="token value" maxlength="100" [disabled]="designerService.isThemeViewOnly()" />
                     </label>
                     <button
                         type="button"
+                        [disabled]="designerService.isThemeViewOnly()"
                         (click)="removeToken(idx)"
                         class="cursor-pointer inline-flex items-center justify-center ms-auto w-8 h-8 rounded-full bg-red-50 hover:bg-red-100 text-red-600 dark:bg-red-400/10 dark:hover:bg-red-400/20 dark:text-red-400 transition-colors duration-200 focus:outline focus:outline-offset-2 focus:outline-red-600 focus:dark:outline-red-400"
                     >
@@ -35,8 +43,8 @@ import { MessageService } from 'primeng/api';
             </li>
         </ul>
         <div class="flex justify-between">
-            <button type="button" (click)="addToken()" class="btn-design-outlined">Add New</button>
-            <button type="button" (click)="save()" class="btn-design">Save</button>
+            <button type="button" (click)="addToken()" class="btn-design-outlined" [disabled]="designerService.isThemeViewOnly()">Add New</button>
+            <button type="button" (click)="save()" class="btn-design" [disabled]="designerService.isThemeViewOnly()">Save</button>
         </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

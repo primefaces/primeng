@@ -1,5 +1,11 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { SelectModule } from 'primeng/select';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface City {
     name: string;
@@ -8,7 +14,8 @@ interface City {
 
 @Component({
     selector: 'dialog-overlays-inside-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, DialogModule, ButtonModule, SelectModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

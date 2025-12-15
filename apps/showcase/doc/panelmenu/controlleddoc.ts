@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { PanelMenu } from 'primeng/panelmenu';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'controlled-doc',
-    standalone: false,
+    standalone: true,
+    imports: [PanelMenu, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Menu items can be controlled programmatically.</p>

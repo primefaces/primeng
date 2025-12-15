@@ -2,10 +2,18 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DataViewModule } from 'primeng/dataview';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'data-view-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, DataViewModule, ButtonModule, TagModule, AppCode, AppDocSectionText],
+    providers: [ProductService],
     template: `
         <app-docsectiontext>
             <p>DataView requires a value to display along with a <i>list</i> template that receives an object in the collection to return content.</p>
@@ -61,7 +69,7 @@ export class BasicDoc {
         basic: `<p-dataview #dv [value]="products()">
     <ng-template #list let-items>
         <div class="grid grid-cols-12 gap-4 grid-nogutter">
-            <div class="col-span-12" *ngFor="let item of items; let first = first" class="col-span-12">
+            <div class="col-span-12" *ngFor="let item of items; let first = first">
                 <div
                     class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                     [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -123,7 +131,7 @@ export class BasicDoc {
     <p-dataview #dv [value]="products()">
         <ng-template #list let-items>
             <div class="grid grid-cols-12 gap-4 grid-nogutter">
-                <div class="col-span-12" *ngFor="let item of items; let first = first" class="col-span-12">
+                <div class="col-span-12" *ngFor="let item of items; let first = first">
                     <div
                         class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                         [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -202,7 +210,7 @@ export class DataViewBasicDemo {
     products = signal<any>([]);
 
     productService = inject(ProductService);
-    
+
     ngOnInit() {
         this.productService.getProducts().then((data) => {
             const d = data.slice(0, 5);

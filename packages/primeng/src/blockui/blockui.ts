@@ -1,27 +1,14 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    AfterViewInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    inject,
-    Input,
-    NgModule,
-    numberAttribute,
-    OnDestroy,
-    QueryList,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, InjectionToken, Input, NgModule, numberAttribute, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { blockBodyScroll, unblockBodyScroll } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
+import { BlockUIPassThrough } from 'primeng/types/blockui';
 import { ZIndexUtils } from 'primeng/utils';
 import { BlockUiStyle } from './style/blockuistyle';
+
+const BLOCKUI_INSTANCE = new InjectionToken<BlockUI>('BLOCKUI_INSTANCE');
 
 /**
  * BlockUI can either block other components or the whole page.
@@ -37,15 +24,21 @@ import { BlockUiStyle } from './style/blockuistyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [BlockUiStyle],
+    providers: [BlockUiStyle, { provide: BLOCKUI_INSTANCE, useExisting: BlockUI }, { provide: PARENT_INSTANCE, useExisting: BlockUI }],
     host: {
         '[attr.aria-busy]': 'blocked',
-        '[attr.data-pc-name]': "'blockui'",
-        '[attr.data-pc-section]': "'root'",
         '[class]': "cn(cx('root'), styleClass)"
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class BlockUI extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+export class BlockUI extends BaseComponent<BlockUIPassThrough> {
+    $pcBlockUI: BlockUI | undefined = inject(BLOCKUI_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * Name of the local ng-template variable referring to another component.
      * @group Props
@@ -76,8 +69,12 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
     }
     set blocked(val: boolean) {
         if (this.el && this.el.nativeElement) {
-            if (val) this.block();
-            else this.unblock();
+            if (val) {
+                this.block();
+            } else if (this._blocked) {
+                // Only unblock if currently blocked
+                this.unblock();
+            }
         } else {
             this._blocked = val;
         }
@@ -98,8 +95,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
         super();
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (this._blocked) this.block();
 
         if (this.target && !this.target.getBlockableElement) {
@@ -111,7 +107,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -142,26 +138,35 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
             if (this.autoZIndex) {
                 ZIndexUtils.set('modal', (this.el as ElementRef).nativeElement, this.baseZIndex + this.config.zIndex.modal);
             }
+
+            this.renderer.addClass(this.el.nativeElement, 'p-overlay-mask');
+            this.renderer.addClass(this.el.nativeElement, 'p-overlay-mask-enter-active');
         }
     }
 
     unblock() {
-        if (isPlatformBrowser(this.platformId) && this.el && !this.animationEndListener) {
-            // this.animationEndListener = this.renderer.listen(this.el.nativeElement, 'animationend', this.destroyModal.bind(this));
-            // TODO Add animation
-            this.destroyModal();
-            // addClass(this.el.nativeElement, 'p-overlay-mask-leave');
+        if (isPlatformBrowser(this.platformId) && this.el && this._blocked) {
+            this._blocked = false;
+            if (!this.animationEndListener) {
+                this.animationEndListener = this.renderer.listen(this.el.nativeElement, 'animationend', this.destroyModal.bind(this));
+            }
+            this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask-enter-active');
+            this.renderer.addClass(this.el.nativeElement, 'p-overlay-mask-leave-active');
         }
     }
 
     destroyModal() {
         this._blocked = false;
         if (this.el && isPlatformBrowser(this.platformId)) {
+            this.el.nativeElement.style.display = 'none';
+            this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask');
+            this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask-leave-active');
             ZIndexUtils.clear(this.el.nativeElement);
-            // removeClass(this.el.nativeElement, 'p-overlay-mask-leave');
-            this.renderer.removeChild(this.el.nativeElement, this.el.nativeElement);
-            //@ts-ignore
-            unblockBodyScroll();
+
+            if (!this.target) {
+                //@ts-ignore
+                unblockBodyScroll();
+            }
         }
         this.unbindAnimationEndListener();
         this.cd.markForCheck();
@@ -174,10 +179,19 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
         }
     }
 
-    ngOnDestroy() {
-        this.unblock();
-        this.destroyModal();
-        super.ngOnDestroy();
+    onDestroy() {
+        if (this._blocked) {
+            // Skip animation on destroy, just cleanup
+            this._blocked = false;
+            if (this.el && isPlatformBrowser(this.platformId)) {
+                ZIndexUtils.clear(this.el.nativeElement);
+                if (!this.target) {
+                    //@ts-ignore
+                    unblockBodyScroll();
+                }
+            }
+            this.unbindAnimationEndListener();
+        }
     }
 }
 

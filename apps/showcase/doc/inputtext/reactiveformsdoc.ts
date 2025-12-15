@@ -1,11 +1,17 @@
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { AppCodeModule } from '@/components/doc/app.code';
 
 @Component({
     selector: 'reactive-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ReactiveFormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule, AppCodeModule],
     template: `
         <p-toast />
         <div class="card flex justify-center">

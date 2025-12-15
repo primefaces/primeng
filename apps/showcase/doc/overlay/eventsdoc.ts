@@ -1,9 +1,11 @@
+import { AppCode } from '@/components/doc/app.code';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
     selector: 'events-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode],
     template: ` <section class="py-6">
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`
@@ -13,7 +15,6 @@ export class EventsDoc {
         typescript: `
 import { OverlayOptions, OverlayOnBeforeShowEvent, OverlayOnShowEvent, OverlayOnBeforeHideEvent, OverlayOnHideEvent } from 'primeng/api';
 import { PrimeNG } from 'primeng/config';
-import { AnimationEvent } from '@angular/animations';
 
 this.primeng.overlayOptions: OverlayOptions = {
     onBeforeShow: (event?: OverlayOnBeforeShowEvent) => {};    // Callback to invoke before the overlay is shown.

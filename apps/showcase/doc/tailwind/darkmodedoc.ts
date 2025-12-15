@@ -1,8 +1,11 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 
 @Component({
     selector: 'darkmode-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -34,7 +37,7 @@ export class DarkModeDoc {
 
     code2 = {
         basic: `@import "tailwindcss";
-@plugin "tailwindcss-primeui";
+@import "tailwindcss-primeui";
 @custom-variant dark (&:where(.my-app-dark, .my-app-dark *));     //dark mode configuration`
     };
 

@@ -1,24 +1,27 @@
-import { AccessibilityDoc } from '@/doc/message/accessibilitydoc';
+import { AppDoc } from '@/components/doc/app.doc';
 import { BasicDoc } from '@/doc/message/basicdoc';
-import { ClosableDoc } from '@/doc/message/closabledoc';
-import { DynamicDoc } from '@/doc/message/dynamicdoc';
 import { FormDoc } from '@/doc/message/formdoc';
 import { IconDoc } from '@/doc/message/icondoc';
 import { ImportDoc } from '@/doc/message/importdoc';
-import { LifeDoc } from '@/doc/message/lifedoc';
-import { MessageDocModule } from '@/doc/message/messagedoc.module';
 import { OutlinedDoc } from '@/doc/message/outlineddoc';
+import { PTComponent } from '@/doc/message/pt/PTComponent';
 import { SeverityDoc } from '@/doc/message/severitydoc';
 import { SimpleDoc } from '@/doc/message/simpledoc';
 import { SizesDoc } from '@/doc/message/sizesdoc';
+import { DynamicDoc } from '@/doc/message/dynamicdoc';
+import { ClosableDoc } from '@/doc/message/closabledoc';
+import { LifeDoc } from '@/doc/message/lifedoc';
+import { AccessibilityDoc } from '@/doc/message/accessibilitydoc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Angular Message Component" header="Message" description="Message component is used to display inline messages." [docs]="docs" [apiDocs]="['Message']" themeDocs="message"></app-doc>`,
-    imports: [MessageDocModule],
+    template: `<app-doc docTitle="Angular Message Component" header="Message" description="Message component is used to display inline messages." [docs]="docs" [apiDocs]="['Message']" [ptDocs]="ptComponent" themeDocs="message"></app-doc>`,
+    imports: [AppDoc],
     standalone: true
 })
 export class MessageDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

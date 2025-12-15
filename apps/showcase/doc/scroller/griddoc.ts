@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ScrollerModule } from 'primeng/scroller';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'grid-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ScrollerModule, AppCode, AppDocSectionText, CommonModule],
     template: `
         <app-docsectiontext>
             <p>Scrolling can be enabled vertically and horizontally when <i>orientation</i> is set as <i>both</i>. In this mode, <i>itemSize</i> should be an array where first value is the height of an item and second is the width.</p>

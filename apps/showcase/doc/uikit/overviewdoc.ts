@@ -1,12 +1,15 @@
-import { Component, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Ripple } from 'primeng/ripple';
 import { AppConfigService } from '@/service/appconfigservice';
+import { CommonModule } from '@angular/common';
+import { Component, computed, inject } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { BadgeModule } from 'primeng/badge';
+import { Ripple } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'overview-doc',
     standalone: true,
-    imports: [CommonModule, Ripple],
+    imports: [CommonModule, Ripple, BadgeModule, TooltipModule, RouterModule],
     template: ` <div>
         <div style="border-radius: 50px; max-height: 500px" class="overflow-hidden mb-8 flex items-center">
             <img alt="PrimeNG Designer" src="https://primefaces.org/cdn/primeng/images/uikit/primeone-cover-{{ isDarkMode() ? 'dark' : 'light' }}.jpeg" class="w-full" />
@@ -135,7 +138,7 @@ import { AppConfigService } from '@/service/appconfigservice';
                 </div>
                 <div class="w-full md:w-6/12">
                     <div class="text-primary font-bold mb-2">AUTOMATED</div>
-                    <div class="text-5xl font-bold mb-4">Figma to Theme</div>
+                    <div class="text-5xl font-bold mb-4">Figma to Theme Code</div>
                     <p class="mb-4 text-lg">
                         <i>This feature requires a <a routerLink="/designer" class="doc-link">Theme Designer</a> subscription.</i>
                     </p>
@@ -152,6 +155,14 @@ import { AppConfigService } from '@/service/appconfigservice';
                         <li class="flex items-center w-6/12 p-4">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Eliminate Handoff</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">CI Pipeline</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Live Preview</span>
                         </li>
                         <li class="flex items-center w-6/12 p-4">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
@@ -220,7 +231,7 @@ import { AppConfigService } from '@/service/appconfigservice';
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span>Lifetime Support</span>
+                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <p-badge pTooltip="$99 for + 1 Year" value="?" severity="secondary" /></span>
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
@@ -228,7 +239,7 @@ import { AppConfigService } from '@/service/appconfigservice';
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface mt-auto" />
-                            <a href="https://www.primefaces.org/store/uikit.xhtml" pRipple class="bg-blue-500 text-white hover:bg-blue-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
+                            <a href="https://primeui.store/uikit" pRipple class="bg-blue-500 text-white hover:bg-blue-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
                         </div>
                     </div>
                 </div>
@@ -264,7 +275,7 @@ import { AppConfigService } from '@/service/appconfigservice';
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span>Lifetime Support</span>
+                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <p-badge pTooltip="$249 for + 1 Year" value="?" severity="secondary" /></span>
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
@@ -272,7 +283,7 @@ import { AppConfigService } from '@/service/appconfigservice';
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface" />
-                            <a href="https://www.primefaces.org/store/uikit.xhtml" pRipple class="bg-purple-500 text-white hover:bg-purple-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
+                            <a href="https://primeui.store/uikit" pRipple class="bg-purple-500 text-white hover:bg-purple-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
                         </div>
                     </div>
                 </div>
@@ -306,7 +317,7 @@ import { AppConfigService } from '@/service/appconfigservice';
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span>Lifetime Support</span>
+                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <p-badge pTooltip="Contact Us" value="?" severity="secondary" /></span>
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>

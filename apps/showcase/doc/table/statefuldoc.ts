@@ -2,10 +2,19 @@ import { Code } from '@/domain/code';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { TagModule } from 'primeng/tag';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'stateful-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TableModule, InputTextModule, TagModule, IconFieldModule, InputIconModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Stateful table allows keeping the state such as page, sort and filtering either at local storage or session storage so that when the page is visited again, table would render the data using the last settings.</p>
             <p>
@@ -104,7 +113,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template emptymessage>
+                    <ng-template #emptymessage>
                         <tr>
                             <td colspan="4">No customers found.</td>
                         </tr>

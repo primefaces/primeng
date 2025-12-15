@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { AvatarModule } from 'primeng/avatar';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
     selector: 'avatar-label-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, AvatarModule, OverlayBadgeModule],
     template: `
         <app-docsectiontext>
             <p>A letter Avatar is defined with the <i>label</i> property.</p>

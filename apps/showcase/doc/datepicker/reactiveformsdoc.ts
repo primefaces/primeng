@@ -1,11 +1,18 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { DatePickerModule } from 'primeng/datepicker';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'reactive-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ReactiveFormsModule, DatePickerModule, MessageModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>DatePicker can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
@@ -22,7 +29,7 @@ import { MessageService } from 'primeng/api';
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
-        <app-code [code]="code" selector="datepicker-reactive-forms-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-reactive-forms-demo"></app-code>
     `
 })
 export class ReactiveFormsDoc {
@@ -83,8 +90,8 @@ import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'datepicker-reactive-forms-demo',
-    templateUrl: './datepicker-reactive-forms-demo.html',
+    selector: 'date-picker-reactive-forms-demo',
+    templateUrl: './date-picker-reactive-forms-demo.html',
     standalone: true,
     imports: [ReactiveFormsModule, DatePickerModule, MessageModule, ToastModule, ButtonModule]
 })

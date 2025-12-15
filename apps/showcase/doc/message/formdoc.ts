@@ -1,9 +1,17 @@
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessageModule } from 'primeng/message';
 
 @Component({
     selector: 'form-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, MessageModule, InputTextModule, InputMaskModule, AppCodeModule, AppDocSectionText, CommonModule],
     template: `
         <app-docsectiontext>
             <p>Validation errors in a form are displayed with the <i>error</i> severity.</p>

@@ -3,10 +3,20 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { Component, signal } from '@angular/core';
 import { SelectItem } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { DataViewModule } from 'primeng/dataview';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
+import { SelectModule } from 'primeng/select';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'data-view-sorting-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, DataViewModule, ButtonModule, TagModule, SelectModule, AppCode, AppDocSectionText],
+    providers: [ProductService],
     template: `
         <app-docsectiontext>
             <p>Built-in sorting is controlled by bindings <i>sortField</i> and <i>sortOrder</i> properties from a custom UI.</p>
