@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/textarea';
+import { style as textarea_style } from '@primeuix/styles/textarea';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${textarea_style}
 
     /* For PrimeNG */
     .p-textarea.ng-invalid.ng-dirty {
@@ -24,8 +24,7 @@ const classes = {
             'p-textarea-fluid': instance.hasFluid,
             'p-inputfield-sm p-textarea-sm': instance.pSize === 'small',
             'p-textarea-lg p-inputfield-lg': instance.pSize === 'large',
-            'p-invalid': instance.invalid(),
-            'p-disabled': instance.disabled()
+            'p-invalid': instance.invalid()
         }
     ]
 };
@@ -34,7 +33,7 @@ const classes = {
 export class TextareaStyle extends BaseStyle {
     name = 'textarea';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

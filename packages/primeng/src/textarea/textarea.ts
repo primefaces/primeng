@@ -1,9 +1,14 @@
-import { AfterViewInit, booleanAttribute, computed, Directive, EventEmitter, HostListener, inject, input, Input, NgModule, OnDestroy, OnInit, Output } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, EventEmitter, HostListener, inject, InjectionToken, input, Input, NgModule, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseModelHolder } from 'primeng/basemodelholder';
+import { Bind } from 'primeng/bind';
 import { Fluid } from 'primeng/fluid';
+import { TextareaPassThrough } from 'primeng/types/textarea';
 import { Subscription } from 'rxjs';
 import { TextareaStyle } from './style/textareastyle';
+
+const TEXTAREA_INSTANCE = new InjectionToken<Textarea>('TEXTAREA_INSTANCE');
 
 /**
  * Textarea adds styling and autoResize functionality to standard textarea element.
@@ -15,9 +20,27 @@ import { TextareaStyle } from './style/textareastyle';
     host: {
         '[class]': "cx('root')"
     },
-    providers: [TextareaStyle]
+    providers: [TextareaStyle, { provide: TEXTAREA_INSTANCE, useExisting: Textarea }, { provide: PARENT_INSTANCE, useExisting: Textarea }],
+    hostDirectives: [Bind]
 })
-export class Textarea extends BaseEditableHolder implements OnInit, AfterViewInit, OnDestroy {
+export class Textarea extends BaseModelHolder<TextareaPassThrough> {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcTextarea: Textarea | undefined = inject(TEXTAREA_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    /**
+     * Used to pass attributes to DOM elements inside the Textarea component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pTextareaPT = input<TextareaPassThrough>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pTextareaUnstyled = input<boolean | undefined>();
+
     /**
      * When present, textarea size changes as being typed.
      * @group Props
@@ -40,6 +63,12 @@ export class Textarea extends BaseEditableHolder implements OnInit, AfterViewIni
      * @group Props
      */
     fluid = input(undefined, { transform: booleanAttribute });
+    /**
+     * When present, it specifies that the component should have invalid state style.
+     * @defaultValue false
+     * @group Props
+     */
+    invalid = input(undefined, { transform: booleanAttribute });
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
     /**
@@ -49,22 +78,31 @@ export class Textarea extends BaseEditableHolder implements OnInit, AfterViewIni
      */
     @Output() onResize: EventEmitter<Event | {}> = new EventEmitter<Event | {}>();
 
-    ngModelSubscription: Subscription | undefined;
-
     ngControlSubscription: Subscription | undefined;
 
     _componentStyle = inject(TextareaStyle);
 
     ngControl = inject(NgControl, { optional: true, self: true });
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    constructor() {
+        super();
+        effect(() => {
+            const pt = this.pTextareaPT();
+            pt && this.directivePT.set(pt);
+        });
+
+        effect(() => {
+            this.pTextareaUnstyled() && this.directiveUnstyled.set(this.pTextareaUnstyled());
+        });
+    }
+
+    onInit() {
         if (this.ngControl) {
             this.ngControlSubscription = (this.ngControl as any).valueChanges.subscribe(() => {
                 this.updateState();
@@ -72,20 +110,23 @@ export class Textarea extends BaseEditableHolder implements OnInit, AfterViewIni
         }
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (this.autoResize) this.resize();
 
         this.cd.detectChanges();
     }
 
-    ngAfterViewChecked() {
-        if (this.autoResize) this.resize();
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+        if (this.autoResize) {
+            this.resize();
+        }
+        this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 
     @HostListener('input', ['$event'])
     onInput(e: Event) {
-        this.writeModelValue(e.target['value']);
+        this.writeModelValue((e.target as HTMLTextAreaElement)?.value);
         this.updateState();
     }
 
@@ -109,16 +150,10 @@ export class Textarea extends BaseEditableHolder implements OnInit, AfterViewIni
         }
     }
 
-    ngOnDestroy() {
-        if (this.ngModelSubscription) {
-            this.ngModelSubscription.unsubscribe();
-        }
-
+    onDestroy() {
         if (this.ngControlSubscription) {
             this.ngControlSubscription.unsubscribe();
         }
-
-        super.ngOnDestroy();
     }
 }
 

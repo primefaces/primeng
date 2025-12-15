@@ -1,12 +1,17 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dialog-long-content-demo',
-    standalone: false,
+    standalone: true,
+    imports: [DialogModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>Dialog automatically displays a scroller when content exceeeds viewport.</p>
+            <p>Dialog automatically displays a scroller when content exceeds viewport.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-button (click)="showDialog()" label="Show" />

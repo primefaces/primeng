@@ -1,10 +1,17 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'confirm-popup-headless-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, ConfirmPopupModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
@@ -16,7 +23,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
                     <div class="rounded p-4">
                         <span>{{ message.message }}</span>
                         <div class="flex items-center gap-2 mt-4">
-                            <p-button (onClick)="cp.onAccept()" label="Save" size="small" />
+                            <p-button (onClick)="cp.onAccept()" label="Save" size="small" [autofocus]="true" />
                             <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
                         </div>
                     </div>
@@ -54,7 +61,7 @@ export class HeadlessDoc {
         <div class="rounded p-4">
             <span>{{ message.message }}</span>
             <div class="flex items-center gap-2 mt-4">
-                <p-button (onClick)="cp.onAccept()" label="Save" size="small" />
+                <p-button (onClick)="cp.onAccept()" label="Save" size="small" [autofocus]="true" />
                 <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
             </div>
         </div>
@@ -69,7 +76,7 @@ export class HeadlessDoc {
             <div class="rounded p-4">
                 <span>{{ message.message }}</span>
                 <div class="flex items-center gap-2 mt-4">
-                    <p-button (onClick)="cp.onAccept()" label="Save" size="small" />
+                    <p-button (onClick)="cp.onAccept()" label="Save" size="small" [autofocus]="true" />
                     <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
                 </div>
             </div>

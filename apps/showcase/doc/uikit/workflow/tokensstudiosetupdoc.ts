@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { AppDocModule } from '@/components/doc/app.doc.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'tokens-studio-setup-doc',
     standalone: true,
-    imports: [CommonModule, RouterModule, AppDocModule],
+    imports: [CommonModule, RouterModule, AppDocSectionText],
     template: `<app-docsectiontext>
         <ul class="leading-normal px-10 list-disc">
             <li class="py-2">

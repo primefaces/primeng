@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { RouterModule } from '@angular/router';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'breadcrumb-template-demo',
-    standalone: false,
+    standalone: true,
+    imports: [BreadcrumbModule, RouterModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Custom content can be placed inside the items using the <i>item</i> template. The divider between the items has its own <i>separator</i> template.</p>

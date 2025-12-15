@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/togglebutton';
+import { style as togglebutton_style } from '@primeuix/styles/togglebutton';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${togglebutton_style}
 
     /* For PrimeNG (iconPos) */
     .p-togglebutton-icon-right {
@@ -21,7 +21,7 @@ const classes = {
         {
             'p-togglebutton-checked': instance.checked,
             'p-invalid': instance.invalid(),
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-togglebutton-sm p-inputfield-sm': instance.size === 'small',
             'p-togglebutton-lg p-inputfield-lg': instance.size === 'large',
             'p-togglebutton-fluid': instance.fluid()
@@ -38,7 +38,7 @@ const classes = {
 export class ToggleButtonStyle extends BaseStyle {
     name = 'togglebutton';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

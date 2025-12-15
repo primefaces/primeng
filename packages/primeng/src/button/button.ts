@@ -1,39 +1,47 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     computed,
-    contentChild,
     ContentChild,
+    contentChild,
     ContentChildren,
     Directive,
+    effect,
     EventEmitter,
     inject,
+    InjectionToken,
     input,
     Input,
     NgModule,
     numberAttribute,
-    OnDestroy,
     Output,
     QueryList,
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, findSingle, isEmpty } from '@primeuix/utils';
+import { addClass, createElement, findSingle, isEmpty } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BadgeModule } from 'primeng/badge';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { Fluid } from 'primeng/fluid';
 import { SpinnerIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
-import { ButtonProps, ButtonSeverity } from './button.interface';
+import type { ButtonIconTemplateContext, ButtonLoadingIconTemplateContext, ButtonPassThrough, ButtonProps, ButtonSeverity } from 'primeng/types/button';
 import { ButtonStyle } from './style/buttonstyle';
 
-type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
+const BUTTON_INSTANCE = new InjectionToken<Button>('BUTTON_INSTANCE');
+
+const BUTTON_DIRECTIVE_INSTANCE = new InjectionToken<ButtonDirective>('BUTTON_DIRECTIVE_INSTANCE');
+
+const BUTTON_LABEL_INSTANCE = new InjectionToken<ButtonLabel>('BUTTON_LABEL_INSTANCE');
+
+const BUTTON_ICON_INSTANCE = new InjectionToken<ButtonIcon>('BUTTON_ICON_INSTANCE');
+
+export type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
 const INTERNAL_BUTTON_CLASSES = {
     button: 'p-button',
@@ -46,26 +54,104 @@ const INTERNAL_BUTTON_CLASSES = {
 
 @Directive({
     selector: '[pButtonLabel]',
-    providers: [ButtonStyle],
+    providers: [ButtonStyle, { provide: BUTTON_LABEL_INSTANCE, useExisting: ButtonLabel }, { provide: PARENT_INSTANCE, useExisting: ButtonLabel }],
     standalone: true,
     host: {
-        '[class.p-button-label]': 'true'
-    }
+        '[class.p-button-label]': '!$unstyled() && true'
+    },
+    hostDirectives: [Bind]
 })
 export class ButtonLabel extends BaseComponent {
-    _componentStyle = inject(ButtonStyle);
+    /**
+     * Used to pass attributes to DOM elements inside the pButtonLabel.
+     * @defaultValue undefined
+     * @deprecated use pButtonLabelPT instead.
+     * @group Props
+     */
+    ptButtonLabel = input<any>();
+    /**
+     * Used to pass attributes to DOM elements inside the pButtonLabel.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pButtonLabelPT = input<any>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pButtonLabelUnstyled = input<boolean | undefined>();
+
+    $pcButtonLabel: ButtonLabel | undefined = inject(BUTTON_LABEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    constructor() {
+        super();
+        effect(() => {
+            const pt = this.ptButtonLabel() || this.pButtonLabelPT();
+            pt && this.directivePT.set(pt);
+        });
+
+        effect(() => {
+            this.pButtonLabelUnstyled() && this.directiveUnstyled.set(this.pButtonLabelUnstyled());
+        });
+    }
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
 }
 
 @Directive({
     selector: '[pButtonIcon]',
-    providers: [ButtonStyle],
+    providers: [ButtonStyle, { provide: BUTTON_ICON_INSTANCE, useExisting: ButtonIcon }, { provide: PARENT_INSTANCE, useExisting: ButtonIcon }],
     standalone: true,
     host: {
-        '[class.p-button-icon]': 'true'
-    }
+        '[class.p-button-icon]': '!$unstyled() && true'
+    },
+    hostDirectives: [Bind]
 })
 export class ButtonIcon extends BaseComponent {
-    _componentStyle = inject(ButtonStyle);
+    /**
+     * Used to pass attributes to DOM elements inside the pButtonIcon.
+     * @defaultValue undefined
+     * @deprecated use pButtonIconPT instead.
+     * @group Props
+     */
+    ptButtonIcon = input<any>();
+    /**
+     * Used to pass attributes to DOM elements inside the pButtonIcon.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pButtonIconPT = input<any>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pButtonUnstyled = input<boolean | undefined>();
+
+    $pcButtonIcon: ButtonIcon | undefined = inject(BUTTON_ICON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    constructor() {
+        super();
+        effect(() => {
+            const pt = this.ptButtonIcon() || this.pButtonIconPT();
+            pt && this.directivePT.set(pt);
+        });
+
+        effect(() => {
+            this.pButtonUnstyled() && this.directiveUnstyled.set(this.pButtonUnstyled());
+        });
+    }
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
 }
 /**
  * Button directive is an extension to button component.
@@ -74,25 +160,157 @@ export class ButtonIcon extends BaseComponent {
 @Directive({
     selector: '[pButton]',
     standalone: true,
-    providers: [ButtonStyle],
+    providers: [ButtonStyle, { provide: BUTTON_DIRECTIVE_INSTANCE, useExisting: ButtonDirective }, { provide: PARENT_INSTANCE, useExisting: ButtonDirective }],
     host: {
-        '[class.p-button-icon-only]': 'isIconOnly()',
-        '[class.p-button-text]': 'isTextButton()'
-    }
+        '[class.p-button-icon-only]': '!$unstyled() && isIconOnly()',
+        '[class.p-button-text]': ' !$unstyled() && isTextButton()'
+    },
+    hostDirectives: [Bind]
 })
-export class ButtonDirective extends BaseComponent implements AfterViewInit, OnDestroy {
+export class ButtonDirective extends BaseComponent {
+    $pcButtonDirective: ButtonDirective | undefined = inject(BUTTON_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    _componentStyle = inject(ButtonStyle);
+
+    /**
+     * Used to pass attributes to DOM elements inside the Button component.
+     * @defaultValue undefined
+     * @deprecated use pButtonPT instead.
+     * @group Props
+     */
+    ptButtonDirective = input<ButtonPassThrough>();
+    /**
+     * Used to pass attributes to DOM elements inside the Button component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pButtonPT = input<ButtonPassThrough>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pButtonUnstyled = input<boolean | undefined>();
+
+    @Input() hostName: any = '';
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('root'));
+    }
+
+    constructor() {
+        super();
+        effect(() => {
+            const pt = this.ptButtonDirective() || this.pButtonPT();
+            pt && this.directivePT.set(pt);
+        });
+
+        effect(() => {
+            this.pButtonUnstyled() && this.directiveUnstyled.set(this.pButtonUnstyled());
+        });
+
+        effect(() => {
+            const unstyled = this.$unstyled();
+
+            if (this.initialized && unstyled) {
+                this.setStyleClass();
+            }
+        });
+    }
+
+    /**
+     * Add a textual class to the button without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) text: boolean = false;
+
+    /**
+     * Add a plain textual class to the button without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) plain: boolean = false;
+
+    /**
+     * Add a shadow to indicate elevation.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) raised: boolean = false;
+
+    /**
+     * Defines the size of the button.
+     * @group Props
+     */
+    @Input() size: 'small' | 'large' | undefined;
+
+    /**
+     * Add a border class without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) outlined: boolean = false;
+
+    /**
+     * Add a circular border radius to the button.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) rounded: boolean = false;
+
     /**
      * Position of the icon.
-     * @deprecated utilize pButtonIcon and pButtonLabel directives.
      * @group Props
      */
     @Input() iconPos: ButtonIconPosition = 'left';
+
     /**
-     * Uses to pass attributes to the loading icon's DOM element.
-     * @deprecated utilize pButonIcon instead.
+     * Icon to display in loading state.
      * @group Props
      */
     @Input() loadingIcon: string | undefined;
+
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+
+    private iconSignal = contentChild(ButtonIcon);
+
+    private labelSignal = contentChild(ButtonLabel);
+
+    isIconOnly = computed(() => !!(!this.labelSignal() && this.iconSignal()));
+
+    public _label: string | undefined;
+
+    public _icon: string | undefined;
+
+    public _loading: boolean = false;
+
+    private _severity: ButtonSeverity;
+
+    _buttonProps!: ButtonProps;
+
+    public initialized: boolean | undefined;
+
+    private get htmlElement(): HTMLElement {
+        return this.el.nativeElement as HTMLElement;
+    }
+
+    private _internalClasses: string[] = Object.values(INTERNAL_BUTTON_CLASSES);
+
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
+
+    isTextButton = computed(() => !!(!this.iconSignal() && this.labelSignal() && this.text));
+
+    /**
+     * Text of the button.
+     * @deprecated use pButtonLabel directive instead.
+     * @group Props
+     */
+    @Input() get label(): string | undefined {
+        return this._label as string;
+    }
 
     set label(val: string) {
         this._label = val;
@@ -104,6 +322,15 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
         }
     }
 
+    /**
+     * Name of the icon.
+     * @deprecated use pButtonIcon directive instead
+     * @group Props
+     */
+    @Input() get icon(): string {
+        return this._icon as string;
+    }
+
     set icon(val: string) {
         this._icon = val;
 
@@ -112,6 +339,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             this.setStyleClass();
         }
     }
+
     /**
      * Whether the button is in loading state.
      * @group Props
@@ -119,6 +347,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     @Input() get loading(): boolean {
         return this._loading;
     }
+
     set loading(val: boolean) {
         this._loading = val;
 
@@ -127,13 +356,15 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             this.setStyleClass();
         }
     }
-    _buttonProps!: ButtonProps;
 
-    private iconSignal = contentChild(ButtonIcon);
-
-    private labelSignal = contentChild(ButtonLabel);
-
-    isIconOnly = computed(() => !!(!this.labelSignal() && this.iconSignal()));
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @deprecated assign props directly to the button element.
+     * @group Props
+     */
+    @Input() get buttonProps(): ButtonProps {
+        return this._buttonProps;
+    }
 
     set buttonProps(val: ButtonProps) {
         this._buttonProps = val;
@@ -143,7 +374,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
         }
     }
-    private _severity: ButtonSeverity;
+
     /**
      * Defines the style of the button.
      * @group Props
@@ -160,87 +391,6 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             this.setStyleClass();
         }
     }
-    /**
-     * Add a shadow to indicate elevation.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) raised: boolean = false;
-    /**
-     * Add a circular border radius to the button.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) rounded: boolean = false;
-    /**
-     * Add a textual class to the button without a background initially.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) text: boolean = false;
-    /**
-     * Add a border class without a background initially.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) outlined: boolean = false;
-    /**
-     * Defines the size of the button.
-     * @group Props
-     */
-    @Input() size: 'small' | 'large' | undefined | null = null;
-    /**
-     * Add a plain textual class to the button without a background initially.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) plain: boolean = false;
-    /**
-     * Spans 100% width of the container when enabled.
-     * @defaultValue undefined
-     * @group Props
-     */
-    fluid = input(undefined, { transform: booleanAttribute });
-
-    public _label: string | undefined;
-
-    public _icon: string | undefined;
-
-    public _loading: boolean = false;
-
-    public initialized: boolean | undefined;
-
-    private get htmlElement(): HTMLElement {
-        return this.el.nativeElement as HTMLElement;
-    }
-
-    private _internalClasses: string[] = Object.values(INTERNAL_BUTTON_CLASSES);
-
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
-
-    isTextButton = computed(() => !!(!this.iconSignal() && this.labelSignal() && this.text));
-
-    /**
-     * Text of the button.
-     * @deprecated use pButtonLabel directive instead.
-     * @group Props
-     */
-    @Input() get label(): string | undefined {
-        return this._label as string;
-    }
-
-    /**
-     * Name of the icon.
-     * @deprecated use pButtonIcon directive instead
-     * @group Props
-     */
-    @Input() get icon(): string {
-        return this._icon as string;
-    }
-
-    /**
-     * Used to pass all properties of the ButtonProps to the Button component.
-     * @deprecated assign props directly to the button element.
-     * @group Props
-     */
-    @Input() get buttonProps(): ButtonProps {
-        return this._buttonProps;
-    }
 
     spinnerIcon = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="p-icon-spin">
         <g clip-path="url(#clip0_417_21408)">
@@ -256,16 +406,14 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
         </defs>
     </svg>`;
 
-    _componentStyle = inject(ButtonStyle);
+    onAfterViewInit() {
+        !this.$unstyled() && addClass(this.htmlElement, this.getStyleClass().join(' '));
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-        addClass(this.htmlElement, this.getStyleClass().join(' '));
-
-        this.createIcon();
-        this.createLabel();
-
-        this.initialized = true;
+        if (isPlatformBrowser(this.platformId)) {
+            this.createIcon();
+            this.createLabel();
+            this.initialized = true;
+        }
     }
 
     getStyleClass(): string[] {
@@ -327,7 +475,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             styleClass.push('p-button-fluid');
         }
 
-        return styleClass;
+        return this.$unstyled() ? [] : styleClass;
     }
 
     get hasFluid() {
@@ -352,37 +500,20 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     createLabel() {
-        const created = findSingle(this.htmlElement, '.p-button-label');
+        const created = findSingle(this.htmlElement, '[data-pc-section="buttonlabel"]');
         if (!created && this.label) {
-            let labelElement = this.document.createElement('span');
-            if (this.icon && !this.label) {
-                labelElement.setAttribute('aria-hidden', 'true');
-            }
-
-            labelElement.className = 'p-button-label';
+            let labelElement = <HTMLElement>createElement('span', { class: this.cx('label'), 'p-bind': this.ptm('buttonlabel'), 'aria-hidden': this.icon && !this.label ? 'true' : null });
             labelElement.appendChild(this.document.createTextNode(this.label));
-
             this.htmlElement.appendChild(labelElement);
         }
     }
 
     createIcon() {
-        const created = findSingle(this.htmlElement, '.p-button-icon');
+        const created = findSingle(this.htmlElement, '[data-pc-section="buttonicon"]');
         if (!created && (this.icon || this.loading)) {
-            let iconElement = this.document.createElement('span');
-            iconElement.className = 'p-button-icon';
-            iconElement.setAttribute('aria-hidden', 'true');
-            let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
-
-            if (iconPosClass) {
-                addClass(iconElement, iconPosClass);
-            }
-
-            let iconClass = this.getIconClass();
-
-            if (iconClass) {
-                addClass(iconElement, iconClass);
-            }
+            let iconPosClass = this.label && !this.$unstyled() ? 'p-button-icon-' + this.iconPos : null;
+            let iconClass = !this.$unstyled() && this.getIconClass();
+            let iconElement: HTMLElement = <HTMLElement>createElement('span', { class: this.cn(this.cx('icon'), iconPosClass, iconClass), 'aria-hidden': 'true', 'p-bind': this.ptm('buttonicon') });
 
             if (!this.loadingIcon && this.loading) {
                 iconElement.innerHTML = this.spinnerIcon;
@@ -393,7 +524,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     updateLabel() {
-        let labelElement = findSingle(this.htmlElement, '.p-button-label');
+        let labelElement = findSingle(this.htmlElement, '[data-pc-section="buttonlabel"]');
 
         if (!this.label) {
             labelElement && this.htmlElement.removeChild(labelElement);
@@ -404,8 +535,8 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     updateIcon() {
-        let iconElement = findSingle(this.htmlElement, '.p-button-icon');
-        let labelElement = findSingle(this.htmlElement, '.p-button-label');
+        let iconElement = findSingle(this.htmlElement, '[data-pc-section="buttonicon"]');
+        let labelElement = findSingle(this.htmlElement, '[data-pc-section="buttonlabel"]');
 
         if (this.loading && !this.loadingIcon && iconElement) {
             iconElement.innerHTML = this.spinnerIcon;
@@ -413,7 +544,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             iconElement.innerHTML = '';
         }
 
-        if (iconElement) {
+        if (iconElement && !this.$unstyled()) {
             if (this.iconPos) {
                 iconElement.className = 'p-button-icon ' + (labelElement ? 'p-button-icon-' + this.iconPos : '') + ' ' + this.getIconClass();
             } else {
@@ -428,9 +559,8 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
         return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this.icon || 'p-hidden';
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.initialized = false;
-        super.ngOnDestroy();
     }
 }
 /**
@@ -440,7 +570,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 @Component({
     selector: 'p-button',
     standalone: true,
-    imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule, SharedModule],
+    imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule, SharedModule, Bind],
     template: `
         <button
             [attr.type]="type || buttonProps?.type"
@@ -452,166 +582,220 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
             pRipple
-            [attr.data-pc-name]="'button'"
-            [attr.data-pc-section]="'root'"
             [attr.tabindex]="tabindex || buttonProps?.tabindex"
             [pAutoFocus]="autofocus || buttonProps?.autofocus"
+            [pBind]="ptm('root')"
+            [attr.data-p]="dataP"
+            [attr.data-p-disabled]="disabled || loading || buttonProps?.disabled"
+            [attr.data-p-severity]="severity || buttonProps?.severity"
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-            <ng-container *ngIf="loading">
+            <ng-container *ngIf="loading || buttonProps?.loading">
                 <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="cx('loadingIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
-                    <svg data-p-icon="spinner" *ngIf="!loadingIcon" [class]="cn(cx('loadingIcon'), spinnerIconClass())" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
+                    <span *ngIf="loadingIcon || buttonProps?.loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin', loadingIcon || buttonProps?.loadingIcon)" [pBind]="ptm('loadingIcon')" [attr.aria-hidden]="true"></span>
+                    <svg data-p-icon="spinner" *ngIf="!(loadingIcon || buttonProps?.loadingIcon)" [class]="cn(cx('loadingIcon'), cx('spinnerIcon'))" [pBind]="ptm('loadingIcon')" [spin]="true" [attr.aria-hidden]="true" />
                 </ng-container>
-                <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: cx('loadingIcon') }"></ng-template>
+                <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: cx('loadingIcon'), pt: ptm('loadingIcon') }"></ng-template>
             </ng-container>
-            <ng-container *ngIf="!loading">
-                <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="cx('icon')" [attr.data-pc-section]="'icon'"></span>
-                <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: cx('icon') }"></ng-template>
+            <ng-container *ngIf="!(loading || buttonProps?.loading)">
+                <span *ngIf="(icon || buttonProps?.icon) && !iconTemplate && !_iconTemplate" [class]="cn(cx('icon'), icon || buttonProps?.icon)" [pBind]="ptm('icon')" [attr.data-p]="dataIconP"></span>
+                <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: cx('icon'), pt: ptm('icon') }"></ng-template>
             </ng-container>
-            <span [class]="cx('label')" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
-            <p-badge *ngIf="!contentTemplate && !_contentTemplate && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
+            <span
+                [class]="cx('label')"
+                [attr.aria-hidden]="(icon || buttonProps?.icon) && !(label || buttonProps?.label)"
+                *ngIf="!contentTemplate && !_contentTemplate && (label || buttonProps?.label)"
+                [pBind]="ptm('label')"
+                [attr.data-p]="dataLabelP"
+                >{{ label || buttonProps?.label }}</span
+            >
+            <p-badge
+                *ngIf="!contentTemplate && !_contentTemplate && (badge || buttonProps?.badge)"
+                [value]="badge || buttonProps?.badge"
+                [severity]="badgeSeverity || buttonProps?.badgeSeverity"
+                [pt]="ptm('pcBadge')"
+                [unstyled]="unstyled()"
+            ></p-badge>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ButtonStyle]
+    providers: [ButtonStyle, { provide: BUTTON_INSTANCE, useExisting: Button }, { provide: PARENT_INSTANCE, useExisting: Button }],
+    hostDirectives: [Bind]
 })
-export class Button extends BaseComponent implements AfterContentInit {
+export class Button extends BaseComponent<ButtonPassThrough> {
+    @Input() hostName: any = '';
+
+    $pcButton: Button | undefined = inject(BUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    _componentStyle = inject(ButtonStyle);
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
     /**
      * Type of the button.
      * @group Props
      */
     @Input() type: string = 'button';
-    /**
-     * Position of the icon.
-     * @group Props
-     */
-    @Input() iconPos: ButtonIconPosition = 'left';
-    /**
-     * Name of the icon.
-     * @group Props
-     */
-    @Input() icon: string | undefined;
+
     /**
      * Value of the badge.
      * @group Props
      */
     @Input() badge: string | undefined;
-    /**
-     * Uses to pass attributes to the label's DOM element.
-     * @group Props
-     */
-    @Input() label: string | undefined;
+
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-    /**
-     * Whether the button is in loading state.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) loading: boolean = false;
-    /**
-     * Icon to display in loading state.
-     * @group Props
-     */
-    @Input() loadingIcon: string | undefined;
+
     /**
      * Add a shadow to indicate elevation.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) raised: boolean = false;
+
     /**
      * Add a circular border radius to the button.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) rounded: boolean = false;
+
     /**
      * Add a textual class to the button without a background initially.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) text: boolean = false;
+
     /**
      * Add a plain textual class to the button without a background initially.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) plain: boolean = false;
-    /**
-     * Defines the style of the button.
-     * @group Props
-     */
-    @Input() severity: ButtonSeverity;
+
     /**
      * Add a border class without a background initially.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) outlined: boolean = false;
+
     /**
      * Add a link style to the button.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) link: boolean = false;
+
     /**
      * Add a tabindex to the button.
      * @group Props
      */
     @Input({ transform: numberAttribute }) tabindex: number | undefined;
+
     /**
      * Defines the size of the button.
      * @group Props
      */
     @Input() size: 'small' | 'large' | undefined;
+
     /**
      * Specifies the variant of the component.
      * @group Props
      */
     @Input() variant: 'outlined' | 'text' | undefined;
+
     /**
      * Inline style of the element.
      * @group Props
      */
     @Input() style: { [klass: string]: any } | null | undefined;
+
     /**
      * Class of the element.
      * @group Props
      */
     @Input() styleClass: string | undefined;
+
     /**
      * Style class of the badge.
      * @group Props
      * @deprecated use badgeSeverity instead.
      */
     @Input() badgeClass: string | undefined;
+
     /**
      * Severity type of the badge.
      * @group Props
      * @defaultValue secondary
      */
     @Input() badgeSeverity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined = 'secondary';
+
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
-    /**
-     * Button props as an object.
-     * @group Props
-     */
-    @Input() buttonProps: any | ButtonProps;
+
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+
+    /**
+     * Position of the icon.
+     * @group Props
+     */
+    @Input() iconPos: ButtonIconPosition = 'left';
+
+    /**
+     * Name of the icon.
+     * @group Props
+     */
+    @Input() icon: string | undefined;
+
+    /**
+     * Text of the button.
+     * @group Props
+     */
+    @Input() label: string | undefined;
+
+    /**
+     * Whether the button is in loading state.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) loading: boolean = false;
+
+    /**
+     * Icon to display in loading state.
+     * @group Props
+     */
+    @Input() loadingIcon: string | undefined;
+
+    /**
+     * Defines the style of the button.
+     * @group Props
+     */
+    @Input() severity: ButtonSeverity;
+
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @group Props
+     */
+    @Input() buttonProps: ButtonProps;
+
     /**
      * Spans 100% width of the container when enabled.
      * @defaultValue undefined
      * @group Props
      */
     fluid = input(undefined, { transform: booleanAttribute });
+
     /**
      * Callback to execute when button is clicked.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click).
@@ -619,6 +803,7 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @group Emits
      */
     @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter();
+
     /**
      * Callback to execute when button is focused.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (focus).
@@ -626,6 +811,7 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @group Emits
      */
     @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+
     /**
      * Callback to execute when button loses focus.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (blur).
@@ -633,39 +819,44 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @group Emits
      */
     @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+
     /**
-     * Template of the content.
+     * Custom content template.
      * @group Templates
      **/
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content') contentTemplate: TemplateRef<void> | undefined;
+
     /**
-     * Template of the loading.
+     * Custom loading icon template.
      * @group Templates
      **/
-    @ContentChild('loadingicon') loadingIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('loadingicon') loadingIconTemplate: TemplateRef<ButtonLoadingIconTemplateContext> | undefined;
+
     /**
-     * Template of the icon.
+     * Custom icon template.
      * @group Templates
      **/
-    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icon') iconTemplate: TemplateRef<ButtonIconTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
     }
 
-    _componentStyle = inject(ButtonStyle);
+    get hasIcon() {
+        return this.icon || this.buttonProps?.icon || this.iconTemplate || this._iconTemplate || this.loadingIcon || this.loadingIconTemplate || this._loadingIconTemplate;
+    }
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<void> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<ButtonIconTemplateContext> | undefined;
 
-    _loadingIconTemplate: TemplateRef<any> | undefined;
+    _loadingIconTemplate: TemplateRef<ButtonLoadingIconTemplateContext> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -687,21 +878,33 @@ export class Button extends BaseComponent implements AfterContentInit {
         });
     }
 
-    spinnerIconClass(): string {
-        return Object.entries(this.iconClass())
-            .filter(([, value]) => !!value)
-            .reduce((acc, [key]) => acc + ` ${key}`, 'p-button-loading-icon');
+    get dataP() {
+        return this.cn({
+            [this.size as string]: this.size,
+            'icon-only': this.hasIcon && !this.label && !this.badge,
+            loading: this.loading,
+            fluid: this.hasFluid,
+            rounded: this.rounded,
+            raised: this.raised,
+            outlined: this.outlined || this.variant === 'outlined',
+            text: this.text || this.variant === 'text',
+            link: this.link,
+            vertical: (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label
+        });
     }
 
-    iconClass() {
-        return {
-            [`p-button-loading-icon pi-spin ${this.loadingIcon ?? ''}`]: this.loading,
-            'p-button-icon': true,
-            'p-button-icon-left': this.iconPos === 'left' && this.label,
-            'p-button-icon-right': this.iconPos === 'right' && this.label,
-            'p-button-icon-top': this.iconPos === 'top' && this.label,
-            'p-button-icon-bottom': this.iconPos === 'bottom' && this.label
-        };
+    get dataIconP() {
+        return this.cn({
+            [this.iconPos]: this.iconPos,
+            [this.size as string]: this.size
+        });
+    }
+
+    get dataLabelP() {
+        return this.cn({
+            [this.size as string]: this.size,
+            'icon-only': this.hasIcon && !this.label && !this.badge
+        });
     }
 }
 

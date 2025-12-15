@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/datepicker';
+import { style as datepicker_style } from '@primeuix/styles/datepicker';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+${datepicker_style}
 
-    /* For PrimeNG */
-    .p-datepicker.ng-invalid.ng-dirty .p-inputtext {
-        border-color: dt('inputtext.invalid.border.color');
-    }
+/* For PrimeNG */
+.p-datepicker.ng-invalid.ng-dirty .p-inputtext {
+    border-color: dt('inputtext.invalid.border.color');
+}
 `;
 
 const inlineStyles = {
@@ -36,7 +36,7 @@ const classes = {
         {
             'p-datepicker-panel p-component': true,
             'p-datepicker-panel-inline': instance.inline,
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-datepicker-timeonly': instance.timeOnly
         }
     ],
@@ -78,7 +78,7 @@ const classes = {
         return {
             'p-datepicker-day': true,
             'p-datepicker-day-selected': !instance.isRangeSelection() && instance.isSelected(date) && date.selectable,
-            'p-disabled': instance.disabled() || !date.selectable,
+            'p-disabled': instance.$disabled() || !date.selectable,
             [selectedDayClass]: true
         };
     },
@@ -116,7 +116,7 @@ const classes = {
 export class DatePickerStyle extends BaseStyle {
     name = 'datepicker';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 

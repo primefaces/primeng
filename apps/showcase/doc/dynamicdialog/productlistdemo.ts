@@ -1,14 +1,17 @@
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InfoDemo } from './infodemo';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ButtonModule, TableModule],
     template: ` <div class="flex justify-end mt-1 mb-4">
             <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
         </div>
-        <p-table [value]="products" responsiveLayout="scroll" [rows]="5">
+        <p-table [value]="products()" responsiveLayout="scroll" [rows]="5">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="code">Code</th>
@@ -38,7 +41,7 @@ import { InfoDemo } from './infodemo';
         </p-table>`
 })
 export class ProductListDemo implements OnInit {
-    products: Product[];
+    products = signal(<Product[] | null>[]);
 
     constructor(
         private productService: ProductService,
@@ -47,7 +50,7 @@ export class ProductListDemo implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((products) => (this.products = products.slice(0, 5)));
+        this.productService.getProductsSmall().then((products) => this.products.set(products.slice(0, 5)));
     }
 
     selectProduct(product: Product) {

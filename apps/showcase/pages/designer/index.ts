@@ -1,9 +1,9 @@
+import { AppConfigService } from '@/service/appconfigservice';
 import { Component, computed, inject, signal } from '@angular/core';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
-import { AppConfigService } from '@/service/appconfigservice';
-import { RippleModule } from 'primeng/ripple';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     standalone: true,
@@ -55,7 +55,7 @@ import { DialogModule } from 'primeng/dialog';
             <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20 mb-20">
                 <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-l-4 animate-duration-1000" class="w-full md:w-6/12">
                     <div class="text-primary font-bold mb-2">AUTOMATED</div>
-                    <div class="text-5xl font-bold mb-4">Figma to Theme</div>
+                    <div class="text-5xl font-bold mb-4">Figma to Theme Code</div>
                     <p class="mb-4 text-lg">
                         Bridge the gap between design and development with our powerful Figma sync technology. Fully integrated with the PrimeNG Figma UI Kit, get started in no time by importing your design token file. Save countless hours in your
                         workflow by eliminating manual theme creation from Figma designs.
@@ -69,6 +69,14 @@ import { DialogModule } from 'primeng/dialog';
                         <li class="flex items-center w-6/12 p-4">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Eliminate Handoff</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">CI Pipeline</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Live Preview</span>
                         </li>
                         <li class="flex items-center w-6/12 p-4">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
@@ -152,7 +160,7 @@ import { DialogModule } from 'primeng/dialog';
                             <ul class="list-none p-0 m-0 grow text-lg">
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-times-circle text-red-500 mr-2"></i>
-                                    <span class="font-bold">Figma to Code</span>
+                                    <span class="font-bold">Figma to Theme Code</span>
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
@@ -180,7 +188,7 @@ import { DialogModule } from 'primeng/dialog';
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700 mt-auto" />
-                            <a pRipple href="https://www.primefaces.org/store/designer.xhtml" class="bg-blue-500 text-white hover:bg-blue-400 p-4 w-full rounded text-center transition-colors duration-300 font-bold p-ripple">Buy Now</a>
+                            <a pRipple href="https://primeui.store/designer" class="bg-blue-500 text-white hover:bg-blue-400 p-4 w-full rounded text-center transition-colors duration-300 font-bold p-ripple">Buy Now</a>
                         </div>
                     </div>
                 </div>
@@ -199,7 +207,7 @@ import { DialogModule } from 'primeng/dialog';
                             <ul class="list-none p-0 m-0 grow text-lg">
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span class="font-bold">Figma to Code</span>
+                                    <span class="font-bold">Figma to Theme Code</span>
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
@@ -227,7 +235,7 @@ import { DialogModule } from 'primeng/dialog';
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700" />
-                            <a pRipple href="https://www.primefaces.org/store/designer.xhtml" class="bg-purple-500 text-white hover:bg-purple-400 p-4 w-full rounded text-center transition-colors duration-300 font-bold p-ripple">Buy Now</a>
+                            <a pRipple href="https://primeui.store/designer" class="bg-purple-500 text-white hover:bg-purple-400 p-4 w-full rounded text-center transition-colors duration-300 font-bold p-ripple">Buy Now</a>
                         </div>
                     </div>
                 </div>
@@ -245,7 +253,7 @@ import { DialogModule } from 'primeng/dialog';
                             <ul class="list-none p-0 m-0 grow text-lg">
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span class="font-bold">Figma to Code</span>
+                                    <span class="font-bold">Figma to Theme Code</span>
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
@@ -304,7 +312,7 @@ import { DialogModule } from 'primeng/dialog';
                     <p class="mt-0 mb-12 p-0 leading-normal">Migration Assistant tool automatically scans your theme and adds missing tokens for the latest version.</p>
 
                     <div class="leading-normal mb-2 font-bold">I have purchased the Figma UI Kit, does Designer require a separate purchase?</div>
-                    <p class="mt-0 mb-12 p-0 leading-normal">Yes, Figma UI Kit and Designer are different products. The Designer offers Figma to Code generation feature so it is recommended to purchase both for an efficient workflow.</p>
+                    <p class="mt-0 mb-12 p-0 leading-normal">Yes, Figma UI Kit and Designer are different products. The Designer offers Figma to Theme Code generation feature so it is recommended to purchase both for an efficient workflow.</p>
 
                     <div class="leading-normal mb-2 font-bold">How can I get support?</div>
                     <p class="mt-0 mb-12 p-0 leading-normal">

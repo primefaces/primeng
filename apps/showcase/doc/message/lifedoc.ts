@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component, signal } from '@angular/core';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'life-doc',
-    standalone: false,
+    standalone: true,
+    imports: [MessageModule, ButtonModule, AppCodeModule, AppDocSectionText, CommonModule],
     template: `
         <app-docsectiontext>
             <p>Messages can disappear automatically by defined the <i>life</i> in milliseconds.</p>
@@ -25,7 +31,7 @@ export class LifeDoc {
 
         setTimeout(() => {
             this.visible.set(false);
-        }, 3500);
+        }, 3000);
     }
 
     code: Code = {
@@ -56,7 +62,7 @@ export class MessageLifeDemo {
 
         setTimeout(() => {
             this.visible.set(false);
-        }, 3500);
+        }, 3000);
     }
 }`
     };

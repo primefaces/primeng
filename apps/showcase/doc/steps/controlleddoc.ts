@@ -1,10 +1,15 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { StepsModule } from 'primeng/steps';
 
 @Component({
     selector: 'controlled-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, ButtonModule, StepsModule, AppCode],
     template: `
         <app-docsectiontext>
             <p>Steps can be controlled programmatically using <i>activeIndex</i> property.</p>

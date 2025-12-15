@@ -10,9 +10,10 @@ import { RaisedTextDoc } from '@/doc/splitbutton/raisedtextdoc';
 import { RoundedDoc } from '@/doc/splitbutton/roundeddoc';
 import { SeverityDoc } from '@/doc/splitbutton/severitydoc';
 import { SizesDoc } from '@/doc/splitbutton/sizesdoc';
-import { SplitButtonDocModule } from '@/doc/splitbutton/splitbuttondoc.module';
 import { TemplateDoc } from '@/doc/splitbutton/templatedoc';
 import { TextDoc } from '@/doc/splitbutton/textdoc';
+import { PTComponent } from '@/doc/splitbutton/pt/PTComponent';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -22,12 +23,15 @@ import { Component } from '@angular/core';
         description="SplitButton groups a set of commands in an overlay with a default action item."
         [docs]="docs"
         [apiDocs]="['SplitButton']"
+        [ptDocs]="ptComponent"
         themeDocs="splitbutton"
     ></app-doc>`,
     standalone: true,
-    imports: [SplitButtonDocModule]
+    imports: [AppDoc]
 })
 export class SplitButtonDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

@@ -2,10 +2,15 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { Component } from '@angular/core';
+import { InplaceModule } from 'primeng/inplace';
+import { TableModule } from 'primeng/table';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'lazy-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCodeModule, InplaceModule, TableModule],
     template: `
         <app-docsectiontext>
             <p>Using the <i>onActivate</i> event, data can be loaded in a lazy manner before displaying it in a table.</p>

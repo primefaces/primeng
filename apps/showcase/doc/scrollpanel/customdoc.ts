@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @Component({
     selector: 'custom-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, ScrollPanelModule],
     template: `
         <app-docsectiontext>
             <p>Scrollbar visuals can be styled for a unified look across different platforms.</p>

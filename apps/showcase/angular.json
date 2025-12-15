@@ -20,20 +20,26 @@
                         "outputPath": "dist/showcase",
                         "index": "index.html",
                         "browser": "app/main.ts",
-                        "polyfills": [
-                            "zone.js"
-                        ],
                         "tsConfig": "./tsconfig.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
-                            "assets"
+                            "assets",
+                            {
+                                "glob": "**/*",
+                                "input": "public",
+                                "output": "/"
+                            }
                         ],
                         "stylePreprocessorOptions": {
                             "sass": {
-                                "silenceDeprecations": ["import"]
+                                "silenceDeprecations": [
+                                    "import"
+                                ]
                             }
                         },
-                        "styles": ["assets/styles/global.scss"],
+                        "styles": [
+                            "assets/styles/global.scss"
+                        ],
                         "scripts": [
                             "./node_modules/prismjs/prism.js",
                             "./node_modules/prismjs/components/prism-typescript.js",
@@ -101,6 +107,7 @@
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {},
                     "configurations": {
                         "production": {
                             "buildTarget": "showcase:build:production"

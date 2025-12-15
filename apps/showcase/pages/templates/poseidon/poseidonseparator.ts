@@ -1,11 +1,11 @@
-import { TemplateSeparatorModule } from '@/components/template/templateseparator';
+import { TemplateSeparator } from '@/components/template/templateseparator';
 import { AppConfigService } from '@/service/appconfigservice';
 import { Component, inject } from '@angular/core';
 
 @Component({
     standalone: true,
     selector: 'poseidon-separator',
-    imports: [TemplateSeparatorModule],
+    imports: [TemplateSeparator],
     template: `
         <template-separator>
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">

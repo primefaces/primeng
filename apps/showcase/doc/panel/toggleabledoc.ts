@@ -1,9 +1,13 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
     selector: 'toggleable-doc',
-    standalone: false,
+    standalone: true,
+    imports: [PanelModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -11,7 +15,7 @@ import { Component } from '@angular/core';
                 clicking anywhere in the header to trigger a toggle.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
+        <div class="card">
             <p-panel header="Header" [toggleable]="true">
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
