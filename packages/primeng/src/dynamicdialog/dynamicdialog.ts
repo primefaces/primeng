@@ -55,6 +55,7 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
             (onResizeEnd)="onDialogResizeEnd($event)"
             (onDragEnd)="onDialogDragEnd($event)"
             [pt]="ddconfig.pt"
+            appendTo="self"
             hostName="DynamicDialog"
             [unstyled]="isUnstyled"
         >
