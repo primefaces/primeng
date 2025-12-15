@@ -88,6 +88,7 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
                 [attr.aria-hidden]="collapsed"
                 [attr.tabindex]="collapsed ? '-1' : undefined"
                 (pMotionOnAfterEnter)="onToggleDone($event)"
+                (pMotionOnAfterLeave)="onToggleDone($event)"
             >
                 <div [pBind]="ptm('contentWrapper')" [class]="cx('contentWrapper')">
                     <div [class]="cx('content')" [pBind]="ptm('content')" #contentWrapper>
