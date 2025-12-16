@@ -13,6 +13,7 @@
 - [Pass Through](https://primeng.org/passthrough): Pass Through Props allow direct access to the underlying elements for complete customization.
 - [Tailwind CSS](https://primeng.org/tailwind): Integration between PrimeNG and Tailwind CSS.
 - [LLMs.txt](https://primeng.org/llms): LLM-optimized documentation endpoints for PrimeNG components.
+- [MCP Server](https://primeng.org/mcp): Model Context Protocol (MCP) server for PrimeNG component library.
 - [Accessibility](https://primeng.org/guides/accessibility): PrimeNG has WCAG 2.1 AA level compliance.
 - [Animations](https://primeng.org/guides/animations): Built-in CSS animations for PrimeNG components.
 - [RTL](https://primeng.org/guides/rtl): Right-to-left support for PrimeNG components.
@@ -23,7 +24,7 @@
 ## Components
 
 - [Angular Accordion Component](https://primeng.org/accordion): Accordion groups a collection of contents in tabs.
-- [Angular Animate On Scroll Directive](https://primeng.org/animateonscroll): AnimateOnScroll AnimateOnScroll is used to apply animations to elements when entering or leaving the viewport during scrolling.
+- [Angular Animate On Scroll Directive](https://primeng.org/animateonscroll): AnimateOnScroll is used to apply animations to elements when entering or leaving the viewport during scrolling.
 - [Angular AutoComplete Component](https://primeng.org/autocomplete): AutoComplete is an input component that provides real-time suggestions when being typed.
 - [Angular AutoFocus Directive](https://primeng.org/autofocus): AutoFocus manages focus on focusable element on load.
 - [Angular Avatar Component](https://primeng.org/avatar): Avatar represents people using icons, labels and images.
@@ -116,5 +117,6 @@
 - [Angular TreeTable Component](https://primeng.org/treetable): TreeTable is used to display hierarchical data in tabular format.
 - [Angular Virtual Scroller Component](https://primeng.org/scroller): VirtualScroller is a performance-approach to handle huge data efficiently.
 - [LLMs.txt - PrimeNG](https://primeng.org/llms): LLM-optimized documentation endpoints for PrimeNG components.
+- [MCP Server - PrimeNG](https://primeng.org/mcp): Model Context Protocol (MCP) server for PrimeNG component library. Provides AI assistants with comprehensive access to PrimeNG component documentation.
 - [Overlay API - PrimeNG](https://primeng.org/overlay): This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.
 - [uikit](https://primeng.org/uikit): 

@@ -2,6 +2,27 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.0.2](https://github.com/primefaces/primeng/tree/21.0.2) (2025-12-15)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.0.1...21.0.2)
+
+**New Features:**
+- New package: `@primeng/mcp` [#19200](https://github.com/primefaces/primeng/issues/19200)
+
+**Fixed bugs:**
+- Menu | overlay positioning is wrong [#19191](https://github.com/primefaces/primeng/issues/19191)
+- TreeTable: emptymessage doesn't display [#19180](https://github.com/primefaces/primeng/issues/19180)
+- DynamicDialog cannot be closed [#19186](https://github.com/primefaces/primeng/issues/19186)
+- Table v21 / pSortableColumn: invalid role attribute [#19199](https://github.com/primefaces/primeng/issues/19199)
+- AutoComplete selects the incorrect option if the input matches an available option [#17699](https://github.com/primefaces/primeng/issues/17699)
+- Autocomplete doesn't emit onClear with forceSelection set on [#18592](https://github.com/primefaces/primeng/issues/18592)
+- Trying to install PrimeNg 21 in Stackblitz crashes [#19203](https://github.com/primefaces/primeng/issues/19203)
+- Content of BlockUI 21 is always visible [#19208](https://github.com/primefaces/primeng/issues/19208)
+- DynamicDialog does not emit onClose on pressing ESC or close icon [#19196](https://github.com/primefaces/primeng/issues/19196)
+- Fieldset: onAfterToggle only triggers on closing animation [#19192](https://github.com/primefaces/primeng/issues/19192)
+- Missing role "progressbar" on progressbar component [#19195](https://github.com/primefaces/primeng/issues/19195)
+- Duplicate text in Angular Animate On Scroll Directive in llms.txt [#19181](https://github.com/primefaces/primeng/issues/19181)
+- chatgpt llm file request issue [#19206](https://github.com/primefaces/primeng/issues/19206)
+
 ## [21.0.1](https://github.com/primefaces/primeng/tree/21.0.1) (2025-12-04)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.0.0...21.0.1)
 

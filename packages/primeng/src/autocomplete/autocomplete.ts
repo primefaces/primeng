@@ -82,7 +82,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [class]="cn(cx('pcInputText'), inputStyleClass)"
             [ngStyle]="inputStyle"
             [attr.type]="type"
-            [value]="inputValue()"
+            [attr.value]="inputValue()"
             [variant]="$variant()"
             [invalid]="invalid()"
             [attr.id]="inputId"
@@ -888,22 +888,24 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     visibleOptions = computed(() => {
-        return this.group ? this.flatOptions(this.suggestions) : this.suggestions || [];
+        return this.group ? this.flatOptions(this._suggestions()) : this._suggestions() || [];
     });
 
     inputValue = computed(() => {
         const modelValue = this.modelValue();
-        if (isEmpty(modelValue)) {
+        const selectedOption = this.optionValueSelected ? (this.suggestions || []).find((option: any) => equals(option, modelValue, this.equalityKey())) : modelValue;
+
+        if (isNotEmpty(modelValue)) {
+            if (typeof modelValue === 'object' || this.optionValueSelected) {
+                const label = this.getOptionLabel(selectedOption);
+
+                return label != null ? label : modelValue;
+            } else {
+                return modelValue;
+            }
+        } else {
             return '';
         }
-        const optionValueSelected = this.optionValueSelected;
-        if (typeof modelValue === 'object' || optionValueSelected) {
-            const selectedOption = optionValueSelected ? (this.suggestions || []).find((option: any) => equals(this.getOptionValue(option), modelValue, this.equalityKey())) : modelValue;
-
-            const label = this.getOptionLabel(selectedOption);
-            return label != null ? label : this.inputEL?.nativeElement.value;
-        }
-        return modelValue;
     });
 
     get focusedMultipleOptionId() {
@@ -951,7 +953,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     }
 
     get optionValueSelected() {
-        return typeof this.modelValue() === 'string' && !!this.optionValue;
+        return typeof this.modelValue() === 'string' && this.optionValue;
     }
 
     chipItemClass(index) {
@@ -1212,23 +1214,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     }
 
     onInputChange(event) {
-        if (this.forceSelection) {
-            let valid = false;
-
-            if (this.visibleOptions()) {
-                const matchedValue = this.visibleOptions().find((option) => this.isOptionMatched(option, this.inputEL?.nativeElement?.value || ''));
-
-                if (matchedValue !== undefined) {
-                    valid = true;
-                    !this.isSelected(matchedValue) && this.onOptionSelect(event, matchedValue);
-                }
-            }
-
-            if (!valid) {
-                this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
-                !this.multiple && this.updateModel(null);
-            }
-        }
+        this.updateInputWithForceSelection(event);
     }
 
     onInputFocus(event) {
@@ -1569,6 +1555,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
                         this.inputEL.nativeElement.value = '';
                     }
 
+                    this.updateInputValue();
                     event.preventDefault(); // Keep focus on the component
                     this.overlayVisible && this.hide();
                     return;
@@ -1673,7 +1660,40 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
         this.value = value;
         this.writeModelValue(options);
         this.onModelChange(value);
+        this.updateInputValue();
         this.cd.markForCheck();
+    }
+
+    updateInputValue() {
+        if (this.inputEL && this.inputEL.nativeElement) {
+            if (!this.multiple) {
+                this.inputEL.nativeElement.value = this.inputValue();
+            } else {
+                this.inputEL.nativeElement.value = '';
+            }
+        }
+    }
+
+    updateInputWithForceSelection(event: any) {
+        const input = this.inputEL?.nativeElement;
+
+        if (!this.forceSelection || this.overlayVisible || !input.value) {
+            return;
+        }
+
+        const matchedOption = this.visibleOptions()?.find((option) => this.isOptionMatched(option, input.value));
+
+        if (!matchedOption) {
+            input.value = '';
+            if (!this.multiple) {
+                this.clear();
+            }
+            return;
+        }
+
+        if (matchedOption && !this.isSelected(matchedOption)) {
+            this.onOptionSelect(event, matchedOption);
+        }
     }
 
     autoUpdateModel() {
@@ -1729,6 +1749,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             this.focusedOptionIndex.set(-1);
             isFocus && focus(this.inputEL?.nativeElement);
             this.onHide.emit();
+            this.updateInputWithForceSelection(null);
             this.cd.markForCheck();
         };
 
@@ -1846,8 +1867,10 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
         const options = this.multiple ? this.visibleOptions().filter((option) => value?.some((val) => equals(val, option, this.equalityKey()))) : this.visibleOptions().find((option) => equals(value, option, this.equalityKey()));
+
         this.value = value;
         setModelValue(isEmpty(options) ? value : options);
+        this.updateInputValue();
         this.cd.markForCheck();
     }
 

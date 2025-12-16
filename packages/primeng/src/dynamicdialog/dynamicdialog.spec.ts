@@ -256,6 +256,27 @@ describe('DynamicDialog', () => {
 
             expect(mockDialogRef.destroy).toHaveBeenCalled();
         });
+
+        it('should call close on dialogRef on close icon click', async () => {
+            component.visible = true;
+            const closeButton = fixture.debugElement.query(By.css('.p-dialog-close-button'));
+            closeButton.nativeElement.click();
+            expect(mockDialogRef.close).toHaveBeenCalled();
+            expect(component.visible).toBe(false);
+        });
+
+        it('should call close on dialogRef on Escape key press', async () => {
+            mockConfig.closeOnEscape = true;
+            component.container = document.createElement('div');
+            component.visible = true;
+
+            const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape', keyCode: 27 });
+            component.bindDocumentEscapeListener();
+
+            // Simulate escape key press on document
+            document.dispatchEvent(escapeEvent);
+            expect(mockDialogRef.close).toHaveBeenCalled();
+        });
     });
 
     describe('Drag and Drop Functionality', () => {

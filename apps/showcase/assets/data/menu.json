@@ -38,10 +38,19 @@
             ]
         },
         {
-            "name": "LLMs.txt",
-            "icon": "pi pi-file",
-            "routerLink": "/llms",
-            "badge": "NEW"
+            "name": "AI Tools",
+            "icon": "pi pi-sparkles",
+            "badge": "NEW",
+            "children": [
+                {
+                    "name": "LLMs.txt",
+                    "routerLink": "/llms"
+                },
+                {
+                    "name": "MCP Server",
+                    "routerLink": "/mcp"
+                }
+            ]
         },
         {
             "name": "Components",

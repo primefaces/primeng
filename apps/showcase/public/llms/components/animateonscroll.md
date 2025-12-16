@@ -1,6 +1,6 @@
 # Angular Animate On Scroll Directive
 
-AnimateOnScroll AnimateOnScroll is used to apply animations to elements when entering or leaving the viewport during scrolling.
+AnimateOnScroll is used to apply animations to elements when entering or leaving the viewport during scrolling.
 
 ## Accessibility
 
