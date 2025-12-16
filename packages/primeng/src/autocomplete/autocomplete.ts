@@ -857,7 +857,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     dirty: boolean = false;
 
-    overlayClicked = signal<boolean>(false);
+    isSelectingOption = signal<boolean>(false);
 
     _itemTemplate: TemplateRef<AutoCompleteItemTemplateContext> | undefined;
 
@@ -1295,7 +1295,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
         this.onModelTouched();
         this.onBlur.emit(event);
-        this.overlayClicked.set(false);
+        this.isSelectingOption.set(false);
     }
 
     onInputPaste(event) {
@@ -1630,8 +1630,11 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     onOverlayMouseDown(event) {
         // Set flag when user clicks on overlay (before blur event)
-        this.overlayClicked.set(true);
+        if (this.visibleOptions()?.length > 0) {
+            this.isSelectingOption.set(true);
+        }
     }
+    1;
 
     search(event, query, source) {
         //allow empty string but not undefined or null
@@ -1694,10 +1697,11 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
          *    Event order when clicking an option:
          *    mousedown (on overlay) -> blur (on input) -> change -> click -> onOptionSelect
          *
-         *    The overlayClicked flag prevents premature validation during this selection process.
+         *    The isSelectingOption flag prevents premature validation during this selection process.
          *    The flag is reset in onInputBlur after all events are processed.
+         *
          */
-        if (!this.forceSelection || this.overlayClicked()) {
+        if (!this.forceSelection || this.isSelectingOption()) {
             return;
         }
 
