@@ -951,7 +951,8 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     }
 
     get optionValueSelected() {
-        return typeof this.modelValue() === 'string' && !!this.optionValue;
+        // When modelValue is a primitive and optionValue is defined, we consider that optionValue is used
+        return typeof this.modelValue() !== 'object' && !!this.optionValue;
     }
 
     chipItemClass(index) {
