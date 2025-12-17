@@ -10,6 +10,6 @@ import { AppCodeModule } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ListboxModule } from 'primeng/listbox';`
+        typescript: `import { Listbox } from 'primeng/listbox';`
     };
 }
