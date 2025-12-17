@@ -1627,6 +1627,12 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             }
         } else {
             this.updateModel(option);
+            // When the option is already selected, the input value must be set manually,
+            // because the modelValue() signal does not change and therefore the inputValue() computed
+            if (this.isSelected(option) && this.inputEL?.nativeElement) {
+                const label = this.getOptionLabel(option);
+                this.inputEL.nativeElement.value = label != null ? label : '';
+            }
         }
 
         this.onSelect.emit({ originalEvent: event, value: option });
