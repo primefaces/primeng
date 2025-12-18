@@ -18,6 +18,10 @@ const style = /*css*/ `
     .p-select.ng-invalid.ng-dirty .p-select-label.p-placeholder {
         color: dt('select.invalid.placeholder.color');
     }
+
+    .p-select > button[role="combobox"] {
+        text-align: left;
+    }
 `;
 
 const classes = {
