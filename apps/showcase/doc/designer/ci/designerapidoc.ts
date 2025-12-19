@@ -21,7 +21,7 @@ import { RouterModule } from '@angular/router';
         </ul>
 
         <h3>Authentication</h3>
-        <p>Define a <i>Authentication: Bearer</i> request headerto configure your secret key.</p>
+        <p>Define a <i>Authentication: Bearer</i> request header to configure your secret key.</p>
 
         <h3>Parameters</h3>
         <p>The request type must be <i>POST</i>.</p>

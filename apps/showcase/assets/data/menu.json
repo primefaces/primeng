@@ -562,11 +562,6 @@
             ]
         },
         {
-            "name": "Templates",
-            "icon": "pi pi-star",
-            "routerLink": "/templates"
-        },
-        {
             "name": "Theme Designer",
             "icon": "pi pi-sparkles",
             "children": [
@@ -584,6 +579,11 @@
                 }
             ]
 
+        },
+        {
+            "name": "Templates",
+            "icon": "pi pi-star",
+            "routerLink": "/templates"
         },
         {
             "name": "PrimeBlocks",
