@@ -38,7 +38,7 @@ import { fromEvent } from 'rxjs';
                     }
                 }
             </ul>
-            @if (ad) {
+            @if (false) {
                 <div class="mt-8 px-4 py-6 rounded-lg border border-surface-200 dark:border-surface-800 bg-surface-0 dark:bg-surface-900 w-full">
                     <img [src]="ad.lightImage" class="w-full rounded-xl block dark:hidden mb-4" />
                     <img [src]="ad.darkImage" class="w-full rounded-xl hidden dark:block mb-4" />
@@ -56,6 +56,17 @@ import { fromEvent } from 'rxjs';
                     </span>
                 </div>
             }
+            <a href="https://primeui.store" target="_blank" class="mt-8 block w-full">
+                <img src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/ads/dec25/endofyear-light.jpg" class="w-full rounded-xl block dark:hidden" />
+                <img src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/ads/dec25/endofyear-dark.jpg" class="w-full rounded-xl hidden dark:block" />
+                <div class="text-xl font-semibold flex flex-col gap-2 text-center mt-4">
+                    <span class="leading-none">END OF YEAR SALE</span>
+                </div>
+                <div class="text-center text-sm mt-4 text-muted-color">Apply coupon code <strong>ENDOFYEAR25</strong> at checkout to enjoy 25% off your order.</div>
+                <span class="flex justify-center mt-4">
+                    <span class="p-button p-button-rounded p-button-sm font-semibold">Buy Now</span>
+                </span>
+            </a>
         </div>
     `
 })
