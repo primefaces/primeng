@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
+    AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     computed,
@@ -30,7 +32,6 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { MotionModule } from 'primeng/motion';
 import { StepItemPassThrough, StepListPassThrough, StepPanelPassThrough, StepPanelsPassThrough, StepPassThrough, StepperPassThrough, StepperSeparatorPassThrough } from 'primeng/types/stepper';
-import { transformToBoolean } from 'primeng/utils';
 import { StepItemStyle } from './style/stepitemstyle';
 import { StepListStyle } from './style/stepliststyle';
 import { StepPanelsStyle } from './style/steppanelsstyle';
@@ -255,9 +256,7 @@ export class Step extends BaseComponent<StepPassThrough> {
      * @defaultValue false
      * @group Props
      */
-    disabled: InputSignalWithTransform<any, boolean> = input(false, {
-        transform: (v: any | boolean) => transformToBoolean(v)
-    });
+    disabled: InputSignalWithTransform<boolean, unknown> = input(false, { transform: booleanAttribute });
 
     active = computed(() => this.pcStepper.isStepActive(this.value()));
 
@@ -477,9 +476,7 @@ export class Stepper extends BaseComponent<StepperPassThrough> {
      * @type {InputSignalWithTransform<any, boolean >}
      * @group Props
      */
-    linear: InputSignalWithTransform<any, boolean> = input(false, {
-        transform: (v: any | boolean) => transformToBoolean(v)
-    });
+    linear: InputSignalWithTransform<boolean, unknown> = input(false, { transform: booleanAttribute });
     /**
      * Transition options of the animation.
      * @defaultValue 400ms cubic-bezier(0.86, 0, 0.07, 1)
