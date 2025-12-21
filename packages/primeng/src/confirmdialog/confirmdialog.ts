@@ -62,6 +62,8 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
             [style]="style"
             [dismissableMask]="dismissableMask"
             [draggable]="draggable"
+            [closeAriaLabel]="option('closeAriaLabel')"
+            [closeButtonProps]="getCloseButtonProps()"
             [baseZIndex]="baseZIndex"
             [autoZIndex]="autoZIndex"
             [maskStyleClass]="cn(cx('mask'), maskStyleClass)"
@@ -672,6 +674,10 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
 
     getRejectButtonProps() {
         return this.option('rejectButtonProps');
+    }
+
+    getCloseButtonProps() {
+        return this.option('closeButtonProps');
     }
 }
 
