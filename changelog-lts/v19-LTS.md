@@ -1,5 +1,11 @@
 # Changelog
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [19.1.7-lts](https://www.npmjs.com/package/primeng/v/19.1.7-lts) (2025-12-22)
+
+**Fixed bugs:**
+- Checkbox: icon template does not work when written as #icon [\#18284](https://github.com/primefaces/primeng/issues/18284)
+- Dynamic Dialog: Prevent scroll to top when child dialog closes in parent dialog [\#18533](https://github.com/primefaces/primeng/issues/18533)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [19.1.6-lts](https://www.npmjs.com/package/primeng/v/19.1.6-lts) (2025-09-25)
 
 **Fixed bugs:**
