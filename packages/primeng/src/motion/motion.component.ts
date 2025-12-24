@@ -35,7 +35,9 @@ export class Motion extends BaseComponent<MotionPassThrough> {
     bindDirectiveInstance = inject(Bind, { self: true });
 
     onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+        const options = this.options() as any;
+        const optionsAttrs = options?.root || {};
+        this.bindDirectiveInstance.setAttrs({ ...this.ptms(['host', 'root']), ...optionsAttrs });
     }
 
     _componentStyle = inject(MotionStyle);
