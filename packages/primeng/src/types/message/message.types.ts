@@ -23,6 +23,10 @@ export interface MessagePassThroughOptions<I = unknown> {
      */
     content?: PassThroughOption<HTMLDivElement, I>;
     /**
+     * Used to pass attributes to the content's DOM element.
+     */
+    contentWrapper?: PassThroughOption<HTMLDivElement, I>;
+    /**
      * Used to pass attributes to the icon's DOM element.
      */
     icon?: PassThroughOption<HTMLElement, I>;
