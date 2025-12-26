@@ -11,9 +11,9 @@ import { AppCode } from '@/components/doc/app.code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The select element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and <i>aria-expanded</i> attributes. If the
-                editable option is enabled <i>aria-autocomplete</i> is also added. The relation between the combobox and the popup is created with <i>aria-controls</i> and <i>aria-activedescendant</i> attribute is used to instruct screen reader which
-                option to read during keyboard navigation within the popup list.
+                Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. To associate a label, the select element needs to have an <i>inputId</i> which has to match the <i>for</i> attribute of the
+                label. The select element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and <i>aria-expanded</i> attributes. If the editable option is enabled <i>aria-autocomplete</i> is also added. The relation between the combobox
+                and the popup is created with <i>aria-controls</i> and <i>aria-activedescendant</i> attribute is used to instruct screen reader which option to read during keyboard navigation within the popup list.
             </p>
             <p>
                 The popup list has an id that refers to the <i>aria-controls</i> attribute of the <i>combobox</i> element and uses <i>listbox</i> as the role. Each list item has an <i>option</i> role, an id to match the
@@ -179,6 +179,9 @@ export class AccessibilityDoc {
         basic: `<span id="dd1">Options</span>
 <p-select ariaLabelledBy="dd1"/>
 
-<p-select ariaLabel="Options"/>`
+<p-select ariaLabel="Options"/>
+
+<label for="cities">Cities</label>
+<p-select inputId="cities"/>`
     };
 }
