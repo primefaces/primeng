@@ -1730,7 +1730,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     isOptionGroup(option) {
-        return this.optionGroupLabel !== undefined && this.optionGroupLabel !== null && option.optionGroup !== undefined && option.optionGroup !== null && option.group;
+        return this.optionGroupLabel !== undefined && this.optionGroupLabel !== null && option?.optionGroup !== undefined && option?.optionGroup !== null && option.group;
     }
 
     onArrowUpKey(event: KeyboardEvent, pressedInInputText: boolean = false) {
