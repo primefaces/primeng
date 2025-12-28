@@ -900,7 +900,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
     calculateAutoSize() {
         if (this._autoSize && !this.d_loading) {
-            Promise.resolve().then(() => {
+            // wait for items to get set on next tick
+            setTimeout(() => {
                 if (this.contentEl) {
                     this.contentEl.style.minHeight = this.contentEl.style.minWidth = 'auto';
                     this.contentEl.style.position = 'relative';
@@ -918,7 +919,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
                     this.contentEl.style.position = '';
                     (<ElementRef>this.elementViewChild).nativeElement.style.contain = '';
                 }
-            });
+            }, 1);
         }
     }
 

@@ -800,6 +800,28 @@ class TestComplexEdgeCasesComponent {
     }
 }
 
+@Component({
+    standalone: false,
+    template: ` <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [lazy]="true" (onLazyLoad)="onLazyLoad($event)"></p-select> `
+})
+class TestLazyVirtualScrollComponent {
+    items: any[] = [];
+    selectedItem: any;
+
+    onLazyLoad(event: any) {
+        const { first, last } = event;
+        const items = [...this.items];
+        // Ensure array is large enough
+        if (items.length < 10000) {
+            items.length = 10000;
+        }
+        for (let i = first; i < last; i++) {
+            items[i] = { label: `Item #${i}`, value: i };
+        }
+        this.items = items;
+    }
+}
+
 describe('Select', () => {
     let component: TestBasicSelectComponent;
     let fixture: ComponentFixture<TestBasicSelectComponent>;
@@ -819,7 +841,8 @@ describe('Select', () => {
                 TestDynamicDataSourcesComponent,
                 TestComprehensiveFormComponent,
                 TestViewChildComponent,
-                TestComplexEdgeCasesComponent
+                TestComplexEdgeCasesComponent,
+                TestLazyVirtualScrollComponent
             ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -4444,5 +4467,60 @@ describe('Select PT (PassThrough)', () => {
                 expect(emptyMessage.nativeElement.getAttribute('data-empty')).toBe('true');
             }
         });
+    });
+});
+
+describe('Lazy Virtual Scroll', () => {
+    let fixture: ComponentFixture<TestLazyVirtualScrollComponent>;
+    let component: TestLazyVirtualScrollComponent;
+    let selectElement: DebugElement;
+    let selectInstance: Select;
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
+            declarations: [TestLazyVirtualScrollComponent],
+            providers: [provideZonelessChangeDetection()]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(TestLazyVirtualScrollComponent);
+        component = fixture.componentInstance;
+        console.log({ component });
+        selectElement = fixture.debugElement.query(By.css('p-select'));
+        console.log({ selectElement });
+        selectInstance = selectElement.componentInstance;
+        console.log({ selectInstance });
+        fixture.detectChanges();
+        await fixture.whenStable();
+    });
+
+    it('should display items after lazy load populates data', async () => {
+        // Spy on onLazyLoad to verify it's called when dropdown opens
+        const lazyLoadSpy = spyOn(component, 'onLazyLoad').and.callThrough();
+
+        // Open the dropdown
+        selectInstance.show();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // Verify onLazyLoad was called when dropdown opened
+        expect(lazyLoadSpy).toHaveBeenCalled();
+
+        selectInstance.show();
+        fixture.detectChanges();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        await fixture.whenStable();
+        fixture.detectChanges();
+
+        const options = fixture.debugElement.queryAll(By.css('.p-select-option'));
+        expect(options.length).toBeGreaterThan(0);
+
+        const firstOptionText = options[0].nativeElement.textContent;
+        expect(firstOptionText).toContain('Item #0');
+
+        const scroller = fixture.debugElement.query(By.css('p-scroller'));
+        expect(scroller.nativeElement.offsetHeight).toBeGreaterThan(100);
     });
 });
