@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { FocusTrapModule } from 'primeng/focustrap';`
+        typescript: `import { FocusTrap } from 'primeng/focustrap';`
     };
 }

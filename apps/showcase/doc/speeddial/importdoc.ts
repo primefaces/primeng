@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { SpeedDialModule } from 'primeng/speeddial';`
+        typescript: `import { SpeedDial } from 'primeng/speeddial';`
     };
 }

@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { EditorModule } from 'primeng/editor';`
+        typescript: `import { Editor } from 'primeng/editor';`
     };
 }

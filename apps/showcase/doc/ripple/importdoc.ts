@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { RippleModule } from 'primeng/ripple';`
+        typescript: `import { Ripple } from 'primeng/ripple';`
     };
 }

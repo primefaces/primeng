@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { TooltipModule } from 'primeng/tooltip';`
+        typescript: `import { Tooltip } from 'primeng/tooltip';`
     };
 }

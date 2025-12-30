@@ -10,6 +10,6 @@ import { AppCodeModule } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { MenuModule } from 'primeng/menu';`
+        typescript: `import { Menu } from 'primeng/menu';`
     };
 }
