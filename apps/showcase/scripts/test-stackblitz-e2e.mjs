@@ -44,7 +44,7 @@ function log(message, color = 'reset') {
 }
 
 // Load and transform code like app.code.ts does
-function transformTypescriptForStackBlitz(code) {
+function transformTypescriptForStackBlitz(code, selector) {
     let str = code.typescript;
 
     const importModuleStatement = "import { ImportsModule } from './imports';";
@@ -58,7 +58,8 @@ function transformTypescriptForStackBlitz(code) {
             return match;
         });
 
-        modifiedCodeWithImportsModule = modifiedCodeWithImportsModule.replace(/\bimports:\s*\[[^\]]*\]/, 'imports: [ImportsModule]');
+        // Replace imports array with ImportsModule (always add trailing comma)
+        modifiedCodeWithImportsModule = modifiedCodeWithImportsModule.replace(/\bimports:\s*\[[^\]]*\],?/, 'imports: [ImportsModule],');
 
         const finalModifiedCode = modifiedCodeWithImportsModule.replace(/import\s+\{[^{}]*\}\s+from\s+'@angular\/core';/, (match) => match + '\n' + importModuleStatement);
 
@@ -68,13 +69,19 @@ function transformTypescriptForStackBlitz(code) {
     // Add theme-switcher to template
     str = str.replace(/template:\s*`\s*/, 'template: `\n        <theme-switcher />\n        ');
 
+    // Add selector to @Component if missing
+    if (selector && !/@Component\s*\(\s*\{[\s\S]*?selector\s*:/.test(str)) {
+        str = str.replace(/@Component\s*\(\s*\{/, `@Component({\n    selector: '${selector}',`);
+    }
+
     return str;
 }
 
 // Generate StackBlitz project files
 function generateStackBlitzProject(demo, selector) {
     const code = demo.code;
-    const transformedTs = transformTypescriptForStackBlitz(code);
+    const services = demo.metadata?.services || [];
+    const transformedTs = transformTypescriptForStackBlitz(code, selector);
 
     const componentName = selector
         .split('-')
@@ -157,12 +164,14 @@ bootstrapApplication(${componentName}, appConfig).catch((err) =>
             'src/index.html': indexHtml,
             [`src/app/${selector}.ts`]: transformedTs
         },
-        packageJson
+        packageJson,
+        services,
+        selector
     };
 }
 
 // Validate TypeScript syntax
-function validateTypeScript(tsContent, filePath) {
+function validateTypeScript(tsContent, filePath, selector) {
     const errors = [];
 
     // Basic syntax checks
@@ -194,6 +203,16 @@ function validateTypeScript(tsContent, filePath) {
         if (directImports) {
             errors.push('Has direct PrimeNG module imports alongside ImportsModule');
         }
+    }
+
+    // Check for comma after imports: [ImportsModule]
+    if (tsContent.includes('imports: [ImportsModule]') && !tsContent.includes('imports: [ImportsModule],')) {
+        errors.push('Missing comma after imports: [ImportsModule]');
+    }
+
+    // Check for selector in @Component
+    if (selector && !tsContent.includes(`selector: '${selector}'`)) {
+        errors.push(`Missing selector: '${selector}' in @Component`);
     }
 
     return errors;
@@ -233,7 +252,7 @@ function testSingleDemo(demo, selector, verbose = true) {
 
     // Validate TypeScript
     const tsFile = `src/app/${selector}.ts`;
-    const tsErrors = validateTypeScript(project.files[tsFile], tsFile);
+    const tsErrors = validateTypeScript(project.files[tsFile], tsFile, selector);
     errors.push(...tsErrors.map((e) => `TypeScript: ${e}`));
 
     // Validate package.json
@@ -360,7 +379,7 @@ async function runE2ETest() {
     // Validate TypeScript
     log('\n3. Validating TypeScript syntax...', 'cyan');
     const tsFile = `src/app/${TEST_SELECTOR}.ts`;
-    const tsErrors = validateTypeScript(project.files[tsFile], tsFile);
+    const tsErrors = validateTypeScript(project.files[tsFile], tsFile, TEST_SELECTOR);
     if (tsErrors.length === 0) {
         log(`   ${colors.green}OK${colors.reset} TypeScript syntax valid`, 'reset');
     } else {
@@ -383,6 +402,9 @@ async function runE2ETest() {
     const checks = [
         ['ImportsModule import present', tsContent.includes("import { ImportsModule } from './imports'")],
         ['imports array uses ImportsModule', tsContent.includes('imports: [ImportsModule]')],
+        ['imports array has trailing comma', tsContent.includes('imports: [ImportsModule],')],
+        ['selector in @Component', tsContent.includes(`selector: '${TEST_SELECTOR}'`)],
+        ['selector matches index.html', project.files['src/index.html'].includes(`<${TEST_SELECTOR}>`)],
         ['theme-switcher in template', tsContent.includes('<theme-switcher />')],
         ['No separate HTML file', !project.files[`src/app/${TEST_SELECTOR}.html`]]
     ];

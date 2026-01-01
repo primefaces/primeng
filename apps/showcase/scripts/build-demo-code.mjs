@@ -13,6 +13,9 @@ const OUTPUT_PATH = path.resolve(__dirname, '../public/demos.json');
 // Directories to skip (not component demos)
 const SKIP_DIRS = ['apidoc', 'guides', 'theming', 'icons', 'installation', 'configuration', 'customicons', 'passthrough', 'playground', 'tailwind', 'uikit', 'templates', 'primeflex', 'csslayer', 'migration'];
 
+// Known services that exist in StackBlitz templates
+const KNOWN_SERVICES = ['CarService', 'CountryService', 'CustomerService', 'EventService', 'NodeService', 'PhotoService', 'ProductService', 'TicketService'];
+
 // PrimeNG selector to module mapping
 const SELECTOR_TO_MODULE = {
     'p-accordion': 'AccordionModule',
@@ -692,6 +695,35 @@ function extractImports(content) {
     return imports;
 }
 
+// Detect services from component file
+function detectServices(content) {
+    const services = [];
+
+    // Method 1: Look for imports from @/service/*
+    const serviceImportMatches = content.matchAll(/import\s*\{\s*([^}]+)\s*\}\s*from\s*['"`]@\/service\/[^'"`]+['"`]/g);
+    for (const match of serviceImportMatches) {
+        const names = match[1].split(',').map((n) => n.trim());
+        for (const name of names) {
+            if (KNOWN_SERVICES.includes(name) && !services.includes(name)) {
+                services.push(name);
+            }
+        }
+    }
+
+    // Method 2: Look for providers array in @Component
+    const providersMatch = content.match(/providers:\s*\[([^\]]+)\]/);
+    if (providersMatch) {
+        const providerNames = providersMatch[1].split(',').map((p) => p.trim());
+        for (const name of providerNames) {
+            if (KNOWN_SERVICES.includes(name) && !services.includes(name)) {
+                services.push(name);
+            }
+        }
+    }
+
+    return services;
+}
+
 // Detect PrimeNG modules used in template
 function detectPrimeNGModules(template) {
     const modules = new Set();
@@ -908,8 +940,9 @@ function parseDocFile(filePath, componentDir) {
     // Get component name for typescript generation
     const componentName = toPascalCase(componentDir) + toPascalCase(section);
 
-    // Get services from existing code
-    const services = existingCode?.service || [];
+    // Detect services from component file (preferred) or fall back to existing code block
+    const detectedServices = detectServices(content);
+    const services = detectedServices.length > 0 ? detectedServices : existingCode?.service || [];
 
     // Get the demo selector - prefer app-code selector, fallback to generated key
     const appCodeSelector = extractAppCodeSelector(template);
