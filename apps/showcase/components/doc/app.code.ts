@@ -108,6 +108,7 @@ export class AppCode {
     resolvedCode = signal<Code | null>(null);
     resolvedExtFiles = signal<ExtFile[]>([]);
     resolvedRouteFiles = signal<RouteFile[]>([]);
+    resolvedService = signal<string[]>([]);
 
     // Computed selector - auto-detects from parent if not provided
     resolvedSelector = computed(() => {
@@ -164,6 +165,7 @@ export class AppCode {
                 this.resolvedCode.set(codeInput);
                 this.resolvedExtFiles.set(this.extFiles());
                 this.resolvedRouteFiles.set(this.routeFiles());
+                this.resolvedService.set(this.service() || []);
             } else if (selector && isLoaded) {
                 // Priority 2: Look up from JSON
                 const demo = this.demoCodeService.getCode(selector);
@@ -171,6 +173,7 @@ export class AppCode {
                     this.resolvedCode.set(demo.code);
                     this.resolvedExtFiles.set(demo.metadata.extFiles || []);
                     this.resolvedRouteFiles.set(demo.metadata.routeFiles || []);
+                    this.resolvedService.set(demo.metadata.services || []);
                 }
             }
         });
@@ -246,7 +249,7 @@ export class AppCode {
                     return match;
                 });
 
-                modifiedCodeWithImportsModule = modifiedCodeWithImportsModule.replace(/\bimports:\s*\[[^\]]*\]/, 'imports: [ImportsModule]');
+                modifiedCodeWithImportsModule = modifiedCodeWithImportsModule.replace(/\bimports:\s*\[[^\]]*\],?/, 'imports: [ImportsModule],');
 
                 const finalModifiedCode = modifiedCodeWithImportsModule.replace(/import\s+\{[^{}]*\}\s+from\s+'@angular\/core';/, (match) => match + '\n' + importModuleStatement);
 
@@ -256,7 +259,14 @@ export class AppCode {
             // Add <theme-switcher /> to the beginning of the template
             str = str.replace(/template:\s*`\s*/, 'template: `\n        <theme-switcher />\n        ');
 
-            const stackBlitzObject = { ...code, typescript: str };
+            // Add selector to @Component if missing
+            const selector = this.resolvedSelector();
+            if (selector && !/@Component\s*\(\s*\{[\s\S]*?selector\s*:/.test(str)) {
+                str = str.replace(/@Component\s*\(\s*\{/, `@Component({\n    selector: '${selector}',`);
+            }
+
+            // Include service array in the code object for StackBlitz
+            const stackBlitzObject = { ...code, typescript: str, service: this.resolvedService() };
 
             useStackBlitz({
                 code: stackBlitzObject,
@@ -270,8 +280,10 @@ export class AppCode {
     openCodeSandbox() {
         const code = this.resolvedCode();
         if (code) {
+            // Include service array in the code object for CodeSandbox
+            const codeSandboxObject = { ...code, service: this.resolvedService() };
             useCodeSandbox({
-                code: code,
+                code: codeSandboxObject,
                 selector: this.resolvedSelector(),
                 extFiles: this.resolvedExtFiles(),
                 routeFiles: this.resolvedRouteFiles()
