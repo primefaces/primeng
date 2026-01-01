@@ -39,7 +39,7 @@ import { TreeTableModule } from 'primeng/treetable';
                 </p-treetable>
             </p-deferred-demo>
         </div>
-        <app-code [code]="code" selector="tree-table-basic-demo"></app-code>`,
+        <app-code selector="tree-table-basic-demo"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BasicDoc {

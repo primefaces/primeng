@@ -1401,7 +1401,6 @@ import Aura from '@primeuix/themes/aura';
         },
 
         [`src/app/${selector}.ts`]: { content: code.typescript.trim() },
-        [`src/app/${selector}.html`]: { content: `<theme-switcher />\n` + code.html.trim() },
         ...defaultFiles,
         ...externalFiles,
         ..._routeFiles

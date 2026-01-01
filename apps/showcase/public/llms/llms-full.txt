@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2025-12-15
+Generated: 2026-01-01
 
 ---
 
@@ -452,7 +452,7 @@ Unstyled components require styling using your preferred approach. We recommend 
     [pt]="{ 
         root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2', 
         label: 'text-white font-bold text-lg', 
-        icon: 'text-white !text-xl' 
+        icon: 'text-white text-xl' 
     }"
 />
 ```
@@ -475,7 +475,7 @@ export const appConfig: ApplicationConfig = {
                 button: {
                     root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2',
                     label: 'text-white font-bold text-lg',
-                    icon: 'text-white !text-xl'
+                    icon: 'text-white text-xl'
                 }
             }
         })
@@ -25812,6 +25812,7 @@ Message groups a collection of contents in tabs.
 | host | PassThroughOption<HTMLElement, I> | Used to pass attributes to the host's DOM element. |
 | root | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the root's DOM element. |
 | content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
+| contentWrapper | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
 | icon | PassThroughOption<HTMLElement, I> | Used to pass attributes to the icon's DOM element. |
 | text | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the text's DOM element. |
 | closeButton | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the close button's DOM element. |
@@ -33527,12 +33528,6 @@ Screen Reader Value to describe the component can either be provided with ariaLa
 
 Select is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
 
-**Basic Usage:**
-
-```html
-<p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
-```
-
 ## Checkmark
 
 An alternative way to highlight the selected option is displaying a checkmark instead.
@@ -40727,273 +40722,6 @@ export class TableExportDemo implements OnInit{
 ## filteradvanceddoc
 
 Filters are displayed in an overlay.
-
-**Basic Usage:**
-
-```html
-<p-table #dt1 [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" showGridlines>
-    <ng-template #caption>
-        <div class="flex">
-            <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
-            <p-iconfield iconPosition="left" class="ml-auto">
-                <p-inputicon>
-                    <i class="pi pi-search"></i>
-                </p-inputicon>
-                <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
-            </p-iconfield>
-        </div>
-    </ng-template>
-    <ng-template #header>
-        <tr>
-            <th style="min-width:15rem">
-                <div class="flex items-center justify-between">
-                    Name
-                    <p-columnFilter type="text" field="name" display="menu" />
-                </div>
-            </th>
-            <th style="min-width:15rem">
-                <div class="flex items-center justify-between">
-                    Country
-                    <p-columnFilter type="text" field="country.name" display="menu" />
-                </div>
-            </th>
-            <th style="min-width:15rem">
-                <div class="flex items-center justify-between">
-                    Agent
-                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                        <ng-template #filter let-value let-filter="filterCallback">
-                            <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
-                                <ng-template let-option #item>
-                                    <div class="flex items-center gap-2">
-                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
-                                        <span>{{ option.name }}</span>
-                                    </div>
-                                </ng-template>
-                            </p-multiselect>
-                        </ng-template>
-                    </p-columnFilter>
-                </div>
-            </th>
-            <th style="min-width:10rem">
-                <div class="flex items-center justify-between">
-                    Date
-                    <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
-                </div>
-            </th>
-            <th style="min-width:10rem">
-                <div class="flex items-center justify-between">
-                    Balance
-                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
-                </div>
-            </th>
-            <th style="min-width:10rem">
-                <div class="flex items-center justify-between">
-                    Status
-                    <p-columnFilter field="status" matchMode="equals" display="menu">
-                        <ng-template #filter let-value let-filter="filterCallback">
-                            <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" class="w-full">
-                                <ng-template let-option #item>
-                                    <p-tag [value]="option.value" [severity]="getSeverity(option.value)"></p-tag>
-                                </ng-template>
-                            </p-select>
-                        </ng-template>
-                    </p-columnFilter>
-                </div>
-            </th>
-            <th style="min-width:10rem">
-                <div class="flex items-center justify-between">
-                    Activity
-                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                        <ng-template #filter let-value let-filter="filterCallback">
-                            <p-slider [(ngModel)]="value" [range]="true" class="m-4" (onSlideEnd)="filter($event.values)" />
-                            <div class="flex items-center px-2">
-                                <span *ngIf="!value">0</span>
-                                <span *ngIf="value">{{ value[0] }} - {{ value[1] }}</span>
-                            </div>
-                        </ng-template>
-                    </p-columnFilter>
-                </div>
-            </th>
-            <th style="width: 3rem">
-                <div class="flex items-center justify-between">
-                    Verified
-                    <p-columnFilter type="boolean" field="verified" display="menu" />
-                </div>
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-customer>
-        <tr>
-            <td>
-                {{ customer.name }}
-            </td>
-            <td>
-                <div class="flex items-center gap-2">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                    <span>{{ customer.country.name }}</span>
-                </div>
-            </td>
-            <td>
-                <div class="flex items-center gap-2">
-                    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
-                    <span>{{ customer.representative.name }}</span>
-                </div>
-            </td>
-            <td>
-                {{ customer.date | date: 'MM/dd/yyyy' }}
-            </td>
-            <td>
-                {{ customer.balance | currency: 'USD' : 'symbol' }}
-            </td>
-            <td>
-                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
-            </td>
-            <td>
-                <p-progressbar [value]="customer.activity" [showValue]="false" />
-            </td>
-            <td class="text-center">
-                <i
-                    class="pi"
-                    [ngClass]="{
-                        'text-green-500 pi-check-circle': customer.verified,
-                        'text-red-500 pi-times-circle': !customer.verified
-                    }"
-                ></i>
-            </td>
-        </tr>
-    </ng-template>
-    <ng-template #emptymessage>
-        <tr>
-            <td colspan="7">No customers found.</td>
-        </tr>
-    </ng-template>
-</p-table>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { Table } from 'primeng/table';
-import { Customer, Representative } from '@/domain/customer';
-import { CustomerService } from '@/service/customerservice';
-import { TagModule } from 'primeng/tag';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { HttpClientModule } from '@angular/common/http';
-import { InputTextModule } from 'primeng/inputtext';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { SelectModule } from 'primeng/select';
-import { CommonModule } from '@angular/common';
-import { TableModule } from 'primeng/table';
-import { ProgressBar } from 'primeng/progressbar';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    selector: 'table-filter-advanced-demo',
-    templateUrl: 'table-filter-advanced-demo.html',
-    standalone: true,
-    imports: [TableModule, HttpClientModule, CommonModule, InputTextModule, TagModule,
-    SelectModule, MultiSelectModule, ProgressBar, ButtonModule, IconFieldModule, InputIconModule],
-    providers: [CustomerService]
-})
-export class TableFilterAdvancedDemo implements OnInit {
-    customers!: Customer[];
-
-    representatives!: Representative[];
-
-    statuses!: any[];
-
-    loading: boolean = true;
-
-    activityValues: number[] = [0, 100];
-
-    searchValue: string | undefined;
-
-    constructor(private customerService: CustomerService) {}
-
-    ngOnInit() {
-        this.customerService.getCustomersLarge().then((customers) => {
-            this.customers = customers;
-            this.loading = false;
-
-            this.customers.forEach((customer) => (customer.date = new Date(<Date>customer.date)));
-        });
-
-        this.representatives = [
-            { name: 'Amy Elsner', image: 'amyelsner.png' },
-            { name: 'Anna Fali', image: 'annafali.png' },
-            { name: 'Asiya Javayant', image: 'asiyajavayant.png' },
-            { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
-            { name: 'Elwin Sharvill', image: 'elwinsharvill.png' },
-            { name: 'Ioni Bowcher', image: 'ionibowcher.png' },
-            { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
-            { name: 'Onyama Limba', image: 'onyamalimba.png' },
-            { name: 'Stephen Shaw', image: 'stephenshaw.png' },
-            { name: 'Xuxue Feng', image: 'xuxuefeng.png' }
-        ];
-
-        this.statuses = [
-            { label: 'Unqualified', value: 'unqualified' },
-            { label: 'Qualified', value: 'qualified' },
-            { label: 'New', value: 'new' },
-            { label: 'Negotiation', value: 'negotiation' },
-            { label: 'Renewal', value: 'renewal' },
-            { label: 'Proposal', value: 'proposal' }
-        ];
-    }
-
-    clear(table: Table) {
-        table.clear();
-        this.searchValue = ''
-    }
-
-    getSeverity(status: string) {
-        switch (status.toLowerCase()) {
-            case 'unqualified':
-                return 'danger';
-
-            case 'qualified':
-                return 'success';
-
-            case 'new':
-                return 'info';
-
-            case 'negotiation':
-                return 'warn';
-
-            case 'renewal':
-                return null;
-        }
-    }
-}
-```
-</details>
-
-**Sample Data:**
-
-```json
-{
-    id: 1000,
-    name: 'James Butt',
-    country: {
-        name: 'Algeria',
-        code: 'dz'
-    },
-    company: 'Benton, John B Jr',
-    date: '2015-09-13',
-    status: 'unqualified',
-    verified: true,
-    activity: 17,
-    representative: {
-        name: 'Ioni Bowcher',
-        image: 'ionibowcher.png'
-    },
-    balance: 70663
-},
-...
-```
 
 ## filterbasic
 
@@ -50919,9 +50647,10 @@ Tree is used to display hierarchical data.
 | value | any | - | An array of treenodes. |
 | selectionMode | "multiple" \| "single" \| "checkbox" | - | Defines the selection mode. |
 | loadingMode | "icon" \| "mask" | mask | Loading mode display. |
-| selection | any | - | A single treenode instance or an array to refer to the selections. |
+| selection | ModelSignal<TreeNode<any> \| TreeNode<any>[]> | ... | A single treenode instance or an array to refer to the selections. |
 | styleClass | string | - | Style class of the component. **(Deprecated)** |
 | contextMenu | any | - | Context menu instance. |
+| contextMenuSelectionMode | "separate" \| "joint" | joint | Defines the behavior of context menu selection, in "separate" mode context menu updates contextMenuSelection property whereas in joint mode selection property is used instead so that when row selection is enabled, both row selection and context menu selection use the same property. |
 | contextMenuSelection | ModelSignal<TreeNode<any>> | ... | Selected node with a context menu. |
 | draggableScope | any | - | Scope of the draggable nodes to match a droppableScope. |
 | droppableScope | any | - | Scope of the droppable nodes to match a draggableScope. |
@@ -50959,7 +50688,6 @@ Tree is used to display hierarchical data.
 
 | Name | Parameters | Description |
 |------|------------|-------------|
-| selectionChange | value: TreeNode<any | Callback to invoke on selection change. |
 | onNodeSelect | event: TreeNodeSelectEvent | Callback to invoke when a node is selected. |
 | onNodeUnselect | event: TreeNodeUnSelectEvent | Callback to invoke when a node is unselected. |
 | onNodeExpand | event: TreeNodeExpandEvent | Callback to invoke when a node is expanded. |

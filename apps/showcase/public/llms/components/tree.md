@@ -637,9 +637,10 @@ Tree is used to display hierarchical data.
 | value | any | - | An array of treenodes. |
 | selectionMode | "multiple" \| "single" \| "checkbox" | - | Defines the selection mode. |
 | loadingMode | "icon" \| "mask" | mask | Loading mode display. |
-| selection | any | - | A single treenode instance or an array to refer to the selections. |
+| selection | ModelSignal<TreeNode<any> \| TreeNode<any>[]> | ... | A single treenode instance or an array to refer to the selections. |
 | styleClass | string | - | Style class of the component. **(Deprecated)** |
 | contextMenu | any | - | Context menu instance. |
+| contextMenuSelectionMode | "separate" \| "joint" | joint | Defines the behavior of context menu selection, in "separate" mode context menu updates contextMenuSelection property whereas in joint mode selection property is used instead so that when row selection is enabled, both row selection and context menu selection use the same property. |
 | contextMenuSelection | ModelSignal<TreeNode<any>> | ... | Selected node with a context menu. |
 | draggableScope | any | - | Scope of the draggable nodes to match a droppableScope. |
 | droppableScope | any | - | Scope of the droppable nodes to match a draggableScope. |
@@ -677,7 +678,6 @@ Tree is used to display hierarchical data.
 
 | Name | Parameters | Description |
 |------|------------|-------------|
-| selectionChange | value: TreeNode<any | Callback to invoke on selection change. |
 | onNodeSelect | event: TreeNodeSelectEvent | Callback to invoke when a node is selected. |
 | onNodeUnselect | event: TreeNodeUnSelectEvent | Callback to invoke when a node is unselected. |
 | onNodeExpand | event: TreeNodeExpandEvent | Callback to invoke when a node is expanded. |

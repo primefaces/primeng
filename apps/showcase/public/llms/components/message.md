@@ -370,6 +370,7 @@ Message groups a collection of contents in tabs.
 | host | PassThroughOption<HTMLElement, I> | Used to pass attributes to the host's DOM element. |
 | root | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the root's DOM element. |
 | content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
+| contentWrapper | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
 | icon | PassThroughOption<HTMLElement, I> | Used to pass attributes to the icon's DOM element. |
 | text | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the text's DOM element. |
 | closeButton | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the close button's DOM element. |

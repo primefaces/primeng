@@ -17,10 +17,6 @@ Screen Reader Value to describe the component can either be provided with ariaLa
 
 Select is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
 
-```html
-<p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
-```
-
 ## Checkmark
 
 An alternative way to highlight the selected option is displaying a checkmark instead.
