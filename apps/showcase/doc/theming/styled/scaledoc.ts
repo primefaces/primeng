@@ -13,7 +13,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 the base so it may differ from your application if your base font size is different.
             </p>
         </app-docsectiontext>
-        <app-code [code]="code" selector="scale-demo" [hideToggleCode]="true"></app-code>
+        <app-code selector="scale-demo" [hideToggleCode]="true"></app-code>
     `
 })
 export class ScaleDoc {

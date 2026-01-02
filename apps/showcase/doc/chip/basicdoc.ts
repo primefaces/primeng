@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -21,31 +20,7 @@ import { ChipModule } from 'primeng/chip';
             <p-chip label="Mystery" />
             <p-chip label="Thriller" [removable]="true" />
         </div>
-        <app-code [code]="code" selector="chip-basic-demo"></app-code>
+        <app-code selector="chip-basic-demo"></app-code>
     `
 })
-export class BasicDoc {
-    code: Code = {
-        basic: `<p-chip label="Action" />
-<p-chip label="Comedy" />
-<p-chip label="Mystery" />
-<p-chip label="Thriller" [removable]="true" />`,
-
-        html: `<div class="card flex items-center gap-2 flex-wrap">
-    <p-chip label="Action" />
-    <p-chip label="Comedy" />
-    <p-chip label="Mystery" />
-    <p-chip label="Thriller" [removable]="true" />
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { Chip } from 'primeng/chip';
-
-@Component({
-    selector: 'chip-basic-demo',
-    templateUrl: './chip-basic-demo.html',
-    standalone: true,
-    imports: [Chip]
-})
-export class ChipBasicDemo {}`
-    };
-}
+export class BasicDoc {}

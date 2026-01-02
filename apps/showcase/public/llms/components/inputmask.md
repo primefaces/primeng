@@ -6,16 +6,6 @@ InputMask component is used to enter input in a certain format such as numeric, 
 
 Screen Reader InputMask component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props.
 
-```html
-<label for="date">Date</label>
-<p-inputmask inputId="date"/>
-
-<span id="phone">Phone</span>
-<p-inputmask ariaLabelledBy="phone"/>
-
-<p-inputmask ariaLabel="Age"/>
-```
-
 ## Basic
 
 InputMask is used as a controlled input with ngModel properties.
@@ -27,30 +17,6 @@ InputMask is used as a controlled input with ngModel properties.
 ## Clear Icon
 
 When showClear is enabled, a clear icon is displayed to clear the value.
-
-```html
-<p-inputmask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" [showClear]="true" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { InputMask } from 'primeng/inputmask';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'input-mask-clear-icon-demo',
-    templateUrl: './input-mask-clear-icon-demo.html',
-    standalone: true,
-    imports: [FormsModule, InputMask]
-})
-export class InputMaskClearIconDemo {
-    value: string | undefined;
-}
-```
-</details>
 
 ## Disabled
 
@@ -65,14 +31,17 @@ When disabled is present, the element cannot be edited and focused.
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputMask } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
-    selector: 'input-mask-disabled-demo',
-    templateUrl: './input-mask-disabled-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-inputmask mask="999-99-9999" [(ngModel)]="value" [disabled]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputMask]
+    imports: [InputMaskModule, FormsModule]
 })
 export class InputMaskDisabledDemo {
     value: string | undefined;
@@ -93,14 +62,17 @@ Specify the variant property as filled to display the component with a higher vi
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputMask } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
-    selector: 'input-mask-filled-demo',
-    templateUrl: './input-mask-filled-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-inputmask mask="99-999999" [(ngModel)]="value" variant="filled" placeholder="99-999999" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputMask]
+    imports: [InputMaskModule, FormsModule]
 })
 export class InputMaskFilledDemo {
     value: string | undefined;
@@ -117,12 +89,10 @@ FloatLabel visually integrates a label with its form element. Visit FloatLabel d
     <p-inputmask id="over_label" [(ngModel)]="value1" mask="999-99-9999" />
     <label for="over_label">Over Label</label>
 </p-floatlabel>
-
 <p-floatlabel variant="in">
     <p-inputmask id="in_label" [(ngModel)]="value2" mask="999-99-9999" />
     <label for="in_label">In Label</label>
 </p-floatlabel>
-
 <p-floatlabel variant="on">
     <p-inputmask id="on_label" [(ngModel)]="value3" mask="999-99-9999" />
     <label for="on_label">On Label</label>
@@ -134,21 +104,33 @@ FloatLabel visually integrates a label with its form element. Visit FloatLabel d
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputMask } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
-import { FloatLabel } from "primeng/floatlabel"
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
-    selector: 'input-mask-floatlabel-demo',
-    templateUrl: './input-mask-floatlabel-demo.html',
+    template: `
+        <div class="card flex flex-wrap justify-center items-end gap-4">
+            <p-floatlabel>
+                <p-inputmask id="over_label" [(ngModel)]="value1" mask="999-99-9999" />
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+            <p-floatlabel variant="in">
+                <p-inputmask id="in_label" [(ngModel)]="value2" mask="999-99-9999" />
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <p-inputmask id="on_label" [(ngModel)]="value3" mask="999-99-9999" />
+                <label for="on_label">On Label</label>
+            </p-floatlabel>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputMask, FloatLabel]
+    imports: [FloatLabelModule, InputMaskModule, FormsModule]
 })
 export class InputMaskFloatlabelDemo {
     value1: string | undefined;
-
     value2: string | undefined;
-
     value3: string | undefined;
 }
 ```
@@ -167,14 +149,17 @@ The fluid prop makes the component take up the full width of its container when 
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputMask } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
-    selector: 'input-mask-fluid-demo',
-    templateUrl: './input-mask-fluid-demo.html',
+    template: `
+        <div class="card">
+            <p-inputmask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" fluid />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputMask]
+    imports: [InputMaskModule, FormsModule]
 })
 export class InputMaskFluidDemo {
     value: string | undefined;
@@ -198,17 +183,23 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputMaskModule } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
 import { IftaLabelModule } from 'primeng/iftalabel';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
-    selector: 'input-mask-iftalabel-demo',
-    templateUrl: './input-mask-iftalabel-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-iftalabel>
+                <p-inputmask id="ssn" [(ngModel)]="value" mask="999-99-9999" autocomplete="off" />
+                <label for="ssn">SSN</label>
+            </p-iftalabel>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputMaskModule, IftaLabelModule]
+    imports: [IftaLabelModule, InputMaskModule, FormsModule]
 })
-export class InputMaskIftaLabelDemo {
+export class InputMaskIftalabelDemo {
     value: string | undefined;
 }
 ```
@@ -228,18 +219,21 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputMask } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
-    selector: 'input-mask-invalid-demo',
-    templateUrl: './input-mask-invalid-demo.html',
+    template: `
+        <div class="card flex flex-wrap justify-center gap-4">
+            <p-inputmask [(ngModel)]="value1" mask="99-999999" placeholder="Serial Key" [invalid]="!value1" />
+            <p-inputmask [(ngModel)]="value2" mask="99-999999" placeholder="Serial Key" [invalid]="!value2" variant="filled" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputMask]
+    imports: [InputMaskModule, FormsModule]
 })
 export class InputMaskInvalidDemo {
     value1: string | undefined;
-
     value2: string | undefined;
 }
 ```
@@ -252,10 +246,6 @@ Mask format can be a combination of the following definitions; a for alphabetic 
 ```html
 <span class="font-bold block mb-2">SSN</span>
 <p-inputmask mask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
-<span class="font-bold block mb-2">Phone</span>
-<p-inputmask mask="(999) 999-9999" [(ngModel)]="value2" placeholder="(999) 999-9999" />
-<span class="font-bold block mb-2">Serial Number</span>
-<p-inputmask mask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999" />
 ```
 
 <details>
@@ -263,21 +253,32 @@ Mask format can be a combination of the following definitions; a for alphabetic 
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputMask } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
-import { Fluid } from 'primeng/fluid';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
-    selector: 'input-mask-mask-demo',
-    templateUrl: './input-mask-mask-demo.html',
+    template: `
+        <p-fluid class="card flex flex-wrap gap-4">
+            <div class="flex-auto">
+                <span class="font-bold block mb-2">SSN</span>
+                <p-inputmask mask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
+            </div>
+            <div class="flex-auto">
+                <span class="font-bold block mb-2">Phone</span>
+                <p-inputmask mask="(999) 999-9999" [(ngModel)]="value2" placeholder="(999) 999-9999" />
+            </div>
+            <div class="flex-auto">
+                <span class="font-bold block mb-2">Serial Number</span>
+                <p-inputmask mask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999" />
+            </div>
+        </p-fluid>
+    `,
     standalone: true,
-    imports: [FormsModule, InputMask, Fluid]
+    imports: [InputMaskModule, FormsModule]
 })
 export class InputMaskMaskDemo {
     value1: string | undefined;
-
     value2: string | undefined;
-
     value3: string | undefined;
 }
 ```
@@ -296,14 +297,17 @@ When the input does not complete the mask definition, it is cleared by default. 
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputMask } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
-    selector: 'input-mask-optional-demo',
-    templateUrl: './input-mask-optional-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-inputmask mask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputMask]
+    imports: [InputMaskModule, FormsModule]
 })
 export class InputMaskOptionalDemo {
     value: string | undefined;
@@ -314,68 +318,6 @@ export class InputMaskOptionalDemo {
 ## reactiveformsdoc
 
 InputMask can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
-    <div class="flex flex-col gap-1">
-        <p-inputmask mask="99-999999" formControlName="value" placeholder="99-999999" [invalid]="isInvalid('value')" fluid />
-        @if (isInvalid('value')) {
-            <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, inject} from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { InputMaskModule } from 'primeng/inputmask';
-import { MessageService } from 'primeng/api';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    selector: 'input-mask-reactive-forms-demo',
-    templateUrl: './input-mask-reactive-forms-demo.html',
-    standalone: true,
-    imports: [ReactiveFormsModule, InputMaskModule, MessageModule, ToastModule, ButtonModule]
-})
-export class InputMaskReactiveFormsDemo {
-    messageService = inject(MessageService);
-
-    items: any[] | undefined;
-
-    exampleForm: FormGroup | undefined;
-
-    formSubmitted: boolean = false;
-
-    constructor(private fb: FormBuilder) {
-        this.exampleForm = this.fb.group({
-            value: ['', Validators.required]
-        });
-    }
-
-    onSubmit() {
-        this.formSubmitted = true;
-        if (this.exampleForm.valid) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
-            this.exampleForm.reset();
-            this.formSubmitted = false;
-        }
-    }
-
-    isInvalid(controlName: string) {
-        const control = this.exampleForm.get(controlName);
-        return control?.invalid && (control.touched || this.formSubmitted);
-    }
-}
-```
-</details>
 
 ## Sizes
 
@@ -392,20 +334,23 @@ InputMask provides small and large sizes as alternatives to the base.
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputMask } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
-    selector: 'input-mask-sizes-demo',
-    templateUrl: './input-mask-sizes-demo.html',
+    template: `
+        <div class="card flex flex-col items-center gap-4">
+            <p-inputmask [(ngModel)]="value1" placeholder="Small" size="small" mask="99-999999" />
+            <p-inputmask [(ngModel)]="value2" placeholder="Normal" mask="99-999999" />
+            <p-inputmask [(ngModel)]="value3" placeholder="Large" size="large" mask="99-999999" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputMask]
+    imports: [InputMaskModule, FormsModule]
 })
 export class InputMaskSizesDemo {
     value1: string | undefined;
-
     value2: string | undefined;
-
     value3: string | undefined;
 }
 ```
@@ -414,83 +359,6 @@ export class InputMaskSizesDemo {
 ## SlotChar
 
 Default placeholder for a mask is underscore that can be customized using slotChar property.
-
-```html
-<p-inputmask [(ngModel)]="value" mask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { InputMask } from 'primeng/inputmask';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'input-mask-slot-char-demo',
-    templateUrl: './input-mask-slot-char-demo.html',
-    standalone: true,
-    imports: [FormsModule, InputMask]
-})
-export class InputMaskSlotCharDemo {
-    value: string | undefined;
-}
-```
-</details>
-
-## styledoc
-
-Styling is same as inputtext component , for theming classes visit theming page .
-
-## templatedrivenformsdoc
-
-```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
-    <div class="flex flex-col gap-1">
-        <p-inputmask name="serial" mask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required fluid />
-        @if (serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, inject} from '@angular/core';
-import { InputMaskModule } from 'primeng/inputmask';
-import { MessageService } from 'primeng/api';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'input-mask-template-driven-forms-demo',
-    templateUrl: './input-mask-template-driven-forms-demo.html',
-    standalone: true,
-    imports: [FormsModule, InputMaskModule, MessageModule, ToastModule, ButtonModule]
-})
-export class InputMaskTemplateDrivenFormsDoc {
-    messageService = inject(MessageService);
-
-    items: any[] = [];
-
-    value: any;
-
-    onSubmit(form: any) {
-        if (form.valid) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
-            form.resetForm();
-        }
-    }
-}
-```
-</details>
 
 ## Input Mask
 

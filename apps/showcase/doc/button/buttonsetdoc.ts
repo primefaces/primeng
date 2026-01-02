@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -19,33 +18,7 @@ import { ButtonModule } from 'primeng/button';
                 <button pButton pRipple label="Cancel" icon="pi pi-times"></button>
             </span>
         </div>
-        <app-code [code]="code" selector="button-set-demo"></app-code>
+        <app-code selector="button-set-demo"></app-code>
     `
 })
-export class ButtonsetDoc {
-    code: Code = {
-        basic: `<span class="p-buttonset">
-    <button pButton pRipple label="Save" icon="pi pi-check"></button>
-    <button pButton pRipple label="Delete" icon="pi pi-trash"></button>
-    <button pButton pRipple label="Cancel" icon="pi pi-times"></button>
-</span>`,
-
-        html: `
-<div class="card flex justify-center">
-    <span class="p-buttonset">
-        <button pButton pRipple label="Save" icon="pi pi-check"></button>
-        <button pButton pRipple label="Delete" icon="pi pi-trash"></button>
-        <button pButton pRipple label="Cancel" icon="pi pi-times"></button>
-    </span>
-</div>`,
-
-        typescript: `
-import { Component } from '@angular/core';
-
-@Component({
-    selector: 'button-set-demo',
-    templateUrl: './button-set-demo.html'
-})
-export class ButtonSetDemo { }`
-    };
-}
+export class ButtonsetDoc {}

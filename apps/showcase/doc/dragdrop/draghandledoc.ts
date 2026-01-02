@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { DragDropModule } from 'primeng/dragdrop';
 import { PanelModule } from 'primeng/panel';
@@ -18,45 +17,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <p-panel header="Drag Header"> Content </p-panel>
             </div>
         </div>
-        <app-code [code]="code" selector="drag-drop-drag-handle-demo" [extFiles]="extFiles"></app-code>
+        <app-code selector="drag-drop-drag-handle-demo" [extFiles]="extFiles"></app-code>
     `
 })
 export class DragHandleDoc {
-    code: Code = {
-        basic: `<div pDraggable dragHandle=".p-panel-header" class="w-60">
-    <p-panel header="Drag Header">
-        Content
-    </p-panel>
-</div>`,
-        html: `<div class="card">
-    <div pDraggable dragHandle=".p-panel-header" class="w-60">
-        <p-panel header="Drag Header">
-            Content
-        </p-panel>
-    </div>
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { DragDropModule } from 'primeng/dragdrop';
-import { PanelModule } from 'primeng/panel';
-
-@Component({
-    selector: 'drag-drop-drag-handle-demo',
-    templateUrl: './drag-drop-drag-handle-demo.html',
-    styles: [
-        \`:host ::ng-deep {
-            [pDraggable] {
-                cursor: move;
-            }
-        }\`
-    ],
-    standalone: true,
-    imports: [DragDropModule, PanelModule]
-})
-export class DragDropDragHandleDemo {}`,
-
-        service: ['ProductService']
-    };
-
     extFiles = [
         {
             path: 'src/domain/product.ts',

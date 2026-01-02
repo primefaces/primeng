@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -18,37 +17,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p-inputmask [(ngModel)]="value2" mask="99-999999" placeholder="Serial Key" [invalid]="!value2" variant="filled" />
         </div>
 
-        <app-code [code]="code" selector="input-mask-invalid-demo"></app-code>
+        <app-code selector="input-mask-invalid-demo"></app-code>
     `
 })
 export class InvalidDoc {
     value1: string | undefined;
 
     value2: string | undefined;
-
-    code: Code = {
-        basic: `<p-inputmask [(ngModel)]="value1" mask="99-999999" placeholder="Serial Key" [invalid]="!value1" />
-<p-inputmask [(ngModel)]="value2" mask="99-999999" placeholder="Serial Key" [invalid]="!value2" variant="filled" />`,
-
-        html: `<div class="card flex flex-wrap justify-center gap-4">
-    <p-inputmask [(ngModel)]="value1" mask="99-999999" placeholder="Serial Key" [invalid]="!value1" />
-    <p-inputmask [(ngModel)]="value2" mask="99-999999" placeholder="Serial Key" [invalid]="!value2" variant="filled" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { InputMask } from 'primeng/inputmask';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'input-mask-invalid-demo',
-    templateUrl: './input-mask-invalid-demo.html',
-    standalone: true,
-    imports: [FormsModule, InputMask]
-})
-export class InputMaskInvalidDemo {
-    value1: string | undefined;
-
-    value2: string | undefined;
-}`
-    };
 }

@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -14,13 +13,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 variant.
             </p>
         </app-docsectiontext>
-        <app-code [code]="code" [hideToggleCode]="true"></app-code>
+        <app-code [hideToggleCode]="true"></app-code>
     `
 })
-export class InputVariantDoc {
-    code: Code = {
-        typescript: `providePrimeNG({
-    inputVariant: 'filled' 
-})`
-    };
-}
+export class InputVariantDoc {}

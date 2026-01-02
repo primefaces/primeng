@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component, signal } from '@angular/core';
 import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
@@ -20,7 +19,7 @@ import { CommonModule } from '@angular/common';
                 <p-message [life]="3000" severity="success">Auto disappear message</p-message>
             }
         </div>
-        <app-code [code]="code" selector="message-life-demo"></app-code>
+        <app-code selector="message-life-demo"></app-code>
     `
 })
 export class LifeDoc {
@@ -33,37 +32,4 @@ export class LifeDoc {
             this.visible.set(false);
         }, 3000);
     }
-
-    code: Code = {
-        basic: `<p-message [life]="3000" severity="success">Auto disappear message</p-message>`,
-
-        html: `<div class="card flex flex-col items-center justify-center">
-    <p-button label="Show" (onClick)="showMessage()" [disabled]="visible()" styleClass="mb-4" />
-    @if (visible()) {
-        <p-message [life]="3000" severity="success">Auto disappear message</p-message>
-    }
-</div>`,
-
-        typescript: `import { Component, signal } from '@angular/core';
-import { Message } from 'primeng/message';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    selector: 'message-life-demo',
-    templateUrl: './message-life-demo.html',
-    standalone: true,
-    imports: [Message, ButtonModule]
-})
-export class MessageLifeDemo {
-    visible = signal(false);
-
-    showMessage() {
-        this.visible.set(true);
-
-        setTimeout(() => {
-            this.visible.set(false);
-        }, 3000);
-    }
-}`
-    };
 }

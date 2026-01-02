@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -11,7 +10,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <app-docsectiontext id="accessibility" label="Accessibility">
             <h3>Screen Reader</h3>
             <p>ImageComponent component uses a native range <i>slider</i> internally. Value to describe the component can be defined using <i>aria-labelledby</i> and <i>aria-label</i> props.</p>
-            <app-code [code]="code" [hideToggleCode]="true"></app-code>
+            <app-code [hideToggleCode]="true"></app-code>
             <h3>Keyboard Support</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -66,15 +65,4 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
     </div>`
 })
-export class AccessibilityDoc {
-    code: Code = {
-        html: `<span id="image_label">Compare Images</span>
-<p-imagecompare class="shadow-lg rounded-2xl" aria-labelledby="image-label">
-    ...
-</p-imagecompare>
-
-<p-imagecompare class="shadow-lg rounded-2xl" aria-label="Compare Images">
-    ...
-</p-imagecompare>`
-    };
-}
+export class AccessibilityDoc {}

@@ -27,22 +27,18 @@ Icons can be displayed next to the labels instead of the default marker.
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroup } from 'primeng/metergroup';
+import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
-    selector: 'meter-group-icon-demo',
-    templateUrl: './meter-group-icon-demo.html',
+    template: `
+        <div class="card">
+            <p-metergroup [value]="value" />
+        </div>
+    `,
     standalone: true,
-    imports: [MeterGroup]
+    imports: [MeterGroupModule]
 })
-export class MeterGroupIconDemo {
-    value = [
-        { label: 'Apps', color: '#34d399', value: 16, icon: 'pi pi-table' },
-        { label: 'Messages', color: '#fbbf24', value: 8, icon: 'pi pi-inbox' },
-        { label: 'Media', color: '#60a5fa', value: 24, icon: 'pi pi-image' },
-        { label: 'System', color: '#c084fc', value: 10, icon: 'pi pi-cog' }
-    ];
-}
+export class MeterGroupIconDemo {}
 ```
 </details>
 
@@ -59,58 +55,24 @@ The position of the labels relative to the meters is defined using the labelPosi
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroup } from 'primeng/metergroup';
+import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
-    selector: 'meter-group-label-demo',
-    templateUrl: './meter-group-label-demo.html',
+    template: `
+        <div class="card">
+            <p-metergroup [value]="value" labelPosition="start" labelOrientation="vertical" />
+        </div>
+    `,
     standalone: true,
-    imports: [MeterGroup]
+    imports: [MeterGroupModule]
 })
-export class MeterGroupLabelDemo {
-    value = [
-        { label: 'Apps', color: '#34d399', value: 16 },
-        { label: 'Messages', color: '#fbbf24', value: 8 },
-        { label: 'Media', color: '#60a5fa', value: 24 },
-        { label: 'System', color: '#c084fc', value: 10 }
-    ];
-}
+export class MeterGroupLabelDemo {}
 ```
 </details>
 
 ## Min Max
 
 Boundaries are configured with the min and max values whose defaults are 0 and 100 respectively.
-
-```html
-<p-metergroup [value]="value" [max]="200" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { MeterGroup } from 'primeng/metergroup';
-
-@Component({
-    selector: 'meter-group-min-max-demo',
-    templateUrl: './meter-group-min-max-demo.html',
-    standalone: true,
-    imports: [MeterGroup]
-})
-export class MeterGroupMinMaxDemo{
-
-    value = [
-        { label: 'Apps', color: '#34d399', value: 16 },
-        { label: 'Messages', color: '#fbbf24', value: 8 },
-        { label: 'Media', color: '#60a5fa', value: 24 },
-        { label: 'System', color: '#c084fc', value: 10 }
-    ];
-
-}
-```
-</details>
 
 ## Multiple
 
@@ -125,28 +87,20 @@ Adding more items to the array displays the meters in a group.
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroup } from 'primeng/metergroup';
+import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
-    selector: 'meter-group-multiple-demo',
-    templateUrl: './meter-group-multiple-demo.html',
+    template: `
+        <div class="card">
+            <p-metergroup [value]="value" />
+        </div>
+    `,
     standalone: true,
-    imports: [MeterGroup]
+    imports: [MeterGroupModule]
 })
-export class MeterGroupMultipleDemo {
-    value = [
-        { label: 'Apps', color: '#34d399', value: 16 },
-        { label: 'Messages', color: '#fbbf24', value: 8 },
-        { label: 'Media', color: '#60a5fa', value: 24 },
-        { label: 'System', color: '#c084fc', value: 10 }
-    ];
-}
+export class MeterGroupMultipleDemo {}
 ```
 </details>
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Template
 
@@ -195,25 +149,54 @@ MeterGroup provides templating support for labels, meter items, and content arou
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroup } from 'primeng/metergroup';
-import { CardModule } from 'primeng/card';
-import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
-    selector: 'meter-group-template-demo',
-    templateUrl: './meter-group-template-demo.html',
+    template: `
+        <div class="card">
+            <p-metergroup [value]="value" labelPosition="start">
+                <ng-template #label>
+                    <div class="flex flex-wrap gap-4">
+                        <ng-container *ngFor="let meterItem of value; let index = index">
+                            <p-card class="flex-1" styleClass="border border-surface shadow-none">
+                                <div class="flex justify-between gap-8">
+                                    <div class="flex flex-col gap-1">
+                                        <span class="text-surface-500 dark:text-surface-400 text-sm">{{ meterItem.label }}</span>
+                                        <span class="font-bold text-lg">{{ meterItem.value }}%</span>
+                                    </div>
+                                    <span class="w-8 h-8 rounded-full inline-flex justify-center items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
+                                        <i [class]="meterItem.icon"></i>
+                                    </span>
+                                </div>
+                            </p-card>
+                        </ng-container>
+                    </div>
+                </ng-template>
+                <ng-template #meter let-value let-class="class" let-width="size">
+                    <span [class]="class" [style]="{ background: 'linear-gradient(to right, ' + value.color1 + ', ' + value.color2 + ')', width: width }"></span>
+                </ng-template>
+                <ng-template #start let-totalPercent="totalPercent">
+                    <div class="flex justify-between mt-4 mb-2 relative">
+                        <span>Storage</span>
+                        <span [style]="{ width: totalPercent + '%' }" class="absolute text-right">{{ totalPercent }}%</span>
+                        <span class="font-medium">1TB</span>
+                    </div>
+                </ng-template>
+                <ng-template #end>
+                    <div class="flex justify-between mt-4">
+                        <p-button label="Manage Storage" [outlined]="true" size="small" />
+                        <p-button label="Update Plan" size="small" />
+                    </div>
+                </ng-template>
+            </p-metergroup>
+        </div>
+    `,
     standalone: true,
-    imports: [MeterGroup, CardModule, ButtonModule, CommonModule]
+    imports: [ButtonModule, CardModule, MeterGroupModule]
 })
-export class MeterGroupTemplateDemo {
-    value = [
-        { label: 'Apps', color1: '#34d399', color2: '#fbbf24', value: 25, icon: 'pi pi-table' },
-        { label: 'Messages', color1: '#fbbf24', color2: '#60a5fa', value: 15, icon: 'pi pi-inbox' },
-        { label: 'Media', color1: '#60a5fa', color2: '#c084fc', value: 20, icon: 'pi pi-image' },
-        { label: 'System', color1: '#c084fc', color2: '#c084fc', value: 10, icon: 'pi pi-cog' }
-    ];
-}
+export class MeterGroupTemplateDemo {}
 ```
 </details>
 
@@ -230,22 +213,18 @@ Layout of the MeterGroup is configured with the orientation property that accept
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroup } from 'primeng/metergroup';
+import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
-    selector: 'meter-group-vertical-demo',
-    templateUrl: './meter-group-vertical-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-metergroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
+        </div>
+    `,
     standalone: true,
-    imports: [MeterGroup]
+    imports: [MeterGroupModule]
 })
-export class MeterGroupVerticalDemo {
-    value = [
-        { label: 'Apps', color: '#34d399', value: 16 },
-        { label: 'Messages', color: '#fbbf24', value: 8 },
-        { label: 'Media', color: '#60a5fa', value: 24 },
-        { label: 'System', color: '#c084fc', value: 10 }
-    ];
-}
+export class MeterGroupVerticalDemo {}
 ```
 </details>
 

@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
@@ -51,7 +50,7 @@ interface Column {
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [code]="code" selector="table-reorder-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code selector="table-reorder-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReorderDoc {
@@ -77,105 +76,6 @@ export class ReorderDoc {
             { field: 'quantity', header: 'Quantity' }
         ];
     }
-
-    code: Code = {
-        basic: `<p-table [value]="products" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template #header let-columns>
-        <tr>
-            <th style="width:3rem"></th>
-            <th *ngFor="let col of columns" pReorderableColumn>
-                {{col.header}}
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowData let-columns="columns" let-index="rowIndex">
-        <tr [pReorderableRow]="index">
-            <td>
-                <span class="pi pi-bars" pReorderableRowHandle></span>
-            </td>
-            <td *ngFor="let col of columns">
-                {{rowData[col.field]}}
-            </td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table [value]="products" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
-        <ng-template #header let-columns>
-            <tr>
-                <th style="width:3rem"></th>
-                <th *ngFor="let col of columns" pReorderableColumn>
-                    {{col.header}}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template
-            #body
-            let-rowData
-            let-columns="columns"
-            let-index="rowIndex">
-                <tr [pReorderableRow]="index">
-                    <td>
-                        <span class="pi pi-bars" pReorderableRowHandle></span>
-                    </td>
-                    <td *ngFor="let col of columns">
-                        {{rowData[col.field]}}
-                    </td>
-                </tr>
-        </ng-template>
-    </p-table>
-</div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
-
-interface Column {
-    field: string;
-    header: string;
-}
-
-@Component({
-    selector: 'table-reorder-demo',
-    templateUrl: 'table-reorder-demo.html',
-    standalone: true,
-    imports: [TableModule, CommonModule],
-    providers: [ProductService]
-})
-export class TableReorderDemo implements OnInit{
-    products!: Product[];
-
-    cols!: Column[];
-
-    constructor(private productService: ProductService) {}
-
-    ngOnInit() {
-        this.productService.getProductsMini().then((data) => (this.products = data));
-
-        this.cols = [
-            { field: 'code', header: 'Code' },
-            { field: 'name', header: 'Name' },
-            { field: 'category', header: 'Category' },
-            { field: 'quantity', header: 'Quantity' }
-        ];
-    }
-}`,
-        data: `{
-    id: '1000',
-    code: 'f230fh0g3',
-    name: 'Bamboo Watch',
-    description: 'Product Description',
-    image: 'bamboo-watch.jpg',
-    price: 65,
-    category: 'Accessories',
-    quantity: 24,
-    inventoryStatus: 'INSTOCK',
-    rating: 5
-},
-...`,
-        service: ['ProductService']
-    };
 
     extFiles = [
         {

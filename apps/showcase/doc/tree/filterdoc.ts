@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
@@ -26,7 +25,7 @@ import { TreeModule } from 'primeng/tree';
                 <p-tree [value]="files2()" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
             </div>
         </div>
-        <app-code [code]="code" selector="tree-filter-demo"></app-code>
+        <app-code selector="tree-filter-demo"></app-code>
     `
 })
 export class FilterDoc implements OnInit {
@@ -42,76 +41,4 @@ export class FilterDoc implements OnInit {
             this.files2.set(data);
         });
     }
-
-    code: Code = {
-        basic: `<p-tree [value]="files()" [filter]="true" filterPlaceholder="Lenient Filter" />
-<p-tree [value]="files2()" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />`,
-
-        html: `<div class="card flex flex-wrap gap-4">
-    <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-        <p-tree [value]="files()" [filter]="true" filterPlaceholder="Lenient Filter" />
-    </div>
-    <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-        <p-tree [value]="files2()" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
-    </div>
-</div>`,
-
-        typescript: `import { Component, OnInit, signal } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { NodeService } from '@/service/nodeservice';
-import { Tree } from 'primeng/tree';
-
-@Component({
-    selector: 'tree-filter-demo',
-    templateUrl: './tree-filter-demo.html',
-    standalone: true,
-    imports: [Tree],
-    providers: [NodeService]
-})
-export class TreeFilterDemo implements OnInit {
-    files = signal<TreeNode[]>(undefined);
-
-    files2 = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
-
-    ngOnInit() {
-        this.nodeService.getFiles().then((data) => {
-            this.files.set(data);
-            this.files2.set(data);
-        });
-    }
-}`,
-
-        service: ['NodeService'],
-
-        data: `
-    /* NodeService */
-{
-    key: '0',
-    label: 'Documents',
-    data: 'Documents Folder',
-    icon: 'pi pi-fw pi-inbox',
-    children: [
-        {
-            key: '0-0',
-            label: 'Work',
-            data: 'Work Folder',
-            icon: 'pi pi-fw pi-cog',
-            children: [
-                { key: '0-0-0', label: 'Expenses.doc', icon: 'pi pi-fw pi-file', data: 'Expenses Document' },
-                { key: '0-0-1', label: 'Resume.doc', icon: 'pi pi-fw pi-file', data: 'Resume Document' }
-            ]
-        },
-        {
-            key: '0-1',
-            label: 'Home',
-            data: 'Home Folder',
-            icon: 'pi pi-fw pi-home',
-            children: [{ key: '0-1-0', label: 'Invoices.txt', icon: 'pi pi-fw pi-file', data: 'Invoices for this month' }]
-        }
-    ]
-},
-...`
-    };
 }

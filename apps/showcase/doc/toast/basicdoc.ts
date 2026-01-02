@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -21,7 +20,7 @@ import { ButtonModule } from 'primeng/button';
             <p-toast />
             <p-button (onClick)="show()" label="Show" />
         </div>
-        <app-code [code]="code" selector="toast-basic-demo"></app-code>
+        <app-code selector="toast-basic-demo"></app-code>
     `,
     providers: [MessageService]
 })
@@ -31,33 +30,4 @@ export class BasicDoc {
     show() {
         this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content', life: 3000 });
     }
-
-    code: Code = {
-        basic: `<p-toast />
-<p-button (onClick)="show()" label="Show" />`,
-        html: `<div class="card flex justify-center">
-    <p-toast />
-    <p-button (onClick)="show()" label="Show" />
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { Toast } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { Ripple } from 'primeng/ripple';
-
-@Component({
-    selector: 'toast-basic-demo',
-    templateUrl: './toast-basic-demo.html',
-    standalone: true,
-    imports: [Toast, ButtonModule, Ripple],
-    providers: [MessageService]
-})
-export class ToastBasicDemo {
-    constructor(private messageService: MessageService) {}
-
-    show() {
-        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content', life: 3000 });
-    }
-}`
-    };
 }

@@ -6,16 +6,6 @@ InputText is an extension to standard input element with theming and keyfilterin
 
 Screen Reader InputText component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.
 
-```html
-<label for="firstname">Firstname</label>
-<input pInputText id="firstname" />
-
-<span id="lastname">Lastname</span>
-<input pInputText aria-labelledby="lastname" />
-
-<input pInputText aria-label="Age" />
-```
-
 ## Basic
 
 InputText is used as a controlled input with ngModel property.
@@ -37,17 +27,20 @@ When disabled is present, the element cannot be edited and focused.
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'input-text-disabled-demo',
-    templateUrl: './input-text-disabled-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <input pInputText [disabled]="true" [(ngModel)]="value" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputTextModule]
+    imports: [InputTextModule, FormsModule]
 })
 export class InputTextDisabledDemo {
-    value: string | undefined = "Disabled"
+    value: string | undefined = 'Disabled';
 }
 ```
 </details>
@@ -65,14 +58,17 @@ Specify the variant property as filled to display the component with a higher vi
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'input-text-filled-demo',
-    templateUrl: './input-text-filled-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <input type="text" pInputText [(ngModel)]="value" variant="filled" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputTextModule]
+    imports: [InputTextModule, FormsModule]
 })
 export class InputTextFilledDemo {
     value: string;
@@ -89,12 +85,10 @@ FloatLabel visually integrates a label with its form element. Visit FloatLabel d
     <input pInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
     <label for="over_label">Over Label</label>
 </p-floatlabel>
-
 <p-floatlabel variant="in">
     <input pInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
     <label for="in_label">In Label</label>
 </p-floatlabel>
-
 <p-floatlabel variant="on">
     <input pInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
     <label for="on_label">On Label</label>
@@ -106,21 +100,33 @@ FloatLabel visually integrates a label with its form element. Visit FloatLabel d
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
-import { FloatLabel } from 'primeng/floatlabel';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'input-text-floatlabel-demo',
-    templateUrl: './input-text-floatlabel-demo.html',
+    template: `
+        <div class="card flex flex-wrap justify-center items-end gap-4">
+            <p-floatlabel>
+                <input pInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+            <p-floatlabel variant="in">
+                <input pInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <input pInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
+                <label for="on_label">On Label</label>
+            </p-floatlabel>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputTextModule, FloatLabel]
+    imports: [FloatLabelModule, InputTextModule, FormsModule]
 })
 export class InputTextFloatlabelDemo {
     value1: string | undefined;
-
     value2: string | undefined;
-
     value3: string | undefined;
 }
 ```
@@ -139,14 +145,17 @@ The fluid prop makes the component take up the full width of its container when 
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'input-text-fluid-demo',
-    templateUrl: './input-text-fluid-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <input type="text" pInputText [(ngModel)]="value" fluid />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputTextModule]
+    imports: [InputTextModule, FormsModule]
 })
 export class InputTextFluidDemo {
     value: string;
@@ -158,34 +167,6 @@ export class InputTextFluidDemo {
 
 An advisory text can be defined with the semantic small tag.
 
-```html
-<div class="flex flex-col gap-2">
-    <label for="username">Username</label>
-    <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
-    <small id="username-help">Enter your username to reset your password.</small>
-</div>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'input-text-help-text-demo',
-    templateUrl: './input-text-help-text-demo.html',
-    standalone: true,
-    imports: [FormsModule, InputTextModule]
-})
-export class InputTextHelpTextDemo {
-    value: string | undefined;
-}
-```
-</details>
-
 ## iconsdoc
 
 Icons can be placed inside an input element by wrapping both the input and the icon with an element that has either .p-input-icon-left or p-input-icon-right class.
@@ -195,6 +176,10 @@ Icons can be placed inside an input element by wrapping both the input and the i
     <i class="pi pi-search"></i>
     <input type="text" pInputText [(ngModel)]="value" />
 </span>
+<span class="p-input-icon-right">
+    <i class="pi pi-spin pi-spinner"></i>
+    <input type="text" pInputText [(ngModel)]="value2" />
+</span>
 ```
 
 <details>
@@ -202,14 +187,27 @@ Icons can be placed inside an input element by wrapping both the input and the i
 
 ```typescript
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'input-text-icons-demo',
-    templateUrl: './input-text-icons-demo.html'
+    template: `
+        <div class="card flex flex-wrap justify-center gap-4">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input type="text" pInputText [(ngModel)]="value" />
+            </span>
+            <span class="p-input-icon-right">
+                <i class="pi pi-spin pi-spinner"></i>
+                <input type="text" pInputText [(ngModel)]="value2" />
+            </span>
+        </div>
+    `,
+    standalone: true,
+    imports: [InputTextModule, FormsModule]
 })
 export class InputTextIconsDemo {
     value: string | undefined;
-
     value2: string | undefined;
 }
 ```
@@ -231,17 +229,23 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { IftaLabelModule } from 'primeng/iftalabel';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'input-text-iftalabel-demo',
-    templateUrl: './input-text-iftalabel-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-iftalabel>
+                <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
+                <label for="username">Username</label>
+            </p-iftalabel>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputTextModule, IftaLabelModule]
+    imports: [IftaLabelModule, InputTextModule, FormsModule]
 })
-export class InputTextIftaLabelDemo {
+export class InputTextIftalabelDemo {
     value: string | undefined;
 }
 ```
@@ -261,18 +265,21 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'input-text-invalid-demo',
-    templateUrl: './input-text-invalid-demo.html',
+    template: `
+        <div class="card flex flex-wrap justify-center gap-4">
+            <input pInputText [(ngModel)]="value1" [invalid]="!value1" placeholder="Name" />
+            <input pInputText [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Name" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputTextModule]
+    imports: [InputTextModule, FormsModule]
 })
 export class InputTextInvalidDemo {
     value1: string | undefined;
-
     value2: string | undefined;
 }
 ```
@@ -281,100 +288,6 @@ export class InputTextInvalidDemo {
 ## keyfilterdoc
 
 InputText has built-in key filtering support to block certain keys, refer to keyfilter page for more information.
-
-```html
-<input pInputText pKeyFilter="int" placeholder="Integers" [(ngModel)]="value" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-
-@Component({
-    selector: 'input-text-key-filter-demo',
-    templateUrl: './input-text-key-filter-demo.html'
-})
-export class InputTextKeyFilterDemo {
-    value: number | undefined;
-}
-```
-</details>
-
-## reactiveformsdoc
-
-```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
-    <div class="flex flex-col gap-1">
-        <input pInputText type="text" id="username" placeholder="Username" formControlName="username" [invalid]="isInvalid('username')" />
-        @if (isInvalid('username')) {
-            <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
-        }
-    </div>
-    <div class="flex flex-col gap-1">
-        <input pInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
-        @if (isInvalid('email')) {
-            @if (exampleForm.get('email')?.errors?.['required']) {
-                <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
-            }
-            @if (exampleForm.get('email')?.errors?.['email']) {
-                <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
-            }
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, inject } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/button';
-import { MessageModule } from 'primeng/message';
-import { MessageService } from 'primeng/api';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-@Component({
-    selector: 'reactive-forms-demo',
-    templateUrl: './reactive-forms-demo.html',
-    standalone: true,
-    imports: [ReactiveFormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule]
-})
-export class ReactiveFormsDemo {
-    messageService = inject(MessageService);
-
-    exampleForm: FormGroup;
-
-    formSubmitted = false;
-
-    constructor(private fb: FormBuilder) {
-        this.exampleForm = this.fb.group({
-            username: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]]
-        });
-    }
-
-    onSubmit() {
-        this.formSubmitted = true;
-        if (this.exampleForm.valid) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
-            this.exampleForm.reset();
-            this.formSubmitted = false;
-        }
-    }
-
-    isInvalid(controlName: string) {
-        const control = this.exampleForm.get(controlName);
-        return control?.invalid && (control.touched || this.formSubmitted);
-    }
-}
-```
-</details>
 
 ## Sizes
 
@@ -391,80 +304,24 @@ InputText provides small and large sizes as alternatives to the standard.
 
 ```typescript
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'input-text-sizes-demo',
-    templateUrl: './input-text-sizes-demo.html',
+    template: `
+        <div class="card flex flex-col items-center gap-4 ">
+            <input pInputText [(ngModel)]="value1" type="text" pSize="small" placeholder="Small" />
+            <input pInputText [(ngModel)]="value2" type="text" placeholder="Normal" />
+            <input pInputText [(ngModel)]="value3" type="text" pSize="large" placeholder="Large" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputTextModule]
+    imports: [InputTextModule, FormsModule]
 })
 export class InputTextSizesDemo {
     value1: string | undefined;
-
     value2: string | undefined;
-
     value3: string | undefined;
-}
-```
-</details>
-
-## templatedrivenformsdoc
-
-```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
-    <div class="flex flex-col gap-1">
-        <input pInputText type="text" id="username" placeholder="Username" name="username" [(ngModel)]="user.username" #username="ngModel" [invalid]="username.invalid && (username.touched || exampleForm.submitted)" required />
-        @if (username.invalid && (username.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
-        }
-    </div>
-    <div class="flex flex-col gap-1">
-        <input pInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email [invalid]="email.invalid && (email.touched || exampleForm.submitted)" />
-        @if (email.invalid && (email.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">
-                @if (email.hasError('required')) {
-                    Email is Required.
-                }
-                @if (email.hasError('email')) {
-                    Please enter a valid email.
-                }
-            </p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, inject } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-
-@Component({
-    selector: 'template-driven-forms-demo',
-    templateUrl: './template-driven-forms-demo.html',
-    standalone: true,
-    imports: [FormsModule, InputTextModule, ButtonModule, ToastModule]
-})
-export class TemplateDrivenFormsDemo {
-    messageService = inject(MessageService);
-
-    user = {
-        username: '',
-        email: ''
-    };
-
-    onSubmit(form: any) {
-        if (form.valid) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
-            form.resetForm()
-        }
-    }
 }
 ```
 </details>

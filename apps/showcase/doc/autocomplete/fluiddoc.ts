@@ -1,6 +1,4 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -21,45 +19,12 @@ interface AutoCompleteCompleteEvent {
         <div class="card">
             <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" fluid />
         </div>
-        <app-code [code]="code" selector="autocomplete-fluid-demo"></app-code>`
+        <app-code selector="autocomplete-fluid-demo"></app-code>`
 })
 export class FluidDoc {
     items: any[] = [];
 
     value: any;
-
-    code: Code = {
-        basic: `<p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" fluid />`,
-
-        html: `<div class="card">
-    <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" fluid />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AutoComplete } from 'primeng/autocomplete';
-
-interface AutoCompleteCompleteEvent {
-    originalEvent: Event;
-    query: string;
-}
-
-@Component({
-    selector: 'autocomplete-fluid-demo',
-    templateUrl: './autocomplete-fluid-demo.html',
-    imports: [AutoComplete, FormsModule],
-    standalone: true,
-})
-export class AutocompleteFluidDemo {
-    items: any[] = [];
-
-    value: any;
-
-    search(event: AutoCompleteCompleteEvent) {
-        this.items = [...Array(10).keys()].map(item => event.query + '-' + item);
-    }
-}`
-    };
 
     search(event: AutoCompleteCompleteEvent) {
         this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);

@@ -25,7 +25,7 @@ import { AppCode } from '@/components/doc/app.code';
             executed as a script rather than a pipe from the BitBucket pipe registry as PrimeTek currently has no intentions to maintain an official pipe for BitBucket. You may further improve this example by building a dockerized pipe that is
             accessible in the BitBucket Registry to refer it with the <i>pipe</i> config in yml.
         </p>
-        <app-code [code]="code" hideToggleCode importCode hideStackBlitz />
+        <app-code hideToggleCode importCode hideStackBlitz />
 
         <h4>3. Test Integration</h4>
         <p>

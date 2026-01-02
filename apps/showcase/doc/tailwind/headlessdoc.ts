@@ -1,8 +1,7 @@
 import { Code } from '@/domain/code';
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -10,7 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 @Component({
     selector: 'headless-doc',
     standalone: true,
-    imports: [CommonModule, AppCode, AppDocSectionText, ButtonModule, DialogModule, InputTextModule],
+    imports: [AppDocSectionText, AppCode, ButtonModule, DialogModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>A headless PrimeNG dialog with a custom UI.</p>
@@ -18,7 +17,7 @@ import { InputTextModule } from 'primeng/inputtext';
         <div class="card flex justify-center">
             <p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
             <p-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="visible" styleClass="!border-0 !bg-transparent">
-                <ng-template #headless>
+                <ng-template pTemplate="headless">
                     <div class="flex flex-col px-8 py-8 gap-6 rounded-2xl" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--p-primary-400), var(--p-primary-700))">
                         <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                             <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
@@ -82,7 +81,7 @@ export class HeadlessDoc {
     code: Code = {
         basic: `<p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
     <p-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="visible" styleClass="!border-0 !bg-transparent">
-        <ng-template #headless>
+        <ng-template pTemplate="headless">
             <div
                 class="flex flex-col px-8 py-8 gap-6 rounded-2xl"
                 style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--p-primary-400), var(--p-primary-700))"

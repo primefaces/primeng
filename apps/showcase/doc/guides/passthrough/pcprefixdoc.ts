@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
@@ -34,54 +33,7 @@ import { PanelModule } from 'primeng/panel';
                 }"
             />
         </div>
-        <app-code [code]="code" selector="pc-prefix-demo" />
+        <app-code selector="pc-prefix-demo" />
     `
 })
-export class PcPrefixDoc {
-    code: Code = {
-        basic: `<p-button
-    type="button"
-    label="Messages"
-    icon="pi pi-inbox"
-    badge="2"
-    variant="outlined"
-    severity="secondary"
-    [pt]="{
-        root: '!px-4 !py-3',
-        icon: '!text-xl !text-violet-500 dark:!text-violet-400',
-        label: '!text-lg !text-violet-500 dark:!text-violet-400',
-        pcBadge: {
-            root: '!bg-violet-500 dark:!bg-violet-400 !text-white dark:!text-black'
-        }
-    }"
-/>`,
-        html: `<div class="card flex justify-center">
-    <p-button
-        type="button"
-        label="Messages"
-        icon="pi pi-inbox"
-        badge="2"
-        variant="outlined"
-        severity="secondary"
-        [pt]="{
-            root: '!px-4 !py-3',
-            icon: '!text-xl !text-violet-500 dark:!text-violet-400',
-            label: '!text-lg !text-violet-500 dark:!text-violet-400',
-            pcBadge: {
-                root: '!bg-violet-500 dark:!bg-violet-400 !text-white dark:!text-black'
-            }
-        }"
-    />
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    selector: 'pc-prefix-demo',
-    templateUrl: './pc-prefix-demo.html',
-    standalone: true,
-    imports: [ButtonModule]
-})
-export class PcPrefixDemo {}`
-    };
-}
+export class PcPrefixDoc {}

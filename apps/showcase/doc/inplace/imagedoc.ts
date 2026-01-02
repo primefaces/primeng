@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { InplaceModule } from 'primeng/inplace';
 import { AppCodeModule } from '@/components/doc/app.code';
@@ -25,52 +24,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
             </p-inplace>
         </div>
-        <app-code [code]="code" selector="inplace-image-demo"></app-code>
+        <app-code selector="inplace-image-demo"></app-code>
     `
 })
-export class ImageDoc {
-    code: Code = {
-        basic: `<p-inplace>
-    <ng-template #display>
-        <span class="inline-flex items-center gap-2">
-            <span class="pi pi-image" style="vertical-align: middle"></span>
-            <span class="ml-2">View Photo</span>
-        </span>
-    </ng-template>
-    <ng-template #content>
-        <img
-            class="w-full sm:w-80 shadow-md"
-            src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg"
-            alt="Nature"
-        />
-    </ng-template>
-</p-inplace>`,
-        html: `<div class="card">
-    <p-inplace>
-        <ng-template #display>
-            <span class="inline-flex items-center gap-2">
-                <span class="pi pi-image" style="vertical-align: middle"></span>
-                <span class="ml-2">View Photo</span>
-            </span>
-        </ng-template>
-        <ng-template #content>
-            <img
-                class="w-full sm:w-80 shadow-md"
-                src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg"
-                alt="Nature"
-            />
-        </ng-template>
-    </p-inplace>
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { InplaceModule } from 'primeng/inplace';
-
-@Component({
-    selector: 'inplace-image-demo',
-    templateUrl: './inplace-image-demo.html',
-    standalone: true,
-    imports: [InplaceModule]
-})
-export class InplaceImageDemo {}`
-    };
-}
+export class ImageDoc {}

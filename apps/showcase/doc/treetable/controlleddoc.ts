@@ -1,7 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
@@ -41,7 +40,7 @@ import { TreeTableModule } from 'primeng/treetable';
                 </p-treetable>
             </p-deferred-demo>
         </div>
-        <app-code [code]="code" selector="tree-table-controlled-demo"></app-code>`,
+        <app-code selector="tree-table-controlled-demo"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlledDoc {
@@ -66,90 +65,4 @@ export class ControlledDoc {
             this.files = newFiles;
         }
     }
-
-    code: Code = {
-        basic: `<p-button (click)="toggleApplications()" label="Toggle Applications" class="block mb-4" />
-<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header>
-        <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Type</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
-            <td>
-                <div class="flex items-center gap-2">
-                    <p-treetable-toggler [rowNode]="rowNode" />
-                    <span>{{ rowData.name }}</span>
-                </div>
-            </td>
-            <td>{{ rowData.size }}</td>
-            <td>{{ rowData.type }}</td>
-        </tr>
-    </ng-template>
-</p-treetable>`,
-
-        html: `<div class="card">
-<p-button (click)="toggleApplications()" label="Toggle Applications" class="block mb-4" />
-<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header>
-        <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Type</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
-            <td>
-                <div class="flex items-center gap-2">
-                    <p-treetable-toggler [rowNode]="rowNode" />
-                    <span>{{ rowData.name }}</span>
-                </div>
-            </td>
-            <td>{{ rowData.size }}</td>
-            <td>{{ rowData.type }}</td>
-        </tr>
-    </ng-template>
-</p-treetable>
-</div>`,
-
-        typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { NodeService } from '@/service/nodeservice';
-import { TreeTableModule } from 'primeng/treetable';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    selector: 'tree-table-controlled-demo',
-    templateUrl: './tree-table-controlled-demo.html',
-    standalone: true,
-    imports: [TreeTableModule, ButtonModule],
-    providers: [NodeService]
-})
-export class TreeTableControlledDemo implements OnInit {
-    files!: TreeNode[];
-
-    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
-
-    ngOnInit() {
-        this.nodeService.getFilesystem().then((files) => {
-            this.files = files.slice(0, 5);
-            this.cd.markForCheck();
-        });
-    }
-
-    toggleApplications() {
-        if (this.files && this.files.length > 0) {
-            const newFiles = [...this.files];
-            newFiles[0] = { ...newFiles[0], expanded: !newFiles[0].expanded };
-            this.files = newFiles;
-        }
-    }
-}`,
-
-        service: ['NodeService']
-    };
 }

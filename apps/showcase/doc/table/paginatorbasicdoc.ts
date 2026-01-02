@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
@@ -36,7 +35,7 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [code]="code" selector="table-paginator-basic-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code selector="table-paginator-basic-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorBasicDoc {
@@ -53,101 +52,6 @@ export class PaginatorBasicDoc {
             this.cd.markForCheck();
         });
     }
-
-    code: Code = {
-        basic: `<p-table
-    [value]="customers"
-    [paginator]="true"
-    [rows]="5"
-    [tableStyle]="{ 'min-width': '50rem' }"
-    [rowsPerPageOptions]="[5, 10, 20]"
->
-    <ng-template #header>
-        <tr>
-            <th style="width:25%">Name</th>
-            <th style="width:25%">Country</th>
-            <th style="width:25%">Company</th>
-            <th style="width:25%">Representative</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-customer>
-        <tr>
-            <td>{{ customer.name }}</td>
-            <td>{{ customer.country.name }}</td>
-            <td>{{ customer.company }}</td>
-            <td>{{ customer.representative.name }}</td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table
-        [value]="customers"
-        [paginator]="true"
-        [rows]="5"
-        [tableStyle]="{ 'min-width': '50rem' }"
-        [rowsPerPageOptions]="[5, 10, 20]"
-    >
-        <ng-template #header>
-            <tr>
-                <th style="width:25%">Name</th>
-                <th style="width:25%">Country</th>
-                <th style="width:25%">Company</th>
-                <th style="width:25%">Representative</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-customer>
-            <tr>
-                <td>{{ customer.name }}</td>
-                <td>{{ customer.country.name }}</td>
-                <td>{{ customer.company }}</td>
-                <td>{{ customer.representative.name }}</td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { Customer } from '@/domain/customer';
-import { CustomerService } from '@/service/customerservice';
-import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
-
-@Component({
-    selector: 'table-paginator-basic-demo',
-    templateUrl: 'table-paginator-basic-demo.html',
-    standalone: true,
-    imports: [TableModule, CommonModule],
-    providers: [ProductService]
-})
-export class TablePaginatorBasicDemo {
-    customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
-
-    ngOnInit() {
-        this.customerService.getCustomersLarge().then((customers) => (this.customers = customers));
-    }
-}`,
-        data: `{
-    id: 1000,
-    name: 'James Butt',
-    country: {
-        name: 'Algeria',
-        code: 'dz'
-    },
-    company: 'Benton, John B Jr',
-    date: '2015-09-13',
-    status: 'unqualified',
-    verified: true,
-    activity: 17,
-    representative: {
-        name: 'Ioni Bowcher',
-        image: 'ionibowcher.png'
-    },
-    balance: 70663
-},
-...`,
-        service: ['CustomerService']
-    };
 
     extFiles = [
         {

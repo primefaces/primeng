@@ -25,7 +25,7 @@ import { RouterModule } from '@angular/router';
             Visit the
             <a href="https://github.com/marketplace/actions/prime-figma-to-theme-code-generator#-inputs" target="_blank" rel="noopener noreferrer">inputs</a> documentation for more details about the parameters such as the <i>theme-name</i>.
         </p>
-        <app-code [code]="code" hideToggleCode importCode hideStackBlitz />
+        <app-code hideToggleCode importCode hideStackBlitz />
 
         <h4>3. Test Integration</h4>
         <p>

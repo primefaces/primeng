@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -29,7 +28,7 @@ import { TabsModule } from 'primeng/tabs';
             </p-tabs>
             <!--<router-outlet></router-outlet>-->
         </div>
-        <app-code [code]="code" selector="tabs-tabmenu-demo"></app-code>
+        <app-code selector="tabs-tabmenu-demo"></app-code>
     `
 })
 export class TabmenuDoc {
@@ -39,52 +38,4 @@ export class TabmenuDoc {
         { route: 'products', label: 'Products', icon: 'pi pi-list' },
         { route: 'messages', label: 'Messages', icon: 'pi pi-inbox' }
     ];
-
-    code: Code = {
-        basic: `<p-tabs value="/dashboard">
-    <p-tablist>
-        @for(tab of tabs; track tab.route){
-            <p-tab [value]="tab.route" [routerLink]="tab.route" class="flex items-center !gap-2 text-inherit">
-                <i [class]="tab.icon"></i>
-                <span>{{ tab.label }}</span>
-            </p-tab>
-        }
-    </p-tablist>
-</p-tabs>
-<!--<router-outlet></router-outlet>-->`,
-
-        html: `<div class="card">
-    <p-tabs value="/dashboard">
-        <p-tablist>
-            @for(tab of tabs; track tab.route){
-                <p-tab [value]="tab.route" [routerLink]="tab.route" class="flex items-center !gap-2 text-inherit">
-                    <i [class]="tab.icon"></i>
-                    <span>{{ tab.label }}</span>
-                </p-tab>
-            }
-        </p-tablist>
-    </p-tabs>
-    <!--<router-outlet></router-outlet>-->
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { TabsModule } from 'primeng/tabs';
-
-@Component({
-    selector: 'tabs-tabmenu-demo',
-    templateUrl: './tabs-tabmenu-demo.html',
-    standalone: true,
-    imports: [TabsModule, RouterModule, CommonModule]
-})
-export class TabsTabmenuDemo {
-    tabs = [
-        { route: 'dashboard', label: 'Dashboard', icon: 'pi pi-home' },
-        { route: 'transactions', label: 'Transactions', icon: 'pi pi-chart-line' },
-        { route: 'products', label: 'Products', icon: 'pi pi-list' },
-        { route: 'messages', label: 'Messages', icon: 'pi pi-inbox' }
-    ];
-}`
-    };
 }

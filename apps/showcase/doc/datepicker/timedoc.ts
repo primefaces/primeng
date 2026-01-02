@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -30,7 +29,7 @@ import { FluidModule } from 'primeng/fluid';
             </div>
         </p-fluid>
 
-        <app-code [code]="code" selector="date-picker-time-demo"></app-code>
+        <app-code selector="date-picker-time-demo"></app-code>
     `
 })
 export class TimeDoc {
@@ -39,47 +38,4 @@ export class TimeDoc {
     datetime24h: Date[] | undefined;
 
     time: Date[] | undefined;
-
-    code: Code = {
-        basic: `<p-datepicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" [hourFormat]="12" />
-
-<p-datepicker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" [hourFormat]="24" />
-
-<p-datepicker inputId="calendar-timeonly" [(ngModel)]="time" [timeOnly]="true" />`,
-
-        html: `<p-fluid class="card flex flex-wrap gap-4">
-    <div class="flex-auto">
-        <label for="calendar-12h" class="font-bold block mb-2"> 12h Format </label>
-        <p-datepicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" [hourFormat]="12" />
-    </div>
-    <div class="flex-auto">
-        <label for="calendar-24h" class="font-bold block mb-2"> 24h Format </label>
-        <p-datepicker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" [hourFormat]="24" />
-    </div>
-    <div class="flex-auto">
-        <label for="calendar-timeonly" class="font-bold block mb-2"> Time Only </label>
-        <p-datepicker inputId="calendar-timeonly" [(ngModel)]="time" [timeOnly]="true" />
-    </div>
-</p-fluid>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
-import { Fluid } from 'primeng/fluid';
-
-@Component({
-    selector: 'date-picker-time-demo',
-    templateUrl: './date-picker-time-demo.html',
-    standalone: true,
-    imports: [FormsModule, DatePicker, Fluid]
-})
-export class DatePickerTimeDemo {
-
-    datetime12h: Date[] | undefined;
-
-    datetime24h: Date[] | undefined;
-
-    time: Date[] | undefined;
-}`
-    };
 }

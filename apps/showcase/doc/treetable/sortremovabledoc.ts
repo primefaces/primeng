@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { SortEvent, TreeNode } from 'primeng/api';
@@ -55,7 +54,7 @@ interface Column {
                 </p-treetable>
             </p-deferred-demo>
         </div>
-        <app-code [code]="code" selector="tree-table-sort-removable-demo"></app-code>
+        <app-code selector="tree-table-sort-removable-demo"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -116,113 +115,4 @@ export class SortRemovableDoc {
             return event.order * result;
         });
     }
-
-    code: Code = {
-        basic: `<p-treetable
-    #tt
-    [value]="files"
-    (sortFunction)="customSort($event)"
-    [customSort]="true"
-    [columns]="cols"
-    selectionMode="single"
-    [metaKeySelection]="metaKeySelection"
-    [(selection)]="selectedNode"
-    dataKey="name"
-    [scrollable]="true"
-    [tableStyle]="{ 'min-width': '50rem' }"
->
-    <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                {{ col.header }}
-                <p-treetableSortIcon [field]="col.field" />
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
-        </tr>
-    </ng-template>
-</p-treetable>`,
-
-        html: `<div class="card">
-   <p-treetable
-        #tt
-        [value]="files"
-        (sortFunction)="customSort($event)"
-        [customSort]="true"
-        [columns]="cols"
-        selectionMode="single"
-        [metaKeySelection]="metaKeySelection"
-        [(selection)]="selectedNode"
-        dataKey="name"
-        [scrollable]="true"
-        [tableStyle]="{ 'min-width': '50rem' }"
-    >
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                    {{ col.header }}
-                    <p-treetableSortIcon [field]="col.field" />
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                    {{ rowData[col.field] }}
-                </td>
-            </tr>
-        </ng-template>
-    </p-treetable>
-</div>`,
-
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { NodeService } from '@/service/nodeservice';
-import { TreeTableModule } from 'primeng/treetable';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-
-interface Column {
-    field: string;
-    header: string;
-}
-
-@Component({
-    selector: 'tree-table-sort-removable-demo',
-    templateUrl: './tree-table-sort-removable-demo.html',
-    standalone: true,
-    imports: [TreeTableModule, FormsModule, CommonModule],
-    providers: [NodeService]
-})
-export class TreeTableSortRemovableDemo implements OnInit {
-    metaKeySelection: boolean = true;
-
-    files!: TreeNode[];
-
-    selectedNode!: TreeNode;
-
-    cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
-
-    ngOnInit() {
-        this.nodeService.getFilesystem().then((files) => (this.files = files));
-
-        this.cols = [
-            { field: 'name', header: 'Name' },
-            { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
-        ];
-    }
-}`,
-
-        service: ['NodeService']
-    };
 }

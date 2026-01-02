@@ -6,16 +6,6 @@ DatePicker is an input component to select a date.
 
 Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using aria-labelledby , aria-label props. The input element has combobox role in addition to aria-autocomplete as "none", aria-haspopup as "dialog" and aria-expanded attributes. The relation between the input and the popup is created with aria-controls attribute that refers to the id of the popup. The optional DatePicker button requires includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The value to read is retrieved from the chooseDate key of the aria property from the locale API. This label is also used for the aria-label of the popup as well. When there is a value selected, it is formatted and appended to the label to be able to notify users about the current value. Popup has a dialog role along with aria-modal and aria-label . The navigation buttons at the header has an aria-label retrieved from the prevYear , nextYear , prevMonth , nextMonth , prevDecade and nextDecade keys of the locale aria API. Similarly month picker button uses the chooseMonth and year picker button uses the chooseYear keys. Main date table uses grid role that contains th elements with col as the scope along with abbr tag resolving to the full name of the month. Each date cell has an aria-label referring to the full date value. Buttons at the footer utilize their readable labels as aria-label as well. Selected date also receives the aria-selected attribute. Timepicker spinner buttons get their labels for aria-label from the aria locale API using the prevHour , nextHour , prevMinute , nextMinute , prevSecond , nextSecond , am and pm keys. DatePicker also includes a hidden section that is only available to screen readers with aria-live as "polite". This element is updated when the selected date changes to instruct the user about the current date selected.
 
-```html
-<label for="date1">Date</label>
-<p-datepicker inputId="date1"/>
-
-<span id="date2">Date</span>
-<p-datepicker ariaLabelledBy="date2"/>
-
-<p-datepicker ariaLabel="Date"/>
-```
-
 ## Basic
 
 Two-way value binding is defined using the standard ngModel directive referencing to a Date property.
@@ -52,18 +42,34 @@ When showButtonBar is present, today and clear buttons are displayed at the foot
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-buttonbar-demo',
-    templateUrl: './date-picker-buttonbar-demo.html',
+    template: `
+        <div class="card flex justify-center gap-4 flex-wrap">
+            <p-datepicker [(ngModel)]="date" [showButtonBar]="true" placeholder="Basic" />
+            <p-datepicker [(ngModel)]="dates" [showButtonBar]="true" placeholder="Customized" selectionMode="range" [readonlyInput]="true">
+                <ng-template #buttonbar let-todayCallback="todayCallback" let-clearCallback="clearCallback">
+                    <div class="flex justify-between w-full">
+                        <div class="flex gap-2">
+                            <p-button size="small" label="Exact" severity="secondary" />
+                            <p-button size="small" label="Flexible" severity="secondary" />
+                        </div>
+                        <div class="flex gap-2">
+                            <p-button size="small" label="Today" (click)="todayCallback($event)" variant="outlined" />
+                            <p-button size="small" icon="pi pi-times" severity="danger" variant="text" (click)="clearCallback($event)" />
+                        </div>
+                    </div>
+                </ng-template>
+            </p-datepicker>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePickerModule, ButtonModule]
+    imports: [ButtonModule, DatePickerModule, FormsModule]
 })
 export class DatePickerButtonbarDemo {
     date: Date | undefined;
-
     dates: Date[] | undefined;
 }
 ```
@@ -72,30 +78,6 @@ export class DatePickerButtonbarDemo {
 ## Clear Icon
 
 When showClear is enabled, a clear icon is displayed to clear the value.
-
-```html
-<p-datepicker [(ngModel)]="date" [showClear]="true" inputStyleClass="w-56" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { DatePicker } from 'primeng/datepicker';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'date-picker-clear-icon-demo',
-    templateUrl: './date-picker-clear-icon-demo.html',
-    standalone: true,
-    imports: [FormsModule, DatePicker]
-})
-export class DatePickerClearIconDemo {
-    date: Date | undefined;
-}
-```
-</details>
 
 ## Date Template
 
@@ -119,10 +101,18 @@ import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-datetemplate-demo',
-    templateUrl: './date-picker-datetemplate-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-datepicker [(ngModel)]="date">
+                <ng-template #date let-date>
+                    <strong *ngIf="date.day > 10 && date.day < 15; else elseBlock" style="text-decoration: line-through">{{ date.day }}</strong>
+                    <ng-template #elseBlock>{{ date.day }}</ng-template>
+                </ng-template>
+            </p-datepicker>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePickerModule]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerDatetemplateDemo {
     date: Date[] | undefined;
@@ -144,13 +134,16 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-disabled-demo',
-    templateUrl: './date-picker-disabled-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-datepicker [(ngModel)]="date" [disabled]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePicker]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerDisabledDemo {
     date: Date | undefined;
@@ -172,13 +165,16 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-filled-demo',
-    templateUrl: './date-picker-filled-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-datepicker [(ngModel)]="date" variant="filled" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePicker]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerFilledDemo {
     date: Date[] | undefined;
@@ -189,48 +185,6 @@ export class DatePickerFilledDemo {
 ## Float Label
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
-
-```html
-<p-floatlabel>
-    <p-datepicker [(ngModel)]="value1" inputId="over_label" showIcon iconDisplay="input" />
-    <label for="over_label">Over Label</label>
-</p-floatlabel>
-
-<p-floatlabel variant="in">
-    <p-datepicker [(ngModel)]="value2" inputId="in_label" showIcon iconDisplay="input" />
-    <label for="in_label">In Label</label>
-</p-floatlabel>
-
-<p-floatlabel variant="on">
-    <p-datepicker [(ngModel)]="value3" inputId="on_label" showIcon iconDisplay="input" />
-    <label for="on_label">On Label</label>
-</p-floatlabel>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
-import { FloatLabel } from 'primeng/floatlabel';
-
-@Component({
-    selector: 'date-picker-float-label-demo',
-    templateUrl: './date-picker-float-label-demo.html',
-    standalone: true,
-    imports: [FormsModule, DatePicker, FloatLabel]
-})
-export class DatePickerFloatLabelDemo {
-    value1: Date | undefined;
-
-    value2: Date | undefined;
-
-    value3: Date | undefined;
-}
-```
-</details>
 
 ## Fluid
 
@@ -245,14 +199,17 @@ The fluid prop makes the component take up the full width of its container when 
 
 ```typescript
 import { Component } from '@angular/core';
-import { DatePicker } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-fluid-demo',
-    templateUrl: './date-picker-fluid-demo.html',
+    template: `
+        <div class="card">
+            <p-datepicker [(ngModel)]="date" fluid />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePicker]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerFluidDemo {
     date: Date | undefined;
@@ -274,13 +231,16 @@ Default date format is mm/dd/yy which can be customized using the dateFormat pro
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-format-demo',
-    templateUrl: './date-picker-format-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-datepicker [(ngModel)]="date" dateFormat="dd.mm.yy" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePicker]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerFormatDemo {
     date: Date | undefined;
@@ -293,15 +253,8 @@ export class DatePickerFormatDemo {
 An additional icon is displayed next to the input field when showIcon is present.
 
 ```html
+<label for="buttondisplay" class="font-bold block mb-2"> Button </label>
 <p-datepicker [(ngModel)]="date1" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
-
-<p-datepicker [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
-
-<p-datepicker [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
-    <ng-template #inputicon let-clickCallBack="clickCallBack">
-        <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
-    </ng-template>
-</p-datepicker>
 ```
 
 <details>
@@ -309,21 +262,36 @@ An additional icon is displayed next to the input field when showIcon is present
 
 ```typescript
 import { Component } from '@angular/core';
-import { DatePickerModule } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
-import { FluidModule } from 'primeng/fluid';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-icon-demo',
-    templateUrl: './date-picker-icon-demo.html',
+    template: `
+        <p-fluid class="card flex flex-wrap gap-4">
+            <div class="flex-auto">
+                <label for="buttondisplay" class="font-bold block mb-2"> Button </label>
+                <p-datepicker [(ngModel)]="date1" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
+            </div>
+            <div class="flex-auto">
+                <label for="icondisplay" class="font-bold block mb-2"> Default Icon </label>
+                <p-datepicker [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
+            </div>
+            <div class="flex-auto">
+                <label for="templatedisplay" class="font-bold block mb-2"> Custom Icon </label>
+                <p-datepicker [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
+                    <ng-template #inputicon let-clickCallBack="clickCallBack">
+                        <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
+                    </ng-template>
+                </p-datepicker>
+            </div>
+        </p-fluid>
+    `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule, FluidModule]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerIconDemo {
     date1: Date | undefined;
-
     date2: Date | undefined;
-
     date3: Date | undefined;
 }
 ```
@@ -332,34 +300,6 @@ export class DatePickerIconDemo {
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```html
-<p-iftalabel>
-    <p-datepicker [(ngModel)]="value" inputId="date" showIcon iconDisplay="input" />
-    <label for="date">Date</label>
-</p-iftalabel>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
-import { IftaLabelModule } from 'primeng/iftalabel';
-
-@Component({
-    selector: 'date-picker-ifta-label-demo',
-    templateUrl: './date-picker-ifta-label-demo.html',
-    standalone: true,
-    imports: [FormsModule, DatePickerModule, IftaLabelModule]
-})
-export class DatepickerIftaLabelDemo {
-    value: Date | undefined;
-}
-```
-</details>
 
 ## Inline
 
@@ -375,13 +315,16 @@ DatePicker is displayed as a popup by default, add inline property to customize 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-inline-demo',
-    templateUrl: './date-picker-inline-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-datepicker class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePicker]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerInlineDemo {
     date: Date[] | undefined;
@@ -404,17 +347,20 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-invalid-demo',
-    templateUrl: './date-picker-invalid-demo.html',
+    template: `
+        <div class="card flex flex-wrap justify-center gap-4">
+            <p-datepicker [(ngModel)]="date1" [invalid]="!date1" placeholder="Date" />
+            <p-datepicker [(ngModel)]="date2" [invalid]="!date2" variant="filled" placeholder="Date" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePicker]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerInvalidDemo {
     date1: Date | undefined;
-    
     date2: Date | undefined;
 }
 ```
@@ -427,50 +373,6 @@ Locale for different languages and formats is defined globally, refer to the Pri
 ## minmaxdox
 
 Boundaries for the permitted dates that can be entered are defined with minDate and maxDate properties.
-
-```html
-<p-datepicker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
-
-@Component({
-    selector: 'date-picker-minmax-demo',
-    templateUrl: './date-picker-minmax-demo.html',
-    standalone: true,
-    imports: [FormsModule, DatePicker]
-})
-export class DatePickerMinmaxDemo implements OnInit {
-    date: Date | undefined;
-
-    minDate: Date | undefined;
-
-    maxDate: Date | undefined;
-
-    ngOnInit() {
-        let today = new Date();
-        let month = today.getMonth();
-        let year = today.getFullYear();
-        let prevMonth = (month === 0) ? 11 : month -1;
-        let prevYear = (prevMonth === 11) ? year - 1 : year;
-        let nextMonth = (month === 11) ? 0 : month + 1;
-        let nextYear = (nextMonth === 0) ? year + 1 : year;
-        this.minDate = new Date();
-        this.minDate.setMonth(prevMonth);
-        this.minDate.setFullYear(prevYear);
-        this.maxDate = new Date();
-        this.maxDate.setMonth(nextMonth);
-        this.maxDate.setFullYear(nextYear);
-    }
-}
-```
-</details>
 
 ## monthdoc
 
@@ -486,13 +388,16 @@ Month only picker is enabled by specifying view as month in addition to a suitab
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-month-demo',
-    templateUrl: './date-picker-month-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-datepicker [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePicker]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerMonthDemo {
     date: Date[] | undefined;
@@ -514,13 +419,16 @@ In order to choose multiple dates, set selectionMode as multiple . In this mode,
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-multiple-demo',
-    templateUrl: './date-picker-multiple-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-datepicker [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePicker]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerMultipleDemo {
     dates: Date[] | undefined;
@@ -531,29 +439,6 @@ export class DatePickerMultipleDemo {
 ## multiplemonths.doc
 
 Number of months to display is configured with the numberOfMonths property.
-
-```html
-<p-datepicker [(ngModel)]="date" [numberOfMonths]="2" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { DatePicker } from 'primeng/datepicker';
-
-@Component({
-    selector: 'date-picker-multiplemonths-demo',
-    templateUrl: './date-picker-multiplemonths-demo.html',
-    standalone: true,
-    imports: [FormsModule, DatePicker]
-})
-export class DatePickerMultiplemonthsDemo {
-    date: Date[] | undefined;
-}
-```
-</details>
 
 ## Range
 
@@ -569,13 +454,16 @@ A range of dates can be selected by defining selectionMode as range , in this ca
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-range-demo',
-    templateUrl: './date-picker-range-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePicker]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerRangeDemo {
     rangeDates: Date[] | undefined;
@@ -586,65 +474,6 @@ export class DatePickerRangeDemo {
 ## reactiveformsdoc
 
 DatePicker can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <p-datepicker formControlName="selectedDate" [invalid]="isInvalid('selectedDate')" />
-        @if (isInvalid('selectedDate')) {
-            <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    selector: 'date-picker-reactive-forms-demo',
-    templateUrl: './date-picker-reactive-forms-demo.html',
-    standalone: true,
-    imports: [ReactiveFormsModule, DatePickerModule, MessageModule, ToastModule, ButtonModule]
-})
-export class DatePickerReactiveFormsDemo {
-    messageService = inject(MessageService);
-
-    exampleForm: FormGroup | undefined;
-
-    formSubmitted: boolean = false;
-
-    constructor(private fb: FormBuilder) {
-        this.exampleForm = this.fb.group({
-            selectedDate: ['', Validators.required]
-        });
-    }
-
-    onSubmit() {
-        this.formSubmitted = true;
-        if (this.exampleForm.valid) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
-            this.exampleForm.reset();
-            this.formSubmitted = false;
-        }
-    }
-
-    isInvalid(controlName: string) {
-        const control = this.exampleForm.get(controlName);
-        return control?.invalid && (control.touched || this.formSubmitted);
-    }
-}
-```
-</details>
 
 ## Sizes
 
@@ -661,38 +490,87 @@ DatePicker provides small and large sizes as alternatives to the base.
 
 ```typescript
 import { Component } from '@angular/core';
-import { DatePicker } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-sizes-demo',
-    templateUrl: './date-picker-sizes-demo.html',
+    template: `
+        <div class="card flex flex-col items-center gap-4">
+            <p-datepicker [(ngModel)]="value1" size="small" placeholder="Small" showIcon iconDisplay="input" />
+            <p-datepicker [(ngModel)]="value2" placeholder="Normal" showIcon iconDisplay="input" />
+            <p-datepicker [(ngModel)]="value3" size="large" placeholder="Large" showIcon iconDisplay="input" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePicker]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerSizesDemo {
     value1: Date | undefined;
-
     value2: Date | undefined;
-
     value3: Date | undefined;
 }
 ```
 </details>
 
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
-
 ## templatedoc
 
 Calendar UI accepts custom content using header and footer templates.
 
+## templatesdoc
+
 ```html
-<p-calendar [(ngModel)]="date">
-    <ng-template #header>Header</ng-template>
-    <ng-template #footer>Footer</ng-template>
-</p-calendar>
+<div class="doc-tablewrapper">
+    <table class="doc-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Parameters</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>header</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>footer</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>date</td>
+                <td>$implicit: Value of the component</td>
+            </tr>
+            <tr>
+                <td>decade</td>
+                <td>$implicit: An array containing the start and and year of a decade to display at header of the year picker.</td>
+            </tr>
+            <tr>
+                <td>previousicon</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>nexticon</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>triggericon</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>clearicon</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>incrementicon</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>decrementicon</td>
+                <td>-</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 ```
 
 <details>
@@ -702,59 +580,64 @@ Calendar UI accepts custom content using header and footer templates.
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'calendar-template-demo',
-    templateUrl: './calendar-template-demo.html'
-})
-export class CalendarTemplateDemo {
-    date: Date[] | undefined;
-}
-```
-</details>
-
-## templatedrivenformsdoc
-
-```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <p-datepicker name="date" [invalid]="dateModel.invalid && (dateModel.touched || exampleForm.submitted)" #dateModel="ngModel" [(ngModel)]="date" required />
-        @if (dateModel.invalid && (dateModel.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, inject } from '@angular/core';
-import { DatePickerModule } from 'primeng/datepicker';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'date-picker-template-driven-forms-demo',
-    templateUrl: './date-picker-template-driven-forms-demo.html',
+    template: `
+        <div class="doc-tablewrapper">
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>header</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>footer</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>date</td>
+                        <td>$implicit: Value of the component</td>
+                    </tr>
+                    <tr>
+                        <td>decade</td>
+                        <td>$implicit: An array containing the start and and year of a decade to display at header of the year picker.</td>
+                    </tr>
+                    <tr>
+                        <td>previousicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>nexticon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>triggericon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>clearicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>incrementicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>decrementicon</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePickerModule, MessageModule, ToastModule, ButtonModule]
+    imports: []
 })
-export class DatePickerTemplateDrivenFormsDemo {
-    messageService = inject(MessageService);
-
-    date: Date | undefined;
-
-    onSubmit(form: any) {
-        if (form.valid) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
-            form.resetForm();
-        }
-    }
-}
+export class DatepickerTemplatesDemo {}
 ```
 </details>
 
@@ -763,11 +646,8 @@ export class DatePickerTemplateDrivenFormsDemo {
 A time picker is displayed when showTime is enabled where 12/24 hour format is configured with hourFormat property. In case, only time needs to be selected, add timeOnly to hide the date section.
 
 ```html
+<label for="calendar-12h" class="font-bold block mb-2"> 12h Format </label>
 <p-datepicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" [hourFormat]="12" />
-
-<p-datepicker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" [hourFormat]="24" />
-
-<p-datepicker inputId="calendar-timeonly" [(ngModel)]="time" [timeOnly]="true" />
 ```
 
 <details>
@@ -776,21 +656,31 @@ A time picker is displayed when showTime is enabled where 12/24 hour format is c
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
-import { Fluid } from 'primeng/fluid';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-time-demo',
-    templateUrl: './date-picker-time-demo.html',
+    template: `
+        <p-fluid class="card flex flex-wrap gap-4">
+            <div class="flex-auto">
+                <label for="calendar-12h" class="font-bold block mb-2"> 12h Format </label>
+                <p-datepicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" [hourFormat]="12" />
+            </div>
+            <div class="flex-auto">
+                <label for="calendar-24h" class="font-bold block mb-2"> 24h Format </label>
+                <p-datepicker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" [hourFormat]="24" />
+            </div>
+            <div class="flex-auto">
+                <label for="calendar-timeonly" class="font-bold block mb-2"> Time Only </label>
+                <p-datepicker inputId="calendar-timeonly" [(ngModel)]="time" [timeOnly]="true" />
+            </div>
+        </p-fluid>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePicker, Fluid]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerTimeDemo {
-
     datetime12h: Date[] | undefined;
-
     datetime24h: Date[] | undefined;
-
     time: Date[] | undefined;
 }
 ```
@@ -801,10 +691,7 @@ export class DatePickerTimeDemo {
 When touchUI is enabled, overlay is displayed as optimized for touch devices.
 
 ```html
-<p-datepicker
-    [(ngModel)]="date"
-    [touchUI]="true"
-    [readonlyInput]="true" />
+<p-datepicker [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true" />
 ```
 
 <details>
@@ -813,13 +700,16 @@ When touchUI is enabled, overlay is displayed as optimized for touch devices.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-touchui-demo',
-    templateUrl: './date-picker-touchui-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-datepicker [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePicker]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerTouchuiDemo {
     date: Date[] | undefined;
@@ -841,13 +731,16 @@ Specifying view as year in addition to a suitable dateFormat enables the year pi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePicker } from 'primeng/datepicker';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'date-picker-year-demo',
-    templateUrl: './date-picker-year-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-datepicker [(ngModel)]="date" view="year" dateFormat="yy" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, DatePicker]
+    imports: [DatePickerModule, FormsModule]
 })
 export class DatePickerYearDemo {
     date: Date[] | undefined;

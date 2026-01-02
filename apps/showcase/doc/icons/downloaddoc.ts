@@ -1,12 +1,12 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'download-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCodeModule],
+    imports: [AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
             <p>PrimeIcons is available at npm, run the following command to download it to your project.</p>

@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
@@ -20,7 +19,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 dialog lifecycle. Both DynamicDialogConfig and DynamicDialogRef are injectable through the constructor.
             </p>
         </app-docsectiontext>
-        <app-code [code]="code" [hideToggleCode]="true"></app-code>
+        <app-code [hideToggleCode]="true"></app-code>
     `,
     providers: [DialogService]
 })
@@ -37,35 +36,4 @@ export class PassingDataDoc {
             header: 'Select a Product'
         });
     }
-
-    code: Code = {
-        typescript: `
-import { Component } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ProductListDemo } from './productlistdemo';
-
-@Component({
-    templateUrl: './dynamicdialogdemo.html',
-    providers: [DialogService]
-})
-export class DynamicDialogDemo {
-
-    ref: DynamicDialogRef | undefined;
-
-    constructor(public dialogService: DialogService) {}
-
-    show() {
-        this.ref = this.dialogService.open(ProductListDemo, {
-            data: {
-                id: '51gF3'
-            },
-      		inputValues: {
-        		selectedProduct: 'Laptop',
-        		quantity: 2
-      		},
-            header: 'Select a Product'
-        });
-    }
-}`
-    };
 }

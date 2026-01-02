@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
@@ -16,31 +15,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" autocomplete="off" />
         </div>
-        <app-code [code]="code" selector="password-disabled-demo"></app-code>
+        <app-code selector="password-disabled-demo"></app-code>
     `
 })
 export class DisabledDoc {
     value!: string;
-
-    code: Code = {
-        basic: `<p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { PasswordModule } from 'primeng/password';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'password-disabled-demo',
-    templateUrl: './password-disabled-demo.html',
-    standalone: true,
-    imports: [FormsModule, PasswordModule]
-})
-export class PasswordDisabledDemo {
-    value!: string;
-}`
-    };
 }

@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -16,17 +15,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
         </app-docsectiontext>
 
-        <app-code [code]="code" [hideToggleCode]="true"></app-code>
+        <app-code [hideToggleCode]="true"></app-code>
 
         <h3>Keyboard Support</h3>
         <p>Not applicable.</p>
     </div>`
 })
-export class AccessibilityDoc {
-    code: Code = {
-        html: `<span id="label_status">Status</span>
-<p-progressbar aria-labelledby="label_status" />
-
-<p-progressbar aria-label="Status" />`
-    };
-}
+export class AccessibilityDoc {}

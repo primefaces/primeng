@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
@@ -52,7 +51,7 @@ interface ExportColumn {
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [code]="code" selector="table-export-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code selector="table-export-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExportDoc {
@@ -84,119 +83,6 @@ export class ExportDoc {
 
         this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
     }
-
-    code: Code = {
-        basic: `<p-table #dt [columns]="cols" [value]="products" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #caption>
-        <div class="text-end pb-4">
-            <p-button icon="pi pi-external-link" label="Export" (click)="dt.exportCSV()" />
-        </div>
-    </ng-template>
-    <ng-template #header let-columns>
-        <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowData let-columns="columns">
-        <tr>
-            <td *ngFor="let col of columns">
-                {{ rowData[col.field] }}
-            </td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table #dt [columns]="cols" [value]="products" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #caption>
-            <div class="text-end pb-4">
-                <p-button icon="pi pi-external-link" label="Export" (click)="dt.exportCSV()" />
-            </div>
-        </ng-template>
-        <ng-template #header let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{ col.header }}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-rowData let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns">
-                    {{ rowData[col.field] }}
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
-
-interface Column {
-    field: string;
-    header: string;
-    customExportHeader?: string;
-}
-
-interface ExportColumn {
-    title: string;
-    dataKey: string;
-}
-
-@Component({
-    selector: 'table-export-demo',
-    templateUrl: 'table-export-demo.html',
-    standalone: true,
-    imports: [TableModule, CommonModule, ButtonModule],
-    providers: [ProductService]
-})
-export class TableExportDemo implements OnInit{
-    products!: Product[];
-
-    selectedProducts!: Product[];
-
-    constructor(private productService: ProductService) {}
-
-    cols!: Column[];
-
-    exportColumns!: ExportColumn[];
-
-    ngOnInit() {
-        this.productService.getProductsMini().then((data) => {
-            this.products = data;
-        });
-
-        this.cols = [
-            { field: 'code', header: 'Code', customExportHeader: 'Product Code' },
-            { field: 'name', header: 'Name' },
-            { field: 'category', header: 'Category' },
-            { field: 'quantity', header: 'Quantity' }
-        ];
-
-        this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
-    }
-
-}`,
-        data: `{
-    id: '1000',
-    code: 'f230fh0g3',
-    name: 'Bamboo Watch',
-    description: 'Product Description',
-    image: 'bamboo-watch.jpg',
-    price: 65,
-    category: 'Accessories',
-    quantity: 24,
-    inventoryStatus: 'INSTOCK',
-    rating: 5
-},
-...`,
-        service: ['ProductService']
-    };
 
     extFiles = [
         {

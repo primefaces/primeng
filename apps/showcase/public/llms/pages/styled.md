@@ -102,26 +102,6 @@ Tailwind CSS includes a reset utility in base called preflight . If you are usin
 
 The theme property is used to customize the initial theme.
 
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { ApplicationConfig } from '@angular/core';
-import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeuix/themes/aura';
-
-export const appConfig: ApplicationConfig = {
-    providers: [
-        providePrimeNG({
-            theme: {
-                preset: Aura
-            }
-        })
-    ]
-};
-```
-</details>
-
 ## Updatepreset
 
 Merges the provided tokens to the current preset, an example would be changing the primary color palette dynamically.

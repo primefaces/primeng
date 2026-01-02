@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -16,31 +15,9 @@ import { DatePickerModule } from 'primeng/datepicker';
         <div class="card">
             <p-datepicker [(ngModel)]="date" fluid />
         </div>
-        <app-code [code]="code" selector="date-picker-fluid-demo"></app-code>
+        <app-code selector="date-picker-fluid-demo"></app-code>
     `
 })
 export class FluidDoc {
     date: Date | undefined;
-
-    code: Code = {
-        basic: `<p-datepicker [(ngModel)]="date" fluid />`,
-
-        html: `<div class="card">
-    <p-datepicker [(ngModel)]="date" fluid />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { DatePicker } from 'primeng/datepicker';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'date-picker-fluid-demo',
-    templateUrl: './date-picker-fluid-demo.html',
-    standalone: true,
-    imports: [FormsModule, DatePicker]
-})
-export class DatePickerFluidDemo {
-    date: Date | undefined;
-}`
-    };
 }

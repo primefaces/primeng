@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
 import { Component, model, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -26,7 +25,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
             </p-galleria>
         </div>
-        <app-code [code]="code" selector="galleria-full-screen-with-thumbnails-demo"></app-code>
+        <app-code selector="galleria-full-screen-with-thumbnails-demo"></app-code>
     `
 })
 export class WithThumbnailsDoc implements OnInit {
@@ -58,78 +57,4 @@ export class WithThumbnailsDoc implements OnInit {
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
     }
-
-    code: Code = {
-        basic: `<p-galleria [(value)]="images" [(visible)]="displayBasic"[responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '50%' }" [numVisible]="9" [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
-    <ng-template #item let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-    </ng-template>
-    <ng-template #thumbnail let-item>
-        <img [src]="item.thumbnailImageSrc" style="display: block;" />
-    </ng-template>
-</p-galleria>`,
-        html: `<div class="card flex justify-center">
-    <p-button icon="pi pi-external-link" label="Show" (click)="displayBasic = true" />
-    <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '50%'}" [numVisible]="9" [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
-        <ng-template #item let-item>
-            <img [src]="item.itemImageSrc" style="width: 100%; display: block;"/>
-        </ng-template>
-        <ng-template #thumbnail let-item>
-            <img [src]="item.thumbnailImageSrc" style="display: block;"/>
-        </ng-template>
-    </p-galleria>
-</div>`,
-        typescript: `import { Component, OnInit, model } from '@angular/core';
-import { PhotoService } from '@/service/photoservice';
-import { GalleriaModule } from 'primeng/galleria';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    selector: 'galleria-full-screen-with-thumbnails-demo',
-    templateUrl: './galleria-full-screen-with-thumbnails-demo.html',
-    standalone: true,
-    imports: [GalleriaModule, ButtonModule],
-    providers: [PhotoService]
-})
-export class GalleriaFullScreenWithThumbnailsDemo implements OnInit {
-    displayBasic: boolean | undefined;
-
-    images = model([]);
-
-    responsiveOptions: any[] = [
-        {
-            breakpoint: '1500px',
-            numVisible: 5
-        },
-        {
-            breakpoint: '1024px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 2
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1
-        }
-    ];
-
-    constructor(private photoService: PhotoService) {}
-
-    ngOnInit() {
-        this.photoService.getImages().then((images) => this.images.set(images));
-    }
-}`,
-        data: `
-/* PhotoService */
-{
-    itemImageSrc: 'https://primeng.org/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primeng.org/images/galleria/galleria1s.jpg',
-    alt: 'Description for Image 1',
-    title: 'Title 1'
-},
-...`,
-        service: ['PhotoService']
-    };
 }

@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
@@ -16,31 +15,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <input type="text" pInputText [(ngModel)]="value" variant="filled" />
         </div>
-        <app-code [code]="code" selector="input-text-filled-demo"></app-code>
+        <app-code selector="input-text-filled-demo"></app-code>
     `
 })
 export class FilledDoc {
     value: string;
-
-    code: Code = {
-        basic: `<input type="text" pInputText [(ngModel)]="value" variant="filled" />`,
-
-        html: `<div class="card flex justify-center">
-    <input type="text" pInputText [(ngModel)]="value" variant="filled" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'input-text-filled-demo',
-    templateUrl: './input-text-filled-demo.html',
-    standalone: true,
-    imports: [FormsModule, InputTextModule]
-})
-export class InputTextFilledDemo {
-    value: string;
-}`
-    };
 }

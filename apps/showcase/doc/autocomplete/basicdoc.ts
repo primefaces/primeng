@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -24,45 +23,12 @@ interface AutoCompleteCompleteEvent {
         <div class="card flex justify-center">
             <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
         </div>
-        <app-code [code]="code" selector="autocomplete-basic-demo"></app-code>`
+        <app-code selector="autocomplete-basic-demo"></app-code>`
 })
 export class BasicDoc {
     items: any[] = [];
 
     value: any;
-
-    code: Code = {
-        basic: `<p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AutoComplete } from 'primeng/autocomplete';
-
-interface AutoCompleteCompleteEvent {
-    originalEvent: Event;
-    query: string;
-}
-
-@Component({
-    selector: 'autocomplete-basic-demo',
-    templateUrl: './autocomplete-basic-demo.html',
-    imports: [AutoComplete, FormsModule],
-    standalone: true,
-})
-export class AutocompleteBasicDemo {
-    items: any[] = [];
-
-    value: any;
-
-    search(event: AutoCompleteCompleteEvent) {
-        this.items = [...Array(10).keys()].map(item => event.query + '-' + item);
-    }
-}`
-    };
 
     search(event: AutoCompleteCompleteEvent) {
         this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);

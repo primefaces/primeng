@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -19,33 +18,7 @@ import { TooltipModule } from 'primeng/tooltip';
             <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom" />
             <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left" />
         </div>
-        <app-code [code]="code" selector="tooltip-position-demo"></app-code>
+        <app-code selector="tooltip-position-demo"></app-code>
     `
 })
-export class PositionDoc {
-    code: Code = {
-        basic: `<input type="text" pInputText pTooltip="Enter your username" tooltipPosition="right" placeholder="Right" />
-<input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top" />
-<input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom" />
-<input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left" />`,
-
-        html: `<div class="card flex flex-wrap justify-center gap-2">
-    <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="right" placeholder="Right" />
-    <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top" />
-    <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom" />
-    <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { Tooltip } from 'primeng/tooltip';
-import { InputTextModule } from 'primeng/inputtext';
-
-@Component({
-    selector: 'tooltip-position-demo',
-    templateUrl: './tooltip-position-demo.html',
-    standalone: true,
-    imports: [Tooltip, InputTextModule]
-})
-export class TooltipPositionDemo {}`
-    };
-}
+export class PositionDoc {}

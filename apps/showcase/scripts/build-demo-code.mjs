@@ -11,10 +11,13 @@ const DOCS_DIR = path.resolve(__dirname, '../doc');
 const OUTPUT_PATH = path.resolve(__dirname, '../public/demos.json');
 
 // Directories to skip (not component demos)
-const SKIP_DIRS = ['apidoc', 'guides', 'theming', 'icons', 'installation', 'configuration', 'customicons', 'passthrough', 'playground', 'tailwind', 'uikit', 'templates', 'primeflex', 'csslayer', 'migration'];
+const SKIP_DIRS = ['apidoc', 'theming', 'icons', 'installation', 'configuration', 'customicons', 'playground', 'tailwind', 'uikit', 'templates', 'primeflex', 'csslayer', 'migration', 'llms', 'mcp'];
 
 // Known services that exist in StackBlitz templates
 const KNOWN_SERVICES = ['CarService', 'CountryService', 'CustomerService', 'EventService', 'NodeService', 'PhotoService', 'ProductService', 'TicketService'];
+
+// PrimeNG API types that need to be imported from 'primeng/api'
+const PRIMENG_API_TYPES = ['TreeNode', 'MenuItem', 'SelectItem', 'SelectItemGroup', 'FilterService', 'MessageService', 'ConfirmationService', 'PrimeNGConfig', 'TreeTableNode', 'ConfirmEventType'];
 
 // PrimeNG selector to module mapping
 const SELECTOR_TO_MODULE = {
@@ -562,31 +565,61 @@ function extractDemoContent(template) {
     return html || null;
 }
 
+// Extract content from inside a div with specific class, handling nested divs
+function extractDivContent(html, classPattern) {
+    const regex = new RegExp(`<div[^>]*class="[^"]*${classPattern}[^"]*"[^>]*>`);
+    const match = html.match(regex);
+    if (!match) return null;
+
+    const startIndex = match.index + match[0].length;
+    let depth = 1;
+    let i = startIndex;
+
+    // Find matching closing </div> using balanced counting
+    while (i < html.length && depth > 0) {
+        if (html.slice(i).startsWith('<div')) {
+            depth++;
+            i += 4;
+        } else if (html.slice(i).startsWith('</div>')) {
+            depth--;
+            if (depth === 0) break;
+            i += 6;
+        } else {
+            i++;
+        }
+    }
+
+    if (depth === 0) {
+        return html.slice(startIndex, i).trim();
+    }
+    return null;
+}
+
 // Extract basic code (just PrimeNG component without wrapper)
 function extractBasicCode(htmlContent) {
     if (!htmlContent) return null;
 
-    // Try to find the main PrimeNG component(s)
-    // Remove outer wrapper divs like <div class="card">
     let basic = htmlContent;
 
-    // Remove common wrapper patterns
-    const wrapperMatch = basic.match(/<div[^>]*class="[^"]*card[^"]*"[^>]*>([\s\S]*?)<\/div>\s*$/);
-    if (wrapperMatch) {
-        basic = wrapperMatch[1].trim();
+    // Remove card wrapper div
+    const cardContent = extractDivContent(basic, 'card');
+    if (cardContent) {
+        basic = cardContent;
     }
 
-    // Also handle flex wrapper inside card
-    const flexMatch = basic.match(/<div[^>]*class="[^"]*(?:flex|grid)[^"]*"[^>]*>([\s\S]*?)<\/div>\s*$/);
-    if (flexMatch && basic.indexOf('<p-') !== -1) {
-        // Only unwrap if the inner content has PrimeNG components
-        const innerContent = flexMatch[1].trim();
-        if (innerContent.indexOf('<p-') !== -1 || innerContent.indexOf('pButton') !== -1) {
-            basic = innerContent;
+    // Also try to remove flex/grid wrapper inside card (but keep if it has meaningful structure)
+    const flexContent = extractDivContent(basic, '(?:flex|grid)');
+    if (flexContent) {
+        // Only unwrap if the inner content has PrimeNG components and the flex div is just a simple wrapper
+        const hasPrimeNG = flexContent.indexOf('<p-') !== -1 || flexContent.indexOf('pButton') !== -1;
+        const isSimpleWrapper = !flexContent.includes('<div class="') || flexContent.split('<div').length <= 2;
+        if (hasPrimeNG && isSimpleWrapper) {
+            basic = flexContent;
         }
     }
 
-    return basic.trim();
+    // Normalize indentation of the extracted content
+    return normalizeIndent(basic.trim());
 }
 
 // Extract existing code object from doc file using balanced brace matching
@@ -681,20 +714,6 @@ function extractExtFiles(content) {
     return files;
 }
 
-// Extract imports from file
-function extractImports(content) {
-    const imports = [];
-    const importMatches = content.matchAll(/import\s*\{([^}]+)\}\s*from\s*['"`]([^'"`]+)['"`]/g);
-
-    for (const match of importMatches) {
-        const names = match[1].split(',').map((n) => n.trim());
-        const from = match[2];
-        imports.push({ names, from });
-    }
-
-    return imports;
-}
-
 // Detect services from component file
 function detectServices(content) {
     const services = [];
@@ -775,7 +794,7 @@ function detectPrimeNGModules(template) {
 }
 
 // Generate demo TypeScript code with actual module imports (not ImportsModule)
-function generateTypescript(selector, componentName, template, imports, services = [], extFiles = [], fileContent = '') {
+function generateTypescript(componentName, template, services = [], fileContent = '') {
     const primeModules = detectPrimeNGModules(template);
 
     // Extract class details from original file
@@ -817,6 +836,20 @@ function generateTypescript(selector, componentName, template, imports, services
     // Add service imports if any
     for (const service of services) {
         importStatements += `import { ${service} } from '@/service/${service.toLowerCase()}';\n`;
+    }
+
+    // Detect and add PrimeNG API types (TreeNode, MenuItem, etc.)
+    const usedApiTypes = [];
+    const allContent = fileContent + (interfaces.length > 0 ? interfaces.join('\n') : '');
+    for (const apiType of PRIMENG_API_TYPES) {
+        // Check if type is used in properties, interfaces, or method signatures
+        const typeRegex = new RegExp(`\\b${apiType}\\b`, 'g');
+        if (typeRegex.test(allContent)) {
+            usedApiTypes.push(apiType);
+        }
+    }
+    if (usedApiTypes.length > 0) {
+        importStatements += `import { ${usedApiTypes.join(', ')} } from 'primeng/api';\n`;
     }
 
     // Build imports array for decorator (actual modules, not ImportsModule)
@@ -907,9 +940,22 @@ export class ${className}${implementsClause} {${classBody}}`;
 }
 
 // Extract selector from app-code tag in template
+// Skip app-code tags that have [code]= binding (those are helper snippets, not the main demo)
 function extractAppCodeSelector(template) {
-    const match = template.match(/<app-code[^>]*selector\s*=\s*["']([^"']+)["']/);
-    return match ? match[1] : null;
+    // Find all app-code tags
+    const appCodeRegex = /<app-code[^>]*>/g;
+    let match;
+    while ((match = appCodeRegex.exec(template)) !== null) {
+        const tag = match[0];
+        // Skip if it has [code]= binding (helper snippet)
+        if (/\[code\]\s*=/.test(tag)) continue;
+        // Extract selector from this tag
+        const selectorMatch = tag.match(/selector\s*=\s*["']([^"']+)["']/);
+        if (selectorMatch) {
+            return selectorMatch[1];
+        }
+    }
+    return null;
 }
 
 // Parse a single doc file
@@ -928,7 +974,6 @@ function parseDocFile(filePath, componentDir) {
     // Try to get existing code object (for data, scss that can't be auto-generated)
     const existingCode = extractExistingCodeObject(content);
     const extFiles = extractExtFiles(content);
-    const imports = extractImports(content);
 
     // Extract section name from filename
     const fileName = path.basename(filePath, '.ts');
@@ -937,19 +982,20 @@ function parseDocFile(filePath, componentDir) {
     // Generate basic code
     const basicCode = extractBasicCode(demoContent);
 
-    // Get component name for typescript generation
-    const componentName = toPascalCase(componentDir) + toPascalCase(section);
+    // Get the demo selector - prefer app-code selector, fallback to generated key
+    const appCodeSelector = extractAppCodeSelector(template);
+    const uniqueKey = appCodeSelector || `${componentDir}-${section}-demo`;
+
+    // Get component name from selector (properly hyphenated) for correct PascalCase
+    // e.g., "tree-table-sort-multiple-columns-demo" -> "TreeTableSortMultipleColumns"
+    const componentName = toPascalCase(uniqueKey.replace(/-demo$/, ''));
 
     // Detect services from component file (preferred) or fall back to existing code block
     const detectedServices = detectServices(content);
     const services = detectedServices.length > 0 ? detectedServices : existingCode?.service || [];
 
-    // Get the demo selector - prefer app-code selector, fallback to generated key
-    const appCodeSelector = extractAppCodeSelector(template);
-    const uniqueKey = appCodeSelector || `${componentDir}-${section}-demo`;
-
     // Generate TypeScript - pass full content for class extraction
-    const generatedTypescript = generateTypescript(uniqueKey, componentName, demoContent, imports, services, extFiles, content);
+    const generatedTypescript = generateTypescript(componentName, demoContent, services, content);
 
     return {
         key: uniqueKey,

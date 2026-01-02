@@ -10,45 +10,9 @@ The term unstyled is used to define an alternative styling approach instead of t
 
 Unstyled components require styling using your preferred approach. We recommend using Tailwind CSS with PassThrough attributes, a combination that works seamlessly together. The tailwindcss-primeui even provides special variants such as p-outlined: , p-vertical for the PrimeNG components. The example below demonstrates how to style a button component with Tailwind CSS using PassThrough attributes. Before you begin, refer to the pass through section in the button documentation to familiarize yourself with the component's internal structure and PassThrough attributes. In this example, we'll target the root , label and icon elements to apply custom styles.
 
-```html
-<p-button
-    label="Search"
-    icon="pi pi-search"
-    [unstyled]="true"
-    [pt]="{ 
-        root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2', 
-        label: 'text-white font-bold text-lg', 
-        icon: 'text-white text-xl' 
-    }"
-/>
-```
-
 ## Global
 
 A global configuration can be created at application level to avoid repetition via the global pt option so that the styles can be shared from a single location. A particular component can still override a global configuration with its own pt property.
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { ApplicationConfig } from '@angular/core';
-
-export const appConfig: ApplicationConfig = {
-    providers: [
-        providePrimeNG({
-            unstyled: true,
-            pt: {
-                button: {
-                    root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2',
-                    label: 'text-white font-bold text-lg',
-                    icon: 'text-white text-xl'
-                }
-            }
-        })
-    ]
-};
-```
-</details>
 
 ## Setup
 

@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -20,34 +19,7 @@ import { ButtonModule } from 'primeng/button';
                 <p-button label="Cancel" icon="pi pi-times" />
             </p-buttongroup>
         </div>
-        <app-code [code]="code" selector="button-group-demo"></app-code>
+        <app-code selector="button-group-demo"></app-code>
     `
 })
-export class ButtonGroupDoc {
-    code: Code = {
-        basic: `<p-buttongroup>
-    <p-button label="Save" icon="pi pi-check" />
-    <p-button label="Delete" icon="pi pi-trash" />
-    <p-button label="Cancel" icon="pi pi-times" />
-</p-buttongroup>`,
-
-        html: `<div class="card flex justify-center">
-    <p-buttongroup>
-        <p-button label="Save" icon="pi pi-check" />
-        <p-button label="Delete" icon="pi pi-trash" />
-        <p-button label="Cancel" icon="pi pi-times" />
-    </p-buttongroup>
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { ButtonGroupModule } from 'primeng/buttongroup';
-
-@Component({
-    selector: 'button-group-demo',
-    templateUrl: './button-group-demo.html',
-    standalone: true,
-    imports: [ButtonGroupModule]
-})
-export class ButtonGroupDemo { }`
-    };
-}
+export class ButtonGroupDoc {}

@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppCode } from '@/components/doc/app.code';
@@ -90,12 +89,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 Primary Color
             </div>
         </div>
-        <app-code [code]="code" [hideToggleCode]="true"></app-code>
+        <app-code [hideToggleCode]="true"></app-code>
     `
 })
-export class OverviewDoc {
-    code: Code = {
-        basic: `<div [ngStyle]="{backgroundColor:'var(--highlight-bg)', color: 'var(--highlight-text-color)', borderRadius: 'var(--border-radius)', padding: '3rem'}">Highlighted Item</div>
-<div [ngStyle]="{backgroundColor:'var(--primary-color)', color: 'var(--primary-color-text)', borderRadius: 'var(--border-radius)', padding: '3rem'}">Primary Color</div>`
-    };
-}
+export class OverviewDoc {}

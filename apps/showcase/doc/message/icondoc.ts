@@ -1,6 +1,5 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { MessageModule } from 'primeng/message';
@@ -22,39 +21,9 @@ import { MessageModule } from 'primeng/message';
                 <span class="ms-2">How may I help you?</span>
             </p-message>
         </div>
-        <app-code [code]="code" selector="message-icon-demo"></app-code>
+        <app-code selector="message-icon-demo"></app-code>
     `
 })
 export class IconDoc implements OnInit {
     ngOnInit() {}
-
-    code: Code = {
-        basic: `<p-message severity="info" icon="pi pi-send" text="Info Message" styleClass="h-full" />
-<p-message severity="success">
-    <ng-template #icon>
-        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-    </ng-template>
-    <span class="ms-2">How may I help you?</span>
-</p-message>`,
-        html: `<div class="card flex justify-center items-center gap-4">
-    <p-message severity="info" icon="pi pi-send" text="Info Message" styleClass="h-full" />
-    <p-message severity="success">
-        <ng-template #icon>
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-        </ng-template>
-        <span class="ms-2">How may I help you?</span>
-    </p-message>
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { MessageModule } from 'primeng/message';
-import { AvatarModule } from 'primeng/avatar';
-
-@Component({
-    selector: 'message-icon-demo',
-    templateUrl: './message-icon-demo.html',
-    standalone: true,
-    imports: [MessageModule, AvatarModule]
-})
-export class MessageIconDemo {}`
-    };
 }

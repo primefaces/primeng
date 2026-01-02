@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -16,31 +15,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <p-inputmask mask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999" />
         </div>
-        <app-code [code]="code" selector="input-mask-optional-demo"></app-code>
+        <app-code selector="input-mask-optional-demo"></app-code>
     `
 })
 export class OptionalDoc {
     value: string | undefined;
-
-    code: Code = {
-        basic: `<p-inputmask mask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-inputmask mask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { InputMask } from 'primeng/inputmask';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'input-mask-optional-demo',
-    templateUrl: './input-mask-optional-demo.html',
-    standalone: true,
-    imports: [FormsModule, InputMask]
-})
-export class InputMaskOptionalDemo {
-    value: string | undefined;
-}`
-    };
 }

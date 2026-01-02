@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { ScrollerModule } from 'primeng/scroller';
 import { AppCode } from '@/components/doc/app.code';
@@ -31,7 +30,7 @@ interface LazyEvent {
                 </ng-template>
             </p-virtualscroller>
         </div>
-        <app-code [code]="code" selector="scroller-lazy-load-demo"></app-code>
+        <app-code selector="scroller-lazy-load-demo"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -72,84 +71,4 @@ export class LazyLoadDoc {
             Math.random() * 1000 + 250
         );
     }
-
-    code: Code = {
-        basic: `<p-virtualscroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
-    <ng-template #item let-item let-options="options">
-        <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
-            {{ item }}
-        </div>
-    </ng-template>
-</p-virtualscroller>`,
-
-        html: `<div class="card flex justify-center">
-     <p-virtualscroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
-        <ng-template #item let-item let-options="options">
-            <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
-                {{ item }}
-            </div>
-        </ng-template>
-    </p-virtualscroller>
-</div>`,
-
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { ScrollerModule } from 'primeng/scroller';
-
-interface LazyEvent {
-    first: number;
-    last: number;
-}
-
-@Component({
-    selector: 'scroller-lazy-load-demo',
-    templateUrl: './scroller-lazy-load-demo.html',
-    styles: [
-        \`:host ::ng-deep {
-            .p-scroller-viewport {
-                flex: none;
-            }
-        }\`
-    ],
-    standalone: true,
-    imports: [ScrollerModule]
-})
-export class ScrollerLazyLoadDemo implements OnInit {
-    items!: string[];
-
-    lazyLoading: boolean = true;
-
-    loadLazyTimeout: any;
-
-    ngOnInit() {
-        this.items = Array.from({ length: 1000 });
-    }
-
-    onLazyLoad(event: LazyEvent) {
-        this.lazyLoading = true;
-
-        if (this.loadLazyTimeout) {
-            clearTimeout(this.loadLazyTimeout);
-        }
-
-        //imitate delay of a backend call
-        this.loadLazyTimeout = setTimeout(() => {
-            const { first, last } = event;
-            const lazyItems = [...this.items];
-
-            for (let i = first; i < last; i++) {
-                lazyItems[i] = \`Item #\${i}\`;
-            }
-
-            this.items = lazyItems;
-            this.lazyLoading = false;
-        }, Math.random() * 1000 + 250);
-    }
-}`,
-        scss: `
-:host ::ng-deep {
-    .p-scroller-viewport {
-        flex: none;
-    }
-}`
-    };
 }

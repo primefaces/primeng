@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -20,13 +19,4 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </ul>
         </div>`
 })
-export class TargetDoc {
-    code: Code = {
-        basic: `import { OverlayOptions } from 'primeng/api';
-import { PrimeNG } from 'primeng/config';
-
-this.primeng.overlayOptions: OverlayOptions = {
-    appendTo: 'body'
-};`
-    };
-}
+export class TargetDoc {}

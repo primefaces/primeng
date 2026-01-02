@@ -13,47 +13,19 @@ A simple Panel is created with a header property along with the content as child
 ```html
 <p-panel header="Header">
     <p class="m-0">
-        Lorem ipsum dolor sit amet...
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
 </p-panel>
 ```
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Template
 
 Header and Footers sections can be customized using header and footer templates.
 
 ```html
-<p-panel [toggleable]="true">
-    <ng-template #header>
-        <div class="flex items-center gap-2">
-            <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
-            <span class="font-bold">Amy Elsner</span>
-        </div>
-    </ng-template>
-    <ng-template #footer>
-        <div class="flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center gap-2">
-                <p-button icon="pi pi-user" rounded text></p-button>
-                <p-button icon="pi pi-bookmark" severity="secondary" rounded text></p-button>
-            </div>
-            <span class="text-surface-500 dark:text-surface-400">Updated 2 hours ago</span>
-        </div>
-    </ng-template>
-    <ng-template #icons>
-        <p-button icon="pi pi-cog" severity="secondary" rounded text (click)="menu.toggle($event)" />
-        <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
-    </ng-template>
-    <p class="m-0">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-        aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-</p-panel>
+<p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+<span class="font-bold">Amy Elsner</span>
 ```
 
 <details>
@@ -61,20 +33,45 @@ Header and Footers sections can be customized using header and footer templates.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
-    selector: 'panel-template-demo',
-    templateUrl: './panel-template-demo.html',
+    template: `
+        <div class="card">
+            <p-panel [toggleable]="true">
+                <ng-template #header>
+                    <div class="flex items-center gap-2">
+                        <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+                        <span class="font-bold">Amy Elsner</span>
+                    </div>
+                </ng-template>
+                <ng-template #footer>
+                    <div class="flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center gap-2">
+                            <p-button icon="pi pi-user" rounded text></p-button>
+                            <p-button icon="pi pi-bookmark" severity="secondary" rounded text></p-button>
+                        </div>
+                        <span class="text-surface-500 dark:text-surface-400">Updated 2 hours ago</span>
+                    </div>
+                </ng-template>
+                <ng-template #icons>
+                    <p-button icon="pi pi-cog" severity="secondary" rounded text (click)="menu.toggle($event)" />
+                    <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
+                </ng-template>
+                <p class="m-0">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </p-panel>
+        </div>
+    `,
     standalone: true,
-    imports: [PanelModule, AvatarModule, ButtonModule, MenuModule]
+    imports: [AvatarModule, ButtonModule, MenuModule, PanelModule]
 })
 export class PanelTemplateDemo implements OnInit {
-    items: { label?: string; icon?: string; separator?: boolean }[] = [];
-
     ngOnInit() {
         this.items = [
             {
@@ -105,7 +102,8 @@ Content of the panel can be expanded and collapsed using toggleable option, defa
 ```html
 <p-panel header="Header" [toggleable]="true">
     <p class="m-0">
-        Lorem ipsum dolor sit amet...
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
 </p-panel>
 ```
@@ -118,8 +116,16 @@ import { Component } from '@angular/core';
 import { PanelModule } from 'primeng/panel';
 
 @Component({
-    selector: 'panel-toggleable-demo',
-    templateUrl: './panel-toggleable-demo.html',
+    template: `
+        <div class="card">
+            <p-panel header="Header" [toggleable]="true">
+                <p class="m-0">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </p-panel>
+        </div>
+    `,
     standalone: true,
     imports: [PanelModule]
 })

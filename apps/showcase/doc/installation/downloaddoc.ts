@@ -1,12 +1,12 @@
-import { AppCodeModule } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'download-doc',
     standalone: true,
-    imports: [AppCodeModule, AppDocSectionText],
+    imports: [AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
             <p>PrimeNG is available for download on the <a href="https://www.npmjs.com/package/primeng">npm registry</a>.</p>

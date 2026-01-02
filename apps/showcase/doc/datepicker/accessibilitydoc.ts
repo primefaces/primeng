@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -39,7 +38,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>DatePicker also includes a hidden section that is only available to screen readers with <i>aria-live</i> as "polite". This element is updated when the selected date changes to instruct the user about the current date selected.</p>
         </app-docsectiontext>
 
-        <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+        <app-code [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
 
         <h3>Choose Date Button Keyboard Support</h3>
         <div class="doc-tablewrapper">
@@ -232,14 +231,4 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </div>
     </div>`
 })
-export class AccessibilityDoc {
-    code: Code = {
-        basic: `<label for="date1">Date</label>
-<p-datepicker inputId="date1"/>
-
-<span id="date2">Date</span>
-<p-datepicker ariaLabelledBy="date2"/>
-
-<p-datepicker ariaLabel="Date"/>`
-    };
-}
+export class AccessibilityDoc {}

@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
 import { ClassNamesModule } from 'primeng/classnames';
@@ -51,7 +50,7 @@ import { ClassNamesModule } from 'primeng/classnames';
                 </div>
             </div>
         </div>
-        <app-code [code]="code" selector="classnames-basic-demo"></app-code>
+        <app-code selector="classnames-basic-demo"></app-code>
     `
 })
 export class ExamplesDoc {
@@ -82,107 +81,4 @@ export class ExamplesDoc {
     toggle2() {
         this.active2.set(!this.active2());
     }
-
-    code: Code = {
-        basic: `<div class="flex flex-col gap-4">
-    <div class="font-semibold">pClass Directive</div>
-    <div class="flex flex-wrap items-center gap-4">
-        <div pClass="py-4 px-8 border border-surface rounded-lg">String</div>
-        <div [pClass]="['py-4', 'px-8', 'bg-primary text-primary-contrast', 'font-semibold', 'rounded-lg']">Array</div>
-        <div [pClass]="['p-4 rounded-lg', ['cursor-pointer', 'select-none', 'border'], { 'bg-primary text-primary-contrast border-primary': active1() }]" (click)="toggle1()">Combined</div>
-        <div [pClass]="nestedClasses()" (click)="toggle2()">Nested</div>
-    </div>
-</div>
-
-<div class="flex flex-col gap-4">
-    <div class="font-semibold">Native Class Directive</div>
-    <div class="flex flex-wrap items-center gap-4">
-        <div class="py-4 px-8 border border-surface rounded-lg">String</div>
-        <div [class]="['py-4', 'px-8', 'bg-primary', 'text-primary-contrast', 'font-semibold', 'rounded-lg']">Array</div>
-        <div
-            class="p-4 rounded-lg"
-            [class]="['cursor-pointer', 'select-none', 'border']"
-            [class.bg-primary]="active1()"
-            [class.text-primary-contrast]="active1()"
-            [class.border-surface]="active1()"
-            [class.border-primary]="active1()"
-            (click)="toggle1()"
-        >
-            Combined
-        </div>
-    </div>
-</div>`,
-
-        html: `<div class="card">
-    <div class="flex justify-between gap-4">
-        <div class="flex flex-col gap-4">
-            <div class="font-semibold">pClass Directive</div>
-            <div class="flex flex-wrap items-center gap-4">
-                <div pClass="py-4 px-8 border border-surface rounded-lg">String</div>
-                <div [pClass]="['py-4', 'px-8', 'bg-primary text-primary-contrast', 'font-semibold', 'rounded-lg']">Array</div>
-                <div [pClass]="['p-4 rounded-lg', ['cursor-pointer', 'select-none', 'border'], { 'bg-primary text-primary-contrast border-primary': active1() }]" (click)="toggle1()">Combined</div>
-                <div [pClass]="nestedClasses()" (click)="toggle2()">Nested</div>
-            </div>
-        </div>
-        <div class="flex flex-col gap-4">
-            <div class="font-semibold">Native Class Directive</div>
-            <div class="flex flex-wrap items-center gap-4">
-                <div class="py-4 px-8 border border-surface rounded-lg">String</div>
-                <div [class]="['py-4', 'px-8', 'bg-primary', 'text-primary-contrast', 'font-semibold', 'rounded-lg']">Array</div>
-                <div
-                    class="p-4 rounded-lg"
-                    [class]="['cursor-pointer', 'select-none', 'border']"
-                    [class.bg-primary]="active1()"
-                    [class.text-primary-contrast]="active1()"
-                    [class.border-surface]="active1()"
-                    [class.border-primary]="active1()"
-                    (click)="toggle1()"
-                >
-                    Combined
-                </div>
-            </div>
-        </div>
-    </div>
-</div>`,
-
-        typescript: `import { Component, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PClassModule } from 'primeng/pclass';
-
-@Component({
-    selector: 'classnames-basic-demo',
-    templateUrl: './classnames-basic-demo.html',
-    standalone: true,
-    imports: [ClassNamesModule, CommonModule]
-})
-export class ClassNamesDemo {
-    active1 = signal<boolean>(false);
-
-    active2 = signal<boolean>(false);
-
-    nestedClasses = computed(() => [
-        'p-4',
-        'rounded-lg',
-        {
-            'bg-primary text-primary-contrast': this.active2()
-        },
-        [
-            'cursor-pointer select-none',
-            'border',
-            {
-                'bg-primary-100 text-primary-800': !this.active2()
-            },
-            ['shadow-sm hover:shadow-lg', 'transition-all']
-        ]
-    ]);
-
-    toggle1() {
-        this.active1.set(!this.active1());
-    }
-
-    toggle2() {
-        this.active2.set(!this.active2());
-    }
-}`
-    };
 }

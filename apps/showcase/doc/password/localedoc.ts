@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
@@ -19,31 +18,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" autocomplete="off" />
         </div>
-        <app-code [code]="code" selector="password-locale-demo"></app-code>
+        <app-code selector="password-locale-demo"></app-code>
     `
 })
 export class LocaleDoc {
     value!: string;
-
-    code: Code = {
-        basic: `<p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { PasswordModule } from 'primeng/password';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'password-locale-demo',
-    templateUrl: './password-locale-demo.html',
-    standalone: true,
-    imports: [FormsModule, PasswordModule]
-})
-export class PasswordLocaleDemo {
-    value!: string;
-}`
-    };
 }

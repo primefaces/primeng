@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -37,7 +36,7 @@ import { ToastModule } from 'primeng/toast';
             </p-confirmdialog>
             <p-button (click)="confirm()" label="Save" />
         </div>
-        <app-code [code]="code" selector="confirm-dialog-template-demo"></app-code>
+        <app-code selector="confirm-dialog-template-demo"></app-code>
     `,
     providers: [ConfirmationService, MessageService]
 })
@@ -71,77 +70,4 @@ export class TemplateDoc {
             }
         });
     }
-
-    code: Code = {
-        basic: `<p-toast />
-<p-confirmdialog>
-    <ng-template #message let-message>
-        @if (message) {
-            <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
-                <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
-                <p>{{ message.message }}</p>
-            </div>
-        }
-    </ng-template>
-</p-confirmdialog>
-<p-button (click)="confirm()" label="Save" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-toast />
-    <p-confirmdialog>
-        <ng-template #message let-message>
-            @if (message) {
-                <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
-                    <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
-                    <p>{{ message.message }}</p>
-                </div>
-            }
-        </ng-template>
-    </p-confirmdialog>
-    <p-button (click)="confirm()" label="Save" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialog } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    selector: 'confirm-dialog-template-demo',
-    templateUrl: './confirm-dialog-template-demo.html',
-    standalone: true,
-    imports: [ConfirmDialog, ToastModule, ButtonModule],
-    providers: [ConfirmationService, MessageService]
-})
-export class ConfirmDialogTemplateDemo {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
-
-    confirm() {
-        this.confirmationService.confirm({
-            header: 'Confirmation',
-            message: 'Please confirm to proceed moving forward.',
-            icon: 'pi pi-exclamation-circle',
-            rejectButtonProps: {
-                label: 'Cancel',
-                icon: 'pi pi-times',
-                variant: 'outlined',
-                size: 'small'
-            },
-            acceptButtonProps: {
-                label: 'Save',
-                icon: 'pi pi-check',
-                size: 'small'
-            },
-            accept: () => {
-                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-            },
-            reject: () => {
-                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-            }
-        });
-    }
-
-}`
-    };
 }

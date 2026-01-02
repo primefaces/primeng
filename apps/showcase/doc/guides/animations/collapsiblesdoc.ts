@@ -1,6 +1,5 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AccordionModule } from 'primeng/accordion';
 
@@ -49,7 +48,7 @@ import { AccordionModule } from 'primeng/accordion';
                     </p-accordion-panel>
                 </p-accordion>
             </div>
-            <app-code [code]="code" hideToggleCode hideStackBlitz></app-code>
+            <app-code hideToggleCode hideStackBlitz></app-code>
         </app-docsectiontext>
     `,
     styles: [
@@ -90,39 +89,4 @@ import { AccordionModule } from 'primeng/accordion';
         `
     ]
 })
-export class CollapsiblesDoc {
-    code: Code = {
-        scss: `.p-collapsible-enter-active {
-    animation: demo-collapsible-expand 500ms cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-.p-collapsible-leave-active {
-    animation: demo-collapsible-collapse 500ms cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-@keyframes demo-collapsible-expand {
-    from {
-        opacity: 0;
-        grid-template-rows: 0fr;
-        transform: scale(0.93);
-    }
-    to {
-        opacity: 1;
-        grid-template-rows: 1fr;
-    }
-}
-
-@keyframes demo-collapsible-collapse {
-    from {
-        opacity: 1;
-        grid-template-rows: 1fr;
-    }
-    to {
-        opacity: 0;
-        grid-template-rows: 0fr;
-        transform: scale(0.93);
-    }
-}
-`
-    };
-}
+export class CollapsiblesDoc {}

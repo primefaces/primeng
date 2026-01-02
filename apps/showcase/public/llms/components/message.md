@@ -27,13 +27,16 @@ Enable closable option to display an icon to remove a message.
 
 ```typescript
 import { Component } from '@angular/core';
-import { Message } from 'primeng/message';
+import { MessageModule } from 'primeng/message';
 
 @Component({
-    selector: 'message-closable-demo',
-    templateUrl: './message-closable-demo.html',
+    template: `
+        <div class="card">
+            <p-message closable>Closable Message</p-message>
+        </div>
+    `,
     standalone: true,
-    imports: [Message]
+    imports: [MessageModule]
 })
 export class MessageClosableDemo {}
 ```
@@ -44,44 +47,46 @@ export class MessageClosableDemo {}
 Multiple messages can be displayed using the standard for block.
 
 ```html
-<div class="flex gap-2">
-    <p-button label="Show" (onClick)="addMessages()" />
-    <p-button label="Clear" severity="secondary" (onClick)="clearMessages()" />
-</div>
-<div class="flex flex-col">
-    @for (message of messages(); track message.severity; let first = $first) {
-        <p-message [severity]="message.severity" [text]="message.content" [ngClass]="{ 'mt-4': !first }" />
-    }
-</div>
+<p-button label="Show" (onClick)="addMessages()" />
+<p-button label="Clear" severity="secondary" (onClick)="clearMessages()" />
 ```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, signal } from '@angular/core';
-import { Message } from 'primeng/message';
+import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
 
 @Component({
-    selector: 'message-dynamic-demo',
-    templateUrl: './message-dynamic-demo.html',
+    template: `
+        <div class="card flex flex-col items-center justify-center gap-4">
+            <div class="flex gap-2">
+                <p-button label="Show" (onClick)="addMessages()" />
+                <p-button label="Clear" severity="secondary" (onClick)="clearMessages()" />
+            </div>
+            <div class="flex flex-col">
+                @for (message of messages(); track message.severity; let first = $first) {
+                <p-message [severity]="message.severity" [text]="message.content" [ngClass]="{ 'mt-4': !first }" [closable]="message?.closable" />
+                }
+            </div>
+        </div>
+    `,
     standalone: true,
-    imports: [Message, ButtonModule]
+    imports: [ButtonModule, MessageModule]
 })
 export class MessageDynamicDemo {
-    messages = signal<any[]>([]);
+    clearMessages() {
+        this.messages.set([]);
+    }
 
     addMessages() {
         this.messages.set([
             { severity: 'info', content: 'Dynamic Info Message' },
             { severity: 'success', content: 'Dynamic Success Message' },
-            { severity: 'warn', content: 'Dynamic Warn Message' },
+            { severity: 'warn', content: 'Dynamic Warn Message' }
         ]);
-    }
-
-    clearMessages() {
-        this.messages.set([]);
     }
 }
 ```
@@ -97,13 +102,13 @@ Validation errors in a form are displayed with the error severity.
     <div class="flex flex-col gap-1">
         <input pInputText placeholder="Username" [(ngModel)]="username" aria-label="username" [invalid]="!username" />
         @if (!username) {
-            <p-message severity="error" variant="simple" size="small">Username is required</p-message>
+        <p-message severity="error" variant="simple" size="small">Username is required</p-message>
         }
     </div>
     <div class="flex flex-col gap-1">
         <p-inputmask mask="(999) 999-9999" [(ngModel)]="phone" placeholder="Phone" [invalid]="!phone" />
         @if (!phone) {
-            <p-message severity="error" variant="simple" size="small">Phone number is required</p-message>
+        <p-message severity="error" variant="simple" size="small">Phone number is required</p-message>
         }
     </div>
 </div>
@@ -114,19 +119,36 @@ Validation errors in a form are displayed with the error severity.
 
 ```typescript
 import { Component } from '@angular/core';
-import { Message } from 'primeng/message';
-import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
 import { InputMaskModule } from 'primeng/inputmask';
+import { MessageModule } from 'primeng/message';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'message-form-demo',
-    templateUrl: './message-form-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <div class="flex flex-col gap-4">
+                <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Validation Failed</p-message>
+                <div class="flex flex-col gap-1">
+                    <input pInputText placeholder="Username" [(ngModel)]="username" aria-label="username" [invalid]="!username" />
+                    @if (!username) {
+                    <p-message severity="error" variant="simple" size="small">Username is required</p-message>
+                    }
+                </div>
+                <div class="flex flex-col gap-1">
+                    <p-inputmask mask="(999) 999-9999" [(ngModel)]="phone" placeholder="Phone" [invalid]="!phone" />
+                    @if (!phone) {
+                    <p-message severity="error" variant="simple" size="small">Phone number is required</p-message>
+                    }
+                </div>
+            </div>
+        </div>
+    `,
     standalone: true,
-    imports: [Message, InputTextModule,InputMaskModule]
+    imports: [InputMaskModule, MessageModule, InputTextModule, FormsModule]
 })
 export class MessageFormDemo {
     username: string | undefined;
-
     phone: string | undefined;
 }
 ```
@@ -151,14 +173,23 @@ The icon of a message is specified with the icon property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { MessageModule } from 'primeng/message';
 import { AvatarModule } from 'primeng/avatar';
+import { MessageModule } from 'primeng/message';
 
 @Component({
-    selector: 'message-icon-demo',
-    templateUrl: './message-icon-demo.html',
+    template: `
+        <div class="card flex justify-center items-center gap-4">
+            <p-message severity="info" icon="pi pi-send" text="Info Message" styleClass="h-full" />
+            <p-message severity="success">
+                <ng-template #icon>
+                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                </ng-template>
+                <span class="ms-2">How may I help you?</span>
+            </p-message>
+        </div>
+    `,
     standalone: true,
-    imports: [MessageModule, AvatarModule]
+    imports: [AvatarModule, MessageModule]
 })
 export class MessageIconDemo {}
 ```
@@ -169,29 +200,36 @@ export class MessageIconDemo {}
 Messages can disappear automatically by defined the life in milliseconds.
 
 ```html
+<p-button label="Show" (onClick)="showMessage()" [disabled]="visible()" styleClass="mb-4" />
+@if (visible()) {
 <p-message [life]="3000" severity="success">Auto disappear message</p-message>
+}
 ```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, signal } from '@angular/core';
-import { Message } from 'primeng/message';
+import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
 
 @Component({
-    selector: 'message-life-demo',
-    templateUrl: './message-life-demo.html',
+    template: `
+        <div class="card flex flex-col items-center justify-center">
+            <p-button label="Show" (onClick)="showMessage()" [disabled]="visible()" styleClass="mb-4" />
+            @if (visible()) {
+            <p-message [life]="3000" severity="success">Auto disappear message</p-message>
+            }
+        </div>
+    `,
     standalone: true,
-    imports: [Message, ButtonModule]
+    imports: [ButtonModule, MessageModule]
 })
 export class MessageLifeDemo {
-    visible = signal(false);
-
     showMessage() {
         this.visible.set(true);
-
+        
         setTimeout(() => {
             this.visible.set(false);
         }, 3000);
@@ -218,13 +256,21 @@ Configure the variant value as outlined for messages with borders and no backgro
 
 ```typescript
 import { Component } from '@angular/core';
-import { Message } from 'primeng/message';
+import { MessageModule } from 'primeng/message';
 
 @Component({
-    selector: 'message-outlined-demo',
-    templateUrl: './message-outlined-demo.html',
+    template: `
+        <div class="card flex flex-wrap gap-4 justify-center">
+            <p-message severity="success" variant="outlined">Success Message</p-message>
+            <p-message severity="info" variant="outlined">Info Message</p-message>
+            <p-message severity="warn" variant="outlined">Warn Message</p-message>
+            <p-message severity="error" variant="outlined">Error Message</p-message>
+            <p-message severity="secondary" variant="outlined">Secondary Message</p-message>
+            <p-message severity="contrast" variant="outlined">Contrast Message</p-message>
+        </div>
+    `,
     standalone: true,
-    imports: [Message]
+    imports: [MessageModule]
 })
 export class MessageOutlinedDemo {}
 ```
@@ -248,13 +294,21 @@ The severity option specifies the type of the message.
 
 ```typescript
 import { Component } from '@angular/core';
-import { Message } from 'primeng/message';
+import { MessageModule } from 'primeng/message';
 
 @Component({
-    selector: 'message-severity-demo',
-    templateUrl: './message-severity-demo.html',
+    template: `
+        <div class="card flex flex-wrap gap-4 justify-center">
+            <p-message severity="success">Success Message</p-message>
+            <p-message severity="info">Info Message</p-message>
+            <p-message severity="warn">Warn Message</p-message>
+            <p-message severity="error">Error Message</p-message>
+            <p-message severity="secondary">Secondary Message</p-message>
+            <p-message severity="contrast">Contrast Message</p-message>
+        </div>
+    `,
     standalone: true,
-    imports: [Message]
+    imports: [MessageModule]
 })
 export class MessageSeverityDemo {}
 ```
@@ -278,13 +332,21 @@ Configure the variant value as simple for messages without borders and backgroun
 
 ```typescript
 import { Component } from '@angular/core';
-import { Message } from 'primeng/message';
+import { MessageModule } from 'primeng/message';
 
 @Component({
-    selector: 'message-simple-demo',
-    templateUrl: './message-simple-demo.html',
+    template: `
+        <div class="card flex flex-wrap gap-4 justify-center">
+            <p-message severity="success" variant="simple">Success Message</p-message>
+            <p-message severity="info" variant="simple">Info Message</p-message>
+            <p-message severity="warn" variant="simple">Warn Message</p-message>
+            <p-message severity="error" variant="simple">Error Message</p-message>
+            <p-message severity="secondary" variant="simple">Secondary Message</p-message>
+            <p-message severity="contrast" variant="simple">Contrast Message</p-message>
+        </div>
+    `,
     standalone: true,
-    imports: [Message]
+    imports: [MessageModule]
 })
 export class MessageSimpleDemo {}
 ```
@@ -305,13 +367,18 @@ Message provides small and large sizes as alternatives to the base.
 
 ```typescript
 import { Component } from '@angular/core';
-import { Message } from 'primeng/message';
+import { MessageModule } from 'primeng/message';
 
 @Component({
-    selector: 'message-sizes-demo',
-    templateUrl: './message-sizes-demo.html',
+    template: `
+        <div class="card flex flex-col items-center gap-4">
+            <p-message size="small" icon="pi pi-send">Small Message</p-message>
+            <p-message icon="pi pi-user">Normal Message</p-message>
+            <p-message size="large" icon="pi pi-check">Large Message</p-message>
+        </div>
+    `,
     standalone: true,
-    imports: [Message]
+    imports: [MessageModule]
 })
 export class MessageSizesDemo {}
 ```

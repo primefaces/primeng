@@ -1,7 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { SkeletonModule } from 'primeng/skeleton';
@@ -36,7 +35,7 @@ import { TableModule } from 'primeng/table';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [code]="code" selector="table-loading-skeleton-demo"></app-code>`,
+        <app-code selector="table-loading-skeleton-demo"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoadingSkeletonDoc {
@@ -48,68 +47,4 @@ export class LoadingSkeletonDoc {
         this.products = Array.from({ length: 10 }).map((_, i) => ({ id: i.toString() }));
         this.cd.markForCheck();
     }
-
-    code: Code = {
-        basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header>
-        <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-product>
-        <tr>
-            <td><p-skeleton /></td>
-            <td><p-skeleton /></td>
-            <td><p-skeleton /></td>
-            <td><p-skeleton /></td>
-        </tr>
-    </ng-template>
-</p-table>`,
-
-        html: `<div class="card">
-    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #header>
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-product>
-            <tr>
-                <td><p-skeleton /></td>
-                <td><p-skeleton /></td>
-                <td><p-skeleton /></td>
-                <td><p-skeleton /></td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { TableModule } from 'primeng/table';
-import { SkeletonModule } from 'primeng/skeleton';
-import { CommonModule } from '@angular/common';
-
-@Component({
-    selector: 'table-loading-skeleton-demo',
-    templateUrl: 'table-loading-skeleton-demo.html',
-    standalone: true,
-    imports: [CommonModule,TableModule,SkeletonModule]
-})
-export class LoadingSkeletonDemo implements OnInit {
-    products!: Product[];
-
-    ngOnInit() {
-        this.productService.getProductsMini().then((data) => {
-            this.products = Array.from({ length: 10 }).map((_, i) => ({id: i.toString()}));
-        });
-    }
-}`
-    };
 }

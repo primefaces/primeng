@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
 import { Component, OnInit, model } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -21,7 +20,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
             </p-galleria>
         </div>
-        <app-code [code]="code" selector="galleria-indicator-hover-event-demo"></app-code>
+        <app-code selector="galleria-indicator-hover-event-demo"></app-code>
     `
 })
 export class HoverEventDoc implements OnInit {
@@ -32,49 +31,4 @@ export class HoverEventDoc implements OnInit {
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
     }
-
-    code: Code = {
-        basic: `<p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [changeItemOnIndicatorHover]="true" [containerStyle]="{ 'max-width': '640px' }">
-    <ng-template #item let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-    </ng-template>
-</p-galleria>`,
-        html: `<div class="card">
-    <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [changeItemOnIndicatorHover]="true" [containerStyle]="{ 'max-width': '640px' }">
-        <ng-template #item let-item>
-            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-        </ng-template>
-    </p-galleria>
-</div>`,
-        typescript: `import { Component, OnInit, model } from '@angular/core';
-import { PhotoService } from '@/service/photoservice';
-import { GalleriaModule } from 'primeng/galleria';
-
-@Component({
-    selector: 'galleria-indicator-hover-event-demo',
-    templateUrl: './galleria-indicator-hover-event-demo.html',
-    standalone: true,
-    imports: [GalleriaModule],
-    providers: [PhotoService]
-})
-export class GalleriaIndicatorHoverEventDemo implements OnInit {
-    images = model([]);
-
-    constructor(private photoService: PhotoService) {}
-
-    ngOnInit() {
-        this.photoService.getImages().then((images) => this.images.set(images));
-    }
-}`,
-        data: `
-/* PhotoService */
-{
-    itemImageSrc: 'https://primeng.org/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primeng.org/images/galleria/galleria1s.jpg',
-    alt: 'Description for Image 1',
-    title: 'Title 1'
-},
-...`,
-        service: ['PhotoService']
-    };
 }

@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -16,26 +15,7 @@ import { AvatarModule } from 'primeng/avatar';
             <p-avatar label="P" shape="circle" />
             <p-avatar label="T" />
         </div>
-        <app-code [code]="code" selector="avatar-shape-demo"></app-code>
+        <app-code selector="avatar-shape-demo"></app-code>
     `
 })
-export class ShapeDoc {
-    code: Code = {
-        basic: `<p-avatar label="P" shape="circle" />
-<p-avatar label="T" />`,
-        html: `<div class="card flex justify-center gap-2">
-    <p-avatar label="P" shape="circle" />
-    <p-avatar label="T" />
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { Avatar } from 'primeng/avatar';
-
-@Component({
-    selector: 'avatar-shape-demo',
-    templateUrl: './avatar-shape-demo.html',
-    standalone: true,
-    imports: [Avatar]
-})
-export class AvatarShapeDemo {}`
-    };
-}
+export class ShapeDoc {}

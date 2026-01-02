@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -31,7 +30,7 @@ import { InputTextModule } from 'primeng/inputtext';
                     </div>
                 </p-dialog>
             </div>
-            <app-code [code]="code" hideToggleCode hideStackBlitz></app-code>
+            <app-code hideToggleCode hideStackBlitz></app-code>
         </app-docsectiontext>
     `,
     styles: [
@@ -69,29 +68,4 @@ export class DialogDoc {
     showDialog() {
         this.visible = true;
     }
-
-    code: Code = {
-        scss: `.p-dialog-enter-active {
-    animation: demo-dialog-in 500ms ease-out;
-}
-    
-.p-dialog-leave-active {
-    animation: demo-dialog-out 300ms ease-in;
-}
-
-@keyframes demo-dialog-in {
-    from {
-        opacity: 0;
-        transform: translateY(-10%) scale(1.1);
-        filter: blur(10px);
-    }
-}
-
-@keyframes demo-dialog-out {
-    to {
-        opacity: 0;
-        transform: translateY(200%) rotate(-90deg);
-    }
-}`
-    };
 }

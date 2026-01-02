@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -39,21 +38,8 @@ interface City {
                     }"
                 />
             </div>
-            <app-code [code]="code" hideToggleCode hideStackBlitz />
+            <app-code hideToggleCode hideStackBlitz />
         </app-docsectiontext>
     `
 })
-export class ExampleDoc {
-    code: Code = {
-        basic: `<p-button
-    label="Search"
-    icon="pi pi-search"
-    [unstyled]="true"
-    [pt]="{ 
-        root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2', 
-        label: 'text-white font-bold text-lg', 
-        icon: 'text-white text-xl' 
-    }"
-/>`
-    };
-}
+export class ExampleDoc {}

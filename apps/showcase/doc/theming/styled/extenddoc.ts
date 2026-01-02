@@ -14,7 +14,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
             <p>The example preset configuration adds a new <i>accent</i> button with custom <i>button.accent.color</i> and <i>button.accent.inverse.color</i> tokens. It is also possible to add tokens globally to share them within the components.</p>
         </app-docsectiontext>
-        <app-code [code]="code" selector="component-demo" [hideToggleCode]="true"></app-code>
+        <app-code selector="component-demo" [hideToggleCode]="true"></app-code>
     `
 })
 export class ExtendDoc {

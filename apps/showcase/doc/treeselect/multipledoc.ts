@@ -1,10 +1,9 @@
-import { Code } from '@/domain/code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
-import { AppCode } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'multiple-doc',
@@ -22,7 +21,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />
         </div>
-        <app-code [code]="code" selector="tree-select-multiple-demo"></app-code>
+        <app-code selector="tree-select-multiple-demo"></app-code>
     `
 })
 export class MultipleDoc {
@@ -34,71 +33,10 @@ export class MultipleDoc {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
-    exampleCode: Code = {
+    exampleCode = {
         typescript: `{
     '0-0': true,
     '0-1-0': true
 }`
-    };
-
-    code: Code = {
-        basic: `<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { NodeService } from '@/service/nodeservice';
-import { FormsModule } from '@angular/forms';
-import { TreeSelect } from 'primeng/treeselect';
-
-@Component({
-    selector: 'tree-select-multiple-demo',
-    templateUrl: './tree-select-multiple-demo.html',
-    standalone: true,
-    imports: [FormsModule, TreeSelect],
-    providers: [NodeService]
-})
-export class TreeSelectMultipleDemo {
-    nodes!: any[];
-
-    selectedNodes: any;
-
-    constructor(private nodeService: NodeService) {
-        this.nodeService.getFiles().then((files) => (this.nodes = files));
-    }
-}`,
-
-        service: ['NodeService'],
-
-        data: `
-    /* NodeService */
-{
-    key: '0',
-    label: 'Documents',
-    data: 'Documents Folder',
-    icon: 'pi pi-fw pi-inbox',
-    children: [
-        {
-            key: '0-0',
-            label: 'Work',
-            data: 'Work Folder',
-            icon: 'pi pi-fw pi-cog',
-            children: [
-                { key: '0-0-0', label: 'Expenses.doc', icon: 'pi pi-fw pi-file', data: 'Expenses Document' },
-                { key: '0-0-1', label: 'Resume.doc', icon: 'pi pi-fw pi-file', data: 'Resume Document' }
-            ]
-        },
-        {
-            key: '0-1',
-            label: 'Home',
-            data: 'Home Folder',
-            icon: 'pi pi-fw pi-home',
-            children: [{ key: '0-1-0', label: 'Invoices.txt', icon: 'pi pi-fw pi-file', data: 'Invoices for this month' }]
-        }
-    ]
-},
-...`
     };
 }

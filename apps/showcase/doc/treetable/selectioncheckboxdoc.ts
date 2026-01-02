@@ -1,7 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
@@ -58,7 +57,7 @@ interface Column {
                 </p-treetable>
             </p-deferred-demo>
         </div>
-        <app-code [code]="code" selector="tree-table-selection-checkbox-demo"></app-code>
+        <app-code selector="tree-table-selection-checkbox-demo"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -106,128 +105,7 @@ export class SelectionCheckboxDoc {
         };
     }
 
-    code: Code = {
-        basic: `<p-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
-                            <p-treetable-checkbox [value]="rowNode" />
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>`,
-
-        html: `<div class="card">
-    <p-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #header let-columns>
-            <tr>
-                @for (col of columns; track col) {
-                    <th>
-                        {{ col.header }}
-                    </th>
-                }
-            </tr>
-        </ng-template>
-        <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                @for (col of columns; let first = $first; track col) {
-                    <td>
-                        @if (first) {
-                            <div class="flex items-center gap-2">
-                                <p-treetable-toggler [rowNode]="rowNode" />
-                                <p-treetable-checkbox [value]="rowNode" />
-                                <span>{{ rowData[col.field] }}</span>
-                            </div>
-                        } @else {
-                            {{ rowData[col.field] }}
-                        }
-                    </td>
-                }
-            </tr>
-        </ng-template>
-    </p-treetable>
-</div>`,
-
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { NodeService } from '@/service/nodeservice';
-import { TreeTableModule } from 'primeng/treetable';
-import { CommonModule } from '@angular/common';
-
-interface Column {
-    field: string;
-    header: string;
-}
-
-@Component({
-    selector: 'tree-table-selection-checkbox-demo',
-    templateUrl: './tree-table-selection-checkbox-demo.html',
-    standalone: true,
-    imports: [TreeTableModule, CommonModule],
-    providers: [NodeService]
-})
-export class TreeTableSelectionCheckboxDemo implements OnInit {
-    files!: TreeNode[];
-
-    selectionKeys = {};
-
-    cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
-
-    ngOnInit() {
-        this.nodeService.getTreeTableNodes().then((files) => (this.files = files));
-
-        this.cols = [
-            { field: 'name', header: 'Name' },
-            { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
-        ];
-
-        this.selectionKeys = {
-            '0': {
-                partialChecked: true
-            },
-            '0-0': {
-                partialChecked: false,
-                checked: true
-            },
-            '0-0-0': {
-                checked: true
-            },
-            '0-0-1': {
-                checked: true
-            },
-            '0-0-2': {
-                checked: true
-            }
-        };
-    }
-}`,
-
-        service: ['NodeService']
-    };
-
-    code2: Code = {
+    code2 = {
         typescript: `{
     '0': {
         partialChecked: true

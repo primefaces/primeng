@@ -13,7 +13,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 This configuration is global and applies to all card components, in case you need to customize a particular component on a page locally, view the Scoped CSS section for an example.
             </p>
         </app-docsectiontext>
-        <app-code [code]="code" selector="component-demo" [hideToggleCode]="true"></app-code>
+        <app-code selector="component-demo" [hideToggleCode]="true"></app-code>
     `
 })
 export class ComponentDoc {

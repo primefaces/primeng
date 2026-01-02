@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -16,7 +15,7 @@ import { AppCode } from '@/components/doc/app.code';
         <div class="card">
             <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" fluid />
         </div>
-        <app-code [code]="code" selector="select-button-fluid-demo"></app-code>
+        <app-code selector="select-button-fluid-demo"></app-code>
     `
 })
 export class FluidDoc {
@@ -26,28 +25,4 @@ export class FluidDoc {
     ];
 
     value: string = 'one-way';
-
-    code: Code = {
-        basic: `<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" fluid />`,
-
-        html: `<div class="card">
-    <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" fluid />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SelectButton } from 'primeng/selectbutton';
-
-@Component({
-    selector: 'select-button-fluid-demo',
-    templateUrl: './select-button-fluid-demo.html',
-    standalone: true,
-    imports: [FormsModule, SelectButton]
-})
-export class SelectButtonFluidDemo {
-    stateOptions: any[] = [{ label: 'One-Way', value: 'one-way' },{ label: 'Return', value: 'return' }];
-
-    value: string = 'off';
-}`
-    };
 }

@@ -12,7 +12,7 @@ IftaLabel is used by wrapping the input and its label.
 
 ```html
 <p-iftalabel>
-    <input pInputText id="username" [(ngModel)]="value" />
+    <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
     <label for="username">Username</label>
 </p-iftalabel>
 ```
@@ -23,7 +23,7 @@ When the form element is invalid, the label is also highlighted.
 
 ```html
 <p-iftalabel>
-    <input pInputText id="username" [(ngModel)]="value" [invalid]="!value" />
+    <input pInputText id="username" [(ngModel)]="value" [invalid]="!value" autocomplete="off" />
     <label for="username">Username</label>
 </p-iftalabel>
 ```
@@ -33,13 +33,19 @@ When the form element is invalid, the label is also highlighted.
 
 ```typescript
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'ifta-label-invalid-demo',
-    templateUrl: './ifta-label-invalid-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-iftalabel>
+                <input pInputText id="username" [(ngModel)]="value" [invalid]="!value" autocomplete="off" />
+                <label for="username">Username</label>
+            </p-iftalabel>
+        </div>
+    `,
     standalone: true,
     imports: [IftaLabelModule, InputTextModule, FormsModule]
 })

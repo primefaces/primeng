@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
@@ -26,7 +25,7 @@ interface City {
             <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
         </div>
 
-        <app-code [code]="code" hideToggleCode hideStackBlitz></app-code>
+        <app-code hideToggleCode hideStackBlitz></app-code>
     `,
     styles: [
         `
@@ -70,27 +69,4 @@ export class AnchoredOverlaysDoc {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-    code: Code = {
-        scss: `.p-anchored-overlay-enter-active {
-    animation: demo-overlay-in 300ms ease-out;
-}
-
-.p-anchored-overlay-leave-active {
-    animation: demo-overlay-out 250ms ease-in;
-}
-
-@keyframes demo-overlay-in {
-    from {
-        opacity: 0;
-        transform: translateY(10%);
-    }
-}
-
-@keyframes demo-overlay-out {
-    to {
-        opacity: 0;
-        transform: translateY(10%);
-    }
-}`
-    };
 }

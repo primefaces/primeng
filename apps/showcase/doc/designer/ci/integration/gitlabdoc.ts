@@ -28,7 +28,7 @@ import { RouterModule } from '@angular/router';
 
         <h4>3. Add the script to your <i>.gitlab-ci.yml</i></h4>
         <p>Define the configuration parameters for the Designer API and add the script to the action.</p>
-        <app-code [code]="code" hideToggleCode importCode hideStackBlitz />
+        <app-code hideToggleCode importCode hideStackBlitz />
 
         <h4>4. Test Integration</h4>
         <p>

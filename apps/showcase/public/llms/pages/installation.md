@@ -6,6 +6,17 @@ Setting up PrimeNG in an Angular CLI project.
 
 PrimeNG is available for download on the npm registry .
 
+```bash
+# Using npm
+npm install primeng @primeuix/themes
+
+# Using yarn
+yarn add primeng @primeuix/themes
+
+# Using pnpm
+pnpm add primeng @primeuix/themes
+```
+
 ## Examples
 
 An example starter with Angular CLI is available at GitHub .
@@ -16,22 +27,48 @@ Welcome to the Prime UI Ecosystem! Once you have PrimeNG up and running, we reco
 
 ## Provider
 
-Add providePrimeNG to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
+Add providePrimeNG and provideAnimationsAsync to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
+        provideAnimationsAsync(),
         providePrimeNG({
             theme: {
                 preset: Aura
             }
+        })
+    ]
+};
+```
+</details>
+
+## Theme
+
+Configure PrimeNG to use a theme like Aura.
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { ApplicationConfig } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
+
+export const appConfig: ApplicationConfig = {
+    providers: [
+        provideAnimationsAsync(),
+        providePrimeNG({
+            theme: Aura
         })
     ]
 };

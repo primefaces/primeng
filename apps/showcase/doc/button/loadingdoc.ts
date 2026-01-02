@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -15,7 +14,7 @@ import { ButtonModule } from 'primeng/button';
         <div class="card flex justify-center gap-4">
             <p-button label="Search" icon="pi pi-check" [loading]="loading" (onClick)="load()" />
         </div>
-        <app-code [code]="code" selector="button-loading-demo"></app-code>
+        <app-code selector="button-loading-demo"></app-code>
     `
 })
 export class LoadingDoc {
@@ -31,33 +30,4 @@ export class LoadingDoc {
             this.cdr.markForCheck();
         }, 2000);
     }
-
-    code: Code = {
-        basic: `<p-button label="Search" icon="pi pi-check" [loading]="loading" (onClick)="load()" />`,
-
-        html: `<div class="card flex justify-center gap-4">
-    <p-button label="Search" icon="pi pi-check" [loading]="loading" (onClick)="load()" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    selector: 'button-loading-demo',
-    templateUrl: './button-loading-demo.html',
-    standalone: true,
-    imports: [ButtonModule]
-})
-export class ButtonLoadingDemo {
-    loading: boolean = false;
-
-    load() {
-        this.loading = true;
-
-        setTimeout(() => {
-            this.loading = false
-        }, 2000);
-    }
-}`
-    };
 }

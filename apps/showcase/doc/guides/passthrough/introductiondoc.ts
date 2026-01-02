@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
@@ -43,7 +42,7 @@ import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
                 </p>
             </p-panel>
         </div>
-        <app-code [code]="code" selector="panel-pt-demo" hideToggleCode importCode hideStackBlitz />
+        <app-code selector="panel-pt-demo" hideToggleCode importCode hideStackBlitz />
     `
 })
 export class IntroductionDoc {
@@ -62,39 +61,5 @@ export class IntroductionDoc {
         },
         content: { class: '!text-white dark:text-primary-200 !p-0 mt-2 !font-medium' },
         title: 'text-xl'
-    };
-
-    code: Code = {
-        typescript: `import { Component } from '@angular/core';
-import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
-
-@Component({
-    selector: 'panel-pt-demo',
-    templateUrl: \`
-        <p-panel header="Header" [pt]="pt">
-            ...
-        </p-panel>
-    \`,
-    standalone: true,
-    imports: [PanelModule]
-})
-export class PanelPtDemo {
-     pt: PanelPassThrough<Panel> = {
-        root: '!border !border-transparent !rounded-2xl !p-4 !bg-gradient-to-br !from-indigo-600 !to-indigo-400',
-        header: {
-            id: 'myPanelHeader',
-            'data-custom': 'prime',
-            style: {
-                userSelect: 'none'
-            },
-            class: ['!text-white font-bold !p-0 !bg-transparent !border-none'],
-            onclick: () => {
-                console.log('Header Clicked');
-            }
-        },
-        content: { class: '!text-white dark:text-primary-200 !p-0 mt-2 !font-medium' },
-        title: 'text-xl'
-    };
-}`
     };
 }

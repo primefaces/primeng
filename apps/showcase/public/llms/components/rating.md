@@ -28,13 +28,16 @@ When disabled is present, a visual hint is applied to indicate that the Knob can
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Rating } from 'primeng/rating';
+import { RatingModule } from 'primeng/rating';
 
 @Component({
-    selector: 'rating-disabled-demo',
-    templateUrl: './rating-disabled-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-rating [(ngModel)]="value" [disabled]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, Rating]
+    imports: [RatingModule, FormsModule]
 })
 export class RatingDisabledDemo {
     value: number = 5;
@@ -46,92 +49,9 @@ export class RatingDisabledDemo {
 
 Number of stars to display is defined with stars property.
 
-```html
-<p-rating [(ngModel)]="value" [stars]="10" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Rating } from 'primeng/rating';
-
-@Component({
-    selector: 'rating-number-of-stars-demo',
-    templateUrl: './rating-number-of-stars-demo.html',
-    standalone: true,
-    imports: [FormsModule, Rating]
-})
-export class RatingNumberOfStarsDemo {
-    value: number = 5;
-}
-```
-</details>
-
 ## reactiveformsdoc
 
 Rating can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-40">
-    <div class="flex flex-col items-center gap-2">
-        <p-rating formControlName="ratingValue" [invalid]="isInvalid('ratingValue')"/>
-        @if (isInvalid('ratingValue')) {
-            <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Rating } from 'primeng/rating';
-import { Message } from 'primeng/message';
-import { Button } from 'primeng/button';
-import { Toast } from 'primeng/toast';
-
-@Component({
-    selector: 'rating-reactive-forms-demo',
-    templateUrl: './rating-reactive-forms-demo.html',
-    standalone: true,
-    imports: [ReactiveFormsModule, Rating, Toast, Message, Button]
-})
-export class RatingReactiveFormsDemo {
-    messageService = inject(MessageService);
-
-    exampleForm: FormGroup | undefined;
-
-    formSubmitted = false;
-
-    constructor(private fb: FormBuilder) {
-        this.exampleForm = this.fb.group({
-            ratingValue: [undefined, Validators.required]
-        });
-    }
-
-    onSubmit() {
-        this.formSubmitted = true;
-        if (this.exampleForm.valid) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
-            this.exampleForm.reset();
-            this.formSubmitted = false;
-        }
-    }
-
-    isInvalid(controlName: string) {
-        const control = this.exampleForm.get(controlName);
-        return control?.invalid && (control.touched || this.formSubmitted);
-    }
-}
-```
-</details>
 
 ## Readonly
 
@@ -147,23 +67,22 @@ When readonly present, value cannot be edited.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Rating } from 'primeng/rating';
+import { RatingModule } from 'primeng/rating';
 
 @Component({
-    selector: 'rating-readonly-demo',
-    templateUrl: './rating-readonly-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-rating [(ngModel)]="value" [readonly]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, Rating]
+    imports: [RatingModule, FormsModule]
 })
 export class RatingReadonlyDemo {
     value: number = 3;
 }
 ```
 </details>
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Template
 
@@ -186,13 +105,23 @@ Templating allows customizing the content where the icon instance is available a
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Rating } from 'primeng/rating';
+import { RatingModule } from 'primeng/rating';
 
 @Component({
-    selector: 'rating-template-demo',
-    templateUrl: './rating-template-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-rating [(ngModel)]="value">
+                <ng-template #onicon>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" height="24" width="24" />
+                </ng-template>
+                <ng-template #officon>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" height="24" width="24" />
+                </ng-template>
+            </p-rating>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, Rating]
+    imports: [RatingModule, FormsModule]
 })
 export class RatingTemplateDemo {
     value!: number;
@@ -200,80 +129,9 @@ export class RatingTemplateDemo {
 ```
 </details>
 
-## templatedrivenformsdoc
-
-```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-40">
-    <div class="flex flex-col items-center gap-2">
-        <p-rating #ratingValue="ngModel" [(ngModel)]="value" required name="ratingValue" [invalid]="ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)"/>
-        @if (ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MultiSelect } from 'primeng/multiselect';
-import { Message } from 'primeng/message';
-import { Toast } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
-import { Button } from 'primeng/button';
-
-@Component({
-    selector: 'rating-template-driven-forms-demo',
-    templateUrl: './rating-template-driven-forms-demo.html',
-    standalone: true,
-    imports: [FormsModule, MultiSelect, Message, Toast, Button]
-})
-export class TemplateDrivenFormsDemo {
-    messageService = inject(MessageService);
-
-    value: any;
-
-    onSubmit(form: any) {
-        if (form.valid) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
-            form.resetForm();
-        }
-    }
-}
-```
-</details>
-
 ## withoutcanceldoc
 
 A cancel icon is displayed to reset the value by default, set cancel as false to remove this option.
-
-```html
-<p-rating [(ngModel)]="value" [cancel]="false" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Rating } from 'primeng/rating';
-
-@Component({
-    selector: 'rating-without-cancel-demo',
-    templateUrl: './rating-without-cancel-demo.html',
-    standalone: true,
-    imports: [FormsModule, Rating]
-})
-export class RatingWithoutCancelDemo {
-    value!: number;
-}
-```
-</details>
 
 ## Rating
 

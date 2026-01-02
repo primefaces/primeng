@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { PaginatorState, PaginatorModule } from 'primeng/paginator';
 import { AppCode } from '@/components/doc/app.code';
@@ -18,7 +17,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
         </div>
-        <app-code [code]="code" selector="paginator-basic-demo"></app-code>
+        <app-code selector="paginator-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
@@ -30,32 +29,4 @@ export class BasicDoc {
         this.first = event.first ?? 0;
         this.rows = event.rows ?? 10;
     }
-
-    code: Code = {
-        basic: `<p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { PaginatorModule, PaginatorState } from 'primeng/paginator';
-
-@Component({
-    selector: 'paginator-basic-demo',
-    templateUrl: './paginator-basic-demo.html',
-    standalone: true,
-    imports: [PaginatorModule]
-})
-export class PaginatorBasicDemo {
-    first: number = 0;
-
-    rows: number = 10;
-
-    onPageChange(event: PaginatorState) {
-        this.first = event.first ?? 0;
-        this.rows = event.rows ?? 10;
-    }
-}`
-    };
 }

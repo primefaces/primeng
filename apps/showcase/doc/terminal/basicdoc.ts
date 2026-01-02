@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component, OnDestroy } from '@angular/core';
 import { TerminalService } from 'primeng/terminal';
 import { TerminalModule } from 'primeng/terminal';
@@ -18,7 +17,7 @@ import { AppCode } from '@/components/doc/app.code';
             <p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
             <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
         </div>
-        <app-code [code]="code" selector="terminal-basic-demo"></app-code>
+        <app-code selector="terminal-basic-demo"></app-code>
     `,
     providers: [TerminalService]
 })
@@ -56,45 +55,4 @@ export class BasicDoc implements OnDestroy {
             this.subscription.unsubscribe();
         }
     }
-
-    code: Code = {
-        basic: `<p>Enter "<strong>date</strong>" to display the current date,
-"<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>"
-to get a random number.</p>
-<p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />`,
-        html: `<div class="card">
-    <p>Enter "<strong>date</strong>" to display the current date,
-    "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>"
-    to get a random number.</p>
-    <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
-</div>`,
-        typescript: `import { Component, OnDestroy } from '@angular/core';
-import { TerminalService } from 'primeng/terminal';
-import { Terminal } from 'primeng/terminal';
-import { Subscription } from 'rxjs';
-
-@Component({
-    selector: 'terminal-basic-demo',
-    templateUrl: './terminal-basic-demo.html',
-    standalone: true,
-    imports: [Terminal],
-    providers: [TerminalService]
-})
-export class TerminalBasicDemo implements OnDestroy {
-    subscription: Subscription;
-
-    constructor(private terminalService: TerminalService) {
-        this.subscription = this.terminalService.commandHandler.subscribe((command) => {
-            let response = command === 'date' ? new Date().toDateString() : 'Unknown command: ' + command;
-            this.terminalService.sendResponse(response);
-        });
-    }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
-}`
-    };
 }

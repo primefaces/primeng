@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { RippleModule } from 'primeng/ripple';
 import { AppCode } from '@/components/doc/app.code';
@@ -24,7 +23,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <div pRipple class="box" style="border: 1px solid rgba(156, 39, 176, 0.3); --p-ripple-background: rgba(156, 39, 176, 0.3)">Purple</div>
             </div>
         </div>
-        <app-code [code]="code" selector="ripple-custom-demo"></app-code>
+        <app-code selector="ripple-custom-demo"></app-code>
     `,
     styles: [
         `
@@ -39,56 +38,4 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         `
     ]
 })
-export class CustomDoc {
-    code: Code = {
-        basic: `<div pRipple class="box" style="border: 1px solid rgba(75, 175, 80, 0.3); --p-ripple-background: rgba(75, 175, 80, 0.3)">
-    Green
-</div>
-<div pRipple class="box" style="border: 1px solid rgba(255, 193, 6, 0.3); --p-ripple-background: rgba(255, 193, 6, 0.3)">
-    Orange
-</div>
-<div pRipple class="box" style="border: 1px solid rgba(156, 39, 176, 0.3); --p-ripple-background: rgba(156, 39, 176, 0.3)">
-    Purple
-</div>`,
-        html: `<div class="flex justify-center gap-2">
-    <div pRipple class="box" style="border: 1px solid rgba(75, 175, 80, 0.3); --p-ripple-background: rgba(75, 175, 80, 0.3)">
-        Green
-    </div>
-    <div pRipple class="box" style="border: 1px solid rgba(255, 193, 6, 0.3); --p-ripple-background: rgba(255, 193, 6, 0.3)">
-        Orange
-    </div>
-    <div pRipple class="box" style="border: 1px solid rgba(156, 39, 176, 0.3); --p-ripple-background: rgba(156, 39, 176, 0.3)">
-        Purple
-    </div>
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { Ripple } from 'primeng/ripple';
-
-@Component({
-    selector: 'ripple-custom-demo',
-    templateUrl: './ripple-custom-demo.html',
-    standalone: true,
-    imports: [Ripple],
-    styles: [
-        \` :host {
-                .box {
-                    padding: 2rem;
-                    border-radius: 10px;
-                    width: 110px;
-                    text-align: center;
-                }
-            }\`
-    ],
-})
-export class RippleCustomDemo {
-}`,
-        scss: `:host {
-            .box {
-                padding: 2rem;
-                border-radius: 10px;
-                width: 110px;
-                text-align: center;
-            }
-        }`
-    };
-}
+export class CustomDoc {}

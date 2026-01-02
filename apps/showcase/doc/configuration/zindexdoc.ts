@@ -1,12 +1,12 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'zindex-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText],
+    imports: [AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
             <p>
@@ -20,13 +20,24 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 })
 export class ZIndexDoc {
     code: Code = {
-        typescript: `providePrimeNG({
-    zIndex: {
-        modal: 1100,    // dialog, sidebar
-        overlay: 1000,  // dropdown, overlaypanel
-        menu: 1000,     // overlay menus
-        tooltip: 1100   // tooltip
+        typescript: `import { PrimeNGConfig } from 'primeng/api';
+
+@Component({
+    selector: 'app-root',
+    templateUrl: './app.component.html'
+})
+export class AppComponent implements OnInit {
+
+    constructor(private primengConfig: PrimeNGConfig) {}
+
+    ngOnInit() {
+        this.primengConfig.zIndex = {
+            modal: 1100,    // dialog, sidebar
+            overlay: 1000,  // dropdown, overlaypanel
+            menu: 1000,     // overlay menus
+            tooltip: 1100   // tooltip
+        };
     }
-})`
+}`
     };
 }

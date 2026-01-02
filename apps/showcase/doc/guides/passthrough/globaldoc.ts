@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
@@ -14,31 +13,7 @@ import { Component } from '@angular/core';
                 class and all autocomplete components have a fixed width. These settings can be overridden by a particular component as components <i>pt</i> property has higher precedence over global <i>pt</i> by default.
             </p>
         </app-docsectiontext>
-        <app-code [code]="code" hideToggleCode importCode hideStackBlitz />
+        <app-code hideToggleCode importCode hideStackBlitz />
     `
 })
-export class GlobalDoc {
-    code: Code = {
-        typescript: `import { ApplicationConfig } from '@angular/core';
-import { providePrimeNG } from 'primeng/config';
-
-export const appConfig: ApplicationConfig = {
-    providers: [
-        providePrimeNG({
-            pt: {
-                panel: {
-                    header: {
-                        class: 'bg-primary text-primary-contrast'
-                    }
-                },
-                autocomplete: {
-                    pcInputText: {
-                        root: 'w-64' // OR { class: 'w-64' }
-                    }
-                }
-            }
-        })
-    ]
-};`
-    };
-}
+export class GlobalDoc {}

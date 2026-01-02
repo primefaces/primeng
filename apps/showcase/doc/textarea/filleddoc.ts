@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCode } from '@/components/doc/app.code';
@@ -16,32 +15,9 @@ import { TextareaModule } from 'primeng/textarea';
         <div class="card flex justify-center">
             <textarea [(ngModel)]="value" [variant]="'filled'" rows="5" cols="30" pTextarea></textarea>
         </div>
-        <app-code [code]="code" selector="input-textarea-filled-demo"></app-code>
+        <app-code selector="input-textarea-filled-demo"></app-code>
     `
 })
 export class FilledDoc {
     value!: string;
-
-    code: Code = {
-        basic: `<textarea [(ngModel)]="value" variant="filled" rows="5" cols="30" pTextarea></textarea>`,
-
-        html: `<div class="card flex justify-center">
-    <textarea [(ngModel)]="value" variant="filled" rows="5" cols="30" pTextarea></textarea>
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { TextareaModule } from 'primeng/textarea';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'input-textarea-filled-demo',
-    templateUrl: './input-textarea-filled-demo.html',
-    standalone: true,
-    imports: [FormsModule, TextareaModule]
-})
-
-export class InputTextareaFilledDemo {
-    value!: string;
-}`
-    };
 }

@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -17,7 +16,7 @@ import { AppCode } from '@/components/doc/app.code';
             <p>The popup overlay uses <i>menu</i> role on the list and each action item has a <i>menuitem</i> role with an <i>aria-label</i> as the menuitem label. The id of the menu refers to the <i>aria-controls</i> of the button.</p>
         </app-docsectiontext>
 
-        <app-code [code]="code" [hideToggleCode]="true" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
+        <app-code [hideToggleCode]="true" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
 
         <h3>Menu Button Keyboard Support</h3>
         <div class="doc-tablewrapper">
@@ -101,8 +100,4 @@ import { AppCode } from '@/components/doc/app.code';
             </table>
         </div>`
 })
-export class AccessibilityDoc {
-    code: Code = {
-        basic: `<p-speeddial aria-label="Options" />`
-    };
-}
+export class AccessibilityDoc {}

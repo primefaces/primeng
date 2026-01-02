@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -22,7 +21,7 @@ import { Ripple } from 'primeng/ripple';
                 <p-button pRipple (click)="clear()" severity="secondary" label="Clear" />
             </div>
         </div>
-        <app-code [code]="code" selector="toast-sticky-demo"></app-code>
+        <app-code selector="toast-sticky-demo"></app-code>
     `,
     providers: [MessageService]
 })
@@ -36,43 +35,4 @@ export class StickyDoc {
     clear() {
         this.messageService.clear();
     }
-
-    code: Code = {
-        basic: `<p-toast />
-<div class="flex flex-wrap gap-2">
-    <p-button pRipple (click)="show()" label="Sticky" />
-    <p-button pRipple (click)="clear()" label="Clear" severity="secondary" />
-</div>`,
-        html: `<div class="card flex justify-center">
-    <p-toast />
-    <div class="flex flex-wrap gap-2">
-        <p-button pRipple (click)="show()" label="Sticky" />
-        <p-button pRipple (click)="clear()" label="Clear" severity="secondary" />
-    </div>
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
-
-@Component({
-    selector: 'toast-sticky-demo',
-    templateUrl: './toast-sticky-demo.html',
-    standalone: true,
-    imports: [ToastModule, ButtonModule, RippleModule],
-    providers: [MessageService]
-})
-export class ToastStickyDemo {
-    constructor(private messageService: MessageService) {}
-
-    show() {
-        this.messageService.add({ severity: 'info', summary: 'Sticky', detail: 'Message Content', sticky: true });
-    }
-
-    clear() {
-        this.messageService.clear();
-    }
-}`
-    };
 }

@@ -1,6 +1,5 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ImageModule } from 'primeng/image';
@@ -16,26 +15,7 @@ import { ImageModule } from 'primeng/image';
         <div class="card flex justify-center">
             <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" />
         </div>
-        <app-code [code]="code" selector="image-basic-demo"></app-code>
+        <app-code selector="image-basic-demo"></app-code>
     `
 })
-export class BasicDoc {
-    code: Code = {
-        basic: `<p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { Image } from 'primeng/image';
-
-@Component({
-    selector: 'image-basic-demo',
-    templateUrl: './image-basic-demo.html',
-    standalone: true,
-    imports: [Image]
-})
-export class ImageBasicDemo {}`
-    };
-}
+export class BasicDoc {}

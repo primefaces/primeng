@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -36,60 +35,7 @@ import { InputTextModule } from 'primeng/inputtext';
                 </div>
             </p-fluid>
         </div>
-        <app-code [code]="code" selector="fluid-basic-demo"></app-code>
+        <app-code selector="fluid-basic-demo"></app-code>
     `
 })
-export class BasicDoc {
-    code: Code = {
-        basic: `<div>
-    <label for="non-fluid" class="font-bold mb-2 block">Non-Fluid</label>
-    <input type="text" pInputText id="non-fluid" />
-</div>
-<div>
-    <label for="fluid" class="font-bold mb-2 block">Fluid Prop</label>
-    <input type="text" pInputText id="fluid" fluid />
-</div>
-<p-fluid>
-    <span class="font-bold mb-2 block">Fluid Container</span>
-    <div class="grid grid-cols-2 gap-4">
-        <div><input type="text" pInputText /></div>
-        <div><input type="text" pInputText /></div>
-        <div class="col-span-full"><input type="text" pInputText /></div>
-        <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
-    </div>
-</p-fluid>`,
-
-        html: `<div class="card flex flex-col gap-6">
-    <div>
-        <label for="non-fluid" class="font-bold mb-2 block">Non-Fluid</label>
-        <input type="text" pInputText id="non-fluid" />
-    </div>
-    <div>
-        <label for="fluid" class="font-bold mb-2 block">Fluid Prop</label>
-        <input type="text" pInputText id="fluid" fluid />
-    </div>
-    <p-fluid>
-        <span class="font-bold mb-2 block">Fluid Container</span>
-        <div class="grid grid-cols-2 gap-4">
-            <div><input type="text" pInputText /></div>
-            <div><input type="text" pInputText /></div>
-            <div class="col-span-full"><input type="text" pInputText /></div>
-            <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
-        </div>
-    </p-fluid>
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { Fluid } from 'primeng/fluid';
-
-@Component({
-    selector: 'fluid-basic-demo',
-    templateUrl: './fluid-basic-demo.html',
-    standalone: true,
-    imports: [Fluid]
-})
-export class FluidBasicDemo {
-
-}`
-    };
-}
+export class BasicDoc {}

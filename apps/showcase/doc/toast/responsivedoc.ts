@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -21,7 +20,7 @@ import { ToastModule } from 'primeng/toast';
             <p-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
             <p-button (click)="show()" label="Show" />
         </div>
-        <app-code [code]="code" selector="toast-responsive-demo"></app-code>
+        <app-code selector="toast-responsive-demo"></app-code>
     `,
     providers: [MessageService]
 })
@@ -31,33 +30,4 @@ export class ResponsiveDoc {
     show() {
         this.messageService.add({ severity: 'contrast', summary: 'Success', detail: 'Message Content' });
     }
-
-    code: Code = {
-        basic: `<p-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
-<p-button (click)="show()" label="Show" />`,
-        html: `<div class="card flex justify-center">
-    <p-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
-    <p-button (click)="show()" label="Show" />
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { Toast } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { Ripple } from 'primeng/ripple';
-
-@Component({
-    selector: 'toast-responsive-demo',
-    templateUrl: './toast-responsive-demo.html',
-    standalone: true,
-    imports: [Toast, ButtonModule, Ripple],
-    providers: [MessageService]
-})
-export class ToastResponsiveDemo {
-    constructor(private messageService: MessageService) {}
-
-    show() {
-        this.messageService.add({ severity: 'contrast', summary: 'Success', detail: 'Message Content' });
-    }
-}`
-    };
 }

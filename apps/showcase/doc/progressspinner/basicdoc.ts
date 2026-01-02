@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AppCode } from '@/components/doc/app.code';
@@ -15,24 +14,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <p-progress-spinner ariaLabel="loading" />
         </div>
-        <app-code [code]="code" selector="progress-spinner-basic-demo"></app-code>
+        <app-code selector="progress-spinner-basic-demo"></app-code>
     `
 })
-export class BasicDoc {
-    code: Code = {
-        basic: `<p-progress-spinner ariaLabel="loading" />`,
-        html: `<div class="card flex justify-center">
-    <p-progress-spinner ariaLabel="loading" />
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { ProgressSpinner } from 'primeng/progressspinner';
-
-@Component({
-    selector: 'progress-spinner-basic-demo',
-    templateUrl: './progress-spinner-basic-demo.html',
-    standalone: true,
-    imports: [ProgressSpinner]
-})
-export class ProgressSpinnerBasicDemo {}`
-    };
-}
+export class BasicDoc {}

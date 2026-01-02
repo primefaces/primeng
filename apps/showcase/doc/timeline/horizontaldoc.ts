@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -30,7 +29,7 @@ import { TimelineModule } from 'primeng/timeline';
                 <ng-template #opposite let-event><span>&nbsp;</span></ng-template>
             </p-timeline>
         </div>
-        <app-code [code]="code" selector="timeline-horizontal-demo"></app-code>
+        <app-code selector="timeline-horizontal-demo"></app-code>
     `
 })
 export class HorizontalDoc {
@@ -39,67 +38,4 @@ export class HorizontalDoc {
     constructor() {
         this.events = ['2020', '2021', '2022', '2023'];
     }
-
-    code: Code = {
-        basic: `<p-timeline [value]="events" layout="horizontal" align="top">
-    <ng-template #content let-event>
-        {{ event }}
-    </ng-template>
-</p-timeline>
-
-<p-timeline [value]="events" layout="horizontal" align="bottom">
-    <ng-template #content let-event>
-        {{ event }}
-    </ng-template>
-</p-timeline>
-
-<p-timeline [value]="events" layout="horizontal" align="alternate">
-    <ng-template #content let-event>
-        {{ event }}
-    </ng-template>
-    <ng-template #opposite let-event>
-        <span>&nbsp;</span>
-    </ng-template>
-</p-timeline>`,
-
-        html: `<div class="card flex flex-col gap-4">
-    <p-timeline [value]="events" layout="horizontal" align="top">
-        <ng-template #content let-event>
-            {{ event }}
-        </ng-template>
-    </p-timeline>
-    <p-timeline [value]="events" layout="horizontal" align="bottom">
-        <ng-template #content let-event>
-            {{ event }}
-        </ng-template>
-    </p-timeline>
-    <p-timeline [value]="events" layout="horizontal" align="alternate">
-        <ng-template #content let-event>
-            {{ event }}
-        </ng-template>
-        <ng-template #opposite let-event>
-            <span>&nbsp;</span>
-        </ng-template>
-    </p-timeline>
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { Timeline } from 'primeng/timeline';
-
-@Component({
-    selector: 'timeline-horizontal-demo',
-    templateUrl: './timeline-horizontal-demo.html',
-    standalone: true,
-    imports: [Timeline]
-})
-export class TimelineHorizontalDemo {
-    events: string[];
-
-    constructor() {
-        this.events = [
-            "2020", "2021", "2022", "2023"
-        ];
-    }
-}`
-    };
 }

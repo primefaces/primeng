@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { PopoverModule } from 'primeng/popover';
 import { ButtonModule } from 'primeng/button';
@@ -25,37 +24,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
             </p-popover>
         </div>
-        <app-code [code]="code" selector="overlay-panel-target-demo"></app-code>
+        <app-code selector="overlay-panel-target-demo"></app-code>
     `
 })
-export class TargetDoc {
-    code: Code = {
-        basic: `<p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
-<div #targetEl class="mt-8 w-40 h-20 border border-surface rounded-border flex items-center justify-center">
-    <span>Target Element</span>
-</div>
-<p-popover #op>
-    <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
-</p-popover>`,
-
-        html: `
-<div class="card flex flex-col items-center gap-4">
-    <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
-    <div #targetEl class="mt-8 w-40 h-20 border border-surface rounded-border flex items-center justify-center">
-        <span>Target Element</span>
-    </div>
-    <p-popover #op>
-        <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
-    </p-popover>
-</div>`,
-
-        typescript: `
-import { Component } from '@angular/core';
-
-@Component({
-    selector: 'overlay-panel-target-demo',
-    templateUrl: './overlay-panel-target-demo.html'
-})
-export class OverlayPanelTargetDemo {}`
-    };
-}
+export class TargetDoc {}

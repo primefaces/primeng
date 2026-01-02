@@ -17,7 +17,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
             <p-toggleswitch [(ngModel)]="checked1" />
             <p-toggleswitch [(ngModel)]="checked2" [dt]="amberSwitch" />
         </div>
-        <app-code [code]="code" selector="scoped-tokens-demo" [hideToggleCode]="true"></app-code>
+        <app-code selector="scoped-tokens-demo" [hideToggleCode]="true"></app-code>
     `
 })
 export class ScopedTokensDoc {

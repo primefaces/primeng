@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Code } from '@/domain/code';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { TagModule } from 'primeng/tag';
@@ -15,24 +14,7 @@ import { TagModule } from 'primeng/tag';
         <div class="card flex justify-center">
             <p-tag value="New" />
         </div>
-        <app-code [code]="code" selector="tag-basic-demo"></app-code>
+        <app-code selector="tag-basic-demo"></app-code>
     `
 })
-export class BasicDoc {
-    code: Code = {
-        basic: `<p-tag value="New" />`,
-        html: `<div class="card flex justify-center">
-    <p-tag value="New" />
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
-
-@Component({
-    selector: 'tag-basic-demo',
-    templateUrl: './tag-basic-demo.html',
-    standalone: true,
-    imports: [TagModule]
-})
-export class TagBasicDemo {}`
-    };
-}
+export class BasicDoc {}

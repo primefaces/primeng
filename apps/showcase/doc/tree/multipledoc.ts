@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -27,7 +26,7 @@ import { TreeModule } from 'primeng/tree';
             </div>
             <p-tree [metaKeySelection]="metaKeySelection" [value]="files()" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
         </div>
-        <app-code [code]="code" selector="tree-multiple-demo"></app-code>
+        <app-code selector="tree-multiple-demo"></app-code>
     `
 })
 export class MultipleDoc implements OnInit {
@@ -44,80 +43,4 @@ export class MultipleDoc implements OnInit {
             this.files.set(data);
         });
     }
-    code: Code = {
-        basic: `<div class="flex items-center mb-6 gap-2">
-    <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
-    <label for="input-metakey">MetaKey</label>
-</div>
-<p-tree [metaKeySelection]="metaKeySelection" [value]="files()" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />`,
-
-        html: `<div class="card">
-    <div class="flex items-center mb-6 gap-2">
-        <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
-        <label for="input-metakey">MetaKey</label>
-    </div>
-    <p-tree [metaKeySelection]="metaKeySelection" [value]="files()" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
-</div>`,
-
-        typescript: `import { Component, OnInit, signal } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { NodeService } from '@/service/nodeservice';
-import { Tree } from 'primeng/tree';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'tree-multiple-demo',
-    templateUrl: './tree-multiple-demo.html',
-    standalone: true,
-    imports: [Tree, ToggleSwitchModule],
-    providers: [NodeService]
-})
-export class TreeMultipleDemo implements OnInit {
-    metaKeySelection: boolean = false;
-
-    files = signal<TreeNode[]>(undefined);
-
-    selectedFiles!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
-
-    ngOnInit() {
-        this.nodeService.getFiles().then((data) => {
-            this.files.set(data);
-        });
-    }
-}`,
-
-        service: ['NodeService'],
-
-        data: `
-    /* NodeService */
-{
-    key: '0',
-    label: 'Documents',
-    data: 'Documents Folder',
-    icon: 'pi pi-fw pi-inbox',
-    children: [
-        {
-            key: '0-0',
-            label: 'Work',
-            data: 'Work Folder',
-            icon: 'pi pi-fw pi-cog',
-            children: [
-                { key: '0-0-0', label: 'Expenses.doc', icon: 'pi pi-fw pi-file', data: 'Expenses Document' },
-                { key: '0-0-1', label: 'Resume.doc', icon: 'pi pi-fw pi-file', data: 'Resume Document' }
-            ]
-        },
-        {
-            key: '0-1',
-            label: 'Home',
-            data: 'Home Folder',
-            icon: 'pi pi-fw pi-home',
-            children: [{ key: '0-1-0', label: 'Invoices.txt', icon: 'pi pi-fw pi-file', data: 'Invoices for this month' }]
-        }
-    ]
-},
-...`
-    };
 }

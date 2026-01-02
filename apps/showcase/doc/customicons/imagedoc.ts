@@ -1,12 +1,12 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'image-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText],
+    imports: [AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
             <p>Any type of image can be used as an icon.</p>
@@ -16,10 +16,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 })
 export class ImageDoc {
     code: Code = {
-        basic: `<p-select>
+        basic: `<p-dropdown>
     <ng-template #dropdownicon>
         <img alt="dropdown icon" src="/assets/icons/arrow_down.png">
     </ng-template>
-</p-select>`
+</p-dropdown>`
     };
 }

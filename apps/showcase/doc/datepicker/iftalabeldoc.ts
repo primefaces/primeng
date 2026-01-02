@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -21,38 +20,9 @@ import { IftaLabelModule } from 'primeng/iftalabel';
                 <label for="date">Date</label>
             </p-iftalabel>
         </div>
-        <app-code [code]="code" selector="date-picker-ifta-label-demo"></app-code>
+        <app-code selector="date-picker-ifta-label-demo"></app-code>
     `
 })
 export class IftaLabelDoc {
     value: Date | undefined;
-
-    code: Code = {
-        basic: `<p-iftalabel>
-    <p-datepicker [(ngModel)]="value" inputId="date" showIcon iconDisplay="input" />
-    <label for="date">Date</label>
-</p-iftalabel>`,
-
-        html: `<div class="card flex justify-center">
-    <p-iftalabel>
-        <p-datepicker [(ngModel)]="value" inputId="date" showIcon iconDisplay="input" />
-        <label for="date">Date</label>
-    </p-iftalabel>
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
-import { IftaLabelModule } from 'primeng/iftalabel';
-
-@Component({
-    selector: 'date-picker-ifta-label-demo',
-    templateUrl: './date-picker-ifta-label-demo.html',
-    standalone: true,
-    imports: [FormsModule, DatePickerModule, IftaLabelModule]
-})
-export class DatepickerIftaLabelDemo {
-    value: Date | undefined;
-}`
-    };
 }

@@ -13,7 +13,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 defining the layer order. This way, your Reset CSS does not get in the way of PrimeNG components.
             </p>
         </app-docsectiontext>
-        <app-code [code]="code" selector="reset-demo" [hideToggleCode]="true"></app-code>
+        <app-code selector="reset-demo" [hideToggleCode]="true"></app-code>
     `
 })
 export class ResetDoc {

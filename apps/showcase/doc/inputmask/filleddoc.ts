@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -16,31 +15,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <p-inputmask mask="99-999999" [(ngModel)]="value" variant="filled" placeholder="99-999999" />
         </div>
-        <app-code [code]="code" selector="input-mask-filled-demo"></app-code>
+        <app-code selector="input-mask-filled-demo"></app-code>
     `
 })
 export class FilledDoc {
     value: string | undefined;
-
-    code: Code = {
-        basic: `<p-inputmask mask="99-999999" [(ngModel)]="value" variant="filled" placeholder="99-999999" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-inputmask mask="99-999999" [(ngModel)]="value" variant="filled" placeholder="99-999999" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { InputMask } from 'primeng/inputmask';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'input-mask-filled-demo',
-    templateUrl: './input-mask-filled-demo.html',
-    standalone: true,
-    imports: [FormsModule, InputMask]
-})
-export class InputMaskFilledDemo {
-    value: string | undefined;
-}`
-    };
 }

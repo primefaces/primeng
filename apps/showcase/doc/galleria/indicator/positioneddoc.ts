@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
 import { Component, OnInit, model } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -37,7 +36,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
             </p-galleria>
         </div>
-        <app-code [code]="code" selector="galleria-indicator-positioned-demo"></app-code>
+        <app-code selector="galleria-indicator-positioned-demo"></app-code>
     `
 })
 export class PositionedDoc implements OnInit {
@@ -71,81 +70,4 @@ export class PositionedDoc implements OnInit {
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
     }
-
-    code: Code = {
-        basic: `<p-galleria [(value)]="images" [indicatorsPosition]="position" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="showIndicatorsOnItem" [containerStyle]="{ 'max-width': '640px', 'margin-top': '2em' }" >
-    <ng-template pTemplate="item" let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-    </ng-template>
-</p-galleria>`,
-        html: `<div class="card">
-    <div class="flex flex-wrap gap-4 mb-8">
-        <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
-    </div>
-    <div class="flex items-center">
-        <p-checkbox [(ngModel)]="showIndicatorsOnItem" [binary]="true" inputId="binary" label="Inside" ngClass="mt-4" />
-    </div>
-    <p-galleria [(value)]="images" [indicatorsPosition]="position" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="showIndicatorsOnItem" [containerStyle]="{'width': '100%','margin-top': '2em'}">
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-        </ng-template>
-    </p-galleria>
-</div>`,
-        typescript: `import { Component, OnInit, model } from '@angular/core';
-import { PhotoService } from '@/service/photoservice';
-import { GalleriaModule } from 'primeng/galleria';
-import { RadioButton } from 'primeng/radiobutton';
-import { Checkbox } from 'primeng/checkbox';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'galleria-indicator-positioned-demo',
-    templateUrl: './galleria-indicator-positioned-demo.html',
-    standalone: true,
-    imports: [GalleriaModule, RadioButton, Checkbox, FormsModule],
-    providers: [PhotoService]
-})
-export class GalleriaIndicatorPositionedDemo implements OnInit {
-    images = model([]);
-
-    position: 'left' | 'right' | 'top' | 'bottom' = 'bottom';
-
-    showIndicatorsOnItem: boolean = false;
-
-    positionOptions = [
-        {
-            label: 'Bottom',
-            value: 'bottom'
-        },
-        {
-            label: 'Top',
-            value: 'top'
-        },
-        {
-            label: 'Left',
-            value: 'left'
-        },
-        {
-            label: 'Right',
-            value: 'right'
-        }
-    ];
-
-    constructor(private photoService: PhotoService) {}
-
-    ngOnInit() {
-        this.photoService.getImages().then((images) => this.images.set(images));
-    }
-}`,
-        data: `
-/* PhotoService */
-{
-    itemImageSrc: 'https://primeng.org/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primeng.org/images/galleria/galleria1s.jpg',
-    alt: 'Description for Image 1',
-    title: 'Title 1'
-},
-...`,
-        service: ['PhotoService']
-    };
 }

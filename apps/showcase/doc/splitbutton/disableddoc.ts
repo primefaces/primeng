@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppCode } from '@/components/doc/app.code';
@@ -22,7 +21,7 @@ import { RouterModule } from '@angular/router';
             <p-toast />
             <p-splitbutton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
         </div>
-        <app-code [code]="code" selector="split-button-disabled-demo"></app-code>
+        <app-code selector="split-button-disabled-demo"></app-code>
     `,
     providers: [MessageService]
 })
@@ -60,61 +59,4 @@ export class DisabledDoc {
     delete() {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
     }
-
-    code: Code = {
-        basic: `<p-splitbutton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-toast />
-    <p-splitbutton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { SplitButton } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
-
-@Component({
-    selector: 'split-button-disabled-demo',
-    templateUrl: './split-button-disabled-demo.html',
-    standalone: true,
-    imports: [SplitButton, ToastModule],
-    providers: [MessageService]
-})
-export class SplitButtonDisabledDemo {
-    items: MenuItem[];
-
-    constructor(private messageService: MessageService) {
-        this.items = [
-            {
-                label: 'Update',
-                command: () => {
-                    this.update();
-                }
-            },
-            {
-                label: 'Delete',
-                command: () => {
-                    this.delete();
-                }
-            },
-            { label: 'Angular.dev', url: 'https://angular.dev' },
-            { separator: true },
-            { label: 'Upload', routerLink: ['/fileupload'] }
-        ];
-    }
-
-    save(severity: string) {
-        this.messageService.add({ severity: severity, summary: 'Success', detail: 'Data Saved' });
-    }
-
-    update() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
-    }
-
-    delete() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
-    }
-}`
-    };
 }

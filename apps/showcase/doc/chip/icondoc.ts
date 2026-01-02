@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -18,27 +17,7 @@ import { ChipModule } from 'primeng/chip';
             <p-chip label="Google" icon="pi pi-google" />
             <p-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true" />
         </div>
-        <app-code [code]="code" selector="chip-icon-demo"></app-code>
+        <app-code selector="chip-icon-demo"></app-code>
     `
 })
-export class IconDoc {
-    code: Code = {
-        basic: `<p-chip label="Apple" icon="pi pi-apple" />`,
-        html: `<div class="card flex items-center gap-2 flex-wrap">
-    <p-chip label="Apple" icon="pi pi-apple" />
-    <p-chip label="Facebook" icon="pi pi-facebook" />
-    <p-chip label="Google" icon="pi pi-google" />
-    <p-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true" />
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { Chip } from 'primeng/chip';
-
-@Component({
-    selector: 'chip-icon-demo',
-    templateUrl: './chip-icon-demo.html',
-    standalone: true,
-    imports: [Chip]
-})
-export class ChipIconDemo {}`
-    };
-}
+export class IconDoc {}

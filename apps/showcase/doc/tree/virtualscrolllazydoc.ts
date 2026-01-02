@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
@@ -17,7 +16,7 @@ import { TreeModule } from 'primeng/tree';
         <div class="card">
             <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
         </div>
-        <app-code [code]="code" selector="tree-virtual-scroll-lazy-demo"></app-code>
+        <app-code selector="tree-virtual-scroll-lazy-demo"></app-code>
     `
 })
 export class LazyVirtualScrollDoc implements OnInit {
@@ -45,79 +44,4 @@ export class LazyVirtualScrollDoc implements OnInit {
             }, 200);
         }
     }
-
-    code: Code = {
-        basic: `<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />`,
-
-        html: `<div class="card">
-    <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
-</div>`,
-
-        typescript: `import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { NodeService } from '@/service/nodeservice';
-import { Tree } from 'primeng/tree';
-
-@Component({
-    selector: 'tree-virtual-scroll-lazy-demo',
-    templateUrl: './tree-virtual-scroll-lazy-demo.html',
-    standalone: true,
-    imports: [Tree],
-    providers: [NodeService]
-})
-export class TreeVirtualScrollLazyDemo implements OnInit {
-    loading = signal<boolean>(false);
-
-    nodes = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
-
-    ngOnInit() {
-        this.loading.set(true);
-        setTimeout(() => {
-            this.nodes.set(this.nodeService.generateNodes(150));
-            this.loading.set(false);
-        }, 1000);
-    }
-
-    nodeExpand(event: any) {
-        if (event.node) {
-            this.loading.set(true);
-            setTimeout(() => {
-                event.node.children = this.nodeService.createNodes(5, event.node.key);
-                this.loading.set(false);
-                this.nodes.set([...this.nodes()]);
-            }, 200);
-        }
-    }
-}`,
-        service: ['NodeService'],
-
-        data: `
-import { Injectable } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-
-@Injectable()
-export class NodeService {
-    generateNodes(count: number): TreeNode[] {
-        return this.createNodes(count);
-    }
-
-    createNodes(length: number, parentKey?: string): TreeNode[] {
-        const _createNodes = (length: number, level: number, parentKey?: string): TreeNode[] => {
-            const nodes: TreeNode[] = [];
-            for (let i = 0; i < length; i++) {
-                const key = parentKey ? \`\${parentKey}-\${i}\` : \`\${i}\`;
-                nodes.push({
-                    key,
-                    label: \`Node \${key}\`,
-                    children: level < 2 ? _createNodes(5, level + 1, key) : []
-                });
-            }
-            return nodes;
-        };
-        return _createNodes(length, 0, parentKey);
-    }
-}`
-    };
 }

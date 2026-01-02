@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { ChangeDetectorRef, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeNode } from 'primeng/api';
@@ -31,7 +30,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
                 loadingMode="icon"
             />
         </div>
-        <app-code [code]="code" selector="tree-select-basic-demo"></app-code>
+        <app-code selector="tree-select-basic-demo"></app-code>
     `
 })
 export class LazyDoc {
@@ -93,87 +92,4 @@ export class LazyDoc {
             }, 500);
         }
     }
-
-    code: Code = {
-        basic: `<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes()" (onNodeExpand)="onNodeExpand($event)" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" loadingMode="icon"/>`,
-
-        html: `<div class="card flex justify-center">
-    <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes()" (onNodeExpand)="onNodeExpand($event)" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" loadingMode="icon"/>
-</div>`,
-
-        typescript: `import { Component, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { TreeNode } from 'primeng/api';
-import { TreeSelect } from 'primeng/treeselect';
-
-@Component({
-    selector: 'tree-select-lazy-demo',
-    templateUrl: './tree-select-lazy-demo.html',
-    standalone: true,
-    imports: [FormsModule, TreeSelect]
-})
-export class TreeSelectLazyDemo {
-    selectedNodes: TreeNode[] = [];
-
-    nodes = signal<TreeNode[]>(undefined);
-
-    ngOnInit() {
-        this.nodes.set(this.initiateNodes());
-    }
-
-    initiateNodes(): TreeNode[] {
-        return [
-            {
-                key: '0',
-                label: 'Node 0',
-                leaf: false,
-                loading: false
-            },
-            {
-                key: '1',
-                label: 'Node 1',
-                leaf: false,
-                loading: false
-            },
-            {
-                key: '2',
-                label: 'Node 2',
-                leaf: false,
-                loading: false
-            }
-        ];
-    }
-
-    onNodeExpand(event: any) {
-        if (!event.node.children) {
-            event.node.loading = true;
-
-            setTimeout(() => {
-                const _nodes = this.nodes();
-                let _node = { ...event.node };
-                _node.children = [];
-
-                for (let i = 0; i < 3; i++) {
-                    _node.children.push({
-                        key: event.node.key + '-' + i,
-                        label: 'Lazy ' + event.node.label + '-' + i
-                    });
-                }
-
-                const key = parseInt(_node.key, 10);
-                _nodes[key] = { ..._node, loading: false };
-                this.nodes.set([..._nodes]);
-            }, 500);
-        }
-    }
-}`,
-
-        data: `{
-    key: '0',
-    label: 'Node 0',
-    leaf: false,
-    loading: false
-},
-...`
-    };
 }

@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -16,7 +15,7 @@ import { AppCode } from '@/components/doc/app.code';
         <div class="card flex justify-center">
             <p-selectbutton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />
         </div>
-        <app-code [code]="code" selector="select-button-multiple-demo"></app-code>
+        <app-code selector="select-button-multiple-demo"></app-code>
     `
 })
 export class MultipleDoc {
@@ -27,33 +26,4 @@ export class MultipleDoc {
     ];
 
     value!: number;
-
-    code: Code = {
-        basic: `<p-selectbutton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-selectbutton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SelectButton } from 'primeng/selectbutton';
-
-@Component({
-    selector: 'select-button-multiple-demo',
-    templateUrl: './select-button-multiple-demo.html',
-    standalone: true,
-    imports: [FormsModule, SelectButton]
-})
-export class SelectButtonMultipleDemo {
-    value!: number;
-
-    paymentOptions: any[] = [
-        { name: 'Option 1', value: 1 },
-        { name: 'Option 2', value: 2 },
-        { name: 'Option 3', value: 3 }
-    ];
-
-}`
-    };
 }

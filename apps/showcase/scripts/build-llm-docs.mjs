@@ -9,8 +9,12 @@ const __dirname = path.dirname(__filename);
 const DOCS_DIR = path.resolve(__dirname, '../doc');
 const PAGES_DIR = path.resolve(__dirname, '../pages');
 const API_DOC_PATH = path.resolve(__dirname, '../doc/apidoc/index.json');
+const DEMOS_JSON_PATH = path.resolve(__dirname, '../public/demos.json');
 const OUTPUT_DIR = path.resolve(__dirname, '../public/llms');
 const MCP_DATA_DIR = path.resolve(__dirname, '../../../packages/mcp/data');
+
+// Global demos data loaded from demos.json
+let demosData = null;
 
 // Mapping for components where route name doesn't match API component name
 const COMPONENT_NAME_MAP = {
@@ -198,78 +202,135 @@ function extractDescriptionFromTemplate(template) {
 }
 
 /**
- * Extract code examples from Angular TypeScript file
- * Looks for: code: Code = { basic: `...`, html: `...`, typescript: `...` }
+ * Load demos.json data
  */
-function extractCodeExamples(content) {
-    // Find the code property assignment
-    const codeMatch = content.match(/code:\s*Code\s*=\s*{/);
-    if (!codeMatch) return null;
+function loadDemosJson() {
+    if (!fs.existsSync(DEMOS_JSON_PATH)) {
+        console.warn('demos.json not found. Run build:democode first.');
+        return null;
+    }
 
-    const startIndex = codeMatch.index + codeMatch[0].length;
-    let braceDepth = 1;
-    let endIndex = -1;
+    return JSON.parse(fs.readFileSync(DEMOS_JSON_PATH, 'utf-8'));
+}
 
-    // Find the matching closing brace for the code object
-    for (let i = startIndex; i < content.length; i++) {
-        if (content[i] === '{') {
-            braceDepth++;
-        } else if (content[i] === '}') {
-            braceDepth--;
-            if (braceDepth === 0) {
-                endIndex = i;
-                break;
-            }
+/**
+ * Convert component name to hyphenated form (e.g., cascadeselect -> cascade-select)
+ */
+function toHyphenatedName(name) {
+    // Common compound words that need hyphenation
+    const compounds = {
+        cascadeselect: 'cascade-select',
+        treeselect: 'tree-select',
+        treetable: 'tree-table',
+        multiselect: 'multi-select',
+        selectbutton: 'select-button',
+        togglebutton: 'toggle-button',
+        splitbutton: 'split-button',
+        speeddial: 'speed-dial',
+        inputtext: 'input-text',
+        inputnumber: 'input-number',
+        inputmask: 'input-mask',
+        inputotp: 'input-otp',
+        inputgroup: 'input-group',
+        iconfield: 'icon-field',
+        floatlabel: 'float-label',
+        iftalabel: 'ifta-label',
+        colorpicker: 'color-picker',
+        orderlist: 'order-list',
+        picklist: 'pick-list',
+        contextmenu: 'context-menu',
+        tieredmenu: 'tiered-menu',
+        megamenu: 'mega-menu',
+        panelmenu: 'panel-menu',
+        tabmenu: 'tab-menu',
+        confirmdialog: 'confirm-dialog',
+        confirmpopup: 'confirm-popup',
+        dynamicdialog: 'dynamic-dialog',
+        fileupload: 'file-upload',
+        progressbar: 'progress-bar',
+        progressspinner: 'progress-spinner',
+        blockui: 'block-ui',
+        scrollpanel: 'scroll-panel',
+        scrolltop: 'scroll-top',
+        virtualscroller: 'virtual-scroller',
+        datepicker: 'date-picker',
+        dataview: 'data-view',
+        toggleswitch: 'toggle-switch',
+        organizationchart: 'organization-chart',
+        overlaybadge: 'overlay-badge',
+        metergroup: 'meter-group',
+        imagecompare: 'image-compare'
+    };
+    return compounds[name.toLowerCase()] || name;
+}
+
+/**
+ * Get code examples from demos.json for a specific component section
+ */
+function getCodeExamplesFromDemos(componentName, sectionId) {
+    if (!demosData || !demosData.demos) return null;
+
+    // Try different selector patterns
+    const hyphenated = toHyphenatedName(componentName);
+    const selectors = [`${componentName}-${sectionId}-demo`, `${hyphenated}-${sectionId}-demo`];
+
+    for (const selector of selectors) {
+        const demo = demosData.demos[selector];
+        if (demo && demo.code) {
+            const examples = {};
+            if (demo.code.basic) examples.basic = demo.code.basic;
+            if (demo.code.html) examples.html = demo.code.html;
+            if (demo.code.typescript) examples.typescript = demo.code.typescript;
+            if (demo.code.data) examples.data = demo.code.data;
+            if (demo.code.scss) examples.scss = demo.code.scss;
+
+            return Object.keys(examples).length > 0 ? examples : null;
         }
     }
 
-    if (endIndex === -1) return null;
+    return null;
+}
 
-    const codeContent = content.substring(startIndex, endIndex);
+/**
+ * Extract code object from file content
+ */
+function extractCodeFromFile(content) {
     const examples = {};
 
-    // Helper function to extract content between backticks
-    function extractBetweenBackticks(text, prefix) {
-        const startPattern = prefix + '\\s*`';
-        const startMatch = text.match(new RegExp(startPattern));
+    // Look for code: Code = { ... } pattern
+    const codeMatch = content.match(/code:\s*Code\s*=\s*\{/);
+    if (codeMatch) {
+        const startIndex = codeMatch.index + codeMatch[0].length;
+        let braceDepth = 1;
+        let endIndex = startIndex;
 
-        if (!startMatch) return null;
-
-        const startIdx = startMatch.index + startMatch[0].length;
-        let endIdx = -1;
-
-        for (let i = startIdx; i < text.length; i++) {
-            if (text[i] === '\\' && text[i + 1] === '`') {
-                i++;
-                continue;
-            }
-
-            if (text[i] === '`') {
-                // Check if followed by comma, closing brace, or end of content (whitespace only)
-                const after = text.substring(i + 1).match(/^[\s\n]*([,}]|$)/);
-                if (after) {
-                    endIdx = i;
-                    break;
-                }
-            }
+        for (let i = startIndex; i < content.length && braceDepth > 0; i++) {
+            if (content[i] === '{') braceDepth++;
+            else if (content[i] === '}') braceDepth--;
+            endIndex = i;
         }
 
-        if (endIdx === -1) return null;
+        const codeContent = content.substring(startIndex, endIndex);
 
-        return text.substring(startIdx, endIdx).trim();
+        // Extract each code type
+        const extractBetweenBackticks = (text, prefix) => {
+            const regex = new RegExp(prefix + '\\s*`([\\s\\S]*?)`');
+            const match = text.match(regex);
+            return match ? match[1].trim() : null;
+        };
+
+        const basic = extractBetweenBackticks(codeContent, 'basic:');
+        const html = extractBetweenBackticks(codeContent, 'html:');
+        const typescript = extractBetweenBackticks(codeContent, 'typescript:');
+        const command = extractBetweenBackticks(codeContent, 'command:');
+        const scss = extractBetweenBackticks(codeContent, 'scss:');
+
+        if (basic) examples.basic = basic;
+        if (html) examples.html = html;
+        if (typescript) examples.typescript = typescript;
+        if (command) examples.command = command;
+        if (scss) examples.scss = scss;
     }
-
-    const basic = extractBetweenBackticks(codeContent, 'basic:');
-    const html = extractBetweenBackticks(codeContent, 'html:');
-    const typescript = extractBetweenBackticks(codeContent, 'typescript:');
-    const data = extractBetweenBackticks(codeContent, 'data:');
-    const scss = extractBetweenBackticks(codeContent, 'scss:');
-
-    if (basic) examples.basic = basic;
-    if (html) examples.html = html;
-    if (typescript) examples.typescript = typescript;
-    if (data) examples.data = data;
-    if (scss) examples.scss = scss;
 
     return Object.keys(examples).length > 0 ? examples : null;
 }
@@ -285,12 +346,40 @@ function parseDocFile(filePath) {
     const template = templateMatch ? templateMatch[1] : '';
 
     const description = extractDescriptionFromTemplate(template);
-    const codeExamples = extractCodeExamples(content);
+
+    // Extract app-code selector from template (for guide pages that reference other demos)
+    const appCodeMatch = template.match(/<app-code\s+selector="([^"]+)"/);
+    const appCodeSelector = appCodeMatch ? appCodeMatch[1] : null;
+
+    // Extract inline code object from file (for guide pages)
+    const inlineCode = extractCodeFromFile(content);
 
     return {
         description,
-        codeExamples
+        appCodeSelector,
+        inlineCode
     };
+}
+
+/**
+ * Get code examples by selector directly from demos.json
+ */
+function getCodeExamplesBySelector(selector) {
+    if (!demosData || !demosData.demos || !selector) return null;
+
+    const demo = demosData.demos[selector];
+    if (demo && demo.code) {
+        const examples = {};
+        if (demo.code.basic) examples.basic = demo.code.basic;
+        if (demo.code.html) examples.html = demo.code.html;
+        if (demo.code.typescript) examples.typescript = demo.code.typescript;
+        if (demo.code.data) examples.data = demo.code.data;
+        if (demo.code.scss) examples.scss = demo.code.scss;
+
+        return Object.keys(examples).length > 0 ? examples : null;
+    }
+
+    return null;
 }
 
 /**
@@ -387,12 +476,15 @@ function processComponent(componentName, componentDir) {
 
         const docData = parseDocFile(filePath);
 
-        if (docData.description || docData.codeExamples) {
+        // Get code examples from demos.json
+        const codeExamples = getCodeExamplesFromDemos(componentName, sectionId);
+
+        if (docData.description || codeExamples) {
             component.sections.push({
                 id: sectionId,
                 label: sectionInfo ? sectionInfo.label : file.replace('.ts', ''),
                 description: docData.description,
-                examples: docData.codeExamples
+                examples: codeExamples
             });
         }
     }
@@ -1084,7 +1176,17 @@ function processGuidePage(pageConfig) {
                 const sectionId = entry.replace(/doc\.ts$/i, '').toLowerCase();
                 const docData = parseDocFile(entryPath);
 
-                if (docData.description || docData.codeExamples) {
+                // Get code examples - priority: inline code > app-code selector > page/section naming
+                let codeExamples = docData.inlineCode;
+                if (!codeExamples && docData.appCodeSelector) {
+                    codeExamples = getCodeExamplesBySelector(docData.appCodeSelector);
+                }
+                if (!codeExamples) {
+                    const pageName = pageConfig.route.split('/').pop();
+                    codeExamples = getCodeExamplesFromDemos(pageName, sectionId);
+                }
+
+                if (docData.description || codeExamples) {
                     // Extract label from filename - convert camelCase to title case
                     const label = sectionId
                         .replace(/([A-Z])/g, ' $1')
@@ -1095,7 +1197,7 @@ function processGuidePage(pageConfig) {
                         id: prefix + sectionId,
                         label: label.charAt(0).toUpperCase() + label.slice(1),
                         description: docData.description,
-                        examples: docData.codeExamples
+                        examples: codeExamples
                     });
                 }
             }
@@ -1181,6 +1283,14 @@ function generatePageMarkdownFiles(pages) {
  */
 function main() {
     console.log('🚀 Building PrimeNG LLM Documentation...\n');
+
+    console.log('📦 Loading demos.json...');
+    demosData = loadDemosJson();
+    if (demosData) {
+        console.log(`   Loaded ${Object.keys(demosData.demos || {}).length} demos\n`);
+    } else {
+        console.log('   Warning: demos.json not available, code examples will be missing\n');
+    }
 
     console.log('📁 Parsing component documentation...');
     const components = getAllComponents();

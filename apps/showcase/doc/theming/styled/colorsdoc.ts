@@ -10,7 +10,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     template: `
         <app-docsectiontext>
             <p>Color palette of a preset is defined by the <i>primitive</i> design token group. You can access colors using CSS variables or the <i>$dt</i> utility.</p>
-            <app-code [code]="code" selector="colors-demo" [hideToggleCode]="true"></app-code>
+            <app-code selector="colors-demo" [hideToggleCode]="true"></app-code>
             <div class="card mt-4">
                 <ul class="p-0 m-0 list-none flex sm:flex-col gap-4 flex-wrap sm:flex-nowrap">
                     @for (color of colors; track color) {

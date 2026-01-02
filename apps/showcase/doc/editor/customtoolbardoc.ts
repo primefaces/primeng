@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EditorModule } from 'primeng/editor';
@@ -24,44 +23,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
             </p-editor>
         </div>
-        <app-code [code]="code" selector="editor-customtoolbar-demo"></app-code>
+        <app-code selector="editor-customtoolbar-demo"></app-code>
     `
 })
 export class CustomToolbarDoc {
     text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
-
-    code: Code = {
-        basic: `<p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
-    <ng-template #header>
-        <span class="ql-formats">
-            <button type="button" class="ql-bold" aria-label="Bold"></button>
-            <button type="button" class="ql-italic" aria-label="Italic"></button>
-            <button type="button" class="ql-underline" aria-label="Underline"></button>
-        </span>
-    </ng-template>
-</p-editor>`,
-
-        html: `<div class="card">
-    <p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
-        <ng-template #header>
-            <span class="ql-formats">
-                <button type="button" class="ql-bold" aria-label="Bold"></button>
-                <button type="button" class="ql-italic" aria-label="Italic"></button>
-                <button type="button" class="ql-underline" aria-label="Underline"></button>
-            </span>
-        </ng-template>
-    </p-editor>
-</div>`,
-
-        typescript: `
-import { Component } from '@angular/core';
-
-@Component({
-    selector: 'editor-customtoolbar-demo',
-    templateUrl: './editor-customtoolbar-demo.html'
-})
-export class EditorCustomtoolbarDemo {
-    text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
-}`
-    };
 }

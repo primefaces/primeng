@@ -1,6 +1,5 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
@@ -11,19 +10,8 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <p>Edit <i>~/.codeium/windsurf/mcp_config.json</i> to add the PrimeNG MCP server.</p>
         </app-docsectiontext>
-        <app-code [code]="code" [hideToggleCode]="true"></app-code>
+        <app-code [hideToggleCode]="true"></app-code>
         <p class="doc-section-description">See <a href="https://docs.windsurf.com/windsurf/cascade/mcp" class="font-medium hover:underline text-primary" target="_blank" rel="noopener noreferrer">Windsurf MCP Documentation</a> for more details.</p>
     `
 })
-export class WindsurfDoc {
-    code: Code = {
-        basic: `{
-    "mcpServers": {
-        "primeng": {
-            "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
-        }
-    }
-}`
-    };
-}
+export class WindsurfDoc {}

@@ -13,7 +13,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 primary color;
             </p>
         </app-docsectiontext>
-        <app-code [code]="code" selector="noir-demo" [hideToggleCode]="true"></app-code>
+        <app-code selector="noir-demo" [hideToggleCode]="true"></app-code>
     `
 })
 export class NoirDoc {

@@ -1,7 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
@@ -60,7 +59,7 @@ interface Column {
             </p-deferred-demo>
             <p-contextmenu #cm [model]="items" />
         </div>
-        <app-code [code]="code" selector="tree-table-context-menu-demo"></app-code>
+        <app-code selector="tree-table-context-menu-demo"></app-code>
     `,
     providers: [MessageService],
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -102,130 +101,4 @@ export class ContextMenuDoc {
         node.expanded = !node.expanded;
         this.files = [...this.files];
     }
-
-    code: Code = {
-        basic: `<p-toast [style]="{ marginTop: '80px' }" />
-
-<p-treetable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
-            @for (col of columns; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-</p-treetable>
-
-<p-contextmenu #cm [model]="items" />`,
-
-        html: `<div class="card">
-    <p-toast [style]="{ marginTop: '80px' }" />
-
-    <p-treetable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #header let-columns>
-            <tr>
-                @for (col of columns; track col) {
-                    <th>
-                        {{ col.header }}
-                    </th>
-                }
-            </tr>
-        </ng-template>
-        <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
-                @for (col of columns; let first = $first; track col) {
-                    <td>
-                        @if (first) {
-                            <div class="flex items-center gap-2">
-                                <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                <span>{{ rowData[col.field] }}</span>
-                            </div>
-                        } @else {
-                            {{ rowData[col.field] }}
-                        }
-                    </td>
-                }
-            </tr>
-        </ng-template>
-    </p-treetable>
-
-    <p-contextmenu #cm [model]="items" />
-</div>`,
-
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService, TreeNode } from 'primeng/api';
-import { NodeService } from '@/service/nodeservice';
-import { TreeTableModule } from 'primeng/treetable';
-import { ToastModule } from 'primeng/toast';
-import { ContextMenuModule } from 'primeng/contextmenu';
-import { CommonModule } from '@angular/common';
-
-interface Column {
-    field: string;
-    header: string;
-}
-
-@Component({
-    selector: 'tree-table-context-menu-demo',
-    templateUrl: './tree-table-context-menu-demo.html',
-    standalone: true,
-    imports: [TreeTableModule, ToastModule, ContextMenuModule, CommonModule],
-    providers: [MessageService, NodeService]
-})
-export class TreeTableContextMenuDemo implements OnInit{
-    files!: TreeNode[];
-
-    selectedNode!: TreeNode;
-
-    cols!: Column[];
-
-    items!: MenuItem[];
-
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
-
-    ngOnInit() {
-        this.nodeService.getFilesystem().then((files) => (this.files = files));
-
-        this.cols = [
-            { field: 'name', header: 'Name' },
-            { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
-        ];
-
-        this.items = [
-            { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedNode) },
-            { label: 'Toggle', icon: 'pi pi-sort', command: (event) => this.toggleFile(this.selectedNode) }
-        ];
-    }
-
-    viewFile(node: any) {
-        this.messageService.add({ severity: 'info', summary: 'File Selected', detail: node.data.name + ' - ' + node.data.size });
-    }
-
-    toggleFile(node: any) {
-        node.expanded = !node.expanded;
-        this.files = [...this.files];
-    }
-}`,
-
-        service: ['NodeService']
-    };
 }

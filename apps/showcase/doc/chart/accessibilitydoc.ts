@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -18,11 +17,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </p>
             </div>
         </app-docsectiontext>
-        <app-code [code]="code" [hideToggleCode]="true"></app-code>
+        <app-code [hideToggleCode]="true"></app-code>
     </div>`
 })
-export class AccessibilityDoc {
-    code: Code = {
-        html: `<p-chart type="line" [data]="data" ariaLabel="Data" />`
-    };
-}
+export class AccessibilityDoc {}

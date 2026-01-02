@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 
@@ -6,11 +5,6 @@ import { AppCode } from '@/components/doc/app.code';
     selector: 'badge-import-doc',
     standalone: true,
     imports: [AppCode],
-    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
+    template: ` <app-code [hideToggleCode]="true"></app-code> `
 })
-export class ImportDoc {
-    code: Code = {
-        typescript: `import { BadgeModule } from 'primeng/badge';
-import { OverlayBadgeModule } from 'primeng/overlaybadge';`
-    };
-}
+export class ImportDoc {}

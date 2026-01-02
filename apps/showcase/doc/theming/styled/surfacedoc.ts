@@ -13,7 +13,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <i>zinc</i> for light mode and <i>slategray</i> for dark mode. With this setting, light mode, would have a grayscale tone and dark mode would include bluish tone.
             </p>
         </app-docsectiontext>
-        <app-code [code]="code" selector="surface-demo" [hideToggleCode]="true"></app-code>
+        <app-code selector="surface-demo" [hideToggleCode]="true"></app-code>
     `
 })
 export class SurfaceDoc {

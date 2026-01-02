@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppCode } from '@/components/doc/app.code';
@@ -18,7 +17,7 @@ import { ToastModule } from 'primeng/toast';
             <p-toast></p-toast>
             <p-fileupload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileupload>
         </div>
-        <app-code [code]="code" selector="file-upload-custom-demo"></app-code>
+        <app-code selector="file-upload-custom-demo"></app-code>
     `,
     providers: [MessageService]
 })
@@ -38,40 +37,4 @@ export class CustomDoc {
 
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
     }
-
-    code: Code = {
-        basic: `<p-fileupload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileupload>`,
-        html: `
-<div class="card flex justify-center">
-    <p-toast></p-toast>
-    <p-fileupload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileupload>
-</div>`,
-        typescript: `
-import { Component, Input } from '@angular/core';
-import { MessageService } from 'primeng/api';
-
-@Component({
-    selector: 'file-upload-custom-demo',
-    templateUrl: './file-upload-custom-demo.html',
-    providers: [MessageService]
-})
-export class CustomDoc {
-
-    constructor(private messageService: MessageService) {}
-
-    async customUploader(event) {
-        const file = event.files[0];
-        const reader = new FileReader();
-        let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
-
-        reader.readAsDataURL(blob);
-
-        reader.onloadend = function () {
-            const base64data = reader.result;
-        };
-
-        this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
-    }
-}`
-    };
 }

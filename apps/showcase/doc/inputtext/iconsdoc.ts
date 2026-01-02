@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
@@ -27,44 +26,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <input type="text" pInputText [(ngModel)]="value2" />
             </span>
         </div>
-        <app-code [code]="code" selector="input-text-icons-demo"></app-code>
+        <app-code selector="input-text-icons-demo"></app-code>
     `
 })
 export class IconsDoc {
     value: string | undefined;
 
     value2: string | undefined;
-
-    code: Code = {
-        basic: `<span class="p-input-icon-left">
-    <i class="pi pi-search"></i>
-    <input type="text" pInputText [(ngModel)]="value" />
-</span>`,
-
-        html: `
-<div class="card flex flex-wrap justify-center gap-4">
-    <span class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        <input type="text" pInputText [(ngModel)]="value" />
-    </span>
-
-    <span class="p-input-icon-right">
-        <i class="pi pi-spin pi-spinner"></i>
-        <input type="text" pInputText [(ngModel)]="value2" />
-    </span>
-</div>`,
-
-        typescript: `
-import { Component } from '@angular/core';
-
-@Component({
-    selector: 'input-text-icons-demo',
-    templateUrl: './input-text-icons-demo.html'
-})
-export class InputTextIconsDemo {
-    value: string | undefined;
-
-    value2: string | undefined;
-}`
-    };
 }

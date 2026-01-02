@@ -23,6 +23,9 @@ A font icon next to the label can be displayed with the icon property.
 
 ```html
 <p-chip label="Apple" icon="pi pi-apple" />
+<p-chip label="Facebook" icon="pi pi-facebook" />
+<p-chip label="Google" icon="pi pi-google" />
+<p-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true" />
 ```
 
 <details>
@@ -30,13 +33,19 @@ A font icon next to the label can be displayed with the icon property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { Chip } from 'primeng/chip';
+import { ChipModule } from 'primeng/chip';
 
 @Component({
-    selector: 'chip-icon-demo',
-    templateUrl: './chip-icon-demo.html',
+    template: `
+        <div class="card flex items-center gap-2 flex-wrap">
+            <p-chip label="Apple" icon="pi pi-apple" />
+            <p-chip label="Facebook" icon="pi pi-facebook" />
+            <p-chip label="Google" icon="pi pi-google" />
+            <p-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [Chip]
+    imports: [ChipModule]
 })
 export class ChipIconDemo {}
 ```
@@ -58,13 +67,19 @@ The image property is used to display an image like an avatar.
 
 ```typescript
 import { Component } from '@angular/core';
-import { Chip } from 'primeng/chip';
+import { ChipModule } from 'primeng/chip';
 
 @Component({
-    selector: 'chip-image-demo',
-    templateUrl: './chip-image-demo.html',
+    template: `
+        <div class="card flex items-center gap-2 flex-wrap">
+            <p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" alt="Avatar image" />
+            <p-chip label="Asiya Javayant" image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" alt="Avatar image" />
+            <p-chip label="Onyama Limba" image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" alt="Avatar image" />
+            <p-chip label="Xuxue Feng" image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" alt="Avatar image" [removable]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [Chip]
+    imports: [ChipModule]
 })
 export class ChipImageDemo {}
 ```
@@ -76,12 +91,8 @@ Content can easily be customized with the dynamic content instead of using the b
 
 ```html
 <p-chip class="!py-0 !pl-0 !pr-4">
-    <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">
-        P
-    </span>
-    <span class="ml-2 font-medium">
-        PRIME
-    </span>
+    <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">P</span>
+    <span class="ml-2 font-medium">PRIME</span>
 </p-chip>
 ```
 
@@ -90,13 +101,19 @@ Content can easily be customized with the dynamic content instead of using the b
 
 ```typescript
 import { Component } from '@angular/core';
-import { Chip } from 'primeng/chip';
+import { ChipModule } from 'primeng/chip';
 
 @Component({
-    selector: 'chip-template-demo',
-    templateUrl: './chip-template-demo.html',
+    template: `
+        <div class="card">
+            <p-chip class="!py-0 !pl-0 !pr-4">
+                <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">P</span>
+                <span class="ml-2 font-medium">PRIME</span>
+            </p-chip>
+        </div>
+    `,
     standalone: true,
-    imports: [Chip]
+    imports: [ChipModule]
 })
 export class ChipTemplateDemo {}
 ```

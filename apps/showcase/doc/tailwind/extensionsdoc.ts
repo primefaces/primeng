@@ -7,7 +7,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     imports: [AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>The plugin extends the default configuration with a new set of utilities whose values are derived from the PrimeNG theme in use. All variants and breakpoints are supported e.g. <i>dark:sm:hover:bg-primary</i>.</p>
+            <p>
+                The plugin extends the default configuration with a new set of utilities. All variants and breakpoints are supported e.g.
+                <i>dark:sm:hover:bg-primary</i>.
+            </p>
             <h3>Color Palette</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -40,7 +43,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         </tr>
                         <tr>
                             <td>border-surface</td>
-                            <td>Content border color.</td>
+                            <td>Default primary emphasis color.</td>
                         </tr>
                         <tr>
                             <td>bg-emphasis</td>

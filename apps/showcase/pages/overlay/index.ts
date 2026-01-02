@@ -1,3 +1,4 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/overlay/accessibilitydoc';
 import { AppendToDoc } from '@/doc/overlay/appendtodoc';
 import { AutoZIndexDoc } from '@/doc/overlay/autozindexdoc';
@@ -9,12 +10,10 @@ import { ImportDoc } from '@/doc/overlay/importdoc';
 import { ModeDoc } from '@/doc/overlay/modedoc';
 import { PTComponent } from '@/doc/overlay/pt/PTComponent';
 import { ResponsiveDoc } from '@/doc/overlay/responsivedoc';
-import { StyleDoc } from '@/doc/overlay/styledoc';
 import { TargetDoc } from '@/doc/overlay/targetdoc';
 import { OverlayTemplateDemo } from '@/doc/overlay/templatedoc';
 import { TransitionOptionsDoc } from '@/doc/overlay/transitionoptionsdoc';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc
@@ -70,11 +69,6 @@ export class OverlayDemo {
                     id: 'target',
                     label: 'Target',
                     component: TargetDoc
-                },
-                {
-                    id: 'style',
-                    label: 'Style',
-                    component: StyleDoc
                 },
                 {
                     id: 'base-z-index',

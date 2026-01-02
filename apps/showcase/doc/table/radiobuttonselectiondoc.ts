@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
@@ -40,7 +39,7 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [code]="code" selector="table-radio-button-selection-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code selector="table-radio-button-selection-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RadioButtonSelectionDoc {
@@ -59,96 +58,6 @@ export class RadioButtonSelectionDoc {
             this.cd.markForCheck();
         });
     }
-
-    code: Code = {
-        basic: `<p-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template #header>
-        <tr>
-            <th style="width: 4rem"></th>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-product>
-        <tr>
-            <td>
-                <p-tableRadioButton [value]="product" />
-            </td>
-            <td>{{product.code}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.category}}</td>
-            <td>{{product.quantity}}</td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
-        <ng-template #header>
-            <tr>
-                <th style="width: 4rem"></th>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-product>
-            <tr>
-                <td>
-                    <p-tableRadioButton [value]="product" />
-                </td>
-                <td>{{product.code}}</td>
-                <td>{{product.name}}</td>
-                <td>{{product.category}}</td>
-                <td>{{product.quantity}}</td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { TableModule } from 'primeng/table';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-
-@Component({
-    selector: 'table-radio-button-selection-demo',
-    templateUrl: 'table-radio-button-selection-demo.html',
-    standalone: true,
-    imports: [TableModule, FormsModule, CommonModule],
-    providers: [ProductService]
-})
-export class TableRadioButtonSelectionDemo implements OnInit{
-    products!: Product[];
-
-    selectedProduct!: Product;
-
-    constructor(private productService: ProductService) {}
-
-    ngOnInit() {
-        this.productService.getProductsMini().then((data) => {
-            this.products = data;
-        });
-    }
-}`,
-        data: `{
-    id: '1000',
-    code: 'f230fh0g3',
-    name: 'Bamboo Watch',
-    description: 'Product Description',
-    image: 'bamboo-watch.jpg',
-    price: 65,
-    category: 'Accessories',
-    quantity: 24,
-    inventoryStatus: 'INSTOCK',
-    rating: 5
-},
-...`,
-        service: ['ProductService']
-    };
 
     extFiles = [
         {

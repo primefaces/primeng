@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -39,7 +38,7 @@ import { InputIconModule } from 'primeng/inputicon';
                 </ng-template>
             </p-toolbar>
         </div>
-        <app-code [code]="code" selector="toolbar-basic-demo"></app-code>
+        <app-code selector="toolbar-basic-demo"></app-code>
     `
 })
 export class BasicDoc implements OnInit {
@@ -57,74 +56,4 @@ export class BasicDoc implements OnInit {
             }
         ];
     }
-
-    code: Code = {
-        basic: `<p-toolbar>
-    <ng-template #start>
-        <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
-        <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
-        <p-button icon="pi pi-upload" text severity="secondary" />
-    </ng-template>
-    <ng-template #center>
-        <p-iconfield iconPosition="left">
-            <p-inputicon class="pi pi-search" />
-            <input type="text" pInputText placeholder="Search" />
-        </p-iconfield>
-    </ng-template>
-    <ng-template #end>
-        <p-splitbutton label="Save" [model]="items" />
-    </ng-template>
-</p-toolbar>`,
-
-        html: `<div class="card">
-    <p-toolbar>
-        <ng-template #start>
-            <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
-            <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
-            <p-button icon="pi pi-upload" text severity="secondary" />
-        </ng-template>
-        <ng-template #center>
-            <p-iconfield iconPosition="left">
-                <p-inputicon class="pi pi-search" />
-                <input type="text" pInputText placeholder="Search" />
-            </p-iconfield>
-        </ng-template>
-        <ng-template #end>
-            <p-splitbutton label="Save" [model]="items" />
-        </ng-template>
-    </p-toolbar>
-</div>`,
-
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { Toolbar } from 'primeng/toolbar';
-import { ButtonModule } from 'primeng/button';
-import { SplitButton } from 'primeng/splitbutton';
-import { InputTextModule } from 'primeng/inputtext';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
-
-@Component({
-    selector: 'toolbar-basic-demo',
-    templateUrl: './toolbar-basic-demo.html',
-    standalone: true,
-    imports: [Toolbar, ButtonModule, SplitButton, InputTextModule, IconField, InputIcon]
-})
-export class ToolbarBasicDemo implements OnInit {
-    items: MenuItem[] | undefined;
-
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'Update',
-                icon: 'pi pi-refresh'
-            },
-            {
-                label: 'Delete',
-                icon: 'pi pi-times'
-            }
-        ];
-    }
-}`
-    };
 }

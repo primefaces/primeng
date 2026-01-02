@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MeterGroupModule } from 'primeng/metergroup';
 import { AppCodeModule } from '@/components/doc/app.code';
@@ -15,32 +14,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card">
             <p-metergroup [value]="value" />
         </div>
-        <app-code [code]="code" selector="meter-group-basic-demo"></app-code>
+        <app-code selector="meter-group-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
     value = [{ label: 'Space used', value: 15, color: 'var(--p-primary-color)' }];
-
-    code: Code = {
-        basic: `<p-metergroup [value]="value" />`,
-
-        html: `<div class="card">
-    <p-metergroup [value]="value" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { MeterGroup } from 'primeng/metergroup';
-
-@Component({
-    selector: 'meter-group-basic-demo',
-    templateUrl: './meter-group-basic-demo.html',
-    standalone: true,
-    imports: [MeterGroup]
-})
-export class MeterGroupBasicDemo {
-    value = [
-        { label: 'Space used', value: 15, color: 'var(--p-primary-color)' }
-    ];
-}`
-    };
 }

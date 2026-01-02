@@ -1,14 +1,14 @@
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, PrimeIcons } from 'primeng/api';
-import { MenuModule } from 'primeng/menu';
-import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { MenuModule } from 'primeng/menu';
 
 @Component({
     selector: 'prime-icons-constants-demo',
     standalone: true,
-    imports: [AppDocSectionText, AppCodeModule, MenuModule],
+    imports: [AppDocSectionText, AppCode, MenuModule],
     template: `
         <app-docsectiontext>
             <p>Constants API is available to reference icons easily when used programmatically.</p>
@@ -19,7 +19,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <app-code [code]="code" selector="prime-icons-constants-demo" [hideToggleCode]="true"></app-code>
     `
 })
-export class ConstantsDoc {
+export class ConstantsDoc implements OnInit {
     items: MenuItem[];
 
     ngOnInit() {

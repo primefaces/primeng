@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -21,7 +20,7 @@ interface City {
         <div class="card flex justify-center">
             <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
         </div>
-        <app-code [code]="code" selector="select-disabled-demo"></app-code>
+        <app-code selector="select-disabled-demo"></app-code>
     `
 })
 export class DisabledDoc {
@@ -38,43 +37,4 @@ export class DisabledDoc {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-
-    code: Code = {
-        basic: `<p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" class="w-full md:w-56" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Select } from 'primeng/select';
-
-interface City {
-    name: string;
-    code: string;
-}
-
-@Component({
-    selector: 'select-disabled-demo',
-    templateUrl: './select-disabled-demo.html',
-    standalone: true,
-    imports: [FormsModule, Select]
-})
-export class SelectDisabledDemo {
-    cities: City[] | undefined;
-
-    selectedCity: City | undefined;
-
-    ngOnInit() {
-        this.cities = [
-            { name: 'New York', code: 'NY' },
-            { name: 'Rome', code: 'RM' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
-        ];
-    }
-}`
-    };
 }

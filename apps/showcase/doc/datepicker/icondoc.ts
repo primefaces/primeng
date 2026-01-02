@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -34,7 +33,7 @@ import { FluidModule } from 'primeng/fluid';
                 </p-datepicker>
             </div>
         </p-fluid>
-        <app-code [code]="code" selector="date-picker-icon-demo"></app-code>
+        <app-code selector="date-picker-icon-demo"></app-code>
     `
 })
 export class IconDoc {
@@ -43,56 +42,4 @@ export class IconDoc {
     date2: Date | undefined;
 
     date3: Date | undefined;
-
-    code: Code = {
-        basic: `<p-datepicker [(ngModel)]="date1" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
-
-<p-datepicker [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
-
-<p-datepicker [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
-    <ng-template #inputicon let-clickCallBack="clickCallBack">
-        <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
-    </ng-template>
-</p-datepicker>`,
-
-        html: `<p-fluid class="card flex flex-wrap gap-4">
-    <div class="flex-auto">
-        <label for="buttondisplay" class="font-bold block mb-2"> Button </label>
-        <p-datepicker [(ngModel)]="date1" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
-    </div>
-
-    <div class="flex-auto">
-        <label for="icondisplay" class="font-bold block mb-2"> Default Icon </label>
-        <p-datepicker [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
-    </div>
-
-    <div class="flex-auto">
-        <label for="templatedisplay" class="font-bold block mb-2"> Custom Icon </label>
-        <p-datepicker [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
-            <ng-template #inputicon let-clickCallBack="clickCallBack">
-                <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
-            </ng-template>
-        </p-datepicker>
-    </div>
-</p-fluid>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { DatePickerModule } from 'primeng/datepicker';
-import { FormsModule } from '@angular/forms';
-import { FluidModule } from 'primeng/fluid';
-
-@Component({
-    selector: 'date-picker-icon-demo',
-    templateUrl: './date-picker-icon-demo.html',
-    standalone: true,
-    imports: [DatePickerModule, FormsModule, FluidModule]
-})
-export class DatePickerIconDemo {
-    date1: Date | undefined;
-
-    date2: Date | undefined;
-
-    date3: Date | undefined;
-}`
-    };
 }

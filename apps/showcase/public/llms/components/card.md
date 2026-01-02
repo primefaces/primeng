@@ -18,15 +18,15 @@ Card content can be customized further with subHeader , header and footer proper
     <ng-template #title> Advanced Card </ng-template>
     <ng-template #subtitle> Card subtitle </ng-template>
     <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-        quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-    </p>
-    <ng-template #footer>
-        <div class="flex gap-4 mt-1">
-            <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
-            <p-button label="Save" class="w-full" styleClass="w-full" />
-        </div>
-    </ng-template>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+    quas!
+</p>
+<ng-template #footer>
+    <div class="flex gap-4 mt-1">
+        <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
+        <p-button label="Save" class="w-full" styleClass="w-full" />
+    </div>
+</ng-template>
 </p-card>
 ```
 
@@ -35,14 +35,33 @@ Card content can be customized further with subHeader , header and footer proper
 
 ```typescript
 import { Component } from '@angular/core';
-import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 
 @Component({
-    selector: 'card-advanced-demo',
-    templateUrl: './card-advanced-demo.html',
+    template: `
+        <div class="mb-4 p-8 flex items-center justify-center">
+            <p-card [style]="{ width: '25rem', overflow: 'hidden' }">
+                <ng-template #header>
+                    <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+                </ng-template>
+                <ng-template #title> Advanced Card </ng-template>
+                <ng-template #subtitle> Card subtitle </ng-template>
+                <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+                quas!
+            </p>
+            <ng-template #footer>
+                <div class="flex gap-4 mt-1">
+                    <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
+                    <p-button label="Save" class="w-full" styleClass="w-full" />
+                </div>
+            </ng-template>
+        </p-card>
+        </div>
+    `,
     standalone: true,
-    imports: [CardModule, ButtonModule]
+    imports: [ButtonModule, CardModule]
 })
 export class CardAdvancedDemo {}
 ```
@@ -53,16 +72,15 @@ export class CardAdvancedDemo {}
 A simple Card is created with a header property along with the content as children.
 
 ```html
-<p-card header="Simple Card">
-    <p class="m-0">
-        Lorem ipsum dolor sit amet...
-    </p>
-</p-card>
+<div class="mb-4 p-8">
+    <p-card header="Simple Card">
+        <p class="m-0">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+            quas!
+        </p>
+    </p-card>
+</div>
 ```
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Card
 

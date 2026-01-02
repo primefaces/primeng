@@ -1,7 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
@@ -40,7 +39,7 @@ import { TreeTableModule } from 'primeng/treetable';
                 </p-treetable>
             </p-deferred-demo>
         </div>
-        <app-code [code]="code" selector="tree-table-gridlines-demo"></app-code>
+        <app-code selector="tree-table-gridlines-demo"></app-code>
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -52,76 +51,4 @@ export class GridlinesDoc {
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
     }
-
-    code: Code = {
-        basic: `<p-treetable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header>
-        <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Type</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
-            <td>
-                <div class="flex items-center gap-2">
-                    <p-treetable-toggler [rowNode]="rowNode" />
-                    <span>{{ rowData.name }}</span>
-                </div>
-            </td>
-            <td>{{ rowData.size }}</td>
-            <td>{{ rowData.type }}</td>
-        </tr>
-    </ng-template>
-</p-treetable>`,
-
-        html: `<div class="card">
-    <p-treetable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #header>
-            <tr>
-                <th>Name</th>
-                <th>Size</th>
-                <th>Type</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-rowNode let-rowData="rowData">
-            <tr [ttRow]="rowNode">
-                <td>
-                    <div class="flex items-center gap-2">
-                        <p-treetable-toggler [rowNode]="rowNode" />
-                        <span>{{ rowData.name }}</span>
-                    </div>
-                </td>
-                <td>{{ rowData.size }}</td>
-                <td>{{ rowData.type }}</td>
-            </tr>
-        </ng-template>
-    </p-treetable>
-</div>`,
-
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { NodeService } from '@/service/nodeservice';
-import { TreeTableModule } from 'primeng/treetable';
-
-@Component({
-    selector: 'tree-table-gridlines-demo',
-    templateUrl: './tree-table-gridlines-demo.html',
-    standalone: true,
-    imports: [TreeTableModule],
-    providers: [NodeService]
-})
-export class TreeTableGridlinesDemo implements OnInit {
-    files!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
-
-    ngOnInit() {
-        this.nodeService.getFilesystem().then((files) => (this.files = files));
-    }
-}`,
-
-        service: ['NodeService']
-    };
 }

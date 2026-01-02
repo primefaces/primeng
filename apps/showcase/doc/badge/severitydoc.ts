@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
 import { AppCode } from '@/components/doc/app.code';
@@ -21,27 +20,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p-badge value="3" severity="danger" />
             <p-badge value="5" severity="contrast" />
         </div>
-        <app-code [code]="code" selector="badge-severity-demo"></app-code>
+        <app-code selector="badge-severity-demo"></app-code>
     `
 })
-export class SeverityDoc {
-    code: Code = {
-        basic: `<p-badge [value]="2" severity="success" />`,
-        html: `<div class="card flex justify-center gap-2">
-    <p-badge [value]="2" severity="success" />
-    <p-badge [value]="9" severity="info" />
-    <p-badge [value]="3" severity="warn" />
-    <p-badge [value]="9" severity="danger" />
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
-
-@Component({
-    selector: 'badge-severity-demo',
-    templateUrl: './badge-severity-demo.html',
-    standalone: true,
-    imports: [BadgeModule]
-})
-export class BadgeSeverityDemo {}`
-    };
-}
+export class SeverityDoc {}

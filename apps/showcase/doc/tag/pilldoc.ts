@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Code } from '@/domain/code';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { TagModule } from 'primeng/tag';
@@ -21,36 +20,7 @@ import { TagModule } from 'primeng/tag';
             <p-tag severity="danger" value="Danger" [rounded]="true" />
             <p-tag severity="contrast" value="Contrast" [rounded]="true" />
         </div>
-        <app-code [code]="code" selector="tag-pill-demo"></app-code>
+        <app-code selector="tag-pill-demo"></app-code>
     `
 })
-export class PillDoc {
-    code: Code = {
-        basic: `<p-tag value="Primary" [rounded]="true" />
-<p-tag severity="secondary" value="Secondary" [rounded]="true" />
-<p-tag severity="success" value="Success" [rounded]="true" />
-<p-tag severity="info" value="Info" [rounded]="true" />
-<p-tag severity="warn" value="Warn" [rounded]="true" />
-<p-tag severity="danger" value="Danger" [rounded]="true" />
-<p-tag severity="contrast" value="Contrast" [rounded]="true" />`,
-        html: `<div class="card flex justify-center gap-2">
-    <p-tag value="Primary" [rounded]="true" />
-    <p-tag severity="secondary" value="Secondary" [rounded]="true" />
-    <p-tag severity="success" value="Success" [rounded]="true" />
-    <p-tag severity="info" value="Info" [rounded]="true" />
-    <p-tag severity="warn" value="Warn" [rounded]="true" />
-    <p-tag severity="danger" value="Danger" [rounded]="true" />
-    <p-tag severity="contrast" value="Contrast" [rounded]="true" />
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
-
-@Component({
-    selector: 'tag-pill-demo',
-    templateUrl: './tag-pill-demo.html',
-    standalone: true,
-    imports: [TagModule]
-})
-export class TagPillDemo {}`
-    };
-}
+export class PillDoc {}

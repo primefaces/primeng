@@ -12,57 +12,57 @@ Galleria can be extended further to implement complex requirements.
 
 ```html
 <p-galleria
-    #galleria
-    [(value)]="images"
-    [(activeIndex)]="activeIndex"
-    [numVisible]="5"
-    [showThumbnails]="showThumbnails"
-    [showItemNavigators]="true"
-    [showItemNavigatorsOnHover]="true"
-    [circular]="true"
-    [autoPlay]="isAutoPlay"
-    [transitionInterval]="3000"
-    [containerStyle]="{ 'max-width': '640px' }"
-    [pt]="galleriaPT"
+#galleria
+[(value)]="images"
+[(activeIndex)]="activeIndex"
+[numVisible]="5"
+[showThumbnails]="showThumbnails"
+[showItemNavigators]="true"
+[showItemNavigatorsOnHover]="true"
+[circular]="true"
+[autoPlay]="isAutoPlay"
+[transitionInterval]="3000"
+[containerStyle]="{ 'max-width': '640px' }"
+[pt]="galleriaPT"
 >
-    <ng-template #item let-item>
-        <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
-    </ng-template>
-    <ng-template #thumbnail let-item>
-        <div class="grid gap-4 justify-center">
-            <img [src]="item.thumbnailImageSrc" style="display: block" />
-        </div>
-    </ng-template>
-    <ng-template #footer let-item>
-        <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
-            <button
-                type="button"
-                pButton
-                icon="pi pi-th-large"
-                (click)="onThumbnailButtonClick()"
-                class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
-            ></button>
-            <button
-                type="button"
-                pButton
-                [icon]="slideButtonIcon()"
-                (click)="toggleAutoSlide()"
-                class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
-            ></button>
-            <span *ngIf="images" class="flex items-center gap-4 ml-3">
-                <span class="text-sm">{{ activeIndex + 1 }}/{{ images.length }}</span>
-                <span class="font-bold text-sm">{{ images[activeIndex].title }}</span>
-                <span class="text-sm">{{ images[activeIndex].alt }}</span>
-            </span>
-            <button
-                type="button"
-                pButton
-                [icon]="fullScreenIcon()"
-                (click)="toggleFullScreen()"
-                class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3 ml-auto"
-            ></button>
-        </div>
-    </ng-template>
+<ng-template #item let-item>
+    <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
+</ng-template>
+<ng-template #thumbnail let-item>
+    <div class="grid gap-4 justify-center">
+        <img [src]="item.thumbnailImageSrc" style="display: block" />
+    </div>
+</ng-template>
+<ng-template #footer let-item>
+    <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
+        <button
+        type="button"
+        pButton
+        icon="pi pi-th-large"
+        (click)="onThumbnailButtonClick()"
+        class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
+        ></button>
+        <button
+        type="button"
+        pButton
+        [icon]="slideButtonIcon()"
+        (click)="toggleAutoSlide()"
+        class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
+        ></button>
+        <span *ngIf="images" class="flex items-center gap-4 ml-3">
+            <span class="text-sm">{{ activeIndex + 1 }}/{{ images.length }}</span>
+            <span class="font-bold text-sm">{{ images[activeIndex].title }}</span>
+            <span class="text-sm">{{ images[activeIndex].alt }}</span>
+        </span>
+        <button
+        type="button"
+        pButton
+        [icon]="fullScreenIcon()"
+        (click)="toggleFullScreen()"
+        class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3 ml-auto"
+        ></button>
+    </div>
+</ng-template>
 </p-galleria>
 ```
 
@@ -70,60 +70,87 @@ Galleria can be extended further to implement complex requirements.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { ChangeDetectorRef, Component, OnInit, OnDestroy, ViewChild, PLATFORM_ID, Inject } from '@angular/core';
-import { Galleria } from 'primeng/galleria';
+import { Component, OnInit } from '@angular/core';
+import { GalleriaModule } from 'primeng/galleria';
+import { ButtonModule } from 'primeng/button';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({
-    selector: 'galleria-advanced-demo',
-    templateUrl: './galleria-advanced-demo.html',
+    template: `
+        <div class="card">
+            <p-galleria
+            #galleria
+            [(value)]="images"
+            [(activeIndex)]="activeIndex"
+            [numVisible]="5"
+            [showThumbnails]="showThumbnails"
+            [showItemNavigators]="true"
+            [showItemNavigatorsOnHover]="true"
+            [circular]="true"
+            [autoPlay]="isAutoPlay"
+            [transitionInterval]="3000"
+            [containerStyle]="{ 'max-width': '640px' }"
+            [pt]="galleriaPT"
+            >
+            <ng-template #item let-item>
+                <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
+            </ng-template>
+            <ng-template #thumbnail let-item>
+                <div class="grid gap-4 justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block" />
+                </div>
+            </ng-template>
+            <ng-template #footer let-item>
+                <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
+                    <button
+                    type="button"
+                    pButton
+                    icon="pi pi-th-large"
+                    (click)="onThumbnailButtonClick()"
+                    class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
+                    ></button>
+                    <button
+                    type="button"
+                    pButton
+                    [icon]="slideButtonIcon()"
+                    (click)="toggleAutoSlide()"
+                    class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
+                    ></button>
+                    <span *ngIf="images" class="flex items-center gap-4 ml-3">
+                        <span class="text-sm">{{ activeIndex + 1 }}/{{ images.length }}</span>
+                        <span class="font-bold text-sm">{{ images[activeIndex].title }}</span>
+                        <span class="text-sm">{{ images[activeIndex].alt }}</span>
+                    </span>
+                    <button
+                    type="button"
+                    pButton
+                    [icon]="fullScreenIcon()"
+                    (click)="toggleFullScreen()"
+                    class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3 ml-auto"
+                    ></button>
+                </div>
+            </ng-template>
+        </p-galleria>
+        </div>
+    `,
     standalone: true,
-    imports: [ButtonModule, GalleriaModule],
-    providers: [PhotoService]
+    imports: [GalleriaModule, ButtonModule]
+    providers: [PhotoService],
 })
-export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
-
+export class GalleriaAdvancedDemo implements OnInit {
     images: any[] | undefined;
-
     showThumbnails: boolean = false;
-
     fullscreen: boolean = false;
-
     activeIndex: number = 0;
-
     isAutoPlay: boolean = true;
-
     onFullScreenListener: any;
 
-    get galleriaPT() {
-        return {
-            root: {
-                class: [{ 'flex flex-col': this.fullscreen }]
-            },
-            content: {
-                class: ['relative', { 'flex-1 justify-center': this.fullscreen }]
-            },
-            thumbnails: 'absolute w-full left-0 bottom-0'
-        };
-    }
-
-    @ViewChild('galleria') galleria: Galleria | undefined;
-
-    constructor(@Inject(PLATFORM_ID) private platformId: any, private photoService: PhotoService, private cd: ChangeDetectorRef) {}
-
-    responsiveOptions: any[] = [
-        {
-            breakpoint: '1300px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1
-        }
-    ];
+    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
+        this.photoService.getImages().then((images) => {
+            this.images = images;
+        });
         this.bindDocumentListeners();
     }
 
@@ -141,7 +168,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
         } else {
             this.openPreviewFullScreen();
         }
-
+        
         this.cd.detach();
     }
 
@@ -168,31 +195,37 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     }
 
     closePreviewFullScreen() {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document['mozCancelFullScreen']) {
-            document['mozCancelFullScreen']();
-        } else if (document['webkitExitFullscreen']) {
-            document['webkitExitFullscreen']();
-        } else if (document['msExitFullscreen']) {
-            document['msExitFullscreen']();
+        if (isPlatformBrowser(this.platformId)) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document['mozCancelFullScreen']) {
+                document['mozCancelFullScreen']();
+            } else if (document['webkitExitFullscreen']) {
+                document['webkitExitFullscreen']();
+            } else if (document['msExitFullscreen']) {
+                document['msExitFullscreen']();
+            }
         }
     }
 
     bindDocumentListeners() {
-        this.onFullScreenListener = this.onFullScreenChange.bind(this);
-        document.addEventListener('fullscreenchange', this.onFullScreenListener);
-        document.addEventListener('mozfullscreenchange', this.onFullScreenListener);
-        document.addEventListener('webkitfullscreenchange', this.onFullScreenListener);
-        document.addEventListener('msfullscreenchange', this.onFullScreenListener);
+        if (isPlatformBrowser(this.platformId)) {
+            this.onFullScreenListener = this.onFullScreenChange.bind(this);
+            document.addEventListener('fullscreenchange', this.onFullScreenListener);
+            document.addEventListener('mozfullscreenchange', this.onFullScreenListener);
+            document.addEventListener('webkitfullscreenchange', this.onFullScreenListener);
+            document.addEventListener('msfullscreenchange', this.onFullScreenListener);
+        }
     }
 
     unbindDocumentListeners() {
-        document.removeEventListener('fullscreenchange', this.onFullScreenListener);
-        document.removeEventListener('mozfullscreenchange', this.onFullScreenListener);
-        document.removeEventListener('webkitfullscreenchange', this.onFullScreenListener);
-        document.removeEventListener('msfullscreenchange', this.onFullScreenListener);
-        this.onFullScreenListener = null;
+        if (isPlatformBrowser(this.platformId)) {
+            document.removeEventListener('fullscreenchange', this.onFullScreenListener);
+            document.removeEventListener('mozfullscreenchange', this.onFullScreenListener);
+            document.removeEventListener('webkitfullscreenchange', this.onFullScreenListener);
+            document.removeEventListener('msfullscreenchange', this.onFullScreenListener);
+            this.onFullScreenListener = null;
+        }
     }
 
     ngOnDestroy() {
@@ -204,7 +237,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     }
 
     fullScreenIcon() {
-        return \`pi \${this.fullscreen ? 'pi-window-minimize' : 'pi-window-maximize'}\`;
+        return `pi ${this.fullscreen ? 'pi-window-minimize' : 'pi-window-maximize'}`;
     }
 }
 ```
@@ -229,30 +262,29 @@ A slideshow implementation is defined by adding circular and autoPlay properties
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, model } from '@angular/core';
-import { PhotoService } from '@/service/photoservice';
+import { Component, OnInit } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
+import { PhotoService } from '@/service/photoservice';
 
 @Component({
-    selector: 'galleria-autoplay-demo',
-    templateUrl: './galleria-autoplay-demo.html',
+    template: `
+        <div class="card">
+            <p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
+                <ng-template #item let-item>
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+                </ng-template>
+                <ng-template #thumbnail let-item>
+                    <img [src]="item.thumbnailImageSrc" style="display: block" />
+                </ng-template>
+            </p-galleria>
+        </div>
+    `,
     standalone: true,
-    imports: [GalleriaModule],
-    providers: [PhotoService]
+    imports: [GalleriaModule]
+    providers: [PhotoService],
 })
 export class GalleriaAutoplayDemo implements OnInit {
-    images = model([]);
-
-    responsiveOptions: any[] = [
-        {
-            breakpoint: '1300px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1
-        }
-    ];
+    responsiveOptions: any[];
 
     constructor(private photoService: PhotoService) {}
 
@@ -301,37 +333,39 @@ Description of an image is specified with the caption template.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, model } from '@angular/core';
-import { PhotoService } from '@/service/photoservice';
+import { Component, OnInit } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
+import { PhotoService } from '@/service/photoservice';
 
 @Component({
-    selector: 'galleria-caption-demo',
-    templateUrl: './galleria-caption-demo.html',
+    template: `
+        <div class="card">
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+                <ng-template #item let-item>
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+                </ng-template>
+                <ng-template #thumbnail let-item>
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </ng-template>
+                <ng-template #caption let-item>
+                    <div class="text-xl mb-2 font-bold">{{ item.title }}</div>
+                    <p class="text-white">{{ item.alt }}</p>
+                </ng-template>
+            </p-galleria>
+        </div>
+    `,
     standalone: true,
-    imports: [GalleriaModule],
-    providers: [PhotoService]
+    imports: [GalleriaModule]
+    providers: [PhotoService],
 })
 export class GalleriaCaptionDemo implements OnInit {
-    images = model([]);
-
-    responsiveOptions: any[] = [
-        {
-            breakpoint: '1300px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1
-        }
-    ];
+    responsiveOptions: any[];
 
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
     }
-
 }
 ```
 </details>
@@ -359,48 +393,40 @@ Galleria can be controlled programmatically using the activeIndex property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, model } from '@angular/core';
-import { PhotoService } from '@/service/photoservice';
-import { GalleriaModule } from 'primeng/galleria';
+import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { GalleriaModule } from 'primeng/galleria';
+import { PhotoService } from '@/service/photoservice';
 
 @Component({
-    selector: 'galleria-controlled-demo',
-    templateUrl: './galleria-controlled-demo.html',
+    template: `
+        <div class="card">
+            <div class="mb-4">
+                <p-button type="button" icon="pi pi-minus" (click)="prev()" />
+                <p-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
+            </div>
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
+                <ng-template #item let-item>
+                    <img [src]="item.itemImageSrc" style="width: 100%;" />
+                </ng-template>
+                <ng-template #thumbnail let-item>
+                    <img [src]="item.thumbnailImageSrc" />
+                </ng-template>
+            </p-galleria>
+        </div>
+    `,
     standalone: true,
-    imports: [GalleriaModule, ButtonModule],
-    providers: [PhotoService]
+    imports: [ButtonModule, GalleriaModule]
+    providers: [PhotoService],
 })
 export class GalleriaControlledDemo implements OnInit {
-    images = model([])
-
-    get activeIndex(): number {
-        return this._activeIndex;
-    }
-
-    set activeIndex(newValue) {
-        if (this.images() && 0 <= newValue && newValue <= this.images().length - 1) {
-            this._activeIndex = newValue;
-        }
-    }
-
     _activeIndex: number = 2;
-
-    responsiveOptions: any[] = [
-        {
-            breakpoint: '1300px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1
-        }
-    ];
+    responsiveOptions: any[];
 
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images.set(images)));
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 
     next() {
@@ -433,30 +459,29 @@ Galleria responsiveness is defined with the responsiveOptions property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, model } from '@angular/core';
-import { PhotoService } from '@/service/photoservice';
+import { Component, OnInit } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
+import { PhotoService } from '@/service/photoservice';
 
 @Component({
-    selector: 'galleria-responsive-demo',
-    templateUrl: './galleria-responsive-demo.html',
+    template: `
+        <div class="card">
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="7" [circular]="true">
+                <ng-template #item let-item>
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+                </ng-template>
+                <ng-template #thumbnail let-item>
+                    <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block;" />
+                </ng-template>
+            </p-galleria>
+        </div>
+    `,
     standalone: true,
-    imports: [GalleriaModule],
-    providers: [PhotoService]
+    imports: [GalleriaModule]
+    providers: [PhotoService],
 })
 export class GalleriaResponsiveDemo implements OnInit {
-    images = model([]);
-
-    responsiveOptions: any[] = [
-        {
-            breakpoint: '1300px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1
-        }
-    ];
+    responsiveOptions: any[];
 
     constructor(private photoService: PhotoService) {}
 
@@ -467,31 +492,15 @@ export class GalleriaResponsiveDemo implements OnInit {
 ```
 </details>
 
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
-
 ## Thumbnail
 
 Galleria can be controlled programmatically using the activeIndex property.
 
 ```html
-<div class="flex flex-wrap gap-4 mb-8">
-    <div *ngFor="let option of positionOptions" class="flex items-center">
-        <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label" />
-        <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
-    </div>
+<div *ngFor="let option of positionOptions" class="flex items-center">
+    <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
+    <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
 </div>
-<p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" >
-    <ng-template pTemplate="item" let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
-    </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
-        <div class="grid gap-4 justify-center">
-            <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block" />
-        </div>
-    </ng-template>
-</p-galleria>
 ```
 
 <details>
@@ -499,52 +508,39 @@ Galleria can be controlled programmatically using the activeIndex property.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { PhotoService } from '@/service/photoservice';
-import { GalleriaModule } from 'primeng/galleria';
-import { RadioButton } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
+import { GalleriaModule } from 'primeng/galleria';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { PhotoService } from '@/service/photoservice';
 
 @Component({
-    selector: 'galleria-thumbnail-demo',
-    templateUrl: './galleria-thumbnail-demo.html',
+    template: `
+        <div class="card">
+            <div class="flex flex-wrap gap-4 mb-8">
+                <div *ngFor="let option of positionOptions" class="flex items-center">
+                    <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
+                    <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
+                </div>
+            </div>
+            <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+                <ng-template #item let-item>
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+                </ng-template>
+                <ng-template #thumbnail let-item>
+                    <div class="grid gap-4 justify-center">
+                        <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block" />
+                    </div>
+                </ng-template>
+            </p-galleria>
+        </div>
+    `,
     standalone: true,
-    imports: [GalleriaModule, RadioButton, FormsModule],
-    providers: [PhotoService]
+    imports: [GalleriaModule, RadioButtonModule, FormsModule]
+    providers: [PhotoService],
 })
 export class GalleriaThumbnailDemo implements OnInit {
     images: any[] | undefined;
-
-    position: 'left' | 'right' | 'top' | 'bottom' = 'bottom' = 'bottom';
-
-    positionOptions = [
-        {
-            label: 'Bottom',
-            value: 'bottom'
-        },
-        {
-            label: 'Top',
-            value: 'top'
-        },
-        {
-            label: 'Left',
-            value: 'left'
-        },
-        {
-            label: 'Right',
-            value: 'right'
-        }
-    ];
-
-    responsiveOptions: any[] = [
-        {
-            breakpoint: '1300px',
-            numVisible: 4,
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1,
-        },
-    ];
+    responsiveOptions: any[];
 
     constructor(private photoService: PhotoService) {}
 

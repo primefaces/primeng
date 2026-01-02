@@ -25,35 +25,6 @@ Images are defined using templating with left and right templates. Use the style
 
 Apply responsive styles to the container element to optimize display per screen size.
 
-```html
-<p-imagecompare class="sm:!w-96 shadow-lg rounded-2xl">
-    <ng-template #left>
-        <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
-    </ng-template>
-    <ng-template #right>
-        <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
-    </ng-template>
-</p-imagecompare>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { ImageCompareModule } from 'primeng/imagecompare';
-
-@Component({
-    selector: 'image-compare-responsive-demo',
-    templateUrl: './image-compare-responsive-demo.html',
-    standalone: true,
-    imports: [ImageCompareModule]
-})
-export class ImageCompareResponsiveDemo {
-}
-```
-</details>
-
 ## Pass Through Options
 
 | Name | Type | Description |

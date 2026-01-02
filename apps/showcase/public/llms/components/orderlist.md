@@ -22,72 +22,6 @@ OrderList is used as a controlled input with value property. Content of a list i
 
 Items can be reordered using drag and drop by enabling dragdrop property. Depends on &#64;angular/cdk package.
 
-```html
-<p-orderlist [value]="products" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
-    <ng-template let-option let-selected="selected" #item>
-        <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-            <img
-                class="w-12 shrink-0 rounded"
-                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}"
-                [alt]="option.name"
-            />
-            <div class="flex-1 flex flex-col">
-                <span class="font-medium text-sm">{{ option.name }}</span>
-                <span
-                    [ngClass]="{
-                        'text-sm': true,
-                        'text-surface-500': !selected,
-                        'dark:text-surface-400': !selected,
-                        'text-inherit': selected,
-                    }"
-                    >{{ option.category }}</span
-                >
-            </div>
-            <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
-        </div>
-    </ng-template>
-</p-orderlist>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { OrderListModule } from 'primeng/orderlist';
-
-@Component({
-    selector: 'orderlist-drag-drop-demo',
-    templateUrl: './orderlist-drag-drop-demo.html',
-    standalone: true,
-    imports: [OrderListModule],
-    providers: [ProductService]
-})
-export class OrderlistDragDropDemo implements OnInit {
-    products!: Product[];
-
-    constructor(private productService: ProductService) {}
-
-    ngOnInit() {
-        this.productService.getProductsSmall().then((cars) => (this.products = cars));
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warning';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
-    }
-}
-```
-</details>
-
 ## Filter
 
 Filter value is checked against the property of an object configured with the filterBy property
@@ -96,21 +30,17 @@ Filter value is checked against the property of an object configured with the fi
 <p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-            <img
-                class="w-12 shrink-0 rounded"
-                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}"
-                [alt]="option.name"
-            />
+            <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
             <div class="flex-1 flex flex-col">
                 <span class="font-medium text-sm">{{ option.name }}</span>
                 <span
-                    [ngClass]="{
-                        'text-sm': true,
-                        'text-surface-500': !selected,
-                        'dark:text-surface-400': !selected,
-                        'text-inherit': selected,
-                    }"
-                    >{{ option.category }}</span
+                [ngClass]="{
+                'text-sm': true,
+                'text-surface-500': !selected,
+                'dark:text-surface-400': !selected,
+                'text-inherit': selected
+                }"
+                >{{ option.category }}</span
                 >
             </div>
             <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
@@ -124,16 +54,37 @@ Filter value is checked against the property of an object configured with the fi
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
 import { OrderListModule } from 'primeng/orderlist';
+import { ProductService } from '@/service/productservice';
 
 @Component({
-    selector: 'orderlist-filter-demo',
-    templateUrl: './orderlist-filter-demo.html',
+    template: `
+        <div class="card sm:flex sm:justify-center">
+            <p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
+                <ng-template let-option let-selected="selected" #item>
+                    <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                        <div class="flex-1 flex flex-col">
+                            <span class="font-medium text-sm">{{ option.name }}</span>
+                            <span
+                            [ngClass]="{
+                            'text-sm': true,
+                            'text-surface-500': !selected,
+                            'dark:text-surface-400': !selected,
+                            'text-inherit': selected
+                            }"
+                            >{{ option.category }}</span
+                            >
+                        </div>
+                        <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
+                    </div>
+                </ng-template>
+            </p-orderlist>
+        </div>
+    `,
     standalone: true,
-    imports: [OrderListModule],
-    providers: [ProductService]
+    imports: [OrderListModule]
+    providers: [ProductService],
 })
 export class OrderlistFilterDemo implements OnInit {
     products!: Product[];
@@ -141,7 +92,10 @@ export class OrderlistFilterDemo implements OnInit {
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((cars) => (this.products = cars));
+        this.productService.getProductsSmall().then((cars) => {
+            this.products = cars;
+            this.cdr.detectChanges();
+        });
     }
 
     getSeverity(status: string) {
@@ -157,10 +111,6 @@ export class OrderlistFilterDemo implements OnInit {
 }
 ```
 </details>
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Template
 
@@ -170,21 +120,17 @@ For custom content support define an item template that gets the item instance a
 <p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-            <img
-                class="w-12 shrink-0 rounded"
-                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}"
-                [alt]="option.name"
-            />
+            <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
             <div class="flex-1 flex flex-col">
                 <span class="font-medium text-sm">{{ option.name }}</span>
                 <span
-                    [ngClass]="{
-                        'text-sm': true,
-                        'text-surface-500': !selected,
-                        'dark:text-surface-400': !selected,
-                        'text-inherit': selected,
-                    }"
-                    >{{ option.category }}</span
+                [ngClass]="{
+                'text-sm': true,
+                'text-surface-500': !selected,
+                'dark:text-surface-400': !selected,
+                'text-inherit': selected
+                }"
+                >{{ option.category }}</span
                 >
             </div>
             <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
@@ -198,24 +144,57 @@ For custom content support define an item template that gets the item instance a
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
 import { OrderListModule } from 'primeng/orderlist';
+import { ProductService } from '@/service/productservice';
 
 @Component({
-    selector: 'orderlist-template-demo',
-    templateUrl: './orderlist-template-demo.html',
+    template: `
+        <div class="card sm:flex sm:justify-center">
+            <p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+                <ng-template let-option let-selected="selected" #item>
+                    <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                        <div class="flex-1 flex flex-col">
+                            <span class="font-medium text-sm">{{ option.name }}</span>
+                            <span
+                            [ngClass]="{
+                            'text-sm': true,
+                            'text-surface-500': !selected,
+                            'dark:text-surface-400': !selected,
+                            'text-inherit': selected
+                            }"
+                            >{{ option.category }}</span
+                            >
+                        </div>
+                        <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
+                    </div>
+                </ng-template>
+            </p-orderlist>
+        </div>
+    `,
     standalone: true,
-    imports: [OrderListModule],
-    providers: [ProductService]
+    imports: [OrderListModule]
+    providers: [ProductService],
 })
 export class OrderlistTemplateDemo implements OnInit {
     products!: Product[];
+    id?: string;
+    name?: string;
+    description?: string;
+    price?: number;
+    quantity?: number;
+    inventoryStatus?: string;
+    category?: string;
+    image?: string;
+    rating?: number;
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((cars) => (this.products = cars));
+        this.productService.getProductsSmall().then((cars) => {
+            this.products = cars;
+            this.cdr.detectChanges();
+        });
     }
 
     getSeverity(status: string) {

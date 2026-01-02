@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -28,7 +27,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 the <i>maximizeButtonProps</i>.
             </p>
 
-            <app-code [code]="code" [hideToggleCode]="true"></app-code>
+            <app-code [hideToggleCode]="true"></app-code>
 
             <h3>Overlay Keyboard Support</h3>
             <div class="doc-tablewrapper">
@@ -79,12 +78,4 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
     </div>`
 })
-export class AccessibilityDoc {
-    code: Code = {
-        html: `<p-button icon="pi pi-external-link" (click)="visible = true" aria-controls="{{visible ? 'dialog' : null}}" aria-expanded="{{visible ? true : false}}" />
-
-<p-dialog id="dialog" header="Header" [(visible)]="visible" [style]="{ width: '50vw' }" (onHide)="visible = false">
-    <p>Content</p>
-</p-dialog>`
-    };
-}
+export class AccessibilityDoc {}

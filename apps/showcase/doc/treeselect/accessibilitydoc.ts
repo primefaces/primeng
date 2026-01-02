@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -24,7 +23,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>If filtering is enabled, <i>filterInputProps</i> can be defined to give <i>aria-*</i> props to the filter input element.</p>
         </app-docsectiontext>
 
-        <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+        <app-code [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
 
         <h3>Closed State Keyboard Support</h3>
         <div class="doc-tablewrapper">
@@ -183,11 +182,4 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </div>
     </div>`
 })
-export class AccessibilityDoc {
-    code: Code = {
-        basic: `<span id="dd1">Options</span>
-<p-treeselect ariaLabelledBy="dd1" />
-
-<p-treeselect ariaLabel="Options" />`
-    };
-}
+export class AccessibilityDoc {}

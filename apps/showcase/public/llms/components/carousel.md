@@ -11,26 +11,11 @@ Screen Reader Carousel uses region role and since any attribute is passed to the
 Carousel requires a collection of items as its value along with a template to render each item.
 
 ```html
-<p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
-    <ng-template let-product #item>
-        <div class="border border-surface rounded-border m-2 p-4">
-            <div class="mb-4">
-                <div class="relative mx-auto">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                </div>
-            </div>
-            <div class="mb-4 font-medium">{{ product.name }}</div>
-            <div class="flex justify-between items-center">
-                <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
-                <span>
-                    <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                    <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                </span>
-            </div>
-        </div>
-    </ng-template>
-</p-carousel>
+<div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+<span>
+    <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+    <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+</span>
 ```
 
 ## Circular
@@ -38,26 +23,11 @@ Carousel requires a collection of items as its value along with a template to re
 When autoplayInterval is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling circular property needs to be added which is enabled automatically in auto play mode.
 
 ```html
-<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
-    <ng-template let-product #item>
-        <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
-            <div class="mb-4">
-                <div class="relative mx-auto">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                </div>
-            </div>
-            <div class="mb-4 font-medium">{{ product.name }}</div>
-            <div class="flex justify-between items-center">
-                <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
-                <span>
-                    <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                    <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                </span>
-            </div>
-        </div>
-    </ng-template>
-</p-carousel>
+<div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+<span>
+    <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+    <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+</span>
 ```
 
 <details>
@@ -65,31 +35,51 @@ When autoplayInterval is defined in milliseconds, items are scrolled automatical
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { Carousel } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { Tag } from 'primeng/tag';
+import { CarouselModule } from 'primeng/carousel';
+import { TagModule } from 'primeng/tag';
+import { ProductService } from '@/service/productservice';
 
 @Component({
-    selector: 'carousel-circular-demo',
-    templateUrl: './carousel-circular-demo.html',
+    template: `
+        <div class="card">
+            <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+                <ng-template let-product #item>
+                    <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
+                        <div class="mb-4">
+                            <div class="relative mx-auto">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                            </div>
+                        </div>
+                        <div class="mb-4 font-medium">{{ product.name }}</div>
+                        <div class="flex justify-between items-center">
+                            <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+                            <span>
+                                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                            </span>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+    `,
     standalone: true,
-    imports: [Carousel, ButtonModule, Tag],
-    providers: [ProductService]
+    imports: [ButtonModule, CarouselModule, TagModule]
+    providers: [ProductService],
 })
-export class CarouselCircularDemo implements OnInit{
+export class CarouselCircularDemo implements OnInit {
     products: Product[] | undefined;
-
     responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then(data => {
+        this.productService.getProductsSmall().then((data) => {
             this.products = data.slice(0, 9);
+            this.cdr.detectChanges();
         });
-
         this.responsiveOptions = [
             {
                 breakpoint: '1400px',
@@ -111,7 +101,7 @@ export class CarouselCircularDemo implements OnInit{
                 numVisible: 1,
                 numScroll: 1
             }
-        ]
+        ];
     }
 
     getSeverity(status: string) {
@@ -132,134 +122,16 @@ export class CarouselCircularDemo implements OnInit{
 
 Number of items to scroll is specified with the numScroll option.
 
-```html
-<p-carousel
-    [value]="products"
-    [numVisible]="3"
-    [numScroll]="1"
-    [responsiveOptions]="responsiveOptions">
-        <ng-template let-product #item>
-            <div class="border border-surface rounded-border m-2 p-4">
-                <div class="mb-4">
-                    <div class="relative mx-auto">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
-                            [alt]="product.name"
-                            class="w-full rounded-border" />
-                        <p-tag
-                            [value]="product.inventoryStatus"
-                            [severity]="getSeverity(product.inventoryStatus)"
-                            class="absolute"
-                            styleClass="dark:!bg-surface-900"
-                            [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                    </div>
-                </div>
-                <div class="mb-4 font-medium">
-                    {{ product.name }}
-                </div>
-                <div class="flex justify-between items-center">
-                    <div class="mt-0 font-semibold text-xl">
-                        {{ '$' + product.price }}
-                    </div>
-                    <span>
-                        <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                        <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                    </span>
-                </div>
-            </div>
-        </ng-template>
-</p-carousel>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { Carousel } from 'primeng/carousel';
-import { ButtonModule } from 'primeng/button';
-import { Tag } from 'primeng/tag';
-
-@Component({
-    selector: 'carousel-num-scroll-demo',
-    templateUrl: './carousel-num-scroll-demo.html',
-    standalone: true,
-    imports: [Carousel, ButtonModule, Tag],
-    providers: [ProductService]
-
-})
-export class CarouselNumScrollDemo implements OnInit {
-    products: Product[] | undefined;
-
-    responsiveOptions: any[] | undefined;
-
-    constructor(private productService: ProductService) {}
-
-    ngOnInit() {
-        this.productService.getProductsSmall().then((products) => {
-            this.products = products;
-        });
-
-        this.responsiveOptions = [
-            {
-                breakpoint: '1199px',
-                numVisible: 1,
-                numScroll: 1
-            },
-            {
-                breakpoint: '991px',
-                numVisible: 2,
-                numScroll: 1
-            },
-            {
-                breakpoint: '767px',
-                numVisible: 1,
-                numScroll: 1
-            }
-        ];
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warn';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
-    }
-}
-```
-</details>
-
 ## Responsive
 
 Carousel supports specific configuration per screen size with the responsiveOptions property that takes an array of objects where each object defines the max-width breakpoint , numVisible for the number of items items per page and numScroll for number of items to scroll. When responsiveOptions is defined, the numScroll and numVisible properties of the Carousel are used as default when there is breakpoint that applies.
 
 ```html
-<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
-    <ng-template let-product #item>
-        <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
-            <div class="mb-4">
-                <div class="relative mx-auto">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                </div>
-            </div>
-            <div class="mb-4 font-medium">{{ product.name }}</div>
-            <div class="flex justify-between items-center">
-                <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
-                <span>
-                    <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                    <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                </span>
-            </div>
-        </div>
-    </ng-template>
-</p-carousel>
+<div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+<span>
+    <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+    <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+</span>
 ```
 
 <details>
@@ -267,22 +139,42 @@ Carousel supports specific configuration per screen size with the responsiveOpti
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { Carousel } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { Tag } from 'primeng/tag';
+import { CarouselModule } from 'primeng/carousel';
+import { TagModule } from 'primeng/tag';
+import { ProductService } from '@/service/productservice';
 
 @Component({
-    selector: 'carousel-responsive-demo',
-    templateUrl: './carousel-responsive-demo.html',
+    template: `
+        <div class="card">
+            <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+                <ng-template let-product #item>
+                    <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
+                        <div class="mb-4">
+                            <div class="relative mx-auto">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                            </div>
+                        </div>
+                        <div class="mb-4 font-medium">{{ product.name }}</div>
+                        <div class="flex justify-between items-center">
+                            <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+                            <span>
+                                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                            </span>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+    `,
     standalone: true,
-    imports: [Carousel, ButtonModule, Tag],
-    providers: [ProductService]
+    imports: [ButtonModule, CarouselModule, TagModule]
+    providers: [ProductService],
 })
-export class CarouselResponsiveDemo {
+export class CarouselResponsiveDemo implements OnInit {
     products: Product[] | undefined;
-
     responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
@@ -290,97 +182,45 @@ export class CarouselResponsiveDemo {
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
             this.products = products;
+            this.cdr.detectChanges();
         });
-
-
         this.responsiveOptions = [
             {
                 breakpoint: '1400px',
                 numVisible: 2,
-                numScroll: 1,
+                numScroll: 1
             },
             {
                 breakpoint: '1199px',
                 numVisible: 3,
-                numScroll: 1,
+                numScroll: 1
             },
             {
                 breakpoint: '767px',
                 numVisible: 2,
-                numScroll: 1,
+                numScroll: 1
             },
             {
                 breakpoint: '575px',
                 numVisible: 1,
-                numScroll: 1,
-            },
+                numScroll: 1
+            }
         ];
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warn';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
     }
 }
 ```
 </details>
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## templatedoc
 
 Custom content projection is available using the header and footer templates.
 
 ```html
-<p-carousel
-    [value]="products"
-    [numVisible]="3"
-    [numScroll]="1"
-    [responsiveOptions]="responsiveOptions">
-        <ng-template #header>
-            <p>Header content</p>
-        </ng-template>
-        <ng-template let-product #item>
-            <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
-                <div class="mb-4">
-                    <div class="relative mx-auto">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
-                            [alt]="product.name"
-                            class="w-full rounded-border" />
-                        <p-tag
-                            [value]="product.inventoryStatus"
-                            [severity]="getSeverity(product.inventoryStatus)"
-                            class="absolute dark:!bg-surface-900"
-                            [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                    </div>
-                </div>
-                <div class="mb-4 font-medium">
-                    {{ product.name }}
-                </div>
-                <div class="flex justify-between items-center">
-                    <div class="mt-0 font-semibold text-xl">
-                        {{ '$' + product.price }}
-                    </div>
-                    <span>
-                        <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                        <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                    </span>
-                </div>
-            </div>
-        </ng-template>
-        <ng-template #footer>
-            <p>Footer content</p>
-        </ng-template>
-</p-carousel>
+<div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+<span>
+    <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+    <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+</span>
 ```
 
 <details>
@@ -388,22 +228,48 @@ Custom content projection is available using the header and footer templates.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { Carousel } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { Tag } from 'primeng/tag';
+import { CarouselModule } from 'primeng/carousel';
+import { TagModule } from 'primeng/tag';
+import { ProductService } from '@/service/productservice';
 
 @Component({
-    selector: 'carousel-template-demo',
-    templateUrl: './carousel-template-demo.html',
+    template: `
+        <div class="card">
+            <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+                <ng-template #header>
+                    <p>Header content</p>
+                </ng-template>
+                <ng-template let-product #item>
+                    <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
+                        <div class="mb-4">
+                            <div class="relative mx-auto">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                            </div>
+                        </div>
+                        <div class="mb-4 font-medium">{{ product.name }}</div>
+                        <div class="flex justify-between items-center">
+                            <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+                            <span>
+                                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                            </span>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template #footer>
+                    <p>Footer content</p>
+                </ng-template>
+            </p-carousel>
+        </div>
+    `,
     standalone: true,
-    imports: [Carousel, ButtonModule, Tag],
-    providers: [ProductService]
+    imports: [ButtonModule, CarouselModule, TagModule]
+    providers: [ProductService],
 })
-export class CarouselTemplateDemo implements OnInit{
+export class CarouselTemplateDemo implements OnInit {
     products: Product[] | undefined;
-
     responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
@@ -411,8 +277,8 @@ export class CarouselTemplateDemo implements OnInit{
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
             this.products = products;
+            this.cdr.detectChanges();
         });
-
         this.responsiveOptions = [
             {
                 breakpoint: '1199px',
@@ -451,26 +317,11 @@ export class CarouselTemplateDemo implements OnInit{
 To create a vertical Carousel, orientation needs to be set to vertical along with a verticalViewPortHeight .
 
 ```html
-<p-carousel [value]="products" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
-    <ng-template let-product #item>
-        <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
-            <div class="mb-4">
-                <div class="relative mx-auto">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded" />
-                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                </div>
-            </div>
-            <div class="mb-4 font-medium">{{ product.name }}</div>
-            <div class="flex justify-between items-center">
-                <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
-                <span>
-                    <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                    <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                </span>
-            </div>
-        </div>
-    </ng-template>
-</p-carousel>
+<div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+<span>
+    <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+    <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+</span>
 ```
 
 <details>
@@ -478,48 +329,50 @@ To create a vertical Carousel, orientation needs to be set to vertical along wit
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { Carousel } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { Tag } from 'primeng/tag';
+import { CarouselModule } from 'primeng/carousel';
+import { TagModule } from 'primeng/tag';
+import { ProductService } from '@/service/productservice';
 
 @Component({
-    selector: 'carousel-vertical-demo',
-    templateUrl: './carousel-vertical-demo.html',
+    template: `
+        <div class="card">
+            <p-carousel [value]="products" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
+                <ng-template let-product #item>
+                    <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
+                        <div class="mb-4">
+                            <div class="relative mx-auto">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded" />
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                            </div>
+                        </div>
+                        <div class="mb-4 font-medium">{{ product.name }}</div>
+                        <div class="flex justify-between items-center">
+                            <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+                            <span>
+                                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                            </span>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+    `,
     standalone: true,
-    imports: [Carousel, ButtonModule, Tag],
-    providers: [ProductService]
+    imports: [ButtonModule, CarouselModule, TagModule]
+    providers: [ProductService],
 })
 export class CarouselVerticalDemo implements OnInit {
     products: Product[] | undefined;
-
-    responsiveOptions: any[];
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
             this.products = products;
+            this.cdr.detectChanges();
         });
-
-        this.responsiveOptions = [
-            {
-                breakpoint: '1024px',
-                numVisible: 3,
-                numScroll: 3
-            },
-            {
-                breakpoint: '768px',
-                numVisible: 2,
-                numScroll: 2
-            },
-            {
-                breakpoint: '560px',
-                numVisible: 1,
-                numScroll: 1
-            }
-        ];
     }
 
     getSeverity(status: string) {

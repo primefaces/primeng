@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -18,7 +17,7 @@ import { DatePickerModule } from 'primeng/datepicker';
             <p-datepicker [(ngModel)]="value2" placeholder="Normal" showIcon iconDisplay="input" />
             <p-datepicker [(ngModel)]="value3" size="large" placeholder="Large" showIcon iconDisplay="input" />
         </div>
-        <app-code [code]="code" selector="date-picker-sizes-demo"></app-code>
+        <app-code selector="date-picker-sizes-demo"></app-code>
     `
 })
 export class SizesDoc {
@@ -27,34 +26,4 @@ export class SizesDoc {
     value2: Date | undefined;
 
     value3: Date | undefined;
-
-    code: Code = {
-        basic: `<p-datepicker [(ngModel)]="value1" size="small" placeholder="Small" showIcon iconDisplay="input" />
-<p-datepicker [(ngModel)]="value2" placeholder="Normal" showIcon iconDisplay="input" />
-<p-datepicker [(ngModel)]="value3" size="large" placeholder="Large" showIcon iconDisplay="input" />`,
-
-        html: `<div class="card flex flex-col items-center gap-4">
-    <p-datepicker [(ngModel)]="value1" size="small" placeholder="Small" showIcon iconDisplay="input" />
-    <p-datepicker [(ngModel)]="value2" placeholder="Normal" showIcon iconDisplay="input" />
-    <p-datepicker [(ngModel)]="value3" size="large" placeholder="Large" showIcon iconDisplay="input" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { DatePicker } from 'primeng/datepicker';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'date-picker-sizes-demo',
-    templateUrl: './date-picker-sizes-demo.html',
-    standalone: true,
-    imports: [FormsModule, DatePicker]
-})
-export class DatePickerSizesDemo {
-    value1: Date | undefined;
-
-    value2: Date | undefined;
-
-    value3: Date | undefined;
-}`
-    };
 }

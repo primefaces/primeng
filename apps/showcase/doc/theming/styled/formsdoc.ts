@@ -13,7 +13,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <i>dropdown.hover.border.color</i> and <i>textarea.hover.border.color</i> would receive the change.
             </p>
         </app-docsectiontext>
-        <app-code [code]="code" selector="forms-demo" [hideToggleCode]="true"></app-code>
+        <app-code selector="forms-demo" [hideToggleCode]="true"></app-code>
     `
 })
 export class FormsDoc {

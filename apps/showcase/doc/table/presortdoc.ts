@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
@@ -67,7 +66,7 @@ import { CommonModule } from '@angular/common';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [code]="code" selector="table-presort-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code selector="table-presort-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PreSortDoc {
@@ -84,139 +83,6 @@ export class PreSortDoc {
             this.cd.markForCheck();
         });
     }
-
-    code: Code = {
-        basic: `<p-table [value]="products" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
-    <ng-template #header>
-        <tr>
-            <th pSortableColumn="code" style="width:20%">
-                <div class="flex items-center gap-2">
-                    Code
-                    <p-sortIcon field="code" />
-                </div>
-            </th>
-            <th pSortableColumn="name" style="width:20%">
-                <div class="flex items-center gap-2">
-                    Name
-                    <p-sortIcon field="name" />
-                </div>
-            </th>
-            <th pSortableColumn="price" style="width:20%">
-                <div class="flex items-center gap-2">
-                    Price
-                    <p-sortIcon field="price" />
-                </div>
-            </th>
-            <th pSortableColumn="category" style="width:20%">
-                <div class="flex items-center gap-2">
-                    Category
-                    <p-sortIcon field="category" />
-                </div>
-            </th>
-            <th pSortableColumn="quantity" style="width:20%">
-                <div class="flex items-center gap-2">
-                    Quantity
-                    <p-sortIcon field="quantity" />
-                </div>
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-product>
-        <tr>
-            <td>{{ product.code }}</td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.price | currency : 'USD' }}</td>
-            <td>{{ product.category }}</td>
-            <td>{{ product.quantity }}</td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table [value]="products" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
-        <ng-template #header>
-            <tr>
-                <th pSortableColumn="code" style="width:20%">
-                    <div class="flex items-center gap-2">
-                        Code
-                        <p-sortIcon field="code" />
-                    </div>
-                </th>
-                <th pSortableColumn="name" style="width:20%">
-                    <div class="flex items-center gap-2">
-                        Name
-                        <p-sortIcon field="name" />
-                    </div>
-                </th>
-                <th pSortableColumn="price" style="width:20%">
-                    <div class="flex items-center gap-2">
-                        Price
-                        <p-sortIcon field="price" />
-                    </div>
-                </th>
-                <th pSortableColumn="category" style="width:20%">
-                    <div class="flex items-center gap-2">
-                        Category
-                        <p-sortIcon field="category" />
-                    </div>
-                </th>
-                <th pSortableColumn="quantity" style="width:20%">
-                    <div class="flex items-center gap-2">
-                        Quantity
-                        <p-sortIcon field="quantity" />
-                    </div>
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-product>
-            <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.price | currency : 'USD' }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.quantity }}</td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
-
-@Component({
-    selector: 'table-presort-demo',
-    templateUrl: 'table-presort-demo.html',
-    standalone: true,
-    imports: [TableModule, CommonModule],
-    providers: [ProductService]
-})
-export class TablePreSortDemo implements OnInit {
-    products!: Product[];
-
-    constructor(private productService: ProductService) {}
-
-    ngOnInit() {
-        this.productService.getProductsMini().then((data) => {
-            this.products = data;
-        });
-    }
-}`,
-        data: `{
-    id: '1000',
-    code: 'f230fh0g3',
-    name: 'Bamboo Watch',
-    description: 'Product Description',
-    image: 'bamboo-watch.jpg',
-    price: 65,
-    category: 'Accessories',
-    quantity: 24,
-    inventoryStatus: 'INSTOCK',
-    rating: 5
-},
-...`,
-        service: ['ProductService']
-    };
 
     extFiles = [
         {

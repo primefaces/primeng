@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ToggleButtonModule } from 'primeng/togglebutton';
@@ -18,7 +17,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p-togglebutton [(ngModel)]="value2" onLabel="On" offLabel="Off" class="min-w-20" />
             <p-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" class="min-w-24" />
         </div>
-        <app-code [code]="code" selector="toggle-button-sizes-demo"></app-code>
+        <app-code selector="toggle-button-sizes-demo"></app-code>
     `
 })
 export class SizesDoc {
@@ -27,34 +26,4 @@ export class SizesDoc {
     value2: boolean = false;
 
     value3: boolean = false;
-
-    code: Code = {
-        basic: `<p-togglebutton [(ngModel)]="value1" onLabel="On" offLabel="Off" size="small" class="min-w-16" />
-<p-togglebutton [(ngModel)]="value2" onLabel="On" offLabel="Off" class="min-w-20" />
-<p-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" class="min-w-24" />`,
-
-        html: `<div class="card flex flex-col items-center gap-4">
-    <p-togglebutton [(ngModel)]="value1" onLabel="On" offLabel="Off" size="small" class="min-w-16" />
-    <p-togglebutton [(ngModel)]="value2" onLabel="On" offLabel="Off" class="min-w-20" />
-    <p-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" class="min-w-24" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ToggleButton } from 'primeng/togglebutton';
-
-@Component({
-    selector: 'toggle-button-sizes-demo',
-    templateUrl: './toggle-button-sizes-demo.html',
-    standalone: true,
-    imports: [FormsModule, ToggleButton]
-})
-export class ToggleButtonSizesDemo {
-    value1: boolean = false;
-
-    value2: boolean = false;
-
-    value3: boolean = false;
-}`
-    };
 }

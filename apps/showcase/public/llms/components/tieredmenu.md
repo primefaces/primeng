@@ -19,7 +19,7 @@ TieredMenu requires a collection of menuitems as its model .
 The command property defines the callback to run when an item is activated by click or a key event.
 
 ```html
-<p-toast/>
+<p-toast />
 <p-tieredmenu [model]="items" />
 ```
 
@@ -28,78 +28,84 @@ The command property defines the callback to run when an item is activated by cl
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { MessageService } from 'primeng/api';
-import { TieredMenu } from 'primeng/tieredmenu';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'tiered-menu-command-demo',
-    templateUrl: './tiered-menu-command-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-toast />
+            <p-tieredmenu [model]="items" />
+        </div>
+    `,
     standalone: true,
-    imports: [TieredMenu, ToastModule],
-    providers: [MessageService]
+    imports: [TieredMenuModule, ToastModule]
 })
 export class TieredMenuCommandDemo implements OnInit {
-
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
-          {
-            label: 'File',
-            icon: 'pi pi-file',
-            items: [
-              {
-                label: 'New',
-                icon: 'pi pi-plus',
+            {
+                label: 'File',
+                icon: 'pi pi-file',
+                items: [
+                    {
+                        label: 'New',
+                        icon: 'pi pi-plus',
+                        command: () => {
+                            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'File created', life: 3000 });
+                        }
+                    },
+                    {
+                        label: 'Print',
+                        icon: 'pi pi-print',
+                        command: () => {
+                            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No printer connected', life: 3000 });
+                        }
+                    }
+                ]
+            },
+            {
+                label: 'Search',
+                icon: 'pi pi-search',
                 command: () => {
-                  this.messageService.add({ severity: 'success', summary: 'Success', detail: 'File created', life: 3000 });
+                    this.messageService.add({ severity: 'warn', summary: 'Search Results', detail: 'No results found', life: 3000 });
                 }
-              },
-              {
-                label: 'Print',
-                icon: 'pi pi-print',
-                command: () => {
-                  this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No printer connected', life: 3000 });
-                }
-              }
-            ]
-          },
-          {
-            label: 'Search',
-            icon: 'pi pi-search',
-            command: () => {
-              this.messageService.add({ severity: 'warn', summary: 'Search Results', detail: 'No results found', life: 3000 });
+            },
+            {
+                separator: true
+            },
+            {
+                label: 'Sync',
+                icon: 'pi pi-cloud',
+                items: [
+                    {
+                        label: 'Import',
+                        icon: 'pi pi-cloud-download',
+                        command: () => {
+                            this.messageService.add({
+                                severity: 'info',
+                                summary: 'Downloads',
+                                detail: 'Downloaded from cloud',
+                                life: 3000
+                            });
+                        }
+                    },
+                    {
+                        label: 'Export',
+                        icon: 'pi pi-cloud-upload',
+                        command: () => {
+                            this.messageService.add({ severity: 'info', summary: 'Shared', detail: 'Exported to cloud', life: 3000 });
+                        }
+                    }
+                ]
             }
-          },
-          {
-            separator: true
-          },
-          {
-            label: 'Sync',
-            icon: 'pi pi-cloud',
-            items: [
-              {
-                label: 'Import',
-                icon: 'pi pi-cloud-download',
-                command: () => {
-                  this.messageService.add({ severity: 'info', summary: 'Downloads', detail: 'Downloaded from cloud', life: 3000 });
-                }
-              },
-              {
-                label: 'Export',
-                icon: 'pi pi-cloud-upload',
-                command: () => {
-                  this.messageService.add({ severity: 'info', summary: 'Shared', detail: 'Exported to cloud', life: 3000 });
-                }
-              }
-            ]
-          }
         ];
-      }
+    }
 }
 ```
 </details>
@@ -118,15 +124,19 @@ Popup mode is enabled by adding popup property and calling toggle method with an
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { TieredMenu } from 'primeng/tieredmenu';
 import { ButtonModule } from 'primeng/button';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { MenuItem } from 'primeng/api';
 
 @Component({
-    selector: 'tiered-menu-popup-demo',
-    templateUrl: './tiered-menu-popup-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-button label="Toggle" (click)="menu.toggle($event)" />
+            <p-tieredmenu #menu [model]="items" [popup]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [TieredMenu, ButtonModule]
+    imports: [ButtonModule, TieredMenuModule]
 })
 export class TieredMenuPopupDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -200,7 +210,7 @@ export class TieredMenuPopupDemo implements OnInit {
                     }
                 ]
             }
-        ]
+        ];
     }
 }
 ```
@@ -219,22 +229,20 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 import { MenuItem } from 'primeng/api';
-import { Router } from '@angular/router';
-import { TieredMenu } from 'primeng/tieredmenu';
-import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'tiered-menu-router-demo',
-    templateUrl: './tiered-menu-router-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-tieredmenu [model]="items" />
+        </div>
+    `,
     standalone: true,
-    imports: [TieredMenu, CommonModule]
+    imports: [TieredMenuModule]
 })
 export class TieredMenuRouterDemo implements OnInit {
-
     items: MenuItem[] | undefined;
-
-    constructor(private router: Router) {}
 
     ngOnInit() {
         this.items = [
@@ -279,10 +287,6 @@ export class TieredMenuRouterDemo implements OnInit {
 ```
 </details>
 
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
-
 ## Template
 
 TieredMenu offers item customization with the item template that receives the menuitem instance from the model as a parameter.
@@ -306,17 +310,29 @@ TieredMenu offers item customization with the item template that receives the me
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { TieredMenu } from 'primeng/tieredmenu';
 import { BadgeModule } from 'primeng/badge';
-import { CommonModule } from '@angular/common';
-import { Ripple } from 'primeng/ripple';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { RippleModule } from 'primeng/ripple';
+import { MenuItem } from 'primeng/api';
 
 @Component({
-    selector: 'tiered-menu-template-demo',
-    templateUrl: './tiered-menu-template-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-tieredmenu [model]="items">
+                <ng-template #item let-item let-hasSubmenu="hasSubmenu">
+                    <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
+                        <span [class]="item.icon"></span>
+                        <span class="ms-2">{{ item.label }}</span>
+                        <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
+                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        <i *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
+                    </a>
+                </ng-template>
+            </p-tieredmenu>
+        </div>
+    `,
     standalone: true,
-    imports: [TieredMenu, BadgeModule, Ripple, CommonModule]
+    imports: [BadgeModule, TieredMenuModule, RippleModule]
 })
 export class TieredMenuTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -400,7 +416,7 @@ export class TieredMenuTemplateDemo implements OnInit {
                     }
                 ]
             }
-        ]
+        ];
     }
 }
 ```

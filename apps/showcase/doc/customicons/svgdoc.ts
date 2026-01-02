@@ -1,12 +1,12 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'svg-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText],
+    imports: [AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
             <p>Inline SVGs are embedded inside the dom.</p>
@@ -16,7 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 })
 export class SVGDoc {
     code: Code = {
-        basic: `<p-select>
+        basic: `<p-dropdown>
     <ng-template #dropdownicon>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <g id="chevron-down">
@@ -24,6 +24,6 @@ export class SVGDoc {
             </g>
         </svg>
     </ng-template>
-</p-select>`
+</p-dropdown>`
     };
 }

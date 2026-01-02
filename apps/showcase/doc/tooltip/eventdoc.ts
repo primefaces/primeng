@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -16,27 +15,7 @@ import { TooltipModule } from 'primeng/tooltip';
         <div class="card flex flex-wrap justify-center gap-2">
             <input type="text" pInputText pTooltip="Enter your username" tooltipEvent="focus" placeholder="focus to display tooltip" />
         </div>
-        <app-code [code]="code" selector="tooltip-event-demo"></app-code>
+        <app-code selector="tooltip-event-demo"></app-code>
     `
 })
-export class EventDoc {
-    code: Code = {
-        basic: `<input type="text" pInputText pTooltip="Enter your username" tooltipEvent="focus" placeholder="focus to display tooltip" />`,
-
-        html: `<div class="card flex justify-center">
-    <input type="text" pInputText pTooltip="Enter your username" tooltipEvent="focus" placeholder="focus to display tooltip">
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { Tooltip } from 'primeng/tooltip';
-import { InputTextModule } from 'primeng/inputtext';
-
-@Component({
-    selector: 'tooltip-event-demo',
-    templateUrl: './tooltip-event-demo.html',
-    standalone: true,
-    imports: [Tooltip, InputTextModule]
-})
-export class TooltipEventDemo {}`
-    };
-}
+export class EventDoc {}

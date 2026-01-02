@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
 import { AppCode } from '@/components/doc/app.code';
@@ -17,26 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <i class="pi pi-calendar mr-6 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></i>
             <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger"></i>
         </div>
-        <app-code [code]="code" selector="badge-position-demo"></app-code>
+        <app-code selector="badge-position-demo"></app-code>
     `
 })
-export class PositionDoc {
-    code: Code = {
-        basic: `<i class="pi pi-bell mr-6 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>`,
-        html: `<div class="card flex justify-center">
-    <i class="pi pi-bell mr-6 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>
-    <i class="pi pi-calendar mr-6 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></i>
-    <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger"></i>
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
-
-@Component({
-    selector: 'badge-position-demo',
-    templateUrl: './badge-position-demo.html',
-    standalone: true,
-    imports: [BadgeModule]
-})
-export class BadgePositionDemo {}`
-    };
-}
+export class PositionDoc {}

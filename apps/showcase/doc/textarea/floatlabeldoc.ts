@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -34,7 +33,7 @@ import { TextareaModule } from 'primeng/textarea';
                 <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
-        <app-code [code]="code" selector="input-textarea-floatlabel-demo"></app-code>
+        <app-code selector="input-textarea-floatlabel-demo"></app-code>
     `
 })
 export class FloatlabelDoc {
@@ -43,57 +42,4 @@ export class FloatlabelDoc {
     value2: string = '';
 
     value3: string = '';
-
-    code: Code = {
-        basic: `<p-floatlabel>
-    <textarea pTextarea id="over_label" [(ngModel)]="value1" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
-    <label for="over_label">Over Label</label>
-</p-floatlabel>
-
-<p-floatlabel variant="in">
-    <textarea pTextarea id="in_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
-    <label for="in_label">In Label</label>
-</p-floatlabel>
-
-<p-floatlabel variant="on">
-    <textarea pTextarea id="on_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
-    <label for="on_label">On Label</label>
-</p-floatlabel>`,
-
-        html: `<div class="card flex flex-wrap justify-center items-stretch gap-4">
-    <p-floatlabel>
-        <textarea pTextarea id="over_label" [(ngModel)]="value1" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
-        <label for="over_label">Over Label</label>
-    </p-floatlabel>
-
-    <p-floatlabel variant="in">
-        <textarea pTextarea id="in_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
-        <label for="in_label">In Label</label>
-    </p-floatlabel>
-
-    <p-floatlabel variant="on">
-        <textarea pTextarea id="on_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
-        <label for="on_label">On Label</label>
-    </p-floatlabel>
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { TextareaModule } from 'primeng/textarea';
-import { FormsModule } from '@angular/forms';
-import { FloatLabel } from 'primeng/floatlabel';
-
-@Component({
-    selector: ': 'input-textarea-floatlabel-demo',
-    templateUrl: './: 'input-textarea-floatlabel-demo.html',
-    standalone: true,
-    imports: [FormsModule, TextareaModule, FloatLabel]
-})
-export class TextareaFloatlabelDemo {
-    value1: string = '';
-
-    value2: string = '';
-
-    value3: string = '';
-}`
-    };
 }

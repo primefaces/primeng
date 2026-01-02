@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputOtpModule } from 'primeng/inputotp';
@@ -16,31 +15,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <p-inputotp [(ngModel)]="value" />
         </div>
-        <app-code [code]="code" selector="input-otp-basic-demo"></app-code>
+        <app-code selector="input-otp-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
     value: any;
-
-    code: Code = {
-        basic: `<p-inputotp [(ngModel)]="value" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-inputotp [(ngModel)]="value" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { InputOtp } from 'primeng/inputotp';
-import { FormsModule } from '@angular/forms';
-
-@Component({
-    selector: 'input-otp-basic-demo',
-    templateUrl: './input-otp-basic-demo.html',
-    standalone: true,
-    imports: [FormsModule, InputOtp]
-})
-export class InputOtpBasicDemo {
-    value : any
-}`
-    };
 }

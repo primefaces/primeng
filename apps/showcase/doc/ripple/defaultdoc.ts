@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { RippleModule } from 'primeng/ripple';
 import { AppCode } from '@/components/doc/app.code';
@@ -20,7 +19,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             >
             <div pRipple class="ripple-box">Default</div>
         </div>
-        <app-code [code]="code" selector="ripple-default-demo"></app-code>
+        <app-code selector="ripple-default-demo"></app-code>
     `,
     styles: [
         `
@@ -40,51 +39,4 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         `
     ]
 })
-export class DefaultDoc {
-    code: Code = {
-        basic: `<div pRipple class="ripple-box">Default</div>`,
-        html: `<div class="card flex flex-col items-center gap-4">
-    <div pRipple class="ripple-box">Default</div>
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { Ripple } from 'primeng/ripple';
-
-@Component({
-    selector: 'ripple-default-demo',
-    templateUrl: './ripple-default-demo.html',
-    styles: [
-        \` :host {
-                .ripple-box {
-                    display: flex;
-                    user-select: none;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 3rem;
-                    font-weight: bold;
-                    background: var(--p-content-background);
-                    border: 1px solid var(--p-content-border-color);
-                    border-radius: var(--p-content-border-radius);
-                }
-            }\`
-    ],
-    standalone: true,
-    imports: [Ripple]
-})
-export class RippleDefaultDemo {
-}`,
-        scss: `:host {
-                .ripple-box {
-                    display: flex;
-                    user-select: none;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 3rem;
-                    font-weight: bold;
-                    background: var(--p-content-background);
-                    border: 1px solid var(--p-content-border-color);
-                    border-radius: var(--p-content-border-radius);
-                }
-            }
-}`
-    };
-}
+export class DefaultDoc {}

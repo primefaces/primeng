@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -23,7 +22,7 @@ interface AutoCompleteCompleteEvent {
         <div class="card flex justify-center">
             <p-autocomplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" optionLabel="label" [dropdown]="true" />
         </div>
-        <app-code [code]="code" selector="autocomplete-virtual-scroll-demo"></app-code>`
+        <app-code selector="autocomplete-virtual-scroll-demo"></app-code>`
 })
 export class VirtualScrollDoc {
     selectedItem: any;
@@ -53,57 +52,4 @@ export class VirtualScrollDoc {
             this.items.push({ label: 'Item ' + i, value: 'Item ' + i });
         }
     }
-
-    code: Code = {
-        basic: `<p-autocomplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" optionLabel="label" [dropdown]="true" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-autocomplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" optionLabel="label" [dropdown]="true" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { AutoComplete } from 'primeng/autocomplete';
-import { FormsModule } from '@angular/forms';
-
-interface AutoCompleteCompleteEvent {
-    originalEvent: Event;
-    query: string;
-}
-
-@Component({
-    selector: 'autocomplete-virtual-scroll-demo',
-    templateUrl: './autocomplete-virtual-scroll-demo.html',
-    standalone: true,
-    imports: [FormsModule, AutoComplete]
-})
-export class AutocompleteVirtualScrollDemo {
-    selectedItem: any;
-
-    filteredItems: any[] | undefined;
-
-    items: any[] | undefined;
-
-    filterItems(event: AutoCompleteCompleteEvent) {
-        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-        let filtered: any[] = [];
-        let query = event.query;
-
-        for (let i = 0; i < (this.items as any[]).length; i++) {
-            let item = (this.items as any[])[i];
-            if (item.label.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                filtered.push(item);
-            }
-        }
-
-        this.filteredItems = filtered;
-    }
-
-    ngOnInit() {
-        this.items = [];
-        for (let i = 0; i < 10000; i++) {
-            this.items.push({ label: 'Item ' + i, value: 'Item ' + i });
-        }
-    }
-}`
-    };
 }

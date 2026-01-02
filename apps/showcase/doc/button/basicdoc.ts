@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
@@ -15,26 +14,7 @@ import { ButtonModule } from 'primeng/button';
         <div class="card flex justify-center">
             <p-button label="Submit" />
         </div>
-        <app-code [code]="code" selector="button-basic-demo"></app-code>
+        <app-code selector="button-basic-demo"></app-code>
     `
 })
-export class BasicDoc {
-    code: Code = {
-        basic: `<p-button label="Submit" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-button label="Submit" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    selector: 'button-basic-demo',
-    templateUrl: './button-basic-demo.html',
-    standalone: true,
-    imports: [ButtonModule]
-})
-export class ButtonBasicDemo { }`
-    };
-}
+export class BasicDoc {}

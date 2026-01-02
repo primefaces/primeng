@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -14,21 +13,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 always override the PrimeNG components leading to unexpected results. A common use case for global styles applying to standard HTML elements is CSS reset utilities to remove the default styling of the browsers. In this case, best
                 practice is wrapping your CSS in a layer like <i>reset</i> and make sure <i>primeNG</i> comes after your layer since layers defined after has higher precedence. This way, your Reset CSS does not get in the way of PrimeNG components.
             </p>
-            <app-code [code]="code" selector="specificity-demo" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+            <app-code selector="specificity-demo" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
         </app-docsectiontext>
     `
 })
-export class ResetDoc {
-    code: Code = {
-        basic: `/* Order */
-@layer reset, primeng;
-
-/* Reset CSS */
-@layer reset {
-    button,
-    input {
-        /* CSS to Reset */
-    }
-}`
-    };
-}
+export class ResetDoc {}

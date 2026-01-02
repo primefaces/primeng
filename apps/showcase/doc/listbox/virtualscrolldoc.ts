@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ListboxModule } from 'primeng/listbox';
@@ -35,7 +34,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 class="w-full md:w-56"
             />
         </div>
-        <app-code [code]="code" selector="listbox-virtual-scroll-demo"></app-code>
+        <app-code selector="listbox-virtual-scroll-demo"></app-code>
     `
 })
 export class VirtualScrollDoc {
@@ -54,42 +53,4 @@ export class VirtualScrollDoc {
         const { value } = event;
         if (value) this.selectAll = value.length === this.items.length;
     }
-
-    code: Code = {
-        basic: `<p-listbox [options]="items" [(ngModel)]="selectedItems" [checkbox]="true" [filter]="true" [selectAll]="selectAll" optionLabel="label" [virtualScroll]="true" [virtualScrollItemSize]="40" [multiple]="true" [metaKeySelection]="false" (onSelectAllChange)="onSelectAllChange($event)" (onChange)="onChange($event)" scrollHeight="250px" [striped]="true" class="w-full md:w-56" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-listbox [options]="items" [(ngModel)]="selectedItems" [checkbox]="true" [filter]="true" [selectAll]="selectAll" optionLabel="label" [virtualScroll]="true" [virtualScrollItemSize]="40" [multiple]="true" [metaKeySelection]="false" (onSelectAllChange)="onSelectAllChange($event)" (onChange)="onChange($event)" scrollHeight="250px" [striped]="true" class="w-full md:w-56" />
-</div>`,
-
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Listbox } from 'primeng/listbox';
-
-@Component({
-    selector: 'listbox-virtual-scroll-demo',
-    templateUrl: './listbox-virtual-scroll-demo.html',
-    standalone: true,
-    imports: [FormsModule, Listbox]
-})
-export class ListboxVirtualScrollDemo {
-    items = Array.from({ length: 100000 }, (_, i) => ({ label: \`Item #\${i}\`, value: i }))
-
-    selectedItems!: any[];
-
-    selectAll = false;
-
-    onSelectAllChange(event) {
-        this.selectedItems = event.checked ? [...this.items] : [];
-        this.selectAll = event.checked;
-        event.updateModel(this.selectedItems, event.originalEvent)
-    }
-
-    onChange(event) {
-        const { originalEvent, value } = event
-        if(value) this.selectAll = value.length === this.items.length;
-    }
-
-}`
-    };
 }

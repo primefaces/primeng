@@ -14,7 +14,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 after the base.
             </p>
         </app-docsectiontext>
-        <app-code [code]="code" selector="tailwind-demo" [hideToggleCode]="true"></app-code>
+        <app-code selector="tailwind-demo" [hideToggleCode]="true"></app-code>
     `
 })
 export class TailwindDoc {

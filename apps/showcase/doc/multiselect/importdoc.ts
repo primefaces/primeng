@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCodeModule } from '@/components/doc/app.code';
 
@@ -6,10 +5,6 @@ import { AppCodeModule } from '@/components/doc/app.code';
     selector: 'multi-select-import-doc',
     standalone: true,
     imports: [AppCodeModule],
-    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
+    template: ` <app-code [hideToggleCode]="true"></app-code> `
 })
-export class ImportDoc {
-    code: Code = {
-        typescript: `import { MultiSelectModule } from 'primeng/multiselect';`
-    };
-}
+export class ImportDoc {}

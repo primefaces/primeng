@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { PanelModule } from 'primeng/panel';
 
@@ -24,7 +23,7 @@ import { PanelModule } from 'primeng/panel';
                 </p>
             </p-panel>
         </div>
-        <app-code [code]="code" selector="panel-pt-demo" />
+        <app-code selector="panel-pt-demo" />
     `
 })
 export class BasicDoc {
@@ -44,51 +43,5 @@ export class BasicDoc {
                 class: 'text-primary'
             }
         }
-    };
-
-    code: Code = {
-        basic: `<p-panel header="Header" toggleable [pt]="pt">
-    <p class="m-0">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-</p-panel>`,
-        html: `<div class="card">
-    <p-panel header="Header" toggleable [pt]="pt">
-        <p class="m-0">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-    </p-panel>
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
-
-@Component({
-    selector: 'panel-pt-demo',
-    templateUrl: './panel-pt-demo.html',
-    standalone: true,
-    imports: [PanelModule]
-})
-export class PanelPtDemo {
-    pt = {
-        root: '!border !border-primary !rounded-xl p-4',
-        header: (options) => ({
-            id: 'myPanelHeader',
-            style: {
-                'user-select': 'none'
-            },
-            class: ['!text-primary font-bold !p-0']
-        }),
-        content: { class: 'text-primary-700 dark:text-primary-200 !p-0 mt-2' },
-        title: 'text-xl',
-        pcToggleButton: {
-            icon: {
-                class: 'text-primary'
-            }
-        }
-    };
-}`
     };
 }

@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -30,7 +29,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
                 [virtualScrollOptions]="{ scrollHeight: '200px' }"
             ></p-treeselect>
         </div>
-        <app-code [code]="code" selector="tree-select-virtual-scroll-demo"></app-code>`
+        <app-code selector="tree-select-virtual-scroll-demo"></app-code>`
 })
 export class VirtualScrollDoc {
     nodes!: any[];
@@ -40,35 +39,4 @@ export class VirtualScrollDoc {
     constructor(private nodeService: NodeService) {
         this.nodeService.getLargeTreeNodes().then((files) => (this.nodes = files));
     }
-
-    code: Code = {
-        basic: `<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="35" [virtualScrollOptions]="{scrollHeight: '200px'}" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="35" [virtualScrollOptions]="{scrollHeight: '200px'}" />
-</div>`,
-        typescript: `import { Component } from '@angular/core';
-import { NodeService } from '@/service/nodeservice';
-import { FormsModule } from '@angular/forms';
-import { TreeSelect } from 'primeng/treeselect';
-
-@Component({
-    selector: 'tree-select-virtual-scroll-demo',
-    templateUrl: './tree-select-virtual-scroll-demo.html',
-    standalone: true,
-    imports: [FormsModule, TreeSelect],
-    providers: [NodeService]
-})
-export class TreeSelectVirtualScrollDemo {
-    nodes!: any[];
-
-    selectedNodes: any;
-
-    constructor(private nodeService: NodeService) {
-        this.nodeService.getLargeTreeNodes().then((files) => (this.nodes = files));
-    }
-}`,
-
-        service: ['NodeService']
-    };
 }

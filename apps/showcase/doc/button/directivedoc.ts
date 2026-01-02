@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -18,32 +17,7 @@ import { ButtonModule } from 'primeng/button';
                 <span pButtonLabel>Save</span>
             </button>
         </div>
-        <app-code [code]="code" selector="button-directive-demo"></app-code>
+        <app-code selector="button-directive-demo"></app-code>
     `
 })
-export class DirectiveDoc {
-    code: Code = {
-        basic: `<button pButton>
-    <i class="pi pi-check" pButtonIcon></i>
-    <span pButtonLabel>Save</span>
-</button>`,
-
-        html: `<div class="card flex justify-center">
-    <button pButton>
-        <i class="pi pi-check" pButtonIcon></i>
-        <span pButtonLabel>Save</span>
-    </button>
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    selector: 'button-directive-demo',
-    templateUrl: './button-directive-demo.html',
-    standalone: true,
-    imports: [ButtonModule]
-})
-export class ButtonDirectiveDemo { }`
-    };
-}
+export class DirectiveDoc {}

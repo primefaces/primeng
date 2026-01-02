@@ -11,7 +11,7 @@ Screen Reader Accordion header elements have a button role, an aria-label define
 PanelMenu requires a collection of menuitems as its model .
 
 ```html
-<p-panelmenu [model]="items" class="w-full md:w-20rem" />
+<p-panelmenu [model]="items" class="w-full md:w-80" />
 ```
 
 ## Command
@@ -28,16 +28,19 @@ The command property defines the callback to run when an item is activated by cl
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
+import { PanelMenuModule } from 'primeng/panelmenu';
 import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'panel-menu-command-demo',
-    templateUrl: './panel-menu-command-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-toast />
+            <p-panelmenu [model]="items" class="w-full md:w-80" />
+        </div>
+    `,
     standalone: true,
-    imports: [PanelMenu, ToastModule],
-    providers: [MessageService]
+    imports: [PanelMenuModule, ToastModule]
 })
 export class PanelMenuCommandDemo implements OnInit {
     items: MenuItem[];
@@ -61,7 +64,12 @@ export class PanelMenuCommandDemo implements OnInit {
                         label: 'Search',
                         icon: 'pi pi-search',
                         command: () => {
-                            this.messageService.add({ severity: 'warn', summary: 'Search Results', detail: 'No results found', life: 3000 });
+                            this.messageService.add({
+                                severity: 'warn',
+                                summary: 'Search Results',
+                                detail: 'No results found',
+                                life: 3000
+                            });
                         }
                     },
                     {
@@ -81,7 +89,12 @@ export class PanelMenuCommandDemo implements OnInit {
                         label: 'Import',
                         icon: 'pi pi-cloud-download',
                         command: () => {
-                            this.messageService.add({ severity: 'info', summary: 'Downloads', detail: 'Downloaded from cloud', life: 3000 });
+                            this.messageService.add({
+                                severity: 'info',
+                                summary: 'Downloads',
+                                detail: 'Downloaded from cloud',
+                                life: 3000
+                            });
                         }
                     },
                     {
@@ -120,15 +133,19 @@ Menu items can be controlled programmatically.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
 import { ButtonModule } from 'primeng/button';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { MenuItem } from 'primeng/api';
 
 @Component({
-    selector: 'panel-menu-controlled-demo',
-    templateUrl: './panel-menu-controlled-demo.html',
+    template: `
+        <div class="card flex flex-col items-center gap-4">
+            <p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
+            <p-panelmenu [model]="items" class="w-full md:w-80" />
+        </div>
+    `,
     standalone: true,
-    imports: [PanelMenu, ButtonModule]
+    imports: [ButtonModule, PanelMenuModule]
 })
 export class PanelMenuControlledDemo implements OnInit {
     items: MenuItem[];
@@ -205,20 +222,6 @@ export class PanelMenuControlledDemo implements OnInit {
         const expanded = !this.areAllItemsExpanded();
         this.items = this.toggleAllRecursive(this.items, expanded);
     }
-
-    private toggleAllRecursive(items: MenuItem[], expanded: boolean): MenuItem[] {
-        return items.map((menuItem) => {
-            menuItem.expanded = expanded;
-            if (menuItem.items) {
-                menuItem.items = this.toggleAllRecursive(menuItem.items, expanded);
-            }
-            return menuItem;
-        });
-    }
-
-    private areAllItemsExpanded(): boolean {
-        return this.items.every((menuItem) => menuItem.expanded);
-    }
 }
 ```
 </details>
@@ -228,7 +231,7 @@ export class PanelMenuControlledDemo implements OnInit {
 Only one single root menuitem can be active by default, enable multiple property to be able to open more than one items.
 
 ```html
-<p-panelmenu [model]="items" [style]="{'width':'300px'}" [multiple]="true" />
+<p-panelmenu [model]="items" styleClass="w-full md:w-80" [multiple]="true" />
 ```
 
 <details>
@@ -236,14 +239,17 @@ Only one single root menuitem can be active by default, enable multiple property
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
+import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuItem } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
 
 @Component({
-    selector: 'panel-menu-multiple-demo',
-    templateUrl: './panel-menu-multiple-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-panelmenu [model]="items" styleClass="w-full md:w-80" [multiple]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [PanelMenu]
+    imports: [PanelMenuModule]
 })
 export class PanelMenuMultipleDemo implements OnInit {
     items: MenuItem[];
@@ -326,7 +332,7 @@ export class PanelMenuMultipleDemo implements OnInit {
                     }
                 ]
             }
-        ]
+        ];
     }
 }
 ```
@@ -345,21 +351,20 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
+import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuItem, MessageService } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
-import { Router } from '@angular/router';
 
 @Component({
-    selector: 'panel-menu-router-demo',
-    templateUrl: './panel-menu-router-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-panelmenu [model]="items" class="w-full md:w-80" />
+        </div>
+    `,
     standalone: true,
-    imports: [PanelMenu],
-    providers: [MessageService]
+    imports: [PanelMenuModule]
 })
 export class PanelMenuRouterDemo implements OnInit {
     items: MenuItem[];
-
-    constructor(private router: Router) {}
 
     ngOnInit() {
         this.items = [
@@ -408,10 +413,6 @@ export class PanelMenuRouterDemo implements OnInit {
 ```
 </details>
 
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
-
 ## Template
 
 PanelMenu requires a collection of menuitems as its model .
@@ -419,7 +420,7 @@ PanelMenu requires a collection of menuitems as its model .
 ```html
 <p-panelmenu [model]="items" class="w-full md:w-80">
     <ng-template #item let-item>
-         <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
+        <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
             <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
             <span class="ms-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
@@ -434,17 +435,28 @@ PanelMenu requires a collection of menuitems as its model .
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
 import { BadgeModule } from 'primeng/badge';
-import { Ripple } from 'primeng/ripple';
-import { CommonModule } from '@angular/common';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { RippleModule } from 'primeng/ripple';
+import { MenuItem } from 'primeng/api';
 
 @Component({
-    selector: 'panel-menu-template-demo',
-    templateUrl: './panel-menu-template-demo.html',
+    template: `
+        <div class="card flex flex-col items-center">
+            <p-panelmenu [model]="items" class="w-full md:w-80">
+                <ng-template #item let-item>
+                    <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
+                        <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
+                        <span class="ms-2">{{ item.label }}</span>
+                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                        <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                    </a>
+                </ng-template>
+            </p-panelmenu>
+        </div>
+    `,
     standalone: true,
-    imports: [PanelMenu, BadgeModule, Ripple, CommonModule]
+    imports: [BadgeModule, PanelMenuModule, RippleModule]
 })
 export class PanelMenuTemplateDemo implements OnInit {
     items: MenuItem[];
@@ -519,21 +531,6 @@ export class PanelMenuTemplateDemo implements OnInit {
         const expanded = !this.areAllItemsExpanded();
         this.items = this.toggleAllRecursive(this.items, expanded);
     }
-
-    private toggleAllRecursive(items: MenuItem[], expanded: boolean): MenuItem[] {
-        return items.map((menuItem) => {
-            menuItem.expanded = expanded;
-            if (menuItem.items) {
-                menuItem.items = this.toggleAllRecursive(menuItem.items, expanded);
-            }
-            return menuItem;
-        });
-    }
-
-    private areAllItemsExpanded(): boolean {
-        return this.items.every((menuItem) => menuItem.expanded);
-    }
-
 }
 ```
 </details>

@@ -1,7 +1,6 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'mode-doc',
@@ -13,31 +12,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 dialog component.
             </p>
         </app-docsectiontext>
-        <app-code [code]="code" [hideToggleCode]="true"></app-code>`
+        <app-code [hideToggleCode]="true"></app-code>`
 })
 export class ModeDoc {
-    code: Code = {
-        typescript: `
-import { OverlayOptions } from 'primeng/api';
-import { PrimeNG } from 'primeng/config';
-
-@Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html'
-})
-export class AppComponent implements OnInit {
-
-    constructor(private primeng: PrimeNG) {}
-
-    ngOnInit() {
-        this.primeng.overlayOptions: OverlayOptions = {
-            mode: 'modal'
-        };
-    }
-}`
-    };
-
-    code2: Code = {
+    code2 = {
         basic: `import { OverlayOptions, ResponsiveOverlayDirectionType } from 'primeng/api';
 import { PrimeNG } from 'primeng/config';
 

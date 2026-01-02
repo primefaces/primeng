@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { TicketService } from '@/service/ticketservice';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -22,7 +21,7 @@ import { Subscription } from 'rxjs';
             <p-steps [model]="items" [readonly]="false" />
         </div>
         <router-outlet></router-outlet>
-        <app-code [code]="code" selector="steps-routing-demo" [routeFiles]="routeFiles"></app-code>
+        <app-code selector="steps-routing-demo" [routeFiles]="routeFiles"></app-code>
     `,
     providers: [MessageService]
 })
@@ -70,86 +69,6 @@ export class RoutingDoc implements OnInit {
             this.subscription.unsubscribe();
         }
     }
-    code: Code = {
-        basic: `<div class="card">
-    <p-toast />
-    <p-steps [model]="items" [readonly]="false" />
-</div>
-<router-outlet></router-outlet>`,
-
-        html: `<div class="card">
-    <p-toast />
-    <p-steps [model]="items" [readonly]="false" />
-</div>
-<router-outlet></router-outlet>`,
-
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { TicketService } from '@/service/ticketservice';
-import { Subscription } from 'rxjs';
-import { StepsModule } from 'primeng/steps';
-import { ToastModule } from 'primeng/toast';
-
-@Component({
-    selector: 'steps-routing-demo',
-    templateUrl: './steps-routing-demo.html',
-    standalone: true,
-    imports: [StepsModule, ToastModule],
-    providers: [MessageService, TicketService]
-})
-export class StepsRoutingDemo implements OnInit {
-    items: MenuItem[];
-
-    subscription: Subscription;
-
-    constructor(public messageService: MessageService, public ticketService: TicketService) {}
-
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'Personal',
-                routerLink: 'personal'
-            },
-            {
-                label: 'Seat',
-                routerLink: 'seat'
-            },
-            {
-                label: 'Payment',
-                routerLink: 'payment'
-            },
-            {
-                label: 'Confirmation',
-                routerLink: 'confirmation'
-            }
-        ];
-
-        this.subscription = this.ticketService.paymentComplete$.subscribe((personalInformation) => {
-            this.messageService.add({ severity: 'success', summary: 'Order submitted', detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.' });
-        });
-    }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
-}`,
-        routerModule: `
-    RouterModule.forRoot([
-        {
-            path: '',
-            children: [
-                { path: 'personal', component: PersonalDemo },
-                { path: 'seat', component: SeatDemo },
-                { path: 'payment', component: PaymentDemo },
-                { path: 'confirmation', component: ConfirmationDemo },
-                { path: '', redirectTo: 'personal', pathMatch: 'full' },
-            ]
-        }
-    ])`,
-        service: ['TicketService']
-    };
 
     routeFiles = [
         {

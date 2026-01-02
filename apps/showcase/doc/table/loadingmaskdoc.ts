@@ -1,7 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
@@ -36,7 +35,7 @@ import { TableModule } from 'primeng/table';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [code]="code" selector="table-loading-mask-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code selector="table-loading-mask-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoadingMaskDoc {
@@ -53,90 +52,6 @@ export class LoadingMaskDoc {
             this.cd.markForCheck();
         });
     }
-
-    code: Code = {
-        basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
-    <ng-template #header>
-        <tr>
-            <th style="width:25%">Code</th>
-            <th style="width:25%">Name</th>
-            <th style="width:25%">Category</th>
-            <th style="width:25%">Quantity</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-product>
-        <tr>
-            <td>{{ product.code }}</td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.category }}</td>
-            <td>{{ product.quantity }}</td>
-        </tr>
-    </ng-template>
-</p-table>`,
-
-        html: `<div class="card">
-    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
-        <ng-template #header>
-            <tr>
-                <th style="width:25%">Code</th>
-                <th style="width:25%">Name</th>
-                <th style="width:25%">Category</th>
-                <th style="width:25%">Quantity</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-product>
-            <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.quantity }}</td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
-
-@Component({
-    selector: 'table-loading-mask-demo',
-    templateUrl: 'table-loading-mask.html',
-    standalone: true,
-    imports: [TableModule, CommonModule],
-    providers: [ProductService]
-})
-export class LoadingMaskDemo implements OnInit {
-    
-    products!: Product[];
-
-    constructor(
-        private productService: ProductService,
-    ) {}
-
-    ngOnInit() {
-        this.productService.getProductsMini().then((data) => {
-            this.products = data;
-        });
-    }
-
-}`,
-        data: `{
-    id: '1000',
-    code: 'f230fh0g3',
-    name: 'Bamboo Watch',
-    description: 'Product Description',
-    image: 'bamboo-watch.jpg',
-    price: 65,
-    category: 'Accessories',
-    quantity: 24,
-    inventoryStatus: 'INSTOCK',
-    rating: 5
-},
-...`,
-        service: ['ProductService']
-    };
 
     extFiles = [
         {

@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -21,7 +20,7 @@ import { AppCode } from '@/components/doc/app.code';
             </p>
         </app-docsectiontext>
 
-        <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+        <app-code [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
 
         <h3>Keyboard Support</h3>
         <div class="doc-tablewrapper">
@@ -137,14 +136,4 @@ import { AppCode } from '@/components/doc/app.code';
             </table>
         </div>`
 })
-export class AccessibilityDoc {
-    code: Code = {
-        basic: `<label for="ac1">Username</label>
-<p-autocomplete inputId="ac1"/>
-
-<span id="ac2">Email</span>
-<p-autocomplete ariaLabelledBy="ac2" />
-
-<p-autocomplete ariaLabel="City" />`
-    };
-}
+export class AccessibilityDoc {}

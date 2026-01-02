@@ -26,17 +26,17 @@ Headless mode allows you to customize the entire user interface instead of the d
 <p-confirmdialog #cd>
     <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
         @if (message) {
-            <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
-                <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
-                    <i class="pi pi-question !text-5xl"></i>
-                </div>
-                <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
-                <p class="mb-0">{{ message.message }}</p>
-                <div class="flex items-center gap-2 mt-6">
-                    <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
-                    <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
-                </div>
+        <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
+            <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
+                <i class="pi pi-question !text-5xl"></i>
             </div>
+            <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
+            <p class="mb-0">{{ message.message }}</p>
+            <div class="flex items-center gap-2 mt-6">
+                <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
+                <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
+            </div>
+        </div>
         }
     </ng-template>
 </p-confirmdialog>
@@ -48,33 +48,40 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
-    selector: 'confirm-dialog-headless-demo',
-    templateUrl: './confirm-dialog-headless-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-toast />
+            <p-confirmdialog #cd>
+                <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
+                    @if (message) {
+                    <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
+                        <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
+                            <i class="pi pi-question !text-5xl"></i>
+                        </div>
+                        <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
+                        <p class="mb-0">{{ message.message }}</p>
+                        <div class="flex items-center gap-2 mt-6">
+                            <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
+                            <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
+                        </div>
+                    </div>
+                    }
+                </ng-template>
+            </p-confirmdialog>
+            <p-button (click)="confirm()" label="Save" />
+        </div>
+    `,
     standalone: true,
-    imports: [ConfirmDialog, ButtonModule, ToastModule],
-    providers: [ConfirmationService, MessageService]
+    imports: [ButtonModule, ConfirmDialogModule, ToastModule]
 })
 export class ConfirmDialogHeadlessDemo {
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
-
-    confirm() {
-        this.confirmationService.confirm({
-            header: 'Are you sure?',
-            message: 'Please confirm to proceed.',
-            accept: () => {
-                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
-            },
-            reject: () => {
-                this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
-            },
-        });
-    }
 }
 ```
 </details>
@@ -84,22 +91,8 @@ export class ConfirmDialogHeadlessDemo {
 The position property of the confirm options is used to display a Dialog at all edges and corners of the screen.
 
 ```html
-<p-toast />
-<p-confirmdialog key="positionDialog" [position]="position" />
-<div class="flex flex-wrap justify-center gap-2 mb-4">
-    <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
-    <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
-</div>
-<div class="flex flex-wrap justify-center gap-2 mb-4">
-    <p-button (click)="confirmPosition('topleft')" icon="pi pi-arrow-down" label="TopLeft" severity="secondary" styleClass="min-w-40" />
-    <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" styleClass="min-w-40" />
-    <p-button (click)="confirmPosition('topright')" icon="pi pi-arrow-down" label="TopRight" severity="secondary" styleClass="min-w-40" />
-</div>
-<div class="flex flex-wrap justify-center gap-2">
-    <p-button (click)="confirmPosition('bottomleft')" icon="pi pi-arrow-up" label="BottomLeft" severity="secondary" styleClass="min-w-40" />
-    <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40" />
-    <p-button (click)="confirmPosition('bottomright')" icon="pi pi-arrow-up" label="BottomRight" severity="secondary" styleClass="min-w-40" />
-</div>
+<p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
+<p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
 ```
 
 <details>
@@ -107,61 +100,40 @@ The position property of the confirm options is used to display a Dialog at all 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
-    selector: 'confirm-dialog-position-demo',
-    templateUrl: './confirm-dialog-position-demo.html',
+    template: `
+        <div class="card">
+            <p-toast />
+            <p-confirmdialog key="positionDialog" [position]="position" />
+            <div class="flex flex-wrap justify-center gap-2 mb-4">
+                <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
+                <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
+            </div>
+            <div class="flex flex-wrap justify-center gap-2 mb-4">
+                <p-button (click)="confirmPosition('topleft')" icon="pi pi-arrow-down" label="TopLeft" severity="secondary" styleClass="min-w-40" />
+                <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" styleClass="min-w-40" />
+                <p-button (click)="confirmPosition('topright')" icon="pi pi-arrow-down" label="TopRight" severity="secondary" styleClass="min-w-40" />
+            </div>
+            <div class="flex flex-wrap justify-center gap-2">
+                <p-button (click)="confirmPosition('bottomleft')" icon="pi pi-arrow-up" label="BottomLeft" severity="secondary" styleClass="min-w-40" />
+                <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40" />
+                <p-button (click)="confirmPosition('bottomright')" icon="pi pi-arrow-up" label="BottomRight" severity="secondary" styleClass="min-w-40" />
+            </div>
+        </div>
+    `,
     standalone: true,
-    imports: [ConfirmDialog, ButtonModule, ToastModule],
-    providers: [ConfirmationService, MessageService]
+    imports: [ButtonModule, ConfirmDialogModule, ToastModule]
 })
 export class ConfirmDialogPositionDemo {
-    position: 'left' | 'right' | 'top' | 'bottom' | 'center' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
-
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
-
-    confirmPosition(position: 'left' | 'right' | 'top' | 'bottom' | 'center' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright') {
-        this.position = position;
-
-        this.confirmationService.confirm({
-            message: 'Are you sure you want to proceed?',
-            header: 'Confirmation',
-            icon: 'pi pi-info-circle',
-            rejectButtonStyleClass: 'p-button-text',
-            rejectButtonProps: {
-                label: 'Cancel',
-                severity: 'secondary',
-                text: true,
-            },
-            acceptButtonProps: {
-                label: 'Save',
-                text: true,
-            },
-            accept: () => {
-                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Request submitted' });
-            },
-            reject: () => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Rejected',
-                    detail: 'Process incomplete',
-                    life: 3000,
-                });
-            },
-            key: 'positionDialog',
-        });
-    }
 }
 ```
 </details>
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Template
 
@@ -172,10 +144,10 @@ Properties of the dialog are defined in two ways, message , icon , header proper
 <p-confirmdialog>
     <ng-template #message let-message>
         @if (message) {
-            <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
-                <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
-                <p>{{ message.message }}</p>
-            </div>
+        <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+            <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
+            <p>{{ message.message }}</p>
+        </div>
         }
     </ng-template>
 </p-confirmdialog>
@@ -187,46 +159,33 @@ Properties of the dialog are defined in two ways, message , icon , header proper
 
 ```typescript
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialog } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
-    selector: 'confirm-dialog-template-demo',
-    templateUrl: './confirm-dialog-template-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-toast />
+            <p-confirmdialog>
+                <ng-template #message let-message>
+                    @if (message) {
+                    <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+                        <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
+                        <p>{{ message.message }}</p>
+                    </div>
+                    }
+                </ng-template>
+            </p-confirmdialog>
+            <p-button (click)="confirm()" label="Save" />
+        </div>
+    `,
     standalone: true,
-    imports: [ConfirmDialog, ToastModule, ButtonModule],
-    providers: [ConfirmationService, MessageService]
+    imports: [ButtonModule, ConfirmDialogModule, ToastModule]
 })
 export class ConfirmDialogTemplateDemo {
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
-
-    confirm() {
-        this.confirmationService.confirm({
-            header: 'Confirmation',
-            message: 'Please confirm to proceed moving forward.',
-            icon: 'pi pi-exclamation-circle',
-            rejectButtonProps: {
-                label: 'Cancel',
-                icon: 'pi pi-times',
-                variant: 'outlined',
-                size: 'small'
-            },
-            acceptButtonProps: {
-                label: 'Save',
-                icon: 'pi pi-check',
-                size: 'small'
-            },
-            accept: () => {
-                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-            },
-            reject: () => {
-                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-            }
-        });
-    }
-
 }
 ```
 </details>

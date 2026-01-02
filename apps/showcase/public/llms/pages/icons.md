@@ -62,6 +62,10 @@ export class PrimeIconsConstantsDemo {
 
 PrimeIcons is available at npm, run the following command to download it to your project.
 
+```bash
+npm install primeicons
+```
+
 ## Figma
 
 PrimeIcons library is now available on Figma Community . By adding them as a library, you can easily use these icons in your designs.

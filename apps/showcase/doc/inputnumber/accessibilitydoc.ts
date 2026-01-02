@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -16,7 +15,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
         </app-docsectiontext>
 
-        <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+        <app-code [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
 
         <h3>Keyboard Support</h3>
         <div class="doc-tablewrapper">
@@ -63,17 +62,4 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </div>
     </div>`
 })
-export class AccessibilityDoc {
-    code: Code = {
-        basic: `<label for="price">Price</label>
-<p-inputnumber inputId="price" />
-
-<span id="label_number">Number</span>
-<p-inputnumber ariaLabelledBy="label_number" />
-
-<p-inputnumber ariaLabel="Number" />
-
-<p-inputnumber ariaDescribedBy="describe" />
-<small id="describe">Information</small>`
-    };
-}
+export class AccessibilityDoc {}

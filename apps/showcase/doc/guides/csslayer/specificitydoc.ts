@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputSwitchModule } from 'primeng/inputswitch';
@@ -25,7 +24,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <p-inputSwitch [(ngModel)]="checked" styleClass="my-inputswitch" />
             </div>
 
-            <app-code [code]="code" selector="specificity-demo" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
+            <app-code selector="specificity-demo" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
         </app-docsectiontext>
     `,
     encapsulation: ViewEncapsulation.None,
@@ -40,34 +39,4 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 })
 export class SpecificityDoc {
     checked: boolean = false;
-    code: Code = {
-        basic: `<p-inputSwitch [(ngModel)]="checked" styleClass="my-inputswitch" />`,
-        scss: `.my-inputswitch .p-inputswitch-slider {
-    border-radius: 0;
-}
-
-.my-inputswitch .p-inputswitch-slider:before  {
-    border-radius: 0;
-}`,
-        typescript: `import { Component, ViewEncapsulation } from '@angular/core';
-
-@Component({
-    template: \`
-        <div class="card flex justify-center">
-            <p-inputSwitch [(ngModel)]="checked" styleClass="my-inputswitch" />
-        </div>\`,
-    encapsulation: ViewEncapsulation.None,
-    styles: \`
-        .my-inputswitch .p-inputswitch-slider {
-            border-radius: 0;
-        }
-        .my-inputswitch .p-inputswitch-slider:before  {
-            border-radius: 0;
-        }
-    \`
-})
-export class ExampleComponent {
-    checked: boolean = false;
-}`
-    };
 }

@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -17,7 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>The popup overlay uses <i>menu</i> role on the list and each action item has a <i>menuitem</i> role with an <i>aria-label</i> as the menuitem label. The id of the menu refers to the <i>aria-controls</i> of the dropdown button.</p>
         </app-docsectiontext>
 
-        <app-code [code]="code" [hideToggleCode]="true" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
+        <app-code [hideToggleCode]="true" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
 
         <h3>Main Button Keyboard Support</h3>
         <div class="doc-tablewrapper">
@@ -133,8 +132,4 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </table>
         </div>`
 })
-export class AccessibilityDoc {
-    code: Code = {
-        basic: `<p-splitbutton [buttonProps]="{'aria-label': 'Default Action'}" [menuButtonProps]="{'aria-label': 'More Options'}" />`
-    };
-}
+export class AccessibilityDoc {}

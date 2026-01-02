@@ -1,7 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
@@ -83,7 +82,7 @@ interface Column {
                 </p-treetable>
             </p-deferred-demo>
         </div>
-        <app-code [code]="code" selector="tree-table-filter-demo"></app-code>
+        <app-code selector="tree-table-filter-demo"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -109,157 +108,4 @@ export class FilterDoc {
             { field: 'type', header: 'Type' }
         ];
     }
-
-    code: Code = {
-        basic: `<p-selectbutton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value" />
-
-<p-treetable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #caption>
-        <div class="flex justify-end items-center">
-            <p-iconfield>
-                <p-inputicon class="pi pi-search" />
-                <input type="text" pInputText placeholder="Global Search" (input)="tt.filterGlobal($event.target.value, 'contains')" />
-            </p-iconfield>
-        </div>
-    </ng-template>
-    <ng-template #header let-columns>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    {{ col.header }}
-                </th>
-            }
-        </tr>
-        <tr>
-            @for (col of columns; track col) {
-                <th>
-                    <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
-                </th>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
-            @for (col of cols; let first = $first; track col) {
-                <td>
-                    @if (first) {
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                            <span>{{ rowData[col.field] }}</span>
-                        </div>
-                    } @else {
-                        {{ rowData[col.field] }}
-                    }
-                </td>
-            }
-        </tr>
-    </ng-template>
-    <ng-template #emptymessage>
-        <tr>
-            <td [attr.colspan]="cols?.length">No data found.</td>
-        </tr>
-    </ng-template>
-</p-treetable>`,
-
-        html: `<div class="card">
-    <div class="flex justify-center mb-6">
-        <p-selectbutton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value" />
-    </div>
-    <p-treetable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #caption>
-            <div class="flex justify-end items-center">
-                <p-iconfield>
-                    <p-inputicon class="pi pi-search" />
-                    <input type="text" pInputText placeholder="Global Search" (input)="tt.filterGlobal($event.target.value, 'contains')" />
-                </p-iconfield>
-            </div>
-        </ng-template>
-        <ng-template #header let-columns>
-            <tr>
-                @for (col of columns; track col) {
-                    <th>
-                        {{ col.header }}
-                    </th>
-                }
-            </tr>
-            <tr>
-                @for (col of columns; track col) {
-                    <th>
-                        <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
-                    </th>
-                }
-            </tr>
-        </ng-template>
-        <ng-template #body let-rowNode let-rowData="rowData">
-            <tr [ttRow]="rowNode">
-                @for (col of cols; let first = $first; track col) {
-                    <td>
-                        @if (first) {
-                            <div class="flex items-center gap-2">
-                                <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                <span>{{ rowData[col.field] }}</span>
-                            </div>
-                        } @else {
-                            {{ rowData[col.field] }}
-                        }
-                    </td>
-                }
-            </tr>
-        </ng-template>
-        <ng-template #emptymessage>
-            <tr>
-                <td [attr.colspan]="cols?.length">No data found.</td>
-            </tr>
-        </ng-template>
-    </p-treetable>
-</div>`,
-
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { NodeService } from '@/service/nodeservice';
-import { SelectButton } from 'primeng/selectbutton';
-import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
-import { CommonModule } from '@angular/common';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-
-interface Column {
-    field: string;
-    header: string;
-}
-
-@Component({
-    selector: 'tree-table-filter-demo',
-    templateUrl: './tree-table-filter-demo.html',
-    standalone: true,
-    imports: [TreeTableModule, SelectButton, FormsModule, InputTextModule, CommonModule, IconFieldModule, InputIconModule],
-    providers: [NodeService]
-})
-export class TreeTableFilterDemo implements OnInit{
-    filterMode = 'lenient';
-
-    filterModes = [
-        { label: 'Lenient', value: 'lenient' },
-        { label: 'Strict', value: 'strict' }
-    ];
-
-    files!: TreeNode[];
-
-    cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
-
-    ngOnInit() {
-        this.nodeService.getFilesystem().then((files) => (this.files = files));
-        this.cols = [
-            { field: 'name', header: 'Name' },
-            { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
-        ];
-    }
-}`,
-
-        service: ['NodeService']
-    };
 }

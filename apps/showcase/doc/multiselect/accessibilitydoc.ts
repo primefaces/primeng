@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppCodeModule } from '@/components/doc/app.code';
@@ -27,7 +26,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Close button uses <i>close</i> key of the <i>aria</i> property from the <a href="/configuration/#locale">locale</a> API as the <i>aria-label</i> by default, this can be overriden with the <i>closeButtonProps</i>.</p>
         </app-docsectiontext>
 
-        <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+        <app-code [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
 
         <h3>Closed State Keyboard Support</h3>
         <div class="doc-tablewrapper">
@@ -224,11 +223,4 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </div>
     </div>`
 })
-export class AccessibilityDoc {
-    code: Code = {
-        basic: `<span id="dd1">Options</span>
-<p-multiselect ariaLabelledBy="dd1"/>
-
-<p-multiselect ariaLabel="Options"/>`
-    };
-}
+export class AccessibilityDoc {}

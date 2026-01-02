@@ -1,4 +1,3 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -23,46 +22,12 @@ interface AutoCompleteCompleteEvent {
         <div class="card flex justify-center">
             <p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />
         </div>
-        <app-code [code]="code" selector="autocomplete-dropdown-demo"></app-code>`
+        <app-code selector="autocomplete-dropdown-demo"></app-code>`
 })
 export class DropdownDoc {
     items: any[] | undefined;
 
     value: any;
-    code: Code = {
-        basic: `<p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-
-interface AutoCompleteCompleteEvent {
-    originalEvent: Event;
-    query: string;
-}
-
-@Component({
-    selector: 'autocomplete-dropdown-demo',
-    templateUrl: './autocomplete-dropdown-demo.html',
-    standalone:true,
-    imports: [FormsModule, AutoCompleteModule]
-})
-export class AutocompleteDropdownDemo {
-    items: any[] | undefined;
-
-    value: any;
-
-    search(event: AutoCompleteCompleteEvent) {
-    let _items = [...Array(10).keys()];
-
-    this.items = event.query ? [...Array(10).keys()].map((item) => event.query + '-' + item) : _items;
-    }
-}`
-    };
 
     search(event: AutoCompleteCompleteEvent) {
         let _items = [...Array(10).keys()];

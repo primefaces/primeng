@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
@@ -15,34 +14,7 @@ import { Component } from '@angular/core';
             </p>
         </app-docsectiontext>
 
-        <app-code [code]="code" hideToggleCode importCode hideStackBlitz />
+        <app-code hideToggleCode importCode hideStackBlitz />
     `
 })
-export class LifeCycleDoc {
-    code: Code = {
-        typescript: `import { Component } from '@angular/core';
-import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
-
-@Component({
-    template: \`
-        <p-panel header="Header" [pt]="pt">
-            Content
-        </p-panel>
-    \`,
-    standalone: true,
-    imports: [PanelModule]
-})
-export class PanelPtDemo {
-   pt: PanelPassThrough<Panel> = {
-        hooks: {
-            onInit: () => {
-                //panel ngOnInit
-            },
-            onDestroy: () => {
-                //panel ngOnDestroy
-            }
-        }
-    };
-}`
-    };
-}
+export class LifeCycleDoc {}
