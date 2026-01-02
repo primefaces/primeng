@@ -11,7 +11,8 @@ import { CommonModule } from '@angular/common';
     selector: 'presort-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo, CommonModule],
-    template: ` <app-docsectiontext>
+    template: `
+        <app-docsectiontext>
             <p>
                 Defining a default <i>sortField</i> and <i>sortOrder</i> displays data as sorted initially in single column sorting. In <i>multiple</i> sort mode, <i>multiSortMeta</i> should be used instead by providing an array of
                 <i>DataTableSortMeta</i> objects.
@@ -66,7 +67,8 @@ import { CommonModule } from '@angular/common';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code selector="table-presort-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code selector="table-presort-demo" [extFiles]="extFiles"></app-code>
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PreSortDoc {

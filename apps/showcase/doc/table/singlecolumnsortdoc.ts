@@ -10,7 +10,8 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
     selector: 'single-column-sort-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
-    template: ` <app-docsectiontext>
+    template: `
+        <app-docsectiontext>
             <p>
                 A column can be made sortable by adding the <i>pSortableColumn</i> directive whose value is the field to sort against and a sort indicator via <i>p-sortIcon</i> component. For dynamic columns, setting
                 <i>pSortableColumnDisabled</i> property as true disables sorting for that particular column.
@@ -62,7 +63,8 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code selector="table-single-column-sort-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code selector="table-single-column-sort-demo" [extFiles]="extFiles"></app-code>
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SingleColumnSortDoc {

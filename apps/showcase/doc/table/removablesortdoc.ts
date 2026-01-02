@@ -2,8 +2,7 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { SortEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
@@ -12,7 +11,8 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
     selector: 'removable-sort-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
-    template: ` <app-docsectiontext>
+    template: `
+        <app-docsectiontext>
             <p>The removable sort can be implemented using the <i>customSort</i> property.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
@@ -57,7 +57,8 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code selector="table-removable-sort-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code selector="table-removable-sort-demo" [extFiles]="extFiles"></app-code>
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RemovableSortDoc {

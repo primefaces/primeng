@@ -55,7 +55,10 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'dynamic-dialog-example-demo',
-    templateUrl: './dynamic-dialog-example-demo.html',
+    template: \`
+        <p-toast />
+        <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
+    \`,
     imports: [DynamicDialogModule, ToastModule, ButtonModule],
     providers: [DialogService, MessageService],
     standalone: true,
@@ -173,8 +176,8 @@ export interface Product {
             path: 'src/app/demo/productlistdemo.ts',
             name: 'ProductListDemo',
             content: `import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
+import { Product } from '../../domain/product';
+import { ProductService } from '../../service/productservice';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InfoDemo } from './infodemo';
@@ -183,8 +186,8 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
     providers: [DialogService, MessageService, ProductService],
-    standalone:true,
-    imports:[TableModule, ButtonModule],
+    standalone: true,
+    imports: [TableModule, ButtonModule],
     template: \`<div class="flex justify-end mt-1 mb-4">
             <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
         </div>

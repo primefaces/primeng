@@ -607,14 +607,20 @@ function extractBasicCode(htmlContent) {
         basic = cardContent;
     }
 
-    // Also try to remove flex/grid wrapper inside card (but keep if it has meaningful structure)
-    const flexContent = extractDivContent(basic, '(?:flex|grid)');
-    if (flexContent) {
-        // Only unwrap if the inner content has PrimeNG components and the flex div is just a simple wrapper
-        const hasPrimeNG = flexContent.indexOf('<p-') !== -1 || flexContent.indexOf('pButton') !== -1;
-        const isSimpleWrapper = !flexContent.includes('<div class="') || flexContent.split('<div').length <= 2;
-        if (hasPrimeNG && isSimpleWrapper) {
-            basic = flexContent;
+    // Only remove flex/grid wrapper if it's the ONLY top-level element wrapping PrimeNG components
+    // Don't remove flex divs that are inside ng-template or other components
+    const trimmed = basic.trim();
+    const startsWithFlexDiv = /^<div[^>]*class="[^"]*(?:flex|grid)[^"]*"[^>]*>/.test(trimmed);
+    if (startsWithFlexDiv) {
+        const flexContent = extractDivContent(basic, '(?:flex|grid)');
+        if (flexContent) {
+            // Only unwrap if the flex div directly contains PrimeNG components (not nested in templates)
+            const hasPrimeNGDirect = /^[\s\S]*?<p-[a-z]/.test(flexContent);
+            const hasNoTemplates = !flexContent.includes('<ng-template');
+            const isSimpleWrapper = flexContent.split('<div').length <= 3;
+            if (hasPrimeNGDirect && hasNoTemplates && isSimpleWrapper) {
+                basic = flexContent;
+            }
         }
     }
 
