@@ -1,3 +1,4 @@
+import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
@@ -17,7 +18,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 close the dialog from the ProductListDemo by passing a selected product.
             </p>
         </app-docsectiontext>
-        <app-code [hideToggleCode]="true"></app-code>
+        <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `,
     providers: [DialogService, MessageService]
 })
@@ -44,4 +45,46 @@ export class CloseDoc {
             }
         });
     }
+
+    code: Code = {
+        typescript: `
+import { Component, Input } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Product } from '@/domain/product';
+import { ProductListDemo } from './productlistdemo';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+
+@Component({
+    template: \`
+        <p-toast />
+        <p-button (click)="show()" label="Show" />
+    \`,
+    imports: [ButtonModule, ToastModule],
+    providers: [DialogService, MessageService]
+})
+export class DynamicDialogDemo {
+
+    ref: DynamicDialogRef | undefined;
+
+    constructor(public dialogService: DialogService, public messageService: MessageService) {}
+
+    show() {
+        this.ref = this.dialogService.open(ProductListDemo, {
+            header: 'Select a Product',
+            width: '70%',
+            contentStyle: { overflow: 'auto' },
+            baseZIndex: 10000,
+            maximizable: true
+        });
+
+        this.ref.onClose.subscribe((product: Product) => {
+            if (product) {
+                this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: product.name });
+            }
+        });
+    }
+}`
+    };
 }

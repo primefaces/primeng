@@ -1,12 +1,12 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'import-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode],
+    imports: [AppDocSectionText, AppCodeModule],
     template: `
         <app-docsectiontext>
             <p>CSS file of the icon library needs to be imported in <i>styles.scss</i> of your application.</p>
