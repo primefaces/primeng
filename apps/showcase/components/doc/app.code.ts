@@ -1,8 +1,8 @@
 import { Code, ExtFile, RouteFile } from '@/domain/code';
 import { DemoCodeService } from '@/service/democodeservice';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { afterNextRender, Component, computed, effect, ElementRef, inject, input, NgModule, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Component, ElementRef, inject, input, NgModule, PLATFORM_ID, ViewChild, signal, computed, effect, afterNextRender } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { useCodeSandbox, useStackBlitz } from './codeeditor';
@@ -89,7 +89,6 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
     `
 })
 export class AppCode {
-    // Signal-based inputs
     code = input<Code>();
     service = input<any>();
     selector = input<string>();
@@ -102,7 +101,6 @@ export class AppCode {
 
     @ViewChild('codeElement') codeElement: ElementRef;
 
-    // Signal-based state
     fullCodeVisible = signal(false);
     lang = signal('basic');
     resolvedCode = signal<Code | null>(null);
