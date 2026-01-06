@@ -626,7 +626,18 @@ import { SelectItem } from 'primeng/api';
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="items()" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" [loading]="loading()" class="w-full md:w-56" />
+            <p-select
+                [options]="items()"
+                [(ngModel)]="selectedItem"
+                placeholder="Select Item"
+                [filter]="true"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="32"
+                [lazy]="true"
+                (onLazyLoad)="onLazyLoad($event)"
+                [loading]="loading()"
+                class="w-full md:w-56"
+            />
         </div>
     `,
     standalone: true,
@@ -635,7 +646,7 @@ import { SelectItem } from 'primeng/api';
 export class SelectLazyvirtualscrollDemo {
     backendItems: SelectItem[] = Array.from({ length: 10000 }, (_, i) => ({ label: `Item #${i}`, value: i }));
     items = signal<SelectItem[] | null>(null);
-    selectedItem: string | undefined;
+    selectedItem: SelectItem | undefined = this.backendItems[5000];
     loading = signal<boolean>(false);
     loadLazyTimeout: any = null;
     currentFilter: string | null = null;
@@ -662,7 +673,7 @@ export class SelectLazyvirtualscrollDemo {
                 const filteredBackendItems = filter ? this.backendItems.filter((item) => item.label.toLowerCase().includes(filter.toLowerCase())) : this.backendItems;
         
                 // Create sparse array with correct size if null, otherwise copy existing
-                const items = this.items() ?? (Array.from({ length: filteredBackendItems.length }) as SelectItem[]);
+                const items = this.items() ? [...this.items()] : (Array.from({ length: filteredBackendItems.length }) as SelectItem[]);
         
                 // Populate only the requested range
                 const slice = filteredBackendItems.slice(first, last);

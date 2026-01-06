@@ -42,7 +42,7 @@ import { CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons
 import { InputIcon } from 'primeng/inputicon';
 import { InputText } from 'primeng/inputtext';
 import { Overlay } from 'primeng/overlay';
-import { Scroller } from 'primeng/scroller';
+import { Scroller, ScrollerLazyLoadEvent } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import {
@@ -391,7 +391,7 @@ export class MultiSelectItem extends BaseComponent {
                             [autoSize]="true"
                             [tabindex]="-1"
                             [lazy]="lazy"
-                            (onLazyLoad)="onLazyLoad.emit($event)"
+                            (onLazyLoad)="handleLazyLoadEvent($event)"
                             [options]="virtualScrollOptions"
                         >
                             <ng-template #content let-items let-scrollerOptions="options">
@@ -791,6 +791,13 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
     set filterValue(val: string | undefined | null) {
         this._filterValue.set(val);
+    }
+    /**
+     * Selected options to display when using lazy loading. Used to keep a reference of selected options when they are not present in the current options list.
+     * @group Props
+     */
+    @Input() set lazySelectedOptions(val: any[]) {
+        this._lazySelectedOptions = val || [];
     }
     /**
      * Whether all data is selected.
@@ -1221,6 +1228,9 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     clickInProgress: boolean = false;
 
+    // Used when lazy loading to keep a reference of selected options when they are not present in the current options list
+    _lazySelectedOptions: any[] = [];
+
     get emptyMessageLabel(): string {
         return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
@@ -1241,15 +1251,19 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
     }
 
-    private getAllVisibleAndNonVisibleOptions() {
-        return this.group ? this.flatOptions(this.options) : this.options || [];
-    }
+    private getAllVisibleAndNonVisibleOptions = computed(() => {
+        const options = this.group ? this.flatOptions(this._options()) : this._options() || [];
+        if (this.lazy) {
+            return [...options, ...this._lazySelectedOptions];
+        }
+        return options;
+    });
 
     visibleOptions = computed(() => {
         const options = this.getAllVisibleAndNonVisibleOptions();
         const isArrayOfObjects = isArray(options) && ObjectUtils.isObject(options[0]);
 
-        if (this._filterValue()) {
+        if (!this.lazy && this._filterValue()) {
             let filteredOptions;
 
             if (isArrayOfObjects) {
@@ -1558,8 +1572,14 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     getLabelByValue(value) {
-        const options = this.group ? this.flatOptions(this._options()) : this._options() || [];
+        let options = this.group ? this.flatOptions(this._options()) : this._options() || [];
+        if (this.lazy) {
+            options = [...options, ...this._lazySelectedOptions];
+        }
         const matchedOption = options.find((option) => !this.isOptionGroup(option) && equals(this.getOptionValue(option), value, this.equalityKey() || ''));
+        if (matchedOption && this.lazy && !this._lazySelectedOptions.some((o) => equals(this.getOptionValue(matchedOption), this.getOptionValue(o), this.dataKey))) {
+            this._lazySelectedOptions.push(matchedOption);
+        }
         return matchedOption ? this.getOptionLabel(matchedOption) : null;
     }
 
@@ -1901,9 +1921,24 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         this.focusedOptionIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
 
+        if (this.lazy) {
+            this.onLazyLoad.emit({
+                first: 0,
+                last: this.virtualScrollItemSize || 0,
+                filter: this._filterValue()
+            });
+        }
+
         !this.virtualScrollerDisabled && this.scroller?.scrollToIndex(0);
         setTimeout(() => {
             this.overlayViewChild?.alignOverlay();
+        });
+    }
+
+    handleLazyLoadEvent(event: ScrollerLazyLoadEvent): void {
+        this.onLazyLoad.emit({
+            ...event,
+            filter: this._filterValue()
         });
     }
 

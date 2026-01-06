@@ -27221,6 +27221,13 @@
                             "description": "When specified, filter displays with this value."
                         },
                         {
+                            "name": "lazySelectedOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": null,
+                            "description": "Selected options to display when using lazy loading. Used to keep a reference of selected options when they are not present in the current options list."
+                        },
+                        {
                             "name": "selectAll",
                             "optional": false,
                             "readonly": false,
@@ -27769,6 +27776,13 @@
                                 "readonly": false,
                                 "type": "number",
                                 "description": "Index of the last element in viewport."
+                            },
+                            {
+                                "name": "filter",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "The current value of the filter."
                             }
                         ]
                     },
@@ -36891,6 +36905,13 @@
                                 "readonly": false,
                                 "type": "number",
                                 "description": "Index of the last element in viewport."
+                            },
+                            {
+                                "name": "filter",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "The current value of the filter."
                             }
                         ]
                     }

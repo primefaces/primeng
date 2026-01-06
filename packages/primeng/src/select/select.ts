@@ -42,7 +42,7 @@ import { InputIcon } from 'primeng/inputicon';
 import { InputText } from 'primeng/inputtext';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
-import { Scroller } from 'primeng/scroller';
+import { Scroller, ScrollerLazyLoadEvent } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import {
@@ -341,7 +341,7 @@ export class SelectItem extends BaseComponent {
                             [itemSize]="virtualScrollItemSize"
                             [autoSize]="true"
                             [lazy]="lazy"
-                            (onLazyLoad)="onLazyLoad.emit($event)"
+                            (onLazyLoad)="handleLazyLoadEvent($event)"
                             [options]="virtualScrollOptions"
                             [pt]="ptm('virtualScroller')"
                         >
@@ -992,7 +992,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     visibleOptions = computed(() => {
         const options = this.getAllVisibleAndNonVisibleOptions();
 
-        if (this._filterValue()) {
+        if (!this.lazy && this._filterValue()) {
             const _filterBy = this.filterBy || this.optionLabel;
 
             const filteredOptions =
@@ -1044,6 +1044,9 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
             // Always show the label for selected options, even if disabled
             return this.getOptionLabel(selectedOption);
         }
+        if (this.$filled()) {
+            return this.getOptionLabel(this.modelValue());
+        }
 
         return this.placeholder() || 'p-emptylabel';
     });
@@ -1083,15 +1086,26 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
             }
             this.cd.markForCheck();
         });
+
+        effect(() => {
+            const filterValue = this._filterValue();
+            if (this.lazy) {
+                this.onLazyLoad.emit({
+                    first: 0,
+                    last: this.virtualScrollItemSize || 20,
+                    filter: filterValue
+                });
+            }
+        });
     }
 
     private isModelValueNotSet(): boolean {
         return this.modelValue() === null && !this.isOptionValueEqualsModelValue(this.selectedOption);
     }
 
-    private getAllVisibleAndNonVisibleOptions() {
-        return this.group ? this.flatOptions(this.options) : this.options || [];
-    }
+    private getAllVisibleAndNonVisibleOptions = computed(() => {
+        return this.group ? this.flatOptions(this._options()) : this._options() || [];
+    });
 
     onInit() {
         this.id = this.id || uuid('pn_id_');
@@ -1930,6 +1944,13 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
             this.overlayViewChild?.alignOverlay();
         });
         this.cd.markForCheck();
+    }
+
+    handleLazyLoadEvent(event: ScrollerLazyLoadEvent): void {
+        this.onLazyLoad.emit({
+            ...event,
+            filter: this._filterValue()
+        });
     }
 
     applyFocus(): void {
