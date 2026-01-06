@@ -184,15 +184,6 @@ import { Product } from '@/domain/product';
 export class PicklistTemplateDemo implements OnInit {
     sourceProducts!: Product[];
     targetProducts!: Product[];
-    id?: string;
-    name?: string;
-    description?: string;
-    price?: number;
-    quantity?: number;
-    inventoryStatus?: string;
-    category?: string;
-    image?: string;
-    rating?: number;
 
     constructor(private carService: ProductService) {}
 

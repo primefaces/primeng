@@ -38,7 +38,7 @@ import { TagModule } from 'primeng/tag';
                 </ng-template>
             </p-carousel>
         </div>
-        <app-code [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="['Product']"></app-code>
     `
 })
 export class CircularDoc implements OnInit {
@@ -91,23 +91,4 @@ export class CircularDoc implements OnInit {
                 return 'danger';
         }
     }
-
-    extFiles = [
-        {
-            path: 'src/domain/product.ts',
-            content: `
-export interface Product {
-    id?: string;
-    code?: string;
-    name?: string;
-    description?: string;
-    price?: number;
-    quantity?: number;
-    inventoryStatus?: string;
-    category?: string;
-    image?: string;
-    rating?: number;
-}`
-        }
-    ];
 }

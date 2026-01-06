@@ -1,11 +1,11 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
-import { DeferredDemo } from '@/components/demo/deferreddemo';
-import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'presort-doc',
@@ -67,7 +67,7 @@ import { CommonModule } from '@angular/common';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="['Product']"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

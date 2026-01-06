@@ -230,11 +230,6 @@ export class TableDemo {
                 }
             ]
         },
-        // {
-        //     id: 'lazy-load',
-        //     label: 'Lazy Load',
-        //     component: LazyLoadDoc,
-        // },
         {
             id: 'scroll',
             label: 'Scroll',

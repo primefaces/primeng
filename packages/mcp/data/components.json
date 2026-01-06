@@ -12849,7 +12849,7 @@
           "examples": {
             "basic": "<div pDraggable dragHandle=\".p-panel-header\" class=\"w-60\">\n    <p-panel header=\"Drag Header\"> Content </p-panel>\n</div>",
             "html": "<div class=\"card\">\n    <div pDraggable dragHandle=\".p-panel-header\" class=\"w-60\">\n        <p-panel header=\"Drag Header\"> Content </p-panel>\n    </div>\n</div>",
-            "typescript": "import { Component } from '@angular/core';\nimport { PanelModule } from 'primeng/panel';\nimport { Product } from '@/domain/product';\n\n@Component({\n    template: `\n        <div class=\"card\">\n            <div pDraggable dragHandle=\".p-panel-header\" class=\"w-60\">\n                <p-panel header=\"Drag Header\"> Content </p-panel>\n            </div>\n        </div>\n    `,\n    standalone: true,\n    imports: [PanelModule]\n})\nexport class DragdropDraghandleDemo {\n    id?: string;\n    name?: string;\n    description?: string;\n    price?: number;\n    quantity?: number;\n    inventoryStatus?: string;\n    category?: string;\n    image?: string;\n    rating?: number;\n}"
+            "typescript": "import { Component } from '@angular/core';\nimport { PanelModule } from 'primeng/panel';\nimport { Product } from '@/domain/product';\n\n@Component({\n    template: `\n        <div class=\"card\">\n            <div pDraggable dragHandle=\".p-panel-header\" class=\"w-60\">\n                <p-panel header=\"Drag Header\"> Content </p-panel>\n            </div>\n        </div>\n    `,\n    standalone: true,\n    imports: [PanelModule]\n})\nexport class DragdropDraghandleDemo {}"
           }
         },
         {
@@ -13363,7 +13363,7 @@
           "examples": {
             "basic": "<p-toast />\n<p-button (click)=\"show()\" icon=\"pi pi-search\" label=\"Select a Product\" />",
             "html": "<div class=\"card flex justify-center\">\n    <p-toast />\n    <p-button (click)=\"show()\" icon=\"pi pi-search\" label=\"Select a Product\" />\n</div>",
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { ToastModule } from 'primeng/toast';\nimport { ProductService } from '@/service/productservice';\nimport { MessageService } from 'primeng/api';\nimport { Product } from '@/domain/product';\nimport { Dialog } from 'primeng/dialog';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-toast />\n            <p-button (click)=\"show()\" icon=\"pi pi-search\" label=\"Select a Product\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, ToastModule],\n    providers: [ProductService]\n})\nexport class DynamicdialogExampleDemo implements OnInit {\n    constructor(public dialogService: DialogService, public messageService: MessageService) {}\n\n    ngOnInit() {\n        this.productService.getProductsSmall().then((products) => (this.products = products.slice(0, 5)));\n    }\n\n    show() {\n        this.ref = this.dialogService.open(ProductListDemo, {\n            header: 'Product List',\n            modal: true,\n            width: '50vw',\n            closable: true,\n            contentStyle: { overflow: 'auto' },\n            breakpoints: {\n                '960px': '75vw',\n                '640px': '90vw'\n            },\n            templates: {\n                footer: Footer\n            }\n        });\n        \n        this.ref.onClose.subscribe((data: any) => {\n            let summary_and_detail;\n            if (data) {\n                const buttonType = data?.buttonType;\n                summary_and_detail = buttonType ? { summary: 'No Product Selected', detail: `Pressed '${buttonType}' button` } : { summary: 'Product Selected', detail: data?.name };\n            } else {\n                summary_and_detail = { summary: 'No Product Selected', detail: 'Pressed Close button' };\n            }\n            this.messageService.add({ severity: 'info', ...summary_and_detail, life: 3000 });\n        });\n        \n        this.ref.onMaximize.subscribe((value) => {\n            this.messageService.add({\n                severity: 'info',\n                summary: 'Maximized',\n                detail: `maximized: ${value.maximized}`\n            });\n        });\n    }\n}"
+            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { ToastModule } from 'primeng/toast';\nimport { ProductService } from '@/service/productservice';\nimport { MessageService } from 'primeng/api';\nimport { Product } from '@/domain/product';\nimport { Dialog } from 'primeng/dialog';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-toast />\n            <p-button (click)=\"show()\" icon=\"pi pi-search\" label=\"Select a Product\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, ToastModule],\n    providers: [ProductService]\n})\nexport class DynamicdialogExampleDemo implements OnInit {\n    constructor(public dialogService: DialogService, public messageService: MessageService) {}\n\n    ngOnInit() {\n    }\n\n    show() {\n        this.ref = this.dialogService.open(ProductListDemo, {\n            header: 'Product List',\n            modal: true,\n            width: '50vw',\n            closable: true,\n            contentStyle: { overflow: 'auto' },\n            breakpoints: {\n                '960px': '75vw',\n                '640px': '90vw'\n            },\n            templates: {\n                footer: Footer\n            }\n        });\n        \n        this.ref.onClose.subscribe((data: any) => {\n            let summary_and_detail;\n            if (data) {\n                const buttonType = data?.buttonType;\n                summary_and_detail = buttonType ? { summary: 'No Product Selected', detail: `Pressed '${buttonType}' button` } : { summary: 'Product Selected', detail: data?.name };\n            } else {\n                summary_and_detail = { summary: 'No Product Selected', detail: 'Pressed Close button' };\n            }\n            this.messageService.add({ severity: 'info', ...summary_and_detail, life: 3000 });\n        });\n        \n        this.ref.onMaximize.subscribe((value) => {\n            this.messageService.add({\n                severity: 'info',\n                summary: 'Maximized',\n                detail: `maximized: ${value.maximized}`\n            });\n        });\n    }\n}"
           }
         },
         {
@@ -16940,16 +16940,6 @@
             "basic": "<p-inplace>\n    <ng-template #display>\n        <span>View Content</span>\n    </ng-template>\n    <ng-template #content>\n        <p class=\"m-0\">\n            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n        </p>\n    </ng-template>\n</p-inplace>",
             "html": "<div class=\"card\">\n    <p-inplace>\n        <ng-template #display>\n            <span>View Content</span>\n        </ng-template>\n        <ng-template #content>\n            <p class=\"m-0\">\n                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n            </p>\n        </ng-template>\n    </p-inplace>\n</div>",
             "typescript": "import { Component } from '@angular/core';\nimport { InplaceModule } from 'primeng/inplace';\n\n@Component({\n    template: `\n        <div class=\"card\">\n            <p-inplace>\n                <ng-template #display>\n                    <span>View Content</span>\n                </ng-template>\n                <ng-template #content>\n                    <p class=\"m-0\">\n                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                    </p>\n                </ng-template>\n            </p-inplace>\n        </div>\n    `,\n    standalone: true,\n    imports: [InplaceModule]\n})\nexport class InplaceBasicDemo {}"
-          }
-        },
-        {
-          "id": "data",
-          "label": "data-doc",
-          "description": "",
-          "examples": {
-            "basic": "<p-inplace>\n    <ng-template #display>\n        <div class=\"inline-flex items-center\">\n            <span class=\"pi pi-table\" style=\"vertical-align: middle\"></span>\n            <span class=\"ml-2\">View Data</span>\n        </div>\n    </ng-template>\n    <ng-template #content>\n        <p-table [value]=\"cars\" responsiveLayout=\"scroll\">\n            <ng-template pTemplate=\"header\">\n                <tr>\n                    <th>Vin</th>\n                    <th>Year</th>\n                    <th>Brand</th>\n                    <th>Color</th>\n                </tr>\n            </ng-template>\n            <ng-template pTemplate=\"body\" let-car>\n                <tr>\n                    <td>{{ car.vin }}</td>\n                    <td>{{ car.year }}</td>\n                    <td>{{ car.brand }}</td>\n                    <td>{{ car.color }}</td>\n                </tr>\n            </ng-template>\n        </p-table>\n    </ng-template>\n</p-inplace>",
-            "html": "<div class=\"card\">\n    <p-inplace>\n        <ng-template #display>\n            <div class=\"inline-flex items-center\">\n                <span class=\"pi pi-table\" style=\"vertical-align: middle\"></span>\n                <span class=\"ml-2\">View Data</span>\n            </div>\n        </ng-template>\n        <ng-template #content>\n            <p-table [value]=\"cars\" responsiveLayout=\"scroll\">\n                <ng-template pTemplate=\"header\">\n                    <tr>\n                        <th>Vin</th>\n                        <th>Year</th>\n                        <th>Brand</th>\n                        <th>Color</th>\n                    </tr>\n                </ng-template>\n                <ng-template pTemplate=\"body\" let-car>\n                    <tr>\n                        <td>{{ car.vin }}</td>\n                        <td>{{ car.year }}</td>\n                        <td>{{ car.brand }}</td>\n                        <td>{{ car.color }}</td>\n                    </tr>\n                </ng-template>\n            </p-table>\n        </ng-template>\n    </p-inplace>\n</div>",
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { InplaceModule } from 'primeng/inplace';\nimport { TableModule } from 'primeng/table';\nimport { CarService } from '@/service/carservice';\nimport { Car } from '@/domain/car';\n\n@Component({\n    template: `\n        <div class=\"card\">\n            <p-inplace>\n                <ng-template #display>\n                    <div class=\"inline-flex items-center\">\n                        <span class=\"pi pi-table\" style=\"vertical-align: middle\"></span>\n                        <span class=\"ml-2\">View Data</span>\n                    </div>\n                </ng-template>\n                <ng-template #content>\n                    <p-table [value]=\"cars\" responsiveLayout=\"scroll\">\n                        <ng-template pTemplate=\"header\">\n                            <tr>\n                                <th>Vin</th>\n                                <th>Year</th>\n                                <th>Brand</th>\n                                <th>Color</th>\n                            </tr>\n                        </ng-template>\n                        <ng-template pTemplate=\"body\" let-car>\n                            <tr>\n                                <td>{{ car.vin }}</td>\n                                <td>{{ car.year }}</td>\n                                <td>{{ car.brand }}</td>\n                                <td>{{ car.color }}</td>\n                            </tr>\n                        </ng-template>\n                    </p-table>\n                </ng-template>\n            </p-inplace>\n        </div>\n    `,\n    standalone: true,\n    imports: [InplaceModule, TableModule],\n    providers: [CarService]\n})\nexport class InplaceDataDemo implements OnInit {\n    cars: Car[] | undefined;\n\n    constructor(private carService: CarService) {}\n\n    ngOnInit() {\n        this.carService.getCarsSmall().then((cars) => (this.cars = cars));\n    }\n}"
           }
         },
         {
@@ -25183,7 +25173,7 @@
           "examples": {
             "basic": "<p-orderlist [value]=\"products\" dataKey=\"id\" [responsive]=\"true\" breakpoint=\"575px\" scrollHeight=\"20rem\">\n    <ng-template let-option let-selected=\"selected\" #item>\n        <div class=\"flex flex-wrap p-1 items-center gap-4 w-full\">\n            <img class=\"w-12 shrink-0 rounded\" src=\"https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}\" [alt]=\"option.name\" />\n            <div class=\"flex-1 flex flex-col\">\n                <span class=\"font-medium text-sm\">{{ option.name }}</span>\n                <span\n                    [ngClass]=\"{\n                        'text-sm': true,\n                        'text-surface-500': !selected,\n                        'dark:text-surface-400': !selected,\n                        'text-inherit': selected\n                    }\"\n                    >{{ option.category }}</span\n                >\n            </div>\n            <span class=\"font-bold sm:ml-8\">{{ '$' + option.price }}</span>\n        </div>\n    </ng-template>\n</p-orderlist>",
             "html": "<div class=\"card sm:flex sm:justify-center\">\n    <p-orderlist [value]=\"products\" dataKey=\"id\" [responsive]=\"true\" breakpoint=\"575px\" scrollHeight=\"20rem\">\n        <ng-template let-option let-selected=\"selected\" #item>\n            <div class=\"flex flex-wrap p-1 items-center gap-4 w-full\">\n                <img class=\"w-12 shrink-0 rounded\" src=\"https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}\" [alt]=\"option.name\" />\n                <div class=\"flex-1 flex flex-col\">\n                    <span class=\"font-medium text-sm\">{{ option.name }}</span>\n                    <span\n                        [ngClass]=\"{\n                            'text-sm': true,\n                            'text-surface-500': !selected,\n                            'dark:text-surface-400': !selected,\n                            'text-inherit': selected\n                        }\"\n                        >{{ option.category }}</span\n                    >\n                </div>\n                <span class=\"font-bold sm:ml-8\">{{ '$' + option.price }}</span>\n            </div>\n        </ng-template>\n    </p-orderlist>\n</div>",
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { OrderListModule } from 'primeng/orderlist';\nimport { ProductService } from '@/service/productservice';\nimport { Product } from '@/domain/product';\n\n@Component({\n    template: `\n        <div class=\"card sm:flex sm:justify-center\">\n            <p-orderlist [value]=\"products\" dataKey=\"id\" [responsive]=\"true\" breakpoint=\"575px\" scrollHeight=\"20rem\">\n                <ng-template let-option let-selected=\"selected\" #item>\n                    <div class=\"flex flex-wrap p-1 items-center gap-4 w-full\">\n                        <img class=\"w-12 shrink-0 rounded\" src=\"https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}\" [alt]=\"option.name\" />\n                        <div class=\"flex-1 flex flex-col\">\n                            <span class=\"font-medium text-sm\">{{ option.name }}</span>\n                            <span\n                                [ngClass]=\"{\n                                    'text-sm': true,\n                                    'text-surface-500': !selected,\n                                    'dark:text-surface-400': !selected,\n                                    'text-inherit': selected\n                                }\"\n                                >{{ option.category }}</span\n                            >\n                        </div>\n                        <span class=\"font-bold sm:ml-8\">{{ '$' + option.price }}</span>\n                    </div>\n                </ng-template>\n            </p-orderlist>\n        </div>\n    `,\n    standalone: true,\n    imports: [OrderListModule],\n    providers: [ProductService]\n})\nexport class OrderlistTemplateDemo implements OnInit {\n    products!: Product[];\n    id?: string;\n    name?: string;\n    description?: string;\n    price?: number;\n    quantity?: number;\n    inventoryStatus?: string;\n    category?: string;\n    image?: string;\n    rating?: number;\n\n    constructor(private productService: ProductService) {}\n\n    ngOnInit() {\n        this.productService.getProductsSmall().then((cars) => {\n            this.products = cars;\n            this.cdr.detectChanges();\n        });\n    }\n\n    getSeverity(status: string) {\n        switch (status) {\n            case 'INSTOCK':\n                return 'success';\n            case 'LOWSTOCK':\n                return 'warning';\n            case 'OUTOFSTOCK':\n                return 'danger';\n        }\n    }\n}"
+            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { OrderListModule } from 'primeng/orderlist';\nimport { ProductService } from '@/service/productservice';\nimport { Product } from '@/domain/product';\n\n@Component({\n    template: `\n        <div class=\"card sm:flex sm:justify-center\">\n            <p-orderlist [value]=\"products\" dataKey=\"id\" [responsive]=\"true\" breakpoint=\"575px\" scrollHeight=\"20rem\">\n                <ng-template let-option let-selected=\"selected\" #item>\n                    <div class=\"flex flex-wrap p-1 items-center gap-4 w-full\">\n                        <img class=\"w-12 shrink-0 rounded\" src=\"https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}\" [alt]=\"option.name\" />\n                        <div class=\"flex-1 flex flex-col\">\n                            <span class=\"font-medium text-sm\">{{ option.name }}</span>\n                            <span\n                                [ngClass]=\"{\n                                    'text-sm': true,\n                                    'text-surface-500': !selected,\n                                    'dark:text-surface-400': !selected,\n                                    'text-inherit': selected\n                                }\"\n                                >{{ option.category }}</span\n                            >\n                        </div>\n                        <span class=\"font-bold sm:ml-8\">{{ '$' + option.price }}</span>\n                    </div>\n                </ng-template>\n            </p-orderlist>\n        </div>\n    `,\n    standalone: true,\n    imports: [OrderListModule],\n    providers: [ProductService]\n})\nexport class OrderlistTemplateDemo implements OnInit {\n    products!: Product[];\n\n    constructor(private productService: ProductService) {}\n\n    ngOnInit() {\n        this.productService.getProductsSmall().then((cars) => {\n            this.products = cars;\n            this.cdr.detectChanges();\n        });\n    }\n\n    getSeverity(status: string) {\n        switch (status) {\n            case 'INSTOCK':\n                return 'success';\n            case 'LOWSTOCK':\n                return 'warning';\n            case 'OUTOFSTOCK':\n                return 'danger';\n        }\n    }\n}"
           }
         }
       ],
@@ -28601,7 +28591,7 @@
           "examples": {
             "basic": "<p-picklist [source]=\"sourceProducts\" [target]=\"targetProducts\" [dragdrop]=\"true\" [responsive]=\"true\" sourceFilterPlaceholder=\"Search by name\" targetFilterPlaceholder=\"Search by name\" breakpoint=\"1400px\" scrollHeight=\"20rem\">\n    <ng-template let-option let-selected=\"selected\" #item>\n        <div class=\"flex flex-wrap p-1 items-center gap-4 w-full\">\n            <img class=\"w-12 shrink-0 rounded\" src=\"https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}\" [alt]=\"option.name\" />\n            <div class=\"flex-1 flex flex-col\">\n                <span class=\"font-medium text-sm\">{{ option.name }}</span>\n                <span\n                    [ngClass]=\"{\n                        'text-surface-500': !selected,\n                        'dark:text-surface-400': !selected,\n                        'text-inherit': selected\n                    }\"\n                    >{{ option.category }}</span\n                >\n            </div>\n            <span class=\"font-bold sm:ml-8\">{{ '$' + option.price }}</span>\n        </div>\n    </ng-template>\n</p-picklist>",
             "html": "<div class=\"card\">\n    <p-picklist [source]=\"sourceProducts\" [target]=\"targetProducts\" [dragdrop]=\"true\" [responsive]=\"true\" sourceFilterPlaceholder=\"Search by name\" targetFilterPlaceholder=\"Search by name\" breakpoint=\"1400px\" scrollHeight=\"20rem\">\n        <ng-template let-option let-selected=\"selected\" #item>\n            <div class=\"flex flex-wrap p-1 items-center gap-4 w-full\">\n                <img class=\"w-12 shrink-0 rounded\" src=\"https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}\" [alt]=\"option.name\" />\n                <div class=\"flex-1 flex flex-col\">\n                    <span class=\"font-medium text-sm\">{{ option.name }}</span>\n                    <span\n                        [ngClass]=\"{\n                            'text-surface-500': !selected,\n                            'dark:text-surface-400': !selected,\n                            'text-inherit': selected\n                        }\"\n                        >{{ option.category }}</span\n                    >\n                </div>\n                <span class=\"font-bold sm:ml-8\">{{ '$' + option.price }}</span>\n            </div>\n        </ng-template>\n    </p-picklist>\n</div>",
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { PickListModule } from 'primeng/picklist';\nimport { ProductService } from '@/service/productservice';\nimport { Product } from '@/domain/product';\n\n@Component({\n    template: `\n        <div class=\"card\">\n            <p-picklist [source]=\"sourceProducts\" [target]=\"targetProducts\" [dragdrop]=\"true\" [responsive]=\"true\" sourceFilterPlaceholder=\"Search by name\" targetFilterPlaceholder=\"Search by name\" breakpoint=\"1400px\" scrollHeight=\"20rem\">\n                <ng-template let-option let-selected=\"selected\" #item>\n                    <div class=\"flex flex-wrap p-1 items-center gap-4 w-full\">\n                        <img class=\"w-12 shrink-0 rounded\" src=\"https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}\" [alt]=\"option.name\" />\n                        <div class=\"flex-1 flex flex-col\">\n                            <span class=\"font-medium text-sm\">{{ option.name }}</span>\n                            <span\n                                [ngClass]=\"{\n                                    'text-surface-500': !selected,\n                                    'dark:text-surface-400': !selected,\n                                    'text-inherit': selected\n                                }\"\n                                >{{ option.category }}</span\n                            >\n                        </div>\n                        <span class=\"font-bold sm:ml-8\">{{ '$' + option.price }}</span>\n                    </div>\n                </ng-template>\n            </p-picklist>\n        </div>\n    `,\n    standalone: true,\n    imports: [PickListModule],\n    providers: [ProductService]\n})\nexport class PicklistTemplateDemo implements OnInit {\n    sourceProducts!: Product[];\n    targetProducts!: Product[];\n    id?: string;\n    name?: string;\n    description?: string;\n    price?: number;\n    quantity?: number;\n    inventoryStatus?: string;\n    category?: string;\n    image?: string;\n    rating?: number;\n\n    constructor(private carService: ProductService) {}\n\n    ngOnInit() {\n        this.carService.getProductsSmall().then((products) => {\n            this.sourceProducts = products;\n            this.cdr.markForCheck();\n        });\n        this.targetProducts = [];\n    }\n}"
+            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { PickListModule } from 'primeng/picklist';\nimport { ProductService } from '@/service/productservice';\nimport { Product } from '@/domain/product';\n\n@Component({\n    template: `\n        <div class=\"card\">\n            <p-picklist [source]=\"sourceProducts\" [target]=\"targetProducts\" [dragdrop]=\"true\" [responsive]=\"true\" sourceFilterPlaceholder=\"Search by name\" targetFilterPlaceholder=\"Search by name\" breakpoint=\"1400px\" scrollHeight=\"20rem\">\n                <ng-template let-option let-selected=\"selected\" #item>\n                    <div class=\"flex flex-wrap p-1 items-center gap-4 w-full\">\n                        <img class=\"w-12 shrink-0 rounded\" src=\"https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}\" [alt]=\"option.name\" />\n                        <div class=\"flex-1 flex flex-col\">\n                            <span class=\"font-medium text-sm\">{{ option.name }}</span>\n                            <span\n                                [ngClass]=\"{\n                                    'text-surface-500': !selected,\n                                    'dark:text-surface-400': !selected,\n                                    'text-inherit': selected\n                                }\"\n                                >{{ option.category }}</span\n                            >\n                        </div>\n                        <span class=\"font-bold sm:ml-8\">{{ '$' + option.price }}</span>\n                    </div>\n                </ng-template>\n            </p-picklist>\n        </div>\n    `,\n    standalone: true,\n    imports: [PickListModule],\n    providers: [ProductService]\n})\nexport class PicklistTemplateDemo implements OnInit {\n    sourceProducts!: Product[];\n    targetProducts!: Product[];\n\n    constructor(private carService: ProductService) {}\n\n    ngOnInit() {\n        this.carService.getProductsSmall().then((products) => {\n            this.sourceProducts = products;\n            this.cdr.markForCheck();\n        });\n        this.targetProducts = [];\n    }\n}"
           }
         },
         {
@@ -35596,184 +35586,6 @@
             "token": "stepper.steppanel.indent",
             "variable": "--p-stepper-steppanel-indent",
             "description": "Indent of steppanel"
-          }
-        ]
-      }
-    },
-    {
-      "name": "steps",
-      "title": "Angular Steps Component",
-      "description": "Steps also known as Stepper, is an indicator for the steps in a workflow. Layout of steps component is optimized for responsive design.",
-      "sections": [
-        {
-          "id": "accessibility",
-          "label": "Accessibility",
-          "description": "Screen Reader Steps component uses the nav element and since any attribute is passed to the root implicitly aria-labelledby or aria-label can be used to describe the component. Inside an ordered list is used where the current step item defines aria-current as \"step\". Keyboard Support Key Function tab Adds focus to the active step when focus moves in to the component, if there is already a focused tab header then moves the focus out of the component based on the page tab sequence. enter Activates the focused step if readonly is not enabled. space Activates the focused step if readonly is not enabled. right arrow Moves focus to the next step if readonly is not enabled. left arrow Moves focus to the previous step if readonly is not enabled. home Moves focus to the first step if readonly is not enabled. end Moves focus to the last step if readonly is not enabled.",
-          "examples": null
-        },
-        {
-          "id": "basic",
-          "label": "Basic",
-          "description": "Steps requires a collection of menuitems as its model .",
-          "examples": {
-            "basic": "<p-steps [model]=\"items\" [readonly]=\"true\" />",
-            "html": "<div class=\"card\">\n    <p-steps [model]=\"items\" [readonly]=\"true\" />\n</div>",
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { StepsModule } from 'primeng/steps';\nimport { MenuItem } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"card\">\n            <p-steps [model]=\"items\" [readonly]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [StepsModule]\n})\nexport class StepsBasicDemo implements OnInit {\n    items: MenuItem[] | undefined;\n\n    ngOnInit() {\n        this.items = [\n            {\n                label: 'Personal Info'\n            },\n            {\n                label: 'Reservation'\n            },\n            {\n                label: 'Review'\n            }\n        ];\n    }\n}"
-          }
-        },
-        {
-          "id": "controlled",
-          "label": "Controlled",
-          "description": "Steps can be controlled programmatically using activeIndex property.",
-          "examples": {
-            "basic": "<div class=\"flex mb-8 gap-2 justify-end\">\n    <p-button (click)=\"active = 0\" [rounded]=\"true\" label=\"1\" styleClass=\"w-8 h-8 p-0\" [outlined]=\"active !== 0\" />\n    <p-button (click)=\"active = 1\" [rounded]=\"true\" label=\"2\" styleClass=\"w-8 h-8 p-0\" [outlined]=\"active !== 1\" />\n    <p-button (click)=\"active = 2\" [rounded]=\"true\" label=\"3\" styleClass=\"w-8 h-8 p-0\" [outlined]=\"active !== 2\" />\n</div>\n<p-steps [activeIndex]=\"active\" [model]=\"items\" />",
-            "html": "<div class=\"card\">\n    <div class=\"flex mb-8 gap-2 justify-end\">\n        <p-button (click)=\"active = 0\" [rounded]=\"true\" label=\"1\" styleClass=\"w-8 h-8 p-0\" [outlined]=\"active !== 0\" />\n        <p-button (click)=\"active = 1\" [rounded]=\"true\" label=\"2\" styleClass=\"w-8 h-8 p-0\" [outlined]=\"active !== 1\" />\n        <p-button (click)=\"active = 2\" [rounded]=\"true\" label=\"3\" styleClass=\"w-8 h-8 p-0\" [outlined]=\"active !== 2\" />\n    </div>\n    <p-steps [activeIndex]=\"active\" [model]=\"items\" />\n</div>",
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { StepsModule } from 'primeng/steps';\nimport { MenuItem } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"card\">\n            <div class=\"flex mb-8 gap-2 justify-end\">\n                <p-button (click)=\"active = 0\" [rounded]=\"true\" label=\"1\" styleClass=\"w-8 h-8 p-0\" [outlined]=\"active !== 0\" />\n                <p-button (click)=\"active = 1\" [rounded]=\"true\" label=\"2\" styleClass=\"w-8 h-8 p-0\" [outlined]=\"active !== 1\" />\n                <p-button (click)=\"active = 2\" [rounded]=\"true\" label=\"3\" styleClass=\"w-8 h-8 p-0\" [outlined]=\"active !== 2\" />\n            </div>\n            <p-steps [activeIndex]=\"active\" [model]=\"items\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, StepsModule]\n})\nexport class StepsControlledDemo implements OnInit {\n    items: MenuItem[] | undefined;\n    active: number = 0;\n\n    ngOnInit() {\n        this.items = [\n            {\n                label: 'Personal Info'\n            },\n            {\n                label: 'Reservation'\n            },\n            {\n                label: 'Review'\n            }\n        ];\n    }\n}"
-          }
-        },
-        {
-          "id": "interactive",
-          "label": "Interactive",
-          "description": "In order to add interactivity to the component, disable readonly and use a binding to activeIndex along with activeIndexChange to control the Steps.",
-          "examples": {
-            "basic": "<p-toast />\n<p-steps [model]=\"items\" [readonly]=\"false\" [activeIndex]=\"activeIndex\" (activeIndexChange)=\"onActiveIndexChange($event)\" />",
-            "html": "<div class=\"card\">\n    <p-toast />\n    <p-steps [model]=\"items\" [readonly]=\"false\" [activeIndex]=\"activeIndex\" (activeIndexChange)=\"onActiveIndexChange($event)\" />\n</div>",
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { Steps, StepsModule } from 'primeng/steps';\nimport { ToastModule } from 'primeng/toast';\nimport { MenuItem, MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"card\">\n            <p-toast />\n            <p-steps [model]=\"items\" [readonly]=\"false\" [activeIndex]=\"activeIndex\" (activeIndexChange)=\"onActiveIndexChange($event)\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [StepsModule, ToastModule]\n})\nexport class StepsInteractiveDemo implements OnInit {\n    items: MenuItem[] | undefined;\n    activeIndex: number = 0;\n\n    constructor(public messageService: MessageService) {}\n\n    ngOnInit() {\n        this.items = [\n            {\n                label: 'Personal',\n                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'First Step', detail: event.item.label })\n            },\n            {\n                label: 'Seat',\n                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Second Step', detail: event.item.label })\n            },\n            {\n                label: 'Payment',\n                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Third Step', detail: event.item.label })\n            },\n            {\n                label: 'Confirmation',\n                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Last Step', detail: event.item.label })\n            }\n        ];\n    }\n}"
-          }
-        },
-        {
-          "id": "routing",
-          "label": "Routing",
-          "description": "Example below uses nested routes with Steps.",
-          "examples": {
-            "basic": "<p-toast />\n<p-steps [model]=\"items\" [readonly]=\"false\" />",
-            "html": "<div class=\"card\">\n    <p-toast />\n    <p-steps [model]=\"items\" [readonly]=\"false\" />\n</div>\n<router-outlet></router-outlet>",
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { Steps, StepsModule } from 'primeng/steps';\nimport { ToastModule } from 'primeng/toast';\nimport { TicketService } from '@/service/ticketservice';\nimport { MenuItem, MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <div class=\"card\">\n            <p-toast />\n            <p-steps [model]=\"items\" [readonly]=\"false\" />\n        </div>\n        <router-outlet></router-outlet>\n    `,\n    standalone: true,\n    imports: [StepsModule, ToastModule],\n    providers: [TicketService]\n})\nexport class StepsRoutingDemo implements OnInit {\n    items: MenuItem[];\n    subscription: Subscription;\n\n    constructor(public messageService: MessageService, public ticketService: TicketService) {}\n\n    ngOnInit() {\n        this.items = [\n            {\n                label: 'Personal',\n                routerLink: ''\n            },\n            {\n                label: 'Seat',\n                routerLink: 'seat'\n            },\n            {\n                label: 'Payment',\n                routerLink: 'payment'\n            },\n            {\n                label: 'Confirmation',\n                routerLink: 'confirmation'\n            }\n        ];\n        this.subscription = this.ticketService.paymentComplete$.subscribe((personalInformation) => {\n            this.messageService.add({\n                severity: 'success',\n                summary: 'Order submitted',\n                detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.'\n            });\n        });\n    }\n\n    ngOnDestroy() {\n        if (this.subscription) {\n            this.subscription.unsubscribe();\n        }\n    }\n\n    nextPage() {\n        this.ticketService.ticketInformation.paymentInformation = this.paymentInformation;\n        this.router.navigate(['steps/confirmation']);\n    }\n\n    prevPage() {\n        this.router.navigate(['steps/seat']);\n    }\n\n    setVagons(event) {\n        if (this.seatInformation.class && event.value) {\n            this.vagons = [];\n            this.seats = [];\n            for (let i = 1; i < 3 * event.value.factor; i++) {\n                this.vagons.push({ wagon: i + event.value.code, type: event.value.name, factor: event.value.factor });\n            }\n        }\n    }\n\n    setSeats(event) {\n        if (this.seatInformation.wagon && event.value) {\n            this.seats = [];\n            for (let i = 1; i < 10 * event.value.factor; i++) {\n                this.seats.push({ seat: i, type: event.value.type });\n            }\n        }\n    }\n\n    complete() {\n        this.ticketService.complete();\n    }\n}"
-          }
-        }
-      ],
-      "api": {
-        "props": null,
-        "templates": null,
-        "emits": null,
-        "methods": null,
-        "pt": null,
-        "styles": null,
-        "tokens": [
-          {
-            "token": "steps.transition.duration",
-            "variable": "--p-steps-transition-duration",
-            "description": "Transition duration of root"
-          },
-          {
-            "token": "steps.separator.background",
-            "variable": "--p-steps-separator-background",
-            "description": "Background of separator"
-          },
-          {
-            "token": "steps.item.link.border.radius",
-            "variable": "--p-steps-item-link-border-radius",
-            "description": "Border radius of item link"
-          },
-          {
-            "token": "steps.item.link.focus.ring.width",
-            "variable": "--p-steps-item-link-focus-ring-width",
-            "description": "Focus ring width of item link"
-          },
-          {
-            "token": "steps.item.link.focus.ring.style",
-            "variable": "--p-steps-item-link-focus-ring-style",
-            "description": "Focus ring style of item link"
-          },
-          {
-            "token": "steps.item.link.focus.ring.color",
-            "variable": "--p-steps-item-link-focus-ring-color",
-            "description": "Focus ring color of item link"
-          },
-          {
-            "token": "steps.item.link.focus.ring.offset",
-            "variable": "--p-steps-item-link-focus-ring-offset",
-            "description": "Focus ring offset of item link"
-          },
-          {
-            "token": "steps.item.link.focus.ring.shadow",
-            "variable": "--p-steps-item-link-focus-ring-shadow",
-            "description": "Focus ring shadow of item link"
-          },
-          {
-            "token": "steps.item.link.gap",
-            "variable": "--p-steps-item-link-gap",
-            "description": "Gap of item link"
-          },
-          {
-            "token": "steps.item.label.color",
-            "variable": "--p-steps-item-label-color",
-            "description": "Color of item label"
-          },
-          {
-            "token": "steps.item.label.active.color",
-            "variable": "--p-steps-item-label-active-color",
-            "description": "Active color of item label"
-          },
-          {
-            "token": "steps.item.label.font.weight",
-            "variable": "--p-steps-item-label-font-weight",
-            "description": "Font weight of item label"
-          },
-          {
-            "token": "steps.item.number.background",
-            "variable": "--p-steps-item-number-background",
-            "description": "Background of item number"
-          },
-          {
-            "token": "steps.item.number.active.background",
-            "variable": "--p-steps-item-number-active-background",
-            "description": "Active background of item number"
-          },
-          {
-            "token": "steps.item.number.border.color",
-            "variable": "--p-steps-item-number-border-color",
-            "description": "Border color of item number"
-          },
-          {
-            "token": "steps.item.number.active.border.color",
-            "variable": "--p-steps-item-number-active-border-color",
-            "description": "Active border color of item number"
-          },
-          {
-            "token": "steps.item.number.color",
-            "variable": "--p-steps-item-number-color",
-            "description": "Color of item number"
-          },
-          {
-            "token": "steps.item.number.active.color",
-            "variable": "--p-steps-item-number-active-color",
-            "description": "Active color of item number"
-          },
-          {
-            "token": "steps.item.number.size",
-            "variable": "--p-steps-item-number-size",
-            "description": "Size of item number"
-          },
-          {
-            "token": "steps.item.number.font.size",
-            "variable": "--p-steps-item-number-font-size",
-            "description": "Font size of item number"
-          },
-          {
-            "token": "steps.item.number.font.weight",
-            "variable": "--p-steps-item-number-font-weight",
-            "description": "Font weight of item number"
-          },
-          {
-            "token": "steps.item.number.border.radius",
-            "variable": "--p-steps-item-number-border-radius",
-            "description": "Border radius of item number"
-          },
-          {
-            "token": "steps.item.number.shadow",
-            "variable": "--p-steps-item-number-shadow",
-            "description": "Shadow of item number"
           }
         ]
       }

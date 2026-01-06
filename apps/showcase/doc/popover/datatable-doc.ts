@@ -1,14 +1,14 @@
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MessageService } from 'primeng/api';
-import { Popover, PopoverModule } from 'primeng/popover';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Product } from '@/domain/product';
+import { ProductService } from '@/service/productservice';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { Popover, PopoverModule } from 'primeng/popover';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'datatable-doc',
@@ -84,7 +84,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
             </p-popover>
         </div>
-        <app-code [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="['Product']"></app-code>
     `
 })
 export class DataTableDoc implements OnInit {
@@ -139,23 +139,4 @@ export class DataTableDoc implements OnInit {
                 return null;
         }
     }
-
-    extFiles = [
-        {
-            path: 'src/domain/product.ts',
-            content: `
-export interface Product {
-    id?: string;
-    code?: string;
-    name?: string;
-    description?: string;
-    price?: number;
-    quantity?: number;
-    inventoryStatus?: string;
-    category?: string;
-    image?: string;
-    rating?: number;
-}`
-        }
-    ];
 }

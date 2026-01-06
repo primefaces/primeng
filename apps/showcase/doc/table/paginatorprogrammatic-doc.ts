@@ -1,11 +1,11 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
-import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { TableModule } from 'primeng/table';
 
 @Component({
     selector: 'paginatorprogrammatic-doc',
@@ -52,7 +52,7 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="['Customer']"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -99,33 +99,4 @@ export class PaginatorProgrammaticDoc {
     isFirstPage(): boolean {
         return this.customers ? this.first === 0 : true;
     }
-
-    extFiles = [
-        {
-            path: 'src/domain/customer.ts',
-            content: `
-export interface Country {
-    name?: string;
-    code?: string;
-}
-
-export interface Representative {
-    name?: string;
-    image?: string;
-}
-
-export interface Customer {
-    id?: number;
-    name?: string;
-    country?: Country;
-    company?: string;
-    date?: string | Date;
-    status?: string;
-    activity?: number;
-    representative?: Representative;
-    verified?: boolean;
-    balance?: number;
-}`
-        }
-    ];
 }

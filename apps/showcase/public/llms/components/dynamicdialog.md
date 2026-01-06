@@ -46,7 +46,6 @@ export class DynamicdialogExampleDemo implements OnInit {
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((products) => (this.products = products.slice(0, 5)));
     }
 
     show() {

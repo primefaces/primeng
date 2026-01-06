@@ -57,7 +57,7 @@ import { TagModule } from 'primeng/tag';
                 </p-table>
             </div>
         </div>
-        <app-code [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="['Product']"></app-code>
     `
 })
 export class DataTableDoc implements OnInit {
@@ -112,23 +112,4 @@ export class DataTableDoc implements OnInit {
                 return 'danger';
         }
     }
-
-    extFiles = [
-        {
-            path: 'src/domain/product.ts',
-            content: `
-export interface Product {
-    id?: string;
-    code?: string;
-    name?: string;
-    description?: string;
-    price?: number;
-    quantity?: number;
-    inventoryStatus?: string;
-    category?: string;
-    image?: string;
-    rating?: number;
-}`
-        }
-    ];
 }

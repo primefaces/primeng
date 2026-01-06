@@ -65,7 +65,7 @@ import { TagModule } from 'primeng/tag';
                 </ng-template>
             </p-dataview>
         </div>
-        <app-code [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="['Product']"></app-code>
     `
 })
 export class SortingDoc {
@@ -115,23 +115,4 @@ export class SortingDoc {
             { label: 'Price Low to High', value: 'price' }
         ];
     }
-
-    extFiles = [
-        {
-            path: 'src/domain/product.ts',
-            content: `
-export interface Product {
-    id?: string;
-    code?: string;
-    name?: string;
-    description?: string;
-    price?: number;
-    quantity?: number;
-    inventoryStatus?: string;
-    category?: string;
-    image?: string;
-    rating?: number;
-}`
-        }
-    ];
 }

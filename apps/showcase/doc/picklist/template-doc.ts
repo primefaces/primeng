@@ -1,10 +1,10 @@
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PickListModule } from 'primeng/picklist';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Product } from '@/domain/product';
+import { ProductService } from '@/service/productservice';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { PickListModule } from 'primeng/picklist';
 
 @Component({
     selector: 'template-doc',
@@ -36,31 +36,13 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
             </p-picklist>
         </div>
-        <app-code [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="['Product']"></app-code>
     `
 })
 export class TemplateDoc {
     sourceProducts!: Product[];
 
     targetProducts!: Product[];
-    extFiles = [
-        {
-            path: 'src/domain/product.ts',
-            content: `
-export interface Product {
-    id?: string;
-    code?: string;
-    name?: string;
-    description?: string;
-    price?: number;
-    quantity?: number;
-    inventoryStatus?: string;
-    category?: string;
-    image?: string;
-    rating?: number;
-}`
-        }
-    ];
 
     constructor(
         private carService: ProductService,

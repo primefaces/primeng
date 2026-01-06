@@ -98,7 +98,6 @@
 - [Angular SplitButton Component](https://primeng.org/splitbutton): SplitButton groups a set of commands in an overlay with a default action item.
 - [Angular Splitter Component](https://primeng.org/splitter): Splitter is utilized to separate and resize panels.
 - [Angular Stepper Component](https://primeng.org/stepper): The Stepper component displays a wizard-like workflow by guiding users through the multi-step progression.
-- [Angular Steps Component](https://primeng.org/steps): Steps also known as Stepper, is an indicator for the steps in a workflow. Layout of steps component is optimized for responsive design.
 - [Angular StyleClass Component](https://primeng.org/styleclass): StyleClass manages css classes declaratively to during enter/leave animations or just to toggle classes on an element.
 - [Angular Table Component](https://primeng.org/table): Table displays data in tabular format.
 - [Angular Tabs Component](https://primeng.org/tabs): Tabs is a container component to group content with tabs.

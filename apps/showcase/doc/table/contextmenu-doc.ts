@@ -1,14 +1,14 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { CommonModule } from '@angular/common';
-import { TableModule } from 'primeng/table';
 import { ContextMenuModule } from 'primeng/contextmenu';
+import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
-import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'contextmenu-doc',
@@ -45,7 +45,7 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                 <p-toast />
             </div>
         </p-deferred-demo>
-        <app-code [extFiles]="extFiles"></app-code>`,
+        <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })
@@ -83,23 +83,4 @@ export class ContextMenuDoc {
         this.messageService.add({ severity: 'error', summary: 'Product Deleted', detail: product.name });
         this.selectedProduct = null;
     }
-
-    extFiles = [
-        {
-            path: 'src/domain/product.ts',
-            content: `
-export interface Product {
-    id?: string;
-    code?: string;
-    name?: string;
-    description?: string;
-    price?: number;
-    quantity?: number;
-    inventoryStatus?: string;
-    category?: string;
-    image?: string;
-    rating?: number;
-}`
-        }
-    ];
 }

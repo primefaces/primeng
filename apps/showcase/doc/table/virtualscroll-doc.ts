@@ -1,11 +1,11 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
-import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 interface Column {
     field: string;
@@ -43,7 +43,7 @@ interface Column {
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [extFiles]="extFiles"></app-code>`,
+        <app-code [extFiles]="['Car']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VirtualScrollDoc {
@@ -67,20 +67,4 @@ export class VirtualScrollDoc {
         this.cars = Array.from({ length: 10000 }).map((_, i) => this.carService.generateCar(i + 1));
         this.virtualCars = Array.from({ length: 10000 });
     }
-
-    extFiles = [
-        {
-            path: 'src/domain/car.ts',
-            content: `
-export interface Car {
-    id?;
-    vin?;
-    year?;
-    brand?;
-    color?;
-    price?;
-    saleDate?;
-}`
-        }
-    ];
 }

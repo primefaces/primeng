@@ -132,7 +132,7 @@ import { ToastModule } from 'primeng/toast';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [extFiles]="extFiles"></app-code>`,
+        <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })
@@ -196,23 +196,4 @@ export class RowExpansionDoc {
             life: 3000
         });
     }
-
-    extFiles = [
-        {
-            path: 'src/domain/product.ts',
-            content: `
-export interface Product {
-    id?: string;
-    code?: string;
-    name?: string;
-    description?: string;
-    price?: number;
-    quantity?: number;
-    inventoryStatus?: string;
-    category?: string;
-    image?: string;
-    rating?: number;
-}`
-        }
-    ];
 }

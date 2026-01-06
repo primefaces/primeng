@@ -43,7 +43,7 @@ import { TagModule } from 'primeng/tag';
                 </ng-template>
             </p-carousel>
         </div>
-        <app-code [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="['Product']"></app-code>
     `
 })
 export class ResponsiveDoc implements OnInit {

@@ -1,5 +1,5 @@
 import { Code, ExtFile, RouteFile } from '@/domain/code';
-import { resolveDomainTypes, resolveRouteFiles } from '@/domain/types';
+import { resolveDomainTypes, resolveRouteFiles, ResolvedRouteFiles } from '@/domain/types';
 import { DemoCodeService } from '@/service/democodeservice';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { afterNextRender, Component, computed, effect, ElementRef, inject, input, NgModule, PLATFORM_ID, signal, ViewChild } from '@angular/core';
@@ -163,8 +163,11 @@ export class AppCode {
                 // Priority 1: Use code input prop
                 this.resolvedCode.set(codeInput);
                 this.resolvedExtFiles.set(this.resolveExtFilesInput(this.extFiles()));
-                this.resolvedRouteFiles.set(this.resolveRouteFilesInput(this.routeFiles()));
-                this.resolvedService.set(this.service() || []);
+                const { routeFiles: resolvedRoutes, services: routeServices } = this.resolveRouteFilesInput(this.routeFiles());
+                this.resolvedRouteFiles.set(resolvedRoutes);
+                // Merge services from route files with code.service
+                const codeServices = this.service() || [];
+                this.resolvedService.set(this.mergeServices(codeServices, routeServices));
             } else if (selector && isLoaded) {
                 // Priority 2: Look up from JSON
                 const demo = this.demoCodeService.getCode(selector);
@@ -175,10 +178,12 @@ export class AppCode {
                     const demoExtFiles = demo.metadata.extFiles || [];
                     this.resolvedExtFiles.set(this.mergeExtFiles(inputExtFiles, demoExtFiles));
                     // Merge routeFiles from input with those from demos.json
-                    const inputRouteFiles = this.resolveRouteFilesInput(this.routeFiles());
+                    const { routeFiles: inputRouteFiles, services: routeServices } = this.resolveRouteFilesInput(this.routeFiles());
                     const demoRouteFiles = demo.metadata.routeFiles || [];
                     this.resolvedRouteFiles.set(this.mergeRouteFiles(inputRouteFiles, demoRouteFiles));
-                    this.resolvedService.set(demo.metadata.services || []);
+                    // Merge services from route files with those from demos.json
+                    const demoServices = demo.metadata.services || [];
+                    this.resolvedService.set(this.mergeServices(demoServices, routeServices));
                 }
             }
         });
@@ -328,9 +333,9 @@ export class AppCode {
     /**
      * Resolve routeFiles input - handles both RouteFile[] and string[] (component names)
      */
-    private resolveRouteFilesInput(input: RouteFile[] | string[]): RouteFile[] {
+    private resolveRouteFilesInput(input: RouteFile[] | string[]): ResolvedRouteFiles {
         if (!input || input.length === 0) {
-            return [];
+            return { routeFiles: [], services: [] };
         }
 
         // Check if it's a string array (component names)
@@ -338,8 +343,8 @@ export class AppCode {
             return resolveRouteFiles(input as string[]);
         }
 
-        // Already RouteFile array
-        return input as RouteFile[];
+        // Already RouteFile array - no additional services
+        return { routeFiles: input as RouteFile[], services: [] };
     }
 
     /**
@@ -353,6 +358,23 @@ export class AppCode {
             if (!paths.has(file.path)) {
                 result.push(file);
                 paths.add(file.path);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Merge two service arrays, avoiding duplicates
+     */
+    private mergeServices(primary: string[], secondary: string[]): string[] {
+        const result = [...primary];
+        const added = new Set(primary);
+
+        for (const service of secondary) {
+            if (!added.has(service)) {
+                result.push(service);
+                added.add(service);
             }
         }
 

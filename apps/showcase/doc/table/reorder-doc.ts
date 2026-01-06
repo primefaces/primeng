@@ -1,11 +1,11 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
-import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 interface Column {
     field: string;
@@ -50,7 +50,7 @@ interface Column {
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [extFiles]="extFiles"></app-code>`,
+        <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReorderDoc {
@@ -76,23 +76,4 @@ export class ReorderDoc {
             { field: 'quantity', header: 'Quantity' }
         ];
     }
-
-    extFiles = [
-        {
-            path: 'src/domain/product.ts',
-            content: `
-export interface Product {
-    id?: string;
-    code?: string;
-    name?: string;
-    description?: string;
-    price?: number;
-    quantity?: number;
-    inventoryStatus?: string;
-    category?: string;
-    image?: string;
-    rating?: number;
-}`
-        }
-    ];
 }

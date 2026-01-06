@@ -133,14 +133,20 @@ export function resolveDomainTypes(types: string[]): ExtFile[] {
     return extFiles;
 }
 
+// Extended RouteFile with services dependency
+export interface RouteFileDefinition extends RouteFile {
+    services?: string[];
+}
+
 // Route file definitions for StackBlitz/CodeSandbox (component files used in demos)
-export const ROUTE_FILE_DEFINITIONS: Record<string, RouteFile> = {
+export const ROUTE_FILE_DEFINITIONS: Record<string, RouteFileDefinition> = {
     ProductListDemo: {
         path: 'src/app/demo/productlistdemo.ts',
         name: 'ProductListDemo',
+        services: ['ProductService'],
         content: `import { Component, OnInit } from '@angular/core';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Product } from '@/domain/product';
+import { ProductService } from '@/service/productservice';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InfoDemo } from './infodemo';
@@ -294,22 +300,43 @@ export class Footer {
     }
 };
 
+export interface ResolvedRouteFiles {
+    routeFiles: RouteFile[];
+    services: string[];
+}
+
 /**
- * Resolve route file names to RouteFile array
+ * Resolve route file names to RouteFile array and collect required services
  * @param names Array of route file names (e.g., ['ProductListDemo', 'Footer'])
- * @returns Array of RouteFile objects with path, name, and content
+ * @returns Object with routeFiles array and services array
  */
-export function resolveRouteFiles(names: string[]): RouteFile[] {
+export function resolveRouteFiles(names: string[]): ResolvedRouteFiles {
     const routeFiles: RouteFile[] = [];
+    const services: string[] = [];
     const addedPaths = new Set<string>();
+    const addedServices = new Set<string>();
 
     for (const name of names) {
         const definition = ROUTE_FILE_DEFINITIONS[name];
         if (definition && !addedPaths.has(definition.path)) {
             addedPaths.add(definition.path);
-            routeFiles.push(definition);
+            routeFiles.push({
+                path: definition.path,
+                name: definition.name,
+                content: definition.content
+            });
+
+            // Collect services required by this route file
+            if (definition.services) {
+                for (const service of definition.services) {
+                    if (!addedServices.has(service)) {
+                        addedServices.add(service);
+                        services.push(service);
+                    }
+                }
+            }
         }
     }
 
-    return routeFiles;
+    return { routeFiles, services };
 }

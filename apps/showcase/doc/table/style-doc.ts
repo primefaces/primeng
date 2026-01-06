@@ -1,13 +1,12 @@
-import { Code } from '@/domain/code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TableModule } from 'primeng/table';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
-import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
+import { TableModule } from 'primeng/table';
 
 @Component({
     selector: 'style-doc',
@@ -40,7 +39,7 @@ import { BadgeModule } from 'primeng/badge';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [code]="code" selector="table-style-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code [code]="code" [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StyleDoc {
@@ -51,71 +50,6 @@ export class StyleDoc {
         private cd: ChangeDetectorRef
     ) {}
 
-    code: Code = {
-        basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header>
-        <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-product>
-        <tr [ngClass]="rowClass(product)" [ngStyle]="rowStyle(product)">
-            <td>{{ product.code }}</td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.category }}</td>
-            <td>
-                <p-badge [value]="product.quantity" [severity]="stockSeverity(product)" />
-            </td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #header>
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-product>
-            <tr [ngClass]="rowClass(product)" [ngStyle]="rowStyle(product)">
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
-                <td>
-                    <p-badge [value]="product.quantity" [severity]="stockSeverity(product)" />
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
-import { BadgeModule } from 'primeng/badge';
-
-@Component({
-    selector: 'table-style-demo',
-    templateUrl: 'table-style-demo.html',
-    standalone: true,
-    imports: [TableModule, CommonModule, BadgeModule],
-    providers: [ProductService]
-})
-export class TableStyleDemo implements OnInit{
-    products!: Product[];
-
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef,
-    ) {}
-
     loadDemoData() {
         this.productService.getProductsSmall().then((data) => {
             this.products = data;
@@ -138,50 +72,4 @@ export class TableStyleDemo implements OnInit{
         else if (product.quantity > 0 && product.quantity < 10) return 'warn';
         else return 'success';
     }
-
-}`,
-        service: ['ProductService']
-    };
-
-    loadDemoData() {
-        this.productService.getProductsSmall().then((data) => {
-            this.products = data;
-            this.cd.markForCheck();
-        });
-    }
-
-    rowClass(product: Product) {
-        return { '!bg-primary !text-primary-contrast': product.category === 'Fitness' };
-    }
-
-    rowStyle(product: Product) {
-        if (product.quantity === 0) {
-            return { fontWeight: 'bold', fontStyle: 'italic' };
-        }
-    }
-
-    stockSeverity(product: Product) {
-        if (product.quantity === 0) return 'danger';
-        else if (product.quantity > 0 && product.quantity < 10) return 'warn';
-        else return 'success';
-    }
-
-    extFiles = [
-        {
-            path: 'src/domain/product.ts',
-            content: `
-export interface Product {
-    id?: string;
-    code?: string;
-    name?: string;
-    description?: string;
-    price?: number;
-    quantity?: number;
-    inventoryStatus?: string;
-    category?: string;
-    image?: string;
-    rating?: number;
-}`
-        }
-    ];
 }

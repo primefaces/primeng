@@ -1,13 +1,12 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TableLazyLoadEvent } from 'primeng/table';
 import { CommonModule } from '@angular/common';
-import { TableModule } from 'primeng/table';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
-import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SkeletonModule } from 'primeng/skeleton';
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 
 interface Column {
     field: string;
@@ -51,7 +50,7 @@ interface Column {
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [extFiles]="extFiles"></app-code>`,
+        <app-code [extFiles]="['Car']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VirtualScrollLazyDoc {
@@ -92,20 +91,4 @@ export class VirtualScrollLazyDoc {
             Math.random() * 1000 + 250
         );
     }
-
-    extFiles = [
-        {
-            path: 'src/domain/car.ts',
-            content: `
-export interface Car {
-    id?;
-    vin?;
-    year?;
-    brand?;
-    color?;
-    price?;
-    saleDate?;
-}`
-        }
-    ];
 }

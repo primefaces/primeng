@@ -34,7 +34,7 @@ import { TableModule } from 'primeng/table';
                 </ng-template>
             </p-table>
         </div>
-        <app-code [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="['Product', 'Car']"></app-code>
     `,
     providers: [FilterService]
 })
@@ -85,36 +85,4 @@ export class TableIntegrationDoc implements OnInit {
             this.cd.markForCheck();
         });
     }
-
-    extFiles = [
-        {
-            path: 'src/domain/product.ts',
-            content: `
-export interface Product {
-    id?: string;
-    code?: string;
-    name?: string;
-    description?: string;
-    price?: number;
-    quantity?: number;
-    inventoryStatus?: string;
-    category?: string;
-    image?: string;
-    rating?: number;
-}`
-        },
-        {
-            path: 'src/domain/car.ts',
-            content: `
-export interface Car {
-    id?;
-    vin?;
-    year?;
-    brand?;
-    color?;
-    price?;
-    saleDate?;
-}`
-        }
-    ];
 }

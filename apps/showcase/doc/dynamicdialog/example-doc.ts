@@ -24,7 +24,7 @@ import { ProductListDemo } from './productlistdemo';
             <p-toast />
             <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
         </div>
-        <app-code [code]="code" selector="dynamic-dialog-example-demo" [extFiles]="['Product']" [routeFiles]="['ProductListDemo', 'InfoDemo', 'Footer']"></app-code>
+        <app-code [code]="code" [extFiles]="['Product']" [routeFiles]="['ProductListDemo', 'InfoDemo', 'Footer']"></app-code>
     `,
     providers: [DialogService, MessageService]
 })
