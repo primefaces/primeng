@@ -2,235 +2,25 @@
 
 Steps also known as Stepper, is an indicator for the steps in a workflow. Layout of steps component is optimized for responsive design.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader Steps component uses the nav element and since any attribute is passed to the root implicitly aria-labelledby or aria-label can be used to describe the component. Inside an ordered list is used where the current step item defines aria-current as "step". Keyboard Support Key Function tab Adds focus to the active step when focus moves in to the component, if there is already a focused tab header then moves the focus out of the component based on the page tab sequence. enter Activates the focused step if readonly is not enabled. space Activates the focused step if readonly is not enabled. right arrow Moves focus to the next step if readonly is not enabled. left arrow Moves focus to the previous step if readonly is not enabled. home Moves focus to the first step if readonly is not enabled. end Moves focus to the last step if readonly is not enabled.
 
-## Basic
+## basic-doc
 
 Steps requires a collection of menuitems as its model .
 
-```html
-<p-steps [model]="items" [readonly]="true" />
-```
-
-## Controlled
+## controlled-doc
 
 Steps can be controlled programmatically using activeIndex property.
 
-```html
-<p-button (click)="active = 0" [rounded]="true" label="1" styleClass="w-8 h-8 p-0" [outlined]="active !== 0" />
-<p-button (click)="active = 1" [rounded]="true" label="2" styleClass="w-8 h-8 p-0" [outlined]="active !== 1" />
-<p-button (click)="active = 2" [rounded]="true" label="3" styleClass="w-8 h-8 p-0" [outlined]="active !== 2" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { StepsModule } from 'primeng/steps';
-import { MenuItem } from 'primeng/api';
-
-@Component({
-    template: `
-        <div class="card">
-            <div class="flex mb-8 gap-2 justify-end">
-                <p-button (click)="active = 0" [rounded]="true" label="1" styleClass="w-8 h-8 p-0" [outlined]="active !== 0" />
-                <p-button (click)="active = 1" [rounded]="true" label="2" styleClass="w-8 h-8 p-0" [outlined]="active !== 1" />
-                <p-button (click)="active = 2" [rounded]="true" label="3" styleClass="w-8 h-8 p-0" [outlined]="active !== 2" />
-            </div>
-            <p-steps [activeIndex]="active" [model]="items" />
-        </div>
-    `,
-    standalone: true,
-    imports: [ButtonModule, StepsModule]
-})
-export class StepsControlledDemo implements OnInit {
-    items: MenuItem[] | undefined;
-    active: number = 0;
-
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'Personal Info'
-            },
-            {
-                label: 'Reservation'
-            },
-            {
-                label: 'Review'
-            }
-        ];
-    }
-}
-```
-</details>
-
-## Interactive
+## interactive-doc
 
 In order to add interactivity to the component, disable readonly and use a binding to activeIndex along with activeIndexChange to control the Steps.
 
-```html
-<p-toast />
-<p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { StepsModule } from 'primeng/steps';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
-
-@Component({
-    template: `
-        <div class="card">
-            <p-toast />
-            <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)" />
-        </div>
-    `,
-    standalone: true,
-    imports: [StepsModule, ToastModule]
-})
-export class StepsInteractiveDemo implements OnInit {
-    items: MenuItem[] | undefined;
-    activeIndex: number = 0;
-
-    constructor(public messageService: MessageService) {}
-
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'Personal',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'First Step', detail: event.item.label })
-            },
-            {
-                label: 'Seat',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Second Step', detail: event.item.label })
-            },
-            {
-                label: 'Payment',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Third Step', detail: event.item.label })
-            },
-            {
-                label: 'Confirmation',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Last Step', detail: event.item.label })
-            }
-        ];
-    }
-}
-```
-</details>
-
-## Routing
+## routing-doc
 
 Example below uses nested routes with Steps.
-
-```html
-<p-toast />
-<p-steps [model]="items" [readonly]="false" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { StepsModule } from 'primeng/steps';
-import { ToastModule } from 'primeng/toast';
-import { TicketService } from '@/service/ticketservice';
-import { MenuItem, MessageService } from 'primeng/api';
-
-@Component({
-    template: `
-        <div class="card">
-            <p-toast />
-            <p-steps [model]="items" [readonly]="false" />
-        </div>
-        <router-outlet></router-outlet>
-    `,
-    standalone: true,
-    imports: [StepsModule, ToastModule]
-    providers: [TicketService],
-})
-export class StepsRoutingDemo implements OnInit {
-    items: MenuItem[];
-    subscription: Subscription;
-
-    constructor(public messageService: MessageService, public ticketService: TicketService) {}
-
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'Personal',
-                routerLink: ''
-            },
-            {
-                label: 'Seat',
-                routerLink: 'seat'
-            },
-            {
-                label: 'Payment',
-                routerLink: 'payment'
-            },
-            {
-                label: 'Confirmation',
-                routerLink: 'confirmation'
-            }
-        ];
-        this.subscription = this.ticketService.paymentComplete$.subscribe((personalInformation) => {
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Order submitted',
-                detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.'
-            });
-        });
-    }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
-
-    nextPage() {
-        this.ticketService.ticketInformation.paymentInformation = this.paymentInformation;
-        this.router.navigate(['steps/confirmation']);
-    }
-
-    prevPage() {
-        this.router.navigate(['steps/seat']);
-    }
-
-    setVagons(event) {
-        if (this.seatInformation.class && event.value) {
-            this.vagons = [];
-            this.seats = [];
-            for (let i = 1; i < 3 * event.value.factor; i++) {
-                this.vagons.push({ wagon: i + event.value.code, type: event.value.name, factor: event.value.factor });
-            }
-        }
-    }
-
-    setSeats(event) {
-        if (this.seatInformation.wagon && event.value) {
-            this.seats = [];
-            for (let i = 1; i < 10 * event.value.factor; i++) {
-                this.seats.push({ seat: i, type: event.value.type });
-            }
-        }
-    }
-
-    complete() {
-        this.ticketService.complete();
-    }
-}
-```
-</details>
 
 ## Theming
 

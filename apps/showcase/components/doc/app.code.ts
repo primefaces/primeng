@@ -123,7 +123,7 @@ export class AppCode {
             while (el) {
                 const tagName = el.tagName?.toLowerCase();
                 if (tagName && (tagName.endsWith('-doc') || tagName.endsWith('-demo'))) {
-                    const component = this.route.snapshot.url[0]?.path || '';
+                    const component = this.route.snapshot.url[0]?.path || this.route.parent?.snapshot.url[0]?.path || '';
                     const section = tagName.replace('-doc', '').replace('-demo', '');
                     if (component && section) {
                         return `${component}-${section}-demo`;
@@ -236,26 +236,21 @@ export class AppCode {
         if (code) {
             let str = code.typescript;
 
-            const importModuleStatement = "import { ImportsModule } from './imports';";
-
-            if (str && !str.includes(importModuleStatement)) {
-                // Remove module imports and replace with ImportsModule
-                let modifiedCodeWithImportsModule = str.replace(/import\s+{[^{}]*}\s+from\s+'[^']+';[\r\n]*/g, (match) => {
-                    if (match.includes('Module') && !match.includes('ReactiveFormsModule') && !match.includes('Ref')) {
-                        return '';
-                    }
-                    return match;
-                });
-
-                modifiedCodeWithImportsModule = modifiedCodeWithImportsModule.replace(/\bimports:\s*\[[^\]]*\],?/, 'imports: [ImportsModule],');
-
-                const finalModifiedCode = modifiedCodeWithImportsModule.replace(/import\s+\{[^{}]*\}\s+from\s+'@angular\/core';/, (match) => match + '\n' + importModuleStatement);
-
-                str = finalModifiedCode;
-            }
-
             // Add <theme-switcher /> to the beginning of the template
             str = str.replace(/template:\s*`\s*/, 'template: `\n        <theme-switcher />\n        ');
+
+            // Add ThemeSwitcher to imports array if not already present
+            if (!str.includes('ThemeSwitcher')) {
+                str = str.replace(/imports:\s*\[/, 'imports: [ThemeSwitcher, ');
+                // Add ThemeSwitcher import statement after angular core imports
+                str = str.replace(/import\s+\{[^{}]*\}\s+from\s+'@angular\/core';/, (match) => match + "\nimport { ThemeSwitcher } from './themeswitcher';");
+            }
+
+            // Add CommonModule if not already present
+            if (!str.includes('CommonModule')) {
+                str = str.replace(/imports:\s*\[/, 'imports: [CommonModule, ');
+                str = str.replace(/import\s+\{[^{}]*\}\s+from\s+'@angular\/core';/, (match) => match + "\nimport { CommonModule } from '@angular/common';");
+            }
 
             // Add selector to @Component if missing
             const selector = this.resolvedSelector();

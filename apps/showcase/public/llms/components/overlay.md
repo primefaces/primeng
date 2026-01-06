@@ -2,177 +2,47 @@
 
 This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader Overlay component uses dialog role and since any attribute is passed to the root element you may define attributes like aria-label or aria-labelledby to describe the popup contents. In addition aria-modal is added since focus is kept within the popup. It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding tabIndex would be necessary. Overlay adds aria-expanded state attribute and aria-controls to the trigger so that the relation between the trigger and the popup is defined. Overlay Keyboard Support When the popup gets opened, the first focusable element receives the focus and this can be customized by adding autofocus to an element within the popup. Key Function tab Moves focus to the next the focusable element within the popup. shift + tab Moves focus to the previous the focusable element within the popup. escape Closes the popup and moves focus to the trigger. Close Button Keyboard Support Key Function enter Closes the popup and moves focus to the trigger. space Closes the popup and moves focus to the trigger.
 
-## appendtodoc
+## appendto-doc
 
 Overlay can be mounted into its location, body or DOM element instance using this option.
 
-## autozindexdoc
+## autozindex-doc
 
 The autoZIndex determines whether to automatically manage layering. Its default value is 'false'.
 
-## basezindexdoc
+## basezindex-doc
 
 The baseZIndex is base zIndex value to use in layering. Its default value is 0.
 
-## Basic
+## basic-doc
 
 Overlay is a container to display content in an overlay window. All the options mentioned above can be used as props for this component.
 
-```html
-<p-button (click)="toggle()" label="Show Overlay"></p-button>
-<p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border"> Content </p-overlay>
-```
-
-## hideonescapedoc
+## hideonescape-doc
 
 The hideOnEscape determines to hide the overlay when escape key pressed. Accepts boolean, default value is false .
 
-## Mode
+## mode-doc
 
 It has two valid values; overlay and modal . In overlay mode, a container element is opened like overlaypanel or dropdown's panel. In modal mode, the container element behaves like popup. This behaviour is similar to a dialog component.
 
-## Responsive
+## responsive-doc
 
 It is the option used to determine in which mode it should appear according to the given media or breakpoint .
 
-```html
-<ul>
-    <li>center (default)</li>
-    <li>top</li>
-    <li>top-start</li>
-    <li>top-end</li>
-    <li>bottom</li>
-    <li>bottom-start</li>
-    <li>bottom-end</li>
-    <li>left</li>
-    <li>left-start</li>
-    <li>left-end</li>
-    <li>right</li>
-    <li>right-start</li>
-    <li>right-end</li>
-</ul>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-
-@Component({
-    template: `
-        <p class="doc-section-description">Valid values of the <i>direction</i> property would be;</p>
-        <div class="card">
-            <ul>
-                <li>center (default)</li>
-                <li>top</li>
-                <li>top-start</li>
-                <li>top-end</li>
-                <li>bottom</li>
-                <li>bottom-start</li>
-                <li>bottom-end</li>
-                <li>left</li>
-                <li>left-start</li>
-                <li>left-end</li>
-                <li>right</li>
-                <li>right-start</li>
-                <li>right-end</li>
-            </ul>
-        </div>
-    `,
-    standalone: true,
-    imports: []
-})
-export class OverlayResponsiveDemo {}
-```
-</details>
-
-## Target
+## target-doc
 
 The target is used to detect the element that will be used to position the overlay. Valid values would be;
 
-```html
-<ul>
-    <li>&#64;prev (default)</li>
-    <li>&#64;next</li>
-    <li>&#64;parent</li>
-    <li>&#64;grandparent</li>
-    <li>Use <em>CSS selector</em></li>
-    <li>Use <em>() =&gt; HTMLElement</em></li>
-</ul>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-
-@Component({
-    template: `
-        <div class="card">
-            <ul>
-                <li>&#64;prev (default)</li>
-                <li>&#64;next</li>
-                <li>&#64;parent</li>
-                <li>&#64;grandparent</li>
-                <li>Use <em>CSS selector</em></li>
-                <li>Use <em>() =&gt; HTMLElement</em></li>
-            </ul>
-        </div>
-    `,
-    standalone: true,
-    imports: []
-})
-export class OverlayTargetDemo {}
-```
-</details>
-
-## Template
+## template-doc
 
 Content can be customized with the content template.
 
-```html
-<p-button (click)="toggle()" label="Show Overlay"></p-button>
-<p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
-    <ng-template #content let-option> Content - {{ option.mode }} </ng-template>
-</p-overlay>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-button (click)="toggle()" label="Show Overlay"></p-button>
-            <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
-                <ng-template #content let-option> Content - {{ option.mode }} </ng-template>
-            </p-overlay>
-        </div>
-    `,
-    standalone: true,
-    imports: [ButtonModule]
-})
-export class OverlayTemplateDemo {
-    overlayVisible: boolean = false;
-
-    toggle() {
-        this.overlayVisible = !this.overlayVisible;
-    }
-}
-```
-</details>
-
-## transitionoptionsdoc
+## transitionoptions-doc
 
 Transition options of the show or hide animation. The default value of showTransitionOptions is '.12s cubic-bezier(0, 0, 0.2, 1)' and the default value of hideTransitionOptions is '.1s linear'.
 

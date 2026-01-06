@@ -2,134 +2,35 @@
 
 Rating component is a star based selection input.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader Rating component internally uses radio buttons that are only visible to screen readers. The value to read for item is retrieved from the locale API via star and stars of the aria property.
 
-## Basic
+## basic-doc
 
 Two-way value binding is defined using ngModel .
 
-```html
-<p-rating [(ngModel)]="value" />
-```
-
-## Disabled
+## disabled-doc
 
 When disabled is present, a visual hint is applied to indicate that the Knob cannot be interacted with.
 
-```html
-<p-rating [(ngModel)]="value" [disabled]="true" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" [disabled]="true" />
-        </div>
-    `,
-    standalone: true,
-    imports: [RatingModule, FormsModule]
-})
-export class RatingDisabledDemo {
-    value: number = 5;
-}
-```
-</details>
-
-## Number of Stars
+## numberofstars-doc
 
 Number of stars to display is defined with stars property.
 
-## reactiveformsdoc
+## reactiveforms-doc
 
 Rating can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
-## Readonly
+## readonly-doc
 
 When readonly present, value cannot be edited.
 
-```html
-<p-rating [(ngModel)]="value" [readonly]="true" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" [readonly]="true" />
-        </div>
-    `,
-    standalone: true,
-    imports: [RatingModule, FormsModule]
-})
-export class RatingReadonlyDemo {
-    value: number = 3;
-}
-```
-</details>
-
-## Template
+## template-doc
 
 Templating allows customizing the content where the icon instance is available as the implicit variable.
 
-```html
-<p-rating [(ngModel)]="value">
-    <ng-template #onicon>
-        <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" height="24" width="24" />
-    </ng-template>
-    <ng-template #officon>
-        <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" height="24" width="24" />
-    </ng-template>
-</p-rating>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value">
-                <ng-template #onicon>
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" height="24" width="24" />
-                </ng-template>
-                <ng-template #officon>
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" height="24" width="24" />
-                </ng-template>
-            </p-rating>
-        </div>
-    `,
-    standalone: true,
-    imports: [RatingModule, FormsModule]
-})
-export class RatingTemplateDemo {
-    value!: number;
-}
-```
-</details>
-
-## withoutcanceldoc
+## withoutcancel-doc
 
 A cancel icon is displayed to reset the value by default, set cancel as false to remove this option.
 

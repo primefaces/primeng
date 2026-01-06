@@ -1,6 +1,6 @@
-import { LlmsTxtDoc } from '@/doc/llms/llmstxtdoc';
-import { LlmsFullTxtDoc } from '@/doc/llms/llmsfulltxtdoc';
-import { MarkdownExtensionDoc } from '@/doc/llms/markdownextensiondoc';
+import { LlmsTxtDoc } from '@/doc/llms/llmstxt-doc';
+import { LlmsFullTxtDoc } from '@/doc/llms/llmsfulltxt-doc';
+import { MarkdownExtensionDoc } from '@/doc/llms/markdownextension-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

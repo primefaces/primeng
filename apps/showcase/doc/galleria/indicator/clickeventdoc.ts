@@ -1,9 +1,9 @@
-import { PhotoService } from '@/service/photoservice';
-import { Component, OnInit, model } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { GalleriaModule } from 'primeng/galleria';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { PhotoService } from '@/service/photoservice';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, model } from '@angular/core';
+import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
     selector: 'click-event-doc',
@@ -20,7 +20,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
             </p-galleria>
         </div>
-        <app-code selector="galleria-indicator-click-event-demo"></app-code>
+        <app-code></app-code>
     `
 })
 export class ClickEventDoc implements OnInit {

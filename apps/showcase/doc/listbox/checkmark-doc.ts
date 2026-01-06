@@ -1,0 +1,40 @@
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    selector: 'checkmark-doc',
+    standalone: true,
+    imports: [FormsModule, ListboxModule, AppCodeModule, AppDocSectionText],
+    template: `
+        <app-docsectiontext>
+            <p>An alternative way to highlight the selected option is displaying a checkmark instead.</p>
+        </app-docsectiontext>
+        <div class="card flex justify-center">
+            <p-listbox [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" [checkmark]="true" [highlightOnSelect]="false" class="w-full md:w-56" />
+        </div>
+        <app-code></app-code>
+    `
+})
+export class CheckmarkDoc implements OnInit {
+    cities!: City[];
+
+    selectedCity!: City;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}

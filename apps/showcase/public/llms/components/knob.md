@@ -2,279 +2,53 @@
 
 Knob is a form component to define number inputs with a dial.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader Knob element component uses slider role in addition to the aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using ariaLabelledBy and ariaLabel props.
 
-## Basic
+## basic-doc
 
 Knob is an input component and used with the standard ngModel directive.
 
-```html
-<p-knob [(ngModel)]="value" />
-```
-
-## Color
+## color-doc
 
 Colors are customized with the textColor , rangeColor and valueColor properties.
 
-```html
-<p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise" />
-        </div>
-    `,
-    standalone: true,
-    imports: [KnobModule, FormsModule]
-})
-export class KnobColorDemo {
-    value: number = 50;
-}
-```
-</details>
-
-## Disabled
+## disabled-doc
 
 When disabled is present, a visual hint is applied to indicate that the Knob cannot be interacted with.
 
-```html
-<p-knob [(ngModel)]="value" [disabled]="true" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [disabled]="true" />
-        </div>
-    `,
-    standalone: true,
-    imports: [KnobModule, FormsModule]
-})
-export class KnobDisabledDemo {
-    value: number = 75;
-}
-```
-</details>
-
-## Min/Max
+## minmax-doc
 
 Boundaries are configured with the min and max properties whose defaults are 0 and 100 respectively.
 
-## Reactive
+## reactive-doc
 
 Knob can be controlled with custom controls as well.
 
-```html
-<p-button icon="pi pi-plus" (click)="value = value + 1" [disabled]="value >= 100" />
-<p-button icon="pi pi-minus" (click)="value = value - 1" [disabled]="value <= 0" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { KnobModule } from 'primeng/knob';
-
-@Component({
-    template: `
-        <div class="card flex flex-col items-center gap-2">
-            <p-knob [(ngModel)]="value" size="150" readonly="true" />
-            <div class="flex gap-2">
-                <p-button icon="pi pi-plus" (click)="value = value + 1" [disabled]="value >= 100" />
-                <p-button icon="pi pi-minus" (click)="value = value - 1" [disabled]="value <= 0" />
-            </div>
-        </div>
-    `,
-    standalone: true,
-    imports: [ButtonModule, KnobModule, FormsModule]
-})
-export class KnobReactiveDemo {
-    value: number = 0;
-}
-```
-</details>
-
-## Reactive Forms
+## reactiveforms-doc
 
 Knob can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
-## ReadOnly
+## readonly-doc
 
 When readonly present, value cannot be edited.
 
-```html
-<p-knob [(ngModel)]="value" [readonly]="true" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [readonly]="true" />
-        </div>
-    `,
-    standalone: true,
-    imports: [KnobModule, FormsModule]
-})
-export class KnobReadonlyDemo {
-    value: number = 50;
-}
-```
-</details>
-
-## Size
+## size-doc
 
 Diameter of the knob is defined in pixels using the size property.
 
-```html
-<p-knob [(ngModel)]="value" [size]="200" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [size]="200" />
-        </div>
-    `,
-    standalone: true,
-    imports: [KnobModule, FormsModule]
-})
-export class KnobSizeDemo {
-    value: number = 60;
-}
-```
-</details>
-
-## Step
+## step-doc
 
 Size of each movement is defined with the step property.
 
-```html
-<p-knob [(ngModel)]="value" [step]="10" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [step]="10" />
-        </div>
-    `,
-    standalone: true,
-    imports: [KnobModule, FormsModule]
-})
-export class KnobStepDemo {
-    value!: number;
-}
-```
-</details>
-
-## Stroke
+## stroke-doc
 
 The border size is specified with the strokeWidth property as a number in pixels.
 
-```html
-<p-knob [(ngModel)]="value" [strokeWidth]="5" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [strokeWidth]="5" />
-        </div>
-    `,
-    standalone: true,
-    imports: [KnobModule, FormsModule]
-})
-export class KnobStrokeDemo {
-    value: number = 40;
-}
-```
-</details>
-
-## Template
+## template-doc
 
 Label is a string template that can be customized with the valueTemplate property having 60 as the placeholder .
-
-```html
-<p-knob [(ngModel)]="value" valueTemplate="{value}%" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" valueTemplate="{value}%" />
-        </div>
-    `,
-    standalone: true,
-    imports: [KnobModule, FormsModule]
-})
-export class KnobTemplateDemo {
-    value: number = 60;
-}
-```
-</details>
 
 ## Knob
 

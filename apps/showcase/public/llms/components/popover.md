@@ -2,71 +2,27 @@
 
 Popover is a container component that can overlay other components on page.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader Popover component uses dialog role and since any attribute is passed to the root element you may define attributes like aria-label or aria-labelledby to describe the popup contents. In addition aria-modal is added since focus is kept within the popup. It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding tabIndex would be necessary. Popover adds aria-expanded state attribute and aria-controls to the trigger so that the relation between the trigger and the popup is defined. Popover Keyboard Support When the popup gets opened, the first focusable element receives the focus and this can be customized by adding autofocus to an element within the popup. Key Function tab Moves focus to the next the focusable element within the popup. shift + tab Moves focus to the previous the focusable element within the popup. escape Closes the popup and moves focus to the trigger. Close Button Keyboard Support Key Function enter Closes the popup and moves focus to the trigger. space Closes the popup and moves focus to the trigger.
 
-## Basic
+## basic-doc
 
 Popover is accessed via its reference and visibility is controlled using toggle , show and hide methods with an event of the target.
 
-```html
-<p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
-<p-popover #op>
-    <div class="flex flex-col gap-4 w-[25rem]">
-        <div>
-            <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Share this document</span>
-            <p-inputgroup>
-                <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
-                <p-inputgroup-addon>
-                    <i class="pi pi-copy"></i>
-                </p-inputgroup-addon>
-            </p-inputgroup>
-        </div>
-        <div>
-            <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Invite Member</span>
-            <div class="flex">
-                <p-inputgroup>
-                    <input pInputText disabled />
-                    <button pButton label="Invite" icon="pi pi-users"></button>
-                </p-inputgroup>
-            </div>
-        </div>
-        <div>
-            <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Team Members</span>
-            <ul class="list-none p-0 m-0 flex flex-col gap-4">
-                @for (member of members; track member) {
-                <li class="flex items-center gap-2">
-                    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
-                    <div>
-                        <span class="font-medium">{{ member.name }}</span>
-                        <div class="text-sm text-muted-color">{{ member.email }}</div>
-                    </div>
-                    <div class="flex items-center gap-2 text-muted-color ml-auto text-sm">
-                        <span>{{ member.role }}</span>
-                        <i class="pi pi-angle-down"></i>
-                    </div>
-                </li>
-                }
-            </ul>
-        </div>
-    </div>
-</p-popover>
-```
-
-## DataTable
+## datatable-doc
 
 Place the Popover outside of the data iteration components to avoid rendering it multiple times.
 
-## Select Data
+## selectdata-doc
 
 In this sample, data is retrieved from the content inside the popover.
 
-## Target
+## target-doc
 
 show method takes two parameters, first one is the event and it is mandatory. By default the target component to align the overlay is the event target, if you'd like to align it to another element, provide it as the second parameter target .
 
-## Template
+## template-doc
 
 Content of the OverlayPanel is defined by content template.
 

@@ -2,51 +2,51 @@
 
 Textarea adds styling and autoResize functionality to standard textarea element.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader Textarea component renders a native textarea element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.
 
-## AutoResize
+## autoresize-doc
 
 When autoResize is enabled, textarea grows instead of displaying a scrollbar.
 
-## Basic
+## basic-doc
 
 Textarea is applied to an input field with pTextarea directive.
 
-## Disabled
+## disabled-doc
 
 When disabled is present, the element cannot be edited and focused.
 
-## Filled
+## filled-doc
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
 
-## Float Label
+## floatlabel-doc
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
 
-## Fluid
+## fluid-doc
 
 The fluid prop makes the component take up the full width of its container when set to true.
 
-## Ifta Label
+## iftalabel-doc
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
 
-## Invalid
+## invalid-doc
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
-## keyfilterdoc
+## keyfilter-doc
 
 InputText has built-in key filtering support to block certain keys, refer to keyfilter page for more information.
 
-## reactiveformsdoc
+## reactiveforms-doc
 
 Textarea can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
-## Sizes
+## sizes-doc
 
 Textarea provides small and large sizes as alternatives to the base.
 

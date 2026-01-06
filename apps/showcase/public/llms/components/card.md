@@ -2,85 +2,17 @@
 
 Card is a flexible container component.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader A card can be utilized in many use cases as a result no role is enforced, in fact a role may not be necessary if the card is used for presentational purposes only. Any valid attribute is passed to the container element so if you require to use one of the landmark roles like region , you may use the role property. Keyboard Support Component does not include any interactive elements.
 
-## Advanced
+## advanced-doc
 
 Card content can be customized further with subHeader , header and footer properties.
 
-```html
-<p-card [style]="{ width: '25rem', overflow: 'hidden' }">
-    <ng-template #header>
-        <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
-    </ng-template>
-    <ng-template #title> Advanced Card </ng-template>
-    <ng-template #subtitle> Card subtitle </ng-template>
-    <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-    quas!
-</p>
-<ng-template #footer>
-    <div class="flex gap-4 mt-1">
-        <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
-        <p-button label="Save" class="w-full" styleClass="w-full" />
-    </div>
-</ng-template>
-</p-card>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-
-@Component({
-    template: `
-        <div class="mb-4 p-8 flex items-center justify-center">
-            <p-card [style]="{ width: '25rem', overflow: 'hidden' }">
-                <ng-template #header>
-                    <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
-                </ng-template>
-                <ng-template #title> Advanced Card </ng-template>
-                <ng-template #subtitle> Card subtitle </ng-template>
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-                quas!
-            </p>
-            <ng-template #footer>
-                <div class="flex gap-4 mt-1">
-                    <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
-                    <p-button label="Save" class="w-full" styleClass="w-full" />
-                </div>
-            </ng-template>
-        </p-card>
-        </div>
-    `,
-    standalone: true,
-    imports: [ButtonModule, CardModule]
-})
-export class CardAdvancedDemo {}
-```
-</details>
-
-## Basic
+## basic-doc
 
 A simple Card is created with a header property along with the content as children.
-
-```html
-<div class="mb-4 p-8">
-    <p-card header="Simple Card">
-        <p class="m-0">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-            quas!
-        </p>
-    </p-card>
-</div>
-```
 
 ## Card
 

@@ -16,8 +16,103 @@ const SKIP_DIRS = ['apidoc', 'theming', 'icons', 'installation', 'configuration'
 // Known services that exist in StackBlitz templates
 const KNOWN_SERVICES = ['CarService', 'CountryService', 'CustomerService', 'EventService', 'NodeService', 'PhotoService', 'ProductService', 'TicketService'];
 
+// Known domain types and their paths
+// Note: 'Event' is excluded because it conflicts with DOM Event type
+const KNOWN_DOMAIN_TYPES = {
+    Customer: 'customer',
+    Representative: 'customer',
+    Country: 'customer',
+    Product: 'product',
+    Car: 'car',
+    Photo: 'photo'
+};
+
+// Domain type definitions for auto-generated extFiles
+const DOMAIN_TYPE_DEFINITIONS = {
+    customer: `export interface Country {
+    name?: string;
+    code?: string;
+}
+
+export interface Representative {
+    name?: string;
+    image?: string;
+}
+
+export interface Customer {
+    id?: number;
+    name?: string;
+    country?: Country;
+    company?: string;
+    date?: string | Date;
+    status?: string;
+    activity?: number;
+    representative?: Representative;
+    verified?: boolean;
+    balance?: number;
+}`,
+    product: `export interface Product {
+    id?: string;
+    code?: string;
+    name?: string;
+    description?: string;
+    price?: number;
+    quantity?: number;
+    inventoryStatus?: string;
+    category?: string;
+    image?: string;
+    rating?: number;
+}`,
+    car: `export interface Car {
+    vin?: string;
+    year?: number;
+    brand?: string;
+    color?: string;
+}`,
+    photo: `export interface Photo {
+    title?: string;
+    thumbnailUrl?: string;
+}`
+};
+
+// PrimeNG named exports that can be used as types (not modules)
+const PRIMENG_NAMED_EXPORTS = {
+    Table: 'table',
+    Tree: 'tree',
+    TreeTable: 'treetable',
+    Paginator: 'paginator',
+    OverlayPanel: 'overlaypanel',
+    Popover: 'popover',
+    Dialog: 'dialog',
+    Drawer: 'drawer',
+    Menu: 'menu',
+    ContextMenu: 'contextmenu',
+    TieredMenu: 'tieredmenu',
+    MegaMenu: 'megamenu',
+    Menubar: 'menubar',
+    Steps: 'steps',
+    TabMenu: 'tabmenu',
+    PanelMenu: 'panelmenu'
+};
+
 // PrimeNG API types that need to be imported from 'primeng/api'
-const PRIMENG_API_TYPES = ['TreeNode', 'MenuItem', 'SelectItem', 'SelectItemGroup', 'FilterService', 'MessageService', 'ConfirmationService', 'PrimeNGConfig', 'TreeTableNode', 'ConfirmEventType'];
+const PRIMENG_API_TYPES = [
+    'TreeNode',
+    'MenuItem',
+    'MegaMenuItem',
+    'SelectItem',
+    'SelectItemGroup',
+    'FilterService',
+    'MessageService',
+    'ConfirmationService',
+    'PrimeNGConfig',
+    'TreeTableNode',
+    'ConfirmEventType',
+    'SortEvent',
+    'LazyLoadEvent',
+    'FilterMetadata',
+    'TableLazyLoadEvent'
+];
 
 // PrimeNG selector to module mapping
 const SELECTOR_TO_MODULE = {
@@ -189,13 +284,52 @@ function extractClassProperties(content) {
 
     for (const line of lines) {
         // Match lines that start with exactly 4 spaces and a word character (property declaration)
-        // Supports: Type, Type[], Type | null, primitive types, union types
-        const propMatch = line.match(/^    ([\w]+)([!?]?):\s*([A-Za-z][\w<>\[\]|, ]*(?:\s*\|\s*[\w\[\]]+)*)(?:\s*=\s*(.+))?;?\s*$/);
+        // Pattern 1: With type annotation - name: Type = value;
+        let propMatch = line.match(/^    ([\w]+)([!?]?):\s*([A-Za-z][\w<>\[\]|, ]*(?:\s*\|\s*[\w\[\]]+)*)(?:\s*=\s*(.+))?;?\s*$/);
+
+        // Pattern 2: Without type annotation - name = value;
+        if (!propMatch) {
+            const noTypeMatch = line.match(/^    ([\w]+)\s*=\s*(.+);?\s*$/);
+            if (noTypeMatch) {
+                const defaultVal = noTypeMatch[2].trim().replace(/;$/, '');
+                let inferredType = 'any';
+
+                // Check for signal declarations: signal<Type>(initialValue)
+                const signalMatch = defaultVal.match(/^signal(<[^>]+>)?\((.*)?\)$/);
+                if (signalMatch) {
+                    // For signals, the type IS the signal call itself, no separate type annotation needed
+                    // We'll store the full signal declaration as both type and default value
+                    propMatch = [null, noTypeMatch[1], '', '__signal__', defaultVal];
+                }
+                // Check for inject() pattern: inject(ServiceName)
+                else if (defaultVal.match(/^inject\(\w+\)$/)) {
+                    propMatch = [null, noTypeMatch[1], '', '__inject__', defaultVal];
+                } else if (defaultVal === '[]' || defaultVal.startsWith('[')) {
+                    inferredType = 'any[]';
+                    propMatch = [null, noTypeMatch[1], '', inferredType, defaultVal];
+                } else if (defaultVal === '{}' || defaultVal.startsWith('{')) {
+                    inferredType = 'any';
+                    propMatch = [null, noTypeMatch[1], '', inferredType, defaultVal];
+                } else if (defaultVal === 'true' || defaultVal === 'false') {
+                    inferredType = 'boolean';
+                    propMatch = [null, noTypeMatch[1], '', inferredType, defaultVal];
+                } else if (/^['"`]/.test(defaultVal)) {
+                    inferredType = 'string';
+                    propMatch = [null, noTypeMatch[1], '', inferredType, defaultVal];
+                } else if (/^\d+$/.test(defaultVal)) {
+                    inferredType = 'number';
+                    propMatch = [null, noTypeMatch[1], '', inferredType, defaultVal];
+                } else {
+                    propMatch = [null, noTypeMatch[1], '', inferredType, defaultVal];
+                }
+            }
+        }
+
         if (!propMatch) continue;
 
         const propName = propMatch[1];
         const optional = propMatch[2];
-        const propType = propMatch[3].trim();
+        const propType = propMatch[3]?.trim() || 'any';
         let defaultValue = propMatch[4]?.trim();
 
         // Skip doc-specific properties
@@ -207,8 +341,9 @@ function extractClassProperties(content) {
         if (seen.has(propName)) continue;
         seen.add(propName);
 
-        // Skip injected services (they go in constructor)
-        if (propName.endsWith('Service') || propName === 'cd') {
+        // Skip injected services (they go in constructor) - unless using inject() pattern
+        const isInjectPattern = propMatch[3] === '__inject__';
+        if ((propName.endsWith('Service') || propName === 'cd') && !isInjectPattern) {
             continue;
         }
 
@@ -275,6 +410,8 @@ function extractConstructor(content, services = []) {
             if (services.some((s) => p.includes(s))) return true;
             // Keep common Angular services
             if (p.includes('MessageService') || p.includes('ConfirmationService')) return true;
+            // Keep PrimeNG config injection
+            if (p.includes('PrimeNG')) return true;
             // Filter out doc-specific ones
             if (p.includes('ChangeDetectorRef') || p.includes('PLATFORM_ID') || p.includes('DOCUMENT')) return false;
             // Keep other services
@@ -416,12 +553,6 @@ function extractOtherMethods(content) {
     return methods;
 }
 
-// Extract selector from @Component decorator
-function extractSelector(content) {
-    const match = content.match(/selector:\s*['"`]([^'"`]+)['"`]/);
-    return match ? match[1] : null;
-}
-
 // Extract template from @Component decorator
 function extractTemplate(content) {
     // Handle template: `...` (backtick template)
@@ -495,43 +626,59 @@ function normalizeCodeIndent(text) {
         .join('\n');
 }
 
-// Normalize indentation - properly format HTML with consistent 4-space indents
+// Normalize indentation - preserve relative indentation from source
+// This function strips the minimum common indentation while preserving the internal structure
 function normalizeIndent(text) {
     if (!text) return text;
 
-    const lines = text.split('\n').filter((line) => line.trim() !== '');
+    const lines = text.split('\n');
     if (lines.length === 0) return text;
 
-    // Calculate indent levels based on HTML structure
-    let currentLevel = 0;
-    const result = [];
+    // Find minimum indentation (ignoring empty lines and the first line if it has 0 indent)
+    let minIndent = Infinity;
+    let firstNonEmptyLineIndex = -1;
 
-    for (const line of lines) {
-        const trimmed = line.trim();
-        if (!trimmed) continue;
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (line.trim() === '') continue;
 
-        // Check if line starts with closing tag
-        const startsWithClose = /^<\//.test(trimmed);
-        // Check if line is self-closing or has both open and close
-        const isSelfClosing = /\/>$/.test(trimmed) || /<\w+[^>]*>.*<\/\w+>$/.test(trimmed);
-        // Check if line has opening tag
-        const hasOpenTag = /<[a-zA-Z][^\/]*[^\/]>/.test(trimmed) && !/<\//.test(trimmed.replace(/<\/\w+>$/, ''));
-
-        // Decrease level for closing tags
-        if (startsWithClose) {
-            currentLevel = Math.max(0, currentLevel - 1);
+        if (firstNonEmptyLineIndex === -1) {
+            firstNonEmptyLineIndex = i;
         }
 
-        // Add line with current indent
-        result.push('    '.repeat(currentLevel) + trimmed);
-
-        // Increase level for opening tags (but not self-closing)
-        if (hasOpenTag && !isSelfClosing && !startsWithClose) {
-            currentLevel++;
+        const match = line.match(/^(\s*)/);
+        if (match) {
+            const indent = match[1].length;
+            // If it's the first non-empty line and has 0 indent, skip it for min calculation
+            // (this handles cases where .trim() removed leading whitespace from first line)
+            if (i === firstNonEmptyLineIndex && indent === 0) {
+                continue;
+            }
+            minIndent = Math.min(minIndent, indent);
         }
     }
 
-    return result.join('\n');
+    // If we couldn't find a meaningful min indent, just clean up
+    if (minIndent === Infinity || minIndent === 0) {
+        return lines
+            .map((line) => (line.trim() === '' ? '' : line))
+            .join('\n')
+            .trim();
+    }
+
+    // Remove minimum indentation from all lines (except first line which might have 0 indent already)
+    return lines
+        .map((line) => {
+            if (line.trim() === '') return '';
+            const match = line.match(/^(\s*)/);
+            const currentIndent = match ? match[1].length : 0;
+            if (currentIndent >= minIndent) {
+                return line.slice(minIndent);
+            }
+            return line;
+        })
+        .join('\n')
+        .trim();
 }
 
 // Extract demo content from template (remove doc elements)
@@ -700,24 +847,85 @@ function extractExistingCodeObject(content) {
     return code;
 }
 
-// Extract extFiles from doc file
-function extractExtFiles(content) {
-    const extFilesMatch = content.match(/extFiles\s*=\s*\[([\s\S]*?)\];/);
-    if (!extFilesMatch) return [];
+// Detect domain types used in component (from @/domain/*)
+function detectDomainTypes(content) {
+    const domainTypes = {};
 
-    const extFilesContent = extFilesMatch[1];
-    const files = [];
-
-    // Parse each file object
-    const fileMatches = extFilesContent.matchAll(/\{\s*path:\s*['"`]([^'"`]+)['"`],\s*content:\s*`([\s\S]*?)`\s*\}/g);
-    for (const match of fileMatches) {
-        files.push({
-            path: match[1],
-            content: match[2].trim()
-        });
+    // Look for domain type imports first
+    const domainImportMatches = content.matchAll(/import\s*\{\s*([^}]+)\s*\}\s*from\s*['"`]@\/domain\/([^'"`]+)['"`]/g);
+    for (const match of domainImportMatches) {
+        const names = match[1].split(',').map((n) => n.trim());
+        const domainPath = match[2];
+        for (const name of names) {
+            if (KNOWN_DOMAIN_TYPES[name]) {
+                if (!domainTypes[domainPath]) {
+                    domainTypes[domainPath] = [];
+                }
+                if (!domainTypes[domainPath].includes(name)) {
+                    domainTypes[domainPath].push(name);
+                }
+            }
+        }
     }
 
-    return files;
+    // Also check if domain types are used in the code but not imported
+    for (const [typeName, path] of Object.entries(KNOWN_DOMAIN_TYPES)) {
+        const typeRegex = new RegExp(`\\b${typeName}\\b`, 'g');
+        if (typeRegex.test(content)) {
+            if (!domainTypes[path]) {
+                domainTypes[path] = [];
+            }
+            if (!domainTypes[path].includes(typeName)) {
+                domainTypes[path].push(typeName);
+            }
+        }
+    }
+
+    return domainTypes;
+}
+
+// Detect PrimeNG named exports used as types in component
+function detectPrimeNGNamedExports(content) {
+    const namedExports = {};
+
+    // Check each known named export
+    for (const [exportName, modulePath] of Object.entries(PRIMENG_NAMED_EXPORTS)) {
+        // Look for usage as type annotation (e.g., `: Table`, `Table[]`, `<Table>`)
+        const typeRegex = new RegExp(`[:\\s<,]\\s*${exportName}\\b(?![a-zA-Z])`, 'g');
+        if (typeRegex.test(content)) {
+            if (!namedExports[modulePath]) {
+                namedExports[modulePath] = [];
+            }
+            if (!namedExports[modulePath].includes(exportName)) {
+                namedExports[modulePath].push(exportName);
+            }
+        }
+    }
+
+    return namedExports;
+}
+
+// Generate extFiles from detected domain types
+function generateExtFilesFromDomainTypes(content) {
+    const extFiles = [];
+    const addedPaths = new Set();
+
+    // Detect domain types used in the content
+    for (const [typeName, domainPath] of Object.entries(KNOWN_DOMAIN_TYPES)) {
+        const typeRegex = new RegExp(`\\b${typeName}\\b`, 'g');
+        if (typeRegex.test(content) && DOMAIN_TYPE_DEFINITIONS[domainPath]) {
+            const filePath = `src/domain/${domainPath}.ts`;
+            if (!addedPaths.has(filePath)) {
+                addedPaths.add(filePath);
+                extFiles.push({
+                    path: filePath,
+                    content: DOMAIN_TYPE_DEFINITIONS[domainPath]
+                });
+            }
+        }
+    }
+
+    return extFiles;
 }
 
 // Detect services from component file
@@ -814,12 +1022,20 @@ function generateTypescript(componentName, template, services = [], fileContent 
     // Determine if we need OnInit
     const needsOnInit = ngOnInitBody || loadDemoDataBody || services.length > 0;
 
+    // Check if we have signal properties
+    const hasSignals = properties.some((p) => p.type === '__signal__');
+
+    // Check if we have inject() properties
+    const hasInject = properties.some((p) => p.type === '__inject__');
+
     // Build import statements with actual modules
     let importStatements = '';
 
     // Angular core imports
     const angularCoreImports = ['Component'];
     if (needsOnInit) angularCoreImports.push('OnInit');
+    if (hasInject) angularCoreImports.push('inject');
+    if (hasSignals) angularCoreImports.push('signal');
     importStatements += `import { ${angularCoreImports.join(', ')} } from '@angular/core';\n`;
 
     // Add FormsModule if needed
@@ -832,16 +1048,32 @@ function generateTypescript(componentName, template, services = [], fileContent 
         importStatements += `import { ReactiveFormsModule } from '@angular/forms';\n`;
     }
 
-    // Add PrimeNG modules
+    // Add PrimeNG modules (will be modified below to include named exports)
     const primeNGImports = primeModules.filter((m) => !['CommonModule', 'FormsModule', 'ReactiveFormsModule'].includes(m));
+
+    // Detect PrimeNG named exports early so we can combine them with module imports
+    const primeNGNamedExportsEarly = detectPrimeNGNamedExports(fileContent);
+
     for (const module of primeNGImports) {
         const moduleLower = module.replace('Module', '').toLowerCase();
-        importStatements += `import { ${module} } from 'primeng/${moduleLower}';\n`;
+        // Check if there are named exports for this module
+        const namedExportsForModule = primeNGNamedExportsEarly[moduleLower] || [];
+        if (namedExportsForModule.length > 0) {
+            // Combine module with named exports
+            importStatements += `import { ${[...namedExportsForModule, module].join(', ')} } from 'primeng/${moduleLower}';\n`;
+        } else {
+            importStatements += `import { ${module} } from 'primeng/${moduleLower}';\n`;
+        }
     }
 
     // Add service imports if any
     for (const service of services) {
         importStatements += `import { ${service} } from '@/service/${service.toLowerCase()}';\n`;
+    }
+
+    // Add PrimeNG config import if used in constructor
+    if (constructor && constructor.params && constructor.params.includes('PrimeNG')) {
+        importStatements += `import { PrimeNG } from 'primeng/config';\n`;
     }
 
     // Detect and add PrimeNG API types (TreeNode, MenuItem, etc.)
@@ -858,11 +1090,27 @@ function generateTypescript(componentName, template, services = [], fileContent 
         importStatements += `import { ${usedApiTypes.join(', ')} } from 'primeng/api';\n`;
     }
 
+    // Detect and add domain type imports (Customer, Product, etc.)
+    const domainTypes = detectDomainTypes(fileContent);
+    for (const [domainPath, types] of Object.entries(domainTypes)) {
+        importStatements += `import { ${types.join(', ')} } from '@/domain/${domainPath}';\n`;
+    }
+
+    // Add PrimeNG named exports that weren't combined with module imports
+    for (const [modulePath, exports] of Object.entries(primeNGNamedExportsEarly)) {
+        const moduleNameBase = modulePath.charAt(0).toUpperCase() + modulePath.slice(1);
+        const moduleName = moduleNameBase + 'Module';
+        // Only add separate import if we don't already have the module imported
+        if (!primeNGImports.includes(moduleName)) {
+            importStatements += `import { ${exports.join(', ')} } from 'primeng/${modulePath}';\n`;
+        }
+    }
+
     // Build imports array for decorator (actual modules, not ImportsModule)
     const decoratorImports = primeModules.filter((m) => m !== 'CommonModule');
 
     // Build providers if services exist
-    const providersLine = services.length > 0 ? `\n    providers: [${services.join(', ')}],` : '';
+    const providersLine = services.length > 0 ? `,\n    providers: [${services.join(', ')}]` : '';
 
     // Generate class name (e.g., SelectBasicDemo)
     const className = componentName + 'Demo';
@@ -883,7 +1131,10 @@ function generateTypescript(componentName, template, services = [], fileContent 
     if (properties.length > 0) {
         classBody += '\n';
         for (const prop of properties) {
-            if (prop.defaultValue) {
+            if (prop.type === '__signal__' || prop.type === '__inject__') {
+                // Signal/inject properties: name = signal<Type>(value); or name = inject(Service);
+                classBody += `    ${prop.name} = ${prop.defaultValue};\n`;
+            } else if (prop.defaultValue) {
                 classBody += `    ${prop.name}${prop.optional}: ${prop.type} = ${prop.defaultValue};\n`;
             } else {
                 classBody += `    ${prop.name}${prop.optional}: ${prop.type};\n`;
@@ -891,15 +1142,15 @@ function generateTypescript(componentName, template, services = [], fileContent 
         }
     }
 
-    // Add constructor if needed
-    if (constructor && constructor.params) {
+    // Add constructor if needed (skip if using inject() pattern)
+    if (constructor && constructor.params && !hasInject) {
         classBody += `\n    constructor(${constructor.params}) {`;
         if (constructor.body) {
             classBody += `\n        ${constructor.body.replace(/\n/g, '\n        ')}\n    `;
         }
         classBody += '}\n';
-    } else if (services.length > 0) {
-        // Generate constructor for services
+    } else if (services.length > 0 && !hasInject) {
+        // Generate constructor for services (only if not using inject pattern)
         const serviceParams = services.map((s) => `private ${s.charAt(0).toLowerCase() + s.slice(1)}: ${s}`).join(', ');
         classBody += `\n    constructor(${serviceParams}) {}\n`;
     }
@@ -945,31 +1196,17 @@ ${formattedTemplate}
 export class ${className}${implementsClause} {${classBody}}`;
 }
 
-// Extract selector from app-code tag in template
-// Skip app-code tags that have [code]= binding (those are helper snippets, not the main demo)
-function extractAppCodeSelector(template) {
-    // Find all app-code tags
-    const appCodeRegex = /<app-code[^>]*>/g;
-    let match;
-    while ((match = appCodeRegex.exec(template)) !== null) {
-        const tag = match[0];
-        // Skip if it has [code]= binding (helper snippet)
-        if (/\[code\]\s*=/.test(tag)) continue;
-        // Extract selector from this tag
-        const selectorMatch = tag.match(/selector\s*=\s*["']([^"']+)["']/);
-        if (selectorMatch) {
-            return selectorMatch[1];
-        }
-    }
-    return null;
+// Derive selector from filename
+// e.g., "table/filter-advanced-doc.ts" -> "table-filter-advanced-demo"
+function deriveSelectorFromFilename(fileName, componentDir) {
+    // Remove doc suffix (handles both "basicdoc" and "basic-doc" patterns)
+    let section = fileName.replace(/-?doc$/, '');
+    return `${componentDir}-${section}-demo`;
 }
 
 // Parse a single doc file
 function parseDocFile(filePath, componentDir) {
     const content = fs.readFileSync(filePath, 'utf-8');
-
-    const selector = extractSelector(content);
-    if (!selector) return null;
 
     const template = extractTemplate(content);
     if (!template) return null;
@@ -979,18 +1216,20 @@ function parseDocFile(filePath, componentDir) {
 
     // Try to get existing code object (for data, scss that can't be auto-generated)
     const existingCode = extractExistingCodeObject(content);
-    const extFiles = extractExtFiles(content);
+
+    // Auto-generate extFiles from detected domain types
+    const extFiles = generateExtFilesFromDomainTypes(content);
 
     // Extract section name from filename
     const fileName = path.basename(filePath, '.ts');
-    const section = fileName.replace(/doc$/, '');
+    // Remove doc suffix (handles both "basicdoc" and "basic-doc" patterns)
+    const section = fileName.replace(/-?doc$/, '');
 
     // Generate basic code
     const basicCode = extractBasicCode(demoContent);
 
-    // Get the demo selector - prefer app-code selector, fallback to generated key
-    const appCodeSelector = extractAppCodeSelector(template);
-    const uniqueKey = appCodeSelector || `${componentDir}-${section}-demo`;
+    // Derive selector from filename - no need for app-code selector attribute
+    const uniqueKey = deriveSelectorFromFilename(fileName, componentDir);
 
     // Get component name from selector (properly hyphenated) for correct PascalCase
     // e.g., "tree-table-sort-multiple-columns-demo" -> "TreeTableSortMultipleColumns"

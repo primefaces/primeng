@@ -2,194 +2,37 @@
 
 Input Otp is used to enter one time passwords.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader Input OTP uses a set of InputText components, refer to the InputText component for more information about the screen reader support.
 
-## Basic
+## basic-doc
 
 Two-way value binding is defined using ngModel . The number of characters is defined with the length property, which is set to 4 by default.
 
-```html
-<p-inputotp [(ngModel)]="value" />
-```
-
-## Integer Only
+## integeronly-doc
 
 When integerOnly is present, only integers can be accepted as input.
 
-## Mask
+## mask-doc
 
 Enable the mask option to hide the values in the input fields.
 
-```html
-<p-inputotp [(ngModel)]="value" [mask]="true" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { InputOtpModule } from 'primeng/inputotp';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-inputotp [(ngModel)]="value" [mask]="true" />
-        </div>
-    `,
-    standalone: true,
-    imports: [InputOtpModule, FormsModule]
-})
-export class InputOtpMaskDemo {
-    value: any;
-}
-```
-</details>
-
-## reactiveformsdoc
+## reactiveforms-doc
 
 InputOtp can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
-## Sample
+## sample-doc
 
 A sample UI implementation with templating and additional elements.
 
-```html
-<div class="flex flex-col items-center">
-    <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
-    <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
-    <p-inputotp [(ngModel)]="value" [length]="6">
-        <ng-template #input let-token let-events="events" let-index="index">
-            <input type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
-            <div *ngIf="index === 3" class="px-4">
-                <i class="pi pi-minus"></i>
-            </div>
-        </ng-template>
-    </p-inputotp>
-    <div class="flex justify-between mt-8 self-stretch">
-        <p-button label="Resend Code" [link]="true" class="p-0" />
-        <p-button label="Submit Code" />
-    </div>
-</div>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { InputOtpModule } from 'primeng/inputotp';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <div class="flex flex-col items-center">
-                <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
-                <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
-                <p-inputotp [(ngModel)]="value" [length]="6">
-                    <ng-template #input let-token let-events="events" let-index="index">
-                        <input type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
-                        <div *ngIf="index === 3" class="px-4">
-                            <i class="pi pi-minus"></i>
-                        </div>
-                    </ng-template>
-                </p-inputotp>
-                <div class="flex justify-between mt-8 self-stretch">
-                    <p-button label="Resend Code" [link]="true" class="p-0" />
-                    <p-button label="Submit Code" />
-                </div>
-            </div>
-        </div>
-    `,
-    standalone: true,
-    imports: [ButtonModule, InputOtpModule, FormsModule]
-})
-export class InputOtpSampleDemo {
-    value: any;
-}
-```
-</details>
-
-## Sizes
+## sizes-doc
 
 InputOtp provides small and large sizes as alternatives to the base.
 
-```html
-<p-inputotp [(ngModel)]="value1" size="small" />
-<p-inputotp [(ngModel)]="value2" />
-<p-inputotp [(ngModel)]="value3" size="large" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { InputOtpModule } from 'primeng/inputotp';
-
-@Component({
-    template: `
-        <div class="card flex flex-col items-center gap-4">
-            <p-inputotp [(ngModel)]="value1" size="small" />
-            <p-inputotp [(ngModel)]="value2" />
-            <p-inputotp [(ngModel)]="value3" size="large" />
-        </div>
-    `,
-    standalone: true,
-    imports: [InputOtpModule, FormsModule]
-})
-export class InputOtpSizesDemo {
-    value1: any;
-    value2: any;
-    value3: any;
-}
-```
-</details>
-
-## Template
+## template-doc
 
 Define a template with your own UI elements with bindings to the provided events and attributes to replace the default design.
-
-```html
-<p-inputotp [(ngModel)]="value">
-    <ng-template #input let-token let-events="events">
-        <input class="custom-otp-input" (keydown)="events.keydown($event)" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
-    </ng-template>
-</p-inputotp>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { InputOtpModule } from 'primeng/inputotp';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-inputotp [(ngModel)]="value">
-                <ng-template #input let-token let-events="events">
-                    <input class="custom-otp-input" (keydown)="events.keydown($event)" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
-                </ng-template>
-            </p-inputotp>
-        </div>
-    `,
-    standalone: true,
-    imports: [InputOtpModule, FormsModule]
-})
-export class InputOtpTemplateDemo {
-    value: any;
-}
-```
-</details>
 
 ## Input Otp
 

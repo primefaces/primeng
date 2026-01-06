@@ -2,7 +2,7 @@
 
 Focus Trap keeps focus within a certain DOM element while tabbing.
 
-## Basic
+## basic-doc
 
 FocusTrap is applied to a container element with the pFocusTrap directive.
 

@@ -2,7 +2,7 @@
 
 AutoFocus manages focus on focusable element on load.
 
-## Basic
+## basic-doc
 
 AutoFocus is applied to any focusable input element with the pAutoFocus directive.
 

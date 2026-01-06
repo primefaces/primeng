@@ -1,14 +1,14 @@
-import { AccessibilityDoc } from '@/doc/slider/accessibilitydoc';
-import { BasicDoc } from '@/doc/slider/basicdoc';
-import { FilterDoc } from '@/doc/slider/filterdoc';
-import { ImportDoc } from '@/doc/slider/importdoc';
-import { InputDoc } from '@/doc/slider/inputdoc';
+import { AccessibilityDoc } from '@/doc/slider/accessibility-doc';
+import { BasicDoc } from '@/doc/slider/basic-doc';
+import { FilterDoc } from '@/doc/slider/filter-doc';
+import { ImportDoc } from '@/doc/slider/import-doc';
+import { InputDoc } from '@/doc/slider/input-doc';
 import { PTComponent } from '@/doc/slider/pt/PTComponent';
-import { RangeDoc } from '@/doc/slider/rangedoc';
-import { ReactiveFormsDoc } from '@/doc/slider/reactiveformsdoc';
-import { StepDoc } from '@/doc/slider/stepdoc';
-import { TemplateDrivenFormsDoc } from '@/doc/slider/templatedrivenformsdoc';
-import { VerticalDoc } from '@/doc/slider/verticaldoc';
+import { RangeDoc } from '@/doc/slider/range-doc';
+import { ReactiveFormsDoc } from '@/doc/slider/reactiveforms-doc';
+import { StepDoc } from '@/doc/slider/step-doc';
+import { TemplateDrivenFormsDoc } from '@/doc/slider/templatedrivenforms-doc';
+import { VerticalDoc } from '@/doc/slider/vertical-doc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 

@@ -2,35 +2,35 @@
 
 RadioButton is an extension to standard radio button element with theming.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader RadioButton component uses a hidden native radio button element internally that is only visible to screen readers. Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props.
 
-## Disabled
+## disabled-doc
 
 When disabled is present, the element cannot be edited and focused.
 
-## Dynamic
+## dynamic-doc
 
 RadioButtons can be generated using a list of values.
 
-## Filled
+## filled-doc
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
 
-## Group
+## group-doc
 
 RadioButton is used as a controlled input with value and ngModel properties.
 
-## Invalid
+## invalid-doc
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
-## reactiveformsdoc
+## reactiveforms-doc
 
 RadioButton can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
-## Sizes
+## sizes-doc
 
 RadioButton provides small and large sizes as alternatives to the base.
 

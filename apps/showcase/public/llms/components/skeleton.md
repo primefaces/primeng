@@ -2,229 +2,25 @@
 
 Skeleton is a placeholder to display instead of the actual content.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader Skeleton uses aria-hidden as "true" so that it gets ignored by screen readers, any valid attribute is passed to the root element so you may customize it further if required. If multiple skeletons are grouped inside a container, you may use aria-busy on the container element as well to indicate the loading process.
 
-## Card
+## card-doc
 
 Sample Card implementation using different Skeleton components and Tailwind CSS utilities.
 
-```html
-<p-skeleton shape="circle" size="4rem" class="mr-2" />
-<div>
-    <p-skeleton width="10rem" class="mb-2" />
-    <p-skeleton width="5rem" class="mb-2" />
-    <p-skeleton height=".5rem" />
-</div>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
-
-@Component({
-    template: `
-        <div class="card">
-            <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
-                <div class="flex mb-4">
-                    <p-skeleton shape="circle" size="4rem" class="mr-2" />
-                    <div>
-                        <p-skeleton width="10rem" class="mb-2" />
-                        <p-skeleton width="5rem" class="mb-2" />
-                        <p-skeleton height=".5rem" />
-                    </div>
-                </div>
-                <p-skeleton width="100%" height="150px" />
-                <div class="flex justify-between mt-4">
-                    <p-skeleton width="4rem" height="2rem" />
-                    <p-skeleton width="4rem" height="2rem" />
-                </div>
-            </div>
-        </div>
-    `,
-    standalone: true,
-    imports: [SkeletonModule]
-})
-export class SkeletonCardDemo {}
-```
-</details>
-
-## DataTable
+## datatable-doc
 
 Sample DataTable implementation using different Skeleton components and Tailwind CSS utilities.
 
-## List
+## list-doc
 
 Sample List implementation using different Skeleton components and Tailwind CSS utilities.
 
-```html
-<p-skeleton shape="circle" size="4rem" class="mr-2" />
-<div class="self-center" style="flex: 1">
-    <p-skeleton width="100%" class="mb-2" />
-    <p-skeleton width="75%" />
-</div>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
-
-@Component({
-    template: `
-        <div class="card">
-            <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
-                <ul class="m-0 p-0 list-none">
-                    <li class="mb-4">
-                        <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
-                            <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" class="mb-2" />
-                                <p-skeleton width="75%" />
-                            </div>
-                        </div>
-                    </li>
-                    <li class="mb-4">
-                        <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
-                            <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" class="mb-2" />
-                                <p-skeleton width="75%" />
-                            </div>
-                        </div>
-                    </li>
-                    <li class="mb-4">
-                        <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
-                            <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" class="mb-2" />
-                                <p-skeleton width="75%" />
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
-                            <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" class="mb-2" />
-                                <p-skeleton width="75%" />
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    `,
-    standalone: true,
-    imports: [SkeletonModule]
-})
-export class SkeletonListDemo {}
-```
-</details>
-
-## Shapes
+## shapes-doc
 
 Various shapes and sizes can be created using styling properties like shape , width , height , borderRadius and class .
-
-```html
-<div class="flex flex-wrap">
-    <div class="w-full xl:w-6/12 p-4">
-    <h5>Rectangle</h5>
-    <p-skeleton class="mb-2" />
-    <p-skeleton width="10rem" class="mb-2" />
-    <p-skeleton width="5rem" class="mb-2" />
-    <p-skeleton height="2rem" class="mb-2" />
-    <p-skeleton width="10rem" height="4rem" />
-</div>
-<div class="w-full xl:w-6/12 p-4">
-<h5>Rounded</h5>
-<p-skeleton class="mb-2" borderRadius="16px" />
-<p-skeleton width="10rem" class="mb-2" borderRadius="16px" />
-<p-skeleton width="5rem" class="mb-2" borderRadius="16px" />
-<p-skeleton height="2rem" class="mb-2" borderRadius="16px" />
-<p-skeleton width="10rem" height="4rem" borderRadius="16px" />
-</div>
-<div class="w-full xl:w-6/12 p-4">
-<h5 class="mt-4">Square</h5>
-<div class="flex items-end">
-    <p-skeleton size="2rem" class="mr-2" />
-    <p-skeleton size="3rem" class="mr-2" />
-    <p-skeleton size="4rem" class="mr-2" />
-    <p-skeleton size="5rem" />
-</div>
-</div>
-<div class="field w-full xl:w-6/12 p-4">
-<h5 class="mt-4">Circle</h5>
-<div class="flex items-end">
-    <p-skeleton shape="circle" size="2rem" class="mr-2" />
-    <p-skeleton shape="circle" size="3rem" class="mr-2" />
-    <p-skeleton shape="circle" size="4rem" class="mr-2" />
-    <p-skeleton shape="circle" size="5rem" />
-</div>
-</div>
-</div>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
-
-@Component({
-    template: `
-        <div class="card">
-            <div class="flex flex-wrap">
-                <div class="w-full xl:w-6/12 p-4">
-                <h5>Rectangle</h5>
-                <p-skeleton class="mb-2" />
-                <p-skeleton width="10rem" class="mb-2" />
-                <p-skeleton width="5rem" class="mb-2" />
-                <p-skeleton height="2rem" class="mb-2" />
-                <p-skeleton width="10rem" height="4rem" />
-            </div>
-            <div class="w-full xl:w-6/12 p-4">
-            <h5>Rounded</h5>
-            <p-skeleton class="mb-2" borderRadius="16px" />
-            <p-skeleton width="10rem" class="mb-2" borderRadius="16px" />
-            <p-skeleton width="5rem" class="mb-2" borderRadius="16px" />
-            <p-skeleton height="2rem" class="mb-2" borderRadius="16px" />
-            <p-skeleton width="10rem" height="4rem" borderRadius="16px" />
-        </div>
-        <div class="w-full xl:w-6/12 p-4">
-        <h5 class="mt-4">Square</h5>
-        <div class="flex items-end">
-            <p-skeleton size="2rem" class="mr-2" />
-            <p-skeleton size="3rem" class="mr-2" />
-            <p-skeleton size="4rem" class="mr-2" />
-            <p-skeleton size="5rem" />
-        </div>
-        </div>
-        <div class="field w-full xl:w-6/12 p-4">
-        <h5 class="mt-4">Circle</h5>
-        <div class="flex items-end">
-            <p-skeleton shape="circle" size="2rem" class="mr-2" />
-            <p-skeleton shape="circle" size="3rem" class="mr-2" />
-            <p-skeleton shape="circle" size="4rem" class="mr-2" />
-            <p-skeleton shape="circle" size="5rem" />
-        </div>
-        </div>
-        </div>
-        </div>
-    `,
-    standalone: true,
-    imports: [SkeletonModule]
-})
-export class SkeletonShapesDemo {}
-```
-</details>
 
 ## Skeleton
 

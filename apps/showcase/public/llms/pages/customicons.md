@@ -2,7 +2,7 @@
 
 Use custom icons with PrimeNG components.
 
-## Fontawesome
+## Fontawesome-
 
 Font Awesome is a popular icon library with a wide range of icons.
 
@@ -14,7 +14,7 @@ Font Awesome is a popular icon library with a wide range of icons.
 </p-dropdown>
 ```
 
-## Image
+## Image-
 
 Any type of image can be used as an icon.
 
@@ -26,7 +26,7 @@ Any type of image can be used as an icon.
 </p-dropdown>
 ```
 
-## Material
+## Material-
 
 Material icons is the official icon library based on Google Material Design.
 
@@ -38,7 +38,7 @@ Material icons is the official icon library based on Google Material Design.
 </p-dropdown>
 ```
 
-## Svg
+## Svg-
 
 Inline SVGs are embedded inside the dom.
 

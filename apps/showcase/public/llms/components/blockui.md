@@ -2,58 +2,17 @@
 
 BlockUI can either block other components or the whole page.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader BlockUI manages aria-busy state attribute when the UI gets blocked and unblocked. Any valid attribute is passed to the root element so additional attributes like role and aria-live can be used to define live regions. Keyboard Support Component does not include any interactive elements.
 
-## Basic
+## basic-doc
 
 The element to block should be placed as a child of BlockUI and blocked property is required to control the state.
 
-```html
-<p-button label="Block" (click)="blockedPanel = true" class="me-2" severity="secondary" />
-<p-button label="Unblock" (click)="blockedPanel = false" severity="secondary" />
-<p-blockui [target]="pnl" [blocked]="blockedPanel" />
-<p-panel #pnl header="Header" class="mt-6">
-    <p class="m-0">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-</p-panel>
-```
-
-## Document
+## document-doc
 
 If the target element is not specified, BlockUI blocks the document by default.
-
-```html
-<p-blockui [blocked]="blockedDocument" />
-<p-button label="Block" (click)="blockDocument()" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { BlockUIModule } from 'primeng/blockui';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    template: `
-        <div class="card">
-            <p-blockui [blocked]="blockedDocument" />
-            <p-button label="Block" (click)="blockDocument()" />
-        </div>
-    `,
-    standalone: true,
-    imports: [BlockUIModule, ButtonModule]
-})
-export class BlockUiDocumentDemo {
-    blockedDocument: boolean = false;
-}
-```
-</details>
 
 ## Block U I
 

@@ -2,7 +2,7 @@
 
 PrimeIcons is the default icon library of PrimeNG with over 250 open source icons.
 
-## Basic
+## Basic-
 
 PrimeIcons use the pi pi-&#123;icon&#125; syntax such as pi pi-check . A standalone icon can be displayed using an element such as i or span
 
@@ -13,7 +13,7 @@ PrimeIcons use the pi pi-&#123;icon&#125; syntax such as pi pi-check . A standal
 <span class="pi pi-user"></span>
 ```
 
-## Color
+## Color-
 
 Icon color is defined with the color property which is inherited from parent by default.
 
@@ -24,7 +24,7 @@ Icon color is defined with the color property which is inherited from parent by 
 <i class="pi pi-user" style="color: #708090"></i>
 ```
 
-## Constants
+## Constants-
 
 Constants API is available to reference icons easily when used programmatically.
 
@@ -58,7 +58,7 @@ export class PrimeIconsConstantsDemo {
 ```
 </details>
 
-## Download
+## Download-
 
 PrimeIcons is available at npm, run the following command to download it to your project.
 
@@ -66,19 +66,19 @@ PrimeIcons is available at npm, run the following command to download it to your
 npm install primeicons
 ```
 
-## Figma
+## Figma-
 
 PrimeIcons library is now available on Figma Community . By adding them as a library, you can easily use these icons in your designs.
 
-## Import
+## Import-
 
 CSS file of the icon library needs to be imported in styles.scss of your application.
 
-## List
+## List-
 
 Here is the full list of PrimeIcons. More icons will be added periodically and you may also request new icons at the issue tracker.
 
-## Size
+## Size-
 
 Size of an icon is controlled with the font-size property of the element.
 
@@ -89,7 +89,7 @@ Size of an icon is controlled with the font-size property of the element.
 <i class="pi pi-user" style="font-size: 2.5rem"></i>
 ```
 
-## Spin
+## Spin-
 
 Special pi-spin class applies infinite rotation to an icon.
 

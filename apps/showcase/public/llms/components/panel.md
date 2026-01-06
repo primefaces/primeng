@@ -2,136 +2,21 @@
 
 Panel is a container component with an optional content toggle feature.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader Toggleable panels use a content toggle button at the header that has aria-controls to define the id of the content section along with aria-expanded for the visibility state. The value to read the button defaults to the value of the header property and can be customized by defining an aria-label or aria-labelledby via the toggleButtonProps property. The content uses region , defines an id that matches the aria-controls of the content toggle button and aria-labelledby referring to the id of the header. Content Toggle Button Keyboard Support Key Function tab Moves focus to the next the focusable element in the page tab sequence. shift + tab Moves focus to the previous the focusable element in the page tab sequence. enter Toggles the visibility of the content. space Toggles the visibility of the content.
 
-## Basic
+## basic-doc
 
 A simple Panel is created with a header property along with the content as children.
 
-```html
-<p-panel header="Header">
-    <p class="m-0">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-</p-panel>
-```
-
-## Template
+## template-doc
 
 Header and Footers sections can be customized using header and footer templates.
 
-```html
-<p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
-<span class="font-bold">Amy Elsner</span>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { MenuModule } from 'primeng/menu';
-import { PanelModule } from 'primeng/panel';
-
-@Component({
-    template: `
-        <div class="card">
-            <p-panel [toggleable]="true">
-                <ng-template #header>
-                    <div class="flex items-center gap-2">
-                        <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
-                        <span class="font-bold">Amy Elsner</span>
-                    </div>
-                </ng-template>
-                <ng-template #footer>
-                    <div class="flex flex-wrap items-center justify-between gap-4">
-                        <div class="flex items-center gap-2">
-                            <p-button icon="pi pi-user" rounded text></p-button>
-                            <p-button icon="pi pi-bookmark" severity="secondary" rounded text></p-button>
-                        </div>
-                        <span class="text-surface-500 dark:text-surface-400">Updated 2 hours ago</span>
-                    </div>
-                </ng-template>
-                <ng-template #icons>
-                    <p-button icon="pi pi-cog" severity="secondary" rounded text (click)="menu.toggle($event)" />
-                    <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
-                </ng-template>
-                <p class="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </p-panel>
-        </div>
-    `,
-    standalone: true,
-    imports: [AvatarModule, ButtonModule, MenuModule, PanelModule]
-})
-export class PanelTemplateDemo implements OnInit {
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'Refresh',
-                icon: 'pi pi-refresh'
-            },
-            {
-                label: 'Search',
-                icon: 'pi pi-search'
-            },
-            {
-                separator: true
-            },
-            {
-                label: 'Delete',
-                icon: 'pi pi-times'
-            }
-        ];
-    }
-}
-```
-</details>
-
-## Toggleable
+## toggleable-doc
 
 Content of the panel can be expanded and collapsed using toggleable option, default state is defined with collapsed option. By default, toggle icon is used to toggle the contents whereas setting toggler to "header" enables clicking anywhere in the header to trigger a toggle.
-
-```html
-<p-panel header="Header" [toggleable]="true">
-    <p class="m-0">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-</p-panel>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
-
-@Component({
-    template: `
-        <div class="card">
-            <p-panel header="Header" [toggleable]="true">
-                <p class="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </p-panel>
-        </div>
-    `,
-    standalone: true,
-    imports: [PanelModule]
-})
-export class PanelToggleableDemo {}
-```
-</details>
 
 ## Panel
 

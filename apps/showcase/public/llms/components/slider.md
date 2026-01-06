@@ -2,192 +2,37 @@
 
 Slider is a component to provide input with a drag handle.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader Slider element component uses slider role on the handle in addition to the aria-orientation , aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using ariaLabelledBy and ariaLabel props.
 
-## Basic
+## basic-doc
 
 Two-way binding is defined using the standard ngModel directive.
 
-```html
-<p-slider [(ngModel)]="value" class="w-56" />
-```
-
-## Filter
+## filter-doc
 
 Image filter implementation using multiple sliders.
 
-```html
-<img alt="user header" class="w-full md:w-80 rounded mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
-<p-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
-<p-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { SliderModule } from 'primeng/slider';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <div class="flex flex-col items-center">
-                <img alt="user header" class="w-full md:w-80 rounded mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
-                <p-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
-                <p-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
-            </div>
-        </div>
-    `,
-    standalone: true,
-    imports: [SelectButtonModule, SliderModule, FormsModule]
-})
-export class SliderFilterDemo {
-    filter: number = 0;
-    filterValues: number[] = [100, 100, 0];
-    filterOptions: any;
-}
-```
-</details>
-
-## Input
+## input-doc
 
 Slider is connected to an input field using two-way binding.
 
-```html
-<div>
-    <input type="text" pInputText [(ngModel)]="value" class="w-full mb-4" />
-    <p-slider [(ngModel)]="value" class="w-full" />
-</div>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
-import { InputTextModule } from 'primeng/inputtext';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <div>
-                <input type="text" pInputText [(ngModel)]="value" class="w-full mb-4" />
-                <p-slider [(ngModel)]="value" class="w-full" />
-            </div>
-        </div>
-    `,
-    standalone: true,
-    imports: [SliderModule, InputTextModule, FormsModule]
-})
-export class SliderInputDemo {
-    value: number = 50;
-}
-```
-</details>
-
-## Range
+## range-doc
 
 When range property is present, slider provides two handles to define two values. In range mode, value should be an array instead of a single value.
 
-```html
-<p-slider [(ngModel)]="rangeValues" [range]="true" class="w-56" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-slider [(ngModel)]="rangeValues" [range]="true" class="w-56" />
-        </div>
-    `,
-    standalone: true,
-    imports: [SliderModule, FormsModule]
-})
-export class SliderRangeDemo {
-    rangeValues: number[] = [20, 80];
-}
-```
-</details>
-
-## reactiveformsdoc
+## reactiveforms-doc
 
 Slider can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
-## Step
+## step-doc
 
 Size of each movement is defined with the step property.
 
-```html
-<p-slider [(ngModel)]="value" [step]="20" class="w-56" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-slider [(ngModel)]="value" [step]="20" class="w-56" />
-        </div>
-    `,
-    standalone: true,
-    imports: [SliderModule, FormsModule]
-})
-export class SliderStepDemo {
-    value: number = 20;
-}
-```
-</details>
-
-## Vertical
+## vertical-doc
 
 Default layout of slider is horizontal , use orientation property for the alternative vertical mode.
-
-```html
-<p-slider [(ngModel)]="value" orientation="vertical" class="h-56" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-slider [(ngModel)]="value" orientation="vertical" class="h-56" />
-        </div>
-    `,
-    standalone: true,
-    imports: [SliderModule, FormsModule]
-})
-export class SliderVerticalDemo {
-    value: number = 50;
-}
-```
-</details>
 
 ## Slider
 

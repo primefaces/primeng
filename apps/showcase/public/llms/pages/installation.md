@@ -2,7 +2,7 @@
 
 Setting up PrimeNG in an Angular CLI project.
 
-## Download
+## Download-
 
 PrimeNG is available for download on the npm registry .
 
@@ -17,15 +17,15 @@ yarn add primeng @primeuix/themes
 pnpm add primeng @primeuix/themes
 ```
 
-## Examples
+## Examples-
 
 An example starter with Angular CLI is available at GitHub .
 
-## Nextsteps
+## Nextsteps-
 
 Welcome to the Prime UI Ecosystem! Once you have PrimeNG up and running, we recommend exploring the following resources to gain a deeper understanding of the library. Global configuration Customization of styles Getting support
 
-## Provider
+## Provider-
 
 Add providePrimeNG and provideAnimationsAsync to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
 
@@ -51,7 +51,7 @@ export const appConfig: ApplicationConfig = {
 ```
 </details>
 
-## Theme
+## Theme-
 
 Configure PrimeNG to use a theme like Aura.
 
@@ -75,7 +75,7 @@ export const appConfig: ApplicationConfig = {
 ```
 </details>
 
-## Verify
+## Verify-
 
 Verify your setup by adding a component such as Button. Each component can be imported and registered individually so that you only include what you use for bundle optimization. Import path is available in the documentation of the corresponding component.
 

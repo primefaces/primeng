@@ -1,10 +1,10 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { GlobalDoc } from '@/doc/guides/passthrough/globaldoc';
-import { InstanceDoc } from '@/doc/guides/passthrough/instancedoc';
-import { IntroductionDoc } from '@/doc/guides/passthrough/introductiondoc';
-import { LifeCycleDoc } from '@/doc/guides/passthrough/lifecycledoc';
-import { PcPrefixDoc } from '@/doc/guides/passthrough/pcprefixdoc';
-import { PTOptionsDoc } from '@/doc/guides/passthrough/ptoptionsdoc';
+import { GlobalDoc } from '@/doc/guides/passthrough/global-doc';
+import { InstanceDoc } from '@/doc/guides/passthrough/instance-doc';
+import { IntroductionDoc } from '@/doc/guides/passthrough/introduction-doc';
+import { LifeCycleDoc } from '@/doc/guides/passthrough/lifecycle-doc';
+import { PcPrefixDoc } from '@/doc/guides/passthrough/pcprefix-doc';
+import { PTOptionsDoc } from '@/doc/guides/passthrough/ptoptions-doc';
 import { Component } from '@angular/core';
 
 @Component({

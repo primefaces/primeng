@@ -1,9 +1,9 @@
-import { ApiDoc } from '@/doc/filterservice/apidoc';
-import { BuiltInConstraintsDoc } from '@/doc/filterservice/builtinconstraintsdoc';
-import { CustomConstraintsDoc } from '@/doc/filterservice/customconstraintsdoc';
-import { ImportDoc } from '@/doc/filterservice/importdoc';
-import { TableIntegrationDoc } from '@/doc/filterservice/tableintegrationdoc';
-import { UsageDoc } from '@/doc/filterservice/usagedoc';
+import { ApiDoc } from '@/doc/filterservice/api-doc';
+import { BuiltInConstraintsDoc } from '@/doc/filterservice/builtinconstraints-doc';
+import { CustomConstraintsDoc } from '@/doc/filterservice/customconstraints-doc';
+import { ImportDoc } from '@/doc/filterservice/import-doc';
+import { TableIntegrationDoc } from '@/doc/filterservice/tableintegration-doc';
+import { UsageDoc } from '@/doc/filterservice/usage-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

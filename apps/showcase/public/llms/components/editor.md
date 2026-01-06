@@ -2,103 +2,29 @@
 
 Editor is rich text editor component based on Quill.
 
-## Accessibility
+## accessibility-doc
 
 Quill performs generally well in terms of accessibility. The elements in the toolbar can be tabbed and have the necessary ARIA roles/attributes for screen readers. One known limitation is the lack of arrow key support for dropdowns in the toolbar that may be overcome with a custom toolbar.
 
-## Basic
+## basic-doc
 
 A model can be bound using the standard ngModel directive.
 
-```html
-<p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
-```
-
-## customtoolbardoc
+## customtoolbar-doc
 
 Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to Quill documentation for available controls.
 
-```html
-<p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
-    <ng-template #header>
-        <span class="ql-formats">
-            <button type="button" class="ql-bold" aria-label="Bold"></button>
-            <button type="button" class="ql-italic" aria-label="Italic"></button>
-            <button type="button" class="ql-underline" aria-label="Underline"></button>
-        </span>
-    </ng-template>
-</p-editor>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { EditorModule } from 'primeng/editor';
-
-@Component({
-    template: `
-        <div class="card">
-            <p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
-                <ng-template #header>
-                    <span class="ql-formats">
-                        <button type="button" class="ql-bold" aria-label="Bold"></button>
-                        <button type="button" class="ql-italic" aria-label="Italic"></button>
-                        <button type="button" class="ql-underline" aria-label="Underline"></button>
-                    </span>
-                </ng-template>
-            </p-editor>
-        </div>
-    `,
-    standalone: true,
-    imports: [EditorModule, FormsModule]
-})
-export class EditorCustomtoolbarDemo {
-    text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
-}
-```
-</details>
-
-## Quill
+## quill-doc
 
 Editor uses Quill editor underneath so it needs to be installed as a dependency.
 
-## reactiveformsdoc
+## reactiveforms-doc
 
 Editor can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
-## ReadOnly
+## readonly-doc
 
 When readonly is present, the value cannot be edited.
-
-```html
-<p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { EditorModule } from 'primeng/editor';
-
-@Component({
-    template: `
-        <div class="card">
-            <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
-        </div>
-    `,
-    standalone: true,
-    imports: [EditorModule, FormsModule]
-})
-export class EditorReadonlyDemo {
-    text: string = 'Always bet on Prime!';
-}
-```
-</details>
 
 ## Editor
 

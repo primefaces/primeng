@@ -2,122 +2,25 @@
 
 Chip represents entities using icons, labels and images.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader Chip uses the label property as the default aria-label , since any attribute is passed to the root element aria-labelledby or aria-label can be used to override the default behavior. Removable chips have a tabindex and focusable with the tab key. Keyboard Support Key Function backspace Hides removable. enter Hides removable.
 
-## Basic
+## basic-doc
 
 A basic chip with a text is created with the label property. In addition when removable is added, a delete icon is displayed to remove a chip, the optional onRemove event is available to get notified when a chip is hidden.
 
-```html
-<p-chip label="Action" />
-<p-chip label="Comedy" />
-<p-chip label="Mystery" />
-<p-chip label="Thriller" [removable]="true" />
-```
-
-## Icon
+## icon-doc
 
 A font icon next to the label can be displayed with the icon property.
 
-```html
-<p-chip label="Apple" icon="pi pi-apple" />
-<p-chip label="Facebook" icon="pi pi-facebook" />
-<p-chip label="Google" icon="pi pi-google" />
-<p-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
-
-@Component({
-    template: `
-        <div class="card flex items-center gap-2 flex-wrap">
-            <p-chip label="Apple" icon="pi pi-apple" />
-            <p-chip label="Facebook" icon="pi pi-facebook" />
-            <p-chip label="Google" icon="pi pi-google" />
-            <p-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true" />
-        </div>
-    `,
-    standalone: true,
-    imports: [ChipModule]
-})
-export class ChipIconDemo {}
-```
-</details>
-
-## Image
+## image-doc
 
 The image property is used to display an image like an avatar.
 
-```html
-<p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" alt="Avatar image" />
-<p-chip label="Asiya Javayant" image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" alt="Avatar image" />
-<p-chip label="Onyama Limba" image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" alt="Avatar image" />
-<p-chip label="Xuxue Feng" image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" alt="Avatar image" [removable]="true" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
-
-@Component({
-    template: `
-        <div class="card flex items-center gap-2 flex-wrap">
-            <p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" alt="Avatar image" />
-            <p-chip label="Asiya Javayant" image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" alt="Avatar image" />
-            <p-chip label="Onyama Limba" image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" alt="Avatar image" />
-            <p-chip label="Xuxue Feng" image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" alt="Avatar image" [removable]="true" />
-        </div>
-    `,
-    standalone: true,
-    imports: [ChipModule]
-})
-export class ChipImageDemo {}
-```
-</details>
-
-## Template
+## template-doc
 
 Content can easily be customized with the dynamic content instead of using the built-in modes.
-
-```html
-<p-chip class="!py-0 !pl-0 !pr-4">
-    <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">P</span>
-    <span class="ml-2 font-medium">PRIME</span>
-</p-chip>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
-
-@Component({
-    template: `
-        <div class="card">
-            <p-chip class="!py-0 !pl-0 !pr-4">
-                <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">P</span>
-                <span class="ml-2 font-medium">PRIME</span>
-            </p-chip>
-        </div>
-    `,
-    standalone: true,
-    imports: [ChipModule]
-})
-export class ChipTemplateDemo {}
-```
-</details>
 
 ## Chip
 

@@ -2,7 +2,7 @@
 
 Application wide configuration for PrimeNG.
 
-## Csp
+## Csp-
 
 The nonce value to use on dynamically generated style elements in core.
 
@@ -18,7 +18,7 @@ providePrimeNG({
 ```
 </details>
 
-## Dynamic
+## Dynamic-
 
 Inject the PrimeNG to your application to update the initial configuration at runtime.
 
@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
 ```
 </details>
 
-## Filtermode
+## Filtermode-
 
 Default filter modes to display on DataTable filter menus.
 
@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
 ```
 </details>
 
-## Inputvariant
+## Inputvariant-
 
 Input fields come in two styles, default is outlined with borders around the field whereas filled alternative adds a background color to the field. A theme such as Material may add more additional design changes per each variant.
 
@@ -135,11 +135,11 @@ providePrimeNG({
 ```
 </details>
 
-## Overlayappendto
+## Overlayappendto-
 
 Defines the default location of the overlays; self refers to the host element and body targets the document body. Defaults to self .
 
-## Provider
+## Provider-
 
 The initial configuration is defined by the providePrimeNG provider during application startup.
 
@@ -160,7 +160,7 @@ export const appConfig: ApplicationConfig = {
 ```
 </details>
 
-## Ripple
+## Ripple-
 
 Ripple is an optional animation for the supported components such as buttons. It is disabled by default.
 
@@ -174,7 +174,7 @@ providePrimeNG({
 ```
 </details>
 
-## Theme
+## Theme-
 
 PrimeNG provides 4 predefined themes out of the box; Aura, Material, Lara and Nora. See the theming documentation for details.
 
@@ -206,7 +206,7 @@ export const appConfig: ApplicationConfig = {
 ```
 </details>
 
-## Zindex
+## Zindex-
 
 ZIndexes are managed automatically to make sure layering of overlay components work seamlessly when combining multiple components. Still there may be cases where you'd like to configure the configure default values such as a custom layout where header section is fixed. In a case like this, dropdown needs to be displayed below the application header but a modal dialog should be displayed above. PrimeNG configuration offers the zIndex property to customize the default values for components categories. Default values are described below and can be customized when setting up PrimeNG.
 

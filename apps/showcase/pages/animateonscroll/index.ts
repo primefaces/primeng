@@ -1,6 +1,6 @@
-import { AccessibilityDoc } from '@/doc/animateonscroll/accessibilitydoc';
-import { BasicDoc } from '@/doc/animateonscroll/basicdoc';
-import { ImportDoc } from '@/doc/animateonscroll/importdoc';
+import { AccessibilityDoc } from '@/doc/animateonscroll/accessibility-doc';
+import { BasicDoc } from '@/doc/animateonscroll/basic-doc';
+import { ImportDoc } from '@/doc/animateonscroll/import-doc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { AppDocService } from '@/components/doc/app.doc.service';
 import { Component } from '@angular/core';

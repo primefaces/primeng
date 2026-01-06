@@ -1,0 +1,111 @@
+import { AppConfigService } from '@/service/appconfigservice';
+import { DesignerService } from '@/service/designerservice';
+import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ChartModule } from 'primeng/chart';
+
+@Component({
+    selector: 'horizontalbar-doc',
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, ChartModule],
+    template: `
+        <app-docsectiontext>
+            <p>A bar chart is rendered horizontally when <i>indexAxis</i> option is set as <i>y</i>.</p>
+        </app-docsectiontext>
+        <div class="card">
+            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+        </div>
+        <app-code></app-code>
+    `
+})
+export class HorizontalBarDoc implements OnInit {
+    data: any;
+
+    options: any;
+
+    platformId = inject(PLATFORM_ID);
+
+    configService = inject(AppConfigService);
+
+    designerService = inject(DesignerService);
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    themeEffect = effect(() => {
+        if (this.configService.transitionComplete()) {
+            if (this.designerService.preset()) {
+                this.initChart();
+            }
+        }
+    });
+
+    ngOnInit() {
+        this.initChart();
+    }
+
+    initChart() {
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+            const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+
+            this.data = {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [
+                    {
+                        label: 'My First dataset',
+                        backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                        borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    },
+                    {
+                        label: 'My Second dataset',
+                        backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+                        borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+                        data: [28, 48, 40, 19, 86, 27, 90]
+                    }
+                ]
+            };
+
+            this.options = {
+                indexAxis: 'y',
+                maintainAspectRatio: false,
+                aspectRatio: 0.8,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: textColorSecondary,
+                            font: {
+                                weight: 500
+                            }
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false
+                        }
+                    }
+                }
+            };
+            this.cd.markForCheck();
+        }
+    }
+}

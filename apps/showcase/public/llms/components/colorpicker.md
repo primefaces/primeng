@@ -2,130 +2,27 @@
 
 ColorPicker is an input component to select a color.
 
-## Accessibility
+## accessibility-doc
 
 Screen Reader Specification does not cover a color picker yet and using a semantic native color picker is not consistent across browsers so currently component is not compatible with screen readers. In the upcoming versions, text fields will be introduced below the slider section to be able to pick a color using accessible text boxes in hsl, rgba and hex formats.
 
-## Basic
+## basic-doc
 
 ColorPicker is used as a controlled input with ngModel property.
 
-```html
-<p-colorpicker [(ngModel)]="color" />
-```
-
-## Disabled
+## disabled-doc
 
 When disabled is present, the element cannot be edited and focused.
 
-```html
-<p-colorpicker [(ngModel)]="color" [disabled]="true" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'primeng/colorpicker';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-colorpicker [(ngModel)]="color" [disabled]="true" />
-        </div>
-    `,
-    standalone: true,
-    imports: [ColorPickerModule, FormsModule]
-})
-export class ColorPickerDisabledDemo {
-    color: string | undefined;
-}
-```
-</details>
-
-## Format
+## format-doc
 
 Default color format to use in value binding is hex and other possible values can be rgb and hsb using the format property.
 
-```html
-<label for="cp-hex" class="font-bold block mb-2"> HEX </label>
-<p-colorpicker [(ngModel)]="color" inputId="cp-hex" class="mb-4" />
-<span>{{ color }}</span>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'primeng/colorpicker';
-
-@Component({
-    template: `
-        <div class="card flex flex-wrap gap-4">
-            <div class="flex-1 flex flex-col items-center">
-                <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
-                <p-colorpicker [(ngModel)]="color" inputId="cp-hex" class="mb-4" />
-                <span>{{ color }}</span>
-            </div>
-            <div class="flex-1 flex flex-col items-center">
-                <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
-                <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" class="mb-4" />
-                <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
-            </div>
-            <div class="flex-1 flex flex-col items-center">
-                <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
-                <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" class="mb-4" />
-                <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
-            </div>
-        </div>
-    `,
-    standalone: true,
-    imports: [ColorPickerModule, FormsModule]
-})
-export class ColorPickerFormatDemo {
-    color: string = '#6466f1';
-    colorRGB: any = { r: 100, g: 102, b: 241 };
-    colorHSB: any = { h: 239, s: 59, b: 95 };
-}
-```
-</details>
-
-## Inline
+## inline-doc
 
 ColorPicker is displayed as a popup by default, add inline property to customize this behavior.
 
-```html
-<p-colorpicker [(ngModel)]="color" [inline]="true" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'primeng/colorpicker';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-colorpicker [(ngModel)]="color" [inline]="true" />
-        </div>
-    `,
-    standalone: true,
-    imports: [ColorPickerModule, FormsModule]
-})
-export class ColorPickerInlineDemo {
-    color: string | undefined;
-}
-```
-</details>
-
-## reactiveformsdoc
+## reactiveforms-doc
 
 ColorPicker can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 

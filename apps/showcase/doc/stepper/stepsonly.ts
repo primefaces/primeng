@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { StepperModule } from 'primeng/stepper';
 
 @Component({
-    selector: 'steps-only-doc',
+    selector: 'stepsonly',
     standalone: true,
     imports: [AppDocSectionText, AppCode, StepperModule],
     template: `
@@ -20,7 +20,7 @@ import { StepperModule } from 'primeng/stepper';
                 </p-step-list>
             </p-stepper>
         </div>
-        <app-code selector="stepper-steps-only-demo"></app-code>
+        <app-code></app-code>
     `
 })
 export class StepsOnlyDoc {}

@@ -2,15 +2,15 @@
 
 KeyFilter is a directive to restrict individual key strokes. In order to restrict the whole input, use InputNumber or InputMask instead.
 
-## Accessibility
+## accessibility-doc
 
 Refer to InputText for accessibility as KeyFilter is a built-in add-on of the InputText.
 
-## Presets
+## presets-doc
 
 KeyFilter provides various presets configured with the pKeyFilter property.
 
-## Regex
+## regex-doc
 
 In addition to the presets, a regular expression can be configured for customization.
 
