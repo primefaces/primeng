@@ -15,7 +15,7 @@ import { TreeModule } from 'primeng/tree';
         <div class="card">
             <p-tree [value]="files()" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
         </div>
-        <app-code selector="tree-single-drag-drop-demo"></app-code>
+        <app-code></app-code>
     `,
     providers: [TreeDragDropService]
 })

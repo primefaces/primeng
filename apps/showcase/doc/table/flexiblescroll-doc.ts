@@ -48,7 +48,7 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                 </p-dialog>
             </div>
         </p-deferred-demo>
-        <app-code selector="table-flexible-scroll-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FlexibleScrollDoc {

@@ -35,7 +35,7 @@ import { Table, TableModule, TablePassThrough } from 'primeng/table';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code selector="table-basic-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BasicDoc {

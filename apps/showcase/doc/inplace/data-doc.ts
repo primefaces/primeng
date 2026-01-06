@@ -41,7 +41,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
             </p-inplace>
         </div>
-        <app-code selector="inplace-data-demo" [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="extFiles"></app-code>
     `
 })
 export class DataDoc {

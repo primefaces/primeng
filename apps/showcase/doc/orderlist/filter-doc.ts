@@ -37,7 +37,7 @@ import { OrderListModule } from 'primeng/orderlist';
                 </ng-template>
             </p-orderlist>
         </div>
-        <app-code selector="orderlist-filter-demo" [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="extFiles"></app-code>
     `
 })
 export class FilterDoc implements OnInit {

@@ -120,7 +120,7 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code selector="table-stateful-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatefulDoc {

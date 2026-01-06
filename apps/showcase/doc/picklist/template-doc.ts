@@ -36,7 +36,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
             </p-picklist>
         </div>
-        <app-code selector="picklist-template-demo" [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="extFiles"></app-code>
     `
 })
 export class TemplateDoc {

@@ -51,7 +51,7 @@ interface ExportColumn {
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code selector="table-export-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExportDoc {

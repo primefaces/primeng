@@ -21,7 +21,7 @@ import { Subscription } from 'rxjs';
             <p-steps [model]="items" [readonly]="false" />
         </div>
         <router-outlet></router-outlet>
-        <app-code selector="steps-routing-demo" [routeFiles]="routeFiles"></app-code>
+        <app-code [routeFiles]="routeFiles"></app-code>
     `,
     providers: [MessageService]
 })

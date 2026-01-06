@@ -67,7 +67,7 @@ import { CommonModule } from '@angular/common';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code selector="table-presort-demo" [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="extFiles"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

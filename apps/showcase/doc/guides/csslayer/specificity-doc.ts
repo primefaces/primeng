@@ -24,7 +24,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <p-inputSwitch [(ngModel)]="checked" styleClass="my-inputswitch" />
             </div>
 
-            <app-code selector="specificity-demo" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
+            <app-code [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
         </app-docsectiontext>
     `,
     encapsulation: ViewEncapsulation.None,

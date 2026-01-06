@@ -46,7 +46,7 @@ import { PickListModule } from 'primeng/picklist';
                 </ng-template>
             </p-picklist>
         </div>
-        <app-code selector="picklist-filter-demo" [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="extFiles"></app-code>
     `
 })
 export class FilterDoc {

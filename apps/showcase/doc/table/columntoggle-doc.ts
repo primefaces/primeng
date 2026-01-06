@@ -46,7 +46,7 @@ interface Column {
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code selector="table-column-toggle-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnToggleDoc {

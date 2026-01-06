@@ -26,7 +26,7 @@ import { TreeModule } from 'primeng/tree';
                 <ng-template #empty> Drag Nodes Here </ng-template>
             </p-tree>
         </div>
-        <app-code selector="tree-multiple-drag-drop-demo"></app-code>
+        <app-code></app-code>
     `,
     providers: [TreeDragDropService],
     styles: [

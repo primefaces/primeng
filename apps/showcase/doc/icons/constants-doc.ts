@@ -16,7 +16,7 @@ import { MenuModule } from 'primeng/menu';
         <div class="card flex justify-center">
             <p-menu [model]="items"></p-menu>
         </div>
-        <app-code [code]="code" selector="prime-icons-constants-demo" [hideToggleCode]="true"></app-code>
+        <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `
 })
 export class ConstantsDoc implements OnInit {
