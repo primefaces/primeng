@@ -4714,7 +4714,7 @@ export class EditableColumn extends BaseComponent {
     findCell(element: any) {
         if (element) {
             let cell = element;
-            while (cell && find(cell as HTMLElement, '[data-p-cell-editing="true"]')) {
+            while (cell && !findSingle(cell as HTMLElement, '[data-p-cell-editing="true"]')) {
                 cell = cell.parentElement;
             }
 
