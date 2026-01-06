@@ -6,6 +6,10 @@ SplitButton groups a set of commands in an overlay with a default action item.
 
 Screen Reader SplitButton component renders two native button elements, main button uses the label property to define aria-label by default which can be customized with buttonProps . Dropdown button requires an explicit definition to describe it using menuButtonProps option and also includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The popup overlay uses menu role on the list and each action item has a menuitem role with an aria-label as the menuitem label. The id of the menu refers to the aria-controls of the dropdown button.
 
+```html
+<p-splitbutton [buttonProps]="{'aria-label': 'Default Action'}" [menuButtonProps]="{'aria-label': 'More Options'}" />
+```
+
 ## Basic
 
 SplitButton has a default action button and a collection of additional options defined by the model property based on MenuModel API.

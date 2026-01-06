@@ -6,6 +6,16 @@ Textarea adds styling and autoResize functionality to standard textarea element.
 
 Screen Reader Textarea component renders a native textarea element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.
 
+```html
+<label for="address1">Address 1</label>
+<textarea pTextarea id="address1"></textarea>
+
+<span id="address2">Address 2</span>
+<textarea pTextarea aria-labelledby="address2"></textarea>
+
+<textarea pTextarea aria-label="Address Details"></textarea>
+```
+
 ## AutoResize
 
 When autoResize is enabled, textarea grows instead of displaying a scrollbar.

@@ -6,6 +6,19 @@ InputNumber is an input component to provide numerical input.
 
 Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel , ariaDescribedBy props. The input element uses spinbutton role in addition to the aria-valuemin , aria-valuemax and aria-valuenow attributes.
 
+```html
+<label for="price">Price</label>
+<p-inputnumber inputId="price" />
+
+<span id="label_number">Number</span>
+<p-inputnumber ariaLabelledBy="label_number" />
+
+<p-inputnumber ariaLabel="Number" />
+
+<p-inputnumber ariaDescribedBy="describe" />
+<small id="describe">Information</small>
+```
+
 ## Buttons
 
 Spinner buttons are enabled using the showButtons options and layout is defined with the buttonLayout . Default value is "stacked" whereas "horizontal" and "stacked" are alternatives. Note that even there are no buttons, up and down arrow keys can be used to spin the values with keyboard.

@@ -6,6 +6,10 @@ SpeedDial is a floating button with a popup menu.
 
 Screen Reader SpeedDial component renders a native button element that implicitly includes any passed prop. Text to describe the button can be defined with the aria-labelledby or aria-label props. Addititonally the button includes includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The popup overlay uses menu role on the list and each action item has a menuitem role with an aria-label as the menuitem label. The id of the menu refers to the aria-controls of the button.
 
+```html
+<p-speeddial aria-label="Options" />
+```
+
 ## Circle
 
 Items can be displayed around the button when type is set to circle . Additional radius property defines the radius of the circle.

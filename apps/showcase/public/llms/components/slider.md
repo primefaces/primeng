@@ -6,6 +6,13 @@ Slider is a component to provide input with a drag handle.
 
 Screen Reader Slider element component uses slider role on the handle in addition to the aria-orientation , aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using ariaLabelledBy and ariaLabel props.
 
+```html
+<span id="label_number">Number</span>
+<p-slider ariaLabelledBy="label_number" />
+
+<p-slider ariaLabel="Number" />
+```
+
 ## Basic
 
 Two-way binding is defined using the standard ngModel directive.

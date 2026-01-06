@@ -6,6 +6,16 @@ InputMask component is used to enter input in a certain format such as numeric, 
 
 Screen Reader InputMask component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props.
 
+```html
+<label for="date">Date</label>
+<p-inputmask inputId="date"/>
+
+<span id="phone">Phone</span>
+<p-inputmask ariaLabelledBy="phone"/>
+
+<p-inputmask ariaLabel="Age"/>
+```
+
 ## Basic
 
 InputMask is used as a controlled input with ngModel properties.

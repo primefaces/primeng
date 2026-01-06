@@ -6,6 +6,16 @@ Password displays strength indicator for password fields.
 
 Screen Reader Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props. Screen reader is notified about the changes to the strength of the password using a section that has aria-live while typing.
 
+```html
+<label for="pwd1">Password</label>
+<p-password inputId="pwd1" />
+
+<span id="pwd2">Password</span>
+<p-password ariaLabelledBy="pwd2" />
+
+<p-password ariaLabel="Password" />
+```
+
 ## Basic
 
 Two-way value binding is defined using ngModel .

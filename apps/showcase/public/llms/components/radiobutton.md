@@ -6,6 +6,16 @@ RadioButton is an extension to standard radio button element with theming.
 
 Screen Reader RadioButton component uses a hidden native radio button element internally that is only visible to screen readers. Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props.
 
+```html
+<label for="rb1">One</label>
+<p-radiobutton inputId="rb1" />
+
+<span id="rb2">Two</span>
+<p-radiobutton ariaLabelledBy="rb2" />
+
+<p-radiobutton ariaLabel="Three" />
+```
+
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.

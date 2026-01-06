@@ -3150,7 +3150,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Button component renders a native button element that implicitly includes any passed prop. Text to describe the button is defined with the aria-label prop, if not present label prop is used as the value. If the button is icon only or custom templating is used, it is recommended to use aria-label so that screen readers would be able to read the element properly.",
-          "examples": null
+          "examples": {
+            "basic": "<p-button icon=\"pi pi-check\" aria-label=\"Submit\" />\n<p-button icon=\"pi pi-check\" label=\"Submit\" />\n\n<p-button class=\"youtube p-0\" aria-label=\"Youtube\">\n    <i class=\"pi pi-youtube px-2\"></i>\n    <span class=\"px-4\">Youtube</span>\n</p-button>"
+          }
         },
         {
           "id": "badge",
@@ -5244,7 +5246,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The cascadeselect element has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls that refers to the id of the popup. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses tree as the role. Each list item has a treeitem role along with aria-label , aria-selected and aria-expanded attributes. The container element of a treenode has the group role. The aria-setsize , aria-posinset and aria-level attributes are calculated implicitly and added to each treeitem.",
-          "examples": null
+          "examples": {
+            "basic": "<span id=\"dd1\">Options</span>\n<p-cascadeselect ariaLabelledBy=\"dd1\"/>\n\n<p-cascadeselect ariaLabel=\"Options\"/>"
+          }
         },
         {
           "id": "basic",
@@ -9776,7 +9780,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using aria-labelledby , aria-label props. The input element has combobox role in addition to aria-autocomplete as \"none\", aria-haspopup as \"dialog\" and aria-expanded attributes. The relation between the input and the popup is created with aria-controls attribute that refers to the id of the popup. The optional DatePicker button requires includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The value to read is retrieved from the chooseDate key of the aria property from the locale API. This label is also used for the aria-label of the popup as well. When there is a value selected, it is formatted and appended to the label to be able to notify users about the current value. Popup has a dialog role along with aria-modal and aria-label . The navigation buttons at the header has an aria-label retrieved from the prevYear , nextYear , prevMonth , nextMonth , prevDecade and nextDecade keys of the locale aria API. Similarly month picker button uses the chooseMonth and year picker button uses the chooseYear keys. Main date table uses grid role that contains th elements with col as the scope along with abbr tag resolving to the full name of the month. Each date cell has an aria-label referring to the full date value. Buttons at the footer utilize their readable labels as aria-label as well. Selected date also receives the aria-selected attribute. Timepicker spinner buttons get their labels for aria-label from the aria locale API using the prevHour , nextHour , prevMinute , nextMinute , prevSecond , nextSecond , am and pm keys. DatePicker also includes a hidden section that is only available to screen readers with aria-live as \"polite\". This element is updated when the selected date changes to instruct the user about the current date selected.",
-          "examples": null
+          "examples": {
+            "basic": "<label for=\"date1\">Date</label>\n<p-datepicker inputId=\"date1\"/>\n\n<span id=\"date2\">Date</span>\n<p-datepicker ariaLabelledBy=\"date2\"/>\n\n<p-datepicker ariaLabel=\"Date\"/>"
+          }
         },
         {
           "id": "basic",
@@ -11631,7 +11637,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Dialog component uses dialog role along with aria-labelledby referring to the header element however any attribute is passed to the root element so you may use aria-labelledby to override this default behavior. In addition aria-modal is added since focus is kept within the popup. It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding tabIndex would be necessary. Trigger element also requires aria-expanded and aria-controls to be handled explicitly. Close element is a button with an aria-label that refers to the aria.close property of the locale API by default, you may use closeButtonProps to customize the element and override the default aria-label . Maximize element is a button with an aria-label that refers to the aria.maximizeLabel and aria.minimizeLabel property of the locale API. It cannot be customized using the maximizeButtonProps . Overlay Keyboard Support Key Function tab Moves focus to the next the focusable element within the dialog. shift + tab Moves focus to the previous the focusable element within the dialog. escape Closes the dialog if closeOnEscape is true. Close Button Keyboard Support Key Function enter Closes the dialog. space Closes the dialog.",
-          "examples": null
+          "examples": {
+            "html": "<p-button icon=\"pi pi-external-link\" (click)=\"visible = true\" aria-controls=\"{{visible ? 'dialog' : null}}\" aria-expanded=\"{{visible ? true : false}}\" />\n\n<p-dialog id=\"dialog\" header=\"Header\" [(visible)]=\"visible\" [style]=\"{ width: '50vw' }\" (onHide)=\"visible = false\">\n    <p>Content</p>\n</p-dialog>"
+          }
         },
         {
           "id": "basic",
@@ -12928,7 +12936,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Drawer component uses complementary role by default, since any attribute is passed to the root element aria role can be changed depending on your use case and additional attributes like aria-labelledby can be added. In addition aria-modal is added since focus is kept within the drawer when opened. It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding tabIndex would be necessary. Trigger element also requires aria-expanded and aria-controls to be handled explicitly. Overlay Keyboard Support Key Function tab Moves focus to the next the focusable element within the drawer. shift + tab Moves focus to the previous the focusable element within the drawer. escape Closes the dialog if closeOnEscape is true. Close Button Keyboard Support Key Function enter Closes the drawer. space Closes the drawer.",
-          "examples": null
+          "examples": {
+            "html": "<p-button\n    icon=\"pi pi-arrow-right\"\n    (click)=\"visible = true\"\n    aria-controls=\"{{visible ? 'drawer' : null}}\"\n    aria-expanded=\"{{visible ? true : false}}\"\n></p-button>\n<p-drawer\n    [(visible)]=\"visible\"\n    id=\"drawer\"\n    (onHide)=\"visible = false\"\n    role=\"region\"\n>\n    content\n</p-drawer>"
+          }
         },
         {
           "id": "basic",
@@ -16736,7 +16746,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader ImageComponent component uses a native range slider internally. Value to describe the component can be defined using aria-labelledby and aria-label props. Keyboard Support Key Function tab Moves focus to the component. left arrow up arrow Decrements the value. right arrow down arrow Increments the value. home Set the minimum value. end Set the maximum value. page up Increments the value by 10 steps. page down Decrements the value by 10 steps.",
-          "examples": null
+          "examples": {
+            "html": "<span id=\"image_label\">Compare Images</span>\n<p-imagecompare class=\"shadow-lg rounded-2xl\" aria-labelledby=\"image-label\">\n    ...\n</p-imagecompare>\n\n<p-imagecompare class=\"shadow-lg rounded-2xl\" aria-label=\"Compare Images\">\n    ...\n</p-imagecompare>"
+          }
         },
         {
           "id": "basic",
@@ -17387,7 +17399,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader InputMask component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props.",
-          "examples": null
+          "examples": {
+            "basic": "<label for=\"date\">Date</label>\n<p-inputmask inputId=\"date\"/>\n\n<span id=\"phone\">Phone</span>\n<p-inputmask ariaLabelledBy=\"phone\"/>\n\n<p-inputmask ariaLabel=\"Age\"/>"
+          }
         },
         {
           "id": "basic",
@@ -17913,7 +17927,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel , ariaDescribedBy props. The input element uses spinbutton role in addition to the aria-valuemin , aria-valuemax and aria-valuenow attributes.",
-          "examples": null
+          "examples": {
+            "basic": "<label for=\"price\">Price</label>\n<p-inputnumber inputId=\"price\" />\n\n<span id=\"label_number\">Number</span>\n<p-inputnumber ariaLabelledBy=\"label_number\" />\n\n<p-inputnumber ariaLabel=\"Number\" />\n\n<p-inputnumber ariaDescribedBy=\"describe\" />\n<small id=\"describe\">Information</small>"
+          }
         },
         {
           "id": "buttons",
@@ -18962,7 +18978,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader InputText component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.",
-          "examples": null
+          "examples": {
+            "basic": "<label for=\"firstname\">Firstname</label>\n<input pInputText id=\"firstname\" />\n\n<span id=\"lastname\">Lastname</span>\n<input pInputText aria-labelledby=\"lastname\" />\n\n<input pInputText aria-label=\"Age\" />"
+          }
         },
         {
           "id": "basic",
@@ -19417,7 +19435,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Knob element component uses slider role in addition to the aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using ariaLabelledBy and ariaLabel props.",
-          "examples": null
+          "examples": {
+            "basic": "<span id=\"label_number\">Number</span>\n<p-knob ariaLabelledBy=\"label_number\"/>\n\n<p-knob ariaLabel=\"Number\"/>"
+          }
         },
         {
           "id": "basic",
@@ -19821,7 +19841,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can be provided ariaLabelledBy or ariaLabel props. The list element has a listbox role with the aria-multiselectable attribute that sets to true when multiple selection is enabled. Each list item has an option role with aria-selected and aria-disabled as their attributes.",
-          "examples": null
+          "examples": {
+            "basic": "<span id=\"lb\">Options</span>\n<p-listbox ariaLabelledBy=\"lb\"/>\n\n<p-listbox ariaLabel=\"City\"/>"
+          }
         },
         {
           "id": "basic",
@@ -23726,7 +23748,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The multiselect component has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls attribute that refers to the id of the popup listbox. The popup listbox uses listbox as the role with aria-multiselectable enabled. Each list item has an option role along with aria-label , aria-selected and aria-disabled attributes. Checkbox component at the header uses a hidden native checkbox element internally that is only visible to screen readers. Value to read is defined with the selectAll and unselectAll keys of the aria property from the locale API. If filtering is enabled, filterInputProps can be defined to give aria-* props to the input element. Close button uses close key of the aria property from the locale API as the aria-label by default, this can be overriden with the closeButtonProps .",
-          "examples": null
+          "examples": {
+            "basic": "<span id=\"dd1\">Options</span>\n<p-multiselect ariaLabelledBy=\"dd1\"/>\n\n<p-multiselect ariaLabel=\"Options\"/>"
+          }
         },
         {
           "id": "basic",
@@ -25134,7 +25158,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the source listbox and target listbox can be provided with sourceListProps and targetListProps by passing aria-labelledby or aria-label props. The list elements has a listbox role with the aria-multiselectable attribute. Each list item has an option role with aria-selected and aria-disabled as their attributes. Controls buttons are button elements with an aria-label that refers to the aria.moveTop , aria.moveUp , aria.moveDown , aria.moveBottom , aria.moveTo , aria.moveAllTo , aria.moveFrom and aria.moveAllFrom properties of the locale API by default, alternatively you may use moveTopButtonProps , moveUpButtonProps , moveDownButtonProps , moveToButtonProps , moveAllToButtonProps , moveFromButtonProps , moveFromButtonProps and moveAllFromButtonProps to customize the buttons like overriding the default aria-label attributes. OrderList Keyboard Support Key Function tab Moves focus to the first selected option, if there is none then first option receives the focus. up arrow Moves focus to the previous option. down arrow Moves focus to the next option. enter Toggles the selected state of the focused option. space Toggles the selected state of the focused option. home Moves focus to the first option. end Moves focus to the last option. shift + down arrow Moves focus to the next option and toggles the selection state. shift + up arrow Moves focus to the previous option and toggles the selection state. shift + space Selects the items between the most recently selected option and the focused option. control + shift + home Selects the focused options and all the options up to the first one. control + shift + end Selects the focused options and all the options down to the first one. control + a Selects all options. Buttons Keyboard Support Key Function enter Executes button action. space Executes button action.",
-          "examples": null
+          "examples": {
+            "html": "<span id=\"lb\">Options</span>\n<p-orderlist ariaLabelledBy=\"lb\" />\n\n<p-orderlist ariaLabel=\"City\" />"
+          }
         },
         {
           "id": "basic",
@@ -27845,7 +27871,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props. Screen reader is notified about the changes to the strength of the password using a section that has aria-live while typing.",
-          "examples": null
+          "examples": {
+            "basic": "<label for=\"pwd1\">Password</label>\n<p-password inputId=\"pwd1\" />\n\n<span id=\"pwd2\">Password</span>\n<p-password ariaLabelledBy=\"pwd2\" />\n\n<p-password ariaLabel=\"Password\" />"
+          }
         },
         {
           "id": "basic",
@@ -28562,7 +28590,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the source listbox and target listbox can be provided with ariaLabelledBy or ariaLabel props. The list elements has a listbox role with the aria-multiselectable attribute. Each list item has an option role with aria-selected and aria-disabled as their attributes. Controls buttons are button elements with an aria-label that refers to the aria.moveTop , aria.moveUp , aria.moveDown , aria.moveBottom , aria.moveTo , aria.moveAllTo , aria.moveFrom and aria.moveAllFrom properties of the locale API by default, alternatively you may use moveTopButtonProps , moveUpButtonProps , moveDownButtonProps , moveToButtonProps , moveAllToButtonProps , moveFromButtonProps , moveFromButtonProps and moveAllFromButtonProps to customize the buttons like overriding the default aria-label attributes. PickList Keyboard Support Key Function tab Moves focus to the first selected option, if there is none then first option receives the focus. up arrow Moves focus to the previous option. down arrow Moves focus to the next option. enter Toggles the selected state of the focused option. space Toggles the selected state of the focused option. home Moves focus to the first option. end Moves focus to the last option. shift + down arrow Moves focus to the next option and toggles the selection state. shift + up arrow Moves focus to the previous option and toggles the selection state. shift + space Selects the items between the most recently selected option and the focused option. control + shift + home Selects the focused options and all the options up to the first one. control + shift + end Selects the focused options and all the options down to the first one. control + a Selects all options. Buttons Keyboard Support Key Function enter Executes button action. space Executes button action.",
-          "examples": null
+          "examples": {
+            "html": "<span id=\"lb\">Options</span>\n<p-picklist ariaLabelledBy=\"lb\" />\n\n<p-picklist ariaLabel=\"City\" />"
+          }
         },
         {
           "id": "basic",
@@ -29702,7 +29732,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader ProgressBar components uses progressbar role along with aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using aria-labelledby and aria-label props.",
-          "examples": null
+          "examples": {
+            "html": "<span id=\"label_status\">Status</span>\n<p-progressbar aria-labelledby=\"label_status\" />\n\n<p-progressbar aria-label=\"Status\" />"
+          }
         },
         {
           "id": "basic",
@@ -29918,7 +29950,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader ProgressSpinner components uses progressbar role. Value to describe the component can be defined using aria-labelledby and aria-label props.",
-          "examples": null
+          "examples": {
+            "html": "<p-progress-spinner aria-label=\"Loading\"></p-progress-spinner>"
+          }
         },
         {
           "id": "basic",
@@ -30079,7 +30113,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader RadioButton component uses a hidden native radio button element internally that is only visible to screen readers. Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props.",
-          "examples": null
+          "examples": {
+            "basic": "<label for=\"rb1\">One</label>\n<p-radiobutton inputId=\"rb1\" />\n\n<span id=\"rb2\">Two</span>\n<p-radiobutton ariaLabelledBy=\"rb2\" />\n\n<p-radiobutton ariaLabel=\"Three\" />"
+          }
         },
         {
           "id": "disabled",
@@ -31789,7 +31825,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The select element has a combobox role in addition to aria-haspopup and aria-expanded attributes. If the editable option is enabled aria-autocomplete is also added. The relation between the combobox and the popup is created with aria-controls and aria-activedescendant attribute is used to instruct screen reader which option to read during keyboard navigation within the popup list. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses listbox as the role. Each list item has an option role, an id to match the aria-activedescendant of the input element along with aria-label , aria-selected and aria-disabled attributes. If filtering is enabled, filterInputProps can be defined to give aria-* props to the filter input element.",
-          "examples": null
+          "examples": {
+            "basic": "<span id=\"dd1\">Options</span>\n<p-select ariaLabelledBy=\"dd1\"/>\n\n<p-select ariaLabel=\"Options\"/>"
+          }
         },
         {
           "id": "basic",
@@ -33706,7 +33744,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Slider element component uses slider role on the handle in addition to the aria-orientation , aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using ariaLabelledBy and ariaLabel props.",
-          "examples": null
+          "examples": {
+            "basic": "<span id=\"label_number\">Number</span>\n<p-slider ariaLabelledBy=\"label_number\" />\n\n<p-slider ariaLabel=\"Number\" />"
+          }
         },
         {
           "id": "basic",
@@ -34108,7 +34148,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader SpeedDial component renders a native button element that implicitly includes any passed prop. Text to describe the button can be defined with the aria-labelledby or aria-label props. Addititonally the button includes includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The popup overlay uses menu role on the list and each action item has a menuitem role with an aria-label as the menuitem label. The id of the menu refers to the aria-controls of the button.",
-          "examples": null
+          "examples": {
+            "basic": "<p-speeddial aria-label=\"Options\" />"
+          }
         },
         {
           "id": "circle",
@@ -34526,7 +34568,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader SplitButton component renders two native button elements, main button uses the label property to define aria-label by default which can be customized with buttonProps . Dropdown button requires an explicit definition to describe it using menuButtonProps option and also includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The popup overlay uses menu role on the list and each action item has a menuitem role with an aria-label as the menuitem label. The id of the menu refers to the aria-controls of the dropdown button.",
-          "examples": null
+          "examples": {
+            "basic": "<p-splitbutton [buttonProps]=\"{'aria-label': 'Default Action'}\" [menuButtonProps]=\"{'aria-label': 'More Options'}\" />"
+          }
         },
         {
           "id": "basic",
@@ -38302,7 +38346,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Textarea component renders a native textarea element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.",
-          "examples": null
+          "examples": {
+            "basic": "<label for=\"address1\">Address 1</label>\n<textarea pTextarea id=\"address1\"></textarea>\n\n<span id=\"address2\">Address 2</span>\n<textarea pTextarea aria-labelledby=\"address2\"></textarea>\n\n<textarea pTextarea aria-label=\"Address Details\"></textarea>"
+          }
         },
         {
           "id": "autoresize",
@@ -40222,7 +40268,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader ToggleButton component uses an element with button role and updates aria-pressed state for screen readers. Value to describe the component can be defined with ariaLabelledBy or ariaLabel props, it is highly suggested to use either of these props as the component changes the label displayed which will result in screen readers to read different labels when the component receives focus. To prevent this, always provide an aria label that does not change related to state.",
-          "examples": null
+          "examples": {
+            "basic": "<span id=\"rememberme\">Remember Me</span>\n<p-togglebutton ariaLabelledBy=\"rememberme\" />\n\n<p-togglebutton ariaLabel=\"Remember Me\" />"
+          }
         },
         {
           "id": "basic",
@@ -40724,7 +40772,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader InputSwitch component uses a hidden native checkbox element with switch role internally that is only visible to screen readers. Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props.",
-          "examples": null
+          "examples": {
+            "basic": "<label for=\"switch1\">Remember Me</label>\n<p-toggleswitch inputId=\"switch1\" />\n\n<span id=\"switch2\">Remember Me</span>\n<p-toggleswitch ariaLabelledBy=\"switch2\" />\n\n<p-toggleswitch ariaLabel=\"Remember Me\" />"
+          }
         },
         {
           "id": "basic",
@@ -41165,7 +41215,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Toolbar uses toolbar role for the root element, aria-orientation is not included as it defaults to horizontal . Any valid attribute is passed to the root element so you may add additional properties like aria-labelledby and aria-labelled to define the element if required. Keyboard Support Component does not include any interactive elements. Arbitrary content can be placed with templating and elements like buttons inside should follow the page tab sequence.",
-          "examples": null
+          "examples": {
+            "html": "<p-toolbar aria-label=\"Actions\">\n    Content\n</p-toolbar>"
+          }
         },
         {
           "id": "basic",
@@ -42646,7 +42698,9 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided with ariaLabelledby or ariaLabel props. The treeselect element has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls that refers to the id of the popup. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses tree as the role. Each list item has a treeitem role along with aria-label , aria-selected and aria-expanded attributes. In checkbox selection, aria-checked is used instead of aria-selected . Checkbox and toggle icons are hidden from screen readers as their parent element with treeitem role and attributes are used instead for readers and keyboard support. The container element of a treenode has the group role. The aria-setsize , aria-posinset and aria-level attributes are calculated implicitly and added to each treeitem. If filtering is enabled, filterInputProps can be defined to give aria-* props to the filter input element.",
-          "examples": null
+          "examples": {
+            "basic": "<span id=\"dd1\">Options</span>\n<p-treeselect ariaLabelledBy=\"dd1\" />\n\n<p-treeselect ariaLabel=\"Options\" />"
+          }
         },
         {
           "id": "basic",

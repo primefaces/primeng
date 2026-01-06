@@ -6,6 +6,16 @@ Button is an extension to standard button element with icons and theming.
 
 Screen Reader Button component renders a native button element that implicitly includes any passed prop. Text to describe the button is defined with the aria-label prop, if not present label prop is used as the value. If the button is icon only or custom templating is used, it is recommended to use aria-label so that screen readers would be able to read the element properly.
 
+```html
+<p-button icon="pi pi-check" aria-label="Submit" />
+<p-button icon="pi pi-check" label="Submit" />
+
+<p-button class="youtube p-0" aria-label="Youtube">
+    <i class="pi pi-youtube px-2"></i>
+    <span class="px-4">Youtube</span>
+</p-button>
+```
+
 ## Badge
 
 Buttons have built-in badge support with badge and badgeClass properties.

@@ -6,6 +6,13 @@ ToggleButton is used to select a boolean value using a button.
 
 Screen Reader ToggleButton component uses an element with button role and updates aria-pressed state for screen readers. Value to describe the component can be defined with ariaLabelledBy or ariaLabel props, it is highly suggested to use either of these props as the component changes the label displayed which will result in screen readers to read different labels when the component receives focus. To prevent this, always provide an aria label that does not change related to state.
 
+```html
+<span id="rememberme">Remember Me</span>
+<p-togglebutton ariaLabelledBy="rememberme" />
+
+<p-togglebutton ariaLabel="Remember Me" />
+```
+
 ## Basic
 
 Two-way binding to a boolean property is defined using the standard ngModel directive.

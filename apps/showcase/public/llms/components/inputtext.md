@@ -6,6 +6,16 @@ InputText is an extension to standard input element with theming and keyfilterin
 
 Screen Reader InputText component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.
 
+```html
+<label for="firstname">Firstname</label>
+<input pInputText id="firstname" />
+
+<span id="lastname">Lastname</span>
+<input pInputText aria-labelledby="lastname" />
+
+<input pInputText aria-label="Age" />
+```
+
 ## Basic
 
 InputText is used as a controlled input with ngModel property.

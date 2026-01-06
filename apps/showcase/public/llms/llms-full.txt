@@ -4597,6 +4597,18 @@ Button is an extension to standard button element with icons and theming.
 
 Screen Reader Button component renders a native button element that implicitly includes any passed prop. Text to describe the button is defined with the aria-label prop, if not present label prop is used as the value. If the button is icon only or custom templating is used, it is recommended to use aria-label so that screen readers would be able to read the element properly.
 
+**Basic Usage:**
+
+```html
+<p-button icon="pi pi-check" aria-label="Submit" />
+<p-button icon="pi pi-check" label="Submit" />
+
+<p-button class="youtube p-0" aria-label="Youtube">
+    <i class="pi pi-youtube px-2"></i>
+    <span class="px-4">Youtube</span>
+</p-button>
+```
+
 ## Badge
 
 Buttons have built-in badge support with badge and badgeClass properties.
@@ -6322,6 +6334,15 @@ CascadeSelect displays a nested structure of options.
 ## Accessibility
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The cascadeselect element has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls that refers to the id of the popup. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses tree as the role. Each list item has a treeitem role along with aria-label , aria-selected and aria-expanded attributes. The container element of a treenode has the group role. The aria-setsize , aria-posinset and aria-level attributes are calculated implicitly and added to each treeitem.
+
+**Basic Usage:**
+
+```html
+<span id="dd1">Options</span>
+<p-cascadeselect ariaLabelledBy="dd1"/>
+
+<p-cascadeselect ariaLabel="Options"/>
+```
 
 ## Basic
 
@@ -12721,6 +12742,18 @@ DatePicker is an input component to select a date.
 ## Accessibility
 
 Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using aria-labelledby , aria-label props. The input element has combobox role in addition to aria-autocomplete as "none", aria-haspopup as "dialog" and aria-expanded attributes. The relation between the input and the popup is created with aria-controls attribute that refers to the id of the popup. The optional DatePicker button requires includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The value to read is retrieved from the chooseDate key of the aria property from the locale API. This label is also used for the aria-label of the popup as well. When there is a value selected, it is formatted and appended to the label to be able to notify users about the current value. Popup has a dialog role along with aria-modal and aria-label . The navigation buttons at the header has an aria-label retrieved from the prevYear , nextYear , prevMonth , nextMonth , prevDecade and nextDecade keys of the locale aria API. Similarly month picker button uses the chooseMonth and year picker button uses the chooseYear keys. Main date table uses grid role that contains th elements with col as the scope along with abbr tag resolving to the full name of the month. Each date cell has an aria-label referring to the full date value. Buttons at the footer utilize their readable labels as aria-label as well. Selected date also receives the aria-selected attribute. Timepicker spinner buttons get their labels for aria-label from the aria locale API using the prevHour , nextHour , prevMinute , nextMinute , prevSecond , nextSecond , am and pm keys. DatePicker also includes a hidden section that is only available to screen readers with aria-live as "polite". This element is updated when the selected date changes to instruct the user about the current date selected.
+
+**Basic Usage:**
+
+```html
+<label for="date1">Date</label>
+<p-datepicker inputId="date1"/>
+
+<span id="date2">Date</span>
+<p-datepicker ariaLabelledBy="date2"/>
+
+<p-datepicker ariaLabel="Date"/>
+```
 
 ## Basic
 
@@ -20881,6 +20914,18 @@ InputMask component is used to enter input in a certain format such as numeric, 
 
 Screen Reader InputMask component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props.
 
+**Basic Usage:**
+
+```html
+<label for="date">Date</label>
+<p-inputmask inputId="date"/>
+
+<span id="phone">Phone</span>
+<p-inputmask ariaLabelledBy="phone"/>
+
+<p-inputmask ariaLabel="Age"/>
+```
+
 ## Basic
 
 InputMask is used as a controlled input with ngModel properties.
@@ -21544,6 +21589,21 @@ InputNumber is an input component to provide numerical input.
 ## Accessibility
 
 Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel , ariaDescribedBy props. The input element uses spinbutton role in addition to the aria-valuemin , aria-valuemax and aria-valuenow attributes.
+
+**Basic Usage:**
+
+```html
+<label for="price">Price</label>
+<p-inputnumber inputId="price" />
+
+<span id="label_number">Number</span>
+<p-inputnumber ariaLabelledBy="label_number" />
+
+<p-inputnumber ariaLabel="Number" />
+
+<p-inputnumber ariaDescribedBy="describe" />
+<small id="describe">Information</small>
+```
 
 ## Buttons
 
@@ -22931,6 +22991,18 @@ InputText is an extension to standard input element with theming and keyfilterin
 
 Screen Reader InputText component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.
 
+**Basic Usage:**
+
+```html
+<label for="firstname">Firstname</label>
+<input pInputText id="firstname" />
+
+<span id="lastname">Lastname</span>
+<input pInputText aria-labelledby="lastname" />
+
+<input pInputText aria-label="Age" />
+```
+
 ## Basic
 
 InputText is used as a controlled input with ngModel property.
@@ -23747,6 +23819,15 @@ Knob is a form component to define number inputs with a dial.
 
 Screen Reader Knob element component uses slider role in addition to the aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using ariaLabelledBy and ariaLabel props.
 
+**Basic Usage:**
+
+```html
+<span id="label_number">Number</span>
+<p-knob ariaLabelledBy="label_number"/>
+
+<p-knob ariaLabel="Number"/>
+```
+
 ## Basic
 
 Knob is an input component and used with the standard ngModel directive.
@@ -24322,6 +24403,15 @@ Listbox is used to select one or more values from a list of items.
 ## Accessibility
 
 Screen Reader Value to describe the component can be provided ariaLabelledBy or ariaLabel props. The list element has a listbox role with the aria-multiselectable attribute that sets to true when multiple selection is enabled. Each list item has an option role with aria-selected and aria-disabled as their attributes.
+
+**Basic Usage:**
+
+```html
+<span id="lb">Options</span>
+<p-listbox ariaLabelledBy="lb"/>
+
+<p-listbox ariaLabel="City"/>
+```
 
 ## Basic
 
@@ -27844,6 +27934,15 @@ MultiSelect is used to select multiple items from a collection.
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The multiselect component has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls attribute that refers to the id of the popup listbox. The popup listbox uses listbox as the role with aria-multiselectable enabled. Each list item has an option role along with aria-label , aria-selected and aria-disabled attributes. Checkbox component at the header uses a hidden native checkbox element internally that is only visible to screen readers. Value to read is defined with the selectAll and unselectAll keys of the aria property from the locale API. If filtering is enabled, filterInputProps can be defined to give aria-* props to the input element. Close button uses close key of the aria property from the locale API as the aria-label by default, this can be overriden with the closeButtonProps .
 
+**Basic Usage:**
+
+```html
+<span id="dd1">Options</span>
+<p-multiselect ariaLabelledBy="dd1"/>
+
+<p-multiselect ariaLabel="Options"/>
+```
+
 ## Basic
 
 MultiSelect is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Default property name for the optionLabel is label and value for the optionValue . If optionValue is omitted and the object has no value property, the object itself becomes the value of an option. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
@@ -31339,6 +31438,18 @@ Password displays strength indicator for password fields.
 
 Screen Reader Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props. Screen reader is notified about the changes to the strength of the password using a section that has aria-live while typing.
 
+**Basic Usage:**
+
+```html
+<label for="pwd1">Password</label>
+<p-password inputId="pwd1" />
+
+<span id="pwd2">Password</span>
+<p-password ariaLabelledBy="pwd2" />
+
+<p-password ariaLabel="Password" />
+```
+
 ## Basic
 
 Two-way value binding is defined using ngModel .
@@ -33483,6 +33594,18 @@ RadioButton is an extension to standard radio button element with theming.
 
 Screen Reader RadioButton component uses a hidden native radio button element internally that is only visible to screen readers. Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props.
 
+**Basic Usage:**
+
+```html
+<label for="rb1">One</label>
+<p-radiobutton inputId="rb1" />
+
+<span id="rb2">Two</span>
+<p-radiobutton ariaLabelledBy="rb2" />
+
+<p-radiobutton ariaLabel="Three" />
+```
+
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
@@ -35464,6 +35587,15 @@ Select is used to choose an item from a collection of options.
 ## Accessibility
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The select element has a combobox role in addition to aria-haspopup and aria-expanded attributes. If the editable option is enabled aria-autocomplete is also added. The relation between the combobox and the popup is created with aria-controls and aria-activedescendant attribute is used to instruct screen reader which option to read during keyboard navigation within the popup list. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses listbox as the role. Each list item has an option role, an id to match the aria-activedescendant of the input element along with aria-label , aria-selected and aria-disabled attributes. If filtering is enabled, filterInputProps can be defined to give aria-* props to the filter input element.
+
+**Basic Usage:**
+
+```html
+<span id="dd1">Options</span>
+<p-select ariaLabelledBy="dd1"/>
+
+<p-select ariaLabel="Options"/>
+```
 
 ## Basic
 
@@ -37722,6 +37854,15 @@ Slider is a component to provide input with a drag handle.
 
 Screen Reader Slider element component uses slider role on the handle in addition to the aria-orientation , aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using ariaLabelledBy and ariaLabel props.
 
+**Basic Usage:**
+
+```html
+<span id="label_number">Number</span>
+<p-slider ariaLabelledBy="label_number" />
+
+<p-slider ariaLabel="Number" />
+```
+
 ## Basic
 
 Two-way binding is defined using the standard ngModel directive.
@@ -38133,6 +38274,12 @@ SpeedDial is a floating button with a popup menu.
 ## Accessibility
 
 Screen Reader SpeedDial component renders a native button element that implicitly includes any passed prop. Text to describe the button can be defined with the aria-labelledby or aria-label props. Addititonally the button includes includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The popup overlay uses menu role on the list and each action item has a menuitem role with an aria-label as the menuitem label. The id of the menu refers to the aria-controls of the button.
+
+**Basic Usage:**
+
+```html
+<p-speeddial aria-label="Options" />
+```
 
 ## Circle
 
@@ -38872,6 +39019,12 @@ SplitButton groups a set of commands in an overlay with a default action item.
 ## Accessibility
 
 Screen Reader SplitButton component renders two native button elements, main button uses the label property to define aria-label by default which can be customized with buttonProps . Dropdown button requires an explicit definition to describe it using menuButtonProps option and also includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The popup overlay uses menu role on the list and each action item has a menuitem role with an aria-label as the menuitem label. The id of the menu refers to the aria-controls of the dropdown button.
+
+**Basic Usage:**
+
+```html
+<p-splitbutton [buttonProps]="{'aria-label': 'Default Action'}" [menuButtonProps]="{'aria-label': 'More Options'}" />
+```
 
 ## Basic
 
@@ -49145,6 +49298,18 @@ Textarea adds styling and autoResize functionality to standard textarea element.
 
 Screen Reader Textarea component renders a native textarea element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.
 
+**Basic Usage:**
+
+```html
+<label for="address1">Address 1</label>
+<textarea pTextarea id="address1"></textarea>
+
+<span id="address2">Address 2</span>
+<textarea pTextarea aria-labelledby="address2"></textarea>
+
+<textarea pTextarea aria-label="Address Details"></textarea>
+```
+
 ## AutoResize
 
 When autoResize is enabled, textarea grows instead of displaying a scrollbar.
@@ -51310,6 +51475,15 @@ ToggleButton is used to select a boolean value using a button.
 
 Screen Reader ToggleButton component uses an element with button role and updates aria-pressed state for screen readers. Value to describe the component can be defined with ariaLabelledBy or ariaLabel props, it is highly suggested to use either of these props as the component changes the label displayed which will result in screen readers to read different labels when the component receives focus. To prevent this, always provide an aria label that does not change related to state.
 
+**Basic Usage:**
+
+```html
+<span id="rememberme">Remember Me</span>
+<p-togglebutton ariaLabelledBy="rememberme" />
+
+<p-togglebutton ariaLabel="Remember Me" />
+```
+
 ## Basic
 
 Two-way binding to a boolean property is defined using the standard ngModel directive.
@@ -51740,6 +51914,18 @@ ToggleSwitch is used to select a boolean value.
 ## Accessibility
 
 Screen Reader InputSwitch component uses a hidden native checkbox element with switch role internally that is only visible to screen readers. Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props.
+
+**Basic Usage:**
+
+```html
+<label for="switch1">Remember Me</label>
+<p-toggleswitch inputId="switch1" />
+
+<span id="switch2">Remember Me</span>
+<p-toggleswitch ariaLabelledBy="switch2" />
+
+<p-toggleswitch ariaLabel="Remember Me" />
+```
 
 ## Basic
 
@@ -53549,6 +53735,15 @@ TreeSelect is a form component to choose from hierarchical data.
 ## Accessibility
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledby or ariaLabel props. The treeselect element has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls that refers to the id of the popup. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses tree as the role. Each list item has a treeitem role along with aria-label , aria-selected and aria-expanded attributes. In checkbox selection, aria-checked is used instead of aria-selected . Checkbox and toggle icons are hidden from screen readers as their parent element with treeitem role and attributes are used instead for readers and keyboard support. The container element of a treenode has the group role. The aria-setsize , aria-posinset and aria-level attributes are calculated implicitly and added to each treeitem. If filtering is enabled, filterInputProps can be defined to give aria-* props to the filter input element.
+
+**Basic Usage:**
+
+```html
+<span id="dd1">Options</span>
+<p-treeselect ariaLabelledBy="dd1" />
+
+<p-treeselect ariaLabel="Options" />
+```
 
 ## Basic
 

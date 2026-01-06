@@ -6,6 +6,16 @@ ToggleSwitch is used to select a boolean value.
 
 Screen Reader InputSwitch component uses a hidden native checkbox element with switch role internally that is only visible to screen readers. Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props.
 
+```html
+<label for="switch1">Remember Me</label>
+<p-toggleswitch inputId="switch1" />
+
+<span id="switch2">Remember Me</span>
+<p-toggleswitch ariaLabelledBy="switch2" />
+
+<p-toggleswitch ariaLabel="Remember Me" />
+```
+
 ## Basic
 
 Two-way value binding is defined using ngModel .

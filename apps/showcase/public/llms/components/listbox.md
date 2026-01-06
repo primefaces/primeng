@@ -6,6 +6,13 @@ Listbox is used to select one or more values from a list of items.
 
 Screen Reader Value to describe the component can be provided ariaLabelledBy or ariaLabel props. The list element has a listbox role with the aria-multiselectable attribute that sets to true when multiple selection is enabled. Each list item has an option role with aria-selected and aria-disabled as their attributes.
 
+```html
+<span id="lb">Options</span>
+<p-listbox ariaLabelledBy="lb"/>
+
+<p-listbox ariaLabel="City"/>
+```
+
 ## Basic
 
 Listbox is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Default property name for the optionLabel is label and value for the optionValue . If optionValue is omitted and the object has no value property, the object itself becomes the value of an option. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
