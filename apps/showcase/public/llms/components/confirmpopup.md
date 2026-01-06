@@ -283,7 +283,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ConfirmPopupModule, ToastModule]
+    imports: [ButtonModule, ConfirmPopupModule, ToastModule],
+    providers: [ConfirmationService, MessageService]
 })
 export class ConfirmpopupHeadlessDemo {
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
@@ -467,7 +468,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ConfirmPopupModule, ToastModule]
+    imports: [ButtonModule, ConfirmPopupModule, ToastModule],
+    providers: [ConfirmationService, MessageService]
 })
 export class ConfirmpopupTemplateDemo {
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}

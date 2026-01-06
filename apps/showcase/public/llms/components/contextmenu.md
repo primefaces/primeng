@@ -78,7 +78,8 @@ interface Users {
         </div>
     `,
     standalone: true,
-    imports: [ContextMenuModule, TagModule, ToastModule]
+    imports: [ContextMenuModule, TagModule, ToastModule],
+    providers: [MessageService]
 })
 export class ContextmenuCommandDemo implements OnInit {
     items: MenuItem[] | undefined;

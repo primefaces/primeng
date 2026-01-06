@@ -207,7 +207,7 @@ import { Product } from '@/domain/product';
     `,
     standalone: true,
     imports: [ButtonModule, PopoverModule, TableModule, TagModule],
-    providers: [ProductService]
+    providers: [ProductService, MessageService]
 })
 export class PopoverDatatableDemo implements OnInit {
     constructor(private productService: ProductService) {}

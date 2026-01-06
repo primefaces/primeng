@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
@@ -15,7 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
         </app-docsectiontext>
 
-        <app-code [hideToggleCode]="true" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
+        <app-code [code]="code" [hideToggleCode]="true" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
 
         <h3>Keyboard Support</h3>
         <div class="doc-tablewrapper">
@@ -50,4 +51,14 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </div>
     `
 })
-export class AccessibilityDoc {}
+export class AccessibilityDoc {
+    code: Code = {
+        basic: `<p-button icon="pi pi-check" aria-label="Submit" />
+<p-button icon="pi pi-check" label="Submit" />
+
+<p-button class="youtube p-0" aria-label="Youtube">
+    <i class="pi pi-youtube px-2"></i>
+    <span class="px-4">Youtube</span>
+</p-button>`
+    };
+}

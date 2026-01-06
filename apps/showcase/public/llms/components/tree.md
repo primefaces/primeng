@@ -88,7 +88,7 @@ import { ContextMenu } from 'primeng/contextmenu';
     `,
     standalone: true,
     imports: [ContextMenuModule, ToastModule, TreeModule],
-    providers: [NodeService]
+    providers: [NodeService, MessageService]
 })
 export class TreeContextmenuDemo implements OnInit {
     files = signal<TreeNode[]>([]);
@@ -239,7 +239,7 @@ import { TreeNode, MessageService } from 'primeng/api';
     `,
     standalone: true,
     imports: [ToastModule, TreeModule],
-    providers: [NodeService]
+    providers: [NodeService, MessageService]
 })
 export class TreeEventDemo implements OnInit {
     files = signal<TreeNode[]>(undefined);

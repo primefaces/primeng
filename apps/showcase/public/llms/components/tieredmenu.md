@@ -40,7 +40,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [TieredMenuModule, ToastModule]
+    imports: [TieredMenuModule, ToastModule],
+    providers: [MessageService]
 })
 export class TieredmenuCommandDemo implements OnInit {
     items: MenuItem[] | undefined;

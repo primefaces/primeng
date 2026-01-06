@@ -43,7 +43,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule]
+    imports: [ButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class ToastClearDemo {
     constructor(private messageService: MessageService) {}
@@ -116,7 +117,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ProgressBarModule, ToastModule]
+    imports: [ButtonModule, ProgressBarModule, ToastModule],
+    providers: [MessageService]
 })
 export class ToastHeadlessDemo {
     visible: boolean = false;
@@ -160,7 +162,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule]
+    imports: [ButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class ToastLifeDemo {
     constructor(private messageService: MessageService) {}
@@ -199,7 +202,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule, RippleModule]
+    imports: [ButtonModule, ToastModule, RippleModule],
+    providers: [MessageService]
 })
 export class ToastMultipleDemo {
     constructor(private messageService: MessageService) {}
@@ -246,7 +250,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule, RippleModule]
+    imports: [ButtonModule, ToastModule, RippleModule],
+    providers: [MessageService]
 })
 export class ToastPositionDemo {
     constructor(private messageService: MessageService) {}
@@ -300,7 +305,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule]
+    imports: [ButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class ToastResponsiveDemo {
     constructor(private messageService: MessageService) {}
@@ -345,7 +351,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule, RippleModule]
+    imports: [ButtonModule, ToastModule, RippleModule],
+    providers: [MessageService]
 })
 export class ToastSeverityDemo {
     constructor(private messageService: MessageService) {}
@@ -406,7 +413,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule, RippleModule]
+    imports: [ButtonModule, ToastModule, RippleModule],
+    providers: [MessageService]
 })
 export class ToastStickyDemo {
     constructor(private messageService: MessageService) {}
@@ -448,7 +456,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule]
+    imports: [ButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class ToastTargetDemo {
     constructor(private messageService: MessageService) {}
@@ -510,7 +519,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule, ButtonModule, ToastModule]
+    imports: [AvatarModule, ButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class ToastTemplateDemo {
     constructor(private messageService: MessageService) {}

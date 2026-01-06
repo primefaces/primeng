@@ -45,7 +45,8 @@ interface UploadEvent {
         </div>
     `,
     standalone: true,
-    imports: [FileUploadModule, ToastModule]
+    imports: [FileUploadModule, ToastModule],
+    providers: [MessageService]
 })
 export class FileuploadAdvancedDemo {
     uploadedFiles: any[] = [];
@@ -86,7 +87,8 @@ interface UploadEvent {
         </div>
     `,
     standalone: true,
-    imports: [FileUploadModule, ToastModule]
+    imports: [FileUploadModule, ToastModule],
+    providers: [MessageService]
 })
 export class FileuploadAutoDemo {
     constructor(private messageService: MessageService) {}
@@ -129,7 +131,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [FileUploadModule, ToastModule]
+    imports: [FileUploadModule, ToastModule],
+    providers: [MessageService]
 })
 export class FileuploadCustomDemo {
     constructor(private messageService: MessageService) {}
@@ -276,7 +279,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [BadgeModule, ButtonModule, FileUploadModule, ProgressBarModule, ToastModule]
+    imports: [BadgeModule, ButtonModule, FileUploadModule, ProgressBarModule, ToastModule],
+    providers: [MessageService]
 })
 export class FileuploadTemplateDemo {
     files: any[] = [];

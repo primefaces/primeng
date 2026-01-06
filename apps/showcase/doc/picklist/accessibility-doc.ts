@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -19,7 +20,7 @@ import { RouterModule } from '@angular/router';
             <i>moveToButtonProps</i>, <i>moveAllToButtonProps</i>, <i>moveFromButtonProps</i>, <i>moveFromButtonProps</i> and <i>moveAllFromButtonProps</i> to customize the buttons like overriding the default <i>aria-label</i> attributes.
         </p>
 
-        <app-code [hideToggleCode]="true"></app-code>
+        <app-code [code]="code" [hideToggleCode]="true"></app-code>
 
         <h3>PickList Keyboard Support</h3>
         <div class="doc-tablewrapper">
@@ -109,4 +110,11 @@ import { RouterModule } from '@angular/router';
         </div>
     </app-docsectiontext>`
 })
-export class AccessibilityDoc {}
+export class AccessibilityDoc {
+    code: Code = {
+        html: `<span id="lb">Options</span>
+<p-picklist ariaLabelledBy="lb" />
+
+<p-picklist ariaLabel="City" />`
+    };
+}

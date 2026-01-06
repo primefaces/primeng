@@ -1003,7 +1003,7 @@ interface Column {
     `,
     standalone: true,
     imports: [TreeTableModule],
-    providers: [NodeService]
+    providers: [NodeService, MessageService]
 })
 export class TreetableContextmenuDemo implements OnInit {
     files!: TreeNode[];
@@ -2884,7 +2884,7 @@ interface NodeEvent {
     `,
     standalone: true,
     imports: [TreeTableModule],
-    providers: [NodeService]
+    providers: [NodeService, MessageService]
 })
 export class TreetableSelectioneventscDemo implements OnInit {
     files!: TreeNode[];

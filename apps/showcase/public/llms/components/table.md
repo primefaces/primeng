@@ -742,7 +742,7 @@ import { Product } from '@/domain/product';
     `,
     standalone: true,
     imports: [ButtonModule, TableModule, ToastModule],
-    providers: [ProductService]
+    providers: [ProductService, MessageService]
 })
 export class TableColumnselectionDemo implements OnInit {
     products!: Product[];
@@ -925,7 +925,7 @@ import { Product } from '@/domain/product';
     `,
     standalone: true,
     imports: [ContextMenuModule, TableModule, ToastModule],
-    providers: [ProductService]
+    providers: [ProductService, MessageService]
 })
 export class TableContextmenuDemo implements OnInit {
     products!: Product[];
@@ -952,104 +952,6 @@ export class TableContextmenuDemo implements OnInit {
         this.products = this.products.filter((p) => p.id !== product.id);
         this.messageService.add({ severity: 'error', summary: 'Product Deleted', detail: product.name });
         this.selectedProduct = null;
-    }
-}
-```
-</details>
-
-## controlledselection-doc
-
-Row selection can be controlled by utilizing rowSelectable and disabled properties.
-
-```html
-<p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [rowSelectable]="isRowSelectable" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="width: 4rem">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
-            <th style="min-width:200px">Code</th>
-            <th style="min-width:200px">Name</th>
-            <th style="min-width:200px">Category</th>
-            <th style="min-width:200px">Quantity</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product>
-        <tr>
-            <td>
-                <p-tableCheckbox [value]="product" [disabled]="isOutOfStock(product)"></p-tableCheckbox>
-            </td>
-            <td>{{ product.code }}</td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.category }}</td>
-            <td>{{ product.quantity }}</td>
-        </tr>
-    </ng-template>
-</p-table>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { ProductService } from '@/service/productservice';
-import { Product } from '@/domain/product';
-
-@Component({
-    template: `
-        <div class="card">
-            <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [rowSelectable]="isRowSelectable" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 4rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
-                        <th style="min-width:200px">Code</th>
-                        <th style="min-width:200px">Name</th>
-                        <th style="min-width:200px">Category</th>
-                        <th style="min-width:200px">Quantity</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product>
-                    <tr>
-                        <td>
-                            <p-tableCheckbox [value]="product" [disabled]="isOutOfStock(product)"></p-tableCheckbox>
-                        </td>
-                        <td>{{ product.code }}</td>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.category }}</td>
-                        <td>{{ product.quantity }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-    `,
-    standalone: true,
-    imports: [TableModule],
-    providers: [ProductService]
-})
-export class TableControlledselectionDemo implements OnInit {
-    products!: Product[];
-    selectedProducts!: Product;
-
-    constructor(private productService: ProductService) {
-        this.isRowSelectable = this.isRowSelectable.bind(this);
-    }
-
-    ngOnInit() {
-        this.productService.getProductsMini().then((data) => {
-            this.products = data;
-        });
-    }
-
-    isRowSelectable(event: any) {
-        return !this.isOutOfStock(event.data);
-    }
-
-    isOutOfStock(data: Product) {
-        return data.inventoryStatus === 'OUTOFSTOCK';
     }
 }
 ```
@@ -1618,7 +1520,7 @@ import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { CustomerService } from '@/service/customerservice';
-import { Customer, Representative, Country } from '@/domain/customer';
+import { Customer, Country } from '@/domain/customer';
 
 @Component({
     template: `
@@ -3045,213 +2947,6 @@ export class TableHorizontalscrollDemo implements OnInit {
 ```
 </details>
 
-## lazyload-doc
-
-Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking onLazyLoad callback everytime paging , sorting and filtering happens. Sample here loads the data from remote datasource efficiently using lazy loading. Also, the implementation of checkbox selection in lazy tables is left entirely to the user. Since the table component does not know what will happen to the data on the next page or whether there are instant data changes, the selection array can be implemented in several ways. One of them is as in the example below.
-
-```html
-<p-table
-    [value]="customers"
-    [lazy]="true"
-    (onLazyLoad)="loadCustomers($event)"
-    dataKey="id"
-    [tableStyle]="{ 'min-width': '75rem' }"
-    [selection]="selectedCustomers"
-    (selectionChange)="onSelectionChange($event)"
-    [selectAll]="selectAll"
-    (selectAllChange)="onSelectAllChange($event)"
-    [paginator]="true"
-    [rows]="10"
-    [totalRecords]="totalRecords"
-    [loading]="loading"
-    [globalFilterFields]="['name', 'country.name', 'company', 'representative.name']"
->
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="width: 4rem"></th>
-            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
-            <th pSortableColumn="country.name">Country <p-sortIcon field="country.name" /></th>
-            <th pSortableColumn="company">Company <p-sortIcon field="company" /></th>
-            <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name" /></th>
-        </tr>
-        <tr>
-            <th style="width: 4rem">
-                <p-tableHeaderCheckbox />
-            </th>
-            <th>
-                <p-columnFilter type="text" field="name" />
-            </th>
-            <th>
-                <p-columnFilter type="text" field="country.name" />
-            </th>
-            <th>
-                <p-columnFilter type="text" field="company" />
-            </th>
-            <th>
-                <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
-                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                        <p-multiselect [(ngModel)]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
-                            <ng-template let-option pTemplate="item">
-                                <div class="inline-block align-middle">
-                                    <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="align-middle" />
-                                    <span class="ml-1 mt-1">{{ option.name }}</span>
-                                </div>
-                            </ng-template>
-                        </p-multiselect>
-                    </ng-template>
-                </p-columnFilter>
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-customer>
-        <tr>
-            <td>
-                <p-tableCheckbox [value]="customer"></p-tableCheckbox>
-            </td>
-            <td>{{ customer.name }}</td>
-            <td>{{ customer.country.name }}</td>
-            <td>{{ customer.company }}</td>
-            <td>{{ customer.representative.name }}</td>
-        </tr>
-    </ng-template>
-</p-table>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { TableModule } from 'primeng/table';
-import { CustomerService } from '@/service/customerservice';
-import { TableLazyLoadEvent } from 'primeng/api';
-import { Customer, Representative, Country } from '@/domain/customer';
-
-@Component({
-    template: `
-        <div class="card">
-            <p-table
-                [value]="customers"
-                [lazy]="true"
-                (onLazyLoad)="loadCustomers($event)"
-                dataKey="id"
-                [tableStyle]="{ 'min-width': '75rem' }"
-                [selection]="selectedCustomers"
-                (selectionChange)="onSelectionChange($event)"
-                [selectAll]="selectAll"
-                (selectAllChange)="onSelectAllChange($event)"
-                [paginator]="true"
-                [rows]="10"
-                [totalRecords]="totalRecords"
-                [loading]="loading"
-                [globalFilterFields]="['name', 'country.name', 'company', 'representative.name']"
-            >
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 4rem"></th>
-                        <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
-                        <th pSortableColumn="country.name">Country <p-sortIcon field="country.name" /></th>
-                        <th pSortableColumn="company">Company <p-sortIcon field="company" /></th>
-                        <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name" /></th>
-                    </tr>
-                    <tr>
-                        <th style="width: 4rem">
-                            <p-tableHeaderCheckbox />
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="name" />
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="country.name" />
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="company" />
-                        </th>
-                        <th>
-                            <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-multiselect [(ngModel)]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
-                                        <ng-template let-option pTemplate="item">
-                                            <div class="inline-block align-middle">
-                                                <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="align-middle" />
-                                                <span class="ml-1 mt-1">{{ option.name }}</span>
-                                            </div>
-                                        </ng-template>
-                                    </p-multiselect>
-                                </ng-template>
-                            </p-columnFilter>
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-customer>
-                    <tr>
-                        <td>
-                            <p-tableCheckbox [value]="customer"></p-tableCheckbox>
-                        </td>
-                        <td>{{ customer.name }}</td>
-                        <td>{{ customer.country.name }}</td>
-                        <td>{{ customer.company }}</td>
-                        <td>{{ customer.representative.name }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-    `,
-    standalone: true,
-    imports: [MultiSelectModule, TableModule, FormsModule],
-    providers: [CustomerService]
-})
-export class TableLazyloadDemo implements OnInit {
-    customers!: Customer[];
-    totalRecords!: number;
-    loading: boolean = false;
-    representatives!: Representative[];
-    selectAll: boolean = false;
-    selectedCustomers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
-
-    ngOnInit() {
-        this.loading = true;
-    }
-
-    loadCustomers(event: TableLazyLoadEvent) {
-        this.loading = true;
-        
-        setTimeout(() => {
-            this.customerService.getCustomers({ lazyEvent: JSON.stringify(event) }).then((res) => {
-                this.customers = res.customers;
-                this.totalRecords = res.totalRecords;
-                this.loading = false;
-                this.cd.markForCheck();
-            });
-        }, 1000);
-    }
-
-    onSelectionChange(value = []) {
-        this.selectAll = value.length === this.totalRecords;
-        this.selectedCustomers = value;
-    }
-
-    onSelectAllChange(event: any) {
-        const checked = event.checked;
-        
-        if (checked) {
-            this.customerService.getCustomers().then((res) => {
-                this.selectedCustomers = res.customers;
-                this.selectAll = true;
-            });
-        } else {
-            this.selectedCustomers = [];
-            this.selectAll = false;
-        }
-    }
-}
-```
-</details>
-
 ## loadingmask-doc
 
 The loading property displays a mask layer to indicate busy state. Use the paginator to display the mask.
@@ -3599,92 +3294,6 @@ export class TableMultipleselectionDemo implements OnInit {
 ```
 </details>
 
-## pageonlyselection-doc
-
-```html
-<p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [paginator]="true" [rows]="5" [selectionPageOnly]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="width: 4rem">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
-            <th style="min-width:200px">Code</th>
-            <th style="min-width:200px">Name</th>
-            <th style="min-width:200px">Category</th>
-            <th style="min-width:200px">Quantity</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product>
-        <tr>
-            <td>
-                <p-tableCheckbox [value]="product"></p-tableCheckbox>
-            </td>
-            <td>{{ product.code }}</td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.category }}</td>
-            <td>{{ product.quantity }}</td>
-        </tr>
-    </ng-template>
-</p-table>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { ProductService } from '@/service/productservice';
-import { Product } from '@/domain/product';
-
-@Component({
-    template: `
-        <div class="card">
-            <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [paginator]="true" [rows]="5" [selectionPageOnly]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 4rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
-                        <th style="min-width:200px">Code</th>
-                        <th style="min-width:200px">Name</th>
-                        <th style="min-width:200px">Category</th>
-                        <th style="min-width:200px">Quantity</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product>
-                    <tr>
-                        <td>
-                            <p-tableCheckbox [value]="product"></p-tableCheckbox>
-                        </td>
-                        <td>{{ product.code }}</td>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.category }}</td>
-                        <td>{{ product.quantity }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-    `,
-    standalone: true,
-    imports: [TableModule],
-    providers: [ProductService]
-})
-export class TablePageonlyselectionDemo implements OnInit {
-    products!: Product[];
-    selectedProducts!: Product;
-
-    constructor(private productService: ProductService) {}
-
-    ngOnInit() {
-        this.productService.getProductsMini().then((data) => {
-            this.products = data;
-        });
-    }
-}
-```
-</details>
-
 ## paginatorbasic-doc
 
 Pagination is enabled by setting paginator property to true and defining a rows property to specify the number of rows per page.
@@ -3747,112 +3356,6 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TablePaginatorbasicDemo implements OnInit {
-    customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
-
-    ngOnInit() {
-        this.customerService.getCustomersLarge().then((customers) => {
-            this.customers = customers;
-        });
-    }
-}
-```
-</details>
-
-## paginatorlocale-doc
-
-paginator localization information such as page numbers and rows per page options are defined with the paginatorLocale property which defaults to the user locale.
-
-```html
-<p-table
-    [value]="customers"
-    [paginator]="true"
-    [rows]="5"
-    [showCurrentPageReport]="true"
-    [tableStyle]="{ 'min-width': '50rem' }"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [rowsPerPageOptions]="[10, 25, 50]"
-    paginatorLocale="fa-IR"
->
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="width:25%">Name</th>
-            <th style="width:25%">Country</th>
-            <th style="width:25%">Company</th>
-            <th style="width:25%">Representative</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-customer>
-        <tr>
-            <td>{{ customer.name }}</td>
-            <td>{{ customer.country.name }}</td>
-            <td>{{ customer.company }}</td>
-            <td>{{ customer.representative.name }}</td>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="paginatorleft">
-        <p-button type="button" icon="pi pi-plus" text></p-button>
-    </ng-template>
-    <ng-template pTemplate="paginatorright">
-        <p-button type="button" icon="pi pi-cloud" text></p-button>
-    </ng-template>
-</p-table>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { CustomerService } from '@/service/customerservice';
-import { Customer, Representative, Country } from '@/domain/customer';
-
-@Component({
-    template: `
-        <div class="card">
-            <p-table
-                [value]="customers"
-                [paginator]="true"
-                [rows]="5"
-                [showCurrentPageReport]="true"
-                [tableStyle]="{ 'min-width': '50rem' }"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [rowsPerPageOptions]="[10, 25, 50]"
-                paginatorLocale="fa-IR"
-            >
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width:25%">Name</th>
-                        <th style="width:25%">Country</th>
-                        <th style="width:25%">Company</th>
-                        <th style="width:25%">Representative</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-customer>
-                    <tr>
-                        <td>{{ customer.name }}</td>
-                        <td>{{ customer.country.name }}</td>
-                        <td>{{ customer.company }}</td>
-                        <td>{{ customer.representative.name }}</td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="paginatorleft">
-                    <p-button type="button" icon="pi pi-plus" text></p-button>
-                </ng-template>
-                <ng-template pTemplate="paginatorright">
-                    <p-button type="button" icon="pi pi-cloud" text></p-button>
-                </ng-template>
-            </p-table>
-        </div>
-    `,
-    standalone: true,
-    imports: [ButtonModule, TableModule],
-    providers: [CustomerService]
-})
-export class TablePaginatorlocaleDemo implements OnInit {
     customers!: Customer[];
 
     constructor(private customerService: CustomerService) {}
@@ -4488,18 +3991,9 @@ interface ExportColumn {
     `,
     standalone: true,
     imports: [ButtonModule, ConfirmDialogModule, DialogModule, SelectModule, FileUploadModule, IconFieldModule, InputIconModule, InputNumberModule, RadioButtonModule, RatingModule, TableModule, TagModule, ToastModule, ToolbarModule, InputTextModule, FormsModule],
-    providers: [ProductService]
+    providers: [ProductService, MessageService, ConfirmationService]
 })
 export class TableProductsDemo implements OnInit {
-    id?: string;
-    name?: string;
-    description?: string;
-    price?: number;
-    quantity?: number;
-    inventoryStatus?: string;
-    category?: string;
-    image?: string;
-    rating?: number;
     productDialog: boolean = false;
     products!: Product[];
     product!: Product;
@@ -5146,7 +4640,7 @@ import { Product } from '@/domain/product';
     `,
     standalone: true,
     imports: [SelectModule, TableModule, TagModule, ToastModule, ButtonModule, InputTextModule, RippleModule, FormsModule],
-    providers: [ProductService]
+    providers: [ProductService, MessageService]
 })
 export class TableRoweditDemo implements OnInit {
     products!: Product[];
@@ -5436,7 +4930,7 @@ import { Customer } from '@/domain/customer';
     `,
     standalone: true,
     imports: [ButtonModule, RatingModule, TableModule, TagModule, ToastModule, RippleModule, FormsModule],
-    providers: [ProductService]
+    providers: [ProductService, MessageService]
 })
 export class TableRowexpansionDemo implements OnInit {
     products!: Product[];
@@ -5708,7 +5202,7 @@ import { Product } from '@/domain/product';
     `,
     standalone: true,
     imports: [TableModule, ToastModule],
-    providers: [ProductService]
+    providers: [ProductService, MessageService]
 })
 export class TableSelectioneventsDemo implements OnInit {
     products!: Product[];
@@ -6338,82 +5832,6 @@ export class TableStripedDemo implements OnInit {
 
 Certain rows or cells can easily be styled based on conditions.
 
-```html
-<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header>
-        <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-product>
-        <tr [ngClass]="rowClass(product)" [ngStyle]="rowStyle(product)">
-            <td>{{ product.code }}</td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.category }}</td>
-            <td>
-                <p-badge [value]="product.quantity" [severity]="stockSeverity(product)" />
-            </td>
-        </tr>
-    </ng-template>
-</p-table>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
-import { BadgeModule } from 'primeng/badge';
-
-@Component({
-    selector: 'table-style-demo',
-    templateUrl: 'table-style-demo.html',
-    standalone: true,
-    imports: [TableModule, CommonModule, BadgeModule],
-    providers: [ProductService]
-})
-export class TableStyleDemo implements OnInit{
-    products!: Product[];
-
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef,
-    ) {}
-
-    loadDemoData() {
-        this.productService.getProductsSmall().then((data) => {
-            this.products = data;
-            this.cd.markForCheck();
-        });
-    }
-
-    rowClass(product: Product) {
-        return { '!bg-primary !text-primary-contrast': product.category === 'Fitness' };
-    }
-
-    rowStyle(product: Product) {
-        if (product.quantity === 0) {
-            return { fontWeight: 'bold', fontStyle: 'italic' };
-        }
-    }
-
-    stockSeverity(product: Product) {
-        if (product.quantity === 0) return 'danger';
-        else if (product.quantity > 0 && product.quantity < 10) return 'warn';
-        else return 'success';
-    }
-
-}
-```
-</details>
-
 ## styling-doc
 
 ```html
@@ -6660,7 +6078,7 @@ import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { CustomerService } from '@/service/customerservice';
-import { Customer, Representative, Country } from '@/domain/customer';
+import { Customer, Country } from '@/domain/customer';
 
 @Component({
     template: `

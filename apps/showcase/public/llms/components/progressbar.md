@@ -40,7 +40,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ProgressBarModule, ToastModule]
+    imports: [ProgressBarModule, ToastModule],
+    providers: [MessageService]
 })
 export class ProgressbarDynamicDemo implements OnInit {
     value: number = 0;
@@ -95,7 +96,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ProgressBarModule]
+    imports: [ProgressBarModule],
+    providers: [MessageService]
 })
 export class ProgressbarIndeterminateDemo {}
 ```

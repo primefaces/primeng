@@ -27,7 +27,7 @@ import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { ProductService } from '@/service/productservice';
-import { MessageService } from 'primeng/api';
+import { MessageService, DialogService } from 'primeng/api';
 import { Product } from '@/domain/product';
 import { Dialog } from 'primeng/dialog';
 
@@ -40,7 +40,7 @@ import { Dialog } from 'primeng/dialog';
     `,
     standalone: true,
     imports: [ButtonModule, ToastModule],
-    providers: [ProductService]
+    providers: [ProductService, DialogService, MessageService]
 })
 export class DynamicdialogExampleDemo implements OnInit {
     constructor(public dialogService: DialogService, public messageService: MessageService) {}

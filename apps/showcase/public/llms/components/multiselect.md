@@ -612,7 +612,8 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, MultiSelectModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [MessageModule, MultiSelectModule, ToastModule, ButtonModule, ReactiveFormsModule],
+    providers: [MessageService]
 })
 export class MultiselectReactiveformsDemo {
     messageService = inject(MessageService);
@@ -857,7 +858,8 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, MultiSelectModule, ToastModule, ButtonModule, FormsModule]
+    imports: [MessageModule, MultiSelectModule, ToastModule, ButtonModule, FormsModule],
+    providers: [MessageService]
 })
 export class MultiselectTemplatedrivenformsDemo {
     messageService = inject(MessageService);

@@ -41,7 +41,8 @@ import { PanelMenu } from 'primeng/panelmenu';
         </div>
     `,
     standalone: true,
-    imports: [PanelMenuModule, ToastModule]
+    imports: [PanelMenuModule, ToastModule],
+    providers: [MessageService]
 })
 export class PanelmenuCommandDemo implements OnInit {
     items: MenuItem[];
@@ -365,7 +366,8 @@ import { PanelMenu } from 'primeng/panelmenu';
         </div>
     `,
     standalone: true,
-    imports: [PanelMenuModule]
+    imports: [PanelMenuModule],
+    providers: [MessageService]
 })
 export class PanelmenuRouterDemo implements OnInit {
     items: MenuItem[];

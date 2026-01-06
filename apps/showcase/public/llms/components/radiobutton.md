@@ -268,7 +268,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, RadioButtonModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [MessageModule, RadioButtonModule, ToastModule, ButtonModule, ReactiveFormsModule],
+    providers: [MessageService]
 })
 export class RadiobuttonReactiveformsDemo {
     messageService = inject(MessageService);
@@ -414,7 +415,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, RadioButtonModule, ToastModule, ButtonModule, FormsModule]
+    imports: [MessageModule, RadioButtonModule, ToastModule, ButtonModule, FormsModule],
+    providers: [MessageService]
 })
 export class RadiobuttonTemplatedrivenformsDemo {
     messageService = inject(MessageService);

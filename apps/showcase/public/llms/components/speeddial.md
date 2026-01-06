@@ -34,7 +34,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SpeedDialModule, ToastModule]
+    imports: [SpeedDialModule, ToastModule],
+    providers: [MessageService]
 })
 export class SpeeddialCircleDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -112,7 +113,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SpeedDialModule, ToastModule]
+    imports: [SpeedDialModule, ToastModule],
+    providers: [MessageService]
 })
 export class SpeeddialLinearDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -184,7 +186,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SpeedDialModule, ToastModule]
+    imports: [SpeedDialModule, ToastModule],
+    providers: [MessageService]
 })
 export class SpeeddialMaskDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -262,7 +265,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SpeedDialModule, ToastModule]
+    imports: [SpeedDialModule, ToastModule],
+    providers: [MessageService]
 })
 export class SpeeddialQuartercircleDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -340,7 +344,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SpeedDialModule, ToastModule]
+    imports: [SpeedDialModule, ToastModule],
+    providers: [MessageService]
 })
 export class SpeeddialSemicircleDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -497,7 +502,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, SpeedDialModule, ToastModule]
+    imports: [ButtonModule, SpeedDialModule, ToastModule],
+    providers: [MessageService]
 })
 export class SpeeddialTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -579,7 +585,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SpeedDialModule, ToastModule]
+    imports: [SpeedDialModule, ToastModule],
+    providers: [MessageService]
 })
 export class SpeeddialTooltipDemo implements OnInit {
     items: MenuItem[] | undefined;

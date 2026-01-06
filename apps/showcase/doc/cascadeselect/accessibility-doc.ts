@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
@@ -19,7 +20,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
         </app-docsectiontext>
 
-        <app-code [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+        <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
 
         <h3>Closed State Keyboard Support</h3>
         <div class="doc-tablewrapper">
@@ -123,4 +124,11 @@ export class AccessibilityDoc {
     @Input() id: string;
 
     @Input() title: string;
+
+    code: Code = {
+        basic: `<span id="dd1">Options</span>
+<p-cascadeselect ariaLabelledBy="dd1"/>
+
+<p-cascadeselect ariaLabel="Options"/>`
+    };
 }

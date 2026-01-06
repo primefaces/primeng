@@ -1,11 +1,11 @@
-import { Code } from '@/domain/code';
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { SelectModule } from 'primeng/select';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { SelectModule } from 'primeng/select';
 
 @Component({
     selector: 'animations-doc',
@@ -21,7 +21,7 @@ import { RouterModule } from '@angular/router';
                 <div [ngClass]="dynamicAnimationClasses"></div>
             </div>
         </div>
-        <app-code [code]="code" selector="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+        <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
         <h3>Animations</h3>
         <div class="doc-tablewrapper">
             <table class="doc-table">

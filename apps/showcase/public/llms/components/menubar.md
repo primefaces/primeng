@@ -40,7 +40,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [MenubarModule, ToastModule]
+    imports: [MenubarModule, ToastModule],
+    providers: [MessageService]
 })
 export class MenubarCommandDemo implements OnInit {
     items: MenuItem[] | undefined;

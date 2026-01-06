@@ -1,12 +1,11 @@
-import { Code } from '@/domain/code';
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
-import { DatePickerModule } from 'primeng/datepicker';
 import { TextareaModule } from 'primeng/textarea';
 
 @Component({
@@ -58,7 +57,7 @@ import { TextareaModule } from 'primeng/textarea';
                 </div>
             </div>
         </div>
-        <app-code [code]="code" selector="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+        <app-code [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
     `
 })
 export class FormDoc implements OnInit {
@@ -80,60 +79,4 @@ export class FormDoc implements OnInit {
             { name: 'United States', code: 'US' }
         ];
     }
-
-    code: Code = {
-        basic: `<div class="flex flex-col gap-6 w-full sm:w-auto">
-    <div class="flex flex-col sm:flex-row sm:items-center gap-6">
-        <div class="flex-auto">
-            <label for="firstname" class="block font-semibold mb-2">Firstname</label>
-            <input type="text" pInputText id="firstname" class="w-full" />
-        </div>
-        <div class="flex-auto">
-            <label for="lastname" class="block font-semibold mb-2">Lastname</label>
-            <input type="text" pInputText id="lastname" class="w-full" />
-        </div>
-    </div>
-    <div class="flex flex-col sm:flex-row sm:items-center gap-6">
-        <div class="flex-1">
-            <label for="date" class="block font-semibold mb-2">Date</label>
-            <p-datepicker inputId="date" class="w-full" />
-        </div>
-        <div class="flex-1">
-            <label for="country" class="block font-semibold mb-2">Country</label>
-            <p-select
-                [options]="countries"
-                [(ngModel)]="selectedCountry"
-                optionLabel="name"
-                [showClear]="true"
-                placeholder="Select a Country"
-            >
-                <ng-template pTemplate="selectedItem">
-                    <div class="flex items-center gap-2" *ngIf="selectedCountry">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                            [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
-                            style="width: 18px"
-                        />
-                        <div>{{ selectedCountry.name }}</div>
-                    </div>
-                </ng-template>
-                <ng-template let-country pTemplate="item">
-                    <div class="flex items-center gap-2">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                            [class]="'flag flag-' + country.code.toLowerCase()"
-                            style="width: 18px"
-                        />
-                        <div>{{ country.name }}</div>
-                    </div>
-                </ng-template>
-            </p-select>
-        </div>
-    </div>
-    <div class="flex-auto">
-        <label for="message" class="block font-semibold mb-2">Message</label>
-        <textarea pTextarea id="message" class="w-full" rows="4"></textarea>
-    </div>
-</div>`
-    };
 }

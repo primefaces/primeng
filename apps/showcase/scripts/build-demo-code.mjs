@@ -11,10 +11,13 @@ const DOCS_DIR = path.resolve(__dirname, '../doc');
 const OUTPUT_PATH = path.resolve(__dirname, '../public/demos.json');
 
 // Directories to skip (not component demos)
-const SKIP_DIRS = ['apidoc', 'theming', 'icons', 'installation', 'configuration', 'customicons', 'playground', 'tailwind', 'uikit', 'templates', 'primeflex', 'csslayer', 'migration', 'llms', 'mcp'];
+const SKIP_DIRS = ['apidoc', 'theming', 'icons', 'installation', 'configuration', 'customicons', 'playground', 'uikit', 'templates', 'primeflex', 'csslayer', 'migration', 'llms', 'mcp'];
 
 // Known services that exist in StackBlitz templates
 const KNOWN_SERVICES = ['CarService', 'CountryService', 'CustomerService', 'EventService', 'NodeService', 'PhotoService', 'ProductService', 'TicketService'];
+
+// PrimeNG API services that should be included in providers
+const PRIMENG_SERVICES = ['MessageService', 'ConfirmationService', 'DialogService', 'TreeDragDropService', 'FilterService'];
 
 // Known domain types and their paths
 // Note: 'Event' is excluded because it conflicts with DOM Event type
@@ -957,6 +960,7 @@ function generateExtFilesFromDomainTypes(content) {
 // Detect services from component file
 function detectServices(content) {
     const services = [];
+    const primeNGServices = [];
 
     // Method 1: Look for imports from @/service/*
     const serviceImportMatches = content.matchAll(/import\s*\{\s*([^}]+)\s*\}\s*from\s*['"`]@\/service\/[^'"`]+['"`]/g);
@@ -977,10 +981,14 @@ function detectServices(content) {
             if (KNOWN_SERVICES.includes(name) && !services.includes(name)) {
                 services.push(name);
             }
+            // Also check for PrimeNG API services
+            if (PRIMENG_SERVICES.includes(name) && !primeNGServices.includes(name)) {
+                primeNGServices.push(name);
+            }
         }
     }
 
-    return services;
+    return { services, primeNGServices };
 }
 
 // Detect PrimeNG modules used in template
@@ -1034,7 +1042,7 @@ function detectPrimeNGModules(template) {
 }
 
 // Generate demo TypeScript code with actual module imports (not ImportsModule)
-function generateTypescript(componentName, template, services = [], fileContent = '') {
+function generateTypescript(componentName, template, services = [], fileContent = '', primeNGServices = []) {
     const primeModules = detectPrimeNGModules(template);
 
     // Extract class details from original file
@@ -1102,7 +1110,7 @@ function generateTypescript(componentName, template, services = [], fileContent 
         importStatements += `import { PrimeNG } from 'primeng/config';\n`;
     }
 
-    // Detect and add PrimeNG API types (TreeNode, MenuItem, etc.)
+    // Detect and add PrimeNG API types (TreeNode, MenuItem, etc.) and services
     const usedApiTypes = [];
     const allContent = fileContent + (interfaces.length > 0 ? interfaces.join('\n') : '');
     for (const apiType of PRIMENG_API_TYPES) {
@@ -1112,8 +1120,10 @@ function generateTypescript(componentName, template, services = [], fileContent 
             usedApiTypes.push(apiType);
         }
     }
-    if (usedApiTypes.length > 0) {
-        importStatements += `import { ${usedApiTypes.join(', ')} } from 'primeng/api';\n`;
+    // Combine API types with PrimeNG services for import (avoid duplicates)
+    const apiImports = [...new Set([...usedApiTypes, ...primeNGServices])];
+    if (apiImports.length > 0) {
+        importStatements += `import { ${apiImports.join(', ')} } from 'primeng/api';\n`;
     }
 
     // Detect and add domain type imports (Customer, Product, etc.)
@@ -1135,8 +1145,9 @@ function generateTypescript(componentName, template, services = [], fileContent 
     // Build imports array for decorator (actual modules, not ImportsModule)
     const decoratorImports = primeModules.filter((m) => m !== 'CommonModule');
 
-    // Build providers if services exist
-    const providersLine = services.length > 0 ? `,\n    providers: [${services.join(', ')}]` : '';
+    // Build providers if services exist (include both custom services and PrimeNG API services)
+    const allProviders = [...services, ...primeNGServices];
+    const providersLine = allProviders.length > 0 ? `,\n    providers: [${allProviders.join(', ')}]` : '';
 
     // Generate class name (e.g., SelectBasicDemo)
     const className = componentName + 'Demo';
@@ -1262,11 +1273,11 @@ function parseDocFile(filePath, componentDir) {
     const componentName = toPascalCase(uniqueKey.replace(/-demo$/, ''));
 
     // Detect services from component file (preferred) or fall back to existing code block
-    const detectedServices = detectServices(content);
+    const { services: detectedServices, primeNGServices } = detectServices(content);
     const services = detectedServices.length > 0 ? detectedServices : existingCode?.service || [];
 
     // Generate TypeScript - pass full content for class extraction
-    const generatedTypescript = generateTypescript(componentName, demoContent, services, content);
+    const generatedTypescript = generateTypescript(componentName, demoContent, services, content, primeNGServices);
 
     return {
         key: uniqueKey,
@@ -1282,6 +1293,7 @@ function parseDocFile(filePath, componentDir) {
         },
         metadata: {
             services,
+            primeNGServices, // Add PrimeNG API services to metadata
             extFiles,
             imports: detectPrimeNGModules(demoContent)
         }

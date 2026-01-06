@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
@@ -14,8 +14,6 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <i>ariaLabelledBy</i>, <i>ariaLabel</i> props.
             </p>
         </app-docsectiontext>
-
-        <app-code [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
 
         <h3>Keyboard Support</h3>
         <div class="doc-tablewrapper">

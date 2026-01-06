@@ -1,7 +1,7 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'migration-doc',
@@ -14,9 +14,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 migration between PrimeFlex to Tailwind CSS. For flawless migration, it is highly suggested to use PrimeNG v18 as the requirement of the tailwindcss plugin.
             </p>
             <p>Install PrimeCLT.</p>
-            <app-code [code]="code1" selector="demo1" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+            <app-code [code]="code1" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
             <p class="mt-4">Run the <i>pf2wt</i> in a directory that contains files to be migrated.</p>
-            <app-code [code]="code2" selector="demo2" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+            <app-code [code]="code2" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
             <p class="mt-4">There are a couple of utility classes that are not migrated as they have no counterparts, use flexbox utilities instead as replacements.</p>
             <ul class="leading-loose">
                 <li>formgrid</li>

@@ -41,7 +41,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule]
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitbuttonDisabledDemo {
     constructor(private messageService: MessageService) {
@@ -105,7 +106,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule]
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitbuttonIconsDemo {
     items: MenuItem[];
@@ -168,7 +170,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule]
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitbuttonNestedDemo {
     items: MenuItem[];
@@ -349,7 +352,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule]
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitbuttonOutlinedDemo {
     items: MenuItem[];
@@ -429,7 +433,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule]
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitbuttonRaisedDemo {
     items: MenuItem[];
@@ -509,7 +514,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule]
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitbuttonRaisedtextDemo {
     items: MenuItem[];
@@ -593,7 +599,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule]
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitbuttonRoundedDemo {
     items: MenuItem[];
@@ -673,7 +680,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule]
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitbuttonSeverityDemo {
     items: MenuItem[];
@@ -743,7 +751,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule]
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitbuttonSizesDemo {
     constructor(private messageService: MessageService) {
@@ -821,7 +830,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule]
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitbuttonTemplateDemo {
     items: MenuItem[];
@@ -901,7 +911,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule]
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitbuttonTextDemo {
     items: MenuItem[];

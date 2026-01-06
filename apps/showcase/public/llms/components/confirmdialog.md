@@ -78,7 +78,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ConfirmDialogModule, ToastModule]
+    imports: [ButtonModule, ConfirmDialogModule, ToastModule],
+    providers: [ConfirmationService, MessageService]
 })
 export class ConfirmdialogHeadlessDemo {
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
@@ -142,7 +143,8 @@ import { Dialog } from 'primeng/dialog';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ConfirmDialogModule, ToastModule]
+    imports: [ButtonModule, ConfirmDialogModule, ToastModule],
+    providers: [ConfirmationService, MessageService]
 })
 export class ConfirmdialogPositionDemo {
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
@@ -197,7 +199,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ConfirmDialogModule, ToastModule]
+    imports: [ButtonModule, ConfirmDialogModule, ToastModule],
+    providers: [ConfirmationService, MessageService]
 })
 export class ConfirmdialogTemplateDemo {
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}

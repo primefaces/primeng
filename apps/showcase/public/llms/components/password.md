@@ -372,7 +372,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, PasswordModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [MessageModule, PasswordModule, ToastModule, ButtonModule, ReactiveFormsModule],
+    providers: [MessageService]
 })
 export class PasswordReactiveformsDemo {
     messageService = inject(MessageService);
@@ -533,7 +534,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, PasswordModule, ToastModule, ButtonModule, FormsModule]
+    imports: [MessageModule, PasswordModule, ToastModule, ButtonModule, FormsModule],
+    providers: [MessageService]
 })
 export class PasswordTemplatedrivenformsDemo {
     messageService = inject(MessageService);

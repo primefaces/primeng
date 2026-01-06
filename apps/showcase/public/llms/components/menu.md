@@ -40,7 +40,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [MenuModule, ToastModule]
+    imports: [MenuModule, ToastModule],
+    providers: [MessageService]
 })
 export class MenuCommandDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -100,7 +101,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [MenuModule]
+    imports: [MenuModule],
+    providers: [MessageService]
 })
 export class MenuGroupDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -167,7 +169,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, MenuModule]
+    imports: [ButtonModule, MenuModule],
+    providers: [MessageService]
 })
 export class MenuPopupDemo implements OnInit {
     items: MenuItem[] | undefined;

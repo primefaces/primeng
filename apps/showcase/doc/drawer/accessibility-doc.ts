@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
@@ -19,7 +20,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
             <p>Trigger element also requires <i>aria-expanded</i> and <i>aria-controls</i> to be handled explicitly.</p>
 
-            <app-code [hideToggleCode]="true"></app-code>
+            <app-code [code]="code" [hideToggleCode]="true"></app-code>
 
             <h3>Overlay Keyboard Support</h3>
             <div class="doc-tablewrapper">
@@ -71,4 +72,21 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
     `
 })
-export class AccessibilityDoc {}
+export class AccessibilityDoc {
+    code: Code = {
+        html: `<p-button
+    icon="pi pi-arrow-right"
+    (click)="visible = true"
+    aria-controls="{{visible ? 'drawer' : null}}"
+    aria-expanded="{{visible ? true : false}}"
+></p-button>
+<p-drawer
+    [(visible)]="visible"
+    id="drawer"
+    (onHide)="visible = false"
+    role="region"
+>
+    content
+</p-drawer>`
+    };
+}

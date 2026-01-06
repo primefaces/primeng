@@ -127,7 +127,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     `,
     standalone: true,
     imports: [DialogModule, DockModule, GalleriaModule, MenubarModule, TerminalModule, ToastModule, TreeModule, TooltipModule],
-    providers: [NodeService, PhotoService]
+    providers: [NodeService, PhotoService, MessageService]
 })
 export class DockAdvancedDemo implements OnInit {
     displayTerminal: boolean | undefined;

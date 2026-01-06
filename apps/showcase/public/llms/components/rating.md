@@ -120,7 +120,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, RatingModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [MessageModule, RatingModule, ToastModule, ButtonModule, ReactiveFormsModule],
+    providers: [MessageService]
 })
 export class RatingReactiveformsDemo {
     messageService = inject(MessageService);
@@ -262,7 +263,8 @@ import { MessageService } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, RatingModule, ToastModule, ButtonModule, FormsModule]
+    imports: [MessageModule, RatingModule, ToastModule, ButtonModule, FormsModule],
+    providers: [MessageService]
 })
 export class RatingTemplatedrivenformsDemo {
     messageService = inject(MessageService);

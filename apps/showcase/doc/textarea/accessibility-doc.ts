@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
@@ -15,7 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
         </app-docsectiontext>
 
-        <app-code [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+        <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
 
         <h3>Keyboard Support</h3>
         <div class="doc-tablewrapper">
@@ -38,4 +39,14 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </div>
     </div>`
 })
-export class AccessibilityDoc {}
+export class AccessibilityDoc {
+    code: Code = {
+        basic: `<label for="address1">Address 1</label>
+<textarea pTextarea id="address1"></textarea>
+
+<span id="address2">Address 2</span>
+<textarea pTextarea aria-labelledby="address2"></textarea>
+
+<textarea pTextarea aria-label="Address Details"></textarea>`
+    };
+}

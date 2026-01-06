@@ -39,7 +39,7 @@ import { TableModule } from 'primeng/table';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [code]="code" [extFiles]="['Product']"></app-code>`,
+        <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StyleDoc {
