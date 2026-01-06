@@ -43,7 +43,7 @@ interface Column {
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code selector="table-virtual-scroll-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VirtualScrollDoc {

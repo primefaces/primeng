@@ -132,7 +132,7 @@ import { ToastModule } from 'primeng/toast';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code selector="table-row-expansion-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })

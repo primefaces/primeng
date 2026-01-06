@@ -14,17 +14,9 @@ Carousel requires a collection of items as its value along with a template to re
 
 When autoplayInterval is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling circular property needs to be added which is enabled automatically in auto play mode.
 
-## numscroll-doc
-
-Number of items to scroll is specified with the numScroll option.
-
 ## responsive-doc
 
 Carousel supports specific configuration per screen size with the responsiveOptions property that takes an array of objects where each object defines the max-width breakpoint , numVisible for the number of items items per page and numScroll for number of items to scroll. When responsiveOptions is defined, the numScroll and numVisible properties of the Carousel are used as default when there is breakpoint that applies.
-
-## template-doc
-
-Custom content projection is available using the header and footer templates.
 
 ## vertical-doc
 

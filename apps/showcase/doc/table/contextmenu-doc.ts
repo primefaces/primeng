@@ -45,7 +45,7 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                 <p-toast />
             </div>
         </p-deferred-demo>
-        <app-code selector="table-context-menu-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })
