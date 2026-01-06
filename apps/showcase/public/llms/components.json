@@ -42843,12 +42843,6 @@
           "examples": null
         },
         {
-          "id": "tailwind-",
-          "label": "Tailwind-",
-          "description": "Tailwind CSS includes a reset utility in base called preflight . If you are using this feature, wrap the base and utilities in separate layers and make sure primeng layer comes after the base.",
-          "examples": null
-        },
-        {
           "id": "theme-",
           "label": "Theme-",
           "description": "The theme property is used to customize the initial theme.",
@@ -43141,7 +43135,7 @@
         {
           "id": "override-",
           "label": "Override-",
-          "description": "In styled mode, Tailwind utilities may not be able to override the default styling due to css specificity, there are two possible solutions. Important Use the ! as a prefix to enforce the styling. CSS Layer Enable PrimeNG CSS layer and configure the tailwind styles to have higher specificity with layering. This way, ! prefix is not required.",
+          "description": "Tailwind utilities may not be able to override the default styling of components due to css specificity, there are two possible solutions; Import and CSS Layer. Important Use the ! as a prefix to enforce the styling. This is not the recommend approach, and should be used as last resort to avoid adding unnecessary style classes to your bundle. Tailwind v4 Tailwind v3 CSS Layer CSS Layer provides control over the css specificity so that Tailwind utilities can safely override components. Tailwind v4 Ensure primeng layer is after theme and base , but before the other Tailwind layers such as utilities . No change in the CSS configuration is required. Tailwind v3 The primeng layer should be between base and utilities. Tailwind v3 does not use native layer so needs to be defined with CSS.",
           "examples": null
         },
         {
@@ -43153,7 +43147,7 @@
         {
           "id": "plugin-",
           "label": "Plugin-",
-          "description": "The tailwindcss-primeui is an official plugin by PrimeTek to provide first class integration between a Prime UI library like PrimeNG and Tailwind CSS. It is designed to work both in styled and unstyled modes. In styled mode, for instance the semantic colors such as primary and surfaces are provided as Tailwind utilities e.g. bg-primary , text-surface-500 , text-muted-color . Plugin is available on npm. After installation, configure the plugin at your tailwind configuration file.",
+          "description": "The tailwindcss-primeui is an official plugin by PrimeTek to provide first class integration between a Prime UI library like PrimeNG and Tailwind CSS. It is designed to work both in styled and unstyled modes. In styled mode, for instance the semantic colors such as primary and surfaces are provided as Tailwind utilities e.g. bg-primary , text-surface-500 , text-muted-color . If you haven't already done so, start by integrating Tailwind into your project. Detailed steps for this process can be found in the Tailwind documentation . After successfully installing Tailwind, proceed with the installation of the PrimeUI plugin. This single npm package comes with two libraries: the CSS version is compatible with Tailwind v4, while the JS version is designed for Tailwind v3. Tailwind v4 In the CSS file that contains the tailwindcss import, add the tailwindcss-primeui import as well. For a comprehensive starter guide, review the primeng-quickstart-tailwind repository which demonstrates the integration. Tailwind v3 Use the plugins option in your Tailwind config file to configure the plugin.",
           "examples": null
         }
       ]

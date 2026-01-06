@@ -94,10 +94,6 @@ The &#64;layer is a standard CSS feature to define cascade layers for a customiz
 
 The color scheme palette that varies between light and dark modes is specified with the surface tokens. Example below uses zinc for light mode and slategray for dark mode. With this setting, light mode, would have a grayscale tone and dark mode would include bluish tone.
 
-## Tailwind-
-
-Tailwind CSS includes a reset utility in base called preflight . If you are using this feature, wrap the base and utilities in separate layers and make sure primeng layer comes after the base.
-
 ## Theme-
 
 The theme property is used to customize the initial theme.
