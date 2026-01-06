@@ -1,4 +1,5 @@
 import { Code, ExtFile, RouteFile } from '@/domain/code';
+import { resolveDomainTypes, resolveRouteFiles } from '@/domain/types';
 import { DemoCodeService } from '@/service/democodeservice';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { afterNextRender, Component, computed, effect, ElementRef, inject, input, NgModule, PLATFORM_ID, signal, ViewChild } from '@angular/core';
@@ -92,8 +93,8 @@ export class AppCode {
     code = input<Code>();
     service = input<any>();
     selector = input<string>();
-    extFiles = input<ExtFile[]>([]);
-    routeFiles = input<RouteFile[]>([]);
+    extFiles = input<ExtFile[] | string[]>([]);
+    routeFiles = input<RouteFile[] | string[]>([]);
     hideToggleCode = input(false, { transform: (v: boolean | string) => v === '' || v === true });
     hideCodeSandbox = input(true, { transform: (v: boolean | string) => v === '' || v === true });
     hideStackBlitz = input(false, { transform: (v: boolean | string) => v === '' || v === true });
@@ -161,16 +162,22 @@ export class AppCode {
             if (codeInput) {
                 // Priority 1: Use code input prop
                 this.resolvedCode.set(codeInput);
-                this.resolvedExtFiles.set(this.extFiles());
-                this.resolvedRouteFiles.set(this.routeFiles());
+                this.resolvedExtFiles.set(this.resolveExtFilesInput(this.extFiles()));
+                this.resolvedRouteFiles.set(this.resolveRouteFilesInput(this.routeFiles()));
                 this.resolvedService.set(this.service() || []);
             } else if (selector && isLoaded) {
                 // Priority 2: Look up from JSON
                 const demo = this.demoCodeService.getCode(selector);
                 if (demo) {
                     this.resolvedCode.set(demo.code);
-                    this.resolvedExtFiles.set(demo.metadata.extFiles || []);
-                    this.resolvedRouteFiles.set(demo.metadata.routeFiles || []);
+                    // Merge extFiles from input with those from demos.json
+                    const inputExtFiles = this.resolveExtFilesInput(this.extFiles());
+                    const demoExtFiles = demo.metadata.extFiles || [];
+                    this.resolvedExtFiles.set(this.mergeExtFiles(inputExtFiles, demoExtFiles));
+                    // Merge routeFiles from input with those from demos.json
+                    const inputRouteFiles = this.resolveRouteFilesInput(this.routeFiles());
+                    const demoRouteFiles = demo.metadata.routeFiles || [];
+                    this.resolvedRouteFiles.set(this.mergeRouteFiles(inputRouteFiles, demoRouteFiles));
                     this.resolvedService.set(demo.metadata.services || []);
                 }
             }
@@ -282,6 +289,74 @@ export class AppCode {
                 routeFiles: this.resolvedRouteFiles()
             });
         }
+    }
+
+    /**
+     * Resolve extFiles input - handles both ExtFile[] and string[] (domain type names)
+     */
+    private resolveExtFilesInput(input: ExtFile[] | string[]): ExtFile[] {
+        if (!input || input.length === 0) {
+            return [];
+        }
+
+        // Check if it's a string array (domain type names)
+        if (typeof input[0] === 'string') {
+            return resolveDomainTypes(input as string[]);
+        }
+
+        // Already ExtFile array
+        return input as ExtFile[];
+    }
+
+    /**
+     * Merge two ExtFile arrays, avoiding duplicates by path
+     */
+    private mergeExtFiles(primary: ExtFile[], secondary: ExtFile[]): ExtFile[] {
+        const result = [...primary];
+        const paths = new Set(primary.map((f) => f.path));
+
+        for (const file of secondary) {
+            if (!paths.has(file.path)) {
+                result.push(file);
+                paths.add(file.path);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Resolve routeFiles input - handles both RouteFile[] and string[] (component names)
+     */
+    private resolveRouteFilesInput(input: RouteFile[] | string[]): RouteFile[] {
+        if (!input || input.length === 0) {
+            return [];
+        }
+
+        // Check if it's a string array (component names)
+        if (typeof input[0] === 'string') {
+            return resolveRouteFiles(input as string[]);
+        }
+
+        // Already RouteFile array
+        return input as RouteFile[];
+    }
+
+    /**
+     * Merge two RouteFile arrays, avoiding duplicates by path
+     */
+    private mergeRouteFiles(primary: RouteFile[], secondary: RouteFile[]): RouteFile[] {
+        const result = [...primary];
+        const paths = new Set(primary.map((f) => f.path));
+
+        for (const file of secondary) {
+            if (!paths.has(file.path)) {
+                result.push(file);
+                paths.add(file.path);
+            }
+        }
+
+        return result;
     }
 }
 
