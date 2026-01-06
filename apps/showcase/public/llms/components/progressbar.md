@@ -2,25 +2,140 @@
 
 ProgressBar is a process status indicator.
 
-## accessibility-doc
+## Accessibility
 
 Screen Reader ProgressBar components uses progressbar role along with aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using aria-labelledby and aria-label props.
 
-## basic-doc
+## Basic
 
 ProgressBar is used with the value property.
 
-## dynamic-doc
+```html
+<p-progressbar [value]="50" />
+```
+
+## Dynamic
 
 Value is reactive so updating it dynamically changes the bar as well.
 
-## indeterminate-doc
+```html
+<p-toast />
+<p-progressbar [value]="value" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-toast />
+            <p-progressbar [value]="value" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ProgressBarModule, ToastModule]
+})
+export class ProgressbarDynamicDemo implements OnInit {
+    value: number = 0;
+    interval: any;
+
+    constructor(private messageService: MessageService) {}
+
+    ngOnInit() {
+        this.ngZone.runOutsideAngular(() => {
+            this.interval = setInterval(() => {
+                this.ngZone.run(() => {
+                    this.value = this.value + Math.floor(Math.random() * 10) + 1;
+                    if (this.value >= 100) {
+                        this.value = 100;
+                        this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Process Completed' });
+                        clearInterval(this.interval);
+                    }
+                });
+            }, 2000);
+        });
+    }
+
+    ngOnDestroy() {
+        if (this.interval) {
+            clearInterval(this.interval);
+        }
+    }
+}
+```
+</details>
+
+## Indeterminate
 
 For progresses with no value to track, set the mode property to indeterminate .
 
-## template-doc
+```html
+<p-progressbar mode="indeterminate" [style]="{ height: '6px' }" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-progressbar mode="indeterminate" [style]="{ height: '6px' }" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ProgressBarModule]
+})
+export class ProgressbarIndeterminateDemo {}
+```
+</details>
+
+## Template
 
 content template allows displaying custom content inside the progressbar.
+
+```html
+<p-progressbar [value]="50">
+    <ng-template #content let-value>
+        <span>{{ value }}/100</span>
+    </ng-template>
+</p-progressbar>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ProgressBarModule } from 'primeng/progressbar';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-progressbar [value]="50">
+                <ng-template #content let-value>
+                    <span>{{ value }}/100</span>
+                </ng-template>
+            </p-progressbar>
+        </div>
+    `,
+    standalone: true,
+    imports: [ProgressBarModule]
+})
+export class ProgressbarTemplateDemo {}
+```
+</details>
 
 ## Progress Bar
 

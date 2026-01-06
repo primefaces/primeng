@@ -2,37 +2,314 @@
 
 Slider is a component to provide input with a drag handle.
 
-## accessibility-doc
+## Accessibility
 
 Screen Reader Slider element component uses slider role on the handle in addition to the aria-orientation , aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using ariaLabelledBy and ariaLabel props.
 
-## basic-doc
+## Basic
 
 Two-way binding is defined using the standard ngModel directive.
 
-## filter-doc
+```html
+<p-slider [(ngModel)]="value" class="w-56" />
+```
+
+## Filter
 
 Image filter implementation using multiple sliders.
 
-## input-doc
+```html
+<img alt="user header" class="w-full md:w-80 rounded mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
+<p-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
+<p-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { SliderModule } from 'primeng/slider';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <div class="flex flex-col items-center">
+                <img alt="user header" class="w-full md:w-80 rounded mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
+                <p-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
+                <p-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
+            </div>
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectButtonModule, SliderModule, FormsModule]
+})
+export class SliderFilterDemo {
+    filter: number = 0;
+    filterValues: number[] = [100, 100, 0];
+    filterOptions: any;
+}
+```
+</details>
+
+## Input
 
 Slider is connected to an input field using two-way binding.
 
-## range-doc
+```html
+<div>
+    <input type="text" pInputText [(ngModel)]="value" class="w-full mb-4" />
+    <p-slider [(ngModel)]="value" class="w-full" />
+</div>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SliderModule } from 'primeng/slider';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <div>
+                <input type="text" pInputText [(ngModel)]="value" class="w-full mb-4" />
+                <p-slider [(ngModel)]="value" class="w-full" />
+            </div>
+        </div>
+    `,
+    standalone: true,
+    imports: [SliderModule, InputTextModule, FormsModule]
+})
+export class SliderInputDemo {
+    value: number = 50;
+}
+```
+</details>
+
+## Range
 
 When range property is present, slider provides two handles to define two values. In range mode, value should be an array instead of a single value.
+
+```html
+<p-slider [(ngModel)]="rangeValues" [range]="true" class="w-56" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SliderModule } from 'primeng/slider';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-slider [(ngModel)]="rangeValues" [range]="true" class="w-56" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SliderModule, FormsModule]
+})
+export class SliderRangeDemo {
+    rangeValues: number[] = [20, 80];
+}
+```
+</details>
 
 ## reactiveforms-doc
 
 Slider can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
-## step-doc
+```html
+<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4">
+        <p-slider formControlName="value" styleClass="w-56" />
+        @if (isInvalid('value')) {
+            <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
+        }
+    </div>
+    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+</form>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MessageModule } from 'primeng/message';
+import { SliderModule } from 'primeng/slider';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <p-toast />
+        <div class="card flex justify-center">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-4">
+                    <p-slider formControlName="value" styleClass="w-56" />
+                    @if (isInvalid('value')) {
+                        <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
+    standalone: true,
+    imports: [MessageModule, SliderModule, ToastModule, ButtonModule, ReactiveFormsModule]
+})
+export class SliderReactiveformsDemo {
+    messageService = inject(MessageService);
+    exampleForm: FormGroup | undefined;
+    formSubmitted: boolean = false;
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
+    }
+}
+```
+</details>
+
+## Step
 
 Size of each movement is defined with the step property.
 
-## vertical-doc
+```html
+<p-slider [(ngModel)]="value" [step]="20" class="w-56" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SliderModule } from 'primeng/slider';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-slider [(ngModel)]="value" [step]="20" class="w-56" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SliderModule, FormsModule]
+})
+export class SliderStepDemo {
+    value: number = 20;
+}
+```
+</details>
+
+## templatedrivenforms-doc
+
+```html
+<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
+    <div class="flex flex-col gap-4">
+        <p-slider #model="ngModel" [(ngModel)]="value" class="w-56" required [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="slider" />
+        @if (model.invalid && (model.touched || exampleForm.submitted)) {
+            <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
+        }
+    </div>
+    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+</form>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MessageModule } from 'primeng/message';
+import { SliderModule } from 'primeng/slider';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <p-toast />
+        <div class="card flex justify-center">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
+                <div class="flex flex-col gap-4">
+                    <p-slider #model="ngModel" [(ngModel)]="value" class="w-56" required [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="slider" />
+                    @if (model.invalid && (model.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
+    standalone: true,
+    imports: [MessageModule, SliderModule, ToastModule, ButtonModule, FormsModule]
+})
+export class SliderTemplatedrivenformsDemo {
+    messageService = inject(MessageService);
+    value: any;
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
+
+## Vertical
 
 Default layout of slider is horizontal , use orientation property for the alternative vertical mode.
+
+```html
+<p-slider [(ngModel)]="value" orientation="vertical" class="h-56" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SliderModule } from 'primeng/slider';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-slider [(ngModel)]="value" orientation="vertical" class="h-56" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SliderModule, FormsModule]
+})
+export class SliderVerticalDemo {
+    value: number = 50;
+}
+```
+</details>
 
 ## Slider
 

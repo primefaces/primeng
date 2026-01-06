@@ -2,81 +2,1143 @@
 
 Select is used to choose an item from a collection of options.
 
-## accessibility-doc
+## Accessibility
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The select element has a combobox role in addition to aria-haspopup and aria-expanded attributes. If the editable option is enabled aria-autocomplete is also added. The relation between the combobox and the popup is created with aria-controls and aria-activedescendant attribute is used to instruct screen reader which option to read during keyboard navigation within the popup list. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses listbox as the role. Each list item has an option role, an id to match the aria-activedescendant of the input element along with aria-label , aria-selected and aria-disabled attributes. If filtering is enabled, filterInputProps can be defined to give aria-* props to the filter input element.
 
-## basic-doc
+## Basic
 
 Select is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
 
-## checkmark-doc
+```html
+<p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+```
+
+## Checkmark
 
 An alternative way to highlight the selected option is displaying a checkmark instead.
 
-## clearicon-doc
+```html
+<p-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectCheckmarkDemo implements OnInit {
+    cities: City[];
+    selectedCity: City | undefined;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
+
+## Clear Icon
 
 When showClear is enabled, a clear icon is displayed to clear the value.
+
+```html
+<p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" [showClear]="true" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" [showClear]="true" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectCleariconDemo implements OnInit {
+    cities: City[];
+    selectedCity: City | undefined;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
 
 ## customfilter-doc
 
 Custom filter can be applied with the filterTemplate .
 
-## disabled-doc
+```html
+<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+    <ng-template pTemplate="filter" let-options="options">
+        <div class="flex gap-1">
+            <p-inputgroup (click)="$event.stopPropagation()">
+                <p-inputgroup-addon><i class="pi pi-search"></i></p-inputgroup-addon>
+                <input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
+            </p-inputgroup>
+            <p-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
+        </div>
+    </ng-template>
+    <ng-template pTemplate="selectedItem" let-selectedOption>
+        <div class="flex items-center gap-2">
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
+            <div>{{ selectedOption.name }}</div>
+        </div>
+    </ng-template>
+    <ng-template let-country pTemplate="item">
+        <div class="flex items-center gap-2">
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+            <div>{{ country.name }}</div>
+        </div>
+    </ng-template>
+</p-select>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { Country } from '@/domain/customer';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+                <ng-template pTemplate="filter" let-options="options">
+                    <div class="flex gap-1">
+                        <p-inputgroup (click)="$event.stopPropagation()">
+                            <p-inputgroup-addon><i class="pi pi-search"></i></p-inputgroup-addon>
+                            <input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
+                        </p-inputgroup>
+                        <p-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div class="flex items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
+                        <div>{{ selectedOption.name }}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-country pTemplate="item">
+                    <div class="flex items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                        <div>{{ country.name }}</div>
+                    </div>
+                </ng-template>
+            </p-select>
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, SelectModule, InputGroupModule, InputTextModule, FormsModule]
+})
+export class SelectCustomfilterDemo implements OnInit {
+    countries: City[] | undefined;
+    selectedCountry: string | undefined;
+    filterValue: string | undefined = '';
+
+    ngOnInit() {
+        this.countries = [
+            { name: 'Australia', code: 'AU' },
+            { name: 'Brazil', code: 'BR' },
+            { name: 'China', code: 'CN' },
+            { name: 'Egypt', code: 'EG' },
+            { name: 'France', code: 'FR' },
+            { name: 'Germany', code: 'DE' },
+            { name: 'India', code: 'IN' },
+            { name: 'Japan', code: 'JP' },
+            { name: 'Spain', code: 'ES' },
+            { name: 'United States', code: 'US' }
+        ];
+    }
+
+    resetFunction(options: SelectFilterOptions) {
+        options.reset();
+        this.filterValue = '';
+    }
+
+    customFilterFunction(event: KeyboardEvent, options: SelectFilterOptions) {
+        options.filter(event);
+    }
+}
+```
+</details>
+
+## Disabled
 
 When disabled is present, the element cannot be edited and focused.
 
-## editable-doc
+```html
+<p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectDisabledDemo implements OnInit {
+    cities: City[] | undefined;
+    selectedCity: City | undefined;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
+
+## Editable
 
 When editable is present, the input can also be entered with typing.
 
-## filled-doc
+```html
+<p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" class="w-full md:w-56" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" class="w-full md:w-56" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectEditableDemo implements OnInit {
+    cities: City[] | undefined;
+    selectedCity: City | undefined;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
+
+## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
 
-## filter-doc
+```html
+<p-select [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-select [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectFilledDemo implements OnInit {
+    cities: City[];
+    selectedCity: City | undefined;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
+
+## Filter
 
 Select provides built-in filtering that is enabled by adding the filter property.
 
-## floatlabel-doc
+```html
+<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
+    <ng-template #selectedItem let-selectedOption>
+        <div class="flex items-center gap-2">
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
+            <div>{{ selectedOption.name }}</div>
+        </div>
+    </ng-template>
+    <ng-template let-country #item>
+        <div class="flex items-center gap-2">
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+            <div>{{ country.name }}</div>
+        </div>
+    </ng-template>
+</p-select>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { Country } from '@/domain/customer';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
+                <ng-template #selectedItem let-selectedOption>
+                    <div class="flex items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
+                        <div>{{ selectedOption.name }}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-country #item>
+                    <div class="flex items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                        <div>{{ country.name }}</div>
+                    </div>
+                </ng-template>
+            </p-select>
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectFilterDemo implements OnInit {
+    countries: any[] | undefined;
+    selectedCountry: string | undefined;
+
+    ngOnInit() {
+        this.countries = [
+            { name: 'Australia', code: 'AU' },
+            { name: 'Brazil', code: 'BR' },
+            { name: 'China', code: 'CN' },
+            { name: 'Egypt', code: 'EG' },
+            { name: 'France', code: 'FR' },
+            { name: 'Germany', code: 'DE' },
+            { name: 'India', code: 'IN' },
+            { name: 'Japan', code: 'JP' },
+            { name: 'Spain', code: 'ES' },
+            { name: 'United States', code: 'US' }
+        ];
+    }
+}
+```
+</details>
+
+## Float Label
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
 
-## fluid-doc
+```html
+<p-floatlabel class="w-full md:w-56">
+    <p-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" class="w-full" />
+    <label for="over_label">Over Label</label>
+</p-floatlabel>
+<p-floatlabel class="w-full md:w-56" variant="in">
+    <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" class="w-full" variant="filled" />
+    <label for="in_label">In Label</label>
+</p-floatlabel>
+<p-floatlabel class="w-full md:w-56" variant="on">
+    <p-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" class="w-full" />
+    <label for="on_label">On Label</label>
+</p-floatlabel>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { FloatLabelModule } from 'primeng/floatlabel';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex flex-wrap justify-center items-end gap-4">
+            <p-floatlabel class="w-full md:w-56">
+                <p-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" class="w-full" />
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+            <p-floatlabel class="w-full md:w-56" variant="in">
+                <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" class="w-full" variant="filled" />
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+            <p-floatlabel class="w-full md:w-56" variant="on">
+                <p-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" class="w-full" />
+                <label for="on_label">On Label</label>
+            </p-floatlabel>
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FloatLabelModule, FormsModule]
+})
+export class SelectFloatlabelDemo implements OnInit {
+    cities: City[] | undefined;
+    value1: City | undefined;
+    value2: City | undefined;
+    value3: City | undefined;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
+
+## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
 
-## group-doc
+```html
+<p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" fluid />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card">
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" fluid />
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectFluidDemo implements OnInit {
+    cities: City[];
+    selectedCity: City | undefined;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
+
+## Group
 
 Options can be grouped when a nested data structures is provided.
 
-## iftalabel-doc
+```html
+<p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
+    <ng-template let-group #group>
+        <div class="flex items-center">
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+            <span>{{ group.label }}</span>
+        </div>
+    </ng-template>
+</p-select>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { SelectItemGroup } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
+                <ng-template let-group #group>
+                    <div class="flex items-center">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                        <span>{{ group.label }}</span>
+                    </div>
+                </ng-template>
+            </p-select>
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectGroupDemo {
+    groupedCities: SelectItemGroup[];
+    selectedCity: string | undefined;
+}
+```
+</details>
+
+## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
 
-## invalid-doc
+```html
+<p-iftalabel class="w-full md:w-56">
+    <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" class="w-full" />
+    <label for="dd-city">City</label>
+</p-iftalabel>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { IftaLabelModule } from 'primeng/iftalabel';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-iftalabel class="w-full md:w-56">
+                <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" class="w-full" />
+                <label for="dd-city">City</label>
+            </p-iftalabel>
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, IftaLabelModule, FormsModule]
+})
+export class SelectIftalabelDemo implements OnInit {
+    cities: City[] | undefined;
+    selectedCity: City | undefined;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
+
+## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
-## loadingstate-doc
+```html
+<p-select [options]="cities" [(ngModel)]="selectedCity1" optionLabel="name" [showClear]="true" [invalid]="value1" placeholder="Select a City" class="w-full md:w-56" />
+<p-select [options]="cities" [(ngModel)]="selectedCity2" optionLabel="name" [showClear]="true" [invalid]="value2" placeholder="Select a City" class="w-full md:w-56" variant="filled" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex justify-center gap-4">
+            <p-select [options]="cities" [(ngModel)]="selectedCity1" optionLabel="name" [showClear]="true" [invalid]="value1" placeholder="Select a City" class="w-full md:w-56" />
+            <p-select [options]="cities" [(ngModel)]="selectedCity2" optionLabel="name" [showClear]="true" [invalid]="value2" placeholder="Select a City" class="w-full md:w-56" variant="filled" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectInvalidDemo {
+    cities: City[];
+    selectedCity1: City | undefined;
+    selectedCity2: City | undefined;
+    value1: boolean = true;
+    value2: boolean = true;
+}
+```
+</details>
+
+## Lazy Virtual Scroll
+
+```html
+<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { SelectItem } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectLazyvirtualscrollDemo {
+    items: SelectItem[];
+    selectedItem: string | undefined;
+    loading: boolean = false;
+    loadLazyTimeout: any = null;
+    options: ScrollerOptions;
+
+    onLazyLoad(event) {
+        this.loading = true;
+        
+        if (this.loadLazyTimeout) {
+            clearTimeout(this.loadLazyTimeout);
+        }
+        
+        //imitate delay of a backend call
+        this.loadLazyTimeout = setTimeout(
+            () => {
+                const { first, last } = event;
+                const items = [...this.items];
+        
+                for (let i = first; i < last; i++) {
+                    items[i] = { label: `Item #${i}`, value: i };
+                }
+        
+                this.items = items;
+                this.loading = false;
+            },
+            Math.random() * 1000 + 250
+        );
+    }
+}
+```
+</details>
+
+## Loading State
 
 Loading state can be used loading property.
+
+```html
+<p-select [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-56" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-select [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-56" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectLoadingstateDemo implements OnInit {
+    cities: City[];
+    selectedCity: City | undefined;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
 
 ## reactiveforms-doc
 
 Select can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
-## sizes-doc
+```html
+<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
+    <div class="flex flex-col gap-1">
+        <p-select formControlName="city" [options]="cities" [invalid]="isInvalid('city')" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+        @if (isInvalid('city')) {
+            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+        }
+    </div>
+    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+</form>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <p-toast />
+        <div class="card flex justify-center">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
+                <div class="flex flex-col gap-1">
+                    <p-select formControlName="city" [options]="cities" [invalid]="isInvalid('city')" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+                    @if (isInvalid('city')) {
+                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+})
+export class SelectReactiveformsDemo {
+    messageService = inject(MessageService);
+    cities: City[];
+    exampleForm: FormGroup | undefined;
+    formSubmitted: boolean = false;
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
+    }
+}
+```
+</details>
+
+## Sizes
 
 Select provides small and large sizes as alternatives to the base.
 
-## template-doc
+```html
+<p-select [(ngModel)]="value1" [options]="cities" optionLabel="name" size="small" placeholder="Small" class="w-full md:w-56" />
+<p-select [(ngModel)]="value2" [options]="cities" optionLabel="name" placeholder="Normal" class="w-full md:w-56" />
+<p-select [(ngModel)]="value3" [options]="cities" optionLabel="name" size="large" placeholder="Large" class="w-full md:w-56" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex flex-col items-center gap-4">
+            <p-select [(ngModel)]="value1" [options]="cities" optionLabel="name" size="small" placeholder="Small" class="w-full md:w-56" />
+            <p-select [(ngModel)]="value2" [options]="cities" optionLabel="name" placeholder="Normal" class="w-full md:w-56" />
+            <p-select [(ngModel)]="value3" [options]="cities" optionLabel="name" size="large" placeholder="Large" class="w-full md:w-56" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectSizesDemo implements OnInit {
+    value1: City | undefined;
+    value2: City | undefined;
+    value3: City | undefined;
+    cities: City[];
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
+
+## Template
 
 Both the selected option and the options list can be templated to provide customizated representation. Use selectedItem template to customize the selected label display and the item template to change the content of the options in the select panel. In addition when grouping is enabled, group template is available to customize the option groups. All templates get the option instance as the default local template variable.
 
-## virtualscroll-doc
+```html
+<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" placeholder="Select a country" class="w-full md:w-56">
+    <ng-template #selectedItem let-selectedOption>
+        <div class="flex items-center gap-2" *ngIf="selectedOption">
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
+            <div>{{ selectedOption.name }}</div>
+        </div>
+    </ng-template>
+    <ng-template let-country #item>
+        <div class="flex items-center gap-2">
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+            <div>{{ country.name }}</div>
+        </div>
+    </ng-template>
+    <ng-template #dropdownicon>
+        <i class="pi pi-map"></i>
+    </ng-template>
+    <ng-template #header>
+        <div class="font-medium p-3">Available Countries</div>
+    </ng-template>
+    <ng-template #footer>
+        <div class="p-3">
+            <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+        </div>
+    </ng-template>
+</p-select>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { SelectModule } from 'primeng/select';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" placeholder="Select a country" class="w-full md:w-56">
+                <ng-template #selectedItem let-selectedOption>
+                    <div class="flex items-center gap-2" *ngIf="selectedOption">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
+                        <div>{{ selectedOption.name }}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-country #item>
+                    <div class="flex items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                        <div>{{ country.name }}</div>
+                    </div>
+                </ng-template>
+                <ng-template #dropdownicon>
+                    <i class="pi pi-map"></i>
+                </ng-template>
+                <ng-template #header>
+                    <div class="font-medium p-3">Available Countries</div>
+                </ng-template>
+                <ng-template #footer>
+                    <div class="p-3">
+                        <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+                    </div>
+                </ng-template>
+            </p-select>
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, SelectModule, FormsModule]
+})
+export class SelectTemplateDemo implements OnInit {
+    countries: any[] | undefined;
+    selectedCountry: string | undefined;
+
+    ngOnInit() {
+        this.countries = [
+            { name: 'Australia', code: 'AU' },
+            { name: 'Brazil', code: 'BR' },
+            { name: 'China', code: 'CN' },
+            { name: 'Egypt', code: 'EG' },
+            { name: 'France', code: 'FR' },
+            { name: 'Germany', code: 'DE' },
+            { name: 'India', code: 'IN' },
+            { name: 'Japan', code: 'JP' },
+            { name: 'Spain', code: 'ES' },
+            { name: 'United States', code: 'US' }
+        ];
+    }
+}
+```
+</details>
+
+## templatedrivenforms-doc
+
+```html
+<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
+    <div class="flex flex-col gap-1">
+        <p-select
+            #city="ngModel"
+            [(ngModel)]="selectedCity"
+            [options]="cities"
+            [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
+            optionLabel="name"
+            name="city"
+            placeholder="Select a City"
+            class="w-full md:w-56"
+            required
+        />
+        @if (city.invalid && (city.touched || exampleForm.submitted)) {
+            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+        }
+    </div>
+    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+</form>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <p-toast />
+        <div class="card flex justify-center">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
+                <div class="flex flex-col gap-1">
+                    <p-select
+                        #city="ngModel"
+                        [(ngModel)]="selectedCity"
+                        [options]="cities"
+                        [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
+                        optionLabel="name"
+                        name="city"
+                        placeholder="Select a City"
+                        class="w-full md:w-56"
+                        required
+                    />
+                    @if (city.invalid && (city.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+})
+export class SelectTemplatedrivenformsDemo {
+    messageService = inject(MessageService);
+    cities: City[];
+    selectedCity: City | undefined;
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
+
+## Virtual Scroll
 
 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item.
+
+```html
+<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { SelectItem } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectVirtualscrollDemo {
+    items: SelectItem[];
+    selectedItem: string | undefined;
+}
+```
+</details>
 
 ## Select
 

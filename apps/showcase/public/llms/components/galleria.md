@@ -2,37 +2,571 @@
 
 Galleria is an advanced content gallery component.
 
-## accessibility-doc
+## Accessibility
 
 Screen Reader Galleria uses region role and since any attribute is passed to the main container element, attributes such as aria-label and aria-roledescription can be used as well. The slides container has aria-live attribute set as "polite" if galleria is not in autoplay mode, otherwise "off" would be the value in autoplay. A slide has a group role with an aria-label that refers to the aria.slideNumber property of the locale API. Similarly aria.slide is used as the aria-roledescription of the item. Inactive slides are hidden from the readers with aria-hidden . Next and Previous navigators are button elements with aria-label attributes referring to the aria.nextPageLabel and aria.firstPageLabel properties of the locale API by default respectively, you may still use your own aria roles and attributes as any valid attribute is passed to the button elements implicitly by using nextButtonProps and prevButtonProps . Quick navigation elements and thumnbails follow the tab pattern. They are placed inside an element with a tablist role whereas each item has a tab role with aria-selected and aria-controls attributes. The aria-label attribute of a quick navigation item refers to the aria.pageLabel of the locale API. Current page is marked with aria-current . In full screen mode, modal element uses dialog role with aria-modal enabled. The close button retrieves aria-label from the aria.close property of the locale API. Next/Prev Keyboard Support Key Function tab Moves focus through interactive elements in the carousel. enter Activates navigation. space Activates navigation. Quick Navigation Keyboard Support Key Function tab Moves focus through the active slide link. enter Activates the focused slide link. space Activates the focused slide link. right arrow Moves focus to the next slide link. left arrow Moves focus to the previous slide link. home Moves focus to the first slide link. end Moves focus to the last slide link.
 
-## advanced-doc
+## Advanced
 
 Galleria can be extended further to implement complex requirements.
 
-## autoplay-doc
+```html
+<p-galleria
+    #galleria
+    [(value)]="images"
+    [(activeIndex)]="activeIndex"
+    [numVisible]="5"
+    [showThumbnails]="showThumbnails"
+    [showItemNavigators]="true"
+    [showItemNavigatorsOnHover]="true"
+    [circular]="true"
+    [autoPlay]="isAutoPlay"
+    [transitionInterval]="3000"
+    [containerStyle]="{ 'max-width': '640px' }"
+    [pt]="galleriaPT"
+>
+    <ng-template #item let-item>
+        <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
+    </ng-template>
+    <ng-template #thumbnail let-item>
+        <div class="grid gap-4 justify-center">
+            <img [src]="item.thumbnailImageSrc" style="display: block" />
+        </div>
+    </ng-template>
+    <ng-template #footer let-item>
+        <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
+            <button
+                type="button"
+                pButton
+                icon="pi pi-th-large"
+                (click)="onThumbnailButtonClick()"
+                class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
+            ></button>
+            <button
+                type="button"
+                pButton
+                [icon]="slideButtonIcon()"
+                (click)="toggleAutoSlide()"
+                class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
+            ></button>
+            <span *ngIf="images" class="flex items-center gap-4 ml-3">
+                <span class="text-sm">{{ activeIndex + 1 }}/{{ images.length }}</span>
+                <span class="font-bold text-sm">{{ images[activeIndex].title }}</span>
+                <span class="text-sm">{{ images[activeIndex].alt }}</span>
+            </span>
+            <button
+                type="button"
+                pButton
+                [icon]="fullScreenIcon()"
+                (click)="toggleFullScreen()"
+                class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3 ml-auto"
+            ></button>
+        </div>
+    </ng-template>
+</p-galleria>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { GalleriaModule } from 'primeng/galleria';
+import { ButtonModule } from 'primeng/button';
+import { PhotoService } from '@/service/photoservice';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-galleria
+                #galleria
+                [(value)]="images"
+                [(activeIndex)]="activeIndex"
+                [numVisible]="5"
+                [showThumbnails]="showThumbnails"
+                [showItemNavigators]="true"
+                [showItemNavigatorsOnHover]="true"
+                [circular]="true"
+                [autoPlay]="isAutoPlay"
+                [transitionInterval]="3000"
+                [containerStyle]="{ 'max-width': '640px' }"
+                [pt]="galleriaPT"
+            >
+                <ng-template #item let-item>
+                    <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
+                </ng-template>
+                <ng-template #thumbnail let-item>
+                    <div class="grid gap-4 justify-center">
+                        <img [src]="item.thumbnailImageSrc" style="display: block" />
+                    </div>
+                </ng-template>
+                <ng-template #footer let-item>
+                    <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
+                        <button
+                            type="button"
+                            pButton
+                            icon="pi pi-th-large"
+                            (click)="onThumbnailButtonClick()"
+                            class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
+                        ></button>
+                        <button
+                            type="button"
+                            pButton
+                            [icon]="slideButtonIcon()"
+                            (click)="toggleAutoSlide()"
+                            class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
+                        ></button>
+                        <span *ngIf="images" class="flex items-center gap-4 ml-3">
+                            <span class="text-sm">{{ activeIndex + 1 }}/{{ images.length }}</span>
+                            <span class="font-bold text-sm">{{ images[activeIndex].title }}</span>
+                            <span class="text-sm">{{ images[activeIndex].alt }}</span>
+                        </span>
+                        <button
+                            type="button"
+                            pButton
+                            [icon]="fullScreenIcon()"
+                            (click)="toggleFullScreen()"
+                            class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3 ml-auto"
+                        ></button>
+                    </div>
+                </ng-template>
+            </p-galleria>
+        </div>
+    `,
+    standalone: true,
+    imports: [GalleriaModule, ButtonModule],
+    providers: [PhotoService]
+})
+export class GalleriaAdvancedDemo implements OnInit {
+    images: any[] | undefined;
+    showThumbnails: boolean = false;
+    fullscreen: boolean = false;
+    activeIndex: number = 0;
+    isAutoPlay: boolean = true;
+    onFullScreenListener: any;
+
+    constructor(private photoService: PhotoService) {}
+
+    ngOnInit() {
+        this.photoService.getImages().then((images) => {
+            this.images = images;
+        });
+        this.bindDocumentListeners();
+    }
+
+    onThumbnailButtonClick() {
+        this.showThumbnails = !this.showThumbnails;
+    }
+
+    toggleAutoSlide() {
+        this.isAutoPlay = !this.isAutoPlay;
+    }
+
+    toggleFullScreen() {
+        if (this.fullscreen) {
+            this.closePreviewFullScreen();
+        } else {
+            this.openPreviewFullScreen();
+        }
+        
+        this.cd.detach();
+    }
+
+    openPreviewFullScreen() {
+        let elem = this.galleria?.element.nativeElement.querySelector('.p-galleria');
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem['mozRequestFullScreen']) {
+            /* Firefox */
+            elem['mozRequestFullScreen']();
+        } else if (elem['webkitRequestFullscreen']) {
+            /* Chrome, Safari & Opera */
+            elem['webkitRequestFullscreen']();
+        } else if (elem['msRequestFullscreen']) {
+            /* IE/Edge */
+            elem['msRequestFullscreen']();
+        }
+    }
+
+    onFullScreenChange() {
+        this.fullscreen = !this.fullscreen;
+        this.cd.detectChanges();
+        this.cd.reattach();
+    }
+
+    closePreviewFullScreen() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document['mozCancelFullScreen']) {
+                document['mozCancelFullScreen']();
+            } else if (document['webkitExitFullscreen']) {
+                document['webkitExitFullscreen']();
+            } else if (document['msExitFullscreen']) {
+                document['msExitFullscreen']();
+            }
+        }
+    }
+
+    bindDocumentListeners() {
+        if (isPlatformBrowser(this.platformId)) {
+            this.onFullScreenListener = this.onFullScreenChange.bind(this);
+            document.addEventListener('fullscreenchange', this.onFullScreenListener);
+            document.addEventListener('mozfullscreenchange', this.onFullScreenListener);
+            document.addEventListener('webkitfullscreenchange', this.onFullScreenListener);
+            document.addEventListener('msfullscreenchange', this.onFullScreenListener);
+        }
+    }
+
+    unbindDocumentListeners() {
+        if (isPlatformBrowser(this.platformId)) {
+            document.removeEventListener('fullscreenchange', this.onFullScreenListener);
+            document.removeEventListener('mozfullscreenchange', this.onFullScreenListener);
+            document.removeEventListener('webkitfullscreenchange', this.onFullScreenListener);
+            document.removeEventListener('msfullscreenchange', this.onFullScreenListener);
+            this.onFullScreenListener = null;
+        }
+    }
+
+    ngOnDestroy() {
+        this.unbindDocumentListeners();
+    }
+
+    slideButtonIcon() {
+        return this.isAutoPlay ? 'pi pi-pause' : 'pi pi-play';
+    }
+
+    fullScreenIcon() {
+        return `pi ${this.fullscreen ? 'pi-window-minimize' : 'pi-window-maximize'}`;
+    }
+}
+```
+</details>
+
+## AutoPlay
 
 A slideshow implementation is defined by adding circular and autoPlay properties.
 
-## basic-doc
+```html
+<p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
+    <ng-template #item let-item>
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+    </ng-template>
+    <ng-template #thumbnail let-item>
+        <img [src]="item.thumbnailImageSrc" style="display: block" />
+    </ng-template>
+</p-galleria>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { GalleriaModule } from 'primeng/galleria';
+import { PhotoService } from '@/service/photoservice';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
+                <ng-template #item let-item>
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+                </ng-template>
+                <ng-template #thumbnail let-item>
+                    <img [src]="item.thumbnailImageSrc" style="display: block" />
+                </ng-template>
+            </p-galleria>
+        </div>
+    `,
+    standalone: true,
+    imports: [GalleriaModule],
+    providers: [PhotoService]
+})
+export class GalleriaAutoplayDemo implements OnInit {
+    images: any = model([]);
+    responsiveOptions: any[];
+
+    constructor(private photoService: PhotoService) {}
+
+    ngOnInit() {
+        this.photoService.getImages().then((images) => this.images.set(images));
+    }
+}
+```
+</details>
+
+## Basic
 
 Galleria requires a value as a collection of images, item template for the higher resolution image and thumbnail template to display as a thumbnail.
 
-## caption-doc
+```html
+<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+    <ng-template #item let-item>
+        <img [src]="item.itemImageSrc" style="width:100%" />
+    </ng-template>
+    <ng-template #thumbnail let-item>
+        <img [src]="item.thumbnailImageSrc" />
+    </ng-template>
+</p-galleria>
+```
+
+## Caption
 
 Description of an image is specified with the caption template.
 
-## controlled-doc
+```html
+<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+    <ng-template #item let-item>
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+    </ng-template>
+    <ng-template #thumbnail let-item>
+        <img [src]="item.thumbnailImageSrc" style="display: block;" />
+    </ng-template>
+    <ng-template #caption let-item>
+        <div class="text-xl mb-2 font-bold">{{ item.title }}</div>
+        <p class="text-white">{{ item.alt }}</p>
+    </ng-template>
+</p-galleria>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { GalleriaModule } from 'primeng/galleria';
+import { PhotoService } from '@/service/photoservice';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+                <ng-template #item let-item>
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+                </ng-template>
+                <ng-template #thumbnail let-item>
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </ng-template>
+                <ng-template #caption let-item>
+                    <div class="text-xl mb-2 font-bold">{{ item.title }}</div>
+                    <p class="text-white">{{ item.alt }}</p>
+                </ng-template>
+            </p-galleria>
+        </div>
+    `,
+    standalone: true,
+    imports: [GalleriaModule],
+    providers: [PhotoService]
+})
+export class GalleriaCaptionDemo implements OnInit {
+    images: any = model([]);
+    responsiveOptions: any[];
+
+    constructor(private photoService: PhotoService) {}
+
+    ngOnInit() {
+        this.photoService.getImages().then((images) => this.images.set(images));
+    }
+}
+```
+</details>
+
+## Controlled
 
 Galleria can be controlled programmatically using the activeIndex property.
 
-## responsive-doc
+```html
+<div class="mb-4">
+    <p-button type="button" icon="pi pi-minus" (click)="prev()" />
+    <p-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
+</div>
+<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
+    <ng-template #item let-item>
+        <img [src]="item.itemImageSrc" style="width: 100%;" />
+    </ng-template>
+    <ng-template #thumbnail let-item>
+        <img [src]="item.thumbnailImageSrc" />
+    </ng-template>
+</p-galleria>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { GalleriaModule } from 'primeng/galleria';
+import { PhotoService } from '@/service/photoservice';
+
+@Component({
+    template: `
+        <div class="card">
+            <div class="mb-4">
+                <p-button type="button" icon="pi pi-minus" (click)="prev()" />
+                <p-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
+            </div>
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
+                <ng-template #item let-item>
+                    <img [src]="item.itemImageSrc" style="width: 100%;" />
+                </ng-template>
+                <ng-template #thumbnail let-item>
+                    <img [src]="item.thumbnailImageSrc" />
+                </ng-template>
+            </p-galleria>
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, GalleriaModule],
+    providers: [PhotoService]
+})
+export class GalleriaControlledDemo implements OnInit {
+    images: any = model([]);
+    _activeIndex: number = 2;
+    responsiveOptions: any[];
+
+    constructor(private photoService: PhotoService) {}
+
+    ngOnInit() {
+        this.photoService.getImages().then((images) => this.images.set(images));
+    }
+
+    next() {
+        this.activeIndex++;
+    }
+
+    prev() {
+        this.activeIndex--;
+    }
+}
+```
+</details>
+
+## Responsive
 
 Galleria responsiveness is defined with the responsiveOptions property.
 
-## thumbnail-doc
+```html
+<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="7" [circular]="true">
+    <ng-template #item let-item>
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+    </ng-template>
+    <ng-template #thumbnail let-item>
+        <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block;" />
+    </ng-template>
+</p-galleria>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { GalleriaModule } from 'primeng/galleria';
+import { PhotoService } from '@/service/photoservice';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="7" [circular]="true">
+                <ng-template #item let-item>
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+                </ng-template>
+                <ng-template #thumbnail let-item>
+                    <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block;" />
+                </ng-template>
+            </p-galleria>
+        </div>
+    `,
+    standalone: true,
+    imports: [GalleriaModule],
+    providers: [PhotoService]
+})
+export class GalleriaResponsiveDemo implements OnInit {
+    images: any = model([]);
+    responsiveOptions: any[];
+
+    constructor(private photoService: PhotoService) {}
+
+    ngOnInit() {
+        this.photoService.getImages().then((images) => this.images.set(images));
+    }
+}
+```
+</details>
+
+## Thumbnail
 
 Galleria can be controlled programmatically using the activeIndex property.
+
+```html
+<div class="flex flex-wrap gap-4 mb-8">
+    <div *ngFor="let option of positionOptions" class="flex items-center">
+        <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
+        <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
+    </div>
+</div>
+<p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+    <ng-template #item let-item>
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+    </ng-template>
+    <ng-template #thumbnail let-item>
+        <div class="grid gap-4 justify-center">
+            <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block" />
+        </div>
+    </ng-template>
+</p-galleria>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { GalleriaModule } from 'primeng/galleria';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { PhotoService } from '@/service/photoservice';
+
+@Component({
+    template: `
+        <div class="card">
+            <div class="flex flex-wrap gap-4 mb-8">
+                <div *ngFor="let option of positionOptions" class="flex items-center">
+                    <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
+                    <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
+                </div>
+            </div>
+            <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+                <ng-template #item let-item>
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+                </ng-template>
+                <ng-template #thumbnail let-item>
+                    <div class="grid gap-4 justify-center">
+                        <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block" />
+                    </div>
+                </ng-template>
+            </p-galleria>
+        </div>
+    `,
+    standalone: true,
+    imports: [GalleriaModule, RadioButtonModule, FormsModule],
+    providers: [PhotoService]
+})
+export class GalleriaThumbnailDemo implements OnInit {
+    images: any[] | undefined;
+    positionOptions: any[];
+    responsiveOptions: any[];
+
+    constructor(private photoService: PhotoService) {}
+
+    ngOnInit() {
+        this.photoService.getImages().then((images) => (this.images = images));
+    }
+}
+```
+</details>
 
 ## Galleria
 

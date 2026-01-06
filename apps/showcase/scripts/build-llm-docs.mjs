@@ -470,14 +470,25 @@ function processComponent(componentName, componentDir) {
 
         if (stat.isDirectory()) continue;
 
-        // Extract section id from filename (e.g., "basicdoc.ts" -> "basic")
-        const sectionId = file.replace(/doc\.ts$/i, '').toLowerCase();
+        // Extract section id from filename (e.g., "basic-doc.ts" -> "basic" or "basicdoc.ts" -> "basic")
+        const sectionId = file.replace(/-?doc\.ts$/i, '').toLowerCase();
         const sectionInfo = metadata.sections.find((s) => s.id === sectionId);
 
         const docData = parseDocFile(filePath);
 
-        // Get code examples from demos.json
-        const codeExamples = getCodeExamplesFromDemos(componentName, sectionId);
+        // Sections that should use inline code from doc file instead of demos.json
+        const nonDemoSections = ['accessibility', 'style'];
+
+        // Get code examples: for non-demo sections use inline code from doc file,
+        // otherwise get from demos.json
+        let codeExamples;
+        if (nonDemoSections.includes(sectionId)) {
+            // For accessibility/style docs, only use code object defined in the doc file
+            codeExamples = docData.inlineCode;
+        } else {
+            // For regular demo sections, get code from demos.json
+            codeExamples = getCodeExamplesFromDemos(componentName, sectionId);
+        }
 
         if (docData.description || codeExamples) {
             component.sections.push({

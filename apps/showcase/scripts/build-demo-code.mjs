@@ -756,17 +756,43 @@ function extractBasicCode(htmlContent) {
 
     // Only remove flex/grid wrapper if it's the ONLY top-level element wrapping PrimeNG components
     // Don't remove flex divs that are inside ng-template or other components
+    // Don't remove if there are sibling elements after the flex div
     const trimmed = basic.trim();
     const startsWithFlexDiv = /^<div[^>]*class="[^"]*(?:flex|grid)[^"]*"[^>]*>/.test(trimmed);
     if (startsWithFlexDiv) {
         const flexContent = extractDivContent(basic, '(?:flex|grid)');
         if (flexContent) {
-            // Only unwrap if the flex div directly contains PrimeNG components (not nested in templates)
-            const hasPrimeNGDirect = /^[\s\S]*?<p-[a-z]/.test(flexContent);
-            const hasNoTemplates = !flexContent.includes('<ng-template');
-            const isSimpleWrapper = flexContent.split('<div').length <= 3;
-            if (hasPrimeNGDirect && hasNoTemplates && isSimpleWrapper) {
-                basic = flexContent;
+            // Check if there's content AFTER the flex div (sibling elements)
+            const flexDivMatch = trimmed.match(/^<div[^>]*class="[^"]*(?:flex|grid)[^"]*"[^>]*>/);
+            if (flexDivMatch) {
+                const flexDivStart = flexDivMatch[0].length;
+                // Find the closing </div> for this flex div
+                let depth = 1;
+                let i = flexDivStart;
+                while (i < trimmed.length && depth > 0) {
+                    if (trimmed.slice(i).startsWith('<div')) {
+                        depth++;
+                        i += 4;
+                    } else if (trimmed.slice(i).startsWith('</div>')) {
+                        depth--;
+                        if (depth === 0) break;
+                        i += 6;
+                    } else {
+                        i++;
+                    }
+                }
+                const afterFlexDiv = trimmed.slice(i + 6).trim(); // +6 for '</div>'
+
+                // Only unwrap if there's nothing after the flex div
+                if (!afterFlexDiv) {
+                    // Only unwrap if the flex div directly contains PrimeNG components (not nested in templates)
+                    const hasPrimeNGDirect = /^[\s\S]*?<p-[a-z]/.test(flexContent);
+                    const hasNoTemplates = !flexContent.includes('<ng-template');
+                    const isSimpleWrapper = flexContent.split('<div').length <= 3;
+                    if (hasPrimeNGDirect && hasNoTemplates && isSimpleWrapper) {
+                        basic = flexContent;
+                    }
+                }
             }
         }
     }

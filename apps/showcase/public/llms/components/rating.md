@@ -2,37 +2,312 @@
 
 Rating component is a star based selection input.
 
-## accessibility-doc
+## Accessibility
 
 Screen Reader Rating component internally uses radio buttons that are only visible to screen readers. The value to read for item is retrieved from the locale API via star and stars of the aria property.
 
-## basic-doc
+## Basic
 
 Two-way value binding is defined using ngModel .
 
-## disabled-doc
+```html
+<p-rating [(ngModel)]="value" />
+```
+
+## Disabled
 
 When disabled is present, a visual hint is applied to indicate that the Knob cannot be interacted with.
 
-## numberofstars-doc
+```html
+<p-rating [(ngModel)]="value" [disabled]="true" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RatingModule } from 'primeng/rating';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-rating [(ngModel)]="value" [disabled]="true" />
+        </div>
+    `,
+    standalone: true,
+    imports: [RatingModule, FormsModule]
+})
+export class RatingDisabledDemo {
+    value: number = 5;
+}
+```
+</details>
+
+## Number of Stars
 
 Number of stars to display is defined with stars property.
+
+```html
+<p-rating [(ngModel)]="value" [stars]="10" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RatingModule } from 'primeng/rating';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-rating [(ngModel)]="value" [stars]="10" />
+        </div>
+    `,
+    standalone: true,
+    imports: [RatingModule, FormsModule]
+})
+export class RatingNumberofstarsDemo {
+    value: number = 5;
+}
+```
+</details>
 
 ## reactiveforms-doc
 
 Rating can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
-## readonly-doc
+```html
+<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-40">
+    <div class="flex flex-col items-center gap-2">
+        <p-rating formControlName="ratingValue" [invalid]="isInvalid('ratingValue')" />
+        @if (isInvalid('ratingValue')) {
+            <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+        }
+    </div>
+    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+</form>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MessageModule } from 'primeng/message';
+import { RatingModule } from 'primeng/rating';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <p-toast />
+        <div class="card flex justify-center">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-40">
+                <div class="flex flex-col items-center gap-2">
+                    <p-rating formControlName="ratingValue" [invalid]="isInvalid('ratingValue')" />
+                    @if (isInvalid('ratingValue')) {
+                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
+    standalone: true,
+    imports: [MessageModule, RatingModule, ToastModule, ButtonModule, ReactiveFormsModule]
+})
+export class RatingReactiveformsDemo {
+    messageService = inject(MessageService);
+    exampleForm: FormGroup | undefined;
+    formSubmitted: boolean = false;
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
+    }
+}
+```
+</details>
+
+## Readonly
 
 When readonly present, value cannot be edited.
 
-## template-doc
+```html
+<p-rating [(ngModel)]="value" [readonly]="true" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RatingModule } from 'primeng/rating';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-rating [(ngModel)]="value" [readonly]="true" />
+        </div>
+    `,
+    standalone: true,
+    imports: [RatingModule, FormsModule]
+})
+export class RatingReadonlyDemo {
+    value: number = 3;
+}
+```
+</details>
+
+## Template
 
 Templating allows customizing the content where the icon instance is available as the implicit variable.
+
+```html
+<p-rating [(ngModel)]="value">
+    <ng-template #onicon>
+        <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" height="24" width="24" />
+    </ng-template>
+    <ng-template #officon>
+        <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" height="24" width="24" />
+    </ng-template>
+</p-rating>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RatingModule } from 'primeng/rating';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-rating [(ngModel)]="value">
+                <ng-template #onicon>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" height="24" width="24" />
+                </ng-template>
+                <ng-template #officon>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" height="24" width="24" />
+                </ng-template>
+            </p-rating>
+        </div>
+    `,
+    standalone: true,
+    imports: [RatingModule, FormsModule]
+})
+export class RatingTemplateDemo {
+    value!: number;
+}
+```
+</details>
+
+## templatedrivenforms-doc
+
+```html
+<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-40">
+    <div class="flex flex-col items-center gap-2">
+        <p-rating #ratingValue="ngModel" [(ngModel)]="value" required name="ratingValue" [invalid]="ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)" />
+        @if (ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)) {
+            <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+        }
+    </div>
+    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+</form>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MessageModule } from 'primeng/message';
+import { RatingModule } from 'primeng/rating';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <p-toast />
+        <div class="card flex justify-center">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-40">
+                <div class="flex flex-col items-center gap-2">
+                    <p-rating #ratingValue="ngModel" [(ngModel)]="value" required name="ratingValue" [invalid]="ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)" />
+                    @if (ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
+    standalone: true,
+    imports: [MessageModule, RatingModule, ToastModule, ButtonModule, FormsModule]
+})
+export class RatingTemplatedrivenformsDemo {
+    messageService = inject(MessageService);
+    value: any;
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
 
 ## withoutcancel-doc
 
 A cancel icon is displayed to reset the value by default, set cancel as false to remove this option.
+
+```html
+<p-rating [(ngModel)]="value" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RatingModule } from 'primeng/rating';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-rating [(ngModel)]="value" />
+        </div>
+    `,
+    standalone: true,
+    imports: [RatingModule, FormsModule]
+})
+export class RatingWithoutcancelDemo {
+    value!: number;
+}
+```
+</details>
 
 ## Rating
 

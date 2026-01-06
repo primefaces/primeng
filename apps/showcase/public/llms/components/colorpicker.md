@@ -2,29 +2,268 @@
 
 ColorPicker is an input component to select a color.
 
-## accessibility-doc
+## Accessibility
 
 Screen Reader Specification does not cover a color picker yet and using a semantic native color picker is not consistent across browsers so currently component is not compatible with screen readers. In the upcoming versions, text fields will be introduced below the slider section to be able to pick a color using accessible text boxes in hsl, rgba and hex formats.
 
-## basic-doc
+## Basic
 
 ColorPicker is used as a controlled input with ngModel property.
 
-## disabled-doc
+```html
+<p-colorpicker [(ngModel)]="color" />
+```
+
+## Disabled
 
 When disabled is present, the element cannot be edited and focused.
 
-## format-doc
+```html
+<p-colorpicker [(ngModel)]="color" [disabled]="true" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'primeng/colorpicker';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-colorpicker [(ngModel)]="color" [disabled]="true" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ColorPickerModule, FormsModule]
+})
+export class ColorpickerDisabledDemo {
+    color: string | undefined;
+}
+```
+</details>
+
+## Format
 
 Default color format to use in value binding is hex and other possible values can be rgb and hsb using the format property.
 
-## inline-doc
+```html
+<div class="flex-1 flex flex-col items-center">
+    <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
+    <p-colorpicker [(ngModel)]="color" inputId="cp-hex" class="mb-4" />
+    <span>{{ color }}</span>
+</div>
+<div class="flex-1 flex flex-col items-center">
+    <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
+    <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" class="mb-4" />
+    <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
+</div>
+<div class="flex-1 flex flex-col items-center">
+    <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
+    <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" class="mb-4" />
+    <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
+</div>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'primeng/colorpicker';
+
+@Component({
+    template: `
+        <div class="card flex flex-wrap gap-4">
+            <div class="flex-1 flex flex-col items-center">
+                <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
+                <p-colorpicker [(ngModel)]="color" inputId="cp-hex" class="mb-4" />
+                <span>{{ color }}</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center">
+                <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
+                <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" class="mb-4" />
+                <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center">
+                <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
+                <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" class="mb-4" />
+                <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
+            </div>
+        </div>
+    `,
+    standalone: true,
+    imports: [ColorPickerModule, FormsModule]
+})
+export class ColorpickerFormatDemo {
+    color: string = '#6466f1';
+    colorRGB: any = { r: 100, g: 102, b: 241 };
+    colorHSB: any = { h: 239, s: 59, b: 95 };
+}
+```
+</details>
+
+## Inline
 
 ColorPicker is displayed as a popup by default, add inline property to customize this behavior.
+
+```html
+<p-colorpicker [(ngModel)]="color" [inline]="true" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'primeng/colorpicker';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-colorpicker [(ngModel)]="color" [inline]="true" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ColorPickerModule, FormsModule]
+})
+export class ColorpickerInlineDemo {
+    color: string | undefined;
+}
+```
+</details>
 
 ## reactiveforms-doc
 
 ColorPicker can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
+
+```html
+<p-toast />
+<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+    <div class="flex flex-col items-center gap-2">
+        <p-colorpicker formControlName="color" defaultColor="989898" />
+        @if (isInvalid('color')) {
+            <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
+        }
+    </div>
+    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+</form>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'primeng/colorpicker';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-toast />
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                <div class="flex flex-col items-center gap-2">
+                    <p-colorpicker formControlName="color" defaultColor="989898" />
+                    @if (isInvalid('color')) {
+                        <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
+    standalone: true,
+    imports: [ColorPickerModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+})
+export class ColorpickerReactiveformsDemo {
+    messageService = inject(MessageService);
+    exampleForm: FormGroup;
+    formSubmitted: boolean = false;
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && this.formSubmitted;
+    }
+}
+```
+</details>
+
+## templatedrivenforms-doc
+
+```html
+<p-toast />
+<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+    <div class="flex flex-col items-center gap-2">
+        <p-colorpicker name="color" [(ngModel)]="color" #colorModel="ngModel" required defaultColor="989898" />
+        @if (colorModel.invalid && (colorModel.touched || exampleForm.submitted)) {
+            <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
+        }
+    </div>
+    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+</form>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'primeng/colorpicker';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-toast />
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+                <div class="flex flex-col items-center gap-2">
+                    <p-colorpicker name="color" [(ngModel)]="color" #colorModel="ngModel" required defaultColor="989898" />
+                    @if (colorModel.invalid && (colorModel.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
+    standalone: true,
+    imports: [ColorPickerModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+})
+export class ColorpickerTemplatedrivenformsDemo {
+    messageService = inject(MessageService);
+    color: string | undefined;
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
 
 ## Color Picker
 

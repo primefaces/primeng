@@ -2,25 +2,303 @@
 
 OrderList is used to sort a collection.
 
-## accessibility-doc
+## Accessibility
 
 Screen Reader Value to describe the source listbox and target listbox can be provided with sourceListProps and targetListProps by passing aria-labelledby or aria-label props. The list elements has a listbox role with the aria-multiselectable attribute. Each list item has an option role with aria-selected and aria-disabled as their attributes. Controls buttons are button elements with an aria-label that refers to the aria.moveTop , aria.moveUp , aria.moveDown , aria.moveBottom , aria.moveTo , aria.moveAllTo , aria.moveFrom and aria.moveAllFrom properties of the locale API by default, alternatively you may use moveTopButtonProps , moveUpButtonProps , moveDownButtonProps , moveToButtonProps , moveAllToButtonProps , moveFromButtonProps , moveFromButtonProps and moveAllFromButtonProps to customize the buttons like overriding the default aria-label attributes. OrderList Keyboard Support Key Function tab Moves focus to the first selected option, if there is none then first option receives the focus. up arrow Moves focus to the previous option. down arrow Moves focus to the next option. enter Toggles the selected state of the focused option. space Toggles the selected state of the focused option. home Moves focus to the first option. end Moves focus to the last option. shift + down arrow Moves focus to the next option and toggles the selection state. shift + up arrow Moves focus to the previous option and toggles the selection state. shift + space Selects the items between the most recently selected option and the focused option. control + shift + home Selects the focused options and all the options up to the first one. control + shift + end Selects the focused options and all the options down to the first one. control + a Selects all options. Buttons Keyboard Support Key Function enter Executes button action. space Executes button action.
 
-## basic-doc
+## Basic
 
 OrderList is used as a controlled input with value property. Content of a list item needs to be defined with the item template that receives an object in the list as parameter.
+
+```html
+<p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px">
+    <ng-template #item let-option>
+        {{ option.name }}
+    </ng-template>
+</p-orderlist>
+```
 
 ## dragdrop-doc
 
 Items can be reordered using drag and drop by enabling dragdrop property. Depends on &#64;angular/cdk package.
 
-## filter-doc
+```html
+<p-orderlist [value]="products" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+    <ng-template let-option let-selected="selected" #item>
+        <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+            <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+            <div class="flex-1 flex flex-col">
+                <span class="font-medium text-sm">{{ option.name }}</span>
+                <span
+                    [ngClass]="{
+                        'text-sm': true,
+                        'text-surface-500': !selected,
+                        'dark:text-surface-400': !selected,
+                        'text-inherit': selected
+                    }"
+                    >{{ option.category }}</span
+                >
+            </div>
+            <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
+        </div>
+    </ng-template>
+</p-orderlist>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { OrderListModule } from 'primeng/orderlist';
+import { ProductService } from '@/service/productservice';
+import { Product } from '@/domain/product';
+
+@Component({
+    template: `
+        <div class="card sm:flex sm:justify-center">
+            <p-orderlist [value]="products" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+                <ng-template let-option let-selected="selected" #item>
+                    <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                        <div class="flex-1 flex flex-col">
+                            <span class="font-medium text-sm">{{ option.name }}</span>
+                            <span
+                                [ngClass]="{
+                                    'text-sm': true,
+                                    'text-surface-500': !selected,
+                                    'dark:text-surface-400': !selected,
+                                    'text-inherit': selected
+                                }"
+                                >{{ option.category }}</span
+                            >
+                        </div>
+                        <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
+                    </div>
+                </ng-template>
+            </p-orderlist>
+        </div>
+    `,
+    standalone: true,
+    imports: [OrderListModule],
+    providers: [ProductService]
+})
+export class OrderlistDragdropDemo implements OnInit {
+    products!: Product[];
+
+    constructor(private productService: ProductService) {}
+
+    ngOnInit() {
+        this.productService.getProductsSmall().then((cars) => {
+            this.products = cars;
+            this.cdr.detectChanges();
+        });
+    }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+}
+```
+</details>
+
+## Filter
 
 Filter value is checked against the property of an object configured with the filterBy property
 
-## template-doc
+```html
+<p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
+    <ng-template let-option let-selected="selected" #item>
+        <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+            <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+            <div class="flex-1 flex flex-col">
+                <span class="font-medium text-sm">{{ option.name }}</span>
+                <span
+                    [ngClass]="{
+                        'text-sm': true,
+                        'text-surface-500': !selected,
+                        'dark:text-surface-400': !selected,
+                        'text-inherit': selected
+                    }"
+                    >{{ option.category }}</span
+                >
+            </div>
+            <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
+        </div>
+    </ng-template>
+</p-orderlist>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { OrderListModule } from 'primeng/orderlist';
+import { ProductService } from '@/service/productservice';
+import { Product } from '@/domain/product';
+
+@Component({
+    template: `
+        <div class="card sm:flex sm:justify-center">
+            <p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
+                <ng-template let-option let-selected="selected" #item>
+                    <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                        <div class="flex-1 flex flex-col">
+                            <span class="font-medium text-sm">{{ option.name }}</span>
+                            <span
+                                [ngClass]="{
+                                    'text-sm': true,
+                                    'text-surface-500': !selected,
+                                    'dark:text-surface-400': !selected,
+                                    'text-inherit': selected
+                                }"
+                                >{{ option.category }}</span
+                            >
+                        </div>
+                        <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
+                    </div>
+                </ng-template>
+            </p-orderlist>
+        </div>
+    `,
+    standalone: true,
+    imports: [OrderListModule],
+    providers: [ProductService]
+})
+export class OrderlistFilterDemo implements OnInit {
+    products!: Product[];
+
+    constructor(private productService: ProductService) {}
+
+    ngOnInit() {
+        this.productService.getProductsSmall().then((cars) => {
+            this.products = cars;
+            this.cdr.detectChanges();
+        });
+    }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+}
+```
+</details>
+
+## Template
 
 For custom content support define an item template that gets the item instance as a parameter. In addition header template is provided for further customization.
+
+```html
+<p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+    <ng-template let-option let-selected="selected" #item>
+        <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+            <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+            <div class="flex-1 flex flex-col">
+                <span class="font-medium text-sm">{{ option.name }}</span>
+                <span
+                    [ngClass]="{
+                        'text-sm': true,
+                        'text-surface-500': !selected,
+                        'dark:text-surface-400': !selected,
+                        'text-inherit': selected
+                    }"
+                    >{{ option.category }}</span
+                >
+            </div>
+            <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
+        </div>
+    </ng-template>
+</p-orderlist>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { OrderListModule } from 'primeng/orderlist';
+import { ProductService } from '@/service/productservice';
+import { Product } from '@/domain/product';
+
+@Component({
+    template: `
+        <div class="card sm:flex sm:justify-center">
+            <p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+                <ng-template let-option let-selected="selected" #item>
+                    <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                        <div class="flex-1 flex flex-col">
+                            <span class="font-medium text-sm">{{ option.name }}</span>
+                            <span
+                                [ngClass]="{
+                                    'text-sm': true,
+                                    'text-surface-500': !selected,
+                                    'dark:text-surface-400': !selected,
+                                    'text-inherit': selected
+                                }"
+                                >{{ option.category }}</span
+                            >
+                        </div>
+                        <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
+                    </div>
+                </ng-template>
+            </p-orderlist>
+        </div>
+    `,
+    standalone: true,
+    imports: [OrderListModule],
+    providers: [ProductService]
+})
+export class OrderlistTemplateDemo implements OnInit {
+    products!: Product[];
+    id?: string;
+    name?: string;
+    description?: string;
+    price?: number;
+    quantity?: number;
+    inventoryStatus?: string;
+    category?: string;
+    image?: string;
+    rating?: number;
+
+    constructor(private productService: ProductService) {}
+
+    ngOnInit() {
+        this.productService.getProductsSmall().then((cars) => {
+            this.products = cars;
+            this.cdr.detectChanges();
+        });
+    }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+}
+```
+</details>
 
 ## Order List
 

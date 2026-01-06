@@ -2,19 +2,66 @@
 
 Editor is rich text editor component based on Quill.
 
-## accessibility-doc
+## Accessibility
 
 Quill performs generally well in terms of accessibility. The elements in the toolbar can be tabbed and have the necessary ARIA roles/attributes for screen readers. One known limitation is the lack of arrow key support for dropdowns in the toolbar that may be overcome with a custom toolbar.
 
-## basic-doc
+## Basic
 
 A model can be bound using the standard ngModel directive.
+
+```html
+<p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
+```
 
 ## customtoolbar-doc
 
 Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to Quill documentation for available controls.
 
-## quill-doc
+```html
+<p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
+    <ng-template #header>
+        <span class="ql-formats">
+            <button type="button" class="ql-bold" aria-label="Bold"></button>
+            <button type="button" class="ql-italic" aria-label="Italic"></button>
+            <button type="button" class="ql-underline" aria-label="Underline"></button>
+        </span>
+    </ng-template>
+</p-editor>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { EditorModule } from 'primeng/editor';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
+                <ng-template #header>
+                    <span class="ql-formats">
+                        <button type="button" class="ql-bold" aria-label="Bold"></button>
+                        <button type="button" class="ql-italic" aria-label="Italic"></button>
+                        <button type="button" class="ql-underline" aria-label="Underline"></button>
+                    </span>
+                </ng-template>
+            </p-editor>
+        </div>
+    `,
+    standalone: true,
+    imports: [EditorModule, FormsModule]
+})
+export class EditorCustomtoolbarDemo {
+    text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
+}
+```
+</details>
+
+## Quill
 
 Editor uses Quill editor underneath so it needs to be installed as a dependency.
 
@@ -22,9 +69,159 @@ Editor uses Quill editor underneath so it needs to be installed as a dependency.
 
 Editor can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
-## readonly-doc
+```html
+<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+    <div class="flex flex-col gap-1">
+        <p-editor formControlName="text" [invalid]="isInvalid('text')" [style]="{ height: '320px' }" />
+        @if (isInvalid('text')) {
+            <p-message severity="error" size="small" variant="simple">Content is required.</p-message>
+        }
+    </div>
+    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+</form>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { EditorModule } from 'primeng/editor';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <p-toast />
+        <div class="card ">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <p-editor formControlName="text" [invalid]="isInvalid('text')" [style]="{ height: '320px' }" />
+                    @if (isInvalid('text')) {
+                        <p-message severity="error" size="small" variant="simple">Content is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
+    standalone: true,
+    imports: [EditorModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+})
+export class EditorReactiveformsDemo {
+    messageService = inject(MessageService);
+    items: any[] | undefined;
+    exampleForm: FormGroup | undefined;
+    formSubmitted: boolean = false;
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
+    }
+}
+```
+</details>
+
+## ReadOnly
 
 When readonly is present, the value cannot be edited.
+
+```html
+<p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { EditorModule } from 'primeng/editor';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
+        </div>
+    `,
+    standalone: true,
+    imports: [EditorModule, FormsModule]
+})
+export class EditorReadonlyDemo {
+    text: string = 'Always bet on Prime!';
+}
+```
+</details>
+
+## templatedrivenforms-doc
+
+```html
+<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+    <div class="flex flex-col gap-1">
+        <p-editor #content="ngModel" [(ngModel)]="text" [invalid]="content.invalid && (content.touched || exampleForm.submitted)" name="content" [style]="{ height: '320px' }" required />
+        @if (content.invalid && (content.touched || exampleForm.submitted)) {
+            <p-message severity="error" size="small" variant="simple">Content is required.</p-message>
+        }
+    </div>
+    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+</form>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { EditorModule } from 'primeng/editor';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <p-toast />
+        <div class="card">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <p-editor #content="ngModel" [(ngModel)]="text" [invalid]="content.invalid && (content.touched || exampleForm.submitted)" name="content" [style]="{ height: '320px' }" required />
+                    @if (content.invalid && (content.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">Content is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
+    standalone: true,
+    imports: [EditorModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+})
+export class EditorTemplatedrivenformsDemo {
+    messageService = inject(MessageService);
+    text: string | undefined;
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
 
 ## Editor
 

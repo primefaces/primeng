@@ -2,13 +2,18 @@
 
 
 
-## accessibility-doc
+## Accessibility
 
 Screen Reader Terminal component has an input element that can be described with aria-label or aria-labelledby props. The element that lists the previous commands has aria-live so that changes are received by the screen reader. Keyboard Support Key Function tab Moves focus through the input element. enter Executes the command when focus in on the input element.
 
-## basic-doc
+## Basic
 
 Commands are processed using observables via the TerminalService . Import this service into your component and subscribe to commandHandler to process commands by sending replies with sendResponse function.
+
+```html
+<p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
+<p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
+```
 
 ## Terminal
 

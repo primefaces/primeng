@@ -2,17 +2,166 @@
 
 OrganizationChart visualizes hierarchical organization data.
 
-## accessibility-doc
+## Accessibility
 
 Screen Reader Component currently uses a table based implementation and does not provide high level of screen reader support, a nested list implementation replacement is planned with aria roles and attributes aligned to a tree widget for high level of reader support in the upcoming versions. Keyboard Support Key Function tab Moves focus through the focusable elements within the chart. enter Toggles the expanded state of a node. space Toggles the expanded state of a node.
 
-## basic-doc
+## Basic
 
 OrganizationChart requires a collection of TreeNode instances as a value .
 
-## template-doc
+```html
+<p-organization-chart [value]="data" />
+```
+
+## colored.-doc
+
+```html
+<p-organization-chart [value]="data" [collapsible]="true">
+    <ng-template let-node pTemplate="person">
+        <div class="flex flex-col">
+            <div class="flex flex-col items-center">
+                <img [src]="node.data.image" class="mb-4 w-12 h-12" />
+                <span class="font-bold mb-2">{{ node.data.name }}</span>
+                <span>{{ node.data.title }}</span>
+            </div>
+        </div>
+    </ng-template>
+</p-organization-chart>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+
+@Component({
+    template: `
+        <app-docsectiontext>
+            <p>Styling a specific node is configured with <i>class</i> and <i>style</i> options of a TreeNode.</p></app-docsectiontext
+        >
+        <div class="card overflow-x-auto">
+            <p-organization-chart [value]="data" [collapsible]="true">
+                <ng-template let-node pTemplate="person">
+                    <div class="flex flex-col">
+                        <div class="flex flex-col items-center">
+                            <img [src]="node.data.image" class="mb-4 w-12 h-12" />
+                            <span class="font-bold mb-2">{{ node.data.name }}</span>
+                            <span>{{ node.data.title }}</span>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-organization-chart>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class OrganizationchartColored.Demo {
+    data: TreeNode[];
+}
+```
+</details>
+
+## Selection
+
+```html
+<p-organization-chart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" [collapsible]="true">
+    <ng-template let-node pTemplate="person">
+        <div class="flex flex-col">
+            <div class="flex flex-col items-center">
+                <img [src]="node.data.image" class="mb-4 w-12 h-12" />
+                <div class="font-bold mb-2">{{ node.data.name }}</div>
+                <div>{{ node.data.title }}</div>
+            </div>
+        </div>
+    </ng-template>
+</p-organization-chart>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+
+@Component({
+    template: `
+        <app-docsectiontext>
+            <p>
+                Nodes can be selected by defining <i>selectionMode</i> along with a value binding with <i>selection</i> properties. By default only one node can be selected, set <i>selectionMode</i> as <i>multiple</i> to select more than one.
+            </p></app-docsectiontext
+        >
+        <div class="card flex justify-center overflow-x-auto">
+            <p-organization-chart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" [collapsible]="true">
+                <ng-template let-node pTemplate="person">
+                    <div class="flex flex-col">
+                        <div class="flex flex-col items-center">
+                            <img [src]="node.data.image" class="mb-4 w-12 h-12" />
+                            <div class="font-bold mb-2">{{ node.data.name }}</div>
+                            <div>{{ node.data.title }}</div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-organization-chart>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class OrganizationchartSelectionDemo {
+    selectedNodes!: TreeNode[];
+    data: TreeNode[];
+}
+```
+</details>
+
+## Template
 
 Custom content instead of a node label is defined using the pTemplate property.
+
+```html
+<p-organization-chart [value]="data" [collapsible]="true">
+    <ng-template let-node pTemplate="default">
+        <div class="flex flex-col items-center">
+            <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
+            <div class="mt-4 font-medium text-lg">{{ node.label }}</div>
+        </div>
+    </ng-template>
+</p-organization-chart>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card overflow-x-auto">
+            <p-organization-chart [value]="data" [collapsible]="true">
+                <ng-template let-node pTemplate="default">
+                    <div class="flex flex-col items-center">
+                        <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
+                        <div class="mt-4 font-medium text-lg">{{ node.label }}</div>
+                    </div>
+                </ng-template>
+            </p-organization-chart>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class OrganizationchartTemplateDemo {
+    data: TreeNode[];
+}
+```
+</details>
 
 ## Pass Through Options
 
