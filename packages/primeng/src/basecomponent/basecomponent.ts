@@ -42,6 +42,8 @@ export class BaseComponent<PT = any> implements Lifecycle {
 
     private _themeScopedListener: () => void;
 
+    private _themeChangeListeners: (() => void)[] = [];
+
     /******************** Inputs ********************/
 
     /**
@@ -396,13 +398,19 @@ export class BaseComponent<PT = any> implements Lifecycle {
 
     private _themeChangeListener(callback = () => {}) {
         Base.clearLoadedStyleNames();
-        ThemeService.on('theme:change', callback.bind(this));
+        const listener = callback.bind(this);
+        ThemeService.on('theme:change', listener);
+        this._themeChangeListeners.push(listener);
     }
 
     private _removeThemeListeners() {
         ThemeService.off('theme:change', this._loadCoreStyles);
         ThemeService.off('theme:change', this._load);
         ThemeService.off('theme:change', this._themeScopedListener);
+        this._themeChangeListeners.forEach((listener) => {
+            ThemeService.off('theme:change', listener);
+        });
+        this._themeChangeListeners = [];
     }
 
     /********** Passthrough **********/
