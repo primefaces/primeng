@@ -42,7 +42,7 @@ import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
                 </p>
             </p-panel>
         </div>
-        <app-code selector="panel-pt-demo" hideToggleCode importCode hideStackBlitz />
+        <app-code hideToggleCode importCode hideStackBlitz />
     `
 })
 export class IntroductionDoc {

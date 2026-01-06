@@ -84,7 +84,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
             </p-popover>
         </div>
-        <app-code selector="popover-data-table-demo" [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="extFiles"></app-code>
     `
 })
 export class DataTableDoc implements OnInit {

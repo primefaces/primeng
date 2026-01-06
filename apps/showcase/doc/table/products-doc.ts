@@ -232,7 +232,7 @@ interface ExportColumn {
                 <p-confirmdialog [style]="{ width: '450px' }" />
             </div>
         </p-deferred-demo>
-        <app-code selector="table-products-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService, ConfirmationService]
 })

@@ -37,7 +37,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
             </p-orderlist>
         </div>
-        <app-code selector="orderlist-template-demo" [extFiles]="extFiles"></app-code>
+        <app-code [extFiles]="extFiles"></app-code>
     `
 })
 export class TemplateDoc implements OnInit {
