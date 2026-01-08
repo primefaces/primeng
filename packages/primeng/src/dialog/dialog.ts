@@ -807,29 +807,28 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         }
     }
 
-createStyle() {
-    if (isPlatformBrowser(this.platformId)) {
-        if (!this.styleElement && !this.$unstyled()) {
-            this.styleElement = this.renderer.createElement('style');
-            this.styleElement.type = 'text/css';
-            setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
-            this.renderer.appendChild(this.document.head, this.styleElement);
-
-            let cssText = '';
-            for (let breakpoint in this.breakpoints) {
-                cssText += `
-                    @media screen and (max-width: ${breakpoint}) {
-                        .p-dialog[${this.id}]:not(.p-dialog-maximized) {
-                            width: ${this.breakpoints[breakpoint]} !important;
+    createStyle() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.styleElement && !this.$unstyled()) {
+                this.styleElement = this.renderer.createElement('style');
+                this.styleElement.type = 'text/css';
+                setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+                this.renderer.appendChild(this.document.head, this.styleElement);
+                let cssText = '';
+                for (let breakpoint in this.breakpoints) {
+                    cssText += `
+                        @media screen and (max-width: ${breakpoint}) {
+                            .p-dialog[${this.id}]:not(.p-dialog-maximized) {
+                                width: ${this.breakpoints[breakpoint]} !important;
+                            }
                         }
-                    }
-                `;
-            }
+                    `;
+                }
 
-            this.renderer.setProperty(this.styleElement, 'textContent', cssText);
+                this.renderer.setProperty(this.styleElement, 'textContent', cssText);
+            }
         }
     }
-}
 
     initDrag(event: MouseEvent) {
         const target = event.target as HTMLElement;
