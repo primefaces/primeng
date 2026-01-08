@@ -814,9 +814,9 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
                 this.styleElement.type = 'text/css';
                 setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.styleElement);
-                let cssText = '';
+                let innerHTML = '';
                 for (let breakpoint in this.breakpoints) {
-                    cssText += `
+                    innerHTML += `
                         @media screen and (max-width: ${breakpoint}) {
                             .p-dialog[${this.id}]:not(.p-dialog-maximized) {
                                 width: ${this.breakpoints[breakpoint]} !important;
@@ -825,7 +825,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
                     `;
                 }
 
-                this.renderer.setProperty(this.styleElement, 'textContent', cssText);
+                this.renderer.setProperty(this.styleElement, 'textContent', innerHTML);
+                setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             }
         }
     }
