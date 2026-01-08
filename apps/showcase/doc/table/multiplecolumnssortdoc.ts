@@ -77,7 +77,7 @@ export class MultipleColumnsSortDoc {
     }
 
     code: Code = {
-        basic: `<p-table [value]="products1" [tableStyle]="{'min-width': '60rem'}">
+        basic: `<p-table [value]="products" sortMode="multiple" [tableStyle]="{'min-width': '60rem'}">
     <ng-template #header>
         <tr>
             <th pSortableColumn="code" style="width:20%">
@@ -116,7 +116,7 @@ export class MultipleColumnsSortDoc {
     </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table [value]="products1" [tableStyle]="{'min-width': '60rem'}">
+    <p-table [value]="products" sortMode="multiple" [tableStyle]="{'min-width': '60rem'}">
         <ng-template #header>
             <tr>
                 <th pSortableColumn="code" style="width:20%">
@@ -168,7 +168,7 @@ import { CommonModule } from '@angular/common';
     imports: [TableModule, CommonModule],
     providers: [ProductService]
 })
-export class TableSingleColumnsSortDemo implements OnInit {
+export class TableMultipleColumnsSortDemo implements OnInit {
     products: Product[];
 
     constructor(private productService: ProductService) {}
