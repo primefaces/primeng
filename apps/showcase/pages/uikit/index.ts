@@ -12,7 +12,7 @@ import { PublishingDoc } from '@/doc/uikit/installation/publishingdoc';
 import { ResourcesDoc } from '@/doc/uikit/resourcesdoc';
 import { RoadmapDoc } from '@/doc/uikit/faq/roadmapdoc';
 import { SupportDoc } from '@/doc/uikit/supportdoc';
-import { CIPipelineDoc } from '@/doc/uikit/workflow/cipipelinedoc';
+import { CIPipelineDoc } from '@/doc/uikit/cipipelinedoc';
 import { UpdatePrimeOneDoc } from '@/doc/uikit/updateprimeonedoc';
 import { UpdatesDoc } from '@/doc/uikit/faq/updatesdoc';
 import { UsageDoc } from '@/doc/uikit/faq/usagedoc';
