@@ -230,9 +230,7 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
         this.tokens[index] = value;
         this.updateModel(event);
 
-        if (event.inputType === 'deleteContentBackward') {
-            this.moveToPrev(event);
-        } else if (event.inputType === 'insertText' || event.inputType === 'deleteContentForward') {
+        if (event.inputType === 'insertText' || event.inputType === 'deleteContentForward') {
             this.moveToNext(event);
         }
     }
