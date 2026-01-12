@@ -18,7 +18,7 @@ catalogs:
         "@angular/cdk": ^21.0.0
         "@angular/cli": ^21.0.0
         "@angular/common": ^21.0.0
-        "@angular/compiler": ^21.0.0
+        "@angular/compiler": ^21.0.7
         "@angular/compiler-cli": ^21.0.0
         "@angular/core": ^21.0.0
         "@angular/forms": ^21.0.0
