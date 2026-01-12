@@ -1,9 +1,9 @@
-import { IntroductionDoc } from '@/doc/guides/animations/introductiondoc';
-import { AnchoredOverlaysDoc } from '@/doc/guides/animations/anchoredoverlaysdoc';
-import { CollapsiblesDoc } from '@/doc/guides/animations/collapsiblesdoc';
-import { DialogDoc } from '@/doc/guides/animations/dialogdoc';
-import { DisableDoc } from '@/doc/guides/animations/disabledoc';
-import { ReferenceDoc } from '@/doc/guides/animations/referencedoc';
+import { IntroductionDoc } from '@/doc/guides/animations/introduction-doc';
+import { AnchoredOverlaysDoc } from '@/doc/guides/animations/anchoredoverlays-doc';
+import { CollapsiblesDoc } from '@/doc/guides/animations/collapsibles-doc';
+import { DialogDoc } from '@/doc/guides/animations/dialog-doc';
+import { DisableDoc } from '@/doc/guides/animations/disable-doc';
+import { ReferenceDoc } from '@/doc/guides/animations/reference-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

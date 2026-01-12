@@ -2,48 +2,48 @@
 
 Use custom icons with PrimeNG components.
 
-## Fontawesome
+## Fontawesome-
 
 Font Awesome is a popular icon library with a wide range of icons.
 
 ```html
-<p-select>
+<p-dropdown>
     <ng-template #dropdownicon>
         <i class="fa-light fa-chevron-down"></i>
     </ng-template>
-</p-select>
+</p-dropdown>
 ```
 
-## Image
+## Image-
 
 Any type of image can be used as an icon.
 
 ```html
-<p-select>
+<p-dropdown>
     <ng-template #dropdownicon>
         <img alt="dropdown icon" src="/assets/icons/arrow_down.png">
     </ng-template>
-</p-select>
+</p-dropdown>
 ```
 
-## Material
+## Material-
 
 Material icons is the official icon library based on Google Material Design.
 
 ```html
-<p-select>
+<p-dropdown>
     <ng-template #dropdownicon>
         <span class="material-icons">arrow_drop_down</span>
     </ng-template>
-</p-select>
+</p-dropdown>
 ```
 
-## Svg
+## Svg-
 
 Inline SVGs are embedded inside the dom.
 
 ```html
-<p-select>
+<p-dropdown>
     <ng-template #dropdownicon>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <g id="chevron-down">
@@ -51,6 +51,6 @@ Inline SVGs are embedded inside the dom.
             </g>
         </svg>
     </ng-template>
-</p-select>
+</p-dropdown>
 ```
 

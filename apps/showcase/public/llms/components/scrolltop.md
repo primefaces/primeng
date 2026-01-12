@@ -11,6 +11,8 @@ Screen Reader ScrollTop uses a button element with an aria-label that refers to 
 ScrollTop listens window scroll by default.
 
 ```html
+<p>Scroll down the page to display the ScrollTo component.</p>
+<i class="pi pi-angle-down animate-fadeout animate-duration-1000 animate-infinite" style="fontsize: 2rem; margin-bottom: 30rem"></i>
 <p-scrolltop />
 ```
 
@@ -19,7 +21,16 @@ ScrollTop listens window scroll by default.
 Setting the target property to parent binds ScrollTop to its parent element that has scrolling content.
 
 ```html
-<p-scrolltop target="parent" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ severity: 'contrast', raised: true, rounded: true }" />
+<div style="width: 250px; height: 200px; overflow: auto">
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae et leo duis ut diam. Ultricies mi quis hendrerit dolor magna eget est lorem. Amet consectetur
+        adipiscing elit ut. Nam libero justo laoreet sit amet. Pharetra massa massa ultricies mi quis hendrerit dolor magna. Est ultricies integer quis auctor elit sed vulputate. Consequat ac felis donec et. Tellus orci ac auctor augue
+        mauris. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Tincidunt arcu non sodales neque sodales. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices. Sodales ut etiam sit amet nisl purus.
+        Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada fames ac turpis egestas. Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas ultricies mi eget mauris. Eget egestas purus viverra accumsan
+        in nisl nisi. Suscipit adipiscing bibendum est ultricies integer. Mattis aliquam faucibus purus in massa tempor nec.
+    </p>
+    <p-scrolltop target="parent" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ severity: 'contrast', raised: true, rounded: true }" />
+</div>
 ```
 
 <details>
@@ -27,21 +38,29 @@ Setting the target property to parent binds ScrollTop to its parent element that
 
 ```typescript
 import { Component } from '@angular/core';
-import { ScrollTop } from 'primeng/scrolltop';
+import { ScrollTopModule } from 'primeng/scrolltop';
 
 @Component({
-    selector: 'scroll-top-element-demo',
-    templateUrl: './scroll-top-element-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <div style="width: 250px; height: 200px; overflow: auto">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae et leo duis ut diam. Ultricies mi quis hendrerit dolor magna eget est lorem. Amet consectetur
+                    adipiscing elit ut. Nam libero justo laoreet sit amet. Pharetra massa massa ultricies mi quis hendrerit dolor magna. Est ultricies integer quis auctor elit sed vulputate. Consequat ac felis donec et. Tellus orci ac auctor augue
+                    mauris. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Tincidunt arcu non sodales neque sodales. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices. Sodales ut etiam sit amet nisl purus.
+                    Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada fames ac turpis egestas. Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas ultricies mi eget mauris. Eget egestas purus viverra accumsan
+                    in nisl nisi. Suscipit adipiscing bibendum est ultricies integer. Mattis aliquam faucibus purus in massa tempor nec.
+                </p>
+                <p-scrolltop target="parent" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ severity: 'contrast', raised: true, rounded: true }" />
+            </div>
+        </div>
+    `,
     standalone: true,
-    imports: [ScrollTop]
+    imports: [ScrollTopModule]
 })
-export class ScrollTopElementDemo {}
+export class ScrolltopElementDemo {}
 ```
 </details>
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Scroll Top
 

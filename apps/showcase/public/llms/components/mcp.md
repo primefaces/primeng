@@ -10,29 +10,9 @@ Add the PrimeNG MCP server using the CLI. After adding, start a new session and 
 
 Create .cursor/mcp.json in your project or ~/.cursor/mcp.json for global configuration.
 
-```html
-{
-    "mcpServers": {
-        "primeng": {
-            "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
-        }
-    }
-}
-```
-
-## examplepromptsdoc
+## exampleprompts-doc
 
 Once installed, try asking your AI assistant:
-
-```html
-"Show me how to use the Table component with sorting and filtering"
-"What props does the Button component have?"
-"How do I customize the Dialog component styling with Pass Through?"
-"Compare the Select and Listbox components"
-"What's the best component for a date picker?"
-"How do I migrate from PrimeNG v20 to v21?"
-```
 
 ## Introduction
 
@@ -50,46 +30,11 @@ Component Information Tools for exploring and understanding PrimeNG components. 
 
 Create .vscode/mcp.json in your project or ~/Library/Application Support/Code/User/mcp.json for global configuration.
 
-```html
-{
-    "servers": {
-        "primeng": {
-            "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
-        }
-    }
-}
-```
-
 ## Windsurf
 
 Edit ~/.codeium/windsurf/mcp_config.json to add the PrimeNG MCP server.
 
-```html
-{
-    "mcpServers": {
-        "primeng": {
-            "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
-        }
-    }
-}
-```
-
 ## Zed
 
 Add to your Zed settings at ~/.config/zed/settings.json (Linux) or ~/Library/Application Support/Zed/settings.json (macOS).
-
-```html
-{
-    "context_servers": {
-        "primeng": {
-            "command": {
-                "path": "npx",
-                "args": ["-y", "@primeng/mcp"]
-            }
-        }
-    }
-}
-```
 

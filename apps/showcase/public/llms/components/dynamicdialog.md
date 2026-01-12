@@ -6,79 +6,9 @@ Dialogs can be created dynamically with any component as the content using a Dia
 
 Most of the time, requirement is returning a value from the dialog. DialogRef's close method is used for this purpose where the parameter passed will be available at the onClose event at the caller. Here is an example on how to close the dialog from the ProductListDemo by passing a selected product.
 
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, Input } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Product } from '@/domain/product';
-import { ProductListDemo } from './productlistdemo';
-
-@Component({
-    templateUrl: './dynamicdialogdemo.html',
-    providers: [DialogService, MessageService]
-})
-export class DynamicDialogDemo {
-
-    ref: DynamicDialogRef | undefined;
-
-    constructor(public dialogService: DialogService, public messageService: MessageService) {}
-
-    show() {
-        this.ref = this.dialogService.open(ProductListDemo, {
-            header: 'Select a Product',
-            width: '70%',
-            contentStyle: { overflow: 'auto' },
-            baseZIndex: 10000,
-            maximizable: true
-        });
-
-        this.ref.onClose.subscribe((product: Product) => {
-            if (product) {
-                this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: product.name });
-            }
-        });
-    }
-}
-```
-</details>
-
 ## Customization
 
 DynamicDialog uses the Dialog component internally, visit dialog for more information about the available props.
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ProductListDemo } from './productlistdemo';
-
-@Component({
-    templateUrl: './dynamicdialogdemo.html',
-    providers: [DialogService]
-})
-export class CustomizationDemo {
-
-    ref: DynamicDialogRef | undefined;
-
-    constructor(public dialogService: DialogService) {}
-    show() {
-        this.ref = this.dialogService.open(ProductListDemo, {
-            header: 'Select a Product',
-            width: '50vw',
-            modal:true,
-            breakpoints: {
-                '960px': '75vw',
-                '640px': '90vw'
-            },
-        });
-}
-```
-</details>
 
 ## Example
 
@@ -93,32 +23,37 @@ Dynamic dialogs require an instance of a DialogService that is responsible for d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnDestroy } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ProductListDemo } from './demo/productlistdemo';
-import { Footer } from './demo/footer';
-import { ToastModule } from 'primeng/toast';
+import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { ProductService } from '@/service/productservice';
+import { MessageService, DialogService } from 'primeng/api';
+import { Product } from '@/domain/product';
+import { Dialog } from 'primeng/dialog';
 
 @Component({
-    selector: 'dynamic-dialog-example-demo',
-    templateUrl: './dynamic-dialog-example-demo.html',
-    imports: [DynamicDialogModule, ToastModule, ButtonModule],
-    providers: [DialogService, MessageService],
+    template: `
+        <div class="card flex justify-center">
+            <p-toast />
+            <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
+        </div>
+    `,
     standalone: true,
+    imports: [ButtonModule, ToastModule],
+    providers: [ProductService, DialogService, MessageService]
 })
-export class DynamicDialogExampleDemo implements OnDestroy {
-
+export class DynamicdialogExampleDemo implements OnInit {
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
-    ref: DynamicDialogRef | undefined;
+    ngOnInit() {
+    }
 
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {
             header: 'Product List',
-            width: '50vw',
             modal: true,
+            width: '50vw',
+            closable: true,
             contentStyle: { overflow: 'auto' },
             breakpoints: {
                 '960px': '75vw',
@@ -128,27 +63,25 @@ export class DynamicDialogExampleDemo implements OnDestroy {
                 footer: Footer
             }
         });
-
+        
         this.ref.onClose.subscribe((data: any) => {
             let summary_and_detail;
             if (data) {
                 const buttonType = data?.buttonType;
-                summary_and_detail = buttonType ? { summary: 'No Product Selected', detail: \`Pressed '\${buttonType}' button\` } : { summary: 'Product Selected', detail: data?.name };
+                summary_and_detail = buttonType ? { summary: 'No Product Selected', detail: `Pressed '${buttonType}' button` } : { summary: 'Product Selected', detail: data?.name };
             } else {
                 summary_and_detail = { summary: 'No Product Selected', detail: 'Pressed Close button' };
             }
             this.messageService.add({ severity: 'info', ...summary_and_detail, life: 3000 });
         });
-
+        
         this.ref.onMaximize.subscribe((value) => {
-            this.messageService.add({ severity: 'info', summary: 'Maximized', detail: \`maximized: \${value.maximized}\` });
+            this.messageService.add({
+                severity: 'info',
+                summary: 'Maximized',
+                detail: `maximized: ${value.maximized}`
+            });
         });
-    }
-
-    ngOnDestroy() {
-        if (this.ref) {
-            this.ref.close();
-        }
     }
 }
 ```
@@ -158,98 +91,17 @@ export class DynamicDialogExampleDemo implements OnDestroy {
 
 The open method of the DialogService is used to open a Dialog. First parameter is the component to load and second one is the configuration object to customize the Dialog.
 
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ProductListDemo } from './productlistdemo';
-
-@Component({
-    templateUrl: './dynamicdialogdemo.html',
-    providers: [DialogService]
-})
-export class DynamicDialogDemo {
-
-    ref: DynamicDialogRef | undefined;
-
-    constructor(public dialogService: DialogService) {}
-
-    show() {
-        this.ref = this.dialogService.open(ProductListDemo, { header: 'Select a Product'});
-    }
-}
-```
-</details>
-
 ## Passing Data
 
 To pass data to a dynamically loaded component, you can use either the data or inputValues property, depending on your requirements. The data property is ideal for passing generic information that is not directly tied to the component's inputs, while inputValues allows you to set specific input properties on the component in a more structured and type-safe way. Both properties can be used together or independently, offering flexibility to meet different use cases. Additionally, the loaded component can control the dialog using the DynamicDialogRef API, providing complete control over the dialog lifecycle. Both DynamicDialogConfig and DynamicDialogRef are injectable through the constructor.
 
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ProductListDemo } from './productlistdemo';
-
-@Component({
-    templateUrl: './dynamicdialogdemo.html',
-    providers: [DialogService]
-})
-export class DynamicDialogDemo {
-
-    ref: DynamicDialogRef | undefined;
-
-    constructor(public dialogService: DialogService) {}
-
-    show() {
-        this.ref = this.dialogService.open(ProductListDemo, {
-            data: {
-                id: '51gF3'
-            },
-      		inputValues: {
-        		selectedProduct: 'Laptop',
-        		quantity: 2
-      		},
-            header: 'Select a Product'
-        });
-    }
-}
-```
-</details>
-
-## styledoc
+## style-doc
 
 Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Usage
 
 To use dynamic dialog, a reference should be declared as DynamicDialogRef after the DialogService injected into the component.
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component, OnDestroy } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Product } from '@/domain/product';
-import { ProductListDemo } from './productlistdemo';
-
-@Component({
-    templateUrl: './dynamicdialogdemo.html',
-    providers: [DialogService]
-})
-export class DynamicDialogDemo implements OnDestroy {
-
-    ref: DynamicDialogRef | undefined;
-
-    constructor(public dialogService: DialogService) {}
-}
-```
-</details>
 
 ## Theming
 

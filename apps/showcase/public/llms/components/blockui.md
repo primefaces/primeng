@@ -16,7 +16,8 @@ The element to block should be placed as a child of BlockUI and blocked property
 <p-blockui [target]="pnl" [blocked]="blockedPanel" />
 <p-panel #pnl header="Header" class="mt-6">
     <p class="m-0">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
 </p-panel>
 ```
@@ -27,43 +28,32 @@ If the target element is not specified, BlockUI blocks the document by default.
 
 ```html
 <p-blockui [blocked]="blockedDocument" />
+<p-button label="Block" (click)="blockDocument()" />
 ```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { BlockUI } from 'primeng/blockui';
+import { Component } from '@angular/core';
+import { BlockUIModule } from 'primeng/blockui';
 import { ButtonModule } from 'primeng/button';
-import { Ripple } from 'primeng/ripple';
 
 @Component({
-    selector: 'block-ui-document-demo',
-    templateUrl: './block-ui-document-demo.html',
+    template: `
+        <div class="card">
+            <p-blockui [blocked]="blockedDocument" />
+            <p-button label="Block" (click)="blockDocument()" />
+        </div>
+    `,
     standalone: true,
-    imports: [BlockUI, ButtonModule, Ripple]
+    imports: [BlockUIModule, ButtonModule]
 })
-export class BlockUiDocumentDemo {
+export class BlockuiDocumentDemo {
     blockedDocument: boolean = false;
-
-    constructor(private cd: ChangeDetectorRef) {}
-
-    blockDocument() {
-        this.blockedDocument = true;
-        setTimeout(() => {
-            this.blockedDocument = false;
-            this.cd.markForCheck();
-        }, 3000);
-    }
-
 }
 ```
 </details>
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Block U I
 

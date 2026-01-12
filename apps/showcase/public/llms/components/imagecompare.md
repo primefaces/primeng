@@ -44,13 +44,22 @@ import { Component } from '@angular/core';
 import { ImageCompareModule } from 'primeng/imagecompare';
 
 @Component({
-    selector: 'image-compare-responsive-demo',
-    templateUrl: './image-compare-responsive-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-imagecompare class="sm:!w-96 shadow-lg rounded-2xl">
+                <ng-template #left>
+                    <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
+                </ng-template>
+                <ng-template #right>
+                    <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
+                </ng-template>
+            </p-imagecompare>
+        </div>
+    `,
     standalone: true,
     imports: [ImageCompareModule]
 })
-export class ImageCompareResponsiveDemo {
-}
+export class ImagecompareResponsiveDemo {}
 ```
 </details>
 

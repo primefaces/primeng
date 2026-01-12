@@ -1,12 +1,12 @@
-import { IntroductionDoc } from '@/doc/mcp/introductiondoc';
-import { ClaudeCodeDoc } from '@/doc/mcp/claudecodedoc';
-import { VSCodeDoc } from '@/doc/mcp/vscodedoc';
-import { OpenAICodexDoc } from '@/doc/mcp/openaicodexdoc';
-import { CursorDoc } from '@/doc/mcp/cursordoc';
-import { WindsurfDoc } from '@/doc/mcp/windsurfdoc';
-import { ZedDoc } from '@/doc/mcp/zeddoc';
-import { ToolsDoc } from '@/doc/mcp/toolsdoc';
-import { ExamplePromptsDoc } from '@/doc/mcp/examplepromptsdoc';
+import { IntroductionDoc } from '@/doc/mcp/introduction-doc';
+import { ClaudeCodeDoc } from '@/doc/mcp/claudecode-doc';
+import { VSCodeDoc } from '@/doc/mcp/vscode-doc';
+import { OpenAICodexDoc } from '@/doc/mcp/openaicodex-doc';
+import { CursorDoc } from '@/doc/mcp/cursor-doc';
+import { WindsurfDoc } from '@/doc/mcp/windsurf-doc';
+import { ZedDoc } from '@/doc/mcp/zed-doc';
+import { ToolsDoc } from '@/doc/mcp/tools-doc';
+import { ExamplePromptsDoc } from '@/doc/mcp/exampleprompts-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

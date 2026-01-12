@@ -27,17 +27,20 @@ When integerOnly is present, only integers can be accepted as input.
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputOtp } from 'primeng/inputotp';
 import { FormsModule } from '@angular/forms';
+import { InputOtpModule } from 'primeng/inputotp';
 
 @Component({
-    selector: 'input-otp-integer-only-demo',
-    templateUrl: './input-otp-integer-only-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-inputotp [(ngModel)]="value" [integerOnly]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputOtp]
+    imports: [InputOtpModule, FormsModule]
 })
-export class InputOtpIntegerOnlyDemo {
-    value : any
+export class InputotpIntegeronlyDemo {
+    value: any;
 }
 ```
 </details>
@@ -55,22 +58,25 @@ Enable the mask option to hide the values in the input fields.
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputOtp } from 'primeng/inputotp';
 import { FormsModule } from '@angular/forms';
+import { InputOtpModule } from 'primeng/inputotp';
 
 @Component({
-    selector: 'input-otp-mask-demo',
-    templateUrl: './input-otp-mask-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-inputotp [(ngModel)]="value" [mask]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputOtp]
+    imports: [InputOtpModule, FormsModule]
 })
-export class InputOtpMaskDemo {
+export class InputotpMaskDemo {
     value: any;
 }
 ```
 </details>
 
-## reactiveformsdoc
+## reactiveforms-doc
 
 InputOtp can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
@@ -91,32 +97,35 @@ InputOtp can also be used with reactive forms. In this case, the formControlName
 
 ```typescript
 import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { InputOtpModule } from 'primeng/inputotp';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'input-otp-reactive-forms-demo',
-    templateUrl: './input-otp-reactive-forms-demo.html',
+    template: `
+        <p-toast />
+        <div class="card flex justify-center">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <p-inputotp formControlName="value" [invalid]="isInvalid('value')" />
+                    @if (isInvalid('value')) {
+                        <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
     standalone: true,
-    imports: [ReactiveFormsModule, InputOtpModule, MessageModule, ToastModule, ButtonModule],
-    providers: [CountryService]
+    imports: [InputOtpModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
 })
-export class InputOtpReactiveFormsDemo implements OnInit {
+export class InputotpReactiveformsDemo {
     messageService = inject(MessageService);
-
     exampleForm: FormGroup | undefined;
-
     formSubmitted: boolean = false;
-
-    constructor(private fb: FormBuilder) {
-        this.exampleForm = this.fb.group({
-            value: ['', [Validators.required, Validators.minLength(4)]]
-        });
-    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -152,8 +161,8 @@ A sample UI implementation with templating and additional elements.
         </ng-template>
     </p-inputotp>
     <div class="flex justify-between mt-8 self-stretch">
-        <p-button label="Resend Code" [link]="true" class="p-0"/>
-        <p-button label="Submit Code"/>
+        <p-button label="Resend Code" [link]="true" class="p-0" />
+        <p-button label="Submit Code" />
     </div>
 </div>
 ```
@@ -164,59 +173,34 @@ A sample UI implementation with templating and additional elements.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputOtpModule } from 'primeng/inputotp';
 import { ButtonModule } from 'primeng/button';
+import { InputOtpModule } from 'primeng/inputotp';
 
 @Component({
-    selector: 'input-otp-sample-demo',
-    templateUrl: './input-otp-sample-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <div class="flex flex-col items-center">
+                <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
+                <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
+                <p-inputotp [(ngModel)]="value" [length]="6">
+                    <ng-template #input let-token let-events="events" let-index="index">
+                        <input type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
+                        <div *ngIf="index === 3" class="px-4">
+                            <i class="pi pi-minus"></i>
+                        </div>
+                    </ng-template>
+                </p-inputotp>
+                <div class="flex justify-between mt-8 self-stretch">
+                    <p-button label="Resend Code" [link]="true" class="p-0" />
+                    <p-button label="Submit Code" />
+                </div>
+            </div>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputOtpModule, ButtonModule],
-    styles: [
-        \`
-            .p-inputotp {
-                gap: 0;
-            }
-
-            .custom-otp-input {
-                width: 48px;
-                height: 48px;
-                font-size: 24px;
-                appearance: none;
-                text-align: center;
-                transition: all 0.2s;
-                border-radius: 0;
-                border: 1px solid var(--p-inputtext-border-color);
-                background: transparent;
-                outline-offset: -2px;
-                outline-color: transparent;
-                border-right: 0 none;
-                transition: outline-color 0.3s;
-                color: var(--p-inputtext-color);
-            }
-
-            .custom-otp-input:focus {
-                outline: 2px solid var(--p-focus-ring-color);
-            }
-
-            .custom-otp-input:first-child,
-            .custom-otp-input:nth-child(5) {
-                border-top-left-radius: 12px;
-                border-bottom-left-radius: 12px;
-            }
-
-            .custom-otp-input:nth-child(3),
-            .custom-otp-input:last-child {
-                border-top-right-radius: 12px;
-                border-bottom-right-radius: 12px;
-                border-right-width: 1px;
-                border-right-style: solid;
-                border-color: var(--p-inputtext-border-color);
-            }
-        \`
-    ],
+    imports: [ButtonModule, InputOtpModule, FormsModule]
 })
-export class InputOtpSampleDemo {
+export class InputotpSampleDemo {
     value: any;
 }
 ```
@@ -237,17 +221,24 @@ InputOtp provides small and large sizes as alternatives to the base.
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputOtp } from 'primeng/inputotp';
 import { FormsModule } from '@angular/forms';
+import { InputOtpModule } from 'primeng/inputotp';
 
 @Component({
-    selector: 'input-otp-sizes-demo',
-    templateUrl: './input-otp-sizes-demo.html',
+    template: `
+        <div class="card flex flex-col items-center gap-4">
+            <p-inputotp [(ngModel)]="value1" size="small" />
+            <p-inputotp [(ngModel)]="value2" />
+            <p-inputotp [(ngModel)]="value3" size="large" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputOtp]
+    imports: [InputOtpModule, FormsModule]
 })
-export class InputOtpSizesDemo {
-    value : any
+export class InputotpSizesDemo {
+    value1: any;
+    value2: any;
+    value3: any;
 }
 ```
 </details>
@@ -259,7 +250,7 @@ Define a template with your own UI elements with bindings to the provided events
 ```html
 <p-inputotp [(ngModel)]="value">
     <ng-template #input let-token let-events="events">
-        <input class="custom-otp-input" (input)="events.input($event)" (keydown)="events.keydown($event)" type="text" [attr.value]="token" [maxLength]="1" />
+        <input class="custom-otp-input" (keydown)="events.keydown($event)" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
     </ng-template>
 </p-inputotp>
 ```
@@ -269,49 +260,34 @@ Define a template with your own UI elements with bindings to the provided events
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputOtpModule } from 'primeng/inputotp';
 import { FormsModule } from '@angular/forms';
+import { InputOtpModule } from 'primeng/inputotp';
 
 @Component({
-    selector: 'input-otp-template-demo',
-    templateUrl: './input-otp-template-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-inputotp [(ngModel)]="value">
+                <ng-template #input let-token let-events="events">
+                    <input class="custom-otp-input" (keydown)="events.keydown($event)" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
+                </ng-template>
+            </p-inputotp>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputOtpModule],
-    styles: [
-        \`
-        .custom-otp-input {
-                width: 40px;
-                font-size: 36px;
-                border: 0 none;
-                appearance: none;
-                text-align: center;
-                transition: all 0.2s;
-                background: transparent;
-                border-bottom: 2px solid var(--p-inputtext-border-color);
-                border-radius: 0px;
-            }
-
-        .custom-otp-input:focus {
-                outline: 0 none;
-                border-bottom-color: var(--p-primary-color);
-        }
-        \`
-    ],
+    imports: [InputOtpModule, FormsModule]
 })
-
-export class InputOtpTemplateDemo {
+export class InputotpTemplateDemo {
     value: any;
 }
 ```
 </details>
 
-## templatedrivenformsdoc
+## templatedrivenforms-doc
 
 ```html
 <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
     <div class="flex flex-col gap-1">
         <p-inputotp #otpModel="ngModel" [(ngModel)]="value" [invalid]="otpModel.invalid && (otpModel.touched || exampleForm.submitted)" name="value" required [minlength]="4" />
-
         @if (otpModel.invalid && (otpModel.touched || exampleForm.submitted)) {
             <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
         }
@@ -326,21 +302,32 @@ export class InputOtpTemplateDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { InputOtpModule } from 'primeng/inputotp';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { InputOtpModule } from 'primeng/inputotp';
+import { MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'input-otp-template-driven-forms-demo',
-    templateUrl: './input-otp-template-driven-forms-demo.html',
+    template: `
+        <p-toast />
+        <div class="card flex justify-center">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <p-inputotp #otpModel="ngModel" [(ngModel)]="value" [invalid]="otpModel.invalid && (otpModel.touched || exampleForm.submitted)" name="value" required [minlength]="4" />
+                    @if (otpModel.invalid && (otpModel.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputOtpModule, MessageModule, ToastModule, ButtonModule]
+    imports: [InputOtpModule, MessageModule, ToastModule, ButtonModule, FormsModule]
 })
-export class TemplateDrivenFormsDemo implements OnInit {
+export class InputotpTemplatedrivenformsDemo {
     messageService = inject(MessageService);
-
     value: any;
 
     onSubmit(form: any) {

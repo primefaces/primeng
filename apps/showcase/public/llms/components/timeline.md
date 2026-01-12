@@ -16,13 +16,11 @@ Content location relative the line is defined with the align property.
         {{ event.status }}
     </ng-template>
 </p-timeline>
-
 <p-timeline [value]="events" class="w-full md:w-80" align="right">
     <ng-template #content let-event>
         {{ event.status }}
     </ng-template>
 </p-timeline>
-
 <p-timeline [value]="events" class="w-full md:w-80" align="alternate">
     <ng-template #content let-event>
         {{ event.status }}
@@ -35,7 +33,7 @@ Content location relative the line is defined with the align property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { Timeline } from 'primeng/timeline';
+import { TimelineModule } from 'primeng/timeline';
 
 interface EventItem {
     status?: string;
@@ -46,22 +44,30 @@ interface EventItem {
 }
 
 @Component({
-    selector: 'timeline-alignment-demo',
-    templateUrl: './timeline-alignment-demo.html',
+    template: `
+        <div class="card flex flex-wrap gap-12">
+            <p-timeline [value]="events" class="w-full md:w-80">
+                <ng-template #content let-event>
+                    {{ event.status }}
+                </ng-template>
+            </p-timeline>
+            <p-timeline [value]="events" class="w-full md:w-80" align="right">
+                <ng-template #content let-event>
+                    {{ event.status }}
+                </ng-template>
+            </p-timeline>
+            <p-timeline [value]="events" class="w-full md:w-80" align="alternate">
+                <ng-template #content let-event>
+                    {{ event.status }}
+                </ng-template>
+            </p-timeline>
+        </div>
+    `,
     standalone: true,
-    imports: [Timeline]
+    imports: [TimelineModule]
 })
 export class TimelineAlignmentDemo {
     events: EventItem[];
-
-    constructor() {
-        this.events = [
-            { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0', image: 'game-controller.jpg' },
-            { status: 'Processing', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' },
-            { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
-            { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' }
-        ];
-    }
 }
 ```
 </details>
@@ -88,20 +94,16 @@ TimeLine orientation is controlled with the layout property, default is vertical
         {{ event }}
     </ng-template>
 </p-timeline>
-
 <p-timeline [value]="events" layout="horizontal" align="bottom">
     <ng-template #content let-event>
         {{ event }}
     </ng-template>
 </p-timeline>
-
 <p-timeline [value]="events" layout="horizontal" align="alternate">
     <ng-template #content let-event>
         {{ event }}
     </ng-template>
-    <ng-template #opposite let-event>
-        <span>&nbsp;</span>
-    </ng-template>
+    <ng-template #opposite let-event><span>&nbsp;</span></ng-template>
 </p-timeline>
 ```
 
@@ -110,22 +112,34 @@ TimeLine orientation is controlled with the layout property, default is vertical
 
 ```typescript
 import { Component } from '@angular/core';
-import { Timeline } from 'primeng/timeline';
+import { TimelineModule } from 'primeng/timeline';
 
 @Component({
-    selector: 'timeline-horizontal-demo',
-    templateUrl: './timeline-horizontal-demo.html',
+    template: `
+        <div class="card flex flex-col gap-4">
+            <p-timeline [value]="events" layout="horizontal" align="top">
+                <ng-template #content let-event>
+                    {{ event }}
+                </ng-template>
+            </p-timeline>
+            <p-timeline [value]="events" layout="horizontal" align="bottom">
+                <ng-template #content let-event>
+                    {{ event }}
+                </ng-template>
+            </p-timeline>
+            <p-timeline [value]="events" layout="horizontal" align="alternate">
+                <ng-template #content let-event>
+                    {{ event }}
+                </ng-template>
+                <ng-template #opposite let-event><span>&nbsp;</span></ng-template>
+            </p-timeline>
+        </div>
+    `,
     standalone: true,
-    imports: [Timeline]
+    imports: [TimelineModule]
 })
 export class TimelineHorizontalDemo {
     events: string[];
-
-    constructor() {
-        this.events = [
-            "2020", "2021", "2022", "2023"
-        ];
-    }
 }
 ```
 </details>
@@ -150,7 +164,7 @@ Additional content at the other side of the line can be provided with the opposi
 
 ```typescript
 import { Component } from '@angular/core';
-import { Timeline } from 'primeng/timeline';
+import { TimelineModule } from 'primeng/timeline';
 
 interface EventItem {
     status?: string;
@@ -161,29 +175,26 @@ interface EventItem {
 }
 
 @Component({
-    selector: 'timeline-opposite-demo',
-    templateUrl: './timeline-opposite-demo.html',
+    template: `
+        <div class="card">
+            <p-timeline [value]="events">
+                <ng-template #opposite let-event>
+                    <small class="text-surface-500 dark:text-surface-400">{{ event.date }}</small>
+                </ng-template>
+                <ng-template #content let-event>
+                    {{ event.status }}
+                </ng-template>
+            </p-timeline>
+        </div>
+    `,
     standalone: true,
-    imports: [Timeline]
+    imports: [TimelineModule]
 })
 export class TimelineOppositeDemo {
     events: EventItem[];
-
-    constructor() {
-        this.events = [
-            { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0', image: 'game-controller.jpg' },
-            { status: 'Processing', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' },
-            { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
-            { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' }
-        ];
-    }
 }
 ```
 </details>
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Template
 
@@ -214,9 +225,9 @@ Sample implementation with custom content and styled markers.
 
 ```typescript
 import { Component } from '@angular/core';
-import { Timeline } from 'primeng/timeline';
-import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { TimelineModule } from 'primeng/timeline';
 
 interface EventItem {
     status?: string;
@@ -227,22 +238,32 @@ interface EventItem {
 }
 
 @Component({
-    selector: 'timeline-template-demo',
-    templateUrl: './timeline-template-demo.html',
+    template: `
+        <div class="card">
+            <p-timeline [value]="events" align="alternate" class="customized-timeline">
+                <ng-template #marker let-event>
+                    <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
+                        <i [class]="event.icon"></i>
+                    </span>
+                </ng-template>
+                <ng-template #content let-event>
+                    <p-card [header]="event.status" [subheader]="event.date">
+                        <img *ngIf="event.image" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
+                            neque quas!
+                        </p>
+                        <p-button label="Read more" [text]="true" />
+                    </p-card>
+                </ng-template>
+            </p-timeline>
+        </div>
+    `,
     standalone: true,
-    imports: [Timeline, CardModule, ButtonModule]
+    imports: [ButtonModule, CardModule, TimelineModule]
 })
 export class TimelineTemplateDemo {
     events: EventItem[];
-
-    constructor() {
-        this.events = [
-            { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0', image: 'game-controller.jpg' },
-            { status: 'Processing', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' },
-            { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
-            { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' }
-        ];
-    }
 }
 ```
 </details>

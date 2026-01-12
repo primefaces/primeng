@@ -1,6 +1,6 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { BasicDoc } from '@/doc/focustrap/basicdoc';
-import { ImportDoc } from '@/doc/focustrap/importdoc';
+import { BasicDoc } from '@/doc/focustrap/basic-doc';
+import { ImportDoc } from '@/doc/focustrap/import-doc';
 import { Component } from '@angular/core';
 
 @Component({

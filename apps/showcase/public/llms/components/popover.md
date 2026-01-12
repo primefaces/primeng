@@ -35,18 +35,18 @@ Popover is accessed via its reference and visibility is controlled using toggle 
         <div>
             <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Team Members</span>
             <ul class="list-none p-0 m-0 flex flex-col gap-4">
-                @for(member of members; track member) {
-                <li class="flex items-center gap-2">
-                    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
-                    <div>
-                        <span class="font-medium">{{ member.name }}</span>
-                        <div class="text-sm text-muted-color">{{ member.email }}</div>
-                    </div>
-                    <div class="flex items-center gap-2 text-muted-color ml-auto text-sm">
-                        <span>{{ member.role }}</span>
-                        <i class="pi pi-angle-down"></i>
-                    </div>
-                </li>
+                @for (member of members; track member) {
+                    <li class="flex items-center gap-2">
+                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
+                        <div>
+                            <span class="font-medium">{{ member.name }}</span>
+                            <div class="text-sm text-muted-color">{{ member.email }}</div>
+                        </div>
+                        <div class="flex items-center gap-2 text-muted-color ml-auto text-sm">
+                            <span>{{ member.role }}</span>
+                            <i class="pi pi-angle-down"></i>
+                        </div>
+                    </li>
                 }
             </ul>
         </div>
@@ -77,11 +77,7 @@ Place the Popover outside of the data iteration components to avoid rendering it
             <td>{{ product.name }}</td>
             <td>$ {{ product.price }}</td>
             <td>
-                <img
-                    [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
-                    [alt]="product.image"
-                    class="w-16 shadow-sm"
-                />
+                <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="w-16 shadow-sm" />
             </td>
             <td>
                 <p-button (onClick)="displayProduct($event, product)" icon="pi pi-search" severity="secondary" rounded />
@@ -94,33 +90,18 @@ Place the Popover outside of the data iteration components to avoid rendering it
         <div *ngIf="selectedProduct" class="rounded flex flex-col">
             <div class="flex justify-center rounded">
                 <div class="relative mx-auto">
-                    <img
-                        class="rounded w-44 sm:w-64"
-                        [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct.image"
-                        [alt]="selectedProduct.name"
-                    />
-                    <p-tag
-                        [value]="selectedProduct.inventoryStatus"
-                        [severity]="getSeverity(selectedProduct)"
-                        class="absolute dark:!bg-surface-900"
-                        [style.left.px]="4"
-                        [style.top.px]="4"
-                    />
+                    <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct.image" [alt]="selectedProduct.name" />
+                    <p-tag [value]="selectedProduct.inventoryStatus" [severity]="getSeverity(selectedProduct)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                 </div>
             </div>
             <div class="pt-4">
                 <div class="flex flex-row justify-between items-start gap-2 mb-4">
                     <div>
-                        <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{
-                            selectedProduct.category
-                        }}</span>
+                        <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ selectedProduct.category }}</span>
                         <div class="text-lg font-medium mt-1">{{ selectedProduct.name }}</div>
                     </div>
                     <div class="bg-surface-100 p-1" style="border-radius: 30px">
-                        <div
-                            class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2"
-                            style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
-                        >
+                        <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
                             <span class="text-surface-900 font-medium text-sm">{{ selectedProduct.rating }}</span>
                             <i class="pi pi-star-fill text-yellow-500"></i>
                         </div>
@@ -147,35 +128,89 @@ Place the Popover outside of the data iteration components to avoid rendering it
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { Popover } from 'primeng/popover';
-import { PopoverModule } from 'primeng/popover';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
-import { TableModule } from 'primeng/table';
+import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { Popover, PopoverModule } from 'primeng/popover';
+import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
+import { ProductService } from '@/service/productservice';
+import { MessageService } from 'primeng/api';
+import { Product } from '@/domain/product';
 
 @Component({
-    selector: 'popover-data-table-demo',
-    templateUrl: './popover-data-table-demo.html',
+    template: `
+        <div class="card">
+            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
+                <ng-template #header>
+                    <tr>
+                        <th class="w-1/6">Id</th>
+                        <th class="w-1/6">Code</th>
+                        <th class="w-1/6">Name</th>
+                        <th class="w-1/6">Price</th>
+                        <th class="w-1/6">Image</th>
+                        <th class="w-1/6">Details</th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-product>
+                    <tr>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.code }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>$ {{ product.price }}</td>
+                        <td>
+                            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="w-16 shadow-sm" />
+                        </td>
+                        <td>
+                            <p-button (onClick)="displayProduct($event, product)" icon="pi pi-search" severity="secondary" rounded />
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <p-popover #op (onHide)="selectedProduct = null">
+                <ng-template #content>
+                    <div *ngIf="selectedProduct" class="rounded flex flex-col">
+                        <div class="flex justify-center rounded">
+                            <div class="relative mx-auto">
+                                <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct.image" [alt]="selectedProduct.name" />
+                                <p-tag [value]="selectedProduct.inventoryStatus" [severity]="getSeverity(selectedProduct)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                            </div>
+                        </div>
+                        <div class="pt-4">
+                            <div class="flex flex-row justify-between items-start gap-2 mb-4">
+                                <div>
+                                    <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ selectedProduct.category }}</span>
+                                    <div class="text-lg font-medium mt-1">{{ selectedProduct.name }}</div>
+                                </div>
+                                <div class="bg-surface-100 p-1" style="border-radius: 30px">
+                                    <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
+                                        <span class="text-surface-900 font-medium text-sm">{{ selectedProduct.rating }}</span>
+                                        <i class="pi pi-star-fill text-yellow-500"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <p-button
+                                    icon="pi pi-shopping-cart"
+                                    [label]="'Buy Now | $' + selectedProduct.price"
+                                    [disabled]="selectedProduct.inventoryStatus === 'OUTOFSTOCK'"
+                                    class="flex-auto"
+                                    styleClass="w-full whitespace-nowrap"
+                                    (onClick)="hidePopover()"
+                                />
+                                <p-button icon="pi pi-heart" outlined (onClick)="hidePopover()" />
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-popover>
+        </div>
+    `,
     standalone: true,
-    imports: [PopoverModule, TableModule, ButtonModule, TagModule],
-    providers: [MessageService, ProductService]
+    imports: [ButtonModule, PopoverModule, TableModule, TagModule],
+    providers: [ProductService, MessageService]
 })
-export class PopoverDataTableDemo implements OnInit {
-
-    constructor(
-        private productService: ProductService,
-        private cdr: ChangeDetectorRef,
-    ) {}
-
-    @ViewChild('op') op!: Popover;
-
-    products: Product[] | undefined;
-
-    selectedProduct: Product | undefined;
+export class PopoverDatatableDemo implements OnInit {
+    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
@@ -191,7 +226,7 @@ export class PopoverDataTableDemo implements OnInit {
         } else {
             this.selectedProduct = product;
             this.op.show(event);
-
+        
             if (this.op.container) {
                 this.op.align();
             }
@@ -206,13 +241,13 @@ export class PopoverDataTableDemo implements OnInit {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
-
+        
             case 'LOWSTOCK':
                 return 'warn';
-
+        
             case 'OUTOFSTOCK':
                 return 'danger';
-
+        
             default:
                 return null;
         }
@@ -227,7 +262,6 @@ In this sample, data is retrieved from the content inside the popover.
 
 ```html
 <p-button type="button" [label]="selectedMember ? selectedMember.name : 'Select Member'" (onClick)="toggle($event)" styleClass="min-w-48" />
-
 <p-popover #op>
     <div class="flex flex-col gap-4">
         <div>
@@ -250,28 +284,38 @@ In this sample, data is retrieved from the content inside the popover.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, ViewChild } from '@angular/core';
-import { Popover } from 'primeng/popover';
-import { PopoverModule } from 'primeng/popover';
+import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { CommonModule } from '@angular/common';
+import { Popover, PopoverModule } from 'primeng/popover';
 
 @Component({
-    selector: 'popover-basic-demo',
-    templateUrl: './popover-basic-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-button type="button" [label]="selectedMember ? selectedMember.name : 'Select Member'" (onClick)="toggle($event)" styleClass="min-w-48" />
+            <p-popover #op>
+                <div class="flex flex-col gap-4">
+                    <div>
+                        <span class="font-medium block mb-2">Team Members</span>
+                        <ul class="list-none p-0 m-0 flex flex-col">
+                            <li *ngFor="let member of members" class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
+                                <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
+                                <div>
+                                    <span class="font-medium">{{ member.name }}</span>
+                                    <div class="text-sm text-surface-500 dark:text-surface-400">{{ member.email }}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </p-popover>
+        </div>
+    `,
     standalone: true,
-    imports: [PopoverModule, ButtonModule, CommonModule]
+    imports: [ButtonModule, PopoverModule]
 })
-export class PopoverBasicDemo {
-   @ViewChild('op') op!: Popover;
-
-    selectedMember = null;
-
-    members = [
-        { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
-        { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
-        { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' },
-    ];
+export class PopoverSelectdataDemo {
+    selectedMember: any = null;
+    members: any[];
 
     toggle(event) {
         this.op.toggle(event);
@@ -284,10 +328,6 @@ export class PopoverBasicDemo {
 }
 ```
 </details>
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Target
 
@@ -308,12 +348,25 @@ show method takes two parameters, first one is the event and it is mandatory. By
 
 ```typescript
 import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { PopoverModule } from 'primeng/popover';
 
 @Component({
-    selector: 'overlay-panel-target-demo',
-    templateUrl: './overlay-panel-target-demo.html'
+    template: `
+        <div class="card flex flex-col items-center gap-4">
+            <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
+            <div #targetEl class="mt-8 w-40 h-20 border border-surface rounded-border flex items-center justify-center">
+                <span>Target Element</span>
+            </div>
+            <p-popover #op>
+                <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
+            </p-popover>
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, PopoverModule]
 })
-export class OverlayPanelTargetDemo {}
+export class PopoverTargetDemo {}
 ```
 </details>
 
@@ -335,12 +388,25 @@ Content of the OverlayPanel is defined by content template.
 
 ```typescript
 import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { PopoverModule } from 'primeng/popover';
+import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
-    selector: 'overlay-panel-template-demo',
-    templateUrl: './overlay-panel-template-demo.html'
+    template: `
+        <div class="card flex justify-center">
+            <p-popover #op>
+                <ng-template #content>
+                    <h4>Custom Content</h4>
+                </ng-template>
+            </p-popover>
+            <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, PopoverModule]
 })
-export class OverlayPanelTemplateDemo {}
+export class PopoverTemplateDemo {}
 ```
 </details>
 

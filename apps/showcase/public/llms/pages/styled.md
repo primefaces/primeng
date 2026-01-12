@@ -2,103 +2,99 @@
 
 Choose from a variety of pre-styled themes or develop your own.
 
-## Architecture
+## Architecture-
 
 PrimeNG is a design agnostic library so unlike some other UI libraries it does not enforce a certain styling such as material design. Styling is decoupled from the components using the themes instead. A theme consists of two parts; base and preset . The base is the style rules with CSS variables as placeholders whereas the preset is a set of design tokens to feed a base by mapping the tokens to CSS variables. A base may be configured with different presets, currently Aura, Material, Lara and Nora are the available built-in options. The core of the styled mode architecture is based on a concept named design token , a preset defines the token configuration in 3 tiers; primitive , semantic and component . Primitive Tokens Primitive tokens have no context, a color palette is a good example for a primitive token such as blue-50 to blue-900 . A token named blue-500 may be used as the primary color, the background of a message however on its own, the name of the token does not indicate context. Usually they are utilized by the semantic tokens. Semantic Tokens Semantic tokens define content and their names indicate where they are utilized, a well known example of a semantic token is the primary.color . Semantic tokens map to primitive tokens or other semantic tokens. The colorScheme token group is a special variable to define tokens based on the color scheme active in the application, this allows defining different tokens based on the color scheme like dark mode. Component Tokens Component tokens are isolated tokens per component such as inputtext.background or button.color that map to the semantic tokens. As an example, button.background component token maps to the primary.color semantic token which maps to the green.500 primitive token. Best Practices Use primitive tokens when defining the core color palette and semantic tokens to specify the common design elements such as focus ring, primary colors and surfaces. Components tokens should only be used when customizing a specific component. By defining your own design tokens as a custom preset, you'll be able to define your own style without touching CSS. Overriding the PrimeNG components using style classes is not a best practice and should be the last resort, design tokens are the suggested approach.
 
-## Bootstrap
+## Bootstrap-
 
 Bootstrap has a reboot utility to reset the CSS of the standard elements. If you are including this utility, you may give it a layer while importing it.
 
-## Colorscheme
-
-A token can be defined per color scheme using light and dark properties of the colorScheme property. Each token can have specific values based on the current color scheme. Common Pitfall When customizing an existing preset, your token overrides may be ignored if you don't properly account for color scheme variations. If the original preset defines a token using the colorScheme property, but your customization only provides a direct value, your override will be ignored because the colorScheme property takes precedence over direct values and the system will continue using the preset's scheme-specific values. When customizing tokens that are not defined with colorScheme in the original preset, your customizations will be applied successfully regardless of how you structure them; whether direct or under colorScheme. Best Practices Check how tokens are defined in the preset before customizing from the source . Always maintain the same structure (direct value or colorScheme) as the original preset. Consider both light and dark mode values when overriding scheme-dependent tokens. This approach ensures your customizations will be applied correctly regardless of the user's selected color scheme.
-
-## Colors
+## Colors-
 
 Color palette of a preset is defined by the primitive design token group. You can access colors using CSS variables or the $dt utility. @for (color of colors; track color) { {{ color }} @for (shade of shades; track shade) { {{ shade }} } }
 
-## Component
+## Colorscheme-
+
+A token can be defined per color scheme using light and dark properties of the colorScheme property. Each token can have specific values based on the current color scheme. Common Pitfall When customizing an existing preset, your token overrides may be ignored if you don't properly account for color scheme variations. If the original preset defines a token using the colorScheme property, but your customization only provides a direct value, your override will be ignored because the colorScheme property takes precedence over direct values and the system will continue using the preset's scheme-specific values. When customizing tokens that are not defined with colorScheme in the original preset, your customizations will be applied successfully regardless of how you structure them; whether direct or under colorScheme. Best Practices Check how tokens are defined in the preset before customizing from the source . Always maintain the same structure (direct value or colorScheme) as the original preset. Consider both light and dark mode values when overriding scheme-dependent tokens. This approach ensures your customizations will be applied correctly regardless of the user's selected color scheme.
+
+## Component-
 
 The design tokens of a specific component is defined at components layer. Overriding components tokens is not the recommended approach if you are building your own style, building your own preset should be preferred instead. This configuration is global and applies to all card components, in case you need to customize a particular component on a page locally, view the Scoped CSS section for an example.
 
-## Darkmode
+## Darkmode-
 
 PrimeNG uses the system as the default darkModeSelector in theme configuration. If you have a dark mode switch in your application, set the darkModeSelector to the selector you utilize such as .my-app-dark so that PrimeNG can fit in seamlessly with your color scheme. Following is a very basic example implementation of a dark mode switch, you may extend it further by involving prefers-color-scheme to retrieve it from the system initially and use localStorage to make it stateful. See this article for more information. In case you prefer to use dark mode all the time, apply the darkModeSelector initially and never change it. It is also possible to disable dark mode completely using false or none as the value of the selector.
 
-## Definepreset
+## Definepreset-
 
 The definePreset utility is used to customize an existing preset during the PrimeNG setup. The first parameter is the preset to customize and the second is the design tokens to override.
 
-## Dt
+## Dt-
 
 The $dt function returns the information about a token like the full path and value. This would be useful if you need to access tokens programmatically.
 
-## Extend
+## Extend-
 
 The theming system can be extended by adding custom design tokens and additional styles. This feature provides a high degree of customization, allowing you to adjust styles according to your needs, as you are not limited to the default tokens. The example preset configuration adds a new accent button with custom button.accent.color and button.accent.inverse.color tokens. It is also possible to add tokens globally to share them within the components.
 
-## Focusring
+## Focusring-
 
 Focus ring defines the outline width, style, color and offset. Let's use a thicker ring with the primary color for the outline.
 
-## Font
+## Font-
 
 There is no design for fonts as UI components inherit their font settings from the application.
 
-## Forms
+## Forms-
 
 The design tokens of the form input components are derived from the form.field token group. This customization example changes border color to primary on hover. Any component that depends on this semantic token such as dropdown.hover.border.color and textarea.hover.border.color would receive the change.
 
-## Libraries
+## Libraries-
 
 Example layer configuration for the popular CSS libraries.
 
-## Noir
+## Noir-
 
 The noir mode is the nickname of a variant that uses surface tones as the primary and requires and additional colorScheme configuration to implement. A sample preset configuration with black and white variants as the primary color;
 
-## Options
+## Options-
 
 The options property defines the how the CSS would be generated from the design tokens of the preset. prefix The prefix of the CSS variables, defaults to p . For instance, the primary.color design token would be var(--p-primary-color) . darkModeSelector The CSS rule to encapsulate the CSS variables of the dark mode, the default is the system to generate {{ '@' }}media (prefers-color-scheme: dark) . If you need to make the dark mode toggleable based on the user selection define a class selector such as .app-dark and toggle this class at the document root. See the dark mode toggle section for an example. cssLayer Defines whether the styles should be defined inside a CSS layer by default or not. A CSS layer would be handy to declare a custom cascade layer for easier customization if necessary. The default is false .
 
-## Palette
+## Palette-
 
 Returns shades and tints of a given color from 50 to 950 as an array.
 
-## Presets
+## Presets-
 
 Aura, Material, Lara and Nora are the available built-in options, created to demonstrate the power of the design-agnostic theming. Aura is PrimeTek's own vision, Material follows Google Material Design v2, Lara is based on Bootstrap and Nora is inspired by enterprise applications. Visit the source code to learn more about the structure of presets. You may use them out of the box with modifications or utilize them as reference in case you need to build your own presets from scratch.
 
-## Primary
+## Primary-
 
 The primary defines the main color palette, default value maps to the emerald primitive token. Let's setup to use indigo instead.
 
-## Reset
+## Reset-
 
 In case PrimeNG components have visual issues in your application, a Reset CSS may be the culprit. CSS layers would be an efficient solution that involves enabling the PrimeNG layer, wrapping the Reset CSS in another layer and defining the layer order. This way, your Reset CSS does not get in the way of PrimeNG components.
 
-## Scale
+## Scale-
 
 PrimeNG UI component use rem units, 1rem equals to the font size of the html element which is 16px by default. Use the root font-size to adjust the size of the components globally. This website uses 14px as the base so it may differ from your application if your base font size is different.
 
-## Scopedtokens
+## Scopedtokens-
 
 Design tokens can be scoped to a certain component using the dt property. In this example, first switch uses the global tokens whereas second one overrides the global with its own tokens. This approach is recommended over the ::ng-deep as it offers a cleaner API while avoiding the hassle of CSS rule overrides.
 
-## Specificity
+## Specificity-
 
 The &#64;layer is a standard CSS feature to define cascade layers for a customizable order of precedence. If you need to become more familiar with layers, visit the documentation at MDN to begin with. The cssLayer is disabled by default, when it is enabled at theme configuration, PrimeNG wraps the built-in style classes under the primeng cascade layer to make the library styles easy to override. CSS in your app without a layer has the highest CSS specificity, so you'll be able to override styles regardless of the location or how strong a class is written.
 
-## Surface
+## Surface-
 
 The color scheme palette that varies between light and dark modes is specified with the surface tokens. Example below uses zinc for light mode and slategray for dark mode. With this setting, light mode, would have a grayscale tone and dark mode would include bluish tone.
 
-## Tailwind
-
-Tailwind CSS includes a reset utility in base called preflight . If you are using this feature, wrap the base and utilities in separate layers and make sure primeng layer comes after the base.
-
-## Theme
+## Theme-
 
 The theme property is used to customize the initial theme.
 
@@ -122,19 +118,19 @@ export const appConfig: ApplicationConfig = {
 ```
 </details>
 
-## Updatepreset
+## Updatepreset-
 
 Merges the provided tokens to the current preset, an example would be changing the primary color palette dynamically.
 
-## Updateprimarypalette
+## Updateprimarypalette-
 
 Updates the primary colors, this is a shorthand to do the same update using updatePreset .
 
-## Updatesurfacepalette
+## Updatesurfacepalette-
 
 Updates the surface colors, this is a shorthand to do the same update using updatePreset .
 
-## Usepreset
+## Usepreset-
 
 Replaces the current presets entirely, common use case is changing the preset dynamically at runtime.
 

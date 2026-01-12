@@ -1,7 +1,7 @@
-import { AnimationDoc } from '@/doc/styleclass/animationdoc';
-import { HideOnResizeDoc } from '@/doc/styleclass/hideonresizedoc';
-import { ImportDoc } from '@/doc/styleclass/importdoc';
-import { ToggleClassDoc } from '@/doc/styleclass/toggleclassdoc';
+import { AnimationDoc } from '@/doc/styleclass/animation-doc';
+import { HideOnResizeDoc } from '@/doc/styleclass/hideonresize-doc';
+import { ImportDoc } from '@/doc/styleclass/import-doc';
+import { ToggleClassDoc } from '@/doc/styleclass/toggleclass-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

@@ -32,19 +32,26 @@ Steps can be controlled programmatically using activeIndex property.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { StepsModule } from 'primeng/steps';
 import { ButtonModule } from 'primeng/button';
+import { StepsModule } from 'primeng/steps';
+import { MenuItem } from 'primeng/api';
 
 @Component({
-    selector: 'steps-controlled-demo',
-    templateUrl: './steps-controlled-demo.html',
+    template: `
+        <div class="card">
+            <div class="flex mb-8 gap-2 justify-end">
+                <p-button (click)="active = 0" [rounded]="true" label="1" styleClass="w-8 h-8 p-0" [outlined]="active !== 0" />
+                <p-button (click)="active = 1" [rounded]="true" label="2" styleClass="w-8 h-8 p-0" [outlined]="active !== 1" />
+                <p-button (click)="active = 2" [rounded]="true" label="3" styleClass="w-8 h-8 p-0" [outlined]="active !== 2" />
+            </div>
+            <p-steps [activeIndex]="active" [model]="items" />
+        </div>
+    `,
     standalone: true,
-    imports: [StepsModule, ButtonModule]
+    imports: [ButtonModule, StepsModule]
 })
 export class StepsControlledDemo implements OnInit {
     items: MenuItem[] | undefined;
-
     active: number = 0;
 
     ngOnInit() {
@@ -78,45 +85,43 @@ In order to add interactivity to the component, disable readonly and use a bindi
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { StepsModule } from 'primeng/steps';
+import { Steps, StepsModule } from 'primeng/steps';
 import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'steps-interactive-demo',
-    templateUrl: './steps-interactive-demo.html',
+    template: `
+        <div class="card">
+            <p-toast />
+            <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)" />
+        </div>
+    `,
     standalone: true,
-    imports: [StepsModule, ToastModule],
-    providers: [MessageService]
+    imports: [StepsModule, ToastModule]
 })
 export class StepsInteractiveDemo implements OnInit {
     items: MenuItem[] | undefined;
-
     activeIndex: number = 0;
 
     constructor(public messageService: MessageService) {}
-
-    onActiveIndexChange(event: number) {
-        this.activeIndex = event;
-    }
 
     ngOnInit() {
         this.items = [
             {
                 label: 'Personal',
-                command: (event: any) => this.messageService.add({severity:'info', summary:'First Step', detail: event.item.label})
+                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'First Step', detail: event.item.label })
             },
             {
                 label: 'Seat',
-                command: (event: any) => this.messageService.add({severity:'info', summary:'Second Step', detail: event.item.label})
+                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Second Step', detail: event.item.label })
             },
             {
                 label: 'Payment',
-                command: (event: any) => this.messageService.add({severity:'info', summary:'Third Step', detail: event.item.label})
+                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Third Step', detail: event.item.label })
             },
             {
                 label: 'Confirmation',
-                command: (event: any) => this.messageService.add({severity:'info', summary:'Last Step', detail: event.item.label})
+                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Last Step', detail: event.item.label })
             }
         ];
     }
@@ -129,11 +134,8 @@ export class StepsInteractiveDemo implements OnInit {
 Example below uses nested routes with Steps.
 
 ```html
-<div class="card">
-    <p-toast />
-    <p-steps [model]="items" [readonly]="false" />
-</div>
-<router-outlet></router-outlet>
+<p-toast />
+<p-steps [model]="items" [readonly]="false" />
 ```
 
 <details>
@@ -141,22 +143,25 @@ Example below uses nested routes with Steps.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { TicketService } from '@/service/ticketservice';
-import { Subscription } from 'rxjs';
-import { StepsModule } from 'primeng/steps';
+import { Steps, StepsModule } from 'primeng/steps';
 import { ToastModule } from 'primeng/toast';
+import { TicketService } from '@/service/ticketservice';
+import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'steps-routing-demo',
-    templateUrl: './steps-routing-demo.html',
+    template: `
+        <div class="card">
+            <p-toast />
+            <p-steps [model]="items" [readonly]="false" />
+        </div>
+        <router-outlet></router-outlet>
+    `,
     standalone: true,
     imports: [StepsModule, ToastModule],
-    providers: [MessageService, TicketService]
+    providers: [TicketService]
 })
 export class StepsRoutingDemo implements OnInit {
     items: MenuItem[];
-
     subscription: Subscription;
 
     constructor(public messageService: MessageService, public ticketService: TicketService) {}
@@ -165,7 +170,7 @@ export class StepsRoutingDemo implements OnInit {
         this.items = [
             {
                 label: 'Personal',
-                routerLink: 'personal'
+                routerLink: ''
             },
             {
                 label: 'Seat',
@@ -180,9 +185,12 @@ export class StepsRoutingDemo implements OnInit {
                 routerLink: 'confirmation'
             }
         ];
-
         this.subscription = this.ticketService.paymentComplete$.subscribe((personalInformation) => {
-            this.messageService.add({ severity: 'success', summary: 'Order submitted', detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.' });
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Order submitted',
+                detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.'
+            });
         });
     }
 
@@ -191,13 +199,41 @@ export class StepsRoutingDemo implements OnInit {
             this.subscription.unsubscribe();
         }
     }
+
+    nextPage() {
+        this.ticketService.ticketInformation.paymentInformation = this.paymentInformation;
+        this.router.navigate(['steps/confirmation']);
+    }
+
+    prevPage() {
+        this.router.navigate(['steps/seat']);
+    }
+
+    setVagons(event) {
+        if (this.seatInformation.class && event.value) {
+            this.vagons = [];
+            this.seats = [];
+            for (let i = 1; i < 3 * event.value.factor; i++) {
+                this.vagons.push({ wagon: i + event.value.code, type: event.value.name, factor: event.value.factor });
+            }
+        }
+    }
+
+    setSeats(event) {
+        if (this.seatInformation.wagon && event.value) {
+            this.seats = [];
+            for (let i = 1; i < 10 * event.value.factor; i++) {
+                this.seats.push({ seat: i, type: event.value.type });
+            }
+        }
+    }
+
+    complete() {
+        this.ticketService.complete();
+    }
 }
 ```
 </details>
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Theming
 

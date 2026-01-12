@@ -17,6 +17,223 @@ ConfirmPopup is defined using p-confirmPopup tag and an instance of Confirmation
 <p-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
 ```
 
+## confirmationapi-doc
+
+```html
+<div class="doc-tablewrapper">
+    <table class="doc-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>message</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Message of the confirmation.</td>
+            </tr>
+            <tr>
+                <td>key</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Optional key to match the key of the confirm popup, necessary to use when component tree has multiple confirm popups.</td>
+            </tr>
+            <tr>
+                <td>icon</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Icon to display next to the message.</td>
+            </tr>
+            <tr>
+                <td>accept</td>
+                <td>Function</td>
+                <td>null</td>
+                <td>Callback to execute when action is confirmed.</td>
+            </tr>
+            <tr>
+                <td>reject</td>
+                <td>Function</td>
+                <td>null</td>
+                <td>Callback to execute when action is rejected.</td>
+            </tr>
+            <tr>
+                <td>acceptLabel</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Label of the accept button.</td>
+            </tr>
+            <tr>
+                <td>rejectLabel</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Label of the reject button.</td>
+            </tr>
+            <tr>
+                <td>acceptIcon</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Icon of the accept button.</td>
+            </tr>
+            <tr>
+                <td>rejectIcon</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Icon of the reject button.</td>
+            </tr>
+            <tr>
+                <td>acceptVisible</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Visibility of the accept button.</td>
+            </tr>
+            <tr>
+                <td>rejectVisible</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Visibility of the reject button.</td>
+            </tr>
+            <tr>
+                <td>acceptButtonStyleClass</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Style class of the accept button.</td>
+            </tr>
+            <tr>
+                <td>rejectButtonStyleClass</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Style class of the reject button.</td>
+            </tr>
+            <tr>
+                <td>defaultFocus</td>
+                <td>string</td>
+                <td>accept</td>
+                <td>Element to receive the focus when the popup gets visible, valid values are "accept", "reject", and "none".</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    template: `
+        <div class="doc-tablewrapper">
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>message</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Message of the confirmation.</td>
+                    </tr>
+                    <tr>
+                        <td>key</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Optional key to match the key of the confirm popup, necessary to use when component tree has multiple confirm popups.</td>
+                    </tr>
+                    <tr>
+                        <td>icon</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Icon to display next to the message.</td>
+                    </tr>
+                    <tr>
+                        <td>accept</td>
+                        <td>Function</td>
+                        <td>null</td>
+                        <td>Callback to execute when action is confirmed.</td>
+                    </tr>
+                    <tr>
+                        <td>reject</td>
+                        <td>Function</td>
+                        <td>null</td>
+                        <td>Callback to execute when action is rejected.</td>
+                    </tr>
+                    <tr>
+                        <td>acceptLabel</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Label of the accept button.</td>
+                    </tr>
+                    <tr>
+                        <td>rejectLabel</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Label of the reject button.</td>
+                    </tr>
+                    <tr>
+                        <td>acceptIcon</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Icon of the accept button.</td>
+                    </tr>
+                    <tr>
+                        <td>rejectIcon</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Icon of the reject button.</td>
+                    </tr>
+                    <tr>
+                        <td>acceptVisible</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>Visibility of the accept button.</td>
+                    </tr>
+                    <tr>
+                        <td>rejectVisible</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>Visibility of the reject button.</td>
+                    </tr>
+                    <tr>
+                        <td>acceptButtonStyleClass</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Style class of the accept button.</td>
+                    </tr>
+                    <tr>
+                        <td>rejectButtonStyleClass</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Style class of the reject button.</td>
+                    </tr>
+                    <tr>
+                        <td>defaultFocus</td>
+                        <td>string</td>
+                        <td>accept</td>
+                        <td>Element to receive the focus when the popup gets visible, valid values are "accept", "reject", and "none".</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class ConfirmpopupConfirmationapiDemo {}
+```
+</details>
+
 ## Headless
 
 Headless mode allows you to customize the entire user interface instead of the default elements.
@@ -42,40 +259,171 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
-    selector: 'confirm-popup-headless-demo',
-    templateUrl: './confirm-popup-headless-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-toast />
+            <p-confirmpopup #cp>
+                <ng-template #headless let-message>
+                    <div class="rounded p-4">
+                        <span>{{ message.message }}</span>
+                        <div class="flex items-center gap-2 mt-4">
+                            <p-button (onClick)="cp.onAccept()" label="Save" size="small" [autofocus]="true" />
+                            <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
+                        </div>
+                    </div>
+                </ng-template>
+            </p-confirmpopup>
+            <p-button (onClick)="confirm($event)" label="Save" />
+        </div>
+    `,
     standalone: true,
-    imports: [ConfirmPopupModule, ToastModule, ButtonModule],
+    imports: [ButtonModule, ConfirmPopupModule, ToastModule],
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmPopupHeadlessDemo {
-   constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
-
-    confirm(event: Event) {
-        this.confirmationService.confirm({
-            target: event.target as EventTarget,
-            message: 'Save your current process?',
-            accept: () => {
-                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-            },
-            reject: () => {
-                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-            }
-        });
-    }
+export class ConfirmpopupHeadlessDemo {
+    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 }
 ```
 </details>
 
-## styledoc
+## props-doc
 
-Following is the list of structural style classes, for theming classes visit theming page.
+```html
+<div class="doc-tablewrapper">
+    <table class="doc-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>key</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.</td>
+            </tr>
+            <tr>
+                <td>showTransitionOptions</td>
+                <td>string</td>
+                <td>.12s cubic-bezier(0, 0, 0.2, 1)</td>
+                <td>Transition options of the show animation.</td>
+            </tr>
+            <tr>
+                <td>hideTransitionOptions</td>
+                <td>string</td>
+                <td>.1s linear</td>
+                <td>Transition options of the hide animation.</td>
+            </tr>
+            <tr>
+                <td>autoZIndex</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Whether to automatically manage layering.</td>
+            </tr>
+            <tr>
+                <td>baseZIndex</td>
+                <td>number</td>
+                <td>0</td>
+                <td>Base zIndex value to use in layering.</td>
+            </tr>
+            <tr>
+                <td>style</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Inline style of the component.</td>
+            </tr>
+            <tr>
+                <td>styleClass</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Style class of the component.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    template: `
+        <div class="doc-tablewrapper">
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>key</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.</td>
+                    </tr>
+                    <tr>
+                        <td>showTransitionOptions</td>
+                        <td>string</td>
+                        <td>.12s cubic-bezier(0, 0, 0.2, 1)</td>
+                        <td>Transition options of the show animation.</td>
+                    </tr>
+                    <tr>
+                        <td>hideTransitionOptions</td>
+                        <td>string</td>
+                        <td>.1s linear</td>
+                        <td>Transition options of the hide animation.</td>
+                    </tr>
+                    <tr>
+                        <td>autoZIndex</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>Whether to automatically manage layering.</td>
+                    </tr>
+                    <tr>
+                        <td>baseZIndex</td>
+                        <td>number</td>
+                        <td>0</td>
+                        <td>Base zIndex value to use in layering.</td>
+                    </tr>
+                    <tr>
+                        <td>style</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Inline style of the component.</td>
+                    </tr>
+                    <tr>
+                        <td>styleClass</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Style class of the component.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class ConfirmpopupPropsDemo {}
+```
+</details>
 
 ## Template
 
@@ -85,9 +433,7 @@ Content section can be customized using content template.
 <p-toast />
 <p-confirmpopup>
     <ng-template #content let-message>
-        <div
-            class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700 p-4 mb-4 pb-0"
-        >
+        <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700 p-4 mb-4 pb-0">
             <i [class]="message.icon" class="!text-6xl text-primary-500"></i>
             <p>{{ message.message }}</p>
         </div>
@@ -101,55 +447,94 @@ Content section can be customized using content template.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
-    selector: 'confirm-popup-template-demo',
-    templateUrl: './confirm-popup-template-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-toast />
+            <p-confirmpopup>
+                <ng-template #content let-message>
+                    <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700 p-4 mb-4 pb-0">
+                        <i [class]="message.icon" class="!text-6xl text-primary-500"></i>
+                        <p>{{ message.message }}</p>
+                    </div>
+                </ng-template>
+            </p-confirmpopup>
+            <p-button (click)="confirm($event)" label="Save" />
+        </div>
+    `,
     standalone: true,
-    imports: [ConfirmPopupModule, ToastModule, ButtonModule],
+    imports: [ButtonModule, ConfirmPopupModule, ToastModule],
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmPopupTemplateDemo {
+export class ConfirmpopupTemplateDemo {
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
-
-
-    confirm(event: Event) {
-        this.confirmationService.confirm({
-            target: event.target as EventTarget,
-            message: 'Please confirm to proceed moving forward.',
-            icon: 'pi pi-exclamation-circle',
-            rejectButtonProps: {
-                icon: 'pi pi-times',
-                label: 'Cancel',
-                outlined: true,
-            },
-            acceptButtonProps: {
-                icon: 'pi pi-check',
-                label: 'Confirm',
-            },
-            accept: () => {
-                this.messageService.add({
-                    severity: 'info',
-                    summary: 'Confirmed',
-                    detail: 'You have accepted',
-                    life: 3000,
-                });
-            },
-            reject: () => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Rejected',
-                    detail: 'You have rejected',
-                    life: 3000,
-                });
-            },
-        });
-    }
 }
+```
+</details>
+
+## templates-doc
+
+```html
+<div class="doc-tablewrapper">
+    <table class="doc-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Parameters</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>accepticon</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>rejecticon</td>
+                <td>-</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    template: `
+        <div class="doc-tablewrapper">
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>accepticon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>rejecticon</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class ConfirmpopupTemplatesDemo {}
 ```
 </details>
 

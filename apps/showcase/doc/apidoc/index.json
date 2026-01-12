@@ -25487,6 +25487,13 @@
                                 "description": "Used to pass attributes to the content's DOM element."
                             },
                             {
+                                "name": "contentWrapper",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the content's DOM element."
+                            },
+                            {
                                 "name": "icon",
                                 "optional": true,
                                 "readonly": false,
@@ -45782,7 +45789,8 @@
                             "name": "selection",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "ModelSignal<TreeNode<any> | TreeNode<any>[]>",
+                            "default": "...",
                             "description": "A single treenode instance or an array to refer to the selections."
                         },
                         {
@@ -45799,6 +45807,14 @@
                             "readonly": false,
                             "type": "any",
                             "description": "Context menu instance."
+                        },
+                        {
+                            "name": "contextMenuSelectionMode",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"separate\" | \"joint\"",
+                            "default": "joint",
+                            "description": "Defines the behavior of context menu selection, in \"separate\" mode context menu updates contextMenuSelection property whereas in joint mode selection property is used instead so that when row selection is enabled, both row selection and context menu selection use the same property."
                         },
                         {
                             "name": "contextMenuSelection",
@@ -46047,16 +46063,6 @@
                 "emits": {
                     "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
                     "values": [
-                        {
-                            "name": "selectionChange",
-                            "parameters": [
-                                {
-                                    "name": "value",
-                                    "type": "TreeNode<any"
-                                }
-                            ],
-                            "description": "Callback to invoke on selection change."
-                        },
                         {
                             "name": "onNodeSelect",
                             "parameters": [

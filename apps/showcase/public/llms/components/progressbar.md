@@ -19,6 +19,7 @@ ProgressBar is used with the value property.
 Value is reactive so updating it dynamically changes the bar as well.
 
 ```html
+<p-toast />
 <p-progressbar [value]="value" />
 ```
 
@@ -26,24 +27,27 @@ Value is reactive so updating it dynamically changes the bar as well.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, NgZone, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ProgressBar } from 'primeng/progressbar';
+import { Component, OnInit } from '@angular/core';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'progress-bar-dynamic-demo',
-    templateUrl: './progress-bar-dynamic-demo.html',
+    template: `
+        <div class="card">
+            <p-toast />
+            <p-progressbar [value]="value" />
+        </div>
+    `,
     standalone: true,
-    imports: [ProgressBar, ToastModule],
+    imports: [ProgressBarModule, ToastModule],
     providers: [MessageService]
 })
-export class ProgressBarDynamicDemo implements OnInit {
+export class ProgressbarDynamicDemo implements OnInit {
     value: number = 0;
-
     interval: any;
 
-    constructor(private messageService: MessageService, private ngZone: NgZone) {}
+    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.ngZone.runOutsideAngular(() => {
@@ -82,23 +86,22 @@ For progresses with no value to track, set the mode property to indeterminate .
 
 ```typescript
 import { Component } from '@angular/core';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { MessageService } from 'primeng/api';
-import { ProgressBar } from 'primeng/progressbar';
 
 @Component({
-    selector: 'progress-bar-indeterminate-demo',
-    templateUrl: './progress-bar-indeterminate-demo.html',
+    template: `
+        <div class="card">
+            <p-progressbar mode="indeterminate" [style]="{ height: '6px' }" />
+        </div>
+    `,
     standalone: true,
-    imports: [ProgressBar],
+    imports: [ProgressBarModule],
     providers: [MessageService]
 })
-export class ProgressBarIndeterminateDemo {}
+export class ProgressbarIndeterminateDemo {}
 ```
 </details>
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Template
 
@@ -107,7 +110,7 @@ content template allows displaying custom content inside the progressbar.
 ```html
 <p-progressbar [value]="50">
     <ng-template #content let-value>
-        <span>{{value}}/100</span>
+        <span>{{ value }}/100</span>
     </ng-template>
 </p-progressbar>
 ```
@@ -117,15 +120,22 @@ content template allows displaying custom content inside the progressbar.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ProgressBar } from 'primeng/progressbar';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
-    selector: 'progress-bar-template-demo',
-    templateUrl: './progress-bar-template-demo.html',
+    template: `
+        <div class="card">
+            <p-progressbar [value]="50">
+                <ng-template #content let-value>
+                    <span>{{ value }}/100</span>
+                </ng-template>
+            </p-progressbar>
+        </div>
+    `,
     standalone: true,
-    imports: [ProgressBar]
+    imports: [ProgressBarModule]
 })
-export class ProgressBarTemplateDemo {}
+export class ProgressbarTemplateDemo {}
 ```
 </details>
 

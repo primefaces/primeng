@@ -1,13 +1,13 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/drawer/accessibilitydoc';
-import { BasicDoc } from '@/doc/drawer/basicdoc';
-import { FullScreenDoc } from '@/doc/drawer/fullscreendoc';
-import { HeadlessDoc } from '@/doc/drawer/headlessdoc';
-import { ImportDoc } from '@/doc/drawer/importdoc';
-import { PositionDoc } from '@/doc/drawer/positiondoc';
+import { AccessibilityDoc } from '@/doc/drawer/accessibility-doc';
+import { BasicDoc } from '@/doc/drawer/basic-doc';
+import { FullScreenDoc } from '@/doc/drawer/fullscreen-doc';
+import { HeadlessDoc } from '@/doc/drawer/headless-doc';
+import { ImportDoc } from '@/doc/drawer/import-doc';
+import { PositionDoc } from '@/doc/drawer/position-doc';
 import { PTComponent } from '@/doc/drawer/pt/PTComponent';
-import { SizeDoc } from '@/doc/drawer/sizedoc';
-import { TemplateDoc } from '@/doc/drawer/templatedoc';
+import { SizeDoc } from '@/doc/drawer/size-doc';
+import { TemplateDoc } from '@/doc/drawer/template-doc';
 import { Component } from '@angular/core';
 
 @Component({

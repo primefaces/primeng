@@ -14,7 +14,7 @@ A model can be bound using the standard ngModel directive.
 <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
 ```
 
-## customtoolbardoc
+## customtoolbar-doc
 
 Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to Quill documentation for available controls.
 
@@ -35,10 +35,25 @@ Editor provides a default toolbar with common options, to customize it define yo
 
 ```typescript
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { EditorModule } from 'primeng/editor';
 
 @Component({
-    selector: 'editor-customtoolbar-demo',
-    templateUrl: './editor-customtoolbar-demo.html'
+    template: `
+        <div class="card">
+            <p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
+                <ng-template #header>
+                    <span class="ql-formats">
+                        <button type="button" class="ql-bold" aria-label="Bold"></button>
+                        <button type="button" class="ql-italic" aria-label="Italic"></button>
+                        <button type="button" class="ql-underline" aria-label="Underline"></button>
+                    </span>
+                </ng-template>
+            </p-editor>
+        </div>
+    `,
+    standalone: true,
+    imports: [EditorModule, FormsModule]
 })
 export class EditorCustomtoolbarDemo {
     text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
@@ -50,11 +65,7 @@ export class EditorCustomtoolbarDemo {
 
 Editor uses Quill editor underneath so it needs to be installed as a dependency.
 
-```html
-npm install quill
-```
-
-## reactiveformsdoc
+## reactiveforms-doc
 
 Editor can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
@@ -75,32 +86,36 @@ Editor can also be used with reactive forms. In this case, the formControlName p
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { EditorModule } from 'primeng/editor';
-import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'editor-reactive-forms-demo',
-    templateUrl: './editor-reactive-forms-demo.html',
+    template: `
+        <p-toast />
+        <div class="card ">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <p-editor formControlName="text" [invalid]="isInvalid('text')" [style]="{ height: '320px' }" />
+                    @if (isInvalid('text')) {
+                        <p-message severity="error" size="small" variant="simple">Content is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
     standalone: true,
-    imports: [ReactiveFormsModule, EditorModule, ToastModule, MessageModule, ButtonModule],
-  })
-export class EditorReactiveFormsDemo implements OnInit {
+    imports: [EditorModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+})
+export class EditorReactiveformsDemo {
     messageService = inject(MessageService);
-
     items: any[] | undefined;
-
     exampleForm: FormGroup | undefined;
-
     formSubmitted: boolean = false;
-
-    constructor(private fb: FormBuilder) {
-        this.exampleForm = this.fb.group({
-            text: ['', Validators.required]
-        });
-    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -133,13 +148,16 @@ When readonly is present, the value cannot be edited.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Editor } from 'primeng/editor';
+import { EditorModule } from 'primeng/editor';
 
 @Component({
-    selector: 'editor-readonly-demo',
-    templateUrl: './editor-readonly-demo.html',
+    template: `
+        <div class="card">
+            <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, Editor]
+    imports: [EditorModule, FormsModule]
 })
 export class EditorReadonlyDemo {
     text: string = 'Always bet on Prime!';
@@ -147,11 +165,7 @@ export class EditorReadonlyDemo {
 ```
 </details>
 
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
-
-## templatedrivenformsdoc
+## templatedrivenforms-doc
 
 ```html
 <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
@@ -171,21 +185,32 @@ Following is the list of structural style classes, for theming classes visit the
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { EditorModule } from 'primeng/editor';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { EditorModule } from 'primeng/editor';
+import { MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'editor-template-driven-forms-demo',
-    templateUrl: './editor-template-driven-forms-demo.html',
+    template: `
+        <p-toast />
+        <div class="card">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <p-editor #content="ngModel" [(ngModel)]="text" [invalid]="content.invalid && (content.touched || exampleForm.submitted)" name="content" [style]="{ height: '320px' }" required />
+                    @if (content.invalid && (content.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">Content is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, EditorModule, MessageModule, ToastModule, ButtonModule]
+    imports: [EditorModule, MessageModule, ToastModule, ButtonModule, FormsModule]
 })
-export class TemplateDrivenFormsDemo implements OnInit {
+export class EditorTemplatedrivenformsDemo {
     messageService = inject(MessageService);
-
     text: string | undefined;
 
     onSubmit(form: any) {

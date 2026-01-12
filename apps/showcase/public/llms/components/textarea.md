@@ -21,7 +21,7 @@ Screen Reader Textarea component renders a native textarea element that implicit
 When autoResize is enabled, textarea grows instead of displaying a scrollbar.
 
 ```html
-<textarea rows="5"cols="30" pTextarea [autoResize]="true"></textarea>
+<textarea rows="5" cols="30" pTextarea [autoResize]="true"></textarea>
 ```
 
 <details>
@@ -29,17 +29,17 @@ When autoResize is enabled, textarea grows instead of displaying a scrollbar.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TextareaModule } from 'primeng/textarea';
-import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'input-textarea-auto-resize-demo',
-    templateUrl: './input-textarea-auto-resize-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <textarea rows="5" cols="30" pTextarea [autoResize]="true"></textarea>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, TextareaModule]
+    imports: []
 })
-export class InputTextareaAutoResizeDemo {
-}
+export class TextareaAutoresizeDemo {}
 ```
 </details>
 
@@ -56,7 +56,7 @@ Textarea is applied to an input field with pTextarea directive.
 When disabled is present, the element cannot be edited and focused.
 
 ```html
-<textarea rows="5"cols="30" pTextarea [disabled]="true"></textarea>
+<textarea rows="5" cols="30" pTextarea [disabled]="true"></textarea>
 ```
 
 <details>
@@ -64,17 +64,17 @@ When disabled is present, the element cannot be edited and focused.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TextareaModule } from 'primeng/textarea';
-import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'input-textarea-disabled-demo',
-    templateUrl: './input-textarea-disabled-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <textarea rows="5" cols="30" pTextarea [disabled]="true"></textarea>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, TextareaModule]
+    imports: []
 })
-export class InputTextareaDisabledDemo {
-}
+export class TextareaDisabledDemo {}
 ```
 </details>
 
@@ -83,7 +83,7 @@ export class InputTextareaDisabledDemo {
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
 
 ```html
-<textarea [(ngModel)]="value" variant="filled" rows="5" cols="30" pTextarea></textarea>
+<textarea [(ngModel)]="value" [variant]="'filled'" rows="5" cols="30" pTextarea></textarea>
 ```
 
 <details>
@@ -91,17 +91,18 @@ Specify the variant property as filled to display the component with a higher vi
 
 ```typescript
 import { Component } from '@angular/core';
-import { TextareaModule } from 'primeng/textarea';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'input-textarea-filled-demo',
-    templateUrl: './input-textarea-filled-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <textarea [(ngModel)]="value" [variant]="'filled'" rows="5" cols="30" pTextarea></textarea>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, TextareaModule]
+    imports: [FormsModule]
 })
-
-export class InputTextareaFilledDemo {
+export class TextareaFilledDemo {
     value!: string;
 }
 ```
@@ -116,12 +117,10 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
     <textarea pTextarea id="over_label" [(ngModel)]="value1" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
     <label for="over_label">Over Label</label>
 </p-floatlabel>
-
 <p-floatlabel variant="in">
     <textarea pTextarea id="in_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
     <label for="in_label">In Label</label>
 </p-floatlabel>
-
 <p-floatlabel variant="on">
     <textarea pTextarea id="on_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
     <label for="on_label">On Label</label>
@@ -133,21 +132,32 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 
 ```typescript
 import { Component } from '@angular/core';
-import { TextareaModule } from 'primeng/textarea';
 import { FormsModule } from '@angular/forms';
-import { FloatLabel } from 'primeng/floatlabel';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
-    selector: ': 'input-textarea-floatlabel-demo',
-    templateUrl: './: 'input-textarea-floatlabel-demo.html',
+    template: `
+        <div class="card flex flex-wrap justify-center items-stretch gap-4">
+            <p-floatlabel>
+                <textarea pTextarea id="over_label" [(ngModel)]="value1" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+            <p-floatlabel variant="in">
+                <textarea pTextarea id="in_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <textarea pTextarea id="on_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                <label for="on_label">On Label</label>
+            </p-floatlabel>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, TextareaModule, FloatLabel]
+    imports: [FloatLabelModule, FormsModule]
 })
 export class TextareaFloatlabelDemo {
     value1: string = '';
-
     value2: string = '';
-
     value3: string = '';
 }
 ```
@@ -166,17 +176,18 @@ The fluid prop makes the component take up the full width of its container when 
 
 ```typescript
 import { Component } from '@angular/core';
-import { TextareaModule } from 'primeng/textarea';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'input-textarea-fluid-demo',
-    templateUrl: './input-textarea-fluid-demo.html',
+    template: `
+        <div class="card">
+            <textarea rows="5" cols="30" pTextarea [(ngModel)]="value" fluid></textarea>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, TextareaModule]
+    imports: [FormsModule]
 })
-
-export class InputTextareaFluidDemo {
+export class TextareaFluidDemo {
     value!: string;
 }
 ```
@@ -198,17 +209,22 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FormsModule } from '@angular/forms';
 import { IftaLabelModule } from 'primeng/iftalabel';
 
 @Component({
-    selector: ': 'input-textarea-iftalabel-demo',
-    templateUrl: './: 'input-textarea-iftalabel-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-iftalabel>
+                <textarea pTextarea id="description" [(ngModel)]="value" rows="5" cols="30" style="resize: none"></textarea>
+                <label for="description">Description</label>
+            </p-iftalabel>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, InputTextareaModule, IftaLabelModule]
+    imports: [IftaLabelModule, FormsModule]
 })
-export class TextareaIftaLabelDemo {
+export class TextareaIftalabelDemo {
     value: string = '';
 }
 ```
@@ -227,32 +243,29 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 
 ```typescript
 import { Component } from '@angular/core';
-import { TextareaModule } from 'primeng/textarea';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'input-textarea-invalid-demo',
-    templateUrl: './input-textarea-invalid-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <textarea rows="5" cols="30" pTextarea [(ngModel)]="value" [invalid]="!value" placeholder="Address"></textarea>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, TextareaModule]
+    imports: [FormsModule]
 })
-export class InputTextareaInvalidDemo {
+export class TextareaInvalidDemo {
     value!: string;
 }
 ```
 </details>
 
-## keyfilterdoc
+## keyfilter-doc
 
 InputText has built-in key filtering support to block certain keys, refer to keyfilter page for more information.
 
 ```html
-<textarea
-    pKeyFilter="int"
-    rows="5"
-    cols="30"
-    pTextarea>
-</textarea>
+<textarea pKeyFilter="int" rows="5" cols="30" pTextarea></textarea>
 ```
 
 <details>
@@ -260,28 +273,28 @@ InputText has built-in key filtering support to block certain keys, refer to key
 
 ```typescript
 import { Component } from '@angular/core';
-import { TextareaModule } from 'primeng/textarea';
-import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector:'input-textarea-key-filter-demo',
-    templateUrl: './input-textarea-key-filter-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <textarea pKeyFilter="int" rows="5" cols="30" pTextarea></textarea>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, TextareaModule]
+    imports: []
 })
-export class InputTextareaKeyFilterDemo {
-}
+export class TextareaKeyfilterDemo {}
 ```
 </details>
 
-## reactiveformsdoc
+## reactiveforms-doc
 
 Textarea can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
 ```html
 <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
     <div class="flex flex-col gap-1">
-        <textarea rows="5" cols="30" pTextarea formControlName="adress" [invalid]="isInvalid('address')"></textarea>
+        <textarea rows="5" cols="30" pTextarea formControlName="address" [invalid]="isInvalid('address')"></textarea>
         @if (isInvalid('address')) {
             <p-message severity="error" size="small" variant="simple">Address is required..</p-message>
         }
@@ -295,33 +308,35 @@ Textarea can also be used with reactive forms. In this case, the formControlName
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TextareaModule } from 'primeng/textarea';
-import { ButtonModule } from 'primeng/button';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'input-textarea-reactive-forms-demo',
-    templateUrl: './input-textarea-reactive-forms-demo.html',
+    template: `
+        <p-toast />
+        <div class="card flex justify-center">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <textarea rows="5" cols="30" pTextarea formControlName="address" [invalid]="isInvalid('address')"></textarea>
+                    @if (isInvalid('address')) {
+                        <p-message severity="error" size="small" variant="simple">Address is required..</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
     standalone: true,
-    imports: [ReactiveFormsModule, TextareaModule, ButtonModule, MessageModule, ToastModule],
+    imports: [MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
 })
-export class InputTextareaReactiveFormsDemo {
+export class TextareaReactiveformsDemo {
     messageService = inject(MessageService);
-
     items: any[] | undefined;
-
     exampleForm: FormGroup | undefined;
-
     formSubmitted: boolean = false;
-
-    constructor(private fb: FormBuilder) {
-        this.exampleForm = this.fb.group({
-            address: ['', Validators.required]
-        });
-    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -355,34 +370,35 @@ Textarea provides small and large sizes as alternatives to the base.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TextareaModule } from 'primeng/textarea';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'input-textarea-sizes-demo',
-    templateUrl: './input-textarea-sizes-demo.html',
+    template: `
+        <div class="card flex flex-col items-center gap-4">
+            <textarea pTextarea [(ngModel)]="value1" pSize="small" placeholder="Small" rows="3"></textarea>
+            <textarea pTextarea [(ngModel)]="value2" placeholder="Normal" rows="3"></textarea>
+            <textarea pTextarea [(ngModel)]="value3" pSize="large" placeholder="Large" rows="3"></textarea>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, TextareaModule]
+    imports: [FormsModule]
 })
-
-export class InputTextareaSizesDemo {
+export class TextareaSizesDemo {
     value1!: string;
-
     value2!: string;
-
     value3!: string;
 }
 ```
 </details>
 
-## templatedrivenformsdoc
+## templatedrivenforms-doc
 
 ```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
     <div class="flex flex-col gap-1">
-        <textarea rows="5" cols="30" pTextarea formControlName="adress" [invalid]="isInvalid('adress')"></textarea>
-        @if (isInvalid('adress')) {
-            <p-message severity="error" size="small" variant="simple">Address is required..</p-message>
+        <textarea name="address" #address="ngModel" rows="5" cols="30" [(ngModel)]="value" pTextarea [invalid]="address.invalid && (address.touched || exampleForm.submitted)" required></textarea>
+        @if (address.invalid && (address.touched || exampleForm.submitted)) {
+            <p-message severity="error" size="small" variant="simple">Address is required.</p-message>
         }
     </div>
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -394,45 +410,40 @@ export class InputTextareaSizesDemo {
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { TextareaModule } from 'primeng/textarea';
-import { ButtonModule } from 'primeng/button';
+import { FormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'input-textarea-template-driven-forms-demo',
-    templateUrl: './input-textarea-template-driven-forms-demo.html',
+    template: `
+        <p-toast />
+        <div class="card flex justify-center">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <textarea name="address" #address="ngModel" rows="5" cols="30" [(ngModel)]="value" pTextarea [invalid]="address.invalid && (address.touched || exampleForm.submitted)" required></textarea>
+                    @if (address.invalid && (address.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">Address is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
     standalone: true,
-    imports: [ReactiveFormsModule, TextareaModule, ButtonModule, MessageModule, ToastModule],
+    imports: [MessageModule, ToastModule, ButtonModule, FormsModule]
 })
-export class TemplateDrivenFormsDoc {
+export class TextareaTemplatedrivenformsDemo {
     messageService = inject(MessageService);
+    items: any[] = [];
+    value: any;
 
-    items: any[] | undefined;
-
-    exampleForm: FormGroup | undefined;
-
-    formSubmitted: boolean = false;
-
-    constructor(private fb: FormBuilder) {
-        this.exampleForm = this.fb.group({
-            adress: ['', Validators.required]
-        });
-    }
-
-    onSubmit() {
-        this.formSubmitted = true;
-        if (this.exampleForm.valid) {
+    onSubmit(form: any) {
+        if (form.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
-            this.exampleForm.reset();
-            this.formSubmitted = false;
+            form.resetForm();
         }
-    }
-
-    isInvalid(controlName: string) {
-        const control = this.exampleForm.get(controlName);
-        return control?.invalid && (control.touched || this.formSubmitted);
     }
 }
 ```

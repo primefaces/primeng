@@ -1,8 +1,8 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/blockui/accessibilitydoc';
-import { BasicDoc } from '@/doc/blockui/basicdoc';
-import { DocumentDoc } from '@/doc/blockui/documentdoc';
-import { ImportDoc } from '@/doc/blockui/importdoc';
+import { AccessibilityDoc } from '@/doc/blockui/accessibility-doc';
+import { BasicDoc } from '@/doc/blockui/basic-doc';
+import { DocumentDoc } from '@/doc/blockui/document-doc';
+import { ImportDoc } from '@/doc/blockui/import-doc';
 import { PTComponent } from '@/doc/blockui/pt/PTComponent';
 import { Component } from '@angular/core';
 

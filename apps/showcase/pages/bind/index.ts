@@ -1,6 +1,6 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { ExamplesDoc } from '@/doc/bind/examplesdoc';
-import { ImportDoc } from '@/doc/bind/importdoc';
+import { ExamplesDoc } from '@/doc/bind/examples-doc';
+import { ImportDoc } from '@/doc/bind/import-doc';
 import { Component } from '@angular/core';
 
 @Component({

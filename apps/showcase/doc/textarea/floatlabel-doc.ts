@@ -1,0 +1,45 @@
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { TextareaModule } from 'primeng/textarea';
+
+@Component({
+    selector: 'floatlabel-doc',
+    standalone: true,
+    imports: [FormsModule, RouterModule, AppCode, AppDocSectionText, FloatLabelModule, TextareaModule],
+    template: `
+        <app-docsectiontext>
+            <p>
+                A floating label appears on top of the input field when focused. Visit
+                <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
+            </p>
+        </app-docsectiontext>
+        <div class="card flex flex-wrap justify-center items-stretch gap-4">
+            <p-floatlabel>
+                <textarea pTextarea id="over_label" [(ngModel)]="value1" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel variant="in">
+                <textarea pTextarea id="in_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel variant="on">
+                <textarea pTextarea id="on_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                <label for="on_label">On Label</label>
+            </p-floatlabel>
+        </div>
+        <app-code></app-code>
+    `
+})
+export class FloatlabelDoc {
+    value1: string = '';
+
+    value2: string = '';
+
+    value3: string = '';
+}

@@ -10,48 +10,22 @@ Classes to apply during enter and leave animations are specified using the enter
 <div class="flex flex-col items-center">
     <div>
         <p-button pStyleClass=".box1" enterFromClass="my-hidden" enterActiveClass="my-fadein" label="FadeIn" class="mr-2" />
-        <p-button
-            pStyleClass=".box1"
-            leaveActiveClass="my-fadeout"
-            leaveToClass="my-hidden"
-            label="FadeOut"
-            severity="secondary"
-        />
+        <p-button pStyleClass=".box1" leaveActiveClass="my-fadeout" leaveToClass="my-hidden" label="FadeOut" severity="secondary" />
     </div>
     <div class="h-32">
         <div class="my-hidden animate-duration-500 box1">
-            <div
-                class="flex bg-primary text-primary-contrast items-center justify-center py-4 rounded-md mt-4 font-bold w-32 h-32"
-            >
-                Custom
-            </div>
+            <div class="flex bg-primary text-primary-contrast items-center justify-center py-4 rounded-md mt-4 font-bold w-32 h-32">Custom</div>
         </div>
     </div>
 </div>
 <div class="flex flex-col items-center">
     <div>
-        <p-button
-            pStyleClass=".box2"
-            enterFromClass="hidden"
-            enterActiveClass="animate-slidedown"
-            label="SlideDown"
-            class="mr-2"
-        />
-        <p-button
-            pStyleClass=".box2"
-            leaveActiveClass="animate-slideup"
-            leaveToClass="hidden"
-            label="SlideUp"
-            severity="secondary"
-        />
+        <p-button pStyleClass=".box2" enterFromClass="hidden" enterActiveClass="animate-slidedown" label="SlideDown" class="mr-2" />
+        <p-button pStyleClass=".box2" leaveActiveClass="animate-slideup" leaveToClass="hidden" label="SlideUp" severity="secondary" />
     </div>
     <div class="h-32">
         <div class="hidden animate-duration-500 box2 overflow-hidden">
-            <div
-                class="flex bg-primary text-primary-contrast items-center justify-center py-4 rounded-md mt-4 font-bold w-32 h-32"
-            >
-                Content
-            </div>
+            <div class="flex bg-primary text-primary-contrast items-center justify-center py-4 rounded-md mt-4 font-bold w-32 h-32">Content</div>
         </div>
     </div>
 </div>
@@ -62,49 +36,39 @@ Classes to apply during enter and leave animations are specified using the enter
 
 ```typescript
 import { Component } from '@angular/core';
-import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: './style-class-animation-demo',
-    templateUrl: './style-class-animation-demo.html',
+    template: `
+        <div class="card flex items-center justify-center gap-8">
+            <div class="flex flex-col items-center">
+                <div>
+                    <p-button pStyleClass=".box1" enterFromClass="my-hidden" enterActiveClass="my-fadein" label="FadeIn" class="mr-2" />
+                    <p-button pStyleClass=".box1" leaveActiveClass="my-fadeout" leaveToClass="my-hidden" label="FadeOut" severity="secondary" />
+                </div>
+                <div class="h-32">
+                    <div class="my-hidden animate-duration-500 box1">
+                        <div class="flex bg-primary text-primary-contrast items-center justify-center py-4 rounded-md mt-4 font-bold w-32 h-32">Custom</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col items-center">
+                <div>
+                    <p-button pStyleClass=".box2" enterFromClass="hidden" enterActiveClass="animate-slidedown" label="SlideDown" class="mr-2" />
+                    <p-button pStyleClass=".box2" leaveActiveClass="animate-slideup" leaveToClass="hidden" label="SlideUp" severity="secondary" />
+                </div>
+                <div class="h-32">
+                    <div class="hidden animate-duration-500 box2 overflow-hidden">
+                        <div class="flex bg-primary text-primary-contrast items-center justify-center py-4 rounded-md mt-4 font-bold w-32 h-32">Content</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
     standalone: true,
-    imports: [StyleClassModule, ButtonModule],
-    styles: [
-        \`:host ::ng-deep {
-                @keyframes my-fadein {
-                    0% {
-                        opacity: 0;
-                    }
-                    100% {
-                        opacity: 1;
-                    }
-                }
-
-                @keyframes my-fadeout {
-                    0% {
-                        opacity: 1;
-                    }
-                    100% {
-                        opacity: 0;
-                    }
-                }
-
-                .my-hidden {
-                    display: none;
-                }
-
-                .my-fadein {
-                    animation: my-fadein 150ms linear;
-                }
-
-                .my-fadeout {
-                    animation: my-fadeout 150ms linear;
-                }
-            } \`
-    ],
+    imports: [ButtonModule]
 })
-export class StyleClassAnimationDemo {}
+export class StyleclassAnimationDemo {}
 ```
 </details>
 
@@ -115,7 +79,16 @@ When hideOnResize is enabled, the leave animation is triggered automatically whe
 ```html
 <div class="flex flex-wrap justify-center gap-4">
     <div class="flex flex-col items-center gap-4 w-[25rem]">
-        <p-button pStyleClass=".window-responsive-box" enterFromClass="hidden" enterActiveClass="animate-fadein" leaveActiveClass="animate-fadeout" leaveToClass="hidden" [hideOnResize]="true" label="Show Window Responsive Content" />
+        <p-button
+            pStyleClass=".window-responsive-box"
+            enterFromClass="hidden"
+            enterActiveClass="animate-fadein"
+            leaveActiveClass="animate-fadeout"
+            leaveToClass="hidden"
+            [hideOnResize]="true"
+            resizeSelector="window"
+            label="Show Window Responsive Content"
+        />
         <div class="window-responsive-box hidden animate-duration-300 border border-lg border-surface">
             <div class="p-4 flex flex-col gap-2">
                 <h3 class="text-xl font-bold">Window Responsive Panel</h3>
@@ -124,7 +97,6 @@ When hideOnResize is enabled, the leave animation is triggered automatically whe
             </div>
         </div>
     </div>
-
     <div class="flex flex-col items-center gap-4 w-[25rem]">
         <p-button
             pStyleClass=".resizable-container"
@@ -136,7 +108,6 @@ When hideOnResize is enabled, the leave animation is triggered automatically whe
             resizeSelector=".resizable-container"
             label="Show Resizable Panel"
         />
-
         <div class="resizable-container hidden animate-duration-300 border border-lg border-surface w-[20rem] w-max-[25rem] w-min-[15rem] overflow-auto resize">
             <div class="p-4 h-full flex flex-col gap-2">
                 <h3 class="text-xl font-bold">Resizable Panel</h3>
@@ -153,16 +124,57 @@ When hideOnResize is enabled, the leave animation is triggered automatically whe
 
 ```typescript
 import { Component } from '@angular/core';
-import { StyleClass } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'hide-on-resize-demo',
-    templateUrl: './hide-on-resize-demo.html',
+    template: `
+        <div class="card">
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="flex flex-col items-center gap-4 w-[25rem]">
+                    <p-button
+                        pStyleClass=".window-responsive-box"
+                        enterFromClass="hidden"
+                        enterActiveClass="animate-fadein"
+                        leaveActiveClass="animate-fadeout"
+                        leaveToClass="hidden"
+                        [hideOnResize]="true"
+                        resizeSelector="window"
+                        label="Show Window Responsive Content"
+                    />
+                    <div class="window-responsive-box hidden animate-duration-300 border border-lg border-surface">
+                        <div class="p-4 flex flex-col gap-2">
+                            <h3 class="text-xl font-bold">Window Responsive Panel</h3>
+                            <p class="text-sm">This panel will hide when you resize the browser window.</p>
+                            <p class="text-sm">Try resizing your browser window to see the effect.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-4 w-[25rem]">
+                    <p-button
+                        pStyleClass=".resizable-container"
+                        enterFromClass="hidden"
+                        enterActiveClass="animate-fadein"
+                        leaveActiveClass="animate-fadeout"
+                        leaveToClass="hidden"
+                        [hideOnResize]="true"
+                        resizeSelector=".resizable-container"
+                        label="Show Resizable Panel"
+                    />
+                    <div class="resizable-container hidden animate-duration-300 border border-lg border-surface w-[20rem] w-max-[25rem] w-min-[15rem] overflow-auto resize">
+                        <div class="p-4 h-full flex flex-col gap-2">
+                            <h3 class="text-xl font-bold">Resizable Panel</h3>
+                            <p class="text-sm">Drag the resize handle in the bottom-right corner to resize this panel.</p>
+                            <p class="text-sm">The panel will hide when you resize it.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
     standalone: true,
-    imports: [StyleClass, ButtonModule]
+    imports: [ButtonModule]
 })
-export class HideOnResizeDemo {}
+export class StyleclassHideonresizeDemo {}
 ```
 </details>
 
@@ -180,17 +192,20 @@ StyleClass has two modes, toggleClass to simply add-remove a class and enter/lea
 
 ```typescript
 import { Component } from '@angular/core';
-import { StyleClass } from 'primeng/styleclass';
-import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'style-class-toggle-class-demo',
-    templateUrl: './style-class-toggle-class-demo.html',
+    template: `
+        <div class="card flex flex-col items-center">
+            <p-button label="Toggle Display" pStyleClass="@next" toggleClass="hidden" />
+            <input type="text" pInputText class="hidden mt-4" />
+        </div>
+    `,
     standalone: true,
-    imports: [StyleClass, InputTextModule, ButtonModule]
+    imports: [ButtonModule, InputTextModule]
 })
-export class StyleClassToggleClassDemo {}
+export class StyleclassToggleclassDemo {}
 ```
 </details>
 

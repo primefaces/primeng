@@ -1,8 +1,8 @@
-import { DownloadDoc } from '@/doc/installation/downloaddoc';
-import { ExamplesDoc } from '@/doc/installation/examplesdoc';
-import { NextStepsDoc } from '@/doc/installation/nextstepsdoc';
-import { ProviderDoc } from '@/doc/installation/providerdoc';
-import { VerifyDoc } from '@/doc/installation/verifydoc';
+import { DownloadDoc } from '@/doc/installation/download-doc';
+import { ExamplesDoc } from '@/doc/installation/examples-doc';
+import { NextStepsDoc } from '@/doc/installation/nextsteps-doc';
+import { ProviderDoc } from '@/doc/installation/provider-doc';
+import { VerifyDoc } from '@/doc/installation/verify-doc';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';

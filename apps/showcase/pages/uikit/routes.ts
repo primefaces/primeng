@@ -1,5 +1,5 @@
+import { OverviewDoc } from '@/doc/uikit/overview-doc';
 import { UIKitDemo } from './';
-import { OverviewDoc } from '@/doc/uikit/overviewdoc';
 
 export default [
     {
