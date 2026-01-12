@@ -202,6 +202,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                         *ngIf="checkbox && multiple"
                                         styleClass="p-listbox-option-check-icon"
                                         [ngModel]="isSelected(option)"
+                                        [readonly]="true"
                                         [disabled]="disabled || isOptionDisabled(option)"
                                         [tabindex]="-1"
                                         [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
