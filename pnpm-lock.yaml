@@ -275,11 +275,11 @@ importers:
         specifier: ~4.6.0
         version: 4.6.1
       jspdf:
-        specifier: ^3.0.2
-        version: 3.0.4
+        specifier: ^4.0.0
+        version: 4.0.0
       jspdf-autotable:
         specifier: ^3.5.28
-        version: 3.8.4(jspdf@3.0.4)
+        version: 3.8.4(jspdf@4.0.0)
       primeicons:
         specifier: 'catalog:'
         version: 7.0.0
@@ -5202,8 +5202,8 @@ packages:
     peerDependencies:
       jspdf: ^2.5.1
 
-  jspdf@3.0.4:
-    resolution: {integrity: sha512-dc6oQ8y37rRcHn316s4ngz/nOjayLF/FFxBF4V9zamQKRqXxyiH1zagkCdktdWhtoQId5K20xt1lB90XzkB+hQ==}
+  jspdf@4.0.0:
+    resolution: {integrity: sha512-w12U97Z6edKd2tXDn3LzTLg7C7QLJlx0BPfM3ecjK2BckUl9/81vZ+r5gK4/3KQdhAcEZhENUxRhtgYBj75MqQ==}
 
   karma-chrome-launcher@3.2.0:
     resolution: {integrity: sha512-rE9RkUPI7I9mAxByQWkGJFXfFD6lE4gC5nPuZdobf/QdTEJI6EU4yIay/cfU/xV4ZxlM5JiTv7zWYgA64NpS5Q==}
@@ -12501,11 +12501,11 @@ snapshots:
 
   jsonparse@1.3.1: {}
 
-  jspdf-autotable@3.8.4(jspdf@3.0.4):
+  jspdf-autotable@3.8.4(jspdf@4.0.0):
     dependencies:
-      jspdf: 3.0.4
+      jspdf: 4.0.0
 
-  jspdf@3.0.4:
+  jspdf@4.0.0:
     dependencies:
       '@babel/runtime': 7.28.4
       fast-png: 6.4.0
