@@ -190,8 +190,8 @@ importers:
         specifier: catalog:angular21
         version: 21.0.0(@angular/compiler-cli@21.0.6(@angular/compiler@21.0.6)(typescript@5.9.3))(tailwindcss@3.4.19(yaml@2.8.2))(tslib@2.8.1)(typescript@5.9.3)
       pnpm:
-        specifier: ^9.6.0
-        version: 9.15.9
+        specifier: ^10.27.0
+        version: 10.27.0
       prettier:
         specifier: ^3.0.0
         version: 3.7.4
@@ -5979,8 +5979,8 @@ packages:
   pkg-types@1.3.1:
     resolution: {integrity: sha512-/Jm5M4RvtBFVkKWRu2BLUTNP8/M2a+UwuAX+ae4770q1qVGtfjG+WTCupoZixokjmHiry8uI+dlY8KXYV5HVVQ==}
 
-  pnpm@9.15.9:
-    resolution: {integrity: sha512-aARhQYk8ZvrQHAeSMRKOmvuJ74fiaR1p5NQO7iKJiClf1GghgbrlW1hBjDolO95lpQXsfF+UA+zlzDzTfc8lMQ==}
+  pnpm@10.27.0:
+    resolution: {integrity: sha512-ctaZ2haxF5wUup5k3HHJpAmIy9xlwmTLDkidt96RfyDc9NZNhyNiXylpulLUt+KhFwaC2awqXcrqq3MrfhbwSg==}
     engines: {node: '>=18.12'}
     hasBin: true
 
@@ -13415,7 +13415,7 @@ snapshots:
       mlly: 1.8.0
       pathe: 2.0.3
 
-  pnpm@9.15.9: {}
+  pnpm@10.27.0: {}
 
   possible-typed-array-names@1.1.0: {}
 
