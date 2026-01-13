@@ -15,7 +15,7 @@ on:
           - pr
           - backlog
           - prioritize
-        default: backlog
+        default: issue
       issue_number:
         description: 'Issue number (for mode=issue)'
         type: number
