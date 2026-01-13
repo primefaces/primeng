@@ -41,26 +41,35 @@ permissions:
 jobs:
   triage:
     runs-on: ubuntu-latest
-    if: |
-      github.event_name != 'pull_request' ||
-      github.event.pull_request.head.repo.full_name == github.repository
     steps:
-      - name: Run Triage Bot
-        uses: primefaces/triage-bot@main
+      - name: Checkout triage-bot
+        uses: actions/checkout@v4
         with:
-          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          library: primeng
-          mode: |
+          repository: primefaces/triage-bot
+          token: ${{ secrets.PAT_TOKEN }}
+          path: .triage-bot
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Triage Bot
+        run: node .triage-bot/dist/index.js
+        env:
+          INPUT_ANTHROPIC-API-KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          INPUT_GITHUB-TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_LIBRARY: primeng
+          INPUT_MODE: |
             ${{
               github.event_name == 'issues' && 'issue' ||
               github.event_name == 'pull_request' && 'pr' ||
               github.event_name == 'schedule' && 'backlog' ||
               inputs.mode
             }}
-          issue-number: ${{ github.event.issue.number || inputs.issue_number }}
-          pr-number: ${{ github.event.pull_request.number || inputs.pr_number }}
-          max-issues: ${{ inputs.max_issues }}
-          dry-run: ${{ inputs.dry_run }}
-          min-upvotes: '5'
-          min-comments: '10'
+          INPUT_ISSUE-NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+          INPUT_PR-NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+          INPUT_MAX-ISSUES: ${{ inputs.max_issues || '50' }}
+          INPUT_DRY-RUN: ${{ inputs.dry_run || 'false' }}
+          INPUT_MIN-UPVOTES: '5'
+          INPUT_MIN-COMMENTS: '10'
