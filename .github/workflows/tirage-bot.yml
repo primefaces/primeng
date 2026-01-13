@@ -45,8 +45,14 @@ jobs:
       github.event_name != 'pull_request' ||
       github.event.pull_request.head.repo.full_name == github.repository
     steps:
+      - name: Checkout triage-bot action
+        uses: actions/checkout@v4
+        with:
+          repository: primefaces/triage-bot
+          path: .triage-bot-action
+
       - name: Run Triage Bot
-        uses: primefaces/triage-bot@main
+        uses: ./.triage-bot-action
         with:
           anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
