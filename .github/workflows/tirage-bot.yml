@@ -5,6 +5,8 @@ on:
     types: [opened, edited]
   pull_request:
     types: [opened, synchronize]
+  #schedule:
+    #- cron: '0 6 * * *'
   workflow_dispatch:
     inputs:
       mode:
@@ -53,10 +55,10 @@ jobs:
           anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           library: primeng
-          mode: ${{ github.event_name == 'issues' && 'issue' || github.event_name == 'pull_request' && 'pr' || inputs.mode }}
+          mode: ${{ github.event_name == 'issues' && 'issue' || github.event_name == 'pull_request' && 'pr' || github.event_name == 'schedule' && 'backlog' || inputs.mode }}
           issue-number: ${{ github.event.issue.number || inputs.issue_number }}
           pr-number: ${{ github.event.pull_request.number || inputs.pr_number }}
-          max-issues: ${{ inputs.max_issues || 5 }}
+          max-issues: ${{ inputs.max_issues }}
           dry-run: ${{ inputs.dry_run }}
           min-upvotes: '5'
           min-comments: '10'
