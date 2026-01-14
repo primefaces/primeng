@@ -50,7 +50,7 @@ import { UniqueComponentId } from 'primeng/utils';
                     </div>
                 </ng-template>
             </p-autocomplete>
-            <div *ngIf="type() === 'color'" class="absolute right-[4px] top-1/2 -mt-3 w-6 h-6 rounded-md border border-surface-300 dark:border-surface-600" [style]="{ backgroundColor: previewColor() }"></div>
+            <div *ngIf="isColorType()" class="absolute right-[4px] top-1/2 -mt-3 w-6 h-6 rounded-md border border-surface-300 dark:border-surface-600" [style]="{ backgroundColor: previewColor() }"></div>
         </div>
     </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -76,9 +76,17 @@ export class DesignTokenField implements OnInit {
 
     items: any;
 
+    isColorType = computed(() => {
+        if (this.type() === 'color') return true;
+        if (!this.label) return false;
+        const lowerName = this.label.toLowerCase();
+        const colorShades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
+        return lowerName.includes('color') || lowerName.includes('background') || colorShades.includes(this.label);
+    });
+
     inputStyleClass = computed(() => {
         const styleClass = this.isInvalid() ? 'border-red-500 dark:border-red-400 bg-red-50 dark:bg-red-500/30' : 'border-surface-300 dark:border-surface-600';
-        return this.type() === 'color' ? `!text-xs !pr-8 ${styleClass}` : `!text-xs ${styleClass}`;
+        return this.isColorType() ? `!text-xs !pr-8 ${styleClass}` : `!text-xs ${styleClass}`;
     });
 
     isInvalid = computed(() => {
