@@ -49,10 +49,10 @@ Galleria can be extended further to implement complex requirements.
                 (click)="toggleAutoSlide()"
                 class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
             ></button>
-            <span *ngIf="images" class="flex items-center gap-4 ml-3">
-                <span class="text-sm">{{ activeIndex + 1 }}/{{ images.length }}</span>
-                <span class="font-bold text-sm">{{ images[activeIndex].title }}</span>
-                <span class="text-sm">{{ images[activeIndex].alt }}</span>
+            <span *ngIf="images()" class="flex items-center gap-4 ml-3">
+                <span class="text-sm">{{ activeIndex + 1 }}/{{ images().length }}</span>
+                <span class="font-bold text-sm">{{ images()[activeIndex].title }}</span>
+                <span class="text-sm">{{ images()[activeIndex].alt }}</span>
             </span>
             <button
                 type="button"
@@ -70,7 +70,7 @@ Galleria can be extended further to implement complex requirements.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
 import { PhotoService } from '@/service/photoservice';
@@ -116,10 +116,10 @@ import { PhotoService } from '@/service/photoservice';
                             (click)="toggleAutoSlide()"
                             class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
                         ></button>
-                        <span *ngIf="images" class="flex items-center gap-4 ml-3">
-                            <span class="text-sm">{{ activeIndex + 1 }}/{{ images.length }}</span>
-                            <span class="font-bold text-sm">{{ images[activeIndex].title }}</span>
-                            <span class="text-sm">{{ images[activeIndex].alt }}</span>
+                        <span *ngIf="images()" class="flex items-center gap-4 ml-3">
+                            <span class="text-sm">{{ activeIndex + 1 }}/{{ images().length }}</span>
+                            <span class="font-bold text-sm">{{ images()[activeIndex].title }}</span>
+                            <span class="text-sm">{{ images()[activeIndex].alt }}</span>
                         </span>
                         <button
                             type="button"
@@ -138,18 +138,19 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaAdvancedDemo implements OnInit {
-    images: any[] | undefined;
+    images = signal<any[]>([]);
     showThumbnails: boolean = false;
     fullscreen: boolean = false;
     activeIndex: number = 0;
     isAutoPlay: boolean = true;
     onFullScreenListener: any;
+    responsiveOptions: any[];
 
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => {
-            this.images = images;
+            this.images.set(images);
         });
         this.bindDocumentListeners();
     }
@@ -168,8 +169,6 @@ export class GalleriaAdvancedDemo implements OnInit {
         } else {
             this.openPreviewFullScreen();
         }
-        
-        this.cd.detach();
     }
 
     openPreviewFullScreen() {
@@ -190,8 +189,6 @@ export class GalleriaAdvancedDemo implements OnInit {
 
     onFullScreenChange() {
         this.fullscreen = !this.fullscreen;
-        this.cd.detectChanges();
-        this.cd.reattach();
     }
 
     closePreviewFullScreen() {
@@ -507,7 +504,7 @@ Galleria can be controlled programmatically using the activeIndex property.
         <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
     </div>
 </div>
-<p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+<p-galleria [value]="images()" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
     <ng-template #item let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
     </ng-template>
@@ -523,7 +520,7 @@ Galleria can be controlled programmatically using the activeIndex property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GalleriaModule } from 'primeng/galleria';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -538,7 +535,7 @@ import { PhotoService } from '@/service/photoservice';
                     <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
                 </div>
             </div>
-            <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+            <p-galleria [value]="images()" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
                 </ng-template>
@@ -555,14 +552,14 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaThumbnailDemo implements OnInit {
-    images: any[] | undefined;
+    images = signal<any[]>([]);
     positionOptions: any[];
     responsiveOptions: any[];
 
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 }
 ```

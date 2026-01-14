@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
 
 @Component({
@@ -17,8 +17,8 @@ import { PickListModule } from 'primeng/picklist';
         </app-docsectiontext>
         <div class="card">
             <p-picklist
-                [source]="sourceProducts"
-                [target]="targetProducts"
+                [source]="sourceProducts()"
+                [target]="targetProducts()"
                 [dragdrop]="true"
                 [responsive]="true"
                 filterBy="name"
@@ -49,21 +49,16 @@ import { PickListModule } from 'primeng/picklist';
         <app-code [extFiles]="['Product']"></app-code>
     `
 })
-export class FilterDoc {
-    sourceProducts!: Product[];
+export class FilterDoc implements OnInit {
+    private carService = inject(ProductService);
 
-    targetProducts!: Product[];
+    sourceProducts = signal<Product[]>([]);
 
-    constructor(
-        private carService: ProductService,
-        private cdr: ChangeDetectorRef
-    ) {}
+    targetProducts = signal<Product[]>([]);
 
     ngOnInit() {
         this.carService.getProductsSmall().then((products) => {
-            this.sourceProducts = products;
-            this.cdr.markForCheck();
+            this.sourceProducts.set(products);
         });
-        this.targetProducts = [];
     }
 }

@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { PhotoService } from '@/service/photoservice';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, model } from '@angular/core';
+import { Component, inject, model, OnInit } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
@@ -25,6 +25,8 @@ import { GalleriaModule } from 'primeng/galleria';
     providers: [PhotoService]
 })
 export class ItemWithoutThumbnailsDoc implements OnInit {
+    private photoService = inject(PhotoService);
+
     images = model([]);
 
     responsiveOptions: any[] = [
@@ -41,8 +43,6 @@ export class ItemWithoutThumbnailsDoc implements OnInit {
             numVisible: 1
         }
     ];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));

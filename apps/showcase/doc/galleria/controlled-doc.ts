@@ -1,5 +1,5 @@
 import { PhotoService } from '@/service/photoservice';
-import { Component, OnInit, model } from '@angular/core';
+import { Component, inject, model, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
@@ -32,6 +32,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     `
 })
 export class ControlledDoc implements OnInit {
+    private photoService = inject(PhotoService);
+
     images = model([]);
 
     get activeIndex(): number {
@@ -56,8 +58,6 @@ export class ControlledDoc implements OnInit {
             numVisible: 1
         }
     ];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));

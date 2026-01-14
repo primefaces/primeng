@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
 
 @Component({
@@ -18,7 +18,7 @@ import { PickListModule } from 'primeng/picklist';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
+            <p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
                 <ng-template let-item #item>
                     {{ item.name }}
                 </ng-template>
@@ -27,40 +27,16 @@ import { PickListModule } from 'primeng/picklist';
         <app-code [extFiles]="['Product']"></app-code>
     `
 })
-export class BasicDoc {
-    sourceProducts!: Product[];
+export class BasicDoc implements OnInit {
+    private carService = inject(ProductService);
 
-    targetProducts!: Product[];
+    sourceProducts = signal<Product[]>([]);
 
-    constructor(
-        private carService: ProductService,
-        private cdr: ChangeDetectorRef
-    ) {}
+    targetProducts = signal<Product[]>([]);
 
     ngOnInit() {
         this.carService.getProductsSmall().then((products) => {
-            this.sourceProducts = products;
-            this.cdr.markForCheck();
+            this.sourceProducts.set(products);
         });
-        this.targetProducts = [];
     }
-
-    extFiles = [
-        {
-            path: 'src/domain/product.ts',
-            content: `
-export interface Product {
-    id?: string;
-    code?: string;
-    name?: string;
-    description?: string;
-    price?: number;
-    quantity?: number;
-    inventoryStatus?: string;
-    category?: string;
-    image?: string;
-    rating?: number;
-}`
-        }
-    ];
 }

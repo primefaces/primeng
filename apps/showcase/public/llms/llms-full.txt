@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2026-01-06
+Generated: 2026-01-14
 
 ---
 
@@ -5007,27 +5007,35 @@ Busy state is controlled with the loading property.
 **Basic Usage:**
 
 ```html
-<p-button label="Search" icon="pi pi-check" [loading]="loading" (onClick)="load()" />
+<p-button label="Search" icon="pi pi-check" [loading]="loading()" (onClick)="load()" />
 ```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-4">
-            <p-button label="Search" icon="pi pi-check" [loading]="loading" (onClick)="load()" />
+            <p-button label="Search" icon="pi pi-check" [loading]="loading()" (onClick)="load()" />
         </div>
     `,
     standalone: true,
     imports: [ButtonModule]
 })
 export class ButtonLoadingDemo {
-    loading: boolean = false;
+    loading = signal(false);
+
+    load() {
+        this.loading.set(true);
+        
+        setTimeout(() => {
+            this.loading.set(false);
+        }, 2000);
+    }
 }
 ```
 </details>
@@ -5875,7 +5883,7 @@ Carousel requires a collection of items as its value along with a template to re
 **Basic Usage:**
 
 ```html
-<p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+<p-carousel [value]="products()" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
     <ng-template let-product #item>
         <div class="border border-surface rounded-border m-2 p-4">
             <div class="mb-4">
@@ -5904,7 +5912,7 @@ When autoplayInterval is defined in milliseconds, items are scrolled automatical
 **Basic Usage:**
 
 ```html
-<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+<p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
     <ng-template let-product #item>
         <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
             <div class="mb-4">
@@ -5930,7 +5938,7 @@ When autoplayInterval is defined in milliseconds, items are scrolled automatical
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -5940,7 +5948,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card">
-            <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+            <p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
@@ -5967,15 +5975,14 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class CarouselCircularDemo implements OnInit {
-    products: Product[] | undefined;
+    products = signal<Product[]>([]);
     responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((data) => {
-            this.products = data.slice(0, 9);
-            this.cdr.detectChanges();
+            this.products.set(data.slice(0, 9));
         });
         this.responsiveOptions = [
             {
@@ -6022,7 +6029,7 @@ Carousel supports specific configuration per screen size with the responsiveOpti
 **Basic Usage:**
 
 ```html
-<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+<p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
     <ng-template let-product #item>
         <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
             <div class="mb-4">
@@ -6048,7 +6055,7 @@ Carousel supports specific configuration per screen size with the responsiveOpti
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -6058,7 +6065,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card">
-            <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+            <p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
@@ -6085,15 +6092,14 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class CarouselResponsiveDemo implements OnInit {
-    products: Product[] | undefined;
+    products = signal<Product[]>([]);
     responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
-            this.products = products;
-            this.cdr.detectChanges();
+            this.products.set(products);
         });
         this.responsiveOptions = [
             {
@@ -6118,6 +6124,17 @@ export class CarouselResponsiveDemo implements OnInit {
             }
         ];
     }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warn';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
 }
 ```
 </details>
@@ -6129,7 +6146,7 @@ To create a vertical Carousel, orientation needs to be set to vertical along wit
 **Basic Usage:**
 
 ```html
-<p-carousel [value]="products" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
+<p-carousel [value]="products()" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
     <ng-template let-product #item>
         <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
             <div class="mb-4">
@@ -6155,7 +6172,7 @@ To create a vertical Carousel, orientation needs to be set to vertical along wit
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -6165,7 +6182,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card">
-            <p-carousel [value]="products" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
+            <p-carousel [value]="products()" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
@@ -6192,14 +6209,13 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class CarouselVerticalDemo implements OnInit {
-    products: Product[] | undefined;
+    products = signal<Product[]>([]);
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
-            this.products = products;
-            this.cdr.detectChanges();
+            this.products.set(products);
         });
     }
 
@@ -18876,10 +18892,10 @@ Galleria can be extended further to implement complex requirements.
                 (click)="toggleAutoSlide()"
                 class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
             ></button>
-            <span *ngIf="images" class="flex items-center gap-4 ml-3">
-                <span class="text-sm">{{ activeIndex + 1 }}/{{ images.length }}</span>
-                <span class="font-bold text-sm">{{ images[activeIndex].title }}</span>
-                <span class="text-sm">{{ images[activeIndex].alt }}</span>
+            <span *ngIf="images()" class="flex items-center gap-4 ml-3">
+                <span class="text-sm">{{ activeIndex + 1 }}/{{ images().length }}</span>
+                <span class="font-bold text-sm">{{ images()[activeIndex].title }}</span>
+                <span class="text-sm">{{ images()[activeIndex].alt }}</span>
             </span>
             <button
                 type="button"
@@ -18897,7 +18913,7 @@ Galleria can be extended further to implement complex requirements.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
 import { PhotoService } from '@/service/photoservice';
@@ -18943,10 +18959,10 @@ import { PhotoService } from '@/service/photoservice';
                             (click)="toggleAutoSlide()"
                             class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
                         ></button>
-                        <span *ngIf="images" class="flex items-center gap-4 ml-3">
-                            <span class="text-sm">{{ activeIndex + 1 }}/{{ images.length }}</span>
-                            <span class="font-bold text-sm">{{ images[activeIndex].title }}</span>
-                            <span class="text-sm">{{ images[activeIndex].alt }}</span>
+                        <span *ngIf="images()" class="flex items-center gap-4 ml-3">
+                            <span class="text-sm">{{ activeIndex + 1 }}/{{ images().length }}</span>
+                            <span class="font-bold text-sm">{{ images()[activeIndex].title }}</span>
+                            <span class="text-sm">{{ images()[activeIndex].alt }}</span>
                         </span>
                         <button
                             type="button"
@@ -18965,18 +18981,19 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaAdvancedDemo implements OnInit {
-    images: any[] | undefined;
+    images = signal<any[]>([]);
     showThumbnails: boolean = false;
     fullscreen: boolean = false;
     activeIndex: number = 0;
     isAutoPlay: boolean = true;
     onFullScreenListener: any;
+    responsiveOptions: any[];
 
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => {
-            this.images = images;
+            this.images.set(images);
         });
         this.bindDocumentListeners();
     }
@@ -18995,8 +19012,6 @@ export class GalleriaAdvancedDemo implements OnInit {
         } else {
             this.openPreviewFullScreen();
         }
-        
-        this.cd.detach();
     }
 
     openPreviewFullScreen() {
@@ -19017,8 +19032,6 @@ export class GalleriaAdvancedDemo implements OnInit {
 
     onFullScreenChange() {
         this.fullscreen = !this.fullscreen;
-        this.cd.detectChanges();
-        this.cd.reattach();
     }
 
     closePreviewFullScreen() {
@@ -19346,7 +19359,7 @@ Galleria can be controlled programmatically using the activeIndex property.
         <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
     </div>
 </div>
-<p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+<p-galleria [value]="images()" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
     <ng-template #item let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
     </ng-template>
@@ -19362,7 +19375,7 @@ Galleria can be controlled programmatically using the activeIndex property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GalleriaModule } from 'primeng/galleria';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -19377,7 +19390,7 @@ import { PhotoService } from '@/service/photoservice';
                     <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
                 </div>
             </div>
-            <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+            <p-galleria [value]="images()" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
                 </ng-template>
@@ -19394,14 +19407,14 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaThumbnailDemo implements OnInit {
-    images: any[] | undefined;
+    images = signal<any[]>([]);
     positionOptions: any[];
     responsiveOptions: any[];
 
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 }
 ```
@@ -29180,7 +29193,7 @@ OrderList is used as a controlled input with value property. Content of a list i
 **Basic Usage:**
 
 ```html
-<p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px">
+<p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px">
     <ng-template #item let-option>
         {{ option.name }}
     </ng-template>
@@ -29194,7 +29207,7 @@ Items can be reordered using drag and drop by enabling dragdrop property. Depend
 **Basic Usage:**
 
 ```html
-<p-orderlist [value]="products" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+<p-orderlist [value]="products()" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -29220,7 +29233,7 @@ Items can be reordered using drag and drop by enabling dragdrop property. Depend
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -29228,7 +29241,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+            <p-orderlist [value]="products()" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -29255,14 +29268,13 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class OrderlistDragdropDemo implements OnInit {
-    products!: Product[];
+    products = signal<Product[]>([]);
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => {
-            this.products = cars;
-            this.cdr.detectChanges();
+            this.products.set(cars);
         });
     }
 
@@ -29287,7 +29299,7 @@ Filter value is checked against the property of an object configured with the fi
 **Basic Usage:**
 
 ```html
-<p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
+<p-orderlist [value]="products()" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -29313,7 +29325,7 @@ Filter value is checked against the property of an object configured with the fi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -29321,7 +29333,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
+            <p-orderlist [value]="products()" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -29348,14 +29360,13 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class OrderlistFilterDemo implements OnInit {
-    products!: Product[];
+    products = signal<Product[]>([]);
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => {
-            this.products = cars;
-            this.cdr.detectChanges();
+            this.products.set(cars);
         });
     }
 
@@ -29380,7 +29391,7 @@ For custom content support define an item template that gets the item instance a
 **Basic Usage:**
 
 ```html
-<p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+<p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -29406,7 +29417,7 @@ For custom content support define an item template that gets the item instance a
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -29414,7 +29425,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+            <p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -29441,14 +29452,13 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class OrderlistTemplateDemo implements OnInit {
-    products!: Product[];
+    products = signal<Product[]>([]);
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => {
-            this.products = cars;
-            this.cdr.detectChanges();
+            this.products.set(cars);
         });
     }
 
@@ -32226,7 +32236,7 @@ PickList is used as a controlled input with source and target properties. Conten
 **Basic Usage:**
 
 ```html
-<p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
+<p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
     <ng-template let-item #item>
         {{ item.name }}
     </ng-template>
@@ -32241,8 +32251,8 @@ Filter value is checked against the property of an object configured with the fi
 
 ```html
 <p-picklist
-    [source]="sourceProducts"
-    [target]="targetProducts"
+    [source]="sourceProducts()"
+    [target]="targetProducts()"
     [dragdrop]="true"
     [responsive]="true"
     filterBy="name"
@@ -32275,7 +32285,7 @@ Filter value is checked against the property of an object configured with the fi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -32284,8 +32294,8 @@ import { Product } from '@/domain/product';
     template: `
         <div class="card">
             <p-picklist
-                [source]="sourceProducts"
-                [target]="targetProducts"
+                [source]="sourceProducts()"
+                [target]="targetProducts()"
                 [dragdrop]="true"
                 [responsive]="true"
                 filterBy="name"
@@ -32319,17 +32329,15 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class PicklistFilterDemo implements OnInit {
-    sourceProducts!: Product[];
-    targetProducts!: Product[];
+    sourceProducts = signal<Product[]>([]);
+    targetProducts = signal<Product[]>([]);
 
-    constructor(private carService: ProductService) {}
+    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.carService.getProductsSmall().then((products) => {
-            this.sourceProducts = products;
-            this.cdr.markForCheck();
+            this.sourceProducts.set(products);
         });
-        this.targetProducts = [];
     }
 }
 ```
@@ -32342,7 +32350,7 @@ For custom content support define an item template that gets the item instance a
 **Basic Usage:**
 
 ```html
-<p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
+<p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -32367,7 +32375,7 @@ For custom content support define an item template that gets the item instance a
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -32375,7 +32383,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card">
-            <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
+            <p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -32401,17 +32409,15 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class PicklistTemplateDemo implements OnInit {
-    sourceProducts!: Product[];
-    targetProducts!: Product[];
+    sourceProducts = signal<Product[]>([]);
+    targetProducts = signal<Product[]>([]);
 
-    constructor(private carService: ProductService) {}
+    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.carService.getProductsSmall().then((products) => {
-            this.sourceProducts = products;
-            this.cdr.markForCheck();
+            this.sourceProducts.set(products);
         });
-        this.targetProducts = [];
     }
 }
 ```
@@ -32853,7 +32859,7 @@ Place the Popover outside of the data iteration components to avoid rendering it
 **Basic Usage:**
 
 ```html
-<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
+<p-table [value]="products()" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
     <ng-template #header>
         <tr>
             <th class="w-1/6">Id</th>
@@ -32879,24 +32885,24 @@ Place the Popover outside of the data iteration components to avoid rendering it
         </tr>
     </ng-template>
 </p-table>
-<p-popover #op (onHide)="selectedProduct = null">
+<p-popover #op (onHide)="selectedProduct.set(null)">
     <ng-template #content>
-        <div *ngIf="selectedProduct" class="rounded flex flex-col">
+        <div *ngIf="selectedProduct()" class="rounded flex flex-col">
             <div class="flex justify-center rounded">
                 <div class="relative mx-auto">
-                    <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct.image" [alt]="selectedProduct.name" />
-                    <p-tag [value]="selectedProduct.inventoryStatus" [severity]="getSeverity(selectedProduct)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                    <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
+                    <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                 </div>
             </div>
             <div class="pt-4">
                 <div class="flex flex-row justify-between items-start gap-2 mb-4">
                     <div>
-                        <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ selectedProduct.category }}</span>
-                        <div class="text-lg font-medium mt-1">{{ selectedProduct.name }}</div>
+                        <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ selectedProduct().category }}</span>
+                        <div class="text-lg font-medium mt-1">{{ selectedProduct().name }}</div>
                     </div>
                     <div class="bg-surface-100 p-1" style="border-radius: 30px">
                         <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
-                            <span class="text-surface-900 font-medium text-sm">{{ selectedProduct.rating }}</span>
+                            <span class="text-surface-900 font-medium text-sm">{{ selectedProduct().rating }}</span>
                             <i class="pi pi-star-fill text-yellow-500"></i>
                         </div>
                     </div>
@@ -32904,8 +32910,8 @@ Place the Popover outside of the data iteration components to avoid rendering it
                 <div class="flex gap-2">
                     <p-button
                         icon="pi pi-shopping-cart"
-                        [label]="'Buy Now | $' + selectedProduct.price"
-                        [disabled]="selectedProduct.inventoryStatus === 'OUTOFSTOCK'"
+                        [label]="'Buy Now | $' + selectedProduct().price"
+                        [disabled]="selectedProduct().inventoryStatus === 'OUTOFSTOCK'"
                         class="flex-auto"
                         styleClass="w-full whitespace-nowrap"
                         (onClick)="hidePopover()"
@@ -32922,7 +32928,7 @@ Place the Popover outside of the data iteration components to avoid rendering it
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Popover, PopoverModule } from 'primeng/popover';
 import { TableModule } from 'primeng/table';
@@ -32934,7 +32940,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
+            <p-table [value]="products()" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
                 <ng-template #header>
                     <tr>
                         <th class="w-1/6">Id</th>
@@ -32960,24 +32966,24 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-            <p-popover #op (onHide)="selectedProduct = null">
+            <p-popover #op (onHide)="selectedProduct.set(null)">
                 <ng-template #content>
-                    <div *ngIf="selectedProduct" class="rounded flex flex-col">
+                    <div *ngIf="selectedProduct()" class="rounded flex flex-col">
                         <div class="flex justify-center rounded">
                             <div class="relative mx-auto">
-                                <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct.image" [alt]="selectedProduct.name" />
-                                <p-tag [value]="selectedProduct.inventoryStatus" [severity]="getSeverity(selectedProduct)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
+                                <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                             </div>
                         </div>
                         <div class="pt-4">
                             <div class="flex flex-row justify-between items-start gap-2 mb-4">
                                 <div>
-                                    <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ selectedProduct.category }}</span>
-                                    <div class="text-lg font-medium mt-1">{{ selectedProduct.name }}</div>
+                                    <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ selectedProduct().category }}</span>
+                                    <div class="text-lg font-medium mt-1">{{ selectedProduct().name }}</div>
                                 </div>
                                 <div class="bg-surface-100 p-1" style="border-radius: 30px">
                                     <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
-                                        <span class="text-surface-900 font-medium text-sm">{{ selectedProduct.rating }}</span>
+                                        <span class="text-surface-900 font-medium text-sm">{{ selectedProduct().rating }}</span>
                                         <i class="pi pi-star-fill text-yellow-500"></i>
                                     </div>
                                 </div>
@@ -32985,8 +32991,8 @@ import { Product } from '@/domain/product';
                             <div class="flex gap-2">
                                 <p-button
                                     icon="pi pi-shopping-cart"
-                                    [label]="'Buy Now | $' + selectedProduct.price"
-                                    [disabled]="selectedProduct.inventoryStatus === 'OUTOFSTOCK'"
+                                    [label]="'Buy Now | $' + selectedProduct().price"
+                                    [disabled]="selectedProduct().inventoryStatus === 'OUTOFSTOCK'"
                                     class="flex-auto"
                                     styleClass="w-full whitespace-nowrap"
                                     (onClick)="hidePopover()"
@@ -33004,21 +33010,23 @@ import { Product } from '@/domain/product';
     providers: [ProductService, MessageService]
 })
 export class PopoverDatatableDemo implements OnInit {
+    products = signal<Product[]>([]);
+    selectedProduct = signal<Product | null>(null);
+
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
-            this.products = products;
-            this.cdr.markForCheck();
+            this.products.set(products);
         });
     }
 
     displayProduct(event, product) {
-        if (this.selectedProduct?.id === product.id) {
+        if (this.selectedProduct()?.id === product.id) {
             this.op.hide();
-            this.selectedProduct = null;
+            this.selectedProduct.set(null);
         } else {
-            this.selectedProduct = product;
+            this.selectedProduct.set(product);
             this.op.show(event);
         
             if (this.op.container) {
@@ -50828,8 +50836,8 @@ Headless mode allows you to customize the entire user interface instead of the d
                 <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
             </div>
             <div class="flex flex-col gap-2">
-                <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
-                <label class="text-sm font-bold text-white dark:text-black">{{ progress }}% uploaded</label>
+                <p-progressbar [value]="progress()" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
+                <label class="text-sm font-bold text-white dark:text-black">{{ progress() }}% uploaded</label>
             </div>
             <div class="flex gap-4 mb-4 justify-end">
                 <p-button label="Another Upload?" (click)="closeFn($event)" size="small" />
@@ -50845,7 +50853,7 @@ Headless mode allows you to customize the entire user interface instead of the d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
@@ -50862,8 +50870,8 @@ import { MessageService } from 'primeng/api';
                             <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
-                            <label class="text-sm font-bold text-white dark:text-black">{{ progress }}% uploaded</label>
+                            <p-progressbar [value]="progress()" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
+                            <label class="text-sm font-bold text-white dark:text-black">{{ progress() }}% uploaded</label>
                         </div>
                         <div class="flex gap-4 mb-4 justify-end">
                             <p-button label="Another Upload?" (click)="closeFn($event)" size="small" />
@@ -50881,10 +50889,37 @@ import { MessageService } from 'primeng/api';
 })
 export class ToastHeadlessDemo {
     visible: boolean = false;
-    progress: number = 0;
+    progress = signal(0);
     interval: any = null;
 
-    constructor(private messageService: MessageService) {}
+    showConfirm() {
+        if (!this.visible) {
+            this.messageService.add({
+                key: 'confirm',
+                sticky: true,
+                severity: 'custom',
+                summary: 'Uploading your files.',
+                styleClass: 'backdrop-blur-lg rounded-2xl'
+            });
+            this.visible = true;
+            this.progress.set(0);
+        
+            if (this.interval) {
+                clearInterval(this.interval);
+            }
+        
+            this.interval = setInterval(() => {
+                if (this.progress() <= 100) {
+                    this.progress.update((v) => v + 20);
+                }
+        
+                if (this.progress() >= 100) {
+                    this.progress.set(100);
+                    clearInterval(this.interval);
+                }
+            }, 1000);
+        }
+    }
 
     onClose() {
         this.visible = false;
@@ -58855,21 +58890,33 @@ TreeTable is used to display hierarchical data in tabular format.
 
 PrimeOne uses PrimeIcons, the official icon library by PrimeTek. To use it effectively within your design system, you need to add PrimeIcons to your Figma environment by following these steps: Open the PrimeIcons file in Figma and move it to your team project. Publish the PrimeIcons file and enable it for all team files in your Team Settings. Return to your PrimeOne file. In the Libraries panel, click on the banner that says “Includes X missing libraries.” From the dropdown, select “ PrimeIcons (Community) ” and click the Swap Library button.
 
+## cipipeline-doc
+
+Theme Designer offers an API that can be utilized to implement continuos integration pipelines to automate figma to theme code generation whenever you push updates to the repository from Figma. Visit the CI Pipeline documentation for comprehensive information.
+
+## Collections
+
+Primitive This collection contains the most foundational variables, such as base colors and border radius, elements that are considered "primitive" by nature. Semantic Common & Semantic Color Scheme Includes essential system-wide variables like primary, surface, and other shared design values It also defines variables used across multiple component groups. For example, variables under form/field are referenced by component-level variables in InputText, MultiSelect, Checkbox, and other form components, enabling consistent styling across the board. Component Common & Component Color Scheme These variables are defined specifically for each component to allow deep customization. While we've aimed to create dedicated variables for every component state, many of them still reference the semantic or primitive variables, allowing you to make global updates from a single place when needed. App Variables in this collection are not part of the PrimeUIX system. They are intended for values defined in your own application. The same applies to variables used in our UI library showcases. For example, there is no dedicated font size variable in PrimeUIX because font styles are not part of the design system. UI components inherit their font settings from the application. Custom If you're using the Figma to Theme feature and want your newly created custom variables to appear in your Theme Designer themes, place them in this collection. Even if you're not using the Theme Designer, we still recommend creating a separate collection — or using the existing "Custom" collection — for your own variables. Making changes to the default collections, especially deleting variables or altering reference values, can lead to inconsistencies with the library variables and cause additional work during development.
+
 ## guideoverview-doc
 
 PrimeOne is the official Figma library of UI components designed to match the implementations in the Prime UI Suites. The current iteration of PrimeOne is structured around the Aura Light and Aura Dark themes.
 
+## importantnotice-doc
+
+Starting from PrimeOne UI Kit version 4.0, the Tokens Studio plugin is no longer used. We've fully migrated to Figma's native variable features, which now power the system. If you prefer to continue working with Tokens Studio, please use PrimeOne UI Kit version 3.2, which still supports the plugin.
+
+## Limitations
+
+Current known technical limitations are listed at this section. Multiple-value variables - Figma currently supports only a single value per variable. For this reason, multi-value tokens defined in PrimeUIX—such as padding or margin, which can contain multiple values—are represented in Figma as separate variables for each side (top/right/bottom/left) or axis (x/y), unlike the combined multi-value CSS definitions in PrimeUIX. Calculations - Since Figma does not yet allow calculations within variable definitions, values that rely on expressions like calc() cannot function dynamically. In these cases, any adjustments you make may require manual updates. Focus Rings - In Tokens Studio, focus rings could be positioned by calculating the outer stroke distance using expressions such as focus.ring.width + focus.ring.offset. Since Figma Variables do not support arithmetic operations, these calculations cannot be reproduced. As a result, focus ring width values are no longer dynamically linked and must be handled as static values. Color Mix - Figma Variables do not currently support color mix modifiers. Values in PrimeUIX that rely on color mixing have therefore been converted into raw hex values when brought into Figma Variables.
+
 ## resources-doc
 
-PrimeOne for Figma takes full advantage of powerful Figma features such as components, variants, auto layout, styles, interactivity, and design tokens via Tokens Studio. If you're new to Figma or want to get the most out of PrimeOne, we recommend exploring the following resources: Tokens Studio Documentation - PrimeOne uses Tokens Studio for design token management. Visit the official docs to understand how it works and how to use it effectively. Figma's Best Practice Guides - Learn how to work efficiently with components, variants, and layouts. Figma's Official YouTube Channel - Tutorials and feature walkthroughs from the Figma team. Figmalion Newsletter - Stay updated with curated insights from the Figma community.
+PrimeOne for Figma takes full advantage of powerful Figma features such as components, variants, auto layout, styles, prototypes, and variables. If you're new to Figma or want to get the most out of PrimeOne, we recommend exploring the following resources: Variables - PrimeOne uses Figma Variables for design token management. Visit the official docs to understand how it works and how to use it effectively. Figma's Best Practice Guides - Learn how to work efficiently with components, variants, and layouts. Figma's Official YouTube Channel - Tutorials and feature walkthroughs from the Figma team. Figmalion Newsletter - Stay updated with curated insights from the Figma community.
 
 ## support-doc
 
 The community gathers on GitHub Discussions and Discord to ask questions, share ideas, and discuss the technology. For direct inquiries or suggestions, feel free to contact us at contact&#64;primetek.com.tr .
-
-## tokensets-doc
-
-Primitive This set contains the most foundational tokens, such as base colors and border radius, elements that are considered “primitive” by nature. Semantic Includes essential system-wide tokens like primary, surface, and other shared design values It also defines tokens used across multiple component groups. For example, tokens under &#123;form.field.*&#125; are referenced by component-level tokens in InputText, MultiSelect, Checkbox, and other form components, enabling consistent styling across the board. Component These tokens are defined specifically for each component to allow deep customization While we've aimed to create dedicated tokens for every component state, many of them still reference the semantic or primitive tokens, allowing you to make global updates from a single place when needed. App Tokens in this set are not part of the PrimeUIX system. They are intended for values defined in your own application. The same applies to tokens used in our UI library showcases. For example, there is no dedicated font size token in PrimeUIX because font styles are not part of the design system. UI components inherit their font settings from the application. Custom If you're using the Figma to Theme feature and want your newly created custom tokens to appear in your Theme Designer themes, place them in this set. Even if you're not using the Theme Designer, we still recommend creating a separate set — or using the existing “Custom” set — for your own tokens. Making changes to the default sets, especially deleting tokens or altering reference values, can lead to inconsistencies with the library tokens and cause additional work during development.
 
 ## updateprimeone-doc
 

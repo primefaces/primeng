@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -17,7 +17,7 @@ import { TagModule } from 'primeng/tag';
             <p>Carousel requires a collection of items as its value along with a template to render each item.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+            <p-carousel [value]="products()" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
                 <ng-template let-product #item>
                     <div class="border border-surface rounded-border m-2 p-4">
                         <div class="mb-4">
@@ -42,19 +42,15 @@ import { TagModule } from 'primeng/tag';
     `
 })
 export class BasicDoc implements OnInit {
-    products: Product[] | undefined;
+    private productService = inject(ProductService);
+
+    products = signal<Product[]>([]);
 
     responsiveOptions: any[] | undefined;
 
-    constructor(
-        private productService: ProductService,
-        private cdr: ChangeDetectorRef
-    ) {}
-
     ngOnInit() {
         this.productService.getProductsSmall().then((data) => {
-            this.products = data.slice(0, 9);
-            this.cdr.detectChanges();
+            this.products.set(data.slice(0, 9));
         });
 
         this.responsiveOptions = [

@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { PhotoService } from '@/service/photoservice';
 import { CommonModule } from '@angular/common';
-import { Component, model, OnInit } from '@angular/core';
+import { Component, inject, model, OnInit } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
@@ -40,6 +40,8 @@ import { GalleriaModule } from 'primeng/galleria';
     `
 })
 export class CustomContentDoc implements OnInit {
+    private photoService = inject(PhotoService);
+
     displayCustom: boolean | undefined;
 
     activeIndex: number = 0;
@@ -60,8 +62,6 @@ export class CustomContentDoc implements OnInit {
             numVisible: 1
         }
     ];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));

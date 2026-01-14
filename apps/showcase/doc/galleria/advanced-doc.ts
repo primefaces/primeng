@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { PhotoService } from '@/service/photoservice';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Galleria, GalleriaModule } from 'primeng/galleria';
 
@@ -53,10 +53,10 @@ import { Galleria, GalleriaModule } from 'primeng/galleria';
                             (click)="toggleAutoSlide()"
                             class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
                         ></button>
-                        <span *ngIf="images" class="flex items-center gap-4 ml-3">
-                            <span class="text-sm">{{ activeIndex + 1 }}/{{ images.length }}</span>
-                            <span class="font-bold text-sm">{{ images[activeIndex].title }}</span>
-                            <span class="text-sm">{{ images[activeIndex].alt }}</span>
+                        <span *ngIf="images()" class="flex items-center gap-4 ml-3">
+                            <span class="text-sm">{{ activeIndex + 1 }}/{{ images().length }}</span>
+                            <span class="font-bold text-sm">{{ images()[activeIndex].title }}</span>
+                            <span class="text-sm">{{ images()[activeIndex].alt }}</span>
                         </span>
                         <button
                             type="button"
@@ -73,7 +73,10 @@ import { Galleria, GalleriaModule } from 'primeng/galleria';
     `
 })
 export class AdvancedDoc implements OnInit, OnDestroy {
-    images: any[] | undefined;
+    private platformId = inject(PLATFORM_ID);
+    private photoService = inject(PhotoService);
+
+    images = signal<any[]>([]);
 
     showThumbnails: boolean = false;
 
@@ -99,12 +102,6 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     @ViewChild('galleria') galleria: Galleria | undefined;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private photoService: PhotoService,
-        private cd: ChangeDetectorRef
-    ) {}
-
     responsiveOptions: any[] = [
         {
             breakpoint: '1300px',
@@ -118,8 +115,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.photoService.getImages().then((images) => {
-            this.images = images;
-            this.cd.markForCheck();
+            this.images.set(images);
         });
         this.bindDocumentListeners();
     }
@@ -138,8 +134,6 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         } else {
             this.openPreviewFullScreen();
         }
-
-        this.cd.detach();
     }
 
     openPreviewFullScreen() {
@@ -160,8 +154,6 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     onFullScreenChange() {
         this.fullscreen = !this.fullscreen;
-        this.cd.detectChanges();
-        this.cd.reattach();
     }
 
     closePreviewFullScreen() {

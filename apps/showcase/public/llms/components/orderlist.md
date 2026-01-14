@@ -11,7 +11,7 @@ Screen Reader Value to describe the source listbox and target listbox can be pro
 OrderList is used as a controlled input with value property. Content of a list item needs to be defined with the item template that receives an object in the list as parameter.
 
 ```html
-<p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px">
+<p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px">
     <ng-template #item let-option>
         {{ option.name }}
     </ng-template>
@@ -23,7 +23,7 @@ OrderList is used as a controlled input with value property. Content of a list i
 Items can be reordered using drag and drop by enabling dragdrop property. Depends on &#64;angular/cdk package.
 
 ```html
-<p-orderlist [value]="products" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+<p-orderlist [value]="products()" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -49,7 +49,7 @@ Items can be reordered using drag and drop by enabling dragdrop property. Depend
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -57,7 +57,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+            <p-orderlist [value]="products()" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -84,14 +84,13 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class OrderlistDragdropDemo implements OnInit {
-    products!: Product[];
+    products = signal<Product[]>([]);
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => {
-            this.products = cars;
-            this.cdr.detectChanges();
+            this.products.set(cars);
         });
     }
 
@@ -114,7 +113,7 @@ export class OrderlistDragdropDemo implements OnInit {
 Filter value is checked against the property of an object configured with the filterBy property
 
 ```html
-<p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
+<p-orderlist [value]="products()" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -140,7 +139,7 @@ Filter value is checked against the property of an object configured with the fi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -148,7 +147,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
+            <p-orderlist [value]="products()" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -175,14 +174,13 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class OrderlistFilterDemo implements OnInit {
-    products!: Product[];
+    products = signal<Product[]>([]);
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => {
-            this.products = cars;
-            this.cdr.detectChanges();
+            this.products.set(cars);
         });
     }
 
@@ -205,7 +203,7 @@ export class OrderlistFilterDemo implements OnInit {
 For custom content support define an item template that gets the item instance as a parameter. In addition header template is provided for further customization.
 
 ```html
-<p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+<p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -231,7 +229,7 @@ For custom content support define an item template that gets the item instance a
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -239,7 +237,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+            <p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -266,14 +264,13 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class OrderlistTemplateDemo implements OnInit {
-    products!: Product[];
+    products = signal<Product[]>([]);
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => {
-            this.products = cars;
-            this.cdr.detectChanges();
+            this.products.set(cars);
         });
     }
 

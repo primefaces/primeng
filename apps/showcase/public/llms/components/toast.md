@@ -69,8 +69,8 @@ Headless mode allows you to customize the entire user interface instead of the d
                 <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
             </div>
             <div class="flex flex-col gap-2">
-                <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
-                <label class="text-sm font-bold text-white dark:text-black">{{ progress }}% uploaded</label>
+                <p-progressbar [value]="progress()" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
+                <label class="text-sm font-bold text-white dark:text-black">{{ progress() }}% uploaded</label>
             </div>
             <div class="flex gap-4 mb-4 justify-end">
                 <p-button label="Another Upload?" (click)="closeFn($event)" size="small" />
@@ -86,7 +86,7 @@ Headless mode allows you to customize the entire user interface instead of the d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
@@ -103,8 +103,8 @@ import { MessageService } from 'primeng/api';
                             <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
-                            <label class="text-sm font-bold text-white dark:text-black">{{ progress }}% uploaded</label>
+                            <p-progressbar [value]="progress()" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
+                            <label class="text-sm font-bold text-white dark:text-black">{{ progress() }}% uploaded</label>
                         </div>
                         <div class="flex gap-4 mb-4 justify-end">
                             <p-button label="Another Upload?" (click)="closeFn($event)" size="small" />
@@ -122,10 +122,37 @@ import { MessageService } from 'primeng/api';
 })
 export class ToastHeadlessDemo {
     visible: boolean = false;
-    progress: number = 0;
+    progress = signal(0);
     interval: any = null;
 
-    constructor(private messageService: MessageService) {}
+    showConfirm() {
+        if (!this.visible) {
+            this.messageService.add({
+                key: 'confirm',
+                sticky: true,
+                severity: 'custom',
+                summary: 'Uploading your files.',
+                styleClass: 'backdrop-blur-lg rounded-2xl'
+            });
+            this.visible = true;
+            this.progress.set(0);
+        
+            if (this.interval) {
+                clearInterval(this.interval);
+            }
+        
+            this.interval = setInterval(() => {
+                if (this.progress() <= 100) {
+                    this.progress.update((v) => v + 20);
+                }
+        
+                if (this.progress() >= 100) {
+                    this.progress.set(100);
+                    clearInterval(this.interval);
+                }
+            }, 1000);
+        }
+    }
 
     onClose() {
         this.visible = false;

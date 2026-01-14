@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { PhotoService } from '@/service/photoservice';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, model } from '@angular/core';
+import { Component, inject, model, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { GalleriaModule } from 'primeng/galleria';
 
@@ -36,6 +36,8 @@ import { GalleriaModule } from 'primeng/galleria';
     `
 })
 export class WithoutThumbnailsDoc implements OnInit {
+    private photoService = inject(PhotoService);
+
     displayBasic: boolean | undefined;
 
     images = model([]);
@@ -58,8 +60,6 @@ export class WithoutThumbnailsDoc implements OnInit {
             numVisible: 1
         }
     ];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));

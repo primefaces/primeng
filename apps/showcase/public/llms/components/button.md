@@ -394,27 +394,35 @@ export class ButtonLinkDemo {}
 Busy state is controlled with the loading property.
 
 ```html
-<p-button label="Search" icon="pi pi-check" [loading]="loading" (onClick)="load()" />
+<p-button label="Search" icon="pi pi-check" [loading]="loading()" (onClick)="load()" />
 ```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-4">
-            <p-button label="Search" icon="pi pi-check" [loading]="loading" (onClick)="load()" />
+            <p-button label="Search" icon="pi pi-check" [loading]="loading()" (onClick)="load()" />
         </div>
     `,
     standalone: true,
     imports: [ButtonModule]
 })
 export class ButtonLoadingDemo {
-    loading: boolean = false;
+    loading = signal(false);
+
+    load() {
+        this.loading.set(true);
+        
+        setTimeout(() => {
+            this.loading.set(false);
+        }, 2000);
+    }
 }
 ```
 </details>

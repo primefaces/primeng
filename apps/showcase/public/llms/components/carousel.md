@@ -11,7 +11,7 @@ Screen Reader Carousel uses region role and since any attribute is passed to the
 Carousel requires a collection of items as its value along with a template to render each item.
 
 ```html
-<p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+<p-carousel [value]="products()" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
     <ng-template let-product #item>
         <div class="border border-surface rounded-border m-2 p-4">
             <div class="mb-4">
@@ -38,7 +38,7 @@ Carousel requires a collection of items as its value along with a template to re
 When autoplayInterval is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling circular property needs to be added which is enabled automatically in auto play mode.
 
 ```html
-<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+<p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
     <ng-template let-product #item>
         <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
             <div class="mb-4">
@@ -64,7 +64,7 @@ When autoplayInterval is defined in milliseconds, items are scrolled automatical
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -74,7 +74,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card">
-            <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+            <p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
@@ -101,15 +101,14 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class CarouselCircularDemo implements OnInit {
-    products: Product[] | undefined;
+    products = signal<Product[]>([]);
     responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((data) => {
-            this.products = data.slice(0, 9);
-            this.cdr.detectChanges();
+            this.products.set(data.slice(0, 9));
         });
         this.responsiveOptions = [
             {
@@ -154,7 +153,7 @@ export class CarouselCircularDemo implements OnInit {
 Carousel supports specific configuration per screen size with the responsiveOptions property that takes an array of objects where each object defines the max-width breakpoint , numVisible for the number of items items per page and numScroll for number of items to scroll. When responsiveOptions is defined, the numScroll and numVisible properties of the Carousel are used as default when there is breakpoint that applies.
 
 ```html
-<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+<p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
     <ng-template let-product #item>
         <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
             <div class="mb-4">
@@ -180,7 +179,7 @@ Carousel supports specific configuration per screen size with the responsiveOpti
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -190,7 +189,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card">
-            <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+            <p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
@@ -217,15 +216,14 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class CarouselResponsiveDemo implements OnInit {
-    products: Product[] | undefined;
+    products = signal<Product[]>([]);
     responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
-            this.products = products;
-            this.cdr.detectChanges();
+            this.products.set(products);
         });
         this.responsiveOptions = [
             {
@@ -250,6 +248,17 @@ export class CarouselResponsiveDemo implements OnInit {
             }
         ];
     }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warn';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
 }
 ```
 </details>
@@ -259,7 +268,7 @@ export class CarouselResponsiveDemo implements OnInit {
 To create a vertical Carousel, orientation needs to be set to vertical along with a verticalViewPortHeight .
 
 ```html
-<p-carousel [value]="products" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
+<p-carousel [value]="products()" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
     <ng-template let-product #item>
         <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
             <div class="mb-4">
@@ -285,7 +294,7 @@ To create a vertical Carousel, orientation needs to be set to vertical along wit
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -295,7 +304,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card">
-            <p-carousel [value]="products" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
+            <p-carousel [value]="products()" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
@@ -322,14 +331,13 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class CarouselVerticalDemo implements OnInit {
-    products: Product[] | undefined;
+    products = signal<Product[]>([]);
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
-            this.products = products;
-            this.cdr.detectChanges();
+            this.products.set(products);
         });
     }
 

@@ -11,7 +11,7 @@ Screen Reader Value to describe the source listbox and target listbox can be pro
 PickList is used as a controlled input with source and target properties. Content of a list item needs to be defined with the item template that receives an object in the list as parameter. Drag & drop functionality depends on &#64;angular/cdk package.
 
 ```html
-<p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
+<p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
     <ng-template let-item #item>
         {{ item.name }}
     </ng-template>
@@ -24,8 +24,8 @@ Filter value is checked against the property of an object configured with the fi
 
 ```html
 <p-picklist
-    [source]="sourceProducts"
-    [target]="targetProducts"
+    [source]="sourceProducts()"
+    [target]="targetProducts()"
     [dragdrop]="true"
     [responsive]="true"
     filterBy="name"
@@ -58,7 +58,7 @@ Filter value is checked against the property of an object configured with the fi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -67,8 +67,8 @@ import { Product } from '@/domain/product';
     template: `
         <div class="card">
             <p-picklist
-                [source]="sourceProducts"
-                [target]="targetProducts"
+                [source]="sourceProducts()"
+                [target]="targetProducts()"
                 [dragdrop]="true"
                 [responsive]="true"
                 filterBy="name"
@@ -102,17 +102,15 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class PicklistFilterDemo implements OnInit {
-    sourceProducts!: Product[];
-    targetProducts!: Product[];
+    sourceProducts = signal<Product[]>([]);
+    targetProducts = signal<Product[]>([]);
 
-    constructor(private carService: ProductService) {}
+    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.carService.getProductsSmall().then((products) => {
-            this.sourceProducts = products;
-            this.cdr.markForCheck();
+            this.sourceProducts.set(products);
         });
-        this.targetProducts = [];
     }
 }
 ```
@@ -123,7 +121,7 @@ export class PicklistFilterDemo implements OnInit {
 For custom content support define an item template that gets the item instance as a parameter. In addition sourceheader and targetheader templates are provided for further customization.
 
 ```html
-<p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
+<p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -148,7 +146,7 @@ For custom content support define an item template that gets the item instance a
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -156,7 +154,7 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card">
-            <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
+            <p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -182,17 +180,15 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class PicklistTemplateDemo implements OnInit {
-    sourceProducts!: Product[];
-    targetProducts!: Product[];
+    sourceProducts = signal<Product[]>([]);
+    targetProducts = signal<Product[]>([]);
 
-    constructor(private carService: ProductService) {}
+    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.carService.getProductsSmall().then((products) => {
-            this.sourceProducts = products;
-            this.cdr.markForCheck();
+            this.sourceProducts.set(products);
         });
-        this.targetProducts = [];
     }
 }
 ```
