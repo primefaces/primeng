@@ -151,56 +151,80 @@ export interface ScrollerScrollEvent {
     originalEvent?: Event;
 }
 /**
+ * Custom content template context.
+ * @group Interface
+ */
+export interface ScrollerContentTemplateContext {
+    /**
+     * Loaded items.
+     */
+    $implicit: any[] | any | null | undefined;
+    /**
+     * Content options.
+     */
+    options: ScrollerContentOptions;
+}
+
+/**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface ScrollerItemTemplateContext {
+    /**
+     * Item instance.
+     */
+    $implicit: any;
+    /**
+     * Scroller item options.
+     */
+    options: ScrollerItemOptions;
+}
+
+/**
+ * Custom loader template context.
+ * @group Interface
+ */
+export interface ScrollerLoaderTemplateContext {
+    /**
+     * Loader options.
+     */
+    options: ScrollerLoaderOptions;
+}
+
+/**
+ * Custom loader icon template context.
+ * @group Interface
+ */
+export interface ScrollerLoaderIconTemplateContext {
+    /**
+     * Loader icon options.
+     */
+    options: ScrollerLoaderIconOptions;
+}
+
+/**
  * Defines valid templates in Scroller.
  * @group Templates
  */
 export interface ScrollerTemplates {
     /**
      * Custom content template.
-     * @param {Object} context - Content data.
+     * @param {ScrollerContentTemplateContext} context - content context.
      */
-    content(context: {
-        /**
-         * Loaded items.
-         */
-        $implicit: any[] | any | null | undefined;
-        /**
-         *
-         */
-        options: ScrollerContentOptions;
-    }): TemplateRef<{ $implicit: any[] | any | null | undefined; options: ScrollerContentOptions }>;
+    content(context: ScrollerContentTemplateContext): TemplateRef<ScrollerContentTemplateContext>;
     /**
      * Custom item template.
-     * @param {Object} context - Item data.
+     * @param {ScrollerItemTemplateContext} context - item context.
      */
-    item(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: any;
-        /**
-         * Scroller item options.
-         */
-        options: ScrollerItemOptions;
-    }): TemplateRef<{ $implicit: any; options: ScrollerItemOptions }>;
+    item(context: ScrollerItemTemplateContext): TemplateRef<ScrollerItemTemplateContext>;
     /**
      * Custom loader template.
-     * @param {Object} context - Options instance.
+     * @param {ScrollerLoaderTemplateContext} context - loader context.
      */
-    loader(context: {
-        /**
-         * Options.
-         */
-        options: ScrollerLoaderOptions;
-    }): TemplateRef<{ options: ScrollerLoaderOptions }>;
+    loader(context: ScrollerLoaderTemplateContext): TemplateRef<ScrollerLoaderTemplateContext>;
     /**
      * Custom loader icon template.
-     * @param {Object} context - Icon options.
+     * @param {ScrollerLoaderIconTemplateContext} context - loader icon context.
      */
-    loadericon(context: {
-        /**
-         * Options.
-         */
-        options: ScrollerLoaderIconOptions;
-    }): TemplateRef<{ options: ScrollerLoaderIconOptions }>;
+    loadericon(context: ScrollerLoaderIconTemplateContext): TemplateRef<ScrollerLoaderIconTemplateContext>;
 }

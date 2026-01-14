@@ -17,7 +17,8 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
     selector: '[pInputText]',
     standalone: true,
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cx('root')",
+        '[attr.data-p]': 'dataP'
     },
     providers: [InputTextStyle, { provide: INPUTTEXT_INSTANCE, useExisting: InputText }, { provide: PARENT_INSTANCE, useExisting: InputText }],
     hostDirectives: [Bind]
@@ -25,7 +26,25 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
 export class InputText extends BaseModelHolder<InputTextPassThrough> {
     @Input() hostName: any = '';
 
-    ptInputText = input<any>();
+    /**
+     * Used to pass attributes to DOM elements inside the InputText component.
+     * @defaultValue undefined
+     * @deprecated use pInputTextPT instead.
+     * @group Props
+     */
+    ptInputText = input<InputTextPassThrough>();
+    /**
+     * Used to pass attributes to DOM elements inside the InputText component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pInputTextPT = input<InputTextPassThrough>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pInputTextUnstyled = input<boolean | undefined>();
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
@@ -66,7 +85,12 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
     constructor() {
         super();
         effect(() => {
-            this.ptInputText() && this.directivePT.set(this.ptInputText());
+            const pt = this.ptInputText() || this.pInputTextPT();
+            pt && this.directivePT.set(pt);
+        });
+
+        effect(() => {
+            this.pInputTextUnstyled() && this.directiveUnstyled.set(this.pInputTextUnstyled());
         });
     }
 
@@ -83,13 +107,22 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 
-    @HostListener('input', ['$event'])
+    @HostListener('input')
     onInput() {
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
+    }
+
+    get dataP() {
+        return this.cn({
+            invalid: this.invalid(),
+            fluid: this.hasFluid,
+            filled: this.$variant() === 'filled',
+            [this.pSize]: this.pSize
+        });
     }
 }
 

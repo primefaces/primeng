@@ -23,8 +23,8 @@ export class Bind {
     private _attrs = signal<{ [key: string]: any } | undefined>(undefined);
     private attrs = computed(() => this._attrs() || this.pBind());
 
-    private styles = computed(() => this.attrs()?.style);
-    private classes = computed(() => cn(this.attrs()?.class));
+    styles = computed(() => this.attrs()?.style);
+    classes = computed(() => cn(this.attrs()?.class));
 
     private listeners: { eventName: string; unlisten: () => void }[] = [];
 

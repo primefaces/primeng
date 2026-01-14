@@ -1,12 +1,12 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/divider/accessibilitydoc';
-import { BasicDoc } from '@/doc/divider/basicdoc';
-import { ContentDoc } from '@/doc/divider/contentdoc';
-import { ImportDoc } from '@/doc/divider/importdoc';
-import { LoginDoc } from '@/doc/divider/logindoc';
+import { AccessibilityDoc } from '@/doc/divider/accessibility-doc';
+import { BasicDoc } from '@/doc/divider/basic-doc';
+import { ContentDoc } from '@/doc/divider/content-doc';
+import { ImportDoc } from '@/doc/divider/import-doc';
+import { LoginDoc } from '@/doc/divider/login-doc';
 import { PTComponent } from '@/doc/divider/pt/PTComponent';
-import { TypeDoc } from '@/doc/divider/typedoc';
-import { VerticalDoc } from '@/doc/divider/verticaldoc';
+import { TypeDoc } from '@/doc/divider/type-doc';
+import { VerticalDoc } from '@/doc/divider/vertical-doc';
 import { Component } from '@angular/core';
 
 @Component({

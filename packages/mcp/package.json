@@ -1,0 +1,62 @@
+{
+    "name": "@primeng/mcp",
+    "version": "21.0.2",
+    "author": "PrimeTek Informatics",
+    "description": "Model Context Protocol (MCP) server for PrimeNg component library",
+    "homepage": "https://primeng.org/",
+    "license": "SEE LICENSE IN LICENSE.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/primefaces/primeng.git",
+        "directory": "packages/mcp"
+    },
+    "bugs": {
+        "url": "https://github.com/primefaces/primeng/issues"
+    },
+    "keywords": [
+        "primeng",
+        "mcp",
+        "model-context-protocol",
+        "ai",
+        "llm",
+        "angular",
+        "components"
+    ],
+    "bin": {
+        "primeng-mcp": "./dist/index.js"
+    },
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+        }
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ pnpm run build:package",
+        "build:package": "pnpm run build:prebuild && tsup",
+        "build:prebuild": "node ./scripts/prebuild.mjs",
+        "dev:link": "pnpm link --global && npm link"
+    },
+    "dependencies": {
+        "@primeuix/mcp": "catalog:"
+    },
+    "devDependencies": {
+        "tsup": "^8.1.0"
+    },
+    "engines": {
+        "node": ">=12.11.0"
+    }
+}

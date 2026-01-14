@@ -4,7 +4,7 @@ import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Nullable } from 'primeng/ts-helpers';
-import { TimelinePassThrough } from 'primeng/types/timeline';
+import { TimelineItemTemplateContext, TimelinePassThrough } from 'primeng/types/timeline';
 import { TimelineStyle } from './style/timelinestyle';
 
 const TIMELINE_INSTANCE = new InjectionToken<Timeline>('TIMELINE_INSTANCE');
@@ -18,20 +18,20 @@ const TIMELINE_INSTANCE = new InjectionToken<Timeline>('TIMELINE_INSTANCE');
     standalone: true,
     imports: [CommonModule, SharedModule, Bind],
     template: `
-        <div [pBind]="ptm('event')" *ngFor="let event of value; let last = last" [class]="cx('event')">
-            <div [pBind]="ptm('eventOpposite')" [class]="cx('eventOpposite')">
+        <div [pBind]="ptm('event')" *ngFor="let event of value; let last = last" [class]="cx('event')" [attr.data-p]="dataP">
+            <div [pBind]="ptm('eventOpposite')" [class]="cx('eventOpposite')" [attr.data-p]="dataP">
                 <ng-container *ngTemplateOutlet="oppositeTemplate || _oppositeTemplate; context: { $implicit: event }"></ng-container>
             </div>
-            <div [pBind]="ptm('eventSeparator')" [class]="cx('eventSeparator')">
+            <div [pBind]="ptm('eventSeparator')" [class]="cx('eventSeparator')" [attr.data-p]="dataP">
                 <ng-container *ngIf="markerTemplate || _markerTemplate; else marker">
                     <ng-container *ngTemplateOutlet="markerTemplate || _markerTemplate; context: { $implicit: event }"></ng-container>
                 </ng-container>
                 <ng-template #marker>
-                    <div [pBind]="ptm('eventMarker')" [class]="cx('eventMarker')"></div>
+                    <div [pBind]="ptm('eventMarker')" [class]="cx('eventMarker')" [attr.data-p]="dataP"></div>
                 </ng-template>
-                <div [pBind]="ptm('eventConnector')" *ngIf="!last" [class]="cx('eventConnector')"></div>
+                <div [pBind]="ptm('eventConnector')" *ngIf="!last" [class]="cx('eventConnector')" [attr.data-p]="dataP"></div>
             </div>
-            <div [pBind]="ptm('eventContent')" [class]="cx('eventContent')">
+            <div [pBind]="ptm('eventContent')" [class]="cx('eventContent')" [attr.data-p]="dataP">
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: event }"></ng-container>
             </div>
         </div>
@@ -40,7 +40,8 @@ const TIMELINE_INSTANCE = new InjectionToken<Timeline>('TIMELINE_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     providers: [TimelineStyle, { provide: TIMELINE_INSTANCE, useExisting: Timeline }, { provide: PARENT_INSTANCE, useExisting: Timeline }],
     host: {
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -75,29 +76,35 @@ export class Timeline extends BaseComponent<TimelinePassThrough> implements Bloc
     @Input() layout: 'vertical' | 'horizontal' = 'vertical';
     /**
      * Custom content template.
+     * @param {TimelineItemTemplateContext} context - item context.
+     * @see {@link TimelineItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<TimelineItemTemplateContext>>;
 
     /**
      * Custom opposite item template.
+     * @param {TimelineItemTemplateContext} context - item context.
+     * @see {@link TimelineItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('opposite', { descendants: false }) oppositeTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('opposite', { descendants: false }) oppositeTemplate: Nullable<TemplateRef<TimelineItemTemplateContext>>;
 
     /**
      * Custom marker template.
+     * @param {TimelineItemTemplateContext} context - item context.
+     * @see {@link TimelineItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('marker', { descendants: false }) markerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('marker', { descendants: false }) markerTemplate: Nullable<TemplateRef<TimelineItemTemplateContext>>;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<TimelineItemTemplateContext> | undefined;
 
-    _oppositeTemplate: TemplateRef<any> | undefined;
+    _oppositeTemplate: TemplateRef<TimelineItemTemplateContext> | undefined;
 
-    _markerTemplate: TemplateRef<any> | undefined;
+    _markerTemplate: TemplateRef<TimelineItemTemplateContext> | undefined;
 
     _componentStyle = inject(TimelineStyle);
 
@@ -120,6 +127,13 @@ export class Timeline extends BaseComponent<TimelinePassThrough> implements Bloc
                     this._markerTemplate = item.template;
                     break;
             }
+        });
+    }
+
+    get dataP() {
+        return this.cn({
+            [this.layout]: this.layout,
+            [this.align]: this.align
         });
     }
 }

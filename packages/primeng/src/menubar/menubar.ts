@@ -35,7 +35,7 @@ import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
-import { MenubarPassThrough } from 'primeng/types/menubar';
+import { MenubarItemTemplateContext, MenubarPassThrough } from 'primeng/types/menubar';
 import { ZIndexUtils } from 'primeng/utils';
 import { interval, Subject, Subscription } from 'rxjs';
 import { debounce, filter } from 'rxjs/operators';
@@ -90,6 +90,7 @@ export class MenubarService {
                 [pBind]="getPTOptions(processedItem, index, 'item')"
                 pTooltip
                 [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
+                [pTooltipUnstyled]="unstyled()"
             >
                 <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                     <ng-container *ngIf="!itemTemplate">
@@ -97,27 +98,47 @@ export class MenubarService {
                             *ngIf="!getItemProp(processedItem, 'routerLink')"
                             [attr.href]="getItemProp(processedItem, 'url')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [attr.title]="getItemProp(processedItem, 'title')"
                             [attr.target]="getItemProp(processedItem, 'target')"
-                            [class]="cx('itemLink')"
+                            [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
+                            [ngStyle]="getItemProp(processedItem, 'linkStyle')"
                             [attr.tabindex]="-1"
                             [pBind]="getPTOptions(processedItem, index, 'itemLink')"
                             pRipple
                         >
                             <span
                                 *ngIf="getItemProp(processedItem, 'icon')"
-                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
-                                [style]="getItemProp(processedItem, 'iconStyle')"
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
+                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                 [attr.tabindex]="-1"
                                 [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                             >
                             </span>
-                            <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [id]="getItemLabelId(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">
+                            <span
+                                *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                [id]="getItemLabelId(processedItem)"
+                                [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                            >
                                 {{ getItemLabel(processedItem) }}
                             </span>
                             <ng-template #htmlLabel>
-                                <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [id]="getItemLabelId(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
+                                <span
+                                    [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                    [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                    [innerHTML]="getItemLabel(processedItem)"
+                                    [id]="getItemLabelId(processedItem)"
+                                    [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                ></span>
                             </ng-template>
-                            <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [pt]="getPTOptions(processedItem, index, 'pcBadge')" />
+                            <p-badge
+                                *ngIf="getItemProp(processedItem, 'badge')"
+                                [class]="getItemProp(processedItem, 'badgeStyleClass')"
+                                [value]="getItemProp(processedItem, 'badge')"
+                                [pt]="getPTOptions(processedItem, index, 'pcBadge')"
+                                [unstyled]="unstyled()"
+                            />
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!submenuiconTemplate">
@@ -131,12 +152,14 @@ export class MenubarService {
                             *ngIf="getItemProp(processedItem, 'routerLink')"
                             [routerLink]="getItemProp(processedItem, 'routerLink')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [attr.title]="getItemProp(processedItem, 'title')"
                             [attr.tabindex]="-1"
                             [queryParams]="getItemProp(processedItem, 'queryParams')"
                             [routerLinkActive]="'p-menubar-item-link-active'"
                             [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
                             [target]="getItemProp(processedItem, 'target')"
-                            [class]="cx('itemLink')"
+                            [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
+                            [ngStyle]="getItemProp(processedItem, 'linkStyle')"
                             [fragment]="getItemProp(processedItem, 'fragment')"
                             [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
                             [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
@@ -147,15 +170,34 @@ export class MenubarService {
                             pRipple
                         >
                             <span
-                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
                                 *ngIf="getItemProp(processedItem, 'icon')"
                                 [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                 [attr.tabindex]="-1"
                                 [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                             ></span>
-                            <span [class]="cx('itemLabel')" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">{{ getItemLabel(processedItem) }}</span>
-                            <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span></ng-template>
-                            <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [pt]="getPTOptions(processedItem, index, 'pcBadge')" />
+                            <span
+                                [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel"
+                                [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                >{{ getItemLabel(processedItem) }}</span
+                            >
+                            <ng-template #htmlRouteLabel
+                                ><span
+                                    [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                    [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                    [innerHTML]="getItemLabel(processedItem)"
+                                    [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                ></span
+                            ></ng-template>
+                            <p-badge
+                                *ngIf="getItemProp(processedItem, 'badge')"
+                                [class]="getItemProp(processedItem, 'badgeStyleClass')"
+                                [value]="getItemProp(processedItem, 'badge')"
+                                [pt]="getPTOptions(processedItem, index, 'pcBadge')"
+                                [unstyled]="unstyled()"
+                            />
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!submenuiconTemplate">
                                     <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" *ngIf="root" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" />
@@ -186,23 +228,24 @@ export class MenubarService {
                     [inlineStyles]="sx('submenu', true, { instance: this, processedItem })"
                     [pt]="pt()"
                     [pBind]="ptm('submenu')"
+                    [unstyled]="unstyled()"
                 ></ul>
             </li>
         </ng-template>
     `,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[id]': 'root ? menuId : null',
+        '[attr.id]': 'root ? menuId : null',
         '[attr.aria-activedescendant]': 'focusedItemId',
         '[class]': "level === 0 ? cx('rootList') : cx('submenu')",
-        role: 'menubar',
+        '[attr.role]': "'menubar'",
         '[style]': 'inlineStyles'
     }
 })
 export class MenubarSub extends BaseComponent<MenubarPassThrough> {
     @Input() items: any[];
 
-    @Input() itemTemplate: TemplateRef<any> | undefined;
+    @Input() itemTemplate: TemplateRef<MenubarItemTemplateContext> | undefined;
 
     @Input({ transform: booleanAttribute }) root: boolean = false;
 
@@ -228,7 +271,7 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
 
     @Input() inlineStyles: any;
 
-    @Input() submenuiconTemplate: TemplateRef<any> | undefined;
+    @Input() submenuiconTemplate: TemplateRef<void> | undefined;
 
     @Output() itemClick: EventEmitter<any> = new EventEmitter();
 
@@ -377,6 +420,7 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
             [submenuiconTemplate]="submenuIconTemplate || _submenuIconTemplate"
             [activeItemPath]="activeItemPath()"
             (itemClick)="onItemClick($event)"
+            (mousedown)="onMenuMouseDown($event)"
             (focus)="onMenuFocus($event)"
             (blur)="onMenuBlur($event)"
             (keydown)="onKeyDown($event)"
@@ -384,6 +428,7 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
             (mouseleave)="onMouseLeave($event)"
             [pt]="pt()"
             [pBind]="ptm('rootList')"
+            [unstyled]="unstyled()"
         ></ul>
         <div [class]="cx('end')" *ngIf="endTemplate || _endTemplate; else legacy" [pBind]="ptm('end')">
             <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
@@ -497,7 +542,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
 
     private query: MediaQueryList;
 
-    public queryMatches: boolean;
+    public queryMatches = signal<boolean>(false);
 
     outsideClickListener: VoidListener;
 
@@ -579,41 +624,43 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
      * Defines template option for start.
      * @group Templates
      */
-    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<any> | undefined;
+    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<void> | undefined;
 
     /**
      * Defines template option for end.
      * @group Templates
      */
-    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<any> | undefined;
+    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Defines template option for item.
+     * Custom item template.
+     * @param {MenubarItemTemplateContext} context - item context.
+     * @see {@link MenubarItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<MenubarItemTemplateContext> | undefined;
     /**
-     * Defines template option for item.
+     * Defines template option for menu icon.
      * @group Templates
      */
-    @ContentChild('menuicon', { descendants: false }) menuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('menuicon', { descendants: false }) menuIconTemplate: TemplateRef<void> | undefined;
     /**
      * Defines template option for submenu icon.
      * @group Templates
      */
-    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _startTemplate: TemplateRef<any> | undefined;
+    _startTemplate: TemplateRef<void> | undefined;
 
-    _endTemplate: TemplateRef<any> | undefined;
+    _endTemplate: TemplateRef<void> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<MenubarItemTemplateContext> | undefined;
 
-    _menuIconTemplate: TemplateRef<any> | undefined;
+    _menuIconTemplate: TemplateRef<void> | undefined;
 
-    _submenuIconTemplate: TemplateRef<any> | undefined;
+    _submenuIconTemplate: TemplateRef<void> | undefined;
 
     onAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -673,10 +720,10 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
                 const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
 
                 this.query = query;
-                this.queryMatches = query.matches;
+                this.queryMatches.set(query.matches);
 
                 this.matchMediaListener = () => {
-                    this.queryMatches = query.matches;
+                    this.queryMatches.set(query.matches);
                     this.mobileActive = false;
                     this.cd.markForCheck();
                 };
@@ -706,6 +753,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
     }
 
     onItemClick(event: any) {
+        this.dirty = true;
         const { originalEvent, processedItem } = event;
         const grouped = this.isProcessedItemGroup(processedItem);
         const root = isEmpty(processedItem.parent);
@@ -787,7 +835,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
         grouped && (this.dirty = true);
         isFocus && focus(this.rootmenu?.el.nativeElement);
 
-        if (type === 'hover' && this.queryMatches) {
+        if (type === 'hover' && this.queryMatches()) {
             return;
         }
 
@@ -831,21 +879,42 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
         focus(this.rootmenu?.el.nativeElement);
     }
 
+    onMenuMouseDown(event: any) {
+        this.dirty = true;
+    }
+
     onMenuFocus(event: any) {
         this.focused = true;
-        const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem?.item };
 
-        this.focusedItemInfo.set(focusedItemInfo);
+        const relatedTarget = event.relatedTarget;
+        const isFromOutside = !relatedTarget || !this.el.nativeElement.contains(relatedTarget);
+
+        if (isFromOutside && this.focusedItemInfo().index === -1 && !this.activeItemPath().length && !this.dirty) {
+            const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
+            this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem?.item });
+        }
+
         this.onFocus.emit(event);
     }
 
     onMenuBlur(event: any) {
-        this.focused = false;
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
-        this.searchValue = '';
-        this.dirty = false;
-        this.onBlur.emit(event);
+        const relatedTarget = event.relatedTarget;
+        if (relatedTarget && this.el.nativeElement.contains(relatedTarget)) {
+            return;
+        }
+
+        setTimeout(() => {
+            const activeElement = this.document.activeElement;
+            if (activeElement && this.el.nativeElement.contains(activeElement)) {
+                return;
+            }
+
+            this.focused = false;
+            this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
+            this.searchValue = '';
+            this.dirty = false;
+            this.onBlur.emit(event);
+        });
     }
 
     onKeyDown(event: KeyboardEvent) {

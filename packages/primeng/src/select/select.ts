@@ -1,4 +1,3 @@
-import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     AfterViewChecked,
@@ -29,6 +28,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MotionOptions } from '@primeuix/motion';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@primeuix/utils';
 import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -45,7 +45,19 @@ import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
-import { SelectChangeEvent, SelectFilterEvent, SelectFilterOptions, SelectLazyLoadEvent, SelectPassThrough } from 'primeng/types/select';
+import {
+    SelectChangeEvent,
+    SelectFilterEvent,
+    SelectFilterOptions,
+    SelectFilterTemplateContext,
+    SelectGroupTemplateContext,
+    SelectIconTemplateContext,
+    SelectItemTemplateContext,
+    SelectLazyLoadEvent,
+    SelectLoaderTemplateContext,
+    SelectPassThrough,
+    SelectSelectedItemTemplateContext
+} from 'primeng/types/select';
 import { SelectStyle } from './style/selectstyle';
 
 const SELECT_INSTANCE = new InjectionToken<Select>('SELECT_INSTANCE');
@@ -75,8 +87,9 @@ export const SELECT_VALUE_ACCESSOR: any = {
             [attr.aria-selected]="selected"
             [attr.data-p-focused]="focused"
             [attr.data-p-highlight]="selected"
+            [attr.data-p-selected]="selected"
             [attr.data-p-disabled]="disabled"
-            [ngStyle]="{ height: itemSize + 'px' }"
+            [ngStyle]="{ height: scrollerOptions?.itemSize + 'px' }"
             [class]="cx('option')"
         >
             <ng-container *ngIf="checkmark">
@@ -169,6 +182,7 @@ export class SelectItem extends BaseComponent {
             *ngIf="!editable"
             [pBind]="ptm('label')"
             [pTooltip]="tooltip"
+            [pTooltipUnstyled]="unstyled()"
             [tooltipPosition]="tooltipPosition"
             [positionStyle]="tooltipPositionStyle"
             [tooltipStyleClass]="tooltipStyleClass"
@@ -189,6 +203,7 @@ export class SelectItem extends BaseComponent {
             [attr.aria-required]="required()"
             [attr.required]="required() ? '' : undefined"
             [attr.disabled]="$disabled() ? '' : undefined"
+            [attr.data-p]="labelDataP"
         >
             <ng-container *ngIf="!selectedItemTemplate && !_selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
             <ng-container *ngIf="(selectedItemTemplate || _selectedItemTemplate) && !isSelectedOptionEmpty()" [ngTemplateOutlet]="selectedItemTemplate || _selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
@@ -222,6 +237,7 @@ export class SelectItem extends BaseComponent {
             [attr.required]="required() ? '' : undefined"
             [attr.readonly]="readonly ? '' : undefined"
             [attr.disabled]="$disabled() ? '' : undefined"
+            [attr.data-p]="labelDataP"
         />
         <ng-container *ngIf="isVisibleClearIcon">
             <svg data-p-icon="times" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
@@ -255,17 +271,19 @@ export class SelectItem extends BaseComponent {
         <p-overlay
             #overlay
             [hostAttrSelector]="$attrSelector"
-            hostName="select"
-            [pt]="ptm('pcOverlay')"
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
-            (onAnimationStart)="onOverlayAnimationStart($event)"
+            [unstyled]="unstyled()"
+            [pt]="ptm('pcOverlay')"
+            [motionOptions]="motionOptions()"
+            (onBeforeEnter)="onOverlayBeforeEnter($event)"
+            (onAfterLeave)="onOverlayAfterLeave($event)"
             (onHide)="hide()"
         >
             <ng-template #content>
-                <div [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle" [pBind]="ptm('overlay')">
+                <div [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle" [pBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
                     <span
                         #firstHiddenFocusableEl
                         role="presentation"
@@ -283,7 +301,7 @@ export class SelectItem extends BaseComponent {
                             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: filterOptions }"></ng-container>
                         </ng-container>
                         <ng-template #builtInFilterElement>
-                            <p-iconfield [pt]="ptm('pcFilterContainer')">
+                            <p-iconfield [pt]="ptm('pcFilterContainer')" [unstyled]="unstyled()">
                                 <input
                                     #filter
                                     pInputText
@@ -302,8 +320,9 @@ export class SelectItem extends BaseComponent {
                                     (keydown)="onFilterKeyDown($event)"
                                     (blur)="onFilterBlur($event)"
                                     [pt]="ptm('pcFilter')"
+                                    [unstyled]="unstyled()"
                                 />
-                                <p-inputicon [pt]="ptm('pcFilterIconContainer')">
+                                <p-inputicon [pt]="ptm('pcFilterIconContainer')" [unstyled]="unstyled()">
                                     <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [pBind]="ptm('filterIcon')" />
                                     <span *ngIf="filterIconTemplate || _filterIconTemplate" [pBind]="ptm('filterIcon')">
                                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
@@ -361,6 +380,7 @@ export class SelectItem extends BaseComponent {
                                             [ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
                                             [ariaSetSize]="ariaSetSize"
                                             [index]="i"
+                                            [unstyled]="unstyled()"
                                             [scrollerOptions]="scrollerOptions"
                                             (onClick)="onOptionSelect($event, option)"
                                             (onMouseEnter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
@@ -402,6 +422,7 @@ export class SelectItem extends BaseComponent {
     host: {
         '[class]': "cn(cx('root'), styleClass)",
         '[attr.id]': 'id',
+        '[attr.data-p]': 'containerDataP',
         '(click)': 'onContainerClick($event)'
     },
     providers: [SELECT_VALUE_ACCESSOR, SelectStyle, { provide: SELECT_INSTANCE, useExisting: Select }, { provide: PARENT_INSTANCE, useExisting: Select }],
@@ -411,7 +432,6 @@ export class SelectItem extends BaseComponent {
 })
 export class Select extends BaseInput<SelectPassThrough> implements AfterViewInit, AfterViewChecked {
     bindDirectiveInstance = inject(Bind, { self: true });
-
     /**
      * Unique identifier of the component
      * @group Props
@@ -690,6 +710,11 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+    /**
      * Callback to invoke when value of select changes.
      * @param {SelectChangeEvent} event - custom change event.
      * @group Emits
@@ -770,131 +795,131 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      * Custom item template.
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('item', { descendants: false }) itemTemplate: Nullable<TemplateRef<SelectItemTemplateContext>>;
 
     /**
      * Custom group template.
      * @group Templates
      */
-    @ContentChild('group', { descendants: false }) groupTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('group', { descendants: false }) groupTemplate: Nullable<TemplateRef<SelectGroupTemplateContext>>;
 
     /**
      * Custom loader template.
      * @group Templates
      */
-    @ContentChild('loader', { descendants: false }) loaderTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loader', { descendants: false }) loaderTemplate: Nullable<TemplateRef<SelectLoaderTemplateContext>>;
 
     /**
      * Custom selected item template.
      * @group Templates
      */
-    @ContentChild('selectedItem', { descendants: false }) selectedItemTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('selectedItem', { descendants: false }) selectedItemTemplate: Nullable<TemplateRef<SelectSelectedItemTemplateContext>>;
 
     /**
      * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom filter template.
      * @group Templates
      */
-    @ContentChild('filter', { descendants: false }) filterTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('filter', { descendants: false }) filterTemplate: Nullable<TemplateRef<SelectFilterTemplateContext>>;
 
     /**
      * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom empty filter template.
      * @group Templates
      */
-    @ContentChild('emptyfilter', { descendants: false }) emptyFilterTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('emptyfilter', { descendants: false }) emptyFilterTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom empty template.
      * @group Templates
      */
-    @ContentChild('empty', { descendants: false }) emptyTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('empty', { descendants: false }) emptyTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom dropdown icon template.
      * @group Templates
      */
-    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: Nullable<TemplateRef<SelectIconTemplateContext>>;
 
     /**
      * Custom loading icon template.
      * @group Templates
      */
-    @ContentChild('loadingicon', { descendants: false }) loadingIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loadingicon', { descendants: false }) loadingIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom clear icon template.
      * @group Templates
      */
-    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<SelectIconTemplateContext>>;
 
     /**
      * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom on icon template.
      * @group Templates
      */
-    @ContentChild('onicon', { descendants: false }) onIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('onicon', { descendants: false }) onIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom off icon template.
      * @group Templates
      */
-    @ContentChild('officon', { descendants: false }) offIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('officon', { descendants: false }) offIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom cancel icon template.
      * @group Templates
      */
-    @ContentChild('cancelicon', { descendants: false }) cancelIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('cancelicon', { descendants: false }) cancelIconTemplate: Nullable<TemplateRef<void>>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<SelectItemTemplateContext> | undefined;
 
-    _selectedItemTemplate: TemplateRef<any> | undefined;
+    _selectedItemTemplate: TemplateRef<SelectSelectedItemTemplateContext> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _filterTemplate: TemplateRef<any> | undefined;
+    _filterTemplate: TemplateRef<SelectFilterTemplateContext> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _emptyFilterTemplate: TemplateRef<any> | undefined;
+    _emptyFilterTemplate: TemplateRef<void> | undefined;
 
-    _emptyTemplate: TemplateRef<any> | undefined;
+    _emptyTemplate: TemplateRef<void> | undefined;
 
-    _groupTemplate: TemplateRef<any> | undefined;
+    _groupTemplate: TemplateRef<SelectGroupTemplateContext> | undefined;
 
-    _loaderTemplate: TemplateRef<any> | undefined;
+    _loaderTemplate: TemplateRef<SelectLoaderTemplateContext> | undefined;
 
-    _dropdownIconTemplate: TemplateRef<any> | undefined;
+    _dropdownIconTemplate: TemplateRef<SelectIconTemplateContext> | undefined;
 
-    _loadingIconTemplate: TemplateRef<any> | undefined;
+    _loadingIconTemplate: TemplateRef<void> | undefined;
 
-    _clearIconTemplate: TemplateRef<any> | undefined;
+    _clearIconTemplate: TemplateRef<SelectIconTemplateContext> | undefined;
 
-    _filterIconTemplate: TemplateRef<any> | undefined;
+    _filterIconTemplate: TemplateRef<void> | undefined;
 
-    _cancelIconTemplate: TemplateRef<any> | undefined;
+    _cancelIconTemplate: TemplateRef<void> | undefined;
 
-    _onIconTemplate: TemplateRef<any> | undefined;
+    _onIconTemplate: TemplateRef<void> | undefined;
 
-    _offIconTemplate: TemplateRef<any> | undefined;
+    _offIconTemplate: TemplateRef<void> | undefined;
 
     filterOptions: SelectFilterOptions | undefined;
 
@@ -1168,7 +1193,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         }
 
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            let selectedItem = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-select-option-selected');
+            let selectedItem = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li[data-p-selected="true"]');
             if (selectedItem) {
                 scrollInView(this.itemsWrapper, selectedItem);
             }
@@ -1386,39 +1411,40 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         this.cd.markForCheck();
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
-        if (event.toState === 'visible') {
-            this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-select-list-container');
-            this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
+    onOverlayBeforeEnter(event: any) {
+        this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '[data-pc-name="virtualscroller"]' : '[data-pc-section="listcontainer"]');
+        this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
-            if (this.options && this.options.length) {
-                if (this.virtualScroll) {
-                    const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
-                    if (selectedIndex !== -1) {
+        if (this.options && this.options.length) {
+            if (this.virtualScroll) {
+                const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
+                if (selectedIndex !== -1) {
+                    setTimeout(() => {
                         this.scroller?.scrollToIndex(selectedIndex);
-                    }
-                } else {
-                    let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '.p-select-option.p-select-option-selected');
-                    if (selectedListItem) {
-                        selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-                    }
+                    }, 10);
+                }
+            } else {
+                let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '[data-p-selected="true"]');
+                if (selectedListItem) {
+                    selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
                 }
             }
+        }
 
-            if (this.filterViewChild && this.filterViewChild.nativeElement) {
-                this.preventModelTouched = true;
+        if (this.filterViewChild && this.filterViewChild.nativeElement) {
+            this.preventModelTouched = true;
 
-                if (this.autofocusFilter && !this.editable) {
-                    this.filterViewChild.nativeElement.focus();
-                }
+            if (this.autofocusFilter && !this.editable) {
+                this.filterViewChild.nativeElement.focus();
             }
-            this.onShow.emit(event);
         }
-        if (event.toState === 'void') {
-            this.itemsWrapper = null;
-            this.onModelTouched();
-            this.onHide.emit(event);
-        }
+        this.onShow.emit(event);
+    }
+
+    onOverlayAfterLeave(event: any) {
+        this.itemsWrapper = null;
+        this.onModelTouched();
+        this.onHide.emit(event);
     }
     /**
      * Hides the panel.
@@ -1829,7 +1855,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     onFirstHiddenFocus(event) {
-        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? getFirstFocusableElement(this.overlayViewChild?.el?.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild?.nativeElement;
+        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? getFirstFocusableElement(this.overlayViewChild?.el?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInputViewChild?.nativeElement;
         focus(focusableEl);
     }
 
@@ -1905,7 +1931,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     applyFocus(): void {
-        if (this.editable) (findSingle(this.el.nativeElement, '.p-dropdown-label.p-inputtext') as any).focus();
+        if (this.editable) (findSingle(this.el.nativeElement, '[data-pc-section="label"]') as any).focus();
         else focus(this.focusInputViewChild?.nativeElement);
     }
     /**
@@ -1944,6 +1970,39 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         setModelValue(this.value);
         this.updateEditableLabel();
         this.cd.markForCheck();
+    }
+
+    get containerDataP() {
+        return this.cn({
+            invalid: this.invalid(),
+            disabled: this.$disabled(),
+            focus: this.focused,
+            fluid: this.hasFluid,
+            filled: this.$variant() === 'filled',
+            [this.size() as string]: this.size()
+        });
+    }
+
+    get labelDataP() {
+        return this.cn({
+            placeholder: this.label === this.placeholder,
+            clearable: this.showClear,
+            disabled: this.$disabled(),
+            [this.size() as string]: this.size(),
+            empty: !this.editable && !this.selectedItemTemplate && (!this.label?.() || this.label() === 'p-emptylabel' || this.label()?.length === 0)
+        });
+    }
+
+    get dropdownIconDataP() {
+        return this.cn({
+            [this.size() as string]: this.size()
+        });
+    }
+
+    get overlayDataP() {
+        return this.cn({
+            ['overlay-' + this.$appendTo()]: 'overlay-' + this.$appendTo()
+        });
     }
 }
 

@@ -1,8 +1,8 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/card/accessibilitydoc';
-import { AdvancedDoc } from '@/doc/card/advanceddoc';
-import { BasicDoc } from '@/doc/card/basicdoc';
-import { ImportDoc } from '@/doc/card/importdoc';
+import { AccessibilityDoc } from '@/doc/card/accessibility-doc';
+import { AdvancedDoc } from '@/doc/card/advanced-doc';
+import { BasicDoc } from '@/doc/card/basic-doc';
+import { ImportDoc } from '@/doc/card/import-doc';
 import { PTComponent } from '@/doc/card/pt/PTComponent';
 import { Component } from '@angular/core';
 

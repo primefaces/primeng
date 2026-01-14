@@ -1,9 +1,9 @@
-import { AccessibilityDoc } from '@/doc/steps/accessibilitydoc';
-import { BasicDoc } from '@/doc/steps/basicdoc';
-import { ControlledDoc } from '@/doc/steps/controlleddoc';
-import { ImportDoc } from '@/doc/steps/importdoc';
-import { InteractiveDoc } from '@/doc/steps/interactivedoc';
-import { RoutingDoc } from '@/doc/steps/routingdoc';
+import { AccessibilityDoc } from '@/doc/steps/accessibility-doc';
+import { BasicDoc } from '@/doc/steps/basic-doc';
+import { ControlledDoc } from '@/doc/steps/controlled-doc';
+import { ImportDoc } from '@/doc/steps/import-doc';
+import { InteractiveDoc } from '@/doc/steps/interactive-doc';
+import { RoutingDoc } from '@/doc/steps/routing-doc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 

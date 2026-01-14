@@ -6,7 +6,7 @@ import { Bind } from 'primeng/bind';
 import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
-import { InplacePassThrough } from 'primeng/types/inplace';
+import { InplaceContentTemplateContext, InplacePassThrough } from 'primeng/types/inplace';
 import { InplaceStyle } from './style/inplacestyle';
 
 const INPLACE_INSTANCE = new InjectionToken<Inplace>('INPLACE_INSTANCE');
@@ -35,7 +35,7 @@ export class InplaceContent extends BaseComponent {}
     standalone: true,
     imports: [CommonModule, ButtonModule, TimesIcon, SharedModule, Ripple, Bind],
     template: `
-        <div [class]="cx('display')" [pBind]="ptm('display')" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [ngClass]="{ 'p-disabled': disabled }" *ngIf="!active">
+        <div [class]="cx('display')" [pBind]="ptm('display')" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [attr.data-p-disabled]="disabled" *ngIf="!active">
             <ng-content select="[pInplaceDisplay]"></ng-content>
             <ng-container *ngTemplateOutlet="displayTemplate || _displayTemplate"></ng-container>
         </div>
@@ -125,20 +125,20 @@ export class Inplace extends BaseComponent<InplacePassThrough> {
 
     hover!: boolean;
     /**
-     * Display template of the element.
+     * Custom display template.
      * @group Templates
      */
-    @ContentChild('display', { descendants: false }) displayTemplate: TemplateRef<any> | undefined;
+    @ContentChild('display', { descendants: false }) displayTemplate: TemplateRef<void> | undefined;
     /**
-     * Content template of the element.
+     * Custom content template.
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<InplaceContentTemplateContext> | undefined;
     /**
-     * Close icon template of the element.
+     * Custom close icon template.
      * @group Templates
      */
-    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<void> | undefined;
 
     _componentStyle = inject(InplaceStyle);
 
@@ -184,11 +184,11 @@ export class Inplace extends BaseComponent<InplacePassThrough> {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _displayTemplate: TemplateRef<any> | undefined;
+    _displayTemplate: TemplateRef<void> | undefined;
 
-    _closeIconTemplate: TemplateRef<any> | undefined;
+    _closeIconTemplate: TemplateRef<void> | undefined;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<InplaceContentTemplateContext> | undefined;
 
     onAfterContentInit() {
         this.templates?.forEach((item) => {

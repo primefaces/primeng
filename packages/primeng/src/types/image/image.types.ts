@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -57,6 +58,10 @@ export interface ImagePassThroughOptions<I = unknown> {
      * Used to pass attributes to the original/preview image's DOM element.
      */
     original?: PassThroughOption<HTMLImageElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
@@ -68,60 +73,33 @@ export interface ImagePassThroughOptions<I = unknown> {
 export type ImagePassThrough<I = unknown> = PassThrough<I, ImagePassThroughOptions<I>>;
 
 /**
- * Defines valid templates in Image.
- * @group Templates
+ * Custom image template context.
+ * @group Interface
  */
-export interface ImageTemplates {
+export interface ImageImageTemplateContext {
     /**
-     * Custom template of indicator.
+     * Callback to invoke on image error.
      */
-    indicator(): TemplateRef<any>;
+    errorCallback: (event: Event) => void;
+}
+
+/**
+ * Custom preview template context.
+ * @group Interface
+ */
+export interface ImagePreviewTemplateContext {
     /**
-     * Custom template of image.
+     * Style class of the preview image element.
      */
-    image(context: {
-        /**
-         * Style class of the image element.
-         */
-        class: any;
-        /**
-         * Style of the image element.
-         */
-        style: any;
-        /**
-         * Image click function.
-         */
-        errorCallback: Function;
-    }): TemplateRef<{ class: any; style: any; errorCallback: Function }>;
+    class: string;
     /**
-     * Custom preview template.
+     * Inline style of the preview image element.
      */
-    preview(context: {
-        /**
-         * Preview click function.
-         */
-        errorCallback: Function;
-    }): TemplateRef<{ errorCallback: Function }>;
+    style: { [key: string]: any };
     /**
-     * Custom template of rotaterighticon.
+     * Callback to invoke on preview image click.
      */
-    rotaterighticon(): TemplateRef<any>;
-    /**
-     * Custom template of rotatelefticon.
-     */
-    rotatelefticon(): TemplateRef<any>;
-    /**
-     * Custom template of zoomouticon.
-     */
-    zoomouticon(): TemplateRef<any>;
-    /**
-     * Custom template of zoominicon.
-     */
-    zoominicon(): TemplateRef<any>;
-    /**
-     * Custom template of closeicon.
-     */
-    closeicon(): TemplateRef<any>;
+    previewCallback: () => void;
 }
 
 /**
@@ -130,53 +108,37 @@ export interface ImageTemplates {
  */
 export interface ImageTemplates {
     /**
-     * Custom template of indicator.
+     * Custom indicator template.
      */
-    indicator(): TemplateRef<any>;
+    indicator(): TemplateRef<void>;
     /**
-     * Custom template of image.
+     * Custom image template.
+     * @param {Object} context - image context.
      */
-    image(context: {
-        /**
-         * Style class of the image element.
-         */
-        class: any;
-        /**
-         * Style of the image element.
-         */
-        style: any;
-        /**
-         * Image click function.
-         */
-        errorCallback: Function;
-    }): TemplateRef<{ class: any; style: any; errorCallback: Function }>;
+    image(context: ImageImageTemplateContext): TemplateRef<ImageImageTemplateContext>;
     /**
      * Custom preview template.
+     * @param {Object} context - preview context.
      */
-    preview(context: {
-        /**
-         * Preview click function.
-         */
-        errorCallback: Function;
-    }): TemplateRef<{ errorCallback: Function }>;
+    preview(context: ImagePreviewTemplateContext): TemplateRef<ImagePreviewTemplateContext>;
     /**
-     * Custom template of rotaterighticon.
+     * Custom rotate right icon template.
      */
-    rotaterighticon(): TemplateRef<any>;
+    rotaterighticon(): TemplateRef<void>;
     /**
-     * Custom template of rotatelefticon.
+     * Custom rotate left icon template.
      */
-    rotatelefticon(): TemplateRef<any>;
+    rotatelefticon(): TemplateRef<void>;
     /**
-     * Custom template of zoomouticon.
+     * Custom zoom out icon template.
      */
-    zoomouticon(): TemplateRef<any>;
+    zoomouticon(): TemplateRef<void>;
     /**
-     * Custom template of zoominicon.
+     * Custom zoom in icon template.
      */
-    zoominicon(): TemplateRef<any>;
+    zoominicon(): TemplateRef<void>;
     /**
-     * Custom template of closeicon.
+     * Custom close icon template.
      */
-    closeicon(): TemplateRef<any>;
+    closeicon(): TemplateRef<void>;
 }

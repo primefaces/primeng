@@ -1,23 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    AfterViewInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    numberAttribute,
-    OnDestroy,
-    QueryList,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, InjectionToken, Input, NgModule, numberAttribute, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { blockBodyScroll, unblockBodyScroll } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -87,8 +69,12 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
     }
     set blocked(val: boolean) {
         if (this.el && this.el.nativeElement) {
-            if (val) this.block();
-            else this.unblock();
+            if (val) {
+                this.block();
+            } else if (this._blocked) {
+                // Only unblock if currently blocked
+                this.unblock();
+            }
         } else {
             this._blocked = val;
         }
@@ -152,26 +138,36 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
             if (this.autoZIndex) {
                 ZIndexUtils.set('modal', (this.el as ElementRef).nativeElement, this.baseZIndex + this.config.zIndex.modal);
             }
+
+            this.renderer.addClass(this.el.nativeElement, 'p-overlay-mask');
+            this.renderer.addClass(this.el.nativeElement, 'p-overlay-mask-enter-active');
         }
     }
 
     unblock() {
-        if (isPlatformBrowser(this.platformId) && this.el && !this.animationEndListener) {
-            // this.animationEndListener = this.renderer.listen(this.el.nativeElement, 'animationend', this.destroyModal.bind(this));
-            // TODO Add animation
-            this.destroyModal();
-            // addClass(this.el.nativeElement, 'p-overlay-mask-leave');
+        if (isPlatformBrowser(this.platformId) && this.el && this._blocked) {
+            this._blocked = false;
+            if (!this.animationEndListener) {
+                this.animationEndListener = this.renderer.listen(this.el.nativeElement, 'animationend', this.destroyModal.bind(this));
+            }
+            this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask-enter-active');
+            this.renderer.addClass(this.el.nativeElement, 'p-overlay-mask-leave-active');
         }
     }
 
     destroyModal() {
         this._blocked = false;
         if (this.el && isPlatformBrowser(this.platformId)) {
+            this.el.nativeElement.style.display = 'none';
+            this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask');
+            this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask-leave-active');
             ZIndexUtils.clear(this.el.nativeElement);
-            // removeClass(this.el.nativeElement, 'p-overlay-mask-leave');
-            this.renderer.removeChild(this.el.nativeElement, this.el.nativeElement);
-            //@ts-ignore
-            unblockBodyScroll();
+
+            if (!this.target) {
+                this.document.body.removeChild(this.el.nativeElement);
+                //@ts-ignore
+                unblockBodyScroll();
+            }
         }
         this.unbindAnimationEndListener();
         this.cd.markForCheck();
@@ -185,8 +181,18 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
     }
 
     onDestroy() {
-        this.unblock();
-        this.destroyModal();
+        if (this._blocked) {
+            // Skip animation on destroy, just cleanup
+            this._blocked = false;
+            if (this.el && isPlatformBrowser(this.platformId)) {
+                ZIndexUtils.clear(this.el.nativeElement);
+                if (!this.target) {
+                    //@ts-ignore
+                    unblockBodyScroll();
+                }
+            }
+            this.unbindAnimationEndListener();
+        }
     }
 }
 

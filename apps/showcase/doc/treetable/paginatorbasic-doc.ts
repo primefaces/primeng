@@ -1,0 +1,88 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'primeng/treetable';
+
+interface Column {
+    field: string;
+    header: string;
+}
+
+@Component({
+    selector: 'paginatorbasic-doc',
+    standalone: true,
+    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
+    template: ` <app-docsectiontext>
+            <p>Pagination is enabled by adding <i>paginator</i> property and defining <i>rows</i> per page.</p>
+        </app-docsectiontext>
+        <div class="card">
+            <p-deferred-demo (load)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 25]" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
+                            }
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </p-deferred-demo>
+        </div>
+        <app-code></app-code>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class PaginatorBasicDoc {
+    files!: TreeNode[];
+
+    cols!: Column[];
+    loadDemoData() {
+        this.files = [];
+        for (let i = 0; i < 50; i++) {
+            let node = {
+                data: {
+                    name: 'Item ' + i,
+                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                    type: 'Type ' + i
+                },
+                children: [
+                    {
+                        data: {
+                            name: 'Item ' + i + ' - 0',
+                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            type: 'Type ' + i
+                        }
+                    }
+                ]
+            };
+
+            this.files.push(node);
+        }
+
+        this.cols = [
+            { field: 'name', header: 'Name' },
+            { field: 'size', header: 'Size' },
+            { field: 'type', header: 'Type' }
+        ];
+    }
+}
