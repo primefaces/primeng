@@ -5,7 +5,7 @@ import { FigmaDoc } from '@/doc/designer/createtheme/figma-doc';
 import { DashboardDoc } from '@/doc/designer/dashboard-doc';
 import { CustomTokensDoc } from '@/doc/designer/editor/customtokens-doc';
 import { IntelligentCompletionDoc } from '@/doc/designer/editor/intelligentcompletion-doc';
-import { TokenSetsDoc } from '@/doc/designer/editor/tokensets-doc';
+import { TokenCollectionsDoc } from '@/doc/designer/editor/tokencollections-doc';
 import { TypographyDoc } from '@/doc/designer/editor/typography-doc';
 import { LicenseDoc } from '@/doc/designer/license-doc';
 import { LimitationsDoc } from '@/doc/designer/limitations-doc';
@@ -20,7 +20,7 @@ import { Component } from '@angular/core';
         <div class="doc-main">
             <div class="doc-intro">
                 <h1>Designer</h1>
-                <p>Theme Designer is the ultimate tool to customize and design your own themes featuring a visual editor, figma to theme code, cloud storage, and migration assistant.</p>
+                <p>Theme Designer is the ultimate tool to customize and design your own themes featuring a visual editor, Figma to theme code, cloud storage, and migration assistant.</p>
             </div>
             <app-docsection [docs]="docs" />
         </div>
@@ -66,9 +66,9 @@ export class GuideDemo {
             label: 'Editor',
             children: [
                 {
-                    id: 'tokensets',
-                    label: 'Token Sets',
-                    component: TokenSetsDoc
+                    id: 'tokencollections',
+                    label: 'Token Collections',
+                    component: TokenCollectionsDoc
                 },
                 {
                     id: 'customtokens',

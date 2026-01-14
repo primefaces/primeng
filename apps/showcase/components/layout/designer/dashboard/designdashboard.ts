@@ -15,14 +15,14 @@ import { ToastModule } from 'primeng/toast';
     imports: [RouterModule, CommonModule, FormsModule, ToastModule, MenuModule, ConfirmPopupModule],
     template: `<div style="border-radius: 50px" class="overflow-hidden mb-8">
             <a routerLink="/designer">
-                <img src="https://primefaces.org/cdn/designer/{{ isDarkTheme() ? 'editor-intro-dark.png' : 'editor-intro.png' }}" />
+                <img src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/designer/{{ isDarkTheme() ? 'editor-intro-dark.png' : 'editor-intro.png' }}" />
             </a>
         </div>
 
         <div class="text-lg font-semibold mb-2">Authenticate</div>
         <div *ngIf="!verified()">
             <span class="block leading-6 mb-4"
-                >Theme Designer is the ultimate tool to customize and design your own themes featuring a visual editor, figma to theme code, cloud storage, and migration assistant. <a routerLink="/designer" class="doc-link">Discover</a> more about
+                >Theme Designer is the ultimate tool to customize and design your own themes featuring a visual editor, Figma to theme code, cloud storage, and migration assistant. <a routerLink="/designer" class="doc-link">Discover</a> more about
                 the Theme Designer by visiting the detailed <a routerLink="/designer/guide" class="doc-link">documentation</a>.</span
             >
             <span class="block leading-6 mb-4"

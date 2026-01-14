@@ -11,14 +11,14 @@ import { TooltipModule } from 'primeng/tooltip';
     standalone: true,
     imports: [CommonModule, Ripple, BadgeModule, TooltipModule, RouterModule],
     template: ` <div>
-        <div style="border-radius: 50px; max-height: 500px" class="overflow-hidden mb-8 flex items-center">
-            <img alt="PrimeNG Designer" src="https://primefaces.org/cdn/primeng/images/uikit/primeone-cover-{{ isDarkMode() ? 'dark' : 'light' }}.jpeg" class="w-full" />
+        <div style="border-radius: 50px" class="overflow-hidden mb-8 flex items-center">
+            <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/primeone-cover-{{ isDarkMode() ? 'dark' : 'light' }}.jpg" class="w-full" />
         </div>
 
         <div class="card mb-8" style="border-radius: 50px">
             <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20 mb-20">
                 <div class="w-full md:w-6/12">
-                    <img alt="PrimeNG Designer" src="https://primefaces.org/cdn/primeng/images/uikit/uikit-figma.png" class="w-full" />
+                    <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/uikit-figma.png" class="w-full" />
                 </div>
                 <div class="w-full md:w-6/12">
                     <div class="text-primary font-bold mb-2">UP-TO-DATE</div>
@@ -79,12 +79,12 @@ import { TooltipModule } from 'primeng/tooltip';
                     </ul>
                 </div>
                 <div class="w-full md:w-6/12">
-                    <img alt="PrimeNG Designer" src="https://primefaces.org/cdn/primeng/images/uikit/uikit-system.png" class="w-full" />
+                    <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/uikit-system.png" class="w-full" />
                 </div>
             </div>
             <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20 mb-20">
                 <div class="w-full md:w-6/12">
-                    <img alt="PrimeNG Designer" src="https://primefaces.org/cdn/primeng/images/uikit/uikit-themes.png" class="w-full" />
+                    <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/uikit-themes.png" class="w-full" />
                 </div>
                 <div class="w-full md:w-6/12">
                     <div class="text-primary font-bold mb-2">DARK MODE</div>
@@ -132,7 +132,7 @@ import { TooltipModule } from 'primeng/tooltip';
                     </ul>
                 </div>
                 <div class="w-full md:w-6/12">
-                    <img alt="Tokens Support" src="https://primefaces.org/cdn/primeng/images/uikit/uikit-tokens.png" class="w-full" />
+                    <img alt="Tokens Support" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/uikit-tokens.png" class="w-full" />
                 </div>
             </div>
             <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20">
@@ -146,8 +146,8 @@ import { TooltipModule } from 'primeng/tooltip';
                         <i>This feature requires a <a routerLink="/designer" class="doc-link">Theme Designer</a> subscription.</i>
                     </p>
                     <p class="mb-4 text-lg">
-                        Bridge the gap between design and development with our powerful Figma sync technology. Fully integrated with the PrimeNG Figma UI Kit, get started in no time by importing your design token file. Save countless hours in your
-                        workflow by eliminating manual theme creation from Figma designs.
+                        Sync design tokens from Figma to theme code with ease. Export token.json to the Visual Editor or generate and sync themes directly to your repository via the Figma plugin, eliminating manual steps and speeding up your
+                        workflow.
                     </p>
 
                     <ul class="flex flex-wrap m-0 p-0 text-lg">
