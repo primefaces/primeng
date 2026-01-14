@@ -10,6 +10,7 @@ export const routes: Routes = [
         children: [
             { path: 'accessibility', redirectTo: 'guides/accessibility', pathMatch: 'full' },
             { path: 'theming', redirectTo: 'theming/styled', pathMatch: 'full' },
+            { path: 'uikit/guide', redirectTo: 'uikit/guide/v3', pathMatch: 'full' },
             { path: 'autocomplete', loadChildren: () => import('@/pages/autocomplete/routes') },
             {
                 path: 'installation',
