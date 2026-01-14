@@ -431,7 +431,7 @@ Setting columnResizeMode as expand changes the table width as well.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -476,10 +476,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableColumnresizeexpandDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -531,7 +530,7 @@ Columns can be resized with drag and drop when resizableColumns is enabled. Defa
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -576,10 +575,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableColumnresizefitDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -638,7 +636,7 @@ To utilize the column resize modes with a scrollable TreeTable, a colgroup templ
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTable, TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -691,10 +689,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableColumnresizescrollableDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -751,7 +748,7 @@ Column visibility based on a condition can be implemented with dynamic columns, 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TreeTableModule } from 'primeng/treetable';
@@ -803,11 +800,10 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableColumntoggleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
     selectedColumns!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -860,7 +856,7 @@ Particular rows and cells can be styled based on conditions. The ngClass receive
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -905,10 +901,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableConditionalstyleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -960,7 +955,7 @@ TreeTable has exclusive integration with contextmenu component. In order to atta
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTable, TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode, MenuItem, MessageService } from 'primeng/api';
@@ -1006,12 +1001,12 @@ interface Column {
     providers: [NodeService, MessageService]
 })
 export class TreetableContextmenuDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
     files!: TreeNode[];
     selectedNode!: TreeNode;
     cols!: Column[];
     items!: MenuItem[];
-
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -1070,7 +1065,7 @@ Expansion state is controlled with expandedKeys property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -1104,9 +1099,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableControlledDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => {
@@ -1163,7 +1157,7 @@ Columns can be created programmatically.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -1208,10 +1202,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableDynamiccolumnsDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -1258,7 +1251,7 @@ Incell editing is enabled by defining input elements with treeTableCellEditor .
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeTableModule } from 'primeng/treetable';
 import { InputTextModule } from 'primeng/inputtext';
@@ -1300,10 +1293,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableEditDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -1375,7 +1367,7 @@ The filterMode specifies the filtering strategy, in lenient mode when the query 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { TreeTableModule } from 'primeng/treetable';
@@ -1443,12 +1435,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableFilterDemo implements OnInit {
+    private nodeService = inject(NodeService);
     filterMode: string = 'lenient';
     filterModes: any[];
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -1502,7 +1493,7 @@ Flex scroll feature makes the scrollable viewport section dynamic instead of a f
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Dialog, DialogModule } from 'primeng/dialog';
 import { TreeTableModule } from 'primeng/treetable';
@@ -1546,10 +1537,9 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableFlexiblescrollDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     dialogVisible: boolean = false;
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => {
@@ -1592,7 +1582,7 @@ Enabling showGridlines displays grid lines.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -1626,9 +1616,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableGridlinesDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -1687,7 +1676,7 @@ Lazy mode is handy to deal with large datasets, instead of loading the entire da
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -1746,12 +1735,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableLazyloadDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
     totalRecords!: number;
     loading: boolean = false;
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.cols = [
@@ -1850,7 +1838,7 @@ The loading property displays a mask layer to indicate busy state. Use the pagin
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -1886,9 +1874,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableLoadingmaskDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -1924,7 +1911,7 @@ Skeleton component can be used as a placeholder during the loading process.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
@@ -1956,9 +1943,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableLoadingskeletonDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>([]);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => this.files.set(files));
@@ -2249,7 +2235,7 @@ Order of the columns can be changed using drag and drop when reorderableColumns 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -2294,10 +2280,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableReorderDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -2359,7 +2344,7 @@ A column can be fixed during horizontal scrolling by enabling the frozenColumns 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -2414,12 +2399,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableScrollfrozencolumnsDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
     frozenCols!: Column[];
     scrollableCols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -2487,7 +2471,7 @@ Horizontal scrolling is enabled when the total width of columns exceeds table wi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -2539,10 +2523,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableScrollhorizontalDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -2594,7 +2577,7 @@ Adding scrollable property along with a scrollHeight for the data viewport enabl
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -2639,10 +2622,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableScrollverticalDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -2695,7 +2677,7 @@ Selection of multiple nodes via checkboxes is enabled by configuring selectionMo
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -2741,11 +2723,10 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSelectioncheckboxDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     selectionKeys: any = {};
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getTreeTableNodes().then((files) => {
@@ -2827,7 +2808,7 @@ TreeTable provides onNodeSelect and onNodeUnselect events to listen selection ev
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode, MessageService } from 'primeng/api';
@@ -2887,11 +2868,11 @@ interface NodeEvent {
     providers: [NodeService, MessageService]
 })
 export class TreetableSelectioneventscDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
     files!: TreeNode[];
     selectedNode!: TreeNode;
     cols!: Column[];
-
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -2951,7 +2932,7 @@ More than one node is selectable by setting selectionMode to multiple . By defau
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTable, TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -2997,12 +2978,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSelectionmultipleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     metaKeySelection: boolean = true;
     files!: TreeNode[];
     selectedNodes!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -3054,7 +3034,7 @@ Single node selection is configured by setting selectionMode as single along wit
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -3099,12 +3079,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSelectionsingleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     metaKeySelection: boolean = true;
     files!: TreeNode[];
     selectedNode!: TreeNode;
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -3150,7 +3129,7 @@ In addition to a regular treetable, alternatives with alternative sizes are avai
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -3184,11 +3163,10 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableSizeDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     sizes!: any[];
     selectedSize: any = '';
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -3243,7 +3221,7 @@ Multiple columns can be sorted by defining sortMode as multiple . This mode requ
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -3291,10 +3269,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSortmultiplecolumnsDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -3349,7 +3326,7 @@ The removable sort can be implemented using the customSort property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTable, TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode, SortEvent } from 'primeng/api';
@@ -3398,14 +3375,13 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSortremovableDemo implements OnInit {
+    private nodeService = inject(NodeService);
     metaKeySelection: boolean = true;
     files!: TreeNode[];
     initialValue: TreeNode[];
     selectedNode!: TreeNode;
     cols!: Column[];
     isSorted: boolean = null;
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => {
@@ -3492,7 +3468,7 @@ Sorting on a column is enabled by adding the ttSortableColumn property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -3540,10 +3516,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSortsinglecolumnDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -3606,7 +3581,7 @@ Custom content at caption , header , body and summary sections are supported via
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
@@ -3663,10 +3638,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableTemplateDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

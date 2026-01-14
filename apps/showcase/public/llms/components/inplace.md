@@ -163,7 +163,7 @@ Using the onActivate event, data can be loaded in a lazy manner before displayin
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { InplaceModule } from 'primeng/inplace';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
@@ -204,9 +204,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class InplaceLazyDemo implements OnInit {
+    private productService = inject(ProductService);
     products: Product[] | undefined;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
     }

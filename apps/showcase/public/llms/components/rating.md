@@ -124,9 +124,16 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class RatingReactiveformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    ratingValue: [undefined, Validators.required]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -267,6 +274,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class RatingTemplatedrivenformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     value: any;
 

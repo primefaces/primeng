@@ -282,10 +282,17 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class RadiobuttonReactiveformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     formSubmitted: boolean = false;
     exampleForm: FormGroup;
     categories: any[];
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    selectedCategory: ['', Validators.required]
+                });
+    }
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
@@ -429,6 +436,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class RadiobuttonTemplatedrivenformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     formSubmitted: boolean = false;
     ingredient!: any;

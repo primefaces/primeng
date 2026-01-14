@@ -49,7 +49,7 @@ Items can be reordered using drag and drop by enabling dragdrop property. Depend
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -84,9 +84,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class OrderlistDragdropDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<Product[]>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => {
@@ -139,7 +138,7 @@ Filter value is checked against the property of an object configured with the fi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -174,9 +173,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class OrderlistFilterDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<Product[]>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => {
@@ -229,7 +227,7 @@ For custom content support define an item template that gets the item instance a
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -264,9 +262,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class OrderlistTemplateDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<Product[]>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => {

@@ -61,7 +61,7 @@ This example demonstrates an advanced use case with templating, object handling,
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ProductService } from '@/service/productservice';
@@ -111,9 +111,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class AutocompleteAdvancedChipsDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<Product[]>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((data) => this.products.set(data));
@@ -498,7 +497,7 @@ ForceSelection mode validates the manual input to check whether it also exists i
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CountryService } from '@/service/countryservice';
@@ -519,11 +518,10 @@ interface AutoCompleteCompleteEvent {
     providers: [CountryService]
 })
 export class AutocompleteForceSelectionDemo implements OnInit {
+    private countryService = inject(CountryService);
     countries: any[] | undefined;
     selectedCountry: any;
     filteredCountries: any[] | undefined;
-
-    constructor(private countryService: CountryService) {}
 
     ngOnInit() {
         this.countryService.getCountries().then((countries) => {
@@ -597,8 +595,6 @@ export class AutocompleteGroupDemo implements OnInit {
     selectedCity: any;
     filteredGroups: any[] | undefined;
     groupedCities: SelectItemGroup[] | undefined;
-
-    constructor(private filterService: FilterService) {}
 
     ngOnInit() {
         this.groupedCities = [
@@ -808,7 +804,7 @@ AutoComplete can also work with objects using the optionLabel property that defi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CountryService } from '@/service/countryservice';
@@ -830,11 +826,10 @@ interface AutoCompleteCompleteEvent {
     providers: [CountryService]
 })
 export class AutocompleteObjectsDemo implements OnInit {
+    private countryService = inject(CountryService);
     countries: any[] | undefined;
     selectedCountry: any;
     filteredCountries: any[] | undefined;
-
-    constructor(private countryService: CountryService) {}
 
     ngOnInit() {
         this.countryService.getCountries().then((countries) => {
@@ -915,6 +910,12 @@ export class AutocompleteReactiveFormsDemo {
     items: any[] | undefined;
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    value: ['', Validators.required]
+                });
+    }
 
     search(event: AutoCompleteCompleteEvent) {
         this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
@@ -1006,7 +1007,7 @@ AutoComplete offers multiple templates for customization through templating.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
@@ -1043,11 +1044,10 @@ interface AutoCompleteCompleteEvent {
     providers: [CountryService]
 })
 export class AutocompleteTemplateDemo implements OnInit {
+    private countryService = inject(CountryService);
     countries: any[] | undefined;
     selectedCountryAdvanced: any[] | undefined;
     filteredCountries: any[] | undefined;
-
-    constructor(private countryService: CountryService) {}
 
     ngOnInit() {
         this.countryService.getCountries().then((countries) => {

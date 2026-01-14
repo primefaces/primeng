@@ -58,7 +58,7 @@ Filter value is checked against the property of an object configured with the fi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -102,10 +102,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class PicklistFilterDemo implements OnInit {
+    private productService = inject(ProductService);
     sourceProducts = signal<Product[]>([]);
     targetProducts = signal<Product[]>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.carService.getProductsSmall().then((products) => {
@@ -146,7 +145,7 @@ For custom content support define an item template that gets the item instance a
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -180,10 +179,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class PicklistTemplateDemo implements OnInit {
+    private productService = inject(ProductService);
     sourceProducts = signal<Product[]>([]);
     targetProducts = signal<Product[]>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.carService.getProductsSmall().then((products) => {

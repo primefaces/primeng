@@ -432,6 +432,13 @@ export class InputtextReactiveformsDemo {
     exampleForm: FormGroup;
     formSubmitted: boolean = false;
 
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    username: ['', Validators.required],
+                    email: ['', [Validators.required, Validators.email]]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {

@@ -602,6 +602,41 @@ import { SelectItemGroup } from 'primeng/api';
 export class SelectGroupDemo {
     groupedCities: SelectItemGroup[];
     selectedCity: string | undefined;
+
+    constructor() {
+        this.groupedCities = [
+                    {
+                        label: 'Germany',
+                        value: 'de',
+                        items: [
+                            { label: 'Berlin', value: 'Berlin' },
+                            { label: 'Frankfurt', value: 'Frankfurt' },
+                            { label: 'Hamburg', value: 'Hamburg' },
+                            { label: 'Munich', value: 'Munich' }
+                        ]
+                    },
+                    {
+                        label: 'USA',
+                        value: 'us',
+                        items: [
+                            { label: 'Chicago', value: 'Chicago' },
+                            { label: 'Los Angeles', value: 'Los Angeles' },
+                            { label: 'New York', value: 'New York' },
+                            { label: 'San Francisco', value: 'San Francisco' }
+                        ]
+                    },
+                    {
+                        label: 'Japan',
+                        value: 'jp',
+                        items: [
+                            { label: 'Kyoto', value: 'Kyoto' },
+                            { label: 'Osaka', value: 'Osaka' },
+                            { label: 'Tokyo', value: 'Tokyo' },
+                            { label: 'Yokohama', value: 'Yokohama' }
+                        ]
+                    }
+                ];
+    }
 }
 ```
 </details>
@@ -733,6 +768,13 @@ export class SelectLazyvirtualscrollDemo {
     loadLazyTimeout: any = null;
     options: ScrollerOptions;
 
+    constructor() {
+        this.items = [];
+                for (let i = 0; i < 10000; i++) {
+                    this.items.push({ label: 'Item ' + i, value: 'Item ' + i });
+                }
+    }
+
     onLazyLoad(event) {
         this.loading = true;
         
@@ -863,6 +905,12 @@ export class SelectReactiveformsDemo {
     cities: City[];
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    city: ['', Validators.required]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -1143,6 +1191,13 @@ import { SelectItem } from 'primeng/api';
 export class SelectVirtualscrollDemo {
     items: SelectItem[];
     selectedItem: string | undefined;
+
+    constructor() {
+        this.items = [];
+                for (let i = 0; i < 10000; i++) {
+                    this.items.push({ label: 'Item ' + i, value: 'Item ' + i });
+                }
+    }
 }
 ```
 </details>

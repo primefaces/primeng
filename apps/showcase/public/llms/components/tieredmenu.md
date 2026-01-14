@@ -27,7 +27,7 @@ The command property defines the callback to run when an item is activated by cl
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -44,9 +44,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class TieredmenuCommandDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [

@@ -47,7 +47,7 @@ Headless mode allows you to customize the entire user interface instead of the d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -82,7 +82,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmdialogHeadlessDemo {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -114,7 +115,7 @@ The position property of the confirm options is used to display a Dialog at all 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -147,7 +148,8 @@ import { Dialog } from 'primeng/dialog';
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmdialogPositionDemo {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -175,7 +177,7 @@ Properties of the dialog are defined in two ways, message , icon , header proper
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -203,7 +205,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmdialogTemplateDemo {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
 }
 ```
 </details>

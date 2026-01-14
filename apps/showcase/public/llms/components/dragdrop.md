@@ -73,7 +73,7 @@ Drag and Drop to Table
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ProductService } from '@/service/productservice';
@@ -127,11 +127,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class DragdropDatatableDemo implements OnInit {
+    private productService = inject(ProductService);
     availableProducts: Product[] | undefined;
     selectedProducts: Product[] | undefined;
     draggedProduct: Product | undefined | null;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.selectedProducts = [];

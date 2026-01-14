@@ -29,7 +29,7 @@ Clicking the close icon on the toast, removes it manually. Same can also be achi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -47,7 +47,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastClearDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     clear() {
         this.messageService.clear();
@@ -86,7 +86,7 @@ Headless mode allows you to customize the entire user interface instead of the d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
@@ -121,6 +121,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastHeadlessDemo {
+    private messageService = inject(MessageService);
     visible: boolean = false;
     progress = signal(0);
     interval: any = null;
@@ -175,7 +176,7 @@ A toast disappears after 3000ms by default, set the life option on either the me
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -193,7 +194,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastLifeDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     showLifeLong() {
         this.messageService.add({ severity: 'info', summary: 'Life', detail: 'I show for 20000ms', life: 20000 });
@@ -215,7 +216,7 @@ Multiple toasts are displayed by passing an array to the showAll method of the m
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
@@ -233,7 +234,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastMultipleDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -257,7 +258,7 @@ Location of the toast is customized with the position property. Valid values are
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
@@ -281,7 +282,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastPositionDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     showBottomLeft() {
         this.messageService.add({
@@ -319,7 +320,7 @@ Toast styling can be adjusted per screen size with the breakpoints option. The v
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -336,7 +337,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastResponsiveDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -359,7 +360,7 @@ The severity option specifies the type of the message. There are four types of m
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
@@ -382,7 +383,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastSeverityDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     showInfo() {
         this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content' });
@@ -423,7 +424,7 @@ A toast disappears after the time defined by the life option, set sticky option 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
@@ -444,7 +445,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastStickyDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     clear() {
         this.messageService.clear();
@@ -468,7 +469,7 @@ A page may have multiple toast components, in case you'd like to target a specif
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -487,7 +488,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastTargetDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     showToast2() {
         this.messageService.clear();
@@ -521,7 +522,7 @@ Templating allows customizing the content where the message instance is availabl
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
@@ -550,7 +551,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastTemplateDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     onReject() {
         this.messageService.clear('confirm');

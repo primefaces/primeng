@@ -23,7 +23,7 @@ Advanced uploader provides dragdrop support, multi file uploads, auto uploading,
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -49,9 +49,8 @@ interface UploadEvent {
     providers: [MessageService]
 })
 export class FileuploadAdvancedDemo {
+    private messageService = inject(MessageService);
     uploadedFiles: any[] = [];
-
-    constructor(private messageService: MessageService) {}
 }
 ```
 </details>
@@ -69,7 +68,7 @@ When auto property is enabled, a file gets uploaded instantly after selection.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -91,7 +90,7 @@ interface UploadEvent {
     providers: [MessageService]
 })
 export class FileuploadAutoDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -118,7 +117,7 @@ FileUpload basic mode provides a simpler UI as an alternative to default advance
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -135,7 +134,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class FileuploadCustomDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -203,7 +202,7 @@ export class FileuploadCustomDemo {
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -283,11 +282,10 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class FileuploadTemplateDemo {
+    private messageService = inject(MessageService);
     files: any[] = [];
     totalSize: number = 0;
     totalSizePercent: number = 0;
-
-    constructor(private config: PrimeNG, private messageService: MessageService) {}
 
     onRemoveTemplatingFile(event, file, removeFileCallback, index) {
         removeFileCallback(event, index);

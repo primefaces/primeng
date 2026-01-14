@@ -127,6 +127,12 @@ export class InputotpReactiveformsDemo {
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
 
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    value: ['', [Validators.required, Validators.minLength(4)]]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {

@@ -26,7 +26,7 @@ Selection of multiple nodes via checkboxes is enabled by configuring selectionMo
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -42,10 +42,9 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeCheckboxDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>(undefined);
     selectedFiles!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -70,7 +69,7 @@ Tree has exclusive integration with ContextMenu using the contextMenu property a
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
 import { TreeModule } from 'primeng/tree';
@@ -91,12 +90,12 @@ import { ContextMenu } from 'primeng/contextmenu';
     providers: [NodeService, MessageService]
 })
 export class TreeContextmenuDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
     files = signal<TreeNode[]>([]);
     selectedNode: any = model<TreeNode | null>(null);
     contextMenuNode: any = model<TreeNode | null>(null);
     items!: MenuItem[];
-
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((files) => this.files.set(files));
@@ -149,7 +148,7 @@ Tree requires a collection of TreeNode instances as a value .
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
@@ -170,9 +169,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeControlledDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -215,7 +213,7 @@ An event is provided for each type of user interaction such as expand, collapse 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ToastModule } from 'primeng/toast';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
@@ -242,10 +240,10 @@ import { TreeNode, MessageService } from 'primeng/api';
     providers: [NodeService, MessageService]
 })
 export class TreeEventDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
     files = signal<TreeNode[]>(undefined);
     selectedFile!: TreeNode;
-
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -289,7 +287,7 @@ Filtering is enabled by adding the filter property, by default label property of
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -310,10 +308,9 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeFilterDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>(undefined);
     files2 = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -425,7 +422,7 @@ More than one node is selectable by setting selectionMode to multiple . By defau
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { Tree, TreeModule } from 'primeng/tree';
@@ -447,11 +444,10 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeMultipleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     metaKeySelection: boolean = false;
     files = signal<TreeNode[]>(undefined);
     selectedFiles!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -474,7 +470,7 @@ Single node selection is configured by setting selectionMode as single along wit
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -490,10 +486,9 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeSingleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>(undefined);
     selectedFile!: TreeNode;
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -586,7 +581,7 @@ VirtualScroller is a performance-approach to handle huge data efficiently. Setti
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -602,9 +597,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeVirtualscrollDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodes.set(this.nodeService.generateNodes(150));
@@ -625,7 +619,7 @@ VirtualScroller is a performance-approach to handle huge data efficiently. Setti
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -641,10 +635,9 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeVirtualscrolllazyDemo implements OnInit {
+    private nodeService = inject(NodeService);
     loading = signal<boolean>(false);
     nodes = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.loading.set(true);

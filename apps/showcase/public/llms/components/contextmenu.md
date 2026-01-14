@@ -42,7 +42,7 @@ The function to invoke when an item is clicked is defined using the command prop
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
@@ -82,11 +82,10 @@ interface Users {
     providers: [MessageService]
 })
 export class ContextmenuCommandDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
     selectedUser: Users;
     users: Users[];
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.users = [

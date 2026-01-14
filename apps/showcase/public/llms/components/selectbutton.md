@@ -198,6 +198,12 @@ export class SelectbuttonReactiveformsDemo {
     formSubmitted: boolean = false;
     stateOptions: any[];
 
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    value: ['', Validators.required]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {

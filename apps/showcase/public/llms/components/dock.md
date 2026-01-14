@@ -62,7 +62,7 @@ A mock desktop UI implemented with various components in addition to Dock.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { DockModule } from 'primeng/dock';
 import { GalleriaModule } from 'primeng/galleria';
@@ -130,6 +130,9 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [NodeService, PhotoService, MessageService]
 })
 export class DockAdvancedDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private photoService = inject(PhotoService);
+    private messageService = inject(MessageService);
     displayTerminal: boolean | undefined;
     displayFinder: boolean | undefined;
     displayGalleria: boolean | undefined;
@@ -139,8 +142,6 @@ export class DockAdvancedDemo implements OnInit {
     images: any[] | undefined;
     nodes: any[] | undefined;
     subscription: Subscription | undefined;
-
-    constructor(private galleriaService: PhotoService, private nodeService: NodeService, private messageService: MessageService, private terminalService: TerminalService) {}
 
     ngOnInit() {
         this.dockItems = [

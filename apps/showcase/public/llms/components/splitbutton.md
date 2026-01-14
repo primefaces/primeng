@@ -32,7 +32,7 @@ When the disabled attribute is present, the element is uneditable and unfocused.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -49,7 +49,9 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonDisabledDemo {
-    constructor(private messageService: MessageService) {
+    private messageService = inject(MessageService);
+
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -97,7 +99,7 @@ The buttons and menuitems have support to display icons.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -114,9 +116,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonIconsDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -161,7 +164,7 @@ SplitButton has a default action button and a collection of additional options d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -178,9 +181,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonNestedDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'File',
@@ -336,7 +340,7 @@ Outlined buttons display a border without a background initially.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -360,9 +364,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonOutlinedDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -417,7 +422,7 @@ Raised buttons display a shadow to indicate elevation.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -441,9 +446,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonRaisedDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -498,7 +504,7 @@ Text buttons can be displayed as raised as well for elevation.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -522,9 +528,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonRaisedtextDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -583,7 +590,7 @@ Rounded buttons have a circular border radius.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -607,9 +614,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonRoundedDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -664,7 +672,7 @@ The severity property defines the type of button.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -688,9 +696,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonSeverityDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -740,7 +749,7 @@ SplitButton provides small and large sizes as alternatives to the standard.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -759,7 +768,9 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonSizesDemo {
-    constructor(private messageService: MessageService) {
+    private messageService = inject(MessageService);
+
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -814,7 +825,7 @@ SplitButton has a default action button and a collection of additional options d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -838,9 +849,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonTemplateDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -895,7 +907,7 @@ Text buttons are displayed as textual elements.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -919,9 +931,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonTextDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',

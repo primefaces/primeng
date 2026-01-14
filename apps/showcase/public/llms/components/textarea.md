@@ -338,6 +338,12 @@ export class TextareaReactiveformsDemo {
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
 
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    address: ['', Validators.required]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {

@@ -423,6 +423,41 @@ interface City {
 export class MultiselectGroupDemo {
     groupedCities!: SelectItemGroup[];
     selectedCities!: City[];
+
+    constructor() {
+        this.groupedCities = [
+                    {
+                        label: 'Germany',
+                        value: 'de',
+                        items: [
+                            { label: 'Berlin', value: 'Berlin' },
+                            { label: 'Frankfurt', value: 'Frankfurt' },
+                            { label: 'Hamburg', value: 'Hamburg' },
+                            { label: 'Munich', value: 'Munich' }
+                        ]
+                    },
+                    {
+                        label: 'USA',
+                        value: 'us',
+                        items: [
+                            { label: 'Chicago', value: 'Chicago' },
+                            { label: 'Los Angeles', value: 'Los Angeles' },
+                            { label: 'New York', value: 'New York' },
+                            { label: 'San Francisco', value: 'San Francisco' }
+                        ]
+                    },
+                    {
+                        label: 'Japan',
+                        value: 'jp',
+                        items: [
+                            { label: 'Kyoto', value: 'Kyoto' },
+                            { label: 'Osaka', value: 'Osaka' },
+                            { label: 'Tokyo', value: 'Tokyo' },
+                            { label: 'Yokohama', value: 'Yokohama' }
+                        ]
+                    }
+                ];
+    }
 }
 ```
 </details>
@@ -623,10 +658,17 @@ interface City {
     providers: [MessageService]
 })
 export class MultiselectReactiveformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     cities: City[];
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    city: ['', Validators.required]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -869,6 +911,7 @@ interface City {
     providers: [MessageService]
 })
 export class MultiselectTemplatedrivenformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     cities: City[];
     selectedCity: City | undefined;

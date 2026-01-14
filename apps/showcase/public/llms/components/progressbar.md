@@ -27,7 +27,7 @@ Value is reactive so updating it dynamically changes the bar as well.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -44,10 +44,9 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ProgressbarDynamicDemo implements OnInit {
+    private messageService = inject(MessageService);
     value: number = 0;
     interval: any;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.ngZone.runOutsideAngular(() => {
@@ -85,7 +84,7 @@ For progresses with no value to track, set the mode property to indeterminate .
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { MessageService } from 'primeng/api';
 
@@ -99,7 +98,9 @@ import { MessageService } from 'primeng/api';
     imports: [ProgressBarModule],
     providers: [MessageService]
 })
-export class ProgressbarIndeterminateDemo {}
+export class ProgressbarIndeterminateDemo {
+    private messageService = inject(MessageService);
+}
 ```
 </details>
 

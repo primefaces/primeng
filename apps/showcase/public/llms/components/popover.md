@@ -128,7 +128,7 @@ Place the Popover outside of the data iteration components to avoid rendering it
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Popover, PopoverModule } from 'primeng/popover';
 import { TableModule } from 'primeng/table';
@@ -210,10 +210,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService, MessageService]
 })
 export class PopoverDatatableDemo implements OnInit {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
     products = signal<Product[]>([]);
     selectedProduct = signal<Product | null>(null);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {

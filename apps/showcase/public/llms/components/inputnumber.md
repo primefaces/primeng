@@ -657,6 +657,12 @@ export class InputnumberReactiveformsDemo {
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
 
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    value: [undefined, Validators.required]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {

@@ -117,6 +117,12 @@ export class EditorReactiveformsDemo {
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
 
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    text: ['', Validators.required]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {

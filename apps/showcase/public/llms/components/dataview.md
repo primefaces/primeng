@@ -139,7 +139,7 @@ DataView supports list and grid display modes defined with the layout property. 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataViewModule } from 'primeng/dataview';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -235,10 +235,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class DataviewLayoutDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<any>([]);
     options: any[] = ['list', 'grid'];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProducts().then((data) => {
@@ -315,7 +314,7 @@ While data is being loaded. Skeleton component may be used to indicate the busy 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataViewModule } from 'primeng/dataview';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -388,10 +387,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class DataviewLoadingDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<any>([]);
     options: string[] = ['list', 'grid'];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProducts().then((data) => this.products.set([...data.slice(0, 12)]));
@@ -453,7 +451,7 @@ Pagination is enabled with the paginator and rows properties. Refer to the Pagin
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import { TagModule } from 'primeng/tag';
@@ -508,9 +506,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class DataviewPaginationDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<any>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProducts().then((data) => {
@@ -575,7 +572,7 @@ Built-in sorting is controlled by bindings sortField and sortOrder properties fr
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
@@ -638,12 +635,11 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class DataviewSortingDemo implements OnInit {
+    private productService = inject(ProductService);
     sortOptions!: SelectItem[];
     sortOrder!: number;
     sortField!: string;
     products = signal<any>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProducts().then((data) => this.products.set(data.slice(0, 5)));

@@ -386,9 +386,16 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class PasswordReactiveformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    value: ['', Validators.required]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -548,6 +555,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class PasswordTemplatedrivenformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     value: any;
 

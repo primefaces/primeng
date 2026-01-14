@@ -189,6 +189,12 @@ export class ColorpickerReactiveformsDemo {
     exampleForm: FormGroup;
     formSubmitted: boolean = false;
 
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    color: ['', Validators.required]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {

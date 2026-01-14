@@ -181,6 +181,12 @@ export class SliderReactiveformsDemo {
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
 
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    value: ['', Validators.required]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {

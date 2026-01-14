@@ -23,7 +23,7 @@ Items can be displayed around the button when type is set to circle . Additional
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -42,9 +42,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeeddialCircleDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -99,7 +98,7 @@ SpeedDial items are defined with the model property based on MenuModel API. Defa
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -121,9 +120,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeeddialLinearDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -175,7 +173,7 @@ Adding mask property displays a modal layer behind the popup items.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -194,9 +192,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeeddialMaskDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -251,7 +248,7 @@ When type is defined as quarter-circle , items are displayed in a half-circle ar
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -273,9 +270,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeeddialQuartercircleDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -330,7 +326,7 @@ When type is defined as semi-circle , items are displayed in a half-circle aroun
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -352,9 +348,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeeddialSemicircleDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -448,7 +443,7 @@ SpeedDial offers item customization with the item template that receives the men
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
@@ -510,9 +505,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeeddialTemplateDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -573,7 +567,7 @@ Items display a tooltip on hover when a standalone Tooltip is present with a tar
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -593,9 +587,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeeddialTooltipDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [

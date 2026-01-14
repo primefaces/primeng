@@ -64,7 +64,7 @@ When autoplayInterval is defined in milliseconds, items are scrolled automatical
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -101,10 +101,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class CarouselCircularDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<Product[]>([]);
     responsiveOptions: any[] | undefined;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((data) => {
@@ -179,7 +178,7 @@ Carousel supports specific configuration per screen size with the responsiveOpti
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -216,10 +215,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class CarouselResponsiveDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<Product[]>([]);
     responsiveOptions: any[] | undefined;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
@@ -294,7 +292,7 @@ To create a vertical Carousel, orientation needs to be set to vertical along wit
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -331,9 +329,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class CarouselVerticalDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<Product[]>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {

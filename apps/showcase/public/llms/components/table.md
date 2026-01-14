@@ -96,7 +96,7 @@ In-cell editing is enabled by adding pEditableColumn directive to an editable ce
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
@@ -167,9 +167,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableCelleditDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -215,7 +214,7 @@ Multiple selection can also be handled using checkboxes by enabling the selectio
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -254,10 +253,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableCheckboxselectionDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     selectedProducts!: Product;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -476,7 +474,7 @@ Setting columnResizeMode as expand changes the table width as well.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -509,9 +507,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableColumnresizeexpandmodeDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -551,7 +548,7 @@ Columns can be resized using drag drop by setting the resizableColumns to true .
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -584,9 +581,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableColumnresizefitmodeDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -624,7 +620,7 @@ export class TableColumnresizefitmodeDemo implements OnInit {
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
@@ -657,9 +653,8 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableColumnresizescrollablemodeDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -704,7 +699,7 @@ Row selection with an element inside a column is implemented with templating.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
@@ -745,10 +740,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService, MessageService]
 })
 export class TableColumnselectionDemo implements OnInit {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
     products!: Product[];
     selectedProduct!: Product;
-
-    constructor(private productService: ProductService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -795,7 +790,7 @@ This demo uses a multiselect component to implement toggleable columns.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TableModule } from 'primeng/table';
@@ -838,11 +833,10 @@ interface Column {
     providers: [ProductService]
 })
 export class TableColumntoggleDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     cols!: Column[];
     selectedColumns!: Column[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -890,7 +884,7 @@ Table has exclusive integration with contextmenu component. In order to attach a
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { Table, TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
@@ -928,11 +922,11 @@ import { Product } from '@/domain/product';
     providers: [ProductService, MessageService]
 })
 export class TableContextmenuDemo implements OnInit {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
     products!: Product[];
     selectedProduct!: Product;
     items!: MenuItem[];
-
-    constructor(private productService: ProductService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -1121,7 +1115,7 @@ DataTable with selection, pagination, filtering, sorting and templating.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
@@ -1299,6 +1293,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableCustomersDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
     selectedCustomers!: Customer[];
     representatives!: Representative[];
@@ -1306,8 +1301,6 @@ export class TableCustomersDemo implements OnInit {
     loading: boolean = true;
     activityValues: number[] = [0, 100];
     searchValue: string | undefined;
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -1395,7 +1388,7 @@ Columns can be defined dynamically using the *ngFor directive.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -1435,10 +1428,9 @@ interface Column {
     providers: [ProductService]
 })
 export class TableDynamicDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     cols!: Column[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -1514,7 +1506,7 @@ When expandableRowGroups is present in subheader based row grouping, groups can 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
@@ -1580,9 +1572,8 @@ import { Customer, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableExpandablerowgroupDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -1658,7 +1649,7 @@ Table can export its data to CSV format.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
@@ -1706,10 +1697,9 @@ interface ExportColumn {
     providers: [ProductService]
 })
 export class TableExportDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     selectedProducts!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -2037,6 +2027,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableFilterAdvancedDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customerService = inject(CustomerService);
     customers = signal<Customer[]>([]);
     representatives = signal<Representative[]>([]);
@@ -2214,7 +2205,7 @@ Data filtering is enabled by defining the filters property referring to a DataTa
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -2339,13 +2330,12 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableFilterbasicDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
     representatives!: Representative[];
     statuses!: any[];
     loading: boolean = true;
     activityValues: number[] = [0, 100];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -2438,7 +2428,7 @@ Flex scroll feature makes the scrollable viewport section dynamic instead of a f
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Dialog, DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
@@ -2481,10 +2471,9 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableFlexiblescrollDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
     dialogVisible: boolean = false;
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -2541,7 +2530,7 @@ Certain columns can be frozen by using the pFrozenColumn directive of the table 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ToggleButtonModule } from 'primeng/togglebutton';
@@ -2589,10 +2578,9 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableFrozencolumnsDemo implements OnInit {
+    private customerService = inject(CustomerService);
     balanceFrozen: boolean = false;
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -2651,7 +2639,7 @@ Frozen rows are used to fix certain rows while scrolling, this data is defined w
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
@@ -2701,10 +2689,9 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableFrozenrowsDemo implements OnInit {
+    private customerService = inject(CustomerService);
     unlockedCustomers!: Customer[];
     lockedCustomers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -2776,7 +2763,7 @@ Enabling showGridlines displays borders between cells.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -2809,9 +2796,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableGridlinesDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -2874,7 +2860,7 @@ Horizontal scrollbar is displayed when table width exceeds the parent width.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
@@ -2930,9 +2916,8 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableHorizontalscrollDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -2976,7 +2961,7 @@ The loading property displays a mask layer to indicate busy state. Use the pagin
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -3009,9 +2994,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableLoadingmaskDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -3141,7 +3125,7 @@ Multiple columns can be sorted by defining sortMode as multiple . This mode requ
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -3194,9 +3178,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableMultiplecolumnssortDemo implements OnInit {
+    private productService = inject(ProductService);
     products: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -3240,7 +3223,7 @@ More than one row is selectable by setting selectionMode to multiple . By defaul
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
@@ -3279,11 +3262,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableMultipleselectionDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     selectedProducts!: Product;
     metaKey: boolean = true;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -3323,7 +3305,7 @@ Pagination is enabled by setting paginator property to true and defining a rows 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
@@ -3356,9 +3338,8 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TablePaginatorbasicDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -3413,7 +3394,7 @@ Paginator can also be controlled via model using a binding to the first property
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { CustomerService } from '@/service/customerservice';
@@ -3462,11 +3443,10 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TablePaginatorprogrammaticDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
     first: number = 0;
     rows: number = 10;
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -3558,7 +3538,7 @@ Defining a default sortField and sortOrder displays data as sorted initially in 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -3618,9 +3598,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TablePresortDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -3797,7 +3776,7 @@ CRUD implementation example with a Dialog.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -3994,6 +3973,9 @@ interface ExportColumn {
     providers: [ProductService, MessageService, ConfirmationService]
 })
 export class TableProductsDemo implements OnInit {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
+    private confirmationService = inject(ConfirmationService);
     productDialog: boolean = false;
     products!: Product[];
     product!: Product;
@@ -4002,8 +3984,6 @@ export class TableProductsDemo implements OnInit {
     statuses!: any[];
     cols!: Column[];
     exportColumns!: ExportColumn[];
-
-    constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
 
     ngOnInit() {
         this.productService.getProducts().then((data) => {
@@ -4193,7 +4173,7 @@ Single selection can also be handled using radio buttons.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -4230,10 +4210,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableRadiobuttonselectionDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     selectedProduct!: Product;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -4293,7 +4272,7 @@ The removable sort can be implemented using the customSort property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { SortEvent } from 'primeng/api';
@@ -4347,11 +4326,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableRemovablesortDemo implements OnInit {
+    private productService = inject(ProductService);
     products: Product[];
     initialValue: Product[];
     isSorted: boolean = null;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -4423,7 +4401,7 @@ Order of the columns and rows can be changed using drag and drop. Column reorder
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -4463,10 +4441,9 @@ interface Column {
     providers: [ProductService]
 })
 export class TableReorderDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     cols!: Column[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -4557,7 +4534,7 @@ Row editing toggles the visibility of all the editors in the row at once and pro
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { TableModule } from 'primeng/table';
@@ -4643,10 +4620,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService, MessageService]
 })
 export class TableRoweditDemo implements OnInit {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
     products!: Product[];
     statuses!: SelectItem[];
-
-    constructor(private productService: ProductService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -4806,7 +4783,7 @@ Row expansion allows displaying detailed content for a particular row. To use th
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
@@ -4933,10 +4910,10 @@ import { Customer } from '@/domain/customer';
     providers: [ProductService, MessageService]
 })
 export class TableRowexpansionDemo implements OnInit {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
     products!: Product[];
     expandedRows: any = {};
-
-    constructor(private productService: ProductService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.productService.getProductsWithOrdersSmall().then((data) => {
@@ -5039,7 +5016,7 @@ When rowGroupMode is configured to be rowspan , the grouping column spans multip
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { CustomerService } from '@/service/customerservice';
@@ -5093,9 +5070,8 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableRowspangroupingDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -5169,7 +5145,7 @@ Table provides onRowSelect and onRowUnselect events to listen selection events.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ProductService } from '@/service/productservice';
@@ -5205,10 +5181,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService, MessageService]
 })
 export class TableSelectioneventsDemo implements OnInit {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
     products!: Product[];
     selectedProduct!: Product;
-
-    constructor(private productService: ProductService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -5276,7 +5252,7 @@ A column can be made sortable by adding the pSortableColumn directive whose valu
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -5329,9 +5305,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableSinglecolumnsortDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -5375,7 +5350,7 @@ Single row selection is enabled by defining selectionMode as single along with a
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
@@ -5414,11 +5389,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableSingleselectionDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     selectedProduct!: Product;
     metaKey: boolean = true;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -5461,7 +5435,7 @@ In addition to a regular table, alternatives with alternative sizes are availabl
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
@@ -5499,11 +5473,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableSizeDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     sizes!: any[];
     selectedSize: any = undefined;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -5625,7 +5598,7 @@ Stateful table allows keeping the state such as page, sort and filtering either 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { Table, TableModule } from 'primeng/table';
@@ -5739,10 +5712,9 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableStatefulDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
     selectedCustomers!: Customer;
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersSmall().then((data) => {
@@ -5782,7 +5754,7 @@ Alternating rows are displayed when stripedRows property is present.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -5815,9 +5787,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableStripedDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -6074,7 +6045,7 @@ Rows are grouped with the groupRowsBy property. When rowGroupMode is set as subh
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { CustomerService } from '@/service/customerservice';
@@ -6140,9 +6111,8 @@ import { Customer, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableSubheadergroupingDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -6234,7 +6204,7 @@ Custom content at header , body and footer sections are supported via templating
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
@@ -6295,10 +6265,9 @@ interface Column {
     providers: [ProductService]
 })
 export class TableTemplateDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     cols!: Column[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -6353,7 +6322,7 @@ export class TableTemplateDemo implements OnInit {
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
@@ -6386,9 +6355,8 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableVerticalscrollDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -6426,7 +6394,7 @@ Virtual Scrolling is an efficient way to render large amount data. Usage is simi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
 import { CarService } from '@/service/carservice';
 import { Car } from '@/domain/car';
@@ -6462,11 +6430,10 @@ interface Column {
     providers: [CarService]
 })
 export class TableVirtualscrollDemo implements OnInit {
+    private carService = inject(CarService);
     cars!: Car[];
     virtualCars!: Car[];
     cols!: Column[];
-
-    constructor(private carService: CarService) {}
 
     ngOnInit() {
         this.cols = [
@@ -6517,7 +6484,7 @@ VirtualScroller is a performance-approach to handle huge data efficiently. Setti
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { CarService } from '@/service/carservice';
@@ -6562,11 +6529,10 @@ interface Column {
     providers: [CarService]
 })
 export class TableVirtualscrolllazyDemo implements OnInit {
+    private carService = inject(CarService);
     cars!: Car[];
     virtualCars!: Car[];
     cols!: Column[];
-
-    constructor(private carService: CarService) {}
 
     ngOnInit() {
         this.cols = [

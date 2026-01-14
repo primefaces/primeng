@@ -27,7 +27,7 @@ The function to invoke when an item is clicked is defined using the command prop
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MenuModule } from 'primeng/menu';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -44,9 +44,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class MenuCommandDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -90,7 +89,7 @@ Menu supports one level of nesting by defining children with items property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem, MessageService } from 'primeng/api';
 
@@ -105,9 +104,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class MenuGroupDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -156,7 +154,7 @@ Popup mode is enabled by setting popup property to true and calling toggle metho
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -173,6 +171,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class MenuPopupDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
 
     ngOnInit() {

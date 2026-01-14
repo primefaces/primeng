@@ -33,7 +33,7 @@ Selection of multiple nodes via checkboxes is enabled by configuring selectionMo
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -49,10 +49,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectCheckboxDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -74,7 +75,7 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -90,10 +91,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectCleariconDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -115,7 +117,7 @@ When disabled is present, the element cannot be edited and focused.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -131,10 +133,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectDisabledDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -156,7 +159,7 @@ Specify the variant property as filled to display the component with a higher vi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -172,10 +175,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectFilledDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -197,7 +201,7 @@ Filtering is enabled by adding the filter property, by default label property of
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -213,10 +217,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectFilterDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -249,7 +254,7 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { TreeSelectModule } from 'primeng/treeselect';
@@ -277,12 +282,13 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectFloatlabelDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     value1: any;
     value2: any;
     value3: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -304,7 +310,7 @@ The fluid prop makes the component take up the full width of its container when 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -320,10 +326,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectFluidDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -348,7 +355,7 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { TreeSelectModule } from 'primeng/treeselect';
@@ -368,10 +375,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectIftalabelDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedValue: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -394,7 +402,7 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -411,11 +419,12 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectInvalidDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedValue1: any;
     selectedValue2: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -544,7 +553,7 @@ More than one node is selectable by setting selectionMode to multiple . By defau
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -560,10 +569,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectMultipleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -622,10 +632,18 @@ import { MessageService } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeselectReactiveformsDemo implements OnInit {
+    private nodeService = inject(NodeService);
     messageService = inject(MessageService);
     nodes!: any[];
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.nodeService.getFiles().then((files) => (this.nodes = files));
+                this.exampleForm = this.fb.group({
+                    selectedNodes: ['', Validators.required]
+                });
+    }
 
     ngOnInit() {
     }
@@ -661,7 +679,7 @@ TreeSelect provides small and large sizes as alternatives to the base.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -679,12 +697,13 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectSizesDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     value1: any;
     value2: any;
     value3: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -719,7 +738,7 @@ TreeSelect offers multiple templates for customization through templating.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TreeSelectModule } from 'primeng/treeselect';
@@ -749,10 +768,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectTemplateDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -809,9 +829,14 @@ import { MessageService } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeselectTemplatedrivenformsDemo implements OnInit {
+    private nodeService = inject(NodeService);
     messageService = inject(MessageService);
     selectedNodes: any;
     nodes!: any[];
+
+    constructor() {
+        this.nodeService.getFiles().then((files) => (this.nodes = files));
+    }
 
     ngOnInit() {
     }
@@ -849,7 +874,7 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -876,10 +901,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectVirtualscrollDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getLargeTreeNodes().then((files) => (this.nodes = files));
     }
 

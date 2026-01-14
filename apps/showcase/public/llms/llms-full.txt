@@ -1859,7 +1859,7 @@ This example demonstrates an advanced use case with templating, object handling,
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ProductService } from '@/service/productservice';
@@ -1909,9 +1909,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class AutocompleteAdvancedChipsDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<Product[]>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((data) => this.products.set(data));
@@ -2314,7 +2313,7 @@ ForceSelection mode validates the manual input to check whether it also exists i
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CountryService } from '@/service/countryservice';
@@ -2335,11 +2334,10 @@ interface AutoCompleteCompleteEvent {
     providers: [CountryService]
 })
 export class AutocompleteForceSelectionDemo implements OnInit {
+    private countryService = inject(CountryService);
     countries: any[] | undefined;
     selectedCountry: any;
     filteredCountries: any[] | undefined;
-
-    constructor(private countryService: CountryService) {}
 
     ngOnInit() {
         this.countryService.getCountries().then((countries) => {
@@ -2415,8 +2413,6 @@ export class AutocompleteGroupDemo implements OnInit {
     selectedCity: any;
     filteredGroups: any[] | undefined;
     groupedCities: SelectItemGroup[] | undefined;
-
-    constructor(private filterService: FilterService) {}
 
     ngOnInit() {
         this.groupedCities = [
@@ -2634,7 +2630,7 @@ AutoComplete can also work with objects using the optionLabel property that defi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CountryService } from '@/service/countryservice';
@@ -2656,11 +2652,10 @@ interface AutoCompleteCompleteEvent {
     providers: [CountryService]
 })
 export class AutocompleteObjectsDemo implements OnInit {
+    private countryService = inject(CountryService);
     countries: any[] | undefined;
     selectedCountry: any;
     filteredCountries: any[] | undefined;
-
-    constructor(private countryService: CountryService) {}
 
     ngOnInit() {
         this.countryService.getCountries().then((countries) => {
@@ -2743,6 +2738,12 @@ export class AutocompleteReactiveFormsDemo {
     items: any[] | undefined;
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    value: ['', Validators.required]
+                });
+    }
 
     search(event: AutoCompleteCompleteEvent) {
         this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
@@ -2838,7 +2839,7 @@ AutoComplete offers multiple templates for customization through templating.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
@@ -2875,11 +2876,10 @@ interface AutoCompleteCompleteEvent {
     providers: [CountryService]
 })
 export class AutocompleteTemplateDemo implements OnInit {
+    private countryService = inject(CountryService);
     countries: any[] | undefined;
     selectedCountryAdvanced: any[] | undefined;
     filteredCountries: any[] | undefined;
-
-    constructor(private countryService: CountryService) {}
 
     ngOnInit() {
         this.countryService.getCountries().then((countries) => {
@@ -5938,7 +5938,7 @@ When autoplayInterval is defined in milliseconds, items are scrolled automatical
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -5975,10 +5975,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class CarouselCircularDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<Product[]>([]);
     responsiveOptions: any[] | undefined;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((data) => {
@@ -6055,7 +6054,7 @@ Carousel supports specific configuration per screen size with the responsiveOpti
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -6092,10 +6091,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class CarouselResponsiveDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<Product[]>([]);
     responsiveOptions: any[] | undefined;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
@@ -6172,7 +6170,7 @@ To create a vertical Carousel, orientation needs to be set to vertical along wit
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -6209,9 +6207,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class CarouselVerticalDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<Product[]>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
@@ -7225,6 +7222,86 @@ export class CascadeselectReactiveformsDemo {
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
 
+    constructor() {
+        this.countries = [
+                    {
+                        name: 'Australia',
+                        code: 'AU',
+                        states: [
+                            {
+                                name: 'New South Wales',
+                                cities: [
+                                    { cname: 'Sydney', code: 'A-SY' },
+                                    { cname: 'Newcastle', code: 'A-NE' },
+                                    { cname: 'Wollongong', code: 'A-WO' }
+                                ]
+                            },
+                            {
+                                name: 'Queensland',
+                                cities: [
+                                    { cname: 'Brisbane', code: 'A-BR' },
+                                    { cname: 'Townsville', code: 'A-TO' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: 'Canada',
+                        code: 'CA',
+                        states: [
+                            {
+                                name: 'Quebec',
+                                cities: [
+                                    { cname: 'Montreal', code: 'C-MO' },
+                                    { cname: 'Quebec City', code: 'C-QU' }
+                                ]
+                            },
+                            {
+                                name: 'Ontario',
+                                cities: [
+                                    { cname: 'Ottawa', code: 'C-OT' },
+                                    { cname: 'Toronto', code: 'C-TO' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: 'United States',
+                        code: 'US',
+                        states: [
+                            {
+                                name: 'California',
+                                cities: [
+                                    { cname: 'Los Angeles', code: 'US-LA' },
+                                    { cname: 'San Diego', code: 'US-SD' },
+                                    { cname: 'San Francisco', code: 'US-SF' }
+                                ]
+                            },
+                            {
+                                name: 'Florida',
+                                cities: [
+                                    { cname: 'Jacksonville', code: 'US-JA' },
+                                    { cname: 'Miami', code: 'US-MI' },
+                                    { cname: 'Tampa', code: 'US-TA' },
+                                    { cname: 'Orlando', code: 'US-OR' }
+                                ]
+                            },
+                            {
+                                name: 'Texas',
+                                cities: [
+                                    { cname: 'Austin', code: 'US-AU' },
+                                    { cname: 'Dallas', code: 'US-DA' },
+                                    { cname: 'Houston', code: 'US-HO' }
+                                ]
+                            }
+                        ]
+                    }
+                ];
+                this.exampleForm = this.fb.group({
+                    selectedCity: ['', Validators.required]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {
@@ -7585,6 +7662,83 @@ export class CascadeselectTemplatedrivenformsDemo {
     messageService = inject(MessageService);
     countries: any[] | undefined;
     selectedCity: any = null;
+
+    constructor() {
+        this.countries = [
+                    {
+                        name: 'Australia',
+                        code: 'AU',
+                        states: [
+                            {
+                                name: 'New South Wales',
+                                cities: [
+                                    { cname: 'Sydney', code: 'A-SY' },
+                                    { cname: 'Newcastle', code: 'A-NE' },
+                                    { cname: 'Wollongong', code: 'A-WO' }
+                                ]
+                            },
+                            {
+                                name: 'Queensland',
+                                cities: [
+                                    { cname: 'Brisbane', code: 'A-BR' },
+                                    { cname: 'Townsville', code: 'A-TO' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: 'Canada',
+                        code: 'CA',
+                        states: [
+                            {
+                                name: 'Quebec',
+                                cities: [
+                                    { cname: 'Montreal', code: 'C-MO' },
+                                    { cname: 'Quebec City', code: 'C-QU' }
+                                ]
+                            },
+                            {
+                                name: 'Ontario',
+                                cities: [
+                                    { cname: 'Ottawa', code: 'C-OT' },
+                                    { cname: 'Toronto', code: 'C-TO' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: 'United States',
+                        code: 'US',
+                        states: [
+                            {
+                                name: 'California',
+                                cities: [
+                                    { cname: 'Los Angeles', code: 'US-LA' },
+                                    { cname: 'San Diego', code: 'US-SD' },
+                                    { cname: 'San Francisco', code: 'US-SF' }
+                                ]
+                            },
+                            {
+                                name: 'Florida',
+                                cities: [
+                                    { cname: 'Jacksonville', code: 'US-JA' },
+                                    { cname: 'Miami', code: 'US-MI' },
+                                    { cname: 'Tampa', code: 'US-TA' },
+                                    { cname: 'Orlando', code: 'US-OR' }
+                                ]
+                            },
+                            {
+                                name: 'Texas',
+                                cities: [
+                                    { cname: 'Austin', code: 'US-AU' },
+                                    { cname: 'Dallas', code: 'US-DA' },
+                                    { cname: 'Houston', code: 'US-HO' }
+                                ]
+                            }
+                        ]
+                    }
+                ];
+    }
 
     onSubmit(form: any) {
         if (form.valid) {
@@ -9507,6 +9661,18 @@ export class CheckboxReactiveformsDemo {
     formSubmitted: boolean = false;
     exampleForm: FormGroup;
 
+    constructor() {
+        this.exampleForm = this.fb.group(
+                    {
+                        cheese: [false],
+                        mushroom: [false],
+                        pepper: [false],
+                        onion: [false]
+                    },
+                    { validators: this.atLeastOneSelectedValidator }
+                );
+    }
+
     atLeastOneSelectedValidator(group: FormGroup) {
         [key: string]: any } | null {
         const anySelected = Object.values(group.controls).some((control) => control.value === true);
@@ -10224,6 +10390,12 @@ export class ColorpickerReactiveformsDemo {
     exampleForm: FormGroup;
     formSubmitted: boolean = false;
 
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    color: ['', Validators.required]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {
@@ -10445,7 +10617,7 @@ Headless mode allows you to customize the entire user interface instead of the d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -10480,7 +10652,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmdialogHeadlessDemo {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -10514,7 +10687,7 @@ The position property of the confirm options is used to display a Dialog at all 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -10547,7 +10720,8 @@ import { Dialog } from 'primeng/dialog';
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmdialogPositionDemo {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -10577,7 +10751,7 @@ Properties of the dialog are defined in two ways, message , icon , header proper
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -10605,7 +10779,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmdialogTemplateDemo {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -10982,7 +11157,7 @@ Headless mode allows you to customize the entire user interface instead of the d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
@@ -11011,7 +11186,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmpopupHeadlessDemo {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -11174,7 +11350,7 @@ Content section can be customized using content template.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
@@ -11200,7 +11376,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmpopupTemplateDemo {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -11397,7 +11574,7 @@ The function to invoke when an item is clicked is defined using the command prop
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
@@ -11437,11 +11614,10 @@ interface Users {
     providers: [MessageService]
 })
 export class ContextmenuCommandDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
     selectedUser: Users;
     users: Users[];
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.users = [
@@ -12080,7 +12256,7 @@ DataView supports list and grid display modes defined with the layout property. 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataViewModule } from 'primeng/dataview';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -12176,10 +12352,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class DataviewLayoutDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<any>([]);
     options: any[] = ['list', 'grid'];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProducts().then((data) => {
@@ -12258,7 +12433,7 @@ While data is being loaded. Skeleton component may be used to indicate the busy 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataViewModule } from 'primeng/dataview';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -12331,10 +12506,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class DataviewLoadingDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<any>([]);
     options: string[] = ['list', 'grid'];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProducts().then((data) => this.products.set([...data.slice(0, 12)]));
@@ -12398,7 +12572,7 @@ Pagination is enabled with the paginator and rows properties. Refer to the Pagin
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import { TagModule } from 'primeng/tag';
@@ -12453,9 +12627,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class DataviewPaginationDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<any>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProducts().then((data) => {
@@ -12522,7 +12695,7 @@ Built-in sorting is controlled by bindings sortField and sortOrder properties fr
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
@@ -12585,12 +12758,11 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class DataviewSortingDemo implements OnInit {
+    private productService = inject(ProductService);
     sortOptions!: SelectItem[];
     sortOrder!: number;
     sortField!: string;
     products = signal<any>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProducts().then((data) => this.products.set(data.slice(0, 5)));
@@ -13726,6 +13898,12 @@ export class DatepickerReactiveformsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    selectedDate: ['', Validators.required]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -15736,7 +15914,7 @@ A mock desktop UI implemented with various components in addition to Dock.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { DockModule } from 'primeng/dock';
 import { GalleriaModule } from 'primeng/galleria';
@@ -15804,6 +15982,9 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [NodeService, PhotoService, MessageService]
 })
 export class DockAdvancedDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private photoService = inject(PhotoService);
+    private messageService = inject(MessageService);
     displayTerminal: boolean | undefined;
     displayFinder: boolean | undefined;
     displayGalleria: boolean | undefined;
@@ -15813,8 +15994,6 @@ export class DockAdvancedDemo implements OnInit {
     images: any[] | undefined;
     nodes: any[] | undefined;
     subscription: Subscription | undefined;
-
-    constructor(private galleriaService: PhotoService, private nodeService: NodeService, private messageService: MessageService, private terminalService: TerminalService) {}
 
     ngOnInit() {
         this.dockItems = [
@@ -16267,7 +16446,7 @@ Drag and Drop to Table
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ProductService } from '@/service/productservice';
@@ -16321,11 +16500,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class DragdropDatatableDemo implements OnInit {
+    private productService = inject(ProductService);
     availableProducts: Product[] | undefined;
     selectedProducts: Product[] | undefined;
     draggedProduct: Product | undefined | null;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.selectedProducts = [];
@@ -17386,7 +17564,7 @@ Dynamic dialogs require an instance of a DialogService that is responsible for d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { ProductService } from '@/service/productservice';
@@ -17406,7 +17584,9 @@ import { Dialog } from 'primeng/dialog';
     providers: [ProductService, DialogService, MessageService]
 })
 export class DynamicdialogExampleDemo implements OnInit {
-    constructor(public dialogService: DialogService, public messageService: MessageService) {}
+    private productService = inject(ProductService);
+    private dialogService = inject(DialogService);
+    private messageService = inject(MessageService);
 
     ngOnInit() {
     }
@@ -17608,6 +17788,12 @@ export class EditorReactiveformsDemo {
     items: any[] | undefined;
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    text: ['', Validators.required]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -18062,7 +18248,7 @@ Advanced uploader provides dragdrop support, multi file uploads, auto uploading,
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -18088,9 +18274,8 @@ interface UploadEvent {
     providers: [MessageService]
 })
 export class FileuploadAdvancedDemo {
+    private messageService = inject(MessageService);
     uploadedFiles: any[] = [];
-
-    constructor(private messageService: MessageService) {}
 }
 ```
 </details>
@@ -18110,7 +18295,7 @@ When auto property is enabled, a file gets uploaded instantly after selection.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -18132,7 +18317,7 @@ interface UploadEvent {
     providers: [MessageService]
 })
 export class FileuploadAutoDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -18163,7 +18348,7 @@ FileUpload basic mode provides a simpler UI as an alternative to default advance
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -18180,7 +18365,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class FileuploadCustomDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -18250,7 +18435,7 @@ export class FileuploadCustomDemo {
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -18330,11 +18515,10 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class FileuploadTemplateDemo {
+    private messageService = inject(MessageService);
     files: any[] = [];
     totalSize: number = 0;
     totalSizePercent: number = 0;
-
-    constructor(private config: PrimeNG, private messageService: MessageService) {}
 
     onRemoveTemplatingFile(event, file, removeFileCallback, index) {
         removeFileCallback(event, index);
@@ -18913,7 +19097,7 @@ Galleria can be extended further to implement complex requirements.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
 import { PhotoService } from '@/service/photoservice';
@@ -18981,6 +19165,7 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaAdvancedDemo implements OnInit {
+    private photoService = inject(PhotoService);
     images = signal<any[]>([]);
     showThumbnails: boolean = false;
     fullscreen: boolean = false;
@@ -18988,8 +19173,6 @@ export class GalleriaAdvancedDemo implements OnInit {
     isAutoPlay: boolean = true;
     onFullScreenListener: any;
     responsiveOptions: any[];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => {
@@ -19104,7 +19287,7 @@ A slideshow implementation is defined by adding circular and autoPlay properties
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { PhotoService } from '@/service/photoservice';
 
@@ -19126,10 +19309,9 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaAutoplayDemo implements OnInit {
+    private photoService = inject(PhotoService);
     images: any = model([]);
     responsiveOptions: any[];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -19180,7 +19362,7 @@ Description of an image is specified with the caption template.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { PhotoService } from '@/service/photoservice';
 
@@ -19206,10 +19388,9 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaCaptionDemo implements OnInit {
+    private photoService = inject(PhotoService);
     images: any = model([]);
     responsiveOptions: any[];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -19243,7 +19424,7 @@ Galleria can be controlled programmatically using the activeIndex property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { GalleriaModule } from 'primeng/galleria';
 import { PhotoService } from '@/service/photoservice';
@@ -19270,11 +19451,10 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaControlledDemo implements OnInit {
+    private photoService = inject(PhotoService);
     images: any = model([]);
     _activeIndex: number = 2;
     responsiveOptions: any[];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -19312,7 +19492,7 @@ Galleria responsiveness is defined with the responsiveOptions property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { PhotoService } from '@/service/photoservice';
 
@@ -19334,10 +19514,9 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaResponsiveDemo implements OnInit {
+    private photoService = inject(PhotoService);
     images: any = model([]);
     responsiveOptions: any[];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -19375,7 +19554,7 @@ Galleria can be controlled programmatically using the activeIndex property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GalleriaModule } from 'primeng/galleria';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -19407,11 +19586,10 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaThumbnailDemo implements OnInit {
+    private photoService = inject(PhotoService);
     images = signal<any[]>([]);
     positionOptions: any[];
     responsiveOptions: any[];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -20383,7 +20561,7 @@ Using the onActivate event, data can be loaded in a lazy manner before displayin
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { InplaceModule } from 'primeng/inplace';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
@@ -20424,9 +20602,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class InplaceLazyDemo implements OnInit {
+    private productService = inject(ProductService);
     products: Product[] | undefined;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
     }
@@ -21361,6 +21538,12 @@ export class InputmaskReactiveformsDemo {
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
 
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    value: ['', Validators.required]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {
@@ -22282,6 +22465,12 @@ export class InputnumberReactiveformsDemo {
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
 
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    value: [undefined, Validators.required]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {
@@ -22706,6 +22895,12 @@ export class InputotpReactiveformsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    value: ['', [Validators.required, Validators.minLength(4)]]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -23454,6 +23649,13 @@ export class InputtextReactiveformsDemo {
     exampleForm: FormGroup;
     formSubmitted: boolean = false;
 
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    username: ['', Validators.required],
+                    email: ['', [Validators.required, Validators.email]]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {
@@ -24045,6 +24247,12 @@ export class KnobReactiveformsDemo {
     items: any[] | undefined;
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    value: [15, [Validators.min(25), Validators.max(75)]]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -24727,6 +24935,41 @@ interface Country {
 export class ListboxGroupDemo {
     groupedCities!: SelectItemGroup[];
     selectedCountry!: Country;
+
+    constructor() {
+        this.groupedCities = [
+                    {
+                        label: 'Germany',
+                        value: 'de',
+                        items: [
+                            { label: 'Berlin', value: 'Berlin' },
+                            { label: 'Frankfurt', value: 'Frankfurt' },
+                            { label: 'Hamburg', value: 'Hamburg' },
+                            { label: 'Munich', value: 'Munich' }
+                        ]
+                    },
+                    {
+                        label: 'USA',
+                        value: 'us',
+                        items: [
+                            { label: 'Chicago', value: 'Chicago' },
+                            { label: 'Los Angeles', value: 'Los Angeles' },
+                            { label: 'New York', value: 'New York' },
+                            { label: 'San Francisco', value: 'San Francisco' }
+                        ]
+                    },
+                    {
+                        label: 'Japan',
+                        value: 'jp',
+                        items: [
+                            { label: 'Kyoto', value: 'Kyoto' },
+                            { label: 'Osaka', value: 'Osaka' },
+                            { label: 'Tokyo', value: 'Tokyo' },
+                            { label: 'Yokohama', value: 'Yokohama' }
+                        ]
+                    }
+                ];
+    }
 }
 ```
 </details>
@@ -24887,6 +25130,19 @@ export class ListboxReactiveformsDemo {
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
     cities!: City[];
+
+    constructor() {
+        this.cities = [
+                    { name: 'New York', code: 'NY' },
+                    { name: 'Rome', code: 'RM' },
+                    { name: 'London', code: 'LDN' },
+                    { name: 'Istanbul', code: 'IST' },
+                    { name: 'Paris', code: 'PRS' }
+                ];
+                this.exampleForm = this.fb.group({
+                    selectedCity: ['', Validators.required]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -25978,7 +26234,7 @@ The function to invoke when an item is clicked is defined using the command prop
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MenuModule } from 'primeng/menu';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -25995,9 +26251,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class MenuCommandDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -26043,7 +26298,7 @@ Menu supports one level of nesting by defining children with items property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem, MessageService } from 'primeng/api';
 
@@ -26058,9 +26313,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class MenuGroupDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -26111,7 +26365,7 @@ Popup mode is enabled by setting popup property to true and calling toggle metho
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -26128,6 +26382,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class MenuPopupDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
 
     ngOnInit() {
@@ -26554,7 +26809,7 @@ The command property defines the callback to run when an item is activated by cl
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -26571,9 +26826,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class MenubarCommandDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -28384,6 +28638,41 @@ interface City {
 export class MultiselectGroupDemo {
     groupedCities!: SelectItemGroup[];
     selectedCities!: City[];
+
+    constructor() {
+        this.groupedCities = [
+                    {
+                        label: 'Germany',
+                        value: 'de',
+                        items: [
+                            { label: 'Berlin', value: 'Berlin' },
+                            { label: 'Frankfurt', value: 'Frankfurt' },
+                            { label: 'Hamburg', value: 'Hamburg' },
+                            { label: 'Munich', value: 'Munich' }
+                        ]
+                    },
+                    {
+                        label: 'USA',
+                        value: 'us',
+                        items: [
+                            { label: 'Chicago', value: 'Chicago' },
+                            { label: 'Los Angeles', value: 'Los Angeles' },
+                            { label: 'New York', value: 'New York' },
+                            { label: 'San Francisco', value: 'San Francisco' }
+                        ]
+                    },
+                    {
+                        label: 'Japan',
+                        value: 'jp',
+                        items: [
+                            { label: 'Kyoto', value: 'Kyoto' },
+                            { label: 'Osaka', value: 'Osaka' },
+                            { label: 'Tokyo', value: 'Tokyo' },
+                            { label: 'Yokohama', value: 'Yokohama' }
+                        ]
+                    }
+                ];
+    }
 }
 ```
 </details>
@@ -28592,10 +28881,17 @@ interface City {
     providers: [MessageService]
 })
 export class MultiselectReactiveformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     cities: City[];
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    city: ['', Validators.required]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -28844,6 +29140,7 @@ interface City {
     providers: [MessageService]
 })
 export class MultiselectTemplatedrivenformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     cities: City[];
     selectedCity: City | undefined;
@@ -29233,7 +29530,7 @@ Items can be reordered using drag and drop by enabling dragdrop property. Depend
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -29268,9 +29565,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class OrderlistDragdropDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<Product[]>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => {
@@ -29325,7 +29621,7 @@ Filter value is checked against the property of an object configured with the fi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -29360,9 +29656,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class OrderlistFilterDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<Product[]>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => {
@@ -29417,7 +29712,7 @@ For custom content support define an item template that gets the item instance a
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -29452,9 +29747,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class OrderlistTemplateDemo implements OnInit {
+    private productService = inject(ProductService);
     products = signal<Product[]>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => {
@@ -30803,7 +31097,7 @@ The command property defines the callback to run when an item is activated by cl
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -30821,9 +31115,8 @@ import { PanelMenu } from 'primeng/panelmenu';
     providers: [MessageService]
 })
 export class PanelmenuCommandDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[];
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -31136,7 +31429,7 @@ Menu items support navigation via routerLink, programmatic routing using command
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
 import { MenuItem, MessageService } from 'primeng/api';
 import { PanelMenu } from 'primeng/panelmenu';
@@ -31152,6 +31445,7 @@ import { PanelMenu } from 'primeng/panelmenu';
     providers: [MessageService]
 })
 export class PanelmenuRouterDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
     ngOnInit() {
@@ -31852,9 +32146,16 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class PasswordReactiveformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    value: ['', Validators.required]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -32020,6 +32321,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class PasswordTemplatedrivenformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     value: any;
 
@@ -32285,7 +32587,7 @@ Filter value is checked against the property of an object configured with the fi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -32329,10 +32631,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class PicklistFilterDemo implements OnInit {
+    private productService = inject(ProductService);
     sourceProducts = signal<Product[]>([]);
     targetProducts = signal<Product[]>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.carService.getProductsSmall().then((products) => {
@@ -32375,7 +32676,7 @@ For custom content support define an item template that gets the item instance a
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -32409,10 +32710,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class PicklistTemplateDemo implements OnInit {
+    private productService = inject(ProductService);
     sourceProducts = signal<Product[]>([]);
     targetProducts = signal<Product[]>([]);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.carService.getProductsSmall().then((products) => {
@@ -32928,7 +33228,7 @@ Place the Popover outside of the data iteration components to avoid rendering it
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Popover, PopoverModule } from 'primeng/popover';
 import { TableModule } from 'primeng/table';
@@ -33010,10 +33310,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService, MessageService]
 })
 export class PopoverDatatableDemo implements OnInit {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
     products = signal<Product[]>([]);
     selectedProduct = signal<Product | null>(null);
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
@@ -33324,7 +33624,7 @@ Value is reactive so updating it dynamically changes the bar as well.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -33341,10 +33641,9 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ProgressbarDynamicDemo implements OnInit {
+    private messageService = inject(MessageService);
     value: number = 0;
     interval: any;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.ngZone.runOutsideAngular(() => {
@@ -33384,7 +33683,7 @@ For progresses with no value to track, set the mode property to indeterminate .
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { MessageService } from 'primeng/api';
 
@@ -33398,7 +33697,9 @@ import { MessageService } from 'primeng/api';
     imports: [ProgressBarModule],
     providers: [MessageService]
 })
-export class ProgressbarIndeterminateDemo {}
+export class ProgressbarIndeterminateDemo {
+    private messageService = inject(MessageService);
+}
 ```
 </details>
 
@@ -33892,10 +34193,17 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class RadiobuttonReactiveformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     formSubmitted: boolean = false;
     exampleForm: FormGroup;
     categories: any[];
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    selectedCategory: ['', Validators.required]
+                });
+    }
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
@@ -34043,6 +34351,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class RadiobuttonTemplatedrivenformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     formSubmitted: boolean = false;
     ingredient!: any;
@@ -34296,9 +34605,16 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class RatingReactiveformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    ratingValue: [undefined, Validators.required]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -34445,6 +34761,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class RatingTemplatedrivenformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
     value: any;
 
@@ -36216,6 +36533,41 @@ import { SelectItemGroup } from 'primeng/api';
 export class SelectGroupDemo {
     groupedCities: SelectItemGroup[];
     selectedCity: string | undefined;
+
+    constructor() {
+        this.groupedCities = [
+                    {
+                        label: 'Germany',
+                        value: 'de',
+                        items: [
+                            { label: 'Berlin', value: 'Berlin' },
+                            { label: 'Frankfurt', value: 'Frankfurt' },
+                            { label: 'Hamburg', value: 'Hamburg' },
+                            { label: 'Munich', value: 'Munich' }
+                        ]
+                    },
+                    {
+                        label: 'USA',
+                        value: 'us',
+                        items: [
+                            { label: 'Chicago', value: 'Chicago' },
+                            { label: 'Los Angeles', value: 'Los Angeles' },
+                            { label: 'New York', value: 'New York' },
+                            { label: 'San Francisco', value: 'San Francisco' }
+                        ]
+                    },
+                    {
+                        label: 'Japan',
+                        value: 'jp',
+                        items: [
+                            { label: 'Kyoto', value: 'Kyoto' },
+                            { label: 'Osaka', value: 'Osaka' },
+                            { label: 'Tokyo', value: 'Tokyo' },
+                            { label: 'Yokohama', value: 'Yokohama' }
+                        ]
+                    }
+                ];
+    }
 }
 ```
 </details>
@@ -36353,6 +36705,13 @@ export class SelectLazyvirtualscrollDemo {
     loadLazyTimeout: any = null;
     options: ScrollerOptions;
 
+    constructor() {
+        this.items = [];
+                for (let i = 0; i < 10000; i++) {
+                    this.items.push({ label: 'Item ' + i, value: 'Item ' + i });
+                }
+    }
+
     onLazyLoad(event) {
         this.loading = true;
         
@@ -36487,6 +36846,12 @@ export class SelectReactiveformsDemo {
     cities: City[];
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    city: ['', Validators.required]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -36775,6 +37140,13 @@ import { SelectItem } from 'primeng/api';
 export class SelectVirtualscrollDemo {
     items: SelectItem[];
     selectedItem: string | undefined;
+
+    constructor() {
+        this.items = [];
+                for (let i = 0; i < 10000; i++) {
+                    this.items.push({ label: 'Item ' + i, value: 'Item ' + i });
+                }
+    }
 }
 ```
 </details>
@@ -37235,6 +37607,12 @@ export class SelectbuttonReactiveformsDemo {
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
     stateOptions: any[];
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    value: ['', Validators.required]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -38049,6 +38427,12 @@ export class SliderReactiveformsDemo {
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
 
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    value: ['', Validators.required]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {
@@ -38304,7 +38688,7 @@ Items can be displayed around the button when type is set to circle . Additional
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -38323,9 +38707,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeeddialCircleDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -38382,7 +38765,7 @@ SpeedDial items are defined with the model property based on MenuModel API. Defa
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -38404,9 +38787,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeeddialLinearDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -38460,7 +38842,7 @@ Adding mask property displays a modal layer behind the popup items.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -38479,9 +38861,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeeddialMaskDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -38538,7 +38919,7 @@ When type is defined as quarter-circle , items are displayed in a half-circle ar
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -38560,9 +38941,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeeddialQuartercircleDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -38619,7 +38999,7 @@ When type is defined as semi-circle , items are displayed in a half-circle aroun
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -38641,9 +39021,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeeddialSemicircleDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -38739,7 +39118,7 @@ SpeedDial offers item customization with the item template that receives the men
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
@@ -38801,9 +39180,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeeddialTemplateDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -38866,7 +39244,7 @@ Items display a tooltip on hover when a standalone Tooltip is present with a tar
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -38886,9 +39264,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeeddialTooltipDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -39060,7 +39437,7 @@ When the disabled attribute is present, the element is uneditable and unfocused.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -39077,7 +39454,9 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonDisabledDemo {
-    constructor(private messageService: MessageService) {
+    private messageService = inject(MessageService);
+
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -39127,7 +39506,7 @@ The buttons and menuitems have support to display icons.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -39144,9 +39523,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonIconsDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -39193,7 +39573,7 @@ SplitButton has a default action button and a collection of additional options d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -39210,9 +39590,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonNestedDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'File',
@@ -39370,7 +39751,7 @@ Outlined buttons display a border without a background initially.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -39394,9 +39775,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonOutlinedDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -39453,7 +39835,7 @@ Raised buttons display a shadow to indicate elevation.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -39477,9 +39859,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonRaisedDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -39536,7 +39919,7 @@ Text buttons can be displayed as raised as well for elevation.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -39560,9 +39943,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonRaisedtextDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -39623,7 +40007,7 @@ Rounded buttons have a circular border radius.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -39647,9 +40031,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonRoundedDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -39706,7 +40091,7 @@ The severity property defines the type of button.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -39730,9 +40115,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonSeverityDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -39784,7 +40170,7 @@ SplitButton provides small and large sizes as alternatives to the standard.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -39803,7 +40189,9 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonSizesDemo {
-    constructor(private messageService: MessageService) {
+    private messageService = inject(MessageService);
+
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -39860,7 +40248,7 @@ SplitButton has a default action button and a collection of additional options d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -39884,9 +40272,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonTemplateDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -39943,7 +40332,7 @@ Text buttons are displayed as textual elements.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -39967,9 +40356,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SplitbuttonTextDemo {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
                     {
                         label: 'Update',
@@ -41377,7 +41767,7 @@ In-cell editing is enabled by adding pEditableColumn directive to an editable ce
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
@@ -41448,9 +41838,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableCelleditDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -41498,7 +41887,7 @@ Multiple selection can also be handled using checkboxes by enabling the selectio
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -41537,10 +41926,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableCheckboxselectionDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     selectedProducts!: Product;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -41763,7 +42151,7 @@ Setting columnResizeMode as expand changes the table width as well.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -41796,9 +42184,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableColumnresizeexpandmodeDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -41840,7 +42227,7 @@ Columns can be resized using drag drop by setting the resizableColumns to true .
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -41873,9 +42260,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableColumnresizefitmodeDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -41915,7 +42301,7 @@ export class TableColumnresizefitmodeDemo implements OnInit {
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
@@ -41948,9 +42334,8 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableColumnresizescrollablemodeDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -41997,7 +42382,7 @@ Row selection with an element inside a column is implemented with templating.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
@@ -42038,10 +42423,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService, MessageService]
 })
 export class TableColumnselectionDemo implements OnInit {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
     products!: Product[];
     selectedProduct!: Product;
-
-    constructor(private productService: ProductService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -42090,7 +42475,7 @@ This demo uses a multiselect component to implement toggleable columns.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TableModule } from 'primeng/table';
@@ -42133,11 +42518,10 @@ interface Column {
     providers: [ProductService]
 })
 export class TableColumntoggleDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     cols!: Column[];
     selectedColumns!: Column[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -42187,7 +42571,7 @@ Table has exclusive integration with contextmenu component. In order to attach a
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { Table, TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
@@ -42225,11 +42609,11 @@ import { Product } from '@/domain/product';
     providers: [ProductService, MessageService]
 })
 export class TableContextmenuDemo implements OnInit {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
     products!: Product[];
     selectedProduct!: Product;
     items!: MenuItem[];
-
-    constructor(private productService: ProductService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -42420,7 +42804,7 @@ DataTable with selection, pagination, filtering, sorting and templating.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
@@ -42598,6 +42982,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableCustomersDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
     selectedCustomers!: Customer[];
     representatives!: Representative[];
@@ -42605,8 +42990,6 @@ export class TableCustomersDemo implements OnInit {
     loading: boolean = true;
     activityValues: number[] = [0, 100];
     searchValue: string | undefined;
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -42696,7 +43079,7 @@ Columns can be defined dynamically using the *ngFor directive.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -42736,10 +43119,9 @@ interface Column {
     providers: [ProductService]
 })
 export class TableDynamicDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     cols!: Column[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -42817,7 +43199,7 @@ When expandableRowGroups is present in subheader based row grouping, groups can 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
@@ -42883,9 +43265,8 @@ import { Customer, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableExpandablerowgroupDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -42963,7 +43344,7 @@ Table can export its data to CSV format.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
@@ -43011,10 +43392,9 @@ interface ExportColumn {
     providers: [ProductService]
 })
 export class TableExportDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     selectedProducts!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -43344,6 +43724,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableFilterAdvancedDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customerService = inject(CustomerService);
     customers = signal<Customer[]>([]);
     representatives = signal<Representative[]>([]);
@@ -43523,7 +43904,7 @@ Data filtering is enabled by defining the filters property referring to a DataTa
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -43648,13 +44029,12 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableFilterbasicDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
     representatives!: Representative[];
     statuses!: any[];
     loading: boolean = true;
     activityValues: number[] = [0, 100];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -43749,7 +44129,7 @@ Flex scroll feature makes the scrollable viewport section dynamic instead of a f
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Dialog, DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
@@ -43792,10 +44172,9 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableFlexiblescrollDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
     dialogVisible: boolean = false;
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -43854,7 +44233,7 @@ Certain columns can be frozen by using the pFrozenColumn directive of the table 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ToggleButtonModule } from 'primeng/togglebutton';
@@ -43902,10 +44281,9 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableFrozencolumnsDemo implements OnInit {
+    private customerService = inject(CustomerService);
     balanceFrozen: boolean = false;
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -43966,7 +44344,7 @@ Frozen rows are used to fix certain rows while scrolling, this data is defined w
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
@@ -44016,10 +44394,9 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableFrozenrowsDemo implements OnInit {
+    private customerService = inject(CustomerService);
     unlockedCustomers!: Customer[];
     lockedCustomers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -44093,7 +44470,7 @@ Enabling showGridlines displays borders between cells.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -44126,9 +44503,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableGridlinesDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -44193,7 +44569,7 @@ Horizontal scrollbar is displayed when table width exceeds the parent width.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
@@ -44249,9 +44625,8 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableHorizontalscrollDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -44297,7 +44672,7 @@ The loading property displays a mask layer to indicate busy state. Use the pagin
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -44330,9 +44705,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableLoadingmaskDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -44466,7 +44840,7 @@ Multiple columns can be sorted by defining sortMode as multiple . This mode requ
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -44519,9 +44893,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableMultiplecolumnssortDemo implements OnInit {
+    private productService = inject(ProductService);
     products: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -44567,7 +44940,7 @@ More than one row is selectable by setting selectionMode to multiple . By defaul
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
@@ -44606,11 +44979,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableMultipleselectionDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     selectedProducts!: Product;
     metaKey: boolean = true;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -44652,7 +45024,7 @@ Pagination is enabled by setting paginator property to true and defining a rows 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
@@ -44685,9 +45057,8 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TablePaginatorbasicDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -44744,7 +45115,7 @@ Paginator can also be controlled via model using a binding to the first property
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { CustomerService } from '@/service/customerservice';
@@ -44793,11 +45164,10 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TablePaginatorprogrammaticDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
     first: number = 0;
     rows: number = 10;
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -44891,7 +45261,7 @@ Defining a default sortField and sortOrder displays data as sorted initially in 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -44951,9 +45321,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TablePresortDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -45132,7 +45501,7 @@ CRUD implementation example with a Dialog.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -45329,6 +45698,9 @@ interface ExportColumn {
     providers: [ProductService, MessageService, ConfirmationService]
 })
 export class TableProductsDemo implements OnInit {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
+    private confirmationService = inject(ConfirmationService);
     productDialog: boolean = false;
     products!: Product[];
     product!: Product;
@@ -45337,8 +45709,6 @@ export class TableProductsDemo implements OnInit {
     statuses!: any[];
     cols!: Column[];
     exportColumns!: ExportColumn[];
-
-    constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
 
     ngOnInit() {
         this.productService.getProducts().then((data) => {
@@ -45530,7 +45900,7 @@ Single selection can also be handled using radio buttons.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -45567,10 +45937,9 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableRadiobuttonselectionDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     selectedProduct!: Product;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -45632,7 +46001,7 @@ The removable sort can be implemented using the customSort property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { SortEvent } from 'primeng/api';
@@ -45686,11 +46055,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableRemovablesortDemo implements OnInit {
+    private productService = inject(ProductService);
     products: Product[];
     initialValue: Product[];
     isSorted: boolean = null;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -45764,7 +46132,7 @@ Order of the columns and rows can be changed using drag and drop. Column reorder
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -45804,10 +46172,9 @@ interface Column {
     providers: [ProductService]
 })
 export class TableReorderDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     cols!: Column[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -45900,7 +46267,7 @@ Row editing toggles the visibility of all the editors in the row at once and pro
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { TableModule } from 'primeng/table';
@@ -45986,10 +46353,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService, MessageService]
 })
 export class TableRoweditDemo implements OnInit {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
     products!: Product[];
     statuses!: SelectItem[];
-
-    constructor(private productService: ProductService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -46151,7 +46518,7 @@ Row expansion allows displaying detailed content for a particular row. To use th
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
@@ -46278,10 +46645,10 @@ import { Customer } from '@/domain/customer';
     providers: [ProductService, MessageService]
 })
 export class TableRowexpansionDemo implements OnInit {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
     products!: Product[];
     expandedRows: any = {};
-
-    constructor(private productService: ProductService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.productService.getProductsWithOrdersSmall().then((data) => {
@@ -46386,7 +46753,7 @@ When rowGroupMode is configured to be rowspan , the grouping column spans multip
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { CustomerService } from '@/service/customerservice';
@@ -46440,9 +46807,8 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableRowspangroupingDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -46518,7 +46884,7 @@ Table provides onRowSelect and onRowUnselect events to listen selection events.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ProductService } from '@/service/productservice';
@@ -46554,10 +46920,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService, MessageService]
 })
 export class TableSelectioneventsDemo implements OnInit {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
     products!: Product[];
     selectedProduct!: Product;
-
-    constructor(private productService: ProductService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -46627,7 +46993,7 @@ A column can be made sortable by adding the pSortableColumn directive whose valu
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -46680,9 +47046,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableSinglecolumnsortDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -46728,7 +47093,7 @@ Single row selection is enabled by defining selectionMode as single along with a
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
@@ -46767,11 +47132,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableSingleselectionDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     selectedProduct!: Product;
     metaKey: boolean = true;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -46816,7 +47180,7 @@ In addition to a regular table, alternatives with alternative sizes are availabl
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
@@ -46854,11 +47218,10 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableSizeDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     sizes!: any[];
     selectedSize: any = undefined;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -46982,7 +47345,7 @@ Stateful table allows keeping the state such as page, sort and filtering either 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { Table, TableModule } from 'primeng/table';
@@ -47096,10 +47459,9 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableStatefulDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
     selectedCustomers!: Customer;
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersSmall().then((data) => {
@@ -47141,7 +47503,7 @@ Alternating rows are displayed when stripedRows property is present.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
@@ -47174,9 +47536,8 @@ import { Product } from '@/domain/product';
     providers: [ProductService]
 })
 export class TableStripedDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -47437,7 +47798,7 @@ Rows are grouped with the groupRowsBy property. When rowGroupMode is set as subh
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { CustomerService } from '@/service/customerservice';
@@ -47503,9 +47864,8 @@ import { Customer, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableSubheadergroupingDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -47599,7 +47959,7 @@ Custom content at header , body and footer sections are supported via templating
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
@@ -47660,10 +48020,9 @@ interface Column {
     providers: [ProductService]
 })
 export class TableTemplateDemo implements OnInit {
+    private productService = inject(ProductService);
     products!: Product[];
     cols!: Column[];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -47720,7 +48079,7 @@ export class TableTemplateDemo implements OnInit {
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
@@ -47753,9 +48112,8 @@ import { Customer, Representative, Country } from '@/domain/customer';
     providers: [CustomerService]
 })
 export class TableVerticalscrollDemo implements OnInit {
+    private customerService = inject(CustomerService);
     customers!: Customer[];
-
-    constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
         this.customerService.getCustomersMedium().then((data) => {
@@ -47795,7 +48153,7 @@ Virtual Scrolling is an efficient way to render large amount data. Usage is simi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
 import { CarService } from '@/service/carservice';
 import { Car } from '@/domain/car';
@@ -47831,11 +48189,10 @@ interface Column {
     providers: [CarService]
 })
 export class TableVirtualscrollDemo implements OnInit {
+    private carService = inject(CarService);
     cars!: Car[];
     virtualCars!: Car[];
     cols!: Column[];
-
-    constructor(private carService: CarService) {}
 
     ngOnInit() {
         this.cols = [
@@ -47888,7 +48245,7 @@ VirtualScroller is a performance-approach to handle huge data efficiently. Setti
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { CarService } from '@/service/carservice';
@@ -47933,11 +48290,10 @@ interface Column {
     providers: [CarService]
 })
 export class TableVirtualscrolllazyDemo implements OnInit {
+    private carService = inject(CarService);
     cars!: Car[];
     virtualCars!: Car[];
     cols!: Column[];
-
-    constructor(private carService: CarService) {}
 
     ngOnInit() {
         this.cols = [
@@ -49660,6 +50016,12 @@ export class TextareaReactiveformsDemo {
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
 
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    address: ['', Validators.required]
+                });
+    }
+
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {
@@ -49885,7 +50247,7 @@ The command property defines the callback to run when an item is activated by cl
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -49902,9 +50264,8 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class TieredmenuCommandDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -50478,6 +50839,15 @@ interface EventItem {
 })
 export class TimelineAlignmentDemo {
     events: EventItem[];
+
+    constructor() {
+        this.events = [
+                    { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0', image: 'game-controller.jpg' },
+                    { status: 'Processing', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' },
+                    { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
+                    { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' }
+                ];
+    }
 }
 ```
 </details>
@@ -50554,6 +50924,10 @@ import { TimelineModule } from 'primeng/timeline';
 })
 export class TimelineHorizontalDemo {
     events: string[];
+
+    constructor() {
+        this.events = ['2020', '2021', '2022', '2023'];
+    }
 }
 ```
 </details>
@@ -50608,6 +50982,15 @@ interface EventItem {
 })
 export class TimelineOppositeDemo {
     events: EventItem[];
+
+    constructor() {
+        this.events = [
+                    { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0', image: 'game-controller.jpg' },
+                    { status: 'Processing', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' },
+                    { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
+                    { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' }
+                ];
+    }
 }
 ```
 </details>
@@ -50682,6 +51065,15 @@ interface EventItem {
 })
 export class TimelineTemplateDemo {
     events: EventItem[];
+
+    constructor() {
+        this.events = [
+                    { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0', image: 'game-controller.jpg' },
+                    { status: 'Processing', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' },
+                    { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
+                    { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' }
+                ];
+    }
 }
 ```
 </details>
@@ -50794,7 +51186,7 @@ Clicking the close icon on the toast, removes it manually. Same can also be achi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -50812,7 +51204,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastClearDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     clear() {
         this.messageService.clear();
@@ -50853,7 +51245,7 @@ Headless mode allows you to customize the entire user interface instead of the d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
@@ -50888,6 +51280,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastHeadlessDemo {
+    private messageService = inject(MessageService);
     visible: boolean = false;
     progress = signal(0);
     interval: any = null;
@@ -50944,7 +51337,7 @@ A toast disappears after 3000ms by default, set the life option on either the me
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -50962,7 +51355,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastLifeDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     showLifeLong() {
         this.messageService.add({ severity: 'info', summary: 'Life', detail: 'I show for 20000ms', life: 20000 });
@@ -50986,7 +51379,7 @@ Multiple toasts are displayed by passing an array to the showAll method of the m
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
@@ -51004,7 +51397,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastMultipleDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -51030,7 +51423,7 @@ Location of the toast is customized with the position property. Valid values are
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
@@ -51054,7 +51447,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastPositionDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     showBottomLeft() {
         this.messageService.add({
@@ -51094,7 +51487,7 @@ Toast styling can be adjusted per screen size with the breakpoints option. The v
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -51111,7 +51504,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastResponsiveDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -51136,7 +51529,7 @@ The severity option specifies the type of the message. There are four types of m
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
@@ -51159,7 +51552,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastSeverityDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     showInfo() {
         this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content' });
@@ -51202,7 +51595,7 @@ A toast disappears after the time defined by the life option, set sticky option 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
@@ -51223,7 +51616,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastStickyDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     clear() {
         this.messageService.clear();
@@ -51249,7 +51642,7 @@ A page may have multiple toast components, in case you'd like to target a specif
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -51268,7 +51661,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastTargetDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     showToast2() {
         this.messageService.clear();
@@ -51304,7 +51697,7 @@ Templating allows customizing the content where the message instance is availabl
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
@@ -51333,7 +51726,7 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastTemplateDemo {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     onReject() {
         this.messageService.clear('confirm');
@@ -51713,6 +52106,12 @@ export class TogglebuttonReactiveformsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    checked: [false, Validators.requiredTrue]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -52123,6 +52522,12 @@ export class ToggleswitchReactiveformsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    activation: ['', Validators.required]
+                });
+    }
 
     onSubmit() {
         this.formSubmitted = true;
@@ -52918,7 +53323,7 @@ Selection of multiple nodes via checkboxes is enabled by configuring selectionMo
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -52934,10 +53339,9 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeCheckboxDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>(undefined);
     selectedFiles!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -52964,7 +53368,7 @@ Tree has exclusive integration with ContextMenu using the contextMenu property a
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
 import { TreeModule } from 'primeng/tree';
@@ -52985,12 +53389,12 @@ import { ContextMenu } from 'primeng/contextmenu';
     providers: [NodeService, MessageService]
 })
 export class TreeContextmenuDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
     files = signal<TreeNode[]>([]);
     selectedNode: any = model<TreeNode | null>(null);
     contextMenuNode: any = model<TreeNode | null>(null);
     items!: MenuItem[];
-
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((files) => this.files.set(files));
@@ -53045,7 +53449,7 @@ Tree requires a collection of TreeNode instances as a value .
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
@@ -53066,9 +53470,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeControlledDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -53113,7 +53516,7 @@ An event is provided for each type of user interaction such as expand, collapse 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ToastModule } from 'primeng/toast';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
@@ -53140,10 +53543,10 @@ import { TreeNode, MessageService } from 'primeng/api';
     providers: [NodeService, MessageService]
 })
 export class TreeEventDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
     files = signal<TreeNode[]>(undefined);
     selectedFile!: TreeNode;
-
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -53189,7 +53592,7 @@ Filtering is enabled by adding the filter property, by default label property of
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -53210,10 +53613,9 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeFilterDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>(undefined);
     files2 = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -53329,7 +53731,7 @@ More than one node is selectable by setting selectionMode to multiple . By defau
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { Tree, TreeModule } from 'primeng/tree';
@@ -53351,11 +53753,10 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeMultipleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     metaKeySelection: boolean = false;
     files = signal<TreeNode[]>(undefined);
     selectedFiles!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -53380,7 +53781,7 @@ Single node selection is configured by setting selectionMode as single along wit
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -53396,10 +53797,9 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeSingleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>(undefined);
     selectedFile!: TreeNode;
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -53496,7 +53896,7 @@ VirtualScroller is a performance-approach to handle huge data efficiently. Setti
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -53512,9 +53912,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeVirtualscrollDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodes.set(this.nodeService.generateNodes(150));
@@ -53537,7 +53936,7 @@ VirtualScroller is a performance-approach to handle huge data efficiently. Setti
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -53553,10 +53952,9 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeVirtualscrolllazyDemo implements OnInit {
+    private nodeService = inject(NodeService);
     loading = signal<boolean>(false);
     nodes = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.loading.set(true);
@@ -53804,7 +54202,7 @@ Selection of multiple nodes via checkboxes is enabled by configuring selectionMo
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -53820,10 +54218,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectCheckboxDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -53847,7 +54246,7 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -53863,10 +54262,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectCleariconDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -53890,7 +54290,7 @@ When disabled is present, the element cannot be edited and focused.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -53906,10 +54306,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectDisabledDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -53933,7 +54334,7 @@ Specify the variant property as filled to display the component with a higher vi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -53949,10 +54350,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectFilledDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -53976,7 +54378,7 @@ Filtering is enabled by adding the filter property, by default label property of
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -53992,10 +54394,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectFilterDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -54030,7 +54433,7 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { TreeSelectModule } from 'primeng/treeselect';
@@ -54058,12 +54461,13 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectFloatlabelDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     value1: any;
     value2: any;
     value3: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -54087,7 +54491,7 @@ The fluid prop makes the component take up the full width of its container when 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -54103,10 +54507,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectFluidDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -54133,7 +54538,7 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { TreeSelectModule } from 'primeng/treeselect';
@@ -54153,10 +54558,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectIftalabelDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedValue: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -54181,7 +54587,7 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -54198,11 +54604,12 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectInvalidDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedValue1: any;
     selectedValue2: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -54335,7 +54742,7 @@ More than one node is selectable by setting selectionMode to multiple . By defau
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -54351,10 +54758,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectMultipleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -54415,10 +54823,18 @@ import { MessageService } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeselectReactiveformsDemo implements OnInit {
+    private nodeService = inject(NodeService);
     messageService = inject(MessageService);
     nodes!: any[];
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
+
+    constructor() {
+        this.nodeService.getFiles().then((files) => (this.nodes = files));
+                this.exampleForm = this.fb.group({
+                    selectedNodes: ['', Validators.required]
+                });
+    }
 
     ngOnInit() {
     }
@@ -54456,7 +54872,7 @@ TreeSelect provides small and large sizes as alternatives to the base.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -54474,12 +54890,13 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectSizesDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     value1: any;
     value2: any;
     value3: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -54516,7 +54933,7 @@ TreeSelect offers multiple templates for customization through templating.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TreeSelectModule } from 'primeng/treeselect';
@@ -54546,10 +54963,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectTemplateDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
@@ -54608,9 +55026,14 @@ import { MessageService } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreeselectTemplatedrivenformsDemo implements OnInit {
+    private nodeService = inject(NodeService);
     messageService = inject(MessageService);
     selectedNodes: any;
     nodes!: any[];
+
+    constructor() {
+        this.nodeService.getFiles().then((files) => (this.nodes = files));
+    }
 
     ngOnInit() {
     }
@@ -54650,7 +55073,7 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
@@ -54677,10 +55100,11 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService]
 })
 export class TreeselectVirtualscrollDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getLargeTreeNodes().then((files) => (this.nodes = files));
     }
 
@@ -55305,7 +55729,7 @@ Setting columnResizeMode as expand changes the table width as well.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -55350,10 +55774,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableColumnresizeexpandDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -55407,7 +55830,7 @@ Columns can be resized with drag and drop when resizableColumns is enabled. Defa
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -55452,10 +55875,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableColumnresizefitDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -55516,7 +55938,7 @@ To utilize the column resize modes with a scrollable TreeTable, a colgroup templ
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTable, TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -55569,10 +55991,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableColumnresizescrollableDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -55631,7 +56052,7 @@ Column visibility based on a condition can be implemented with dynamic columns, 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TreeTableModule } from 'primeng/treetable';
@@ -55683,11 +56104,10 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableColumntoggleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
     selectedColumns!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -55742,7 +56162,7 @@ Particular rows and cells can be styled based on conditions. The ngClass receive
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -55787,10 +56207,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableConditionalstyleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -55844,7 +56263,7 @@ TreeTable has exclusive integration with contextmenu component. In order to atta
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTable, TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode, MenuItem, MessageService } from 'primeng/api';
@@ -55890,12 +56309,12 @@ interface Column {
     providers: [NodeService, MessageService]
 })
 export class TreetableContextmenuDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
     files!: TreeNode[];
     selectedNode!: TreeNode;
     cols!: Column[];
     items!: MenuItem[];
-
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -55956,7 +56375,7 @@ Expansion state is controlled with expandedKeys property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -55990,9 +56409,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableControlledDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => {
@@ -56051,7 +56469,7 @@ Columns can be created programmatically.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -56096,10 +56514,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableDynamiccolumnsDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -56148,7 +56565,7 @@ Incell editing is enabled by defining input elements with treeTableCellEditor .
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeTableModule } from 'primeng/treetable';
 import { InputTextModule } from 'primeng/inputtext';
@@ -56190,10 +56607,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableEditDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -56267,7 +56683,7 @@ The filterMode specifies the filtering strategy, in lenient mode when the query 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { TreeTableModule } from 'primeng/treetable';
@@ -56335,12 +56751,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableFilterDemo implements OnInit {
+    private nodeService = inject(NodeService);
     filterMode: string = 'lenient';
     filterModes: any[];
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -56396,7 +56811,7 @@ Flex scroll feature makes the scrollable viewport section dynamic instead of a f
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Dialog, DialogModule } from 'primeng/dialog';
 import { TreeTableModule } from 'primeng/treetable';
@@ -56440,10 +56855,9 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableFlexiblescrollDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     dialogVisible: boolean = false;
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => {
@@ -56488,7 +56902,7 @@ Enabling showGridlines displays grid lines.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -56522,9 +56936,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableGridlinesDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -56585,7 +56998,7 @@ Lazy mode is handy to deal with large datasets, instead of loading the entire da
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -56644,12 +57057,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableLazyloadDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
     totalRecords!: number;
     loading: boolean = false;
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.cols = [
@@ -56750,7 +57162,7 @@ The loading property displays a mask layer to indicate busy state. Use the pagin
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -56786,9 +57198,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableLoadingmaskDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -56826,7 +57237,7 @@ Skeleton component can be used as a placeholder during the loading process.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
@@ -56858,9 +57269,8 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableLoadingskeletonDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>([]);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => this.files.set(files));
@@ -57157,7 +57567,7 @@ Order of the columns can be changed using drag and drop when reorderableColumns 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -57202,10 +57612,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableReorderDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -57269,7 +57678,7 @@ A column can be fixed during horizontal scrolling by enabling the frozenColumns 
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -57324,12 +57733,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableScrollfrozencolumnsDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
     frozenCols!: Column[];
     scrollableCols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -57399,7 +57807,7 @@ Horizontal scrolling is enabled when the total width of columns exceeds table wi
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -57451,10 +57859,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableScrollhorizontalDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -57508,7 +57915,7 @@ Adding scrollable property along with a scrollHeight for the data viewport enabl
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -57553,10 +57960,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableScrollverticalDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -57611,7 +58017,7 @@ Selection of multiple nodes via checkboxes is enabled by configuring selectionMo
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -57657,11 +58063,10 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSelectioncheckboxDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     selectionKeys: any = {};
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getTreeTableNodes().then((files) => {
@@ -57745,7 +58150,7 @@ TreeTable provides onNodeSelect and onNodeUnselect events to listen selection ev
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode, MessageService } from 'primeng/api';
@@ -57805,11 +58210,11 @@ interface NodeEvent {
     providers: [NodeService, MessageService]
 })
 export class TreetableSelectioneventscDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
     files!: TreeNode[];
     selectedNode!: TreeNode;
     cols!: Column[];
-
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -57871,7 +58276,7 @@ More than one node is selectable by setting selectionMode to multiple . By defau
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTable, TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -57917,12 +58322,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSelectionmultipleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     metaKeySelection: boolean = true;
     files!: TreeNode[];
     selectedNodes!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -57976,7 +58380,7 @@ Single node selection is configured by setting selectionMode as single along wit
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -58021,12 +58425,11 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSelectionsingleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     metaKeySelection: boolean = true;
     files!: TreeNode[];
     selectedNode!: TreeNode;
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -58074,7 +58477,7 @@ In addition to a regular treetable, alternatives with alternative sizes are avai
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -58108,11 +58511,10 @@ import { TreeNode } from 'primeng/api';
     providers: [NodeService]
 })
 export class TreetableSizeDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     sizes!: any[];
     selectedSize: any = '';
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -58169,7 +58571,7 @@ Multiple columns can be sorted by defining sortMode as multiple . This mode requ
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -58217,10 +58619,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSortmultiplecolumnsDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -58277,7 +58678,7 @@ The removable sort can be implemented using the customSort property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTable, TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode, SortEvent } from 'primeng/api';
@@ -58326,14 +58727,13 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSortremovableDemo implements OnInit {
+    private nodeService = inject(NodeService);
     metaKeySelection: boolean = true;
     files!: TreeNode[];
     initialValue: TreeNode[];
     selectedNode!: TreeNode;
     cols!: Column[];
     isSorted: boolean = null;
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => {
@@ -58422,7 +58822,7 @@ Sorting on a column is enabled by adding the ttSortableColumn property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'primeng/api';
@@ -58470,10 +58870,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableSortsinglecolumnDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
@@ -58538,7 +58937,7 @@ Custom content at caption , header , body and summary sections are supported via
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TreeTableModule } from 'primeng/treetable';
 import { NodeService } from '@/service/nodeservice';
@@ -58595,10 +58994,9 @@ interface Column {
     providers: [NodeService]
 })
 export class TreetableTemplateDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

@@ -344,6 +344,18 @@ export class CheckboxReactiveformsDemo {
     formSubmitted: boolean = false;
     exampleForm: FormGroup;
 
+    constructor() {
+        this.exampleForm = this.fb.group(
+                    {
+                        cheese: [false],
+                        mushroom: [false],
+                        pepper: [false],
+                        onion: [false]
+                    },
+                    { validators: this.atLeastOneSelectedValidator }
+                );
+    }
+
     atLeastOneSelectedValidator(group: FormGroup) {
         [key: string]: any } | null {
         const anySelected = Object.values(group.controls).some((control) => control.value === true);

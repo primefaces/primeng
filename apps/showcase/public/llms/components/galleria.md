@@ -70,7 +70,7 @@ Galleria can be extended further to implement complex requirements.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
 import { PhotoService } from '@/service/photoservice';
@@ -138,6 +138,7 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaAdvancedDemo implements OnInit {
+    private photoService = inject(PhotoService);
     images = signal<any[]>([]);
     showThumbnails: boolean = false;
     fullscreen: boolean = false;
@@ -145,8 +146,6 @@ export class GalleriaAdvancedDemo implements OnInit {
     isAutoPlay: boolean = true;
     onFullScreenListener: any;
     responsiveOptions: any[];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => {
@@ -259,7 +258,7 @@ A slideshow implementation is defined by adding circular and autoPlay properties
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { PhotoService } from '@/service/photoservice';
 
@@ -281,10 +280,9 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaAutoplayDemo implements OnInit {
+    private photoService = inject(PhotoService);
     images: any = model([]);
     responsiveOptions: any[];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -331,7 +329,7 @@ Description of an image is specified with the caption template.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { PhotoService } from '@/service/photoservice';
 
@@ -357,10 +355,9 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaCaptionDemo implements OnInit {
+    private photoService = inject(PhotoService);
     images: any = model([]);
     responsiveOptions: any[];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -392,7 +389,7 @@ Galleria can be controlled programmatically using the activeIndex property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { GalleriaModule } from 'primeng/galleria';
 import { PhotoService } from '@/service/photoservice';
@@ -419,11 +416,10 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaControlledDemo implements OnInit {
+    private photoService = inject(PhotoService);
     images: any = model([]);
     _activeIndex: number = 2;
     responsiveOptions: any[];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -459,7 +455,7 @@ Galleria responsiveness is defined with the responsiveOptions property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { PhotoService } from '@/service/photoservice';
 
@@ -481,10 +477,9 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaResponsiveDemo implements OnInit {
+    private photoService = inject(PhotoService);
     images: any = model([]);
     responsiveOptions: any[];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -520,7 +515,7 @@ Galleria can be controlled programmatically using the activeIndex property.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GalleriaModule } from 'primeng/galleria';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -552,11 +547,10 @@ import { PhotoService } from '@/service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaThumbnailDemo implements OnInit {
+    private photoService = inject(PhotoService);
     images = signal<any[]>([]);
     positionOptions: any[];
     responsiveOptions: any[];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));

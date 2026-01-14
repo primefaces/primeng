@@ -23,7 +23,7 @@ Dynamic dialogs require an instance of a DialogService that is responsible for d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { ProductService } from '@/service/productservice';
@@ -43,7 +43,9 @@ import { Dialog } from 'primeng/dialog';
     providers: [ProductService, DialogService, MessageService]
 })
 export class DynamicdialogExampleDemo implements OnInit {
-    constructor(public dialogService: DialogService, public messageService: MessageService) {}
+    private productService = inject(ProductService);
+    private dialogService = inject(DialogService);
+    private messageService = inject(MessageService);
 
     ngOnInit() {
     }

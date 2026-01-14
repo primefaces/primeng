@@ -27,7 +27,7 @@ The command property defines the callback to run when an item is activated by cl
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
 import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -45,9 +45,8 @@ import { PanelMenu } from 'primeng/panelmenu';
     providers: [MessageService]
 })
 export class PanelmenuCommandDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[];
-
-    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [
@@ -354,7 +353,7 @@ Menu items support navigation via routerLink, programmatic routing using command
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
 import { MenuItem, MessageService } from 'primeng/api';
 import { PanelMenu } from 'primeng/panelmenu';
@@ -370,6 +369,7 @@ import { PanelMenu } from 'primeng/panelmenu';
     providers: [MessageService]
 })
 export class PanelmenuRouterDemo implements OnInit {
+    private messageService = inject(MessageService);
     items: MenuItem[];
 
     ngOnInit() {

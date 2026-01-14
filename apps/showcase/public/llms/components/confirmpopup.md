@@ -258,7 +258,7 @@ Headless mode allows you to customize the entire user interface instead of the d
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
@@ -287,7 +287,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmpopupHeadlessDemo {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
 }
 ```
 </details>
@@ -446,7 +447,7 @@ Content section can be customized using content template.
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
@@ -472,7 +473,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmpopupTemplateDemo {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
 }
 ```
 </details>
