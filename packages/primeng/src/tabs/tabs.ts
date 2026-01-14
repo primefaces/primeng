@@ -1,14 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, input, model, NgModule, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, input, model, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { TabsStyle } from './style/tabsstyle';
-import { Tab } from './tab';
-import { TabList } from './tablist';
-import { TabPanel } from './tabpanel';
-import { TabPanels } from './tabpanels';
 import { TabsPassThrough } from 'primeng/types/tabs';
+import { TabsStyle } from './style/tabsstyle';
 
 const TABS_INSTANCE = new InjectionToken<Tabs>('TABS_INSTANCE');
 
@@ -89,9 +85,3 @@ export class Tabs extends BaseComponent<TabsPassThrough> {
         this.value.update(() => newValue);
     }
 }
-
-@NgModule({
-    imports: [Tabs, TabPanels, TabPanel, TabList, Tab, BindModule],
-    exports: [Tabs, TabPanels, TabPanel, TabList, Tab, BindModule]
-})
-export class TabsModule {}

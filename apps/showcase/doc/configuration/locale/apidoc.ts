@@ -63,22 +63,6 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         <td>Greater than or equal to</td>
                     </tr>
                     <tr>
-                        <td>is</td>
-                        <td>Is</td>
-                    </tr>
-                    <tr>
-                        <td>isNot</td>
-                        <td>Is not</td>
-                    </tr>
-                    <tr>
-                        <td>before</td>
-                        <td>Before</td>
-                    </tr>
-                    <tr>
-                        <td>after</td>
-                        <td>After</td>
-                    </tr>
-                    <tr>
                         <td>dateIs</td>
                         <td>Date is</td>
                     </tr>
@@ -271,16 +255,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         <td>Enter a password</td>
                     </tr>
                     <tr>
-                        <td>fileChosenMessage</td>
-                        <td>Files</td>
-                    </tr>
-                    <tr>
-                        <td>noFileChosenMessage</td>
-                        <td>No file chosen</td>
-                    </tr>
-                    <tr>
                         <td>emptyFilterMessage</td>
-                        <td>No results found</td>
+                        <td>No results found'</td>
                     </tr>
                     <tr>
                         <td>searchMessage</td>
@@ -300,7 +276,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     </tr>
                     <tr>
                         <td>emptyMessage</td>
-                        <td>No results found</td>
+                        <td>No available options</td>
                     </tr>
                     <tr>
                         <td>aria.trueLabel</td>
@@ -403,10 +379,6 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         <td>Previous Page</td>
                     </tr>
                     <tr>
-                        <td>aria.previousPageLabel</td>
-                        <td>Previous Page</td>
-                    </tr>
-                    <tr>
                         <td>aria.rowsPerPageLabel</td>
                         <td>Rows per page</td>
                     </tr>
@@ -497,30 +469,6 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <tr>
                         <td>aria.rotateLeft</td>
                         <td>Rotate Left</td>
-                    </tr>
-                    <tr>
-                        <td>aria.listLabel</td>
-                        <td>Option List</td>
-                    </tr>
-                    <tr>
-                        <td>aria.selectColor</td>
-                        <td>Select a color</td>
-                    </tr>
-                    <tr>
-                        <td>aria.removeLabel</td>
-                        <td>Remove</td>
-                    </tr>
-                    <tr>
-                        <td>aria.browseFiles</td>
-                        <td>Browse Files</td>
-                    </tr>
-                    <tr>
-                        <td>aria.maximizeLabel</td>
-                        <td>Maximize</td>
-                    </tr>
-                    <tr>
-                        <td>aria.minimizeLabel</td>
-                        <td>Minimize</td>
                     </tr>
                 </tbody>
             </table>

@@ -1,4 +1,4 @@
-import { AppDocApiTable } from '@/components/doc/app.docapitable';
+import { AppDocPtTable } from '@/components/doc/app.docpttable';
 import { getPTOptions } from '@/components/doc/app.docptviewer';
 import { AppDocSection } from '@/components/doc/app.docsection';
 import { CommonModule } from '@angular/common';
@@ -26,7 +26,7 @@ export class PTComponent {
         {
             id: 'pt.doc.paginator',
             label: 'Paginator PT Options',
-            component: AppDocApiTable,
+            component: AppDocPtTable,
             data: getPTOptions('Paginator')
         }
     ];

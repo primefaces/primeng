@@ -1,24 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ElementRef,
-    EventEmitter,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    numberAttribute,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    SimpleChanges,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, numberAttribute, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { resolveFieldData } from '@primeuix/utils';
 import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -26,7 +7,19 @@ import { Bind } from 'primeng/bind';
 import { SpinnerIcon } from 'primeng/icons';
 import { PaginatorModule } from 'primeng/paginator';
 import { Nullable } from 'primeng/ts-helpers';
-import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, DataViewPassThrough, DataViewPaginatorState, DataViewSortEvent } from 'primeng/types/dataview';
+import {
+    DataViewGridTemplateContext,
+    DataViewLayoutChangeEvent,
+    DataViewLazyLoadEvent,
+    DataViewListTemplateContext,
+    DataViewPageEvent,
+    DataViewPaginatorDropdownItemTemplateContext,
+    DataViewPaginatorLeftTemplateContext,
+    DataViewPaginatorRightTemplateContext,
+    DataViewPaginatorState,
+    DataViewPassThrough,
+    DataViewSortEvent
+} from 'primeng/types/dataview';
 import { Subscription } from 'rxjs';
 import { DataViewStyle } from './style/dataviewstyle';
 
@@ -82,6 +75,7 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
                 [showPageLinks]="showPageLinks"
                 [styleClass]="cn(cx('pcPaginator', { position: 'top' }), paginatorStyleClass)"
                 [pt]="ptm('pcPaginator')"
+                [unstyled]="unstyled()"
             ></p-paginator>
         }
         <div [pBind]="ptm('content')" [class]="cx('content')">
@@ -135,6 +129,7 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
                 [showPageLinks]="showPageLinks"
                 [styleClass]="cn(cx('pcPaginator', { position: 'bottom' }), paginatorStyleClass)"
                 [pt]="ptm('pcPaginator')"
+                [unstyled]="unstyled()"
             ></p-paginator>
         }
         @if (footer || footerTemplate) {
@@ -338,58 +333,64 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
     @Output() onChangeLayout: EventEmitter<DataViewLayoutChangeEvent> = new EventEmitter<DataViewLayoutChangeEvent>();
     /**
      * Template for the list layout.
+     * @param {DataViewListTemplateContext} context - list template context.
      * @group Templates
      */
-    @ContentChild('list') listTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('list') listTemplate: Nullable<TemplateRef<DataViewListTemplateContext>>;
     /**
      * Template for grid layout.
+     * @param {DataViewGridTemplateContext} context - grid template context.
      * @group Templates
      */
-    @ContentChild('grid') gridTemplate: TemplateRef<any>;
+    @ContentChild('grid') gridTemplate: TemplateRef<DataViewGridTemplateContext>;
     /**
      * Template for the header section.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: TemplateRef<any>;
+    @ContentChild('header') headerTemplate: TemplateRef<void>;
     /**
      * Template for the empty message section.
      * @group Templates
      */
-    @ContentChild('emptymessage') emptymessageTemplate: TemplateRef<any>;
+    @ContentChild('emptymessage') emptymessageTemplate: TemplateRef<void>;
     /**
      * Template for the footer section.
      * @group Templates
      */
-    @ContentChild('footer') footerTemplate: TemplateRef<any>;
+    @ContentChild('footer') footerTemplate: TemplateRef<void>;
     /**
      * Template for the left side of paginator.
+     * @param {DataViewPaginatorLeftTemplateContext} context - paginator left template context.
      * @group Templates
      */
-    @ContentChild('paginatorleft') paginatorleft: TemplateRef<any>;
-    /**r* Template for the right side of paginator.
+    @ContentChild('paginatorleft') paginatorleft: TemplateRef<DataViewPaginatorLeftTemplateContext>;
+    /**
+     * Template for the right side of paginator.
+     * @param {DataViewPaginatorRightTemplateContext} context - paginator right template context.
      * @group Templates
      */
-    @ContentChild('paginatorright') paginatorright: TemplateRef<any>;
+    @ContentChild('paginatorright') paginatorright: TemplateRef<DataViewPaginatorRightTemplateContext>;
     /**
      * Template for items in paginator dropdown.
+     * @param {DataViewPaginatorDropdownItemTemplateContext} context - paginator dropdown item template context.
      * @group Templates
      */
-    @ContentChild('paginatordropdownitem') paginatordropdownitem: TemplateRef<any>;
+    @ContentChild('paginatordropdownitem') paginatordropdownitem: TemplateRef<DataViewPaginatorDropdownItemTemplateContext>;
     /**
      * Template for loading icon.
      * @group Templates
      */
-    @ContentChild('loadingicon') loadingicon: TemplateRef<any>;
+    @ContentChild('loadingicon') loadingicon: TemplateRef<void>;
     /**
      * Template for list icon.
      * @group Templates
      */
-    @ContentChild('listicon') listicon: TemplateRef<any>;
+    @ContentChild('listicon') listicon: TemplateRef<void>;
     /**
      * Template for grid icon.
      * @group Templates
      */
-    @ContentChild('gridicon') gridicon: TemplateRef<any>;
+    @ContentChild('gridicon') gridicon: TemplateRef<void>;
 
     @ContentChild(Header) header: any;
 

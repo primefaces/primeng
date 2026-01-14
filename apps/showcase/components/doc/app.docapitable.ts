@@ -1,210 +1,227 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule, Location } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, Input, numberAttribute, ViewContainerRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, inject, input, numberAttribute } from '@angular/core';
 import { AppDocSectionText } from './app.docsectiontext';
 
 @Component({
     selector: 'app-docapitable',
     standalone: true,
     imports: [CommonModule, AppDocSectionText],
-    template: ` <ng-container *ngIf="data">
-        <div *ngIf="parentId" class="my-4 pt-4">
-            <app-docsectiontext [level]="2"></app-docsectiontext>
-        </div>
-        <app-docsectiontext [id]="id" [title]="label" [level]="3">
-            <p>{{ description || null }}</p>
-        </app-docsectiontext>
-
-        <div class="doc-tablewrapper mt-4" *ngIf="!data[0].data">
-            <table class="doc-table">
-                <thead>
-                    <tr>
-                        <th *ngFor="let key of getKeys(data[0])" [style]="{ 'min-width': key === 'variable' && '30rem' }">
-                            <ng-container *ngIf="key !== 'readonly' && key !== 'optional' && key !== 'deprecated'">
-                                {{ key }}
-                            </ng-container>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let prop of data">
-                        <td *ngFor="let entry of getEntries(prop)">
-                            <ng-container *ngIf="entry[0] !== 'readonly' && entry[0] !== 'optional' && entry[0] !== 'deprecated'">
-                                <span *ngIf="entry[0] === 'name'" [attr.id]="id + '.' + entry[1]" class="doc-option-name" [ngClass]="{ 'line-through cursor-pointer': !!prop.deprecated }" [attr.title]="prop.deprecated"
-                                    >{{ entry[1] || '-' }}<a (click)="navigate($event, entry[1])" class="doc-option-link"><i class="pi pi-link"></i></a
-                                ></span>
-                                <span *ngIf="entry[0] === 'type'" class="doc-option-type">{{ entry[1] || '-' }}</span>
-                                <span *ngIf="entry[0] === 'options'" class="doc-option-type">
-                                    @if (entry[0] === 'options') {
-                                        @for (option of entry[1]; track option) {
-                                            <div>{{ option.name }}: {{ option.type }};</div>
-                                        }
-                                    }
-                                </span>
-                                <ng-container *ngIf="entry[0] === 'parameters'">
-                                    <ng-container *ngFor="let parameter of entry[1]">
-                                        <div class="doc-option-params" *ngIf="parameter.name; else nullValue">
-                                            <span
-                                                *ngIf="parameter.name"
-                                                [ngClass]="{
-                                                    'doc-option-parameter-name': label === 'Emitters',
-                                                    'text-primary-700': label === 'Templates'
-                                                }"
-                                                >{{ parameter.name }} :</span
-                                            >
-                                            <ng-container *ngFor="let value of getType(parameter.type); let i = index"
-                                                >{{ i !== 0 ? ' |' : ' ' }}
-                                                <a
-                                                    *ngIf="isLinkType(value); else elseBlock"
-                                                    (click)="scrollToLinkedElement($event, value, prop)"
-                                                    [ngClass]="{
-                                                        'doc-option-parameter-type': label === 'Emitters',
-                                                        'text-primary-700': label === 'Templates'
-                                                    }"
-                                                    class="doc-option-link"
-                                                    >{{ value || '-' }}</a
-                                                >
-                                                <ng-template #elseBlock>
-                                                    <span
-                                                        [ngClass]="{
-                                                            'doc-option-parameter-type': label === 'Emitters',
-                                                            'text-primary-700': label === 'Templates'
-                                                        }"
-                                                        >{{ value }}</span
-                                                    >
-                                                </ng-template>
-                                            </ng-container>
-                                        </div>
-                                    </ng-container>
-                                    <ng-template #nullValue>
-                                        <span>null</span>
-                                    </ng-template>
-                                </ng-container>
-                                <div
-                                    [ngClass]="{
-                                        'doc-option-dark': isDarkMode && entry[0] === 'default',
-                                        'doc-option-light': !isDarkMode && entry[0] === 'default',
-                                        'doc-option-default': entry[0] === 'default',
-                                        'doc-option-description': entry[0] === 'description',
-                                        'doc-option-return-type': entry[0] === 'variable',
-                                        'min-w-full': entry[0] === 'variable'
-                                    }"
-                                    style="display: inline"
-                                    *ngIf="entry[0] !== 'name' && entry[0] !== 'type' && entry[0] !== 'parameters' && entry[0] !== 'options'"
-                                    [id]="id + '.' + entry[0]"
-                                >
-                                    {{ entry[1] }}
-                                </div>
-                            </ng-container>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <ng-container *ngIf="data[0].data && data[0].data.length > 0">
-            <ng-container *ngFor="let childData of data">
-                <app-docapitable [id]="childData.id" [data]="childData.data" [label]="childData.label" [description]="childData.description" [relatedProp]="childData.relatedProp"></app-docapitable>
-            </ng-container>
-        </ng-container>
-    </ng-container>`,
-    styles: [
-        `
-            .parameter-bold {
-                font-weight: bold;
+    template: `
+        @if (data()) {
+            <!-- Parent Section Header -->
+            @if (parentId()) {
+                <div class="my-4 pt-4">
+                    <app-docsectiontext [level]="2"></app-docsectiontext>
+                </div>
             }
-        `
-    ],
+
+            <!-- Section Title and Description -->
+            <app-docsectiontext [id]="id()" [title]="label()" [level]="3">
+                <p>{{ description() || null }}</p>
+            </app-docsectiontext>
+
+            <!-- Main Table (when data has no nested data) -->
+            @if (!hasNestedData()) {
+                <div class="doc-tablewrapper mt-4">
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                @for (key of visibleKeys(); track key) {
+                                    <th [style.min-width]="key === 'variable' ? '30rem' : null">
+                                        {{ key }}
+                                    </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (prop of data(); track prop.name || $index) {
+                                <tr>
+                                    @for (entry of getVisibleEntries(prop); track entry[0]) {
+                                        <td>
+                                            <ng-container [ngTemplateOutlet]="cellContent" [ngTemplateOutletContext]="{ entry: entry, prop: prop }"></ng-container>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            <!-- Nested Data (recursive) -->
+            @if (hasNestedData()) {
+                @for (childData of data(); track childData.id || $index) {
+                    <app-docapitable [id]="childData.id" [data]="childData.data" [label]="childData.label" [description]="childData.description" [relatedProp]="childData.relatedProp" />
+                }
+            }
+        }
+
+        <!-- Cell Content Template -->
+        <ng-template #cellContent let-entry="entry" let-prop="prop">
+            @switch (entry[0]) {
+                @case ('name') {
+                    <span [attr.id]="id() + '.' + entry[1]" class="doc-option-name" [class.line-through]="!!prop.deprecated" [class.cursor-pointer]="!!prop.deprecated" [attr.title]="prop.deprecated">
+                        {{ entry[1] || '-' }}
+                        <a (click)="navigate($event, entry[1])" class="doc-option-link">
+                            <i class="pi pi-link"></i>
+                        </a>
+                    </span>
+                }
+                @case ('type') {
+                    <span class="doc-option-type">{{ entry[1] || '-' }}</span>
+                }
+                @case ('options') {
+                    <span class="doc-option-type">
+                        @for (option of entry[1]; track option.name) {
+                            <div>{{ option.name }}: {{ option.type }};</div>
+                        }
+                    </span>
+                }
+                @case ('parameters') {
+                    <ng-container [ngTemplateOutlet]="parametersContent" [ngTemplateOutletContext]="{ parameters: entry[1], prop: prop }"></ng-container>
+                }
+                @default {
+                    <div
+                        [id]="id() + '.' + entry[0]"
+                        style="display: inline"
+                        [class.doc-option-dark]="isDarkMode() && entry[0] === 'default'"
+                        [class.doc-option-light]="!isDarkMode() && entry[0] === 'default'"
+                        [class.doc-option-default]="entry[0] === 'default'"
+                        [class.doc-option-description]="entry[0] === 'description'"
+                        [class.doc-option-return-type]="entry[0] === 'variable'"
+                        [class.min-w-full]="entry[0] === 'variable'"
+                    >
+                        {{ entry[1] }}
+                    </div>
+                }
+            }
+        </ng-template>
+
+        <!-- Parameters Content Template -->
+        <ng-template #parametersContent let-parameters="parameters" let-prop="prop">
+            @for (parameter of parameters; track parameter.name || $index) {
+                @if (parameter.name) {
+                    <div class="doc-option-params">
+                        <span [class.doc-option-parameter-name]="isEmitters()" [class.text-primary-700]="isTemplates()"> {{ parameter.name }} : </span>
+                        @for (value of parseType(parameter.type); track value; let i = $index) {
+                            {{ i !== 0 ? ' |' : ' ' }}
+                            @if (isLinkType(value)) {
+                                <a (click)="scrollToLinkedElement($event, value)" [class.doc-option-parameter-type]="isEmitters()" [class.text-primary-700]="isTemplates()" class="doc-option-link">
+                                    {{ value || '-' }}
+                                </a>
+                            } @else {
+                                <span [class.doc-option-parameter-type]="isEmitters()" [class.text-primary-700]="isTemplates()">
+                                    {{ value }}
+                                </span>
+                            }
+                        }
+                    </div>
+                } @else {
+                    <span>null</span>
+                }
+            }
+        </ng-template>
+    `,
+    styles: `
+        .parameter-bold {
+            font-weight: bold;
+        }
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppDocApiTable {
-    @Input() id: string;
+    private configService = inject(AppConfigService);
+    private location = inject(Location);
 
-    @Input() label: string;
+    id = input<string>('');
+    label = input<string>('');
+    data = input<any[]>([]);
+    description = input<string>('');
+    relatedProp = input<string>('');
+    parentTitle = input<string>('');
+    parentDescription = input<string>('');
+    parentId = input<string>('');
+    level = input(0, { transform: numberAttribute });
+    isInterface = input(false, { transform: booleanAttribute });
 
-    @Input() data: any[];
+    isDarkMode = computed(() => this.configService.appState().darkTheme);
 
-    @Input() description: string;
+    hasNestedData = computed(() => {
+        const d = this.data();
+        return d && d.length > 0 && d[0].data && d[0].data.length > 0;
+    });
 
-    @Input() relatedProp: string;
+    isEmitters = computed(() => this.label() === 'Emitters');
+    isTemplates = computed(() => this.label() === 'Templates');
+    isMethods = computed(() => this.label() === 'Methods');
 
-    @Input() parentTitle: string;
+    hasParameters = computed(() => {
+        const d = this.data();
+        return d?.some((item) => item.parameters && item.parameters.length > 0) ?? false;
+    });
 
-    @Input() parentDescription: string;
+    visibleKeys = computed(() => {
+        const d = this.data();
+        if (!d || d.length === 0) return [];
 
-    @Input() parentId: string;
+        const keys = Object.keys(d[0]);
+        const hiddenKeys = ['readonly', 'optional', 'deprecated'];
 
-    @Input({ transform: numberAttribute }) level: number;
+        return keys.filter((key) => {
+            if (hiddenKeys.includes(key)) return false;
+            if (key === 'parameters' && !this.hasParameters()) return false;
+            return true;
+        });
+    });
 
-    @Input({ transform: booleanAttribute }) isInterface: boolean = false;
+    getVisibleEntries(object: any): [string, any][] {
+        const entries = Object.entries(object) as [string, any][];
+        const hiddenKeys = ['readonly', 'optional', 'deprecated'];
 
-    constructor(
-        public viewContainerRef: ViewContainerRef,
-        public router: Router,
-        public location: Location,
-        private configService: AppConfigService
-    ) {}
-
-    get isDarkMode(): boolean {
-        return this.configService.appState().darkTheme;
+        return entries.filter(([key]) => {
+            if (hiddenKeys.includes(key)) return false;
+            if (key === 'parameters' && !this.hasParameters()) return false;
+            return true;
+        });
     }
 
-    navigate(event, param) {
-        if (typeof window !== undefined) {
-            const parentElement = event.currentTarget.parentElement;
-            this.location.go(this.location.path() + '#' + this.id + '.' + param);
+    parseType(value: string | null): string[] {
+        if (this.isTemplates()) {
+            return value?.split('|') ?? [];
+        }
+        if (this.isMethods() && !value) {
+            return ['-'];
+        }
+        return value?.split('|').map((item) => item.replace(/(\[|\]|<|>).*$/gm, '').trim()) ?? [];
+    }
+
+    isLinkType(value: string): boolean {
+        if (this.isTemplates()) return false;
+
+        const validValues = ['confirmationoptions', 'toastmessageoptions'];
+        const componentName = this.id().split('.')[1]?.toLowerCase() ?? '';
+
+        return value.toLowerCase().includes(componentName) || validValues.includes(value.toLowerCase());
+    }
+
+    navigate(event: Event, param: string): void {
+        if (typeof window !== 'undefined') {
+            const parentElement = (event.currentTarget as HTMLElement).parentElement;
+            this.location.go(this.location.path() + '#' + this.id() + '.' + param);
 
             setTimeout(() => {
-                parentElement.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                parentElement?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
             }, 1);
             event.preventDefault();
         }
     }
 
-    getKeys(object) {
-        return Object.keys(object);
-    }
-
-    getEntries(object) {
-        return Object.entries(object);
-    }
-
-    getType(value) {
-        if (this.label === 'Templates') {
-            return value?.split('|');
-        }
-        if (this.label === 'Methods' && !value) {
-            return ['-'];
-        }
-
-        return value?.split('|').map((item) => item.replace(/(\[|\]|<|>).*$/gm, '').trim());
-    }
-
-    isLinkType(value) {
-        if (this.label === 'Templates') return false;
-        const validValues = ['confirmationoptions', 'toastmessageoptions'];
-        return value.toLowerCase().includes(this.id.split('.')[1].toLowerCase()) || validValues.includes(value.toLowerCase());
-    }
-
-    setLinkPath(value, type) {
-        const currentRoute = this.router.url;
-        let componentName = this.id.split('.')[1];
-
-        const validValues = ['menuitem', 'confirmationoptions'];
-        let definationType = type ? type : value.includes('Type') ? 'types' : value.includes('Event') ? 'events' : validValues.includes(value.toLowerCase()) ? 'options' : 'interfaces';
-
-        if (componentName.includes('toast')) {
-            componentName = 'toast';
-        }
-
-        return definationType === 'options' ? `/${currentRoute}/#api.${definationType}.${value}` : `/${currentRoute}/#api.${componentName}.${definationType}.${value}`;
-    }
-
-    scrollToLinkedElement(event, value) {
-        if (document && document.createElement) {
-            const section = this.label === 'Emitters' ? 'Events' : this.label;
-            const elementId = `api.${this.id.split('.')[1].toLowerCase()}.${section.toLowerCase()}.${value}`;
+    scrollToLinkedElement(event: Event, value: string): void {
+        if (typeof document !== 'undefined') {
+            const section = this.isEmitters() ? 'Events' : this.label();
+            const componentName = this.id().split('.')[1]?.toLowerCase() ?? '';
+            const elementId = `api.${componentName}.${section.toLowerCase()}.${value}`;
 
             setTimeout(() => {
                 this.scrollToLabelById(elementId);
@@ -214,11 +231,11 @@ export class AppDocApiTable {
         }
     }
 
-    scrollToLabelById(id) {
-        if (typeof document !== undefined) {
+    private scrollToLabelById(id: string): void {
+        if (typeof document !== 'undefined') {
             const label = document.getElementById(id);
             this.location.go(`${this.location.path()}/#${id}`);
-            label && label.parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+            label?.parentElement?.scrollIntoView({ block: 'start', behavior: 'smooth' });
         }
     }
 }

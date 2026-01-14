@@ -1,9 +1,9 @@
-import { AccessibilityDoc } from '@/doc/inplace/accessibilitydoc';
-import { BasicDoc } from '@/doc/inplace/basicdoc';
-import { ImageDoc } from '@/doc/inplace/imagedoc';
-import { ImportDoc } from '@/doc/inplace/importdoc';
-import { InputDoc } from '@/doc/inplace/inputdoc';
-import { LazyDoc } from '@/doc/inplace/lazydoc';
+import { AccessibilityDoc } from '@/doc/inplace/accessibility-doc';
+import { BasicDoc } from '@/doc/inplace/basic-doc';
+import { ImageDoc } from '@/doc/inplace/image-doc';
+import { ImportDoc } from '@/doc/inplace/import-doc';
+import { InputDoc } from '@/doc/inplace/input-doc';
+import { LazyDoc } from '@/doc/inplace/lazy-doc';
 import { PTComponent } from '@/doc/inplace/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';

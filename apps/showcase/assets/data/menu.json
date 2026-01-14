@@ -21,7 +21,36 @@
         {
             "name": "Theming",
             "icon": "pi pi-palette",
-            "routerLink": "/theming"
+            "children": [
+                {
+                    "name": "Styled Mode",
+                    "routerLink": "/theming/styled"
+                },
+                {
+                    "name": "Unstyled Mode",
+                    "routerLink": "/theming/unstyled"
+                },
+                {
+                    "name": "Tailwind CSS",
+                    "icon": "pi pi-heart",
+                    "routerLink": "/tailwind"
+                }
+            ]
+        },
+        {
+            "name": "AI Tools",
+            "icon": "pi pi-sparkles",
+            "badge": "NEW",
+            "children": [
+                {
+                    "name": "LLMs.txt",
+                    "routerLink": "/llms"
+                },
+                {
+                    "name": "MCP Server",
+                    "routerLink": "/mcp"
+                }
+            ]
         },
         {
             "name": "Components",
@@ -472,6 +501,39 @@
             ]
         },
         {
+            "name": "Pass Through",
+            "icon": "pi pi-directions",
+            "routerLink": "/passthrough",
+            "badge": "NEW"
+        },
+        {
+            "name": "Guides",
+            "icon": "pi pi-book",
+            "children": [
+                {
+                    "name": "Accessibility",
+                    "routerLink": "/guides/accessibility"
+                },
+                       {
+                    "name": "Animations",
+                    "routerLink": "/guides/animations",
+                    "badge": "NEW"
+                },
+                {
+                    "name": "PrimeFlex",
+                    "routerLink": "/guides/primeflex"
+                },
+                {
+                    "name": "PrimeTV",
+                    "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
+                },
+                   {
+                    "name": "RTL",
+                    "routerLink": "/guides/rtl"
+                }
+            ]
+        },
+        {
             "name": "Icons",
             "icon": "pi pi-eye",
             "children": [
@@ -486,17 +548,6 @@
             ]
         },
         {
-            "name": "Pass Through",
-            "icon": "pi pi-directions",
-            "routerLink": "/passthrough",
-            "badge": "NEW"
-        },
-        {
-            "name": "Tailwind CSS",
-            "icon": "pi pi-heart",
-            "routerLink": "/tailwind"
-        },
-        {
             "name": "Figma UI Kit",
             "icon": "pi pi-pencil",
             "children": [
@@ -509,11 +560,6 @@
                     "routerLink": "/uikit/guide"
                 }
             ]
-        },
-        {
-            "name": "Templates",
-            "icon": "pi pi-star",
-            "routerLink": "/templates"
         },
         {
             "name": "Theme Designer",
@@ -535,37 +581,24 @@
 
         },
         {
+            "name": "Templates",
+            "icon": "pi pi-star",
+            "routerLink": "/templates"
+        },
+        {
             "name": "PrimeBlocks",
             "icon": "pi pi-server",
             "href": "https://primeblocks.org",
             "badge": "NEW"
         },
         {
-            "name": "Guides",
-            "icon": "pi pi-book",
-            "children": [
-                {
-                    "name": "Accessibility",
-                    "routerLink": "/guides/accessibility"
-                },
-                {
-                    "name": "PrimeFlex",
-                    "routerLink": "/guides/primeflex"
-                },
-                {
-                    "name": "PrimeTV",
-                    "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
-                },
-                   {
-                    "name": "RTL",
-                    "routerLink": "/guides/rtl"
-                }
-            ]
-        },
-        {
             "name": "Migration",
             "icon": "pi pi-arrow-up",
             "children": [
+                {
+                    "name": "Updating to v21",
+                    "routerLink": "/migration/v21"
+                },
                 {
                     "name": "Updating to v20",
                     "routerLink": "/migration/v20"

@@ -1,5 +1,5 @@
-import { ConfigurationDoc } from '@/doc/guides/rtl/configurationdoc';
-import { LimitationsDoc } from '@/doc/guides/rtl/limitationsdoc';
+import { ConfigurationDoc } from '@/doc/guides/rtl/configuration-doc';
+import { LimitationsDoc } from '@/doc/guides/rtl/limitations-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -7,7 +7,7 @@ import { AppDoc } from '@/components/doc/app.doc';
     selector: 'rtl-demo',
     standalone: true,
     imports: [AppDoc],
-    template: `<app-doc title="RTL Support" header="RTL Support" description="Right-to-left direction support of PrimeNG." [docs]="docs"></app-doc>`
+    template: `<app-doc title="RTL Support" header="RTL Support" description="Right-to-left direction support of PrimeNG." [docs]="docs" docType="page"></app-doc>`
 })
 export class RTLDemoComponent {
     docs = [

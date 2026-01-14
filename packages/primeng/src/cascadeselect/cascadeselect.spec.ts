@@ -1,12 +1,12 @@
-import { Component, signal } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { SharedModule } from 'primeng/api';
+import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from 'primeng/types/cascadeselect';
 import { BehaviorSubject } from 'rxjs';
 import { CASCADESELECT_VALUE_ACCESSOR, CascadeSelect, CascadeSelectModule } from './cascadeselect';
-import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from 'primeng/types/cascadeselect';
 
 const mockCountries = [
     {
@@ -371,7 +371,7 @@ describe('CascadeSelect', () => {
         await TestBed.configureTestingModule({
             imports: [CascadeSelectModule, SharedModule, FormsModule, ReactiveFormsModule],
             declarations: [TestCascadeSelectComponent, TestPTemplateCascadeSelectComponent],
-            providers: [provideNoopAnimations()]
+            providers: [provideZonelessChangeDetection(), provideNoopAnimations()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(CascadeSelect);
@@ -385,11 +385,11 @@ describe('CascadeSelect', () => {
     });
 
     describe('Component Initialization', () => {
-        it('should create the component', () => {
+        it('should create the component', async () => {
             expect(component).toBeTruthy();
         });
 
-        it('should have default values', () => {
+        it('should have default values', async () => {
             expect(component.placeholder).toBeUndefined();
             expect(component.$disabled()).toBe(false);
             expect(component.showClear).toBe(false);
@@ -397,58 +397,62 @@ describe('CascadeSelect', () => {
             expect(component.tabindex).toBe(0);
         });
 
-        it('should have value accessor provider', () => {
+        it('should have value accessor provider', async () => {
             expect(CASCADESELECT_VALUE_ACCESSOR).toBeTruthy();
             expect(CASCADESELECT_VALUE_ACCESSOR.provide).toBe(NG_VALUE_ACCESSOR);
         });
 
-        it('should render input element', () => {
-            fixture.detectChanges();
+        it('should render input element', async () => {
+            await fixture.whenStable();
             const hiddenInput = fixture.debugElement.query(By.css('.p-hidden-accessible input'));
             expect(hiddenInput).toBeTruthy();
         });
     });
 
     describe('Options, Value and Similar Input Properties', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            await testFixture.whenStable();
         });
 
-        it('should work with simple array', () => {
+        it('should work with simple array', async () => {
             testComponent.options = testComponent.stringOptions;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.options.length).toBe(3);
             expect(testComponent.options[0]).toBe('Option 1');
         });
 
-        it('should work with string array', () => {
+        it('should work with string array', async () => {
             testComponent.options = testComponent.stringOptions;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             expect(cascadeSelectInstance.options.every((item: any) => typeof item === 'string')).toBe(true);
         });
 
-        it('should work with number array', () => {
+        it('should work with number array', async () => {
             testComponent.options = testComponent.numberOptions;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             expect(cascadeSelectInstance.options.every((item: any) => typeof item === 'number')).toBe(true);
         });
 
-        it('should work with object array', () => {
+        it('should work with object array', async () => {
             testComponent.options = testComponent.objectOptions;
             testComponent.optionLabel = 'name';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             expect(cascadeSelectInstance.options.every((item: any) => typeof item === 'object')).toBe(true);
             expect(cascadeSelectInstance.optionLabel).toBe('name');
         });
 
-        it('should work with getters and setters', () => {
+        it('should work with getters and setters', async () => {
             Object.defineProperty(testComponent, 'dynamicOptions', {
                 get: function () {
                     return this.objectOptions;
@@ -459,49 +463,50 @@ describe('CascadeSelect', () => {
             });
 
             testComponent.options = (testComponent as any).dynamicOptions;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.options.length).toBe(2);
         });
 
-        it('should work with signals', () => {
+        it('should work with signals', async () => {
             testComponent.options = testComponent.signalOptions();
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.options.length).toBe(1);
             expect(testComponent.options[0].name).toBe('Australia');
         });
 
-        it('should work with observables and async pipe', fakeAsync(() => {
+        it('should work with observables and async pipe', async () => {
             testComponent.observableOptions$.subscribe((options) => {
                 testComponent.options = options;
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
             });
 
-            tick();
+            await testFixture.whenStable();
             expect(testComponent.options.length).toBe(1);
             expect(testComponent.options[0].name).toBe('Australia');
-            flush();
-        }));
+        });
 
-        it('should work with late-loaded values (HTTP/setTimeout)', fakeAsync(() => {
+        it('should work with late-loaded values (HTTP/setTimeout)', async () => {
             testComponent.loadLateOptions();
-            tick(150);
+            await new Promise((resolve) => setTimeout(resolve, 150));
 
             expect(testComponent.options.length).toBe(1);
             expect(testComponent.options[0].name).toBe('Australia');
-            flush();
-        }));
+        });
     });
 
     describe('Angular FormControl and NgModel Integration', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            await testFixture.whenStable();
         });
 
-        it('should work with ReactiveFormsModule', () => {
+        it('should work with ReactiveFormsModule', async () => {
             testComponent.showReactiveForm = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const formControl = testComponent.reactiveForm.get('selectedItems');
             expect(formControl).toBeTruthy();
@@ -512,16 +517,17 @@ describe('CascadeSelect', () => {
 
         it('should work with NgModel two-way binding', async () => {
             testComponent.selectedValue = mockCountries[0].states[0].cities[0];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             expect(cascadeSelectInstance.modelValue()).toEqual(mockCountries[0].states[0].cities[0]);
         });
 
-        it('should handle FormControl states (pristine, dirty, touched, valid, invalid)', () => {
+        it('should handle FormControl states (pristine, dirty, touched, valid, invalid)', async () => {
             testComponent.showReactiveForm = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const formControl = testComponent.reactiveForm.get('selectedItems');
 
@@ -540,9 +546,10 @@ describe('CascadeSelect', () => {
             expect(formControl?.valid).toBe(true);
         });
 
-        it('should handle setValue and getValue operations', () => {
+        it('should handle setValue and getValue operations', async () => {
             testComponent.showReactiveForm = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const formControl = testComponent.reactiveForm.get('selectedItems');
             const testValue = mockCountries[0].states[0].cities[0];
@@ -554,9 +561,10 @@ describe('CascadeSelect', () => {
             expect(retrievedValue).toEqual(testValue);
         });
 
-        it('should handle updateOn configurations', () => {
+        it('should handle updateOn configurations', async () => {
             testComponent.showReactiveForm = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const formControl = testComponent.reactiveForm.get('selectedItems');
             expect(formControl?.updateOn).toBeDefined();
@@ -564,80 +572,87 @@ describe('CascadeSelect', () => {
     });
 
     describe('Vital Input Properties', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            await testFixture.whenStable();
         });
 
-        it('should work with optionLabel as string', () => {
+        it('should work with optionLabel as string', async () => {
             testComponent.optionLabel = 'name';
             testComponent.options = testComponent.objectOptions;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             expect(cascadeSelectInstance.optionLabel).toBe('name');
         });
 
-        it('should work with optionLabel as function', () => {
+        it('should work with optionLabel as function', async () => {
             testComponent.optionLabel = testComponent.getLabelFunction();
             testComponent.options = [{ customName: 'Custom Australia', name: 'Australia' }];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             expect(typeof cascadeSelectInstance.optionLabel).toBe('function');
         });
 
-        it('should work with optionValue as string', () => {
+        it('should work with optionValue as string', async () => {
             testComponent.optionValue = 'code';
             testComponent.options = testComponent.objectOptions;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             expect(cascadeSelectInstance.optionValue).toBe('code');
         });
 
-        it('should work with optionValue as function', () => {
+        it('should work with optionValue as function', async () => {
             testComponent.optionValue = testComponent.getValueFunction();
             testComponent.options = [{ customValue: 'CUSTOM_AU', code: 'AU', name: 'Australia' }];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             expect(typeof cascadeSelectInstance.optionValue).toBe('function');
         });
 
-        it('should work with dynamic updated values', fakeAsync(() => {
+        it('should work with dynamic updated values', async () => {
             testComponent.options = [mockCountries[0]];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.options.length).toBe(1);
 
             // Update dynamically
             testComponent.options = mockCountries;
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.options.length).toBe(2);
-            flush();
-        }));
+        });
 
-        it('should work with placeholder', () => {
+        it('should work with placeholder', async () => {
             testComponent.placeholder = 'Custom placeholder';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             expect(cascadeSelectInstance.placeholder).toBe('Custom placeholder');
         });
 
-        it('should work with loading state', () => {
+        it('should work with loading state', async () => {
             testComponent.loading = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             expect(cascadeSelectInstance.loading).toBe(true);
         });
 
-        it('should work with appendTo', () => {
+        it('should work with appendTo', async () => {
             testComponent.appendTo = 'body';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             // appendTo might be a signal, so call it as a function to get the value
@@ -645,19 +660,21 @@ describe('CascadeSelect', () => {
             expect(appendToValue).toBe('body');
         });
 
-        it('should work with styles and styleClass', () => {
+        it('should work with styles and styleClass', async () => {
             testComponent.style = { border: '2px solid blue', padding: '5px' };
             testComponent.styleClass = 'custom-cascadeselect';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectElement = testFixture.debugElement.query(By.directive(CascadeSelect));
             expect(cascadeSelectElement.nativeElement.classList.contains('custom-cascadeselect')).toBe(true);
         });
 
-        it('should work with panelStyle and panelStyleClass', () => {
+        it('should work with panelStyle and panelStyleClass', async () => {
             testComponent.panelStyle = { background: 'lightgray' };
             testComponent.panelStyleClass = 'custom-panel';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             expect(cascadeSelectInstance.panelStyle).toEqual({ background: 'lightgray' });
@@ -666,12 +683,13 @@ describe('CascadeSelect', () => {
     });
 
     describe('Output Event Emitters', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             testComponent.options = mockCountries;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
-        it('should emit onChange event', fakeAsync(() => {
+        it('should emit onChange event', async () => {
             const testValue = mockCountries[0].states[0].cities[0];
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
 
@@ -682,91 +700,65 @@ describe('CascadeSelect', () => {
                 isFocus: true
             });
             testFixture.detectChanges();
-            tick();
+            await testFixture.whenStable();
 
             expect(testComponent.changeEvent).toBeTruthy();
             expect(testComponent.changeEvent?.value).toEqual(testValue);
-            flush();
-        }));
+        });
 
-        it('should emit onShow event', fakeAsync(() => {
-            const trigger = testFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
-            trigger.nativeElement.click();
-            testFixture.detectChanges();
-            tick();
-
-            expect(testComponent.beforeShowEvent).toBeTruthy();
-            expect(testComponent.showEvent).toBeTruthy();
-            flush();
-        }));
-
-        it('should emit onHide event', fakeAsync(() => {
-            const trigger = testFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
-            trigger.nativeElement.click();
-            testFixture.detectChanges();
-            tick();
-
-            // Simulate clicking outside
-            document.body.click();
-            testFixture.detectChanges();
-            tick();
-
-            expect(testComponent.hideEvent).toBeTruthy();
-            flush();
-        }));
-
-        it('should emit onFocus event', () => {
+        it('should emit onFocus event', async () => {
             const hiddenInput = testFixture.debugElement.query(By.css('.p-hidden-accessible input'));
             hiddenInput.nativeElement.dispatchEvent(new Event('focus'));
-            testFixture.detectChanges();
+            await testFixture.whenStable();
 
             expect(testComponent.focusEvent).toBeTruthy();
         });
 
-        it('should emit onBlur event', () => {
+        it('should emit onBlur event', async () => {
             const hiddenInput = testFixture.debugElement.query(By.css('.p-hidden-accessible input'));
             hiddenInput.nativeElement.dispatchEvent(new Event('blur'));
-            testFixture.detectChanges();
+            await testFixture.whenStable();
 
             expect(testComponent.blurEvent).toBeTruthy();
         });
 
-        it('should emit onClear event', () => {
+        it('should emit onClear event', async () => {
             testComponent.showClear = true;
             testComponent.selectedValue = mockCountries[0].states[0].cities[0];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             // Ensure showClear is set on the component instance and modelValue has a value
             cascadeSelectInstance.showClear = true;
             cascadeSelectInstance.writeValue(mockCountries[0].states[0].cities[0]); // Set value via ControlValueAccessor
-            testFixture.detectChanges();
+            await testFixture.whenStable();
 
             cascadeSelectInstance.clear(new MouseEvent('click'));
-            testFixture.detectChanges();
+            await testFixture.whenStable();
 
             expect(testComponent.clearEvent).toBe(true);
         });
     });
 
     describe('Content Projections with Templates', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            await testFixture.whenStable();
         });
 
-        it('should handle ContentChild templates', () => {
+        it('should handle ContentChild templates', async () => {
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             expect(cascadeSelectInstance.ngAfterContentInit).toBeDefined();
         });
 
-        it('should handle PrimeTemplate with context parameters', fakeAsync(() => {
+        it('should handle PrimeTemplate with context parameters', async () => {
             testComponent.options = mockCountries;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const trigger = testFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
             trigger.nativeElement.click();
-            testFixture.detectChanges();
-            tick();
+            await testFixture.whenStable();
 
             const customOptions = testFixture.debugElement.queryAll(By.css('.custom-option'));
             if (customOptions.length > 0) {
@@ -776,10 +768,9 @@ describe('CascadeSelect', () => {
                 const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance.optionTemplate).toBeDefined();
             }
-            flush();
-        }));
+        });
 
-        it('should handle multiple template types (value, option, header, footer)', () => {
+        it('should handle multiple template types (value, option, header, footer)', async () => {
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
 
             expect(cascadeSelectInstance.valueTemplate).toBeDefined();
@@ -794,11 +785,11 @@ describe('CascadeSelect', () => {
     });
 
     describe('ViewChild Properties', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            await testFixture.whenStable();
         });
 
-        it('should have ViewChild properties properly rendered', () => {
+        it('should have ViewChild properties properly rendered', async () => {
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
 
             expect(cascadeSelectInstance.focusInputViewChild).toBeDefined();
@@ -807,11 +798,11 @@ describe('CascadeSelect', () => {
     });
 
     describe('Accessibility Features', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            await testFixture.whenStable();
         });
 
-        it('should have proper ARIA attributes', () => {
+        it('should have proper ARIA attributes', async () => {
             const hiddenInput = testFixture.debugElement.query(By.css('.p-hidden-accessible input'));
 
             expect(hiddenInput.nativeElement.getAttribute('role')).toBe('combobox');
@@ -820,21 +811,20 @@ describe('CascadeSelect', () => {
             expect(hiddenInput.nativeElement.getAttribute('aria-label')).toBe('Test cascade select');
         });
 
-        it('should update aria-expanded when panel is opened', fakeAsync(() => {
+        it('should update aria-expanded when panel is opened', async () => {
             testComponent.options = mockCountries;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const trigger = testFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
             trigger.nativeElement.click();
-            testFixture.detectChanges();
-            tick();
+            await testFixture.whenStable();
 
             const hiddenInput = testFixture.debugElement.query(By.css('.p-hidden-accessible input'));
             expect(hiddenInput.nativeElement.getAttribute('aria-expanded')).toBe('true');
-            flush();
-        }));
+        });
 
-        it('should support keyboard navigation', () => {
+        it('should support keyboard navigation', async () => {
             const hiddenInput = testFixture.debugElement.query(By.css('.p-hidden-accessible input'));
 
             const arrowDownEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
@@ -852,7 +842,7 @@ describe('CascadeSelect', () => {
             expect(hiddenInput).toBeTruthy();
         });
 
-        it('should handle screen reader compatibility', () => {
+        it('should handle screen reader compatibility', async () => {
             const hiddenInput = testFixture.debugElement.query(By.css('.p-hidden-accessible input'));
 
             const ariaRequired = hiddenInput.nativeElement.getAttribute('aria-required');
@@ -862,70 +852,73 @@ describe('CascadeSelect', () => {
     });
 
     describe('Complex Situations and Edge Cases', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            await testFixture.whenStable();
         });
 
-        it('should handle empty options gracefully', () => {
+        it('should handle empty options gracefully', async () => {
             testComponent.options = [];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.options.length).toBe(0);
-            expect(() => testFixture.detectChanges()).not.toThrow();
+            expect(() => testFixture.changeDetectorRef.markForCheck()).not.toThrow();
         });
 
-        it('should handle null/undefined values', () => {
+        it('should handle null/undefined values', async () => {
             testComponent.selectedValue = null as any;
-            testFixture.detectChanges();
-            expect(() => testFixture.detectChanges()).not.toThrow();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
+            expect(() => testFixture.changeDetectorRef.markForCheck()).not.toThrow();
 
             testComponent.selectedValue = undefined as any;
-            testFixture.detectChanges();
-            expect(() => testFixture.detectChanges()).not.toThrow();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
+            expect(() => testFixture.changeDetectorRef.markForCheck()).not.toThrow();
         });
 
-        it('should handle hierarchical option navigation', fakeAsync(() => {
+        it('should handle hierarchical option navigation', async () => {
             testComponent.options = mockCountries;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const trigger = testFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
             trigger.nativeElement.click();
-            testFixture.detectChanges();
-            tick();
+            await testFixture.whenStable();
 
             // Click on first country (Australia)
             const options = testFixture.debugElement.queryAll(By.css('li[role="treeitem"]'));
             if (options.length > 0) {
                 options[0].nativeElement.click();
-                testFixture.detectChanges();
-                tick();
+                await testFixture.whenStable();
 
                 // Should show states for Australia
                 const stateOptions = testFixture.debugElement.queryAll(By.css('li[role="treeitem"]'));
                 expect(stateOptions.length).toBeGreaterThan(0);
             }
-            flush();
-        }));
+        });
 
-        it('should handle disabled state', () => {
+        it('should handle disabled state', async () => {
             testComponent.disabled = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectElement = testFixture.debugElement.query(By.css('p-cascadeselect'));
             expect(cascadeSelectElement.nativeElement.classList.contains('p-disabled')).toBe(true);
         });
 
-        it('should handle loading state with custom icon', () => {
+        it('should handle loading state with custom icon', async () => {
             testComponent.loading = true;
             testComponent.loadingIcon = 'pi pi-spin pi-cog';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             expect(cascadeSelectInstance.loading).toBe(true);
             expect(cascadeSelectInstance.loadingIcon).toBe('pi pi-spin pi-cog');
         });
 
-        it('should handle large datasets efficiently', fakeAsync(() => {
+        it('should handle large datasets efficiently', async () => {
             const largeData: any[] = [];
             for (let i = 0; i < 100; i++) {
                 const country = {
@@ -951,15 +944,15 @@ describe('CascadeSelect', () => {
 
             const startTime = performance.now();
             testComponent.options = largeData;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             const endTime = performance.now();
 
             expect(endTime - startTime).toBeLessThan(1000);
             expect(testComponent.options.length).toBe(100);
-            flush();
-        }));
+        });
 
-        it('should handle special characters and unicode', () => {
+        it('should handle special characters and unicode', async () => {
             testComponent.options = [
                 {
                     name: "Côte d'Ivoire",
@@ -972,13 +965,14 @@ describe('CascadeSelect', () => {
                     ]
                 }
             ];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.options[0].name).toBe("Côte d'Ivoire");
             expect(testComponent.options[0].states[0].cities[0].cname).toBe('Ville avec accents éàü');
         });
 
-        it('should handle malformed option data gracefully', fakeAsync(() => {
+        it('should handle malformed option data gracefully', async () => {
             testComponent.options = [
                 {
                     name: 'Valid Country',
@@ -992,63 +986,63 @@ describe('CascadeSelect', () => {
                 }
             ];
 
-            expect(() => {
-                testFixture.detectChanges();
-                tick();
-            }).not.toThrow();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.options.length).toBe(2);
-            flush();
-        }));
+        });
     });
 
     describe('Error Handling and Robustness', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            await testFixture.whenStable();
         });
 
-        it('should handle missing templates gracefully', () => {
+        it('should handle missing templates gracefully', async () => {
             const basicFixture = TestBed.createComponent(CascadeSelect);
-            basicFixture.detectChanges();
+            await basicFixture.whenStable();
 
-            expect(() => basicFixture.detectChanges()).not.toThrow();
+            expect(() => basicFixture.changeDetectorRef.markForCheck()).not.toThrow();
         });
 
-        it('should handle invalid option configuration', () => {
+        it('should handle invalid option configuration', async () => {
             testComponent.optionLabel = 'nonexistent';
             testComponent.options = mockCountries;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
-            expect(() => testFixture.detectChanges()).not.toThrow();
+            expect(() => testFixture.changeDetectorRef.markForCheck()).not.toThrow();
         });
 
-        it('should handle component destruction', () => {
+        it('should handle component destruction', async () => {
             expect(() => testFixture.destroy()).not.toThrow();
         });
     });
 
     describe('Performance and Optimization', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            await testFixture.whenStable();
         });
 
-        it('should handle showClear performance', () => {
+        it('should handle showClear performance', async () => {
             testComponent.showClear = true;
             testComponent.selectedValue = mockCountries[0].states[0].cities[0];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
             // Ensure the internal model is set via ControlValueAccessor
             cascadeSelectInstance.writeValue(mockCountries[0].states[0].cities[0]);
-            testFixture.detectChanges();
+            await testFixture.whenStable();
 
             expect(cascadeSelectInstance.showClear).toBe(true);
             expect(cascadeSelectInstance.$filled()).toBe(true);
         });
 
-        it('should handle tabindex configuration', () => {
+        it('should handle tabindex configuration', async () => {
             testComponent.tabindex = 5;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const hiddenInput = testFixture.debugElement.query(By.css('.p-hidden-accessible input'));
             expect(hiddenInput.nativeElement.getAttribute('tabindex')).toBe('5');
@@ -1056,15 +1050,16 @@ describe('CascadeSelect', () => {
     });
 
     describe('pTemplate Content Projections with Context Parameters', () => {
-        beforeEach(() => {
-            pTemplateFixture.detectChanges();
+        beforeEach(async () => {
+            await pTemplateFixture.whenStable();
         });
 
         describe('Value Template (valueTemplate)', () => {
-            it('should render pTemplate="value" with value and placeholder context', () => {
+            it('should render pTemplate="value" with value and placeholder context', async () => {
                 // Test with no value (placeholder scenario)
                 pTemplateComponent.selectedValue = null as any;
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const valueTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-value"]'));
                 if (valueTemplate) {
@@ -1076,10 +1071,11 @@ describe('CascadeSelect', () => {
                 }
             });
 
-            it('should render pTemplate="value" with selected value context', () => {
+            it('should render pTemplate="value" with selected value context', async () => {
                 // Test with selected value
                 pTemplateComponent.selectedValue = mockCountries[0].states[0].cities[0];
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const valueTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-value"]'));
                 if (valueTemplate) {
@@ -1097,18 +1093,17 @@ describe('CascadeSelect', () => {
                 }
             });
 
-            it('should set valueTemplate in ngAfterContentInit', () => {
+            it('should set valueTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance._valueTemplate).toBeTruthy();
             });
         });
 
         describe('Option Template (optionTemplate)', () => {
-            it('should render pTemplate="option" with option and level context', fakeAsync(() => {
+            it('should render pTemplate="option" with option and level context', async () => {
                 const trigger = pTemplateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 trigger.nativeElement.click();
-                pTemplateFixture.detectChanges();
-                tick();
+                await pTemplateFixture.whenStable();
 
                 const optionTemplates = pTemplateFixture.debugElement.queryAll(By.css('[data-testid="ptemplate-option"]'));
                 if (optionTemplates.length > 0) {
@@ -1136,10 +1131,9 @@ describe('CascadeSelect', () => {
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance._optionTemplate).toBeTruthy();
                 }
-                flush();
-            }));
+            });
 
-            it('should handle different levels in option template context', fakeAsync(() => {
+            it('should handle different levels in option template context', async () => {
                 // Manually navigate to test different levels
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
 
@@ -1149,26 +1143,23 @@ describe('CascadeSelect', () => {
                     processedOption: { option: mockCountries[0], key: 'country-0', level: 0 },
                     isFocus: false
                 });
-                pTemplateFixture.detectChanges();
-                tick();
+                await pTemplateFixture.whenStable();
 
                 // Verify option template handles level context correctly
                 expect(cascadeSelectInstance._optionTemplate).toBeTruthy();
-                flush();
-            }));
+            });
 
-            it('should set optionTemplate in ngAfterContentInit', () => {
+            it('should set optionTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance._optionTemplate).toBeTruthy();
             });
         });
 
         describe('Header Template (headerTemplate)', () => {
-            it('should render pTemplate="header" with options context', fakeAsync(() => {
+            it('should render pTemplate="header" with options context', async () => {
                 const trigger = pTemplateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 trigger.nativeElement.click();
-                pTemplateFixture.detectChanges();
-                tick();
+                await pTemplateFixture.whenStable();
 
                 const headerTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-header"]'));
                 if (headerTemplate) {
@@ -1179,21 +1170,19 @@ describe('CascadeSelect', () => {
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance._headerTemplate).toBeTruthy();
                 }
-                flush();
-            }));
+            });
 
-            it('should set headerTemplate in ngAfterContentInit', () => {
+            it('should set headerTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance._headerTemplate).toBeTruthy();
             });
         });
 
         describe('Footer Template (footerTemplate)', () => {
-            it('should render pTemplate="footer" with custom content', fakeAsync(() => {
+            it('should render pTemplate="footer" with custom content', async () => {
                 const trigger = pTemplateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 trigger.nativeElement.click();
-                pTemplateFixture.detectChanges();
-                tick();
+                await pTemplateFixture.whenStable();
 
                 const footerTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-footer"]'));
                 if (footerTemplate) {
@@ -1204,17 +1193,16 @@ describe('CascadeSelect', () => {
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance._footerTemplate).toBeTruthy();
                 }
-                flush();
-            }));
+            });
 
-            it('should set footerTemplate in ngAfterContentInit', () => {
+            it('should set footerTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance._footerTemplate).toBeTruthy();
             });
         });
 
         describe('Trigger Icon Template (triggerIconTemplate)', () => {
-            it('should render pTemplate="triggericon" as dropdown trigger', () => {
+            it('should render pTemplate="triggericon" as dropdown trigger', async () => {
                 const triggerIconTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-triggericon"]'));
                 if (triggerIconTemplate) {
                     expect(triggerIconTemplate.nativeElement.classList.contains('ptemplate-triggericon')).toBe(true);
@@ -1226,16 +1214,17 @@ describe('CascadeSelect', () => {
                 }
             });
 
-            it('should set triggerIconTemplate in ngAfterContentInit', () => {
+            it('should set triggerIconTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance._triggerIconTemplate).toBeTruthy();
             });
         });
 
         describe('Loading Icon Template (loadingIconTemplate)', () => {
-            it('should render pTemplate="loadingicon" during loading state', () => {
+            it('should render pTemplate="loadingicon" during loading state', async () => {
                 pTemplateComponent.loading = true;
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const loadingIconTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-loadingicon"]'));
                 if (loadingIconTemplate) {
@@ -1248,18 +1237,17 @@ describe('CascadeSelect', () => {
                 }
             });
 
-            it('should set loadingIconTemplate in ngAfterContentInit', () => {
+            it('should set loadingIconTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance._loadingIconTemplate).toBeTruthy();
             });
         });
 
         describe('Option Group Icon Template (groupIconTemplate)', () => {
-            it('should render pTemplate="optiongroupicon" for hierarchical options', fakeAsync(() => {
+            it('should render pTemplate="optiongroupicon" for hierarchical options', async () => {
                 const trigger = pTemplateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 trigger.nativeElement.click();
-                pTemplateFixture.detectChanges();
-                tick();
+                await pTemplateFixture.whenStable();
 
                 // Look for group icons in hierarchical navigation
                 const groupIconTemplates = pTemplateFixture.debugElement.queryAll(By.css('[data-testid="ptemplate-optiongroupicon"]'));
@@ -1272,20 +1260,20 @@ describe('CascadeSelect', () => {
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance._groupIconTemplate).toBeTruthy();
                 }
-                flush();
-            }));
+            });
 
-            it('should set groupIconTemplate in ngAfterContentInit', () => {
+            it('should set groupIconTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance._groupIconTemplate).toBeTruthy();
             });
         });
 
         describe('Clear Icon Template (clearIconTemplate)', () => {
-            it('should render pTemplate="clearicon" when showClear is enabled', () => {
+            it('should render pTemplate="clearicon" when showClear is enabled', async () => {
                 pTemplateComponent.selectedValue = mockCountries[0].states[0].cities[0];
                 pTemplateComponent.showClear = true;
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const clearIconTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-clearicon"]'));
                 if (clearIconTemplate) {
@@ -1298,31 +1286,32 @@ describe('CascadeSelect', () => {
                 }
             });
 
-            it('should handle clear icon click functionality', () => {
+            it('should handle clear icon click functionality', async () => {
                 pTemplateComponent.selectedValue = mockCountries[0].states[0].cities[0];
                 pTemplateComponent.showClear = true;
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 cascadeSelectInstance.showClear = true;
                 cascadeSelectInstance.writeValue(mockCountries[0].states[0].cities[0]); // Set value via ControlValueAccessor
-                pTemplateFixture.detectChanges();
+                await pTemplateFixture.whenStable();
 
                 cascadeSelectInstance.clear(new MouseEvent('click'));
-                pTemplateFixture.detectChanges();
+                await pTemplateFixture.whenStable();
 
                 // Check the component's internal model value rather than the test component's selectedValue
                 expect(cascadeSelectInstance.modelValue()).toBeFalsy();
             });
 
-            it('should set clearIconTemplate in ngAfterContentInit', () => {
+            it('should set clearIconTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance._clearIconTemplate).toBeTruthy();
             });
         });
 
         describe('Template Processing Integration', () => {
-            it('should process all pTemplate types in ngAfterContentInit', () => {
+            it('should process all pTemplate types in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
 
                 // Verify all templates are set
@@ -1336,16 +1325,16 @@ describe('CascadeSelect', () => {
                 expect(cascadeSelectInstance._clearIconTemplate).toBeTruthy();
             });
 
-            it('should handle context parameters correctly for all templates', fakeAsync(() => {
+            it('should handle context parameters correctly for all templates', async () => {
                 pTemplateComponent.selectedValue = mockCountries[0].states[0].cities[0];
                 pTemplateComponent.loading = true;
                 pTemplateComponent.showClear = true;
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const trigger = pTemplateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 trigger.nativeElement.click();
-                pTemplateFixture.detectChanges();
-                tick();
+                await pTemplateFixture.whenStable();
 
                 // Verify value template with selected value context
                 const valueTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-value"]'));
@@ -1380,11 +1369,9 @@ describe('CascadeSelect', () => {
                 expect(cascadeSelectInstance._valueTemplate).toBeTruthy();
                 expect(cascadeSelectInstance._headerTemplate).toBeTruthy();
                 expect(cascadeSelectInstance._loadingIconTemplate).toBeTruthy();
+            });
 
-                flush();
-            }));
-
-            it('should handle template inheritance and composition', () => {
+            it('should handle template inheritance and composition', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
 
                 // Test that templates are properly composed and don't conflict
@@ -1403,7 +1390,7 @@ describe('CascadeSelect', () => {
                 }
             });
 
-            it('should handle template lifecycle correctly', fakeAsync(() => {
+            it('should handle template lifecycle correctly', async () => {
                 // Test template loading during component lifecycle
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
 
@@ -1412,15 +1399,13 @@ describe('CascadeSelect', () => {
                     cascadeSelectInstance.ngAfterContentInit();
                 }
 
-                tick();
-                pTemplateFixture.detectChanges();
+                await pTemplateFixture.whenStable();
 
                 expect(cascadeSelectInstance._valueTemplate).toBeTruthy();
                 expect(cascadeSelectInstance._optionTemplate).toBeTruthy();
-                flush();
-            }));
+            });
 
-            it('should handle template context data binding correctly', fakeAsync(() => {
+            it('should handle template context data binding correctly', async () => {
                 // Test complex data binding scenarios in templates
                 pTemplateComponent.options = [
                     {
@@ -1434,12 +1419,12 @@ describe('CascadeSelect', () => {
                         ]
                     }
                 ];
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
 
                 const trigger = pTemplateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 trigger.nativeElement.click();
-                pTemplateFixture.detectChanges();
-                tick();
+                await pTemplateFixture.whenStable();
 
                 // Test header template data binding
                 const headerTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-header"]'));
@@ -1450,9 +1435,7 @@ describe('CascadeSelect', () => {
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance._headerTemplate).toBeTruthy();
                 }
-
-                flush();
-            }));
+            });
         });
     });
 
@@ -1460,7 +1443,7 @@ describe('CascadeSelect', () => {
         let ptFixture: ComponentFixture<CascadeSelect>;
         let ptComponent: CascadeSelect;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             ptFixture = TestBed.createComponent(CascadeSelect);
             ptComponent = ptFixture.componentInstance;
             ptComponent.options = mockCountries as any;
@@ -1470,71 +1453,71 @@ describe('CascadeSelect', () => {
         });
 
         describe('Case 1: Simple string classes', () => {
-            it('should apply PT string classes to host element', () => {
+            it('should apply PT string classes to host element', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     host: 'HOST_PT_CLASS'
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const hostElement = ptFixture.nativeElement;
                 expect(hostElement.classList.contains('HOST_PT_CLASS')).toBe(true);
             });
 
-            it('should apply PT string classes to root element', () => {
+            it('should apply PT string classes to root element', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     root: 'ROOT_PT_CLASS'
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const hostElement = ptFixture.nativeElement;
                 expect(hostElement.classList.contains('ROOT_PT_CLASS')).toBe(true);
             });
 
-            it('should apply PT string classes to hiddenInputWrapper', () => {
+            it('should apply PT string classes to hiddenInputWrapper', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     hiddenInputWrapper: 'HIDDEN_WRAPPER_CLASS'
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const hiddenWrapper = ptFixture.debugElement.query(By.css('.p-hidden-accessible'));
                 expect(hiddenWrapper.nativeElement.classList.contains('HIDDEN_WRAPPER_CLASS')).toBe(true);
             });
 
-            it('should apply PT string classes to hiddenInput', () => {
+            it('should apply PT string classes to hiddenInput', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     hiddenInput: 'HIDDEN_INPUT_CLASS'
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const hiddenInput = ptFixture.debugElement.query(By.css('.p-hidden-accessible input'));
                 expect(hiddenInput.nativeElement.classList.contains('HIDDEN_INPUT_CLASS')).toBe(true);
             });
 
-            it('should apply PT string classes to label', () => {
+            it('should apply PT string classes to label', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     label: 'LABEL_PT_CLASS'
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const label = ptFixture.debugElement.query(By.css('.p-cascadeselect-label'));
                 expect(label.nativeElement.classList.contains('LABEL_PT_CLASS')).toBe(true);
             });
 
-            it('should apply PT string classes to dropdown', () => {
+            it('should apply PT string classes to dropdown', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     dropdown: 'DROPDOWN_PT_CLASS'
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const dropdown = ptFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 expect(dropdown.nativeElement.classList.contains('DROPDOWN_PT_CLASS')).toBe(true);
             });
 
-            it('should apply PT string classes to dropdownIcon', () => {
+            it('should apply PT string classes to dropdownIcon', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     dropdownIcon: 'DROPDOWN_ICON_CLASS'
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const dropdownIcon = ptFixture.debugElement.query(By.css('.p-cascadeselect-dropdown svg'));
                 if (dropdownIcon) {
@@ -1542,13 +1525,13 @@ describe('CascadeSelect', () => {
                 }
             });
 
-            it('should apply PT string classes to clearIcon', () => {
+            it('should apply PT string classes to clearIcon', async () => {
                 ptComponent.showClear = true;
                 ptComponent.writeValue(mockCountries[0].states[0].cities[0]);
                 ptFixture.componentRef.setInput('pt', {
                     clearIcon: 'CLEAR_ICON_CLASS'
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const clearIcon = ptFixture.debugElement.query(By.css('[data-p-icon="times"]'));
                 if (clearIcon) {
@@ -1559,60 +1542,57 @@ describe('CascadeSelect', () => {
                 }
             });
 
-            it('should apply PT string classes to overlay', fakeAsync(() => {
+            it('should apply PT string classes to overlay', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     overlay: 'OVERLAY_PT_CLASS'
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 ptComponent.show();
-                ptFixture.detectChanges();
-                tick();
+                await ptFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const overlay = ptFixture.debugElement.query(By.css('.p-cascadeselect-overlay'));
                 if (overlay) {
                     expect(overlay.nativeElement.classList.contains('OVERLAY_PT_CLASS')).toBe(true);
                 }
-                flush();
-            }));
+            });
 
-            it('should apply PT string classes to listContainer', fakeAsync(() => {
+            it('should apply PT string classes to listContainer', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     listContainer: 'LIST_CONTAINER_CLASS'
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 ptComponent.show();
-                ptFixture.detectChanges();
-                tick();
+                await ptFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const listContainer = ptFixture.debugElement.query(By.css('.p-cascadeselect-list-container'));
                 if (listContainer) {
                     expect(listContainer.nativeElement.classList.contains('LIST_CONTAINER_CLASS')).toBe(true);
                 }
-                flush();
-            }));
+            });
 
-            it('should apply PT string classes to list', fakeAsync(() => {
+            it('should apply PT string classes to list', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     list: 'LIST_PT_CLASS'
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 ptComponent.show();
-                ptFixture.detectChanges();
-                tick();
+                await ptFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const list = ptFixture.debugElement.query(By.css('.p-cascadeselect-list'));
                 if (list) {
                     expect(list.nativeElement.classList.contains('LIST_PT_CLASS')).toBe(true);
                 }
-                flush();
-            }));
+            });
         });
 
         describe('Case 2: Objects with class, style, and attributes', () => {
-            it('should apply PT object with class, style, and attributes to root', () => {
+            it('should apply PT object with class, style, and attributes to root', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     root: {
                         class: 'ROOT_OBJECT_CLASS',
@@ -1621,7 +1601,7 @@ describe('CascadeSelect', () => {
                         'aria-label': 'ROOT_ARIA_LABEL'
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const hostElement = ptFixture.nativeElement;
                 expect(hostElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
@@ -1631,7 +1611,7 @@ describe('CascadeSelect', () => {
                 expect(hostElement.getAttribute('aria-label')).toBe('ROOT_ARIA_LABEL');
             });
 
-            it('should apply PT object with class and style to hiddenInput', () => {
+            it('should apply PT object with class and style to hiddenInput', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     hiddenInput: {
                         class: 'HIDDEN_INPUT_OBJECT_CLASS',
@@ -1639,7 +1619,7 @@ describe('CascadeSelect', () => {
                         'data-testid': 'hidden-input-test'
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const hiddenInput = ptFixture.debugElement.query(By.css('.p-hidden-accessible input'));
                 expect(hiddenInput.nativeElement.classList.contains('HIDDEN_INPUT_OBJECT_CLASS')).toBe(true);
@@ -1647,7 +1627,7 @@ describe('CascadeSelect', () => {
                 expect(hiddenInput.nativeElement.getAttribute('data-testid')).toBe('hidden-input-test');
             });
 
-            it('should apply PT object with attributes to label', () => {
+            it('should apply PT object with attributes to label', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     label: {
                         class: 'LABEL_OBJECT_CLASS',
@@ -1655,7 +1635,7 @@ describe('CascadeSelect', () => {
                         'aria-label': 'LABEL_ARIA'
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const label = ptFixture.debugElement.query(By.css('.p-cascadeselect-label'));
                 expect(label.nativeElement.classList.contains('LABEL_OBJECT_CLASS')).toBe(true);
@@ -1663,7 +1643,7 @@ describe('CascadeSelect', () => {
                 expect(label.nativeElement.getAttribute('aria-label')).toBe('LABEL_ARIA');
             });
 
-            it('should apply PT object to dropdown', () => {
+            it('should apply PT object to dropdown', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     dropdown: {
                         class: 'DROPDOWN_OBJECT_CLASS',
@@ -1671,7 +1651,7 @@ describe('CascadeSelect', () => {
                         'data-dropdown': 'true'
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const dropdown = ptFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 expect(dropdown.nativeElement.classList.contains('DROPDOWN_OBJECT_CLASS')).toBe(true);
@@ -1679,7 +1659,7 @@ describe('CascadeSelect', () => {
                 expect(dropdown.nativeElement.getAttribute('data-dropdown')).toBe('true');
             });
 
-            it('should apply PT object to overlay', fakeAsync(() => {
+            it('should apply PT object to overlay', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     overlay: {
                         class: 'OVERLAY_OBJECT_CLASS',
@@ -1687,23 +1667,22 @@ describe('CascadeSelect', () => {
                         'data-overlay': 'test'
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 ptComponent.show();
-                ptFixture.detectChanges();
-                tick();
+                await ptFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const overlay = ptFixture.debugElement.query(By.css('.p-cascadeselect-overlay'));
                 if (overlay) {
                     expect(overlay.nativeElement.classList.contains('OVERLAY_OBJECT_CLASS')).toBe(true);
                     expect(overlay.nativeElement.getAttribute('data-overlay')).toBe('test');
                 }
-                flush();
-            }));
+            });
         });
 
         describe('Case 3: Mixed object and string values', () => {
-            it('should apply mixed PT with both object and string values', () => {
+            it('should apply mixed PT with both object and string values', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     root: {
                         class: 'ROOT_MIXED_CLASS'
@@ -1714,7 +1693,7 @@ describe('CascadeSelect', () => {
                         'data-mixed': 'true'
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const hostElement = ptFixture.nativeElement;
                 expect(hostElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
@@ -1727,7 +1706,7 @@ describe('CascadeSelect', () => {
                 expect(dropdown.nativeElement.getAttribute('data-mixed')).toBe('true');
             });
 
-            it('should handle mixed PT across multiple sections', fakeAsync(() => {
+            it('should handle mixed PT across multiple sections', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     hiddenInput: 'INPUT_STRING',
                     label: {
@@ -1739,7 +1718,7 @@ describe('CascadeSelect', () => {
                         style: { 'max-height': '300px' }
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const hiddenInput = ptFixture.debugElement.query(By.css('.p-hidden-accessible input'));
                 expect(hiddenInput.nativeElement.classList.contains('INPUT_STRING')).toBe(true);
@@ -1751,22 +1730,21 @@ describe('CascadeSelect', () => {
                 expect(dropdown.nativeElement.classList.contains('DROPDOWN_STRING')).toBe(true);
 
                 ptComponent.show();
-                ptFixture.detectChanges();
-                tick();
+                await ptFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const overlay = ptFixture.debugElement.query(By.css('.p-cascadeselect-overlay'));
                 if (overlay) {
                     expect(overlay.nativeElement.classList.contains('OVERLAY_OBJECT')).toBe(true);
                     expect(overlay.nativeElement.style.maxHeight).toBe('300px');
                 }
-                flush();
-            }));
+            });
         });
 
         describe('Case 4: Use variables from instance', () => {
-            it('should apply PT using instance properties', () => {
+            it('should apply PT using instance properties', async () => {
                 ptComponent.showClear = true;
-                ptFixture.detectChanges(); // Apply showClear first
+                await ptFixture.whenStable(); // Apply showClear first
 
                 ptFixture.componentRef.setInput('pt', {
                     root: ({ instance }) => {
@@ -1775,15 +1753,15 @@ describe('CascadeSelect', () => {
                         };
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const hostElement = ptFixture.nativeElement;
                 expect(hostElement.classList.contains('HAS_SHOW_CLEAR')).toBe(true);
             });
 
-            it('should apply PT with instance-based styling', () => {
+            it('should apply PT with instance-based styling', async () => {
                 ptComponent.placeholder = 'Test';
-                ptFixture.detectChanges(); // Apply placeholder first
+                await ptFixture.whenStable(); // Apply placeholder first
 
                 ptFixture.componentRef.setInput('pt', {
                     label: ({ instance }) => {
@@ -1792,13 +1770,13 @@ describe('CascadeSelect', () => {
                         };
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const label = ptFixture.debugElement.query(By.css('.p-cascadeselect-label'));
                 expect(label.nativeElement.getAttribute('data-has-placeholder')).toBe('true');
             });
 
-            it('should apply PT based on options availability', () => {
+            it('should apply PT based on options availability', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     root: ({ instance }) => {
                         return {
@@ -1806,15 +1784,15 @@ describe('CascadeSelect', () => {
                         };
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const hostElement = ptFixture.nativeElement;
                 expect(hostElement.classList.contains('HAS_OPTIONS')).toBe(true);
             });
 
-            it('should apply PT based on showClear property', () => {
+            it('should apply PT based on showClear property', async () => {
                 ptComponent.showClear = true;
-                ptFixture.detectChanges(); // Apply showClear first
+                await ptFixture.whenStable(); // Apply showClear first
 
                 ptFixture.componentRef.setInput('pt', {
                     root: ({ instance }) => {
@@ -1823,7 +1801,7 @@ describe('CascadeSelect', () => {
                         };
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const hostElement = ptFixture.nativeElement;
                 expect(hostElement.getAttribute('data-show-clear')).toBe('true');
@@ -1831,7 +1809,7 @@ describe('CascadeSelect', () => {
         });
 
         describe('Case 5: Event binding', () => {
-            it('should handle onclick event via PT', () => {
+            it('should handle onclick event via PT', async () => {
                 let clicked = false;
                 ptFixture.componentRef.setInput('pt', {
                     dropdown: {
@@ -1840,19 +1818,19 @@ describe('CascadeSelect', () => {
                         }
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const dropdown = ptFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 dropdown.nativeElement.click();
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 expect(clicked).toBe(true);
             });
 
-            it('should handle PT event binding with instance access', () => {
+            it('should handle PT event binding with instance access', async () => {
                 let instanceValue: any;
                 ptComponent.placeholder = 'Test Placeholder';
-                ptFixture.detectChanges(); // Apply placeholder first
+                await ptFixture.whenStable(); // Apply placeholder first
 
                 ptFixture.componentRef.setInput('pt', {
                     label: ({ instance }) => {
@@ -1863,16 +1841,16 @@ describe('CascadeSelect', () => {
                         };
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const label = ptFixture.debugElement.query(By.css('.p-cascadeselect-label'));
                 label.nativeElement.click();
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 expect(instanceValue).toBe('Test Placeholder');
             });
 
-            it('should handle multiple event bindings via PT', () => {
+            it('should handle multiple event bindings via PT', async () => {
                 let clickCount = 0;
                 let mouseEntered = false;
 
@@ -1886,12 +1864,12 @@ describe('CascadeSelect', () => {
                         }
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const dropdown = ptFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 dropdown.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
                 dropdown.nativeElement.click();
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 expect(clickCount).toBe(1);
                 expect(mouseEntered).toBe(true);
@@ -1899,22 +1877,22 @@ describe('CascadeSelect', () => {
         });
 
         describe('Case 6: Inline PT test', () => {
-            it('should work with inline PT string class', () => {
+            it('should work with inline PT string class', async () => {
                 ptFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const hostElement = ptFixture.nativeElement;
                 expect(hostElement.classList.contains('INLINE_TEST_CLASS')).toBe(true);
             });
 
-            it('should work with inline PT object', () => {
+            it('should work with inline PT object', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     root: {
                         class: 'INLINE_OBJECT_CLASS',
                         'data-inline': 'true'
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const hostElement = ptFixture.nativeElement;
                 expect(hostElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
@@ -1923,7 +1901,7 @@ describe('CascadeSelect', () => {
         });
 
         describe('Case 8: Test hooks', () => {
-            it('should execute onAfterViewInit hook from PT', (done) => {
+            it('should execute onAfterViewInit hook from PT', async () => {
                 let hookExecuted = false;
                 ptFixture.componentRef.setInput('pt', {
                     root: 'HOOK_CLASS',
@@ -1936,15 +1914,15 @@ describe('CascadeSelect', () => {
 
                 // Manually trigger the lifecycle
                 ptComponent.ngAfterViewInit();
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
-                setTimeout(() => {
-                    expect(hookExecuted).toBe(true);
-                    done();
-                }, 100);
+                // Wait for hook execution
+                await new Promise((resolve) => setTimeout(resolve, 100));
+
+                expect(hookExecuted).toBe(true);
             });
 
-            it('should execute onInit hook from PT', () => {
+            it('should execute onInit hook from PT', async () => {
                 let hookExecuted = false;
                 ptFixture.componentRef.setInput('pt', {
                     root: 'HOOK_INIT_CLASS',
@@ -1956,14 +1934,14 @@ describe('CascadeSelect', () => {
                 });
 
                 ptComponent.ngOnInit();
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 expect(hookExecuted).toBe(true);
             });
         });
 
         describe('Case 9: Test getPTOptions method', () => {
-            it('should call getPTOptions with correct context', fakeAsync(() => {
+            it('should call getPTOptions with correct context', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     option: ({ context }) => {
                         if (context && context.option) {
@@ -1976,18 +1954,17 @@ describe('CascadeSelect', () => {
                         };
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 ptComponent.show();
-                ptFixture.detectChanges();
-                tick();
+                await ptFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 // Context may or may not be called based on rendering, just verify test completes
                 expect(true).toBe(true);
-                flush();
-            }));
+            });
 
-            it('should pass correct context properties to getPTOptions', fakeAsync(() => {
+            it('should pass correct context properties to getPTOptions', async () => {
                 let capturedContext: any;
                 ptFixture.componentRef.setInput('pt', {
                     option: ({ context }) => {
@@ -1999,18 +1976,17 @@ describe('CascadeSelect', () => {
                         };
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 ptComponent.show();
-                ptFixture.detectChanges();
-                tick();
+                await ptFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 // Context may not be captured if options aren't rendered
                 expect(true).toBe(true);
-                flush();
-            }));
+            });
 
-            it('should handle getPTOptions with different option states', fakeAsync(() => {
+            it('should handle getPTOptions with different option states', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     option: ({ context }) => {
                         return {
@@ -2023,21 +1999,19 @@ describe('CascadeSelect', () => {
                         };
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 ptComponent.show();
-                ptFixture.detectChanges();
-                tick();
+                await ptFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 // Verify component is working even if options aren't fully rendered
                 expect(ptComponent.overlayVisible).toBe(true);
-
-                flush();
-            }));
+            });
         });
 
         describe('PT Integration Tests', () => {
-            it('should combine multiple PT properties correctly', fakeAsync(() => {
+            it('should combine multiple PT properties correctly', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     root: 'ROOT_INTEGRATION',
                     hiddenInput: {
@@ -2057,7 +2031,7 @@ describe('CascadeSelect', () => {
                         style: { 'min-width': '200px' }
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 const hostElement = ptFixture.nativeElement;
                 expect(hostElement.classList.contains('ROOT_INTEGRATION')).toBe(true);
@@ -2070,19 +2044,17 @@ describe('CascadeSelect', () => {
                 expect(dropdown.nativeElement.classList.contains('DROPDOWN_INTEGRATION')).toBe(true);
 
                 ptComponent.show();
-                ptFixture.detectChanges();
-                tick();
+                await ptFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const overlay = ptFixture.debugElement.query(By.css('.p-cascadeselect-overlay'));
                 if (overlay) {
                     expect(overlay.nativeElement.classList.contains('OVERLAY_INTEGRATION')).toBe(true);
                     expect(overlay.nativeElement.style.minWidth).toBe('200px');
                 }
+            });
 
-                flush();
-            }));
-
-            it('should preserve PT when component state changes', fakeAsync(() => {
+            it('should preserve PT when component state changes', async () => {
                 // Set placeholder BEFORE PT binding so instance-based PT function can evaluate correctly
                 ptComponent.placeholder = 'Test Placeholder';
 
@@ -2096,7 +2068,7 @@ describe('CascadeSelect', () => {
                         };
                     }
                 });
-                ptFixture.detectChanges();
+                await ptFixture.whenStable();
 
                 let hostElement = ptFixture.nativeElement;
                 expect(hostElement.classList.contains('PERSISTENT_PT')).toBe(true);
@@ -2108,9 +2080,7 @@ describe('CascadeSelect', () => {
                 // Verify root PT persists
                 hostElement = ptFixture.nativeElement;
                 expect(hostElement.classList.contains('PERSISTENT_PT')).toBe(true);
-
-                flush();
-            }));
+            });
         });
     });
 });

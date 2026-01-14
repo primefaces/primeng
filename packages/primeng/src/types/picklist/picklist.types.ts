@@ -210,123 +210,136 @@ export interface PickListSourceFilterEvent {
  */
 export interface PickListTargetFilterEvent extends PickListSourceFilterEvent {}
 /**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface PickListItemTemplateContext {
+    /**
+     * Item instance.
+     */
+    $implicit: any;
+    /**
+     * Item index.
+     */
+    index: number;
+    /**
+     * Whether the item is selected.
+     */
+    selected: boolean;
+    /**
+     * Whether the item is disabled.
+     */
+    disabled: boolean;
+}
+
+/**
+ * Custom filter template context.
+ * @group Interface
+ */
+export interface PickListFilterTemplateContext {
+    /**
+     * Filter options.
+     */
+    options: PickListFilterOptions;
+}
+
+/**
+ * Custom transfer icon template context.
+ * @group Interface
+ */
+export interface PickListTransferIconTemplateContext {
+    /**
+     * Boolean value indicates if the view is changed according to breakpoints.
+     */
+    $implicit: boolean;
+}
+
+/**
  * Defines valid templates in PickList.
  * @group Templates
  */
 export interface PickListTemplates {
     /**
      * Custom item template.
+     * @param {PickListItemTemplateContext} context - item context.
      */
-    item(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: any;
-        /**
-         * Item index.
-         */
-        index: number;
-    }): TemplateRef<{ $implicit: any; index: number }>;
+    item(context: PickListItemTemplateContext): TemplateRef<PickListItemTemplateContext>;
     /**
      * Custom source header template.
      */
-    sourceHeader(): TemplateRef<any>;
+    sourceHeader(): TemplateRef<void>;
     /**
      * Custom target header template.
      */
-    targetHeader(): TemplateRef<any>;
+    targetHeader(): TemplateRef<void>;
     /**
      * Custom source filter template.
+     * @param {PickListFilterTemplateContext} context - filter context.
      */
-    sourceFilter(context: {
-        /**
-         * Source filter options.
-         */
-        options: PickListFilterOptions;
-    }): TemplateRef<{ options: PickListFilterOptions }>;
+    sourceFilter(context: PickListFilterTemplateContext): TemplateRef<PickListFilterTemplateContext>;
     /**
      * Custom target filter template.
+     * @param {PickListFilterTemplateContext} context - filter context.
      */
-    targetFilter(context: {
-        /**
-         * Target filter options.
-         */
-        options: PickListFilterOptions;
-    }): TemplateRef<{ options: PickListFilterOptions }>;
+    targetFilter(context: PickListFilterTemplateContext): TemplateRef<PickListFilterTemplateContext>;
     /**
      * Custom source list empty message template.
      */
-    emptymessagesource(): TemplateRef<any>;
+    emptymessagesource(): TemplateRef<void>;
     /**
      * Custom source list empty filter message template.
      */
-    emptyfiltermessagesource(): TemplateRef<any>;
+    emptyfiltermessagesource(): TemplateRef<void>;
     /**
      * Custom target list empty message template.
      */
-    emptymessagetarget(): TemplateRef<any>;
+    emptymessagetarget(): TemplateRef<void>;
     /**
      * Custom target list empty filter message template.
      */
-    emptyfiltermessagetarget(): TemplateRef<any>;
+    emptyfiltermessagetarget(): TemplateRef<void>;
     /**
      * Custom move up icon template.
      */
-    moveupicon(): TemplateRef<any>;
+    moveupicon(): TemplateRef<void>;
     /**
      * Custom move top icon template.
      */
-    movetopicon(): TemplateRef<any>;
+    movetopicon(): TemplateRef<void>;
     /**
      * Custom move down icon template.
      */
-    movedownicon(): TemplateRef<any>;
+    movedownicon(): TemplateRef<void>;
     /**
      * Custom move bottom icon template.
      */
-    movebottomicon(): TemplateRef<any>;
+    movebottomicon(): TemplateRef<void>;
     /**
      * Custom move to target icon template.
+     * @param {PickListTransferIconTemplateContext} context - icon context.
      */
-    movetotargeticon(context: {
-        /**
-         * Boolean value indicates if the view is changed according to breakpoints.
-         */
-        $implicit: boolean;
-    }): TemplateRef<{ $implicit: boolean }>;
+    movetotargeticon(context: PickListTransferIconTemplateContext): TemplateRef<PickListTransferIconTemplateContext>;
     /**
      * Custom move all to target icon template.
+     * @param {PickListTransferIconTemplateContext} context - icon context.
      */
-    movealltotargeticon(context: {
-        /**
-         * Boolean value indicates if the view is changed according to breakpoints.
-         */
-        $implicit: boolean;
-    }): TemplateRef<{ $implicit: boolean }>;
+    movealltotargeticon(context: PickListTransferIconTemplateContext): TemplateRef<PickListTransferIconTemplateContext>;
     /**
      * Custom move to source icon template.
+     * @param {PickListTransferIconTemplateContext} context - icon context.
      */
-    movetosourceicon(context: {
-        /**
-         * Boolean value indicates if the view is changed according to breakpoints.
-         */
-        $implicit: boolean;
-    }): TemplateRef<{ $implicit: boolean }>;
+    movetosourceicon(context: PickListTransferIconTemplateContext): TemplateRef<PickListTransferIconTemplateContext>;
     /**
      * Custom move all to source icon template.
+     * @param {PickListTransferIconTemplateContext} context - icon context.
      */
-    movealltosourceicon(context: {
-        /**
-         * Boolean value indicates if the view is changed according to breakpoints.
-         */
-        $implicit: boolean;
-    }): TemplateRef<{ $implicit: boolean }>;
+    movealltosourceicon(context: PickListTransferIconTemplateContext): TemplateRef<PickListTransferIconTemplateContext>;
     /**
      * Custom target filter icon template.
      */
-    targetfiltericon(): TemplateRef<any>;
+    targetfiltericon(): TemplateRef<void>;
     /**
      * Custom source filter icon template.
      */
-    sourcefiltericon(): TemplateRef<any>;
+    sourcefiltericon(): TemplateRef<void>;
 }

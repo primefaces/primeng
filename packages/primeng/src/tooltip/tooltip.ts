@@ -9,6 +9,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { TooltipPassThroughOptions } from 'primeng/types/tooltip';
 import { ZIndexUtils } from 'primeng/utils';
 import { TooltipStyle } from './style/tooltipstyle';
+import type { TooltipPassThrough } from 'primeng/types/tooltip';
 
 const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
 
@@ -183,7 +184,25 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
     interactionInProgress = false;
 
-    ptTooltip = input<any>();
+    /**
+     * Used to pass attributes to DOM elements inside the Tooltip component.
+     * @defaultValue undefined
+     * @deprecated use pTooltipPT instead.
+     * @group Props
+     */
+    ptTooltip = input<TooltipPassThrough | undefined>();
+    /**
+     * Used to pass attributes to DOM elements inside the Tooltip component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pTooltipPT = input<TooltipPassThrough | undefined>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pTooltipUnstyled = input<boolean | undefined>();
 
     constructor(
         public zone: NgZone,
@@ -191,7 +210,12 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     ) {
         super();
         effect(() => {
-            this.ptTooltip() && this.directivePT.set(this.ptTooltip());
+            const pt = this.ptTooltip() || this.pTooltipPT();
+            pt && this.directivePT.set(pt);
+        });
+
+        effect(() => {
+            this.pTooltipUnstyled() && this.directiveUnstyled.set(this.pTooltipUnstyled());
         });
     }
 
@@ -407,9 +431,10 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         }
 
         this.container = createElement('div', { class: this.cx('root'), 'p-bind': this.ptm('root'), 'data-pc-section': 'root' });
-        let tooltipArrow = createElement('div', { class: 'p-tooltip-arrow', 'p-bind': this.ptm('arrow'), 'data-pc-section': 'arrow' });
+        this.container.setAttribute('role', 'tooltip');
+        let tooltipArrow = createElement('div', { class: this.cx('arrow'), 'p-bind': this.ptm('arrow'), 'data-pc-section': 'arrow' });
         this.container.appendChild(tooltipArrow);
-        this.tooltipText = createElement('div', { class: 'p-tooltip-text', 'p-bind': this.ptm('text'), 'data-pc-section': 'text' });
+        this.tooltipText = createElement('div', { class: this.cx('text'), 'p-bind': this.ptm('text'), 'data-pc-section': 'text' });
 
         this.updateText();
 

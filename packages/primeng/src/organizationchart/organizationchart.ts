@@ -1,4 +1,3 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
@@ -20,7 +19,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { hasClass } from '@primeuix/utils';
+import { hasClass, isAttributeEquals } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -67,12 +66,12 @@ const ORGANIZATIONCHART_INSTANCE = new InjectionToken<OrganizationChart>('ORGANI
                     </div>
                 </td>
             </tr>
-            <tr [ngStyle]="getChildStyle(node)" [class]="cx('connectors')" [@childState]="'in'" [pBind]="ptm('connectors')">
+            <tr [ngStyle]="getChildStyle(node)" [class]="cx('connectors')" [pBind]="ptm('connectors')">
                 <td [pBind]="ptm('lineCell')" [attr.colspan]="colspan">
                     <div [pBind]="ptm('connectorDown')" [class]="cx('connectorDown')"></div>
                 </td>
             </tr>
-            <tr [ngStyle]="getChildStyle(node)" [class]="cx('connectors')" [@childState]="'in'" [pBind]="ptm('connectors')">
+            <tr [ngStyle]="getChildStyle(node)" [class]="cx('connectors')" [pBind]="ptm('connectors')">
                 <ng-container *ngIf="node.children && node.children.length === 1">
                     <td [pBind]="ptm('lineCell')" [attr.colspan]="colspan">
                         <div [pBind]="ptm('connectorDown')" [class]="cx('connectorDown')"></div>
@@ -85,14 +84,13 @@ const ORGANIZATIONCHART_INSTANCE = new InjectionToken<OrganizationChart>('ORGANI
                     </ng-template>
                 </ng-container>
             </tr>
-            <tr [ngStyle]="getChildStyle(node)" [class]="cx('nodeChildren')" [@childState]="'in'" [pBind]="ptm('nodeChildren')">
+            <tr [ngStyle]="getChildStyle(node)" [class]="cx('nodeChildren')" [pBind]="ptm('nodeChildren')">
                 <td *ngFor="let child of node.children" colspan="2" [pBind]="ptm('nodeCell')">
-                    <table [class]="cx('table')" pOrganizationChartNode [pt]="pt" [node]="child" [collapsible]="node.children && node.children.length > 0 && collapsible"></table>
+                    <table [class]="cx('table')" pOrganizationChartNode [unstyled]="unstyled()" [pt]="pt" [node]="child" [collapsible]="node.children && node.children.length > 0 && collapsible"></table>
                 </td>
             </tr>
         </tbody>
     `,
-    animations: [trigger('childState', [state('in', style({ opacity: 1 })), transition('void => *', [style({ opacity: 0 }), animate(150)]), transition('* => void', [animate(150, style({ opacity: 0 }))])])],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.Default,
     providers: [OrganizationChartStyle, { provide: PARENT_INSTANCE, useExisting: OrganizationChartNode }]
@@ -191,7 +189,7 @@ export class OrganizationChartNode extends BaseComponent {
     selector: 'p-organizationChart, p-organization-chart, p-organizationchart',
     standalone: true,
     imports: [CommonModule, OrganizationChartNode, SharedModule, BindModule],
-    template: ` <table [class]="cx('table')" [collapsible]="collapsible" pOrganizationChartNode [pt]="pt" [node]="root" *ngIf="root" [pBind]="ptm('table')"></table> `,
+    template: ` <table [class]="cx('table')" [collapsible]="collapsible" pOrganizationChartNode [pt]="pt" [unstyled]="unstyled()" [node]="root" *ngIf="root" [pBind]="ptm('table')"></table> `,
     changeDetection: ChangeDetectionStrategy.Default,
     providers: [OrganizationChartStyle, { provide: ORGANIZATIONCHART_INSTANCE, useExisting: OrganizationChart }, { provide: PARENT_INSTANCE, useExisting: OrganizationChart }],
     host: {
@@ -331,7 +329,7 @@ export class OrganizationChart extends BaseComponent<OrganizationChartPassThroug
     onNodeClick(event: Event, node: TreeNode) {
         let eventTarget = <Element>event.target;
 
-        if (eventTarget.className && (hasClass(eventTarget, 'p-organizationchart-node-toggle-button') || hasClass(eventTarget, 'p-organizationchart-node-toggle-button-icon'))) {
+        if (isAttributeEquals(eventTarget, 'data-pc-section', 'nodetogglebutton') || isAttributeEquals(eventTarget, 'data-pc-section', 'nodetogglebuttonicon')) {
             return;
         } else if (this.selectionMode) {
             if (node.selectable === false) {

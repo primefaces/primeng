@@ -29,7 +29,7 @@ import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon } fr
 import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
-import { OrderListFilterEvent, OrderListFilterOptions, OrderListPassThrough, OrderListSelectionChangeEvent } from 'primeng/types/orderlist';
+import { OrderListFilterEvent, OrderListFilterOptions, OrderListFilterTemplateContext, OrderListItemTemplateContext, OrderListPassThrough, OrderListSelectionChangeEvent } from 'primeng/types/orderlist';
 import { OrderListStyle } from './style/orderliststyle';
 
 const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
@@ -44,19 +44,41 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
     imports: [CommonModule, ButtonModule, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, Listbox, FormsModule, SharedModule, Bind],
     template: `
         <div [pBind]="ptm('controls')" [class]="cx('controls')">
-            <button [pt]="ptm('pcMoveUpButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [buttonProps]="getButtonProps('up')" hostName="orderlist">
+            <button [pt]="ptm('pcMoveUpButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [buttonProps]="getButtonProps('up')" hostName="orderlist" [unstyled]="unstyled()">
                 <svg data-p-icon="angle-up" *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" pButtonIcon [pt]="ptm('pcMoveUpButton')['icon']" />
                 <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
             </button>
-            <button [pt]="ptm('pcMoveTopButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [buttonProps]="getButtonProps('top')" hostName="orderlist">
+            <button [pt]="ptm('pcMoveTopButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [buttonProps]="getButtonProps('top')" hostName="orderlist" [unstyled]="unstyled()">
                 <svg data-p-icon="angle-double-up" *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" pButtonIcon [pt]="ptm('pcMoveTopButton')['icon']" />
                 <ng-template *ngTemplateOutlet="moveTopIconTemplate || _moveTopIconTemplate"></ng-template>
             </button>
-            <button [pt]="ptm('pcMoveDownButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveDown()" [attr.aria-label]="moveDownAriaLabel" [buttonProps]="getButtonProps('down')" hostName="orderlist">
+            <button
+                [pt]="ptm('pcMoveDownButton')"
+                type="button"
+                [disabled]="moveDisabled()"
+                pButton
+                pRipple
+                (click)="moveDown()"
+                [attr.aria-label]="moveDownAriaLabel"
+                [buttonProps]="getButtonProps('down')"
+                hostName="orderlist"
+                [unstyled]="unstyled()"
+            >
                 <svg data-p-icon="angle-down" *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" pButtonIcon [pt]="ptm('pcMoveDownButton')['icon']" />
                 <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
             </button>
-            <button [pt]="ptm('pcMoveBottomButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveBottom()" [attr.aria-label]="moveBottomAriaLabel" [buttonProps]="getButtonProps('bottom')" hostName="orderlist">
+            <button
+                [pt]="ptm('pcMoveBottomButton')"
+                type="button"
+                [disabled]="moveDisabled()"
+                pButton
+                pRipple
+                (click)="moveBottom()"
+                [attr.aria-label]="moveBottomAriaLabel"
+                [buttonProps]="getButtonProps('bottom')"
+                hostName="orderlist"
+                [unstyled]="unstyled()"
+            >
                 <svg data-p-icon="angle-double-down" *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" pButtonIcon [pt]="ptm('pcMoveBottomButton')['icon']" />
                 <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
             </button>
@@ -87,6 +109,7 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
             [dragdrop]="dragdrop"
             (onDrop)="onDrop($event)"
             hostName="orderlist"
+            [unstyled]="unstyled()"
         >
             <ng-container *ngIf="headerTemplate || _headerTemplate">
                 <ng-template #header>
@@ -374,63 +397,67 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
 
     /**
      * Custom item template.
+     * @param {OrderListItemTemplateContext} context - item context.
+     * @see {@link OrderListItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<OrderListItemTemplateContext> | undefined;
 
     /**
      * Custom empty template.
      * @group Templates
      */
-    @ContentChild('empty', { descendants: false }) emptyMessageTemplate: TemplateRef<any> | undefined;
+    @ContentChild('empty', { descendants: false }) emptyMessageTemplate: TemplateRef<void> | undefined;
 
     /**
      * Custom empty filter template.
      * @group Templates
      */
-    @ContentChild('emptyfilter', { descendants: false }) emptyFilterMessageTemplate: TemplateRef<any> | undefined;
+    @ContentChild('emptyfilter', { descendants: false }) emptyFilterMessageTemplate: TemplateRef<void> | undefined;
 
     /**
      * Custom filter template.
+     * @param {OrderListFilterTemplateContext} context - filter context.
+     * @see {@link OrderListFilterTemplateContext}
      * @group Templates
      */
-    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<OrderListFilterTemplateContext> | undefined;
 
     /**
      * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
 
     /**
      * Custom move up icon template.
      * @group Templates
      */
-    @ContentChild('moveupicon', { descendants: false }) moveUpIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('moveupicon', { descendants: false }) moveUpIconTemplate: TemplateRef<void> | undefined;
 
     /**
      * Custom move top icon template.
      * @group Templates
      */
-    @ContentChild('movetopicon', { descendants: false }) moveTopIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('movetopicon', { descendants: false }) moveTopIconTemplate: TemplateRef<void> | undefined;
 
     /**
      * Custom move down icon template.
      * @group Templates
      */
-    @ContentChild('movedownicon', { descendants: false }) moveDownIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('movedownicon', { descendants: false }) moveDownIconTemplate: TemplateRef<void> | undefined;
 
     /**
      * Custom move bottom icon template.
      * @group Templates
      */
-    @ContentChild('movebottomicon', { descendants: false }) moveBottomIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('movebottomicon', { descendants: false }) moveBottomIconTemplate: TemplateRef<void> | undefined;
 
     /**
      * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<void> | undefined;
 
     get moveUpAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.moveUp : undefined;
@@ -507,25 +534,25 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<OrderListItemTemplateContext> | undefined;
 
-    _emptyMessageTemplate: TemplateRef<any> | undefined;
+    _emptyMessageTemplate: TemplateRef<void> | undefined;
 
-    _emptyFilterMessageTemplate: TemplateRef<any> | undefined;
+    _emptyFilterMessageTemplate: TemplateRef<void> | undefined;
 
-    _filterTemplate: TemplateRef<any> | undefined;
+    _filterTemplate: TemplateRef<OrderListFilterTemplateContext> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _moveUpIconTemplate: TemplateRef<any> | undefined;
+    _moveUpIconTemplate: TemplateRef<void> | undefined;
 
-    _moveTopIconTemplate: TemplateRef<any> | undefined;
+    _moveTopIconTemplate: TemplateRef<void> | undefined;
 
-    _moveDownIconTemplate: TemplateRef<any> | undefined;
+    _moveDownIconTemplate: TemplateRef<void> | undefined;
 
-    _moveBottomIconTemplate: TemplateRef<any> | undefined;
+    _moveBottomIconTemplate: TemplateRef<void> | undefined;
 
-    _filterIconTemplate: TemplateRef<any> | undefined;
+    _filterIconTemplate: TemplateRef<void> | undefined;
 
     onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {

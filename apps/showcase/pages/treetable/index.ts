@@ -1,34 +1,36 @@
-import { AccessibilityDoc } from '@/doc/treetable/accessibilitydoc';
-import { BasicDoc } from '@/doc/treetable/basicdoc';
-import { ColumnGroupDoc } from '@/doc/treetable/columngroupdoc';
-import { ResizeExpandDoc } from '@/doc/treetable/columnresizeexpanddoc';
-import { ResizeFitDoc } from '@/doc/treetable/columnresizefitdoc';
-import { ResizeScrollableDoc } from '@/doc/treetable/columnresizescrollabledoc';
-import { ColumnToggleDoc } from '@/doc/treetable/columntoggledoc';
-import { ConditionalStyleDoc } from '@/doc/treetable/conditionalstyledoc';
-import { ContextMenuDoc } from '@/doc/treetable/contextmenudoc';
-import { ControlledDoc } from '@/doc/treetable/controlleddoc';
-import { DynamicColumnsDoc } from '@/doc/treetable/dynamiccolumnsdoc';
-import { FilterDoc } from '@/doc/treetable/filterdoc';
-import { ScrollFlexibleDoc } from '@/doc/treetable/flexiblescrolldoc';
-import { GridlinesDoc } from '@/doc/treetable/gridlinesdoc';
-import { ImportDoc } from '@/doc/treetable/importdoc';
-import { LazyLoadDoc } from '@/doc/treetable/lazyloaddoc';
-import { PaginatorBasicDoc } from '@/doc/treetable/paginatorbasicdoc';
-import { PaginatorTemplateDoc } from '@/doc/treetable/paginatortemplatedoc';
+import { AccessibilityDoc } from '@/doc/treetable/accessibility-doc';
+import { BasicDoc } from '@/doc/treetable/basic-doc';
+import { ColumnGroupDoc } from '@/doc/treetable/columngroup-doc';
+import { ResizeExpandDoc } from '@/doc/treetable/columnresizeexpand-doc';
+import { ResizeFitDoc } from '@/doc/treetable/columnresizefit-doc';
+import { ResizeScrollableDoc } from '@/doc/treetable/columnresizescrollable-doc';
+import { ColumnToggleDoc } from '@/doc/treetable/columntoggle-doc';
+import { ConditionalStyleDoc } from '@/doc/treetable/conditionalstyle-doc';
+import { ContextMenuDoc } from '@/doc/treetable/contextmenu-doc';
+import { ControlledDoc } from '@/doc/treetable/controlled-doc';
+import { DynamicColumnsDoc } from '@/doc/treetable/dynamiccolumns-doc';
+import { FilterDoc } from '@/doc/treetable/filter-doc';
+import { ScrollFlexibleDoc } from '@/doc/treetable/flexiblescroll-doc';
+import { GridlinesDoc } from '@/doc/treetable/gridlines-doc';
+import { ImportDoc } from '@/doc/treetable/import-doc';
+import { LazyLoadDoc } from '@/doc/treetable/lazyload-doc';
+import { PaginatorBasicDoc } from '@/doc/treetable/paginatorbasic-doc';
+import { PaginatorTemplateDoc } from '@/doc/treetable/paginatortemplate-doc';
 import { PTComponent } from '@/doc/treetable/pt/PTComponent';
-import { ReorderDoc } from '@/doc/treetable/reorderdoc';
-import { FrozenColumnsDoc } from '@/doc/treetable/scrollfrozencolumnsdoc';
-import { ScrollHorizontalDoc } from '@/doc/treetable/scrollhorizontaldoc';
-import { ScrollVerticalDoc } from '@/doc/treetable/scrollverticaldoc';
-import { SelectionCheckboxDoc } from '@/doc/treetable/selectioncheckboxdoc';
-import { SelectionEventsDoc } from '@/doc/treetable/selectioneventscdoc';
-import { SelectionMultipleDoc } from '@/doc/treetable/selectionmultipledoc';
-import { SelectionSingleDoc } from '@/doc/treetable/selectionsingledoc';
-import { SizeDoc } from '@/doc/treetable/sizedoc';
-import { SortMultipleColumnsDoc } from '@/doc/treetable/sortmultiplecolumnsdoc';
-import { SortSingleColumnDoc } from '@/doc/treetable/sortsinglecolumndoc';
-import { TemplateDoc } from '@/doc/treetable/templatedoc';
+import { ReorderDoc } from '@/doc/treetable/reorder-doc';
+import { FrozenColumnsDoc } from '@/doc/treetable/scrollfrozencolumns-doc';
+import { ScrollHorizontalDoc } from '@/doc/treetable/scrollhorizontal-doc';
+import { ScrollVerticalDoc } from '@/doc/treetable/scrollvertical-doc';
+import { SelectionCheckboxDoc } from '@/doc/treetable/selectioncheckbox-doc';
+import { SelectionEventsDoc } from '@/doc/treetable/selectioneventsc-doc';
+import { SelectionMultipleDoc } from '@/doc/treetable/selectionmultiple-doc';
+import { SelectionSingleDoc } from '@/doc/treetable/selectionsingle-doc';
+import { SizeDoc } from '@/doc/treetable/size-doc';
+import { SortMultipleColumnsDoc } from '@/doc/treetable/sortmultiplecolumns-doc';
+import { SortSingleColumnDoc } from '@/doc/treetable/sortsinglecolumn-doc';
+import { TemplateDoc } from '@/doc/treetable/template-doc';
+import { LoadingMaskDoc } from '@/doc/treetable/loadingmask-doc';
+import { LoadingSkeletonDoc } from '@/doc/treetable/loadingskeleton-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -83,6 +85,22 @@ export class TreeTableDemo {
             id: 'gridlines',
             label: 'Grid Lines',
             component: GridlinesDoc
+        },
+        {
+            id: 'loading',
+            label: 'Loading',
+            children: [
+                {
+                    id: 'loading-mask',
+                    label: 'Mask',
+                    component: LoadingMaskDoc
+                },
+                {
+                    id: 'loading-skeleton',
+                    label: 'Skeleton',
+                    component: LoadingSkeletonDoc
+                }
+            ]
         },
         {
             id: 'paginator',

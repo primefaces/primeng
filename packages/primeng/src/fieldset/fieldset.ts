@@ -1,12 +1,31 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    InjectionToken,
+    input,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
-import { Nullable } from 'primeng/ts-helpers';
+import { MotionModule } from 'primeng/motion';
 import type { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent, FieldsetPassThrough } from 'primeng/types/fieldset';
 import { FieldsetStyle } from './style/fieldsetstyle';
 
@@ -19,10 +38,10 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
 @Component({
     selector: 'p-fieldset',
     standalone: true,
-    imports: [CommonModule, MinusIcon, PlusIcon, SharedModule, BindModule],
+    imports: [CommonModule, MinusIcon, PlusIcon, SharedModule, BindModule, MotionModule],
     template: `
         <fieldset [attr.id]="id" [ngStyle]="style" [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')" [attr.data-p]="dataP">
-            <legend [class]="cx('legend')" [pBind]="ptm('legend')">
+            <legend [class]="cx('legend')" [pBind]="ptm('legend')" [attr.data-p]="dataP">
                 <ng-container *ngIf="toggleable; else legendContent">
                     <button
                         [attr.id]="id + '_header'"
@@ -58,40 +77,28 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
                 </ng-template>
             </legend>
             <div
-                [attr.id]="id + '_content'"
-                role="region"
-                [class]="cx('contentContainer')"
                 [pBind]="ptm('contentContainer')"
-                [@fieldsetContent]="collapsed ? { value: 'hidden', params: { transitionParams: transitionOptions, height: '0' } } : { value: 'visible', params: { transitionParams: animating ? transitionOptions : '0ms', height: '*' } }"
+                [pMotion]="!toggleable || (toggleable && !collapsed)"
+                pMotionName="p-collapsible"
+                [pMotionOptions]="computedMotionOptions()"
+                [class]="cx('contentContainer')"
+                [id]="id + '_content'"
+                role="region"
                 [attr.aria-labelledby]="id + '_header'"
                 [attr.aria-hidden]="collapsed"
-                (@fieldsetContent.done)="onToggleDone()"
+                [attr.tabindex]="collapsed ? '-1' : undefined"
+                (pMotionOnAfterEnter)="onToggleDone($event)"
+                (pMotionOnAfterLeave)="onToggleDone($event)"
             >
-                <div [class]="cx('content')" [pBind]="ptm('content')">
-                    <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                <div [pBind]="ptm('contentWrapper')" [class]="cx('contentWrapper')">
+                    <div [class]="cx('content')" [pBind]="ptm('content')" #contentWrapper>
+                        <ng-content></ng-content>
+                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                    </div>
                 </div>
             </div>
         </fieldset>
     `,
-    animations: [
-        trigger('fieldsetContent', [
-            state(
-                'hidden',
-                style({
-                    height: '0'
-                })
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*'
-                })
-            ),
-            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
-            transition('void => *', animate(0))
-        ])
-    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [FieldsetStyle, { provide: FIELDSET_INSTANCE, useExisting: Fieldset }, { provide: PARENT_INSTANCE, useExisting: Fieldset }],
@@ -126,11 +133,6 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
      */
     @Input({ transform: booleanAttribute }) toggleable: boolean | undefined;
     /**
-     * Defines the default visibility state of the content.
-     * * @group Props
-     */
-    @Input({ transform: booleanAttribute }) collapsed: boolean | undefined = false;
-    /**
      * Inline style of the component.
      * @group Props
      */
@@ -143,8 +145,21 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     /**
      * Transition options of the panel animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Emits when the collapsed state changes.
      * @param {boolean} value - New value.
@@ -164,6 +179,8 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
      */
     @Output() onAfterToggle: EventEmitter<FieldsetAfterToggleEvent> = new EventEmitter<FieldsetAfterToggleEvent>();
 
+    @ViewChild('contentWrapper') contentWrapperViewChild: ElementRef;
+
     private _id: string = uuid('pn_id_');
 
     get id() {
@@ -174,44 +191,53 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
         return this.legend;
     }
 
-    public animating: Nullable<boolean>;
+    /**
+     * Internal collapsed state
+     */
+    _collapsed: boolean | undefined;
 
     /**
-     * Defines the header template.
-     * @group Templates
+     * Defines the initial state of content, supports one or two-way binding as well.
+     * @group Props
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
+    @Input({ transform: booleanAttribute })
+    get collapsed(): boolean | undefined {
+        return this._collapsed;
+    }
+    set collapsed(value: boolean | undefined) {
+        this._collapsed = value;
+    }
 
     /**
-     * Defines the expandicon template.
+     * Custom header template.
      * @group Templates
      */
-    @ContentChild('expandicon', { descendants: false }) expandIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Defines the collapseicon template.
+     * Custom expand icon template.
      * @group Templates
      */
-    @ContentChild('collapseicon', { descendants: false }) collapseIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('expandicon', { descendants: false }) expandIconTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Defines the content template.
+     * Custom collapse icon template.
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('collapseicon', { descendants: false }) collapseIconTemplate: TemplateRef<void> | undefined;
+
+    /**
+     * Custom content template.
+     * @group Templates
+     */
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<void> | undefined;
 
     toggle(event: MouseEvent) {
-        if (this.animating) {
-            return false;
-        }
-
-        this.animating = true;
         this.onBeforeToggle.emit({ originalEvent: event, collapsed: this.collapsed });
 
         if (this.collapsed) this.expand();
         else this.collapse();
 
-        this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
         event.preventDefault();
     }
 
@@ -223,30 +249,45 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     }
 
     expand() {
-        this.collapsed = false;
-        this.collapsedChange.emit(this.collapsed);
+        this._collapsed = false;
+        this.collapsedChange.emit(false);
+        this.updateTabIndex();
     }
 
     collapse() {
-        this.collapsed = true;
-        this.collapsedChange.emit(this.collapsed);
+        this._collapsed = true;
+        this.collapsedChange.emit(true);
+        this.updateTabIndex();
     }
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
 
-    onToggleDone() {
-        this.animating = false;
+    updateTabIndex() {
+        if (this.contentWrapperViewChild) {
+            const focusableElements = this.contentWrapperViewChild.nativeElement.querySelectorAll('input, button, select, a, textarea, [tabindex]');
+            focusableElements.forEach((element: HTMLElement) => {
+                if (this.collapsed) {
+                    element.setAttribute('tabindex', '-1');
+                } else {
+                    element.removeAttribute('tabindex');
+                }
+            });
+        }
     }
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    onToggleDone(event: MotionEvent) {
+        this.onAfterToggle.emit({ originalEvent: event as any, collapsed: this.collapsed });
+    }
 
-    _expandIconTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _collapseIconTemplate: TemplateRef<any> | undefined;
+    _expandIconTemplate: TemplateRef<void> | undefined;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _collapseIconTemplate: TemplateRef<void> | undefined;
+
+    _contentTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 

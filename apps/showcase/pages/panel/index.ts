@@ -1,10 +1,10 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/panel/accessibilitydoc';
-import { BasicDoc } from '@/doc/panel/basicdoc';
-import { ImportDoc } from '@/doc/panel/importdoc';
+import { AccessibilityDoc } from '@/doc/panel/accessibility-doc';
+import { BasicDoc } from '@/doc/panel/basic-doc';
+import { ImportDoc } from '@/doc/panel/import-doc';
 import { PTComponent } from '@/doc/panel/pt/PTComponent';
-import { TemplateDoc } from '@/doc/panel/templatedoc';
-import { ToggleableDoc } from '@/doc/panel/toggleabledoc';
+import { TemplateDoc } from '@/doc/panel/template-doc';
+import { ToggleableDoc } from '@/doc/panel/toggleable-doc';
 import { Component } from '@angular/core';
 @Component({
     template: ` <app-doc docTitle="Angular Panel Component" header="Panel" description="Panel is a container component with an optional content toggle feature." [docs]="docs" [apiDocs]="['Panel']" themeDocs="panel" [ptDocs]="ptComponent"></app-doc>`,

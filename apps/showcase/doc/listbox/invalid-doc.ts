@@ -1,0 +1,40 @@
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    selector: 'invalid-doc',
+    standalone: true,
+    imports: [FormsModule, ListboxModule, AppCodeModule, AppDocSectionText],
+    template: `
+        <app-docsectiontext>
+            <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
+        </app-docsectiontext>
+        <div class="card flex justify-center">
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="selectedCity === undefined" />
+        </div>
+        <app-code></app-code>
+    `
+})
+export class InvalidDoc implements OnInit {
+    cities!: City[];
+
+    selectedCity!: City;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}

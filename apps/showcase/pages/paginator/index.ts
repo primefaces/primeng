@@ -1,9 +1,9 @@
-import { AccessibilityDoc } from '@/doc/paginator/accessibilitydoc';
-import { BasicDoc } from '@/doc/paginator/basicdoc';
-import { CurrentPageReportDoc } from '@/doc/paginator/currentpagereportdoc';
-import { ImagesDoc } from '@/doc/paginator/imagesdoc';
-import { ImportDoc } from '@/doc/paginator/importdoc';
-import { TemplateDoc } from '@/doc/paginator/templatedoc';
+import { AccessibilityDoc } from '@/doc/paginator/accessibility-doc';
+import { BasicDoc } from '@/doc/paginator/basic-doc';
+import { CurrentPageReportDoc } from '@/doc/paginator/currentpagereport-doc';
+import { ImagesDoc } from '@/doc/paginator/images-doc';
+import { ImportDoc } from '@/doc/paginator/import-doc';
+import { TemplateDoc } from '@/doc/paginator/template-doc';
 import { PTComponent } from '@/doc/paginator/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';

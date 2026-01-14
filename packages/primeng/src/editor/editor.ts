@@ -394,8 +394,8 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
     private initQuillElements(): void {
         if (!this.quillElements) {
             this.quillElements = {
-                editorElement: findSingle(this.el.nativeElement, 'div.p-editor-content'),
-                toolbarElement: findSingle(this.el.nativeElement, 'div.p-editor-toolbar')
+                editorElement: findSingle(this.el.nativeElement, 'div[data-pc-section="content"]'),
+                toolbarElement: findSingle(this.el.nativeElement, 'div[data-pc-section="toolbar"]')
             } as any;
         }
     }
