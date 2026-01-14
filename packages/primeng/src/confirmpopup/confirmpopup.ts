@@ -372,8 +372,9 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
     onBeforeEnter(event: MotionEvent) {
         if (this.confirmation) {
-            this.autoFocusAccept = this.confirmation.defaultFocus === undefined || this.confirmation.defaultFocus === 'accept' ? true : false;
-            this.autoFocusReject = this.confirmation.defaultFocus === 'reject' ? true : false;
+            const focus = this.confirmation.defaultFocus ?? this.defaultFocus;
+            this.autoFocusAccept = focus === 'accept';
+            this.autoFocusReject = focus === 'reject';
         }
 
         this.container = event.element as HTMLElement;

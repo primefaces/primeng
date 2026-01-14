@@ -316,7 +316,15 @@ describe('TieredMenu', () => {
             expect(clickSpy).toHaveBeenCalled();
         });
 
-        it('should show separators', () => {
+        it('should show separators', async () => {
+            // Click on the Edit menu item to expand submenu (sets dirty=true and opens submenu)
+            const menuItems = fixture.debugElement.queryAll(By.css('li[role="menuitem"] .p-tieredmenu-item-content'));
+            const editMenuItem = menuItems[1]; // Edit is the second root item
+            editMenuItem.triggerEventHandler('click', { preventDefault: () => {} });
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+            fixture.detectChanges();
+
             const separators = fixture.debugElement.queryAll(By.css('li[role="separator"]'));
             expect(separators.length).toBeGreaterThan(0);
         });
@@ -709,7 +717,15 @@ describe('TieredMenu', () => {
             disabledFixture.detectChanges();
         });
 
-        it('should handle disabled items correctly', () => {
+        it('should handle disabled items correctly', async () => {
+            // Click on the Actions menu item to expand submenu (sets dirty=true and opens submenu)
+            const rootMenuItems = disabledFixture.debugElement.queryAll(By.css('li[role="menuitem"] .p-tieredmenu-item-content'));
+            const actionsMenuItem = rootMenuItems[0]; // Actions is the first root item
+            actionsMenuItem.triggerEventHandler('click', { preventDefault: () => {} });
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await disabledFixture.whenStable();
+            disabledFixture.detectChanges();
+
             const menuItems = disabledFixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
             const disabledItem = menuItems.find((item) => item.nativeElement.getAttribute('data-p-disabled') === 'true');
 

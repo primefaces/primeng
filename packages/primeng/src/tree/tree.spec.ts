@@ -18,6 +18,7 @@ import { Tree, UITreeNode } from './tree';
             [styleClass]="styleClass"
             [contextMenu]="contextMenu"
             [(contextMenuSelection)]="contextMenuSelectedNode"
+            [contextMenuSelectionMode]="contextMenuSelectionMode"
             [draggableScope]="draggableScope"
             [droppableScope]="droppableScope"
             [draggableNodes]="draggableNodes"
@@ -65,6 +66,7 @@ class TestBasicTreeComponent {
     styleClass: string | undefined;
     contextMenu: any;
     contextMenuSelectedNode: TreeNode | null = null;
+    contextMenuSelectionMode: 'separate' | 'joint' = 'joint';
     draggableScope: any;
     droppableScope: any;
     draggableNodes: boolean = false;
@@ -2496,6 +2498,7 @@ describe('Tree', () => {
                 }
             ];
             component.contextMenu = mockContextMenu;
+            component.contextMenuSelectionMode = 'separate';
 
             fixture.detectChanges();
             await fixture.whenStable();
