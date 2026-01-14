@@ -111,7 +111,7 @@ export class AppDocSectionNav implements OnInit {
             lightImage: 'https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/ads/themedesigner-menu-light.jpg',
             darkImage: 'https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/ads/themedesigner-menu-dark.jpg',
             title: 'Theme Designer',
-            details: 'Theme Designer is the ultimate tool to customize and design your own themes featuring a visual editor, figma to theme code, cloud storage, and migration assistant.',
+            details: 'Theme Designer is the ultimate tool to customize and design your own themes featuring a visual editor, Figma to theme code, cloud storage, and migration assistant.',
             routerLink: '/designer'
         }
     ];
