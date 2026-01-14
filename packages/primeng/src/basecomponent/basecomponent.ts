@@ -52,9 +52,8 @@ export class BaseComponent<PT = any> implements Lifecycle {
     dt = input<Object | undefined>();
     /**
      * Indicates whether the component should be rendered without styles.
-     *
-     * @experimental
-     * This property is not yet implemented. It will be available in a future release.
+     * @defaultValue undefined
+     * @group Props
      */
     unstyled = input<boolean | undefined>();
     /**
@@ -82,15 +81,21 @@ export class BaseComponent<PT = any> implements Lifecycle {
         return this['hostName'];
     }
 
+    get $el() {
+        return this.el?.nativeElement;
+    }
+
+    directivePT = signal<any>(undefined);
+
+    directiveUnstyled = signal<boolean | undefined>(undefined);
+
     $unstyled = computed(() => {
-        return this.unstyled() !== undefined ? this.unstyled() : this.config?.unstyled() || false;
+        return this.unstyled() ?? this.directiveUnstyled() ?? this.config?.unstyled() ?? false;
     });
 
     $pt = computed(() => {
         return resolve(this.pt() || this.directivePT(), this.$params);
     });
-
-    directivePT = signal<any>(undefined);
 
     get $globalPT() {
         return this._getPT(this.config?.pt(), undefined, (value) => resolve(value, this.$params));
@@ -254,7 +259,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
      */
     ngAfterViewInit() {
         // @todo - remove this after implementing pt for root
-        this.el?.nativeElement?.setAttribute(this.$attrSelector, '');
+        this.$el?.setAttribute(this.$attrSelector, '');
 
         this.onAfterViewInit();
         this._hook('onAfterViewInit');

@@ -1,0 +1,82 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Customer } from '@/domain/customer';
+import { CustomerService } from '@/service/customerservice';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { TableModule } from 'primeng/table';
+
+@Component({
+    selector: 'horizontalscroll-doc',
+    standalone: true,
+    imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
+    template: ` <app-docsectiontext>
+            <p>Horizontal scrollbar is displayed when table width exceeds the parent width.</p>
+        </app-docsectiontext>
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
+                    <ng-template #header>
+                        <tr>
+                            <th style="min-width:100px">Id</th>
+                            <th style="min-width:200px">Name</th>
+                            <th style="min-width:200px">Country</th>
+                            <th style="min-width:200px">Date</th>
+                            <th style="min-width:200px">Balance</th>
+                            <th style="min-width:200px">Company</th>
+                            <th style="min-width:200px">Status</th>
+                            <th style="min-width:200px">Activity</th>
+                            <th style="min-width:200px">Representative</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-customer>
+                        <tr>
+                            <td>{{ customer.id }}</td>
+                            <td>{{ customer.name }}</td>
+                            <td>{{ customer.country.name }}</td>
+                            <td>{{ customer.date }}</td>
+                            <td>{{ formatCurrency(customer.balance) }}</td>
+                            <td>{{ customer.company }}</td>
+                            <td>{{ customer.status }}</td>
+                            <td>{{ customer.activity }}</td>
+                            <td>{{ customer.representative.name }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #footer>
+                        <tr class="font-bold">
+                            <td>Id</td>
+                            <td>Name</td>
+                            <td>Country</td>
+                            <td>Date</td>
+                            <td>Balance</td>
+                            <td>Company</td>
+                            <td>Status</td>
+                            <td>Activity</td>
+                            <td>Representative</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-deferred-demo>
+        <app-code [extFiles]="['Customer']"></app-code>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class HorizontalScrollDoc {
+    customers!: Customer[];
+
+    constructor(
+        private customerService: CustomerService,
+        private cd: ChangeDetectorRef
+    ) {}
+
+    loadDemoData() {
+        this.customerService.getCustomersMedium().then((data) => {
+            this.customers = data;
+            this.cd.markForCheck();
+        });
+    }
+
+    formatCurrency(value: number) {
+        return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    }
+}

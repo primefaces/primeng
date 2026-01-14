@@ -1,7 +1,7 @@
-import { CompatibilityDoc } from '@/doc/guides/primeflex/compatibilitydoc';
-import { MigrationDoc } from '@/doc/guides/primeflex/migrationdoc';
-import { OverviewDoc } from '@/doc/guides/primeflex/overviewdoc';
-import { TailwindCSSDoc } from '@/doc/guides/primeflex/tailwindcssdoc';
+import { CompatibilityDoc } from '@/doc/guides/primeflex/compatibility-doc';
+import { MigrationDoc } from '@/doc/guides/primeflex/migration-doc';
+import { OverviewDoc } from '@/doc/guides/primeflex/overview-doc';
+import { TailwindCSSDoc } from '@/doc/guides/primeflex/tailwindcss-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

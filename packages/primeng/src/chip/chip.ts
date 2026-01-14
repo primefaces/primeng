@@ -83,8 +83,9 @@ const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
     providers: [ChipStyle, { provide: CHIP_INSTANCE, useExisting: Chip }, { provide: PARENT_INSTANCE, useExisting: Chip }],
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[style.display]': '!visible && "none"',
-        '[attr.aria-label]': 'label'
+        '[style]': "sx('root')",
+        '[attr.aria-label]': 'label',
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -175,11 +176,15 @@ export class Chip extends BaseComponent<ChipPassThrough> {
 
     _componentStyle = inject(ChipStyle);
 
-    @ContentChild('removeicon', { descendants: false }) removeIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom remove icon template.
+     * @group Templates
+     */
+    @ContentChild('removeicon', { descendants: false }) removeIconTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _removeIconTemplate: TemplateRef<any> | undefined;
+    _removeIconTemplate: TemplateRef<void> | undefined;
 
     onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
@@ -236,6 +241,12 @@ export class Chip extends BaseComponent<ChipPassThrough> {
 
     imageError(event: Event) {
         this.onImageError.emit(event);
+    }
+
+    get dataP() {
+        return this.cn({
+            removable: this.removable
+        });
     }
 }
 

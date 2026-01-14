@@ -1,8 +1,8 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/scrollpanel/accessibilitydoc';
-import { BasicDoc } from '@/doc/scrollpanel/basicdoc';
-import { CusstomDoc } from '@/doc/scrollpanel/customdoc';
-import { ImportDoc } from '@/doc/scrollpanel/importdoc';
+import { AccessibilityDoc } from '@/doc/scrollpanel/accessibility-doc';
+import { BasicDoc } from '@/doc/scrollpanel/basic-doc';
+import { CusstomDoc } from '@/doc/scrollpanel/custom-doc';
+import { ImportDoc } from '@/doc/scrollpanel/import-doc';
 import { PTComponent } from '@/doc/scrollpanel/pt/PTComponent';
 import { Component } from '@angular/core';
 

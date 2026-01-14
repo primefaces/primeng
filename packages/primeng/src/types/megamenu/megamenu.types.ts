@@ -92,29 +92,48 @@ export interface MegaMenuPassThroughOptions<I = unknown> {
 export type MegaMenuPassThrough<I = unknown> = PassThrough<I, MegaMenuPassThroughOptions<I>>;
 
 /**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface MegaMenuItemTemplateContext {
+    /**
+     * Menu item instance.
+     */
+    $implicit: MenuItem;
+}
+
+/**
  * Defines valid templates in MegaMenu.
  * @group Templates
  */
 export interface MegaMenuTemplates {
     /**
      * Custom item template.
+     * @param {Object} context - item context.
      */
-    item(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: MenuItem;
-    }): TemplateRef<{ $implicit: MenuItem }>;
+    item(context: MegaMenuItemTemplateContext): TemplateRef<MegaMenuItemTemplateContext>;
     /**
      * Custom template of start.
      */
-    start(): TemplateRef<any>;
-    /**
-     * Custom template of submenuicon.
-     */
-    submenuicon(): TemplateRef<any>;
+    start(): TemplateRef<void>;
     /**
      * Custom template of end.
      */
-    end(): TemplateRef<any>;
+    end(): TemplateRef<void>;
+    /**
+     * Custom template of submenu icon.
+     */
+    submenuicon(): TemplateRef<void>;
+    /**
+     * Custom menu button template on responsive mode.
+     */
+    button(): TemplateRef<void>;
+    /**
+     * Custom menu button icon template on responsive mode.
+     */
+    buttonicon(): TemplateRef<void>;
+    /**
+     * Custom menu icon template.
+     */
+    menuicon(): TemplateRef<void>;
 }

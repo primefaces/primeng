@@ -1,6 +1,7 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Confirmation, PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 
 /**
  * Custom pass-through(pt) options.
@@ -44,6 +45,10 @@ export interface ConfirmPopupPassThroughOptions<I = unknown> {
      * @see {@link ButtonPassThrough}
      */
     pcAcceptButton?: ButtonPassThrough;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
@@ -55,24 +60,48 @@ export interface ConfirmPopupPassThroughOptions<I = unknown> {
 export type ConfirmPopupPassThrough<I = unknown> = PassThrough<I, ConfirmPopupPassThroughOptions<I>>;
 
 /**
+ * Custom headless template context.
+ * @group Interface
+ */
+export interface ConfirmPopupHeadlessTemplateContext {
+    /**
+     * Confirmation instance.
+     */
+    $implicit: Confirmation | null | undefined;
+}
+
+/**
+ * Custom content template context.
+ * @group Interface
+ */
+export interface ConfirmPopupContentTemplateContext {
+    /**
+     * Confirmation instance.
+     */
+    $implicit: Confirmation | null | undefined;
+}
+
+/**
  * Defines valid templates in ConfirmPopup.
  * @group Templates
  */
 export interface ConfirmPopupTemplates {
     /**
      * Custom content template.
+     * @param {Object} context - content context.
      */
-    content(context: { $implicit?: any }): TemplateRef<any>;
+    content(context: ConfirmPopupContentTemplateContext): TemplateRef<ConfirmPopupContentTemplateContext>;
     /**
-     * Custom template of rejecticon.
+     * Custom reject icon template.
      */
-    rejecticon(): TemplateRef<any>;
+    rejecticon(): TemplateRef<void>;
     /**
-     * Custom template of accepticon.
+     * Custom accept icon template.
      */
-    accepticon(): TemplateRef<any>;
+    accepticon(): TemplateRef<void>;
     /**
-     * Headless template.
+     * Custom headless template.
+     * @param {Object} context - headless context.
      */
-    headless(context: { $implicit?: any }): TemplateRef<any>;
+    headless(context: ConfirmPopupHeadlessTemplateContext): TemplateRef<ConfirmPopupHeadlessTemplateContext>;
 }

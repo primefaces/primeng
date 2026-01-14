@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { providePrimeNG } from 'primeng/config';
+
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { Carousel } from './carousel';
+import { providePrimeNG } from 'primeng/config';
 import type { CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types/carousel';
+import { Carousel } from './carousel';
 
 // Mock data for testing
 const mockProducts = [
@@ -194,8 +194,9 @@ describe('Carousel', () => {
         });
 
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
-            declarations: [TestBasicCarouselComponent, TestCircularCarouselComponent, TestVerticalCarouselComponent, TestResponsiveCarouselComponent, TestAutoplayCarouselComponent, TestTemplateCarouselComponent, TestPTemplateCarouselComponent]
+            imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
+            declarations: [TestBasicCarouselComponent, TestCircularCarouselComponent, TestVerticalCarouselComponent, TestResponsiveCarouselComponent, TestAutoplayCarouselComponent, TestTemplateCarouselComponent, TestPTemplateCarouselComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
 
@@ -204,10 +205,10 @@ describe('Carousel', () => {
         let component: TestBasicCarouselComponent;
         let carouselInstance: Carousel;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicCarouselComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
             carouselInstance = carouselEl.componentInstance as Carousel;
@@ -230,14 +231,15 @@ describe('Carousel', () => {
             expect(carouselInstance.autoplayInterval).toBe(0);
         });
 
-        it('should accept input values', () => {
+        it('should accept input values', async () => {
             component.page = 1;
             component.numVisible = 2;
             component.numScroll = 2;
             component.circular = true;
             component.orientation = 'vertical';
             component.autoplayInterval = 2000;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(carouselInstance.page).toBe(1);
             expect(carouselInstance.numVisible).toBe(2);
@@ -263,10 +265,10 @@ describe('Carousel', () => {
         let component: TestBasicCarouselComponent;
         let carouselInstance: Carousel;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicCarouselComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
             carouselInstance = carouselEl.componentInstance as Carousel;
@@ -327,12 +329,13 @@ describe('Carousel', () => {
         let component: TestBasicCarouselComponent;
         let carouselInstance: Carousel;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicCarouselComponent);
             component = fixture.componentInstance;
             component.numVisible = 2; // Show 2 items to have multiple pages
             component.numScroll = 1;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
             carouselInstance = carouselEl.componentInstance as Carousel;
@@ -384,10 +387,10 @@ describe('Carousel', () => {
         let component: TestCircularCarouselComponent;
         let carouselInstance: Carousel;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestCircularCarouselComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
             carouselInstance = carouselEl.componentInstance as Carousel;
@@ -400,7 +403,6 @@ describe('Carousel', () => {
 
         it('should set clone items for circular mode', () => {
             carouselInstance.ngAfterContentInit();
-            fixture.detectChanges();
 
             expect(carouselInstance.clonedItemsForStarting).toBeDefined();
             expect(carouselInstance.clonedItemsForFinishing).toBeDefined();
@@ -418,10 +420,10 @@ describe('Carousel', () => {
         let component: TestVerticalCarouselComponent;
         let carouselInstance: Carousel;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestVerticalCarouselComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
             carouselInstance = carouselEl.componentInstance as Carousel;
@@ -450,10 +452,10 @@ describe('Carousel', () => {
         let component: TestResponsiveCarouselComponent;
         let carouselInstance: Carousel;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestResponsiveCarouselComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
             carouselInstance = carouselEl.componentInstance as Carousel;
@@ -488,10 +490,10 @@ describe('Carousel', () => {
         let component: TestAutoplayCarouselComponent;
         let carouselInstance: Carousel;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestAutoplayCarouselComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
             carouselInstance = carouselEl.componentInstance as Carousel;
@@ -501,16 +503,16 @@ describe('Carousel', () => {
             expect(carouselInstance.autoplayInterval).toBe(1000);
         });
 
-        it('should start autoplay when conditions are met', fakeAsync(() => {
+        it('should start autoplay when conditions are met', async () => {
             carouselInstance.allowAutoplay = true;
             carouselInstance.startAutoplay();
 
             expect(carouselInstance.isPlaying()).toBe(true);
 
-            tick(1001);
+            await new Promise((resolve) => setTimeout(resolve, 1001));
 
             carouselInstance.stopAutoplay();
-        }));
+        });
 
         it('should stop autoplay', () => {
             carouselInstance.startAutoplay();
@@ -533,10 +535,10 @@ describe('Carousel', () => {
         let fixture: ComponentFixture<TestTemplateCarouselComponent>;
         let component: TestTemplateCarouselComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestTemplateCarouselComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
         });
 
         it('should render custom header template', () => {
@@ -567,10 +569,10 @@ describe('Carousel', () => {
         let component: TestPTemplateCarouselComponent;
         let carouselInstance: Carousel;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestPTemplateCarouselComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
             carouselInstance = carouselEl.componentInstance as Carousel;
@@ -578,7 +580,6 @@ describe('Carousel', () => {
 
         it('should process pTemplate correctly', () => {
             carouselInstance.ngAfterContentInit();
-            fixture.detectChanges();
 
             // Verify that template processing works
             expect(carouselInstance.ngAfterContentInit).toBeDefined();
@@ -603,10 +604,10 @@ describe('Carousel', () => {
         let component: TestBasicCarouselComponent;
         let carouselInstance: Carousel;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicCarouselComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
             carouselInstance = carouselEl.componentInstance as Carousel;
@@ -655,10 +656,10 @@ describe('Carousel', () => {
         let component: TestBasicCarouselComponent;
         let carouselInstance: Carousel;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicCarouselComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
             carouselInstance = carouselEl.componentInstance as Carousel;
@@ -694,30 +695,32 @@ describe('Carousel', () => {
         let component: TestBasicCarouselComponent;
         let carouselInstance: Carousel;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicCarouselComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
-        it('should apply custom style classes', () => {
+        it('should apply custom style classes', async () => {
             component.styleClass = 'custom-carousel-class';
             component.contentClass = 'custom-content-class';
             component.indicatorsContentClass = 'custom-indicators-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(carouselInstance.styleClass).toBe('custom-carousel-class');
             expect(carouselInstance.contentClass).toBe('custom-content-class');
             expect(carouselInstance.indicatorsContentClass).toBe('custom-indicators-class');
         });
 
-        it('should apply custom styles', () => {
+        it('should apply custom styles', async () => {
             component.indicatorsContentStyle = { marginTop: '10px' };
             component.indicatorStyle = { backgroundColor: 'red' };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(carouselInstance.indicatorsContentStyle).toEqual({ marginTop: '10px' });
             expect(carouselInstance.indicatorStyle).toEqual({ backgroundColor: 'red' });
@@ -743,11 +746,12 @@ describe('Carousel', () => {
         let component: TestBasicCarouselComponent;
         let carouselInstance: Carousel;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicCarouselComponent);
             component = fixture.componentInstance;
             component.numVisible = 2; // To enable pagination
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
             carouselInstance = carouselEl.componentInstance as Carousel;
@@ -774,10 +778,10 @@ describe('Carousel', () => {
         let fixture: ComponentFixture<TestBasicCarouselComponent>;
         let component: TestBasicCarouselComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicCarouselComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            await fixture.whenStable();
         });
 
         it('should have proper ARIA attributes on root element', () => {
@@ -877,24 +881,27 @@ describe('Carousel', () => {
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
-        it('should handle empty products array', () => {
+        it('should handle empty products array', async () => {
             component.products = [];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(carouselInstance.isEmpty()).toBe(true);
             expect(carouselInstance.totalDots()).toBe(0);
         });
 
-        it('should handle null products', () => {
+        it('should handle null products', async () => {
             component.products = null as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(carouselInstance.isEmpty()).toBe(true);
         });
 
-        it('should handle single item', () => {
+        it('should handle single item', async () => {
             component.products = [mockProducts[0]];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // For single item: Math.ceil((1 - 3) / 1) + 1 = Math.ceil(-2) + 1 = -2 + 1 = -1
             // This is the actual behavior - component returns -1 for insufficient items
@@ -920,10 +927,11 @@ describe('Carousel', () => {
             expect(carouselInstance.onPage.emit).toHaveBeenCalled();
         });
 
-        it('should handle button props configuration', () => {
+        it('should handle button props configuration', async () => {
             component.prevButtonProps = { severity: 'primary', icon: 'pi-custom' };
             component.nextButtonProps = { severity: 'secondary', text: false };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(carouselInstance.prevButtonProps).toEqual({ severity: 'primary', icon: 'pi-custom' });
             expect(carouselInstance.nextButtonProps).toEqual({ severity: 'secondary', text: false });
@@ -1235,8 +1243,9 @@ describe('Carousel', () => {
             beforeEach(async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
+                    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
                     providers: [
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 carousel: {

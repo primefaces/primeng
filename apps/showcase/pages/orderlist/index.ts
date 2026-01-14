@@ -1,10 +1,10 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/orderlist/accessibilitydoc';
-import { BasicDoc } from '@/doc/orderlist/basicdoc';
-import { DragDropDoc } from '@/doc/orderlist/dragdropdoc';
-import { FilterDoc } from '@/doc/orderlist/filterdoc';
-import { ImportDoc } from '@/doc/orderlist/importdoc';
-import { TemplateDoc } from '@/doc/orderlist/templatedoc';
+import { AccessibilityDoc } from '@/doc/orderlist/accessibility-doc';
+import { BasicDoc } from '@/doc/orderlist/basic-doc';
+import { DragDropDoc } from '@/doc/orderlist/dragdrop-doc';
+import { FilterDoc } from '@/doc/orderlist/filter-doc';
+import { ImportDoc } from '@/doc/orderlist/import-doc';
+import { TemplateDoc } from '@/doc/orderlist/template-doc';
 import { PTComponent } from '@/doc/orderlist/pt/PTComponent';
 import { Component } from '@angular/core';
 

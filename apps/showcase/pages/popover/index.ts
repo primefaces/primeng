@@ -1,12 +1,12 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/popover/accessibilitydoc';
-import { BasicDoc } from '@/doc/popover/basicdoc';
-import { DataTableDoc } from '@/doc/popover/datatabledoc';
-import { ImportDoc } from '@/doc/popover/importdoc';
+import { AccessibilityDoc } from '@/doc/popover/accessibility-doc';
+import { BasicDoc } from '@/doc/popover/basic-doc';
+import { DataTableDoc } from '@/doc/popover/datatable-doc';
+import { ImportDoc } from '@/doc/popover/import-doc';
 import { PTComponent } from '@/doc/popover/pt/PTComponent';
-import { SelectDataDoc } from '@/doc/popover/selectdatadoc';
-import { TargetDoc } from '@/doc/popover/targetdoc';
-import { TemplateDoc } from '@/doc/popover/templatedoc';
+import { SelectDataDoc } from '@/doc/popover/selectdata-doc';
+import { TargetDoc } from '@/doc/popover/target-doc';
+import { TemplateDoc } from '@/doc/popover/template-doc';
 import { Component } from '@angular/core';
 
 @Component({

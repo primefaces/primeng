@@ -1,8 +1,8 @@
-import { AccessibilityDoc } from '@/doc/breadcrumb/accessibilitydoc';
-import { BasicDoc } from '@/doc/breadcrumb/basicdoc';
-import { ImportDoc } from '@/doc/breadcrumb/importdoc';
-import { RouterDoc } from '@/doc/breadcrumb/routerdoc';
-import { TemplateDoc } from '@/doc/breadcrumb/templatedoc';
+import { AccessibilityDoc } from '@/doc/breadcrumb/accessibility-doc';
+import { BasicDoc } from '@/doc/breadcrumb/basic-doc';
+import { ImportDoc } from '@/doc/breadcrumb/import-doc';
+import { RouterDoc } from '@/doc/breadcrumb/router-doc';
+import { TemplateDoc } from '@/doc/breadcrumb/template-doc';
 import { PTComponent } from '@/doc/breadcrumb/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';

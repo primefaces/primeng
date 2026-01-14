@@ -1,0 +1,74 @@
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ScrollerModule } from 'primeng/scroller';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
+
+interface LazyEvent {
+    first: number;
+    last: number;
+}
+@Component({
+    selector: 'lazyload-doc',
+    standalone: true,
+    imports: [ScrollerModule, AppCode, AppDocSectionText, CommonModule],
+    template: `
+        <app-docsectiontext>
+            <p>
+                Lazy mode is handy to deal with large datasets where instead of loading the entire data, small chunks of data are loaded on demand by invoking onLazyLoad callback everytime scrolling requires a new chunk. To implement lazy loading,
+                enable
+                <i>lazy</i> attribute, initialize your data as a placeholder with a length and finally implement a method callback using <i>onLazyLoad</i> that actually loads a chunk from a datasource. onLazyLoad gets an event object that contains
+                information about the chunk of data to load such as the index and number of items to load. Notice that a new template called loadingItem is also required to display as a placeholder while the new items are being loaded.
+            </p>
+        </app-docsectiontext>
+        <div class="card flex justify-center">
+            <p-virtualscroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+                <ng-template #item let-item let-options="options">
+                    <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                        {{ item }}
+                    </div>
+                </ng-template>
+            </p-virtualscroller>
+        </div>
+        <app-code></app-code>
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class LazyLoadDoc {
+    items!: string[];
+
+    lazyLoading: boolean = true;
+
+    loadLazyTimeout: any;
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    ngOnInit() {
+        this.items = Array.from({ length: 1000 });
+    }
+
+    onLazyLoad(event: LazyEvent) {
+        this.lazyLoading = true;
+
+        if (this.loadLazyTimeout) {
+            clearTimeout(this.loadLazyTimeout);
+        }
+
+        //imitate delay of a backend call
+        this.loadLazyTimeout = setTimeout(
+            () => {
+                const { first, last } = event;
+                const lazyItems = [...this.items];
+
+                for (let i = first; i < last; i++) {
+                    lazyItems[i] = `Item #${i}`;
+                }
+
+                this.items = lazyItems;
+                this.lazyLoading = false;
+                this.cd.markForCheck();
+            },
+            Math.random() * 1000 + 250
+        );
+    }
+}

@@ -1,8 +1,8 @@
-import { BasicDoc } from '@/doc/dragdrop/basicdoc';
-import { DataTableDoc } from '@/doc/dragdrop/datatabledoc';
-import { DragHandleDoc } from '@/doc/dragdrop/draghandledoc';
-import { DropIndicatorDoc } from '@/doc/dragdrop/dropindicatordoc';
-import { ImportDoc } from '@/doc/dragdrop/importdoc';
+import { BasicDoc } from '@/doc/dragdrop/basic-doc';
+import { DataTableDoc } from '@/doc/dragdrop/datatable-doc';
+import { DragHandleDoc } from '@/doc/dragdrop/draghandle-doc';
+import { DropIndicatorDoc } from '@/doc/dragdrop/dropindicator-doc';
+import { ImportDoc } from '@/doc/dragdrop/import-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

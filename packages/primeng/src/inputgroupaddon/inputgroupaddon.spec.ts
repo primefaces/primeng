@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputGroupAddon } from './inputgroupaddon';
@@ -33,7 +33,8 @@ describe('InputGroupAddon', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicInputGroupAddonComponent]
+                imports: [TestBasicInputGroupAddonComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicInputGroupAddonComponent);
@@ -66,7 +67,8 @@ describe('InputGroupAddon', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestStyledInputGroupAddonComponent]
+                imports: [TestStyledInputGroupAddonComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestStyledInputGroupAddonComponent);
@@ -90,10 +92,11 @@ describe('InputGroupAddon', () => {
             expect(addonElement.nativeElement.classList.contains('custom-addon')).toBe(true);
         });
 
-        it('should update addon styles dynamically', () => {
+        it('should update addon styles dynamically', async () => {
             component.addonStyle = { color: 'red' };
             component.addonClass = 'updated-addon';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const addonInstance = fixture.debugElement.query(By.directive(InputGroupAddon)).componentInstance;
             const addonElement = fixture.debugElement.query(By.directive(InputGroupAddon));
@@ -113,7 +116,8 @@ describe('InputGroupAddon PassThrough Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [InputGroupAddon, FormsModule]
+            imports: [InputGroupAddon, FormsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(InputGroupAddon);
@@ -243,6 +247,7 @@ describe('InputGroupAddon PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [InputGroupAddon, FormsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             inputGroupAddon: {
@@ -270,6 +275,7 @@ describe('InputGroupAddon PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [InputGroupAddon, FormsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             inputGroupAddon: {

@@ -1,4 +1,4 @@
-import { Component, DebugElement, input } from '@angular/core';
+import { Component, DebugElement, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ProgressSpinner } from './progressspinner';
@@ -39,7 +39,8 @@ describe('ProgressSpinner', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestBasicProgressSpinnerComponent, TestStyleProgressSpinnerComponent, TestCustomPropertiesComponent],
-            imports: [ProgressSpinner]
+            imports: [ProgressSpinner],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicProgressSpinnerComponent);
@@ -62,13 +63,14 @@ describe('ProgressSpinner', () => {
             expect(progressSpinnerInstance.styleClass).toBeUndefined();
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             component.strokeWidth = '4';
             component.fill = 'blue';
             component.animationDuration = '1.5s';
             component.ariaLabel = 'Custom loading';
             component.styleClass = 'custom-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(progressSpinnerInstance.strokeWidth).toBe('4');
             expect(progressSpinnerInstance.fill).toBe('blue');
@@ -79,45 +81,52 @@ describe('ProgressSpinner', () => {
     });
 
     describe('Input Properties', () => {
-        it('should update strokeWidth input', () => {
+        it('should update strokeWidth input', async () => {
             component.strokeWidth = '3';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(progressSpinnerInstance.strokeWidth).toBe('3');
         });
 
-        it('should update fill input', () => {
+        it('should update fill input', async () => {
             component.fill = 'transparent';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(progressSpinnerInstance.fill).toBe('transparent');
         });
 
-        it('should update animationDuration input', () => {
+        it('should update animationDuration input', async () => {
             component.animationDuration = '5s';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(progressSpinnerInstance.animationDuration).toBe('5s');
         });
 
-        it('should update ariaLabel input', () => {
+        it('should update ariaLabel input', async () => {
             component.ariaLabel = 'Processing data';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(progressSpinnerInstance.ariaLabel).toBe('Processing data');
         });
 
-        it('should update styleClass input', () => {
+        it('should update styleClass input', async () => {
             component.styleClass = 'test-spinner';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(progressSpinnerInstance.styleClass).toBe('test-spinner');
         });
 
-        it('should handle numeric strokeWidth values as strings', () => {
+        it('should handle numeric strokeWidth values as strings', async () => {
             component.strokeWidth = '1.5';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(progressSpinnerInstance.strokeWidth).toBe('1.5');
         });
 
-        it('should handle different time units for animationDuration', () => {
+        it('should handle different time units for animationDuration', async () => {
             component.animationDuration = '500ms';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(progressSpinnerInstance.animationDuration).toBe('500ms');
         });
     });
@@ -139,25 +148,28 @@ describe('ProgressSpinner', () => {
             expect(circleElement.nativeElement.getAttribute('stroke-miterlimit')).toBe('10');
         });
 
-        it('should apply strokeWidth to circle element', () => {
+        it('should apply strokeWidth to circle element', async () => {
             component.strokeWidth = '3';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
             expect(circleElement.nativeElement.getAttribute('stroke-width')).toBe('3');
         });
 
-        it('should apply fill to circle element', () => {
+        it('should apply fill to circle element', async () => {
             component.fill = '#ff0000';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
             expect(circleElement.nativeElement.getAttribute('fill')).toBe('#ff0000');
         });
 
-        it('should apply animationDuration to SVG element', () => {
+        it('should apply animationDuration to SVG element', async () => {
             component.animationDuration = '1s';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const svgElement = fixture.debugElement.query(By.css('svg'));
             expect(svgElement.nativeElement.style.animationDuration).toBe('1s');
@@ -175,9 +187,10 @@ describe('ProgressSpinner', () => {
     });
 
     describe('CSS Classes and Styling', () => {
-        it('should apply styleClass to root element', () => {
+        it('should apply styleClass to root element', async () => {
             component.styleClass = 'custom-spinner-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
             expect(rootElement.nativeElement.classList.contains('custom-spinner-class')).toBe(true);
@@ -205,9 +218,10 @@ describe('ProgressSpinner', () => {
             expect(Object.keys(styleComponent.style!)).toContain('height');
         });
 
-        it('should combine multiple CSS classes correctly', () => {
+        it('should combine multiple CSS classes correctly', async () => {
             component.styleClass = 'class1 class2';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
             expect(rootElement.nativeElement.classList.contains('class1')).toBe(true);
@@ -231,17 +245,19 @@ describe('ProgressSpinner', () => {
             expect(rootElement.nativeElement.getAttribute('aria-busy')).toBe('true');
         });
 
-        it('should apply aria-label when provided', () => {
+        it('should apply aria-label when provided', async () => {
             component.ariaLabel = 'Loading content';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
             expect(rootElement.nativeElement.getAttribute('aria-label')).toBe('Loading content');
         });
 
-        it('should not have aria-label when not provided', () => {
+        it('should not have aria-label when not provided', async () => {
             component.ariaLabel = undefined as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
             expect(rootElement.nativeElement.getAttribute('aria-label')).toBeNull();
@@ -257,36 +273,40 @@ describe('ProgressSpinner', () => {
             expect(rootElement.nativeElement.getAttribute('role')).toBe('progressbar');
         });
 
-        it('should update aria-label dynamically', () => {
+        it('should update aria-label dynamically', async () => {
             component.ariaLabel = 'Initial loading';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
             expect(rootElement.nativeElement.getAttribute('aria-label')).toBe('Initial loading');
 
             component.ariaLabel = 'Updated loading';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(rootElement.nativeElement.getAttribute('aria-label')).toBe('Updated loading');
         });
     });
 
     describe('Edge Cases', () => {
-        it('should handle null/undefined values', () => {
+        it('should handle null/undefined values', async () => {
             component.ariaLabel = undefined as any;
             component.styleClass = undefined as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(() => fixture.detectChanges()).not.toThrow();
             expect(progressSpinnerInstance.ariaLabel).toBeUndefined();
             expect(progressSpinnerInstance.styleClass).toBeUndefined();
         });
 
-        it('should handle empty string values gracefully', () => {
+        it('should handle empty string values gracefully', async () => {
             component.strokeWidth = '';
             component.fill = '';
             component.animationDuration = '';
             component.ariaLabel = '';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(() => fixture.detectChanges()).not.toThrow();
             expect(progressSpinnerInstance.strokeWidth).toBe('' as any);
@@ -295,96 +315,106 @@ describe('ProgressSpinner', () => {
             expect(progressSpinnerInstance.ariaLabel).toBe('' as any);
         });
 
-        it('should handle zero strokeWidth', () => {
+        it('should handle zero strokeWidth', async () => {
             component.strokeWidth = '0';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
             expect(circleElement.nativeElement.getAttribute('stroke-width')).toBe('0');
         });
 
-        it('should handle very large strokeWidth values', () => {
+        it('should handle very large strokeWidth values', async () => {
             component.strokeWidth = '100';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
             expect(circleElement.nativeElement.getAttribute('stroke-width')).toBe('100');
         });
 
-        it('should handle decimal strokeWidth values', () => {
+        it('should handle decimal strokeWidth values', async () => {
             component.strokeWidth = '2.5';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
             expect(circleElement.nativeElement.getAttribute('stroke-width')).toBe('2.5');
         });
 
-        it('should handle very short animation duration', () => {
+        it('should handle very short animation duration', async () => {
             component.animationDuration = '0.1s';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const svgElement = fixture.debugElement.query(By.css('svg'));
             expect(svgElement.nativeElement.style.animationDuration).toBe('0.1s');
         });
 
-        it('should handle very long animation duration', () => {
+        it('should handle very long animation duration', async () => {
             component.animationDuration = '60s';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const svgElement = fixture.debugElement.query(By.css('svg'));
             expect(svgElement.nativeElement.style.animationDuration).toBe('60s');
         });
 
-        it('should handle different color formats for fill', () => {
+        it('should handle different color formats for fill', async () => {
             const colorFormats = ['#ff0000', 'rgb(255, 0, 0)', 'rgba(255, 0, 0, 0.5)', 'red', 'transparent'];
 
-            colorFormats.forEach((color) => {
+            for (const color of colorFormats) {
                 component.fill = color;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const circleElement = fixture.debugElement.query(By.css('circle'));
                 expect(circleElement.nativeElement.getAttribute('fill')).toBe(color);
-            });
+            }
         });
 
-        it('should handle long aria-label text', () => {
+        it('should handle long aria-label text', async () => {
             const longLabel = 'This is a very long aria label that describes what is being loaded in great detail';
             component.ariaLabel = longLabel;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
             expect(rootElement.nativeElement.getAttribute('aria-label')).toBe(longLabel);
         });
 
-        it('should handle special characters in aria-label', () => {
+        it('should handle special characters in aria-label', async () => {
             component.ariaLabel = 'Loading... 50% complete! @#$%';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
             expect(rootElement.nativeElement.getAttribute('aria-label')).toBe('Loading... 50% complete! @#$%');
         });
 
-        it('should handle rapid property changes', () => {
+        it('should handle rapid property changes', async () => {
             const values = ['1', '2', '3', '4', '5'];
 
-            values.forEach((value) => {
+            for (const value of values) {
                 component.strokeWidth = value;
                 component.animationDuration = `${value}s`;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 const circleElement = fixture.debugElement.query(By.css('circle'));
                 const svgElement = fixture.debugElement.query(By.css('svg'));
 
                 expect(circleElement.nativeElement.getAttribute('stroke-width')).toBe(value);
                 expect(svgElement.nativeElement.style.animationDuration).toBe(`${value}s`);
-            });
+            }
         });
 
-        it('should maintain SVG structure integrity with extreme values', () => {
+        it('should maintain SVG structure integrity with extreme values', async () => {
             component.strokeWidth = '999';
             component.fill = 'rgba(255, 255, 255, 0)';
             component.animationDuration = '0.01s';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const svgElement = fixture.debugElement.query(By.css('svg'));
             const circleElement = fixture.debugElement.query(By.css('circle'));
@@ -419,22 +449,24 @@ describe('ProgressSpinner', () => {
             expect(rootElement.nativeElement.getAttribute('aria-label')).toBe('Loading content');
         });
 
-        it('should maintain consistent behavior across multiple instances', () => {
+        it('should maintain consistent behavior across multiple instances', async () => {
             const fixtures = [TestBed.createComponent(TestBasicProgressSpinnerComponent), TestBed.createComponent(TestBasicProgressSpinnerComponent), TestBed.createComponent(TestBasicProgressSpinnerComponent)];
 
-            fixtures.forEach((testFixture, index) => {
+            for (let index = 0; index < fixtures.length; index++) {
+                const testFixture = fixtures[index];
                 const testComponent = testFixture.componentInstance;
                 testComponent.strokeWidth = (index + 1).toString();
                 testComponent.animationDuration = `${index + 1}s`;
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const spinnerInstance = testFixture.debugElement.query(By.directive(ProgressSpinner)).componentInstance;
                 expect(spinnerInstance.strokeWidth).toBe((index + 1).toString());
                 expect(spinnerInstance.animationDuration).toBe(`${index + 1}s`);
-            });
+            }
         });
 
-        it('should render correctly without any input properties set', () => {
+        it('should render correctly without any input properties set', async () => {
             const minimalFixture = TestBed.createComponent(TestBasicProgressSpinnerComponent);
             const minimalComponent = minimalFixture.componentInstance;
 
@@ -445,7 +477,8 @@ describe('ProgressSpinner', () => {
             minimalComponent.ariaLabel = undefined as any;
             minimalComponent.styleClass = undefined as any;
 
-            minimalFixture.detectChanges();
+            minimalFixture.changeDetectorRef.markForCheck();
+            await minimalFixture.whenStable();
 
             const spinnerInstance = minimalFixture.debugElement.query(By.directive(ProgressSpinner)).componentInstance;
             const svgElement = minimalFixture.debugElement.query(By.css('svg'));

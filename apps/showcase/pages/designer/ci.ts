@@ -1,13 +1,13 @@
 import { AppDocSection } from '@/components/doc/app.docsection';
 import { AppDocSectionNav } from '@/components/doc/app.docsection-nav';
-import { DesignerApiDoc } from '@/doc/designer/ci/designerapidoc';
-import { FigmaDoc } from '@/doc/designer/ci/figmadoc';
-import { BitbucketDoc } from '@/doc/designer/ci/integration/bitbucketdoc';
-import { GitHubDoc } from '@/doc/designer/ci/integration/githubdoc';
-import { GitLabDoc } from '@/doc/designer/ci/integration/gitlabdoc';
-import { LivePreviewDoc } from '@/doc/designer/ci/livepreviewdoc';
-import { OverviewDoc } from '@/doc/designer/ci/overviewdoc';
-import { VideoTutorialDoc } from '@/doc/designer/ci/videotutorialdoc';
+import { DesignerApiDoc } from '@/doc/designer/ci/designerapi-doc';
+import { FigmaDoc } from '@/doc/designer/ci/figma-doc';
+import { BitbucketDoc } from '@/doc/designer/ci/integration/bitbucket-doc';
+import { GitHubDoc } from '@/doc/designer/ci/integration/github-doc';
+import { GitLabDoc } from '@/doc/designer/ci/integration/gitlab-doc';
+import { LivePreviewDoc } from '@/doc/designer/ci/livepreview-doc';
+import { OverviewDoc } from '@/doc/designer/ci/overview-doc';
+import { VideoTutorialDoc } from '@/doc/designer/ci/videotutorial-doc';
 import { Component } from '@angular/core';
 
 @Component({

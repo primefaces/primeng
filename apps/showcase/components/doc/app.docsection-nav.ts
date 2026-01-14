@@ -56,6 +56,19 @@ import { fromEvent } from 'rxjs';
                     </span>
                 </div>
             }
+            @if (false) {
+                <div class="mt-8 p-4 rounded-lg border border-surface-200 dark:border-surface-800 bg-surface-0 dark:bg-surface-900 w-full">
+                    <img src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/store.images/discount/dec25/showcase/primestore-endofyear-2025-sm.jpg" class="w-full rounded-lg" alt="November Sale 2025" />
+                    <div class="text-xl font-semibold flex flex-col gap-2 text-center mt-4" v-if="false">
+                        <span class="leading-none">END OF YEAR SALE</span>
+                        <span class="leading-none text-primary">2025</span>
+                    </div>
+                    <div class="text-center text-sm mt-4">Apply coupon code <b>ENDOFYEAR25</b> at checkout to enjoy 25% off your order.</div>
+                    <span class="flex justify-center">
+                        <p-button label="Buy Now" size="small" href="https://primeui.store" target="_blank" rel="noopener" class="mt-4 inline-flex" rounded />
+                    </span>
+                </div>
+            }
         </div>
     `
 })

@@ -1,9 +1,9 @@
-import { AccessibilityDoc } from '@/doc/chip/accessibilitydoc';
-import { BasicDoc } from '@/doc/chip/basicdoc';
-import { IconDoc } from '@/doc/chip/icondoc';
-import { ImageDoc } from '@/doc/chip/imagedoc';
-import { ImportDoc } from '@/doc/chip/importdoc';
-import { TemplateDoc } from '@/doc/chip/templatedoc';
+import { AccessibilityDoc } from '@/doc/chip/accessibility-doc';
+import { BasicDoc } from '@/doc/chip/basic-doc';
+import { IconDoc } from '@/doc/chip/icon-doc';
+import { ImageDoc } from '@/doc/chip/image-doc';
+import { ImportDoc } from '@/doc/chip/import-doc';
+import { TemplateDoc } from '@/doc/chip/template-doc';
 import { PTComponent } from '@/doc/chip/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';

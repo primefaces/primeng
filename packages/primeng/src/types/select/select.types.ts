@@ -198,85 +198,132 @@ export interface SelectLazyLoadEvent {
 }
 
 /**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface SelectItemTemplateContext<T = any> {
+    /**
+     * Data of the option.
+     */
+    $implicit: T;
+}
+
+/**
+ * Custom selected item template context.
+ * @group Interface
+ */
+export interface SelectSelectedItemTemplateContext<T = any> {
+    /**
+     * Selected option value.
+     */
+    $implicit: T;
+}
+
+/**
+ * Custom group template context.
+ * @group Interface
+ */
+export interface SelectGroupTemplateContext<T = any> {
+    /**
+     * Group option.
+     */
+    $implicit: T;
+}
+
+/**
+ * Custom filter template context.
+ * @group Interface
+ */
+export interface SelectFilterTemplateContext {
+    /**
+     * Filter options.
+     */
+    options: SelectFilterOptions;
+}
+
+/**
+ * Custom loader template context.
+ * @group Interface
+ */
+export interface SelectLoaderTemplateContext {
+    /**
+     * Virtual scroller options.
+     */
+    options: ScrollerOptions;
+}
+
+/**
+ * Custom icon template context.
+ * @group Interface
+ */
+export interface SelectIconTemplateContext {
+    /**
+     * Style class of the icon.
+     */
+    class: string;
+}
+
+/**
  * Defines valid templates in Select.
  * @group Templates
  */
-export interface SelectTemplates {
+export interface SelectTemplates<T = any> {
     /**
      * Custom item template.
      * @param {Object} context - item data.
      */
-    item(context: {
-        /**
-         * Data of the option.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    item(context: SelectItemTemplateContext<T>): TemplateRef<SelectItemTemplateContext<T>>;
     /**
      * Custom selected item template.
      * @param {Object} context - selected item data.
      */
-    selectedItem(context: {
-        /**
-         * Selected option value.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    selectedItem(context: SelectSelectedItemTemplateContext<T>): TemplateRef<SelectSelectedItemTemplateContext<T>>;
     /**
      * Custom header template.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
      * Custom filter template.
      * @param {SelectFilterOptions} options - filter options.
      */
-    filter(context: {
-        /**
-         * Filter options.
-         */
-        options: SelectFilterOptions;
-    }): TemplateRef<{ options: SelectFilterOptions }>;
+    filter(context: SelectFilterTemplateContext): TemplateRef<SelectFilterTemplateContext>;
     /**
      * Custom footer template.
      */
-    footer(): TemplateRef<any>;
+    footer(): TemplateRef<void>;
     /**
      * Custom empty filter template.
      */
-    emptyfilter(): TemplateRef<any>;
+    emptyfilter(): TemplateRef<void>;
     /**
      * Custom empty template.
      */
-    empty(): TemplateRef<any>;
+    empty(): TemplateRef<void>;
     /**
      * Custom group template.
      */
-    group(context: {
-        /**
-         * Group option.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    group(context: SelectGroupTemplateContext<T>): TemplateRef<SelectGroupTemplateContext<T>>;
     /**
      * Custom loader template. This template can be used with virtualScroll.
      * @param {ScrollerOptions} options - virtual scroller options.
      */
-    loader(context: {
-        /**
-         * Virtual scroller options.
-         */
-        options: ScrollerOptions;
-    }): TemplateRef<{ options: ScrollerOptions }>;
+    loader(context: SelectLoaderTemplateContext): TemplateRef<SelectLoaderTemplateContext>;
     /**
      * Custom select icon template.
+     * @param {Object} context - icon context.
      */
-    dropdownicon(): TemplateRef<any>;
+    dropdownicon(context: SelectIconTemplateContext): TemplateRef<SelectIconTemplateContext>;
     /**
      * Custom clear icon template.
+     * @param {Object} context - icon context.
      */
-    clearicon(): TemplateRef<any>;
+    clearicon(context: SelectIconTemplateContext): TemplateRef<SelectIconTemplateContext>;
     /**
      * Custom filter icon template.
      */
-    filtericon(): TemplateRef<any>;
+    filtericon(): TemplateRef<void>;
+    /**
+     * Custom loading icon template.
+     */
+    loadingicon(): TemplateRef<void>;
 }

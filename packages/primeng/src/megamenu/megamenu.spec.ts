@@ -1,7 +1,7 @@
-import { Component, DebugElement, Input } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { RouterTestingModule } from '@angular/router/testing';
 import { MegaMenuItem, SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
@@ -327,14 +327,15 @@ describe('MegaMenu', () => {
             imports: [
                 MegaMenu,
                 TestTargetComponent,
-                NoopAnimationsModule,
+
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: TestTargetComponent },
                     { path: 'products', component: TestTargetComponent },
                     { path: 'services', component: TestTargetComponent }
                 ])
-            ]
+            ],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicMegaMenuComponent);
@@ -370,14 +371,15 @@ describe('MegaMenu', () => {
             expect(freshMegaMenu.mobileActive).toBe(false);
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             const testModel: MegaMenuItem[] = [{ label: 'Test Item' }];
             component.model = testModel;
             component.orientation = 'vertical';
             component.styleClass = 'custom-megamenu';
             component.ariaLabel = 'Custom MegaMenu';
             component.tabindex = 1;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(megaMenuInstance.model).toBe(testModel);
             expect(megaMenuInstance.orientation).toBe('vertical');
@@ -410,54 +412,60 @@ describe('MegaMenu', () => {
     });
 
     describe('Input Properties', () => {
-        it('should update model input', () => {
+        it('should update model input', async () => {
             const newModel = [{ label: 'New Item' }];
             component.model = newModel;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(megaMenuInstance.model).toBe(newModel);
             expect(megaMenuInstance.processedItems.length).toBe(1);
         });
 
-        it('should update orientation input', () => {
+        it('should update orientation input', async () => {
             component.orientation = 'vertical';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(megaMenuInstance.orientation).toBe('vertical');
         });
 
-        it('should update styling inputs', () => {
+        it('should update styling inputs', async () => {
             component.styleClass = 'test-class';
             component.breakpoint = '768px';
             component.scrollHeight = '15rem';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(megaMenuInstance.styleClass).toBe('test-class');
             expect(megaMenuInstance.breakpoint).toBe('768px');
             expect(megaMenuInstance.scrollHeight).toBe('15rem');
         });
 
-        it('should update disabled and tabindex inputs', () => {
+        it('should update disabled and tabindex inputs', async () => {
             component.disabled = true;
             component.tabindex = 2;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(megaMenuInstance.disabled).toBe(true);
             expect(megaMenuInstance.tabindex).toBe(2);
         });
 
-        it('should update aria inputs', () => {
+        it('should update aria inputs', async () => {
             component.ariaLabel = 'Test MegaMenu';
             component.ariaLabelledBy = 'megamenu-label';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(megaMenuInstance.ariaLabel).toBe('Test MegaMenu');
             expect(megaMenuInstance.ariaLabelledBy).toBe('megamenu-label');
         });
 
-        it('should update id input', () => {
+        it('should update id input', async () => {
             component.id = 'custom-megamenu-id';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(megaMenuInstance.id).toBe('custom-megamenu-id');
         });
     });
@@ -478,29 +486,32 @@ describe('MegaMenu', () => {
             expect(labelElements.length).toBeGreaterThanOrEqual(3);
         });
 
-        it('should hide items when visible is false', () => {
+        it('should hide items when visible is false', async () => {
             component.model = [
                 { label: 'Visible Item', visible: true },
                 { label: 'Hidden Item', visible: false },
                 { label: 'Default Item' } // visible undefined = true
             ];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
             expect(items.length).toBe(2); // Only visible items
         });
 
-        it('should handle empty model', () => {
+        it('should handle empty model', async () => {
             component.model = [];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
             expect(items.length).toBe(0);
         });
 
-        it('should handle null model', () => {
+        it('should handle null model', async () => {
             component.model = undefined as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
             expect(items.length).toBe(0);
@@ -578,21 +589,21 @@ describe('MegaMenu', () => {
     });
 
     describe('Item Interaction Tests', () => {
-        it('should execute command when item is clicked', fakeAsync(() => {
+        it('should execute command when item is clicked', async () => {
             const commandFixture = TestBed.createComponent(TestCommandMegaMenuComponent);
             const commandComponent = commandFixture.componentInstance;
-            commandFixture.detectChanges();
+            commandFixture.changeDetectorRef.markForCheck();
+            await commandFixture.whenStable();
 
             const itemElement = commandFixture.debugElement.query(By.css('li[data-pc-section="item"]'));
             const contentElement = itemElement.query(By.css('div[data-pc-section="itemcontent"]'));
 
             contentElement.nativeElement.click();
-            tick();
+            await commandFixture.whenStable();
 
             expect(commandComponent.commandExecuted).toBeDefined();
             expect(commandComponent.commandExecuted.item.label).toBe('Command Item');
-            flush();
-        }));
+        });
 
         it('should handle disabled items', () => {
             const disabledFixture = TestBed.createComponent(TestDisabledMegaMenuComponent);
@@ -632,10 +643,10 @@ describe('MegaMenu', () => {
     });
 
     describe('Template Tests', () => {
-        it('should handle #item template processing', fakeAsync(() => {
+        it('should handle #item template processing', async () => {
             const itemTemplateFixture = TestBed.createComponent(TestTemplateMegaMenuComponent);
-            itemTemplateFixture.detectChanges();
-            tick(100);
+            itemTemplateFixture.changeDetectorRef.markForCheck();
+            await itemTemplateFixture.whenStable();
 
             const itemTemplateMegaMenu = itemTemplateFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
 
@@ -645,27 +656,23 @@ describe('MegaMenu', () => {
             // Verify custom template content is rendered
             const customItems = itemTemplateFixture.debugElement.queryAll(By.css('.custom-item'));
             expect(customItems.length).toBeGreaterThanOrEqual(2);
+        });
 
-            flush();
-        }));
-
-        it('should handle pTemplate processing', fakeAsync(() => {
+        it('should handle pTemplate processing', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMegaMenuComponent);
-            pTemplateFixture.detectChanges();
-            tick(100);
+            pTemplateFixture.changeDetectorRef.markForCheck();
+            await pTemplateFixture.whenStable();
 
             const pTemplateMegaMenu = pTemplateFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
 
             expect(() => pTemplateMegaMenu.ngAfterContentInit()).not.toThrow();
             expect(pTemplateMegaMenu.templates).toBeDefined();
+        });
 
-            flush();
-        }));
-
-        it('should process PrimeTemplate types correctly', fakeAsync(() => {
+        it('should process PrimeTemplate types correctly', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMegaMenuComponent);
-            pTemplateFixture.detectChanges();
-            tick(100);
+            pTemplateFixture.changeDetectorRef.markForCheck();
+            await pTemplateFixture.whenStable();
 
             const pTemplateMegaMenu = pTemplateFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
 
@@ -675,9 +682,7 @@ describe('MegaMenu', () => {
             expect(pTemplateMegaMenu._startTemplate).toBeDefined();
             expect(pTemplateMegaMenu._endTemplate).toBeDefined();
             expect(pTemplateMegaMenu._buttonTemplate).toBeDefined();
-
-            flush();
-        }));
+        });
 
         it('should render start and end templates', () => {
             const templateFixture = TestBed.createComponent(TestTemplateMegaMenuComponent);
@@ -701,25 +706,23 @@ describe('MegaMenu', () => {
             expect(customButton.nativeElement.textContent).toContain('Custom Menu Button');
         });
 
-        it('should prioritize itemTemplate over _itemTemplate', fakeAsync(() => {
+        it('should prioritize itemTemplate over _itemTemplate', async () => {
             const itemTemplateFixture = TestBed.createComponent(TestTemplateMegaMenuComponent);
-            itemTemplateFixture.detectChanges();
-            tick(100);
+            itemTemplateFixture.changeDetectorRef.markForCheck();
+            await itemTemplateFixture.whenStable();
 
             const itemTemplateMegaMenu = itemTemplateFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
 
             itemTemplateMegaMenu.ngAfterContentInit();
 
             expect(itemTemplateMegaMenu.itemTemplate).toBeDefined();
+        });
 
-            flush();
-        }));
-
-        it('should render different template types correctly', fakeAsync(() => {
+        it('should render different template types correctly', async () => {
             // Test pTemplate rendering
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMegaMenuComponent);
-            pTemplateFixture.detectChanges();
-            tick(100);
+            pTemplateFixture.changeDetectorRef.markForCheck();
+            await pTemplateFixture.whenStable();
 
             const pTemplateMegaMenu = pTemplateFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
             expect(pTemplateMegaMenu.templates).toBeDefined();
@@ -727,14 +730,12 @@ describe('MegaMenu', () => {
 
             // Test #item template rendering
             const itemTemplateFixture = TestBed.createComponent(TestTemplateMegaMenuComponent);
-            itemTemplateFixture.detectChanges();
-            tick(100);
+            itemTemplateFixture.changeDetectorRef.markForCheck();
+            await itemTemplateFixture.whenStable();
 
             const itemTemplateMegaMenu = itemTemplateFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
             expect(itemTemplateMegaMenu.itemTemplate).toBeDefined();
-
-            flush();
-        }));
+        });
     });
 
     describe('Keyboard Navigation Tests', () => {
@@ -972,9 +973,10 @@ describe('MegaMenu', () => {
             expect(megaMenuInstance.focusedItemInfo()).toEqual({ index: 0, key: 'test_key', parentKey: '', item: null });
         });
 
-        it('should set aria-label when provided', () => {
+        it('should set aria-label when provided', async () => {
             component.ariaLabel = 'Main Navigation Menu';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Check if ariaLabel is set on component instance
             expect(megaMenuInstance.ariaLabel).toBe('Main Navigation Menu');
@@ -989,9 +991,10 @@ describe('MegaMenu', () => {
             }
         });
 
-        it('should set aria-labelledby when provided', () => {
+        it('should set aria-labelledby when provided', async () => {
             component.ariaLabelledBy = 'megamenu-heading';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Check if ariaLabelledBy is set on component instance
             expect(megaMenuInstance.ariaLabelledBy).toBe('megamenu-heading');
@@ -1101,7 +1104,7 @@ describe('MegaMenu', () => {
 
         it('should show menu button on mobile', () => {
             // Simulate mobile breakpoint
-            megaMenuInstance.queryMatches = true;
+            megaMenuInstance.queryMatches.set(true);
             fixture.detectChanges();
 
             const menuButton = fixture.debugElement.query(By.css('a[role="button"]'));
@@ -1110,7 +1113,7 @@ describe('MegaMenu', () => {
 
         it('should handle menu button click', () => {
             spyOn(megaMenuInstance, 'toggle');
-            megaMenuInstance.queryMatches = true;
+            megaMenuInstance.queryMatches.set(true);
             fixture.detectChanges();
 
             const menuButton = fixture.debugElement.query(By.css('a[role="button"]'));
@@ -1122,11 +1125,12 @@ describe('MegaMenu', () => {
     });
 
     describe('Dynamic Model Tests', () => {
-        it('should handle dynamic model changes', () => {
+        it('should handle dynamic model changes', async () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicMegaMenuComponent);
             const dynamicComponent = dynamicFixture.componentInstance;
             const dynamicMegaMenu = dynamicFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
 
             // Initially empty
             expect(dynamicMegaMenu.model.length).toBe(0);
@@ -1134,47 +1138,53 @@ describe('MegaMenu', () => {
             // Add items
             dynamicComponent.addItem({ label: 'Item 1', icon: 'pi pi-test' });
             dynamicComponent.addItem({ label: 'Item 2', icon: 'pi pi-test2' });
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
 
             expect(dynamicMegaMenu.model.length).toBe(2);
             expect(dynamicMegaMenu.model[0].label).toBe('Item 1');
 
             // Remove item
             dynamicComponent.removeItem(0);
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
 
             expect(dynamicMegaMenu.model.length).toBe(1);
             expect(dynamicMegaMenu.model[0].label).toBe('Item 2');
 
             // Clear all
             dynamicComponent.clearItems();
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
 
             expect(dynamicMegaMenu.model.length).toBe(0);
         });
     });
 
     describe('Edge Cases', () => {
-        it('should handle null/undefined values gracefully', () => {
+        it('should handle null/undefined values gracefully', async () => {
             component.model = undefined as any;
             component.ariaLabel = undefined as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(() => fixture.detectChanges()).not.toThrow();
+            expect(() => fixture.changeDetectorRef.markForCheck()).not.toThrow();
             expect(megaMenuInstance.model).toBeUndefined();
         });
 
-        it('should handle items without icons', () => {
+        it('should handle items without icons', async () => {
             component.model = [{ label: 'No Icon Item' }, { label: 'Icon Item', icon: 'pi pi-check' }];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const iconElements = fixture.debugElement.queryAll(By.css('span[data-pc-section="itemicon"]'));
             expect(iconElements.length).toBe(1); // Only one item has icon
         });
 
-        it('should handle items with custom styleClass', () => {
+        it('should handle items with custom styleClass', async () => {
             component.model = [{ label: 'Custom Style', styleClass: 'custom-item-class' }];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const itemElement = fixture.debugElement.query(By.css('li[data-pc-section="item"]'));
             expect(itemElement.nativeElement.classList.contains('custom-item-class')).toBe(true);
@@ -1204,17 +1214,18 @@ describe('MegaMenu', () => {
             expect(megaMenuInstance.focusedItemInfo().index).toBe(-1);
         });
 
-        it('should handle search timeout correctly', fakeAsync(() => {
+        it('should handle search timeout correctly', async () => {
+            jasmine.clock().install();
             megaMenuInstance.searchValue = '';
 
             megaMenuInstance.searchItems(new KeyboardEvent('keydown', { key: 'f' }), 'f');
             expect(megaMenuInstance.searchValue).toBe('f');
 
-            tick(600); // Wait for search timeout
+            jasmine.clock().tick(600); // Wait for search timeout
 
             expect(megaMenuInstance.searchValue).toBe('' as any);
-            flush();
-        }));
+            jasmine.clock().uninstall();
+        });
     });
 
     describe('Public Methods', () => {
@@ -1378,7 +1389,7 @@ describe('MegaMenu', () => {
                         'data-p-button': true
                     }
                 });
-                megaMenuInstance.queryMatches = true;
+                megaMenuInstance.queryMatches.set(true);
                 fixture.detectChanges();
 
                 const buttonElement = fixture.debugElement.query(By.css('a[role="button"]'));
@@ -1455,7 +1466,7 @@ describe('MegaMenu', () => {
                         };
                     }
                 });
-                megaMenuInstance.queryMatches = true;
+                megaMenuInstance.queryMatches.set(true);
                 megaMenuInstance.mobileActive = true;
                 fixture.detectChanges();
 
@@ -1495,7 +1506,7 @@ describe('MegaMenu', () => {
                         }
                     }
                 });
-                megaMenuInstance.queryMatches = true;
+                megaMenuInstance.queryMatches.set(true);
                 fixture.detectChanges();
 
                 const buttonElement = fixture.debugElement.query(By.css('a[role="button"]'));
@@ -1529,8 +1540,9 @@ describe('MegaMenu', () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestBasicMegaMenuComponent],
-                    imports: [MegaMenu, NoopAnimationsModule, SharedModule, RouterTestingModule],
+                    imports: [MegaMenu, SharedModule, RouterTestingModule],
                     providers: [
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 megamenu: {
@@ -1555,8 +1567,9 @@ describe('MegaMenu', () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestBasicMegaMenuComponent],
-                    imports: [MegaMenu, NoopAnimationsModule, SharedModule, RouterTestingModule],
+                    imports: [MegaMenu, SharedModule, RouterTestingModule],
                     providers: [
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 megamenu: {
@@ -1585,8 +1598,9 @@ describe('MegaMenu', () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestBasicMegaMenuComponent],
-                    imports: [MegaMenu, NoopAnimationsModule, SharedModule, RouterTestingModule],
+                    imports: [MegaMenu, SharedModule, RouterTestingModule],
                     providers: [
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 megamenu: {
@@ -1612,7 +1626,7 @@ describe('MegaMenu', () => {
         });
 
         describe('Case 8: Test hooks', () => {
-            it('should accept PT hooks configuration without error', fakeAsync(() => {
+            it('should accept PT hooks configuration without error', async () => {
                 let onAfterViewInitCalled = false;
 
                 fixture.componentRef.setInput('pt', {
@@ -1624,16 +1638,15 @@ describe('MegaMenu', () => {
                     }
                 });
 
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 // Hooks may or may not be called depending on lifecycle timing
                 // The important thing is that PT with hooks doesn't throw an error
-                expect(() => fixture.detectChanges()).not.toThrow();
-                flush();
-            }));
+                expect(() => fixture.changeDetectorRef.markForCheck()).not.toThrow();
+            });
 
-            it('should accept multiple PT lifecycle hooks without error', fakeAsync(() => {
+            it('should accept multiple PT lifecycle hooks without error', async () => {
                 const hooksCalled: string[] = [];
 
                 fixture.componentRef.setInput('pt', {
@@ -1648,13 +1661,12 @@ describe('MegaMenu', () => {
                     }
                 });
 
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 // Verify hooks configuration doesn't break the component
-                expect(() => fixture.detectChanges()).not.toThrow();
-                flush();
-            }));
+                expect(() => fixture.changeDetectorRef.markForCheck()).not.toThrow();
+            });
         });
 
         describe('Inline PT Tests', () => {

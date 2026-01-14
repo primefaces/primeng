@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -21,6 +22,10 @@ export interface PopoverPassThroughOptions<I = unknown> {
      * Used to pass attributes to the content's DOM element.
      */
     content?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
@@ -32,17 +37,24 @@ export interface PopoverPassThroughOptions<I = unknown> {
 export type PopoverPassThrough<I = unknown> = PassThrough<I, PopoverPassThroughOptions<I>>;
 
 /**
- * Defines valid templates in OverlayPanel.
+ * Custom content template context.
+ * @group Interface
+ */
+export interface PopoverContentTemplateContext {
+    /**
+     * Callback to close the popover.
+     */
+    closeCallback: VoidFunction;
+}
+
+/**
+ * Defines valid templates in Popover.
  * @group Templates
  */
 export interface PopoverTemplates {
     /**
      * Custom template of content.
-     * @param {Object} context - closeCallback.
+     * @param {PopoverContentTemplateContext} context - content context.
      */
-    content(context: { closeCallback: VoidFunction }): TemplateRef<{ closeCallback: VoidFunction }>;
-    /**
-     * Custom template of closeicon.
-     */
-    closeicon(): TemplateRef<any>;
+    content(context: PopoverContentTemplateContext): TemplateRef<PopoverContentTemplateContext>;
 }

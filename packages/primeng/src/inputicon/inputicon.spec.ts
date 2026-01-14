@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputIcon } from './inputicon';
@@ -43,7 +43,8 @@ describe('InputIcon', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicInputIconComponent]
+                imports: [TestBasicInputIconComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicInputIconComponent);
@@ -74,7 +75,8 @@ describe('InputIcon', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestStyledInputIconComponent]
+                imports: [TestStyledInputIconComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestStyledInputIconComponent);
@@ -90,9 +92,10 @@ describe('InputIcon', () => {
             expect(iconElement.nativeElement.classList.contains('custom-icon')).toBe(true);
         });
 
-        it('should update styleClass dynamically', () => {
+        it('should update styleClass dynamically', async () => {
             component.customClass = 'new-icon-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(inputIconInstance.styleClass).toBe('new-icon-class');
 
@@ -109,7 +112,8 @@ describe('InputIcon PassThrough Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [InputIcon, FormsModule]
+            imports: [InputIcon, FormsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(InputIcon);
@@ -188,6 +192,7 @@ describe('InputIcon PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [InputIcon, FormsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             inputIcon: {
@@ -215,6 +220,7 @@ describe('InputIcon PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [InputIcon, FormsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             inputIcon: {

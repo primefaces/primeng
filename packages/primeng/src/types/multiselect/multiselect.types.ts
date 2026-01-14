@@ -230,124 +230,201 @@ export interface MultiSelectRemoveEvent {
 }
 
 /**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface MultiSelectItemTemplateContext<T = any> {
+    /**
+     * Data of the option.
+     */
+    $implicit: T;
+}
+
+/**
+ * Custom selected items template context.
+ * @group Interface
+ */
+export interface MultiSelectSelectedItemsTemplateContext<T = any> {
+    /**
+     * Selected options value.
+     */
+    $implicit: T[];
+    /**
+     * Function to remove a chip.
+     */
+    removeChip: (chip: T, event: MouseEvent) => void;
+}
+
+/**
+ * Custom group template context.
+ * @group Interface
+ */
+export interface MultiSelectGroupTemplateContext<T = any> {
+    /**
+     * Group option.
+     */
+    $implicit: T;
+}
+
+/**
+ * Custom filter template context.
+ * @group Interface
+ */
+export interface MultiSelectFilterTemplateContext {
+    /**
+     * Filter options.
+     */
+    options: MultiSelectFilterOptions;
+}
+
+/**
+ * Custom loader template context.
+ * @group Interface
+ */
+export interface MultiSelectLoaderTemplateContext {
+    /**
+     * Virtual scroller options.
+     */
+    options: ScrollerOptions;
+}
+
+/**
+ * Custom dropdown icon template context.
+ * @group Interface
+ */
+export interface MultiSelectDropdownIconTemplateContext {
+    /**
+     * DataP attributes.
+     */
+    dataP: string;
+}
+
+/**
+ * Custom chip icon template context.
+ * @group Interface
+ */
+export interface MultiSelectChipIconTemplateContext {
+    /**
+     * Style class of the icon.
+     */
+    class: string;
+}
+
+/**
+ * Custom header checkbox icon template context.
+ * @group Interface
+ */
+export interface MultiSelectHeaderCheckboxIconTemplateContext {
+    /**
+     * Defines if all items are selected.
+     */
+    checked: boolean;
+    /**
+     * Defines if items are partially selected.
+     */
+    partialSelected: boolean;
+    /**
+     * Style class of the icon.
+     */
+    class: string;
+}
+
+/**
+ * Custom item checkbox icon template context.
+ * @group Interface
+ */
+export interface MultiSelectItemCheckboxIconTemplateContext {
+    /**
+     * Selection status of the item.
+     */
+    checked: boolean;
+    /**
+     * Style class of the icon.
+     */
+    class: string;
+}
+
+/**
  * Defines valid templates in MultiSelect.
  * @group Templates
  */
-export interface MultiSelectTemplates {
+export interface MultiSelectTemplates<T = any> {
     /**
-     * Custom header template.
+     * Custom item template.
      * @param {Object} context - item data.
      */
-    item(context: {
-        /**
-         * Data of the option.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    item(context: MultiSelectItemTemplateContext<T>): TemplateRef<MultiSelectItemTemplateContext<T>>;
     /**
-     * Custom selected item template.
+     * Custom selected items template.
      * @param {Object} context - selected items data.
      */
-    selecteditems(context: {
-        /**
-         * Selected option value.
-         */
-        $implicit: any;
-        /**
-         * Function to remove chip.
-         */
-        removeChip: (chip: unknown, event: MouseEvent) => void;
-    }): TemplateRef<{ $implicit: any; removeChip: Function }>;
+    selecteditems(context: MultiSelectSelectedItemsTemplateContext<T>): TemplateRef<MultiSelectSelectedItemsTemplateContext<T>>;
     /**
      * Custom header template.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
      * Custom filter template.
      * @param {MultiSelectFilterOptions} options - filter options.
      */
-    filter(context: {
-        /**
-         * Filter options.
-         */
-        options: MultiSelectFilterOptions;
-    }): TemplateRef<{ options: MultiSelectFilterOptions }>;
+    filter(context: MultiSelectFilterTemplateContext): TemplateRef<MultiSelectFilterTemplateContext>;
     /**
      * Custom footer template.
      */
-    footer(): TemplateRef<any>;
+    footer(): TemplateRef<void>;
     /**
      * Custom empty filter template.
      */
-    emptyfilter(): TemplateRef<any>;
+    emptyfilter(): TemplateRef<void>;
     /**
      * Custom empty template.
      */
-    empty(): TemplateRef<any>;
+    empty(): TemplateRef<void>;
     /**
      * Custom group template.
      */
-    group(context: {
-        /**
-         * Data of the item.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    group(context: MultiSelectGroupTemplateContext<T>): TemplateRef<MultiSelectGroupTemplateContext<T>>;
     /**
      * Custom loader template. This template can be used with virtualScroll.
      * @param {ScrollerOptions} options - virtual scroller options.
      */
-    loader(context: {
-        /**
-         * Virtual scroller options.
-         */
-        options: ScrollerOptions;
-    }): TemplateRef<{ options: ScrollerOptions }>;
+    loader(context: MultiSelectLoaderTemplateContext): TemplateRef<MultiSelectLoaderTemplateContext>;
     /**
      * Custom dropdown trigger icon template.
+     * @param {Object} context - icon context.
      */
-    dropdownicon(): TemplateRef<any>;
+    dropdownicon(context: MultiSelectDropdownIconTemplateContext): TemplateRef<MultiSelectDropdownIconTemplateContext>;
     /**
      * Custom clear icon template.
      */
-    clearicon(): TemplateRef<any>;
+    clearicon(): TemplateRef<void>;
     /**
      * Custom filter icon template.
      */
-    filtericon(): TemplateRef<any>;
+    filtericon(): TemplateRef<void>;
     /**
-     * Custom check icon template.
-     * @deprecated Use headercheckboxicon or itemcheckboxicon instead.
+     * Custom loading icon template.
      */
-    checkicon(): TemplateRef<any>;
+    loadingicon(): TemplateRef<void>;
     /**
      * Custom check icon template for the header checkbox.
+     * @param {Object} context - checkbox icon context.
      */
-    headercheckboxicon(context: {
-        /**
-         * Defines if all items are selected.
-         */
-        $implicit: boolean;
-        /**
-         * Defines if items are partially selected.
-         */
-        partialSelected: boolean;
-    }): TemplateRef<{ $implicit: boolean; partialSelected: boolean }>;
+    headercheckboxicon(context: MultiSelectHeaderCheckboxIconTemplateContext): TemplateRef<MultiSelectHeaderCheckboxIconTemplateContext>;
     /**
      * Custom check icon template for the item checkbox.
+     * @param {Object} context - checkbox icon context.
      */
-    itemcheckboxicon(context: {
-        /**
-         * Selection status of the item.
-         */
-        $implicit: boolean;
-    }): TemplateRef<{ $implicit: boolean }>;
+    itemcheckboxicon(context: MultiSelectItemCheckboxIconTemplateContext): TemplateRef<MultiSelectItemCheckboxIconTemplateContext>;
     /**
-     * Custom close icon template.
+     * Custom chip icon template.
+     * @param {Object} context - icon context.
      */
-    closeicon(): TemplateRef<any>;
+    chipicon(context: MultiSelectChipIconTemplateContext): TemplateRef<MultiSelectChipIconTemplateContext>;
     /**
      * Custom remove token icon template.
+     * @deprecated Use chipicon instead.
+     * @param {Object} context - icon context.
      */
-    removetokenicon(): TemplateRef<any>;
+    removetokenicon(context: MultiSelectChipIconTemplateContext): TemplateRef<MultiSelectChipIconTemplateContext>;
 }

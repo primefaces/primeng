@@ -1,6 +1,6 @@
-import { AccessibilityDoc } from '@/doc/terminal/accessibilitydoc';
-import { BasicDoc } from '@/doc/terminal/basicdoc';
-import { ImportDoc } from '@/doc/terminal/importdoc';
+import { AccessibilityDoc } from '@/doc/terminal/accessibility-doc';
+import { BasicDoc } from '@/doc/terminal/basic-doc';
+import { ImportDoc } from '@/doc/terminal/import-doc';
 import { PTComponent } from '@/doc/terminal/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';

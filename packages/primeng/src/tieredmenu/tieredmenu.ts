@@ -1,4 +1,3 @@
-import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     booleanAttribute,
@@ -28,16 +27,18 @@ import {
     ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addStyle, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { TieredMenuPassThrough } from 'primeng/types/tieredmenu';
+import { TieredMenuItemTemplateContext, TieredMenuPassThrough } from 'primeng/types/tieredmenu';
 import { ZIndexUtils } from 'primeng/utils';
 import { TieredMenuStyle } from './style/tieredmenustyle';
 
@@ -47,163 +48,199 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
 @Component({
     selector: 'p-tieredMenuSub, p-tieredmenusub',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, SharedModule, BindModule],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, SharedModule, BindModule, MotionModule],
     template: `
-        <ul
-            #sublist
-            role="menu"
-            [class]="root ? cx('rootList') : cx('submenu')"
-            [id]="menuId + '_list'"
-            [tabindex]="tabindex"
-            [attr.aria-label]="ariaLabel"
-            [attr.aria-labelledBy]="ariaLabelledBy"
-            [attr.aria-activedescendant]="focusedItemId"
-            [attr.aria-orientation]="'vertical'"
-            [pBind]="_ptm(root ? 'rootList' : 'submenu')"
-            (keydown)="menuKeydown.emit($event)"
-            (focus)="menuFocus.emit($event)"
-            (blur)="menuBlur.emit($event)"
-            [style]="inlineStyles"
-        >
-            <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
-                <li
-                    *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
-                    [attr.id]="getItemId(processedItem)"
-                    [style]="getItemProp(processedItem, 'style')"
-                    [class]="cn(cx('separator'), getItemProp(processedItem, 'class'), getItemProp(processedItem, 'styleClass'))"
-                    role="separator"
-                    [pBind]="_ptm('separator')"
-                ></li>
-                <li
-                    #listItem
-                    *ngIf="isItemVisible(processedItem) && !getItemProp(processedItem, 'separator')"
-                    role="menuitem"
-                    [attr.id]="getItemId(processedItem)"
-                    [attr.data-p-highlight]="isItemActive(processedItem)"
-                    [attr.data-p-focused]="isItemFocused(processedItem)"
-                    [attr.data-p-disabled]="isItemDisabled(processedItem)"
-                    [attr.aria-label]="getItemLabel(processedItem)"
-                    [attr.aria-disabled]="isItemDisabled(processedItem) || undefined"
-                    [attr.aria-haspopup]="isItemGroup(processedItem) && !getItemProp(processedItem, 'to') ? 'menu' : undefined"
-                    [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
-                    [attr.aria-setsize]="getAriaSetSize()"
-                    [attr.aria-posinset]="getAriaPosInset(index)"
-                    [ngStyle]="getItemProp(processedItem, 'style')"
-                    [class]="cn(cx('item', { processedItem }), getItemProp(processedItem, 'styleClass'))"
-                    [pBind]="getPTOptions(processedItem, index, 'item')"
-                    pTooltip
-                    [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
-                >
-                    <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
-                        <ng-container *ngIf="!itemTemplate">
-                            <a
-                                *ngIf="!getItemProp(processedItem, 'routerLink')"
-                                [attr.href]="getItemProp(processedItem, 'url')"
-                                [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
-                                [target]="getItemProp(processedItem, 'target')"
-                                [class]="cx('itemLink')"
-                                [attr.tabindex]="-1"
-                                [pBind]="getPTOptions(processedItem, index, 'itemLink')"
-                                pRipple
-                            >
-                                <span
-                                    *ngIf="getItemProp(processedItem, 'icon')"
-                                    [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
-                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                    [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
+        @if (render()) {
+            <ul
+                #sublist
+                role="menu"
+                [class]="root ? cx('rootList') : cx('submenu')"
+                [id]="menuId + '_list'"
+                [tabindex]="tabindex"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-labelledBy]="ariaLabelledBy"
+                [attr.aria-activedescendant]="focusedItemId"
+                [attr.aria-orientation]="'vertical'"
+                [pBind]="_ptm(root ? 'rootList' : 'submenu')"
+                (keydown)="menuKeydown.emit($event)"
+                (focus)="menuFocus.emit($event)"
+                (blur)="menuBlur.emit($event)"
+                [style]="inlineStyles"
+                [pMotion]="root ? true : visible"
+                [pMotionDisabled]="root"
+                [pMotionAppear]="true"
+                [pMotionName]="'p-anchored-overlay'"
+                [pMotionOptions]="motionOptions"
+                (pMotionOnBeforeEnter)="onBeforeEnter($event)"
+                (pMotionOnAfterLeave)="onAfterLeave()"
+            >
+                <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
+                    <li
+                        *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
+                        [attr.id]="getItemId(processedItem)"
+                        [style]="getItemProp(processedItem, 'style')"
+                        [class]="cn(cx('separator'), getItemProp(processedItem, 'class'), getItemProp(processedItem, 'styleClass'))"
+                        role="separator"
+                        [pBind]="_ptm('separator')"
+                    ></li>
+                    <li
+                        #listItem
+                        *ngIf="isItemVisible(processedItem) && !getItemProp(processedItem, 'separator')"
+                        role="menuitem"
+                        [attr.id]="getItemId(processedItem)"
+                        [attr.data-p-highlight]="isItemActive(processedItem)"
+                        [attr.data-p-focused]="isItemFocused(processedItem)"
+                        [attr.data-p-disabled]="isItemDisabled(processedItem)"
+                        [attr.aria-label]="getItemLabel(processedItem)"
+                        [attr.aria-disabled]="isItemDisabled(processedItem) || undefined"
+                        [attr.aria-haspopup]="isItemGroup(processedItem) && !getItemProp(processedItem, 'to') ? 'menu' : undefined"
+                        [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
+                        [attr.aria-setsize]="getAriaSetSize()"
+                        [attr.aria-posinset]="getAriaPosInset(index)"
+                        [ngStyle]="getItemProp(processedItem, 'style')"
+                        [class]="cn(cx('item', { processedItem }), getItemProp(processedItem, 'styleClass'))"
+                        [pBind]="getPTOptions(processedItem, index, 'item')"
+                        pTooltip
+                        [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
+                        [pTooltipUnstyled]="unstyled()"
+                    >
+                        <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                            <ng-container *ngIf="!itemTemplate">
+                                <a
+                                    *ngIf="!getItemProp(processedItem, 'routerLink')"
+                                    [attr.href]="getItemProp(processedItem, 'url')"
+                                    [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                                    [attr.title]="getItemProp(processedItem, 'title')"
+                                    [target]="getItemProp(processedItem, 'target')"
+                                    [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
+                                    [ngStyle]="getItemProp(processedItem, 'linkStyle')"
                                     [attr.tabindex]="-1"
+                                    [pBind]="getPTOptions(processedItem, index, 'itemLink')"
+                                    pRipple
                                 >
-                                </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">
-                                    {{ getItemLabel(processedItem) }}
-                                </span>
-                                <ng-template #htmlLabel>
-                                    <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
-                                </ng-template>
-                                <span *ngIf="getItemProp(processedItem, 'badge')" [class]="cn(cx('itemBadge'), getItemProp(processedItem, 'badgeStyleClass'))">{{ getItemProp(processedItem, 'badge') }}</span>
+                                    <span
+                                        *ngIf="getItemProp(processedItem, 'icon')"
+                                        [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
+                                        [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                        [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
+                                        [attr.tabindex]="-1"
+                                    >
+                                    </span>
+                                    <span
+                                        *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                        [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                        [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                        [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                    >
+                                        {{ getItemLabel(processedItem) }}
+                                    </span>
+                                    <ng-template #htmlLabel>
+                                        <span
+                                            [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                            [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                            [innerHTML]="getItemLabel(processedItem)"
+                                            [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                        ></span>
+                                    </ng-template>
+                                    <span *ngIf="getItemProp(processedItem, 'badge')" [class]="cn(cx('itemBadge'), getItemProp(processedItem, 'badgeStyleClass'))">{{ getItemProp(processedItem, 'badge') }}</span>
 
-                                <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <svg
-                                        data-p-icon="angle-right"
-                                        *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate"
-                                        [class]="cx('submenuIcon')"
-                                        [pBind]="getPTOptions(processedItem, index, 'submenuIcon')"
-                                        [attr.aria-hidden]="true"
-                                    />
-                                    <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate || tieredMenu._submenuIconTemplate" [attr.aria-hidden]="true"></ng-template>
-                                </ng-container>
-                            </a>
-                            <a
-                                *ngIf="getItemProp(processedItem, 'routerLink')"
-                                [routerLink]="getItemProp(processedItem, 'routerLink')"
-                                [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
-                                [attr.tabindex]="-1"
-                                [queryParams]="getItemProp(processedItem, 'queryParams')"
-                                [routerLinkActive]="'p-tieredmenu-item-link-active'"
-                                [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
-                                [target]="getItemProp(processedItem, 'target')"
-                                [class]="cx('itemLink')"
-                                [fragment]="getItemProp(processedItem, 'fragment')"
-                                [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
-                                [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
-                                [skipLocationChange]="getItemProp(processedItem, 'skipLocationChange')"
-                                [replaceUrl]="getItemProp(processedItem, 'replaceUrl')"
-                                [state]="getItemProp(processedItem, 'state')"
-                                [pBind]="getPTOptions(processedItem, index, 'itemLink')"
-                                pRipple
-                            >
-                                <span
-                                    *ngIf="getItemProp(processedItem, 'icon')"
-                                    [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
-                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                    [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
-                                    [attr.aria-hidden]="true"
+                                    <ng-container *ngIf="isItemGroup(processedItem)">
+                                        <svg
+                                            data-p-icon="angle-right"
+                                            *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate"
+                                            [class]="cx('submenuIcon')"
+                                            [pBind]="getPTOptions(processedItem, index, 'submenuIcon')"
+                                            [attr.aria-hidden]="true"
+                                        />
+                                        <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate || tieredMenu._submenuIconTemplate" [attr.aria-hidden]="true"></ng-template>
+                                    </ng-container>
+                                </a>
+                                <a
+                                    *ngIf="getItemProp(processedItem, 'routerLink')"
+                                    [routerLink]="getItemProp(processedItem, 'routerLink')"
+                                    [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                                    [attr.title]="getItemProp(processedItem, 'title')"
                                     [attr.tabindex]="-1"
+                                    [queryParams]="getItemProp(processedItem, 'queryParams')"
+                                    [routerLinkActive]="'p-tieredmenu-item-link-active'"
+                                    [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
+                                    [target]="getItemProp(processedItem, 'target')"
+                                    [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
+                                    [ngStyle]="getItemProp(processedItem, 'linkStyle')"
+                                    [fragment]="getItemProp(processedItem, 'fragment')"
+                                    [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
+                                    [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
+                                    [skipLocationChange]="getItemProp(processedItem, 'skipLocationChange')"
+                                    [replaceUrl]="getItemProp(processedItem, 'replaceUrl')"
+                                    [state]="getItemProp(processedItem, 'state')"
+                                    [pBind]="getPTOptions(processedItem, index, 'itemLink')"
+                                    pRipple
                                 >
-                                </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">
-                                    {{ getItemLabel(processedItem) }}
-                                </span>
-                                <ng-template #htmlLabel>
-                                    <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
-                                </ng-template>
-                                <span *ngIf="getItemProp(processedItem, 'badge')" [class]="cn(cx('itemBadge'), getItemProp(processedItem, 'badgeStyleClass'))">{{ getItemProp(processedItem, 'badge') }}</span>
-
-                                <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <svg
-                                        data-p-icon="angle-right"
-                                        *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate"
-                                        [class]="cx('submenuIcon')"
-                                        [pBind]="getPTOptions(processedItem, index, 'submenuIcon')"
+                                    <span
+                                        *ngIf="getItemProp(processedItem, 'icon')"
+                                        [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
+                                        [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                        [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                                         [attr.aria-hidden]="true"
-                                    />
-                                    <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate || tieredMenu._submenuIconTemplate" [attr.aria-hidden]="true"></ng-template>
-                                </ng-container>
-                            </a>
-                        </ng-container>
-                        <ng-container *ngIf="itemTemplate">
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, hasSubmenu: getItemProp(processedItem, 'items') }"></ng-template>
-                        </ng-container>
-                    </div>
+                                        [attr.tabindex]="-1"
+                                    >
+                                    </span>
+                                    <span
+                                        *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                        [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                        [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                        [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                    >
+                                        {{ getItemLabel(processedItem) }}
+                                    </span>
+                                    <ng-template #htmlLabel>
+                                        <span
+                                            [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                            [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                            [innerHTML]="getItemLabel(processedItem)"
+                                            [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                        ></span>
+                                    </ng-template>
+                                    <span *ngIf="getItemProp(processedItem, 'badge')" [class]="cn(cx('itemBadge'), getItemProp(processedItem, 'badgeStyleClass'))">{{ getItemProp(processedItem, 'badge') }}</span>
 
-                    <p-tieredmenusub
-                        *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
-                        [items]="processedItem.items"
-                        [itemTemplate]="itemTemplate"
-                        [autoDisplay]="autoDisplay"
-                        [menuId]="menuId"
-                        [activeItemPath]="activeItemPath()"
-                        [focusedItemId]="focusedItemId"
-                        [ariaLabelledBy]="getItemId(processedItem)"
-                        [level]="level + 1"
-                        (itemClick)="itemClick.emit($event)"
-                        (itemMouseEnter)="onItemMouseEnter($event)"
-                        [inlineStyles]="{ display: isItemActive(processedItem) ? 'flex' : 'none' }"
-                        [pt]="pt()"
-                    ></p-tieredmenusub>
-                </li>
-            </ng-template>
-        </ul>
+                                    <ng-container *ngIf="isItemGroup(processedItem)">
+                                        <svg
+                                            data-p-icon="angle-right"
+                                            *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate"
+                                            [class]="cx('submenuIcon')"
+                                            [pBind]="getPTOptions(processedItem, index, 'submenuIcon')"
+                                            [attr.aria-hidden]="true"
+                                        />
+                                        <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate || tieredMenu._submenuIconTemplate" [attr.aria-hidden]="true"></ng-template>
+                                    </ng-container>
+                                </a>
+                            </ng-container>
+                            <ng-container *ngIf="itemTemplate">
+                                <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, hasSubmenu: getItemProp(processedItem, 'items') }"></ng-template>
+                            </ng-container>
+                        </div>
+
+                        <p-tieredmenusub
+                            *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
+                            [items]="processedItem.items"
+                            [itemTemplate]="itemTemplate"
+                            [autoDisplay]="autoDisplay"
+                            [menuId]="menuId"
+                            [visible]="isItemActive(processedItem) && isItemGroup(processedItem)"
+                            [activeItemPath]="activeItemPath()"
+                            [focusedItemId]="focusedItemId"
+                            [ariaLabelledBy]="getItemId(processedItem)"
+                            [level]="level + 1"
+                            (itemClick)="itemClick.emit($event)"
+                            (itemMouseEnter)="onItemMouseEnter($event)"
+                            [pt]="pt()"
+                            [motionOptions]="motionOptions"
+                            [unstyled]="unstyled()"
+                        ></p-tieredmenusub>
+                    </li>
+                </ng-template>
+            </ul>
+        }
     `,
     encapsulation: ViewEncapsulation.None,
     providers: [
@@ -213,9 +250,20 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
     hostDirectives: [Bind]
 })
 export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
+    @Input() get visible(): boolean {
+        return this._visible;
+    }
+    set visible(value: boolean) {
+        this._visible = value;
+
+        if (this._visible || this.root) {
+            this.render.set(true);
+        }
+    }
+
     @Input() items: any[];
 
-    @Input() itemTemplate: TemplateRef<any> | undefined;
+    @Input() itemTemplate: TemplateRef<TieredMenuItemTemplateContext> | undefined;
 
     @Input({ transform: booleanAttribute }) root: boolean | undefined = false;
 
@@ -239,6 +287,8 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
 
     activeItemPath = input<any[]>([]);
 
+    @Input() motionOptions: MotionOptions[] | undefined;
+
     @Input({ transform: numberAttribute }) tabindex: number = 0;
 
     @Input() inlineStyles: { [klass: string]: any } | null | undefined;
@@ -253,7 +303,9 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
 
     @Output() menuKeydown: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
+    @ViewChild('sublist') sublistViewChild: ElementRef;
+
+    render = signal<boolean>(false);
 
     _componentStyle = inject(TieredMenuStyle);
 
@@ -262,6 +314,8 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
     $pcTieredMenu: TieredMenu | undefined = inject(TIEREDMENU_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     $pcTieredMenuSub: TieredMenuSub | undefined = inject(TIEREDMENUSUB_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    _visible: boolean = false;
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
@@ -275,9 +329,8 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
         super();
     }
 
-    positionSubmenu() {
+    positionSubmenu(sublist) {
         if (isPlatformBrowser(this.tieredMenu.platformId)) {
-            const sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
             if (sublist) {
                 nestedPosition(sublist, this.level);
             }
@@ -296,25 +349,8 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
         return this.getItemId(processedItem);
     }
 
-    getItemClass(processedItem: any) {
-        return {
-            ...this.getItemProp(processedItem, 'class'),
-            'p-tieredmenu-item': true,
-            'p-tieredmenu-item-active': this.isItemActive(processedItem),
-            'p-focus': this.isItemFocused(processedItem),
-            'p-disabled': this.isItemDisabled(processedItem)
-        };
-    }
-
     getItemLabel(processedItem: any): string {
         return this.getItemProp(processedItem, 'label');
-    }
-
-    getSeparatorItemClass(processedItem: any): string {
-        return {
-            ...this.getItemProp(processedItem, 'class'),
-            'p-tieredmenu-separator': true
-        };
     }
 
     getAriaSetSize() {
@@ -339,7 +375,6 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
 
     isItemActive(processedItem: any): boolean {
         if (this.activeItemPath()) {
-            this.positionSubmenu();
             return this.activeItemPath().some((path) => path.key === processedItem.key);
         }
         return false;
@@ -385,6 +420,14 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
         this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
         this.itemClick.emit({ originalEvent: event, processedItem, isFocus: true });
     }
+
+    onBeforeEnter(event: MotionEvent) {
+        this.positionSubmenu(event.element);
+    }
+
+    onAfterLeave() {
+        this.render.set(false);
+    }
 }
 /**
  * TieredMenu displays submenus in nested overlays.
@@ -393,49 +436,53 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
 @Component({
     selector: 'p-tieredMenu, p-tieredmenu, p-tiered-menu',
     standalone: true,
-    imports: [CommonModule, TieredMenuSub, RouterModule, TooltipModule, SharedModule, BindModule],
+    imports: [CommonModule, TieredMenuSub, RouterModule, TooltipModule, SharedModule, BindModule, MotionModule],
     template: `
-        <div
-            #container
-            [id]="id"
-            [class]="cn(cx('root'), styleClass)"
-            [ngStyle]="style"
-            [pBind]="ptm('root')"
-            (click)="onOverlayClick($event)"
-            [@overlayAnimation]="{
-                value: 'visible',
-                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-            }"
-            [@.disabled]="popup !== true"
-            (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-            (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
-            *ngIf="!popup || visible"
-        >
-            <p-tieredMenuSub
-                #rootmenu
-                [root]="true"
-                [items]="processedItems"
-                [itemTemplate]="itemTemplate || _itemTemplate"
-                [menuId]="id"
-                [tabindex]="!disabled ? tabindex : -1"
-                [ariaLabel]="ariaLabel"
-                [ariaLabelledBy]="ariaLabelledBy"
-                [baseZIndex]="baseZIndex"
-                [autoZIndex]="autoZIndex"
-                [autoDisplay]="autoDisplay"
-                [popup]="popup"
-                [focusedItemId]="focused ? focusedItemId : undefined"
-                [activeItemPath]="activeItemPath()"
-                (itemClick)="onItemClick($event)"
-                (menuFocus)="onMenuFocus($event)"
-                (menuBlur)="onMenuBlur($event)"
-                (menuKeydown)="onKeyDown($event)"
-                (itemMouseEnter)="onItemMouseEnter($event)"
-                [pt]="pt()"
-            ></p-tieredMenuSub>
-        </div>
+        @if (render() || !popup) {
+            <div
+                #container
+                [id]="id"
+                [class]="cn(cx('root'), styleClass)"
+                [ngStyle]="style"
+                [pBind]="ptm('root')"
+                (click)="onOverlayClick($event)"
+                [pMotion]="visible || !popup"
+                [pMotionName]="'p-anchored-overlay'"
+                [pMotionAppear]="true"
+                [pMotionDisabled]="!popup"
+                [pMotionOptions]="computedMotionOptions()"
+                (pMotionOnBeforeEnter)="onOverlayBeforeEnter($event)"
+                (pMotionOnAfterEnter)="onOverlayAfterEnter()"
+                (pMotionOnAfterLeave)="onOverlayAfterLeave()"
+            >
+                <p-tieredMenuSub
+                    #rootmenu
+                    [root]="true"
+                    [visible]="true"
+                    [items]="processedItems"
+                    [itemTemplate]="itemTemplate || _itemTemplate"
+                    [menuId]="id"
+                    [tabindex]="!disabled ? tabindex : -1"
+                    [ariaLabel]="ariaLabel"
+                    [ariaLabelledBy]="ariaLabelledBy"
+                    [baseZIndex]="baseZIndex"
+                    [autoZIndex]="autoZIndex"
+                    [autoDisplay]="autoDisplay"
+                    [popup]="popup"
+                    [focusedItemId]="focused ? focusedItemId : undefined"
+                    [activeItemPath]="activeItemPath()"
+                    (itemClick)="onItemClick($event)"
+                    (menuFocus)="onMenuFocus($event)"
+                    (menuBlur)="onMenuBlur($event)"
+                    (menuKeydown)="onKeyDown($event)"
+                    (itemMouseEnter)="onItemMouseEnter($event)"
+                    [pt]="pt()"
+                    [unstyled]="unstyled()"
+                    [motionOptions]="computedMotionOptions()"
+                ></p-tieredMenuSub>
+            </div>
+        }
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [TieredMenuStyle, { provide: TIEREDMENU_INSTANCE, useExisting: TieredMenu }, { provide: PARENT_INSTANCE, useExisting: TieredMenu }],
@@ -492,11 +539,13 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     /**
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '.1s linear';
     /**
@@ -531,6 +580,18 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -545,21 +606,25 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
 
     @ViewChild('container') containerViewChild: ElementRef<any> | undefined;
     /**
-     * Template of the submenu icon.
+     * Custom submenu icon template.
      * @group Templates
      */
-    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<any>;
+    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<void> | undefined;
     /**
-     * Template of the item.
+     * Custom item template.
+     * @param {TieredMenuItemTemplateContext} context - item context.
+     * @see {@link TieredMenuItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any>;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<TieredMenuItemTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    container: HTMLDivElement | undefined;
+    render = signal<boolean>(false);
+
+    container: HTMLElement | undefined;
 
     outsideClickListener: VoidListener;
 
@@ -572,8 +637,6 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     relatedTarget: any;
 
     visible: boolean | undefined;
-
-    relativeAlign: boolean | undefined;
 
     dirty: boolean = false;
 
@@ -601,11 +664,11 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
 
     private query: MediaQueryList;
 
-    public queryMatches: boolean;
+    public queryMatches = signal<boolean>(false);
 
-    _submenuIconTemplate: TemplateRef<any> | undefined;
+    _submenuIconTemplate: TemplateRef<void> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<TieredMenuItemTemplateContext> | undefined;
 
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
@@ -672,10 +735,10 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
                 const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
 
                 this.query = query;
-                this.queryMatches = query.matches;
+                this.queryMatches.set(query.matches);
 
                 this.matchMediaListener = () => {
-                    this.queryMatches = query.matches;
+                    this.queryMatches.set(query.matches);
                 };
 
                 query.addEventListener('change', this.matchMediaListener);
@@ -994,7 +1057,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         grouped && (this.dirty = true);
         isFocus && focus(this.rootmenu?.sublistViewChild?.nativeElement);
 
-        if (type === 'hover' && this.queryMatches) {
+        if (type === 'hover' && this.queryMatches()) {
             return;
         }
 
@@ -1015,62 +1078,64 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         this.dirty = false;
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                if (this.popup) {
-                    this.container = event.element;
-                    this.moveOnTop();
-                    this.onShow.emit({});
-                    addStyle(this.containerViewChild?.nativeElement, { position: 'absolute', top: 0 });
-                    this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
-                    this.appendOverlay();
-                    this.alignOverlay();
-                    this.bindOutsideClickListener();
-                    this.bindResizeListener();
-                    this.bindScrollListener();
-
-                    focus(this.rootmenu?.sublistViewChild?.nativeElement);
-                    this.scrollInView();
-                }
-                break;
-
-            case 'void':
-                this.onOverlayHide();
-                this.onHide.emit({});
-                break;
+    onOverlayBeforeEnter(event: MotionEvent) {
+        if (this.popup) {
+            this.container = event.element as HTMLElement;
+            addStyle(this.container!, { position: 'absolute' });
+            this.moveOnTop();
+            this.onShow.emit({});
+            this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
+            this.appendOverlay();
+            this.alignOverlay();
         }
     }
+
+    onOverlayAfterEnter() {
+        if (this.popup) {
+            this.bindOutsideClickListener();
+            this.bindResizeListener();
+            this.bindScrollListener();
+
+            this.scrollInView();
+        }
+
+        focus(this.rootmenu?.sublistViewChild?.nativeElement);
+    }
+
+    onOverlayAfterLeave() {
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
+        this.render.set(false);
+        this.onHide.emit({});
+    }
+
+    relativeAlign: boolean = false;
 
     alignOverlay() {
-        if (this.relativeAlign) relativePosition(this.container!, this.target);
-        else absolutePosition(this.container!, this.target);
+        if (this.container && this.target) {
+            if (this.relativeAlign) relativePosition(this.container!, this.target);
+            else absolutePosition(this.container!, this.target);
+            const targetWidth = getOuterWidth(this.target);
 
-        const targetWidth = getOuterWidth(this.target);
-
-        if (targetWidth > getOuterWidth(this.container)) {
-            this.container!.style.minWidth = getOuterWidth(this.target) + 'px';
-        }
-    }
-
-    onOverlayAnimationEnd(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'void':
-                ZIndexUtils.clear(event.element);
-                break;
+            if (targetWidth > getOuterWidth(this.container)) {
+                this.container.style.minWidth = getOuterWidth(this.target) + 'px';
+            }
         }
     }
 
     appendOverlay() {
         if (this.$appendTo() && this.$appendTo() !== 'self') {
-            if (this.$appendTo() === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.$appendTo(), this.container!);
+            if (this.$appendTo() === 'body') {
+                appendChild(this.document.body, this.container!);
+            } else {
+                appendChild(this.$appendTo(), this.container!);
+            }
         }
     }
 
     restoreOverlayAppend() {
         if (this.container && this.$appendTo() !== 'self') {
-            this.renderer.appendChild(this.el.nativeElement, this.container);
+            appendChild(this.el.nativeElement, this.container!);
         }
     }
 
@@ -1117,6 +1182,8 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
             this.relatedTarget = event.relatedTarget || null;
             this.relativeAlign = event?.relativeAlign || null;
         }
+
+        this.render.set(true);
 
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
@@ -1281,6 +1348,10 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         if (!(this.cd as ViewRef).destroyed) {
             this.target = null;
         }
+
+        if (this.container && this.autoZIndex) {
+            ZIndexUtils.clear(this.container);
+        }
     }
 
     onDestroy() {
@@ -1288,10 +1359,6 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
             if (this.scrollHandler) {
                 this.scrollHandler.destroy();
                 this.scrollHandler = null;
-            }
-
-            if (this.container && this.autoZIndex) {
-                ZIndexUtils.clear(this.container);
             }
 
             this.restoreOverlayAppend();

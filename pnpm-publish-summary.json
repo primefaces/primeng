@@ -1,12 +1,16 @@
 {
 	"publishedPackages": [
 		{
+			"name": "@primeng/mcp",
+			"version": "21.0.2"
+		},
+		{
 			"name": "primeng",
-			"version": "20.3.0"
+			"version": "21.0.2"
 		},
 		{
 			"name": "@primeng/themes",
-			"version": "20.3.0"
+			"version": "21.0.2"
 		}
 	]
 }

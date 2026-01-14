@@ -1,11 +1,11 @@
 import { Observable, Subject } from 'rxjs';
-import { Output, EventEmitter, Type } from '@angular/core';
 /**
  * Dynamic Dialog instance.
  * @group Components
  */
 export class DynamicDialogRef<ComponentType = any> {
     constructor() {}
+
     /**
      * Closes dialog.
      * @group Method

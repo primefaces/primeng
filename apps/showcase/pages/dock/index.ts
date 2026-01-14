@@ -1,7 +1,7 @@
-import { AccessibilityDoc } from '@/doc/dock/accessibilitydoc';
-import { AdvancedDoc } from '@/doc/dock/advanceddoc';
-import { BasicDoc } from '@/doc/dock/basicdoc';
-import { ImportDoc } from '@/doc/dock/importdoc';
+import { AccessibilityDoc } from '@/doc/dock/accessibility-doc';
+import { AdvancedDoc } from '@/doc/dock/advanced-doc';
+import { BasicDoc } from '@/doc/dock/basic-doc';
+import { ImportDoc } from '@/doc/dock/import-doc';
 import { PTComponent } from '@/doc/dock/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';

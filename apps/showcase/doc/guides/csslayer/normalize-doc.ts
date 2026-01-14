@@ -1,0 +1,16 @@
+import { Component } from '@angular/core';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+
+@Component({
+    selector: 'normalize-doc',
+    standalone: true,
+    imports: [AppDocSectionText, AppCodeModule],
+    template: `
+        <app-docsectiontext>
+            <p>Normalize is another utility to reset CSS of the standard elements. While importing the CSS file, assign it to a layer and define the layer order with primeNG coming after the normalized layer.</p>
+            <app-code [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+        </app-docsectiontext>
+    `
+})
+export class NormalizeDoc {}

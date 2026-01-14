@@ -1,4 +1,4 @@
-import { booleanAttribute, computed, Directive, EventEmitter, HostListener, inject, InjectionToken, input, Input, NgModule, Output } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, EventEmitter, HostListener, inject, InjectionToken, input, Input, NgModule, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseModelHolder } from 'primeng/basemodelholder';
@@ -27,6 +27,19 @@ export class Textarea extends BaseModelHolder<TextareaPassThrough> {
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcTextarea: Textarea | undefined = inject(TEXTAREA_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    /**
+     * Used to pass attributes to DOM elements inside the Textarea component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pTextareaPT = input<TextareaPassThrough>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pTextareaUnstyled = input<boolean | undefined>();
 
     /**
      * When present, textarea size changes as being typed.
@@ -75,6 +88,18 @@ export class Textarea extends BaseModelHolder<TextareaPassThrough> {
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
+    }
+
+    constructor() {
+        super();
+        effect(() => {
+            const pt = this.pTextareaPT();
+            pt && this.directivePT.set(pt);
+        });
+
+        effect(() => {
+            this.pTextareaUnstyled() && this.directiveUnstyled.set(this.pTextareaUnstyled());
+        });
     }
 
     onInit() {
