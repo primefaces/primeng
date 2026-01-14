@@ -5535,7 +5535,7 @@ export class ReorderableRow extends BaseComponent {
                             <p-button
                                 #clearBtn
                                 *ngIf="showClearButton"
-                                [outlined]="true"
+                                [outlined]="filterButtonProps?.popover?.clear?.outlined ?? true"
                                 (onClick)="clearFilter()"
                                 [attr.aria-label]="clearButtonLabel"
                                 [label]="clearButtonLabel"
