@@ -1,18 +1,18 @@
-import { AccessibilityDoc } from '@/doc/knob/accessibilitydoc';
-import { BasicDoc } from '@/doc/knob/basicdoc';
-import { ColorDoc } from '@/doc/knob/colordoc';
-import { DisabledDoc } from '@/doc/knob/disableddoc';
-import { ImportDoc } from '@/doc/knob/importdoc';
-import { MinMaxDoc } from '@/doc/knob/minmaxdoc';
+import { AccessibilityDoc } from '@/doc/knob/accessibility-doc';
+import { BasicDoc } from '@/doc/knob/basic-doc';
+import { ColorDoc } from '@/doc/knob/color-doc';
+import { DisabledDoc } from '@/doc/knob/disabled-doc';
+import { ImportDoc } from '@/doc/knob/import-doc';
+import { MinMaxDoc } from '@/doc/knob/minmax-doc';
 import { PTComponent } from '@/doc/knob/pt/PTComponent';
-import { ReactiveDoc } from '@/doc/knob/reactivedoc';
-import { ReactiveFormsDoc } from '@/doc/knob/reactiveformsdoc';
-import { ReadonlyDoc } from '@/doc/knob/readonlydoc';
-import { SizeDoc } from '@/doc/knob/sizedoc';
-import { StepDoc } from '@/doc/knob/stepdoc';
-import { StrokeDoc } from '@/doc/knob/strokedoc';
-import { TemplateDoc } from '@/doc/knob/templatedoc';
-import { TemplateDrivenFormsDoc } from '@/doc/knob/templatedrivenformsdoc';
+import { ReactiveDoc } from '@/doc/knob/reactive-doc';
+import { ReactiveFormsDoc } from '@/doc/knob/reactiveforms-doc';
+import { ReadonlyDoc } from '@/doc/knob/readonly-doc';
+import { SizeDoc } from '@/doc/knob/size-doc';
+import { StepDoc } from '@/doc/knob/step-doc';
+import { StrokeDoc } from '@/doc/knob/stroke-doc';
+import { TemplateDoc } from '@/doc/knob/template-doc';
+import { TemplateDrivenFormsDoc } from '@/doc/knob/templatedrivenforms-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -78,7 +78,7 @@ export class KnobDemo {
             label: 'Forms',
             children: [
                 { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                { id: 'reactiveforms', label: 'Reactive Forms', component: ReactiveFormsDoc }
             ]
         },
         {

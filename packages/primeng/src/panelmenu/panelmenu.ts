@@ -1,4 +1,3 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
@@ -12,6 +11,7 @@ import {
     forwardRef,
     inject,
     InjectionToken,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -24,13 +24,15 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MotionOptions } from '@primeuix/motion';
 import { equals, findLast, findSingle, focus, getAttribute, isEmpty, isNotEmpty, isPrintableCharacter, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ChevronDownIcon, ChevronRightIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { TooltipModule } from 'primeng/tooltip';
-import { PanelMenuPassThrough } from 'primeng/types/panelmenu';
+import { PanelMenuItemTemplateContext, PanelMenuPassThrough } from 'primeng/types/panelmenu';
 import { PanelMenuStyle } from './style/panelmenustyle';
 
 const PANELMENU_INSTANCE = new InjectionToken<PanelMenu>('PANELMENU_INSTANCE');
@@ -38,7 +40,7 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
 
 @Component({
     selector: 'ul[pPanelMenuSub]',
-    imports: [CommonModule, RouterModule, TooltipModule, ChevronDownIcon, ChevronRightIcon, SharedModule, BindModule],
+    imports: [CommonModule, RouterModule, TooltipModule, ChevronDownIcon, ChevronRightIcon, SharedModule, BindModule, MotionModule],
     standalone: true,
     template: `
         <ng-template ngFor let-processedItem let-index="index" [ngForOf]="items">
@@ -55,8 +57,10 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                 [class]="cn(cx('item', { processedItem }), getItemProp(processedItem, 'styleClass'))"
                 [ngStyle]="getItemProp(processedItem, 'style')"
                 [pTooltip]="getItemProp(processedItem, 'tooltip')"
+                [pTooltipUnstyled]="unstyled()"
                 [pBind]="getPTOptions(processedItem, index, 'item')"
                 [attr.data-p-disabled]="isItemDisabled(processedItem)"
+                [attr.data-p-focused]="isItemFocused(processedItem)"
                 [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
             >
                 <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)">
@@ -64,7 +68,10 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                         <a
                             *ngIf="!getItemProp(processedItem, 'routerLink')"
                             [attr.href]="getItemProp(processedItem, 'url')"
-                            [class]="cx('itemLink')"
+                            [attr.title]="getItemProp(processedItem, 'title')"
+                            [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
+                            [ngStyle]="getItemProp(processedItem, 'linkStyle')"
                             [target]="getItemProp(processedItem, 'target')"
                             [attr.tabindex]="!!parentExpanded ? '0' : '-1'"
                             [pBind]="getPTOptions(processedItem, index, 'itemLink')"
@@ -88,9 +95,27 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate || panelMenu._submenuIconTemplate"></ng-template>
                             </ng-container>
-                            <span [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')" [pBind]="getPTOptions(processedItem, index, 'itemIcon')"></span>
-                            <span [class]="cx('itemLabel')" *ngIf="processedItem.item?.escape !== false; else htmlLabel" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">{{ getItemProp(processedItem, 'label') }}</span>
-                            <ng-template #htmlLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span></ng-template>
+                            <span
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
+                                *ngIf="processedItem.icon"
+                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
+                            ></span>
+                            <span
+                                [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                *ngIf="processedItem.item?.escape !== false; else htmlLabel"
+                                [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                >{{ getItemProp(processedItem, 'label') }}</span
+                            >
+                            <ng-template #htmlLabel
+                                ><span
+                                    [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                    [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                    [innerHTML]="getItemProp(processedItem, 'label')"
+                                    [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                ></span
+                            ></ng-template>
                         </a>
                         <a
                             *ngIf="getItemProp(processedItem, 'routerLink')"
@@ -98,9 +123,11 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                             [queryParams]="getItemProp(processedItem, 'queryParams')"
                             [routerLinkActive]="'p-panelmenu-item-link-active'"
                             [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
-                            [class]="cx('itemLink')"
+                            [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
+                            [ngStyle]="getItemProp(processedItem, 'linkStyle')"
                             [target]="getItemProp(processedItem, 'target')"
                             [attr.title]="getItemProp(processedItem, 'title')"
+                            [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                             [fragment]="getItemProp(processedItem, 'fragment')"
                             [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
                             [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
@@ -129,8 +156,19 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate && panelMenu._submenuIconTemplate"></ng-template>
                             </ng-container>
-                            <span [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')" [pBind]="getPTOptions(processedItem, index, 'itemIcon')"></span>
-                            <span *ngIf="getItemProp(processedItem, 'label')" [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
+                            <span
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
+                                *ngIf="processedItem.icon"
+                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
+                            ></span>
+                            <span
+                                *ngIf="getItemProp(processedItem, 'label')"
+                                [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                [innerHTML]="getItemProp(processedItem, 'label')"
+                                [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                            ></span>
 
                             <span [class]="cn(cx('badge'), getItemProp(processedItem, 'badgeStyleClass'))" *ngIf="processedItem.badge">{{ processedItem.badge }}</span>
                         </a>
@@ -139,44 +177,35 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                         <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
                     </ng-container>
                 </div>
-                <div [@submenu]="getAnimation(processedItem)">
-                    <ul
-                        pPanelMenuSub
-                        *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
-                        [id]="getItemId(processedItem) + '_list'"
-                        [panelId]="panelId"
-                        [items]="processedItem?.items"
-                        [itemTemplate]="itemTemplate"
-                        [transitionOptions]="transitionOptions"
-                        [focusedItemId]="focusedItemId"
-                        [activeItemPath]="activeItemPath"
-                        [level]="level + 1"
-                        [pt]="pt()"
-                        [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
-                        (itemToggle)="onItemToggle($event)"
-                    ></ul>
+
+                <div
+                    [class]="cx('contentContainer', { processedItem: processedItem })"
+                    pMotionName="p-collapsible"
+                    [pMotion]="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
+                    [pMotionOptions]="motionOptions()"
+                >
+                    <div [class]="cx('contentWrapper')" [pBind]="ptm('contentWrapper')">
+                        <ul
+                            pPanelMenuSub
+                            [id]="getItemId(processedItem) + '_list'"
+                            [panelId]="panelId"
+                            [items]="processedItem?.items"
+                            [itemTemplate]="itemTemplate"
+                            [transitionOptions]="transitionOptions"
+                            [focusedItemId]="focusedItemId"
+                            [activeItemPath]="activeItemPath"
+                            [level]="level + 1"
+                            [pt]="pt()"
+                            [unstyled]="unstyled()"
+                            [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
+                            (itemToggle)="onItemToggle($event)"
+                            [motionOptions]="motionOptions()"
+                        ></ul>
+                    </div>
                 </div>
             </li>
         </ng-template>
     `,
-    animations: [
-        trigger('submenu', [
-            state(
-                'hidden',
-                style({
-                    height: '0'
-                })
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*'
-                })
-            ),
-            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
-            transition('void => *', animate(0))
-        ])
-    ],
     encapsulation: ViewEncapsulation.None,
     providers: [PanelMenuStyle, { provide: PANELMENUSUB_INSTANCE, useExisting: PanelMenuSub }, { provide: PARENT_INSTANCE, useExisting: PanelMenuSub }],
     host: {
@@ -198,7 +227,7 @@ export class PanelMenuSub extends BaseComponent {
 
     @Input() items: any[];
 
-    @Input() itemTemplate: TemplateRef<any> | undefined;
+    @Input() itemTemplate: TemplateRef<PanelMenuItemTemplateContext> | undefined;
 
     @Input({ transform: numberAttribute }) level: number = 0;
 
@@ -211,6 +240,8 @@ export class PanelMenuSub extends BaseComponent {
     @Input() transitionOptions: string | undefined;
 
     @Input({ transform: booleanAttribute }) parentExpanded: boolean | undefined;
+
+    motionOptions = input<MotionOptions>();
 
     @Output() itemToggle: EventEmitter<any> = new EventEmitter<any>();
 
@@ -294,10 +325,6 @@ export class PanelMenuSub extends BaseComponent {
         return isNotEmpty(processedItem.items);
     }
 
-    getAnimation(processedItem) {
-        return this.isItemActive(processedItem) ? { value: 'visible', params: { transitionParams: this.transitionOptions, height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
-    }
-
     getAriaSetSize() {
         return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator')).length;
     }
@@ -341,6 +368,8 @@ export class PanelMenuSub extends BaseComponent {
             (menuFocus)="onFocus($event)"
             (menuBlur)="onBlur($event)"
             [pt]="pt()"
+            [unstyled]="unstyled()"
+            [motionOptions]="motionOptions()"
         ></ul>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -353,7 +382,7 @@ export class PanelMenuList extends BaseComponent {
 
     @Input() items: any[];
 
-    @Input() itemTemplate: TemplateRef<any> | undefined;
+    @Input() itemTemplate: TemplateRef<PanelMenuItemTemplateContext> | undefined;
 
     @Input({ transform: booleanAttribute }) parentExpanded: boolean | undefined;
 
@@ -366,6 +395,8 @@ export class PanelMenuList extends BaseComponent {
     @Input({ transform: numberAttribute }) tabindex: number | undefined;
 
     @Input() activeItem: any;
+
+    motionOptions = input<MotionOptions>();
 
     @Output() itemToggle: EventEmitter<any> = new EventEmitter<any>();
 
@@ -549,11 +580,14 @@ export class PanelMenuList extends BaseComponent {
 
         // Update the original item object's 'expanded' property
         if (processedItem.item) {
-            processedItem.item.expanded = !processedItem.item.expanded;
+            processedItem.item.expanded = expanded;
         }
 
-        // Recreate processedItems with updated 'expanded' states
-        this.processedItems.set(this.createProcessedItems(this.items || [], 0, {}, ''));
+        // Update the expanded property in the existing processedItem
+        processedItem.expanded = expanded;
+
+        // Trigger signal update without recreating the entire tree
+        this.processedItems.update((items) => [...items]);
 
         // Update activeItemPath
         const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== processedItem.parentKey);
@@ -771,7 +805,7 @@ export class PanelMenuList extends BaseComponent {
  */
 @Component({
     selector: 'p-panelMenu, p-panelmenu, p-panel-menu',
-    imports: [CommonModule, PanelMenuList, RouterModule, TooltipModule, ChevronDownIcon, ChevronRightIcon, SharedModule, BindModule],
+    imports: [CommonModule, PanelMenuList, RouterModule, TooltipModule, ChevronDownIcon, ChevronRightIcon, SharedModule, BindModule, MotionModule],
     standalone: true,
     template: `
         <ng-container *ngFor="let item of model; let f = first; let l = last; let i = index">
@@ -780,6 +814,7 @@ export class PanelMenuList extends BaseComponent {
                     [class]="cn(cx('header', { item }), getItemProp(item, 'styleClass'))"
                     [ngStyle]="getItemProp(item, 'style')"
                     [pTooltip]="getItemProp(item, 'tooltip')"
+                    [pTooltipUnstyled]="unstyled()"
                     [attr.id]="getHeaderId(item, i)"
                     [tabindex]="0"
                     role="button"
@@ -802,7 +837,9 @@ export class PanelMenuList extends BaseComponent {
                                 [attr.tabindex]="-1"
                                 [target]="getItemProp(item, 'target')"
                                 [attr.title]="getItemProp(item, 'title')"
-                                [class]="cx('headerLink')"
+                                [attr.data-automationid]="getItemProp(item, 'automationId')"
+                                [class]="cn(cx('headerLink'), getItemProp(item, 'linkClass'))"
+                                [ngStyle]="getItemProp(item, 'linkStyle')"
                                 [pBind]="getPTOptions('headerLink', item, i)"
                             >
                                 <ng-container *ngIf="isItemGroup(item)">
@@ -812,9 +849,17 @@ export class PanelMenuList extends BaseComponent {
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="headerIconTemplate || _headerIconTemplate"></ng-template>
                                 </ng-container>
-                                <span [class]="cn(cx('headerIcon'), item.icon)" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')" [pBind]="getPTOptions('headerIcon', item, i)"></span>
-                                <span [class]="cx('headerLabel')" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel" [pBind]="getPTOptions('headerLabel', item, i)">{{ getItemProp(item, 'label') }}</span>
-                                <ng-template #htmlLabel><span [class]="cx('headerLabel')" [innerHTML]="getItemProp(item, 'label')" [pBind]="getPTOptions('headerLabel', item, i)"></span></ng-template>
+                                <span [class]="cn(cx('headerIcon'), item.icon, getItemProp(item, 'iconClass'))" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')" [pBind]="getPTOptions('headerIcon', item, i)"></span>
+                                <span
+                                    [class]="cn(cx('headerLabel'), getItemProp(item, 'labelClass'))"
+                                    [ngStyle]="getItemProp(item, 'labelStyle')"
+                                    *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel"
+                                    [pBind]="getPTOptions('headerLabel', item, i)"
+                                    >{{ getItemProp(item, 'label') }}</span
+                                >
+                                <ng-template #htmlLabel
+                                    ><span [class]="cn(cx('headerLabel'), getItemProp(item, 'labelClass'))" [ngStyle]="getItemProp(item, 'labelStyle')" [innerHTML]="getItemProp(item, 'label')" [pBind]="getPTOptions('headerLabel', item, i)"></span
+                                ></ng-template>
                                 <span [class]="cn(cx('badge'), getItemProp(item, 'badgeStyleClass'))" *ngIf="getItemProp(item, 'badge')">{{ getItemProp(item, 'badge') }}</span>
                             </a>
                         </ng-container>
@@ -826,7 +871,10 @@ export class PanelMenuList extends BaseComponent {
                             [routerLinkActive]="'p-panelmenu-item-link-active'"
                             [routerLinkActiveOptions]="getItemProp(item, 'routerLinkActiveOptions') || { exact: false }"
                             [target]="getItemProp(item, 'target')"
-                            [class]="cx('headerLink')"
+                            [attr.title]="getItemProp(item, 'title')"
+                            [attr.data-automationid]="getItemProp(item, 'automationId')"
+                            [class]="cn(cx('headerLink'), getItemProp(item, 'linkClass'))"
+                            [ngStyle]="getItemProp(item, 'linkStyle')"
                             [attr.tabindex]="-1"
                             [fragment]="getItemProp(item, 'fragment')"
                             [queryParamsHandling]="getItemProp(item, 'queryParamsHandling')"
@@ -843,62 +891,54 @@ export class PanelMenuList extends BaseComponent {
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="headerIconTemplate || _headerIconTemplate"></ng-template>
                             </ng-container>
-                            <span [class]="cn(cx('headerIcon'), item.icon)" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')" [pBind]="getPTOptions('headerIcon', item, i)"></span>
-                            <span [class]="cx('headerLabel')" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel" [pBind]="getPTOptions('headerLabel', item, i)">{{ getItemProp(item, 'label') }}</span>
-                            <ng-template #htmlRouteLabel><span [class]="cx('headerLabel')" [innerHTML]="getItemProp(item, 'label')" [pBind]="getPTOptions('headerLabel', item, i)"></span></ng-template>
+                            <span [class]="cn(cx('headerIcon'), item.icon, getItemProp(item, 'iconClass'))" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')" [pBind]="getPTOptions('headerIcon', item, i)"></span>
+                            <span
+                                [class]="cn(cx('headerLabel'), getItemProp(item, 'labelClass'))"
+                                [ngStyle]="getItemProp(item, 'labelStyle')"
+                                *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel"
+                                [pBind]="getPTOptions('headerLabel', item, i)"
+                                >{{ getItemProp(item, 'label') }}</span
+                            >
+                            <ng-template #htmlRouteLabel
+                                ><span [class]="cn(cx('headerLabel'), getItemProp(item, 'labelClass'))" [ngStyle]="getItemProp(item, 'labelStyle')" [innerHTML]="getItemProp(item, 'label')" [pBind]="getPTOptions('headerLabel', item, i)"></span
+                            ></ng-template>
                             <span *ngIf="getItemProp(item, 'badge')" [class]="cn(cx('badge'), getItemProp(item, 'badgeStyleClass'))">{{ getItemProp(item, 'badge') }}</span>
                         </a>
                     </div>
                 </div>
                 <div
-                    *ngIf="isItemGroup(item)"
                     [class]="cx('contentContainer', { processedItem: item })"
-                    [@rootItem]="getAnimation(item)"
-                    (@rootItem.done)="onToggleDone()"
                     role="region"
                     [attr.id]="getContentId(item, i)"
                     [attr.aria-labelledby]="getHeaderId(item, i)"
                     [pBind]="ptm('contentContainer')"
+                    pMotionName="p-collapsible"
+                    [pMotion]="isItemActive(item)"
+                    [pMotionOptions]="computedMotionOptions()"
                 >
-                    <div [class]="cx('content')" [pBind]="ptm('content')">
-                        <ul
-                            pPanelMenuList
-                            [panelId]="getPanelId(i, item)"
-                            [items]="getItemProp(item, 'items')"
-                            [itemTemplate]="itemTemplate || _itemTemplate"
-                            [transitionOptions]="transitionOptions"
-                            [root]="true"
-                            [activeItem]="activeItem()"
-                            [tabindex]="tabindex"
-                            [parentExpanded]="isItemActive(item)"
-                            (headerFocus)="updateFocusedHeader($event)"
-                            [pt]="pt()"
-                        ></ul>
+                    <div [class]="cx('contentWrapper')" [pBind]="ptm('contentWrapper')">
+                        <div [class]="cx('content')" [pBind]="ptm('content')">
+                            <ul
+                                pPanelMenuList
+                                [panelId]="getPanelId(i, item)"
+                                [items]="getItemProp(item, 'items')"
+                                [itemTemplate]="itemTemplate || _itemTemplate"
+                                [transitionOptions]="transitionOptions"
+                                [root]="true"
+                                [activeItem]="activeItem()"
+                                [tabindex]="tabindex"
+                                [parentExpanded]="isItemActive(item)"
+                                (headerFocus)="updateFocusedHeader($event)"
+                                [pt]="pt()"
+                                [unstyled]="unstyled()"
+                                [motionOptions]="computedMotionOptions()"
+                            ></ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </ng-container>
     `,
-    animations: [
-        trigger('rootItem', [
-            state(
-                'hidden',
-                style({
-                    height: '0',
-                    visibility: 'hidden'
-                })
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*',
-                    visibility: '*'
-                })
-            ),
-            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
-            transition('void => *', animate(0))
-        ])
-    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [PanelMenuStyle, { provide: PANELMENU_INSTANCE, useExisting: PanelMenu }, { provide: PARENT_INSTANCE, useExisting: PanelMenu }],
@@ -927,8 +967,21 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
     /**
      * Transition options of the animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Current id state as a string.
      * @group Props
@@ -945,27 +998,27 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
      * Template option of submenu icon.
      * @group Templates
      */
-    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<void> | undefined;
     /**
      * Template option of header icon.
      * @group Templates
      */
-    @ContentChild('headericon', { descendants: false }) headerIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('headericon', { descendants: false }) headerIconTemplate: TemplateRef<void> | undefined;
     /**
      * Template option of item.
+     * @param {PanelMenuItemTemplateContext} context - item context.
+     * @see {@link PanelMenuItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<PanelMenuItemTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _submenuIconTemplate: TemplateRef<any> | undefined;
+    _submenuIconTemplate: TemplateRef<void> | undefined;
 
-    _headerIconTemplate: TemplateRef<any> | undefined;
+    _headerIconTemplate: TemplateRef<void> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
-
-    public animating: boolean | undefined;
+    _itemTemplate: TemplateRef<PanelMenuItemTemplateContext> | undefined;
 
     activeItem = signal<any>(null);
 
@@ -1029,20 +1082,11 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
         this.cd.detectChanges();
     }
 
-    onToggleDone() {
-        this.animating = false;
-        this.cd.markForCheck();
-    }
-
     changeActiveItem(event, item, index?: number, selfActive = false) {
         if (!this.isItemDisabled(item)) {
             const activeItem = selfActive ? item : this.activeItem && equals(item, this.activeItem) ? null : item;
             this.activeItem.set(activeItem);
         }
-    }
-
-    getAnimation(item: MenuItem) {
-        return item.expanded ? { value: 'visible', params: { transitionParams: this.animating ? this.transitionOptions : '0ms', height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
     }
 
     getItemProp(item, name): any {
@@ -1083,8 +1127,8 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
 
     updateFocusedHeader(event) {
         const { originalEvent, focusOnNext, selfCheck } = event;
-        const panelElement = originalEvent.currentTarget.closest('.p-panelmenu-panel');
-        const header = selfCheck ? findSingle(panelElement, '.p-panelmenu-header') : focusOnNext ? this.findNextHeader(panelElement) : this.findPrevHeader(panelElement);
+        const panelElement = originalEvent.currentTarget.closest('[data-pc-section="panel"]');
+        const header = selfCheck ? findSingle(panelElement, '[data-pc-section="header"]') : focusOnNext ? this.findNextHeader(panelElement) : this.findPrevHeader(panelElement);
 
         header ? this.changeFocusedHeader(originalEvent, header) : focusOnNext ? this.onHeaderHomeKey(originalEvent) : this.onHeaderEndKey(originalEvent);
     }
@@ -1095,14 +1139,14 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
 
     findNextHeader(panelElement, selfCheck = false) {
         const nextPanelElement = selfCheck ? panelElement : panelElement.nextElementSibling;
-        const headerElement = findSingle(nextPanelElement, '.p-panelmenu-header');
+        const headerElement = findSingle(nextPanelElement, '[data-pc-section="header"]');
 
         return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeader(headerElement.parentElement) : headerElement) : null;
     }
 
     findPrevHeader(panelElement, selfCheck = false) {
         const prevPanelElement = selfCheck ? panelElement : panelElement.previousElementSibling;
-        const headerElement = findSingle(prevPanelElement, '.p-panelmenu-header');
+        const headerElement = findSingle(prevPanelElement, '[data-pc-section="header"]');
 
         return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeader(headerElement.parentElement) : headerElement) : null;
     }
@@ -1136,7 +1180,6 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
 
         item.expanded = !item.expanded;
         this.changeActiveItem(event, item, index);
-        this.animating = true;
         focus(event.currentTarget as HTMLElement);
     }
 
@@ -1169,7 +1212,7 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
     }
 
     onHeaderArrowDownKey(event) {
-        const rootList = getAttribute(event.currentTarget, 'data-p-highlight') === true ? <any>findSingle(event.currentTarget.nextElementSibling, 'ul.p-panelmenu-root-list') : null;
+        const rootList = getAttribute(event.currentTarget, 'data-p-highlight') === true ? <any>findSingle(event.currentTarget.nextElementSibling, '[data-pc-section="rootlist"]') : null;
 
         rootList ? focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: true });
         event.preventDefault();
@@ -1177,7 +1220,7 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
 
     onHeaderArrowUpKey(event) {
         const prevHeader = this.findPrevHeader(event.currentTarget.parentElement) || this.findLastHeader();
-        const rootList = getAttribute(prevHeader, 'data-p-highlight') === true ? <any>findSingle(prevHeader.nextElementSibling, 'ul.p-panelmenu-root-list') : null;
+        const rootList = getAttribute(prevHeader, 'data-p-highlight') === true ? <any>findSingle(prevHeader.nextElementSibling, '[data-pc-section="rootlist"]') : null;
 
         rootList ? focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: false });
         event.preventDefault();
@@ -1194,7 +1237,7 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
     }
 
     onHeaderEnterKey(event, item, index) {
-        const headerAction = <any>findSingle(event.currentTarget, 'a.p-panelmenu-header-link');
+        const headerAction = <any>findSingle(event.currentTarget, '[data-pc-section="headerlink"]');
 
         headerAction ? headerAction.click() : this.onHeaderClick(event, item, index);
         event.preventDefault();

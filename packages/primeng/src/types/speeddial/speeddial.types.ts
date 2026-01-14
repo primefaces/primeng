@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 
 /**
@@ -51,24 +51,52 @@ export interface SpeedDialPassThroughOptions<I = unknown> {
 export type SpeedDialPassThrough<I = unknown> = PassThrough<I, SpeedDialPassThroughOptions<I>>;
 
 /**
+ * Custom button template context.
+ * @group Interface
+ */
+export interface SpeedDialButtonTemplateContext {
+    /**
+     * Callback to toggle the speed dial visibility.
+     */
+    toggleCallback: (event: MouseEvent) => void;
+}
+
+/**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface SpeedDialItemTemplateContext {
+    /**
+     * Menu item instance.
+     */
+    $implicit: MenuItem;
+    /**
+     * Index of the item.
+     */
+    index: number;
+    /**
+     * Callback to handle item click.
+     */
+    toggleCallback: (event: Event, item: MenuItem) => void;
+}
+
+/**
  * Defines valid templates in SpeedDial.
  * @group Templates
  */
 export interface SpeedDialTemplates {
     /**
      * Custom button template.
+     * @param {SpeedDialButtonTemplateContext} context - button context.
      */
-    button(context: { toggleCallback: (event: Event) => void }): TemplateRef<any>;
+    button(context: SpeedDialButtonTemplateContext): TemplateRef<SpeedDialButtonTemplateContext>;
     /**
      * Custom icon template.
      */
-    icon(): TemplateRef<any>;
+    icon(): TemplateRef<void>;
     /**
      * Custom item template.
+     * @param {SpeedDialItemTemplateContext} context - item context.
      */
-    item(context: { item: any; index: number; toggleCallback: (event: Event, item: any) => void }): TemplateRef<any>;
-    /**
-     * Custom item icon template.
-     */
-    itemicon(context: { item: any }): TemplateRef<any>;
+    item(context: SpeedDialItemTemplateContext): TemplateRef<SpeedDialItemTemplateContext>;
 }

@@ -245,6 +245,66 @@ export interface TreeFilterEvent {
 }
 
 /**
+ * Custom filter template context.
+ * @group Interface
+ */
+export interface TreeFilterTemplateContext {
+    /**
+     * Filter options with filter and reset methods.
+     */
+    $implicit: {
+        filter: (value: string) => void;
+        reset: () => void;
+    };
+}
+
+/**
+ * Custom loader template context.
+ * @group Interface
+ */
+export interface TreeLoaderTemplateContext {
+    /**
+     * Scroller options.
+     * @see {@link ScrollerOptions}
+     */
+    options: ScrollerOptions;
+}
+
+/**
+ * Custom toggler icon template context.
+ * @group Interface
+ */
+export interface TreeTogglerIconTemplateContext {
+    /**
+     * Expanded state of the node.
+     */
+    $implicit: boolean;
+    /**
+     * Loading state of the node.
+     */
+    loading: boolean;
+}
+
+/**
+ * Custom checkbox icon template context.
+ * @group Interface
+ */
+export interface TreeCheckboxIconTemplateContext {
+    /**
+     * Checked state of the node.
+     */
+    $implicit: boolean;
+    /**
+     * Partial selection state of the node.
+     */
+    partialSelected: boolean;
+    /**
+     * Style class of the checkbox.
+     */
+    class: string;
+}
+
+/**
  * Defines valid templates in Tree.
  * @group Templates
  */
@@ -252,56 +312,41 @@ export interface TreeTemplates {
     /**
      * Custom header template.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
      * Custom empty message template.
      */
-    empty(): TemplateRef<any>;
+    empty(): TemplateRef<void>;
     /**
      * Custom footer template.
      */
-    footer(): TemplateRef<any>;
+    footer(): TemplateRef<void>;
+    /**
+     * Custom filter template.
+     * @param {TreeFilterTemplateContext} context - filter context.
+     */
+    filter(context: TreeFilterTemplateContext): TemplateRef<TreeFilterTemplateContext>;
     /**
      * Custom loader template.
-     * @param {Object} context - loader options.
+     * @param {TreeLoaderTemplateContext} context - loader context.
      */
-    loader(context: {
-        /**
-         * Scroller options.
-         * @see {@link ScrollerOptions}
-         */
-        options: ScrollerOptions;
-    }): TemplateRef<{ options: ScrollerOptions }>;
+    loader(context: TreeLoaderTemplateContext): TemplateRef<TreeLoaderTemplateContext>;
     /**
      * Custom toggler icon template.
-     * @param {Object} context - expand data.
+     * @param {TreeTogglerIconTemplateContext} context - toggler icon context.
      */
-    togglericon(context: {
-        /**
-         * Expanded state of the node.
-         */
-        $implicit: boolean;
-    }): TemplateRef<{ $implicit: boolean }>;
+    togglericon(context: TreeTogglerIconTemplateContext): TemplateRef<TreeTogglerIconTemplateContext>;
     /**
      * Custom checkbox icon template.
-     * @param {Object} context - node data.
+     * @param {TreeCheckboxIconTemplateContext} context - checkbox icon context.
      */
-    checkboxicon(context: {
-        /**
-         * Checked state of the node.
-         */
-        $implicit: boolean;
-        /**
-         * Partial selection state of the node.
-         */
-        partialSelected: boolean;
-    }): TemplateRef<{ $implicit: boolean; partialSelected: boolean }>;
+    checkboxicon(context: TreeCheckboxIconTemplateContext): TemplateRef<TreeCheckboxIconTemplateContext>;
     /**
      * Custom loading icon template.
      */
-    loadingicon(): TemplateRef<any>;
+    loadingicon(): TemplateRef<void>;
     /**
      * Custom filter icon template.
      */
-    filtericon(): TemplateRef<any>;
+    filtericon(): TemplateRef<void>;
 }

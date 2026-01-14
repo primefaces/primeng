@@ -1,16 +1,17 @@
-import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
     InjectionToken,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -29,15 +30,12 @@ import { Bind } from 'primeng/bind';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { Nullable } from 'primeng/ts-helpers';
-import { ConfirmDialogPassThrough } from 'primeng/types/confirmdialog';
+import { ConfirmDialogHeadlessTemplateContext, ConfirmDialogMessageTemplateContext, ConfirmDialogPassThrough } from 'primeng/types/confirmdialog';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
 
 const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_INSTANCE');
 
-const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
-
-const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 /**
  * ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
  * @group Components
@@ -59,7 +57,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [header]="option('header')"
             [closeOnEscape]="option('closeOnEscape')"
             [blockScroll]="option('blockScroll')"
-            [appendTo]="option('appendTo')"
+            [appendTo]="$appendTo()"
             [position]="position"
             [style]="style"
             [dismissableMask]="dismissableMask"
@@ -67,6 +65,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [baseZIndex]="baseZIndex"
             [autoZIndex]="autoZIndex"
             [maskStyleClass]="cn(cx('mask'), maskStyleClass)"
+            [unstyled]="unstyled()"
+            (onHide)="onDialogHide()"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
@@ -115,6 +115,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [styleClass]="getButtonStyleClass('pcRejectButton', 'rejectButtonStyleClass')"
                         [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
                         [buttonProps]="getRejectButtonProps()"
+                        [unstyled]="unstyled()"
                     >
                         <ng-template #icon>
                             @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
@@ -131,6 +132,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         *ngIf="option('acceptVisible')"
                         [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
                         [buttonProps]="getAcceptButtonProps()"
+                        [unstyled]="unstyled()"
                     >
                         <ng-template #icon>
                             @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
@@ -143,7 +145,6 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             </ng-template>
         </p-dialog>
     `,
-    animations: [trigger('animation', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [ConfirmDialogStyle, { provide: CONFIRMDIALOG_INSTANCE, useExisting: ConfirmDialog }, { provide: PARENT_INSTANCE, useExisting: ConfirmDialog }],
@@ -275,10 +276,11 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
      */
     @Input({ transform: booleanAttribute }) closable: boolean = true;
     /**
-     *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'body'
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any = 'body';
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('body');
     /**
      * Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.
      * @group Props
@@ -340,34 +342,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
      *  Allows getting the position of the component.
      * @group Props
      */
-    @Input() get position() {
-        return this._position;
-    }
-    set position(value: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright') {
-        this._position = value;
-
-        switch (value) {
-            case 'topleft':
-            case 'bottomleft':
-            case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
-                break;
-            case 'topright':
-            case 'bottomright':
-            case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
-                break;
-            case 'bottom':
-                this.transformOptions = 'translate3d(0px, 100%, 0px)';
-                break;
-            case 'top':
-                this.transformOptions = 'translate3d(0px, -100%, 0px)';
-                break;
-            default:
-                this.transformOptions = 'scale(0.7)';
-                break;
-        }
-    }
+    @Input() position: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
     /**
      * Enables dragging to change the position using header.
      * @group Props
@@ -384,35 +359,65 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
 
     _componentStyle = inject(ConfirmDialogStyle);
 
-    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom footer template.
+     * @group Templates
+     */
+    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('rejecticon', { descendants: false }) rejectIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom reject icon template.
+     * @group Templates
+     */
+    @ContentChild('rejecticon', { descendants: false }) rejectIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('accepticon', { descendants: false }) acceptIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom accept icon template.
+     * @group Templates
+     */
+    @ContentChild('accepticon', { descendants: false }) acceptIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('message', { descendants: false }) messageTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom message template.
+     * @group Templates
+     */
+    @ContentChild('message', { descendants: false }) messageTemplate: Nullable<TemplateRef<ConfirmDialogMessageTemplateContext>>;
 
-    @ContentChild('icon', { descendants: false }) iconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom icon template.
+     * @group Templates
+     */
+    @ContentChild('icon', { descendants: false }) iconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('headless', { descendants: false }) headlessTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom headless template.
+     * @group Templates
+     */
+    @ContentChild('headless', { descendants: false }) headlessTemplate: Nullable<TemplateRef<ConfirmDialogHeadlessTemplateContext>>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _rejectIconTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _acceptIconTemplate: TemplateRef<any> | undefined;
+    _rejectIconTemplate: TemplateRef<void> | undefined;
 
-    _messageTemplate: TemplateRef<any> | undefined;
+    _acceptIconTemplate: TemplateRef<void> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _messageTemplate: TemplateRef<ConfirmDialogMessageTemplateContext> | undefined;
 
-    _headlessTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<void> | undefined;
+
+    _headlessTemplate: TemplateRef<ConfirmDialogHeadlessTemplateContext> | undefined;
 
     confirmation: Nullable<Confirmation>;
 
@@ -431,10 +436,6 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
     subscription: Subscription;
 
     preWidth: number | undefined;
-
-    _position: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
-
-    transformOptions: any = 'scale(0.7)';
 
     styleElement: any;
 
@@ -531,10 +532,8 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
     option(name: string, k?: string) {
         const source: { [key: string]: any } = this;
         if (source.hasOwnProperty(name)) {
-            if (k) {
-                return source[k];
-            }
-            return source[name];
+            const value = k ? source[k] : source[name];
+            return typeof value === 'function' ? value() : value;
         }
 
         return undefined;
@@ -604,6 +603,9 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
         this.visible = false;
         // Unsubscribe from confirmation events when the dialogue is closed, because events are created when the dialogue is opened.
         this.unsubscribeConfirmationEvents();
+    }
+
+    onDialogHide() {
         this.confirmation = null;
     }
 

@@ -41,7 +41,7 @@ export type TagPassThrough<I = unknown> = PassThrough<I, TagPassThroughOptions<I
  */
 export interface TagTemplates {
     /**
-     * Custom icon template
+     * Custom icon template.
      */
-    icon(): TemplateRef<any>;
+    icon(): TemplateRef<void>;
 }

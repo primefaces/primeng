@@ -3,7 +3,7 @@ import { style } from '@primeuix/styles/galleria';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    mask: 'p-galleria-mask p-overlay-mask p-overlay-mask-enter',
+    mask: 'p-galleria-mask p-overlay-mask',
     root: ({ instance }) => {
         const thumbnailsPosClass = instance.galleria.showThumbnails && instance.getPositionClass('p-galleria-thumbnails', instance.galleria.thumbnailsPosition);
         const indicatorPosClass = instance.galleria.showIndicators && instance.getPositionClass('p-galleria-indicators', instance.galleria.indicatorsPosition);

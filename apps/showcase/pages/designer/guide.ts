@@ -1,16 +1,16 @@
 import { AppDocSection } from '@/components/doc/app.docsection';
 import { AppDocSectionNav } from '@/components/doc/app.docsection-nav';
-import { BaseDoc } from '@/doc/designer/createtheme/basedoc';
-import { FigmaDoc } from '@/doc/designer/createtheme/figmadoc';
-import { DashboardDoc } from '@/doc/designer/dashboarddoc';
-import { CustomTokensDoc } from '@/doc/designer/editor/customtokensdoc';
-import { IntelligentCompletionDoc } from '@/doc/designer/editor/intelligentcompletiondoc';
-import { TokenSetsDoc } from '@/doc/designer/editor/tokensetsdoc';
-import { TypographyDoc } from '@/doc/designer/editor/typographydoc';
-import { LicenseDoc } from '@/doc/designer/licensedoc';
-import { LimitationsDoc } from '@/doc/designer/limitationsdoc';
-import { MigrationAssistantDoc } from '@/doc/designer/migrationassistantdoc';
-import { OverviewDoc } from '@/doc/designer/overviewdoc';
+import { BaseDoc } from '@/doc/designer/createtheme/base-doc';
+import { FigmaDoc } from '@/doc/designer/createtheme/figma-doc';
+import { DashboardDoc } from '@/doc/designer/dashboard-doc';
+import { CustomTokensDoc } from '@/doc/designer/editor/customtokens-doc';
+import { IntelligentCompletionDoc } from '@/doc/designer/editor/intelligentcompletion-doc';
+import { TokenSetsDoc } from '@/doc/designer/editor/tokensets-doc';
+import { TypographyDoc } from '@/doc/designer/editor/typography-doc';
+import { LicenseDoc } from '@/doc/designer/license-doc';
+import { LimitationsDoc } from '@/doc/designer/limitations-doc';
+import { MigrationAssistantDoc } from '@/doc/designer/migrationassistant-doc';
+import { OverviewDoc } from '@/doc/designer/overview-doc';
 import { Component } from '@angular/core';
 
 @Component({

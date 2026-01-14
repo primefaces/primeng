@@ -105,34 +105,40 @@ export interface CarouselPageEvent {
     page?: number;
 }
 /**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface CarouselItemTemplateContext<T = any> {
+    /**
+     * Data of the item.
+     */
+    $implicit: T;
+}
+
+/**
  * Defines valid templates in Carousel.
  * @group Templates
  */
-export interface CarouselTemplates {
+export interface CarouselTemplates<T = any> {
     /**
-     * Custom template of header.
+     * Custom header template.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
-     * Custom template of item.
+     * Custom item template.
      * @param {Object} context - item data.
      */
-    item(context: {
-        /**
-         * Data of the item.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    item(context: CarouselItemTemplateContext<T>): TemplateRef<CarouselItemTemplateContext<T>>;
     /**
-     * Custom template of previousicon.
+     * Custom previous icon template.
      */
-    previousicon(): TemplateRef<any>;
+    previousicon(): TemplateRef<void>;
     /**
-     * Custom template of nexticon.
+     * Custom next icon template.
      */
-    nexticon(): TemplateRef<any>;
+    nexticon(): TemplateRef<void>;
     /**
-     * Custom template of footer.
+     * Custom footer template.
      */
-    footer(): TemplateRef<any>;
+    footer(): TemplateRef<void>;
 }

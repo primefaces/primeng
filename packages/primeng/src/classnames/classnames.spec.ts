@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ClassNamesModule } from './classnames';
@@ -37,12 +37,13 @@ describe('PClass Directive', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestComponent]
+            imports: [TestComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
+        await fixture.whenStable();
     });
 
     it('should create', () => {
@@ -74,11 +75,12 @@ describe('PClass Directive', () => {
         expect(element.nativeElement.className).toBe('');
     });
 
-    it('should update classes when input changes', () => {
+    it('should update classes when input changes', async () => {
         const element = fixture.debugElement.query(By.css('[data-testid="string"]'));
 
         component.stringClass = 'new-class';
-        fixture.detectChanges();
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
 
         expect(element.nativeElement.className).toBe('new-class');
     });
@@ -148,12 +150,13 @@ describe('PClass Directive with Signals', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [SignalTestComponent]
+            imports: [SignalTestComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(SignalTestComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
+        await fixture.whenStable();
     });
 
     it('should create signal test component', () => {
@@ -176,11 +179,12 @@ describe('PClass Directive with Signals', () => {
             expect(classList).not.toContain('border-primary');
         });
 
-        it('should update classes when signal changes to true', () => {
+        it('should update classes when signal changes to true', async () => {
             const element = fixture.debugElement.query(By.css('[data-testid="conditional"]'));
 
             component.toggle1();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const classList = element.nativeElement.className.split(' ');
 
@@ -195,17 +199,19 @@ describe('PClass Directive with Signals', () => {
             expect(classList).not.toContain('border-surface');
         });
 
-        it('should toggle classes multiple times', () => {
+        it('should toggle classes multiple times', async () => {
             const element = fixture.debugElement.query(By.css('[data-testid="conditional"]'));
 
             // Toggle to true
             component.toggle1();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(element.nativeElement.className).toContain('bg-primary');
 
             // Toggle back to false
             component.toggle1();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(element.nativeElement.className).toContain('border-surface');
             expect(element.nativeElement.className).not.toContain('bg-primary');
         });
@@ -227,11 +233,12 @@ describe('PClass Directive with Signals', () => {
             expect(classList).not.toContain('text-white');
         });
 
-        it('should update combo classes when signal changes to true', () => {
+        it('should update combo classes when signal changes to true', async () => {
             const element = fixture.debugElement.query(By.css('[data-testid="combo"]'));
 
             component.toggle2();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const classList = element.nativeElement.className.split(' ');
 
@@ -256,50 +263,56 @@ describe('PClass Directive with Signals', () => {
             expect(classList).toContain('border');
         });
 
-        it('should toggle combo classes multiple times', () => {
+        it('should toggle combo classes multiple times', async () => {
             const element = fixture.debugElement.query(By.css('[data-testid="combo"]'));
 
             // Toggle to true
             component.toggle2();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(element.nativeElement.className).toContain('bg-purple-700');
             expect(element.nativeElement.className).toContain('text-white');
 
             // Toggle back to false
             component.toggle2();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(element.nativeElement.className).toContain('bg-purple-100');
             expect(element.nativeElement.className).toContain('text-purple-800');
 
             // Toggle again to true
             component.toggle2();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(element.nativeElement.className).toContain('bg-purple-700');
             expect(element.nativeElement.className).not.toContain('bg-purple-100');
         });
     });
 
     describe('Both Signals Together', () => {
-        it('should handle independent signal updates', () => {
+        it('should handle independent signal updates', async () => {
             const conditionalEl = fixture.debugElement.query(By.css('[data-testid="conditional"]'));
             const comboEl = fixture.debugElement.query(By.css('[data-testid="combo"]'));
 
             // Toggle first signal
             component.toggle1();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(conditionalEl.nativeElement.className).toContain('bg-primary');
             expect(comboEl.nativeElement.className).toContain('bg-purple-100');
 
             // Toggle second signal
             component.toggle2();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(conditionalEl.nativeElement.className).toContain('bg-primary');
             expect(comboEl.nativeElement.className).toContain('bg-purple-700');
 
             // Toggle both back
             component.toggle1();
             component.toggle2();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(conditionalEl.nativeElement.className).toContain('border-surface');
             expect(comboEl.nativeElement.className).toContain('bg-purple-100');
         });

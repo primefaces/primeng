@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
-import { Component, DebugElement } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
+import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Knob } from './knob';
+
 import { providePrimeNG } from 'primeng/config';
+import { Knob } from './knob';
 
 // Temel test component'i
 @Component({
@@ -112,7 +112,8 @@ describe('Knob', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicKnobComponent]
+                imports: [TestBasicKnobComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicKnobComponent);
@@ -171,7 +172,8 @@ describe('Knob', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicKnobComponent]
+                imports: [TestBasicKnobComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicKnobComponent);
@@ -180,24 +182,24 @@ describe('Knob', () => {
             fixture.detectChanges();
         });
 
-        it('should update model value', fakeAsync(() => {
+        it('should update model value', async () => {
             component.value = 75;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(knobInstance.value).toBe(75);
             expect(knobInstance._value).toBe(75);
-        }));
+        });
 
-        it('should update displayed value', fakeAsync(() => {
+        it('should update displayed value', async () => {
             component.value = 60;
             knobInstance.writeControlValue(60, () => {});
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const textElement = fixture.debugElement.query(By.css('text'));
             expect(textElement.nativeElement.textContent.trim()).toBe('60');
-        }));
+        });
 
         it('should handle click interaction', () => {
             spyOn(knobInstance, 'updateValue');
@@ -215,15 +217,15 @@ describe('Knob', () => {
             expect(knobInstance.updateValue).toHaveBeenCalledWith(50, 50);
         });
 
-        it('should emit onChange event', fakeAsync(() => {
+        it('should emit onChange event', async () => {
             spyOn(knobInstance.onChange, 'emit');
 
             knobInstance.updateModelValue(80);
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(knobInstance.onChange.emit).toHaveBeenCalledWith(80);
-        }));
+        });
     });
 
     describe('Keyboard Navigation Tests', () => {
@@ -232,7 +234,8 @@ describe('Knob', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestKeyboardKnobComponent]
+                imports: [TestKeyboardKnobComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestKeyboardKnobComponent);
@@ -240,7 +243,7 @@ describe('Knob', () => {
             fixture.detectChanges();
         });
 
-        it('should increase value with ArrowUp/ArrowRight', fakeAsync(() => {
+        it('should increase value with ArrowUp/ArrowRight', async () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
 
             const upEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
@@ -256,9 +259,9 @@ describe('Knob', () => {
 
             expect(rightEvent.preventDefault).toHaveBeenCalled();
             expect(knobInstance.value).toBe(52);
-        }));
+        });
 
-        it('should decrease value with ArrowDown/ArrowLeft', fakeAsync(() => {
+        it('should decrease value with ArrowDown/ArrowLeft', async () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
 
             const downEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
@@ -274,9 +277,9 @@ describe('Knob', () => {
 
             expect(leftEvent.preventDefault).toHaveBeenCalled();
             expect(knobInstance.value).toBe(48);
-        }));
+        });
 
-        it('should handle Home and End keys', fakeAsync(() => {
+        it('should handle Home and End keys', async () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
 
             const homeEvent = new KeyboardEvent('keydown', { code: 'Home' });
@@ -292,9 +295,9 @@ describe('Knob', () => {
 
             expect(endEvent.preventDefault).toHaveBeenCalled();
             expect(knobInstance.value).toBe(100);
-        }));
+        });
 
-        it('should handle PageUp and PageDown keys', fakeAsync(() => {
+        it('should handle PageUp and PageDown keys', async () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
 
             const pageUpEvent = new KeyboardEvent('keydown', { code: 'PageUp' });
@@ -310,7 +313,7 @@ describe('Knob', () => {
 
             expect(pageDownEvent.preventDefault).toHaveBeenCalled();
             expect(knobInstance.value).toBe(50);
-        }));
+        });
     });
 
     describe('Mouse Interaction Tests', () => {
@@ -319,7 +322,8 @@ describe('Knob', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicKnobComponent]
+                imports: [TestBasicKnobComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicKnobComponent);
@@ -359,7 +363,8 @@ describe('Knob', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicKnobComponent]
+                imports: [TestBasicKnobComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicKnobComponent);
@@ -400,7 +405,8 @@ describe('Knob', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestAdvancedKnobComponent]
+                imports: [TestAdvancedKnobComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestAdvancedKnobComponent);
@@ -502,14 +508,14 @@ describe('Knob', () => {
             expect(knobInstance.updateValue).not.toHaveBeenCalled();
         });
 
-        it('should emit onChange events', fakeAsync(() => {
+        it('should emit onChange events', async () => {
             knobInstance.updateModelValue(80);
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.changeEvents.length).toBe(1);
             expect(component.changeEvents[0]).toBe(80);
-        }));
+        });
     });
 
     describe('Reactive Form Integration Tests', () => {
@@ -519,7 +525,8 @@ describe('Knob', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestReactiveFormKnobComponent]
+                imports: [TestReactiveFormKnobComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestReactiveFormKnobComponent);
@@ -528,51 +535,51 @@ describe('Knob', () => {
             fixture.detectChanges();
         });
 
-        it('should integrate with reactive forms', fakeAsync(() => {
+        it('should integrate with reactive forms', async () => {
             expect(knobInstance.value).toBe(50);
 
             component.knobControl.setValue(75);
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(knobInstance.value).toBe(75);
-        }));
+        });
 
-        it('should validate min/max values', fakeAsync(() => {
+        it('should validate min/max values', async () => {
             // Test value below minimum
             component.knobControl.setValue(20);
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.knobControl.valid).toBe(false);
             expect(component.knobControl.errors?.['min']).toBeTruthy();
 
             // Test value above maximum
             component.knobControl.setValue(80);
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.knobControl.valid).toBe(false);
             expect(component.knobControl.errors?.['max']).toBeTruthy();
 
             // Test valid value
             component.knobControl.setValue(50);
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.knobControl.valid).toBe(true);
             expect(component.knobControl.errors).toBeNull();
-        }));
+        });
 
-        it('should update form control on user interaction', fakeAsync(() => {
+        it('should update form control on user interaction', async () => {
             knobInstance.updateModelValue(60);
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.knobControl.value).toBe(60);
             expect(component.changeEvents.length).toBe(1);
             expect(component.changeEvents[0]).toBe(60);
-        }));
+        });
     });
 
     describe('Value Template Tests', () => {
@@ -582,7 +589,8 @@ describe('Knob', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestTemplateKnobComponent]
+                imports: [TestTemplateKnobComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestTemplateKnobComponent);
@@ -601,17 +609,17 @@ describe('Knob', () => {
             expect(textElement.nativeElement.textContent.trim()).toBe('25°C');
         });
 
-        it('should update template when value changes', fakeAsync(() => {
+        it('should update template when value changes', async () => {
             component.temperature = 30;
             knobInstance.writeControlValue(30, () => {});
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(knobInstance.valueToDisplay()).toBe('30°C');
 
             const textElement = fixture.debugElement.query(By.css('text'));
             expect(textElement.nativeElement.textContent.trim()).toBe('30°C');
-        }));
+        });
     });
 
     describe('Edge Cases', () => {
@@ -621,7 +629,8 @@ describe('Knob', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestAdvancedKnobComponent]
+                imports: [TestAdvancedKnobComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestAdvancedKnobComponent);
@@ -630,19 +639,19 @@ describe('Knob', () => {
             fixture.detectChanges();
         });
 
-        it('should handle null/undefined values', fakeAsync(() => {
+        it('should handle null/undefined values', async () => {
             component.value = null as any;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(knobInstance._value).toBe(0); // Should default to min value
 
             component.value = undefined as any;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(knobInstance._value).toBe(0);
-        }));
+        });
 
         it('should clamp values to min/max bounds', () => {
             // Test value above max
@@ -690,7 +699,8 @@ describe('Knob', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicKnobComponent]
+                imports: [TestBasicKnobComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicKnobComponent);
@@ -742,7 +752,8 @@ describe('Knob', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicKnobComponent]
+                imports: [TestBasicKnobComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicKnobComponent);
@@ -751,25 +762,24 @@ describe('Knob', () => {
             fixture.detectChanges();
         });
 
-        it('should handle rapid value changes', fakeAsync(() => {
+        it('should handle rapid value changes', async () => {
             // Rapid value changes simulation
             for (let i = 0; i < 100; i++) {
                 knobInstance.updateModelValue(i);
-                fixture.detectChanges();
-                tick(1);
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
             }
 
             expect(knobInstance.value).toBe(99);
-            flush();
-        }));
+        });
 
-        it('should maintain performance with frequent updates', fakeAsync(() => {
+        it('should maintain performance with frequent updates', async () => {
             const startTime = performance.now();
 
             for (let i = 0; i < 50; i++) {
                 knobInstance.updateModelValue(Math.random() * 100);
-                fixture.detectChanges();
-                tick(1);
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
             }
 
             const endTime = performance.now();
@@ -777,8 +787,7 @@ describe('Knob', () => {
 
             // Should complete within reasonable time (adjust threshold as needed)
             expect(duration).toBeLessThan(1000);
-            flush();
-        }));
+        });
     });
 
     describe('PassThrough (PT) Tests', () => {
@@ -799,16 +808,17 @@ describe('Knob', () => {
                 };
             }
 
-            it('should apply simple string classes to PT sections', fakeAsync(async () => {
+            it('should apply simple string classes to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
-                    declarations: [TestPTCase1Component]
+                    imports: [Knob, FormsModule],
+                    declarations: [TestPTCase1Component],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase1Component);
-                testFixture.detectChanges();
-                tick();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
                 if (hostEl) {
@@ -835,9 +845,7 @@ describe('Knob', () => {
                 if (textEl) {
                     expect(textEl.nativeElement.classList.contains('TEXT_CLASS')).toBe(true);
                 }
-
-                flush();
-            }));
+            });
         });
 
         describe('Case 2: Object with class, style, data attributes', () => {
@@ -863,16 +871,17 @@ describe('Knob', () => {
                 };
             }
 
-            it('should apply object properties to PT sections', fakeAsync(async () => {
+            it('should apply object properties to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
-                    declarations: [TestPTCase2Component]
+                    imports: [Knob, FormsModule],
+                    declarations: [TestPTCase2Component],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase2Component);
-                testFixture.detectChanges();
-                tick();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
                 if (hostEl) {
@@ -886,9 +895,7 @@ describe('Knob', () => {
                     expect(svgEl.nativeElement.classList.contains('SVG_OBJECT_CLASS')).toBe(true);
                     expect(svgEl.nativeElement.getAttribute('data-p-custom')).toBe('custom-value');
                 }
-
-                flush();
-            }));
+            });
         });
 
         describe('Case 3: Mixed object and string values', () => {
@@ -908,16 +915,17 @@ describe('Knob', () => {
                 };
             }
 
-            it('should apply mixed object and string values', fakeAsync(async () => {
+            it('should apply mixed object and string values', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
-                    declarations: [TestPTCase3Component]
+                    imports: [Knob, FormsModule],
+                    declarations: [TestPTCase3Component],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase3Component);
-                testFixture.detectChanges();
-                tick();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
                 if (hostEl) {
@@ -928,9 +936,7 @@ describe('Knob', () => {
                 if (svgEl) {
                     expect(svgEl.nativeElement.classList.contains('MIXED_SVG_CLASS')).toBe(true);
                 }
-
-                flush();
-            }));
+            });
         });
 
         describe('Case 4: Use variables from instance', () => {
@@ -956,16 +962,17 @@ describe('Knob', () => {
                 };
             }
 
-            it('should use instance variables in PT functions', fakeAsync(async () => {
+            it('should use instance variables in PT functions', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
-                    declarations: [TestPTCase4Component]
+                    imports: [Knob, FormsModule],
+                    declarations: [TestPTCase4Component],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase4Component);
-                testFixture.detectChanges();
-                tick();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
                 if (hostEl) {
@@ -979,9 +986,7 @@ describe('Knob', () => {
                     const fillColor = textEl.nativeElement.getAttribute('fill');
                     expect(fillColor).toBeTruthy();
                 }
-
-                flush();
-            }));
+            });
         });
 
         describe('Case 5: Event binding', () => {
@@ -1006,28 +1011,27 @@ describe('Knob', () => {
                 };
             }
 
-            it('should bind click events through PT', fakeAsync(async () => {
+            it('should bind click events through PT', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
-                    declarations: [TestPTCase5Component]
+                    imports: [Knob, FormsModule],
+                    declarations: [TestPTCase5Component],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase5Component);
                 const component = testFixture.componentInstance;
-                testFixture.detectChanges();
-                tick();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const svgEl = testFixture.debugElement.query(By.css('svg'));
                 if (svgEl) {
                     const clickEvent = new MouseEvent('click');
                     svgEl.nativeElement.dispatchEvent(clickEvent);
-                    testFixture.detectChanges();
+                    testFixture.changeDetectorRef.markForCheck();
                     expect(component.clickedSection).toBeTruthy();
                 }
-
-                flush();
-            }));
+            });
         });
 
         describe('Case 6: Inline PT', () => {
@@ -1039,24 +1043,23 @@ describe('Knob', () => {
                 value: number = 50;
             }
 
-            it('should apply inline PT as string', fakeAsync(async () => {
+            it('should apply inline PT as string', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
-                    declarations: [TestPTCase6InlineComponent]
+                    imports: [Knob, FormsModule],
+                    declarations: [TestPTCase6InlineComponent],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
-                testFixture.detectChanges();
-                tick();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
                 }
-
-                flush();
-            }));
+            });
 
             @Component({
                 standalone: false,
@@ -1066,24 +1069,23 @@ describe('Knob', () => {
                 value: number = 50;
             }
 
-            it('should apply inline PT as object', fakeAsync(async () => {
+            it('should apply inline PT as object', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
-                    declarations: [TestPTCase6InlineObjectComponent]
+                    imports: [Knob, FormsModule],
+                    declarations: [TestPTCase6InlineObjectComponent],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
-                testFixture.detectChanges();
-                tick();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
                 }
-
-                flush();
-            }));
+            });
         });
 
         describe('Case 7: Global PT from PrimeNGConfig', () => {
@@ -1095,12 +1097,13 @@ describe('Knob', () => {
                 value: number = 50;
             }
 
-            it('should apply global PT from config', fakeAsync(async () => {
+            it('should apply global PT from config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    imports: [Knob, FormsModule],
                     declarations: [TestPTCase7GlobalComponent],
                     providers: [
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 knob: {
@@ -1113,16 +1116,14 @@ describe('Knob', () => {
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
-                testFixture.detectChanges();
-                tick();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('GLOBAL_HOST_CLASS')).toBe(true);
                 }
-
-                flush();
-            }));
+            });
         });
 
         describe('Case 8: PT Hooks', () => {
@@ -1148,25 +1149,24 @@ describe('Knob', () => {
                 };
             }
 
-            it('should call PT hooks', fakeAsync(async () => {
+            it('should call PT hooks', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
-                    declarations: [TestPTCase8HooksComponent]
+                    imports: [Knob, FormsModule],
+                    declarations: [TestPTCase8HooksComponent],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);
                 const component = testFixture.componentInstance;
-                testFixture.detectChanges();
-                tick();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 expect(component.hooksCalled.some((h) => h.includes('onAfterView'))).toBe(true);
 
                 testFixture.destroy();
-                tick();
-
-                flush();
-            }));
+                await testFixture.whenStable();
+            });
         });
 
         describe('PT Section Coverage', () => {
@@ -1186,16 +1186,17 @@ describe('Knob', () => {
                 };
             }
 
-            it('should apply PT to all sections', fakeAsync(async () => {
+            it('should apply PT to all sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
-                    declarations: [TestPTCoverageComponent]
+                    imports: [Knob, FormsModule],
+                    declarations: [TestPTCoverageComponent],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCoverageComponent);
-                testFixture.detectChanges();
-                tick();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
                 expect(hostEl).toBeTruthy();
@@ -1214,9 +1215,7 @@ describe('Knob', () => {
 
                 const textEl = testFixture.debugElement.query(By.css('[data-pc-section="text"]'));
                 expect(textEl).toBeTruthy();
-
-                flush();
-            }));
+            });
         });
     });
 });

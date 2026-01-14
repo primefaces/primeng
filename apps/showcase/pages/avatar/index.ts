@@ -1,15 +1,13 @@
-import { AccessibilityDoc } from '@/doc/avatar/accessibilitydoc';
-import { GroupDoc } from '@/doc/avatar/avatargroupdoc';
-import { AvatarGroupStyleDoc } from '@/doc/avatar/avatargroupstyledoc';
-import { AvatarStyleDoc } from '@/doc/avatar/avatarstyledoc';
-import { BadgeDoc } from '@/doc/avatar/badgedoc';
-import { IconDoc } from '@/doc/avatar/icondoc';
-import { ImageDoc } from '@/doc/avatar/imagedoc';
-import { ImportDoc } from '@/doc/avatar/importdoc';
-import { LabelDoc } from '@/doc/avatar/labeldoc';
-import { ShapeDoc } from '@/doc/avatar/shapedoc';
-import { SizeDoc } from '@/doc/avatar/sizedoc';
-import { TemplateDoc } from '@/doc/avatar/templatedoc';
+import { AccessibilityDoc } from '@/doc/avatar/accessibility-doc';
+import { GroupDoc } from '@/doc/avatar/avatargroup-doc';
+import { BadgeDoc } from '@/doc/avatar/badge-doc';
+import { IconDoc } from '@/doc/avatar/icon-doc';
+import { ImageDoc } from '@/doc/avatar/image-doc';
+import { ImportDoc } from '@/doc/avatar/import-doc';
+import { LabelDoc } from '@/doc/avatar/label-doc';
+import { ShapeDoc } from '@/doc/avatar/shape-doc';
+import { SizeDoc } from '@/doc/avatar/size-doc';
+import { TemplateDoc } from '@/doc/avatar/template-doc';
 import { PTComponent } from '@/doc/avatar/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
@@ -74,16 +72,6 @@ export class AvatarDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
-        },
-        {
-            id: 'style',
-            label: 'Style',
-            component: AvatarStyleDoc
-        },
-        {
-            id: 'avatargroup-style',
-            label: 'AvatarGroup Style',
-            component: AvatarGroupStyleDoc
         },
         {
             id: 'accessibility',

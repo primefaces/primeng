@@ -1,14 +1,14 @@
-import { FontAwesomeDoc } from '@/doc/customicons/fontawesomedoc';
-import { ImageDoc } from '@/doc/customicons/imagedoc';
-import { MaterialDoc } from '@/doc/customicons/materialdoc';
-import { SVGDoc } from '@/doc/customicons/svgdoc';
+import { FontAwesomeDoc } from '@/doc/customicons/fontawesome-doc';
+import { ImageDoc } from '@/doc/customicons/image-doc';
+import { MaterialDoc } from '@/doc/customicons/material-doc';
+import { SVGDoc } from '@/doc/customicons/svg-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc title="Custom Icons - PrimeNG" header="Custom Icons" description="PrimeNG components can be used with any icon library using the templating features." [docs]="docs"></app-doc>`
+    template: ` <app-doc title="Custom Icons - PrimeNG" header="Custom Icons" description="PrimeNG components can be used with any icon library using the templating features." [docs]="docs" docType="page"></app-doc>`
 })
 export class CustomIconsDemo {
     docs = [

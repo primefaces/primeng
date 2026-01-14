@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ImageCompare, ImageCompareModule } from './imagecompare';
 import { SharedModule } from 'primeng/api';
 
@@ -123,7 +123,8 @@ describe('ImageCompare', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [ImageCompareModule, SharedModule],
-            declarations: [TestBasicImageCompareComponent, TestPTemplateImageCompareComponent, TestRTLImageCompareComponent, TestCustomContentImageCompareComponent, TestPTImageCompareComponent]
+            declarations: [TestBasicImageCompareComponent, TestPTemplateImageCompareComponent, TestRTLImageCompareComponent, TestCustomContentImageCompareComponent, TestPTImageCompareComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(ImageCompare);
@@ -303,10 +304,11 @@ describe('ImageCompare', () => {
             expect(imageCompareElement.nativeElement.getAttribute('aria-label')).toBe('Image Compare');
         });
 
-        it('should set aria-labelledby attribute when provided', () => {
+        it('should set aria-labelledby attribute when provided', async () => {
             const testComponent = testFixture.componentInstance;
             testComponent.ariaLabelledby = 'label-id';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const imageCompareElement = testFixture.debugElement.query(By.directive(ImageCompare));
             expect(imageCompareElement.nativeElement.getAttribute('aria-labelledby')).toBe('label-id');
@@ -605,9 +607,10 @@ describe('ImageCompare', () => {
                 testComponent = testFixture.componentInstance;
             });
 
-            it('should support PT functions with instance parameter', () => {
+            it('should support PT functions with instance parameter', async () => {
                 testComponent.tabindex = 5;
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 testComponent.pt = {
                     root: ({ instance }) => {
@@ -617,7 +620,8 @@ describe('ImageCompare', () => {
                         };
                     }
                 };
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const rootElement = testFixture.debugElement.query(By.directive(ImageCompare));
                 // Verify that PT function was applied (either class should be present)
@@ -625,7 +629,7 @@ describe('ImageCompare', () => {
                 expect(hasClass).toBe(true);
             });
 
-            it('should use instance isRTL in PT function', () => {
+            it('should use instance isRTL in PT function', async () => {
                 testFixture.detectChanges();
                 const imageCompareInstance = testFixture.debugElement.query(By.directive(ImageCompare)).componentInstance;
                 imageCompareInstance.isRTL = true;
@@ -639,15 +643,17 @@ describe('ImageCompare', () => {
                         };
                     }
                 };
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const sliderElement = testFixture.debugElement.query(By.css('input[type="range"]'));
                 expect(sliderElement.nativeElement.style.direction).toBe('rtl');
             });
 
-            it('should support dynamic PT functions', () => {
+            it('should support dynamic PT functions', async () => {
                 testComponent.ariaLabel = 'Compare Images';
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 testComponent.pt = {
                     root: ({ instance }) => {
@@ -657,7 +663,8 @@ describe('ImageCompare', () => {
                         };
                     }
                 };
-                testFixture.detectChanges();
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
 
                 const rootElement = testFixture.debugElement.query(By.directive(ImageCompare));
                 expect(rootElement.nativeElement.classList.contains('DYNAMIC_PT_CLASS')).toBe(true);

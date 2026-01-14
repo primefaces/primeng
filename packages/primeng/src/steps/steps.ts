@@ -30,6 +30,7 @@ import { StepsStyle } from './style/stepsstyle';
                         [attr.id]="item.id"
                         pTooltip
                         [tooltipOptions]="item.tooltipOptions"
+                        [pTooltipUnstyled]="unstyled()"
                         [attr.data-pc-section]="'menuitem'"
                     >
                         <a

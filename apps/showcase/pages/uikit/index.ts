@@ -1,28 +1,26 @@
+import { AppDocSection } from '@/components/doc/app.docsection';
+import { AppDocSectionNav } from '@/components/doc/app.docsection-nav';
+import { AddingPrimeIconsDoc } from '@/doc/uikit/addingprimeicons-doc';
+import { CollectionsDoc } from '@/doc/uikit/collections-doc';
+import { ComponentsDoc } from '@/doc/uikit/faq/components-doc';
+import { LicenceDoc } from '@/doc/uikit/faq/license-doc';
+import { RoadmapDoc } from '@/doc/uikit/faq/roadmap-doc';
+import { UpdatesDoc } from '@/doc/uikit/faq/updates-doc';
+import { UsageDoc } from '@/doc/uikit/faq/usage-doc';
+import { GuideOverviewDoc } from '@/doc/uikit/guideoverview-doc';
+import { ImportantNoticeDoc } from '@/doc/uikit/importantnotice-doc';
+import { EnablingDoc } from '@/doc/uikit/installation/enabling-doc';
+import { ImportingDoc } from '@/doc/uikit/installation/importing-doc';
+import { PublishingDoc } from '@/doc/uikit/installation/publishing-doc';
+import { LimitationsDoc } from '@/doc/uikit/limitations-doc';
+import { ResourcesDoc } from '@/doc/uikit/resources-doc';
+import { SupportDoc } from '@/doc/uikit/support-doc';
+import { UpdatePrimeOneDoc } from '@/doc/uikit/updateprimeone-doc';
+import { CIPipelineDoc } from '@/doc/uikit/cipipeline-doc';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
-import { AddingPrimeIconsDoc } from '@/doc/uikit/addingprimeiconsdoc';
-import { ComponentsDoc } from '@/doc/uikit/faq/componentsdoc';
-import { DesignChangesDoc } from '@/doc/uikit/workflow/designchangesdoc';
-import { EnablingDoc } from '@/doc/uikit/installation/enablingdoc';
-import { GuideOverviewDoc } from '@/doc/uikit/guideoverviewdoc';
-import { ImportingDoc } from '@/doc/uikit/installation/importingdoc';
-import { LicenceDoc } from '@/doc/uikit/faq/licensedoc';
-import { PublishingDoc } from '@/doc/uikit/installation/publishingdoc';
-import { ResourcesDoc } from '@/doc/uikit/resourcesdoc';
-import { RoadmapDoc } from '@/doc/uikit/faq/roadmapdoc';
-import { SupportDoc } from '@/doc/uikit/supportdoc';
-import { TokensDoc } from '@/doc/uikit/faq/tokensdoc';
-import { TokenSetsDoc } from '@/doc/uikit/tokensetsdoc';
-import { TokensStudioSetupDoc } from '@/doc/uikit/workflow/tokensstudiosetupdoc';
-import { CIPipelineDoc } from '@/doc/uikit/workflow/cipipelinedoc';
-import { UpdatePrimeOneDoc } from '@/doc/uikit/updateprimeonedoc';
-import { UpdatesDoc } from '@/doc/uikit/faq/updatesdoc';
-import { UsageDoc } from '@/doc/uikit/faq/usagedoc';
-import { AppDocSectionNav } from '@/components/doc/app.docsection-nav';
-import { AppDocSection } from '@/components/doc/app.docsection';
-
 @Component({
     standalone: true,
     imports: [CommonModule, AppDocSectionNav, AppDocSection, RippleModule, RouterModule],
@@ -45,6 +43,11 @@ export class UIKitDemo {
             id: 'overview-demo',
             label: 'Overview',
             component: GuideOverviewDoc
+        },
+        {
+            id: 'important-notice',
+            label: 'Important Notice',
+            component: ImportantNoticeDoc
         },
         {
             id: 'resources-demo',
@@ -73,32 +76,14 @@ export class UIKitDemo {
             ]
         },
         {
-            id: 'workflow-demo',
-            label: 'Suggested Workflow',
-            description:
-                "PrimeOne uses Tokens Studio as its primary tool for design token management. To leverage the benefits of Figma Variables, these variables have also been exported from Tokens Studio and included in the file. This setup, while powerful, can make design changes somewhat complex and less fluid due to the way the tools interact. Although the provided guide outlines the recommended steps, we acknowledge that the workflow may feel unintuitive or slow at times. We’re actively exploring improvements, and in the meantime, suggest following the guide as a baseline while adapting it to your team's needs where necessary.",
-            children: [
-                {
-                    id: 'tokens-studio-setup-demo',
-                    label: 'Tokens Studio Setup',
-                    component: TokensStudioSetupDoc
-                },
-                {
-                    id: 'ci-pipeline',
-                    label: 'CI Pipeline',
-                    component: CIPipelineDoc
-                },
-                {
-                    id: 'design-changes-demo',
-                    label: 'Design Changes',
-                    component: DesignChangesDoc
-                }
-            ]
+            id: 'collections',
+            label: 'Collections',
+            component: CollectionsDoc
         },
         {
-            id: 'token-sets',
-            label: 'Token Sets',
-            component: TokenSetsDoc
+            id: 'ci-pipeline',
+            label: 'CI Pipeline',
+            component: CIPipelineDoc
         },
         {
             id: 'update-prime-one',
@@ -125,11 +110,6 @@ export class UIKitDemo {
                     component: ComponentsDoc
                 },
                 {
-                    id: 'tokens-demo',
-                    label: 'Tokens',
-                    component: TokensDoc
-                },
-                {
                     id: 'updates-demo',
                     label: 'Updates',
                     component: UpdatesDoc
@@ -145,6 +125,11 @@ export class UIKitDemo {
                     component: LicenceDoc
                 }
             ]
+        },
+        {
+            id: 'limitations',
+            label: 'Limitations',
+            component: LimitationsDoc
         },
         {
             id: 'support-demo',

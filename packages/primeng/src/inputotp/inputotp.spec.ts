@@ -1,5 +1,5 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
-import { Component, DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputOtp, InputOtpChangeEvent } from './inputotp';
@@ -148,7 +148,8 @@ describe('InputOtp', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicInputOtpComponent]
+                imports: [TestBasicInputOtpComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicInputOtpComponent);
@@ -184,7 +185,8 @@ describe('InputOtp', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicInputOtpComponent]
+                imports: [TestBasicInputOtpComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicInputOtpComponent);
@@ -193,20 +195,20 @@ describe('InputOtp', () => {
             fixture.detectChanges();
         });
 
-        it('should handle single character input', fakeAsync(() => {
+        it('should handle single character input', async () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
             const firstInput = inputs[0].nativeElement;
 
             firstInput.value = '1';
             firstInput.dispatchEvent(new InputEvent('input', { inputType: 'insertText' }));
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(inputOtpInstance.tokens[0]).toBe('1');
             expect(component.value).toBe('1');
-        }));
+        });
 
-        it('should move focus to next input on character entry', fakeAsync(() => {
+        it('should move focus to next input on character entry', async () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
             const firstInput = inputs[0].nativeElement;
             const secondInput = inputs[1].nativeElement;
@@ -216,14 +218,14 @@ describe('InputOtp', () => {
 
             firstInput.value = '1';
             firstInput.dispatchEvent(new InputEvent('input', { inputType: 'insertText' }));
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(secondInput.focus).toHaveBeenCalled();
             expect(secondInput.select).toHaveBeenCalled();
-        }));
+        });
 
-        it('should update model with complete OTP', fakeAsync(() => {
+        it('should update model with complete OTP', async () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
 
             inputs[0].nativeElement.value = '1';
@@ -235,12 +237,12 @@ describe('InputOtp', () => {
             inputs[3].nativeElement.value = '4';
             inputs[3].nativeElement.dispatchEvent(new InputEvent('input', { inputType: 'insertText' }));
 
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.value).toBe('1234');
             expect(inputOtpInstance.tokens).toEqual(['1', '2', '3', '4']);
-        }));
+        });
     });
 
     describe('Keyboard Navigation Tests', () => {
@@ -249,7 +251,8 @@ describe('InputOtp', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicInputOtpComponent]
+                imports: [TestBasicInputOtpComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicInputOtpComponent);
@@ -257,7 +260,7 @@ describe('InputOtp', () => {
             fixture.detectChanges();
         });
 
-        it('should move to next input on ArrowRight', fakeAsync(() => {
+        it('should move to next input on ArrowRight', async () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
             const firstInput = inputs[0].nativeElement;
             const secondInput = inputs[1].nativeElement;
@@ -267,14 +270,14 @@ describe('InputOtp', () => {
 
             const rightArrowEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
             firstInput.dispatchEvent(rightArrowEvent);
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(secondInput.focus).toHaveBeenCalled();
             expect(secondInput.select).toHaveBeenCalled();
-        }));
+        });
 
-        it('should move to previous input on ArrowLeft', fakeAsync(() => {
+        it('should move to previous input on ArrowLeft', async () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
             const firstInput = inputs[0].nativeElement;
             const secondInput = inputs[1].nativeElement;
@@ -284,12 +287,12 @@ describe('InputOtp', () => {
 
             const leftArrowEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
             secondInput.dispatchEvent(leftArrowEvent);
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(firstInput.focus).toHaveBeenCalled();
             expect(firstInput.select).toHaveBeenCalled();
-        }));
+        });
 
         it('should prevent ArrowUp and ArrowDown', () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
@@ -316,7 +319,8 @@ describe('InputOtp', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicInputOtpComponent]
+                imports: [TestBasicInputOtpComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicInputOtpComponent);
@@ -325,7 +329,7 @@ describe('InputOtp', () => {
             fixture.detectChanges();
         });
 
-        it('should handle paste operation', fakeAsync(() => {
+        it('should handle paste operation', async () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
             const firstInput = inputs[0].nativeElement;
 
@@ -338,15 +342,15 @@ describe('InputOtp', () => {
 
             spyOn(pasteEvent, 'preventDefault');
             firstInput.dispatchEvent(pasteEvent);
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(pasteEvent.preventDefault).toHaveBeenCalled();
             expect(inputOtpInstance.tokens).toEqual(['1', '2', '3', '4']);
             expect(component.value).toBe('1234');
-        }));
+        });
 
-        it('should handle paste with excess characters', fakeAsync(() => {
+        it('should handle paste with excess characters', async () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
             const firstInput = inputs[0].nativeElement;
 
@@ -358,13 +362,13 @@ describe('InputOtp', () => {
             });
 
             firstInput.dispatchEvent(pasteEvent);
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Should only take characters up to length
             expect(inputOtpInstance.tokens.length).toBeLessThanOrEqual(5);
             expect(component.value.length).toBeLessThanOrEqual(5);
-        }));
+        });
     });
 
     describe('Advanced Features Tests', () => {
@@ -374,7 +378,8 @@ describe('InputOtp', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestAdvancedInputOtpComponent]
+                imports: [TestAdvancedInputOtpComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestAdvancedInputOtpComponent);
@@ -401,9 +406,10 @@ describe('InputOtp', () => {
             });
         });
 
-        it('should enforce integerOnly restriction', fakeAsync(() => {
+        it('should enforce integerOnly restriction', async () => {
             component.integerOnly = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const inputs = fixture.debugElement.queryAll(By.css('input'));
             const firstInput = inputs[0].nativeElement;
@@ -419,7 +425,7 @@ describe('InputOtp', () => {
             firstInput.dispatchEvent(alphaEvent);
 
             expect(alphaEvent.preventDefault).toHaveBeenCalled();
-        }));
+        });
 
         it('should handle readonly state', () => {
             component.readonly = true;
@@ -440,18 +446,18 @@ describe('InputOtp', () => {
             expect(inputOtpInstance.size()).toBe('large');
         });
 
-        it('should emit onChange events', fakeAsync(() => {
+        it('should emit onChange events', async () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
             const firstInput = inputs[0].nativeElement;
 
             firstInput.value = '1';
             firstInput.dispatchEvent(new InputEvent('input', { inputType: 'insertText' }));
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.changeEvents.length).toBe(1);
             expect(component.changeEvents[0].value).toBe('1');
-        }));
+        });
 
         it('should emit onFocus and onBlur events', () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
@@ -476,7 +482,8 @@ describe('InputOtp', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestReactiveFormInputOtpComponent]
+                imports: [TestReactiveFormInputOtpComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestReactiveFormInputOtpComponent);
@@ -485,32 +492,32 @@ describe('InputOtp', () => {
             fixture.detectChanges();
         });
 
-        it('should integrate with reactive forms', fakeAsync(() => {
+        it('should integrate with reactive forms', async () => {
             component.otpControl.setValue('1234');
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(inputOtpInstance.tokens).toEqual(['1', '2', '3', '4']);
-        }));
+        });
 
-        it('should validate required and minLength', fakeAsync(() => {
+        it('should validate required and minLength', async () => {
             expect(component.otpControl.valid).toBe(false);
             expect(component.otpControl.errors?.['required']).toBe(true);
 
             component.otpControl.setValue('12');
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.otpControl.valid).toBe(false);
             expect(component.otpControl.errors?.['minlength']).toBeTruthy();
 
             component.otpControl.setValue('1234');
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.otpControl.valid).toBe(true);
             expect(component.otpControl.errors).toBeNull();
-        }));
+        });
     });
 
     describe('Edge Cases', () => {
@@ -520,7 +527,8 @@ describe('InputOtp', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestAdvancedInputOtpComponent]
+                imports: [TestAdvancedInputOtpComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestAdvancedInputOtpComponent);
@@ -529,24 +537,24 @@ describe('InputOtp', () => {
             fixture.detectChanges();
         });
 
-        it('should handle null/undefined values', fakeAsync(() => {
+        it('should handle null/undefined values', async () => {
             component.value = null as any;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(inputOtpInstance.tokens).toEqual([]);
 
             component.value = undefined as any;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(inputOtpInstance.tokens).toEqual([]);
-        }));
+        });
 
-        it('should handle empty string values', fakeAsync(() => {
+        it('should handle empty string values', async () => {
             component.value = '';
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(inputOtpInstance.tokens).toEqual([]);
 
@@ -554,7 +562,7 @@ describe('InputOtp', () => {
             inputs.forEach((input) => {
                 expect(input.nativeElement.value).toBe('' as any);
             });
-        }));
+        });
     });
 
     describe('Performance Tests', () => {
@@ -563,7 +571,8 @@ describe('InputOtp', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicInputOtpComponent]
+                imports: [TestBasicInputOtpComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicInputOtpComponent);
@@ -571,19 +580,18 @@ describe('InputOtp', () => {
             fixture.detectChanges();
         });
 
-        it('should handle rapid input changes', fakeAsync(() => {
+        it('should handle rapid input changes', async () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
 
             for (let i = 0; i < 10; i++) {
                 inputs[0].nativeElement.value = i.toString();
                 inputs[0].nativeElement.dispatchEvent(new InputEvent('input', { inputType: 'insertText' }));
-                fixture.detectChanges();
-                tick(10);
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
             }
 
             expect(component.value).toBe('9');
-            flush();
-        }));
+        });
     });
 
     describe('pTemplate Tests', () => {
@@ -594,7 +602,8 @@ describe('InputOtp', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestInputOtpPTemplateComponent]
+                imports: [TestInputOtpPTemplateComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestInputOtpPTemplateComponent);
@@ -609,66 +618,66 @@ describe('InputOtp', () => {
             expect(() => inputOtpInstance.inputTemplate).not.toThrow();
         });
 
-        it('should pass context parameters to input template', fakeAsync(() => {
+        it('should pass context parameters to input template', async () => {
             // Template should be processed
             expect(inputOtpInstance).toBeTruthy();
             expect(component.length).toBe(4);
-            tick();
-        }));
+            await fixture.whenStable();
+        });
 
-        it('should handle input events through template context', fakeAsync(() => {
+        it('should handle input events through template context', async () => {
             // Test that component can handle value changes
             component.value = '1234';
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Value should be updated
             expect(component.value).toBe('1234');
-        }));
+        });
 
-        it('should handle keyboard events through template context', fakeAsync(() => {
+        it('should handle keyboard events through template context', async () => {
             // Test that template is properly configured
             expect(inputOtpInstance).toBeTruthy();
             // Template should be available after content init
             if (inputOtpInstance.ngAfterContentInit) {
                 inputOtpInstance.ngAfterContentInit();
             }
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
             expect(inputOtpInstance).toBeTruthy();
-        }));
+        });
 
-        it('should handle focus/blur events through template context', fakeAsync(() => {
+        it('should handle focus/blur events through template context', async () => {
             // Test that template context can be accessed
             expect(inputOtpInstance).toBeTruthy();
 
             // Simulate component state changes
             component.value = '12';
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.value).toBe('12');
-        }));
+        });
 
-        it('should process pTemplate after content init', fakeAsync(() => {
+        it('should process pTemplate after content init', async () => {
             if (inputOtpInstance.ngAfterContentInit) {
                 inputOtpInstance.ngAfterContentInit();
             }
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
 
             expect(inputOtpInstance).toBeTruthy();
-        }));
+        });
 
-        it('should handle pTemplate changes after view init', fakeAsync(() => {
+        it('should handle pTemplate changes after view init', async () => {
             if (inputOtpInstance.ngAfterViewInit) {
                 inputOtpInstance.ngAfterViewInit();
             }
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
 
             expect(inputOtpInstance).toBeTruthy();
-        }));
+        });
     });
 
     describe('#template Tests', () => {
@@ -679,7 +688,8 @@ describe('InputOtp', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestInputOtpRefTemplateComponent]
+                imports: [TestInputOtpRefTemplateComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestInputOtpRefTemplateComponent);
@@ -694,66 +704,66 @@ describe('InputOtp', () => {
             expect(() => inputOtpInstance.inputTemplate).not.toThrow();
         });
 
-        it('should pass context parameters to input template', fakeAsync(() => {
+        it('should pass context parameters to input template', async () => {
             // Template should be processed
             expect(inputOtpInstance).toBeTruthy();
             expect(component.length).toBe(4);
-            tick();
-        }));
+            await fixture.whenStable();
+        });
 
-        it('should handle input events through template context', fakeAsync(() => {
+        it('should handle input events through template context', async () => {
             // Test that component can handle value changes
             component.value = '1234';
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Value should be updated
             expect(component.value).toBe('1234');
-        }));
+        });
 
-        it('should handle keyboard events through template context', fakeAsync(() => {
+        it('should handle keyboard events through template context', async () => {
             // Test that template is properly configured
             expect(inputOtpInstance).toBeTruthy();
             // Template should be available after content init
             if (inputOtpInstance.ngAfterContentInit) {
                 inputOtpInstance.ngAfterContentInit();
             }
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
             expect(inputOtpInstance).toBeTruthy();
-        }));
+        });
 
-        it('should handle focus/blur events through template context', fakeAsync(() => {
+        it('should handle focus/blur events through template context', async () => {
             // Test that template context can be accessed
             expect(inputOtpInstance).toBeTruthy();
 
             // Simulate component state changes
             component.value = '12';
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.value).toBe('12');
-        }));
+        });
 
-        it('should process #template after content init', fakeAsync(() => {
+        it('should process #template after content init', async () => {
             if (inputOtpInstance.ngAfterContentInit) {
                 inputOtpInstance.ngAfterContentInit();
             }
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
 
             expect(inputOtpInstance).toBeTruthy();
-        }));
+        });
 
-        it('should handle #template changes after view init', fakeAsync(() => {
+        it('should handle #template changes after view init', async () => {
             if (inputOtpInstance.ngAfterViewInit) {
                 inputOtpInstance.ngAfterViewInit();
             }
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
 
             expect(inputOtpInstance).toBeTruthy();
-        }));
+        });
     });
 });
 
@@ -764,7 +774,8 @@ describe('InputOtp PassThrough Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [InputOtp, FormsModule]
+            imports: [InputOtp, FormsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(InputOtp);
@@ -844,6 +855,7 @@ describe('InputOtp PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [InputOtp, FormsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             inputOtp: {
@@ -871,6 +883,7 @@ describe('InputOtp PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [InputOtp, FormsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             inputOtp: {

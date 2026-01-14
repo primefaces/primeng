@@ -1,5 +1,5 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
-import { Component, DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { PLATFORM_ID } from '@angular/core';
@@ -47,7 +47,7 @@ describe('KeyFilter', () => {
         await TestBed.configureTestingModule({
             imports: [KeyFilterModule, FormsModule, ReactiveFormsModule, CommonModule],
             declarations: [TestBasicKeyFilterComponent, TestFormKeyFilterComponent],
-            providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+            providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicKeyFilterComponent);
@@ -261,7 +261,7 @@ describe('KeyFilter', () => {
             fixture.detectChanges();
         });
 
-        it('should handle valid input on Android', fakeAsync(() => {
+        it('should handle valid input on Android', async () => {
             // Simulate Android environment
             directive.isAndroid = true;
             directive.lastValue = '123';
@@ -269,13 +269,12 @@ describe('KeyFilter', () => {
 
             const inputEvent = new Event('input');
             inputElement.dispatchEvent(inputEvent);
-            tick();
+            await fixture.whenStable();
 
             expect(inputElement.value).toBe('1234');
-            flush();
-        }));
+        });
 
-        it('should reject invalid input on Android', fakeAsync(() => {
+        it('should reject invalid input on Android', async () => {
             // Simulate Android environment
             directive.isAndroid = true;
             directive.lastValue = '123';
@@ -284,14 +283,13 @@ describe('KeyFilter', () => {
 
             const inputEvent = new Event('input');
             inputElement.dispatchEvent(inputEvent);
-            tick();
+            await fixture.whenStable();
 
             expect(inputElement.value).toBe('123');
             expect(directive.ngModelChange.emit).toHaveBeenCalledWith('123');
-            flush();
-        }));
+        });
 
-        it('should handle paste validation on Android', fakeAsync(() => {
+        it('should handle paste validation on Android', async () => {
             // Simulate Android environment
             directive.isAndroid = true;
             directive.lastValue = '';
@@ -300,25 +298,23 @@ describe('KeyFilter', () => {
 
             const inputEvent = new Event('input');
             inputElement.dispatchEvent(inputEvent);
-            tick();
+            await fixture.whenStable();
 
             expect(inputElement.value).toBe('' as any);
             expect(directive.ngModelChange.emit).toHaveBeenCalledWith('');
-            flush();
-        }));
+        });
 
-        it('should not process input when not Android and validateOnly is false', fakeAsync(() => {
+        it('should not process input when not Android and validateOnly is false', async () => {
             directive.isAndroid = false;
             inputElement.value = 'test';
 
             const inputEvent = new Event('input');
             inputElement.dispatchEvent(inputEvent);
-            tick();
+            await fixture.whenStable();
 
             // Should not change the value
             expect(inputElement.value).toBe('test');
-            flush();
-        }));
+        });
     });
 
     describe('Keypress Event Handling', () => {
@@ -380,9 +376,10 @@ describe('KeyFilter', () => {
             expect(keyEvent.preventDefault).not.toHaveBeenCalled();
         });
 
-        it('should skip processing when validateOnly is true', () => {
+        it('should skip processing when validateOnly is true', async () => {
             testComponent.validateOnly = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keypress', { keyCode: 97, charCode: 97 }); // 'a'
             spyOn(keyEvent, 'preventDefault');
@@ -432,9 +429,10 @@ describe('KeyFilter', () => {
             expect(pasteEvent.preventDefault).toHaveBeenCalled();
         });
 
-        it('should handle complex regex patterns for paste', () => {
+        it('should handle complex regex patterns for paste', async () => {
             testComponent.pattern = /^\d{3}$/; // exactly 3 digits
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const mockClipboardData = {
                 getData: jasmine.createSpy('getData').and.returnValue('123')
@@ -449,9 +447,10 @@ describe('KeyFilter', () => {
             expect(pasteEvent.preventDefault).not.toHaveBeenCalled();
         });
 
-        it('should prevent invalid content with complex regex', () => {
+        it('should prevent invalid content with complex regex', async () => {
             testComponent.pattern = /^\d{3}$/; // exactly 3 digits
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const mockClipboardData = {
                 getData: jasmine.createSpy('getData').and.returnValue('1234') // too many digits
@@ -495,9 +494,10 @@ describe('KeyFilter', () => {
             expect(validationResult).toEqual({ validatePattern: false });
         });
 
-        it('should not validate when validateOnly is false', () => {
+        it('should not validate when validateOnly is false', async () => {
             formComponent.validateOnly = false;
-            formFixture.detectChanges();
+            formFixture.changeDetectorRef.markForCheck();
+            await formFixture.whenStable();
 
             const inputEl = formFixture.debugElement.query(By.css('input'));
             const directive = inputEl.injector.get(KeyFilter);
@@ -524,61 +524,69 @@ describe('KeyFilter', () => {
     });
 
     describe('Built-in Patterns Integration', () => {
-        it('should work with different built-in patterns', () => {
+        it('should work with different built-in patterns', async () => {
             // Test each pattern individually by setting it on the main test component
 
             // Test pint pattern
             testComponent.pattern = 'pint';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(directive.isValidString('12345')).toBe(true);
             expect(directive.isValidString('123abc')).toBe(false);
             expect(directive.isValidString('-123')).toBe(false);
 
             // Test int pattern
             testComponent.pattern = 'int';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(directive.isValidString('12345')).toBe(true);
             expect(directive.isValidString('-123')).toBe(true);
             expect(directive.isValidString('123abc')).toBe(false);
 
             // Test email pattern
             testComponent.pattern = 'email';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(directive.isValidString('test@example.com')).toBe(true);
             expect(directive.isValidString('user.name@domain')).toBe(true);
             expect(directive.isValidString('invalid email!')).toBe(false);
 
             // Test hex pattern
             testComponent.pattern = 'hex';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(directive.isValidString('ff00aa')).toBe(true);
             expect(directive.isValidString('123abc')).toBe(true);
             expect(directive.isValidString('xyz')).toBe(false);
 
             // Test alpha pattern
             testComponent.pattern = 'alpha';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(directive.isValidString('abcdef')).toBe(true);
             expect(directive.isValidString('test_value')).toBe(true);
             expect(directive.isValidString('abc123')).toBe(false);
 
             // Test alphanum pattern
             testComponent.pattern = 'alphanum';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(directive.isValidString('abc123')).toBe(true);
             expect(directive.isValidString('test_value')).toBe(true);
             expect(directive.isValidString('test-value')).toBe(false);
 
             // Test pnum pattern
             testComponent.pattern = 'pnum';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(directive.isValidString('123.45')).toBe(true);
             expect(directive.isValidString('123')).toBe(true);
             expect(directive.isValidString('-123')).toBe(false);
 
             // Test money pattern
             testComponent.pattern = 'money';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(directive.isValidString('123.45')).toBe(true);
             expect(directive.isValidString('1,234.56')).toBe(true);
             expect(directive.isValidString('1 234')).toBe(true);
@@ -586,7 +594,8 @@ describe('KeyFilter', () => {
 
             // Test num pattern
             testComponent.pattern = 'num';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(directive.isValidString('123.45')).toBe(true);
             expect(directive.isValidString('-123.45')).toBe(true);
             expect(directive.isValidString('abc')).toBe(false);
@@ -656,7 +665,7 @@ describe('KeyFilter', () => {
             TestBed.configureTestingModule({
                 imports: [KeyFilterModule, FormsModule, ReactiveFormsModule, CommonModule],
                 declarations: [TestBasicKeyFilterComponent],
-                providers: [{ provide: PLATFORM_ID, useValue: 'server' }]
+                providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'server' }]
             });
 
             const serverFixture = TestBed.createComponent(TestBasicKeyFilterComponent);
@@ -673,10 +682,11 @@ describe('KeyFilter', () => {
     });
 
     describe('Event Integration Tests', () => {
-        it('should integrate all events correctly', fakeAsync(() => {
+        it('should integrate all events correctly', async () => {
             testComponent.pattern = 'pint';
             testComponent.value = '';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const inputElement = inputEl.nativeElement;
 
@@ -702,29 +712,28 @@ describe('KeyFilter', () => {
 
             expect(validPasteEvent.preventDefault).not.toHaveBeenCalled();
 
-            tick();
-            flush();
-        }));
+            await fixture.whenStable();
+        });
     });
 
     describe('Model Change Events', () => {
-        it('should emit ngModelChange on Android input correction', fakeAsync(() => {
+        it('should emit ngModelChange on Android input correction', async () => {
             directive.isAndroid = true;
             spyOn(testComponent, 'onModelChange');
             spyOn(directive.ngModelChange, 'emit');
 
             testComponent.pattern = 'pint';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             directive.lastValue = '123';
             inputEl.nativeElement.value = '123a'; // invalid character
 
             const inputEvent = new Event('input');
             inputEl.nativeElement.dispatchEvent(inputEvent);
-            tick();
+            await fixture.whenStable();
 
             expect(directive.ngModelChange.emit).toHaveBeenCalledWith('123');
-            flush();
-        }));
+        });
     });
 });
