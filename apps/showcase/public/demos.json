@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-01-14T13:57:44.943Z",
+  "generatedAt": "2026-01-14T16:45:10.015Z",
   "totalDemos": 802,
   "demos": {
     "Image-template-demo": {
@@ -3884,9 +3884,9 @@
       "component": "designer",
       "section": "dashboard",
       "code": {
-        "basic": "<div class=\"px-8 pt-8 bg-surface-0 dark:bg-surface-900 rounded-2xl border border-surface\" style=\"max-width: 48rem\">\n    <img alt=\"Designer Dashboard\" src=\"https://primefaces.org/cdn/designer/guide-dashboard.png\" class=\"w-full\" />\n</div>",
-        "html": "<div class=\"px-8 pt-8 bg-surface-0 dark:bg-surface-900 rounded-2xl border border-surface\" style=\"max-width: 48rem\">\n    <img alt=\"Designer Dashboard\" src=\"https://primefaces.org/cdn/designer/guide-dashboard.png\" class=\"w-full\" />\n</div>",
-        "typescript": "import { Component } from '@angular/core';\n\n@Component({\n    template: `\n        <div class=\"px-8 pt-8 bg-surface-0 dark:bg-surface-900 rounded-2xl border border-surface\" style=\"max-width: 48rem\">\n            <img alt=\"Designer Dashboard\" src=\"https://primefaces.org/cdn/designer/guide-dashboard.png\" class=\"w-full\" />\n        </div>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class DesignerDashboardDemo {}"
+        "basic": "<div class=\"px-8 pt-8 bg-surface-0 dark:bg-surface-900 rounded-2xl border border-surface\" style=\"max-width: 48rem\">\n    <img alt=\"Designer Dashboard\" src=\"https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/designer/guide-dashboard.png\" class=\"w-full\" />\n</div>",
+        "html": "<div class=\"px-8 pt-8 bg-surface-0 dark:bg-surface-900 rounded-2xl border border-surface\" style=\"max-width: 48rem\">\n    <img alt=\"Designer Dashboard\" src=\"https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/designer/guide-dashboard.png\" class=\"w-full\" />\n</div>",
+        "typescript": "import { Component } from '@angular/core';\n\n@Component({\n    template: `\n        <div class=\"px-8 pt-8 bg-surface-0 dark:bg-surface-900 rounded-2xl border border-surface\" style=\"max-width: 48rem\">\n            <img alt=\"Designer Dashboard\" src=\"https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/designer/guide-dashboard.png\" class=\"w-full\" />\n        </div>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class DesignerDashboardDemo {}"
       },
       "metadata": {
         "services": [],
