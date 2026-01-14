@@ -555,9 +555,13 @@
                     "name": "Overview",
                     "routerLink": "/uikit"
                 },
+               {
+                    "name": "Guide v4",
+                    "routerLink": "/uikit/guide/v4"
+                },
                 {
-                    "name": "Guide",
-                    "routerLink": "/uikit/guide"
+                    "name": "Guide v3",
+                    "routerLink": "/uikit/guide/v3"
                 }
             ]
         },

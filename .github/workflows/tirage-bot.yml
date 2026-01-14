@@ -1,0 +1,64 @@
+name: Triage Bot
+
+on:
+  issues:
+    types: [opened, edited]
+  pull_request:
+    types: [opened, synchronize]
+  #schedule:
+    #- cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Operation mode'
+        type: choice
+        options:
+          - issue
+          - pr
+          - backlog
+          - prioritize
+        default: issue
+      issue_number:
+        description: 'Issue number (for mode=issue)'
+        type: number
+      pr_number:
+        description: 'PR number (for mode=pr)'
+        type: number
+      max_issues:
+        description: 'Max issues to process'
+        type: number
+        default: 50
+      dry_run:
+        description: 'Dry run (no changes)'
+        type: boolean
+        default: false
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout triage-bot action
+        uses: actions/checkout@v4
+        with:
+          repository: primefaces/triage-bot
+          token: ${{ secrets.PAT_TOKEN }}
+          path: .triage-bot-action
+
+      - name: Run Triage Bot
+        uses: ./.triage-bot-action
+        with:
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          library: primeng
+          mode: ${{ github.event_name == 'issues' && 'issue' || github.event_name == 'pull_request' && 'pr' || github.event_name == 'schedule' && 'backlog' || inputs.mode }}
+          issue-number: ${{ github.event.issue.number || inputs.issue_number }}
+          pr-number: ${{ github.event.pull_request.number || inputs.pr_number }}
+          max-issues: ${{ inputs.max_issues }}
+          dry-run: ${{ inputs.dry_run }}
+          min-upvotes: '5'
+          min-comments: '10'
