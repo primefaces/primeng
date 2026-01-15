@@ -825,7 +825,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
                     `;
                 }
 
-                this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
+                this.renderer.setProperty(this.styleElement, 'textContent', innerHTML);
                 setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             }
         }
