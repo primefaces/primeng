@@ -561,12 +561,6 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
     }
 
     onDestroy() {
-        if (this.componentRef && typeof this.componentRef.destroy === 'function') {
-            this.componentRef.destroy();
-        }
-    }
-
-    ngOnDestroy() {
         this.onContainerDestroy();
         if (this.componentRef && typeof this.componentRef.destroy === 'function') {
             this.componentRef.destroy();
