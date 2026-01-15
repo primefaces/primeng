@@ -137,7 +137,7 @@ import { TooltipModule } from 'primeng/tooltip';
             </div>
             <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20">
                 <div class="w-full md:w-6/12">
-                    <img alt="PrimeNG Designer" src="https://primefaces.org/cdn/designer/feature-2.png" class="w-full" />
+                    <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/designer/feature-2.png" class="w-full" />
                 </div>
                 <div class="w-full md:w-6/12">
                     <div class="text-primary font-bold mb-2">AUTOMATED</div>
