@@ -344,7 +344,7 @@ import { TooltipModule } from 'primeng/tooltip';
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-12 lg:col-span-4 px-2 lg:px-8">
                     <div class="text-xl text-surface-900 dark:text-surface-0 leading-normal mb-2 font-medium">What do I get when I purchase a license?</div>
-                    <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">You'll be able to download two Figma files for light and dark themes.</p>
+                    <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">You'll be able to download the Figma file of PrimeOne UI Kit.</p>
 
                     <div class="text-xl text-surface-900 dark:text-surface-0 leading-normal mb-2 font-medium">Is there a recurring fee or is the license perpetual?</div>
                     <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">UI Kit license is perpetual so requires one time payment, not subscription based.</p>
