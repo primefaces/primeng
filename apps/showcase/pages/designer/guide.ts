@@ -55,7 +55,7 @@ export class GuideDemo {
                     component: BaseDoc
                 },
                 {
-                    id: 'tokensets',
+                    id: 'figma',
                     label: 'Figma',
                     component: FigmaDoc
                 }
