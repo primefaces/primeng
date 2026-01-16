@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
         <b class="mb-4 block">Automated Flow</b>
         <p>
             Recommended approach is using the PrimeUI Theme Generator Figma plugin which provides built-in synchronization capabilities that automate the theme generation process. Visit
-            <a href="https://www.figma.com/community/plugin/1592914021886732603" target="_blank" rel="noopener noreferrer">the plugin website</a> to learn more about this workflow.
+            <a href="https://www.figma.com/community/plugin/1592914021886732603/primeui-theme-generator" target="_blank" rel="noopener noreferrer">the plugin website</a> to learn more about this workflow.
         </p>
         <b class="mb-4 block">Manual Flow</b>
         <p>

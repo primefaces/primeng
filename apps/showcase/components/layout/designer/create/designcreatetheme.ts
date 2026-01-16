@@ -28,7 +28,10 @@ const presets = {
         </section>
         <section class="mb-6">
             <div class="text-lg font-semibold mb-2">Foundation</div>
-            <span class="block text-muted-color leading-6 mb-4">Start by choosing a built-in theme as a foundation, or import your own design by uploading a tokens.json file created with the Prime UI Kit and Tokens Studio.</span>
+            <span class="block text-muted-color leading-6 mb-4"
+                >Start by choosing a built-in theme as a foundation, or import your own design by uploading a tokens.json file created with
+                <a href="https://www.figma.com/community/plugin/1592914021886732603/primeui-theme-generator" target="_blank" rel="noopener noreferrer" class="hover:underline font-medium">PrimeUI Theme Generator</a> Figma plugin.</span
+            >
             <div class="flex flex-col">
                 <div class="flex flex-col gap-4 border border-surface-200 dark:border-surface-700 rounded-md p-4">
                     <div class="flex items-center gap-2">
