@@ -2,7 +2,6 @@ import { DesignerService } from '@/service/designerservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import Aura from '@primeuix/themes/aura';
 import Lara from '@primeuix/themes/lara';
 import Material from '@primeuix/themes/material';
@@ -21,7 +20,7 @@ const presets = {
 @Component({
     selector: 'design-create-theme',
     standalone: true,
-    imports: [CommonModule, FormsModule, DividerModule, FileUploadModule, RouterLink],
+    imports: [CommonModule, FormsModule, DividerModule, FileUploadModule],
     template: `<section class="mb-6">
             <span class="block text-lg font-semibold mb-2">Theme Name</span>
             <input [(ngModel)]="themeName" type="text" autocomplete="off" class="px-3 py-2 rounded-md border border-surface-300 dark:border-surface-700 flex-1" maxlength="25" />
