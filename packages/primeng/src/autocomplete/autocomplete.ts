@@ -1511,6 +1511,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
                 const inputValue = event.target.value?.trim();
                 if (inputValue && !this.isSelected(inputValue)) {
                     this.updateModel([...(this.modelValue() || []), inputValue]);
+                    this.onAdd.emit({ originalEvent: event, value: inputValue });
                     this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
                 }
             }
