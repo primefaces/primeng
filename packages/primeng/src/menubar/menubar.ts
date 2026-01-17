@@ -1009,7 +1009,11 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
     }
 
     isValidItem(processedItem: any): boolean {
-        return !!processedItem && !this.isItemDisabled(processedItem.item) && !this.isItemSeparator(processedItem.item);
+        return !!processedItem && !this.isItemDisabled(processedItem.item) && !this.isItemSeparator(processedItem.item) && this.isItemVisible(processedItem.item);
+    }
+
+    isItemVisible(item: any): boolean {
+        return this.getItemProp(item, 'visible') !== false;
     }
 
     isItemDisabled(item: any): boolean {
