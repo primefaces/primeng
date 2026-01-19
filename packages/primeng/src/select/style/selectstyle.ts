@@ -28,7 +28,7 @@ const classes = {
             'p-variant-filled': instance.$variant() === 'filled',
             'p-focus': instance.focused,
             'p-invalid': instance.invalid(),
-            'p-inputwrapper-filled': instance.$filled(),
+            'p-inputwrapper-filled': instance.$filled() || instance.placeholder(),
             'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
             'p-select-open': instance.overlayVisible,
             'p-select-fluid': instance.hasFluid,
