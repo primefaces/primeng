@@ -121,7 +121,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
             invalid: this.invalid(),
             fluid: this.hasFluid,
             filled: this.$variant() === 'filled',
-            [this.pSize]: this.pSize
+            [this.pSize as string]: this.pSize
         });
     }
 }
