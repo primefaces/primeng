@@ -214,6 +214,7 @@ export class MenuItemContent extends BaseComponent {
                             <li [class]="cx('separator')" [pBind]="ptm('separator')" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator" [attr.data-pc-section]="'separator'"></li>
                             <li
                                 [class]="cn(cx('item', { item, id: menuitemId(item, id, i, j) }), item?.styleClass)"
+                                [pBind]="ptm('item')"
                                 *ngIf="!item.separator && item.visible !== false && (item.visible !== undefined || submenu.visible !== false)"
                                 [pMenuItemContent]="item"
                                 [itemTemplate]="itemTemplate ?? _itemTemplate"
@@ -239,6 +240,7 @@ export class MenuItemContent extends BaseComponent {
                         <li [class]="cx('separator')" [pBind]="ptm('separator')" *ngIf="item.separator && item.visible !== false" role="separator" [attr.data-pc-section]="'separator'"></li>
                         <li
                             [class]="cn(cx('item', { item, id: menuitemId(item, id, i) }), item?.styleClass)"
+                            [pBind]="ptm('item')"
                             *ngIf="!item.separator && item.visible !== false"
                             [pMenuItemContent]="item"
                             [itemTemplate]="itemTemplate ?? _itemTemplate"
