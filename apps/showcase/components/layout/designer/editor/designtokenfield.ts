@@ -30,7 +30,7 @@ import { UniqueComponentId } from 'primeng/utils';
                 [suggestions]="items"
                 (onSelect)="onOptionSelect($event)"
                 optionLabel="label"
-                unstyled
+                [unstyled]="true"
                 [pt]="{
                     pcInputText: {
                         root: {
@@ -58,7 +58,7 @@ import { UniqueComponentId } from 'primeng/utils';
                     <div [pTooltip]="getTooltipData(option)" tooltipPosition="left" class="w-full flex items-center justify-between gap-4 px-2">
                         <span>{{ option.label }}</span>
                         @if (getIsColor(option)) {
-                            <div *ngIf="option.isColor" class="border border-surface-200 dark:border-surface-700 w-4 h-4 rounded-full" [style]="{ backgroundColor: resolveColorPlain(option.value) }"></div>
+                            <div *ngIf="option.isColor" class="border border-surface-200 dark:border-surface-700 w-4 h-4 rounded-full" [style]="{ backgroundColor: designerService.resolveColorPlain(option.value) }"></div>
                         } @else {
                             <div class="text-xs max-w-16 text-ellipsis whitespace-nowrap overflow-hidden">
                                 {{ option.value }}
