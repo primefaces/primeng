@@ -30,7 +30,7 @@ import { UniqueComponentId } from 'primeng/utils';
                 [suggestions]="items"
                 (onSelect)="onOptionSelect($event)"
                 optionLabel="label"
-                unstyled
+                [unstyled]="true"
                 [pt]="{
                     pcInputText: {
                         root: {
