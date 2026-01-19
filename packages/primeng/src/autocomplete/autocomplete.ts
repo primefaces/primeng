@@ -116,7 +116,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             (paste)="onInputPaste($event)"
             (keyup)="onInputKeyUp($event)"
             [fluid]="hasFluid"
-            [unstyled]="unstyled()"
+            [pInputTextUnstyled]="unstyled()"
         />
         <ng-container *ngIf="$filled() && !$disabled() && showClear && !loading">
             <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
