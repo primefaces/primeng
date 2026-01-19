@@ -16,7 +16,7 @@ import { LimitationsDoc } from '@/doc/uikit/v4/limitations-doc';
 import { ResourcesDoc } from '@/doc/uikit/v4/resources-doc';
 import { SupportDoc } from '@/doc/uikit/common/support-doc';
 import { UpdatePrimeOneDoc } from '@/doc/uikit/common/updateprimeone-doc';
-import { CIPipelineDoc } from '@/doc/uikit/v4/cipipeline-doc';
+import { PrimeUIFigmaPluginDoc } from '@/doc/uikit/v4/primeuifigmaplugin-doc';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -82,9 +82,9 @@ export class UIKitV4Demo {
             component: CollectionsDoc
         },
         {
-            id: 'ci-pipeline',
-            label: 'CI Pipeline',
-            component: CIPipelineDoc
+            id: 'primeui-figma-plugin',
+            label: 'PrimeUI Figma Plugin',
+            component: PrimeUIFigmaPluginDoc
         },
         {
             id: 'update-primeone',

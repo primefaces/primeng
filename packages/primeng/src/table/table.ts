@@ -2641,14 +2641,14 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.display = 'block';
     }
 
-onColumnResizeEnd() {
-    const isRTL = getComputedStyle(this.el?.nativeElement ?? document.documentElement).direction === 'rtl';
-    const rawDelta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
-    const delta = isRTL ? -rawDelta : rawDelta;
-    const columnWidth = this.resizeColumnElement.offsetWidth;
-    const newColumnWidth = columnWidth + delta;
-    const elementMinWidth = this.resizeColumnElement.style.minWidth.replace(/[^\d.]/g, '');
-    const minWidth = elementMinWidth ? parseFloat(elementMinWidth) : 15;
+    onColumnResizeEnd() {
+        const isRTL = getComputedStyle(this.el?.nativeElement ?? document.documentElement).direction === 'rtl';
+        const rawDelta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
+        const delta = isRTL ? -rawDelta : rawDelta;
+        const columnWidth = this.resizeColumnElement.offsetWidth;
+        const newColumnWidth = columnWidth + delta;
+        const elementMinWidth = this.resizeColumnElement.style.minWidth.replace(/[^\d.]/g, '');
+        const minWidth = elementMinWidth ? parseFloat(elementMinWidth) : 15;
 
         if (newColumnWidth >= minWidth) {
             if (this.columnResizeMode === 'fit') {

@@ -2,6 +2,18 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.0.4](https://github.com/primefaces/primeng/tree/21.0.4) (2026-01-19)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.0.3...21.0.4)
+
+**Fixed bugs:**
+- MultiSelect | cannot disable maxSelectedLabels anymore [#19272](https://github.com/primefaces/primeng/issues/19272)
+- PickList | showSourceFilter/showTargetFilter not working in v20 [#19252](https://github.com/primefaces/primeng/issues/19252)
+- Menu | popup breaks with appendTo="body" and routerLink/navigation [#19213](https://github.com/primefaces/primeng/issues/19213)
+- AutoComplete | onAdd not triggered on Enter key in v20 [#19231](https://github.com/primefaces/primeng/issues/19231)
+- Menu | PT option item does not work [#19286](https://github.com/primefaces/primeng/issues/19286)
+- Table | column resizing behaves in reverse direction in RTL mode [#19290](https://github.com/primefaces/primeng/issues/19290)
+- InputText | pSize property should allow undefined [#19297](https://github.com/primefaces/primeng/issues/19297)
+
 ## [21.0.3](https://github.com/primefaces/primeng/tree/21.0.3) (2026-01-14)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.0.2...21.0.3)
 
