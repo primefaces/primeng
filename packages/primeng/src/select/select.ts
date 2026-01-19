@@ -1381,6 +1381,17 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         return !this._options() || (this.visibleOptions() && this.visibleOptions().length === 0);
     }
 
+    hasNullOrUndefinedOption = computed(() => {
+        const options = this.getAllVisibleAndNonVisibleOptions();;
+        if (options) {
+            return options.some((option) => {
+                const optionValue = this.getOptionValue(option);
+                return optionValue === null || optionValue === undefined;
+            });
+        }
+        return false;
+    });
+
     onEditableInput(event: Event) {
         const value = (event.target as HTMLInputElement).value;
         this.searchValue = '';
