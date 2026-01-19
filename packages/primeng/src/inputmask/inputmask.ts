@@ -33,13 +33,18 @@ import {
     computed,
     ContentChild,
     ContentChildren,
+    Directive,
+    effect,
     ElementRef,
     EventEmitter,
     forwardRef,
+    HostListener,
     inject,
     InjectionToken,
+    input,
     Input,
     NgModule,
+    output,
     Output,
     QueryList,
     TemplateRef,
@@ -62,6 +67,653 @@ import { InputMaskStyle } from './style/inputmaskstyle';
 
 const INPUTMASK_INSTANCE = new InjectionToken<InputMask>('INPUTMASK_INSTANCE');
 
+const INPUTMASK_DIRECTIVE_INSTANCE = new InjectionToken<InputMaskDirective>('INPUTMASK_DIRECTIVE_INSTANCE');
+
+/**
+ * Value accessor for InputMaskDirective
+ */
+export const INPUTMASK_DIRECTIVE_VALUE_ACCESSOR: any = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => InputMaskDirective),
+    multi: true
+};
+
+/**
+ * InputMask directive is applied directly to input elements to enable masked input.
+ * @group Components
+ */
+@Directive({
+    selector: '[pInputMask]',
+    standalone: true,
+    providers: [InputMaskStyle, INPUTMASK_DIRECTIVE_VALUE_ACCESSOR, { provide: INPUTMASK_DIRECTIVE_INSTANCE, useExisting: InputMaskDirective }, { provide: PARENT_INSTANCE, useExisting: InputMaskDirective }],
+    host: {
+        '[class.p-inputmask]': '!$unstyled()'
+    }
+})
+export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
+    $pcInputMaskDirective: InputMaskDirective | undefined = inject(INPUTMASK_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    _componentStyle = inject(InputMaskStyle);
+
+    /**
+     * Used to pass attributes to DOM elements inside the InputMask directive.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pInputMaskPT = input<any>();
+
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pInputMaskUnstyled = input<boolean | undefined>();
+
+    /**
+     * Mask pattern.
+     * @group Props
+     */
+    mask = input<string>();
+
+    /**
+     * Placeholder character in mask, default is underscore.
+     * @group Props
+     */
+    slotChar = input<string>('_');
+
+    /**
+     * Clears the incomplete value on blur.
+     * @group Props
+     */
+    autoClear = input<boolean, boolean>(true, { transform: booleanAttribute });
+
+    /**
+     * Defines if ngModel sets the raw unmasked value to bound value or the formatted mask value.
+     * @group Props
+     */
+    unmask = input<boolean, boolean>(false, { transform: booleanAttribute });
+
+    /**
+     * Regex pattern for alpha characters.
+     * @group Props
+     */
+    characterPattern = input<string>('[A-Za-z]');
+
+    /**
+     * When present, it specifies that whether to clean buffer value from model.
+     * @group Props
+     */
+    keepBuffer = input<boolean, boolean>(false, { transform: booleanAttribute });
+
+    /**
+     * Callback to invoke when the mask is completed.
+     * @group Emits
+     */
+    onCompleteEvent = output<void>({ alias: 'onComplete' });
+
+    /**
+     * Callback to invoke when the component receives focus.
+     * @group Emits
+     */
+    onFocusEvent = output<Event>({ alias: 'onFocus' });
+
+    /**
+     * Callback to invoke when the component loses focus.
+     * @group Emits
+     */
+    onBlurEvent = output<Event>({ alias: 'onBlur' });
+
+    /**
+     * Callback to invoke on input.
+     * @group Emits
+     */
+    onInputEvent = output<Event>({ alias: 'onInput' });
+
+    /**
+     * Callback to invoke on input key press.
+     * @group Emits
+     */
+    onKeydownEvent = output<Event>({ alias: 'onKeydown' });
+
+    // Internal state
+    value: Nullable<string>;
+    defs: Nullable<{ [klass: string]: any }>;
+    tests: RegExp[] | any;
+    partialPosition: Nullable<number>;
+    firstNonMaskPos: Nullable<number>;
+    lastRequiredNonMaskPos: Nullable<number>;
+    len: Nullable<number>;
+    oldVal: Nullable<string>;
+    buffer: string[] | any;
+    defaultBuffer: Nullable<string>;
+    focusText: Nullable<string>;
+    caretTimeoutId: any;
+    androidChrome: boolean = true;
+    focused: Nullable<boolean>;
+
+    private get inputElement(): HTMLInputElement {
+        return this.el.nativeElement as HTMLInputElement;
+    }
+
+    constructor() {
+        super();
+
+        effect(() => {
+            const pt = this.pInputMaskPT();
+            pt && this.directivePT.set(pt);
+        });
+
+        effect(() => {
+            this.pInputMaskUnstyled() && this.directiveUnstyled.set(this.pInputMaskUnstyled());
+        });
+
+        effect(() => {
+            const maskValue = this.mask();
+            if (maskValue) {
+                this.initMask();
+                this.writeValue('');
+                this.onModelChange(this.value);
+            }
+        });
+
+        if (isPlatformBrowser(this.platformId)) {
+            const ua = navigator.userAgent;
+            this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
+        }
+    }
+
+    initMask() {
+        const maskValue = this.mask();
+        if (!maskValue) {
+            return;
+        }
+
+        this.tests = [];
+        this.partialPosition = maskValue.length;
+        this.len = maskValue.length;
+        this.firstNonMaskPos = null;
+        this.defs = {
+            '9': '[0-9]',
+            a: this.characterPattern(),
+            '*': `${this.characterPattern()}|[0-9]`
+        };
+
+        const maskTokens = maskValue.split('');
+        for (let i = 0; i < maskTokens.length; i++) {
+            const c = maskTokens[i];
+            if (c == '?') {
+                this.len--;
+                this.partialPosition = i;
+            } else if (this.defs[c]) {
+                this.tests.push(new RegExp(this.defs[c]));
+                if (this.firstNonMaskPos === null) {
+                    this.firstNonMaskPos = this.tests.length - 1;
+                }
+                if (i < this.partialPosition) {
+                    this.lastRequiredNonMaskPos = this.tests.length - 1;
+                }
+            } else {
+                this.tests.push(null);
+            }
+        }
+
+        this.buffer = [];
+        for (let i = 0; i < maskTokens.length; i++) {
+            const c = maskTokens[i];
+            if (c != '?') {
+                if (this.defs[c]) this.buffer.push(this.getPlaceholder(i));
+                else this.buffer.push(c);
+            }
+        }
+        this.defaultBuffer = this.buffer.join('');
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.value = value;
+        setModelValue(this.value);
+
+        if (this.inputElement) {
+            if (this.value == undefined || this.value == null) {
+                this.inputElement.value = '';
+            } else {
+                this.inputElement.value = this.value;
+            }
+
+            this.checkVal();
+            this.focusText = this.inputElement.value;
+        }
+        this.cd.markForCheck();
+    }
+
+    @HostListener('focus', ['$event'])
+    onInputFocus(event: Event) {
+        if (this.inputElement.readOnly) {
+            return;
+        }
+
+        this.focused = true;
+
+        clearTimeout(this.caretTimeoutId);
+        let pos: number;
+
+        this.focusText = this.inputElement.value;
+
+        pos = this.keepBuffer() ? this.inputElement.value.length : this.checkVal();
+
+        this.caretTimeoutId = setTimeout(() => {
+            if (this.inputElement !== this.inputElement.ownerDocument.activeElement) {
+                return;
+            }
+            this.writeBuffer();
+            const maskValue = this.mask();
+            if (pos == maskValue?.replace('?', '').length) {
+                this.caret(0, pos);
+            } else {
+                this.caret(pos);
+            }
+        }, 10);
+
+        this.onFocusEvent.emit(event);
+    }
+
+    @HostListener('blur', ['$event'])
+    onInputBlur(e: Event) {
+        this.focused = false;
+        this.onModelTouched();
+        if (!this.keepBuffer()) {
+            this.checkVal();
+        }
+        this.onBlurEvent.emit(e);
+
+        if (this.value != this.focusText) {
+            this.updateModel(e);
+            const event = this.document.createEvent('HTMLEvents');
+            event.initEvent('change', true, false);
+            this.inputElement.dispatchEvent(event);
+        }
+    }
+
+    @HostListener('keydown', ['$event'])
+    onInputKeydown(e: KeyboardEvent) {
+        if (this.inputElement.readOnly) {
+            return;
+        }
+
+        const k = e.which || e.keyCode;
+        let pos: Caret;
+        let begin: number;
+        let end: number;
+        let iPhone = false;
+
+        if (isPlatformBrowser(this.platformId)) {
+            iPhone = /iphone/i.test(getUserAgent());
+        }
+        this.oldVal = this.inputElement.value;
+
+        this.onKeydownEvent.emit(e);
+
+        // backspace, delete, and escape get special treatment
+        if (k === 8 || k === 46 || (iPhone && k === 127)) {
+            pos = this.caret() as Caret;
+            begin = pos.begin;
+            end = pos.end;
+
+            if (end - begin === 0) {
+                begin = k !== 46 ? this.seekPrev(begin) : (end = this.seekNext(begin - 1));
+                end = k === 46 ? this.seekNext(end) : end;
+            }
+
+            this.clearBuffer(begin, end);
+            if (this.keepBuffer()) {
+                this.shiftL(begin, end - 2);
+            } else {
+                this.shiftL(begin, end - 1);
+            }
+            this.updateModel(e);
+            this.onInputEvent.emit(e);
+
+            e.preventDefault();
+        } else if (k === 13) {
+            // enter
+            this.onInputBlur(e);
+            this.updateModel(e);
+        } else if (k === 27) {
+            // escape
+            this.inputElement.value = this.focusText as string;
+            this.caret(0, this.checkVal());
+            this.updateModel(e);
+
+            e.preventDefault();
+        }
+    }
+
+    @HostListener('keypress', ['$event'])
+    onKeyPress(e: KeyboardEvent) {
+        if (this.inputElement.readOnly) {
+            return;
+        }
+
+        const k = e.which || e.keyCode;
+        const pos = this.caret() as Caret;
+        let p: number;
+        let c: string;
+        let next: number;
+        let completed!: boolean;
+
+        if (e.ctrlKey || e.altKey || e.metaKey || k < 32 || (k > 34 && k < 41)) {
+            return;
+        } else if (k && k !== 13) {
+            if (pos.end - pos.begin !== 0) {
+                this.clearBuffer(pos.begin, pos.end);
+                this.shiftL(pos.begin, pos.end - 1);
+            }
+
+            p = this.seekNext(pos.begin - 1);
+            if (p < (this.len as number)) {
+                c = String.fromCharCode(k);
+                if (this.tests[p].test(c)) {
+                    this.shiftR(p);
+
+                    this.buffer[p] = c;
+                    this.writeBuffer();
+                    next = this.seekNext(p);
+
+                    if (isClient() && /android/i.test(getUserAgent())) {
+                        const proxy = () => {
+                            this.caret(next);
+                        };
+                        setTimeout(proxy, 0);
+                    } else {
+                        this.caret(next);
+                    }
+
+                    if (pos.begin <= (this.lastRequiredNonMaskPos as number)) {
+                        completed = this.isCompleted();
+                    }
+
+                    this.onInputEvent.emit(e);
+                }
+            }
+            e.preventDefault();
+        }
+
+        this.updateModel(e);
+
+        if (completed) {
+            this.onCompleteEvent.emit();
+        }
+    }
+
+    @HostListener('input', ['$event'])
+    onInputChange(event: Event) {
+        if (this.androidChrome) this.handleAndroidInput(event);
+        else this.handleInputChange(event);
+
+        this.onInputEvent.emit(event);
+    }
+
+    @HostListener('paste', ['$event'])
+    onPaste(event: Event) {
+        this.handleInputChange(event);
+    }
+
+    // Helper methods
+    caret(first?: number, last?: number): Caret | undefined {
+        let range: any;
+        let begin: number | null | undefined;
+        let end: number | null | undefined;
+
+        if (!this.inputElement.offsetParent || this.inputElement !== this.inputElement.ownerDocument.activeElement) {
+            return;
+        }
+
+        if (typeof first == 'number') {
+            begin = first;
+            end = typeof last === 'number' ? last : begin;
+            if (typeof this.inputElement.setSelectionRange === 'function') {
+                this.inputElement.setSelectionRange(begin, end);
+            } else if ((this.inputElement as any)['createTextRange']) {
+                range = (this.inputElement as any)['createTextRange']();
+                range.collapse(true);
+                range.moveEnd('character', end);
+                range.moveStart('character', begin);
+                range.select();
+            }
+        } else {
+            if (typeof this.inputElement.setSelectionRange === 'function') {
+                begin = this.inputElement.selectionStart;
+                end = this.inputElement.selectionEnd;
+            } else if ((this.document as any)['selection'] && (this.document as any)['selection'].createRange) {
+                range = (this.document as any)['selection'].createRange();
+                begin = 0 - range.duplicate().moveStart('character', -100000);
+                end = begin + range.text.length;
+            }
+
+            return { begin: begin as number, end: end as number };
+        }
+    }
+
+    isCompleted(): boolean {
+        for (let i = this.firstNonMaskPos as number; i <= (this.lastRequiredNonMaskPos as number); i++) {
+            if (this.tests[i] && (this.buffer as string[])[i] === this.getPlaceholder(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    getPlaceholder(i: number) {
+        const slotCharValue = this.slotChar();
+        if (i < slotCharValue.length) {
+            return slotCharValue.charAt(i);
+        }
+        return slotCharValue.charAt(0);
+    }
+
+    seekNext(pos: number) {
+        while (++pos < (this.len as number) && !this.tests[pos]);
+        return pos;
+    }
+
+    seekPrev(pos: number) {
+        while (--pos >= 0 && !this.tests[pos]);
+        return pos;
+    }
+
+    shiftL(begin: number, end: number) {
+        let i, j;
+
+        if (begin < 0) {
+            return;
+        }
+
+        for (i = begin, j = this.seekNext(end); i < (this.len as number); i++) {
+            if (this.tests[i]) {
+                if (j < (this.len as number) && this.tests[i].test(this.buffer[j])) {
+                    this.buffer[i] = this.buffer[j];
+                    this.buffer[j] = this.getPlaceholder(j);
+                } else {
+                    break;
+                }
+
+                j = this.seekNext(j);
+            }
+        }
+        this.writeBuffer();
+        this.caret(Math.max(this.firstNonMaskPos as number, begin));
+    }
+
+    shiftR(pos: number) {
+        let i, c, j, t;
+
+        for (i = pos, c = this.getPlaceholder(pos); i < (this.len as number); i++) {
+            if (this.tests[i]) {
+                j = this.seekNext(i);
+                t = this.buffer[i];
+                this.buffer[i] = c;
+                if (j < (this.len as number) && this.tests[j].test(t)) {
+                    c = t;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    handleAndroidInput(e: Event) {
+        const curVal = this.inputElement.value;
+        const pos = this.caret() as Caret;
+        if (this.oldVal && this.oldVal.length && this.oldVal.length > curVal.length) {
+            // a deletion or backspace happened
+            this.checkVal(true);
+            while (pos.begin > 0 && !this.tests[pos.begin - 1]) pos.begin--;
+            if (pos.begin === 0) {
+                while (pos.begin < (this.firstNonMaskPos as number) && !this.tests[pos.begin]) pos.begin++;
+            }
+
+            setTimeout(() => {
+                this.caret(pos.begin, pos.begin);
+                this.updateModel(e);
+                if (this.isCompleted()) {
+                    this.onCompleteEvent.emit();
+                }
+            }, 0);
+        } else {
+            this.checkVal(true);
+            while (pos.begin < (this.len as number) && !this.tests[pos.begin]) pos.begin++;
+
+            setTimeout(() => {
+                this.caret(pos.begin, pos.begin);
+                this.updateModel(e);
+                if (this.isCompleted()) {
+                    this.onCompleteEvent.emit();
+                }
+            }, 0);
+        }
+    }
+
+    handleInputChange(event: Event) {
+        if (this.inputElement.readOnly) {
+            return;
+        }
+
+        setTimeout(() => {
+            const pos = this.checkVal(true);
+            this.caret(pos);
+            this.updateModel(event);
+            if (this.isCompleted()) {
+                this.onCompleteEvent.emit();
+            }
+        }, 0);
+    }
+
+    clearBuffer(start: number, end: number) {
+        if (!this.keepBuffer()) {
+            let i;
+            for (i = start; i < end && i < (this.len as number); i++) {
+                if (this.tests[i]) {
+                    this.buffer[i] = this.getPlaceholder(i);
+                }
+            }
+        }
+    }
+
+    writeBuffer() {
+        if (this.buffer && this.inputElement) {
+            this.inputElement.value = this.buffer.join('');
+        }
+    }
+
+    checkVal(allow?: boolean): number {
+        // try to place characters where they belong
+        const test = this.inputElement.value;
+        let lastMatch = -1;
+        let i;
+        let c;
+        let pos;
+
+        for (i = 0, pos = 0; i < (this.len as number); i++) {
+            if (this.tests[i]) {
+                this.buffer[i] = this.getPlaceholder(i);
+                while (pos++ < test.length) {
+                    c = test.charAt(pos - 1);
+                    if (this.tests[i].test(c)) {
+                        if (!this.keepBuffer()) {
+                            this.buffer[i] = c;
+                        }
+                        lastMatch = i;
+                        break;
+                    }
+                }
+                if (pos > test.length) {
+                    this.clearBuffer(i + 1, this.len as number);
+                    break;
+                }
+            } else {
+                if (this.buffer[i] === test.charAt(pos)) {
+                    pos++;
+                }
+                if (i < (this.partialPosition as number)) {
+                    lastMatch = i;
+                }
+            }
+        }
+        if (allow) {
+            this.writeBuffer();
+        } else if (lastMatch + 1 < (this.partialPosition as number)) {
+            if (this.autoClear() || this.buffer.join('') === this.defaultBuffer) {
+                // Invalid value. Remove it and replace it with the
+                // mask, which is the default behavior.
+                if (this.inputElement.value) this.inputElement.value = '';
+                this.clearBuffer(0, this.len as number);
+            } else {
+                // Invalid value, but we opt to show the value to the
+                // user and allow them to correct their mistake.
+                this.writeBuffer();
+            }
+        } else {
+            this.writeBuffer();
+            this.inputElement.value = this.inputElement.value.substring(0, lastMatch + 1);
+        }
+        return (this.partialPosition ? i : this.firstNonMaskPos) as number;
+    }
+
+    getUnmaskedValue(): string {
+        const unmaskedBuffer: string[] = [];
+        for (let i = 0; i < this.buffer.length; i++) {
+            const c = this.buffer[i];
+            if (this.tests[i] && c != this.getPlaceholder(i)) {
+                unmaskedBuffer.push(c);
+            }
+        }
+        return unmaskedBuffer.join('');
+    }
+
+    updateModel(e: Event) {
+        const target = e.target as HTMLInputElement;
+        if (!target) {
+            return;
+        }
+
+        const updatedValue = this.unmask() ? this.getUnmaskedValue() : target.value;
+        if (updatedValue !== null && updatedValue !== undefined) {
+            this.value = updatedValue;
+            this.writeModelValue(this.value); // Sync with BaseModelHolder (same source as InputText)
+            this.onModelChange(this.value);
+        }
+    }
+
+    focus() {
+        this.inputElement.focus();
+    }
+}
+
 export const INPUTMASK_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => InputMask),
@@ -70,6 +722,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
 /**
  * InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.
  * @group Components
+ * @deprecated Use pInputMask instead.
  */
 @Component({
     selector: 'p-inputmask, p-inputMask, p-input-mask',
@@ -829,7 +1482,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
 }
 
 @NgModule({
-    imports: [InputMask, SharedModule],
-    exports: [InputMask, SharedModule]
+    imports: [InputMask, InputMaskDirective, SharedModule],
+    exports: [InputMask, InputMaskDirective, SharedModule]
 })
 export class InputMaskModule {}

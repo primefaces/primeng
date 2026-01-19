@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, provideZonelessChangeDetection } from '@angular/core';
-import { FormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormsModule, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { InputMask, InputMaskModule } from './inputmask';
+import { InputMask, InputMaskModule, InputMaskDirective } from './inputmask';
 import { SharedModule } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 
@@ -1542,6 +1542,612 @@ describe('InputMask', () => {
                 expect(hostElement?.getAttribute('data-has-disabled')).toBe('true');
                 expect(hostElement?.getAttribute('data-has-readonly')).toBe('true');
             });
+        });
+    });
+});
+
+// ============================================================================
+// InputMaskDirective Tests - TDD Approach
+// ============================================================================
+
+// Test Host Components for Directive
+@Component({
+    standalone: true,
+    imports: [InputMaskDirective, FormsModule],
+    template: `<input pInputMask [mask]="mask" [(ngModel)]="value" />`
+})
+class DirectiveBasicTestComponent {
+    mask = '999-99-9999';
+    value: string | null = null;
+}
+
+@Component({
+    standalone: true,
+    imports: [InputMaskDirective, ReactiveFormsModule],
+    template: `<input pInputMask [mask]="mask" [formControl]="control" />`
+})
+class DirectiveReactiveFormTestComponent {
+    mask = '(999) 999-9999';
+    control = new FormControl('');
+}
+
+@Component({
+    standalone: true,
+    imports: [InputMaskDirective, FormsModule],
+    template: `
+        <input
+            pInputMask
+            [mask]="mask"
+            [(ngModel)]="value"
+            [slotChar]="slotChar"
+            [autoClear]="autoClear"
+            [unmask]="unmask"
+            [attr.readonly]="readonly ? '' : null"
+            [keepBuffer]="keepBuffer"
+            [characterPattern]="characterPattern"
+            (onComplete)="onComplete()"
+            (onFocus)="onFocus($event)"
+            (onBlur)="onBlur($event)"
+            (onInput)="onInput($event)"
+            (onKeydown)="onKeydown($event)"
+        />
+    `
+})
+class DirectiveFullFeaturedTestComponent {
+    mask = '99/99/9999';
+    value: string | null = null;
+    slotChar = '_';
+    autoClear = true;
+    unmask = false;
+    readonly = false;
+    keepBuffer = false;
+    characterPattern = '[A-Za-z]';
+
+    completeCalled = false;
+    focusCalled = false;
+    blurCalled = false;
+    inputCalled = false;
+    keydownCalled = false;
+
+    onComplete() {
+        this.completeCalled = true;
+    }
+    onFocus(_e: Event) {
+        this.focusCalled = true;
+    }
+    onBlur(_e: Event) {
+        this.blurCalled = true;
+    }
+    onInput(_e: Event) {
+        this.inputCalled = true;
+    }
+    onKeydown(_e: Event) {
+        this.keydownCalled = true;
+    }
+}
+
+describe('InputMaskDirective', () => {
+    describe('Directive Initialization', () => {
+        it('should create directive on input element', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            expect(inputEl).toBeTruthy();
+
+            const directive = inputEl.injector.get(InputMaskDirective, null);
+            expect(directive).toBeTruthy();
+        });
+
+        it('should initialize with default values', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            expect(directive.slotChar()).toBe('_');
+            expect(directive.autoClear()).toBe(true);
+            expect(directive.unmask()).toBe(false);
+            expect(directive.keepBuffer()).toBe(false);
+            expect(directive.characterPattern()).toBe('[A-Za-z]');
+        });
+
+        it('should apply mask input correctly', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            expect(directive.mask()).toBe('999-99-9999');
+        });
+    });
+
+    describe('Mask Pattern Processing', () => {
+        it('should process numeric mask pattern (999-99-9999)', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.componentInstance.mask = '999-99-9999';
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            expect(directive.len).toBe(11);
+            expect(directive.defaultBuffer).toBe('___-__-____');
+        });
+
+        it('should process phone mask pattern ((999) 999-9999)', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.componentInstance.mask = '(999) 999-9999';
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            expect(directive.len).toBe(14);
+            expect(directive.defaultBuffer).toBe('(___) ___-____');
+        });
+
+        it('should process date mask pattern (99/99/9999)', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.componentInstance.mask = '99/99/9999';
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            expect(directive.len).toBe(10);
+            expect(directive.defaultBuffer).toBe('__/__/____');
+        });
+
+        it('should process alpha mask pattern (aaa-aaa)', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.componentInstance.mask = 'aaa-aaa';
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            expect(directive.len).toBe(7);
+            expect(directive.defaultBuffer).toBe('___-___');
+        });
+
+        it('should process mixed alphanumeric mask (*9a-*9a)', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.componentInstance.mask = '*9a-*9a';
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            expect(directive.len).toBe(7);
+        });
+
+        it('should handle optional characters with ?', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.componentInstance.mask = '999-99-9999?';
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            expect(directive.partialPosition).toBe(11);
+        });
+
+        it('should use custom slot character', async () => {
+            const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+            fixture.componentInstance.slotChar = '*';
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            expect(directive.slotChar()).toBe('*');
+            expect(directive.defaultBuffer).toBe('**/**/****');
+        });
+
+        it('should use custom character pattern for alpha', async () => {
+            const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+            fixture.componentInstance.mask = 'aaa';
+            fixture.componentInstance.characterPattern = '[0-9A-Fa-f]';
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            expect(directive.characterPattern()).toBe('[0-9A-Fa-f]');
+        });
+    });
+
+    describe('Form Integration - ngModel', () => {
+        it('should work with ngModel two-way binding', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const component = fixture.componentInstance;
+            const inputEl: HTMLInputElement = fixture.nativeElement.querySelector('input');
+
+            // Set value programmatically
+            component.value = '123-45-6789';
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(inputEl.value).toBe('123-45-6789');
+        });
+
+        it('should update model when user types', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl: HTMLInputElement = fixture.nativeElement.querySelector('input');
+            const directive = fixture.debugElement.query(By.css('input')).injector.get(InputMaskDirective);
+
+            // Simulate user input
+            inputEl.focus();
+            inputEl.dispatchEvent(new Event('focus'));
+
+            // Type characters
+            directive.buffer = ['1', '2', '3', '-', '4', '5', '-', '6', '7', '8', '9'];
+            inputEl.value = '123-45-6789';
+            inputEl.dispatchEvent(new Event('input'));
+            inputEl.dispatchEvent(new Event('blur'));
+
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(fixture.componentInstance.value).toBeTruthy();
+        });
+    });
+
+    describe('Form Integration - Reactive Forms', () => {
+        it('should work with FormControl', async () => {
+            const fixture = TestBed.createComponent(DirectiveReactiveFormTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const component = fixture.componentInstance;
+
+            // Set value via FormControl
+            component.control.setValue('(123) 456-7890');
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl: HTMLInputElement = fixture.nativeElement.querySelector('input');
+            expect(inputEl.value).toBe('(123) 456-7890');
+        });
+
+        it('should return unmasked value when unmask=true', async () => {
+            @Component({
+                standalone: true,
+                imports: [InputMaskDirective, ReactiveFormsModule],
+                template: `<input pInputMask [mask]="'(999) 999-9999'" [formControl]="control" [unmask]="true" />`
+            })
+            class UnmaskTestComponent {
+                control = new FormControl('');
+            }
+
+            const fixture = TestBed.createComponent(UnmaskTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl: HTMLInputElement = fixture.nativeElement.querySelector('input');
+            const directive = fixture.debugElement.query(By.css('input')).injector.get(InputMaskDirective);
+
+            // Simulate completed mask
+            directive.buffer = ['(', '1', '2', '3', ')', ' ', '4', '5', '6', '-', '7', '8', '9', '0'];
+            inputEl.value = '(123) 456-7890';
+
+            const event = new Event('input');
+            Object.defineProperty(event, 'target', { value: inputEl });
+            directive.updateModel(event);
+
+            fixture.detectChanges();
+
+            // When unmask is true, should return only digits
+            expect(fixture.componentInstance.control.value).toBe('1234567890');
+        });
+    });
+
+    describe('Event Outputs', () => {
+        it('should emit onFocus when input is focused', async () => {
+            const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl: HTMLInputElement = fixture.nativeElement.querySelector('input');
+            inputEl.dispatchEvent(new Event('focus'));
+            fixture.detectChanges();
+
+            expect(fixture.componentInstance.focusCalled).toBe(true);
+        });
+
+        it('should emit onBlur when input loses focus', async () => {
+            const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl: HTMLInputElement = fixture.nativeElement.querySelector('input');
+            inputEl.dispatchEvent(new Event('focus'));
+            inputEl.dispatchEvent(new Event('blur'));
+            fixture.detectChanges();
+
+            expect(fixture.componentInstance.blurCalled).toBe(true);
+        });
+
+        it('should emit onKeydown on keydown event', async () => {
+            const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl: HTMLInputElement = fixture.nativeElement.querySelector('input');
+            inputEl.dispatchEvent(new KeyboardEvent('keydown', { key: '1', keyCode: 49 }));
+            fixture.detectChanges();
+
+            expect(fixture.componentInstance.keydownCalled).toBe(true);
+        });
+
+        it('should emit onComplete when mask is fully filled', async () => {
+            const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+            fixture.componentInstance.mask = '999';
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            // Set buffer to complete state
+            directive.buffer = ['1', '2', '3'];
+            directive.firstNonMaskPos = 0;
+            directive.lastRequiredNonMaskPos = 2;
+
+            // Simulate input completion
+            if (directive.isCompleted()) {
+                directive.onCompleteEvent.emit();
+            }
+
+            fixture.detectChanges();
+
+            expect(fixture.componentInstance.completeCalled).toBe(true);
+        });
+    });
+
+    describe('Keyboard Handling', () => {
+        it('should handle backspace key correctly', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            directive.buffer = ['1', '2', '3', '-', '4', '5', '-', '_', '_', '_', '_'];
+            spyOn(directive, 'shiftL');
+            spyOn(directive, 'clearBuffer');
+
+            const backspaceEvent = new KeyboardEvent('keydown', { key: 'Backspace', keyCode: 8 });
+            spyOn(directive, 'caret').and.returnValue({ begin: 6, end: 6 });
+
+            directive.onInputKeydown(backspaceEvent);
+
+            expect(directive.clearBuffer).toHaveBeenCalled();
+            expect(directive.shiftL).toHaveBeenCalled();
+        });
+
+        it('should handle delete key correctly', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            directive.buffer = ['1', '2', '3', '-', '4', '5', '-', '_', '_', '_', '_'];
+            spyOn(directive, 'shiftL');
+            spyOn(directive, 'clearBuffer');
+
+            const deleteEvent = new KeyboardEvent('keydown', { key: 'Delete', keyCode: 46 });
+            spyOn(directive, 'caret').and.returnValue({ begin: 4, end: 4 });
+
+            directive.onInputKeydown(deleteEvent);
+
+            expect(directive.clearBuffer).toHaveBeenCalled();
+            expect(directive.shiftL).toHaveBeenCalled();
+        });
+
+        it('should ignore input when readonly is true', async () => {
+            const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+            fixture.componentInstance.readonly = true;
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            spyOn(directive, 'updateModel');
+
+            const keyEvent = new KeyboardEvent('keypress', { key: '1', keyCode: 49 });
+            directive.onKeyPress(keyEvent);
+
+            expect(directive.updateModel).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('autoClear Behavior', () => {
+        it('should clear incomplete value on blur when autoClear is true', async () => {
+            const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+            fixture.componentInstance.autoClear = true;
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl: HTMLInputElement = fixture.nativeElement.querySelector('input');
+            const directive = fixture.debugElement.query(By.css('input')).injector.get(InputMaskDirective);
+
+            // Set incomplete value
+            directive.buffer = ['1', '2', '_', '/', '_', '_', '/', '_', '_', '_', '_'];
+            inputEl.value = '12_/__/____';
+
+            spyOn(directive, 'checkVal').and.callThrough();
+
+            inputEl.dispatchEvent(new Event('blur'));
+            fixture.detectChanges();
+
+            expect(directive.checkVal).toHaveBeenCalled();
+        });
+
+        it('should keep incomplete value on blur when autoClear is false', async () => {
+            const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+            fixture.componentInstance.autoClear = false;
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl: HTMLInputElement = fixture.nativeElement.querySelector('input');
+            const directive = fixture.debugElement.query(By.css('input')).injector.get(InputMaskDirective);
+
+            directive.buffer = ['1', '2', '_', '/', '_', '_', '/', '_', '_', '_', '_'];
+            inputEl.value = '12_/__/____';
+
+            inputEl.dispatchEvent(new Event('blur'));
+            fixture.detectChanges();
+
+            // Value should remain with incomplete mask
+            expect(directive.autoClear()).toBe(false);
+        });
+    });
+
+    describe('keepBuffer Behavior', () => {
+        it('should preserve buffer when keepBuffer is true', async () => {
+            const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+            fixture.componentInstance.keepBuffer = true;
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            directive.buffer = ['1', '2', '3', '/', '4', '5', '/', '6', '7', '8', '9'];
+            directive.clearBuffer(0, 3);
+
+            // With keepBuffer true, characters should remain
+            expect(directive.buffer[0]).toBe('1');
+            expect(directive.buffer[1]).toBe('2');
+            expect(directive.buffer[2]).toBe('3');
+        });
+
+        it('should clear buffer when keepBuffer is false', async () => {
+            const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+            fixture.componentInstance.keepBuffer = false;
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            directive.buffer = ['1', '2', '3', '/', '4', '5', '/', '6', '7', '8', '9'];
+            directive.clearBuffer(0, 3);
+
+            // With keepBuffer false, characters should be replaced with slot char
+            expect(directive.buffer[0]).toBe('_');
+            expect(directive.buffer[1]).toBe('_');
+        });
+    });
+
+    describe('Public Methods', () => {
+        it('should focus the input element', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl: HTMLInputElement = fixture.nativeElement.querySelector('input');
+            const directive = fixture.debugElement.query(By.css('input')).injector.get(InputMaskDirective);
+
+            spyOn(inputEl, 'focus');
+            directive.focus();
+
+            expect(inputEl.focus).toHaveBeenCalled();
+        });
+
+        it('should check if mask is completed', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            // Complete buffer
+            directive.buffer = ['1', '2', '3', '-', '4', '5', '-', '6', '7', '8', '9'];
+            expect(directive.isCompleted()).toBe(true);
+
+            // Incomplete buffer
+            directive.buffer = ['1', '2', '_', '-', '4', '5', '-', '6', '7', '8', '9'];
+            expect(directive.isCompleted()).toBe(false);
+        });
+
+        it('should get unmasked value correctly', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            directive.buffer = ['1', '2', '3', '-', '4', '5', '-', '6', '7', '8', '9'];
+            const unmasked = directive.getUnmaskedValue();
+
+            expect(unmasked).toBe('123456789');
+        });
+    });
+
+    describe('Signal Reactivity', () => {
+        it('should react to mask signal changes', async () => {
+            const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            expect(directive.mask()).toBe('999-99-9999');
+            expect(directive.len).toBe(11);
+
+            // Change mask
+            fixture.componentInstance.mask = '(999) 999-9999';
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(directive.mask()).toBe('(999) 999-9999');
+            expect(directive.len).toBe(14);
+        });
+
+        it('should react to slotChar signal changes', async () => {
+            const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const inputEl = fixture.debugElement.query(By.css('input'));
+            const directive = inputEl.injector.get(InputMaskDirective);
+
+            expect(directive.slotChar()).toBe('_');
+
+            fixture.componentInstance.slotChar = '#';
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(directive.slotChar()).toBe('#');
         });
     });
 });
