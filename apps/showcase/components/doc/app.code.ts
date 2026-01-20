@@ -18,7 +18,7 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
                 <div class="doc-section-code-buttons animate-scalein animate-duration-300">
                     @if (!hideToggleCode()) {
                         <button [pTooltip]="fullCodeVisible() ? 'Collapse' : 'Expand'" tooltipStyleClass="doc-section-code-tooltip" tooltipPosition="bottom" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="toggleCode()">
-                            <i class="pi pi-code"></i>
+                            <i class="pi pi-arrows-v"></i>
                         </button>
                     }
                     @if (!hideStackBlitz() && !hideToggleCode()) {
