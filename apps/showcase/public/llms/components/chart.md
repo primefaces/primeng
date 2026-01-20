@@ -10,10 +10,6 @@ Screen Reader Chart components internally use canvas element, refer to the Chart
 
 A chart is configured with 3 properties; type , data and options . Chart type is defined using the type property that accepts pie , doughtnut , line , bar , radar and polarArea as a value. The data defines datasets represented with the chart and the options provide numerous customization options to customize the presentation.
 
-```html
-<p-chart type="bar" [data]="basicData" [options]="basicOptions" />
-```
-
 ## Chart.js
 
 To begin with, first you must install the charts.js package using npm and then include it in your project. An example with CLI would be;
@@ -21,10 +17,6 @@ To begin with, first you must install the charts.js package using npm and then i
 ## Combo
 
 Different chart types can be combined in the same graph using the type option of a dataset.
-
-```html
-<p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -129,10 +121,6 @@ export class ChartComboDemo implements OnInit {
 
 A doughnut chart is a variant of the pie chart, with a blank center allowing for additional information about the data as a whole to be included.
 
-```html
-<p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -196,10 +184,6 @@ export class ChartDoughnutDemo implements OnInit {
 ## Horizontal Bar
 
 A bar chart is rendered horizontally when indexAxis option is set as y .
-
-```html
-<p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -299,10 +283,6 @@ export class ChartHorizontalbarDemo implements OnInit {
 
 A line chart or line graph is a type of chart which displays information as a series of data points called 'markers' connected by straight line segments.
 
-```html
-<p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -398,10 +378,6 @@ export class ChartLineDemo implements OnInit {
 ## linestyle-doc
 
 Various styles of a line series can be customized to display customizations like an area chart.
-
-```html
-<p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -504,37 +480,6 @@ export class ChartLinestyleDemo implements OnInit {
 
 ## methods-doc
 
-```html
-<div class="doc-tablewrapper">
-    <table class="doc-table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Parameters</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>refresh</td>
-                <td>-</td>
-                <td>Redraws the graph with new data.</td>
-            </tr>
-            <tr>
-                <td>reinit</td>
-                <td>-</td>
-                <td>Destroys the graph first and then creates it again.</td>
-            </tr>
-            <tr>
-                <td>generateLegend</td>
-                <td>-</td>
-                <td>Returns an HTML string of a legend for that chart. The legend is generated from the legendCallback in the options.</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -582,10 +527,6 @@ export class ChartMethodsDemo {}
 ## MultiAxis
 
 Multiple axes can be added using the scales option.
-
-```html
-<p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -699,10 +640,6 @@ export class ChartMultiaxisDemo implements OnInit {
 
 A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.
 
-```html
-<p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -766,10 +703,6 @@ export class ChartPieDemo implements OnInit {
 ## Polar Area
 
 Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.
-
-```html
-<p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -845,71 +778,6 @@ export class ChartPolarareaDemo implements OnInit {
 </details>
 
 ## props-doc
-
-```html
-<div class="doc-tablewrapper">
-    <table class="doc-table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Default</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>type</td>
-                <td>string</td>
-                <td>null</td>
-                <td>Type of the chart.</td>
-            </tr>
-            <tr>
-                <td>data</td>
-                <td>any</td>
-                <td>null</td>
-                <td>Data to display.</td>
-            </tr>
-            <tr>
-                <td>options</td>
-                <td>any</td>
-                <td>null</td>
-                <td>Options to customize the chart.</td>
-            </tr>
-            <tr>
-                <td>plugins</td>
-                <td>any[]</td>
-                <td>null</td>
-                <td>Array of per-chart plugins to customize the chart behaviour.</td>
-            </tr>
-            <tr>
-                <td>width</td>
-                <td>string</td>
-                <td>null</td>
-                <td>Width of the chart.</td>
-            </tr>
-            <tr>
-                <td>height</td>
-                <td>string</td>
-                <td>null</td>
-                <td>Height of the chart.</td>
-            </tr>
-            <tr>
-                <td>responsive</td>
-                <td>boolean</td>
-                <td>true</td>
-                <td>Whether the chart is redrawn on screen size change.</td>
-            </tr>
-            <tr>
-                <td>onDataSelect</td>
-                <td>function</td>
-                <td>null</td>
-                <td>Callback to execute when an element on chart is clicked.</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -992,10 +860,6 @@ export class ChartPropsDemo {}
 ## radar-doc
 
 A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes starting from the same point.
-
-```html
-<p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -1080,10 +944,6 @@ export class ChartRadarDemo implements OnInit {
 ## Stacked Bar
 
 Bars can be stacked on top of each other when stacked option of a scale is enabled.
-
-```html
-<p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -1190,10 +1050,6 @@ export class ChartStackedbarDemo implements OnInit {
 ## Vertical Bar
 
 A bar chart or bar graph is a chart that presents grouped data with rectangular bars with lengths proportional to the values that they represent.
-
-```html
-<p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
-```
 
 <details>
 <summary>TypeScript Example</summary>

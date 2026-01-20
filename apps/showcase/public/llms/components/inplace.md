@@ -10,37 +10,9 @@ Screen Reader Inplace component defines aria-live as "polite" by default, since 
 
 Inplace component requires display and content templates to define the content of each state.
 
-```html
-<p-inplace>
-    <ng-template #display>
-        <span>View Content</span>
-    </ng-template>
-    <ng-template #content>
-        <p class="m-0">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-    </ng-template>
-</p-inplace>
-```
-
 ## Image
 
 Any content such as an image can be placed inside an Inplace.
-
-```html
-<p-inplace>
-    <ng-template #display>
-        <span class="inline-flex items-center gap-2">
-            <span class="pi pi-image" style="vertical-align: middle"></span>
-            <span class="ml-2">View Photo</span>
-        </span>
-    </ng-template>
-    <ng-template #content>
-        <img class="w-full sm:w-80 shadow-md" src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" alt="Nature" />
-    </ng-template>
-</p-inplace>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -76,22 +48,6 @@ export class InplaceImageDemo {}
 ## Input
 
 The closeCallback switches the state back to display mode when called from an event.
-
-```html
-<p-inplace>
-    <ng-template #display>
-        <span>Click to Edit</span>
-    </ng-template>
-    <ng-template #content let-closeCallback="closeCallback">
-        <span class="inline-flex gap-2">
-            <input type="text" pInputText [pAutoFocus]="true" />
-            <button type="button" pButton (click)="closeCallback($event)" text severity="danger">
-                <i class="pi pi-times" pButtonIcon></i>
-            </button>
-        </span>
-    </ng-template>
-</p-inplace>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -130,34 +86,6 @@ export class InplaceInputDemo {}
 ## Lazy
 
 Using the onActivate event, data can be loaded in a lazy manner before displaying it in a table.
-
-```html
-<p-inplace (onActivate)="loadData()">
-    <ng-template #display>
-        <span>View Data</span>
-    </ng-template>
-    <ng-template #content>
-        <p-table [value]="products" responsiveLayout="scroll">
-            <ng-template #header>
-                <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Quantity</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-product>
-                <tr>
-                    <td>{{ product.code }}</td>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.category }}</td>
-                    <td>{{ product.quantity }}</td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </ng-template>
-</p-inplace>
-```
 
 <details>
 <summary>TypeScript Example</summary>

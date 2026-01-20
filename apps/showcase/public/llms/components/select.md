@@ -6,28 +6,24 @@ Select is used to choose an item from a collection of options.
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The select element has a combobox role in addition to aria-haspopup and aria-expanded attributes. If the editable option is enabled aria-autocomplete is also added. The relation between the combobox and the popup is created with aria-controls and aria-activedescendant attribute is used to instruct screen reader which option to read during keyboard navigation within the popup list. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses listbox as the role. Each list item has an option role, an id to match the aria-activedescendant of the input element along with aria-label , aria-selected and aria-disabled attributes. If filtering is enabled, filterInputProps can be defined to give aria-* props to the filter input element.
 
-```html
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
 <span id="dd1">Options</span>
 <p-select ariaLabelledBy="dd1"/>
 
 <p-select ariaLabel="Options"/>
 ```
+</details>
 
 ## Basic
 
 Select is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
 
-```html
-<p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
-```
-
 ## Checkmark
 
 An alternative way to highlight the selected option is displaying a checkmark instead.
-
-```html
-<p-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -72,10 +68,6 @@ export class SelectCheckmarkDemo implements OnInit {
 
 When showClear is enabled, a clear icon is displayed to clear the value.
 
-```html
-<p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" [showClear]="true" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -118,32 +110,6 @@ export class SelectCleariconDemo implements OnInit {
 ## customfilter-doc
 
 Custom filter can be applied with the filterTemplate .
-
-```html
-<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
-    <ng-template pTemplate="filter" let-options="options">
-        <div class="flex gap-1">
-            <p-inputgroup (click)="$event.stopPropagation()">
-                <p-inputgroup-addon><i class="pi pi-search"></i></p-inputgroup-addon>
-                <input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
-            </p-inputgroup>
-            <p-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
-        </div>
-    </ng-template>
-    <ng-template pTemplate="selectedItem" let-selectedOption>
-        <div class="flex items-center gap-2">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
-            <div>{{ selectedOption.name }}</div>
-        </div>
-    </ng-template>
-    <ng-template let-country pTemplate="item">
-        <div class="flex items-center gap-2">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-            <div>{{ country.name }}</div>
-        </div>
-    </ng-template>
-</p-select>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -229,10 +195,6 @@ export class SelectCustomfilterDemo implements OnInit {
 
 When disabled is present, the element cannot be edited and focused.
 
-```html
-<p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -275,10 +237,6 @@ export class SelectDisabledDemo implements OnInit {
 ## Editable
 
 When editable is present, the input can also be entered with typing.
-
-```html
-<p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" class="w-full md:w-56" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -323,10 +281,6 @@ export class SelectEditableDemo implements OnInit {
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
 
-```html
-<p-select [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -369,23 +323,6 @@ export class SelectFilledDemo implements OnInit {
 ## Filter
 
 Select provides built-in filtering that is enabled by adding the filter property.
-
-```html
-<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
-    <ng-template #selectedItem let-selectedOption>
-        <div class="flex items-center gap-2">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
-            <div>{{ selectedOption.name }}</div>
-        </div>
-    </ng-template>
-    <ng-template let-country #item>
-        <div class="flex items-center gap-2">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-            <div>{{ country.name }}</div>
-        </div>
-    </ng-template>
-</p-select>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -444,21 +381,6 @@ export class SelectFilterDemo implements OnInit {
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
 
-```html
-<p-floatlabel class="w-full md:w-56">
-    <p-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" class="w-full" />
-    <label for="over_label">Over Label</label>
-</p-floatlabel>
-<p-floatlabel class="w-full md:w-56" variant="in">
-    <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" class="w-full" variant="filled" />
-    <label for="in_label">In Label</label>
-</p-floatlabel>
-<p-floatlabel class="w-full md:w-56" variant="on">
-    <p-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" class="w-full" />
-    <label for="on_label">On Label</label>
-</p-floatlabel>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -516,10 +438,6 @@ export class SelectFloatlabelDemo implements OnInit {
 
 The fluid prop makes the component take up the full width of its container when set to true.
 
-```html
-<p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" fluid />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -562,17 +480,6 @@ export class SelectFluidDemo implements OnInit {
 ## Group
 
 Options can be grouped when a nested data structures is provided.
-
-```html
-<p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
-    <ng-template let-group #group>
-        <div class="flex items-center">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
-            <span>{{ group.label }}</span>
-        </div>
-    </ng-template>
-</p-select>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -645,13 +552,6 @@ export class SelectGroupDemo {
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
 
-```html
-<p-iftalabel class="w-full md:w-56">
-    <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" class="w-full" />
-    <label for="dd-city">City</label>
-</p-iftalabel>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -699,11 +599,6 @@ export class SelectIftalabelDemo implements OnInit {
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
-```html
-<p-select [options]="cities" [(ngModel)]="selectedCity1" optionLabel="name" [showClear]="true" [invalid]="value1" placeholder="Select a City" class="w-full md:w-56" />
-<p-select [options]="cities" [(ngModel)]="selectedCity2" optionLabel="name" [showClear]="true" [invalid]="value2" placeholder="Select a City" class="w-full md:w-56" variant="filled" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -738,10 +633,6 @@ export class SelectInvalidDemo {
 </details>
 
 ## Lazy Virtual Scroll
-
-```html
-<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -806,10 +697,6 @@ export class SelectLazyvirtualscrollDemo {
 
 Loading state can be used loading property.
 
-```html
-<p-select [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-56" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -852,18 +739,6 @@ export class SelectLoadingstateDemo implements OnInit {
 ## reactiveforms-doc
 
 Select can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
-    <div class="flex flex-col gap-1">
-        <p-select formControlName="city" [options]="cities" [invalid]="isInvalid('city')" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
-        @if (isInvalid('city')) {
-            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -933,12 +808,6 @@ export class SelectReactiveformsDemo {
 
 Select provides small and large sizes as alternatives to the base.
 
-```html
-<p-select [(ngModel)]="value1" [options]="cities" optionLabel="name" size="small" placeholder="Small" class="w-full md:w-56" />
-<p-select [(ngModel)]="value2" [options]="cities" optionLabel="name" placeholder="Normal" class="w-full md:w-56" />
-<p-select [(ngModel)]="value3" [options]="cities" optionLabel="name" size="large" placeholder="Large" class="w-full md:w-56" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -985,34 +854,6 @@ export class SelectSizesDemo implements OnInit {
 ## Template
 
 Both the selected option and the options list can be templated to provide customizated representation. Use selectedItem template to customize the selected label display and the item template to change the content of the options in the select panel. In addition when grouping is enabled, group template is available to customize the option groups. All templates get the option instance as the default local template variable.
-
-```html
-<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" placeholder="Select a country" class="w-full md:w-56">
-    <ng-template #selectedItem let-selectedOption>
-        <div class="flex items-center gap-2" *ngIf="selectedOption">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
-            <div>{{ selectedOption.name }}</div>
-        </div>
-    </ng-template>
-    <ng-template let-country #item>
-        <div class="flex items-center gap-2">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-            <div>{{ country.name }}</div>
-        </div>
-    </ng-template>
-    <ng-template #dropdownicon>
-        <i class="pi pi-map"></i>
-    </ng-template>
-    <ng-template #header>
-        <div class="font-medium p-3">Available Countries</div>
-    </ng-template>
-    <ng-template #footer>
-        <div class="p-3">
-            <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
-        </div>
-    </ng-template>
-</p-select>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -1080,28 +921,6 @@ export class SelectTemplateDemo implements OnInit {
 
 ## templatedrivenforms-doc
 
-```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
-    <div class="flex flex-col gap-1">
-        <p-select
-            #city="ngModel"
-            [(ngModel)]="selectedCity"
-            [options]="cities"
-            [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
-            optionLabel="name"
-            name="city"
-            placeholder="Select a City"
-            class="w-full md:w-56"
-            required
-        />
-        @if (city.invalid && (city.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -1165,10 +984,6 @@ export class SelectTemplatedrivenformsDemo {
 ## Virtual Scroll
 
 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item.
-
-```html
-<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
-```
 
 <details>
 <summary>TypeScript Example</summary>

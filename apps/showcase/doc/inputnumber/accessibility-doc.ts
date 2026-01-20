@@ -65,7 +65,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        basic: `<label for="price">Price</label>
+        typescript: `<label for="price">Price</label>
 <p-inputnumber inputId="price" />
 
 <span id="label_number">Number</span>

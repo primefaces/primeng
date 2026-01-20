@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'bootstrap-doc',
@@ -15,7 +15,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 })
 export class BootstrapDoc {
     code = {
-        basic: `@layer bootstrap-reboot, primeng;
+        typescript: `@layer bootstrap-reboot, primeng;
 
 @import "bootstrap-reboot.css" layer(bootstrap-rebooot);`
     };

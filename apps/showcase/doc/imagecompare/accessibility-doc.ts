@@ -68,7 +68,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        html: `<span id="image_label">Compare Images</span>
+        typescript: `<span id="image_label">Compare Images</span>
 <p-imagecompare class="shadow-lg rounded-2xl" aria-labelledby="image-label">
     ...
 </p-imagecompare>

@@ -25,7 +25,7 @@ import { Component } from '@angular/core';
 })
 export class DarkModeDoc {
     code1 = {
-        basic: `providePrimeNG({
+        typescript: `providePrimeNG({
     theme: {
         preset: Aura,
         options: {
@@ -36,13 +36,13 @@ export class DarkModeDoc {
     };
 
     code2 = {
-        basic: `@import "tailwindcss";
+        typescript: `@import "tailwindcss";
 @import "tailwindcss-primeui";
 @custom-variant dark (&:where(.my-app-dark, .my-app-dark *));     //dark mode configuration`
     };
 
     code3 = {
-        basic: `// tailwind.config.js
+        typescript: `// tailwind.config.js
 import PrimeUI from 'tailwindcss-primeui';
 
 export default {

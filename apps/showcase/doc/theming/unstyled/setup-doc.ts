@@ -35,7 +35,7 @@ export const appConfig: ApplicationConfig = {
     };
 
     code2: Code = {
-        basic: `<div class="card flex justify-center items-center gap-2">
+        typescript: `<div class="card flex justify-center items-center gap-2">
     <p-button label="Styled" icon="pi pi-check" />
     <p-button label="Unstyled" icon="pi pi-check" [unstyled]="true" />
 </div>`

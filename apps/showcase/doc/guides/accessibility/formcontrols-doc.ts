@@ -1,7 +1,7 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'formcontrols-doc',
@@ -29,19 +29,19 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 })
 export class FormControlsDoc {
     code1: Code = {
-        html: `<button (click)="onButtonClick($event)">Click></button>`
+        typescript: `<button (click)="onButtonClick($event)">Click></button>`
     };
 
     code2: Code = {
-        html: `<div class="fancy-button" (click)="onButtonClick($event)">Click</div>`
+        typescript: `<div class="fancy-button" (click)="onButtonClick($event)">Click</div>`
     };
 
     code3: Code = {
-        html: `<div class="fancy-button" (click)="onButtonClick($event)" (keydown)="onKeyDown($event)" tabIndex="0">Click</div>`
+        typescript: `<div class="fancy-button" (click)="onButtonClick($event)" (keydown)="onKeyDown($event)" tabIndex="0">Click</div>`
     };
 
     code4: Code = {
-        html: `<label for="myinput">Username:</label>
+        typescript: `<label for="myinput">Username:</label>
 <input id="myinput" type="text" name="username" />`
     };
 }

@@ -6,7 +6,10 @@ Button is an extension to standard button element with icons and theming.
 
 Screen Reader Button component renders a native button element that implicitly includes any passed prop. Text to describe the button is defined with the aria-label prop, if not present label prop is used as the value. If the button is icon only or custom templating is used, it is recommended to use aria-label so that screen readers would be able to read the element properly.
 
-```html
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
 <p-button icon="pi pi-check" aria-label="Submit" />
 <p-button icon="pi pi-check" label="Submit" />
 
@@ -15,15 +18,11 @@ Screen Reader Button component renders a native button element that implicitly i
     <span class="px-4">Youtube</span>
 </p-button>
 ```
+</details>
 
 ## Badge
 
 Buttons have built-in badge support with badge and badgeClass properties.
-
-```html
-<p-button label="Emails" badge="2" styleClass="m-0" />
-<p-button label="Messages" icon="pi pi-users" badge="2" badgeSeverity="contrast" styleClass="m-0" [outlined]="true" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -50,21 +49,9 @@ export class ButtonBadgeDemo {}
 
 Text to display on a button is defined with the label property.
 
-```html
-<p-button label="Submit" />
-```
-
 ## Button Group
 
 Multiple buttons are grouped when wrapped inside an element with ButtonGroup component.
-
-```html
-<p-buttongroup>
-    <p-button label="Save" icon="pi pi-check" />
-    <p-button label="Delete" icon="pi pi-trash" />
-    <p-button label="Cancel" icon="pi pi-times" />
-</p-buttongroup>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -93,14 +80,6 @@ export class ButtonButtongroupDemo {}
 ## buttonset-doc
 
 Multiple buttons are grouped when wrapped inside an element with p-buttonset class.
-
-```html
-<span class="p-buttonset">
-    <button pButton pRipple label="Save" icon="pi pi-check"></button>
-    <button pButton pRipple label="Delete" icon="pi pi-trash"></button>
-    <button pButton pRipple label="Cancel" icon="pi pi-times"></button>
-</span>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -131,13 +110,6 @@ export class ButtonButtonsetDemo {}
 
 Button can also be used as directive using pButton along with pButtonLabel and pButtonIcon helper directives.
 
-```html
-<button pButton>
-    <i class="pi pi-check" pButtonIcon></i>
-    <span pButtonLabel>Save</span>
-</button>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -165,10 +137,6 @@ export class ButtonDirectiveDemo {}
 
 When disabled is present, the element cannot be edited and focused.
 
-```html
-<p-button label="Submit" [disabled]="true" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -192,18 +160,6 @@ export class ButtonDisabledDemo {}
 ## Icons
 
 Icon of a button is specified with icon property and position is configured using iconPos attribute.
-
-```html
-<div class="flex flex-wrap gap-4 justify-center">
-    <p-button icon="pi pi-home" aria-label="Save" />
-    <p-button label="Profile" icon="pi pi-user" />
-    <p-button label="Save" icon="pi pi-check" iconPos="right" />
-</div>
-<div class="flex flex-wrap gap-4 justify-center">
-    <p-button label="Search" icon="pi pi-search" iconPos="top" />
-    <p-button label="Update" icon="pi pi-refresh" iconPos="bottom" />
-</div>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -236,54 +192,6 @@ export class ButtonIconsDemo {}
 ## iconsonly-doc
 
 Buttons can have icons without labels.
-
-```html
-<div class="flex justify-center flex-wrap gap-4 mb-6">
-    <p-button icon="pi pi-check" />
-    <p-button icon="pi pi-bookmark" severity="secondary" />
-    <p-button icon="pi pi-search" severity="success" />
-    <p-button icon="pi pi-user" severity="info" />
-    <p-button icon="pi pi-bell" severity="warn" />
-    <p-button icon="pi pi-heart" severity="help" />
-    <p-button icon="pi pi-times" severity="danger" />
-</div>
-<div class="flex justify-center flex-wrap gap-4 mb-6">
-    <p-button icon="pi pi-check" [rounded]="true" />
-    <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" />
-    <p-button icon="pi pi-search" [rounded]="true" severity="success" />
-    <p-button icon="pi pi-user" [rounded]="true" severity="info" />
-    <p-button icon="pi pi-bell" [rounded]="true" severity="warn" />
-    <p-button icon="pi pi-heart" [rounded]="true" severity="help" />
-    <p-button icon="pi pi-times" [rounded]="true" severity="danger" />
-</div>
-<div class="flex justify-center flex-wrap gap-4 mb-6">
-    <p-button icon="pi pi-check" [rounded]="true" [outlined]="true" />
-    <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" [outlined]="true" />
-    <p-button icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true" />
-    <p-button icon="pi pi-user" [rounded]="true" severity="info" [outlined]="true" />
-    <p-button icon="pi pi-bell" [rounded]="true" severity="warn" [outlined]="true" />
-    <p-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true" />
-    <p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true" />
-</div>
-<div class="flex justify-center flex-wrap gap-4 mb-6">
-    <p-button icon="pi pi-check" [rounded]="true" [text]="true" [raised]="true" />
-    <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" [raised]="true" severity="secondary" />
-    <p-button icon="pi pi-search" [rounded]="true" [text]="true" [raised]="true" severity="success" />
-    <p-button icon="pi pi-user" [rounded]="true" [text]="true" [raised]="true" severity="info" />
-    <p-button icon="pi pi-bell" [rounded]="true" [text]="true" [raised]="true" severity="warn" />
-    <p-button icon="pi pi-heart" [rounded]="true" [text]="true" [raised]="true" severity="help" />
-    <p-button icon="pi pi-times" [rounded]="true" [text]="true" [raised]="true" severity="danger" />
-</div>
-<div class="flex justify-center flex-wrap gap-4 mb-6">
-    <p-button icon="pi pi-check" [rounded]="true" [text]="true" />
-    <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" severity="secondary" />
-    <p-button icon="pi pi-search" [rounded]="true" [text]="true" severity="success" />
-    <p-button icon="pi pi-user" [rounded]="true" [text]="true" severity="info" />
-    <p-button icon="pi pi-bell" [rounded]="true" [text]="true" severity="warn" />
-    <p-button icon="pi pi-heart" [rounded]="true" [text]="true" severity="help" />
-    <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" />
-</div>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -353,16 +261,6 @@ export class ButtonIconsonlyDemo {}
 
 A button can be rendered as a link when link property is present, while the pButton directive can be applied on an anchor element to style the link as a button.
 
-```html
-<p-button label="Link" link />
-<a href="https://angular.dev/" pButton target="_blank" rel="noopener noreferrer">
-    <span pButtonLabel>Angular Website</span>
-</a>
-<a routerLink="/" pButton>
-    <span pButtonLabel>Router Link</span>
-</a>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -392,10 +290,6 @@ export class ButtonLinkDemo {}
 ## Loading
 
 Busy state is controlled with the loading property.
-
-```html
-<p-button label="Search" icon="pi pi-check" [loading]="loading()" (onClick)="load()" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -431,17 +325,6 @@ export class ButtonLoadingDemo {
 
 Outlined buttons display a border without a background initially.
 
-```html
-<p-button label="Primary" variant="outlined" />
-<p-button label="Secondary" variant="outlined" severity="secondary" />
-<p-button label="Success" variant="outlined" severity="success" />
-<p-button label="Info" variant="outlined" severity="info" />
-<p-button label="Warn" variant="outlined" severity="warn" />
-<p-button label="Help" variant="outlined" severity="help" />
-<p-button label="Danger" variant="outlined" severity="danger" />
-<p-button label="Contrast" variant="outlined" severity="contrast" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -472,17 +355,6 @@ export class ButtonOutlinedDemo {}
 ## Raised
 
 Raised buttons display a shadow to indicate elevation.
-
-```html
-<p-button label="Primary" [raised]="true" />
-<p-button label="Secondary" [raised]="true" severity="secondary" />
-<p-button label="Success" [raised]="true" severity="success" />
-<p-button label="Info" [raised]="true" severity="info" />
-<p-button label="Warn" [raised]="true" severity="warn" />
-<p-button label="Help" [raised]="true" severity="help" />
-<p-button label="Danger" [raised]="true" severity="danger" />
-<p-button label="Contrast" [raised]="true" severity="contrast" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -515,17 +387,6 @@ export class ButtonRaisedDemo {}
 
 Text buttons can be displayed as raised for elevation.
 
-```html
-<p-button label="Primary" variant="text" [raised]="true" />
-<p-button label="Secondary" variant="text" [raised]="true" severity="secondary" />
-<p-button label="Success" variant="text" [raised]="true" severity="success" />
-<p-button label="Info" variant="text" [raised]="true" severity="info" />
-<p-button label="Warn" variant="text" [raised]="true" severity="warn" />
-<p-button label="Help" variant="text" [raised]="true" severity="help" />
-<p-button label="Danger" variant="text" [raised]="true" severity="danger" />
-<p-button label="Plain" variant="text" [raised]="true" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -556,17 +417,6 @@ export class ButtonRaisedtextDemo {}
 ## Rounded
 
 Rounded buttons have a circular border radius.
-
-```html
-<p-button label="Primary" [rounded]="true" />
-<p-button label="Secondary" [rounded]="true" severity="secondary" />
-<p-button label="Success" [rounded]="true" severity="success" />
-<p-button label="Info" [rounded]="true" severity="info" />
-<p-button label="Warn" [rounded]="true" severity="warn" />
-<p-button label="Help" [rounded]="true" severity="help" />
-<p-button label="Danger" [rounded]="true" severity="danger" />
-<p-button label="Contrast" [rounded]="true" severity="contrast" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -599,17 +449,6 @@ export class ButtonRoundedDemo {}
 
 Severity defines the type of button.
 
-```html
-<p-button label="Primary" />
-<p-button label="Secondary" severity="secondary" />
-<p-button label="Success" severity="success" />
-<p-button label="Info" severity="info" />
-<p-button label="Warn" severity="warn" />
-<p-button label="Help" severity="help" />
-<p-button label="Danger" severity="danger" />
-<p-button label="Contrast" severity="contrast" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -641,12 +480,6 @@ export class ButtonSeverityDemo {}
 
 Button provides small and large sizes as alternatives to the standard.
 
-```html
-<p-button label="Small" icon="pi pi-check" size="small" />
-<p-button label="Normal" icon="pi pi-check" />
-<p-button label="Large" icon="pi pi-check" size="large" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -672,35 +505,6 @@ export class ButtonSizesDemo {}
 ## Template
 
 Custom content inside a button is defined as children.
-
-```html
-<p-button [outlined]="true">
-    <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
-        <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
-        <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
-            <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--ground-background)" />
-        </mask>
-        <g mask="url(#mask0_1_52)">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1935 0V3.5994V3.58318V20.0075V20.0075V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1935 0Z" fill="var(--p-primary-color)" />
-        </g>
-        <path d="M19.6399 15.3776L18.1861 15.0547L19.3169 16.6695V21.6755L23.1938 18.4458V12.9554L21.4169 13.6013L19.6399 15.3776Z" fill="var(--ground-background)" />
-        <path d="M10.5936 15.3776L12.0474 15.0547L10.9166 16.6695V21.6755L7.03966 18.4458V12.9554L8.81661 13.6013L10.5936 15.3776Z" fill="var(--ground-background)" />
-        <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M11.3853 16.9726L12.6739 15.0309L13.4793 15.5163H16.7008L17.5061 15.0309L18.7947 16.9726V24.254L17.8283 25.7103L16.7008 26.843H13.4793L12.3518 25.7103L11.3853 24.254V16.9726Z"
-            fill="var(--ground-background)"
-        />
-        <path d="M19.3168 24.7437L21.4168 22.6444V20.5451L19.3168 22.3214V24.7437Z" fill="var(--ground-background)" />
-        <path d="M10.9166 24.7437L8.81662 22.6444V20.5451L10.9166 22.3214V24.7437Z" fill="var(--ground-background)" />
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M13.0167 5.68861L11.7244 8.7568L13.8244 14.8932H14.7936V5.68861H13.0167ZM15.4397 5.68861V14.8932H16.5706L18.5091 8.7568L17.2167 5.68861H15.4397Z" fill="var(--ground-background)" />
-        <path d="M13.8244 14.8932L6.87813 12.3094L5.90888 8.27235L11.8859 8.7568L13.9859 14.8932H13.8244Z" fill="var(--ground-background)" />
-        <path d="M16.5706 14.8932L23.5169 12.3094L24.4861 8.27235L18.3476 8.7568L16.4091 14.8932H16.5706Z" fill="var(--ground-background)" />
-        <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
-        <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
-    </svg>
-</p-button>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -750,17 +554,6 @@ export class ButtonTemplateDemo {}
 ## Text
 
 Text buttons are displayed as textual elements.
-
-```html
-<p-button label="Primary" variant="text" />
-<p-button label="Secondary" variant="text" severity="secondary" />
-<p-button label="Success" variant="text" severity="success" />
-<p-button label="Info" variant="text" severity="info" />
-<p-button label="Warn" variant="text" severity="warn" />
-<p-button label="Help" variant="text" severity="help" />
-<p-button label="Danger" variant="text" severity="danger" />
-<p-button label="Plain" variant="text" />
-```
 
 <details>
 <summary>TypeScript Example</summary>

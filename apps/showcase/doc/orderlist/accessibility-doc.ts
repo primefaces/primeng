@@ -112,7 +112,7 @@ import { RouterModule } from '@angular/router';
 })
 export class AccessibilityDoc {
     code: Code = {
-        html: `<span id="lb">Options</span>
+        typescript: `<span id="lb">Options</span>
 <p-orderlist ariaLabelledBy="lb" />
 
 <p-orderlist ariaLabel="City" />`

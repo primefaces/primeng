@@ -6,7 +6,10 @@ Textarea adds styling and autoResize functionality to standard textarea element.
 
 Screen Reader Textarea component renders a native textarea element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.
 
-```html
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
 <label for="address1">Address 1</label>
 <textarea pTextarea id="address1"></textarea>
 
@@ -15,14 +18,11 @@ Screen Reader Textarea component renders a native textarea element that implicit
 
 <textarea pTextarea aria-label="Address Details"></textarea>
 ```
+</details>
 
 ## AutoResize
 
 When autoResize is enabled, textarea grows instead of displaying a scrollbar.
-
-```html
-<textarea rows="5" cols="30" pTextarea [autoResize]="true"></textarea>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -47,17 +47,9 @@ export class TextareaAutoresizeDemo {}
 
 Textarea is applied to an input field with pTextarea directive.
 
-```html
-<textarea rows="5" cols="30" pTextarea [(ngModel)]="value"></textarea>
-```
-
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-```html
-<textarea rows="5" cols="30" pTextarea [disabled]="true"></textarea>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -81,10 +73,6 @@ export class TextareaDisabledDemo {}
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
-
-```html
-<textarea [(ngModel)]="value" [variant]="'filled'" rows="5" cols="30" pTextarea></textarea>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -111,21 +99,6 @@ export class TextareaFilledDemo {
 ## Float Label
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
-
-```html
-<p-floatlabel>
-    <textarea pTextarea id="over_label" [(ngModel)]="value1" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
-    <label for="over_label">Over Label</label>
-</p-floatlabel>
-<p-floatlabel variant="in">
-    <textarea pTextarea id="in_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
-    <label for="in_label">In Label</label>
-</p-floatlabel>
-<p-floatlabel variant="on">
-    <textarea pTextarea id="on_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
-    <label for="on_label">On Label</label>
-</p-floatlabel>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -167,10 +140,6 @@ export class TextareaFloatlabelDemo {
 
 The fluid prop makes the component take up the full width of its container when set to true.
 
-```html
-<textarea rows="5" cols="30" pTextarea [(ngModel)]="value" fluid></textarea>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -196,13 +165,6 @@ export class TextareaFluidDemo {
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```html
-<p-iftalabel>
-    <textarea pTextarea id="description" [(ngModel)]="value" rows="5" cols="30" style="resize: none"></textarea>
-    <label for="description">Description</label>
-</p-iftalabel>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -234,10 +196,6 @@ export class TextareaIftalabelDemo {
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
-```html
-<textarea rows="5" cols="30" pTextarea [(ngModel)]="value" [invalid]="!value" placeholder="Address"></textarea>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -264,10 +222,6 @@ export class TextareaInvalidDemo {
 
 InputText has built-in key filtering support to block certain keys, refer to keyfilter page for more information.
 
-```html
-<textarea pKeyFilter="int" rows="5" cols="30" pTextarea></textarea>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -290,18 +244,6 @@ export class TextareaKeyfilterDemo {}
 ## reactiveforms-doc
 
 Textarea can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <textarea rows="5" cols="30" pTextarea formControlName="address" [invalid]="isInvalid('address')"></textarea>
-        @if (isInvalid('address')) {
-            <p-message severity="error" size="small" variant="simple">Address is required..</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -365,12 +307,6 @@ export class TextareaReactiveformsDemo {
 
 Textarea provides small and large sizes as alternatives to the base.
 
-```html
-<textarea pTextarea [(ngModel)]="value1" pSize="small" placeholder="Small" rows="3"></textarea>
-<textarea pTextarea [(ngModel)]="value2" placeholder="Normal" rows="3"></textarea>
-<textarea pTextarea [(ngModel)]="value3" pSize="large" placeholder="Large" rows="3"></textarea>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -398,18 +334,6 @@ export class TextareaSizesDemo {
 </details>
 
 ## templatedrivenforms-doc
-
-```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <textarea name="address" #address="ngModel" rows="5" cols="30" [(ngModel)]="value" pTextarea [invalid]="address.invalid && (address.touched || exampleForm.submitted)" required></textarea>
-        @if (address.invalid && (address.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">Address is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
 
 <details>
 <summary>TypeScript Example</summary>

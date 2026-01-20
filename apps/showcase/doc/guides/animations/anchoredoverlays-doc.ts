@@ -71,7 +71,7 @@ export class AnchoredOverlaysDoc {
     }
 
     code = {
-        basic: `.p-anchored-overlay-enter-active {
+        typescript: `.p-anchored-overlay-enter-active {
     animation: demo-overlay-in 300ms ease-out;
 }
 

@@ -1,7 +1,7 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'material-doc',
@@ -16,7 +16,7 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class MaterialDoc {
     code: Code = {
-        basic: `<p-dropdown>
+        typescript: `<p-dropdown>
     <ng-template #dropdownicon>
         <span class="material-icons">arrow_drop_down</span>
     </ng-template>

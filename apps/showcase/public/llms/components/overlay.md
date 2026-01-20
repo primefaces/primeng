@@ -22,17 +22,7 @@ The baseZIndex is base zIndex value to use in layering. Its default value is 0.
 
 Overlay is a container to display content in an overlay window. All the options mentioned above can be used as props for this component.
 
-```html
-<p-button (click)="toggle()" label="Show Overlay"></p-button>
-<p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border"> Content </p-overlay>
-```
-
 ## Events
-
-```html
-<section class="py-6">
-</section>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -63,24 +53,6 @@ It has two valid values; overlay and modal . In overlay mode, a container elemen
 ## Responsive
 
 It is the option used to determine in which mode it should appear according to the given media or breakpoint .
-
-```html
-<ul>
-    <li>center (default)</li>
-    <li>top</li>
-    <li>top-start</li>
-    <li>top-end</li>
-    <li>bottom</li>
-    <li>bottom-start</li>
-    <li>bottom-end</li>
-    <li>left</li>
-    <li>left-start</li>
-    <li>left-end</li>
-    <li>right</li>
-    <li>right-start</li>
-    <li>right-end</li>
-</ul>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -120,17 +92,6 @@ export class OverlayResponsiveDemo {}
 
 The target is used to detect the element that will be used to position the overlay. Valid values would be;
 
-```html
-<ul>
-    <li>&#64;prev (default)</li>
-    <li>&#64;next</li>
-    <li>&#64;parent</li>
-    <li>&#64;grandparent</li>
-    <li>Use <em>CSS selector</em></li>
-    <li>Use <em>() =&gt; HTMLElement</em></li>
-</ul>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -160,13 +121,6 @@ export class OverlayTargetDemo {}
 ## Template
 
 Content can be customized with the content template.
-
-```html
-<p-button (click)="toggle()" label="Show Overlay"></p-button>
-<p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
-    <ng-template #content let-option> Content - {{ option.mode }} </ng-template>
-</p-overlay>
-```
 
 <details>
 <summary>TypeScript Example</summary>

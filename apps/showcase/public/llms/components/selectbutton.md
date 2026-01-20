@@ -10,18 +10,9 @@ Screen Reader The container element that wraps the buttons has a group role wher
 
 SelectButton requires a value to bind and a collection of options.
 
-```html
-<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
-```
-
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused entirely. Certain options can also be disabled using the optionDisabled property.
-
-```html
-<p-selectbutton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value" [disabled]="true" />
-<p-selectbutton [options]="stateOptions2" [(ngModel)]="value2" optionLabel="label" optionValue="value" optionDisabled="constant" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -54,10 +45,6 @@ export class SelectbuttonDisabledDemo {
 
 The fluid prop makes the component take up the full width of its container when set to true.
 
-```html
-<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" fluid />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -85,10 +72,6 @@ export class SelectbuttonFluidDemo {
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-```html
-<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" [invalid]="value === undefined" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -118,10 +101,6 @@ export class SelectbuttonInvalidDemo {
 
 SelectButton allows selecting only one item by default and setting multiple option enables choosing more than one item. In multiple case, model property should be an array.
 
-```html
-<p-selectbutton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -149,18 +128,6 @@ export class SelectbuttonMultipleDemo {
 ## reactiveforms-doc
 
 SelectButton can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <p-selectbutton [options]="stateOptions" formControlName="value" [invalid]="isInvalid('value')" optionLabel="label" optionValue="value" />
-        @if (isInvalid('value')) {
-            <p-message severity="error" size="small" variant="simple">Selection is required</p-message>
-        }
-    </div>
-    <button pButton type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -225,12 +192,6 @@ export class SelectbuttonReactiveformsDemo {
 
 SelectButton provides small and large sizes as alternatives to the base.
 
-```html
-<p-selectbutton [(ngModel)]="value1" [options]="options" size="small" />
-<p-selectbutton [(ngModel)]="value2" [options]="options" />
-<p-selectbutton [(ngModel)]="value3" [options]="options" size="large" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -263,14 +224,6 @@ export class SelectbuttonSizesDemo {
 
 For custom content support define a template named item where the default local template variable refers to an option.
 
-```html
-<p-selectbutton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
-    <ng-template #item let-item>
-        <i [class]="item.icon"></i>
-    </ng-template>
-</p-selectbutton>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -300,18 +253,6 @@ export class SelectbuttonTemplateDemo {
 </details>
 
 ## templatedrivenforms-doc
-
-```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <p-selectbutton #model="ngModel" [(ngModel)]="value" [options]="stateOptions" optionLabel="label" optionValue="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" required name="value" />
-        @if (model.invalid && (model.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
-        }
-    </div>
-    <button pButton type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
 
 <details>
 <summary>TypeScript Example</summary>

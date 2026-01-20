@@ -14,19 +14,13 @@ DynamicDialog uses the Dialog component internally, visit dialog for more inform
 
 Dynamic dialogs require an instance of a DialogService that is responsible for displaying a dialog with a component as its content. Calling open method of DialogService will display dynamic dialog. First parameter of open method is the type of component to load and the second parameter is the configuration of the Dialog such as header , width and more.
 
-```html
-<p-toast />
-<p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
-import { ProductService } from '@/service/productservice';
 import { MessageService, DialogService } from 'primeng/api';
 import { Product } from '@/domain/product';
 import { Dialog } from 'primeng/dialog';
@@ -40,15 +34,11 @@ import { Dialog } from 'primeng/dialog';
     `,
     standalone: true,
     imports: [ButtonModule, ToastModule],
-    providers: [ProductService, DialogService, MessageService]
+    providers: [DialogService, MessageService]
 })
-export class DynamicdialogExampleDemo implements OnInit {
-    private productService = inject(ProductService);
+export class DynamicdialogExampleDemo {
     private dialogService = inject(DialogService);
     private messageService = inject(MessageService);
-
-    ngOnInit() {
-    }
 
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {

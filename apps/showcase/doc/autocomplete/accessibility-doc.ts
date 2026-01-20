@@ -1,7 +1,7 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'accessibility-doc',
@@ -139,7 +139,7 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class AccessibilityDoc {
     code: Code = {
-        basic: `<label for="ac1">Username</label>
+        typescript: `<label for="ac1">Username</label>
 <p-autocomplete inputId="ac1"/>
 
 <span id="ac2">Email</span>

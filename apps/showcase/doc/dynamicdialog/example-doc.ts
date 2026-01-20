@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -24,7 +23,7 @@ import { ProductListDemo } from './productlistdemo';
             <p-toast />
             <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
         </div>
-        <app-code [code]="code" [extFiles]="['Product']" [routeFiles]="['ProductListDemo', 'InfoDemo', 'Footer']"></app-code>
+        <app-code [extFiles]="['Product']" [routeFiles]="['ProductListDemo', 'InfoDemo', 'Footer']"></app-code>
     `,
     providers: [DialogService, MessageService]
 })
@@ -35,80 +34,6 @@ export class ExampleDoc implements OnDestroy {
     ) {}
 
     ref: DynamicDialogRef | undefined;
-
-    code: Code = {
-        basic: `<p-toast />
-<p-button (click)="show()" icon="pi pi-search" label="Select a Product" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-toast />
-    <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
-</div>`,
-
-        typescript: `import { Component, OnDestroy } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ProductListDemo } from './demo/productlistdemo';
-import { Footer } from './demo/footer';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    selector: 'dynamic-dialog-example-demo',
-    template: \`
-        <p-toast />
-        <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
-    \`,
-    imports: [DynamicDialogModule, ToastModule, ButtonModule],
-    providers: [DialogService, MessageService],
-    standalone: true,
-})
-export class DynamicDialogExampleDemo implements OnDestroy {
-
-    constructor(public dialogService: DialogService, public messageService: MessageService) {}
-
-    ref: DynamicDialogRef | undefined;
-
-    show() {
-        this.ref = this.dialogService.open(ProductListDemo, {
-            header: 'Product List',
-            width: '50vw',
-            modal: true,
-            contentStyle: { overflow: 'auto' },
-            breakpoints: {
-                '960px': '75vw',
-                '640px': '90vw'
-            },
-            templates: {
-                footer: Footer
-            }
-        });
-
-        this.ref.onClose.subscribe((data: any) => {
-            let summary_and_detail;
-            if (data) {
-                const buttonType = data?.buttonType;
-                summary_and_detail = buttonType ? { summary: 'No Product Selected', detail: \`Pressed '\${buttonType}' button\` } : { summary: 'Product Selected', detail: data?.name };
-            } else {
-                summary_and_detail = { summary: 'No Product Selected', detail: 'Pressed Close button' };
-            }
-            this.messageService.add({ severity: 'info', ...summary_and_detail, life: 3000 });
-        });
-
-        this.ref.onMaximize.subscribe((value) => {
-            this.messageService.add({ severity: 'info', summary: 'Maximized', detail: \`maximized: \${value.maximized}\` });
-        });
-    }
-
-    ngOnDestroy() {
-        if (this.ref) {
-            this.ref.close();
-        }
-    }
-}`,
-
-        service: ['ProductService']
-    };
 
     ngOnDestroy() {
         if (this.ref) {

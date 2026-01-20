@@ -6,28 +6,24 @@ TreeSelect is a form component to choose from hierarchical data.
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledby or ariaLabel props. The treeselect element has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls that refers to the id of the popup. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses tree as the role. Each list item has a treeitem role along with aria-label , aria-selected and aria-expanded attributes. In checkbox selection, aria-checked is used instead of aria-selected . Checkbox and toggle icons are hidden from screen readers as their parent element with treeitem role and attributes are used instead for readers and keyboard support. The container element of a treenode has the group role. The aria-setsize , aria-posinset and aria-level attributes are calculated implicitly and added to each treeitem. If filtering is enabled, filterInputProps can be defined to give aria-* props to the filter input element.
 
-```html
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
 <span id="dd1">Options</span>
 <p-treeselect ariaLabelledBy="dd1" />
 
 <p-treeselect ariaLabel="Options" />
 ```
+</details>
 
 ## Basic
 
 TreeSelect is used as a controlled component with ng-model directive along with an options collection. Internally Tree component is used so the options model is based on TreeNode API. In single selection mode, value binding should be the key value of a node.
 
-```html
-<p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
-```
-
 ## Checkbox
 
 Selection of multiple nodes via checkboxes is enabled by configuring selectionMode as checkbox .
-
-```html
-<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -67,10 +63,6 @@ export class TreeselectCheckboxDemo implements OnInit {
 
 When showClear is enabled, a clear icon is displayed to clear the value.
 
-```html
-<p-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" class="md:w-80 w-full" [showClear]="true" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -108,10 +100,6 @@ export class TreeselectCleariconDemo implements OnInit {
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-```html
-<p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" [disabled]="true" placeholder="TreeSelect" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -151,10 +139,6 @@ export class TreeselectDisabledDemo implements OnInit {
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
 
-```html
-<p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" variant="filled" [options]="nodes" placeholder="Select Item" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -193,10 +177,6 @@ export class TreeselectFilledDemo implements OnInit {
 
 Filtering is enabled by adding the filter property, by default label property of a node is used to compare against the value in the text field, in order to customize which field(s) should be used during search define filterBy property. In addition filterMode specifies the filtering strategy. In lenient mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand, in strict mode when the query matches a node, filtering continues on all descendants.
 
-```html
-<p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -234,21 +214,6 @@ export class TreeselectFilterDemo implements OnInit {
 ## Float Label
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
-
-```html
-<p-floatlabel class="w-full md:w-80">
-    <p-treeselect [(ngModel)]="value1" inputId="over_label" [options]="nodes" class="w-full" />
-    <label for="over_label">Over Label</label>
-</p-floatlabel>
-<p-floatlabel class="w-full md:w-80" variant="in">
-    <p-treeselect [(ngModel)]="value2" inputId="in_label" [options]="nodes" class="w-full" />
-    <label for="in_label">In Label</label>
-</p-floatlabel>
-<p-floatlabel class="w-full md:w-80" variant="on">
-    <p-treeselect [(ngModel)]="value3" inputId="on_label" [options]="nodes" class="w-full" />
-    <label for="on_label">On Label</label>
-</p-floatlabel>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -302,10 +267,6 @@ export class TreeselectFloatlabelDemo implements OnInit {
 
 The fluid prop makes the component take up the full width of its container when set to true.
 
-```html
-<p-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" fluid />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -343,13 +304,6 @@ export class TreeselectFluidDemo implements OnInit {
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```html
-<p-iftalabel class="w-full md:w-80">
-    <p-treeselect [(ngModel)]="selectedValue" inputId="t_file" [options]="nodes" class="w-full" />
-    <label for="t_file">File</label>
-</p-iftalabel>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -393,11 +347,6 @@ export class TreeselectIftalabelDemo implements OnInit {
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
-```html
-<p-treeselect [invalid]="selectedValue1 === undefined" [(ngModel)]="selectedValue1" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
-<p-treeselect [invalid]="selectedValue2 === undefined" [(ngModel)]="selectedValue2" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -437,21 +386,6 @@ export class TreeselectInvalidDemo implements OnInit {
 ## Lazy
 
 Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using loading property and onNodeExpand method.
-
-```html
-<p-treeselect
-    class="w-full md:w-80"
-    [(ngModel)]="selectedNodes"
-    (onNodeExpand)="onNodeExpand($event)"
-    [options]="nodes()"
-    display="chip"
-    [metaKeySelection]="false"
-    selectionMode="checkbox"
-    placeholder="Select Item"
-    [loading]="loading"
-    loadingMode="icon"
-/>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -545,10 +479,6 @@ export class TreeselectLazyDemo implements OnInit {
 
 More than one node is selectable by setting selectionMode to multiple . By default in multiple selection mode, metaKey press (e.g. ⌘ ) is necessary to add to existing selections however this can be configured with disabling the metaKeySelection property. Note that in touch enabled devices, TreeSelect always ignores metaKey. In multiple selection mode, value binding should be a key-value pair where key is the node key and value is a boolean to indicate selection.
 
-```html
-<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -586,18 +516,6 @@ export class TreeselectMultipleDemo implements OnInit {
 ## reactiveforms-doc
 
 TreeSelect can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full md:w-80">
-    <div class="flex flex-col gap-1">
-        <p-treeselect class="md:w-80 w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Select Item" [invalid]="isInvalid('selectedNodes')" />
-        @if (isInvalid('selectedNodes')) {
-            <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -669,12 +587,6 @@ export class TreeselectReactiveformsDemo implements OnInit {
 
 TreeSelect provides small and large sizes as alternatives to the base.
 
-```html
-<p-treeselect [(ngModel)]="value1" [options]="nodes" size="small" placeholder="Small" class="md:w-80 w-full" />
-<p-treeselect [(ngModel)]="value2" [options]="nodes" placeholder="Normal" class="md:w-80 w-full" />
-<p-treeselect [(ngModel)]="value3" [options]="nodes" size="large" placeholder="Large" class="md:w-80 w-full" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -716,23 +628,6 @@ export class TreeselectSizesDemo implements OnInit {
 ## Template
 
 TreeSelect offers multiple templates for customization through templating.
-
-```html
-<p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item">
-    <ng-template #dropdownicon>
-        <i class="pi pi-search"></i>
-    </ng-template>
-    <ng-template #header>
-        <div class="font-medium px-3 py-2">Available Files</div>
-    </ng-template>
-    <ng-template #footer>
-        <div class="px-3 pt-1 pb-2 flex justify-between">
-            <p-button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
-            <p-button label="Remove All" severity="danger" text size="small" icon="pi pi-plus" />
-        </div>
-    </ng-template>
-</p-treeselect>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -783,18 +678,6 @@ export class TreeselectTemplateDemo implements OnInit {
 </details>
 
 ## templatedrivenforms-doc
-
-```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full md:w-80">
-    <div class="flex flex-col gap-1">
-        <p-treeselect #node="ngModel" [(ngModel)]="selectedNodes" [invalid]="node.invalid && exampleForm.submitted" name="node" class="md:w-80 w-full" [options]="nodes" placeholder="Select Item" required />
-        @if (node.invalid && exampleForm.submitted) {
-            <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -854,21 +737,6 @@ export class TreeselectTemplatedrivenformsDemo implements OnInit {
 ## virtualscroll-doc
 
 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item.
-
-```html
-<p-treeselect
-    class="w-full md:w-80"
-    [(ngModel)]="selectedNodes"
-    [options]="nodes"
-    display="chip"
-    [metaKeySelection]="false"
-    selectionMode="checkbox"
-    placeholder="Select Item"
-    [virtualScroll]="true"
-    [virtualScrollItemSize]="35"
-    [virtualScrollOptions]="{ scrollHeight: '200px' }"
-></p-treeselect>
-```
 
 <details>
 <summary>TypeScript Example</summary>

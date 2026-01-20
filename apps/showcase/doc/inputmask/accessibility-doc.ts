@@ -41,7 +41,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        basic: `<label for="date">Date</label>
+        typescript: `<label for="date">Date</label>
 <p-inputmask inputId="date"/>
 
 <span id="phone">Phone</span>

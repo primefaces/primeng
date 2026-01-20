@@ -10,7 +10,10 @@ The term unstyled is used to define an alternative styling approach instead of t
 
 Unstyled components require styling using your preferred approach. We recommend using Tailwind CSS with PassThrough attributes, a combination that works seamlessly together. The tailwindcss-primeui even provides special variants such as p-outlined: , p-vertical for the PrimeNG components. The example below demonstrates how to style a button component with Tailwind CSS using PassThrough attributes. Before you begin, refer to the pass through section in the button documentation to familiarize yourself with the component's internal structure and PassThrough attributes. In this example, we'll target the root , label and icon elements to apply custom styles.
 
-```html
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
 <p-button
     label="Search"
     icon="pi pi-search"
@@ -22,6 +25,7 @@ Unstyled components require styling using your preferred approach. We recommend 
     }"
 />
 ```
+</details>
 
 ## Global-
 

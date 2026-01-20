@@ -10,25 +10,7 @@ Screen Reader Component currently uses a table based implementation and does not
 
 OrganizationChart requires a collection of TreeNode instances as a value .
 
-```html
-<p-organization-chart [value]="data" />
-```
-
 ## colored.-doc
-
-```html
-<p-organization-chart [value]="data" [collapsible]="true">
-    <ng-template let-node pTemplate="person">
-        <div class="flex flex-col">
-            <div class="flex flex-col items-center">
-                <img [src]="node.data.image" class="mb-4 w-12 h-12" />
-                <span class="font-bold mb-2">{{ node.data.name }}</span>
-                <span>{{ node.data.title }}</span>
-            </div>
-        </div>
-    </ng-template>
-</p-organization-chart>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -66,20 +48,6 @@ export class OrganizationchartColored.Demo {
 </details>
 
 ## Selection
-
-```html
-<p-organization-chart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" [collapsible]="true">
-    <ng-template let-node pTemplate="person">
-        <div class="flex flex-col">
-            <div class="flex flex-col items-center">
-                <img [src]="node.data.image" class="mb-4 w-12 h-12" />
-                <div class="font-bold mb-2">{{ node.data.name }}</div>
-                <div>{{ node.data.title }}</div>
-            </div>
-        </div>
-    </ng-template>
-</p-organization-chart>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -122,17 +90,6 @@ export class OrganizationchartSelectionDemo {
 ## Template
 
 Custom content instead of a node label is defined using the pTemplate property.
-
-```html
-<p-organization-chart [value]="data" [collapsible]="true">
-    <ng-template let-node pTemplate="default">
-        <div class="flex flex-col items-center">
-            <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
-            <div class="mt-4 font-medium text-lg">{{ node.label }}</div>
-        </div>
-    </ng-template>
-</p-organization-chart>
-```
 
 <details>
 <summary>TypeScript Example</summary>

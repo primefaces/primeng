@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
 })
 export class DisableDoc {
     code: {
-        basic: `
+        typescript: `
 @media (prefers-reduced-motion: reduce) {
     .p-anchored-overlay-enter-active,
     .p-anchored-overlay-leave-active {

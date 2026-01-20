@@ -1,5 +1,5 @@
 import { Code, ExtFile, RouteFile } from '@/domain/code';
-import { resolveDomainTypes, resolveRouteFiles, ResolvedRouteFiles } from '@/domain/types';
+import { resolveDomainTypes, ResolvedRouteFiles, resolveRouteFiles } from '@/domain/types';
 import { DemoCodeService } from '@/service/democodeservice';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { afterNextRender, Component, computed, effect, ElementRef, inject, input, NgModule, PLATFORM_ID, signal, ViewChild } from '@angular/core';
@@ -16,37 +16,8 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
         @if (resolvedCode()) {
             <div class="doc-section-code">
                 <div class="doc-section-code-buttons animate-scalein animate-duration-300">
-                    @if (fullCodeVisible()) {
-                        @if (resolvedCode()!.html) {
-                            <button (click)="changeLang('html')" class="py-0 px-2 rounded-border h-8" [ngClass]="{ 'code-active': lang() === 'html' }">
-                                <span>HTML</span>
-                            </button>
-                        }
-                        @if (resolvedCode()!.typescript) {
-                            <button (click)="changeLang('typescript')" class="py-0 px-2 rounded-border h-8" [ngClass]="{ 'code-active': lang() === 'typescript' }">
-                                <span>TS</span>
-                            </button>
-                        }
-                        @if (resolvedCode()!.scss) {
-                            <button (click)="changeLang('scss')" class="py-0 px-2 rounded-border h-8" [ngClass]="{ 'code-active': lang() === 'scss' }">
-                                <span>SCSS</span>
-                            </button>
-                        }
-                        @if (resolvedCode()!.data) {
-                            <button
-                                pTooltip="View Data"
-                                tooltipPosition="bottom"
-                                tooltipStyleClass="doc-section-code-tooltip"
-                                (click)="changeLang('data')"
-                                class="h-8 w-8 p-0 inline-flex items-center justify-center"
-                                [ngClass]="{ 'doc-section-code-active text-primary': lang() === 'data' }"
-                            >
-                                <i class="pi pi-database"></i>
-                            </button>
-                        }
-                    }
                     @if (!hideToggleCode()) {
-                        <button pTooltip="Toggle Full Code" tooltipStyleClass="doc-section-code-tooltip" tooltipPosition="bottom" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="toggleCode()">
+                        <button [pTooltip]="fullCodeVisible() ? 'Collapse' : 'Expand'" tooltipStyleClass="doc-section-code-tooltip" tooltipPosition="bottom" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="toggleCode()">
                             <i class="pi pi-code"></i>
                         </button>
                     }
@@ -63,23 +34,8 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
                 </div>
 
                 <div dir="ltr">
-                    @if (lang() === 'basic' && importCode()) {
-                        <pre class="language-javascript"><code #codeElement>{{ resolvedCode()!.basic }}</code></pre>
-                    }
-                    @if (lang() === 'basic' && !importCode()) {
-                        <pre class="language-markup"><code #codeElement>{{ resolvedCode()!.basic }}</code></pre>
-                    }
-                    @if (lang() === 'html') {
-                        <pre class="language-markup"><code #codeElement>{{ resolvedCode()!.html }}</code></pre>
-                    }
                     @if (lang() === 'typescript') {
-                        <pre class="language-typescript"><code #codeElement>{{ resolvedCode()!.typescript }}</code></pre>
-                    }
-                    @if (lang() === 'data') {
-                        <pre class="language-json"><code #codeElement>{{ resolvedCode()!.data }}</code></pre>
-                    }
-                    @if (lang() === 'scss') {
-                        <pre class="language-scss"><code #codeElement>{{ resolvedCode()!.scss }}</code></pre>
+                        <pre [style]="{ 'max-height': codeHeight() }" class="language-typescript"><code #codeElement>{{ resolvedCode()!.typescript }}</code></pre>
                     }
                     @if (lang() === 'command') {
                         <pre class="language-shell"><code #codeElement>{{ resolvedCode()!.command }}</code></pre>
@@ -99,11 +55,12 @@ export class AppCode {
     hideCodeSandbox = input(true, { transform: (v: boolean | string) => v === '' || v === true });
     hideStackBlitz = input(false, { transform: (v: boolean | string) => v === '' || v === true });
     importCode = input(false, { transform: (v: boolean | string) => v === '' || v === true });
+    codeHeight = computed(() => (this.fullCodeVisible() ? '50rem' : '20rem'));
 
     @ViewChild('codeElement') codeElement: ElementRef;
 
     fullCodeVisible = signal(false);
-    lang = signal('basic');
+    lang = signal('typescript');
     resolvedCode = signal<Code | null>(null);
     resolvedExtFiles = signal<ExtFile[]>([]);
     resolvedRouteFiles = signal<RouteFile[]>([]);
@@ -144,7 +101,7 @@ export class AppCode {
         if (code) {
             return Object.keys(code)[0];
         }
-        return 'basic';
+        return 'typescript';
     });
 
     private demoCodeService = inject(DemoCodeService);
@@ -191,7 +148,7 @@ export class AppCode {
         // Effect: Set initial language when code is resolved
         effect(() => {
             const initialLang = this.initialLang();
-            if (initialLang && this.lang() === 'basic' && initialLang !== 'basic') {
+            if (initialLang && this.lang() === 'typescript' && initialLang !== 'typescript') {
                 // Only update if we haven't manually changed the lang
                 this.lang.set(initialLang);
             }
@@ -233,11 +190,7 @@ export class AppCode {
 
         const code = this.resolvedCode();
         if (code) {
-            if (isVisible) {
-                this.lang.set(code.html ? 'html' : 'typescript');
-            } else {
-                this.lang.set('basic');
-            }
+            this.lang.set('typescript');
             // Re-highlight after toggle
             setTimeout(() => this.highlightCode(), 0);
         }

@@ -40,7 +40,7 @@ import { RouterModule } from '@angular/router';
 })
 export class GitLabDoc {
     code = {
-        basic: `variables:
+        typescript: `variables:
     # Set these as GitLab CI/CD variables for security
     DESIGNER_SECRET: \${THEME_DESIGNER_SECRET_KEY}
     THEME_NAME: "my-custom-theme"

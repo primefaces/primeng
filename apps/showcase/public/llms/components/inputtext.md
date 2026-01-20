@@ -6,7 +6,10 @@ InputText is an extension to standard input element with theming and keyfilterin
 
 Screen Reader InputText component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.
 
-```html
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
 <label for="firstname">Firstname</label>
 <input pInputText id="firstname" />
 
@@ -15,22 +18,15 @@ Screen Reader InputText component renders a native input element that implicitly
 
 <input pInputText aria-label="Age" />
 ```
+</details>
 
 ## Basic
 
 InputText is used as a controlled input with ngModel property.
 
-```html
-<input type="text" pInputText [(ngModel)]="value" />
-```
-
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-```html
-<input pInputText [disabled]="true" [(ngModel)]="value" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -59,10 +55,6 @@ export class InputtextDisabledDemo {
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
 
-```html
-<input type="text" pInputText [(ngModel)]="value" variant="filled" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -89,21 +81,6 @@ export class InputtextFilledDemo {
 ## Float Label
 
 FloatLabel visually integrates a label with its form element. Visit FloatLabel documentation for more information.
-
-```html
-<p-floatlabel>
-    <input pInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
-    <label for="over_label">Over Label</label>
-</p-floatlabel>
-<p-floatlabel variant="in">
-    <input pInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
-    <label for="in_label">In Label</label>
-</p-floatlabel>
-<p-floatlabel variant="on">
-    <input pInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
-    <label for="on_label">On Label</label>
-</p-floatlabel>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -146,10 +123,6 @@ export class InputtextFloatlabelDemo {
 
 The fluid prop makes the component take up the full width of its container when set to true.
 
-```html
-<input type="text" pInputText [(ngModel)]="value" fluid />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -176,14 +149,6 @@ export class InputtextFluidDemo {
 ## Help Text
 
 An advisory text can be defined with the semantic small tag.
-
-```html
-<div class="flex flex-col gap-2">
-    <label for="username">Username</label>
-    <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
-    <small id="username-help">Enter your username to reset your password.</small>
-</div>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -215,17 +180,6 @@ export class InputtextHelptextDemo {
 ## icons-doc
 
 Icons can be placed inside an input element by wrapping both the input and the icon with an element that has either .p-input-icon-left or p-input-icon-right class.
-
-```html
-<span class="p-input-icon-left">
-    <i class="pi pi-search"></i>
-    <input type="text" pInputText [(ngModel)]="value" />
-</span>
-<span class="p-input-icon-right">
-    <i class="pi pi-spin pi-spinner"></i>
-    <input type="text" pInputText [(ngModel)]="value2" />
-</span>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -262,13 +216,6 @@ export class InputtextIconsDemo {
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
 
-```html
-<p-iftalabel>
-    <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
-    <label for="username">Username</label>
-</p-iftalabel>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -300,11 +247,6 @@ export class InputtextIftalabelDemo {
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
-```html
-<input pInputText [(ngModel)]="value1" [invalid]="!value1" placeholder="Name" />
-<input pInputText [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Name" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -334,10 +276,6 @@ export class InputtextInvalidDemo {
 
 InputText has built-in key filtering support to block certain keys, refer to keyfilter page for more information.
 
-```html
-<input pInputText pKeyFilter="int" placeholder="Integers" [(ngModel)]="value" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -362,29 +300,6 @@ export class InputtextKeyfilterDemo {
 </details>
 
 ## reactiveforms-doc
-
-```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
-    <div class="flex flex-col gap-1">
-        <input pInputText type="text" id="username" placeholder="Username" formControlName="username" [invalid]="isInvalid('username')" />
-        @if (isInvalid('username')) {
-            <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
-        }
-    </div>
-    <div class="flex flex-col gap-1">
-        <input pInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
-        @if (isInvalid('email')) {
-            @if (exampleForm.get('email')?.errors?.['required']) {
-                <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
-            }
-            @if (exampleForm.get('email')?.errors?.['email']) {
-                <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
-            }
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -460,12 +375,6 @@ export class InputtextReactiveformsDemo {
 
 InputText provides small and large sizes as alternatives to the standard.
 
-```html
-<input pInputText [(ngModel)]="value1" type="text" pSize="small" placeholder="Small" />
-<input pInputText [(ngModel)]="value2" type="text" placeholder="Normal" />
-<input pInputText [(ngModel)]="value3" type="text" pSize="large" placeholder="Large" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -494,31 +403,6 @@ export class InputtextSizesDemo {
 </details>
 
 ## templatedrivenforms-doc
-
-```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
-    <div class="flex flex-col gap-1">
-        <input pInputText type="text" id="username" placeholder="Username" name="username" [(ngModel)]="user.username" #username="ngModel" [invalid]="username.invalid && (username.touched || exampleForm.submitted)" required />
-        @if (username.invalid && (username.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
-        }
-    </div>
-    <div class="flex flex-col gap-1">
-        <input pInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email [invalid]="email.invalid && (email.touched || exampleForm.submitted)" />
-        @if (email.invalid && (email.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">
-                @if (email.hasError('required')) {
-                    Email is Required.
-                }
-                @if (email.hasError('email')) {
-                    Please enter a valid email.
-                }
-            </p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
 
 <details>
 <summary>TypeScript Example</summary>

@@ -1,7 +1,7 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'semantichtml-doc',
@@ -21,7 +21,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 })
 export class SemanticHTMLDoc {
     code1: Code = {
-        html: `<div class="header"/>
+        typescript: `<div class="header"/>
     <div class="header-text">Header></div>
 </div>
 
@@ -36,7 +36,7 @@ export class SemanticHTMLDoc {
     };
 
     code2: Code = {
-        html: `<header>
+        typescript: `<header>
     <h1>Header</h1>
 </header>
 

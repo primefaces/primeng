@@ -10,23 +10,9 @@ Screen Reader IftaLabel does not require any roles and attributes. Keyboard Supp
 
 IftaLabel is used by wrapping the input and its label.
 
-```html
-<p-iftalabel>
-    <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
-    <label for="username">Username</label>
-</p-iftalabel>
-```
-
 ## Invalid
 
 When the form element is invalid, the label is also highlighted.
-
-```html
-<p-iftalabel>
-    <input pInputText id="username" [(ngModel)]="value" [invalid]="!value" autocomplete="off" />
-    <label for="username">Username</label>
-</p-iftalabel>
-```
 
 <details>
 <summary>TypeScript Example</summary>

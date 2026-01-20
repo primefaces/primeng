@@ -1,8 +1,8 @@
+import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'bitbucket-doc',
@@ -37,7 +37,7 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class BitbucketDoc {
     code = {
-        basic: `image: atlassian/default-image:4
+        typescript: `image: atlassian/default-image:4
 
 pipelines:
     default:

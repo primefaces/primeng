@@ -10,18 +10,9 @@ Screen Reader TieredMenu component uses the menubar role with aria-orientation s
 
 TieredMenu requires a collection of menuitems as its model .
 
-```html
-<p-tieredmenu [model]="items" />
-```
-
 ## Command
 
 The command property defines the callback to run when an item is activated by click or a key event.
-
-```html
-<p-toast />
-<p-tieredmenu [model]="items" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -113,11 +104,6 @@ export class TieredmenuCommandDemo implements OnInit {
 ## Popup
 
 Popup mode is enabled by adding popup property and calling toggle method with an event of the target.
-
-```html
-<p-button label="Toggle" (click)="menu.toggle($event)" />
-<p-tieredmenu #menu [model]="items" [popup]="true" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -220,10 +206,6 @@ export class TieredmenuPopupDemo implements OnInit {
 
 Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.
 
-```html
-<p-tieredmenu [model]="items" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -290,20 +272,6 @@ export class TieredmenuRouterDemo implements OnInit {
 ## Template
 
 TieredMenu offers item customization with the item template that receives the menuitem instance from the model as a parameter.
-
-```html
-<p-tieredmenu [model]="items">
-    <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-        <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
-            <span [class]="item.icon"></span>
-            <span class="ms-2">{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-            <i *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
-        </a>
-    </ng-template>
-</p-tieredmenu>
-```
 
 <details>
 <summary>TypeScript Example</summary>

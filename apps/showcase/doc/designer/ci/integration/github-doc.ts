@@ -37,7 +37,7 @@ import { RouterModule } from '@angular/router';
 })
 export class GitHubDoc {
     code = {
-        basic: `
+        typescript: `
 name: Automated Figma To Theme Code
 
 on:

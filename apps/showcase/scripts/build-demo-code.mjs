@@ -844,14 +844,6 @@ function extractExistingCodeObject(content) {
     const codeBlock = content.substring(startIndex, endIndex);
     const code = {};
 
-    // Extract basic
-    const basicMatch = codeBlock.match(/basic:\s*`([\s\S]*?)`/);
-    if (basicMatch) code.basic = basicMatch[1];
-
-    // Extract html
-    const htmlMatch = codeBlock.match(/html:\s*`([\s\S]*?)`/);
-    if (htmlMatch) code.html = htmlMatch[1];
-
     // Extract typescript
     const tsMatch = codeBlock.match(/typescript:\s*`([\s\S]*?)`/);
     if (tsMatch) code.typescript = tsMatch[1];
@@ -1264,9 +1256,6 @@ function parseDocFile(filePath, componentDir) {
     // Remove doc suffix (handles both "basicdoc" and "basic-doc" patterns)
     const section = fileName.replace(/-?doc$/, '');
 
-    // Generate basic code
-    const basicCode = extractBasicCode(demoContent);
-
     // Derive selector from filename - no need for app-code selector attribute
     const uniqueKey = deriveSelectorFromFilename(fileName, componentDir);
 
@@ -1287,8 +1276,6 @@ function parseDocFile(filePath, componentDir) {
         component: componentDir,
         section,
         code: {
-            basic: basicCode || existingCode?.basic || '',
-            html: demoContent,
             typescript: generatedTypescript, // Always use generated TypeScript
             data: existingCode?.data,
             scss: existingCode?.scss

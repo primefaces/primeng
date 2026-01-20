@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'configuration-doc',
@@ -25,7 +25,7 @@ import { Code } from '@/domain/code';
 })
 export class ConfigurationDoc {
     markupCode: Code = {
-        basic: `<html dir="rtl">`
+        typescript: `<html dir="rtl">`
     };
 
     cssCode: Code = {

@@ -6,7 +6,10 @@ InputNumber is an input component to provide numerical input.
 
 Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel , ariaDescribedBy props. The input element uses spinbutton role in addition to the aria-valuemin , aria-valuemax and aria-valuenow attributes.
 
-```html
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
 <label for="price">Price</label>
 <p-inputnumber inputId="price" />
 
@@ -18,34 +21,11 @@ Screen Reader Value to describe the component can either be provided via label t
 <p-inputnumber ariaDescribedBy="describe" />
 <small id="describe">Information</small>
 ```
+</details>
 
 ## Buttons
 
 Spinner buttons are enabled using the showButtons options and layout is defined with the buttonLayout . Default value is "stacked" whereas "horizontal" and "stacked" are alternatives. Note that even there are no buttons, up and down arrow keys can be used to spin the values with keyboard.
-
-```html
-<p-fluid class="card flex flex-wrap gap-4">
-    <div class="flex-auto">
-        <label class="mb-2 block font-bold" for="stacked">Stacked</label>
-        <p-inputnumber [(ngModel)]="value1" [showButtons]="true" inputId="stacked" mode="currency" currency="USD" />
-    </div>
-    <div class="flex-auto">
-        <label class="mb-2 block font-bold" for="minmax-buttons">Min-Max Boundaries</label>
-        <p-inputnumber [(ngModel)]="value2" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100" />
-    </div>
-    <div class="flex-auto">
-        <label class="mb-2 block font-bold" for="horizontal">Horizontal with Step</label>
-        <p-inputnumber [(ngModel)]="value3" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25" mode="currency" currency="EUR">
-            <ng-template #incrementbuttonicon>
-                <span class="pi pi-plus"></span>
-            </ng-template>
-            <ng-template #decrementbuttonicon>
-                <span class="pi pi-minus"></span>
-            </ng-template>
-        </p-inputnumber>
-    </div>
-</p-fluid>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -94,10 +74,6 @@ export class InputnumberButtonsDemo {
 
 When showClear is enabled, a clear icon is displayed to clear the value.
 
-```html
-<p-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" [showClear]="true" inputStyleClass="w-56" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -124,27 +100,6 @@ export class InputnumberCleariconDemo {
 ## Currency
 
 Currency formatting is specified by setting the mode option to currency and currency property. In addition currencyDisplay option allows how the currency is displayed, valid values are "symbol" (default) or "code".
-
-```html
-<p-fluid class="card flex flex-wrap gap-4">
-    <div class="flex-auto">
-        <label class="block font-bold mb-2" for="currency-us">United States</label>
-        <p-inputnumber [(ngModel)]="value1" inputId="currency-us" mode="currency" currency="USD" locale="en-US" />
-    </div>
-    <div class="flex-auto">
-        <label class="block font-bold mb-2" for="currency-germany">Germany</label>
-        <p-inputnumber [(ngModel)]="value2" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE" />
-    </div>
-    <div class="flex-auto">
-        <label class="block font-bold mb-2" for="currency-india">India</label>
-        <p-inputnumber [(ngModel)]="value3" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN" />
-    </div>
-    <div class="flex-auto">
-        <label class="block font-bold mb-2" for="currency-japan">Japan</label>
-        <p-inputnumber [(ngModel)]="value4" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP" />
-    </div>
-</p-fluid>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -191,10 +146,6 @@ export class InputnumberCurrencyDemo {
 
 When disabled is present, the element cannot be edited and focused.
 
-```html
-<p-inputnumber inputId="integeronly" [disabled]="true" prefix="%" [(ngModel)]="value1" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -222,10 +173,6 @@ export class InputnumberDisabledDemo {
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
 
-```html
-<p-inputnumber variant="filled" [(ngModel)]="value1" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -252,21 +199,6 @@ export class InputnumberFilledDemo {
 ## Float Label
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
-
-```html
-<p-floatlabel>
-    <p-inputnumber [(ngModel)]="value1" inputId="over_label" mode="currency" currency="USD" locale="en-US" />
-    <label for="over_label">Over Label</label>
-</p-floatlabel>
-<p-floatlabel variant="in">
-    <p-inputnumber [(ngModel)]="value2" inputId="in_label" mode="currency" currency="USD" locale="en-US" />
-    <label for="in_label">In Label</label>
-</p-floatlabel>
-<p-floatlabel variant="on">
-    <p-inputnumber [(ngModel)]="value3" inputId="on_label" mode="currency" currency="USD" locale="en-US" />
-    <label for="on_label">On Label</label>
-</p-floatlabel>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -309,10 +241,6 @@ export class InputnumberFloatlabelDemo {
 
 The fluid prop makes the component take up the full width of its container when set to true.
 
-```html
-<p-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" fluid />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -339,13 +267,6 @@ export class InputnumberFluidDemo {
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```html
-<p-iftalabel>
-    <p-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" />
-    <label for="price_input">Price</label>
-</p-iftalabel>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -378,11 +299,6 @@ export class InputnumberIftalabelDemo {
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
-```html
-<p-inputnumber [(ngModel)]="value1" [invalid]="value1 === undefined" mode="decimal" [minFractionDigits]="2" placeholder="Amount" />
-<p-inputnumber [(ngModel)]="value2" [invalid]="value2 === undefined" mode="decimal" [minFractionDigits]="2" variant="filled" placeholder="Amount" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -411,27 +327,6 @@ export class InputnumberInvalidDemo {
 ## Locale
 
 Localization information such as grouping and decimal symbols are defined with the locale property which defaults to the user locale.
-
-```html
-<p-fluid class="card flex flex-wrap gap-4">
-    <div class="flex-auto">
-        <label class="block font-bold mb-2" for="locale-user">User Locale</label>
-        <p-inputnumber [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2" />
-    </div>
-    <div class="flex-auto">
-        <label class="block font-bold mb-2" for="locale-us">United States Locale</label>
-        <p-inputnumber [(ngModel)]="value2" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2" />
-    </div>
-    <div class="flex-auto">
-        <label class="block font-bold mb-2" for="locale-german">German Locale</label>
-        <p-inputnumber [(ngModel)]="value3" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2" />
-    </div>
-    <div class="flex-auto">
-        <label class="block font-bold mb-2" for="locale-indian">Indian Locale</label>
-        <p-inputnumber [(ngModel)]="value4" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2" />
-    </div>
-</p-fluid>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -478,27 +373,6 @@ export class InputnumberLocaleDemo {
 
 InputNumber is used as a controlled input with ngModel property.
 
-```html
-<p-fluid class="card flex flex-wrap gap-4">
-    <div class="flex-auto">
-        <label class="mb-2 font-bold block" for="integeronly">Integer Only</label>
-        <p-inputnumber inputId="integeronly" [(ngModel)]="value1" />
-    </div>
-    <div class="flex-auto">
-        <label class="mb-2 font-bold block" for="withoutgrouping">Without Grouping</label>
-        <p-inputnumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" />
-    </div>
-    <div class="flex-auto">
-        <label class="mb-2 font-bold block" for="minmaxfraction">Min-Max Fraction Digits</label>
-        <p-inputnumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5" />
-    </div>
-    <div class="flex-auto">
-        <label class="mb-2 font-bold block" for="minmax">Min-Max Boundaries</label>
-        <p-inputnumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100" />
-    </div>
-</p-fluid>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -544,27 +418,6 @@ export class InputnumberNumeralsDemo {
 
 Custom texts e.g. units can be placed before or after the input section with the prefix and suffix properties.
 
-```html
-<p-fluid class="card flex flex-wrap gap-4">
-    <div class="flex-auto">
-        <label class="font-bold block mb-2" for="mile">Mile</label>
-        <p-inputnumber [(ngModel)]="value1" inputId="mile" suffix=" mi" />
-    </div>
-    <div class="flex-auto">
-        <label class="font-bold block mb-2" for="percent">Percent</label>
-        <p-inputnumber [(ngModel)]="value2" inputId="percent" prefix="%" />
-    </div>
-    <div class="flex-auto">
-        <label class="font-bold block mb-2" for="expiry">Expiry</label>
-        <p-inputnumber [(ngModel)]="value3" inputId="expiry" prefix="Expires in " suffix=" days" />
-    </div>
-    <div class="flex-auto">
-        <label class="font-bold block mb-2" for="temperature">Temperature</label>
-        <p-inputnumber [(ngModel)]="value4" prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40" />
-    </div>
-</p-fluid>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -609,18 +462,6 @@ export class InputnumberPrefixsuffixDemo {
 ## reactiveforms-doc
 
 InputNumber can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <p-inputnumber inputId="integeronly" formControlName="value" [invalid]="isInvalid('value')" />
-        @if (isInvalid('value')) {
-            <p-message severity="error" size="small" variant="simple">Number is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -684,12 +525,6 @@ export class InputnumberReactiveformsDemo {
 
 InputNumber provides small and large sizes as alternatives to the base.
 
-```html
-<p-inputnumber [(ngModel)]="value1" size="small" placeholder="Small" mode="currency" currency="USD" locale="en-US" />
-<p-inputnumber [(ngModel)]="value2" placeholder="Normal" mode="currency" currency="USD" locale="en-US" />
-<p-inputnumber [(ngModel)]="value3" size="large" placeholder="Large" mode="currency" currency="USD" locale="en-US" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -718,18 +553,6 @@ export class InputnumberSizesDemo {
 </details>
 
 ## templatedrivenforms-doc
-
-```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <p-inputnumber inputId="integeronly" #inputValue="ngModel" name="inputValue" [(ngModel)]="value" [invalid]="inputValue.invalid && (inputValue.touched || exampleForm.submitted)" required />
-        @if (inputValue.invalid && (inputValue.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">Number is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -778,17 +601,6 @@ export class InputnumberTemplatedrivenformsDemo {
 ## Vertical
 
 Buttons can also placed vertically by setting buttonLayout as vertical .
-
-```html
-<p-inputnumber [(ngModel)]="value1" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" [inputStyle]="{ width: '3rem' }">
-    <ng-template #incrementbuttonicon>
-        <span class="pi pi-plus"></span>
-    </ng-template>
-    <ng-template #decrementbuttonicon>
-        <span class="pi pi-minus"></span>
-    </ng-template>
-</p-inputnumber>
-```
 
 <details>
 <summary>TypeScript Example</summary>
