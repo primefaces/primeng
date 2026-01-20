@@ -5,8 +5,8 @@ packages:
 catalog:
     '@primeuix/styled': ^0.7.4
     '@primeuix/utils': ^0.6.3
-    '@primeuix/styles': ^2.0.2
-    '@primeuix/themes': ^2.0.2
+    '@primeuix/styles': ^2.0.3
+    '@primeuix/themes': ^2.0.3
     '@primeuix/motion': ^0.0.10
     '@primeuix/mcp': ^1.0.0
     'tailwindcss-primeui': ^0.6.1

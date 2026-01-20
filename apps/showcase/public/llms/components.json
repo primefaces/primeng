@@ -44063,7 +44063,7 @@
           "label": "Theme-",
           "description": "Configure PrimeNG to use a theme like Aura.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { providePrimeNG } from 'primeng/config';\nimport Aura from '@primeng/themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        providePrimeNG({\n            theme: Aura\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { providePrimeNG } from 'primeng/config';\nimport Aura from '@primeuix/themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        providePrimeNG({\n            theme: Aura\n        })\n    ]\n};"
           }
         },
         {
@@ -44171,7 +44171,7 @@
           "label": "Theme-",
           "description": "PrimeNG provides 4 predefined themes out of the box; Aura, Material, Lara and Nora. See the theming documentation for details.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { providePrimeNG } from 'primeng/config';\n\nimport Aura from '@primeng/themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        providePrimeNG({\n            theme: {\n                preset: Aura,\n                options: {\n                    prefix: 'p',\n                    darkModeSelector: 'system',\n                    cssLayer: false\n                }\n            }\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { providePrimeNG } from 'primeng/config';\n\nimport Aura from '@primeuix/themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        providePrimeNG({\n            theme: {\n                preset: Aura,\n                options: {\n                    prefix: 'p',\n                    darkModeSelector: 'system',\n                    cssLayer: false\n                }\n            }\n        })\n    ]\n};"
           }
         },
         {

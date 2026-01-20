@@ -13,6 +13,7 @@
     "bugs": {
         "url": "https://github.com/primefaces/primeng/issues"
     },
+    "private": true,
     "main": "./src/index.ts",
     "module": "./src/index.ts",
     "exports": {
