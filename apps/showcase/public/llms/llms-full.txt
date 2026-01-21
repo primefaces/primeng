@@ -94,7 +94,7 @@ The nonce value to use on dynamically generated style elements in core.
 <summary>TypeScript Example</summary>
 
 ```typescript
-providePrimeNG({ 
+providePrimeNG({
     csp: {
         nonce: '...'
     }
@@ -209,7 +209,7 @@ A translation is specified using the translation property during initialization.
 <summary>TypeScript Example</summary>
 
 ```typescript
-providePrimeNG({ 
+providePrimeNG({
     translation: {
         accept: 'Aceptar',
         reject: 'Rechazar',
@@ -252,7 +252,7 @@ Ripple is an optional animation for the supported components such as buttons. It
 <summary>TypeScript Example</summary>
 
 ```typescript
-providePrimeNG({ 
+providePrimeNG({
     ripple: true
 })
 ```
@@ -480,10 +480,10 @@ Unstyled components require styling using your preferred approach. We recommend 
     label="Search"
     icon="pi pi-search"
     [unstyled]="true"
-    [pt]="{ 
-        root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2', 
-        label: 'text-white font-bold text-lg', 
-        icon: 'text-white !text-xl' 
+    [pt]="{
+        root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2',
+        label: 'text-white font-bold text-lg',
+        icon: 'text-white !text-xl'
     }"
 />
 ```
@@ -1639,14 +1639,14 @@ export class AutocompleteAdvancedChipsDemo implements OnInit {
     filterProducts(event: any) {
         let filtered: Product[] = [];
         let query = event.query;
-        
+
         for (let i = 0; i < this.products().length; i++) {
             let product = this.products()[i];
             if (product.name?.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(product);
             }
         }
-        
+
         this.filteredProducts = filtered;
     }
 
@@ -1820,7 +1820,7 @@ export class AutocompleteDropdownDemo {
 
     search(event: AutoCompleteCompleteEvent) {
         let _items = [...Array(10).keys()];
-        
+
         this.items = event.query ? [...Array(10).keys()].map((item) => event.query + '-' + item) : _items;
     }
 }
@@ -1996,14 +1996,14 @@ export class AutocompleteForceSelectionDemo implements OnInit {
     filterCountry(event: AutoCompleteCompleteEvent) {
         let filtered: any[] = [];
         let query = event.query;
-        
+
         for (let i = 0; i < (this.countries as any[]).length; i++) {
             let country = (this.countries as any[])[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
         }
-        
+
         this.filteredCountries = filtered;
     }
 }
@@ -2087,7 +2087,7 @@ export class AutocompleteGroupDemo implements OnInit {
     filterGroupedCity(event: AutoCompleteCompleteEvent) {
         let query = event.query;
         let filteredGroups = [];
-        
+
         for (let optgroup of this.groupedCities as SelectItemGroup[]) {
             let filteredSubOptions = this.filterService.filter(optgroup.items, ['label'], query, 'contains');
             if (filteredSubOptions && filteredSubOptions.length) {
@@ -2098,7 +2098,7 @@ export class AutocompleteGroupDemo implements OnInit {
                 });
             }
         }
-        
+
         this.filteredGroups = filteredGroups;
     }
 }
@@ -2270,14 +2270,14 @@ export class AutocompleteObjectsDemo implements OnInit {
     filterCountry(event: AutoCompleteCompleteEvent) {
         let filtered: any[] = [];
         let query = event.query;
-        
+
         for (let i = 0; i < (this.countries as any[]).length; i++) {
             let country = (this.countries as any[])[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
         }
-        
+
         this.filteredCountries = filtered;
     }
 }
@@ -2451,7 +2451,7 @@ export class AutocompleteTemplateDemo implements OnInit {
     filterCountry(event: AutoCompleteCompleteEvent) {
         let filtered: any[] = [];
         let query = event.query;
-        
+
         for (let i = 0; i < (this.countries as any[]).length; i++) {
             let country = (this.countries as any[])[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
@@ -2557,14 +2557,14 @@ export class AutocompleteVirtualScrollDemo implements OnInit {
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered: any[] = [];
         let query = event.query;
-        
+
         for (let i = 0; i < (this.items as any[]).length; i++) {
             let item = (this.items as any[])[i];
             if (item.label.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(item);
             }
         }
-        
+
         this.filteredItems = filtered;
     }
 }
@@ -4127,7 +4127,7 @@ export class ButtonLoadingDemo {
 
     load() {
         this.loading.set(true);
-        
+
         setTimeout(() => {
             this.loading.set(false);
         }, 2000);
@@ -6668,7 +6668,7 @@ export class ChartComboDemo implements OnInit {
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-        
+
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -6697,7 +6697,7 @@ export class ChartComboDemo implements OnInit {
                     }
                 ]
             };
-        
+
             this.options = {
                 maintainAspectRatio: false,
                 aspectRatio: 0.6,
@@ -6769,7 +6769,7 @@ export class ChartDoughnutDemo implements OnInit {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--p-text-color');
-        
+
             this.data = {
                 labels: ['A', 'B', 'C'],
                 datasets: [
@@ -6780,7 +6780,7 @@ export class ChartDoughnutDemo implements OnInit {
                     }
                 ]
             };
-        
+
             this.options = {
                 cutout: '60%',
                 plugins: {
@@ -6835,7 +6835,7 @@ export class ChartHorizontalbarDemo implements OnInit {
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-        
+
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -6853,7 +6853,7 @@ export class ChartHorizontalbarDemo implements OnInit {
                     }
                 ]
             };
-        
+
             this.options = {
                 indexAxis: 'y',
                 maintainAspectRatio: false,
@@ -6933,7 +6933,7 @@ export class ChartLineDemo implements OnInit {
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-        
+
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -6953,7 +6953,7 @@ export class ChartLineDemo implements OnInit {
                     }
                 ]
             };
-        
+
             this.options = {
                 maintainAspectRatio: false,
                 aspectRatio: 0.6,
@@ -7029,7 +7029,7 @@ export class ChartLinestyleDemo implements OnInit {
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-        
+
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -7058,7 +7058,7 @@ export class ChartLinestyleDemo implements OnInit {
                     }
                 ]
             };
-        
+
             this.options = {
                 maintainAspectRatio: false,
                 aspectRatio: 0.6,
@@ -7178,7 +7178,7 @@ export class ChartMultiaxisDemo implements OnInit {
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-        
+
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -7200,7 +7200,7 @@ export class ChartMultiaxisDemo implements OnInit {
                     }
                 ]
             };
-        
+
             this.options = {
                 stacked: false,
                 maintainAspectRatio: false,
@@ -7288,7 +7288,7 @@ export class ChartPieDemo implements OnInit {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');
-        
+
             this.data = {
                 labels: ['A', 'B', 'C'],
                 datasets: [
@@ -7299,7 +7299,7 @@ export class ChartPieDemo implements OnInit {
                     }
                 ]
             };
-        
+
             this.options = {
                 plugins: {
                     legend: {
@@ -7353,7 +7353,7 @@ export class ChartPolarareaDemo implements OnInit {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-        
+
             this.data = {
                 datasets: [
                     {
@@ -7370,7 +7370,7 @@ export class ChartPolarareaDemo implements OnInit {
                 ],
                 labels: ['Pink', 'Gray', 'Orange', 'Purple', 'Cyan']
             };
-        
+
             this.options = {
                 plugins: {
                     legend: {
@@ -7510,7 +7510,7 @@ export class ChartRadarDemo implements OnInit {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-        
+
             this.data = {
                 labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
                 datasets: [
@@ -7534,7 +7534,7 @@ export class ChartRadarDemo implements OnInit {
                     }
                 ]
             };
-        
+
             this.options = {
                 plugins: {
                     legend: {
@@ -7595,7 +7595,7 @@ export class ChartStackedbarDemo implements OnInit {
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-        
+
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -7619,7 +7619,7 @@ export class ChartStackedbarDemo implements OnInit {
                     }
                 ]
             };
-        
+
             this.options = {
                 maintainAspectRatio: false,
                 aspectRatio: 0.8,
@@ -7701,7 +7701,7 @@ export class ChartVerticalbarDemo implements OnInit {
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-        
+
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -7719,7 +7719,7 @@ export class ChartVerticalbarDemo implements OnInit {
                     }
                 ]
             };
-        
+
             this.options = {
                 maintainAspectRatio: false,
                 aspectRatio: 0.8,
@@ -8111,7 +8111,7 @@ export class CheckboxReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
-        
+
         if (this.exampleForm.valid) {
             this.messageService.add({
                 severity: 'success',
@@ -8119,14 +8119,14 @@ export class CheckboxReactiveformsDemo {
                 detail: 'Form is submitted',
                 life: 3000
             });
-        
+
             this.exampleForm.reset({
                 cheese: false,
                 mushroom: false,
                 pepper: false,
                 onion: false
             });
-        
+
             this.formSubmitted = false;
         }
     }
@@ -8226,7 +8226,7 @@ export class CheckboxTemplatedrivenformsDemo {
 
     onSubmit(form: NgForm) {
         this.formSubmitted = true;
-        
+
         if (this.isAtLeastOneSelected()) {
             this.messageService.add({
                 severity: 'success',
@@ -8234,7 +8234,7 @@ export class CheckboxTemplatedrivenformsDemo {
                 detail: 'Form is submitted',
                 life: 3000
             });
-        
+
             this.formModel = {
                 cheese: false,
                 mushroom: false,
@@ -8242,7 +8242,7 @@ export class CheckboxTemplatedrivenformsDemo {
                 onion: false
             };
             form.resetForm(this.formModel);
-        
+
             this.formSubmitted = false;
         }
     }
@@ -10374,13 +10374,13 @@ export class DataviewSortingDemo implements OnInit {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
-        
+
             case 'LOWSTOCK':
                 return 'warn';
-        
+
             case 'OUTOFSTOCK':
                 return 'danger';
-        
+
             default:
                 return null;
         }
@@ -13032,25 +13032,25 @@ export class DockAdvancedDemo implements OnInit {
         let response;
         let argsIndex = text.indexOf(' ');
         let command = argsIndex !== -1 ? text.substring(0, argsIndex) : text;
-        
+
         switch (command) {
             case 'date':
                 response = 'Today is ' + new Date().toDateString();
                 break;
-        
+
             case 'greet':
                 response = 'Hola ' + text.substring(argsIndex + 1) + '!';
                 break;
-        
+
             case 'random':
                 response = Math.floor(Math.random() * 100);
                 break;
-        
+
             default:
                 response = 'Unknown command: ' + command;
                 break;
         }
-        
+
         if (response) {
             this.terminalService.sendResponse(response as string);
         }
@@ -14002,7 +14002,7 @@ export class DynamicdialogExampleDemo {
                 footer: Footer
             }
         });
-        
+
         this.ref.onClose.subscribe((data: any) => {
             let summary_and_detail;
             if (data) {
@@ -14013,7 +14013,7 @@ export class DynamicdialogExampleDemo {
             }
             this.messageService.add({ severity: 'info', ...summary_and_detail, life: 3000 });
         });
-        
+
         this.ref.onMaximize.subscribe((value) => {
             this.messageService.add({
                 severity: 'info',
@@ -14767,10 +14767,10 @@ export class FileuploadTemplateDemo {
         if (bytes === 0) {
             return `0 ${sizes[0]}`;
         }
-        
+
         const i = Math.floor(Math.log(bytes) / Math.log(k));
         const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
-        
+
         return `${formattedSize} ${sizes[i]}`;
     }
 }
@@ -19233,11 +19233,11 @@ export class KnobReactiveformsDemo {
     getErrorMessage(controlName: string): string | null {
         const control = this.getControl(controlName);
         if (!control || !control.errors) return null;
-        
+
         if (control.errors['min']) {
             return 'Value must be greater than 15.';
         }
-        
+
         if (control.errors['max']) {
             return 'Must be less than 75.';
         }
@@ -19425,7 +19425,7 @@ export class KnobTemplatedrivenformsDemo {
 
     onSubmit(form: NgForm) {
         this.formSubmitted = true;
-        
+
         if (!this.isInvalid(form.controls['knob'])) {
             this.messageService.add({
                 severity: 'success',
@@ -19433,26 +19433,26 @@ export class KnobTemplatedrivenformsDemo {
                 detail: 'Form is submitted',
                 life: 3000
             });
-        
+
             form.resetForm({ knob: 15 });
-        
+
             this.formSubmitted = false;
         }
     }
 
     getErrorMessage(control: any): string | null {
         const value = control?.value;
-        
+
         return value < 25 ? 'Value must be greater than 25.' : value > 75 ? 'Must be less than 75.' : null;
     }
 
     isInvalid(control: any): boolean {
         if (!control) return false;
-        
+
         const value = control.value;
-        
+
         const hasError = value < 25 || value > 75;
-        
+
         return hasError && (this.formSubmitted || control.dirty);
     }
 }
@@ -21997,7 +21997,7 @@ export class MessageLifeDemo {
 
     showMessage() {
         this.visible.set(true);
-        
+
         setTimeout(() => {
             this.visible.set(false);
         }, 3000);
@@ -26745,7 +26745,7 @@ export class PopoverDatatableDemo implements OnInit {
         } else {
             this.selectedProduct.set(product);
             this.op.show(event);
-        
+
             if (this.op.container) {
                 this.op.align();
             }
@@ -26760,13 +26760,13 @@ export class PopoverDatatableDemo implements OnInit {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
-        
+
             case 'LOWSTOCK':
                 return 'warn';
-        
+
             case 'OUTOFSTOCK':
                 return 'danger';
-        
+
             default:
                 return null;
         }
@@ -27492,7 +27492,7 @@ export class RadiobuttonReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
-        
+
         if (this.exampleForm.valid) {
             this.messageService.add({
                 severity: 'success',
@@ -27500,9 +27500,9 @@ export class RadiobuttonReactiveformsDemo {
                 detail: 'Form is submitted',
                 life: 3000
             });
-        
+
             this.exampleForm.reset();
-        
+
             this.formSubmitted = false;
         }
     }
@@ -28341,21 +28341,21 @@ export class ScrollerLazyloadDemo implements OnInit {
 
     onLazyLoad(event: LazyEvent) {
         this.lazyLoading = true;
-        
+
         if (this.loadLazyTimeout) {
             clearTimeout(this.loadLazyTimeout);
         }
-        
+
         //imitate delay of a backend call
         this.loadLazyTimeout = setTimeout(
             () => {
                 const { first, last } = event;
                 const lazyItems = [...this.items];
-        
+
                 for (let i = first; i < last; i++) {
                     lazyItems[i] = `Item #${i}`;
                 }
-        
+
                 this.items = lazyItems;
                 this.lazyLoading = false;
                 this.cd.markForCheck();
@@ -29492,21 +29492,21 @@ export class SelectLazyvirtualscrollDemo {
 
     onLazyLoad(event) {
         this.loading = true;
-        
+
         if (this.loadLazyTimeout) {
             clearTimeout(this.loadLazyTimeout);
         }
-        
+
         //imitate delay of a backend call
         this.loadLazyTimeout = setTimeout(
             () => {
                 const { first, last } = event;
                 const items = [...this.items];
-        
+
                 for (let i = first; i < last; i++) {
                     items[i] = { label: `Item #${i}`, value: i };
                 }
-        
+
                 this.items = items;
                 this.loading = false;
             },
@@ -33743,7 +33743,7 @@ export class TableColumngroupDemo implements OnInit {
         for (let sale of this.sales) {
             total += sale.thisYearProfit;
         }
-        
+
         this.thisYearTotal = total;
     }
 }
@@ -34352,16 +34352,16 @@ export class TableCustomersDemo implements OnInit {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-        
+
             case 'qualified':
                 return 'success';
-        
+
             case 'new':
                 return 'info';
-        
+
             case 'negotiation':
                 return 'warn';
-        
+
             case 'renewal':
                 return null;
         }
@@ -34522,7 +34522,7 @@ export class TableExpandablerowgroupDemo implements OnInit {
 
     calculateCustomerTotal(name: string) {
         let total = 0;
-        
+
         if (this.customers) {
             for (let customer of this.customers) {
                 if (customer.representative?.name === name) {
@@ -34530,7 +34530,7 @@ export class TableExpandablerowgroupDemo implements OnInit {
                 }
             }
         }
-        
+
         return total;
     }
 
@@ -34538,16 +34538,16 @@ export class TableExpandablerowgroupDemo implements OnInit {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-        
+
             case 'qualified':
                 return 'success';
-        
+
             case 'new':
                 return 'info';
-        
+
             case 'negotiation':
                 return 'warn';
-        
+
             case 'renewal':
                 return null;
         }
@@ -34848,16 +34848,16 @@ export class TableFilterAdvancedDemo implements OnInit {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-        
+
             case 'qualified':
                 return 'success';
-        
+
             case 'new':
                 return 'info';
-        
+
             case 'negotiation':
                 return 'warn';
-        
+
             case 'renewal':
                 return null;
         }
@@ -35042,16 +35042,16 @@ export class TableFilterbasicDemo implements OnInit {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-        
+
             case 'qualified':
                 return 'success';
-        
+
             case 'new':
                 return 'info';
-        
+
             case 'negotiation':
                 return 'warn';
-        
+
             case 'renewal':
                 return null;
         }
@@ -35295,7 +35295,7 @@ export class TableFrozenrowsDemo implements OnInit {
             this.unlockedCustomers = this.unlockedCustomers.filter((c, i) => i !== index);
             this.lockedCustomers.push(data);
         }
-        
+
         this.unlockedCustomers.sort((val1, val2) => {
             return val1.id < val2.id ? -1 : 1;
         });
@@ -36216,7 +36216,7 @@ export class TableProductsDemo implements OnInit {
                 break;
             }
         }
-        
+
         return index;
     }
 
@@ -36242,7 +36242,7 @@ export class TableProductsDemo implements OnInit {
 
     saveProduct() {
         this.submitted = true;
-        
+
         if (this.product.name?.trim()) {
             if (this.product.id) {
                 this.products[this.findIndexById(this.product.id)] = this.product;
@@ -36264,7 +36264,7 @@ export class TableProductsDemo implements OnInit {
                     life: 3000
                 });
             }
-        
+
             this.products = [...this.products];
             this.productDialog = false;
             this.product = {};
@@ -36430,7 +36430,7 @@ export class TableRemovablesortDemo implements OnInit {
             else if (value1 == null && value2 == null) result = 0;
             else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2);
             else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
-        
+
             return event.order * result;
         });
     }
@@ -36912,7 +36912,7 @@ export class TableRowspangroupingDemo implements OnInit {
 
     calculateCustomerTotal(name: string) {
         let total = 0;
-        
+
         if (this.customers) {
             for (let customer of this.customers) {
                 if (customer.representative?.name === name) {
@@ -36920,7 +36920,7 @@ export class TableRowspangroupingDemo implements OnInit {
                 }
             }
         }
-        
+
         return total;
     }
 
@@ -36928,16 +36928,16 @@ export class TableRowspangroupingDemo implements OnInit {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-        
+
             case 'qualified':
                 return 'success';
-        
+
             case 'new':
                 return 'info';
-        
+
             case 'negotiation':
                 return 'warn';
-        
+
             case 'renewal':
                 return null;
         }
@@ -37586,7 +37586,7 @@ export class TableSubheadergroupingDemo implements OnInit {
 
     calculateCustomerTotal(name: string) {
         let total = 0;
-        
+
         if (this.customers) {
             for (let customer of this.customers) {
                 if (customer.representative?.name === name) {
@@ -37594,7 +37594,7 @@ export class TableSubheadergroupingDemo implements OnInit {
                 }
             }
         }
-        
+
         return total;
     }
 
@@ -37602,16 +37602,16 @@ export class TableSubheadergroupingDemo implements OnInit {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-        
+
             case 'qualified':
                 return 'success';
-        
+
             case 'new':
                 return 'info';
-        
+
             case 'negotiation':
                 return 'warn';
-        
+
             case 'renewal':
                 return null;
         }
@@ -37910,10 +37910,10 @@ export class TableVirtualscrolllazyDemo implements OnInit {
             () => {
                 //load data of required page
                 let loadedCars = this.cars.slice(event.first, event.first + event.rows);
-        
+
                 //populate page of virtual cars
                 Array.prototype.splice.apply(this.virtualCars, [...[event.first, event.rows], ...loadedCars]);
-        
+
                 //trigger change detection
                 event.forceUpdate();
             },
@@ -40324,16 +40324,16 @@ export class ToastHeadlessDemo {
             });
             this.visible = true;
             this.progress.set(0);
-        
+
             if (this.interval) {
                 clearInterval(this.interval);
             }
-        
+
             this.interval = setInterval(() => {
                 if (this.progress() <= 100) {
                     this.progress.update((v) => v + 20);
                 }
-        
+
                 if (this.progress() >= 100) {
                     this.progress.set(100);
                     clearInterval(this.interval);
@@ -41922,7 +41922,7 @@ Tooltip directive provides advisory information for a component.
 | pt | InputSignal<TooltipPassThroughOptions<unknown>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | tooltipPosition | string | - | Position of the tooltip. |
-| tooltipEvent | any | hover | Event to show the tooltip. |
+| tooltipEvent | string | hover | Event to show the tooltip. |
 | positionStyle | string | - | Type of CSS position. |
 | tooltipStyleClass | string | - | Style class of the tooltip. |
 | tooltipZIndex | string | - | Whether the z-index should be managed automatically to always go on top or have a fixed value. |
@@ -42311,19 +42311,19 @@ export class TreeLazyDemo implements OnInit {
     onNodeExpand(event: any) {
         if (!event.node.children) {
             event.node.loading = true;
-        
+
             setTimeout(() => {
                 const _nodes = this.nodes();
                 let _node = { ...event.node };
                 _node.children = [];
-        
+
                 for (let i = 0; i < 3; i++) {
                     _node.children.push({
                         key: event.node.key + '-' + i,
                         label: 'Lazy ' + event.node.label + '-' + i
                     });
                 }
-        
+
                 const key = parseInt(_node.key, 10);
                 _nodes[key] = { ..._node, loading: false };
                 this.nodes.set([..._nodes]);
@@ -43195,19 +43195,19 @@ export class TreeselectLazyDemo implements OnInit {
     onNodeExpand(event: any) {
         if (!event.node.children) {
             event.node.loading = true;
-        
+
             setTimeout(() => {
                 const _nodes = this.nodes();
                 let _node = { ...event.node };
                 _node.children = [];
-        
+
                 for (let i = 0; i < 3; i++) {
                     _node.children.push({
                         key: event.node.key + '-' + i,
                         label: 'Lazy ' + event.node.label + '-' + i
                     });
                 }
-        
+
                 const key = parseInt(_node.key, 10);
                 _nodes[key] = { ..._node, loading: false };
                 this.nodes.set([..._nodes]);
@@ -44972,10 +44972,10 @@ export class TreetableLazyloadDemo implements OnInit {
 
     loadNodes(event: any) {
         this.loading = true;
-        
+
         setTimeout(() => {
             this.files = [];
-        
+
             for (let i = 0; i < event.rows; i++) {
                 let node = {
                     data: {
@@ -44985,7 +44985,7 @@ export class TreetableLazyloadDemo implements OnInit {
                     },
                     leaf: false
                 };
-        
+
                 this.files.push(node);
             }
             this.loading = false;
@@ -44995,11 +44995,11 @@ export class TreetableLazyloadDemo implements OnInit {
 
     onNodeExpand(event: any) {
         this.loading = true;
-        
+
         setTimeout(() => {
             this.loading = false;
             const node = event.node;
-        
+
             node.children = [
                 {
                     data: {
@@ -45016,7 +45016,7 @@ export class TreetableLazyloadDemo implements OnInit {
                     }
                 }
             ];
-        
+
             this.files = [...this.files];
             this.cd.markForCheck();
         }, 250);
@@ -46171,7 +46171,7 @@ export class TreetableSortremovableDemo implements OnInit {
             else if (value1 == null && value2 == null) result = 0;
             else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2);
             else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
-        
+
             return event.order * result;
         });
     }
