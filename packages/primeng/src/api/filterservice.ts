@@ -99,7 +99,7 @@ export class FilterService {
 
         notEquals: (value: any, filter: any, filterLocale?: any): boolean => {
             if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
-                return false;
+                return true;
             }
 
             if (value === undefined || value === null) {
