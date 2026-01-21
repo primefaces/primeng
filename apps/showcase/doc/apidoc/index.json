@@ -2481,7 +2481,7 @@
                             "name": "tooltipEvent",
                             "optional": true,
                             "readonly": false,
-                            "type": "\"hover\" | \"focus\"",
+                            "type": "\"hover\" | \"focus\" | \"both\"",
                             "description": "Event to show the tooltip."
                         },
                         {
@@ -45512,7 +45512,7 @@
                             "name": "tooltipEvent",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "string",
                             "default": "hover",
                             "description": "Event to show the tooltip."
                         },

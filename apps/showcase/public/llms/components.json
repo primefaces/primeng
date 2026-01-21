@@ -42890,7 +42890,7 @@
           },
           {
             "name": "tooltipEvent",
-            "type": "any",
+            "type": "string",
             "default": "hover",
             "description": "Event to show the tooltip.",
             "deprecated": ""

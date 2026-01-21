@@ -129,7 +129,7 @@ Input fields come in two styles, default is outlined with borders around the fie
 
 ```typescript
 providePrimeNG({
-    inputVariant: 'filled' 
+    inputVariant: 'filled'
 })
 ```
 </details>
@@ -449,10 +449,10 @@ Unstyled components require styling using your preferred approach. We recommend 
     label="Search"
     icon="pi pi-search"
     [unstyled]="true"
-    [pt]="{ 
-        root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2', 
-        label: 'text-white font-bold text-lg', 
-        icon: 'text-white !text-xl' 
+    [pt]="{
+        root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2',
+        label: 'text-white font-bold text-lg',
+        icon: 'text-white !text-xl'
     }"
 />
 ```
@@ -12923,7 +12923,7 @@ import { DatePicker } from 'primeng/datepicker';
 })
 export class DatePickerInvalidDemo {
     date1: Date | undefined;
-    
+
     date2: Date | undefined;
 }
 ```
@@ -28609,7 +28609,7 @@ Sample image gallery implementation using paginator.
 
 ```html
 <p-paginator [first]="first" [rows]="1" [totalRecords]="120" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
-        
+
 <img [src]="'https://primefaces.org/cdn/primeng/images/demo/nature/nature' + (first + 1) + '.jpg'" class="max-w-full rounded-xl" />
 ```
 
@@ -39048,7 +39048,7 @@ In-cell editing is enabled by adding pEditableColumn directive to an editable ce
                         <input
                             pInputText
                             type="text"
-                            [(ngModel)]="product.code" 
+                            [(ngModel)]="product.code"
                             fluid />
                     </ng-template>
                     <ng-template #output>
@@ -39063,7 +39063,7 @@ In-cell editing is enabled by adding pEditableColumn directive to an editable ce
                             pInputText
                             type="text"
                             [(ngModel)]="product.name"
-                            required 
+                            required
                             fluid />
                     </ng-template>
                     <ng-template #output>
@@ -39076,7 +39076,7 @@ In-cell editing is enabled by adding pEditableColumn directive to an editable ce
                     <ng-template #input>
                         <input
                             pInputText
-                            [(ngModel)]="product.quantity" 
+                            [(ngModel)]="product.quantity"
                             fluid />
                     </ng-template>
                     <ng-template #output>
@@ -39089,7 +39089,7 @@ In-cell editing is enabled by adding pEditableColumn directive to an editable ce
                     <ng-template #input>
                         <input
                             pInputText type="text"
-                            [(ngModel)]="product.price" 
+                            [(ngModel)]="product.price"
                             fluid />
                     </ng-template>
                     <ng-template #output>
@@ -42003,7 +42003,7 @@ import { CommonModule } from '@angular/common';
     providers: [ProductService]
 })
 export class LoadingMaskDemo implements OnInit {
-    
+
     products!: Product[];
 
     constructor(
@@ -43022,7 +43022,7 @@ export class TableProductsDemo implements OnInit{
     ngOnInit() {
         this.loadDemoData();
     }
-    
+
     loadDemoData() {
         this.productService.getProducts().then((data) => {
             this.products = data;
@@ -49866,7 +49866,7 @@ Tooltip directive provides advisory information for a component.
 | pt | InputSignal<TooltipPassThroughOptions<unknown>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | tooltipPosition | string | - | Position of the tooltip. |
-| tooltipEvent | any | hover | Event to show the tooltip. |
+| tooltipEvent | string | hover | Event to show the tooltip. |
 | positionStyle | string | - | Type of CSS position. |
 | tooltipStyleClass | string | - | Style class of the tooltip. |
 | tooltipZIndex | string | - | Whether the z-index should be managed automatically to always go on top or have a fixed value. |
@@ -53973,7 +53973,7 @@ import { TreeTableModule } from 'primeng/treetable';
     providers: [NodeService]
 })
 export class LoadingSkeletonDemo implements OnInit {
-    
+
     files!: TreeNode[];
 
     constructor(
