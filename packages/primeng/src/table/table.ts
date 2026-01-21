@@ -6495,10 +6495,13 @@ export class ColumnFilterFormElement extends BaseComponent<ColumnFilterPassThrou
         super();
     }
 
-    onInit() {
-        this.filterCallback = (value: any) => {
+    ngOnInit() {
+        this.filterCallback = (value: any, skipFilter: boolean = false) => {
             (<any>this.filterConstraint).value = value;
-            this.dataTable._filter();
+
+            if (!skipFilter) {
+                this.dataTable._filter();
+            }
         };
     }
 
