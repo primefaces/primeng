@@ -4980,11 +4980,12 @@ export class CellEditor extends BaseComponent {
 @Component({
     selector: 'p-tableRadioButton',
     standalone: false,
-    template: `<p-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [binary]="true" [value]="value" (onClick)="onClick($event)" [unstyled]="unstyled()" /> `,
+    template: `<p-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="resolvedAriaLabel()" [binary]="true" [value]="value" (onClick)="onClick($event)" [unstyled]="unstyled()" /> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class TableRadioButton extends BaseComponent {
+    readonly dataTable = inject(Table);
     @Input() value: any;
 
     readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
@@ -4992,29 +4993,38 @@ export class TableRadioButton extends BaseComponent {
     readonly inputId = input<string | undefined>();
     readonly name = input<string | undefined>();
 
-    @Input() ariaLabel: string | undefined;
+    readonly ariaLabel = input<string | undefined>();
+    readonly resolvedAriaLabel = computed(() => {
+        const ariaLabel = this.ariaLabel();
+        const ariaConfig = this.dataTable.config.translation.aria;
+
+        if (ariaLabel) {
+            return ariaLabel;
+        }
+
+        if (ariaConfig) {
+            return (this.checked() ? ariaConfig.selectRow : ariaConfig.unselectRow) ?? null;
+        }
+
+        return null;
+    });
 
     @ViewChild('rb') inputViewChild: Nullable<RadioButton>;
 
-    checked: boolean | undefined;
+    checked = signal<boolean | undefined>(undefined);
 
     subscription: Subscription;
 
-    constructor(
-        public dataTable: Table,
-        public cd: ChangeDetectorRef
-    ) {
+    constructor(public cd: ChangeDetectorRef) {
         super();
         this.subscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
-            this.checked = this.dataTable.isSelected(this.value);
-
-            this.ariaLabel = this.ariaLabel || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectRow : this.dataTable.config.translation.aria.unselectRow) : undefined);
+            this.checked.set(this.dataTable.isSelected(this.value));
             this.cd.markForCheck();
         });
     }
 
     onInit() {
-        this.checked = this.dataTable.isSelected(this.value);
+        this.checked.set(this.dataTable.isSelected(this.value));
     }
 
     onClick(event: RadioButtonClickEvent) {
@@ -5043,10 +5053,10 @@ export class TableRadioButton extends BaseComponent {
     selector: 'p-tableCheckbox',
     standalone: false,
     template: `
-        <p-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [unstyled]="unstyled()">
+        <p-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="resolvedAriaLabel()" [unstyled]="unstyled()">
             @if (dataTable.checkboxIconTemplate || dataTable._checkboxIconTemplate; as template) {
                 <ng-template pTemplate="icon">
-                    <ng-template *ngTemplateOutlet="template; context: { $implicit: checked }" />
+                    <ng-template *ngTemplateOutlet="template; context: { $implicit: checked() }" />
                 </ng-template>
             }
         </p-checkbox>
@@ -5055,6 +5065,7 @@ export class TableRadioButton extends BaseComponent {
     encapsulation: ViewEncapsulation.None
 })
 export class TableCheckbox extends BaseComponent {
+    readonly dataTable = inject(Table);
     @Input() value: any;
 
     readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
@@ -5063,26 +5074,36 @@ export class TableCheckbox extends BaseComponent {
     readonly inputId = input<string | undefined>();
     readonly name = input<string | undefined>();
 
-    @Input() ariaLabel: string | undefined;
+    readonly ariaLabel = input<string | undefined>();
+    readonly resolvedAriaLabel = computed(() => {
+        const ariaLabel = this.ariaLabel();
+        const ariaConfig = this.dataTable.config.translation.aria;
 
-    checked: boolean | undefined;
+        if (ariaLabel) {
+            return ariaLabel;
+        }
+
+        if (ariaConfig) {
+            return (this.checked() ? ariaConfig.selectRow : ariaConfig.unselectRow) ?? null;
+        }
+
+        return null;
+    });
+
+    checked = signal<boolean | undefined>(undefined);
 
     subscription: Subscription;
 
-    constructor(
-        public dataTable: Table,
-        public tableService: TableService
-    ) {
+    constructor(public tableService: TableService) {
         super();
         this.subscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
-            this.checked = this.dataTable.isSelected(this.value);
-            this.ariaLabel = this.ariaLabel || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectRow : this.dataTable.config.translation.aria.unselectRow) : undefined);
+            this.checked.set(this.dataTable.isSelected(this.value));
             this.cd.markForCheck();
         });
     }
 
     onInit() {
-        this.checked = this.dataTable.isSelected(this.value);
+        this.checked.set(this.dataTable.isSelected(this.value));
     }
 
     onClick({ originalEvent }: CheckboxChangeEvent) {
@@ -5109,10 +5130,10 @@ export class TableCheckbox extends BaseComponent {
     selector: 'p-tableHeaderCheckbox',
     standalone: false,
     template: `
-        <p-checkbox [pt]="ptm('pcCheckbox')" [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [unstyled]="unstyled()">
+        <p-checkbox [pt]="ptm('pcCheckbox')" [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="resolvedAriaLabel()" [unstyled]="unstyled()">
             @if (dataTable.headerCheckboxIconTemplate || dataTable._headerCheckboxIconTemplate; as template) {
                 <ng-template pTemplate="icon">
-                    <ng-template *ngTemplateOutlet="template; context: { $implicit: checked }" />
+                    <ng-template *ngTemplateOutlet="template; context: { $implicit: checked() }" />
                 </ng-template>
             }
         </p-checkbox>
@@ -5122,6 +5143,7 @@ export class TableCheckbox extends BaseComponent {
     hostDirectives: [Bind]
 })
 export class TableHeaderCheckbox extends BaseComponent {
+    readonly dataTable = inject(Table);
     hostName = 'Table';
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -5134,37 +5156,47 @@ export class TableHeaderCheckbox extends BaseComponent {
     readonly inputId = input<string | undefined>();
     readonly name = input<string | undefined>();
 
-    @Input() ariaLabel: string | undefined;
-
-    checked: boolean | undefined;
+    checked = signal<boolean | undefined>(undefined);
 
     selectionChangeSubscription: Subscription;
 
     valueChangeSubscription: Subscription;
 
-    constructor(
-        public dataTable: Table,
-        public tableService: TableService
-    ) {
+    readonly ariaLabel = input<string | undefined>();
+    readonly resolvedAriaLabel = computed(() => {
+        const ariaLabel = this.ariaLabel();
+        const ariaConfig = this.dataTable.config.translation.aria;
+
+        if (ariaLabel) {
+            return ariaLabel;
+        }
+
+        if (ariaConfig) {
+            return (this.checked() ? ariaConfig.selectAll : ariaConfig.unselectAll) ?? null;
+        }
+
+        return null;
+    });
+
+    constructor(public tableService: TableService) {
         super();
         this.valueChangeSubscription = this.dataTable.tableService.valueSource$.subscribe(() => {
-            this.checked = this.updateCheckedState();
-            this.ariaLabel = this.ariaLabel || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectAll : this.dataTable.config.translation.aria.unselectAll) : undefined);
+            this.checked.set(this.updateCheckedState());
         });
 
         this.selectionChangeSubscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
-            this.checked = this.updateCheckedState();
+            this.checked.set(this.updateCheckedState());
         });
     }
 
     onInit() {
-        this.checked = this.updateCheckedState();
+        this.checked.set(this.updateCheckedState());
     }
 
     onClick(event: CheckboxChangeEvent) {
         if (!this.disabled()) {
             if (this.dataTable.value && this.dataTable.value.length > 0) {
-                this.dataTable.toggleRowsWithCheckbox(event, this.checked || false);
+                this.dataTable.toggleRowsWithCheckbox(event, this.checked() ?? false);
             }
         }
 
