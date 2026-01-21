@@ -18,6 +18,7 @@ import {
     Input,
     NgModule,
     numberAttribute,
+    OnDestroy,
     QueryList,
     Renderer2,
     signal,
@@ -32,7 +33,7 @@ import { Confirmation, ConfirmationService, OverlayService, PrimeTemplate, Share
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { blockBodyScroll, ConnectedOverlayScrollHandler, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { MotionModule } from 'primeng/motion';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -131,7 +132,7 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
+export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> implements OnDestroy  {
     $pcConfirmPopup: ConfirmPopup | undefined = inject(CONFIRMPOPUP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -186,6 +187,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
      * Defines if the component is visible.
      * @group Props
      */
+    @Input({ transform: booleanAttribute }) blockScroll: boolean = false;
     visible = input<boolean>();
 
     private _visible = signal<boolean>(false);
@@ -313,6 +315,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
                 }
 
                 this._visible.set(true);
+                this.enableBlockScroll();
             }
         });
 
@@ -325,6 +328,34 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
                 });
             }
         });
+    }
+        ngOnDestroy() {
+        this.disableBlockScroll();
+
+        if (this.container) {
+            this.restoreAppend();
+        }
+
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
+    private shouldBlockScroll(): boolean {
+        const opt = this.option?.('blockScroll');
+        return (opt ?? this.blockScroll) === true;
+    }
+
+    private enableBlockScroll(): void {
+        if (this.shouldBlockScroll()) {
+            blockBodyScroll();
+        }
+    }
+
+    private disableBlockScroll(): void {
+        if (this.shouldBlockScroll()) {
+            unblockBodyScroll();
+        }
     }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
@@ -398,6 +429,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
     onAfterLeave() {
         this.autoFocusAccept = false;
         this.autoFocusReject = false;
+        this.disableBlockScroll();
         this.restoreAppend();
         this.onContainerDestroy();
     }
@@ -462,6 +494,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
     hide() {
         this._visible.set(false);
+        this.disableBlockScroll();
     }
 
     onAccept() {
@@ -599,14 +632,6 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
     get rejectButtonLabel(): string {
         return this.confirmation?.rejectLabel || this.config.getTranslation(TranslationKeys.REJECT);
-    }
-
-    onDestroy() {
-        this.restoreAppend();
-
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 }
 
