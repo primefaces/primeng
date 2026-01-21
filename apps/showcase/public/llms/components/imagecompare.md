@@ -6,35 +6,28 @@ Compare two images side by side with a slider.
 
 Screen Reader ImageComponent component uses a native range slider internally. Value to describe the component can be defined using aria-labelledby and aria-label props. Keyboard Support Key Function tab Moves focus to the component. left arrow up arrow Decrements the value. right arrow down arrow Increments the value. home Set the minimum value. end Set the maximum value. page up Increments the value by 10 steps. page down Decrements the value by 10 steps.
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+<span id="image_label">Compare Images</span>
+<p-imagecompare class="shadow-lg rounded-2xl" aria-labelledby="image-label">
+    ...
+</p-imagecompare>
+
+<p-imagecompare class="shadow-lg rounded-2xl" aria-label="Compare Images">
+    ...
+</p-imagecompare>
+```
+</details>
+
 ## Basic
 
 Images are defined using templating with left and right templates. Use the style or class properties to define the size of the container.
 
-```html
-<p-imagecompare class="shadow-lg rounded-2xl">
-    <ng-template #left>
-        <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
-    </ng-template>
-    <ng-template #right>
-        <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
-    </ng-template>
-</p-imagecompare>
-```
-
 ## Responsive
 
 Apply responsive styles to the container element to optimize display per screen size.
-
-```html
-<p-imagecompare class="sm:!w-96 shadow-lg rounded-2xl">
-    <ng-template #left>
-        <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
-    </ng-template>
-    <ng-template #right>
-        <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
-    </ng-template>
-</p-imagecompare>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -44,13 +37,22 @@ import { Component } from '@angular/core';
 import { ImageCompareModule } from 'primeng/imagecompare';
 
 @Component({
-    selector: 'image-compare-responsive-demo',
-    templateUrl: './image-compare-responsive-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-imagecompare class="sm:!w-96 shadow-lg rounded-2xl">
+                <ng-template #left>
+                    <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
+                </ng-template>
+                <ng-template #right>
+                    <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
+                </ng-template>
+            </p-imagecompare>
+        </div>
+    `,
     standalone: true,
     imports: [ImageCompareModule]
 })
-export class ImageCompareResponsiveDemo {
-}
+export class ImagecompareResponsiveDemo {}
 ```
 </details>
 

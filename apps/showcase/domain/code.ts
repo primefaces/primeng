@@ -1,6 +1,4 @@
 export interface Code {
-    basic?: string;
-    html?: string;
     typescript?: string;
     command?: string;
     scss?: string;

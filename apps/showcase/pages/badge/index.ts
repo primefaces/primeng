@@ -1,10 +1,10 @@
-import { AccessibilityDoc } from '@/doc/badge/accessibilitydoc';
-import { BasicDoc } from '@/doc/badge/basicdoc';
-import { ButtonDoc } from '@/doc/badge/buttondoc';
-import { ImportDoc } from '@/doc/badge/importdoc';
-import { OverlayDoc } from '@/doc/badge/overlaydoc';
-import { SeverityDoc } from '@/doc/badge/severitydoc';
-import { SizeDoc } from '@/doc/badge/sizedoc';
+import { AccessibilityDoc } from '@/doc/badge/accessibility-doc';
+import { BasicDoc } from '@/doc/badge/basic-doc';
+import { ButtonDoc } from '@/doc/badge/button-doc';
+import { ImportDoc } from '@/doc/badge/import-doc';
+import { OverlayDoc } from '@/doc/badge/overlay-doc';
+import { SeverityDoc } from '@/doc/badge/severity-doc';
+import { SizeDoc } from '@/doc/badge/size-doc';
 import { PTComponent } from '@/doc/badge/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';

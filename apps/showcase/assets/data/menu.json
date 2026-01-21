@@ -555,9 +555,13 @@
                     "name": "Overview",
                     "routerLink": "/uikit"
                 },
+               {
+                    "name": "Guide v4",
+                    "routerLink": "/uikit/guide/v4"
+                },
                 {
-                    "name": "Guide",
-                    "routerLink": "/uikit/guide"
+                    "name": "Guide v3",
+                    "routerLink": "/uikit/guide/v3"
                 }
             ]
         },
@@ -572,6 +576,10 @@
                 {
                     "name": "Guide",
                     "routerLink": "/designer/guide"
+                },
+                           {
+                    "name": "Figma Plugin",
+                    "href": "https://www.figma.com/community/plugin/1592914021886732603/primeui-theme-generator"
                 },
                 {
                     "name": "CI Pipeline",

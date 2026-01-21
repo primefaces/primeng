@@ -10,17 +10,9 @@ Screen Reader Badge does not include any roles and attributes by default, any at
 
 Content of the badge is specified using the value property.
 
-```html
-<p-badge value="2" />
-```
-
 ## Button
 
 Buttons have built-in support for badges to display a badge inline.
-
-```html
-<p-button label="Emails" icon="pi pi-bell" label="Notifications" badge="2" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -30,8 +22,12 @@ import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'badge-button-demo',
-    templateUrl: './badge-button-demo.html',
+    template: `
+        <div class="card flex justify-center flex-wrap gap-4">
+            <p-button label="Emails" icon="pi pi-bell" label="Notifications" badge="2" />
+            <p-button label="Inbox" icon="pi pi-inbox" badge="2" badgeSeverity="contrast" outlined />
+        </div>
+    `,
     standalone: true,
     imports: [ButtonModule]
 })
@@ -39,26 +35,24 @@ export class BadgeButtonDemo {}
 ```
 </details>
 
-## directivedoc
+## directive-doc
 
 Content of the badge is specified using the value property.
-
-```html
-<i class="pi pi-bell text-3xl" pBadge value="2"></i>
-```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
 
 @Component({
-    selector: 'badge-directive-demo',
-    templateUrl: './badge-directive-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <i class="pi pi-bell !text-3xl" pBadge value="2"></i>
+        </div>
+    `,
     standalone: true,
-    imports: [BadgeModule]
+    imports: []
 })
 export class BadgeDirectiveDemo {}
 ```
@@ -68,18 +62,6 @@ export class BadgeDirectiveDemo {}
 
 A badge can be added to any element by encapsulating the content with the OverlayBadge component.
 
-```html
-<p-overlaybadge value="2">
-    <i class="pi pi-bell" style="font-size: 2rem"></i>
-</p-overlaybadge>
-<p-overlaybadge value="4" severity="danger">
-    <i class="pi pi-calendar" style="font-size: 2rem"></i>
-</p-overlaybadge>
-<p-overlaybadge severity="danger">
-    <i class="pi pi-envelope" style="font-size: 2rem"></i>
-</p-overlaybadge>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -88,8 +70,19 @@ import { Component } from '@angular/core';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
-    selector: 'badge-overlay-demo',
-    templateUrl: './badge-overlay-demo.html',
+    template: `
+        <div class="card flex flex-wrap justify-center gap-6">
+            <p-overlaybadge value="2">
+                <i class="pi pi-bell" style="font-size: 2rem"></i>
+            </p-overlaybadge>
+            <p-overlaybadge value="4" severity="danger">
+                <i class="pi pi-calendar" style="font-size: 2rem"></i>
+            </p-overlaybadge>
+            <p-overlaybadge severity="danger">
+                <i class="pi pi-envelope" style="font-size: 2rem"></i>
+            </p-overlaybadge>
+        </div>
+    `,
     standalone: true,
     imports: [OverlayBadgeModule]
 })
@@ -97,26 +90,26 @@ export class BadgeOverlayDemo {}
 ```
 </details>
 
-## positiondoc
+## position-doc
 
 A Badge can be positioned at the top right corner of an element by adding p-overlay-badge style class to the element and embedding the badge inside.
-
-```html
-<i class="pi pi-bell mr-6 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>
-```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
 
 @Component({
-    selector: 'badge-position-demo',
-    templateUrl: './badge-position-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <i class="pi pi-bell mr-6 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>
+            <i class="pi pi-calendar mr-6 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></i>
+            <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger"></i>
+        </div>
+    `,
     standalone: true,
-    imports: [BadgeModule]
+    imports: []
 })
 export class BadgePositionDemo {}
 ```
@@ -126,10 +119,6 @@ export class BadgePositionDemo {}
 
 Severity defines the color of the badge, possible values are success , info , warn and danger
 
-```html
-<p-badge [value]="2" severity="success" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -138,8 +127,17 @@ import { Component } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
 
 @Component({
-    selector: 'badge-severity-demo',
-    templateUrl: './badge-severity-demo.html',
+    template: `
+        <div class="card flex justify-center gap-2">
+            <p-badge value="2" />
+            <p-badge value="6" severity="secondary" />
+            <p-badge value="8" severity="success" />
+            <p-badge value="4" severity="info" />
+            <p-badge value="9" severity="warn" />
+            <p-badge value="3" severity="danger" />
+            <p-badge value="5" severity="contrast" />
+        </div>
+    `,
     standalone: true,
     imports: [BadgeModule]
 })
@@ -151,10 +149,6 @@ export class BadgeSeverityDemo {}
 
 Badge sizes are adjusted with the badgeSize property that accepts small , large and xlarge as the possible alternatives to the default size. Currently sizes only apply to component mode.
 
-```html
-<p-badge value="8" badgeSize="xlarge" severity="success" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -163,18 +157,20 @@ import { Component } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
 
 @Component({
-    selector: 'badge-size-demo',
-    templateUrl: './badge-size-demo.html',
+    template: `
+        <div class="card flex justify-center gap-1 items-end">
+            <p-badge value="8" badgeSize="xlarge" severity="success" />
+            <p-badge value="6" badgeSize="large" severity="warn" />
+            <p-badge value="4" severity="info" />
+            <p-badge value="2" badgeSize="small" />
+        </div>
+    `,
     standalone: true,
     imports: [BadgeModule]
 })
 export class BadgeSizeDemo {}
 ```
 </details>
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Badge
 

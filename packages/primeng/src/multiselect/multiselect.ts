@@ -583,7 +583,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      * @defaultValue 3
      */
     @Input() set maxSelectedLabels(val: number | null | undefined) {
-        this._maxSelectedLabels = val || 0;
+        this._maxSelectedLabels = val;
     }
     get maxSelectedLabels(): number | null | undefined {
         return this._maxSelectedLabels;
@@ -1203,7 +1203,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     _displaySelectedLabel: boolean = true;
 
-    _maxSelectedLabels: number = 3;
+    _maxSelectedLabels: number | null | undefined = 3;
 
     modelValue = signal<any>(null);
 

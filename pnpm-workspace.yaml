@@ -5,8 +5,8 @@ packages:
 catalog:
     '@primeuix/styled': ^0.7.4
     '@primeuix/utils': ^0.6.3
-    '@primeuix/styles': ^2.0.2
-    '@primeuix/themes': ^2.0.2
+    '@primeuix/styles': ^2.0.3
+    '@primeuix/themes': ^2.0.3
     '@primeuix/motion': ^0.0.10
     '@primeuix/mcp': ^1.0.0
     'tailwindcss-primeui': ^0.6.1
@@ -18,9 +18,9 @@ catalogs:
         "@angular/cdk": ^21.0.0
         "@angular/cli": ^21.0.0
         "@angular/common": ^21.0.0
-        "@angular/compiler": ^21.0.0
+        "@angular/compiler": ^21.0.7
         "@angular/compiler-cli": ^21.0.0
-        "@angular/core": ^21.0.0
+        "@angular/core": ^21.0.7
         "@angular/forms": ^21.0.0
         "@angular/platform-browser": ^21.0.0
         "@angular/platform-browser-dynamic": ^21.0.0

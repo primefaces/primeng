@@ -116,7 +116,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             (paste)="onInputPaste($event)"
             (keyup)="onInputKeyUp($event)"
             [fluid]="hasFluid"
-            [unstyled]="unstyled()"
+            [pInputTextUnstyled]="unstyled()"
         />
         <ng-container *ngIf="$filled() && !$disabled() && showClear && !loading">
             <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
@@ -1511,6 +1511,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
                 const inputValue = event.target.value?.trim();
                 if (inputValue && !this.isSelected(inputValue)) {
                     this.updateModel([...(this.modelValue() || []), inputValue]);
+                    this.onAdd.emit({ originalEvent: event, value: inputValue });
                     this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
                 }
             }

@@ -10,135 +10,90 @@ Screen Reader Dock component uses the menu role with the aria-orientation and th
 
 A mock desktop UI implemented with various components in addition to Dock.
 
-```html
-<p-menubar [model]="menubarItems">
-    <ng-template #start>
-        <i class="pi pi-apple px-2"></i>
-    </ng-template>
-    <ng-template #end>
-        <i class="pi pi-video px-2"></i>
-        <i class="pi pi-wifi px-2"></i>
-        <i class="pi pi-volume-up px-2"></i>
-        <span class="px-2">Fri 13:07</span>
-        <i class="pi pi-search px-2"></i>
-        <i class="pi pi-bars px-2"></i>
-    </ng-template>
-</p-menubar>
-<div class="dock-window">
-    <p-dock [model]="dockItems" position="bottom">
-        <ng-template #item let-item>
-            <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
-                <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
-            </a>
-        </ng-template>
-    </p-dock>
-
-    <p-toast position="top-center" key="tc" />
-
-    <p-dialog
-        [(visible)]="displayFinder"
-        [breakpoints]="{ '960px': '50vw' }"
-        [style]="{ width: '30vw', height: '18rem' }"
-        [draggable]="false"
-        [resizable]="false"
-        header="Finder"
-    >
-        <p-tree [value]="nodes" />
-    </p-dialog>
-
-    <p-dialog
-        [maximizable]="true"
-        [(visible)]="displayTerminal"
-        [breakpoints]="{ '960px': '50vw' }"
-        [style]="{ width: '30vw' }"
-        [draggable]="false"
-        [resizable]="false"
-        header="Terminal"
-    >
-        <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
-    </p-dialog>
-
-    <p-galleria
-        [(value)]="images"
-        [showThumbnails]="false"
-        [showThumbnailNavigators]="false"
-        [showItemNavigators]="true"
-        [(visible)]="displayGalleria"
-        [circular]="true"
-        [responsiveOptions]="responsiveOptions"
-        [circular]="true"
-        [fullScreen]="true"
-        [containerStyle]="{ width: '400px' }"
-    >
-        <ng-template #item let-item>
-            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-        </ng-template>
-    </p-galleria>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { Component, OnInit, inject } from '@angular/core';
+import { DialogModule } from 'primeng/dialog';
+import { DockModule } from 'primeng/dock';
+import { GalleriaModule } from 'primeng/galleria';
+import { MenubarModule } from 'primeng/menubar';
 import { TerminalModule } from 'primeng/terminal';
-import { TerminalService } from 'primeng/terminal';
-import { Subscription } from 'rxjs';
+import { ToastModule } from 'primeng/toast';
+import { TreeModule } from 'primeng/tree';
+import { TooltipModule } from 'primeng/tooltip';
 import { NodeService } from '@/service/nodeservice';
 import { PhotoService } from '@/service/photoservice';
-import { DockModule } from 'primeng/dock';
-import { MenubarModule } from 'primeng/menubar';
-import { ToastModule } from 'primeng/toast';
-import { DialogModule } from 'primeng/dialog';
-import { TreeModule } from 'primeng/tree';
-import { GalleriaModule } from 'primeng/galleria';
-import { TooltipModule } from 'primeng/tooltip';
+import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'dock-advanced-demo',
-    templateUrl: './dock-advanced-demo.html',
-    imports: [DockModule, MenubarModule, ToastModule, DialogModule, TreeModule, TerminalModule, GalleriaModule, TooltipModule],
+    template: `
+        <div class="card dock-demo">
+            <p-menubar [model]="menubarItems">
+                <ng-template #start>
+                    <i class="pi pi-apple px-2"></i>
+                </ng-template>
+                <ng-template #end>
+                    <i class="pi pi-video px-2"></i>
+                    <i class="pi pi-wifi px-2"></i>
+                    <i class="pi pi-volume-up px-2"></i>
+                    <span class="px-2">Fri 13:07</span>
+                    <i class="pi pi-search px-2"></i>
+                    <i class="pi pi-bars px-2"></i>
+                </ng-template>
+            </p-menubar>
+            <div class="dock-window">
+                <p-dock [model]="dockItems" position="bottom">
+                    <ng-template #item let-item>
+                        <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
+                            <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
+                        </a>
+                    </ng-template>
+                </p-dock>
+                <p-toast position="top-center" key="tc" />
+                <p-dialog [(visible)]="displayFinder" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw', height: '18rem' }" [draggable]="false" [resizable]="false" header="Finder">
+                    <p-tree [value]="nodes" />
+                </p-dialog>
+                <p-dialog [maximizable]="true" [(visible)]="displayTerminal" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" header="Terminal">
+                    <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
+                </p-dialog>
+                <p-galleria
+                    [(value)]="images"
+                    [showThumbnails]="false"
+                    [showThumbnailNavigators]="false"
+                    [showItemNavigators]="true"
+                    [(visible)]="displayGalleria"
+                    [circular]="true"
+                    [responsiveOptions]="responsiveOptions"
+                    [circular]="true"
+                    [fullScreen]="true"
+                    [containerStyle]="{ width: '400px' }"
+                >
+                    <ng-template #item let-item>
+                        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+                    </ng-template>
+                </p-galleria>
+            </div>
+        </div>
+    `,
     standalone: true,
-    styles: [
-        \` :host ::ng-deep {
-            .dock-demo > .dock-window {
-                width: 100%;
-                height: 450px;
-                position: relative;
-                background-image: url('https://primefaces.org/cdn/primevue/images/dock/window.jpg');
-                background-repeat: no-repeat;
-                background-size: cover;
-            }
-
-            .dock-demo .p-menubar {
-                padding: 0;
-                border-radius: 0;
-            }
-        }\`
-    ],
-    providers: [MessageService, TerminalService, PhotoService, NodeService]
+    imports: [DialogModule, DockModule, GalleriaModule, MenubarModule, TerminalModule, ToastModule, TreeModule, TooltipModule],
+    providers: [NodeService, PhotoService, MessageService]
 })
-export class DockAdvancedDemo implements OnInit, OnDestroy {
+export class DockAdvancedDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private photoService = inject(PhotoService);
+    private messageService = inject(MessageService);
     displayTerminal: boolean | undefined;
-
     displayFinder: boolean | undefined;
-
     displayGalleria: boolean | undefined;
-
     dockItems: MenuItem[] | undefined;
-
     menubarItems: any[] | undefined;
-
     responsiveOptions: any[] | undefined;
-
     images: any[] | undefined;
-
     nodes: any[] | undefined;
-
     subscription: Subscription | undefined;
-
-    constructor(private galleriaService: PhotoService, private nodeService: NodeService, private messageService: MessageService, private terminalService: TerminalService) {}
 
     ngOnInit() {
         this.dockItems = [
@@ -234,7 +189,6 @@ export class DockAdvancedDemo implements OnInit, OnDestroy {
                 }
             }
         ];
-
         this.menubarItems = [
             {
                 label: 'Finder',
@@ -357,7 +311,6 @@ export class DockAdvancedDemo implements OnInit, OnDestroy {
                 label: 'Quit'
             }
         ];
-
         this.responsiveOptions = [
             {
                 breakpoint: '1024px',
@@ -372,9 +325,7 @@ export class DockAdvancedDemo implements OnInit, OnDestroy {
                 numVisible: 1
             }
         ];
-
         this.subscription = this.terminalService.commandHandler.subscribe((command) => this.commandHandler(command));
-
         this.galleriaService.getImages().then((data) => (this.images = data));
         this.nodeService.getFiles().then((data) => (this.nodes = data));
     }
@@ -383,25 +334,25 @@ export class DockAdvancedDemo implements OnInit, OnDestroy {
         let response;
         let argsIndex = text.indexOf(' ');
         let command = argsIndex !== -1 ? text.substring(0, argsIndex) : text;
-
+        
         switch (command) {
             case 'date':
                 response = 'Today is ' + new Date().toDateString();
                 break;
-
+        
             case 'greet':
                 response = 'Hola ' + text.substring(argsIndex + 1) + '!';
                 break;
-
+        
             case 'random':
                 response = Math.floor(Math.random() * 100);
                 break;
-
+        
             default:
                 response = 'Unknown command: ' + command;
                 break;
         }
-
+        
         if (response) {
             this.terminalService.sendResponse(response as string);
         }
@@ -419,18 +370,6 @@ export class DockAdvancedDemo implements OnInit, OnDestroy {
 ## Basic
 
 Dock requires a collection of menuitems as its model . Default location is bottom and other sides are also available when defined with the position property. Content of the dock component is defined by item template.
-
-```html
-<p-dock [model]="items" [position]="position">
-    <ng-template #item let-item>
-        <img [pTooltip]="item.label" tooltipPosition="top" [src]="item.icon" [alt]="item.label" width="100%" />
-    </ng-template>
-</p-dock>
-```
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Dock
 

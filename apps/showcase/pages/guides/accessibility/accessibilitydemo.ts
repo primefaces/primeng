@@ -1,10 +1,10 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { ColorsDoc } from '@/doc/guides/accessibility/colorsdoc';
-import { FormControlsDoc } from '@/doc/guides/accessibility/formcontrolsdoc';
-import { IntroductionDoc } from '@/doc/guides/accessibility/introductiondoc';
-import { SemanticHTMLDoc } from '@/doc/guides/accessibility/semantichtmldoc';
-import { WAIARIADoc } from '@/doc/guides/accessibility/waiariadoc';
-import { WCAGDoc } from '@/doc/guides/accessibility/wcagdoc';
+import { ColorsDoc } from '@/doc/guides/accessibility/colors-doc';
+import { FormControlsDoc } from '@/doc/guides/accessibility/formcontrols-doc';
+import { IntroductionDoc } from '@/doc/guides/accessibility/introduction-doc';
+import { SemanticHTMLDoc } from '@/doc/guides/accessibility/semantichtml-doc';
+import { WAIARIADoc } from '@/doc/guides/accessibility/waiaria-doc';
+import { WCAGDoc } from '@/doc/guides/accessibility/wcag-doc';
 import { Component } from '@angular/core';
 
 @Component({

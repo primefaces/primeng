@@ -1,11 +1,11 @@
-import { AccessibilityDoc } from '@/doc/tieredmenu/accessibilitydoc';
-import { BasicDoc } from '@/doc/tieredmenu/basicdoc';
-import { CommandDoc } from '@/doc/tieredmenu/commanddoc';
-import { ImportDoc } from '@/doc/tieredmenu/importdoc';
-import { PopupDoc } from '@/doc/tieredmenu/popupdoc';
+import { AccessibilityDoc } from '@/doc/tieredmenu/accessibility-doc';
+import { BasicDoc } from '@/doc/tieredmenu/basic-doc';
+import { CommandDoc } from '@/doc/tieredmenu/command-doc';
+import { ImportDoc } from '@/doc/tieredmenu/import-doc';
+import { PopupDoc } from '@/doc/tieredmenu/popup-doc';
 import { PTComponent } from '@/doc/tieredmenu/pt/PTComponent';
-import { RouterDoc } from '@/doc/tieredmenu/routerdoc';
-import { TemplateDoc } from '@/doc/tieredmenu/templatedoc';
+import { RouterDoc } from '@/doc/tieredmenu/router-doc';
+import { TemplateDoc } from '@/doc/tieredmenu/template-doc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 

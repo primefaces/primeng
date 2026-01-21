@@ -1,15 +1,15 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/toast/accessibilitydoc';
-import { BasicDoc } from '@/doc/toast/basicdoc';
-import { HeadlessDoc } from '@/doc/toast/headlessdoc';
-import { ImportDoc } from '@/doc/toast/importdoc';
-import { MultipleDoc } from '@/doc/toast/multipledoc';
-import { PositionDoc } from '@/doc/toast/positiondoc';
+import { AccessibilityDoc } from '@/doc/toast/accessibility-doc';
+import { BasicDoc } from '@/doc/toast/basic-doc';
+import { HeadlessDoc } from '@/doc/toast/headless-doc';
+import { ImportDoc } from '@/doc/toast/import-doc';
+import { MultipleDoc } from '@/doc/toast/multiple-doc';
+import { PositionDoc } from '@/doc/toast/position-doc';
 import { PTComponent } from '@/doc/toast/pt/PTComponent';
-import { ResponsiveDoc } from '@/doc/toast/responsivedoc';
-import { SeverityDoc } from '@/doc/toast/severitydoc';
-import { StickyDoc } from '@/doc/toast/stickydoc';
-import { TemplateDoc } from '@/doc/toast/templatedoc';
+import { ResponsiveDoc } from '@/doc/toast/responsive-doc';
+import { SeverityDoc } from '@/doc/toast/severity-doc';
+import { StickyDoc } from '@/doc/toast/sticky-doc';
+import { TemplateDoc } from '@/doc/toast/template-doc';
 import { Component } from '@angular/core';
 
 @Component({

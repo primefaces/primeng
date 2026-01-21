@@ -1,7 +1,7 @@
-import { FontAwesomeDoc } from '@/doc/customicons/fontawesomedoc';
-import { ImageDoc } from '@/doc/customicons/imagedoc';
-import { MaterialDoc } from '@/doc/customicons/materialdoc';
-import { SVGDoc } from '@/doc/customicons/svgdoc';
+import { FontAwesomeDoc } from '@/doc/customicons/fontawesome-doc';
+import { ImageDoc } from '@/doc/customicons/image-doc';
+import { MaterialDoc } from '@/doc/customicons/material-doc';
+import { SVGDoc } from '@/doc/customicons/svg-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

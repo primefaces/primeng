@@ -10,65 +10,36 @@ Screen Reader Chart components internally use canvas element, refer to the Chart
 
 A chart is configured with 3 properties; type , data and options . Chart type is defined using the type property that accepts pie , doughtnut , line , bar , radar and polarArea as a value. The data defines datasets represented with the chart and the options provide numerous customization options to customize the presentation.
 
-```html
-<p-chart type="bar" [data]="basicData" [options]="basicOptions" />
-```
-
 ## Chart.js
 
 To begin with, first you must install the charts.js package using npm and then include it in your project. An example with CLI would be;
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-npm install chart.js --save
-```
-</details>
 
 ## Combo
 
 Different chart types can be combined in the same graph using the type option of a dataset.
 
-```html
-<p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { isPlatformBrowser } from '@angular/common';
-import { Component, OnInit, PLATFORM_ID, ChangeDetectorRef, inject, effect } from '@angular/core';
-import { AppConfigService } from '@/service/appconfigservice';
+import { Component, OnInit, inject } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
-    selector: 'chart-combo-demo',
-    templateUrl: './chart-combo-demo.html',
+    template: `
+        <div class="card">
+            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+        </div>
+    `,
     standalone: true,
     imports: [ChartModule]
 })
 export class ChartComboDemo implements OnInit {
     data: any;
-
     options: any;
-
     platformId = inject(PLATFORM_ID);
-
     configService = inject(AppConfigService);
-
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
-
-    themeEffect = effect(() => {
-        if (this.configService.transitionComplete()) {
-            if (this.designerService.preset()) {
-                this.initChart();
-            }
-        }
-    });
 
     ngOnInit() {
         this.initChart();
@@ -80,7 +51,7 @@ export class ChartComboDemo implements OnInit {
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
+        
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -109,7 +80,7 @@ export class ChartComboDemo implements OnInit {
                     }
                 ]
             };
-
+        
             this.options = {
                 maintainAspectRatio: false,
                 aspectRatio: 0.6,
@@ -150,44 +121,28 @@ export class ChartComboDemo implements OnInit {
 
 A doughnut chart is a variant of the pie chart, with a blank center allowing for additional information about the data as a whole to be included.
 
-```html
-<p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, PLATFORM_ID, ChangeDetectorRef, inject, effect } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
-import { AppConfigService } from '@/service/appconfigservice';
 
 @Component({
-    selector: 'chart-doughnut-demo',
-    templateUrl: './chart-doughnut-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+        </div>
+    `,
     standalone: true,
     imports: [ChartModule]
 })
 export class ChartDoughnutDemo implements OnInit {
     data: any;
-
     options: any;
-
     platformId = inject(PLATFORM_ID);
-
     configService = inject(AppConfigService);
-
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
-
-    themeEffect = effect(() => {
-        if (this.configService.transitionComplete()) {
-            if (this.designerService.preset()) {
-                this.initChart();
-            }
-        }
-    });
 
     ngOnInit() {
         this.initChart();
@@ -197,7 +152,7 @@ export class ChartDoughnutDemo implements OnInit {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--p-text-color');
-
+        
             this.data = {
                 labels: ['A', 'B', 'C'],
                 datasets: [
@@ -208,7 +163,7 @@ export class ChartDoughnutDemo implements OnInit {
                     }
                 ]
             };
-
+        
             this.options = {
                 cutout: '60%',
                 plugins: {
@@ -219,7 +174,7 @@ export class ChartDoughnutDemo implements OnInit {
                     }
                 }
             };
-            this.cd.markForCheck()
+            this.cd.markForCheck();
         }
     }
 }
@@ -230,45 +185,28 @@ export class ChartDoughnutDemo implements OnInit {
 
 A bar chart is rendered horizontally when indexAxis option is set as y .
 
-```html
-<p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { AppConfigService } from '@/service/appconfigservice';
+import { Component, OnInit, inject } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
-    selector: 'chart-horizontal-bar-demo',
-    templateUrl: './chart-horizontal-bar-demo.html',
+    template: `
+        <div class="card">
+            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+        </div>
+    `,
     standalone: true,
     imports: [ChartModule]
 })
-export class ChartHorizontalBarDemo implements OnInit {
+export class ChartHorizontalbarDemo implements OnInit {
     data: any;
-
     options: any;
-
     platformId = inject(PLATFORM_ID);
-
     configService = inject(AppConfigService);
-
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
-
-    themeEffect = effect(() => {
-        if (this.configService.transitionComplete()) {
-            if (this.designerService.preset()) {
-                this.initChart();
-            }
-        }
-    });
 
     ngOnInit() {
         this.initChart();
@@ -280,7 +218,7 @@ export class ChartHorizontalBarDemo implements OnInit {
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
+        
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -298,7 +236,7 @@ export class ChartHorizontalBarDemo implements OnInit {
                     }
                 ]
             };
-
+        
             this.options = {
                 indexAxis: 'y',
                 maintainAspectRatio: false,
@@ -334,7 +272,7 @@ export class ChartHorizontalBarDemo implements OnInit {
                     }
                 }
             };
-            this.cd.markForCheck()
+            this.cd.markForCheck();
         }
     }
 }
@@ -345,45 +283,28 @@ export class ChartHorizontalBarDemo implements OnInit {
 
 A line chart or line graph is a type of chart which displays information as a series of data points called 'markers' connected by straight line segments.
 
-```html
-<p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { AppConfigService } from '@/service/appconfigservice';
+import { Component, OnInit, inject } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
-    selector: 'chart-line-demo',
-    templateUrl: './chart-line-demo.html',
+    template: `
+        <div class="card">
+            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+        </div>
+    `,
     standalone: true,
     imports: [ChartModule]
 })
 export class ChartLineDemo implements OnInit {
     data: any;
-
     options: any;
-
     platformId = inject(PLATFORM_ID);
-
     configService = inject(AppConfigService);
-
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
-
-    themeEffect = effect(() => {
-        if (this.configService.transitionComplete()) {
-            if (this.designerService.preset()) {
-                this.initChart();
-            }
-        }
-    });
 
     ngOnInit() {
         this.initChart();
@@ -395,7 +316,7 @@ export class ChartLineDemo implements OnInit {
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
+        
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -415,7 +336,7 @@ export class ChartLineDemo implements OnInit {
                     }
                 ]
             };
-
+        
             this.options = {
                 maintainAspectRatio: false,
                 aspectRatio: 0.6,
@@ -447,56 +368,39 @@ export class ChartLineDemo implements OnInit {
                     }
                 }
             };
-            this.cd.markForCheck()
+            this.cd.markForCheck();
         }
     }
 }
 ```
 </details>
 
-## linestyledoc
+## linestyle-doc
 
 Various styles of a line series can be customized to display customizations like an area chart.
-
-```html
-<p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { isPlatformBrowser } from '@angular/common';
-import { Component, OnInit, PLATFORM_ID, ChangeDetectorRef, inject, effect } from '@angular/core';
-import { AppConfigService } from '@/service/appconfigservice';
+import { Component, OnInit, inject } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
-    selector: 'chart-line-style-demo',
-    templateUrl: './chart-line-style-demo.html',
+    template: `
+        <div class="card">
+            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+        </div>
+    `,
     standalone: true,
     imports: [ChartModule]
 })
-export class ChartLineStyleDemo implements OnInit {
+export class ChartLinestyleDemo implements OnInit {
     data: any;
-
     options: any;
-
     platformId = inject(PLATFORM_ID);
-
     configService = inject(AppConfigService);
-
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
-
-    themeEffect = effect(() => {
-        if (this.configService.transitionComplete()) {
-            if (this.designerService.preset()) {
-                this.initChart();
-            }
-        }
-    });
 
     ngOnInit() {
         this.initChart();
@@ -508,7 +412,7 @@ export class ChartLineStyleDemo implements OnInit {
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
+        
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -537,7 +441,7 @@ export class ChartLineStyleDemo implements OnInit {
                     }
                 ]
             };
-
+        
             this.options = {
                 maintainAspectRatio: false,
                 aspectRatio: 0.6,
@@ -574,49 +478,78 @@ export class ChartLineStyleDemo implements OnInit {
 ```
 </details>
 
-## MultiAxis
-
-Multiple axes can be added using the scales option.
-
-```html
-<p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
-```
+## methods-doc
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, effect, inject , OnInit, PLATFORM_ID } from '@angular/core';
-import { AppConfigService } from '@/service/appconfigservice';
+import { Component } from '@angular/core';
+
+@Component({
+    template: `
+        <div class="doc-tablewrapper">
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>refresh</td>
+                        <td>-</td>
+                        <td>Redraws the graph with new data.</td>
+                    </tr>
+                    <tr>
+                        <td>reinit</td>
+                        <td>-</td>
+                        <td>Destroys the graph first and then creates it again.</td>
+                    </tr>
+                    <tr>
+                        <td>generateLegend</td>
+                        <td>-</td>
+                        <td>Returns an HTML string of a legend for that chart. The legend is generated from the legendCallback in the options.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class ChartMethodsDemo {}
+```
+</details>
+
+## MultiAxis
+
+Multiple axes can be added using the scales option.
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit, inject } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
-    selector: 'chart-multi-axis-demo',
-    templateUrl: './chart-multi-axis-demo.html',
+    template: `
+        <div class="card">
+            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+        </div>
+    `,
     standalone: true,
     imports: [ChartModule]
 })
-export class ChartMultiAxisDemo implements OnInit {
+export class ChartMultiaxisDemo implements OnInit {
     data: any;
-
     options: any;
-
     platformId = inject(PLATFORM_ID);
-
     configService = inject(AppConfigService);
-
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
-
-    themeEffect = effect(() => {
-        if (this.configService.transitionComplete()) {
-            if (this.designerService.preset()) {
-                this.initChart();
-            }
-        }
-    });
 
     ngOnInit() {
         this.initChart();
@@ -628,7 +561,7 @@ export class ChartMultiAxisDemo implements OnInit {
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
+        
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -650,7 +583,7 @@ export class ChartMultiAxisDemo implements OnInit {
                     }
                 ]
             };
-
+        
             this.options = {
                 stacked: false,
                 maintainAspectRatio: false,
@@ -707,44 +640,28 @@ export class ChartMultiAxisDemo implements OnInit {
 
 A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.
 
-```html
-<p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
-import { AppConfigService } from '@/service/appconfigservice';
 
 @Component({
-    selector: 'chart-pie-demo',
-    templateUrl: './chart-pie-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+        </div>
+    `,
     standalone: true,
     imports: [ChartModule]
 })
 export class ChartPieDemo implements OnInit {
     data: any;
-
     options: any;
-
     platformId = inject(PLATFORM_ID);
-
     configService = inject(AppConfigService);
-
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
-
-    themeEffect = effect(() => {
-        if (this.configService.transitionComplete()) {
-            if (this.designerService.preset()) {
-                this.initChart();
-            }
-        }
-    });
 
     ngOnInit() {
         this.initChart();
@@ -754,7 +671,7 @@ export class ChartPieDemo implements OnInit {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');
-
+        
             this.data = {
                 labels: ['A', 'B', 'C'],
                 datasets: [
@@ -765,7 +682,7 @@ export class ChartPieDemo implements OnInit {
                     }
                 ]
             };
-
+        
             this.options = {
                 plugins: {
                     legend: {
@@ -776,9 +693,8 @@ export class ChartPieDemo implements OnInit {
                     }
                 }
             };
-            this.cd.markForCheck()
+            this.cd.markForCheck();
         }
-
     }
 }
 ```
@@ -788,45 +704,28 @@ export class ChartPieDemo implements OnInit {
 
 Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.
 
-```html
-<p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { isPlatformBrowser } from '@angular/common';
-import { Component, OnInit, PLATFORM_ID, ChangeDetectorRef, inject, effect } from '@angular/core';
-import { AppConfigService } from '@/service/appconfigservice';
+import { Component, OnInit, inject } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
-    selector: 'chart-polar-area-demo',
-    templateUrl: './chart-polar-area-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+        </div>
+    `,
     standalone: true,
     imports: [ChartModule]
 })
-export class ChartPolarAreaDemo implements OnInit {
+export class ChartPolarareaDemo implements OnInit {
     data: any;
-
     options: any;
-
     platformId = inject(PLATFORM_ID);
-
     configService = inject(AppConfigService);
-
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
-
-    themeEffect = effect(() => {
-        if (this.configService.transitionComplete()) {
-            if (this.designerService.preset()) {
-                this.initChart();
-            }
-        }
-    });
 
     ngOnInit() {
         this.initChart();
@@ -837,7 +736,7 @@ export class ChartPolarAreaDemo implements OnInit {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
+        
             this.data = {
                 datasets: [
                     {
@@ -854,7 +753,7 @@ export class ChartPolarAreaDemo implements OnInit {
                 ],
                 labels: ['Pink', 'Gray', 'Orange', 'Purple', 'Cyan']
             };
-
+        
             this.options = {
                 plugins: {
                     legend: {
@@ -871,56 +770,119 @@ export class ChartPolarAreaDemo implements OnInit {
                     }
                 }
             };
-            this.cd.markForCheck()
+            this.cd.markForCheck();
         }
     }
 }
 ```
 </details>
 
-## radardoc
-
-A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes starting from the same point.
-
-```html
-<p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
-```
+## props-doc
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { isPlatformBrowser } from '@angular/common';
-import { Component, OnInit, PLATFORM_ID, ChangeDetectorRef, inject, effect } from '@angular/core';
-import { AppConfigService } from '@/service/appconfigservice';
+import { Component } from '@angular/core';
+
+@Component({
+    template: `
+        <div class="doc-tablewrapper">
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>type</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Type of the chart.</td>
+                    </tr>
+                    <tr>
+                        <td>data</td>
+                        <td>any</td>
+                        <td>null</td>
+                        <td>Data to display.</td>
+                    </tr>
+                    <tr>
+                        <td>options</td>
+                        <td>any</td>
+                        <td>null</td>
+                        <td>Options to customize the chart.</td>
+                    </tr>
+                    <tr>
+                        <td>plugins</td>
+                        <td>any[]</td>
+                        <td>null</td>
+                        <td>Array of per-chart plugins to customize the chart behaviour.</td>
+                    </tr>
+                    <tr>
+                        <td>width</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Width of the chart.</td>
+                    </tr>
+                    <tr>
+                        <td>height</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Height of the chart.</td>
+                    </tr>
+                    <tr>
+                        <td>responsive</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>Whether the chart is redrawn on screen size change.</td>
+                    </tr>
+                    <tr>
+                        <td>onDataSelect</td>
+                        <td>function</td>
+                        <td>null</td>
+                        <td>Callback to execute when an element on chart is clicked.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class ChartPropsDemo {}
+```
+</details>
+
+## radar-doc
+
+A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes starting from the same point.
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit, inject } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
-    selector: 'chart-radar-demo',
-    templateUrl: './chart-radar-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+        </div>
+    `,
     standalone: true,
     imports: [ChartModule]
 })
 export class ChartRadarDemo implements OnInit {
     data: any;
-
     options: any;
-
     platformId = inject(PLATFORM_ID);
-
     configService = inject(AppConfigService);
-
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
-
-    themeEffect = effect(() => {
-        if (this.configService.transitionComplete()) {
-            if (this.designerService.preset()) {
-                this.initChart();
-            }
-        }
-    });
 
     ngOnInit() {
         this.initChart();
@@ -931,7 +893,7 @@ export class ChartRadarDemo implements OnInit {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-
+        
             this.data = {
                 labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
                 datasets: [
@@ -955,7 +917,7 @@ export class ChartRadarDemo implements OnInit {
                     }
                 ]
             };
-
+        
             this.options = {
                 plugins: {
                     legend: {
@@ -973,7 +935,7 @@ export class ChartRadarDemo implements OnInit {
                 }
             };
         }
-        this.cd.markForCheck()
+        this.cd.markForCheck();
     }
 }
 ```
@@ -983,45 +945,28 @@ export class ChartRadarDemo implements OnInit {
 
 Bars can be stacked on top of each other when stacked option of a scale is enabled.
 
-```html
-<p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { AppConfigService } from '@/service/appconfigservice';
+import { Component, OnInit, inject } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
-    selector: 'chart-stacked-bar-demo',
-    templateUrl: './chart-stacked-bar-demo.html',
+    template: `
+        <div class="card">
+            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+        </div>
+    `,
     standalone: true,
     imports: [ChartModule]
 })
-export class ChartStackedBarDemo implements OnInit {
+export class ChartStackedbarDemo implements OnInit {
     data: any;
-
     options: any;
-
     platformId = inject(PLATFORM_ID);
-
     configService = inject(AppConfigService);
-
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
-
-    themeEffect = effect(() => {
-        if (this.configService.transitionComplete()) {
-            if (this.designerService.preset()) {
-                this.initChart();
-            }
-        }
-    });
 
     ngOnInit() {
         this.initChart();
@@ -1033,7 +978,7 @@ export class ChartStackedBarDemo implements OnInit {
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
+        
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -1057,7 +1002,7 @@ export class ChartStackedBarDemo implements OnInit {
                     }
                 ]
             };
-
+        
             this.options = {
                 maintainAspectRatio: false,
                 aspectRatio: 0.8,
@@ -1095,7 +1040,7 @@ export class ChartStackedBarDemo implements OnInit {
                     }
                 }
             };
-            this.cd.markForCheck()
+            this.cd.markForCheck();
         }
     }
 }
@@ -1106,44 +1051,28 @@ export class ChartStackedBarDemo implements OnInit {
 
 A bar chart or bar graph is a chart that presents grouped data with rectangular bars with lengths proportional to the values that they represent.
 
-```html
-<p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, PLATFORM_ID, ChangeDetectorRef, inject, effect } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
-import { AppConfigService } from '@/service/appconfigservice';
 
 @Component({
-    selector: 'chart-vertical-bar-demo',
-    templateUrl: './chart-vertical-bar-demo.html',
+    template: `
+        <div class="card">
+            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+        </div>
+    `,
     standalone: true,
     imports: [ChartModule]
 })
-export class ChartVerticalBarDemo implements OnInit {
+export class ChartVerticalbarDemo implements OnInit {
     data: any;
-
     options: any;
-
     platformId = inject(PLATFORM_ID);
-
     configService = inject(AppConfigService);
-
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
-
-    themeEffect = effect(() => {
-        if (this.configService.transitionComplete()) {
-            if (this.designerService.preset()) {
-                this.initChart();
-            }
-        }
-    });
 
     ngOnInit() {
         this.initChart();
@@ -1155,7 +1084,7 @@ export class ChartVerticalBarDemo implements OnInit {
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
             const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
+        
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -1173,7 +1102,7 @@ export class ChartVerticalBarDemo implements OnInit {
                     }
                 ]
             };
-
+        
             this.options = {
                 maintainAspectRatio: false,
                 aspectRatio: 0.8,
@@ -1208,7 +1137,7 @@ export class ChartVerticalBarDemo implements OnInit {
                     }
                 }
             };
-            this.cd.markForCheck()
+            this.cd.markForCheck();
         }
     }
 }

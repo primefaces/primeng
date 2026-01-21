@@ -1,12 +1,12 @@
-import { BasicDoc } from '@/doc/icons/basicdoc';
-import { ColorDoc } from '@/doc/icons/colordoc';
-import { ConstantsDoc } from '@/doc/icons/constantsdoc';
-import { DownloadDoc } from '@/doc/icons/downloaddoc';
-import { FigmaDoc } from '@/doc/icons/figmadoc';
-import { ImportDoc } from '@/doc/icons/importdoc';
-import { ListDoc } from '@/doc/icons/listdoc';
-import { SizeDoc } from '@/doc/icons/sizedoc';
-import { SpinDoc } from '@/doc/icons/spindoc';
+import { BasicDoc } from '@/doc/icons/basic-doc';
+import { ColorDoc } from '@/doc/icons/color-doc';
+import { ConstantsDoc } from '@/doc/icons/constants-doc';
+import { DownloadDoc } from '@/doc/icons/download-doc';
+import { FigmaDoc } from '@/doc/icons/figma-doc';
+import { ImportDoc } from '@/doc/icons/import-doc';
+import { ListDoc } from '@/doc/icons/list-doc';
+import { SizeDoc } from '@/doc/icons/size-doc';
+import { SpinDoc } from '@/doc/icons/spin-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

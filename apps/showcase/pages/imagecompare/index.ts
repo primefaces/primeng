@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { ImportDoc } from '../../doc/imagecompare/importdoc';
-import { BasicDoc } from '../../doc/imagecompare/basicdoc';
-import { AccessibilityDoc } from '../../doc/imagecompare/accessibilitydoc';
-import { PTComponent } from '@/doc/imagecompare/pt/PTComponent';
-import { ResponsiveDoc } from '@/doc/imagecompare/responsivedoc';
 import { AppDoc } from '@/components/doc/app.doc';
+import { AccessibilityDoc } from '@/doc/imagecompare/accessibility-doc';
+import { BasicDoc } from '@/doc/imagecompare/basic-doc';
+import { ImportDoc } from '@/doc/imagecompare/import-doc';
+import { PTComponent } from '@/doc/imagecompare/pt/PTComponent';
+import { ResponsiveDoc } from '@/doc/imagecompare/responsive-doc';
+import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc

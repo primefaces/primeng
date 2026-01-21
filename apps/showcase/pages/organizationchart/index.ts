@@ -1,11 +1,11 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/organizationchart/accessibilitydoc';
-import { BasicDoc } from '@/doc/organizationchart/basicdoc';
-import { ColoredDoc } from '@/doc/organizationchart/colored.doc';
-import { ImportDoc } from '@/doc/organizationchart/importdoc';
+import { AccessibilityDoc } from '@/doc/organizationchart/accessibility-doc';
+import { BasicDoc } from '@/doc/organizationchart/basic-doc';
+import { ColoredDoc } from '@/doc/organizationchart/colored.-doc';
+import { ImportDoc } from '@/doc/organizationchart/import-doc';
 import { PTComponent } from '@/doc/organizationchart/pt/PTComponent';
-import { SelectionDoc } from '@/doc/organizationchart/selectiondoc';
-import { TemplateDoc } from '@/doc/organizationchart/templatedoc';
+import { SelectionDoc } from '@/doc/organizationchart/selection-doc';
+import { TemplateDoc } from '@/doc/organizationchart/template-doc';
 import { Component } from '@angular/core';
 
 @Component({

@@ -83,11 +83,32 @@ export class DesignerService {
     }
 
     resolveColor(token) {
+        let color;
+
         if (token && token.startsWith('{') && token.endsWith('}')) {
             let cssVariable = $dt(token).variable.slice(4, -1);
-            return getComputedStyle(document.documentElement).getPropertyValue(cssVariable);
+            color = getComputedStyle(document.documentElement).getPropertyValue(cssVariable);
         } else {
-            return token;
+            color = token;
+        }
+
+        return this.removeAlphaTransparency(color);
+    }
+
+    removeAlphaTransparency(color) {
+        // Check if the color is an 8-character hex (e.g., #RRGGBBAA)
+        if (color && /^#[0-9A-Fa-f]{8}$/.test(color)) {
+            return color.slice(0, 7);
+        }
+
+        return color;
+    }
+
+    resolveColorPlain(color) {
+        if (color && color.startsWith('{') && color.endsWith('}')) {
+            return $dt(color).variable;
+        } else {
+            return color;
         }
     }
 

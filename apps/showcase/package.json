@@ -1,6 +1,6 @@
 {
     "name": "showcase",
-    "version": "21.0.2",
+    "version": "21.0.4",
     "license": "SEE LICENSE IN LICENSE.md",
     "type": "module",
     "scripts": {
@@ -12,7 +12,10 @@
         "build": "ng build",
         "build:apidoc": "node scripts/build-apidoc.mjs",
         "build:llm-docs": "node scripts/build-llm-docs.mjs",
-        "build:docs": "npm run build:apidoc && npm run build:llm-docs"
+        "build:democode": "node scripts/build-demo-code.mjs",
+        "build:docs": "npm run build:apidoc && npm run build:democode && npm run build:llm-docs && npm run test:democode && npm run test:stackblitz",
+        "test:democode": "node scripts/test-demo-code.mjs",
+        "test:stackblitz": "node scripts/test-stackblitz-e2e.mjs --all"
     },
     "repository": {
         "type": "git",
@@ -38,7 +41,7 @@
         "express": "^4.19.2",
         "file-saver": "^2.0.5",
         "jasmine-core": "~4.6.0",
-        "jspdf": "^3.0.2",
+        "jspdf": "^4.0.0",
         "jspdf-autotable": "^3.5.28",
         "primeicons": "catalog:",
         "primeng": "workspace:*",

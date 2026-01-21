@@ -1,7 +1,7 @@
-import { AccessibilityDoc } from '@/doc/progressspinner/accessibilitydoc';
-import { BasicDoc } from '@/doc/progressspinner/basicdoc';
-import { CustomDoc } from '@/doc/progressspinner/customdoc';
-import { ImportDoc } from '@/doc/progressspinner/importdoc';
+import { AccessibilityDoc } from '@/doc/progressspinner/accessibility-doc';
+import { BasicDoc } from '@/doc/progressspinner/basic-doc';
+import { CustomDoc } from '@/doc/progressspinner/custom-doc';
+import { ImportDoc } from '@/doc/progressspinner/import-doc';
 import { PTComponent } from '@/doc/progressspinner/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';

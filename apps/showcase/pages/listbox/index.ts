@@ -1,20 +1,20 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/listbox/accessibilitydoc';
-import { BasicDoc } from '@/doc/listbox/basicdoc';
-import { CheckboxDoc } from '@/doc/listbox/checkboxdoc';
-import { CheckmarkDoc } from '@/doc/listbox/checkmarkdoc';
-import { DisabledDoc } from '@/doc/listbox/disableddoc';
-import { DragDropDoc } from '@/doc/listbox/dragdropdoc';
-import { FilterDoc } from '@/doc/listbox/filterdoc';
-import { GroupDoc } from '@/doc/listbox/groupdoc';
-import { ImportDoc } from '@/doc/listbox/importdoc';
-import { InvalidDoc } from '@/doc/listbox/invaliddoc';
-import { MultipleDoc } from '@/doc/listbox/multipledoc';
+import { AccessibilityDoc } from '@/doc/listbox/accessibility-doc';
+import { BasicDoc } from '@/doc/listbox/basic-doc';
+import { CheckboxDoc } from '@/doc/listbox/checkbox-doc';
+import { CheckmarkDoc } from '@/doc/listbox/checkmark-doc';
+import { DisabledDoc } from '@/doc/listbox/disabled-doc';
+import { DragDropDoc } from '@/doc/listbox/dragdrop-doc';
+import { FilterDoc } from '@/doc/listbox/filter-doc';
+import { GroupDoc } from '@/doc/listbox/group-doc';
+import { ImportDoc } from '@/doc/listbox/import-doc';
+import { InvalidDoc } from '@/doc/listbox/invalid-doc';
+import { MultipleDoc } from '@/doc/listbox/multiple-doc';
 import { PTComponent } from '@/doc/listbox/pt/PTComponent';
-import { ReactiveFormsDoc } from '@/doc/listbox/reactiveformsdoc';
-import { TemplateDoc } from '@/doc/listbox/templatedoc';
-import { TemplateDrivenFormsDoc } from '@/doc/listbox/templatedrivenformsdoc';
-import { VirtualScrollDoc } from '@/doc/listbox/virtualscrolldoc';
+import { ReactiveFormsDoc } from '@/doc/listbox/reactiveforms-doc';
+import { TemplateDoc } from '@/doc/listbox/template-doc';
+import { TemplateDrivenFormsDoc } from '@/doc/listbox/templatedrivenforms-doc';
+import { VirtualScrollDoc } from '@/doc/listbox/virtualscroll-doc';
 import { Component } from '@angular/core';
 
 @Component({

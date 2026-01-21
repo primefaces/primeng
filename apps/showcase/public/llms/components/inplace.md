@@ -10,113 +10,34 @@ Screen Reader Inplace component defines aria-live as "polite" by default, since 
 
 Inplace component requires display and content templates to define the content of each state.
 
-```html
-<p-inplace>
-    <ng-template #display>
-        <span>View Content</span>
-    </ng-template>
-    <ng-template #content>
-        <p class="m-0">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-        </p>
-    </ng-template>
-</p-inplace>
-```
-
-## datadoc
-
-```html
-<p-inplace>
-    <ng-template #header>
-        <div class="inline-flex items-center">
-            <span class="pi pi-table" style="vertical-align: middle"></span>
-            <span class="ml-2">View Data</span>
-        </div>
-    </ng-template>
-    <ng-template #content>
-        <p-table [value]="cars" responsiveLayout="scroll">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Vin</th>
-                    <th>Year</th>
-                    <th>Brand</th>
-                    <th>Color</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-car>
-                <tr>
-                    <td>{{ car.vin }}</td>
-                    <td>{{ car.year }}</td>
-                    <td>{{ car.brand }}</td>
-                    <td>{{ car.color }}</td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </ng-template>
-</p-inplace>
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { Car } from '@/domain/car';
-import { CarService } from '@/service/carservice';
-import { InplaceModule } from 'primeng/inplace';
-import { TableModule } from 'primeng/table';
-
-@Component({
-    selector: 'inplace-data-demo',
-    templateUrl: './inplace-data-demo.html',
-    standalone: true,
-    imports: [InplaceModule, TableModule],
-    providers: [CarService]
-})
-export class InplaceDataDemo {
-    cars: Car[] | undefined;
-
-    constructor(private carService: CarService) {}
-
-    ngOnInit() {
-        this.carService.getCarsSmall().then((cars) => (this.cars = cars));
-    }
-}
-```
-</details>
-
 ## Image
 
 Any content such as an image can be placed inside an Inplace.
 
-```html
-<p-inplace>
-    <ng-template #display>
-        <span class="inline-flex items-center gap-2">
-            <span class="pi pi-image" style="vertical-align: middle"></span>
-            <span class="ml-2">View Photo</span>
-        </span>
-    </ng-template>
-    <ng-template #content>
-        <img
-            class="w-full sm:w-80 shadow-md"
-            src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg"
-            alt="Nature"
-        />
-    </ng-template>
-</p-inplace>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
 import { InplaceModule } from 'primeng/inplace';
+import { Photo } from '@/domain/photo';
 
 @Component({
-    selector: 'inplace-image-demo',
-    templateUrl: './inplace-image-demo.html',
+    template: `
+        <div class="card">
+            <p-inplace>
+                <ng-template #display>
+                    <span class="inline-flex items-center gap-2">
+                        <span class="pi pi-image" style="vertical-align: middle"></span>
+                        <span class="ml-2">View Photo</span>
+                    </span>
+                </ng-template>
+                <ng-template #content>
+                    <img class="w-full sm:w-80 shadow-md" src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" alt="Nature" />
+                </ng-template>
+            </p-inplace>
+        </div>
+    `,
     standalone: true,
     imports: [InplaceModule]
 })
@@ -128,37 +49,35 @@ export class InplaceImageDemo {}
 
 The closeCallback switches the state back to display mode when called from an event.
 
-```html
-<p-inplace>
-    <ng-template #display>
-        <span>Click to Edit</span>
-    </ng-template>
-    <ng-template #content let-closeCallback="closeCallback">
-        <span class="inline-flex gap-2">
-            <input type="text" pInputText [pAutoFocus]="true" />
-            <button type="button" pButton (click)="closeCallback($event)" text severity="danger">
-                <i class="pi pi-times" pButtonIcon></i>
-            </button>
-        </span>
-    </ng-template>
-</p-inplace>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
 import { InplaceModule } from 'primeng/inplace';
-import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'inplace-input-demo',
-    templateUrl: './inplace-input-demo.html',
+    template: `
+        <div class="card">
+            <p-inplace>
+                <ng-template #display>
+                    <span>Click to Edit</span>
+                </ng-template>
+                <ng-template #content let-closeCallback="closeCallback">
+                    <span class="inline-flex gap-2">
+                        <input type="text" pInputText [pAutoFocus]="true" />
+                        <button type="button" pButton (click)="closeCallback($event)" text severity="danger">
+                            <i class="pi pi-times" pButtonIcon></i>
+                        </button>
+                    </span>
+                </ng-template>
+            </p-inplace>
+        </div>
+    `,
     standalone: true,
-    imports: [InplaceModule, InputTextModule, ButtonModule, AutoFocusModule]
+    imports: [InplaceModule, ButtonModule, InputTextModule]
 })
 export class InplaceInputDemo {}
 ```
@@ -168,66 +87,59 @@ export class InplaceInputDemo {}
 
 Using the onActivate event, data can be loaded in a lazy manner before displaying it in a table.
 
-```html
-<p-inplace (onActivate)="loadData()">
-    <ng-template #display>
-        <span>View Data</span>
-    </ng-template>
-    <ng-template #content>
-        <p-table [value]="products" responsiveLayout="scroll">
-            <ng-template #header>
-                <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Quantity</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-product>
-                <tr>
-                    <td>{{ product.code }}</td>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.category }}</td>
-                    <td>{{ product.quantity }}</td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </ng-template>
-</p-inplace>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
-import { Product } from '@/domain/product';
-import { ProductService } from '@/service/productservice';
+import { Component, OnInit, inject } from '@angular/core';
 import { InplaceModule } from 'primeng/inplace';
 import { TableModule } from 'primeng/table';
+import { ProductService } from '@/service/productservice';
+import { Product } from '@/domain/product';
 
 @Component({
-    selector: 'inplace-lazy-demo',
-    templateUrl: './inplace-lazy-demo.html',
+    template: `
+        <div class="card">
+            <p-inplace (onActivate)="loadData()">
+                <ng-template #display>
+                    <span>View Data</span>
+                </ng-template>
+                <ng-template #content>
+                    <p-table [value]="products" responsiveLayout="scroll">
+                        <ng-template #header>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-product>
+                            <tr>
+                                <td>{{ product.code }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.category }}</td>
+                                <td>{{ product.quantity }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </ng-template>
+            </p-inplace>
+        </div>
+    `,
     standalone: true,
     imports: [InplaceModule, TableModule],
     providers: [ProductService]
 })
-export class InplaceLazyDemo {
+export class InplaceLazyDemo implements OnInit {
+    private productService = inject(ProductService);
     products: Product[] | undefined;
 
-    constructor(private productService: ProductService) {}
-
-    loadData() {
-        this.productService.getProductsMini().then((products) => (this.products = products));
+    ngOnInit() {
     }
 }
 ```
 </details>
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
 
 ## Inplace
 

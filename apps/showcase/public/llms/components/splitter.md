@@ -10,17 +10,6 @@ Screen Reader Splitter bar defines separator as the role with aria-orientation s
 
 Splitter requires two SplitterPanel components as children which are displayed horizontally by default.
 
-```html
-<p-splitter [style]="{ height: '300px' }" class="mb-8">
-    <ng-template #panel>
-        <div class="flex items-center justify-center h-full">Panel 1</div>
-    </ng-template>
-    <ng-template #panel>
-        <div class="flex items-center justify-center h-full">Panel 2</div>
-    </ng-template>
-</p-splitter>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -29,8 +18,18 @@ import { Component } from '@angular/core';
 import { SplitterModule } from 'primeng/splitter';
 
 @Component({
-    selector: 'splitter-horizontal-demo',
-    templateUrl: './splitter-horizontal-demo.html',
+    template: `
+        <div class="card">
+            <p-splitter [style]="{ height: '300px' }" class="mb-8">
+                <ng-template #panel>
+                    <div class="flex items-center justify-center h-full">Panel 1</div>
+                </ng-template>
+                <ng-template #panel>
+                    <div class="flex items-center justify-center h-full">Panel 2</div>
+                </ng-template>
+            </p-splitter>
+        </div>
+    `,
     standalone: true,
     imports: [SplitterModule]
 })
@@ -42,31 +41,6 @@ export class SplitterHorizontalDemo {}
 
 Splitters can be combined to create advanced layouts.
 
-```html
-<p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" class="mb-8">
-    <ng-template #panel>
-        <div class="col flex w-full items-center justify-center">Panel 1</div>
-    </ng-template>
-    <ng-template #panel>
-        <p-splitter layout="vertical" [panelSizes]="[50, 50]">
-            <ng-template #panel>
-                <div style="flex-grow: 1;" class="flex items-center justify-center">Panel 2</div>
-            </ng-template>
-            <ng-template #panel>
-                <p-splitter [panelSizes]="[20, 80]">
-                    <ng-template #panel>
-                        <div class="col h-full flex items-center justify-center">Panel 3</div>
-                    </ng-template>
-                    <ng-template #panel>
-                        <div class="col h-full flex items-center justify-center">Panel 4</div>
-                    </ng-template>
-                </p-splitter>
-            </ng-template>
-        </p-splitter>
-    </ng-template>
-</p-splitter>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -75,8 +49,32 @@ import { Component } from '@angular/core';
 import { SplitterModule } from 'primeng/splitter';
 
 @Component({
-    selector: 'splitter-nested-demo',
-    templateUrl: './splitter-nested-demo.html',
+    template: `
+        <div class="card">
+            <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" class="mb-8">
+                <ng-template #panel>
+                    <div class="col flex w-full items-center justify-center">Panel 1</div>
+                </ng-template>
+                <ng-template #panel>
+                    <p-splitter layout="vertical" [panelSizes]="[50, 50]">
+                        <ng-template #panel>
+                            <div style="flex-grow: 1;" class="flex items-center justify-center">Panel 2</div>
+                        </ng-template>
+                        <ng-template #panel>
+                            <p-splitter [panelSizes]="[20, 80]">
+                                <ng-template #panel>
+                                    <div class="col h-full flex items-center justify-center">Panel 3</div>
+                                </ng-template>
+                                <ng-template #panel>
+                                    <div class="col h-full flex items-center justify-center">Panel 4</div>
+                                </ng-template>
+                            </p-splitter>
+                        </ng-template>
+                    </p-splitter>
+                </ng-template>
+            </p-splitter>
+        </div>
+    `,
     standalone: true,
     imports: [SplitterModule]
 })
@@ -88,17 +86,6 @@ export class SplitterNestedDemo {}
 
 When no panelSizes are defined, panels are split 50/50, use the panelSizes property to give relative widths e.g. [25, 75].
 
-```html
-<p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" class="mb-8">
-    <ng-template #panel>
-        <div class="flex items-center justify-center h-full">Panel 1</div>
-    </ng-template>
-    <ng-template #panel>
-        <div class="flex items-center justify-center h-full">Panel 2</div>
-    </ng-template>
-</p-splitter>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -107,8 +94,18 @@ import { Component } from '@angular/core';
 import { SplitterModule } from 'primeng/splitter';
 
 @Component({
-    selector: 'splitter-size-demo',
-    templateUrl: './splitter-size-demo.html',
+    template: `
+        <div class="card">
+            <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" class="mb-8">
+                <ng-template #panel>
+                    <div class="flex items-center justify-center h-full">Panel 1</div>
+                </ng-template>
+                <ng-template #panel>
+                    <div class="flex items-center justify-center h-full">Panel 2</div>
+                </ng-template>
+            </p-splitter>
+        </div>
+    `,
     standalone: true,
     imports: [SplitterModule]
 })
@@ -116,24 +113,9 @@ export class SplitterSizeDemo {}
 ```
 </details>
 
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
-
 ## Vertical
 
 Panels are displayed as stacked by setting the layout to vertical .
-
-```html
-<p-splitter [style]="{ height: '300px' }" class="mb-8" layout="vertical">
-    <ng-template #panel>
-        <div class="flex items-center justify-center h-full">Panel 1</div>
-    </ng-template>
-    <ng-template #panel>
-        <div class="flex items-center justify-center h-full">Panel 2</div>
-    </ng-template>
-</p-splitter>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -143,8 +125,18 @@ import { Component } from '@angular/core';
 import { SplitterModule } from 'primeng/splitter';
 
 @Component({
-    selector: 'splitter-vertical-demo',
-    templateUrl: './splitter-vertical-demo.html',
+    template: `
+        <div class="card">
+            <p-splitter [style]="{ height: '300px' }" class="mb-8" [panelSizes]="[50, 50]" layout="vertical">
+                <ng-template #panel>
+                    <div class="flex items-center justify-center h-full">Panel 1</div>
+                </ng-template>
+                <ng-template #panel>
+                    <div class="flex items-center justify-center h-full">Panel 2</div>
+                </ng-template>
+            </p-splitter>
+        </div>
+    `,
     standalone: true,
     imports: [SplitterModule]
 })

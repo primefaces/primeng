@@ -1,16 +1,16 @@
-import { CspDoc } from '@/doc/configuration/cspdoc';
-import { DynamicDoc } from '@/doc/configuration/dynamicdoc';
-import { FilterModeDoc } from '@/doc/configuration/filtermodedoc';
-import { InputVariantDoc } from '@/doc/configuration/inputvariantdoc';
+import { CspDoc } from '@/doc/configuration/csp-doc';
+import { DynamicDoc } from '@/doc/configuration/dynamic-doc';
+import { FilterModeDoc } from '@/doc/configuration/filtermode-doc';
+import { InputVariantDoc } from '@/doc/configuration/inputvariant-doc';
 import { ApiDoc } from '@/doc/configuration/locale/apidoc';
 import { RepositoryDoc } from '@/doc/configuration/locale/repositorydoc';
 import { RuntimeDoc } from '@/doc/configuration/locale/runtimedoc';
 import { TranslationDoc } from '@/doc/configuration/locale/translationdoc';
-import { ProviderDoc } from '@/doc/configuration/providerdoc';
-import { RippleDoc } from '@/doc/configuration/rippledoc';
-import { OverlayAppendToDoc } from '@/doc/configuration/overlayappendtodoc';
-import { ThemeDoc } from '@/doc/configuration/themedoc';
-import { ZIndexDoc } from '@/doc/configuration/zindexdoc';
+import { ProviderDoc } from '@/doc/configuration/provider-doc';
+import { RippleDoc } from '@/doc/configuration/ripple-doc';
+import { OverlayAppendToDoc } from '@/doc/configuration/overlayappendto-doc';
+import { ThemeDoc } from '@/doc/configuration/theme-doc';
+import { ZIndexDoc } from '@/doc/configuration/zindex-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

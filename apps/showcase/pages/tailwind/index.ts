@@ -1,13 +1,13 @@
-import { AnimationsDoc } from '@/doc/tailwind/animationsdoc';
-import { ColorPaletteDoc } from '@/doc/tailwind/colorpalettedoc';
-import { ExtensionsDoc } from '@/doc/tailwind/extensionsdoc';
-import { FormDoc } from '@/doc/tailwind/formdoc';
-import { HeadlessDoc } from '@/doc/tailwind/headlessdoc';
-import { OverrideDoc } from '@/doc/tailwind/overridedoc';
-import { OverviewDoc } from '@/doc/tailwind/overviewdoc';
-import { PluginDoc } from '@/doc/tailwind/plugindoc';
+import { AnimationsDoc } from '@/doc/tailwind/animations-doc';
+import { ColorPaletteDoc } from '@/doc/tailwind/colorpalette-doc';
+import { ExtensionsDoc } from '@/doc/tailwind/extensions-doc';
+import { FormDoc } from '@/doc/tailwind/form-doc';
+import { HeadlessDoc } from '@/doc/tailwind/headless-doc';
+import { OverrideDoc } from '@/doc/tailwind/override-doc';
+import { OverviewDoc } from '@/doc/tailwind/overview-doc';
+import { PluginDoc } from '@/doc/tailwind/plugin-doc';
 import { Component } from '@angular/core';
-import { DarkModeDoc } from '@/doc/tailwind/darkmodedoc';
+import { DarkModeDoc } from '@/doc/tailwind/darkmode-doc';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({

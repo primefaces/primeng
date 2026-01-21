@@ -2,6 +2,26 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.0.4](https://github.com/primefaces/primeng/tree/21.0.4) (2026-01-19)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.0.3...21.0.4)
+
+**Fixed bugs:**
+- MultiSelect | cannot disable maxSelectedLabels anymore [#19272](https://github.com/primefaces/primeng/issues/19272)
+- PickList | showSourceFilter/showTargetFilter not working in v20 [#19252](https://github.com/primefaces/primeng/issues/19252)
+- Menu | popup breaks with appendTo="body" and routerLink/navigation [#19213](https://github.com/primefaces/primeng/issues/19213)
+- AutoComplete | onAdd not triggered on Enter key in v20 [#19231](https://github.com/primefaces/primeng/issues/19231)
+- Menu | PT option item does not work [#19286](https://github.com/primefaces/primeng/issues/19286)
+- Table | column resizing behaves in reverse direction in RTL mode [#19290](https://github.com/primefaces/primeng/issues/19290)
+- InputText | pSize property should allow undefined [#19297](https://github.com/primefaces/primeng/issues/19297)
+
+## [21.0.3](https://github.com/primefaces/primeng/tree/21.0.3) (2026-01-14)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.0.2...21.0.3)
+
+**Fixed bugs:**
+- Message | missing PT prop contentWrapper [#19234](https://github.com/primefaces/primeng/issues/19234)
+- DatePicker | cannot set pt w/motionOptions [#19233](https://github.com/primefaces/primeng/issues/19233)
+- Table cell editing: Tab key navigation regression in v21 [#19236](https://github.com/primefaces/primeng/issues/19236)
+
 ## [21.0.2](https://github.com/primefaces/primeng/tree/21.0.2) (2025-12-15)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.0.1...21.0.2)
 

@@ -3583,17 +3583,14 @@ describe('TreeTable PT', () => {
         it('should show loading elements with PT', async () => {
             fixture.componentRef.setInput('loading', true);
             fixture.componentRef.setInput('pt', {
-                loading: 'LOADING_CONTAINER_CLASS',
                 mask: 'MASK_CLASS'
             });
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const loading = fixture.nativeElement.querySelector('.p-treetable-loading');
             const mask = fixture.nativeElement.querySelector('.p-treetable-mask');
 
-            expect(loading?.classList.contains('LOADING_CONTAINER_CLASS')).toBe(true);
             expect(mask?.classList.contains('MASK_CLASS')).toBe(true);
         });
     });

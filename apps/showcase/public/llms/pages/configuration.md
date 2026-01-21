@@ -2,7 +2,7 @@
 
 Application wide configuration for PrimeNG.
 
-## Csp
+## Csp-
 
 The nonce value to use on dynamically generated style elements in core.
 
@@ -10,7 +10,7 @@ The nonce value to use on dynamically generated style elements in core.
 <summary>TypeScript Example</summary>
 
 ```typescript
-providePrimeNG({
+providePrimeNG({ 
     csp: {
         nonce: '...'
     }
@@ -18,7 +18,7 @@ providePrimeNG({
 ```
 </details>
 
-## Dynamic
+## Dynamic-
 
 Inject the PrimeNG to your application to update the initial configuration at runtime.
 
@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
 ```
 </details>
 
-## Filtermode
+## Filtermode-
 
 Default filter modes to display on DataTable filter menus.
 
@@ -52,29 +52,30 @@ Default filter modes to display on DataTable filter menus.
 <summary>TypeScript Example</summary>
 
 ```typescript
-providePrimeNG({
-    filterMatchModeOptions: {
-        text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
-        numeric: [FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS, FilterMatchMode.LESS_THAN, FilterMatchMode.LESS_THAN_OR_EQUAL_TO, FilterMatchMode.GREATER_THAN, FilterMatchMode.GREATER_THAN_OR_EQUAL_TO],
-        date: [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_IS_NOT, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_AFTER]
-    }
+import { PrimeNGConfig } from 'primeng/api';
+
+@Component({
+    selector: 'app-root',
+    templateUrl: './app.component.html'
 })
+export class AppComponent implements OnInit {
+
+    constructor(private primengConfig: PrimeNGConfig) {}
+
+    ngOnInit() {
+        primengConfig.filterMatchModeOptions = {
+            text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
+            numeric: [FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS, FilterMatchMode.LESS_THAN, FilterMatchMode.LESS_THAN_OR_EQUAL_TO, FilterMatchMode.GREATER_THAN, FilterMatchMode.GREATER_THAN_OR_EQUAL_TO],
+            date: [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_IS_NOT, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_AFTER]
+        };
+    }
+}
 ```
 </details>
 
-## Inputvariant
+## Inputvariant-
 
 Input fields come in two styles, default is outlined with borders around the field whereas filled alternative adds a background color to the field. A theme such as Material may add more additional design changes per each variant.
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-providePrimeNG({
-    inputVariant: 'filled' 
-})
-```
-</details>
 
 ## Api
 
@@ -124,7 +125,7 @@ A translation is specified using the translation property during initialization.
 <summary>TypeScript Example</summary>
 
 ```typescript
-providePrimeNG({
+providePrimeNG({ 
     translation: {
         accept: 'Aceptar',
         reject: 'Rechazar',
@@ -134,21 +135,11 @@ providePrimeNG({
 ```
 </details>
 
-## Overlayappendto
+## Overlayappendto-
 
 Defines the default location of the overlays; self refers to the host element and body targets the document body. Defaults to self .
 
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-providePrimeNG({
-    overlayAppendTo: 'body'
-})
-```
-</details>
-
-## Provider
+## Provider-
 
 The initial configuration is defined by the providePrimeNG provider during application startup.
 
@@ -157,17 +148,19 @@ The initial configuration is defined by the providePrimeNG provider during appli
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 
 export const appConfig: ApplicationConfig = {
     providers: [
+        provideAnimationsAsync(),
         providePrimeNG({ /* options */ })
     ]
 };
 ```
 </details>
 
-## Ripple
+## Ripple-
 
 Ripple is an optional animation for the supported components such as buttons. It is disabled by default.
 
@@ -175,13 +168,13 @@ Ripple is an optional animation for the supported components such as buttons. It
 <summary>TypeScript Example</summary>
 
 ```typescript
-providePrimeNG({
+providePrimeNG({ 
     ripple: true
 })
 ```
 </details>
 
-## Theme
+## Theme-
 
 PrimeNG provides 4 predefined themes out of the box; Aura, Material, Lara and Nora. See the theming documentation for details.
 
@@ -190,12 +183,14 @@ PrimeNG provides 4 predefined themes out of the box; Aura, Material, Lara and No
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 
 import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
+        provideAnimationsAsync(),
         providePrimeNG({
             theme: {
                 preset: Aura,
@@ -211,7 +206,7 @@ export const appConfig: ApplicationConfig = {
 ```
 </details>
 
-## Zindex
+## Zindex-
 
 ZIndexes are managed automatically to make sure layering of overlay components work seamlessly when combining multiple components. Still there may be cases where you'd like to configure the configure default values such as a custom layout where header section is fixed. In a case like this, dropdown needs to be displayed below the application header but a modal dialog should be displayed above. PrimeNG configuration offers the zIndex property to customize the default values for components categories. Default values are described below and can be customized when setting up PrimeNG.
 
@@ -219,14 +214,25 @@ ZIndexes are managed automatically to make sure layering of overlay components w
 <summary>TypeScript Example</summary>
 
 ```typescript
-providePrimeNG({
-    zIndex: {
-        modal: 1100,    // dialog, sidebar
-        overlay: 1000,  // dropdown, overlaypanel
-        menu: 1000,     // overlay menus
-        tooltip: 1100   // tooltip
-    }
+import { PrimeNGConfig } from 'primeng/api';
+
+@Component({
+    selector: 'app-root',
+    templateUrl: './app.component.html'
 })
+export class AppComponent implements OnInit {
+
+    constructor(private primengConfig: PrimeNGConfig) {}
+
+    ngOnInit() {
+        this.primengConfig.zIndex = {
+            modal: 1100,    // dialog, sidebar
+            overlay: 1000,  // dropdown, overlaypanel
+            menu: 1000,     // overlay menus
+            tooltip: 1100   // tooltip
+        };
+    }
+}
 ```
 </details>
 

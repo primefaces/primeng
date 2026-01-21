@@ -10,17 +10,6 @@ Screen Reader Terminal component has an input element that can be described with
 
 Commands are processed using observables via the TerminalService . Import this service into your component and subscribe to commandHandler to process commands by sending replies with sendResponse function.
 
-```html
-<p>Enter "<strong>date</strong>" to display the current date,
-"<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>"
-to get a random number.</p>
-<p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
-```
-
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
-
 ## Terminal
 
 Terminal is a text based user interface.

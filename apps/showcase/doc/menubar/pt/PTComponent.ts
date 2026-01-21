@@ -1,4 +1,4 @@
-import { AppDocApiTable } from '@/components/doc/app.docapitable';
+import { AppDocPtTable } from '@/components/doc/app.docpttable';
 import { getPTOptions } from '@/components/doc/app.docptviewer';
 import { AppDocSection } from '@/components/doc/app.docsection';
 import { CommonModule } from '@angular/common';
@@ -19,6 +19,6 @@ import { PTViewer } from './PTViewer';
 export class PTComponent {
     docs = [
         { id: 'pt.viewer', label: 'Viewer', component: PTViewer },
-        { id: 'pt.doc.menubar', label: 'Menubar PT Options', component: AppDocApiTable, data: getPTOptions('Menubar') }
+        { id: 'pt.doc.menubar', label: 'Menubar PT Options', component: AppDocPtTable, data: getPTOptions('Menubar') }
     ];
 }

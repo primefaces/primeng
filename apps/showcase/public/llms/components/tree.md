@@ -10,40 +10,33 @@ Screen Reader Value to describe the component can either be provided with aria-l
 
 Tree component requires an array of TreeNode objects as its value .
 
-```html
-<p-tree [value]="files()" class="w-full md:w-[30rem]" />
-```
-
 ## Checkbox
 
 Selection of multiple nodes via checkboxes is enabled by configuring selectionMode as checkbox .
-
-```html
-<p-tree [value]="files()" selectionMode="checkbox" class="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
-import { Tree } from 'primeng/tree';
+import { TreeNode } from 'primeng/api';
 
 @Component({
-    selector: 'tree-checkbox-demo',
-    templateUrl: './tree-checkbox-demo.html',
+    template: `
+        <div class="card">
+            <p-tree [value]="files()" selectionMode="checkbox" class="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
+        </div>
+    `,
     standalone: true,
-    imports: [Tree],
+    imports: [TreeModule],
     providers: [NodeService]
 })
 export class TreeCheckboxDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>(undefined);
-
     selectedFiles!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -58,53 +51,40 @@ export class TreeCheckboxDemo implements OnInit {
 
 Tree has exclusive integration with ContextMenu using the contextMenu property along with the contextMenuSelection to manage the selection.
 
-```html
-<p-tree
-    [value]="files()"
-    selectionMode="single"
-    [(selection)]="selectedNode"
-    [(contextMenuSelection)]="contextMenuNode"
-    [contextMenu]="cm"
-    contextMenuSelectionMode="separate"
-/>
-<p-contextmenu #cm [model]="items" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, model, signal } from '@angular/core';
-import { MenuItem, MessageService, TreeNode } from 'primeng/api';
-import { NodeService } from '@/service/nodeservice';
-import { Tree } from 'primeng/tree';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
+import { TreeModule } from 'primeng/tree';
+import { NodeService } from '@/service/nodeservice';
+import { TreeNode, MenuItem, MessageService } from 'primeng/api';
+import { ContextMenu } from 'primeng/contextmenu';
 
 @Component({
-    selector: 'tree-context-menu-demo',
-    templateUrl: './tree-context-menu-demo.html',
+    template: `
+        <div class="card">
+            <p-toast [style]="{ marginTop: '80px' }" />
+            <p-tree [value]="files()" class="w-full md:w-80" selectionMode="single" [(selection)]="selectedNode" [(contextMenuSelection)]="contextMenuNode" [contextMenu]="cm" contextMenuSelectionMode="separate" />
+            <p-contextmenu #cm [model]="items" />
+        </div>
+    `,
     standalone: true,
-    imports: [Tree, ContextMenuModule, ToastModule],
-    providers: [MessageService, NodeService]
+    imports: [ContextMenuModule, ToastModule, TreeModule],
+    providers: [NodeService, MessageService]
 })
-export class TreeContextMenuDemo implements OnInit {
+export class TreeContextmenuDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
     files = signal<TreeNode[]>([]);
-
-    selectedNode = model<TreeNode | null>(null);
-
-    contextMenuNode = model<TreeNode | null>(null);
-
+    selectedNode: any = model<TreeNode | null>(null);
+    contextMenuNode: any = model<TreeNode | null>(null);
     items!: MenuItem[];
-
-    constructor(
-        private nodeService: NodeService,
-        private messageService: MessageService
-    ) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((files) => this.files.set(files));
-
         this.items = [
             { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.contextMenuNode()) },
             { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.contextMenuNode()) }
@@ -142,34 +122,33 @@ export class TreeContextMenuDemo implements OnInit {
 
 Tree requires a collection of TreeNode instances as a value .
 
-```html
-<div class="flex flex-wrap gap-2 mb-6">
-    <p-button icon="pi pi-plus" label="Expand all" (click)="expandAll()" />
-    <p-button icon="pi pi-minus" label="Collapse all" (click)="collapseAll()" />
-</div>
-<p-tree [value]="files()" class="w-full md:w-[30rem]" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { NodeService } from '@/service/nodeservice';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { TreeModule } from 'primeng/tree';
+import { NodeService } from '@/service/nodeservice';
+import { TreeNode } from 'primeng/api';
 
 @Component({
-    selector: 'tree-controlled-demo',
-    templateUrl: './tree-controlled-demo.html',
+    template: `
+        <div class="card">
+            <div class="flex flex-wrap gap-2 mb-6">
+                <p-button icon="pi pi-plus" label="Expand all" (click)="expandAll()" />
+                <p-button icon="pi pi-minus" label="Collapse all" (click)="collapseAll()" />
+            </div>
+            <p-tree [value]="files()" class="w-full md:w-[30rem]" />
+        </div>
+    `,
     standalone: true,
-    imports: [Tree, ButtonModule],
+    imports: [ButtonModule, TreeModule],
     providers: [NodeService]
 })
 export class TreeControlledDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -186,15 +165,6 @@ export class TreeControlledDemo implements OnInit {
         const updatedFiles = this.files().map((node) => this.expandRecursive(node, false));
         this.files.set(updatedFiles);
     }
-
-    private expandRecursive(node: TreeNode, isExpand: boolean): TreeNode {
-        return {
-            ...node,
-            expanded: isExpand,
-            children: node.children ? node.children.map((child) => this.expandRecursive(child, isExpand)) : node.children
-        };
-    }
-
 }
 ```
 </details>
@@ -203,36 +173,41 @@ export class TreeControlledDemo implements OnInit {
 
 An event is provided for each type of user interaction such as expand, collapse and selection.
 
-```html
-<p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
-import { MessageService, TreeNode } from 'primeng/api';
-import { NodeService } from '@/service/nodeservice';
-import { Tree } from 'primeng/tree';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ToastModule } from 'primeng/toast';
+import { TreeModule } from 'primeng/tree';
+import { NodeService } from '@/service/nodeservice';
+import { TreeNode, MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'tree-events-demo',
-    templateUrl: './tree-events-demo.html',
+    template: `
+        <div class="card">
+            <p-toast />
+            <p-tree
+                [value]="files()"
+                class="w-full md:w-[30rem]"
+                selectionMode="single"
+                [(selection)]="selectedFile"
+                (onNodeExpand)="nodeExpand($event)"
+                (onNodeCollapse)="nodeCollapse($event)"
+                (onNodeSelect)="nodeSelect($event)"
+                (onNodeUnselect)="nodeUnselect($event)"
+            />
+        </div>
+    `,
     standalone: true,
-    imports: [Tree, ToastModule],
-    providers: [MessageService, NodeService]
+    imports: [ToastModule, TreeModule],
+    providers: [NodeService, MessageService]
 })
-export class TreeEventsDemo implements OnInit {
+export class TreeEventDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
     files = signal<TreeNode[]>(undefined);
-
     selectedFile!: TreeNode;
-
-    constructor(
-        private nodeService: NodeService,
-        private messageService: MessageService
-    ) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -263,33 +238,34 @@ export class TreeEventsDemo implements OnInit {
 
 Filtering is enabled by adding the filter property, by default label property of a node is used to compare against the value in the text field, in order to customize which field(s) should be used during search define filterBy property. In addition filterMode specifies the filtering strategy. In lenient mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand, in strict mode when the query matches a node, filtering continues on all descendants.
 
-```html
-<p-tree [value]="files()" [filter]="true" filterPlaceholder="Lenient Filter" />
-<p-tree [value]="files2()" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
-import { Tree } from 'primeng/tree';
+import { TreeNode } from 'primeng/api';
 
 @Component({
-    selector: 'tree-filter-demo',
-    templateUrl: './tree-filter-demo.html',
+    template: `
+        <div class="card flex flex-wrap gap-4">
+            <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
+                <p-tree [value]="files()" [filter]="true" filterPlaceholder="Lenient Filter" />
+            </div>
+            <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
+                <p-tree [value]="files2()" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
+            </div>
+        </div>
+    `,
     standalone: true,
-    imports: [Tree],
+    imports: [TreeModule],
     providers: [NodeService]
 })
 export class TreeFilterDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>(undefined);
-
     files2 = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -305,30 +281,28 @@ export class TreeFilterDemo implements OnInit {
 
 Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using loading property and onNodeExpand method.
 
-```html
-<p-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, signal } from '@angular/core';
+import { TreeModule } from 'primeng/tree';
 import { TreeNode } from 'primeng/api';
-import { Tree } from 'primeng/tree';
 
 @Component({
-    selector: 'tree-lazy-demo',
-    templateUrl: './tree-lazy-demo.html',
+    template: `
+        <div class="card">
+            <p-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
+        </div>
+    `,
     standalone: true,
-    imports: [Tree]
+    imports: [TreeModule]
 })
 export class TreeLazyDemo implements OnInit {
     nodes = signal<TreeNode[]>(undefined);
 
     ngOnInit() {
         this.nodes.set(this.initiateNodes());
-
         setTimeout(() => {
             this.nodes.set(this.nodes().map((node) => ({ ...node, loading: false })));
         }, 2000);
@@ -360,19 +334,19 @@ export class TreeLazyDemo implements OnInit {
     onNodeExpand(event: any) {
         if (!event.node.children) {
             event.node.loading = true;
-
+        
             setTimeout(() => {
                 const _nodes = this.nodes();
                 let _node = { ...event.node };
                 _node.children = [];
-
+        
                 for (let i = 0; i < 3; i++) {
                     _node.children.push({
                         key: event.node.key + '-' + i,
                         label: 'Lazy ' + event.node.label + '-' + i
                     });
                 }
-
+        
                 const key = parseInt(_node.key, 10);
                 _nodes[key] = { ..._node, loading: false };
                 this.nodes.set([..._nodes]);
@@ -387,40 +361,36 @@ export class TreeLazyDemo implements OnInit {
 
 More than one node is selectable by setting selectionMode to multiple . By default in multiple selection mode, metaKey press (e.g. ⌘ ) is necessary to add to existing selections however this can be configured with disabling the metaKeySelection property. Note that in touch enabled devices, Tree always ignores metaKey. In multiple selection mode, value binding should be a key-value pair where key is the node key and value is a boolean to indicate selection.
 
-```html
-<div class="flex items-center mb-6 gap-2">
-    <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
-    <label for="input-metakey">MetaKey</label>
-</div>
-<p-tree [metaKeySelection]="metaKeySelection" [value]="files()" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { NodeService } from '@/service/nodeservice';
-import { Tree } from 'primeng/tree';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { Tree, TreeModule } from 'primeng/tree';
+import { NodeService } from '@/service/nodeservice';
+import { TreeNode } from 'primeng/api';
 
 @Component({
-    selector: 'tree-multiple-demo',
-    templateUrl: './tree-multiple-demo.html',
+    template: `
+        <div class="card">
+            <div class="flex items-center mb-6 gap-2">
+                <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
+                <label for="input-metakey">MetaKey</label>
+            </div>
+            <p-tree [metaKeySelection]="metaKeySelection" [value]="files()" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
+        </div>
+    `,
     standalone: true,
-    imports: [Tree, ToggleSwitchModule],
+    imports: [ToggleSwitchModule, TreeModule, FormsModule],
     providers: [NodeService]
 })
 export class TreeMultipleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     metaKeySelection: boolean = false;
-
     files = signal<TreeNode[]>(undefined);
-
     selectedFiles!: TreeNode[];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -435,32 +405,29 @@ export class TreeMultipleDemo implements OnInit {
 
 Single node selection is configured by setting selectionMode as single along with selection properties to manage the selection value binding.
 
-```html
-<p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
-import { Tree } from 'primeng/tree';
+import { TreeNode } from 'primeng/api';
 
 @Component({
-    selector: 'tree-single-demo',
-    templateUrl: './tree-single-demo.html',
+    template: `
+        <div class="card">
+            <p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
+        </div>
+    `,
     standalone: true,
-    imports: [Tree],
+    imports: [TreeModule],
     providers: [NodeService]
 })
 export class TreeSingleDemo implements OnInit {
+    private nodeService = inject(NodeService);
     files = signal<TreeNode[]>(undefined);
-
     selectedFile!: TreeNode;
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
@@ -475,30 +442,27 @@ export class TreeSingleDemo implements OnInit {
 
 Custom node content instead of a node label is defined with the pTemplate property.
 
-```html
-<p-tree [value]="nodes()" class="w-full md:w-[30rem]">
-    <ng-template let-node pTemplate="url">
-        <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">
-            {{ node.label }}
-        </a>
-    </ng-template>
-    <ng-template let-node pTemplate="default">
-        <b>{{ node.label }}</b>
-    </ng-template>
-</p-tree>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, signal } from '@angular/core';
-import { TreeNode } from 'primeng/api';
 import { TreeModule } from 'primeng/tree';
+import { TreeNode } from 'primeng/api';
 
 @Component({
-    selector: 'tree-template-demo',
-    templateUrl: './tree-template-demo.html',
+    template: `
+        <div class="card">
+            <p-tree [value]="nodes()" class="w-full md:w-[30rem]">
+                <ng-template let-node pTemplate="url">
+                    <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">{{ node.label }}</a>
+                </ng-template>
+                <ng-template let-node pTemplate="default">
+                    <b>{{ node.label }}</b>
+                </ng-template>
+            </p-tree>
+        </div>
+    `,
     standalone: true,
     imports: [TreeModule]
 })
@@ -537,30 +501,28 @@ export class TreeTemplateDemo implements OnInit {
 
 VirtualScroller is a performance-approach to handle huge data efficiently. Setting virtualScroll property as true and providing a virtualScrollItemSize in pixels would be enough to enable this functionality.
 
-```html
-<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="35" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
-import { Tree } from 'primeng/tree';
+import { TreeNode } from 'primeng/api';
 
 @Component({
-    selector: 'tree-virtual-scroll-demo',
-    templateUrl: './tree-virtual-scroll-demo.html',
+    template: `
+        <div class="card">
+            <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="35" />
+        </div>
+    `,
     standalone: true,
-    imports: [Tree],
+    imports: [TreeModule],
     providers: [NodeService]
 })
-export class TreeVirtualScrollDemo implements OnInit {
+export class TreeVirtualscrollDemo implements OnInit {
+    private nodeService = inject(NodeService);
     nodes = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodes.set(this.nodeService.generateNodes(150));
@@ -569,36 +531,33 @@ export class TreeVirtualScrollDemo implements OnInit {
 ```
 </details>
 
-## virtualscrolllazydoc
+## virtualscrolllazy-doc
 
 VirtualScroller is a performance-approach to handle huge data efficiently. Setting virtualScroll property as true and providing a virtualScrollItemSize in pixels would be enough to enable this functionality.
-
-```html
-<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
-import { Tree } from 'primeng/tree';
+import { TreeNode } from 'primeng/api';
 
 @Component({
-    selector: 'tree-virtual-scroll-lazy-demo',
-    templateUrl: './tree-virtual-scroll-lazy-demo.html',
+    template: `
+        <div class="card">
+            <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
+        </div>
+    `,
     standalone: true,
-    imports: [Tree],
+    imports: [TreeModule],
     providers: [NodeService]
 })
-export class TreeVirtualScrollLazyDemo implements OnInit {
+export class TreeVirtualscrolllazyDemo implements OnInit {
+    private nodeService = inject(NodeService);
     loading = signal<boolean>(false);
-
     nodes = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.loading.set(true);
@@ -637,9 +596,10 @@ Tree is used to display hierarchical data.
 | value | any | - | An array of treenodes. |
 | selectionMode | "multiple" \| "single" \| "checkbox" | - | Defines the selection mode. |
 | loadingMode | "icon" \| "mask" | mask | Loading mode display. |
-| selection | any | - | A single treenode instance or an array to refer to the selections. |
+| selection | ModelSignal<TreeNode<any> \| TreeNode<any>[]> | ... | A single treenode instance or an array to refer to the selections. |
 | styleClass | string | - | Style class of the component. **(Deprecated)** |
 | contextMenu | any | - | Context menu instance. |
+| contextMenuSelectionMode | "separate" \| "joint" | joint | Defines the behavior of context menu selection, in "separate" mode context menu updates contextMenuSelection property whereas in joint mode selection property is used instead so that when row selection is enabled, both row selection and context menu selection use the same property. |
 | contextMenuSelection | ModelSignal<TreeNode<any>> | ... | Selected node with a context menu. |
 | draggableScope | any | - | Scope of the draggable nodes to match a droppableScope. |
 | droppableScope | any | - | Scope of the droppable nodes to match a draggableScope. |
@@ -677,7 +637,6 @@ Tree is used to display hierarchical data.
 
 | Name | Parameters | Description |
 |------|------------|-------------|
-| selectionChange | value: TreeNode<any | Callback to invoke on selection change. |
 | onNodeSelect | event: TreeNodeSelectEvent | Callback to invoke when a node is selected. |
 | onNodeUnselect | event: TreeNodeUnSelectEvent | Callback to invoke when a node is unselected. |
 | onNodeExpand | event: TreeNodeExpandEvent | Callback to invoke when a node is expanded. |

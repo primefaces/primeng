@@ -1,9 +1,9 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { ArchitectureDoc } from '@/doc/theming/unstyled/architecturedoc';
-import { ExampleDoc } from '@/doc/theming/unstyled/exampledoc';
-import { GlobalDoc } from '@/doc/theming/unstyled/globaldoc';
-import { SetupDoc } from '@/doc/theming/unstyled/setupdoc';
-import { VoltUIDoc } from '@/doc/theming/unstyled/voltuidoc';
+import { ArchitectureDoc } from '@/doc/theming/unstyled/architecture-doc';
+import { ExampleDoc } from '@/doc/theming/unstyled/example-doc';
+import { GlobalDoc } from '@/doc/theming/unstyled/global-doc';
+import { SetupDoc } from '@/doc/theming/unstyled/setup-doc';
+import { VoltUIDoc } from '@/doc/theming/unstyled/voltui-doc';
 import { Component } from '@angular/core';
 
 @Component({

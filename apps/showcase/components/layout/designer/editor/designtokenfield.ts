@@ -30,6 +30,23 @@ import { UniqueComponentId } from 'primeng/utils';
                 [suggestions]="items"
                 (onSelect)="onOptionSelect($event)"
                 optionLabel="label"
+                [unstyled]="true"
+                [pt]="{
+                    pcInputText: {
+                        root: {
+                            maxlength: 100,
+                            class: [
+                                'border text-zinc-950 dark:text-white rounded-lg py-2 px-2 w-full text-xs',
+                                { 'pr-6': isColorType(), 'border-red-500 dark:border-red-400 bg-red-50 dark:bg-red-500/30': isInvalid(), 'border-surface-300 dark:border-surface-600': !isInvalid() }
+                            ]
+                        }
+                    },
+                    overlay: 'border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-950 shadow-2 rounded-md',
+                    listContainer: 'max-h-40 overflow-auto',
+                    list: 'm-0 py-2 px-2 list-none',
+                    loader: 'hidden',
+                    option: 'cursor-pointer py-1 text-sm text-surface-700 dark:text-white/80 data-[p-focused=true]:bg-surface-100 data-[p-focused=true]:dark:bg-surface-800 rounded-md'
+                }"
                 [showEmptyMessage]="false"
                 (completeMethod)="search($event)"
                 (onKeyUp)="onInput($event)"
@@ -41,7 +58,7 @@ import { UniqueComponentId } from 'primeng/utils';
                     <div [pTooltip]="getTooltipData(option)" tooltipPosition="left" class="w-full flex items-center justify-between gap-4 px-2">
                         <span>{{ option.label }}</span>
                         @if (getIsColor(option)) {
-                            <div *ngIf="option.isColor" class="border border-surface-200 dark:border-surface-700 w-4 h-4 rounded-full" [style]="{ backgroundColor: resolveColor(option.value) }"></div>
+                            <div *ngIf="option.isColor" class="border border-surface-200 dark:border-surface-700 w-4 h-4 rounded-full" [style]="{ backgroundColor: designerService.resolveColorPlain(option.value) }"></div>
                         } @else {
                             <div class="text-xs max-w-16 text-ellipsis whitespace-nowrap overflow-hidden">
                                 {{ option.value }}
@@ -50,7 +67,7 @@ import { UniqueComponentId } from 'primeng/utils';
                     </div>
                 </ng-template>
             </p-autocomplete>
-            <div *ngIf="type() === 'color'" class="absolute right-[4px] top-1/2 -mt-3 w-6 h-6 rounded-md border border-surface-300 dark:border-surface-600" [style]="{ backgroundColor: previewColor() }"></div>
+            <div *ngIf="isColorType()" class="absolute right-[4px] top-1/2 -mt-2 w-4 h-4 rounded-md border border-surface-300 dark:border-surface-600" [style]="{ backgroundColor: previewColor() }"></div>
         </div>
     </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -76,9 +93,17 @@ export class DesignTokenField implements OnInit {
 
     items: any;
 
+    isColorType = computed(() => {
+        if (this.type() === 'color') return true;
+        if (!this.label) return false;
+        const lowerName = this.label.toLowerCase();
+        const colorShades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
+        return lowerName.includes('color') || lowerName.includes('background') || colorShades.includes(this.label);
+    });
+
     inputStyleClass = computed(() => {
         const styleClass = this.isInvalid() ? 'border-red-500 dark:border-red-400 bg-red-50 dark:bg-red-500/30' : 'border-surface-300 dark:border-surface-600';
-        return this.type() === 'color' ? `!text-xs !pr-8 ${styleClass}` : `!text-xs ${styleClass}`;
+        return this.isColorType() ? `!text-xs !pr-8 ${styleClass}` : `!text-xs ${styleClass}`;
     });
 
     isInvalid = computed(() => {

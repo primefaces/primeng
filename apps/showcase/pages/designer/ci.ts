@@ -1,13 +1,13 @@
 import { AppDocSection } from '@/components/doc/app.docsection';
 import { AppDocSectionNav } from '@/components/doc/app.docsection-nav';
-import { DesignerApiDoc } from '@/doc/designer/ci/designerapidoc';
-import { FigmaDoc } from '@/doc/designer/ci/figmadoc';
-import { BitbucketDoc } from '@/doc/designer/ci/integration/bitbucketdoc';
-import { GitHubDoc } from '@/doc/designer/ci/integration/githubdoc';
-import { GitLabDoc } from '@/doc/designer/ci/integration/gitlabdoc';
-import { LivePreviewDoc } from '@/doc/designer/ci/livepreviewdoc';
-import { OverviewDoc } from '@/doc/designer/ci/overviewdoc';
-import { VideoTutorialDoc } from '@/doc/designer/ci/videotutorialdoc';
+import { DesignerApiDoc } from '@/doc/designer/ci/designerapi-doc';
+import { FigmaDoc } from '@/doc/designer/ci/figma-doc';
+import { BitbucketDoc } from '@/doc/designer/ci/integration/bitbucket-doc';
+import { GitHubDoc } from '@/doc/designer/ci/integration/github-doc';
+import { GitLabDoc } from '@/doc/designer/ci/integration/gitlab-doc';
+import { LivePreviewDoc } from '@/doc/designer/ci/livepreview-doc';
+import { OverviewDoc } from '@/doc/designer/ci/overview-doc';
+import { VideoTutorialDoc } from '@/doc/designer/ci/videotutorial-doc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -15,8 +15,14 @@ import { Component } from '@angular/core';
     imports: [AppDocSection, AppDocSectionNav],
     template: `<div class="doc">
         <div class="doc-main">
+            <div class="doc-notification">
+                <b>UI Kit v4 Users:</b> You may ignore this documentation and use the
+                <a href="https://www.figma.com/community/plugin/1592914021886732603/primeui-theme-generator" target="_blank" rel="noopener noreferrer" class="hover:underline font-bold">PrimeUI Theme Generator</a> Figma plugin instead, which provides
+                built-in synchronization capabilities that automate the theme generation process.
+            </div>
+            <div class="doc-notification"><b>UI Kit v3 Users:</b> Follow the CI pipeline configuration below to integrate with Figma via the Tokens Studio plugin.</div>
             <div class="doc-intro">
-                <h1>Figma to Theme Code CI Pipeline</h1>
+                <h1>Figma to Theme Code CI Pipeline (UI Kit v3 Only)</h1>
                 <p>Automate the conversion of Figma design tokens to theme code using CI pipelines and the theme designer API.</p>
             </div>
             <app-docsection [docs]="docs" />
@@ -49,7 +55,7 @@ export class CIDemo {
         {
             id: 'integration',
             label: '3) Integration',
-            description: `Once the Token Studio Sync Provider is running and you have obtained a Secret Key for the Designer API, you can connect your repository to the Theme Designer API to automatically generate themes whenever the tokens file changes via your CI pipeline. For GitHub, PrimeTek provides an official GitHub Action available on the GitHub Marketplace, while for GitLab and Bitbucket, sample implementations are provided as references for building your own integration.`,
+            description: `Once the Tokens Studio Sync Provider is running and you have obtained a Secret Key for the Designer API, you can connect your repository to the Theme Designer API to automatically generate themes whenever the tokens file changes via your CI pipeline. For GitHub, PrimeTek provides an official GitHub Action available on the GitHub Marketplace, while for GitLab and Bitbucket, sample implementations are provided as references for building your own integration.`,
             children: [
                 {
                     id: 'github',

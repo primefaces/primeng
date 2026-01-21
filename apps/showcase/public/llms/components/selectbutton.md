@@ -10,19 +10,9 @@ Screen Reader The container element that wraps the buttons has a group role wher
 
 SelectButton requires a value to bind and a collection of options.
 
-```html
-<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
-```
-
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused entirely. Certain options can also be disabled using the optionDisabled property.
-
-```html
-<p-selectbutton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value" [disabled]="true" />
-
-<p-selectbutton [options]="stateOptions2" [(ngModel)]="value2" optionLabel="label" optionValue="value" optionDisabled="constant" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -30,27 +20,22 @@ When disabled is present, the element cannot be edited and focused entirely. Cer
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButton } from 'primeng/selectbutton';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
-    selector: 'select-button-disabled-demo',
-    templateUrl: './select-button-disabled-demo.html',
+    template: `
+        <div class="card flex justify-center flex-wrap gap-4">
+            <p-selectbutton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value" [disabled]="true" />
+            <p-selectbutton [options]="stateOptions2" [(ngModel)]="value2" optionLabel="label" optionValue="value" optionDisabled="constant" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, SelectButton]
+    imports: [SelectButtonModule, FormsModule]
 })
-export class SelectButtonDisabledDemo {
-    stateOptions: any[] = [
-        { label: 'Off', value: 'off' },
-        { label: 'On', value: 'on' }
-    ];
-
-    stateOptions2: any[] = [
-        { label: 'Option 1', value: 'Option 1' },
-        { label: 'Option 2', value: 'Option 2', constant: true }
-    ];
-
+export class SelectbuttonDisabledDemo {
+    stateOptions: any[];
+    stateOptions2: any[];
     value1: string = 'off';
-
     value2: string = 'Option 1';
 }
 ```
@@ -60,28 +45,26 @@ export class SelectButtonDisabledDemo {
 
 The fluid prop makes the component take up the full width of its container when set to true.
 
-```html
-<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" fluid />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButton } from 'primeng/selectbutton';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
-    selector: 'select-button-fluid-demo',
-    templateUrl: './select-button-fluid-demo.html',
+    template: `
+        <div class="card">
+            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" fluid />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, SelectButton]
+    imports: [SelectButtonModule, FormsModule]
 })
-export class SelectButtonFluidDemo {
-    stateOptions: any[] = [{ label: 'One-Way', value: 'one-way' },{ label: 'Return', value: 'return' }];
-
-    value: string = 'off';
+export class SelectbuttonFluidDemo {
+    stateOptions: any[];
+    value: string = 'one-way';
 }
 ```
 </details>
@@ -90,30 +73,25 @@ export class SelectButtonFluidDemo {
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
-```html
-<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" [invalid]="value === null" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButton } from 'primeng/selectbutton';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
-    selector: 'select-button-invalid-demo',
-    templateUrl: './select-button-invalid-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" [invalid]="value === undefined" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, SelectButton]
+    imports: [SelectButtonModule, FormsModule]
 })
-export class SelectButtonInvalidDemo {
-    stateOptions: any[] = [
-        { label: 'One-Way', value: 'one-way' },
-        { label: 'Return', value: 'return' }
-    ];
-
+export class SelectbuttonInvalidDemo {
+    stateOptions: any[];
     value: string | undefined;
 }
 ```
@@ -123,86 +101,74 @@ export class SelectButtonInvalidDemo {
 
 SelectButton allows selecting only one item by default and setting multiple option enables choosing more than one item. In multiple case, model property should be an array.
 
-```html
-<p-selectbutton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButton } from 'primeng/selectbutton';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
-    selector: 'select-button-multiple-demo',
-    templateUrl: './select-button-multiple-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-selectbutton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, SelectButton]
+    imports: [SelectButtonModule, FormsModule]
 })
-export class SelectButtonMultipleDemo {
+export class SelectbuttonMultipleDemo {
+    paymentOptions: any[];
     value!: number;
-
-    paymentOptions: any[] = [
-        { name: 'Option 1', value: 1 },
-        { name: 'Option 2', value: 2 },
-        { name: 'Option 3', value: 3 }
-    ];
-
 }
 ```
 </details>
 
-## reactiveformsdoc
+## reactiveforms-doc
 
 SelectButton can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <p-selectbutton [options]="stateOptions" formControlName="value" [invalid]="isInvalid('value')" optionLabel="label" optionValue="value" />
-        @if (isInvalid('value')) {
-            <p-message severity="error" size="small" variant="simple">Selection is required</p-message>
-        }
-    </div>
-    <button pButton type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'select-button-reactive-forms-demo',
-    templateUrl: './select-button-reactive-forms-demo.html',
+    template: `
+        <p-toast />
+        <div class="card flex justify-center">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <p-selectbutton [options]="stateOptions" formControlName="value" [invalid]="isInvalid('value')" optionLabel="label" optionValue="value" />
+                    @if (isInvalid('value')) {
+                        <p-message severity="error" size="small" variant="simple">Selection is required</p-message>
+                    }
+                </div>
+                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
     standalone: true,
-    imports: [ReactiveFormsModule, SelectButtonModule, ButtonModule, ToastModule, MessageModule]
+    imports: [MessageModule, SelectButtonModule, ToastModule, ButtonModule, ReactiveFormsModule]
 })
-export class SelectButtonReactiveFormsDemo implements OnInit {
+export class SelectbuttonReactiveformsDemo {
     messageService = inject(MessageService);
-
     exampleForm: FormGroup | undefined;
-
     formSubmitted: boolean = false;
+    stateOptions: any[];
 
-    stateOptions: any[] = [
-        { label: 'One-Way', value: 'one-way' },
-        { label: 'Return', value: 'return' }
-    ];
-
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.exampleForm = this.fb.group({
-            value: ['', Validators.required]
-        });
+                    value: ['', Validators.required]
+                });
     }
 
     onSubmit() {
@@ -226,37 +192,30 @@ export class SelectButtonReactiveFormsDemo implements OnInit {
 
 SelectButton provides small and large sizes as alternatives to the base.
 
-```html
-<p-selectbutton [(ngModel)]="value1" [options]="options" size="small" />
-<p-selectbutton [(ngModel)]="value2" [options]="options" />
-<p-selectbutton [(ngModel)]="value3" [options]="options" size="large" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButton } from 'primeng/selectbutton';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
-    selector: 'select-button-sizes-demo',
-    templateUrl: './select-button-sizes-demo.html',
+    template: `
+        <div class="card flex flex-col items-center gap-4">
+            <p-selectbutton [(ngModel)]="value1" [options]="options" size="small" />
+            <p-selectbutton [(ngModel)]="value2" [options]="options" />
+            <p-selectbutton [(ngModel)]="value3" [options]="options" size="large" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, SelectButton]
+    imports: [SelectButtonModule, FormsModule]
 })
-export class SelectButtonSizesDemo {
-    value1! : string;
-
-    value2 : string = 'Beginner';
-
-    value3 : string = 'Expert';
-
-    options: any[] = [
-        { label: 'Beginner', value: 'Beginner' },
-        { label: 'Expert', value: 'Expert' },
-    ];
+export class SelectbuttonSizesDemo {
+    value1!: string;
+    value2: string = 'Beginner';
+    value3: string = 'Expert';
+    options: any[];
 }
 ```
 </details>
@@ -265,14 +224,6 @@ export class SelectButtonSizesDemo {
 
 For custom content support define a template named item where the default local template variable refers to an option.
 
-```html
-<p-selectbutton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
-    <ng-template #item let-item>
-        <i [class]="item.icon"></i>
-    </ng-template>
-</p-selectbutton>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -282,66 +233,61 @@ import { FormsModule } from '@angular/forms';
 import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
-    selector: 'select-button-template-demo',
-    templateUrl: './select-button-template-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-selectbutton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
+                <ng-template #item let-item>
+                    <i [class]="item.icon"></i>
+                </ng-template>
+            </p-selectbutton>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, SelectButtonModule]
+    imports: [SelectButtonModule, FormsModule]
 })
-export class SelectButtonTemplateDemo {
+export class SelectbuttonTemplateDemo {
     value: any;
-
-    justifyOptions: any[] = [
-        { icon: 'pi pi-align-left', justify: 'Left' },
-        { icon: 'pi pi-align-right', justify: 'Right' },
-        { icon: 'pi pi-align-center', justify: 'Center' },
-        { icon: 'pi pi-align-justify', justify: 'Justify' }
-    ];
-
+    justifyOptions: any[];
 }
 ```
 </details>
 
-## templatedrivenformsdoc
-
-```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <p-selectbutton #model="ngModel" [(ngModel)]="value" [options]="stateOptions" optionLabel="label" optionValue="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" required name="value" />
-        @if (model.invalid && (model.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
-        }
-    </div>
-    <button pButton type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
+## templatedrivenforms-doc
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
 import { MessageModule } from 'primeng/message';
+import { SelectButtonModule } from 'primeng/selectbutton';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'selectbutton-template-driven-forms-demo',
-    templateUrl: './selectbutton-template-driven-forms-demo.html',
+    template: `
+        <p-toast />
+        <div class="card flex justify-center">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <p-selectbutton #model="ngModel" [(ngModel)]="value" [options]="stateOptions" optionLabel="label" optionValue="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" required name="value" />
+                    @if (model.invalid && (model.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
+                    }
+                </div>
+                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, SelectButtonModule, MessageModule, ToastModule, ButtonModule]
+    imports: [MessageModule, SelectButtonModule, ToastModule, ButtonModule, FormsModule]
 })
-export class TemplateDrivenFormsDemo implements OnInit {
+export class SelectbuttonTemplatedrivenformsDemo {
     messageService = inject(MessageService);
-
     value: any;
-
-    stateOptions: any[] = [
-        { label: 'One-Way', value: 'one-way' },
-        { label: 'Return', value: 'return' }
-    ];
+    stateOptions: any[];
 
     onSubmit(form: any) {
         if (form.valid) {

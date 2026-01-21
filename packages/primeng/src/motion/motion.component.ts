@@ -326,6 +326,8 @@ export class Motion extends BaseComponent<MotionPassThrough> {
 
         resetStyles(this.$el, this.hideStrategy());
 
+        this.$el?.remove();
+
         this.isInitialMount = true;
     }
 }

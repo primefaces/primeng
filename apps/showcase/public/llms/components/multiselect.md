@@ -6,28 +6,24 @@ MultiSelect is used to select multiple items from a collection.
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The multiselect component has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls attribute that refers to the id of the popup listbox. The popup listbox uses listbox as the role with aria-multiselectable enabled. Each list item has an option role along with aria-label , aria-selected and aria-disabled attributes. Checkbox component at the header uses a hidden native checkbox element internally that is only visible to screen readers. Value to read is defined with the selectAll and unselectAll keys of the aria property from the locale API. If filtering is enabled, filterInputProps can be defined to give aria-* props to the input element. Close button uses close key of the aria property from the locale API as the aria-label by default, this can be overriden with the closeButtonProps .
 
-```html
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
 <span id="dd1">Options</span>
 <p-multiselect ariaLabelledBy="dd1"/>
 
 <p-multiselect ariaLabel="Options"/>
 ```
+</details>
 
 ## Basic
 
 MultiSelect is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Default property name for the optionLabel is label and value for the optionValue . If optionValue is omitted and the object has no value property, the object itself becomes the value of an option. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
 
-```html
-<p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
-```
-
 ## Chips
 
 Selected values are displayed as a comma separated list by default, setting display as chip displays them as chips.
-
-```html
-<p-multiselect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" class="w-full md:w-80" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -38,28 +34,30 @@ import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
-    selector: 'multi-select-chips-demo',
-    templateUrl: './multi-select-chips-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" class="w-full md:w-80" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelectModule]
+    imports: [MultiSelectModule, FormsModule]
 })
-export class MultiSelectChipsDemo implements OnInit {
+export class MultiselectChipsDemo implements OnInit {
     cities!: City[];
-
     selectedCities!: City[];
 
-    constructor() {
+    ngOnInit() {
         this.cities = [
-            {name: 'New York', code: 'NY'},
-            {name: 'Rome', code: 'RM'},
-            {name: 'London', code: 'LDN'},
-            {name: 'Istanbul', code: 'IST'},
-            {name: 'Paris', code: 'PRS'}
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 }
@@ -70,10 +68,6 @@ export class MultiSelectChipsDemo implements OnInit {
 
 When showClear is enabled, a clear icon is displayed to clear the value.
 
-```html
-<p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" [showClear]="true" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -83,29 +77,30 @@ import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
-    selector: 'multi-select-clear-icon-demo',
-    templateUrl: './multi-select-clear-icon-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" [showClear]="true" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelectModule]
+    imports: [MultiSelectModule, FormsModule]
 })
-export class MultiSelectClearIconDemo implements OnInit {
-
+export class MultiselectCleariconDemo implements OnInit {
     cities!: City[];
-
-    selectedCities!: City[];
+    selectedCities!: any[];
 
     ngOnInit() {
         this.cities = [
-            {name: 'New York', code: 'NY'},
-            {name: 'Rome', code: 'RM'},
-            {name: 'London', code: 'LDN'},
-            {name: 'Istanbul', code: 'IST'},
-            {name: 'Paris', code: 'PRS'}
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 }
@@ -116,10 +111,6 @@ export class MultiSelectClearIconDemo implements OnInit {
 
 When disabled is present, the element cannot be edited and focused.
 
-```html
-<p-multiselect [options]="cities" [(ngModel)]="selectedCities" [disabled]="true" optionLabel="name" class="w-full md:w-80" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -129,19 +120,21 @@ import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
-    selector: 'multi-select-disabled-demo',
-    templateUrl: './multi-select-disabled-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [disabled]="true" optionLabel="name" placeholder="Select Cities" class="w-full md:w-80" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelectModule]
+    imports: [MultiSelectModule, FormsModule]
 })
-export class MultiSelectDisabledDemo implements OnInit {
+export class MultiselectDisabledDemo implements OnInit {
     cities!: City[];
-
     selectedCities!: City[];
 
     ngOnInit() {
@@ -161,10 +154,6 @@ export class MultiSelectDisabledDemo implements OnInit {
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
 
-```html
-<p-multiselect [options]="cities" [(ngModel)]="selectedCities" variant="filled" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -174,29 +163,30 @@ import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
-    selector: 'multi-select-filled-demo',
-    templateUrl: './multi-select-filled-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" variant="filled" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelectModule]
+    imports: [MultiSelectModule, FormsModule]
 })
-export class MultiSelectFilledDemo implements OnInit {
-
+export class MultiselectFilledDemo implements OnInit {
     cities!: City[];
-
-    selectedCities!: City[];
+    selectedCities!: any[];
 
     ngOnInit() {
         this.cities = [
-            {name: 'New York', code: 'NY'},
-            {name: 'Rome', code: 'RM'},
-            {name: 'London', code: 'LDN'},
-            {name: 'Istanbul', code: 'IST'},
-            {name: 'Paris', code: 'PRS'}
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 }
@@ -207,10 +197,6 @@ export class MultiSelectFilledDemo implements OnInit {
 
 MultiSelect provides built-in filtering that is enabled by adding the filter property.
 
-```html
-<p-multiselect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -220,19 +206,21 @@ import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
-    selector: 'multi-select-filter-demo',
-    templateUrl: './multi-select-filter-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelectModule]
+    imports: [MultiSelectModule, FormsModule]
 })
-export class MultiSelectFilterDemo implements OnInit {
+export class MultiselectFilterDemo implements OnInit {
     cities!: City[];
-
     selectedCities!: City[];
 
     ngOnInit() {
@@ -252,50 +240,44 @@ export class MultiSelectFilterDemo implements OnInit {
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
 
-```html
-<p-floatlabel class="w-full md:w-80">
-    <p-multiselect id="over_label" [(ngModel)]="value1" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
-    <label for="over_label">Over Label</label>
-</p-floatlabel>
-
-<p-floatlabel class="w-full md:w-80" variant="in">
-    <p-multiselect id="in_label" [(ngModel)]="value2" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
-    <label for="in_label">In Label</label>
-</p-floatlabel>
-
-<p-floatlabel class="w-full md:w-80" variant="on">
-    <p-multiselect id="on_label" [(ngModel)]="value3" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
-    <label for="on_label">On Label</label>
-</p-floatlabel>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FloatLabelModule } from 'primeng/floatlabel';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { FloatLabel } from 'primeng/floatlabel';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
-    selector: 'multi-select-floatlabel-demo',
-    templateUrl: './multi-select-floatlabel-demo.html',
+    template: `
+        <div class="card flex flex-wrap justify-center items-end gap-4">
+            <p-floatlabel class="w-full md:w-80">
+                <p-multiselect id="over_label" [(ngModel)]="value1" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+            <p-floatlabel class="w-full md:w-80" variant="in">
+                <p-multiselect id="in_label" [(ngModel)]="value2" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+            <p-floatlabel class="w-full md:w-80" variant="on">
+                <p-multiselect id="on_label" [(ngModel)]="value3" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
+                <label for="on_label">On Label</label>
+            </p-floatlabel>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelectModule, FloatLabel]
+    imports: [FloatLabelModule, MultiSelectModule, FormsModule]
 })
-export class MultiSelectFloatlabelDemo implements OnInit {
+export class MultiselectFloatlabelDemo implements OnInit {
     cities!: City[];
-
     value1!: City[];
-
     value2!: City[];
-
     value3!: City[];
 
     ngOnInit() {
@@ -304,7 +286,7 @@ export class MultiSelectFloatlabelDemo implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 }
@@ -315,10 +297,6 @@ export class MultiSelectFloatlabelDemo implements OnInit {
 
 The fluid prop makes the component take up the full width of its container when set to true.
 
-```html
-<p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" fluid />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -328,29 +306,30 @@ import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
-    selector: 'multi-select-fluid-demo',
-    templateUrl: './multi-select-fluid-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" fluid />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelectModule]
+    imports: [MultiSelectModule, FormsModule]
 })
-export class MultiSelectFluidDemo implements OnInit {
-
+export class MultiselectFluidDemo implements OnInit {
     cities!: City[];
-
-    selectedCities!: City[];
+    selectedCities!: any[];
 
     ngOnInit() {
         this.cities = [
-            {name: 'New York', code: 'NY'},
-            {name: 'Rome', code: 'RM'},
-            {name: 'London', code: 'LDN'},
-            {name: 'Istanbul', code: 'IST'},
-            {name: 'Paris', code: 'PRS'}
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 }
@@ -361,75 +340,73 @@ export class MultiSelectFluidDemo implements OnInit {
 
 Options can be grouped when a nested data structures is provided.
 
-```html
-<p-multiselect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" scrollHeight="250px" display="chip" class="w-full md:w-80">
-    <ng-template let-group #group>
-        <div class="flex items-center">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
-            <span>{{ group.label }}</span>
-        </div>
-    </ng-template>
-</p-multiselect>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
-import { SelectItemGroup } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectItemGroup } from 'primeng/api';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
-    selector: 'multi-select-group-demo',
-    templateUrl: './multi-select-group-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-multiselect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" scrollHeight="250px" display="chip" class="w-full md:w-80">
+                <ng-template let-group #group>
+                    <div class="flex items-center">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                        <span>{{ group.label }}</span>
+                    </div>
+                </ng-template>
+            </p-multiselect>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelectModule]
+    imports: [MultiSelectModule, FormsModule]
 })
-export class MultiSelectGroupDemo {
+export class MultiselectGroupDemo {
     groupedCities!: SelectItemGroup[];
-
     selectedCities!: City[];
 
     constructor() {
         this.groupedCities = [
-            {
-                label: 'Germany',
-                value: 'de',
-                items: [
-                    { label: 'Berlin', value: 'Berlin' },
-                    { label: 'Frankfurt', value: 'Frankfurt' },
-                    { label: 'Hamburg', value: 'Hamburg' },
-                    { label: 'Munich', value: 'Munich' }
-                ]
-            },
-            {
-                label: 'USA',
-                value: 'us',
-                items: [
-                    { label: 'Chicago', value: 'Chicago' },
-                    { label: 'Los Angeles', value: 'Los Angeles' },
-                    { label: 'New York', value: 'New York' },
-                    { label: 'San Francisco', value: 'San Francisco' }
-                ]
-            },
-            {
-                label: 'Japan',
-                value: 'jp',
-                items: [
-                    { label: 'Kyoto', value: 'Kyoto' },
-                    { label: 'Osaka', value: 'Osaka' },
-                    { label: 'Tokyo', value: 'Tokyo' },
-                    { label: 'Yokohama', value: 'Yokohama' }
-                ]
-            }
-        ];
+                    {
+                        label: 'Germany',
+                        value: 'de',
+                        items: [
+                            { label: 'Berlin', value: 'Berlin' },
+                            { label: 'Frankfurt', value: 'Frankfurt' },
+                            { label: 'Hamburg', value: 'Hamburg' },
+                            { label: 'Munich', value: 'Munich' }
+                        ]
+                    },
+                    {
+                        label: 'USA',
+                        value: 'us',
+                        items: [
+                            { label: 'Chicago', value: 'Chicago' },
+                            { label: 'Los Angeles', value: 'Los Angeles' },
+                            { label: 'New York', value: 'New York' },
+                            { label: 'San Francisco', value: 'San Francisco' }
+                        ]
+                    },
+                    {
+                        label: 'Japan',
+                        value: 'jp',
+                        items: [
+                            { label: 'Kyoto', value: 'Kyoto' },
+                            { label: 'Osaka', value: 'Osaka' },
+                            { label: 'Tokyo', value: 'Tokyo' },
+                            { label: 'Yokohama', value: 'Yokohama' }
+                        ]
+                    }
+                ];
     }
 }
 ```
@@ -439,36 +416,34 @@ export class MultiSelectGroupDemo {
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
 
-```html
-<p-iftalabel class="w-full md:w-80">
-    <p-multiselect [(ngModel)]="selectedCities" inputId="ms_cities" [options]="cities" optionLabel="name" [filter]="true" [maxSelectedLabels]="3" class="w-full" />
-    <label for="ms_cities">Cities</label>
-</p-iftalabel>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
 import { IftaLabelModule } from 'primeng/iftalabel';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
-    selector: 'multi-select-iftalabel-demo',
-    templateUrl: './multi-select-iftalabel-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-iftalabel class="w-full md:w-80">
+                <p-multiselect [(ngModel)]="selectedCities" inputId="ms_cities" [options]="cities" optionLabel="name" [filter]="true" [maxSelectedLabels]="3" class="w-full" />
+                <label for="ms_cities">Cities</label>
+            </p-iftalabel>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelectModule, IftaLabelModule]
+    imports: [IftaLabelModule, MultiSelectModule, FormsModule]
 })
-export class MultiSelectIftalabelDemo implements OnInit {
+export class MultiselectIftalabelDemo implements OnInit {
     cities!: City[];
-
     selectedCities!: City[];
 
     ngOnInit() {
@@ -477,7 +452,7 @@ export class MultiSelectIftalabelDemo implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 }
@@ -488,11 +463,6 @@ export class MultiSelectIftalabelDemo implements OnInit {
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
-```html
-<p-multiselect [options]="cities" [(ngModel)]="selectedCities1" [invalid]="value1" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
-<p-multiselect [options]="cities" [(ngModel)]="selectedCities2" [invalid]="value2" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" variant="filled" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -502,31 +472,25 @@ import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
-    selector: 'multi-select-invalid-demo',
-    templateUrl: './multi-select-invalid-demo.html',
+    template: `
+        <div class="card flex justify-center gap-4">
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities1" [invalid]="value1" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities2" [invalid]="value2" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" variant="filled" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelectModule]
+    imports: [MultiSelectModule, FormsModule]
 })
-export class MultiSelectInvalidDemo {
+export class MultiselectInvalidDemo {
     value1: boolean = true;
-
     value2: boolean = true;
-
-    cities: City[] = [
-        { name: 'New York', code: 'NY' },
-        { name: 'Rome', code: 'RM' },
-        { name: 'London', code: 'LDN' },
-        { name: 'Istanbul', code: 'IST' },
-        { name: 'Paris', code: 'PRS' }
-    ];
-
+    cities: City[];
     selectedCities1!: City[];
-
     selectedCities2!: City[];
 }
 ```
@@ -535,10 +499,6 @@ export class MultiSelectInvalidDemo {
 ## Loading State
 
 Loading state can be used loading property.
-
-```html
-<p-multiselect [options]="cities" [(ngModel)]="selectedCities" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-80" />
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -549,92 +509,87 @@ import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
-    selector: 'multi-select-loading-state-demo',
-    templateUrl: './multi-select-loading-state-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-80" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelectModule]
+    imports: [MultiSelectModule, FormsModule]
 })
-export class MultiSelectLoadingStateDemo implements OnInit {
-
+export class MultiselectLoadingstateDemo implements OnInit {
     cities!: City[];
-
-    selectedCities!: City[];
+    selectedCities!: any[];
 
     ngOnInit() {
         this.cities = [
-            {name: 'New York', code: 'NY'},
-            {name: 'Rome', code: 'RM'},
-            {name: 'London', code: 'LDN'},
-            {name: 'Istanbul', code: 'IST'},
-            {name: 'Paris', code: 'PRS'}
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 }
 ```
 </details>
 
-## reactiveformsdoc
+## reactiveforms-doc
 
 MultiSelect can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 w-full md:w-80">
-    <div class="flex flex-col gap-1">
-        <p-multiselect [options]="cities" formControlName="city" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" [fluid]="true" [invalid]="isInvalid('city')" />
-        @if (isInvalid('city')) {
-            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>
-```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import {Component, inject} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MessageModule } from 'primeng/message';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
-import { Message } from 'primeng/message';
-import { Button } from 'primeng/button';
-import { Toast } from 'primeng/toast';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
-    selector: 'multi-select-reactive-forms-demo',
-    templateUrl: './multi-select-reactive-forms-demo.html',
+    template: `
+        <p-toast />
+        <div class="card flex justify-center">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 w-full md:w-80">
+                <div class="flex flex-col gap-1">
+                    <p-multiselect [options]="cities" formControlName="city" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" [fluid]="true" [invalid]="isInvalid('city')" />
+                    @if (isInvalid('city')) {
+                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
     standalone: true,
-    imports: [ReactiveFormsModule, MultiSelectModule, Message, Button, Toast]
+    imports: [MessageModule, MultiSelectModule, ToastModule, ButtonModule, ReactiveFormsModule],
+    providers: [MessageService]
 })
-export class MultiSelectReactiveFormsDemo implements OnInit {
+export class MultiselectReactiveformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
-
-    cities: City[] = [
-        { name: 'New York', code: 'NY' },
-        { name: 'Rome', code: 'RM' },
-        { name: 'London', code: 'LDN' },
-        { name: 'Istanbul', code: 'IST' },
-        { name: 'Paris', code: 'PRS' }
-    ];
-
+    cities: City[];
     exampleForm: FormGroup | undefined;
+    formSubmitted: boolean = false;
 
-    formSubmitted = false;
-
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.exampleForm = this.fb.group({
-            city: ['', Validators.required]
-        });
+                    city: ['', Validators.required]
+                });
     }
 
     onSubmit() {
@@ -658,12 +613,6 @@ export class MultiSelectReactiveFormsDemo implements OnInit {
 
 MultiSelect provides small and large sizes as alternatives to the base.
 
-```html
-<p-multiselect [(ngModel)]="value1" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="small" placeholder="Small" />
-<p-multiselect [(ngModel)]="value2" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" placeholder="Normal" />
-<p-multiselect [(ngModel)]="value3" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="large" placeholder="Large" />
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
@@ -673,72 +622,43 @@ import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
-    name: string,
-    code: string
+    name: string;
+    code: string;
 }
 
 @Component({
-    selector: 'multi-select-sizes-demo',
-    templateUrl: './multi-select-sizes-demo.html',
+    template: `
+        <div class="card flex flex-col items-center gap-4">
+            <p-multiselect [(ngModel)]="value1" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="small" placeholder="Small" />
+            <p-multiselect [(ngModel)]="value2" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" placeholder="Normal" />
+            <p-multiselect [(ngModel)]="value3" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="large" placeholder="Large" />
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelectModule]
+    imports: [MultiSelectModule, FormsModule]
 })
-export class MultiSelectSizesDemo implements OnInit {
-
+export class MultiselectSizesDemo implements OnInit {
     cities!: City[];
-
     value1: any[];
-
     value2: any[];
-
     value3: any[];
 
     ngOnInit() {
         this.cities = [
-            {name: 'New York', code: 'NY'},
-            {name: 'Rome', code: 'RM'},
-            {name: 'London', code: 'LDN'},
-            {name: 'Istanbul', code: 'IST'},
-            {name: 'Paris', code: 'PRS'}
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 }
 ```
 </details>
 
-## styledoc
-
-Following is the list of structural style classes, for theming classes visit theming page.
-
 ## Template
 
 Available options and the selected options support customization with item and selecteditems templates respectively. In addition, header, footer and filter sections can be templated as well.
-
-```html
-<p-multiselect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name" class="w-full md:w-80" display="chip">
-    <ng-template let-country #item>
-        <div class="flex items-center gap-2">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-            <div>{{ country.name }}</div>
-        </div>
-    </ng-template>
-    <ng-template #dropdownicon>
-        <i class="pi pi-map"></i>
-    </ng-template>
-    <ng-template #filtericon>
-        <i class="pi pi-map-marker"></i>
-    </ng-template>
-    <ng-template #header>
-        <div class="font-medium px-3 py-2">Available Countries</div>
-    </ng-template>
-    <ng-template #footer>
-        <div class="p-3 flex justify-between">
-            <p-button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
-            <p-button label="Remove All" severity="danger" text size="small" icon="pi pi-times" />
-        </div>
-    </ng-template>
-</p-multiselect>
-```
 
 <details>
 <summary>TypeScript Example</summary>
@@ -746,8 +666,9 @@ Available options and the selected options support customization with item and s
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
 import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { Country } from '@/domain/customer';
 
 interface Country {
     name: string;
@@ -755,17 +676,41 @@ interface Country {
 }
 
 @Component({
-    selector: 'multi-select-template-demo',
-    templateUrl: './multi-select-template-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-multiselect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name" class="w-full md:w-80" display="chip">
+                <ng-template let-country #item>
+                    <div class="flex items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                        <div>{{ country.name }}</div>
+                    </div>
+                </ng-template>
+                <ng-template #dropdownicon>
+                    <i class="pi pi-map"></i>
+                </ng-template>
+                <ng-template #filtericon>
+                    <i class="pi pi-map-marker"></i>
+                </ng-template>
+                <ng-template #header>
+                    <div class="font-medium px-3 py-2">Available Countries</div>
+                </ng-template>
+                <ng-template #footer>
+                    <div class="p-3 flex justify-between">
+                        <p-button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
+                        <p-button label="Remove All" severity="danger" text size="small" icon="pi pi-times" />
+                    </div>
+                </ng-template>
+            </p-multiselect>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelectModule, ButtonModule]
+    imports: [ButtonModule, MultiSelectModule, FormsModule]
 })
-export class MultiSelectTemplateDemo implements OnInit {
+export class MultiselectTemplateDemo implements OnInit {
     countries!: Country[];
-
     selectedCountries!: Country[];
 
-    constructor() {
+    ngOnInit() {
         this.countries = [
             { name: 'Australia', code: 'AU' },
             { name: 'Brazil', code: 'BR' },
@@ -783,42 +728,18 @@ export class MultiSelectTemplateDemo implements OnInit {
 ```
 </details>
 
-## templatedrivenformsdoc
-
-```html
-<div class="card flex justify-center">
-    <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 w-full md:w-80">
-        <div class="flex flex-col gap-1">
-            <p-multiselect
-                #city="ngModel"
-                [(ngModel)]="selectedCity"
-                [options]="cities"
-                optionLabel="name"
-                name="city"
-                placeholder="Select Cities"
-                [maxSelectedLabels]="3"
-                [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
-                fluid
-                required
-            />
-            @if (city.invalid && (city.touched || exampleForm.submitted)) {
-                <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-            }
-        </div>
-        <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-    </form>
-</div>
-```
+## templatedrivenforms-doc
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelect } from 'primeng/multiselect';
-import { Message } from 'primeng/message';
-import { Toast } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
 interface City {
@@ -827,22 +748,39 @@ interface City {
 }
 
 @Component({
-    selector: 'multi-select-template-driven-forms-demo',
-    templateUrl: './multi-select-template-driven-forms-demo.html',
+    template: `
+        <p-toast />
+        <div class="card flex justify-center">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 w-full md:w-80">
+                <div class="flex flex-col gap-1">
+                    <p-multiselect
+                        #city="ngModel"
+                        [(ngModel)]="selectedCity"
+                        [options]="cities"
+                        optionLabel="name"
+                        name="city"
+                        placeholder="Select Cities"
+                        [maxSelectedLabels]="3"
+                        [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
+                        fluid
+                        required
+                    />
+                    @if (city.invalid && (city.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelect, Message, Toast]
+    imports: [MessageModule, MultiSelectModule, ToastModule, ButtonModule, FormsModule],
+    providers: [MessageService]
 })
-export class TemplateDrivenFormsDemo{
+export class MultiselectTemplatedrivenformsDemo {
+    private messageService = inject(MessageService);
     messageService = inject(MessageService);
-
-    cities: City[] = [
-        { name: 'New York', code: 'NY' },
-        { name: 'Rome', code: 'RM' },
-        { name: 'London', code: 'LDN' },
-        { name: 'Istanbul', code: 'IST' },
-        { name: 'Paris', code: 'PRS' }
-    ];
-
+    cities: City[];
     selectedCity: City | undefined;
 
     onSubmit(form: any) {
@@ -859,44 +797,50 @@ export class TemplateDrivenFormsDemo{
 
 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item.
 
-```html
-<p-multiselect [options]="items" [showToggleAll]="true" [selectAll]="selectAll" [(ngModel)]="selectedItems" optionLabel="label" [virtualScroll]="true" [virtualScrollItemSize]="43" placeholder="Select Cities" (onSelectAllChange)="onSelectAllChange($event)" [maxSelectedLabels]="3" class="w-full md:w-80" #ms>
-    <ng-template #headercheckboxicon let-allSelected let-partialSelected="partialSelected">
-        <i class="pi pi-check" *ngIf="allSelected"></i>
-        <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>
-    </ng-template>
-</p-multiselect>
-```
-
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { MultiSelect } from 'primeng/multiselect';
 
 @Component({
-    selector: 'multi-select-virtual-scroll-demo',
-    templateUrl: './multi-select-virtual-scroll-demo.html',
+    template: `
+        <div class="card flex justify-center">
+            <p-multiselect
+                [options]="items"
+                [showToggleAll]="true"
+                [selectAll]="selectAll"
+                [(ngModel)]="selectedItems"
+                optionLabel="label"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                placeholder="Select Cities"
+                (onSelectAllChange)="onSelectAllChange($event)"
+                [maxSelectedLabels]="3"
+                class="w-full md:w-80"
+                #ms
+            >
+                <ng-template #headercheckboxicon let-allSelected="checked" let-partialSelected="partialSelected">
+                    <i class="pi pi-check" *ngIf="allSelected"></i>
+                    <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>
+                </ng-template>
+            </p-multiselect>
+        </div>
+    `,
     standalone: true,
-    imports: [FormsModule, MultiSelectModule]
+    imports: [MultiSelectModule, FormsModule]
 })
-export class MultiSelectVirtualScrollDemo {
-    @ViewChild('ms') ms: MultiSelect;
-
-    items = Array.from({ length: 100000 }, (_, i) => ({ label: \`Item #\${i}\`, value: i }))
-
+export class MultiselectVirtualscrollDemo {
+    items: any = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }));
     selectedItems!: any[];
-
     selectAll: boolean = false;
 
     onSelectAllChange(event) {
         this.selectedItems = event.checked ? [...this.ms.visibleOptions()] : [];
         this.selectAll = event.checked;
     }
-
 }
 ```
 </details>

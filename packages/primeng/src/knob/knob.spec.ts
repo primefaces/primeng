@@ -187,7 +187,7 @@ describe('Knob', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(knobInstance.value).toBe(75);
+            expect(knobInstance.value()).toBe(75);
             expect(knobInstance._value).toBe(75);
         });
 
@@ -251,14 +251,14 @@ describe('Knob', () => {
             svgElement.nativeElement.dispatchEvent(upEvent);
 
             expect(upEvent.preventDefault).toHaveBeenCalled();
-            expect(knobInstance.value).toBe(51);
+            expect(knobInstance.value()).toBe(51);
 
             const rightEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
             spyOn(rightEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(rightEvent);
 
             expect(rightEvent.preventDefault).toHaveBeenCalled();
-            expect(knobInstance.value).toBe(52);
+            expect(knobInstance.value()).toBe(52);
         });
 
         it('should decrease value with ArrowDown/ArrowLeft', async () => {
@@ -269,14 +269,14 @@ describe('Knob', () => {
             svgElement.nativeElement.dispatchEvent(downEvent);
 
             expect(downEvent.preventDefault).toHaveBeenCalled();
-            expect(knobInstance.value).toBe(49);
+            expect(knobInstance.value()).toBe(49);
 
             const leftEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
             spyOn(leftEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(leftEvent);
 
             expect(leftEvent.preventDefault).toHaveBeenCalled();
-            expect(knobInstance.value).toBe(48);
+            expect(knobInstance.value()).toBe(48);
         });
 
         it('should handle Home and End keys', async () => {
@@ -287,14 +287,14 @@ describe('Knob', () => {
             svgElement.nativeElement.dispatchEvent(homeEvent);
 
             expect(homeEvent.preventDefault).toHaveBeenCalled();
-            expect(knobInstance.value).toBe(0);
+            expect(knobInstance.value()).toBe(0);
 
             const endEvent = new KeyboardEvent('keydown', { code: 'End' });
             spyOn(endEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(endEvent);
 
             expect(endEvent.preventDefault).toHaveBeenCalled();
-            expect(knobInstance.value).toBe(100);
+            expect(knobInstance.value()).toBe(100);
         });
 
         it('should handle PageUp and PageDown keys', async () => {
@@ -305,14 +305,14 @@ describe('Knob', () => {
             svgElement.nativeElement.dispatchEvent(pageUpEvent);
 
             expect(pageUpEvent.preventDefault).toHaveBeenCalled();
-            expect(knobInstance.value).toBe(60);
+            expect(knobInstance.value()).toBe(60);
 
             const pageDownEvent = new KeyboardEvent('keydown', { code: 'PageDown' });
             spyOn(pageDownEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(pageDownEvent);
 
             expect(pageDownEvent.preventDefault).toHaveBeenCalled();
-            expect(knobInstance.value).toBe(50);
+            expect(knobInstance.value()).toBe(50);
         });
     });
 
@@ -536,13 +536,13 @@ describe('Knob', () => {
         });
 
         it('should integrate with reactive forms', async () => {
-            expect(knobInstance.value).toBe(50);
+            expect(knobInstance.value()).toBe(50);
 
             component.knobControl.setValue(75);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(knobInstance.value).toBe(75);
+            expect(knobInstance.value()).toBe(75);
         });
 
         it('should validate min/max values', async () => {
@@ -656,21 +656,21 @@ describe('Knob', () => {
         it('should clamp values to min/max bounds', () => {
             // Test value above max
             knobInstance.updateModelValue(150);
-            expect(knobInstance.value).toBe(100);
+            expect(knobInstance.value()).toBe(100);
 
             // Test value below min
             knobInstance.updateModelValue(-50);
-            expect(knobInstance.value).toBe(0);
+            expect(knobInstance.value()).toBe(0);
         });
 
         it('should handle step increments correctly', () => {
             // updateModelValue doesn't handle step rounding, just clamping
             // Step rounding is handled in updateModel method
             knobInstance.updateModelValue(47);
-            expect(knobInstance.value).toBe(47); // Direct value assignment
+            expect(knobInstance.value()).toBe(47); // Direct value assignment
 
             knobInstance.updateModelValue(48);
-            expect(knobInstance.value).toBe(48); // Direct value assignment
+            expect(knobInstance.value()).toBe(48); // Direct value assignment
 
             // Test that step property is correctly set
             expect(knobInstance.step).toBe(5);
@@ -770,7 +770,7 @@ describe('Knob', () => {
                 await fixture.whenStable();
             }
 
-            expect(knobInstance.value).toBe(99);
+            expect(knobInstance.value()).toBe(99);
         });
 
         it('should maintain performance with frequent updates', async () => {

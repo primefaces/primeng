@@ -777,14 +777,14 @@ describe('Menubar', () => {
         it('should handle focus and blur events', () => {
             const rootMenu = fixture.debugElement.query(By.css('ul[pMenubarSub]'));
 
-            spyOn(component, 'onFocus');
-            spyOn(component, 'onBlur');
+            spyOn(menubarInstance, 'onMenuFocus');
+            spyOn(menubarInstance, 'onMenuBlur');
 
             rootMenu.triggerEventHandler('focus', new FocusEvent('focus'));
-            expect(component.onFocus).toHaveBeenCalled();
+            expect(menubarInstance.onMenuFocus).toHaveBeenCalled();
 
             rootMenu.triggerEventHandler('blur', new FocusEvent('blur'));
-            expect(component.onBlur).toHaveBeenCalled();
+            expect(menubarInstance.onMenuBlur).toHaveBeenCalled();
         });
 
         it('should set aria-activedescendant when focused', () => {
@@ -839,7 +839,7 @@ describe('Menubar', () => {
 
     describe('Media Query and Responsive Tests', () => {
         it('should initialize queryMatches property', () => {
-            expect(typeof menubarInstance.queryMatches).toBe('boolean');
+            expect(typeof menubarInstance.queryMatches()).toBe('boolean');
         });
 
         it('should bind match media listener on init', () => {
