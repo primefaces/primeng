@@ -3625,30 +3625,31 @@ export class FrozenColumn extends BaseComponent {
 
     updateStickyPosition() {
         if (this._frozen) {
-            if (this.alignFrozen === 'right') {
-                let right = 0;
-                let sibling = this.el.nativeElement.nextElementSibling;
-                while (sibling) {
-                    right += DomHandler.getOuterWidth(sibling);
-                    sibling = sibling.nextElementSibling;
-                }
-                this.el.nativeElement.style.right = right + 'px';
-            } else {
-                let left = 0;
-                let sibling = this.el.nativeElement.previousElementSibling;
-                while (sibling) {
-                    left += DomHandler.getOuterWidth(sibling);
-                    sibling = sibling.previousElementSibling;
-                }
-                this.el.nativeElement.style.left = left + 'px';
+            const isRtl = getComputedStyle(this.el.nativeElement).direction === 'rtl';
+            const isPhysicalRight = (this.alignFrozen === 'right' && !isRtl) || (this.alignFrozen === 'left' && isRtl);
+
+            let offset = 0;
+            let sibling = this.alignFrozen === 'right' ? this.el.nativeElement.nextElementSibling : this.el.nativeElement.previousElementSibling;
+
+            while (sibling) {
+                offset += DomHandler.getOuterWidth(sibling);
+                sibling = this.alignFrozen === 'right' ? sibling.nextElementSibling : sibling.previousElementSibling;
             }
 
+            if (isPhysicalRight) {
+                this.el.nativeElement.style.right = offset + 'px';
+                this.el.nativeElement.style.left = 'auto';
+            } else {
+                this.el.nativeElement.style.left = offset + 'px';
+                this.el.nativeElement.style.right = 'auto';
+            }
             const filterRow = this.el.nativeElement?.parentElement?.nextElementSibling;
             if (filterRow) {
                 let index = DomHandler.index(this.el.nativeElement);
                 if (filterRow.children && filterRow.children[index]) {
-                    filterRow.children[index].style.left = this.el.nativeElement.style.left;
-                    filterRow.children[index].style.right = this.el.nativeElement.style.right;
+                    const filterCell = filterRow.children[index] as HTMLElement;
+                    filterCell.style.left = this.el.nativeElement.style.left;
+                    filterCell.style.right = this.el.nativeElement.style.right;
                 }
             }
         }
