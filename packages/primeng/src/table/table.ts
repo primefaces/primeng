@@ -3632,7 +3632,13 @@ export class FrozenColumn extends BaseComponent {
             let sibling = this.alignFrozen === 'right' ? this.el.nativeElement.nextElementSibling : this.el.nativeElement.previousElementSibling;
 
             while (sibling) {
-                offset += DomHandler.getOuterWidth(sibling);
+                const style = getComputedStyle(sibling);
+                const isSticky = style.position === 'sticky' || style.position === '-webkit-sticky';
+
+                if (isSticky) {
+                    offset += DomHandler.getOuterWidth(sibling);
+                }
+
                 sibling = this.alignFrozen === 'right' ? sibling.nextElementSibling : sibling.previousElementSibling;
             }
 
