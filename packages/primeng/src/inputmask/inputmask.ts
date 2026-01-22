@@ -70,22 +70,13 @@ const INPUTMASK_INSTANCE = new InjectionToken<InputMask>('INPUTMASK_INSTANCE');
 const INPUTMASK_DIRECTIVE_INSTANCE = new InjectionToken<InputMaskDirective>('INPUTMASK_DIRECTIVE_INSTANCE');
 
 /**
- * Value accessor for InputMaskDirective
- */
-export const INPUTMASK_DIRECTIVE_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => InputMaskDirective),
-    multi: true
-};
-
-/**
  * InputMask directive is applied directly to input elements to enable masked input.
  * @group Components
  */
 @Directive({
     selector: '[pInputMask]',
     standalone: true,
-    providers: [InputMaskStyle, INPUTMASK_DIRECTIVE_VALUE_ACCESSOR, { provide: INPUTMASK_DIRECTIVE_INSTANCE, useExisting: InputMaskDirective }, { provide: PARENT_INSTANCE, useExisting: InputMaskDirective }],
+    providers: [InputMaskStyle, { provide: INPUTMASK_DIRECTIVE_INSTANCE, useExisting: InputMaskDirective }, { provide: PARENT_INSTANCE, useExisting: InputMaskDirective }],
     host: {
         '[class.p-inputmask]': '!$unstyled()'
     }
@@ -190,6 +181,7 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
     caretTimeoutId: any;
     androidChrome: boolean = true;
     focused: Nullable<boolean>;
+    private isProcessingKeypress: boolean = false;
 
     private get inputElement(): HTMLInputElement {
         return this.el.nativeElement as HTMLInputElement;
@@ -211,8 +203,6 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
             const maskValue = this.mask();
             if (maskValue) {
                 this.initMask();
-                this.writeValue('');
-                this.onModelChange(this.value);
             }
         });
 
@@ -293,26 +283,28 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
 
     @HostListener('focus', ['$event'])
     onInputFocus(event: Event) {
-        if (this.inputElement.readOnly) {
+        if (this.inputElement.readOnly || !this.mask()) {
             return;
         }
 
         this.focused = true;
-
-        clearTimeout(this.caretTimeoutId);
-        let pos: number;
-
         this.focusText = this.inputElement.value;
 
-        pos = this.keepBuffer() ? this.inputElement.value.length : this.checkVal();
+        // Sync buffer with current value
+        if (this.inputElement.value) {
+            this.syncBuffer();
+        }
+
+        // Show mask placeholder on focus
+        clearTimeout(this.caretTimeoutId);
+        const pos = this.checkVal();
 
         this.caretTimeoutId = setTimeout(() => {
             if (this.inputElement !== this.inputElement.ownerDocument.activeElement) {
                 return;
             }
             this.writeBuffer();
-            const maskValue = this.mask();
-            if (pos == maskValue?.replace('?', '').length) {
+            if (pos == this.mask()?.replace('?', '').length) {
                 this.caret(0, pos);
             } else {
                 this.caret(pos);
@@ -324,24 +316,17 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
 
     @HostListener('blur', ['$event'])
     onInputBlur(e: Event) {
-        this.focused = false;
-        this.onModelTouched();
-        if (!this.keepBuffer()) {
-            this.checkVal();
+        if (!this.mask()) {
+            return;
         }
-        this.onBlurEvent.emit(e);
 
-        if (this.value != this.focusText) {
-            this.updateModel(e);
-            const event = this.document.createEvent('HTMLEvents');
-            event.initEvent('change', true, false);
-            this.inputElement.dispatchEvent(event);
-        }
+        this.focused = false;
+        this.onBlurEvent.emit(e);
     }
 
     @HostListener('keydown', ['$event'])
     onInputKeydown(e: KeyboardEvent) {
-        if (this.inputElement.readOnly) {
+        if (this.inputElement.readOnly || !this.mask()) {
             return;
         }
 
@@ -375,19 +360,22 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
             } else {
                 this.shiftL(begin, end - 1);
             }
-            this.updateModel(e);
+
+            // Dispatch input event to notify parent components (like DatePicker)
+            this.isProcessingKeypress = true;
+            this.dispatchInputEvent();
+            this.isProcessingKeypress = false;
+
             this.onInputEvent.emit(e);
 
             e.preventDefault();
         } else if (k === 13) {
             // enter
             this.onInputBlur(e);
-            this.updateModel(e);
         } else if (k === 27) {
             // escape
             this.inputElement.value = this.focusText as string;
             this.caret(0, this.checkVal());
-            this.updateModel(e);
 
             e.preventDefault();
         }
@@ -395,7 +383,7 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
 
     @HostListener('keypress', ['$event'])
     onKeyPress(e: KeyboardEvent) {
-        if (this.inputElement.readOnly) {
+        if (this.inputElement.readOnly || !this.mask()) {
             return;
         }
 
@@ -422,6 +410,12 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
 
                     this.buffer[p] = c;
                     this.writeBuffer();
+
+                    // Dispatch input event to notify parent components (like DatePicker)
+                    this.isProcessingKeypress = true;
+                    this.dispatchInputEvent();
+                    this.isProcessingKeypress = false;
+
                     next = this.seekNext(p);
 
                     if (isClient() && /android/i.test(getUserAgent())) {
@@ -443,8 +437,6 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
             e.preventDefault();
         }
 
-        this.updateModel(e);
-
         if (completed) {
             this.onCompleteEvent.emit();
         }
@@ -452,6 +444,16 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
 
     @HostListener('input', ['$event'])
     onInputChange(event: Event) {
+        if (!this.mask()) {
+            return;
+        }
+
+        // Skip internal processing if we're dispatching from keypress
+        // (the event still bubbles up to parent components like DatePicker)
+        if (this.isProcessingKeypress) {
+            return;
+        }
+
         if (this.androidChrome) this.handleAndroidInput(event);
         else this.handleInputChange(event);
 
@@ -460,6 +462,10 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
 
     @HostListener('paste', ['$event'])
     onPaste(event: Event) {
+        if (!this.mask()) {
+            return;
+        }
+
         this.handleInputChange(event);
     }
 
@@ -579,7 +585,6 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
 
             setTimeout(() => {
                 this.caret(pos.begin, pos.begin);
-                this.updateModel(e);
                 if (this.isCompleted()) {
                     this.onCompleteEvent.emit();
                 }
@@ -590,7 +595,6 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
 
             setTimeout(() => {
                 this.caret(pos.begin, pos.begin);
-                this.updateModel(e);
                 if (this.isCompleted()) {
                     this.onCompleteEvent.emit();
                 }
@@ -606,7 +610,6 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
         setTimeout(() => {
             const pos = this.checkVal(true);
             this.caret(pos);
-            this.updateModel(event);
             if (this.isCompleted()) {
                 this.onCompleteEvent.emit();
             }
@@ -628,6 +631,16 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
         if (this.buffer && this.inputElement) {
             this.inputElement.value = this.buffer.join('');
         }
+    }
+
+    /**
+     * Dispatches an input event on the host element.
+     * This is needed to notify parent components (like DatePicker) of value changes
+     * since programmatic value changes don't trigger native input events.
+     */
+    dispatchInputEvent() {
+        const event = new Event('input', { bubbles: true, cancelable: true });
+        this.inputElement.dispatchEvent(event);
     }
 
     checkVal(allow?: boolean): number {
@@ -695,22 +708,34 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
         return unmaskedBuffer.join('');
     }
 
-    updateModel(e: Event) {
-        const target = e.target as HTMLInputElement;
-        if (!target) {
-            return;
-        }
+    /**
+     * Syncs the buffer with the current input value without modifying the input.
+     * This is used to prepare the buffer for subsequent keypress handling.
+     */
+    syncBuffer(): void {
+        const test = this.inputElement.value;
+        let pos = 0;
 
-        const updatedValue = this.unmask() ? this.getUnmaskedValue() : target.value;
-        if (updatedValue !== null && updatedValue !== undefined) {
-            this.value = updatedValue;
-            this.writeModelValue(this.value); // Sync with BaseModelHolder (same source as InputText)
-            this.onModelChange(this.value);
+        for (let i = 0; i < (this.len as number); i++) {
+            if (this.tests[i]) {
+                this.buffer[i] = this.getPlaceholder(i);
+                while (pos < test.length) {
+                    const c = test.charAt(pos);
+                    pos++;
+                    if (this.tests[i].test(c)) {
+                        this.buffer[i] = c;
+                        break;
+                    }
+                }
+                if (pos > test.length) {
+                    break;
+                }
+            } else {
+                if (this.buffer[i] === test.charAt(pos)) {
+                    pos++;
+                }
+            }
         }
-    }
-
-    focus() {
-        this.inputElement.focus();
     }
 }
 
