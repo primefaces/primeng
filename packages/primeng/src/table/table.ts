@@ -2699,28 +2699,36 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     onColumnDragEnter(event: any, dropHeader: any) {
         if (this.reorderableColumns && this.draggedColumn && dropHeader) {
             event.preventDefault();
+
             let containerOffset = DomHandler.getOffset(this.el?.nativeElement);
             let dropHeaderOffset = DomHandler.getOffset(dropHeader);
 
             if (this.draggedColumn != dropHeader) {
-                let dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
-                let dropIndex = DomHandler.indexWithinGroup(dropHeader, 'preorderablecolumn');
+                const isRtl = getComputedStyle(this.el.nativeElement).direction === 'rtl';
+
                 let targetLeft = dropHeaderOffset.left - containerOffset.left;
-                let targetTop = containerOffset.top - dropHeaderOffset.top;
                 let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
+
+                const isMouseOnRightSide = event.pageX > columnCenter;
+                const isNextSlot = (isMouseOnRightSide && !isRtl) || (!isMouseOnRightSide && isRtl);
 
                 (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (<number>this.reorderIconHeight - 1) + 'px';
                 (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top + dropHeader.offsetHeight + 'px';
 
-                if (event.pageX > columnCenter) {
-                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.left = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
-                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.left = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                let arrowPos = 0;
+
+                if (isNextSlot) {
                     this.dropPosition = 1;
+                    arrowPos = isRtl ? targetLeft : targetLeft + dropHeader.offsetWidth;
                 } else {
-                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.left = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
-                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.left = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
                     this.dropPosition = -1;
+                    arrowPos = isRtl ? targetLeft + dropHeader.offsetWidth : targetLeft;
                 }
+
+                const finalPx = arrowPos - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.left = finalPx;
+                (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.left = finalPx;
+
                 (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.display = 'block';
                 (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.display = 'block';
             } else {
