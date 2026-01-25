@@ -1622,7 +1622,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     }
 
     onOptionMouseEnter(event, index) {
-        if (this.focusOnHover) {
+        if (this.focusOnHover && this.overlayVisible) {
             this.changeFocusedOptionIndex(event, index);
         }
     }
