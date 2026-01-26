@@ -79,8 +79,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
             <input
                 #inputfield
                 pInputText
-                pInputMask
-                [mask]="computedMask()"
+                [pInputMask]="inputMask()"
                 [autoClear]="false"
                 [pSize]="size()"
                 [attr.size]="inputSize()"
@@ -603,10 +602,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         }
     }
     /**
-     * When enabled, applies an input mask to the date input based on the dateFormat.
+     * Input mask pattern for the date input (e.g., '99/99/9999' for dd/mm/yyyy).
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) inputMask: boolean = false;
+    inputMask = input<string | undefined>();
     /**
      * Separator for multiple selection mode.
      * @group Props
@@ -1088,102 +1087,6 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     overlayMinWidth: Nullable<number>;
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
-
-    /**
-     * Computed mask pattern derived from dateFormat.
-     * Converts dateFormat tokens to InputMask pattern.
-     */
-    computedMask = computed(() => {
-        // Only compute mask if inputMask is enabled
-        if (!this.inputMask) {
-            return undefined;
-        }
-
-        const dateFormat = this.getDateFormat();
-        if (!dateFormat) {
-            return undefined;
-        }
-
-        let mask = '';
-        let i = 0;
-
-        while (i < dateFormat.length) {
-            const char = dateFormat[i];
-            const nextChar = dateFormat[i + 1];
-
-            // Check for doubled tokens
-            if (char === 'd') {
-                if (nextChar === 'd') {
-                    mask += '99';
-                    i += 2;
-                } else {
-                    mask += '99'; // Single 'd' still needs 2 digits for day
-                    i++;
-                }
-            } else if (char === 'm') {
-                if (nextChar === 'm') {
-                    mask += '99';
-                    i += 2;
-                } else {
-                    mask += '99'; // Single 'm' still needs 2 digits for month
-                    i++;
-                }
-            } else if (char === 'y') {
-                // Count consecutive 'y' characters
-                let yCount = 1;
-                while (dateFormat[i + yCount] === 'y' && yCount < 4) {
-                    yCount++;
-                }
-                // Always use 4-digit year in mask for better UX
-                mask += '9999';
-                i += yCount;
-            } else if (char === 'D' || char === 'M' || char === 'o' || char === '@' || char === '!') {
-                // Day name, Month name, day of year, Unix timestamp - not suitable for simple mask
-                // Skip these tokens (move past doubled if applicable)
-                if (nextChar === char) {
-                    i += 2;
-                } else {
-                    i++;
-                }
-            } else if (char === "'") {
-                // Literal quote - skip until next quote
-                i++;
-                while (i < dateFormat.length && dateFormat[i] !== "'") {
-                    mask += dateFormat[i];
-                    i++;
-                }
-                i++; // Skip closing quote
-            } else {
-                // Separator or literal character
-                mask += char;
-                i++;
-            }
-        }
-
-        // Add time mask if showTime is enabled
-        if (this.showTime && !this.timeOnly) {
-            mask += ' 99:99'; // HH:mm
-            if (this.showSeconds) {
-                mask += ':99'; // :ss
-            }
-            if (this.hourFormat === '12') {
-                mask += ' aa'; // AM/PM
-            }
-        }
-
-        // Time only mask
-        if (this.timeOnly) {
-            mask = '99:99';
-            if (this.showSeconds) {
-                mask += ':99';
-            }
-            if (this.hourFormat === '12') {
-                mask += ' aa';
-            }
-        }
-
-        return mask || undefined;
-    });
 
     calendarElement: Nullable<HTMLElement | ElementRef>;
 
@@ -3124,7 +3027,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     onUserInput(event: KeyboardEvent | any) {
         // IE 11 Workaround for input placeholder : https://github.com/primefaces/primeng/issues/2026
 
-        if (!this.isKeydown && !this.computedMask()) {
+        if (!this.isKeydown) {
             return;
         }
         this.isKeydown = false;

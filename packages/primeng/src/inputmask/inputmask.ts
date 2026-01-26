@@ -55,7 +55,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { getUserAgent, isClient } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseInput } from 'primeng/baseinput';
 import { Bind, BindModule } from 'primeng/bind';
 import { TimesIcon } from 'primeng/icons';
@@ -81,7 +81,7 @@ const INPUTMASK_DIRECTIVE_INSTANCE = new InjectionToken<InputMaskDirective>('INP
         '[class.p-inputmask]': '!$unstyled()'
     }
 })
-export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
+export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
     $pcInputMaskDirective: InputMaskDirective | undefined = inject(INPUTMASK_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     _componentStyle = inject(InputMaskStyle);
@@ -104,7 +104,7 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
      * Mask pattern.
      * @group Props
      */
-    mask = input<string>();
+    pInputMask = input<string>();
 
     /**
      * Placeholder character in mask, default is underscore.
@@ -117,12 +117,6 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
      * @group Props
      */
     autoClear = input<boolean, boolean>(true, { transform: booleanAttribute });
-
-    /**
-     * Defines if ngModel sets the raw unmasked value to bound value or the formatted mask value.
-     * @group Props
-     */
-    unmask = input<boolean, boolean>(false, { transform: booleanAttribute });
 
     /**
      * Regex pattern for alpha characters.
@@ -143,31 +137,11 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
     onCompleteEvent = output<void>({ alias: 'onComplete' });
 
     /**
-     * Callback to invoke when the component receives focus.
+     * Callback to invoke when value changes, emits unmasked value.
      * @group Emits
      */
-    onFocusEvent = output<Event>({ alias: 'onFocus' });
+    onUnmaskedChange = output<string>();
 
-    /**
-     * Callback to invoke when the component loses focus.
-     * @group Emits
-     */
-    onBlurEvent = output<Event>({ alias: 'onBlur' });
-
-    /**
-     * Callback to invoke on input.
-     * @group Emits
-     */
-    onInputEvent = output<Event>({ alias: 'onInput' });
-
-    /**
-     * Callback to invoke on input key press.
-     * @group Emits
-     */
-    onKeydownEvent = output<Event>({ alias: 'onKeydown' });
-
-    // Internal state
-    value: Nullable<string>;
     defs: Nullable<{ [klass: string]: any }>;
     tests: RegExp[] | any;
     partialPosition: Nullable<number>;
@@ -181,7 +155,6 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
     caretTimeoutId: any;
     androidChrome: boolean = true;
     focused: Nullable<boolean>;
-    private isProcessingKeypress: boolean = false;
 
     private get inputElement(): HTMLInputElement {
         return this.el.nativeElement as HTMLInputElement;
@@ -200,7 +173,7 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
         });
 
         effect(() => {
-            const maskValue = this.mask();
+            const maskValue = this.pInputMask();
             if (maskValue) {
                 this.initMask();
             }
@@ -213,7 +186,7 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
     }
 
     initMask() {
-        const maskValue = this.mask();
+        const maskValue = this.pInputMask();
         if (!maskValue) {
             return;
         }
@@ -258,44 +231,15 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
         this.defaultBuffer = this.buffer.join('');
     }
 
-    /**
-     * @override
-     *
-     * @see {@link BaseEditableHolder.writeControlValue}
-     * Writes the value to the control.
-     */
-    writeControlValue(value: any, setModelValue: (value: any) => void): void {
-        this.value = value;
-        setModelValue(this.value);
-
-        if (this.inputElement) {
-            if (this.value == undefined || this.value == null) {
-                this.inputElement.value = '';
-            } else {
-                this.inputElement.value = this.value;
-            }
-
-            this.checkVal();
-            this.focusText = this.inputElement.value;
-        }
-        this.cd.markForCheck();
-    }
-
     @HostListener('focus', ['$event'])
     onInputFocus(event: Event) {
-        if (this.inputElement.readOnly || !this.mask()) {
+        if (this.inputElement.readOnly || !this.pInputMask()) {
             return;
         }
 
         this.focused = true;
         this.focusText = this.inputElement.value;
 
-        // Sync buffer with current value
-        if (this.inputElement.value) {
-            this.syncBuffer();
-        }
-
-        // Show mask placeholder on focus
         clearTimeout(this.caretTimeoutId);
         const pos = this.checkVal();
 
@@ -304,29 +248,37 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
                 return;
             }
             this.writeBuffer();
-            if (pos == this.mask()?.replace('?', '').length) {
+            if (pos == this.pInputMask()?.replace('?', '').length) {
                 this.caret(0, pos);
             } else {
                 this.caret(pos);
             }
         }, 10);
-
-        this.onFocusEvent.emit(event);
     }
 
     @HostListener('blur', ['$event'])
     onInputBlur(e: Event) {
-        if (!this.mask()) {
+        if (!this.pInputMask()) {
             return;
         }
 
         this.focused = false;
-        this.onBlurEvent.emit(e);
+
+        // Validate/finalize value on blur (clear incomplete if autoClear)
+        if (!this.keepBuffer()) {
+            const valueBefore = this.inputElement.value;
+            this.checkVal();
+
+            // If value changed, dispatch input event so ngModel gets updated
+            if (this.inputElement.value !== valueBefore) {
+                this.dispatchInputEvent();
+            }
+        }
     }
 
     @HostListener('keydown', ['$event'])
     onInputKeydown(e: KeyboardEvent) {
-        if (this.inputElement.readOnly || !this.mask()) {
+        if (this.inputElement.readOnly || !this.pInputMask()) {
             return;
         }
 
@@ -340,8 +292,6 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
             iPhone = /iphone/i.test(getUserAgent());
         }
         this.oldVal = this.inputElement.value;
-
-        this.onKeydownEvent.emit(e);
 
         // backspace, delete, and escape get special treatment
         if (k === 8 || k === 46 || (iPhone && k === 127)) {
@@ -362,11 +312,7 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
             }
 
             // Dispatch input event to notify parent components (like DatePicker)
-            this.isProcessingKeypress = true;
             this.dispatchInputEvent();
-            this.isProcessingKeypress = false;
-
-            this.onInputEvent.emit(e);
 
             e.preventDefault();
         } else if (k === 13) {
@@ -383,7 +329,7 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
 
     @HostListener('keypress', ['$event'])
     onKeyPress(e: KeyboardEvent) {
-        if (this.inputElement.readOnly || !this.mask()) {
+        if (this.inputElement.readOnly || !this.pInputMask()) {
             return;
         }
 
@@ -412,9 +358,7 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
                     this.writeBuffer();
 
                     // Dispatch input event to notify parent components (like DatePicker)
-                    this.isProcessingKeypress = true;
                     this.dispatchInputEvent();
-                    this.isProcessingKeypress = false;
 
                     next = this.seekNext(p);
 
@@ -430,8 +374,6 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
                     if (pos.begin <= (this.lastRequiredNonMaskPos as number)) {
                         completed = this.isCompleted();
                     }
-
-                    this.onInputEvent.emit(e);
                 }
             }
             e.preventDefault();
@@ -444,25 +386,22 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
 
     @HostListener('input', ['$event'])
     onInputChange(event: Event) {
-        if (!this.mask()) {
+        if (!this.pInputMask()) {
             return;
         }
 
-        // Skip internal processing if we're dispatching from keypress
-        // (the event still bubbles up to parent components like DatePicker)
-        if (this.isProcessingKeypress) {
+        // Skip synthetic events dispatched by dispatchInputEvent() to avoid re-processing
+        if (!event.isTrusted) {
             return;
         }
 
         if (this.androidChrome) this.handleAndroidInput(event);
         else this.handleInputChange(event);
-
-        this.onInputEvent.emit(event);
     }
 
     @HostListener('paste', ['$event'])
     onPaste(event: Event) {
-        if (!this.mask()) {
+        if (!this.pInputMask()) {
             return;
         }
 
@@ -585,6 +524,7 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
 
             setTimeout(() => {
                 this.caret(pos.begin, pos.begin);
+                this.onUnmaskedChange.emit(this.getUnmaskedValue());
                 if (this.isCompleted()) {
                     this.onCompleteEvent.emit();
                 }
@@ -595,6 +535,7 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
 
             setTimeout(() => {
                 this.caret(pos.begin, pos.begin);
+                this.onUnmaskedChange.emit(this.getUnmaskedValue());
                 if (this.isCompleted()) {
                     this.onCompleteEvent.emit();
                 }
@@ -610,6 +551,7 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
         setTimeout(() => {
             const pos = this.checkVal(true);
             this.caret(pos);
+            this.onUnmaskedChange.emit(this.getUnmaskedValue());
             if (this.isCompleted()) {
                 this.onCompleteEvent.emit();
             }
@@ -635,12 +577,14 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
 
     /**
      * Dispatches an input event on the host element.
-     * This is needed to notify parent components (like DatePicker) of value changes
+     * This is needed to notify parent components of value changes
      * since programmatic value changes don't trigger native input events.
      */
     dispatchInputEvent() {
         const event = new Event('input', { bubbles: true, cancelable: true });
         this.inputElement.dispatchEvent(event);
+
+        this.onUnmaskedChange.emit(this.getUnmaskedValue());
     }
 
     checkVal(allow?: boolean): number {
@@ -706,36 +650,6 @@ export class InputMaskDirective extends BaseInput<InputMaskPassThrough> {
             }
         }
         return unmaskedBuffer.join('');
-    }
-
-    /**
-     * Syncs the buffer with the current input value without modifying the input.
-     * This is used to prepare the buffer for subsequent keypress handling.
-     */
-    syncBuffer(): void {
-        const test = this.inputElement.value;
-        let pos = 0;
-
-        for (let i = 0; i < (this.len as number); i++) {
-            if (this.tests[i]) {
-                this.buffer[i] = this.getPlaceholder(i);
-                while (pos < test.length) {
-                    const c = test.charAt(pos);
-                    pos++;
-                    if (this.tests[i].test(c)) {
-                        this.buffer[i] = c;
-                        break;
-                    }
-                }
-                if (pos > test.length) {
-                    break;
-                }
-            } else {
-                if (this.buffer[i] === test.charAt(pos)) {
-                    pos++;
-                }
-            }
-        }
     }
 }
 
