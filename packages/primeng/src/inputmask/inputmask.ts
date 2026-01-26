@@ -38,7 +38,6 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
-    HostListener,
     inject,
     InjectionToken,
     input,
@@ -156,8 +155,20 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
     androidChrome: boolean = true;
     focused: Nullable<boolean>;
 
+    private _inputElement: HTMLInputElement | null = null;
+    private _listeners: (() => void)[] = [];
+
+    private isInputVisible(input: HTMLInputElement): boolean {
+        const style = getComputedStyle(input);
+        return style.display !== 'none' && style.visibility !== 'hidden';
+    }
+
     private get inputElement(): HTMLInputElement {
-        return this.el.nativeElement as HTMLInputElement;
+        if (!this._inputElement) {
+            const host = this.el.nativeElement;
+            this._inputElement = host.querySelector('[data-p-maskable]') || Array.from(host.querySelectorAll('input')).find((input: HTMLInputElement) => this.isInputVisible(input)) || host;
+        }
+        return this._inputElement as HTMLInputElement;
     }
 
     constructor() {
@@ -183,6 +194,28 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
             const ua = navigator.userAgent;
             this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
         }
+    }
+
+    onAfterViewInit() {
+        if (isPlatformBrowser(this.platformId) && this.inputElement) {
+            const events: [string, (e: Event) => void][] = [
+                ['focus', (e) => this.onInputFocus(e)],
+                ['blur', (e) => this.onInputBlur(e)],
+                ['keydown', (e) => this.onInputKeydown(e as KeyboardEvent)],
+                ['keypress', (e) => this.onKeyPress(e as KeyboardEvent)],
+                ['input', (e) => this.onInputChange(e)],
+                ['paste', (e) => this.onPaste(e)]
+            ];
+
+            events.forEach(([event, handler]) => {
+                this.inputElement.addEventListener(event, handler);
+                this._listeners.push(() => this.inputElement.removeEventListener(event, handler));
+            });
+        }
+    }
+
+    onDestroy() {
+        this._listeners.forEach((unlisten) => unlisten());
     }
 
     initMask() {
@@ -231,7 +264,6 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         this.defaultBuffer = this.buffer.join('');
     }
 
-    @HostListener('focus', ['$event'])
     onInputFocus(event: Event) {
         if (this.inputElement.readOnly || !this.pInputMask()) {
             return;
@@ -256,7 +288,6 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         }, 10);
     }
 
-    @HostListener('blur', ['$event'])
     onInputBlur(e: Event) {
         if (!this.pInputMask()) {
             return;
@@ -276,7 +307,6 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         }
     }
 
-    @HostListener('keydown', ['$event'])
     onInputKeydown(e: KeyboardEvent) {
         if (this.inputElement.readOnly || !this.pInputMask()) {
             return;
@@ -327,7 +357,6 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         }
     }
 
-    @HostListener('keypress', ['$event'])
     onKeyPress(e: KeyboardEvent) {
         if (this.inputElement.readOnly || !this.pInputMask()) {
             return;
@@ -384,7 +413,6 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         }
     }
 
-    @HostListener('input', ['$event'])
     onInputChange(event: Event) {
         if (!this.pInputMask()) {
             return;
@@ -399,7 +427,6 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         else this.handleInputChange(event);
     }
 
-    @HostListener('paste', ['$event'])
     onPaste(event: Event) {
         if (!this.pInputMask()) {
             return;

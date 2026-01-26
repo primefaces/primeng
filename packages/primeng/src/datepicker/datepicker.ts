@@ -33,7 +33,6 @@ import { Bind, BindModule } from 'primeng/bind';
 import { Button } from 'primeng/button';
 import { blockBodyScroll, ConnectedOverlayScrollHandler, unblockBodyScroll } from 'primeng/dom';
 import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
-import { InputMaskDirective } from 'primeng/inputmask';
 import { InputText } from 'primeng/inputtext';
 import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
@@ -72,15 +71,14 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
 @Component({
     selector: 'p-datePicker, p-datepicker, p-date-picker',
     standalone: true,
-    imports: [CommonModule, Button, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocus, InputText, InputMaskDirective, SharedModule, BindModule, MotionModule],
+    imports: [CommonModule, Button, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocus, InputText, SharedModule, BindModule, MotionModule],
     hostDirectives: [Bind],
     template: `
         <ng-template [ngIf]="!inline">
             <input
                 #inputfield
                 pInputText
-                [pInputMask]="inputMask()"
-                [autoClear]="false"
+                data-p-maskable
                 [pSize]="size()"
                 [attr.size]="inputSize()"
                 type="text"
@@ -601,11 +599,6 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             this.updateInputfield();
         }
     }
-    /**
-     * Input mask pattern for the date input (e.g., '99/99/9999' for dd/mm/yyyy).
-     * @group Props
-     */
-    inputMask = input<string | undefined>();
     /**
      * Separator for multiple selection mode.
      * @group Props
