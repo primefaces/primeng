@@ -176,6 +176,12 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
     blurListener: Nullable<Function>;
 
+    touchStartListener: Nullable<Function>;
+
+    touchEndListener: Nullable<Function>;
+
+    documentTouchListener: Nullable<Function>;
+
     documentEscapeListener: Nullable<Function>;
 
     scrollHandler: any;
@@ -233,6 +239,12 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
                     this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
                     this.el.nativeElement.addEventListener('click', this.clickListener);
                     this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
+
+                    // Touch support
+                    this.touchStartListener = this.onTouchStart.bind(this);
+                    this.touchEndListener = this.onTouchEnd.bind(this);
+                    this.el.nativeElement.addEventListener('touchstart', this.touchStartListener, { passive: true });
+                    this.el.nativeElement.addEventListener('touchend', this.touchEndListener, { passive: true });
                 }
                 if (tooltipEvent === 'focus' || tooltipEvent === 'both') {
                     this.focusListener = this.onFocus.bind(this);
@@ -364,6 +376,40 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
             !valid && this.deactivate();
         } else {
             this.deactivate();
+        }
+    }
+
+    onTouchStart(e: TouchEvent) {
+        if (!this.container && !this.showTimeout) {
+            this.activate();
+
+            if (!this.isAutoHide()) {
+                this.bindDocumentTouchListener();
+            }
+        }
+    }
+
+    onTouchEnd(e: TouchEvent) {
+        if (this.isAutoHide()) {
+            this.deactivate();
+        }
+    }
+
+    bindDocumentTouchListener() {
+        if (!this.documentTouchListener) {
+            this.documentTouchListener = this.renderer.listen('document', 'touchstart', (e: TouchEvent) => {
+                if (this.container && !this.container.contains(e.target) && !this.el.nativeElement.contains(e.target)) {
+                    this.deactivate();
+                    this.unbindDocumentTouchListener();
+                }
+            });
+        }
+    }
+
+    unbindDocumentTouchListener() {
+        if (this.documentTouchListener) {
+            this.documentTouchListener();
+            this.documentTouchListener = null;
         }
     }
 
@@ -710,6 +756,11 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
             this.el.nativeElement.removeEventListener('mouseenter', this.mouseEnterListener);
             this.el.nativeElement.removeEventListener('mouseleave', this.mouseLeaveListener);
             this.el.nativeElement.removeEventListener('click', this.clickListener);
+
+            // Touch support
+            this.el.nativeElement.removeEventListener('touchstart', this.touchStartListener);
+            this.el.nativeElement.removeEventListener('touchend', this.touchEndListener);
+            this.unbindDocumentTouchListener();
         }
         if (tooltipEvent === 'focus' || tooltipEvent === 'both') {
             let target = this.el.nativeElement.querySelector('.p-component');
@@ -734,6 +785,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
         this.unbindContainerMouseleaveListener();
+        this.unbindDocumentTouchListener();
         this.clearTimeouts();
         this.container = null;
         this.scrollHandler = null;
