@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
             <h4>Form Enhancements</h4>
             <p>
                 In this iteration, all form components have been reviewed and new demos for template-driven and reactive forms have been added. During this work, limitations have been identified and resolved as well. In addition, we've introduced a
-                new property named <i>invalid</i> to the form components that you may use style a component as invalid. In previous versions, form components style themselves as invalid using a built-in style like the following.
+                new property named <i>invalid</i> to the form components that you may use to style a component as invalid. In previous versions, form components style themselves as invalid using a built-in style like the following.
             </p>
             <app-code [code]="code1" [hideToggleCode]="true" lang="scss"></app-code>
             <p class="mt-4">
