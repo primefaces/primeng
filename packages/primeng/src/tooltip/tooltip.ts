@@ -98,11 +98,6 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
      */
     @Input({ transform: booleanAttribute }) hideOnEscape: boolean = true;
     /**
-     * Whether to show the tooltip only when the target text overflows (e.g., ellipsis is active).
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) showOnEllipsis: boolean = false;
-    /**
      * Content of the tooltip.
      * @group Props
      */
@@ -150,7 +145,6 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         life: null,
         autoHide: true,
         hideOnEscape: true,
-        showOnEllipsis: false,
         id: uuid('pn_id_') + '_tooltip'
     };
 
@@ -331,10 +325,6 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
             this.setOption({ autoHide: simpleChange.autoHide.currentValue });
         }
 
-        if (simpleChange.showOnEllipsis) {
-            this.setOption({ showOnEllipsis: simpleChange.showOnEllipsis.currentValue });
-        }
-
         if (simpleChange.id) {
             this.setOption({ id: simpleChange.id.currentValue });
         }
@@ -389,16 +379,8 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         this.deactivate();
     }
 
-    hasEllipsis(): boolean {
-        const el = this.el.nativeElement;
-        return el.offsetWidth < el.scrollWidth || el.offsetHeight < el.scrollHeight;
-    }
-
     activate() {
         if (!this.interactionInProgress) {
-            if (this.getOption('showOnEllipsis') && !this.hasEllipsis()) {
-                return;
-            }
             this.active = true;
             this.clearHideTimeout();
 
