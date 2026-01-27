@@ -23,6 +23,8 @@ const INPUTGROUP_INSTANCE = new InjectionToken<InputGroup>('INPUTGROUP_INSTANCE'
     }
 })
 export class InputGroup extends BaseComponent<InputGroupPassThrough> {
+    componentName = 'InputGroup';
+
     _componentStyle = inject(InputGroupStyle);
 
     $pcInputGroup: InputGroup | undefined = inject(INPUTGROUP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

@@ -82,6 +82,8 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     hostDirectives: [Bind]
 })
 export class Editor extends BaseEditableHolder<EditorPassThrough> {
+    componentName = 'Editor';
+
     $pcEditor: Editor | undefined = inject(EDITOR_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

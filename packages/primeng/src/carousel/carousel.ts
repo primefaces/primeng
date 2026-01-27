@@ -159,6 +159,8 @@ import { CarouselStyle } from './style/carouselstyle';
     }
 })
 export class Carousel extends BaseComponent {
+    componentName = 'Carousel';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     onAfterViewChecked(): void {

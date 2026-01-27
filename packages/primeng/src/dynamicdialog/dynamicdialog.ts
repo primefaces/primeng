@@ -89,6 +89,8 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
     hostDirectives: [Bind]
 })
 export class DynamicDialog extends BaseComponent<DialogPassThrough> {
+    componentName = 'Dialog';
+
     _componentStyle = inject(DynamicDialogStyle);
 
     $pcDynamicDialog: DynamicDialog | undefined = inject(DYNAMIC_DIALOG_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

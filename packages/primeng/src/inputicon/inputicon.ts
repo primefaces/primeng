@@ -26,6 +26,8 @@ const INPUTICON_INSTANCE = new InjectionToken<InputIcon>('INPUTICON_INSTANCE');
     }
 })
 export class InputIcon extends BaseComponent<InputIconPassThrough> {
+    componentName = 'InputIcon';
+
     @Input() hostName: any = '';
     /**
      * Style class of the element.

@@ -38,6 +38,8 @@ const TAB_INSTANCE = new InjectionToken<Tab>('TAB_INSTANCE');
     providers: [TabStyle, { provide: TAB_INSTANCE, useExisting: Tab }, { provide: PARENT_INSTANCE, useExisting: Tab }]
 })
 export class Tab extends BaseComponent<TabPassThrough> {
+    componentName = 'Tab';
+
     $pcTab: Tab | undefined = inject(TAB_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

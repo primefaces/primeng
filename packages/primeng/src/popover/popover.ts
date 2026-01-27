@@ -78,6 +78,8 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
     encapsulation: ViewEncapsulation.None
 })
 export class Popover extends BaseComponent<PopoverPassThrough> {
+    componentName = 'Popover';
+
     $pcPopover: Popover | undefined = inject(POPOVER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

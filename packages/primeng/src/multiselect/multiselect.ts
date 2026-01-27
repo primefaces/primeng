@@ -490,6 +490,8 @@ export class MultiSelectItem extends BaseComponent {
     }
 })
 export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
+    componentName = 'MultiSelect';
+
     /**
      * Unique identifier of the component
      * @group Props

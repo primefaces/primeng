@@ -284,6 +284,8 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
     hostDirectives: [Bind]
 })
 export class Toast extends BaseComponent<ToastPassThrough> {
+    componentName = 'Toast';
+
     $pcToast: Toast | undefined = inject(TOAST_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

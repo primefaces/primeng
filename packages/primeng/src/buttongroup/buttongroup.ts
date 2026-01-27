@@ -17,6 +17,8 @@ import { ButtonGroupStyle } from './style/buttongroupstyle';
     providers: [ButtonGroupStyle]
 })
 export class ButtonGroup extends BaseComponent {
+    componentName = 'ButtonGroup';
+
     _componentStyle = inject(ButtonGroupStyle);
 }
 

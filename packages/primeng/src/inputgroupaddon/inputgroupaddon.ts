@@ -23,6 +23,8 @@ const INPUTGROUPADDON_INSTANCE = new InjectionToken<InputGroupAddon>('INPUTGROUP
     hostDirectives: [Bind]
 })
 export class InputGroupAddon extends BaseComponent<InputGroupAddonPassThrough> {
+    componentName = 'InputGroupAddon';
+
     _componentStyle = inject(InputGroupAddonStyle);
 
     $pcInputGroupAddon: InputGroupAddon | undefined = inject(INPUTGROUPADDON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

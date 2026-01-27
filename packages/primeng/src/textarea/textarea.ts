@@ -24,6 +24,8 @@ const TEXTAREA_INSTANCE = new InjectionToken<Textarea>('TEXTAREA_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Textarea extends BaseModelHolder<TextareaPassThrough> {
+    componentName = 'Textarea';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcTextarea: Textarea | undefined = inject(TEXTAREA_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

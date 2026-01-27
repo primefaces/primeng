@@ -39,6 +39,8 @@ const TOOLBAR_INSTANCE = new InjectionToken<Toolbar>('TOOLBAR_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Toolbar extends BaseComponent<ToolbarPassThrough> implements BlockableUI {
+    componentName = 'Toolbar';
+
     $pcToolbar: Toolbar | undefined = inject(TOOLBAR_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

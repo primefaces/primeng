@@ -392,6 +392,8 @@ export class CascadeSelectSub extends BaseComponent {
     hostDirectives: [Bind]
 })
 export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> {
+    componentName = 'CascadeSelect';
+
     $pcCascadeSelect: CascadeSelect | undefined = inject(CASCADESELECT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

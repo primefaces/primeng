@@ -150,6 +150,8 @@ const IMAGE_INSTANCE = new InjectionToken<Image>('IMAGE_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Image extends BaseComponent<ImagePassThrough> {
+    componentName = 'Image';
+
     $pcImage: Image | undefined = inject(IMAGE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

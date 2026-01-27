@@ -275,6 +275,8 @@ export class MenuItemContent extends BaseComponent {
     hostDirectives: [Bind]
 })
 export class Menu extends BaseComponent<MenuPassThrough> {
+    componentName = 'Menu';
+
     /**
      * An array of menuitems.
      * @group Props

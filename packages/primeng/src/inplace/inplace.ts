@@ -64,6 +64,8 @@ export class InplaceContent extends BaseComponent {}
     hostDirectives: [Bind]
 })
 export class Inplace extends BaseComponent<InplacePassThrough> {
+    componentName = 'Inplace';
+
     $pcInplace: Inplace | undefined = inject(INPLACE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

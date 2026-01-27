@@ -96,6 +96,8 @@ export const RATING_VALUE_ACCESSOR: any = {
     hostDirectives: [Bind]
 })
 export class Rating extends BaseEditableHolder<RatingPassThrough> {
+    componentName = 'Rating';
+
     $pcRating: Rating | undefined = inject(RATING_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

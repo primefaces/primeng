@@ -489,6 +489,8 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
     hostDirectives: [Bind]
 })
 export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
+    componentName = 'TieredMenu';
+
     /**
      * An array of menuitems.
      * @group Props

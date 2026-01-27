@@ -132,6 +132,8 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
     encapsulation: ViewEncapsulation.None
 })
 export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
+    componentName = 'ConfirmPopup';
+
     $pcConfirmPopup: ConfirmPopup | undefined = inject(CONFIRMPOPUP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

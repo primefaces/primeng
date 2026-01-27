@@ -431,6 +431,8 @@ export class SelectItem extends BaseComponent {
     hostDirectives: [Bind]
 })
 export class Select extends BaseInput<SelectPassThrough> implements AfterViewInit, AfterViewChecked {
+    componentName = 'Select';
+
     bindDirectiveInstance = inject(Bind, { self: true });
     /**
      * Unique identifier of the component

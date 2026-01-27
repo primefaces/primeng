@@ -149,6 +149,7 @@ type SplitButtonIconPosition = 'left' | 'right';
     hostDirectives: [Bind]
 })
 export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
+    componentName = 'SplitButton';
     $pcSplitButton: SplitButton | undefined = inject(SPLITBUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

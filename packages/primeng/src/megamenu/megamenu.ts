@@ -443,6 +443,8 @@ export class MegaMenuSub extends BaseComponent<MegaMenuPassThrough> {
     hostDirectives: [Bind]
 })
 export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
+    componentName = 'MegaMenu';
+
     bindDirectiveInstance = inject(Bind, { self: true });
     /**
      * An array of menuitems.

@@ -424,6 +424,8 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
     hostDirectives: [Bind]
 })
 export class PickList extends BaseComponent {
+    componentName = 'PickList';
+
     @Input() hostName: any = '';
 
     bindDirectiveInstance = inject(Bind, { self: true });

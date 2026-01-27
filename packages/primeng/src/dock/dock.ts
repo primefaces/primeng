@@ -140,6 +140,8 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Dock extends BaseComponent<DockPassThrough> {
+    componentName = 'Dock';
+
     /**
      * Current id state as a string.
      * @group Props

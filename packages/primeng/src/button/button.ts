@@ -625,6 +625,8 @@ export class ButtonDirective extends BaseComponent {
     hostDirectives: [Bind]
 })
 export class Button extends BaseComponent<ButtonPassThrough> {
+    componentName = 'Button';
+
     @Input() hostName: any = '';
 
     $pcButton: Button | undefined = inject(BUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

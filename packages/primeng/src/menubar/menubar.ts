@@ -448,6 +448,8 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
     hostDirectives: [Bind]
 })
 export class Menubar extends BaseComponent<MenubarPassThrough> {
+    componentName = 'Menubar';
+
     $pcMenubar: Menubar | undefined = inject(MENUBAR_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

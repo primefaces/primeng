@@ -116,6 +116,8 @@ export class RadioControlRegistry {
     hostDirectives: [Bind]
 })
 export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
+    componentName = 'RadioButton';
+
     $pcRadioButton: RadioButton | undefined = inject(RADIOBUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

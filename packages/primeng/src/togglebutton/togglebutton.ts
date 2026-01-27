@@ -74,6 +74,8 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
+    componentName = 'ToggleButton';
+
     $pcToggleButton: ToggleButton | undefined = inject(TOGGLEBUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

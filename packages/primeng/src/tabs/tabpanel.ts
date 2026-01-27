@@ -40,6 +40,8 @@ const TABPANEL_INSTANCE = new InjectionToken<TabPanel>('TABPANEL_INSTANCE');
     hostDirectives: [Bind]
 })
 export class TabPanel extends BaseComponent<TabPanelPassThrough> {
+    componentName = 'TabPanel';
+
     $pcTabPanel: TabPanel | undefined = inject(TABPANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

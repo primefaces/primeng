@@ -148,6 +148,8 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Paginator extends BaseComponent<PaginatorPassThrough> {
+    componentName = 'Paginator';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcPaginator: Paginator | undefined = inject(PAGINATOR_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

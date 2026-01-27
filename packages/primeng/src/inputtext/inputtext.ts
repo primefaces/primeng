@@ -24,6 +24,8 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
     hostDirectives: [Bind]
 })
 export class InputText extends BaseModelHolder<InputTextPassThrough> {
+    componentName = 'InputText';
+
     @Input() hostName: any = '';
 
     /**

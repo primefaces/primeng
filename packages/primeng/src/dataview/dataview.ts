@@ -148,6 +148,8 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
     hostDirectives: [Bind]
 })
 export class DataView extends BaseComponent<DataViewPassThrough> implements BlockableUI {
+    componentName = 'DataView';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcDataView: DataView | undefined = inject(DATAVIEW_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

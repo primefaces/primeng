@@ -68,6 +68,8 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
     hostDirectives: [Bind]
 })
 export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
+    componentName = 'ScrollPanel';
+
     $pcScrollPanel: ScrollPanel | undefined = inject(SCROLLPANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

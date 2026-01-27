@@ -51,6 +51,8 @@ const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Card extends BaseComponent<CardPassThrough> implements BlockableUI {
+    componentName = 'Card';
+
     $pcCard: Card | undefined = inject(CARD_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

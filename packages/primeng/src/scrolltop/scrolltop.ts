@@ -57,6 +57,8 @@ const SCROLLTOP_INSTANCE = new InjectionToken<ScrollTop>('SCROLLTOP_INSTANCE');
     hostDirectives: [Bind]
 })
 export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
+    componentName = 'ScrollTop';
+
     $pcScrollTop: ScrollTop | undefined = inject(SCROLLTOP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

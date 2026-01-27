@@ -38,6 +38,8 @@ const CHART_INSTANCE = new InjectionToken<UIChart>('CHART_INSTANCE');
     hostDirectives: [Bind]
 })
 export class UIChart extends BaseComponent<ChartPassThrough> {
+    componentName = 'Chart';
+
     $pcChart: UIChart | undefined = inject(CHART_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

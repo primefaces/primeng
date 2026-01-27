@@ -105,6 +105,8 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Fieldset extends BaseComponent<FieldsetPassThrough> implements BlockableUI {
+    componentName = 'Fieldset';
+
     $pcFieldset: Fieldset | undefined = inject(FIELDSET_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     _componentStyle = inject(FieldsetStyle);

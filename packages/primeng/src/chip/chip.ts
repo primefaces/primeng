@@ -90,6 +90,8 @@ const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Chip extends BaseComponent<ChipPassThrough> {
+    componentName = 'Chip';
+
     $pcChip: Chip | undefined = inject(CHIP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

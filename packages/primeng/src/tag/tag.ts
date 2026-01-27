@@ -36,6 +36,7 @@ const TAG_INSTANCE = new InjectionToken<Tag>('TAG_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Tag extends BaseComponent<TagPassThrough> implements AfterContentInit {
+    componentName = 'Tag';
     $pcTag: Tag | undefined = inject(TAG_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

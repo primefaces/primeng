@@ -109,6 +109,8 @@ const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
     encapsulation: ViewEncapsulation.None
 })
 export class Drawer extends BaseComponent<DrawerPassThrough> {
+    componentName = 'Drawer';
+
     $pcDrawer: Drawer | undefined = inject(DRAWER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

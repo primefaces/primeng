@@ -27,6 +27,8 @@ const IFTALABEL_INSTANCE = new InjectionToken<IftaLabel>('IFTALABEL_INSTANCE');
     }
 })
 export class IftaLabel extends BaseComponent<IftaLabelPassThrough> implements AfterViewChecked {
+    componentName = 'IftaLabel';
+
     _componentStyle = inject(IftaLabelStyle);
 
     $pcIftaLabel: IftaLabel | undefined = inject(IFTALABEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

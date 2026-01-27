@@ -93,6 +93,8 @@ export { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpTemplateEven
     }
 })
 export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements AfterViewChecked {
+    componentName = 'InputOtp';
+
     _componentStyle = inject(InputOtpStyle);
 
     $pcInputOtp: InputOtp | undefined = inject(INPUTOTP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

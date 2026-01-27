@@ -363,6 +363,7 @@ export class TableService {
     hostDirectives: [Bind]
 })
 export class Table<RowData = any> extends BaseComponent<TablePassThrough> implements BlockableUI {
+    componentName = 'DataTable';
     /**
      * An array of objects to represent dynamic columns that are frozen.
      * @group Props

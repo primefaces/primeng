@@ -337,6 +337,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     hostDirectives: [Bind]
 })
 export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
+    componentName = 'AutoComplete';
+
     $pcAutoComplete: AutoComplete | undefined = inject(AUTOCOMPLETE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

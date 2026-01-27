@@ -33,6 +33,8 @@ const PROGRESSSPINNER_INSTANCE = new InjectionToken<ProgressSpinner>('PROGRESSSP
     hostDirectives: [Bind]
 })
 export class ProgressSpinner extends BaseComponent<ProgressSpinnerPassThrough> {
+    componentName = 'ProgressSpinner';
+
     $pcProgressSpinner: ProgressSpinner | undefined = inject(PROGRESSSPINNER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

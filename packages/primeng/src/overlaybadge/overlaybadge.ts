@@ -29,6 +29,8 @@ const OVERLAYBADGE_INSTANCE = new InjectionToken<OverlayBadge>('OVERLAYBADGE_INS
     hostDirectives: [Bind]
 })
 export class OverlayBadge extends BaseComponent<OverlayBadgePassThrough> {
+    componentName = 'OverlayBadge';
+
     $pcOverlayBadge: OverlayBadge | undefined = inject(OVERLAYBADGE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

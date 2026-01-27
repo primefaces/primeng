@@ -25,6 +25,8 @@ const ICONFIELD_INSTANCE = new InjectionToken<IconField>('ICONFIELD_INSTANCE');
     hostDirectives: [Bind]
 })
 export class IconField extends BaseComponent<IconFieldPassThrough> implements AfterViewChecked {
+    componentName = 'IconField';
+
     @Input() hostName: any = '';
 
     _componentStyle = inject(IconFieldStyle);

@@ -99,7 +99,7 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
-    componentName = 'virtualScroller';
+    componentName = 'VirtualScroller';
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
