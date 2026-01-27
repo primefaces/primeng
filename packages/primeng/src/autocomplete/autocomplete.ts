@@ -240,7 +240,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [attr.data-p]="overlayDataP"
         >
             <ng-template #content>
-                <div [pBind]="ptm('overlay')" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
+                <div [pBind]="ptm('overlay')" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle" (mousedown)="onOverlayMouseDown($event)">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                     <div [pBind]="ptm('listContainer')" [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [tabindex]="-1">
                         <p-scroller
@@ -859,6 +859,8 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     dirty: boolean = false;
 
+    isSelectingOption = signal<boolean>(false);
+
     _itemTemplate: TemplateRef<AutoCompleteItemTemplateContext> | undefined;
 
     _groupTemplate: TemplateRef<AutoCompleteGroupTemplateContext> | undefined;
@@ -1295,6 +1297,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
         this.onModelTouched();
         this.onBlur.emit(event);
+        this.isSelectingOption.set(false);
     }
 
     onInputPaste(event) {
@@ -1619,7 +1622,6 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
         }
 
         this.onSelect.emit({ originalEvent: event, value: option });
-
         isHide && this.hide(true);
     }
 
@@ -1628,6 +1630,14 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             this.changeFocusedOptionIndex(event, index);
         }
     }
+
+    onOverlayMouseDown(event) {
+        // Set flag when user clicks on overlay (before blur event)
+        if (this.visibleOptions()?.length > 0) {
+            this.isSelectingOption.set(true);
+        }
+    }
+    1;
 
     search(event, query, source) {
         //allow empty string but not undefined or null
@@ -1679,14 +1689,28 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     updateInputWithForceSelection(event: any) {
         const input = this.inputEL?.nativeElement;
-
-        if (!this.forceSelection || this.overlayVisible || !input.value) {
+        /**
+         *    If user clicked on the overlay (mousedown event), this means they are in the
+         *    process of selecting an option. We must NOT validate/clear the input yet because:
+         *    - mousedown fires BEFORE blur
+         *    - blur triggers the 'change' event which calls this method
+         *    - At this point, onOptionSelect hasn't been called yet
+         *    - If we validate now, we would incorrectly clear the input before the selection completes
+         *
+         *    Event order when clicking an option:
+         *    mousedown (on overlay) -> blur (on input) -> change -> click -> onOptionSelect
+         *
+         *    The isSelectingOption flag prevents premature validation during this selection process.
+         *    The flag is reset in onInputBlur after all events are processed.
+         *
+         */
+        if (!this.forceSelection || this.isSelectingOption()) {
             return;
         }
 
         const matchedOption = this.visibleOptions()?.find((option) => this.isOptionMatched(option, input.value));
 
-        if (!matchedOption) {
+        if (matchedOption === undefined) {
             input.value = '';
             if (!this.multiple) {
                 this.clear();
@@ -1752,7 +1776,6 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             this.focusedOptionIndex.set(-1);
             isFocus && focus(this.inputEL?.nativeElement);
             this.onHide.emit();
-            this.updateInputWithForceSelection(null);
             this.cd.markForCheck();
         };
 
