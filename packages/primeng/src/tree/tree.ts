@@ -357,7 +357,6 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         }
         this.tree.onNodeCollapse.emit({ originalEvent: event, node: <TreeNode>this.node });
         this.focusVirtualNode();
-
     }
 
     onNodeClick(event: MouseEvent) {

@@ -189,7 +189,7 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
                             <ng-template #loadingicon *ngIf="itemLoadingIconTemplate || _itemLoadingIconTemplate">
                                 <ng-container *ngTemplateOutlet="itemLoadingIconTemplate || _itemLoadingIconTemplate"></ng-container>
                             </ng-template>
-                             <ng-template #filtericon *ngIf="filterIconTemplate || _filterIconTemplate">
+                            <ng-template #filtericon *ngIf="filterIconTemplate || _filterIconTemplate">
                                 <ng-container *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-container>
                             </ng-template>
                         </p-tree>
