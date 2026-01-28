@@ -2,6 +2,34 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.1.1](https://github.com/primefaces/primeng/tree/21.1.1) (2026-01-28)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.0...21.1.1)
+
+**Reverted:**
+- InputMask | Removed unintended deprecation
+
+## [21.1.0](https://github.com/primefaces/primeng/tree/21.1.0) (2026-01-28)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.0.4...21.1.0)
+
+**Fixed bugs:**
+- Dialog | .p-overflow-hidden not removed from body when closing conditionally displayed modal dialog [#19251](https://github.com/primefaces/primeng/issues/19251)
+- Block UI doesn't work with Card with ngtemplate #header [#19276](https://github.com/primefaces/primeng/issues/19276)
+- Memory Leak in BaseComponent [#19249](https://github.com/primefaces/primeng/issues/19249)
+- p-menu Keyboard Navigation broken [#19313](https://github.com/primefaces/primeng/issues/19313)
+- Autocomplete v21.0.2 with ForceSelection does not work with minQueryLength [#19218](https://github.com/primefaces/primeng/issues/19218)
+- TreeSelect: #filtericon template is not applied [#19316](https://github.com/primefaces/primeng/issues/19316)
+- Listbox: aria-multiselectable always true [#19304](https://github.com/primefaces/primeng/issues/19304)
+- Issue Title [#19292](https://github.com/primefaces/primeng/issues/19292)
+- v21 DynamicDialog Memory Leak [#19227](https://github.com/primefaces/primeng/issues/19227)
+- Dialog: headerTemplate should receive ariaLabelledBy in context [#19333](https://github.com/primefaces/primeng/issues/19333)
+- Add componentName across all components and register Tab/TabList/TabPanel/TabPanels in GlobalPassThrough [#19329](https://github.com/primefaces/primeng/issues/19329)
+
+**New features:**
+- Mask support for Calendar [#1426](https://github.com/primefaces/primeng/issues/1426)
+- Component: Tooltip. Add ability to enable tooltip only if element has ellipsis (three dots in the end of text element) [#12246](https://github.com/primefaces/primeng/issues/12246)
+- Touch events support for Tooltip [#8454](https://github.com/primefaces/primeng/issues/8454)
+
+
 ## [21.0.4](https://github.com/primefaces/primeng/tree/21.0.4) (2026-01-19)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.0.3...21.0.4)
 
