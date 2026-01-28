@@ -71,7 +71,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             (blur)="onInputBlur($event)"
             (change)="handleChange($event)"
         />
-        <div [class]="cx('box')" [pBind]="ptm('box')" [attr.data-p]="dataP">
+        <div [class]="cn(cx('box'), readonly ? 'p-readonly' : null)" [pBind]="ptm('box')" [attr.data-p]="dataP">
             <ng-container *ngIf="!checkboxIconTemplate && !_checkboxIconTemplate">
                 <ng-container *ngIf="checked">
                     <span *ngIf="checkboxIcon" [class]="cx('icon')" [ngClass]="checkboxIcon" [pBind]="ptm('icon')" [attr.data-p]="dataP"></span>
@@ -86,7 +86,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
+        '[class]': "cn(cx('root'), styleClass, readonly ? 'p-readonly' : null)",
         '[attr.data-p-highlight]': 'checked',
         '[attr.data-p-checked]': 'checked',
         '[attr.data-p-disabled]': '$disabled()',
