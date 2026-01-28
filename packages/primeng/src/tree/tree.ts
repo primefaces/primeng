@@ -354,9 +354,10 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         (<TreeNode>this.node).expanded = false;
         if (this.tree.virtualScroll) {
             this.tree.updateSerializedValue();
-            this.focusVirtualNode();
         }
         this.tree.onNodeCollapse.emit({ originalEvent: event, node: <TreeNode>this.node });
+        this.focusVirtualNode();
+
     }
 
     onNodeClick(event: MouseEvent) {
@@ -712,8 +713,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
     }
 
     focusNode(element: any) {
-        if (this.tree.droppableNodes) (element.children[1] as HTMLElement).focus();
-        else (element.children[0] as HTMLElement).focus();
+        (element.children[0] as HTMLElement).focus();
     }
 
     focusRowChange(firstFocusableRow, currentFocusedRow, lastVisibleDescendant?) {
