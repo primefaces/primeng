@@ -10,6 +10,125 @@ Screen Reader MegaMenu component uses the menubar role along with aria-orientati
 
 MegaMenu requires a collection of menuitems as its model .
 
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MegaMenuModule } from 'primeng/megamenu';
+import { MegaMenuItem } from 'primeng/api';
+import { Table } from 'primeng/table';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-megamenu [model]="items" />
+        </div>
+    `,
+    standalone: true,
+    imports: [MegaMenuModule]
+})
+export class MegamenuBasicDemo implements OnInit {
+    items: MegaMenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Furniture',
+                icon: 'pi pi-box',
+                items: [
+                    [
+                        {
+                            label: 'Living Room',
+                            items: [{ label: 'Accessories' }, { label: 'Armchair' }, { label: 'Coffee Table' }, { label: 'Couch' }, { label: 'TV Stand' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Kitchen',
+                            items: [{ label: 'Bar stool' }, { label: 'Chair' }, { label: 'Table' }]
+                        },
+                        {
+                            label: 'Bathroom',
+                            items: [{ label: 'Accessories' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Bedroom',
+                            items: [{ label: 'Bed' }, { label: 'Chaise lounge' }, { label: 'Cupboard' }, { label: 'Dresser' }, { label: 'Wardrobe' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Office',
+                            items: [{ label: 'Bookcase' }, { label: 'Cabinet' }, { label: 'Chair' }, { label: 'Desk' }, { label: 'Executive Chair' }]
+                        }
+                    ]
+                ]
+            },
+            {
+                label: 'Electronics',
+                icon: 'pi pi-mobile',
+                items: [
+                    [
+                        {
+                            label: 'Computer',
+                            items: [{ label: 'Monitor' }, { label: 'Mouse' }, { label: 'Notebook' }, { label: 'Keyboard' }, { label: 'Printer' }, { label: 'Storage' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Home Theater',
+                            items: [{ label: 'Projector' }, { label: 'Speakers' }, { label: 'TVs' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Gaming',
+                            items: [{ label: 'Accessories' }, { label: 'Console' }, { label: 'PC' }, { label: 'Video Games' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Appliances',
+                            items: [{ label: 'Coffee Machine' }, { label: 'Fridge' }, { label: 'Oven' }, { label: 'Vaccum Cleaner' }, { label: 'Washing Machine' }]
+                        }
+                    ]
+                ]
+            },
+            {
+                label: 'Sports',
+                icon: 'pi pi-clock',
+                items: [
+                    [
+                        {
+                            label: 'Football',
+                            items: [{ label: 'Kits' }, { label: 'Shoes' }, { label: 'Shorts' }, { label: 'Training' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Running',
+                            items: [{ label: 'Accessories' }, { label: 'Shoes' }, { label: 'T-Shirts' }, { label: 'Shorts' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Swimming',
+                            items: [{ label: 'Kickboard' }, { label: 'Nose Clip' }, { label: 'Swimsuits' }, { label: 'Paddles' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Tennis',
+                            items: [{ label: 'Balls' }, { label: 'Rackets' }, { label: 'Shoes' }, { label: 'Training' }]
+                        }
+                    ]
+                ]
+            }
+        ];
+    }
+}
+```
+
 ## Command
 
 The command property of a menuitem defines the callback to run when an item is activated by click or a key event.
@@ -17,9 +136,6 @@ The command property of a menuitem defines the callback to run when an item is a
 ## Router
 
 Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -84,14 +200,10 @@ export class MegamenuRouterDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Template
 
 Custom content can be placed between p-megamenu tags. Megamenu should be horizontal for custom content.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -226,14 +338,10 @@ export class MegamenuTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Vertical
 
 Layout of the MegaMenu is changed with the orientation property that accepts horizontal and vertical as options.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -354,7 +462,6 @@ export class MegamenuVerticalDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Mega Menu
 

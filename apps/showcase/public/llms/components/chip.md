@@ -10,12 +10,28 @@ Screen Reader Chip uses the label property as the default aria-label , since any
 
 A basic chip with a text is created with the label property. In addition when removable is added, a delete icon is displayed to remove a chip, the optional onRemove event is available to get notified when a chip is hidden.
 
+```typescript
+import { Component } from '@angular/core';
+import { ChipModule } from 'primeng/chip';
+
+@Component({
+    template: `
+        <div class="card flex items-center gap-2 flex-wrap">
+            <p-chip label="Action" />
+            <p-chip label="Comedy" />
+            <p-chip label="Mystery" />
+            <p-chip label="Thriller" [removable]="true" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ChipModule]
+})
+export class ChipBasicDemo {}
+```
+
 ## Icon
 
 A font icon next to the label can be displayed with the icon property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -35,14 +51,10 @@ import { ChipModule } from 'primeng/chip';
 })
 export class ChipIconDemo {}
 ```
-</details>
 
 ## Image
 
 The image property is used to display an image like an avatar.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -62,14 +74,10 @@ import { ChipModule } from 'primeng/chip';
 })
 export class ChipImageDemo {}
 ```
-</details>
 
 ## Template
 
 Content can easily be customized with the dynamic content instead of using the built-in modes.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -89,7 +97,6 @@ import { ChipModule } from 'primeng/chip';
 })
 export class ChipTemplateDemo {}
 ```
-</details>
 
 ## Chip
 

@@ -6,24 +6,71 @@ SplitButton groups a set of commands in an overlay with a default action item.
 
 Screen Reader SplitButton component renders two native button elements, main button uses the label property to define aria-label by default which can be customized with buttonProps . Dropdown button requires an explicit definition to describe it using menuButtonProps option and also includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The popup overlay uses menu role on the list and each action item has a menuitem role with an aria-label as the menuitem label. The id of the menu refers to the aria-controls of the dropdown button.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <p-splitbutton [buttonProps]="{'aria-label': 'Default Action'}" [menuButtonProps]="{'aria-label': 'More Options'}" />
 ```
-</details>
 
 ## Basic
 
 SplitButton has a default action button and a collection of additional options defined by the model property based on MenuModel API.
 
+```typescript
+import { Component, inject } from '@angular/core';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-toast />
+            <p-splitbutton label="Save" (onClick)="save()" [model]="items" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
+})
+export class SplitbuttonBasicDemo {
+    private messageService = inject(MessageService);
+
+    constructor() {
+        this.items = [
+                    {
+                        label: 'Update',
+                        command: () => {
+                            this.update();
+                        }
+                    },
+                    {
+                        label: 'Delete',
+                        command: () => {
+                            this.delete();
+                        }
+                    },
+                    { label: 'Angular.dev', url: 'https://angular.dev' },
+                    { separator: true },
+                    { label: 'Upload', routerLink: ['/fileupload'] }
+                ];
+    }
+
+    save() {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Saved' });
+    }
+
+    update() {
+        this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated' });
+    }
+
+    delete() {
+        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
+    }
+}
+```
+
 ## Disabled
 
 When the disabled attribute is present, the element is uneditable and unfocused. Additionally, the disabled states of the button and menu button can be handled independently. The button is disabled when buttonDisabled is present, and the menu button is disabled when menuButtonDisabled is present.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -78,14 +125,10 @@ export class SplitbuttonDisabledDemo {
     }
 }
 ```
-</details>
 
 ## Icons
 
 The buttons and menuitems have support to display icons.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -138,14 +181,10 @@ export class SplitbuttonIconsDemo {
     }
 }
 ```
-</details>
 
 ## Nested
 
 SplitButton has a default action button and a collection of additional options defined by the model property based on MenuModel API.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -302,14 +341,10 @@ export class SplitbuttonNestedDemo {
     }
 }
 ```
-</details>
 
 ## Outlined
 
 Outlined buttons display a border without a background initially.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -372,14 +407,10 @@ export class SplitbuttonOutlinedDemo {
     }
 }
 ```
-</details>
 
 ## Raised
 
 Raised buttons display a shadow to indicate elevation.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -442,14 +473,10 @@ export class SplitbuttonRaisedDemo {
     }
 }
 ```
-</details>
 
 ## Raised Text
 
 Text buttons can be displayed as raised as well for elevation.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -512,7 +539,6 @@ export class SplitbuttonRaisedtextDemo {
     }
 }
 ```
-</details>
 
 ## reversedkeys-doc
 
@@ -521,9 +547,6 @@ Following keys are reserved in the preset scheme and cannot be used as a token n
 ## Rounded
 
 Rounded buttons have a circular border radius.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -586,14 +609,10 @@ export class SplitbuttonRoundedDemo {
     }
 }
 ```
-</details>
 
 ## Severity
 
 The severity property defines the type of button.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -656,14 +675,10 @@ export class SplitbuttonSeverityDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 SplitButton provides small and large sizes as alternatives to the standard.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -720,14 +735,10 @@ export class SplitbuttonSizesDemo {
     }
 }
 ```
-</details>
 
 ## Template
 
 SplitButton has a default action button and a collection of additional options defined by the model property based on MenuModel API.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -790,14 +801,10 @@ export class SplitbuttonTemplateDemo {
     }
 }
 ```
-</details>
 
 ## Text
 
 Text buttons are displayed as textual elements.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -860,7 +867,6 @@ export class SplitbuttonTextDemo {
     }
 }
 ```
-</details>
 
 ## Split Button
 

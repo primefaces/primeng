@@ -6,27 +6,51 @@ TreeSelect is a form component to choose from hierarchical data.
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledby or ariaLabel props. The treeselect element has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls that refers to the id of the popup. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses tree as the role. Each list item has a treeitem role along with aria-label , aria-selected and aria-expanded attributes. In checkbox selection, aria-checked is used instead of aria-selected . Checkbox and toggle icons are hidden from screen readers as their parent element with treeitem role and attributes are used instead for readers and keyboard support. The container element of a treenode has the group role. The aria-setsize , aria-posinset and aria-level attributes are calculated implicitly and added to each treeitem. If filtering is enabled, filterInputProps can be defined to give aria-* props to the filter input element.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <span id="dd1">Options</span>
 <p-treeselect ariaLabelledBy="dd1" />
 
 <p-treeselect ariaLabel="Options" />
 ```
-</details>
 
 ## Basic
 
 TreeSelect is used as a controlled component with ng-model directive along with an options collection. Internally Tree component is used so the options model is based on TreeNode API. In single selection mode, value binding should be the key value of a node.
 
+```typescript
+import { Component, OnInit, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TreeSelectModule } from 'primeng/treeselect';
+import { NodeService } from '@/service/nodeservice';
+import { TreeNode } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
+        </div>
+    `,
+    standalone: true,
+    imports: [TreeSelectModule, FormsModule],
+    providers: [NodeService]
+})
+export class TreeselectBasicDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    nodes!: any[];
+    selectedNodes: any;
+
+    constructor() {
+        this.nodeService.getFiles().then((files) => (this.nodes = files));
+    }
+
+    ngOnInit() {
+    }
+}
+```
+
 ## Checkbox
 
 Selection of multiple nodes via checkboxes is enabled by configuring selectionMode as checkbox .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -57,14 +81,10 @@ export class TreeselectCheckboxDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Clear Icon
 
 When showClear is enabled, a clear icon is displayed to clear the value.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -95,14 +115,10 @@ export class TreeselectCleariconDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -133,14 +149,10 @@ export class TreeselectDisabledDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -171,14 +183,10 @@ export class TreeselectFilledDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Filter
 
 Filtering is enabled by adding the filter property, by default label property of a node is used to compare against the value in the text field, in order to customize which field(s) should be used during search define filterBy property. In addition filterMode specifies the filtering strategy. In lenient mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand, in strict mode when the query matches a node, filtering continues on all descendants.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -209,14 +217,10 @@ export class TreeselectFilterDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Float Label
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -261,14 +265,10 @@ export class TreeselectFloatlabelDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -299,14 +299,10 @@ export class TreeselectFluidDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -341,14 +337,10 @@ export class TreeselectIftalabelDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -381,14 +373,10 @@ export class TreeselectInvalidDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Lazy
 
 Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using loading property and onNodeExpand method.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, signal } from '@angular/core';
@@ -473,14 +461,10 @@ export class TreeselectLazyDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Multiple
 
 More than one node is selectable by setting selectionMode to multiple . By default in multiple selection mode, metaKey press (e.g. ⌘ ) is necessary to add to existing selections however this can be configured with disabling the metaKeySelection property. Note that in touch enabled devices, TreeSelect always ignores metaKey. In multiple selection mode, value binding should be a key-value pair where key is the node key and value is a boolean to indicate selection.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -511,14 +495,10 @@ export class TreeselectMultipleDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 TreeSelect can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -581,14 +561,10 @@ export class TreeselectReactiveformsDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 TreeSelect provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -623,14 +599,10 @@ export class TreeselectSizesDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Template
 
 TreeSelect offers multiple templates for customization through templating.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -675,12 +647,8 @@ export class TreeselectTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -732,14 +700,10 @@ export class TreeselectTemplatedrivenformsDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## virtualscroll-doc
 
 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -781,7 +745,6 @@ export class TreeselectVirtualscrollDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Tree Select
 

@@ -10,10 +10,51 @@ Screen Reader Default role of the table is table . Header, body and footer eleme
 
 TreeTable requires a collection of TreeNode instances as a value components as children for the representation.
 
-## Column Group
+```typescript
+import { Component, OnInit, inject } from '@angular/core';
+import { TreeTableModule } from 'primeng/treetable';
+import { NodeService } from '@/service/nodeservice';
+import { TreeNode } from 'primeng/api';
 
-<details>
-<summary>TypeScript Example</summary>
+@Component({
+    template: `
+        <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template #header>
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Type</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-rowNode let-rowData="rowData">
+                <tr [ttRow]="rowNode">
+                    <td>
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <span>{{ rowData.name }}</span>
+                        </div>
+                    </td>
+                    <td>{{ rowData.size }}</td>
+                    <td>{{ rowData.type }}</td>
+                </tr>
+            </ng-template>
+        </p-treetable>
+    `,
+    standalone: true,
+    imports: [TreeTableModule],
+    providers: [NodeService]
+})
+export class TreetableBasicDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    files!: TreeNode[];
+
+    ngOnInit() {
+        this.nodeService.getFilesystem().then((files) => (this.files = files));
+    }
+}
+```
+
+## Column Group
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -325,14 +366,10 @@ export class TreetableColumngroupDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## columnresizeexpand-doc
 
 Setting columnResizeMode as expand changes the table width as well.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -394,14 +431,10 @@ export class TreetableColumnresizeexpandDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## columnresizefit-doc
 
 Columns can be resized with drag and drop when resizableColumns is enabled. Default resize mode is fit that does not change the overall table width.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -463,14 +496,10 @@ export class TreetableColumnresizefitDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## columnresizescrollable-doc
 
 To utilize the column resize modes with a scrollable TreeTable, a colgroup template must be defined. The default value of scrollHeight is "flex," it can also be set as a string value.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -540,14 +569,10 @@ export class TreetableColumnresizescrollableDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Column Toggle
 
 Column visibility based on a condition can be implemented with dynamic columns, in this sample a MultiSelect is used to manage the visible columns.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -618,14 +643,10 @@ export class TreetableColumntoggleDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Conditional Style
 
 Particular rows and cells can be styled based on conditions. The ngClass receives a row data as a parameter to return a style class for a row whereas cells are customized using the body template.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -687,14 +708,10 @@ export class TreetableConditionalstyleDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Context Menu
 
 TreeTable has exclusive integration with contextmenu component. In order to attach a menu to a table, add ttContextMenuRow directive to the rows that can be selected with context menu, define a local template variable for the menu and bind it to the contextMenu property of the table. This enables displaying the menu whenever a row is right clicked. A separate contextMenuSelection property is used to get a hold of the right clicked row. For dynamic columns, setting ttContextMenuRowDisabled property as true disables context menu for that particular row.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -773,14 +790,10 @@ export class TreetableContextmenuDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Controlled
 
 Expansion state is controlled with expandedKeys property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -835,14 +848,10 @@ export class TreetableControlledDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Dynamic Columns
 
 Columns can be created programmatically.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -904,14 +913,10 @@ export class TreetableDynamiccolumnsDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## edit-doc
 
 Incell editing is enabled by defining input elements with treeTableCellEditor .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -970,14 +975,10 @@ export class TreetableEditDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Filter
 
 The filterMode specifies the filtering strategy, in lenient mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand, in strict mode when the query matches a node, filtering continues on all descendants. A general filled called filterGlobal is also provided to search all columns that support filtering.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1064,14 +1065,10 @@ export class TreetableFilterDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## flexiblescroll-doc
 
 Flex scroll feature makes the scrollable viewport section dynamic instead of a fixed value so that it can grow or shrink relative to the parent size of the table. Click the button below to display a maximizable Dialog where data viewport adjusts itself according to the size changes.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1129,14 +1126,10 @@ export class TreetableFlexiblescrollDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Grid Lines
 
 Enabling showGridlines displays grid lines.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1181,14 +1174,10 @@ export class TreetableGridlinesDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Lazy Load
 
 Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking corresponding callbacks everytime paging , sorting and filtering occurs. Sample below imitates lazy loading data from a remote datasource using an in-memory list and timeouts to mimic network connection. Enabling the lazy property and assigning the logical number of rows to totalRecords by doing a projection query are the key elements of the implementation so that paginator displays the UI assuming there are actually records of totalRecords size although in reality they are not present on page, only the records that are displayed on the current page exist. In addition, only the root elements should be loaded, children can be loaded on demand using onNodeExpand callback.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1319,14 +1308,10 @@ export class TreetableLazyloadDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## loadingmask-doc
 
 The loading property displays a mask layer to indicate busy state. Use the paginator to display the mask.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1373,14 +1358,10 @@ export class TreetableLoadingmaskDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## loadingskeleton-doc
 
 Skeleton component can be used as a placeholder during the loading process.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -1423,14 +1404,10 @@ export class TreetableLoadingskeletonDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Basic
 
 Pagination is enabled by adding paginator property and defining rows per page.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -1508,14 +1485,10 @@ export class TreetablePaginatorbasicDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Template
 
 Paginator UI is customized using the paginatorleft and paginatorright property. Each element can also be customized further with your own UI to replace the default one, refer to the Paginator component for more information about the advanced customization options.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -1601,14 +1574,10 @@ export class TreetablePaginatortemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Reorder
 
 Order of the columns can be changed using drag and drop when reorderableColumns is present.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1670,14 +1639,10 @@ export class TreetableReorderDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## scrollfrozencolumns-doc
 
 A column can be fixed during horizontal scrolling by enabling the frozenColumns property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1760,14 +1725,10 @@ export class TreetableScrollfrozencolumnsDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## scrollhorizontal-doc
 
 Horizontal scrolling is enabled when the total width of columns exceeds table width.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1836,14 +1797,10 @@ export class TreetableScrollhorizontalDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## scrollvertical-doc
 
 Adding scrollable property along with a scrollHeight for the data viewport enables vertical scrolling with fixed headers.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1905,14 +1862,10 @@ export class TreetableScrollverticalDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## selectioncheckbox-doc
 
 Selection of multiple nodes via checkboxes is enabled by configuring selectionMode as checkbox . In checkbox selection mode, value binding should be a key-value pair where key (or the dataKey) is the node key and value is an object that has checked and partialChecked properties to represent the checked state of a node.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1996,14 +1949,10 @@ export class TreetableSelectioncheckboxDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## selectioneventsc-doc
 
 TreeTable provides onNodeSelect and onNodeUnselect events to listen selection events.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2090,14 +2039,10 @@ export class TreetableSelectioneventscDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Multiple
 
 More than one node is selectable by setting selectionMode to multiple . By default in multiple selection mode, metaKey press (e.g. ⌘ ) is necessary to add to existing selections however this can be configured with disabling the metaKeySelection property. Note that in touch enabled devices, TreeTable always ignores metaKey.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2162,14 +2107,10 @@ export class TreetableSelectionmultipleDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Single
 
 Single node selection is configured by setting selectionMode as single along with selection properties to manage the selection value binding. By default, metaKey press (e.g. ⌘ ) is necessary to unselect a node however this can be configured with disabling the metaKeySelection property. In touch enabled devices this option has no effect and behavior is same as setting it to false
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2233,14 +2174,10 @@ export class TreetableSelectionsingleDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Size
 
 In addition to a regular treetable, alternatives with alternative sizes are available. Add p-treetable-sm class to reduce the size of treetable or p-treetable-lg to enlarge it.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2292,14 +2229,10 @@ export class TreetableSizeDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Multiple Columns
 
 Multiple columns can be sorted by defining sortMode as multiple . This mode requires metaKey (e.g. ⌘ ) to be pressed when clicking a header.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2364,14 +2297,10 @@ export class TreetableSortmultiplecolumnsDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## sortremovable-doc
 
 The removable sort can be implemented using the customSort property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2473,14 +2402,10 @@ export class TreetableSortremovableDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Single Column
 
 Sorting on a column is enabled by adding the ttSortableColumn property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2545,14 +2470,10 @@ export class TreetableSortsinglecolumnDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Template
 
 Custom content at caption , header , body and summary sections are supported via templating.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2627,7 +2548,6 @@ export class TreetableTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Tree Table
 

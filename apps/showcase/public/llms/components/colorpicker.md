@@ -10,12 +10,28 @@ Screen Reader Specification does not cover a color picker yet and using a semant
 
 ColorPicker is used as a controlled input with ngModel property.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'primeng/colorpicker';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-colorpicker [(ngModel)]="color" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ColorPickerModule, FormsModule]
+})
+export class ColorpickerBasicDemo {
+    color: string | undefined;
+}
+```
+
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -35,14 +51,10 @@ export class ColorpickerDisabledDemo {
     color: string | undefined;
 }
 ```
-</details>
 
 ## Format
 
 Default color format to use in value binding is hex and other possible values can be rgb and hsb using the format property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -78,14 +90,10 @@ export class ColorpickerFormatDemo {
     colorHSB: any = { h: 239, s: 59, b: 95 };
 }
 ```
-</details>
 
 ## Inline
 
 ColorPicker is displayed as a popup by default, add inline property to customize this behavior.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -105,14 +113,10 @@ export class ColorpickerInlineDemo {
     color: string | undefined;
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 ColorPicker can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -167,12 +171,8 @@ export class ColorpickerReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -213,7 +213,6 @@ export class ColorpickerTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Color Picker
 

@@ -10,12 +10,34 @@ Screen Reader Breadcrumb uses the nav element and since any attribute is passed 
 
 Breadcrumb provides contextual information about page hierarchy.
 
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { MenuItem } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-breadcrumb [model]="items" [home]="home" />
+        </div>
+    `,
+    standalone: true,
+    imports: [BreadcrumbModule]
+})
+export class BreadcrumbBasicDemo implements OnInit {
+    items: MenuItem[] | undefined;
+    home: MenuItem | undefined;
+
+    ngOnInit() {
+        this.items = [{ label: 'Electronics' }, { label: 'Computer' }, { label: 'Accessories' }, { label: 'Keyboard' }, { label: 'Wireless' }];
+        this.home = { icon: 'pi pi-home' };
+    }
+}
+```
+
 ## Router
 
 Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -36,14 +58,10 @@ export class BreadcrumbRouterDemo {
     home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
 }
 ```
-</details>
 
 ## Template
 
 Custom content can be placed inside the items using the item template. The divider between the items has its own separator template.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -76,7 +94,6 @@ export class BreadcrumbTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Breadcrumb
 

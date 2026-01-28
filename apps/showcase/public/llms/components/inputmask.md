@@ -6,9 +6,6 @@ InputMask component is used to enter input in a certain format such as numeric, 
 
 Screen Reader InputMask component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <label for="date">Date</label>
 <p-inputmask inputId="date"/>
@@ -18,18 +15,33 @@ Screen Reader InputMask component renders a native input element that implicitly
 
 <p-inputmask ariaLabel="Age"/>
 ```
-</details>
 
 ## Basic
 
 InputMask is used as a controlled input with ngModel properties.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputMaskModule } from 'primeng/inputmask';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-inputmask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" />
+        </div>
+    `,
+    standalone: true,
+    imports: [InputMaskModule, FormsModule]
+})
+export class InputmaskBasicDemo {
+    value: string | undefined;
+}
+```
+
 ## Clear Icon
 
 When showClear is enabled, a clear icon is displayed to clear the value.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -49,14 +61,10 @@ export class InputmaskCleariconDemo {
     value: string | undefined;
 }
 ```
-</details>
 
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -76,14 +84,10 @@ export class InputmaskDisabledDemo {
     value: string | undefined;
 }
 ```
-</details>
 
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -103,14 +107,10 @@ export class InputmaskFilledDemo {
     value: string | undefined;
 }
 ```
-</details>
 
 ## Float Label
 
 FloatLabel visually integrates a label with its form element. Visit FloatLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -144,14 +144,10 @@ export class InputmaskFloatlabelDemo {
     value3: string | undefined;
 }
 ```
-</details>
 
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -171,14 +167,10 @@ export class InputmaskFluidDemo {
     value: string | undefined;
 }
 ```
-</details>
 
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -202,14 +194,10 @@ export class InputmaskIftalabelDemo {
     value: string | undefined;
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -231,14 +219,10 @@ export class InputmaskInvalidDemo {
     value2: string | undefined;
 }
 ```
-</details>
 
 ## Mask
 
 Mask format can be a combination of the following definitions; a for alphabetic characters, 9 for numeric characters and * for alphanumberic characters. In addition, formatting characters like ( , ) , - are also accepted.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -271,14 +255,10 @@ export class InputmaskMaskDemo {
     value3: string | undefined;
 }
 ```
-</details>
 
 ## Optional
 
 When the input does not complete the mask definition, it is cleared by default. Use autoClear property to control this behavior. In addition, ? is used to mark anything after the question mark optional.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -298,14 +278,10 @@ export class InputmaskOptionalDemo {
     value: string | undefined;
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 InputMask can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -361,14 +337,10 @@ export class InputmaskReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 InputMask provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -392,14 +364,10 @@ export class InputmaskSizesDemo {
     value3: string | undefined;
 }
 ```
-</details>
 
 ## SlotChar
 
 Default placeholder for a mask is underscore that can be customized using slotChar property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -419,12 +387,8 @@ export class InputmaskSlotcharDemo {
     value: string | undefined;
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -466,7 +430,6 @@ export class InputmaskTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Input Mask
 

@@ -10,12 +10,37 @@ Screen Reader Value to describe the component can either be provided with aria-l
 
 Tree component requires an array of TreeNode objects as its value .
 
+```typescript
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { TreeModule } from 'primeng/tree';
+import { NodeService } from '@/service/nodeservice';
+import { TreeNode } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-tree [value]="files()" class="w-full md:w-[30rem]" />
+        </div>
+    `,
+    standalone: true,
+    imports: [TreeModule],
+    providers: [NodeService]
+})
+export class TreeBasicDemo implements OnInit {
+    private nodeService = inject(NodeService);
+    files = signal<TreeNode[]>(undefined);
+
+    ngOnInit() {
+        this.nodeService.getFiles().then((data) => {
+            this.files.set(data);
+        });
+    }
+}
+```
+
 ## Checkbox
 
 Selection of multiple nodes via checkboxes is enabled by configuring selectionMode as checkbox .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -45,14 +70,10 @@ export class TreeCheckboxDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Context Menu
 
 Tree has exclusive integration with ContextMenu using the contextMenu property along with the contextMenuSelection to manage the selection.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -116,14 +137,10 @@ export class TreeContextmenuDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Controlled
 
 Tree requires a collection of TreeNode instances as a value .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -167,14 +184,10 @@ export class TreeControlledDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Events
 
 An event is provided for each type of user interaction such as expand, collapse and selection.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -232,14 +245,10 @@ export class TreeEventDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Filter
 
 Filtering is enabled by adding the filter property, by default label property of a node is used to compare against the value in the text field, in order to customize which field(s) should be used during search define filterBy property. In addition filterMode specifies the filtering strategy. In lenient mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand, in strict mode when the query matches a node, filtering continues on all descendants.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -275,14 +284,10 @@ export class TreeFilterDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Lazy
 
 Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using loading property and onNodeExpand method.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, signal } from '@angular/core';
@@ -355,14 +360,10 @@ export class TreeLazyDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Multiple
 
 More than one node is selectable by setting selectionMode to multiple . By default in multiple selection mode, metaKey press (e.g. ⌘ ) is necessary to add to existing selections however this can be configured with disabling the metaKeySelection property. Note that in touch enabled devices, Tree always ignores metaKey. In multiple selection mode, value binding should be a key-value pair where key is the node key and value is a boolean to indicate selection.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -399,14 +400,10 @@ export class TreeMultipleDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Single
 
 Single node selection is configured by setting selectionMode as single along with selection properties to manage the selection value binding.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -436,14 +433,10 @@ export class TreeSingleDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Template
 
 Custom node content instead of a node label is defined with the pTemplate property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, signal } from '@angular/core';
@@ -495,14 +488,10 @@ export class TreeTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Virtual Scroll
 
 VirtualScroller is a performance-approach to handle huge data efficiently. Setting virtualScroll property as true and providing a virtualScrollItemSize in pixels would be enough to enable this functionality.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -529,14 +518,10 @@ export class TreeVirtualscrollDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## virtualscrolllazy-doc
 
 VirtualScroller is a performance-approach to handle huge data efficiently. Setting virtualScroll property as true and providing a virtualScrollItemSize in pixels would be enough to enable this functionality.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -579,7 +564,6 @@ export class TreeVirtualscrolllazyDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Tree
 

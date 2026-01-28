@@ -6,27 +6,53 @@ PickList is used to reorder items between different lists.
 
 Screen Reader Value to describe the source listbox and target listbox can be provided with ariaLabelledBy or ariaLabel props. The list elements has a listbox role with the aria-multiselectable attribute. Each list item has an option role with aria-selected and aria-disabled as their attributes. Controls buttons are button elements with an aria-label that refers to the aria.moveTop , aria.moveUp , aria.moveDown , aria.moveBottom , aria.moveTo , aria.moveAllTo , aria.moveFrom and aria.moveAllFrom properties of the locale API by default, alternatively you may use moveTopButtonProps , moveUpButtonProps , moveDownButtonProps , moveToButtonProps , moveAllToButtonProps , moveFromButtonProps , moveFromButtonProps and moveAllFromButtonProps to customize the buttons like overriding the default aria-label attributes. PickList Keyboard Support Key Function tab Moves focus to the first selected option, if there is none then first option receives the focus. up arrow Moves focus to the previous option. down arrow Moves focus to the next option. enter Toggles the selected state of the focused option. space Toggles the selected state of the focused option. home Moves focus to the first option. end Moves focus to the last option. shift + down arrow Moves focus to the next option and toggles the selection state. shift + up arrow Moves focus to the previous option and toggles the selection state. shift + space Selects the items between the most recently selected option and the focused option. control + shift + home Selects the focused options and all the options up to the first one. control + shift + end Selects the focused options and all the options down to the first one. control + a Selects all options. Buttons Keyboard Support Key Function enter Executes button action. space Executes button action.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <span id="lb">Options</span>
 <p-picklist ariaLabelledBy="lb" />
 
 <p-picklist ariaLabel="City" />
 ```
-</details>
 
 ## Basic
 
 PickList is used as a controlled input with source and target properties. Content of a list item needs to be defined with the item template that receives an object in the list as parameter. Drag & drop functionality depends on &#64;angular/cdk package.
 
+```typescript
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { PickListModule } from 'primeng/picklist';
+import { ProductService } from '@/service/productservice';
+import { Product } from '@/domain/product';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
+                <ng-template let-item #item>
+                    {{ item.name }}
+                </ng-template>
+            </p-picklist>
+        </div>
+    `,
+    standalone: true,
+    imports: [PickListModule],
+    providers: [ProductService]
+})
+export class PicklistBasicDemo implements OnInit {
+    private productService = inject(ProductService);
+    sourceProducts = signal<Product[]>([]);
+    targetProducts = signal<Product[]>([]);
+
+    ngOnInit() {
+        this.carService.getProductsSmall().then((products) => {
+            this.sourceProducts.set(products);
+        });
+    }
+}
+```
+
 ## Filter
 
 Filter value is checked against the property of an object configured with the filterBy property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -84,14 +110,10 @@ export class PicklistFilterDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Template
 
 For custom content support define an item template that gets the item instance as a parameter. In addition sourceheader and targetheader templates are provided for further customization.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -139,12 +161,8 @@ export class PicklistTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## templates-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -254,7 +272,6 @@ import { Component } from '@angular/core';
 })
 export class PicklistTemplatesDemo {}
 ```
-</details>
 
 ## Pick List
 

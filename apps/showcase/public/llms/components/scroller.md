@@ -10,12 +10,37 @@ Screen Reader VirtualScroller uses a semantic list element to list the items. No
 
 VirtualScroller requires items as the data to display, itemSize for the dimensions of an item and item template are required on component. In addition, an initial array is required based on the total number of items to display. Size of the viewport is configured using scrollWidth , scrollHeight properties directly or with CSS width and height styles.
 
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { VirtualScrollerModule } from 'primeng/virtualscroller';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-virtualscroller [items]="items" [itemSize]="50" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+                <ng-template #item let-item let-options="options">
+                    <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                        {{ item }}
+                    </div>
+                </ng-template>
+            </p-virtualscroller>
+        </div>
+    `,
+    standalone: true,
+    imports: [VirtualScrollerModule]
+})
+export class ScrollerBasicDemo implements OnInit {
+    items!: string[];
+
+    ngOnInit() {
+        this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
+    }
+}
+```
+
 ## Delay
 
 Scroll delay is adjusted by using delay property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -67,14 +92,10 @@ export class ScrollerDelayDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Grid
 
 Scrolling can be enabled vertically and horizontally when orientation is set as both . In this mode, itemSize should be an array where first value is the height of an item and second is the width.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -103,14 +124,10 @@ export class ScrollerGridDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Horizontal
 
 Setting orientation to horizontal enables scrolling horizontally. In this case, the itemSize should refer to the width of an item.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -139,14 +156,10 @@ export class ScrollerHorizontalDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## lazyload-doc
 
 Lazy mode is handy to deal with large datasets where instead of loading the entire data, small chunks of data are loaded on demand by invoking onLazyLoad callback everytime scrolling requires a new chunk. To implement lazy loading, enable lazy attribute, initialize your data as a placeholder with a length and finally implement a method callback using onLazyLoad that actually loads a chunk from a datasource. onLazyLoad gets an event object that contains information about the chunk of data to load such as the index and number of items to load. Notice that a new template called loadingItem is also required to display as a placeholder while the new items are being loaded.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -207,14 +220,10 @@ export class ScrollerLazyloadDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## loader-doc
 
 Busy state is enabled by adding showLoader property which blocks the UI with a modal by default. Alternatively, loader template can be used to customize items e.g. with Skeleton .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -260,14 +269,10 @@ export class ScrollerLoaderDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Programmatic
 
 Scrolling to a specific index can be done with the scrollToIndex function.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -302,7 +307,6 @@ export class ScrollerProgrammaticDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Scroll Options
 
@@ -311,9 +315,6 @@ The properties of scroller component can be used like an object in it.
 ## Template
 
 Scroller content is customizable by using ng-template . Valid values are content , item , loader and loadericon
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -360,7 +361,6 @@ export class ScrollerTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Scroller
 
@@ -382,7 +382,7 @@ Scroller is a performance-approach to handle huge data efficiently.
 | itemSize | number \| number[] | - | The height/width of item according to orientation. |
 | scrollHeight | string | - | Height of the scroll viewport. |
 | scrollWidth | string | - | Width of the scroll viewport. |
-| orientation | "vertical" \| "horizontal" \| "both" | - | The orientation of scrollbar. |
+| orientation | "both" \| "vertical" \| "horizontal" | - | The orientation of scrollbar. |
 | step | number | - | Used to specify how many items to load in each load method in lazy mode. |
 | delay | number | - | Delay in scroll before new data is loaded. |
 | resizeDelay | number | - | Delay after window's resize finishes. |

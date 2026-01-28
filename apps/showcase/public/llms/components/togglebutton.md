@@ -6,27 +6,39 @@ ToggleButton is used to select a boolean value using a button.
 
 Screen Reader ToggleButton component uses an element with button role and updates aria-pressed state for screen readers. Value to describe the component can be defined with ariaLabelledBy or ariaLabel props, it is highly suggested to use either of these props as the component changes the label displayed which will result in screen readers to read different labels when the component receives focus. To prevent this, always provide an aria label that does not change related to state.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <span id="rememberme">Remember Me</span>
 <p-togglebutton ariaLabelledBy="rememberme" />
 
 <p-togglebutton ariaLabel="Remember Me" />
 ```
-</details>
 
 ## Basic
 
 Two-way binding to a boolean property is defined using the standard ngModel directive.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" class="w-24" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ToggleButtonModule, FormsModule]
+})
+export class TogglebuttonBasicDemo {
+    checked: boolean = false;
+}
+```
+
 ## Customized
 
 Icons and Labels can be customized using onLabel , offLabel , onIcon and offIcon properties.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -46,14 +58,10 @@ export class TogglebuttonCustomizedDemo {
     checked: boolean = false;
 }
 ```
-</details>
 
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -73,14 +81,10 @@ export class TogglebuttonDisabledDemo {
     checked: boolean = false;
 }
 ```
-</details>
 
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -100,14 +104,10 @@ export class TogglebuttonFluidDemo {
     checked: boolean = false;
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -127,14 +127,10 @@ export class TogglebuttonInvalidDemo {
     checked: boolean = false;
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 ToggleButton can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -189,14 +185,10 @@ export class TogglebuttonReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 ToggleButton provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -220,12 +212,8 @@ export class TogglebuttonSizesDemo {
     value3: boolean = false;
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -268,7 +256,6 @@ export class TogglebuttonTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Toggle Button
 

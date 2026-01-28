@@ -10,12 +10,28 @@ Screen Reader Rating component internally uses radio buttons that are only visib
 
 Two-way value binding is defined using ngModel .
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RatingModule } from 'primeng/rating';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-rating [(ngModel)]="value" />
+        </div>
+    `,
+    standalone: true,
+    imports: [RatingModule, FormsModule]
+})
+export class RatingBasicDemo {
+    value!: number;
+}
+```
+
 ## Disabled
 
 When disabled is present, a visual hint is applied to indicate that the Knob cannot be interacted with.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -35,14 +51,10 @@ export class RatingDisabledDemo {
     value: number = 5;
 }
 ```
-</details>
 
 ## Number of Stars
 
 Number of stars to display is defined with stars property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -62,14 +74,10 @@ export class RatingNumberofstarsDemo {
     value: number = 5;
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 Rating can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -126,14 +134,10 @@ export class RatingReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Readonly
 
 When readonly present, value cannot be edited.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -153,14 +157,10 @@ export class RatingReadonlyDemo {
     value: number = 3;
 }
 ```
-</details>
 
 ## Template
 
 Templating allows customizing the content where the icon instance is available as the implicit variable.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -187,12 +187,8 @@ export class RatingTemplateDemo {
     value!: number;
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -235,14 +231,10 @@ export class RatingTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## withoutcancel-doc
 
 A cancel icon is displayed to reset the value by default, set cancel as false to remove this option.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -262,7 +254,6 @@ export class RatingWithoutcancelDemo {
     value!: number;
 }
 ```
-</details>
 
 ## Rating
 

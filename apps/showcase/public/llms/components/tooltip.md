@@ -10,9 +10,6 @@ Screen Reader Tooltip component uses tooltip role and when it becomes visible th
 
 Tooltip is hidden when mouse leaves the target element, in cases where tooltip needs to be interacted with, set autoHide to false to change the default behavior.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 import { Component } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
@@ -30,14 +27,10 @@ import { TooltipModule } from 'primeng/tooltip';
 })
 export class TooltipAutohideDemo {}
 ```
-</details>
 
 ## Custom
 
 Tooltip can use either a string or a TemplateRef .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -89,14 +82,10 @@ import { TooltipModule } from 'primeng/tooltip';
 })
 export class TooltipCustomDemo {}
 ```
-</details>
 
 ## Delay
 
 Adding delays to the show and hide events are defined with showDelay and hideDelay options respectively.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -114,14 +103,10 @@ import { TooltipModule } from 'primeng/tooltip';
 })
 export class TooltipDelayDemo {}
 ```
-</details>
 
 ## Event
 
 Tooltip gets displayed on hover event of its target by default, other option is the focus event to display and blur to hide.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -139,14 +124,10 @@ import { TooltipModule } from 'primeng/tooltip';
 })
 export class TooltipEventDemo {}
 ```
-</details>
 
 ## Tooltip Options
 
 Tooltip is also configurable by using tooltipOptions property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -166,14 +147,10 @@ export class TooltipOptionsDemo {
     tooltipOptions: any;
 }
 ```
-</details>
 
 ## Position
 
 Position of the tooltip is specified using tooltipPosition attribute. Valid values are top , bottom , right and left . Default position of the tooltip is right .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -194,7 +171,6 @@ import { TooltipModule } from 'primeng/tooltip';
 })
 export class TooltipPositionDemo {}
 ```
-</details>
 
 ## Tooltip
 
@@ -209,7 +185,7 @@ Tooltip directive provides advisory information for a component.
 | pt | InputSignal<TooltipPassThroughOptions<unknown>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | tooltipPosition | string | - | Position of the tooltip. |
-| tooltipEvent | any | hover | Event to show the tooltip. |
+| tooltipEvent | "hover" \| "focus" \| "both" | hover | Event to show the tooltip. |
 | positionStyle | string | - | Type of CSS position. |
 | tooltipStyleClass | string | - | Style class of the tooltip. |
 | tooltipZIndex | string | - | Whether the z-index should be managed automatically to always go on top or have a fixed value. |
@@ -222,6 +198,7 @@ Tooltip directive provides advisory information for a component.
 | autoHide | boolean | true | Whether to hide tooltip when hovering over tooltip content. |
 | fitContent | boolean | true | Automatically adjusts the element position when there is not enough space on the selected position. |
 | hideOnEscape | boolean | true | Whether to hide tooltip on escape key press. |
+| showOnEllipsis | boolean | false | Whether to show the tooltip only when the target text overflows (e.g., ellipsis is active). |
 | content | string \| TemplateRef<HTMLElement> | - | Content of the tooltip. |
 | disabled | boolean | - | When present, it specifies that the component should be disabled. |
 | tooltipOptions | TooltipOptions | - | Specifies the tooltip configuration options for the component. |

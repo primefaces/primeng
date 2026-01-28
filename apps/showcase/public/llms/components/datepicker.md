@@ -6,9 +6,6 @@ DatePicker is an input component to select a date.
 
 Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using aria-labelledby , aria-label props. The input element has combobox role in addition to aria-autocomplete as "none", aria-haspopup as "dialog" and aria-expanded attributes. The relation between the input and the popup is created with aria-controls attribute that refers to the id of the popup. The optional DatePicker button requires includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The value to read is retrieved from the chooseDate key of the aria property from the locale API. This label is also used for the aria-label of the popup as well. When there is a value selected, it is formatted and appended to the label to be able to notify users about the current value. Popup has a dialog role along with aria-modal and aria-label . The navigation buttons at the header has an aria-label retrieved from the prevYear , nextYear , prevMonth , nextMonth , prevDecade and nextDecade keys of the locale aria API. Similarly month picker button uses the chooseMonth and year picker button uses the chooseYear keys. Main date table uses grid role that contains th elements with col as the scope along with abbr tag resolving to the full name of the month. Each date cell has an aria-label referring to the full date value. Buttons at the footer utilize their readable labels as aria-label as well. Selected date also receives the aria-selected attribute. Timepicker spinner buttons get their labels for aria-label from the aria locale API using the prevHour , nextHour , prevMinute , nextMinute , prevSecond , nextSecond , am and pm keys. DatePicker also includes a hidden section that is only available to screen readers with aria-live as "polite". This element is updated when the selected date changes to instruct the user about the current date selected.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <label for="date1">Date</label>
 <p-datepicker inputId="date1"/>
@@ -18,18 +15,33 @@ Screen Reader Value to describe the component can either be provided via label t
 
 <p-datepicker ariaLabel="Date"/>
 ```
-</details>
 
 ## Basic
 
 Two-way value binding is defined using the standard ngModel directive referencing to a Date property.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-datepicker [(ngModel)]="date" />
+        </div>
+    `,
+    standalone: true,
+    imports: [DatePickerModule, FormsModule]
+})
+export class DatepickerBasicDemo {
+    date: Date | undefined;
+}
+```
+
 ## Button Bar
 
 When showButtonBar is present, today and clear buttons are displayed at the footer. The content can be fully customized with the buttonbar template as well.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -65,14 +77,10 @@ export class DatepickerButtonbarDemo {
     dates: Date[] | undefined;
 }
 ```
-</details>
 
 ## Clear Icon
 
 When showClear is enabled, a clear icon is displayed to clear the value.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -92,14 +100,10 @@ export class DatepickerCleariconDemo {
     date: Date | undefined;
 }
 ```
-</details>
 
 ## Date Template
 
 Custom content can be placed inside date cells with the ng-template property that takes a Date as a parameter.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -124,14 +128,10 @@ export class DatepickerDatetemplateDemo {
     date: Date[] | undefined;
 }
 ```
-</details>
 
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -151,12 +151,8 @@ export class DatepickerDisabledDemo {
     date: Date | undefined;
 }
 ```
-</details>
 
 ## events-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -250,14 +246,10 @@ import { Component } from '@angular/core';
 })
 export class DatepickerEventsDemo {}
 ```
-</details>
 
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -277,14 +269,10 @@ export class DatepickerFilledDemo {
     date: Date[] | undefined;
 }
 ```
-</details>
 
 ## Float Label
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -318,14 +306,10 @@ export class DatepickerFloatlabelDemo {
     value3: Date | undefined;
 }
 ```
-</details>
 
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -345,14 +329,10 @@ export class DatepickerFluidDemo {
     date: Date | undefined;
 }
 ```
-</details>
 
 ## Format
 
 Default date format is mm/dd/yy which can be customized using the dateFormat property. Following options can be a part of the format. d - day of month (no leading zero) dd - day of month (two digit) o - day of the year (no leading zeros) oo - day of the year (three digit) D - day name short DD - day name long m - month of year (no leading zero) mm - month of year (two digit) M - month name short MM - month name long y - year (two digit) yy - year (four digit) &#64; - Unix timestamp (ms since 01/01/1970) ! - Windows ticks (100ns since 01/01/0001) '...' - literal text '' - single quote anything else - literal text
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -372,14 +352,10 @@ export class DatepickerFormatDemo {
     date: Date | undefined;
 }
 ```
-</details>
 
 ## Icon
 
 An additional icon is displayed next to the input field when showIcon is present.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -416,14 +392,10 @@ export class DatepickerIconDemo {
     date3: Date | undefined;
 }
 ```
-</details>
 
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -447,14 +419,10 @@ export class DatepickerIftalabelDemo {
     value: Date | undefined;
 }
 ```
-</details>
 
 ## Inline
 
 DatePicker is displayed as a popup by default, add inline property to customize this behavior.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -474,14 +442,10 @@ export class DatepickerInlineDemo {
     date: Date[] | undefined;
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -503,16 +467,12 @@ export class DatepickerInvalidDemo {
     date2: Date | undefined;
 }
 ```
-</details>
 
 ## Locale
 
 Locale for different languages and formats is defined globally, refer to the PrimeNG Locale configuration for more information.
 
 ## methods-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -545,7 +505,6 @@ import { Component } from '@angular/core';
 })
 export class DatepickerMethodsDemo {}
 ```
-</details>
 
 ## minmaxdox
 
@@ -554,9 +513,6 @@ Boundaries for the permitted dates that can be entered are defined with minDate 
 ## month-doc
 
 Month only picker is enabled by specifying view as month in addition to a suitable dateFormat .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -576,14 +532,10 @@ export class DatepickerMonthDemo {
     date: Date[] | undefined;
 }
 ```
-</details>
 
 ## Multiple
 
 In order to choose multiple dates, set selectionMode as multiple . In this mode, the value binding should be an array.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -603,14 +555,10 @@ export class DatepickerMultipleDemo {
     dates: Date[] | undefined;
 }
 ```
-</details>
 
 ## multiplemonths.-doc
 
 Number of months to display is configured with the numberOfMonths property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -630,14 +578,10 @@ export class DatepickerMultiplemonths.Demo {
     date: Date[] | undefined;
 }
 ```
-</details>
 
 ## Range
 
 A range of dates can be selected by defining selectionMode as range , in this case the bound value would be an array with two values where first date is the start of the range and second date is the end.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -657,14 +601,10 @@ export class DatepickerRangeDemo {
     rangeDates: Date[] | undefined;
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 DatePicker can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -719,14 +659,10 @@ export class DatepickerReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 DatePicker provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -750,14 +686,10 @@ export class DatepickerSizesDemo {
     value3: Date | undefined;
 }
 ```
-</details>
 
 ## template-doc
 
 Calendar UI accepts custom content using header and footer templates.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -779,12 +711,8 @@ export class DatepickerTemplateDemo {
     date: Date[] | undefined;
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -825,12 +753,8 @@ export class DatepickerTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## templates-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -895,14 +819,10 @@ import { Component } from '@angular/core';
 })
 export class DatepickerTemplatesDemo {}
 ```
-</details>
 
 ## Time
 
 A time picker is displayed when showTime is enabled where 12/24 hour format is configured with hourFormat property. In case, only time needs to be selected, add timeOnly to hide the date section.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -935,14 +855,10 @@ export class DatepickerTimeDemo {
     time: Date[] | undefined;
 }
 ```
-</details>
 
 ## touchui-doc
 
 When touchUI is enabled, overlay is displayed as optimized for touch devices.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -962,14 +878,10 @@ export class DatepickerTouchuiDemo {
     date: Date[] | undefined;
 }
 ```
-</details>
 
 ## year-doc
 
 Specifying view as year in addition to a suitable dateFormat enables the year picker.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -989,7 +901,6 @@ export class DatepickerYearDemo {
     date: Date[] | undefined;
 }
 ```
-</details>
 
 ## Date Picker
 

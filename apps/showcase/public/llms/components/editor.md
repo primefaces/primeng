@@ -10,12 +10,28 @@ Quill performs generally well in terms of accessibility. The elements in the too
 
 A model can be bound using the standard ngModel directive.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { EditorModule } from 'primeng/editor';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
+        </div>
+    `,
+    standalone: true,
+    imports: [EditorModule, FormsModule]
+})
+export class EditorBasicDemo {
+    text: string | undefined;
+}
+```
+
 ## customtoolbar-doc
 
 Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to Quill documentation for available controls.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -43,7 +59,6 @@ export class EditorCustomtoolbarDemo {
     text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
 }
 ```
-</details>
 
 ## Quill
 
@@ -52,9 +67,6 @@ Editor uses Quill editor underneath so it needs to be installed as a dependency.
 ## reactiveforms-doc
 
 Editor can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -110,14 +122,10 @@ export class EditorReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## ReadOnly
 
 When readonly is present, the value cannot be edited.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -137,12 +145,8 @@ export class EditorReadonlyDemo {
     text: string = 'Always bet on Prime!';
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -183,7 +187,6 @@ export class EditorTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Editor
 

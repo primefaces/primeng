@@ -10,12 +10,27 @@ Screen Reader ScrollTop uses a button element with an aria-label that refers to 
 
 ScrollTop listens window scroll by default.
 
+```typescript
+import { Component } from '@angular/core';
+import { ScrollTopModule } from 'primeng/scrolltop';
+
+@Component({
+    template: `
+        <div class="card flex flex-col items-center">
+            <p>Scroll down the page to display the ScrollTo component.</p>
+            <i class="pi pi-angle-down animate-fadeout animate-duration-1000 animate-infinite" style="fontsize: 2rem; margin-bottom: 30rem"></i>
+            <p-scrolltop />
+        </div>
+    `,
+    standalone: true,
+    imports: [ScrollTopModule]
+})
+export class ScrolltopBasicDemo {}
+```
+
 ## Target Element
 
 Setting the target property to parent binds ScrollTop to its parent element that has scrolling content.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -41,7 +56,6 @@ import { ScrollTopModule } from 'primeng/scrolltop';
 })
 export class ScrolltopElementDemo {}
 ```
-</details>
 
 ## Scroll Top
 

@@ -10,9 +10,6 @@ Screen Reader A card can be utilized in many use cases as a result no role is en
 
 Card content can be customized further with subHeader , header and footer properties.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
@@ -45,11 +42,31 @@ import { CardModule } from 'primeng/card';
 })
 export class CardAdvancedDemo {}
 ```
-</details>
 
 ## Basic
 
 A simple Card is created with a header property along with the content as children.
+
+```typescript
+import { Component } from '@angular/core';
+import { CardModule } from 'primeng/card';
+
+@Component({
+    template: `
+        <div class="mb-4 p-8">
+            <p-card header="Simple Card">
+                <p class="m-0">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+                    quas!
+                </p>
+            </p-card>
+        </div>
+    `,
+    standalone: true,
+    imports: [CardModule]
+})
+export class CardBasicDemo {}
+```
 
 ## Card
 

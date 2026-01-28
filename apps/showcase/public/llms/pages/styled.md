@@ -98,9 +98,6 @@ The color scheme palette that varies between light and dark modes is specified w
 
 The theme property is used to customize the initial theme.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 import { ApplicationConfig } from '@angular/core';
 import { providePrimeNG } from 'primeng/config';
@@ -116,7 +113,6 @@ export const appConfig: ApplicationConfig = {
     ]
 };
 ```
-</details>
 
 ## Updatepreset-
 

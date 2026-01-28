@@ -10,12 +10,92 @@ Screen Reader Carousel uses region role and since any attribute is passed to the
 
 Carousel requires a collection of items as its value along with a template to render each item.
 
+```typescript
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { CarouselModule } from 'primeng/carousel';
+import { TagModule } from 'primeng/tag';
+import { ProductService } from '@/service/productservice';
+import { Product } from '@/domain/product';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-carousel [value]="products()" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+                <ng-template let-product #item>
+                    <div class="border border-surface rounded-border m-2 p-4">
+                        <div class="mb-4">
+                            <div class="relative mx-auto">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                            </div>
+                        </div>
+                        <div class="mb-4 font-medium">{{ product.name }}</div>
+                        <div class="flex justify-between items-center">
+                            <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+                            <span>
+                                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                            </span>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, CarouselModule, TagModule],
+    providers: [ProductService]
+})
+export class CarouselBasicDemo implements OnInit {
+    private productService = inject(ProductService);
+    products = signal<Product[]>([]);
+    responsiveOptions: any[] | undefined;
+
+    ngOnInit() {
+        this.productService.getProductsSmall().then((data) => {
+            this.products.set(data.slice(0, 9));
+        });
+        this.responsiveOptions = [
+            {
+                breakpoint: '1400px',
+                numVisible: 2,
+                numScroll: 1
+            },
+            {
+                breakpoint: '1199px',
+                numVisible: 3,
+                numScroll: 1
+            },
+            {
+                breakpoint: '767px',
+                numVisible: 2,
+                numScroll: 1
+            },
+            {
+                breakpoint: '575px',
+                numVisible: 1,
+                numScroll: 1
+            }
+        ];
+    }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warn';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+}
+```
+
 ## Circular
 
 When autoplayInterval is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling circular property needs to be added which is enabled automatically in auto play mode.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -99,14 +179,10 @@ export class CarouselCircularDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Responsive
 
 Carousel supports specific configuration per screen size with the responsiveOptions property that takes an array of objects where each object defines the max-width breakpoint , numVisible for the number of items items per page and numScroll for number of items to scroll. When responsiveOptions is defined, the numScroll and numVisible properties of the Carousel are used as default when there is breakpoint that applies.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -190,14 +266,10 @@ export class CarouselResponsiveDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Vertical
 
 To create a vertical Carousel, orientation needs to be set to vertical along with a verticalViewPortHeight .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -258,7 +330,6 @@ export class CarouselVerticalDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Carousel
 

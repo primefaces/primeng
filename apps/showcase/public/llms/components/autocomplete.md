@@ -6,9 +6,6 @@ AutoComplete is an input component that provides real-time suggestions when bein
 
 Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props. The input element has combobox role in addition to aria-autocomplete , aria-haspopup and aria-expanded attributes. The relation between the input and the popup is created with aria-controls and aria-activedescendant attribute is used to instruct screen reader which option to read during keyboard navigation within the popup list. In multiple mode, chip list uses listbox role whereas each chip has the option role with aria-label set to the label of the chip. The popup list has an id that refers to the aria-controls attribute of the input element and uses listbox as the role. Each list item has option role and an id to match the aria-activedescendant of the input element.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <label for="ac1">Username</label>
 <p-autocomplete inputId="ac1"/>
@@ -18,14 +15,10 @@ Screen Reader Value to describe the component can either be provided via label t
 
 <p-autocomplete ariaLabel="City" />
 ```
-</details>
 
 ## advanced-chips-doc
 
 This example demonstrates an advanced use case with templating, object handling, dropdown, and multiple mode.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -119,14 +112,10 @@ export class AutocompleteAdvancedChipsDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## basic-chips-doc
 
 With ⁠multiple enabled, the AutoComplete component behaves like a chips or tags input. Use addOnBlur , ⁠addOnTab , and ⁠separator properties to customize the keystroke behavior for adding items.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -156,18 +145,43 @@ export class AutocompleteBasicChipsDemo {
     valueCombined: any[] = [];
 }
 ```
-</details>
 
 ## Basic
 
 AutoComplete uses ngModel for two-way binding, requires a list of suggestions and a completeMethod to query for the results. The completeMethod gets the query text as event.query property and should update the suggestions with the search results.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
+        </div>
+    `,
+    standalone: true,
+    imports: [AutoCompleteModule, FormsModule]
+})
+export class AutocompleteBasicDemo {
+    items: any[] = [];
+    value: any;
+
+    search(event: AutoCompleteCompleteEvent) {
+        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
+    }
+}
+```
+
 ## clear-icon-doc
 
 When showClear is enabled, a clear icon is displayed to clear the value.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -197,14 +211,10 @@ export class AutocompleteClearIconDemo {
     }
 }
 ```
-</details>
 
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -235,14 +245,10 @@ export class AutocompleteDisabledDemo {
     }
 }
 ```
-</details>
 
 ## Dropdown
 
 Enabling dropdown property displays a button next to the input field where click behavior of the button is defined using dropdownMode property that takes blank or current as possible values. blank is the default mode to send a query with an empty string whereas current setting sends a query with the current value of the input.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -274,14 +280,10 @@ export class AutocompleteDropdownDemo {
     }
 }
 ```
-</details>
 
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -312,14 +314,10 @@ export class AutocompleteFilledDemo {
     }
 }
 ```
-</details>
 
 ## float-label-doc
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -363,14 +361,10 @@ export class AutocompleteFloatLabelDemo {
     }
 }
 ```
-</details>
 
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -400,14 +394,10 @@ export class AutocompleteFluidDemo {
     }
 }
 ```
-</details>
 
 ## force-selection-doc
 
 ForceSelection mode validates the manual input to check whether it also exists in the suggestions list, if not the input value is cleared to make sure the value passed to the model is always one of the suggestions.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -457,14 +447,10 @@ export class AutocompleteForceSelectionDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Group
 
 Option grouping is enabled when group property is set to true . group template is available to customize the option groups. All templates get the option instance as the default local template variable.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -552,14 +538,10 @@ export class AutocompleteGroupDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## ifta-label-doc
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -593,14 +575,10 @@ export class AutocompleteIftaLabelDemo {
     }
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -632,14 +610,10 @@ export class AutocompleteInvalidDemo {
     }
 }
 ```
-</details>
 
 ## Multiple
 
 Enable multiple selection mode using the ⁠multiple property to allow users to select more than one value from the autocomplete. When enabled, the value reference must be an array.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -673,14 +647,10 @@ export class AutocompleteMultipleDemo {
     }
 }
 ```
-</details>
 
 ## Objects
 
 AutoComplete can also work with objects using the optionLabel property that defines the label to display as a suggestion. The value passed to the model would still be the object instance of a suggestion. Here is an example with a Country object that has name and code fields such as &#123;name: "United States", code:"USA"&#125; .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -731,14 +701,10 @@ export class AutocompleteObjectsDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## reactive-forms-doc
 
 AutoComplete can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -803,14 +769,10 @@ export class AutocompleteReactiveFormsDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 AutoComplete provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -839,14 +801,10 @@ export class AutocompleteSizesDemo {
     }
 }
 ```
-</details>
 
 ## Template
 
 AutoComplete offers multiple templates for customization through templating.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -911,12 +869,8 @@ export class AutocompleteTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## template-driven-forms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -962,14 +916,10 @@ export class AutocompleteTemplateDrivenFormsDemo {
     }
 }
 ```
-</details>
 
 ## virtual-scroll-doc
 
 Virtual scrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable virtual scrolling to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -1018,7 +968,6 @@ export class AutocompleteVirtualScrollDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Pass Through Options
 

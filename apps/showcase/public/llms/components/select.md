@@ -6,27 +6,55 @@ Select is used to choose an item from a collection of options.
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The select element has a combobox role in addition to aria-haspopup and aria-expanded attributes. If the editable option is enabled aria-autocomplete is also added. The relation between the combobox and the popup is created with aria-controls and aria-activedescendant attribute is used to instruct screen reader which option to read during keyboard navigation within the popup list. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses listbox as the role. Each list item has an option role, an id to match the aria-activedescendant of the input element along with aria-label , aria-selected and aria-disabled attributes. If filtering is enabled, filterInputProps can be defined to give aria-* props to the filter input element.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <span id="dd1">Options</span>
 <p-select ariaLabelledBy="dd1"/>
 
 <p-select ariaLabel="Options"/>
 ```
-</details>
 
 ## Basic
 
 Select is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
 
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FormsModule]
+})
+export class SelectBasicDemo implements OnInit {
+    cities: City[];
+    selectedCity: City | undefined;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+
 ## Checkmark
 
 An alternative way to highlight the selected option is displaying a checkmark instead.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -62,14 +90,10 @@ export class SelectCheckmarkDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Clear Icon
 
 When showClear is enabled, a clear icon is displayed to clear the value.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -105,14 +129,10 @@ export class SelectCleariconDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## customfilter-doc
 
 Custom filter can be applied with the filterTemplate .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -189,14 +209,10 @@ export class SelectCustomfilterDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -232,14 +248,10 @@ export class SelectDisabledDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Editable
 
 When editable is present, the input can also be entered with typing.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -275,14 +287,10 @@ export class SelectEditableDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -318,14 +326,10 @@ export class SelectFilledDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Filter
 
 Select provides built-in filtering that is enabled by adding the filter property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -375,14 +379,10 @@ export class SelectFilterDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Float Label
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -432,14 +432,10 @@ export class SelectFloatlabelDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -475,14 +471,10 @@ export class SelectFluidDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Group
 
 Options can be grouped when a nested data structures is provided.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -546,14 +538,10 @@ export class SelectGroupDemo {
     }
 }
 ```
-</details>
 
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -593,14 +581,10 @@ export class SelectIftalabelDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -630,12 +614,8 @@ export class SelectInvalidDemo {
     value2: boolean = true;
 }
 ```
-</details>
 
 ## Lazy Virtual Scroll
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -691,14 +671,10 @@ export class SelectLazyvirtualscrollDemo {
     }
 }
 ```
-</details>
 
 ## Loading State
 
 Loading state can be used loading property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -734,14 +710,10 @@ export class SelectLoadingstateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 Select can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -802,14 +774,10 @@ export class SelectReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 Select provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -849,14 +817,10 @@ export class SelectSizesDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Template
 
 Both the selected option and the options list can be templated to provide customizated representation. Use selectedItem template to customize the selected label display and the item template to change the content of the options in the select panel. In addition when grouping is enabled, group template is available to customize the option groups. All templates get the option instance as the default local template variable.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -917,12 +881,8 @@ export class SelectTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -979,14 +939,10 @@ export class SelectTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Virtual Scroll
 
 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -1015,7 +971,6 @@ export class SelectVirtualscrollDemo {
     }
 }
 ```
-</details>
 
 ## Select
 

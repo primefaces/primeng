@@ -10,12 +10,54 @@ Screen Reader Default role of the table is table . Header, body and footer eleme
 
 DataTable requires a collection to display along with column components for the representation of the data.
 
+```typescript
+import { Component, OnInit, inject } from '@angular/core';
+import { Table, TableModule } from 'primeng/table';
+import { ProductService } from '@/service/productservice';
+import { Product } from '@/domain/product';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template #header>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-product>
+                    <tr>
+                        <td>{{ product.code }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.quantity }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    `,
+    standalone: true,
+    imports: [TableModule],
+    providers: [ProductService]
+})
+export class TableBasicDemo implements OnInit {
+    private productService = inject(ProductService);
+    products!: Product[];
+
+    ngOnInit() {
+        this.productService.getProductsMini().then((data) => {
+            this.products = data;
+        });
+    }
+}
+```
+
 ## celledit-doc
 
 In-cell editing is enabled by adding pEditableColumn directive to an editable cell that has a p-cellEditor helper component to define the input-output templates for the edit and view modes respectively.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -99,14 +141,10 @@ export class TableCelleditDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## checkboxselection-doc
 
 Multiple selection can also be handled using checkboxes by enabling the selectionMode property of column as multiple .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -159,14 +197,10 @@ export class TableCheckboxselectionDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## columngroup-doc
 
 Columns can be grouped using rowspan and colspan properties.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -301,14 +335,10 @@ export class TableColumngroupDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## columnresizeexpandmode-doc
 
 Setting columnResizeMode as expand changes the table width as well.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -354,14 +384,10 @@ export class TableColumnresizeexpandmodeDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## columnresizefitmode-doc
 
 Columns can be resized using drag drop by setting the resizableColumns to true . Fit mode is the default one and the overall table width does not change when a column is resized.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -407,12 +433,8 @@ export class TableColumnresizefitmodeDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## columnresizescrollablemode-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -458,14 +480,10 @@ export class TableColumnresizescrollablemodeDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## columnselection-doc
 
 Row selection with an element inside a column is implemented with templating.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -525,14 +543,10 @@ export class TableColumnselectionDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## columntoggle-doc
 
 This demo uses a multiselect component to implement toggleable columns.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -596,14 +610,10 @@ export class TableColumntoggleDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## contextmenu-doc
 
 Table has exclusive integration with contextmenu component. In order to attach a menu to a table, add pContextMenuRow directive to the rows that can be selected with context menu, define a local template variable for the menu and bind it to the contextMenu property of the table. This enables displaying the menu whenever a row is right clicked. Optional pContextMenuRowIndex property is available to access the row index. A separate contextMenuSelection property is used to get a hold of the right clicked row. For dynamic columns, setting pContextMenuRowDisabled property as true disables context menu for that particular row.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -671,14 +681,10 @@ export class TableContextmenuDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Customers
 
 DataTable with selection, pagination, filtering, sorting and templating.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -921,14 +927,10 @@ export class TableCustomersDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Dynamic Columns
 
 Columns can be defined dynamically using the *ngFor directive.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -988,14 +990,10 @@ export class TableDynamicDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## expandablerowgroup-doc
 
 When expandableRowGroups is present in subheader based row grouping, groups can be expanded and collapsed. State of the expansions are controlled using the expandedRows and onRowToggle properties.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1107,14 +1105,10 @@ export class TableExpandablerowgroupDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Export
 
 Table can export its data to CSV format.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1183,14 +1177,10 @@ export class TableExportDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Advanced
 
 Filters are displayed in an overlay.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -1417,14 +1407,10 @@ export class TableFilterAdvancedDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## filterbasic-doc
 
 Data filtering is enabled by defining the filters property referring to a DataTableFilterMeta instance. Each column to filter also requires filter to be enabled. Built-in filter element is a input field and using filterElement , it is possible to customize the filtering with your own UI. The optional global filtering searches the data against a single value that is bound to the global key of the filters object. The fields to search against is defined with the globalFilterFields .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1611,14 +1597,10 @@ export class TableFilterbasicDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## flexiblescroll-doc
 
 Flex scroll feature makes the scrollable viewport section dynamic instead of a fixed value so that it can grow or shrink relative to the parent size of the table. Click the button below to display a maximizable Dialog where data viewport adjusts itself according to the size changes.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1679,14 +1661,10 @@ export class TableFlexiblescrollDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## frozencolumns-doc
 
 Certain columns can be frozen by using the pFrozenColumn directive of the table component. In addition, alignFrozen is available to define whether the column should be fixed on the left or right.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1752,14 +1730,10 @@ export class TableFrozencolumnsDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## frozenrows-doc
 
 Frozen rows are used to fix certain rows while scrolling, this data is defined with the frozenValue property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1855,14 +1829,10 @@ export class TableFrozenrowsDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Grid Lines
 
 Enabling showGridlines displays borders between cells.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1908,14 +1878,10 @@ export class TableGridlinesDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## horizontalscroll-doc
 
 Horizontal scrollbar is displayed when table width exceeds the parent width.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1988,14 +1954,10 @@ export class TableHorizontalscrollDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## loadingmask-doc
 
 The loading property displays a mask layer to indicate busy state. Use the paginator to display the mask.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2041,14 +2003,10 @@ export class TableLoadingmaskDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## loadingskeleton-doc
 
 Skeleton component can be used as a placeholder during the loading process.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -2090,14 +2048,10 @@ export class TableLoadingskeletonDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## multiplecolumnssort-doc
 
 Multiple columns can be sorted by defining sortMode as multiple . This mode requires metaKey (e.g. ⌘ ) to be pressed when clicking a header.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2163,14 +2117,10 @@ export class TableMultiplecolumnssortDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## multipleselection-doc
 
 More than one row is selectable by setting selectionMode to multiple . By default in multiple selection mode, metaKey press (e.g. ⌘ ) is not necessary to add to existing selections. When the optional metaKeySelection is present, behavior is changed in a way that selecting a new row requires meta key to be present. Note that in touch enabled devices, DataTable always ignores metaKey.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2224,14 +2174,10 @@ export class TableMultipleselectionDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## paginatorbasic-doc
 
 Pagination is enabled by setting paginator property to true and defining a rows property to specify the number of rows per page.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2277,14 +2223,10 @@ export class TablePaginatorbasicDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## paginatorprogrammatic-doc
 
 Paginator can also be controlled via model using a binding to the first property where changes trigger a pagination.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2373,14 +2315,10 @@ export class TablePaginatorprogrammaticDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## presort-doc
 
 Defining a default sortField and sortOrder displays data as sorted initially in single column sorting. In multiple sort mode, multiSortMeta should be used instead by providing an array of DataTableSortMeta objects.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2453,14 +2391,10 @@ export class TablePresortDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Products
 
 CRUD implementation example with a Dialog.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2825,14 +2759,10 @@ export class TableProductsDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## radiobuttonselection-doc
 
 Single selection can also be handled using radio buttons.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2883,14 +2813,10 @@ export class TableRadiobuttonselectionDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## removablesort-doc
 
 The removable sort can be implemented using the customSort property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -2989,14 +2915,10 @@ export class TableRemovablesortDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Reorder
 
 Order of the columns and rows can be changed using drag and drop. Column reordering is configured by adding reorderableColumns property. Similarly, adding reorderableRows property enables draggable rows. For the drag handle a column needs to have rowReorder property and onRowReorder callback is required to control the state of the rows after reorder completes.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -3056,14 +2978,10 @@ export class TableReorderDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## rowedit-doc
 
 Row editing toggles the visibility of all the editors in the row at once and provides additional options to save and cancel editing. Row editing functionality is enabled by setting the editMode to "row" on table, defining a dataKey to uniquely identify a row, adding pEditableRow directive to the editable rows and defining the UI Controls with pInitEditableRow , pSaveEditableRow and pCancelEditableRow directives respectively. Save and Cancel functionality implementation is left to the page author to provide more control over the editing business logic. Example below utilizes a simple implementation where a row is cloned when editing is initialized and is saved or restored depending on the result of the editing. An implicit variable called "editing" is passed to the body template so you may come up with your own UI controls that implement editing based on your own requirements such as adding validations and styling. Note that pSaveEditableRow only switches the row to back view mode when there are no validation errors. Moreover, you may use setting pEditableRowDisabled property as true to disable editing for that particular row and in case you need to display rows in edit mode by default, use the editingRowKeys property which is a map whose key is the dataKey of the record where the value is any arbitrary number greater than zero.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -3198,14 +3116,10 @@ export class TableRoweditDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## rowexpansion-doc
 
 Row expansion allows displaying detailed content for a particular row. To use this feature, define a dataKey , add a template named expandedrow and use the pRowToggler directive on an element as the target to toggle an expansion. This enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting pRowTogglerDisabled as true disables the toggle event for the element.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -3390,14 +3304,10 @@ export class TableRowexpansionDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## rowspangrouping-doc
 
 When rowGroupMode is configured to be rowspan , the grouping column spans multiple rows.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -3497,14 +3407,10 @@ export class TableRowspangroupingDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## selectionevents-doc
 
 Table provides onRowSelect and onRowUnselect events to listen selection events.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -3563,14 +3469,10 @@ export class TableSelectioneventsDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## singlecolumnsort-doc
 
 A column can be made sortable by adding the pSortableColumn directive whose value is the field to sort against and a sort indicator via p-sortIcon component. For dynamic columns, setting pSortableColumnDisabled property as true disables sorting for that particular column. Default sorting is executed on a single column, in order to enable multiple field sorting, set sortMode property to "multiple" and use metakey when clicking on another column.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -3636,14 +3538,10 @@ export class TableSinglecolumnsortDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## singleselection-doc
 
 Single row selection is enabled by defining selectionMode as single along with a value binding using selection property. When available, it is suggested to provide a unique identifier of a row with dataKey to optimize performance. By default, metaKey press (e.g. ⌘ ) is necessary to unselect a row however this can be configured with disabling the metaKeySelection property. In touch enabled devices this option has no effect and behavior is same as setting it to false.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -3697,14 +3595,10 @@ export class TableSingleselectionDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Size
 
 In addition to a regular table, alternatives with alternative sizes are available.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -3762,14 +3656,10 @@ export class TableSizeDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Stateful
 
 Stateful table allows keeping the state such as page, sort and filtering either at local storage or session storage so that when the page is visited again, table would render the data using the last settings. Change the state of the table e.g paginate, navigate away and then return to this table again to test this feature, the setting is set as session with the stateStorage property so that Table retains the state until the browser is closed. Other alternative is local referring to localStorage for an extended lifetime.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -3897,14 +3787,10 @@ export class TableStatefulDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Striped Rows
 
 Alternating rows are displayed when stripedRows property is present.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -3950,16 +3836,12 @@ export class TableStripedDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## style-doc
 
 Certain rows or cells can easily be styled based on conditions.
 
 ## styling-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -4052,14 +3934,10 @@ import { Component } from '@angular/core';
 })
 export class TableStylingDemo {}
 ```
-</details>
 
 ## subheadergrouping-doc
 
 Rows are grouped with the groupRowsBy property. When rowGroupMode is set as subheader , a header and footer can be displayed for each group. The content of a group header is provided with groupheader and footer with groupfooter templates.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -4171,14 +4049,10 @@ export class TableSubheadergroupingDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Template
 
 Custom content at header , body and footer sections are supported via templating.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -4270,12 +4144,8 @@ export class TableTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## verticalscroll-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -4321,14 +4191,10 @@ export class TableVerticalscrollDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## virtualscroll-doc
 
 Virtual Scrolling is an efficient way to render large amount data. Usage is similar to regular scrolling with the addition of virtualScrollerOptions property to define a fixed itemSize . Internally, VirtualScroller component is utilized so refer to the API of VirtualScroller for more information about the available options. In this example, 10000 preloaded records are rendered by the Table.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -4385,14 +4251,10 @@ export class TableVirtualscrollDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## virtualscrolllazy-doc
 
 VirtualScroller is a performance-approach to handle huge data efficiently. Setting virtualScroll property as true and providing a virtualScrollItemSize in pixels would be enough to enable this functionality. It is also suggested to use the same virtualScrollItemSize value on the tr element inside the body template.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -4475,7 +4337,6 @@ export class TableVirtualscrolllazyDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Table
 

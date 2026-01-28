@@ -6,20 +6,13 @@ SpeedDial is a floating button with a popup menu.
 
 Screen Reader SpeedDial component renders a native button element that implicitly includes any passed prop. Text to describe the button can be defined with the aria-labelledby or aria-label props. Addititonally the button includes includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The popup overlay uses menu role on the list and each action item has a menuitem role with an aria-label as the menuitem label. The id of the menu refers to the aria-controls of the button.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <p-speeddial aria-label="Options" />
 ```
-</details>
 
 ## Circle
 
 Items can be displayed around the button when type is set to circle . Additional radius property defines the radius of the circle.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -77,14 +70,10 @@ export class SpeeddialCircleDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Linear
 
 SpeedDial items are defined with the model property based on MenuModel API. Default orientation of the items is linear and direction property is used to define the position of the items related to the button.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -145,14 +134,10 @@ export class SpeeddialLinearDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Mask
 
 Adding mask property displays a modal layer behind the popup items.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -210,14 +195,10 @@ export class SpeeddialMaskDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Quarter Circle
 
 When type is defined as quarter-circle , items are displayed in a half-circle around the button.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -278,14 +259,10 @@ export class SpeeddialQuartercircleDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Semi Circle
 
 When type is defined as semi-circle , items are displayed in a half-circle around the button.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -346,14 +323,10 @@ export class SpeeddialSemicircleDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Template
 
 SpeedDial offers item customization with the item template that receives the menuitem instance from the model as a parameter. The button has its own button template, additional template named icon is provided to embed icon content for default button.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -462,14 +435,10 @@ export class SpeeddialTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Tooltip
 
 Items display a tooltip on hover when a standalone Tooltip is present with a target that matches the items.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -535,7 +504,6 @@ export class SpeeddialTooltipDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Speed Dial
 

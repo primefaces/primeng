@@ -10,12 +10,35 @@ Screen Reader Inplace component defines aria-live as "polite" by default, since 
 
 Inplace component requires display and content templates to define the content of each state.
 
+```typescript
+import { Component } from '@angular/core';
+import { InplaceModule } from 'primeng/inplace';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-inplace>
+                <ng-template #display>
+                    <span>View Content</span>
+                </ng-template>
+                <ng-template #content>
+                    <p class="m-0">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                </ng-template>
+            </p-inplace>
+        </div>
+    `,
+    standalone: true,
+    imports: [InplaceModule]
+})
+export class InplaceBasicDemo {}
+```
+
 ## Image
 
 Any content such as an image can be placed inside an Inplace.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -43,14 +66,10 @@ import { Photo } from '@/domain/photo';
 })
 export class InplaceImageDemo {}
 ```
-</details>
 
 ## Input
 
 The closeCallback switches the state back to display mode when called from an event.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -81,14 +100,10 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class InplaceInputDemo {}
 ```
-</details>
 
 ## Lazy
 
 Using the onActivate event, data can be loaded in a lazy manner before displaying it in a table.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -139,7 +154,6 @@ export class InplaceLazyDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Inplace
 

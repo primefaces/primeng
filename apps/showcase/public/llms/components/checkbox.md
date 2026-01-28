@@ -10,12 +10,28 @@ Screen Reader Checkbox component uses a hidden native checkbox element internall
 
 Binary checkbox is used as a controlled input with ngModel and binary properties.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
+
+@Component({
+    template: `
+        <div class="card flex justify-center gap-4">
+            <p-checkbox [(ngModel)]="checked" [binary]="true" />
+        </div>
+    `,
+    standalone: true,
+    imports: [CheckboxModule, FormsModule]
+})
+export class CheckboxBasicDemo {
+    checked: any = null;
+}
+```
+
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -37,14 +53,10 @@ export class CheckboxDisabledDemo {
     checked2: boolean = true;
 }
 ```
-</details>
 
 ## Dynamic
 
 Checkboxes can be generated using a list of values.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -74,14 +86,10 @@ export class CheckboxDynamicDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -101,14 +109,10 @@ export class CheckboxFilledDemo {
     checked: boolean = false;
 }
 ```
-</details>
 
 ## Indeterminate
 
 The indeterminate state indicates that a checkbox is neither "on" or "off".
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -128,14 +132,10 @@ export class CheckboxIndeterminateDemo {
     checked: any = null;
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -155,14 +155,10 @@ export class CheckboxInvalidDemo {
     checked: boolean = false;
 }
 ```
-</details>
 
 ## label-doc
 
 The label attribute provides a label text for the checkbox. This label is also clickable and toggles the checked state.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -183,14 +179,10 @@ export class CheckboxLabelDemo {
     selectedValues: string[] = [];
 }
 ```
-</details>
 
 ## multiple-doc
 
 Multiple checkboxes can be grouped together.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -225,14 +217,10 @@ export class CheckboxMultipleDemo {
     pizza: string[] = [];
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 Checkbox can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -323,14 +311,10 @@ export class CheckboxReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 Checkbox provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -361,12 +345,8 @@ export class CheckboxSizesDemo {
     size: any = null;
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -439,7 +419,6 @@ export class CheckboxTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Checkbox
 

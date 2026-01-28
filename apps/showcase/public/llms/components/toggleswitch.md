@@ -6,9 +6,6 @@ ToggleSwitch is used to select a boolean value.
 
 Screen Reader InputSwitch component uses a hidden native checkbox element with switch role internally that is only visible to screen readers. Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <label for="switch1">Remember Me</label>
 <p-toggleswitch inputId="switch1" />
@@ -18,18 +15,33 @@ Screen Reader InputSwitch component uses a hidden native checkbox element with s
 
 <p-toggleswitch ariaLabel="Remember Me" />
 ```
-</details>
 
 ## Basic
 
 Two-way value binding is defined using ngModel .
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-toggleswitch [(ngModel)]="checked" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ToggleSwitchModule, FormsModule]
+})
+export class ToggleswitchBasicDemo {
+    checked: boolean = false;
+}
+```
+
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -49,14 +61,10 @@ export class ToggleswitchDisabledDemo {
     checked: boolean = false;
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -76,14 +84,10 @@ export class ToggleswitchInvalidDemo {
     checked: boolean = false;
 }
 ```
-</details>
 
 ## Preselection
 
 Enabling ngModel property displays the component as active initially.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -103,14 +107,10 @@ export class ToggleswitchPreselectionDemo {
     checked: boolean = true;
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 ToggleSwitch can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -165,14 +165,10 @@ export class ToggleswitchReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Template
 
 The handle template is available to display custom content.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -196,12 +192,8 @@ export class ToggleswitchTemplateDemo {
     checked: boolean = false;
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -242,7 +234,6 @@ export class ToggleswitchTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Pass Through Options
 

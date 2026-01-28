@@ -10,12 +10,32 @@ Screen Reader FloatLabel does not require any roles and attributes. Keyboard Sup
 
 FloatLabel is used by wrapping the input and its label.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-floatlabel>
+                <input id="username" pInputText [(ngModel)]="value" autocomplete="off" />
+                <label for="username">Username</label>
+            </p-floatlabel>
+        </div>
+    `,
+    standalone: true,
+    imports: [FloatLabelModule, InputTextModule, FormsModule]
+})
+export class FloatlabelBasicDemo {
+    value: string | undefined;
+}
+```
+
 ## Invalid
 
 When the form element is invalid, the label is also highlighted.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -49,14 +69,10 @@ export class FloatlabelInvalidDemo {
     value3: string | undefined;
 }
 ```
-</details>
 
 ## Variants
 
 The variant property defines the position of the label. Default value is over , whereas in and on are the alternatives.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -85,7 +101,6 @@ export class FloatlabelVariantsDemo {
     value2: string | undefined;
 }
 ```
-</details>
 
 ## Float Label
 

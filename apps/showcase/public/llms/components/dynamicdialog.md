@@ -14,9 +14,6 @@ DynamicDialog uses the Dialog component internally, visit dialog for more inform
 
 Dynamic dialogs require an instance of a DialogService that is responsible for displaying a dialog with a component as its content. Calling open method of DialogService will display dynamic dialog. First parameter of open method is the type of component to load and the second parameter is the configuration of the Dialog such as header , width and more.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
@@ -77,7 +74,6 @@ export class DynamicdialogExampleDemo {
     }
 }
 ```
-</details>
 
 ## Opening a Dialog
 

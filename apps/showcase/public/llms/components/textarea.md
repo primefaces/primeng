@@ -6,9 +6,6 @@ Textarea adds styling and autoResize functionality to standard textarea element.
 
 Screen Reader Textarea component renders a native textarea element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <label for="address1">Address 1</label>
 <textarea pTextarea id="address1"></textarea>
@@ -18,14 +15,10 @@ Screen Reader Textarea component renders a native textarea element that implicit
 
 <textarea pTextarea aria-label="Address Details"></textarea>
 ```
-</details>
 
 ## AutoResize
 
 When autoResize is enabled, textarea grows instead of displaying a scrollbar.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -41,18 +34,32 @@ import { Component } from '@angular/core';
 })
 export class TextareaAutoresizeDemo {}
 ```
-</details>
 
 ## Basic
 
 Textarea is applied to an input field with pTextarea directive.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <textarea rows="5" cols="30" pTextarea [(ngModel)]="value"></textarea>
+        </div>
+    `,
+    standalone: true,
+    imports: [FormsModule]
+})
+export class TextareaBasicDemo {
+    value!: string;
+}
+```
+
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -68,14 +75,10 @@ import { Component } from '@angular/core';
 })
 export class TextareaDisabledDemo {}
 ```
-</details>
 
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -94,14 +97,10 @@ export class TextareaFilledDemo {
     value!: string;
 }
 ```
-</details>
 
 ## Float Label
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -134,14 +133,10 @@ export class TextareaFloatlabelDemo {
     value3: string = '';
 }
 ```
-</details>
 
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -160,14 +155,10 @@ export class TextareaFluidDemo {
     value!: string;
 }
 ```
-</details>
 
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -190,14 +181,10 @@ export class TextareaIftalabelDemo {
     value: string = '';
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -216,14 +203,10 @@ export class TextareaInvalidDemo {
     value!: string;
 }
 ```
-</details>
 
 ## keyfilter-doc
 
 InputText has built-in key filtering support to block certain keys, refer to keyfilter page for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -239,14 +222,10 @@ import { Component } from '@angular/core';
 })
 export class TextareaKeyfilterDemo {}
 ```
-</details>
 
 ## reactiveforms-doc
 
 Textarea can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -301,14 +280,10 @@ export class TextareaReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 Textarea provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -331,12 +306,8 @@ export class TextareaSizesDemo {
     value3!: string;
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -377,7 +348,6 @@ export class TextareaTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Textarea
 

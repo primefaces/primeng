@@ -10,12 +10,94 @@ Screen Reader The container element that wraps the layout options buttons has a 
 
 DataView requires a value to display along with a list template that receives an object in the collection to return content.
 
+```typescript
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { DataViewModule } from 'primeng/dataview';
+import { TagModule } from 'primeng/tag';
+import { ProductService } from '@/service/productservice';
+import { Product } from '@/domain/product';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-dataview #dv [value]="products()">
+                <ng-template #list let-items>
+                    <div class="grid grid-cols-12 gap-4 grid-nogutter">
+                        <div class="col-span-12" *ngFor="let item of items; let first = first">
+                            <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
+                                <div class="md:w-40 relative">
+                                    <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
+                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                </div>
+                                <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
+                                    <div class="flex flex-row md:flex-col justify-between items-start gap-2">
+                                        <div>
+                                            <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
+                                            <div class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-2">{{ item.name }}</div>
+                                        </div>
+                                        <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
+                                            <div
+                                                class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
+                                                style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
+                                            >
+                                                <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{ item.rating }}</span>
+                                                <i class="pi pi-star-fill text-yellow-500"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col md:items-end gap-8">
+                                        <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{ '$' + item.price }}</span>
+                                        <div class="flex flex-row-reverse md:flex-row gap-2">
+                                            <p-button icon="pi pi-heart" [outlined]="true" />
+                                            <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dataview>
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, DataViewModule, TagModule],
+    providers: [ProductService]
+})
+export class DataviewBasicDemo implements OnInit {
+    private productService = inject(ProductService);
+    products = signal<any>([]);
+    productService = inject(ProductService);
+
+    ngOnInit() {
+        this.productService.getProducts().then((data) => {
+            const d = data.slice(0, 5);
+            this.products.set([...d]);
+        });
+    }
+
+    getSeverity(product: Product) {
+        switch (product.inventoryStatus) {
+            case 'INSTOCK':
+                return 'success';
+        
+            case 'LOWSTOCK':
+                return 'warn';
+        
+            case 'OUTOFSTOCK':
+                return 'danger';
+        
+            default:
+                return null;
+        }
+    }
+}
+```
+
 ## Layout
 
 DataView supports list and grid display modes defined with the layout property. The grid mode is not built-in for flexibility purposes and requires a library with CSS grid features like Tailwind.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -125,14 +207,10 @@ export class DataviewLayoutDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Loading
 
 While data is being loaded. Skeleton component may be used to indicate the busy state.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -221,14 +299,10 @@ export class DataviewLoadingDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Pagination
 
 Pagination is enabled with the paginator and rows properties. Refer to the Paginator for more information about customizing the paginator.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -296,14 +370,10 @@ export class DataviewPaginationDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Sorting
 
 Built-in sorting is controlled by bindings sortField and sortOrder properties from a custom UI.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -400,7 +470,6 @@ export class DataviewSortingDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Data View
 

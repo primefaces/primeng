@@ -6,27 +6,117 @@ CascadeSelect displays a nested structure of options.
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The cascadeselect element has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls that refers to the id of the popup. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses tree as the role. Each list item has a treeitem role along with aria-label , aria-selected and aria-expanded attributes. The container element of a treenode has the group role. The aria-setsize , aria-posinset and aria-level attributes are calculated implicitly and added to each treeitem.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <span id="dd1">Options</span>
 <p-cascadeselect ariaLabelledBy="dd1"/>
 
 <p-cascadeselect ariaLabel="Options"/>
 ```
-</details>
 
 ## Basic
 
 CascadeSelect requires a value to bind and a collection of arbitrary objects with a nested hierarchy. optionGroupLabel is used for the text of a category and optionGroupChildren is to define the children of the category. Note that order of the optionGroupChildren matters and it should correspond to the data hierarchy.
 
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
+        </div>
+    `,
+    standalone: true,
+    imports: [CascadeSelectModule, FormsModule]
+})
+export class CascadeselectBasicDemo implements OnInit {
+    countries: any[] | undefined;
+    selectedCity: any;
+
+    ngOnInit() {
+        this.countries = [
+            {
+                name: 'Australia',
+                code: 'AU',
+                states: [
+                    {
+                        name: 'New South Wales',
+                        cities: [
+                            { cname: 'Sydney', code: 'A-SY' },
+                            { cname: 'Newcastle', code: 'A-NE' },
+                            { cname: 'Wollongong', code: 'A-WO' }
+                        ]
+                    },
+                    {
+                        name: 'Queensland',
+                        cities: [
+                            { cname: 'Brisbane', code: 'A-BR' },
+                            { cname: 'Townsville', code: 'A-TO' }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: 'Canada',
+                code: 'CA',
+                states: [
+                    {
+                        name: 'Quebec',
+                        cities: [
+                            { cname: 'Montreal', code: 'C-MO' },
+                            { cname: 'Quebec City', code: 'C-QU' }
+                        ]
+                    },
+                    {
+                        name: 'Ontario',
+                        cities: [
+                            { cname: 'Ottawa', code: 'C-OT' },
+                            { cname: 'Toronto', code: 'C-TO' }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: 'United States',
+                code: 'US',
+                states: [
+                    {
+                        name: 'California',
+                        cities: [
+                            { cname: 'Los Angeles', code: 'US-LA' },
+                            { cname: 'San Diego', code: 'US-SD' },
+                            { cname: 'San Francisco', code: 'US-SF' }
+                        ]
+                    },
+                    {
+                        name: 'Florida',
+                        cities: [
+                            { cname: 'Jacksonville', code: 'US-JA' },
+                            { cname: 'Miami', code: 'US-MI' },
+                            { cname: 'Tampa', code: 'US-TA' },
+                            { cname: 'Orlando', code: 'US-OR' }
+                        ]
+                    },
+                    {
+                        name: 'Texas',
+                        cities: [
+                            { cname: 'Austin', code: 'US-AU' },
+                            { cname: 'Dallas', code: 'US-DA' },
+                            { cname: 'Houston', code: 'US-HO' }
+                        ]
+                    }
+                ]
+            }
+        ];
+    }
+}
+```
+
 ## Clear Icon
 
 When showClear is enabled, a clear icon is displayed to clear the value.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -124,14 +214,10 @@ export class CascadeselectCleariconDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -148,14 +234,10 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 })
 export class CascadeselectDisabledDemo {}
 ```
-</details>
 
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -253,14 +335,10 @@ export class CascadeselectFilledDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## floatlabel-doc
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -373,14 +451,10 @@ export class CascadeselectFloatlabelDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -478,14 +552,10 @@ export class CascadeselectFluidDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## iftalabel-doc
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -587,14 +657,10 @@ export class CascadeselectIftalabelDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -704,14 +770,10 @@ export class CascadeselectInvalidDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Loading State
 
 Loading state can be used loading property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -728,14 +790,10 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 })
 export class CascadeselectLoadingDemo {}
 ```
-</details>
 
 ## reactiveforms-doc
 
 CascadeSelect can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -875,14 +933,10 @@ export class CascadeselectReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 CascadeSelect provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -984,14 +1038,10 @@ export class CascadeselectSizesDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Template
 
 Label of an option is used as the display text of an item by default, for custom content support define an option template that gets the option instance as a parameter. In addition value , dropdownicon , loadingicon , and optiongroupicon slots are provided for further customization.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -1110,12 +1160,8 @@ export class CascadeselectTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -1246,7 +1292,6 @@ export class CascadeselectTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Pass Through Options
 

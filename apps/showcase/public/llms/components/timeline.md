@@ -10,9 +10,6 @@ Screen Reader Timeline uses a semantic ordered list element to list the events. 
 
 Content location relative the line is defined with the align property.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 import { Component } from '@angular/core';
 import { TimelineModule } from 'primeng/timeline';
@@ -61,18 +58,45 @@ export class TimelineAlignmentDemo {
     }
 }
 ```
-</details>
 
 ## Basic
 
 Timeline receives the events with the value property as a collection of arbitrary objects. In addition, content template is required to display the representation of an event. Example below is a sample events array that is used throughout the documentation.
 
+```typescript
+import { Component } from '@angular/core';
+import { TimelineModule } from 'primeng/timeline';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-timeline [value]="events">
+                <ng-template #content let-event>
+                    {{ event.status }}
+                </ng-template>
+            </p-timeline>
+        </div>
+    `,
+    standalone: true,
+    imports: [TimelineModule]
+})
+export class TimelineBasicDemo {
+    events: any[];
+
+    constructor() {
+        this.events = [
+                    { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0', image: 'game-controller.jpg' },
+                    { status: 'Processing', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' },
+                    { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
+                    { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' }
+                ];
+    }
+}
+```
+
 ## Horizontal
 
 TimeLine orientation is controlled with the layout property, default is vertical having horizontal as the alternative.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -110,14 +134,10 @@ export class TimelineHorizontalDemo {
     }
 }
 ```
-</details>
 
 ## Opposite
 
 Additional content at the other side of the line can be provided with the opposite property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -160,14 +180,10 @@ export class TimelineOppositeDemo {
     }
 }
 ```
-</details>
 
 ## Template
 
 Sample implementation with custom content and styled markers.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -221,7 +237,6 @@ export class TimelineTemplateDemo {
     }
 }
 ```
-</details>
 
 ## Timeline
 

@@ -10,12 +10,25 @@ Screen Reader Message component uses alert role that implicitly defines aria-liv
 
 Message component requires a content to display.
 
+```typescript
+import { Component } from '@angular/core';
+import { MessageModule } from 'primeng/message';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-message>Message Content</p-message>
+        </div>
+    `,
+    standalone: true,
+    imports: [MessageModule]
+})
+export class MessageBasicDemo {}
+```
+
 ## Closable
 
 Enable closable option to display an icon to remove a message.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -32,14 +45,10 @@ import { MessageModule } from 'primeng/message';
 })
 export class MessageClosableDemo {}
 ```
-</details>
 
 ## Dynamic
 
 Multiple messages can be displayed using the standard for block.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, signal } from '@angular/core';
@@ -79,14 +88,10 @@ export class MessageDynamicDemo {
     }
 }
 ```
-</details>
 
 ## form-doc
 
 Validation errors in a form are displayed with the error severity.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -123,14 +128,10 @@ export class MessageFormDemo {
     phone: string | undefined;
 }
 ```
-</details>
 
 ## Icon
 
 The icon of a message is specified with the icon property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -154,14 +155,10 @@ import { MessageModule } from 'primeng/message';
 })
 export class MessageIconDemo {}
 ```
-</details>
 
 ## Life
 
 Messages can disappear automatically by defined the life in milliseconds.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, signal } from '@angular/core';
@@ -192,14 +189,10 @@ export class MessageLifeDemo {
     }
 }
 ```
-</details>
 
 ## Outlined
 
 Configure the variant value as outlined for messages with borders and no background.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -221,14 +214,10 @@ import { MessageModule } from 'primeng/message';
 })
 export class MessageOutlinedDemo {}
 ```
-</details>
 
 ## Severity
 
 The severity option specifies the type of the message.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -250,14 +239,10 @@ import { MessageModule } from 'primeng/message';
 })
 export class MessageSeverityDemo {}
 ```
-</details>
 
 ## Simple
 
 Configure the variant value as simple for messages without borders and backgrounds.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -279,14 +264,10 @@ import { MessageModule } from 'primeng/message';
 })
 export class MessageSimpleDemo {}
 ```
-</details>
 
 ## Sizes
 
 Message provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -305,7 +286,6 @@ import { MessageModule } from 'primeng/message';
 })
 export class MessageSizesDemo {}
 ```
-</details>
 
 ## Message
 

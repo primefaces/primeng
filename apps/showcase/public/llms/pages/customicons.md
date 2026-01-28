@@ -6,9 +6,6 @@ Use custom icons with PrimeNG components.
 
 Font Awesome is a popular icon library with a wide range of icons.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <p-dropdown>
     <ng-template #dropdownicon>
@@ -16,14 +13,10 @@ Font Awesome is a popular icon library with a wide range of icons.
     </ng-template>
 </p-dropdown>
 ```
-</details>
 
 ## Image-
 
 Any type of image can be used as an icon.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 <p-dropdown>
@@ -32,14 +25,10 @@ Any type of image can be used as an icon.
     </ng-template>
 </p-dropdown>
 ```
-</details>
 
 ## Material-
 
 Material icons is the official icon library based on Google Material Design.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 <p-dropdown>
@@ -48,14 +37,10 @@ Material icons is the official icon library based on Google Material Design.
     </ng-template>
 </p-dropdown>
 ```
-</details>
 
 ## Svg-
 
 Inline SVGs are embedded inside the dom.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 <p-dropdown>
@@ -68,5 +53,4 @@ Inline SVGs are embedded inside the dom.
     </ng-template>
 </p-dropdown>
 ```
-</details>
 

@@ -10,9 +10,6 @@ Screen Reader Galleria uses region role and since any attribute is passed to the
 
 Galleria can be extended further to implement complex requirements.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
@@ -181,14 +178,10 @@ export class GalleriaAdvancedDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## AutoPlay
 
 A slideshow implementation is defined by adding circular and autoPlay properties.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -222,18 +215,47 @@ export class GalleriaAutoplayDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Basic
 
 Galleria requires a value as a collection of images, item template for the higher resolution image and thumbnail template to display as a thumbnail.
 
+```typescript
+import { Component, OnInit, inject } from '@angular/core';
+import { GalleriaModule } from 'primeng/galleria';
+import { PhotoService } from '@/service/photoservice';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+                <ng-template #item let-item>
+                    <img [src]="item.itemImageSrc" style="width:100%" />
+                </ng-template>
+                <ng-template #thumbnail let-item>
+                    <img [src]="item.thumbnailImageSrc" />
+                </ng-template>
+            </p-galleria>
+        </div>
+    `,
+    standalone: true,
+    imports: [GalleriaModule],
+    providers: [PhotoService]
+})
+export class GalleriaBasicDemo implements OnInit {
+    private photoService = inject(PhotoService);
+    images: any = model([]);
+    responsiveOptions: any[];
+
+    ngOnInit() {
+        this.photoService.getImages().then((images) => this.images.set(images));
+    }
+}
+```
+
 ## Caption
 
 Description of an image is specified with the caption template.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -271,14 +293,10 @@ export class GalleriaCaptionDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Controlled
 
 Galleria can be controlled programmatically using the activeIndex property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -326,14 +344,10 @@ export class GalleriaControlledDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Responsive
 
 Galleria responsiveness is defined with the responsiveOptions property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -367,14 +381,10 @@ export class GalleriaResponsiveDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Thumbnail
 
 Galleria can be controlled programmatically using the activeIndex property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -419,7 +429,6 @@ export class GalleriaThumbnailDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Galleria
 

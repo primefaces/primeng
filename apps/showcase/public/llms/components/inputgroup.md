@@ -10,12 +10,60 @@ Screen Reader InputGroup and InputGroupAddon does not require any roles and attr
 
 A group is created by wrapping the input and add-ons with the p-inputgroup component. Each add-on element is defined as a child of p-inputgroup-addon component.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card grid grid-cols-1 md:grid-cols-2 gap-4">
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-user"></i>
+                </p-inputgroup-addon>
+                <input pInputText [(ngModel)]="text1" placeholder="Username" />
+            </p-inputgroup>
+            <p-inputgroup>
+                <p-inputgroup-addon>$</p-inputgroup-addon>
+                <p-inputnumber [(ngModel)]="number" placeholder="Price" />
+                <p-inputgroup-addon>.00</p-inputgroup-addon>
+            </p-inputgroup>
+            <p-inputgroup>
+                <p-inputgroup-addon>www</p-inputgroup-addon>
+                <input pInputText [(ngModel)]="text2" placeholder="Website" />
+            </p-inputgroup>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-map"></i>
+                </p-inputgroup-addon>
+                <p-select [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" placeholder="City" />
+            </p-inputgroup>
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, InputGroupModule, InputNumberModule, InputTextModule, FormsModule]
+})
+export class InputgroupBasicDemo {
+    text1: string | undefined;
+    text2: string | undefined;
+    number: string | undefined;
+    selectedCity: City | undefined;
+    cities: City[];
+}
+```
+
 ## Button
 
 Buttons can be placed at either side of an input element.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -61,14 +109,10 @@ export class InputgroupButtonDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Checkbox & Radio
 
 Checkbox and RadioButton components can be combined with an input element under the same group.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -106,14 +150,10 @@ export class InputgroupCheckboxDemo {
     category: string | undefined;
 }
 ```
-</details>
 
 ## Float Label
 
 FloatLabel visually integrates a label with its form element. Visit FloatLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -160,14 +200,10 @@ export class InputgroupFloatlabelDemo {
     value3: string | undefined;
 }
 ```
-</details>
 
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -197,14 +233,10 @@ export class InputgroupIftalabelDemo {
     value: number = 10;
 }
 ```
-</details>
 
 ## Multiple
 
 Multiple add-ons can be placed inside the same group.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -232,7 +264,6 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class InputgroupMultipleDemo {}
 ```
-</details>
 
 ## Input Group
 

@@ -10,12 +10,34 @@ Screen Reader IconField and InputIcon does not require any roles and attributes.
 
 A group is created by wrapping the input and icon with the IconField component. Each icon is defined as a child of InputIcon component. In addition, position of the icon can be changed using iconPosition property that the default value is right and also left option is available.
 
+```typescript
+import { Component } from '@angular/core';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    template: `
+        <div class="card flex flex-wrap justify-center gap-4">
+            <p-iconfield>
+                <p-inputicon class="pi pi-search" />
+                <input type="text" pInputText placeholder="Search" />
+            </p-iconfield>
+            <p-iconfield>
+                <input type="text" pInputText />
+                <p-inputicon class="pi pi-spinner pi-spin" />
+            </p-iconfield>
+        </div>
+    `,
+    standalone: true,
+    imports: [IconFieldModule, InputIconModule, InputTextModule]
+})
+export class IconfieldBasicDemo {}
+```
+
 ## Float Label
 
 FloatLabel visually integrates a label with its form element. Visit FloatLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -60,14 +82,10 @@ export class IconfieldFloatlabelDemo {
     value3: string | undefined;
 }
 ```
-</details>
 
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -96,14 +114,10 @@ export class IconfieldIftalabelDemo {
     value: string | undefined;
 }
 ```
-</details>
 
 ## Sizes
 
 IconField is compatible with the pSize setting of the input field.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -139,14 +153,10 @@ export class IconfieldSizesDemo {
     value3: any = null;
 }
 ```
-</details>
 
 ## Template
 
 An eye icon is displayed by default when the image is hovered in preview mode. Use the indicator template for custom content.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -198,7 +208,6 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class IconfieldTemplateDemo {}
 ```
-</details>
 
 ## Icon Field
 

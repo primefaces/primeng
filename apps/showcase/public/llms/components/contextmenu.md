@@ -10,12 +10,37 @@ Screen Reader ContextMenu component uses the menubar role with aria-orientation 
 
 ContextMenu can be attached to a particular element whose local template variable name is defined using the target property.
 
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
+import { MenuItem } from 'primeng/api';
+import { ContextMenu } from 'primeng/contextmenu';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
+            <p-contextmenu [target]="img" [model]="items" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ContextMenuModule]
+})
+export class ContextmenuBasicDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [
+            { label: 'Copy', icon: 'pi pi-copy' },
+            { label: 'Rename', icon: 'pi pi-file-edit' }
+        ];
+    }
+}
+```
+
 ## Command
 
 The function to invoke when an item is clicked is defined using the command property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -127,14 +152,10 @@ export class ContextmenuCommandDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Document
 
 Setting global property to true attaches the context menu to the document.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -186,14 +207,10 @@ export class ContextmenuDocumentDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Router
 
 Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -261,7 +278,6 @@ export class ContextmenuRouterDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Table
 
@@ -270,9 +286,6 @@ Table has built-in support for ContextMenu, see the ContextMenu demo for an exam
 ## Template
 
 ContextMenu offers item customization with the item template that receives the menuitem instance from the model as a parameter.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -371,7 +384,6 @@ export class ContextmenuTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Context Menu
 

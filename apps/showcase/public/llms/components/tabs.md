@@ -10,12 +10,52 @@ Screen Reader Tabs container is defined with the tablist role, as any attribute 
 
 Tabs is defined using TabList , Tab , TabPanels and TabPanel components. Tab and TabPanel components are associated with their value properties
 
+```typescript
+import { Component } from '@angular/core';
+import { TabsModule } from 'primeng/tabs';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-tabs value="0">
+                <p-tablist>
+                    <p-tab value="0">Header I</p-tab>
+                    <p-tab value="1">Header II</p-tab>
+                    <p-tab value="2">Header III</p-tab>
+                </p-tablist>
+                <p-tabpanels>
+                    <p-tabpanel value="0">
+                        <p class="m-0">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                            laborum.
+                        </p>
+                    </p-tabpanel>
+                    <p-tabpanel value="1">
+                        <p class="m-0">
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                            enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                        </p>
+                    </p-tabpanel>
+                    <p-tabpanel value="2">
+                        <p class="m-0">
+                            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in
+                            culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                        </p>
+                    </p-tabpanel>
+                </p-tabpanels>
+            </p-tabs>
+        </div>
+    `,
+    standalone: true,
+    imports: [TabsModule]
+})
+export class TabsBasicDemo {}
+```
+
 ## Controlled
 
 Tabs can be controlled programmatically using value property as a model.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -67,14 +107,10 @@ export class TabsControlledDemo {
     value: number = 0;
 }
 ```
-</details>
 
 ## customtemplate-doc
 
 Custom content for a tab is defined with the default ng-content.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -136,14 +172,10 @@ import { TabsModule } from 'primeng/tabs';
 })
 export class TabsCustomtemplateDemo {}
 ```
-</details>
 
 ## Disabled
 
 Enabling disabled property of a Tab prevents user interaction.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -188,14 +220,10 @@ import { TabsModule } from 'primeng/tabs';
 })
 export class TabsDisabledDemo {}
 ```
-</details>
 
 ## Dynamic
 
 Tabs can be generated dynamically using the standard &#64;for block.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -233,14 +261,10 @@ export class TabsDynamicDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Lazy
 
 By default, inactive tab's content is rendered (but hidden). You can use the lazy input (either globally on Tabs or individually on a TabPanel ) to change this behavior so that content is only rendered when the tab becomes active. If a lazy tab contains complex components that should only be initialized when the tab is activated, you should wrap the content inside: &lt;ng-template #content&gt;your content&lt;/ng-template&gt; .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -281,14 +305,10 @@ import { TabsModule } from 'primeng/tabs';
 })
 export class TabsLazyDemo {}
 ```
-</details>
 
 ## Scrollable
 
 Adding scrollable property displays navigational buttons at each side to scroll between tabs.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -322,14 +342,10 @@ export class TabsScrollableDemo {
     scrollableTabs: any[];
 }
 ```
-</details>
 
 ## Tab Menu
 
 A navigation menu is implemented using tabs without the panels where the content of a tab is provided by a route component like router-outlet . For the purpose of this demo, router-outlet is not included.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -358,7 +374,6 @@ export class TabsTabmenuDemo {
     tabs: any[];
 }
 ```
-</details>
 
 ## Tabs
 

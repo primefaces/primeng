@@ -10,12 +10,54 @@ Screen Reader Accordion header elements have a button role and use aria-controls
 
 Accordion is defined using AccordionPanel , AccordionHeader and AccordionContent components. Each AccordionPanel must contain a unique value property to specify the active item.
 
+```typescript
+import { Component } from '@angular/core';
+import { AccordionModule } from 'primeng/accordion';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-accordion value="0">
+                <p-accordion-panel value="0">
+                    <p-accordion-header>Header I</p-accordion-header>
+                    <p-accordion-content>
+                        <p class="m-0">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                            laborum.
+                        </p>
+                    </p-accordion-content>
+                </p-accordion-panel>
+                <p-accordion-panel value="1">
+                    <p-accordion-header>Header II</p-accordion-header>
+                    <p-accordion-content>
+                        <p class="m-0">
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                            enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                        </p>
+                    </p-accordion-content>
+                </p-accordion-panel>
+                <p-accordion-panel value="2">
+                    <p-accordion-header>Header III</p-accordion-header>
+                    <p-accordion-content>
+                        <p class="m-0">
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                            enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                        </p>
+                    </p-accordion-content>
+                </p-accordion-panel>
+            </p-accordion>
+        </div>
+    `,
+    standalone: true,
+    imports: [AccordionModule]
+})
+export class AccordionBasicDemo {}
+```
+
 ## Controlled
 
 Panels can be controlled programmatically using value property as a model.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -69,14 +111,10 @@ export class AccordionControlledDemo {
     active: string = '0';
 }
 ```
-</details>
 
 ## Disabled
 
 Enabling disabled property of an AccordionTab prevents user interaction.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -125,14 +163,10 @@ import { AccordionModule } from 'primeng/accordion';
 })
 export class AccordionDisabledDemo {}
 ```
-</details>
 
 ## Dynamic
 
 AccordionPanel can be generated dynamically using the standard &#64;for block.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -160,14 +194,10 @@ export class AccordionDynamicDemo {
     tabs: any[];
 }
 ```
-</details>
 
 ## Multiple
 
 Only one tab at a time can be active by default, enabling multiple property changes this behavior to allow multiple tabs. In this case activeIndex needs to be an array.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -213,14 +243,10 @@ import { AccordionModule } from 'primeng/accordion';
 })
 export class AccordionMultipleDemo {}
 ```
-</details>
 
 ## Template
 
 Accordion is customized with toggleicon template.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -307,7 +333,6 @@ import { BadgeModule } from 'primeng/badge';
 })
 export class AccordionTemplateDemo {}
 ```
-</details>
 
 ## Accordion
 

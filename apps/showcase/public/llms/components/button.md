@@ -6,9 +6,6 @@ Button is an extension to standard button element with icons and theming.
 
 Screen Reader Button component renders a native button element that implicitly includes any passed prop. Text to describe the button is defined with the aria-label prop, if not present label prop is used as the value. If the button is icon only or custom templating is used, it is recommended to use aria-label so that screen readers would be able to read the element properly.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <p-button icon="pi pi-check" aria-label="Submit" />
 <p-button icon="pi pi-check" label="Submit" />
@@ -18,14 +15,10 @@ Screen Reader Button component renders a native button element that implicitly i
     <span class="px-4">Youtube</span>
 </p-button>
 ```
-</details>
 
 ## Badge
 
 Buttons have built-in badge support with badge and badgeClass properties.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -43,18 +36,30 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonBadgeDemo {}
 ```
-</details>
 
 ## Basic
 
 Text to display on a button is defined with the label property.
 
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-button label="Submit" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonBasicDemo {}
+```
+
 ## Button Group
 
 Multiple buttons are grouped when wrapped inside an element with ButtonGroup component.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -75,14 +80,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonButtongroupDemo {}
 ```
-</details>
 
 ## buttonset-doc
 
 Multiple buttons are grouped when wrapped inside an element with p-buttonset class.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -104,14 +105,10 @@ import { RippleModule } from 'primeng/ripple';
 })
 export class ButtonButtonsetDemo {}
 ```
-</details>
 
 ## Directive
 
 Button can also be used as directive using pButton along with pButtonLabel and pButtonIcon helper directives.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -131,14 +128,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonDirectiveDemo {}
 ```
-</details>
 
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -155,14 +148,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonDisabledDemo {}
 ```
-</details>
 
 ## Icons
 
 Icon of a button is specified with icon property and position is configured using iconPos attribute.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -187,14 +176,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonIconsDemo {}
 ```
-</details>
 
 ## iconsonly-doc
 
 Buttons can have icons without labels.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -255,14 +240,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonIconsonlyDemo {}
 ```
-</details>
 
 ## Link
 
 A button can be rendered as a link when link property is present, while the pButton directive can be applied on an anchor element to style the link as a button.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -285,14 +266,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonLinkDemo {}
 ```
-</details>
 
 ## Loading
 
 Busy state is controlled with the loading property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, signal } from '@angular/core';
@@ -319,14 +296,10 @@ export class ButtonLoadingDemo {
     }
 }
 ```
-</details>
 
 ## Outlined
 
 Outlined buttons display a border without a background initially.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -350,14 +323,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonOutlinedDemo {}
 ```
-</details>
 
 ## Raised
 
 Raised buttons display a shadow to indicate elevation.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -381,14 +350,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonRaisedDemo {}
 ```
-</details>
 
 ## Raised Text
 
 Text buttons can be displayed as raised for elevation.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -412,14 +377,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonRaisedtextDemo {}
 ```
-</details>
 
 ## Rounded
 
 Rounded buttons have a circular border radius.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -443,14 +404,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonRoundedDemo {}
 ```
-</details>
 
 ## Severity
 
 Severity defines the type of button.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -474,14 +431,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonSeverityDemo {}
 ```
-</details>
 
 ## Sizes
 
 Button provides small and large sizes as alternatives to the standard.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -500,14 +453,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonSizesDemo {}
 ```
-</details>
 
 ## Template
 
 Custom content inside a button is defined as children.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -549,14 +498,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonTemplateDemo {}
 ```
-</details>
 
 ## Text
 
 Text buttons are displayed as textual elements.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -580,7 +525,6 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ButtonTextDemo {}
 ```
-</details>
 
 ## Button
 

@@ -10,9 +10,6 @@ Screen Reader Splitter bar defines separator as the role with aria-orientation s
 
 Splitter requires two SplitterPanel components as children which are displayed horizontally by default.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 import { Component } from '@angular/core';
 import { SplitterModule } from 'primeng/splitter';
@@ -35,14 +32,10 @@ import { SplitterModule } from 'primeng/splitter';
 })
 export class SplitterHorizontalDemo {}
 ```
-</details>
 
 ## Nested
 
 Splitters can be combined to create advanced layouts.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -80,14 +73,10 @@ import { SplitterModule } from 'primeng/splitter';
 })
 export class SplitterNestedDemo {}
 ```
-</details>
 
 ## Size
 
 When no panelSizes are defined, panels are split 50/50, use the panelSizes property to give relative widths e.g. [25, 75].
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -111,14 +100,10 @@ import { SplitterModule } from 'primeng/splitter';
 })
 export class SplitterSizeDemo {}
 ```
-</details>
 
 ## Vertical
 
 Panels are displayed as stacked by setting the layout to vertical .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -142,7 +127,6 @@ import { SplitterModule } from 'primeng/splitter';
 })
 export class SplitterVerticalDemo {}
 ```
-</details>
 
 ## Splitter
 

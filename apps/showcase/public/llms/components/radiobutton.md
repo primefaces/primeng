@@ -6,9 +6,6 @@ RadioButton is an extension to standard radio button element with theming.
 
 Screen Reader RadioButton component uses a hidden native radio button element internally that is only visible to screen readers. Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <label for="rb1">One</label>
 <p-radiobutton inputId="rb1" />
@@ -18,14 +15,10 @@ Screen Reader RadioButton component uses a hidden native radio button element in
 
 <p-radiobutton ariaLabel="Three" />
 ```
-</details>
 
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -46,14 +39,10 @@ export class RadiobuttonDisabledDemo {
     value: number = 2;
 }
 ```
-</details>
 
 ## Dynamic
 
 RadioButtons can be generated using a list of values.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -83,14 +72,10 @@ export class RadiobuttonDynamicDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -110,14 +95,10 @@ export class RadiobuttonFilledDemo {
     checked: boolean = false;
 }
 ```
-</details>
 
 ## Group
 
 RadioButton is used as a controlled input with value and ngModel properties.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -154,14 +135,10 @@ export class RadiobuttonGroupDemo {
     ingredient!: string;
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -181,14 +158,10 @@ export class RadiobuttonInvalidDemo {
     value: boolean = false;
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 RadioButton can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -261,14 +234,10 @@ export class RadiobuttonReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 RadioButton provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -301,12 +270,8 @@ export class RadiobuttonSizesDemo {
     size: any = false;
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -362,7 +327,6 @@ export class RadiobuttonTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Pass Through Options
 

@@ -6,27 +6,39 @@ Knob is a form component to define number inputs with a dial.
 
 Screen Reader Knob element component uses slider role in addition to the aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using ariaLabelledBy and ariaLabel props.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <span id="label_number">Number</span>
 <p-knob ariaLabelledBy="label_number"/>
 
 <p-knob ariaLabel="Number"/>
 ```
-</details>
 
 ## Basic
 
 Knob is an input component and used with the standard ngModel directive.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { KnobModule } from 'primeng/knob';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-knob [(ngModel)]="value" />
+        </div>
+    `,
+    standalone: true,
+    imports: [KnobModule, FormsModule]
+})
+export class KnobBasicDemo {
+    value!: number;
+}
+```
+
 ## Color
 
 Colors are customized with the textColor , rangeColor and valueColor properties.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -46,14 +58,10 @@ export class KnobColorDemo {
     value: number = 50;
 }
 ```
-</details>
 
 ## Disabled
 
 When disabled is present, a visual hint is applied to indicate that the Knob cannot be interacted with.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -73,14 +81,10 @@ export class KnobDisabledDemo {
     value: number = 75;
 }
 ```
-</details>
 
 ## Min/Max
 
 Boundaries are configured with the min and max properties whose defaults are 0 and 100 respectively.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -100,14 +104,10 @@ export class KnobMinmaxDemo {
     value: number = 10;
 }
 ```
-</details>
 
 ## Reactive
 
 Knob can be controlled with custom controls as well.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -132,14 +132,10 @@ export class KnobReactiveDemo {
     value: number = 0;
 }
 ```
-</details>
 
 ## Reactive Forms
 
 Knob can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -214,14 +210,10 @@ export class KnobReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## ReadOnly
 
 When readonly present, value cannot be edited.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -241,14 +233,10 @@ export class KnobReadonlyDemo {
     value: number = 50;
 }
 ```
-</details>
 
 ## Size
 
 Diameter of the knob is defined in pixels using the size property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -268,14 +256,10 @@ export class KnobSizeDemo {
     value: number = 60;
 }
 ```
-</details>
 
 ## Step
 
 Size of each movement is defined with the step property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -295,14 +279,10 @@ export class KnobStepDemo {
     value!: number;
 }
 ```
-</details>
 
 ## Stroke
 
 The border size is specified with the strokeWidth property as a number in pixels.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -322,14 +302,10 @@ export class KnobStrokeDemo {
     value: number = 40;
 }
 ```
-</details>
 
 ## Template
 
 Label is a string template that can be customized with the valueTemplate property having 60 as the placeholder .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -349,12 +325,8 @@ export class KnobTemplateDemo {
     value: number = 60;
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -422,7 +394,6 @@ export class KnobTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Knob
 

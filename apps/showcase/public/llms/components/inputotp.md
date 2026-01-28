@@ -10,12 +10,28 @@ Screen Reader Input OTP uses a set of InputText components, refer to the InputTe
 
 Two-way value binding is defined using ngModel . The number of characters is defined with the length property, which is set to 4 by default.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputOtpModule } from 'primeng/inputotp';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-inputotp [(ngModel)]="value" />
+        </div>
+    `,
+    standalone: true,
+    imports: [InputOtpModule, FormsModule]
+})
+export class InputotpBasicDemo {
+    value: any;
+}
+```
+
 ## Integer Only
 
 When integerOnly is present, only integers can be accepted as input.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -35,14 +51,10 @@ export class InputotpIntegeronlyDemo {
     value: any;
 }
 ```
-</details>
 
 ## Mask
 
 Enable the mask option to hide the values in the input fields.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -62,14 +74,10 @@ export class InputotpMaskDemo {
     value: any;
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 InputOtp can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -124,14 +132,10 @@ export class InputotpReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Sample
 
 A sample UI implementation with templating and additional elements.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -167,14 +171,10 @@ export class InputotpSampleDemo {
     value: any;
 }
 ```
-</details>
 
 ## Sizes
 
 InputOtp provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -198,14 +198,10 @@ export class InputotpSizesDemo {
     value3: any;
 }
 ```
-</details>
 
 ## Template
 
 Define a template with your own UI elements with bindings to the provided events and attributes to replace the default design.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -229,12 +225,8 @@ export class InputotpTemplateDemo {
     value: any;
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -275,7 +267,6 @@ export class InputotpTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Input Otp
 

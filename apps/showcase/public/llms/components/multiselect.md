@@ -6,27 +6,55 @@ MultiSelect is used to select multiple items from a collection.
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The multiselect component has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls attribute that refers to the id of the popup listbox. The popup listbox uses listbox as the role with aria-multiselectable enabled. Each list item has an option role along with aria-label , aria-selected and aria-disabled attributes. Checkbox component at the header uses a hidden native checkbox element internally that is only visible to screen readers. Value to read is defined with the selectAll and unselectAll keys of the aria property from the locale API. If filtering is enabled, filterInputProps can be defined to give aria-* props to the input element. Close button uses close key of the aria property from the locale API as the aria-label by default, this can be overriden with the closeButtonProps .
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <span id="dd1">Options</span>
 <p-multiselect ariaLabelledBy="dd1"/>
 
 <p-multiselect ariaLabel="Options"/>
 ```
-</details>
 
 ## Basic
 
 MultiSelect is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Default property name for the optionLabel is label and value for the optionValue . If optionValue is omitted and the object has no value property, the object itself becomes the value of an option. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
 
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
+        </div>
+    `,
+    standalone: true,
+    imports: [MultiSelectModule, FormsModule]
+})
+export class MultiselectBasicDemo implements OnInit {
+    cities!: City[];
+    selectedCities!: any[];
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+
 ## Chips
 
 Selected values are displayed as a comma separated list by default, setting display as chip displays them as chips.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -62,14 +90,10 @@ export class MultiselectChipsDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Clear Icon
 
 When showClear is enabled, a clear icon is displayed to clear the value.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -105,14 +129,10 @@ export class MultiselectCleariconDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -148,14 +168,10 @@ export class MultiselectDisabledDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -191,14 +207,10 @@ export class MultiselectFilledDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Filter
 
 MultiSelect provides built-in filtering that is enabled by adding the filter property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -234,14 +246,10 @@ export class MultiselectFilterDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Float Label
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -291,14 +299,10 @@ export class MultiselectFloatlabelDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -334,14 +338,10 @@ export class MultiselectFluidDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Group
 
 Options can be grouped when a nested data structures is provided.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -410,14 +410,10 @@ export class MultiselectGroupDemo {
     }
 }
 ```
-</details>
 
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -457,14 +453,10 @@ export class MultiselectIftalabelDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -494,14 +486,10 @@ export class MultiselectInvalidDemo {
     selectedCities2!: City[];
 }
 ```
-</details>
 
 ## Loading State
 
 Loading state can be used loading property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -537,14 +525,10 @@ export class MultiselectLoadingstateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 MultiSelect can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -607,14 +591,10 @@ export class MultiselectReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 MultiSelect provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -654,14 +634,10 @@ export class MultiselectSizesDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Template
 
 Available options and the selected options support customization with item and selecteditems templates respectively. In addition, header, footer and filter sections can be templated as well.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -726,12 +702,8 @@ export class MultiselectTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -791,14 +763,10 @@ export class MultiselectTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## VirtualScroll
 
 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -843,7 +811,6 @@ export class MultiselectVirtualscrollDemo {
     }
 }
 ```
-</details>
 
 ## Multi Select
 

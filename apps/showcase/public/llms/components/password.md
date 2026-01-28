@@ -6,9 +6,6 @@ Password displays strength indicator for password fields.
 
 Screen Reader Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props. Screen reader is notified about the changes to the strength of the password using a section that has aria-live while typing.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <label for="pwd1">Password</label>
 <p-password inputId="pwd1" />
@@ -18,18 +15,33 @@ Screen Reader Value to describe the component can either be provided via label t
 
 <p-password ariaLabel="Password" />
 ```
-</details>
 
 ## Basic
 
 Two-way value binding is defined using ngModel .
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { PasswordModule } from 'primeng/password';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-password [(ngModel)]="value" [feedback]="false" autocomplete="off" />
+        </div>
+    `,
+    standalone: true,
+    imports: [PasswordModule, FormsModule]
+})
+export class PasswordBasicDemo {
+    value!: string;
+}
+```
+
 ## Clear Icon
 
 When showClear is enabled, a clear icon is displayed to clear the value.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -49,14 +61,10 @@ export class PasswordCleariconDemo {
     value!: string;
 }
 ```
-</details>
 
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -76,14 +84,10 @@ export class PasswordDisabledDemo {
     value!: string;
 }
 ```
-</details>
 
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -103,14 +107,10 @@ export class PasswordFilledDemo {
     value!: string;
 }
 ```
-</details>
 
 ## Float Label
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -144,14 +144,10 @@ export class PasswordFloatlabelDemo {
     value3!: string;
 }
 ```
-</details>
 
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -171,14 +167,10 @@ export class PasswordFluidDemo {
     value!: string;
 }
 ```
-</details>
 
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -202,14 +194,10 @@ export class PasswordIftalabelDemo {
     value!: string;
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -231,14 +219,10 @@ export class PasswordInvalidDemo {
     value2!: string;
 }
 ```
-</details>
 
 ## Locale
 
 Labels are translated at component level by promptLabel , weakLabel , mediumLabel and strongLabel properties. In order to apply global translations for all Password components in the application, refer to the locale
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -258,14 +242,10 @@ export class PasswordLocaleDemo {
     value!: string;
 }
 ```
-</details>
 
 ## Meter
 
 Strength meter is displayed as a popup while a value is being entered.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -285,14 +265,10 @@ export class PasswordMeterDemo {
     value!: string;
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 Password can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -349,14 +325,10 @@ export class PasswordReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 Password provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -380,14 +352,10 @@ export class PasswordSizesDemo {
     value3: string;
 }
 ```
-</details>
 
 ## Template
 
 3 templates are included to customize the overlay. These are header , content and footer . Note that content overrides the default meter.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -421,12 +389,8 @@ export class PasswordTemplateDemo {
     value!: string;
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -469,14 +433,10 @@ export class PasswordTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Toggle Mask
 
 When toggleMask is present, an icon is displayed to show the value as plain text.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -496,7 +456,6 @@ export class PasswordTogglemaskDemo {
     value!: string;
 }
 ```
-</details>
 
 ## Password
 

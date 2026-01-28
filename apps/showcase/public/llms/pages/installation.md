@@ -27,20 +27,15 @@ Welcome to the Prime UI Ecosystem! Once you have PrimeNG up and running, we reco
 
 ## Provider-
 
-Add providePrimeNG and provideAnimationsAsync to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
-
-<details>
-<summary>TypeScript Example</summary>
+Add providePrimeNG to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideAnimationsAsync(),
         providePrimeNG({
             theme: {
                 preset: Aura
@@ -49,14 +44,10 @@ export const appConfig: ApplicationConfig = {
     ]
 };
 ```
-</details>
 
 ## Theme-
 
 Configure PrimeNG to use a theme like Aura.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
@@ -73,7 +64,6 @@ export const appConfig: ApplicationConfig = {
     ]
 };
 ```
-</details>
 
 ## Verify-
 

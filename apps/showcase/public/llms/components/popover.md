@@ -10,12 +10,70 @@ Screen Reader Popover component uses dialog role and since any attribute is pass
 
 Popover is accessed via its reference and visibility is controlled using toggle , show and hide methods with an event of the target.
 
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { PopoverModule } from 'primeng/popover';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
+            <p-popover #op>
+                <div class="flex flex-col gap-4 w-[25rem]">
+                    <div>
+                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Share this document</span>
+                        <p-inputgroup>
+                            <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
+                            <p-inputgroup-addon>
+                                <i class="pi pi-copy"></i>
+                            </p-inputgroup-addon>
+                        </p-inputgroup>
+                    </div>
+                    <div>
+                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Invite Member</span>
+                        <div class="flex">
+                            <p-inputgroup>
+                                <input pInputText disabled />
+                                <button pButton label="Invite" icon="pi pi-users"></button>
+                            </p-inputgroup>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Team Members</span>
+                        <ul class="list-none p-0 m-0 flex flex-col gap-4">
+                            @for (member of members; track member) {
+                                <li class="flex items-center gap-2">
+                                    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
+                                    <div>
+                                        <span class="font-medium">{{ member.name }}</span>
+                                        <div class="text-sm text-muted-color">{{ member.email }}</div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-muted-color ml-auto text-sm">
+                                        <span>{{ member.role }}</span>
+                                        <i class="pi pi-angle-down"></i>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </p-popover>
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, InputGroupModule, PopoverModule, InputTextModule]
+})
+export class PopoverBasicDemo {
+    members: any[];
+}
+```
+
 ## DataTable
 
 Place the Popover outside of the data iteration components to avoid rendering it multiple times.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
@@ -146,14 +204,10 @@ export class PopoverDatatableDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Select Data
 
 In this sample, data is retrieved from the content inside the popover.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -199,14 +253,10 @@ export class PopoverSelectdataDemo {
     }
 }
 ```
-</details>
 
 ## Target
 
 show method takes two parameters, first one is the event and it is mandatory. By default the target component to align the overlay is the event target, if you'd like to align it to another element, provide it as the second parameter target .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -230,14 +280,10 @@ import { PopoverModule } from 'primeng/popover';
 })
 export class PopoverTargetDemo {}
 ```
-</details>
 
 ## Template
 
 Content of the OverlayPanel is defined by content template.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -261,7 +307,6 @@ import { OverlayPanel } from 'primeng/overlaypanel';
 })
 export class PopoverTemplateDemo {}
 ```
-</details>
 
 ## Popover
 

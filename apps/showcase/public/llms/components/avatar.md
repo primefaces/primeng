@@ -10,9 +10,6 @@ Screen Reader Avatar does not include any roles and attributes by default. Any a
 
 Grouping is available by wrapping multiple Avatar components inside an AvatarGroup .
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 import { Component } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
@@ -35,12 +32,8 @@ import { AvatarModule } from 'primeng/avatar';
 })
 export class AvatarAvatargroupDemo {}
 ```
-</details>
 
 ## avatargroupstyle-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -69,14 +62,10 @@ import { Component } from '@angular/core';
 })
 export class AvatarAvatargroupstyleDemo {}
 ```
-</details>
 
 ## avatarstyle-doc
 
 Following is the list of structural style classes, for theming classes visit theming page.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -129,14 +118,10 @@ import { Component } from '@angular/core';
 })
 export class AvatarAvatarstyleDemo {}
 ```
-</details>
 
 ## Badge
 
 A badge can be added to an Avatar with the Badge directive.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -153,14 +138,10 @@ import { AvatarModule } from 'primeng/avatar';
 })
 export class AvatarBadgeDemo {}
 ```
-</details>
 
 ## Icon
 
 A font icon is displayed as an Avatar with the icon property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -196,14 +177,10 @@ import { AvatarModule } from 'primeng/avatar';
 })
 export class AvatarIconDemo {}
 ```
-</details>
 
 ## Image
 
 Use the image property to display an image as an Avatar.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -237,14 +214,10 @@ import { AvatarModule } from 'primeng/avatar';
 })
 export class AvatarImageDemo {}
 ```
-</details>
 
 ## Label
 
 A letter Avatar is defined with the label property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -280,14 +253,10 @@ import { AvatarModule } from 'primeng/avatar';
 })
 export class AvatarLabelDemo {}
 ```
-</details>
 
 ## Shape
 
 Avatar comes in two different styles specified with the shape property, square is the default and circle is the alternative.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -305,14 +274,10 @@ import { AvatarModule } from 'primeng/avatar';
 })
 export class AvatarShapeDemo {}
 ```
-</details>
 
 ## Size
 
 size property defines the size of the Avatar with large and xlarge as possible values.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -330,14 +295,10 @@ import { AvatarModule } from 'primeng/avatar';
 })
 export class AvatarSizeDemo {}
 ```
-</details>
 
 ## Template
 
 Content can easily be customized with the dynamic content instead of using the built-in modes.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -379,7 +340,6 @@ import { AvatarModule } from 'primeng/avatar';
 })
 export class AvatarTemplateDemo {}
 ```
-</details>
 
 ## Avatar
 

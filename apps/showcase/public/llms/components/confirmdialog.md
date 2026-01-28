@@ -10,12 +10,61 @@ Screen Reader ConfirmDialog component uses alertdialog role along with aria-labe
 
 ConfirmDialog is defined using p-confirmdialog tag and an instance of ConfirmationService is required to display it bycalling confirm method.
 
+```typescript
+import { Component, inject } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { MessageService, ConfirmationService } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card flex justify-center gap-2">
+            <p-toast />
+            <p-confirmdialog />
+            <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
+            <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, ConfirmDialogModule, ToastModule],
+    providers: [ConfirmationService, MessageService]
+})
+export class ConfirmdialogBasicDemo {
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
+
+    confirm2(event: Event) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message: 'Do you want to delete this record?',
+            header: 'Danger Zone',
+            icon: 'pi pi-info-circle',
+            rejectLabel: 'Cancel',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true
+            },
+            acceptButtonProps: {
+                label: 'Delete',
+                severity: 'danger'
+            },
+        
+            accept: () => {
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+            },
+            reject: () => {
+                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+            }
+        });
+    }
+}
+```
+
 ## Headless
 
 Headless mode allows you to customize the entire user interface instead of the default elements.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -57,14 +106,10 @@ export class ConfirmdialogHeadlessDemo {
     private messageService = inject(MessageService);
 }
 ```
-</details>
 
 ## Position
 
 The position property of the confirm options is used to display a Dialog at all edges and corners of the screen.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -104,14 +149,10 @@ export class ConfirmdialogPositionDemo {
     private messageService = inject(MessageService);
 }
 ```
-</details>
 
 ## Template
 
 Properties of the dialog are defined in two ways, message , icon , header properties can either be defined using confirm method or declaratively on p-confirmDialog ng-template by header , message , icon and footer templates. If these values are unlikely to change then declarative approach would be useful, still properties defined in a ng-template can be overridden with confirm method call. In addition, buttons at footer section can be customized by passing your own UI, important note to make confirmation work with a custom UI is defining a local ng-template variable for the dialog and assign accept()-reject() methods to your own buttons.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -146,7 +187,6 @@ export class ConfirmdialogTemplateDemo {
     private messageService = inject(MessageService);
 }
 ```
-</details>
 
 ## Confirm Dialog
 

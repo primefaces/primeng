@@ -10,12 +10,31 @@ Screen Reader Toast component use alert role that implicitly defines aria-live a
 
 Toasts are displayed by calling the add and addAll method provided by the messageService . A single toast is specified by the Message interface that defines various properties such as severity , summary and detail .
 
+```typescript
+import { Component, inject } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-toast />
+            <p-button (onClick)="show()" label="Show" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, ToastModule],
+    providers: [MessageService]
+})
+export class ToastBasicDemo {
+    private messageService = inject(MessageService);
+}
+```
+
 ## clear-doc
 
 Clicking the close icon on the toast, removes it manually. Same can also be achieved programmatically using the clear function of the messageService . Calling it without any arguments, removes all displayed messages whereas calling it with a key, removes the messages displayed on a toast having the same key.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -43,14 +62,10 @@ export class ToastClearDemo {
     }
 }
 ```
-</details>
 
 ## Headless
 
 Headless mode allows you to customize the entire user interface instead of the default elements.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject, signal } from '@angular/core';
@@ -127,14 +142,10 @@ export class ToastHeadlessDemo {
     }
 }
 ```
-</details>
 
 ## life-doc
 
 A toast disappears after 3000ms by default, set the life option on either the message or toast to override this.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -162,14 +173,10 @@ export class ToastLifeDemo {
     }
 }
 ```
-</details>
 
 ## Multiple
 
 Multiple toasts are displayed by passing an array to the showAll method of the messageService .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -193,14 +200,10 @@ export class ToastMultipleDemo {
     private messageService = inject(MessageService);
 }
 ```
-</details>
 
 ## Position
 
 Location of the toast is customized with the position property. Valid values are top-left , top-center , top-right , bottom-left , bottom-center , bottom-right and center .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -250,14 +253,10 @@ export class ToastPositionDemo {
     }
 }
 ```
-</details>
 
 ## Responsive
 
 Toast styling can be adjusted per screen size with the breakpoints option. The value of breakpoints should be an object literal whose keys are the maximum screen sizes and values are the styles per screen.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -280,14 +279,10 @@ export class ToastResponsiveDemo {
     private messageService = inject(MessageService);
 }
 ```
-</details>
 
 ## Severity
 
 The severity option specifies the type of the message. There are four types of messages: success , info , warn and error . The severity of the message is used to display the icon and the color of the toast.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -336,14 +331,10 @@ export class ToastSeverityDemo {
     }
 }
 ```
-</details>
 
 ## Sticky
 
 A toast disappears after the time defined by the life option, set sticky option true on the message to override this and not hide the toast automatically.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -374,14 +365,10 @@ export class ToastStickyDemo {
     }
 }
 ```
-</details>
 
 ## target-doc
 
 A page may have multiple toast components, in case you'd like to target a specific message to a particular toast, use the key property so that toast and the message can match.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -411,14 +398,10 @@ export class ToastTargetDemo {
     }
 }
 ```
-</details>
 
 ## template-doc
 
 Templating allows customizing the content where the message instance is available as the implicit variable.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -470,7 +453,6 @@ export class ToastTemplateDemo {
     }
 }
 ```
-</details>
 
 ## Toast
 

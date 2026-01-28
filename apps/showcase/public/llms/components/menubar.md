@@ -10,12 +10,77 @@ Screen Reader Menubar component uses the menubar role and the value to describe 
 
 Menubar requires nested menuitems as its model.
 
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenubarModule } from 'primeng/menubar';
+import { MenuItem } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-menubar [model]="items" />
+        </div>
+    `,
+    standalone: true,
+    imports: [MenubarModule]
+})
+export class MenubarBasicDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Home',
+                icon: 'pi pi-home'
+            },
+            {
+                label: 'Features',
+                icon: 'pi pi-star'
+            },
+            {
+                label: 'Projects',
+                icon: 'pi pi-search',
+                items: [
+                    {
+                        label: 'Components',
+                        icon: 'pi pi-bolt'
+                    },
+                    {
+                        label: 'Blocks',
+                        icon: 'pi pi-server'
+                    },
+                    {
+                        label: 'UI Kit',
+                        icon: 'pi pi-pencil'
+                    },
+                    {
+                        label: 'Templates',
+                        icon: 'pi pi-palette',
+                        items: [
+                            {
+                                label: 'Apollo',
+                                icon: 'pi pi-palette'
+                            },
+                            {
+                                label: 'Ultima',
+                                icon: 'pi pi-palette'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                label: 'Contact',
+                icon: 'pi pi-envelope'
+            }
+        ];
+    }
+}
+```
+
 ## Command
 
 The command property defines the callback to run when an item is activated by click or a key event.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -99,14 +164,10 @@ export class MenubarCommandDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Router
 
 Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -166,14 +227,10 @@ export class MenubarRouterDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Template
 
 Custom content can be placed inside the menubar using the start and end templates.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -277,7 +334,6 @@ export class MenubarTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Menubar
 

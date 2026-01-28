@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-01-20",
+  "generatedAt": "2026-01-28",
   "components": [
     {
       "name": "accordion",
@@ -30301,7 +30301,7 @@
           },
           {
             "name": "orientation",
-            "type": "\"vertical\" | \"horizontal\" | \"both\"",
+            "type": "\"both\" | \"vertical\" | \"horizontal\"",
             "default": "-",
             "description": "The orientation of scrollbar.",
             "deprecated": ""
@@ -40207,7 +40207,7 @@
           },
           {
             "name": "tooltipEvent",
-            "type": "any",
+            "type": "\"hover\" | \"focus\" | \"both\"",
             "default": "hover",
             "description": "Event to show the tooltip.",
             "deprecated": ""
@@ -40294,6 +40294,13 @@
             "type": "boolean",
             "default": "true",
             "description": "Whether to hide tooltip on escape key press.",
+            "deprecated": ""
+          },
+          {
+            "name": "showOnEllipsis",
+            "type": "boolean",
+            "default": "false",
+            "description": "Whether to show the tooltip only when the target text overflows (e.g., ellipsis is active).",
             "deprecated": ""
           },
           {
@@ -44053,9 +44060,9 @@
         {
           "id": "provider-",
           "label": "Provider-",
-          "description": "Add providePrimeNG and provideAnimationsAsync to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.",
+          "description": "Add providePrimeNG to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { providePrimeNG } from 'primeng/config';\nimport Aura from '@primeuix/themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        providePrimeNG({\n            theme: {\n                preset: Aura\n            }\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { providePrimeNG } from 'primeng/config';\nimport Aura from '@primeuix/themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        providePrimeNG({\n            theme: {\n                preset: Aura\n            }\n        })\n    ]\n};"
           }
         },
         {

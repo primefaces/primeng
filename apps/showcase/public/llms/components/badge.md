@@ -10,12 +10,25 @@ Screen Reader Badge does not include any roles and attributes by default, any at
 
 Content of the badge is specified using the value property.
 
+```typescript
+import { Component } from '@angular/core';
+import { BadgeModule } from 'primeng/badge';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-badge value="2" />
+        </div>
+    `,
+    standalone: true,
+    imports: [BadgeModule]
+})
+export class BadgeBasicDemo {}
+```
+
 ## Button
 
 Buttons have built-in support for badges to display a badge inline.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -33,14 +46,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class BadgeButtonDemo {}
 ```
-</details>
 
 ## directive-doc
 
 Content of the badge is specified using the value property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -56,14 +65,10 @@ import { Component } from '@angular/core';
 })
 export class BadgeDirectiveDemo {}
 ```
-</details>
 
 ## Overlay
 
 A badge can be added to any element by encapsulating the content with the OverlayBadge component.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -88,14 +93,10 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 })
 export class BadgeOverlayDemo {}
 ```
-</details>
 
 ## position-doc
 
 A Badge can be positioned at the top right corner of an element by adding p-overlay-badge style class to the element and embedding the badge inside.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -113,14 +114,10 @@ import { Component } from '@angular/core';
 })
 export class BadgePositionDemo {}
 ```
-</details>
 
 ## Severity
 
 Severity defines the color of the badge, possible values are success , info , warn and danger
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -143,14 +140,10 @@ import { BadgeModule } from 'primeng/badge';
 })
 export class BadgeSeverityDemo {}
 ```
-</details>
 
 ## Size
 
 Badge sizes are adjusted with the badgeSize property that accepts small , large and xlarge as the possible alternatives to the default size. Currently sizes only apply to component mode.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -170,7 +163,6 @@ import { BadgeModule } from 'primeng/badge';
 })
 export class BadgeSizeDemo {}
 ```
-</details>
 
 ## Badge
 

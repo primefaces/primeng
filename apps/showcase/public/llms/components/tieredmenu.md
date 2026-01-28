@@ -10,12 +10,100 @@ Screen Reader TieredMenu component uses the menubar role with aria-orientation s
 
 TieredMenu requires a collection of menuitems as its model .
 
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { MenuItem } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-tieredmenu [model]="items" />
+        </div>
+    `,
+    standalone: true,
+    imports: [TieredMenuModule]
+})
+export class TieredmenuBasicDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'File',
+                icon: 'pi pi-file',
+                items: [
+                    {
+                        label: 'New',
+                        icon: 'pi pi-plus',
+                        items: [
+                            {
+                                label: 'Document',
+                                icon: 'pi pi-file'
+                            },
+                            {
+                                label: 'Image',
+                                icon: 'pi pi-image'
+                            },
+                            {
+                                label: 'Video',
+                                icon: 'pi pi-video'
+                            }
+                        ]
+                    },
+                    {
+                        label: 'Open',
+                        icon: 'pi pi-folder-open'
+                    },
+                    {
+                        label: 'Print',
+                        icon: 'pi pi-print'
+                    }
+                ]
+            },
+            {
+                label: 'Edit',
+                icon: 'pi pi-file-edit',
+                items: [
+                    {
+                        label: 'Copy',
+                        icon: 'pi pi-copy'
+                    },
+                    {
+                        label: 'Delete',
+                        icon: 'pi pi-times'
+                    }
+                ]
+            },
+            {
+                label: 'Search',
+                icon: 'pi pi-search'
+            },
+            {
+                separator: true
+            },
+            {
+                label: 'Share',
+                icon: 'pi pi-share-alt',
+                items: [
+                    {
+                        label: 'Slack',
+                        icon: 'pi pi-slack'
+                    },
+                    {
+                        label: 'Whatsapp',
+                        icon: 'pi pi-whatsapp'
+                    }
+                ]
+            }
+        ];
+    }
+}
+```
+
 ## Command
 
 The command property defines the callback to run when an item is activated by click or a key event.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -99,14 +187,10 @@ export class TieredmenuCommandDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Popup
 
 Popup mode is enabled by adding popup property and calling toggle method with an event of the target.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -200,14 +284,10 @@ export class TieredmenuPopupDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Router
 
 Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -267,14 +347,10 @@ export class TieredmenuRouterDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Template
 
 TieredMenu offers item customization with the item template that receives the menuitem instance from the model as a parameter.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -388,7 +464,6 @@ export class TieredmenuTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Tiered Menu
 

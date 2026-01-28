@@ -6,26 +6,71 @@ Toolbar is a grouping component for buttons and other content.
 
 Screen Reader Toolbar uses toolbar role for the root element, aria-orientation is not included as it defaults to horizontal . Any valid attribute is passed to the root element so you may add additional properties like aria-labelledby and aria-labelled to define the element if required. Keyboard Support Component does not include any interactive elements. Arbitrary content can be placed with templating and elements like buttons inside should follow the page tab sequence.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <p-toolbar aria-label="Actions">
     Content
 </p-toolbar>
 ```
-</details>
 
 ## Basic
 
 Toolbar is a grouping component for buttons and other content. Its content can be placed inside the start , center and end sections.
 
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ToolbarModule } from 'primeng/toolbar';
+import { InputTextModule } from 'primeng/inputtext';
+import { MenuItem } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-toolbar>
+                <ng-template #start>
+                    <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
+                    <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
+                    <p-button icon="pi pi-upload" text severity="secondary" />
+                </ng-template>
+                <ng-template #center>
+                    <p-iconfield iconPosition="left">
+                        <p-inputicon class="pi pi-search" />
+                        <input type="text" pInputText placeholder="Search" />
+                    </p-iconfield>
+                </ng-template>
+                <ng-template #end>
+                    <p-splitbutton label="Save" [model]="items" />
+                </ng-template>
+            </p-toolbar>
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, IconFieldModule, InputIconModule, SplitButtonModule, ToolbarModule, InputTextModule]
+})
+export class ToolbarBasicDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Update',
+                icon: 'pi pi-refresh'
+            },
+            {
+                label: 'Delete',
+                icon: 'pi pi-times'
+            }
+        ];
+    }
+}
+```
+
 ## Custom
 
 Content can also be placed using the start , center and end templates.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -87,7 +132,6 @@ import { ToolbarModule } from 'primeng/toolbar';
 })
 export class ToolbarCustomDemo {}
 ```
-</details>
 
 ## Toolbar
 

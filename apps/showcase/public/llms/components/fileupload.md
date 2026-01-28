@@ -10,9 +10,6 @@ Screen Reader FileUpload uses a hidden native input element with type="file" for
 
 Advanced uploader provides dragdrop support, multi file uploads, auto uploading, progress tracking and validations.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -44,14 +41,10 @@ export class FileuploadAdvancedDemo {
     uploadedFiles: any[] = [];
 }
 ```
-</details>
 
 ## Auto
 
 When auto property is enabled, a file gets uploaded instantly after selection.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -79,18 +72,43 @@ export class FileuploadAutoDemo {
     private messageService = inject(MessageService);
 }
 ```
-</details>
 
 ## Basic
 
 FileUpload basic mode provides a simpler UI as an alternative to default advanced mode.
 
+```typescript
+import { Component, inject } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
+interface UploadEvent {
+    originalEvent: Event;
+    files: File[];
+}
+
+@Component({
+    template: `
+        <p-toast />
+        <div class="card flex flex-wrap gap-6 items-center justify-between">
+            <p-fileupload #fu mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)" />
+            <p-button label="Upload" (onClick)="fu.upload()" severity="secondary" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, FileUploadModule, ToastModule],
+    providers: [MessageService]
+})
+export class FileuploadBasicDemo {
+    private messageService = inject(MessageService);
+}
+```
+
 ## custom-doc
 
 FileUpload basic mode provides a simpler UI as an alternative to default advanced mode.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -113,12 +131,8 @@ export class FileuploadCustomDemo {
     private messageService = inject(MessageService);
 }
 ```
-</details>
 
 ## Template
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -249,7 +263,6 @@ export class FileuploadTemplateDemo {
     }
 }
 ```
-</details>
 
 ## File Upload
 

@@ -10,6 +10,53 @@ Screen Reader Terminal component has an input element that can be described with
 
 Commands are processed using observables via the TerminalService . Import this service into your component and subscribe to commandHandler to process commands by sending replies with sendResponse function.
 
+```typescript
+import { Component } from '@angular/core';
+import { TerminalModule } from 'primeng/terminal';
+
+@Component({
+    template: `
+        <div class="card">
+            <p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
+            <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
+        </div>
+    `,
+    standalone: true,
+    imports: [TerminalModule]
+})
+export class TerminalBasicDemo {
+    subscription: Subscription;
+
+    constructor() {
+        this.subscription = this.terminalService.commandHandler.subscribe((text) => {
+                    let response;
+                    let argsIndex = text.indexOf(' ');
+                    let command = argsIndex !== -1 ? text.substring(0, argsIndex) : text;
+                    switch (command) {
+                        case 'date':
+                            response = 'Today is ' + new Date().toDateString();
+                            break;
+                        case 'greet':
+                            response = 'Hola ' + text.substring(argsIndex + 1);
+                            break;
+                        case 'random':
+                            response = Math.floor(Math.random() * 100);
+                            break;
+                        default:
+                            response = 'Unknown command: ' + command;
+                    }
+                    this.terminalService.sendResponse(response);
+                });
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+}
+```
+
 ## Terminal
 
 Terminal is a text based user interface.

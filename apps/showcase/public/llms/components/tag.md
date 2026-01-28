@@ -10,12 +10,25 @@ Screen Reader Tag does not include any roles and attributes by default, any attr
 
 Label of the tag is defined with the value property.
 
+```typescript
+import { Component } from '@angular/core';
+import { TagModule } from 'primeng/tag';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-tag value="New" />
+        </div>
+    `,
+    standalone: true,
+    imports: [TagModule]
+})
+export class TagBasicDemo {}
+```
+
 ## Icon
 
 A font icon next to the value can be displayed with the icon property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -38,14 +51,10 @@ import { TagModule } from 'primeng/tag';
 })
 export class TagIconDemo {}
 ```
-</details>
 
 ## Pill
 
 Enabling rounded , displays a tag as a pill.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -68,14 +77,10 @@ import { TagModule } from 'primeng/tag';
 })
 export class TagPillDemo {}
 ```
-</details>
 
 ## Severity
 
 Severity defines the color of the tag, possible values are success , info , warn and danger in addition to the default theme color.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -98,14 +103,10 @@ import { TagModule } from 'primeng/tag';
 })
 export class TagSeverityDemo {}
 ```
-</details>
 
 ## Template
 
 Children of the component are passed as the content for templating.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -128,7 +129,6 @@ import { Country } from '@/domain/customer';
 })
 export class TagTemplateDemo {}
 ```
-</details>
 
 ## Tag
 

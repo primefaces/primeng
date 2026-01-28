@@ -10,9 +10,6 @@ Refer to InputText for accessibility as KeyFilter is a built-in add-on of the In
 
 KeyFilter provides various presets configured with the pKeyFilter property.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 import { Component } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
@@ -55,14 +52,10 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class KeyfilterPresetsDemo {}
 ```
-</details>
 
 ## Regex
 
 In addition to the presets, a regular expression can be configured for customization.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -89,5 +82,4 @@ export class KeyfilterRegexDemo {
     blockChars: RegExp = /^[^<>*!]+$/;
 }
 ```
-</details>
 

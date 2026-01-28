@@ -10,9 +10,6 @@ Screen Reader Dock component uses the menu role with the aria-orientation and th
 
 A mock desktop UI implemented with various components in addition to Dock.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
@@ -365,11 +362,66 @@ export class DockAdvancedDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Basic
 
 Dock requires a collection of menuitems as its model . Default location is bottom and other sides are also available when defined with the position property. Content of the dock component is defined by item template.
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DockModule } from 'primeng/dock';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { TooltipModule } from 'primeng/tooltip';
+import { MenuItem } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card">
+            <div class="flex flex-wrap gap-4 mb-8">
+                <div *ngFor="let pos of positionOptions" class="flex items-center">
+                    <p-radiobutton name="dock" [value]="pos.value" [label]="pos.label" [(ngModel)]="position" [inputId]="pos.label" />
+                    <label [for]="pos.label" class="ml-2"> {{ pos.label }} </label>
+                </div>
+            </div>
+            <div class="dock-window">
+                <p-dock [model]="items" [position]="position">
+                    <ng-template #item let-item>
+                        <img [pTooltip]="item.label" tooltipPosition="top" [src]="item.icon" [alt]="item.label" width="100%" />
+                    </ng-template>
+                </p-dock>
+            </div>
+        </div>
+    `,
+    standalone: true,
+    imports: [DockModule, RadioButtonModule, TooltipModule, FormsModule]
+})
+export class DockBasicDemo implements OnInit {
+    items: MenuItem[] | undefined;
+    positionOptions: any[];
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Finder',
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg'
+            },
+            {
+                label: 'App Store',
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/appstore.svg'
+            },
+            {
+                label: 'Photos',
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/photos.svg'
+            },
+            {
+                label: 'Trash',
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png'
+            }
+        ];
+    }
+}
+```
 
 ## Dock
 

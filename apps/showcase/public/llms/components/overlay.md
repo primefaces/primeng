@@ -22,10 +22,30 @@ The baseZIndex is base zIndex value to use in layering. Its default value is 0.
 
 Overlay is a container to display content in an overlay window. All the options mentioned above can be used as props for this component.
 
-## Events
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
 
-<details>
-<summary>TypeScript Example</summary>
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-button (click)="toggle()" label="Show Overlay"></p-button>
+            <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border"> Content </p-overlay>
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class OverlayBasicDemo {
+    overlayVisible: boolean = false;
+
+    toggle() {
+        this.overlayVisible = !this.overlayVisible;
+    }
+}
+```
+
+## Events
 
 ```typescript
 import { Component } from '@angular/core';
@@ -40,7 +60,6 @@ import { Component } from '@angular/core';
 })
 export class OverlayEventsDemo {}
 ```
-</details>
 
 ## hideonescape-doc
 
@@ -53,9 +72,6 @@ It has two valid values; overlay and modal . In overlay mode, a container elemen
 ## Responsive
 
 It is the option used to determine in which mode it should appear according to the given media or breakpoint .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -86,14 +102,10 @@ import { Component } from '@angular/core';
 })
 export class OverlayResponsiveDemo {}
 ```
-</details>
 
 ## Target
 
 The target is used to detect the element that will be used to position the overlay. Valid values would be;
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -116,14 +128,10 @@ import { Component } from '@angular/core';
 })
 export class OverlayTargetDemo {}
 ```
-</details>
 
 ## Template
 
 Content can be customized with the content template.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -149,7 +157,6 @@ export class OverlayTemplateDemo {
     }
 }
 ```
-</details>
 
 ## transitionoptions-doc
 

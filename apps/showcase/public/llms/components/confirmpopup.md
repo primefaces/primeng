@@ -10,10 +10,56 @@ Screen Reader ConfirmPopup component uses alertdialog role and since any attribu
 
 ConfirmPopup is defined using p-confirmPopup tag and an instance of ConfirmationService is required to display it bycalling confirm method.
 
-## confirmationapi-doc
+```typescript
+import { Component, inject } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
-<details>
-<summary>TypeScript Example</summary>
+@Component({
+    template: `
+        <div class="card flex justify-center gap-2">
+            <p-toast />
+            <p-confirmpopup />
+            <p-button (onClick)="confirm1($event)" label="Save" [outlined]="true" />
+            <p-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, ConfirmPopupModule, ToastModule],
+    providers: [ConfirmationService, MessageService]
+})
+export class ConfirmpopupBasicDemo {
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
+
+    confirm2(event: Event) {
+        this.confirmationService.confirm({
+            target: event.currentTarget as EventTarget,
+            message: 'Do you want to delete this record?',
+            icon: 'pi pi-info-circle',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true
+            },
+            acceptButtonProps: {
+                label: 'Delete',
+                severity: 'danger'
+            },
+            accept: () => {
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 3000 });
+            },
+            reject: () => {
+                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+            }
+        });
+    }
+}
+```
+
+## confirmationapi-doc
 
 ```typescript
 import { Component } from '@angular/core';
@@ -124,14 +170,10 @@ import { Component } from '@angular/core';
 })
 export class ConfirmpopupConfirmationapiDemo {}
 ```
-</details>
 
 ## Headless
 
 Headless mode allows you to customize the entire user interface instead of the default elements.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -167,12 +209,8 @@ export class ConfirmpopupHeadlessDemo {
     private messageService = inject(MessageService);
 }
 ```
-</details>
 
 ## props-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -241,14 +279,10 @@ import { Component } from '@angular/core';
 })
 export class ConfirmpopupPropsDemo {}
 ```
-</details>
 
 ## Template
 
 Content section can be customized using content template.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -281,12 +315,8 @@ export class ConfirmpopupTemplateDemo {
     private messageService = inject(MessageService);
 }
 ```
-</details>
 
 ## templates-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -319,7 +349,6 @@ import { Component } from '@angular/core';
 })
 export class ConfirmpopupTemplatesDemo {}
 ```
-</details>
 
 ## Confirm Popup
 

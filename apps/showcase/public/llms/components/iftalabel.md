@@ -10,12 +10,32 @@ Screen Reader IftaLabel does not require any roles and attributes. Keyboard Supp
 
 IftaLabel is used by wrapping the input and its label.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-iftalabel>
+                <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
+                <label for="username">Username</label>
+            </p-iftalabel>
+        </div>
+    `,
+    standalone: true,
+    imports: [IftaLabelModule, InputTextModule, FormsModule]
+})
+export class IftalabelBasicDemo {
+    value: string | undefined;
+}
+```
+
 ## Invalid
 
 When the form element is invalid, the label is also highlighted.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -39,7 +59,6 @@ export class IftalabelInvalidDemo {
     value: string | undefined;
 }
 ```
-</details>
 
 ## Ifta Label
 

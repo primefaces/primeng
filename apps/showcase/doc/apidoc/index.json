@@ -1969,7 +1969,7 @@
                             "name": "orientation",
                             "optional": true,
                             "readonly": false,
-                            "type": "\"vertical\" | \"horizontal\" | \"both\"",
+                            "type": "\"both\" | \"vertical\" | \"horizontal\"",
                             "description": "The orientation of scrollbar."
                         },
                         {
@@ -2481,7 +2481,7 @@
                             "name": "tooltipEvent",
                             "optional": true,
                             "readonly": false,
-                            "type": "\"hover\" | \"focus\"",
+                            "type": "\"hover\" | \"focus\" | \"both\"",
                             "description": "Event to show the tooltip."
                         },
                         {
@@ -20598,6 +20598,127 @@
     },
     "inputmask": {
         "components": {
+            "InputMaskDirective": {
+                "description": "InputMask directive is applied directly to input elements to enable masked input.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<InputMaskPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "pInputMaskPT",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the InputMask directive."
+                        },
+                        {
+                            "name": "pInputMaskUnstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pInputMask",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Mask pattern."
+                        },
+                        {
+                            "name": "slotChar",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Placeholder character in mask, default is underscore."
+                        },
+                        {
+                            "name": "autoClear",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, boolean>",
+                            "default": "...",
+                            "description": "Clears the incomplete value on blur."
+                        },
+                        {
+                            "name": "characterPattern",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Regex pattern for alpha characters."
+                        },
+                        {
+                            "name": "keepBuffer",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, boolean>",
+                            "default": "...",
+                            "description": "When present, it specifies that whether to clean buffer value from model."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onCompleteEvent",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "void"
+                                }
+                            ],
+                            "description": "Callback to invoke when the mask is completed."
+                        },
+                        {
+                            "name": "onUnmaskedChange",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "string"
+                                }
+                            ],
+                            "description": "Callback to invoke when value changes, emits unmasked value."
+                        }
+                    ]
+                }
+            },
             "InputMask": {
                 "description": "InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.",
                 "props": {
@@ -34761,7 +34882,7 @@
                             "name": "orientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"vertical\" | \"horizontal\" | \"both\"",
+                            "type": "\"both\" | \"vertical\" | \"horizontal\"",
                             "description": "The orientation of scrollbar."
                         },
                         {
@@ -45519,7 +45640,7 @@
                             "name": "tooltipEvent",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "\"hover\" | \"focus\" | \"both\"",
                             "default": "hover",
                             "description": "Event to show the tooltip."
                         },
@@ -45610,6 +45731,14 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Whether to hide tooltip on escape key press."
+                        },
+                        {
+                            "name": "showOnEllipsis",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether to show the tooltip only when the target text overflows (e.g., ellipsis is active)."
                         },
                         {
                             "name": "content",

@@ -6,9 +6,6 @@ InputText is an extension to standard input element with theming and keyfilterin
 
 Screen Reader InputText component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <label for="firstname">Firstname</label>
 <input pInputText id="firstname" />
@@ -18,18 +15,33 @@ Screen Reader InputText component renders a native input element that implicitly
 
 <input pInputText aria-label="Age" />
 ```
-</details>
 
 ## Basic
 
 InputText is used as a controlled input with ngModel property.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <input type="text" pInputText [(ngModel)]="value" />
+        </div>
+    `,
+    standalone: true,
+    imports: [InputTextModule, FormsModule]
+})
+export class InputtextBasicDemo {
+    value: string;
+}
+```
+
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -49,14 +61,10 @@ export class InputtextDisabledDemo {
     value: string | undefined = 'Disabled';
 }
 ```
-</details>
 
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -76,14 +84,10 @@ export class InputtextFilledDemo {
     value: string;
 }
 ```
-</details>
 
 ## Float Label
 
 FloatLabel visually integrates a label with its form element. Visit FloatLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -117,14 +121,10 @@ export class InputtextFloatlabelDemo {
     value3: string | undefined;
 }
 ```
-</details>
 
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -144,14 +144,10 @@ export class InputtextFluidDemo {
     value: string;
 }
 ```
-</details>
 
 ## Help Text
 
 An advisory text can be defined with the semantic small tag.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -175,14 +171,10 @@ export class InputtextHelptextDemo {
     value: string | undefined;
 }
 ```
-</details>
 
 ## icons-doc
 
 Icons can be placed inside an input element by wrapping both the input and the icon with an element that has either .p-input-icon-left or p-input-icon-right class.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -210,14 +202,10 @@ export class InputtextIconsDemo {
     value2: string | undefined;
 }
 ```
-</details>
 
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -241,14 +229,10 @@ export class InputtextIftalabelDemo {
     value: string | undefined;
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -270,14 +254,10 @@ export class InputtextInvalidDemo {
     value2: string | undefined;
 }
 ```
-</details>
 
 ## keyfilter-doc
 
 InputText has built-in key filtering support to block certain keys, refer to keyfilter page for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -297,12 +277,8 @@ export class InputtextKeyfilterDemo {
     value: number | undefined;
 }
 ```
-</details>
 
 ## reactiveforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -369,14 +345,10 @@ export class InputtextReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 InputText provides small and large sizes as alternatives to the standard.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -400,12 +372,8 @@ export class InputtextSizesDemo {
     value3: string | undefined;
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -459,7 +427,6 @@ export class InputtextTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Input Text
 

@@ -10,9 +10,6 @@ Screen Reader Skeleton uses aria-hidden as "true" so that it gets ignored by scr
 
 Sample Card implementation using different Skeleton components and Tailwind CSS utilities.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 import { Component } from '@angular/core';
 import { SkeletonModule } from 'primeng/skeleton';
@@ -42,14 +39,10 @@ import { SkeletonModule } from 'primeng/skeleton';
 })
 export class SkeletonCardDemo {}
 ```
-</details>
 
 ## DataTable
 
 Sample DataTable implementation using different Skeleton components and Tailwind CSS utilities.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -90,14 +83,10 @@ export class SkeletonDatatableDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## List
 
 Sample List implementation using different Skeleton components and Tailwind CSS utilities.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -153,14 +142,10 @@ import { SkeletonModule } from 'primeng/skeleton';
 })
 export class SkeletonListDemo {}
 ```
-</details>
 
 ## Shapes
 
 Various shapes and sizes can be created using styling properties like shape , width , height , borderRadius and class .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -212,7 +197,6 @@ import { SkeletonModule } from 'primeng/skeleton';
 })
 export class SkeletonShapesDemo {}
 ```
-</details>
 
 ## Skeleton
 

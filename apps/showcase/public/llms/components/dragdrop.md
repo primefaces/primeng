@@ -6,12 +6,79 @@ pDraggable and pDroppable directives apply drag-drop behaviors to any element.
 
 pDraggable and pDroppable are attached to a target element to add drag-drop behavior. The value of a Directive attribute is required and it defines the scope to match draggables with droppables. Droppable scope can also be an array to accept multiple droppables.
 
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Product } from '@/domain/product';
+
+@Component({
+    template: `
+        <div class="card flex flex-wrap gap-4">
+            <div class="p-2 border border-surface rounded-border w-60">
+                <ul class="list-none flex flex-col gap-2 p-0 m-0">
+                    <li *ngFor="let product of availableProducts" class="p-2 rounded-border shadow-sm" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
+                        {{ product.name }}
+                    </li>
+                </ul>
+            </div>
+            <div class="p-2 border border-surface rounded-border w-60" pDroppable (onDrop)="drop()">
+                <p class="text-center border-surface border-b">Drop Zone</p>
+                <ul class="list-none flex flex-col gap-2 p-0 m-0" *ngIf="selectedProducts">
+                    <li *ngFor="let product of selectedProducts" class="p-2 rounded-border shadow-sm">
+                        {{ product.name }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class DragdropBasicDemo implements OnInit {
+    availableProducts: Product[] | undefined;
+    selectedProducts: Product[] | undefined;
+    draggedProduct: Product | undefined | null;
+
+    ngOnInit() {
+        this.selectedProducts = [];
+        this.availableProducts = [
+            { id: '1', name: 'Black Watch' },
+            { id: '2', name: 'Bamboo Watch' }
+        ];
+    }
+
+    dragStart(product: Product) {
+        this.draggedProduct = product;
+    }
+
+    drop() {
+        if (this.draggedProduct) {
+            let draggedProductIndex = this.findIndex(this.draggedProduct);
+            this.selectedProducts = [...(this.selectedProducts as Product[]), this.draggedProduct];
+            this.availableProducts = this.availableProducts?.filter((val, i) => i != draggedProductIndex);
+            this.draggedProduct = null;
+        }
+    }
+
+    dragEnd() {
+        this.draggedProduct = null;
+    }
+
+    findIndex(product: Product) {
+        let index = -1;
+        for (let i = 0; i < (this.availableProducts as Product[]).length; i++) {
+            if (product.id === (this.availableProducts as Product[])[i].id) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+}
+```
+
 ## DataTable
 
 Drag and Drop to Table
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -118,14 +185,10 @@ export class DragdropDatatableDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Drag Handle
 
 dragHandle is used to restrict dragging unless mousedown occurs on the specified element. Panel below can only be dragged using its header.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -145,14 +208,10 @@ import { Product } from '@/domain/product';
 })
 export class DragdropDraghandleDemo {}
 ```
-</details>
 
 ## Drop Indicator
 
 When a suitable draggable enters a droppable area, the area gets p-draggable-enter class that can be used to style the droppable section.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -223,5 +282,4 @@ export class DragdropDropindicatorDemo implements OnInit {
     }
 }
 ```
-</details>
 

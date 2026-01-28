@@ -6,9 +6,6 @@ Application wide configuration for PrimeNG.
 
 The nonce value to use on dynamically generated style elements in core.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 providePrimeNG({ 
     csp: {
@@ -16,14 +13,10 @@ providePrimeNG({
     }
 })
 ```
-</details>
 
 ## Dynamic-
 
 Inject the PrimeNG to your application to update the initial configuration at runtime.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -42,14 +35,10 @@ export class AppComponent implements OnInit {
     }
 }
 ```
-</details>
 
 ## Filtermode-
 
 Default filter modes to display on DataTable filter menus.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { PrimeNGConfig } from 'primeng/api';
@@ -71,7 +60,6 @@ export class AppComponent implements OnInit {
     }
 }
 ```
-</details>
 
 ## Inputvariant-
 
@@ -88,9 +76,6 @@ Ready to use settings for locales are available at the community supported Prime
 ## Runtime
 
 The translations can be changed dynamically at runtime, here is an example with ngx-translate.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -115,14 +100,10 @@ export class AppComponent implements OnInit {
     }
 }
 ```
-</details>
 
 ## Translation
 
 A translation is specified using the translation property during initialization.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 providePrimeNG({ 
@@ -133,7 +114,6 @@ providePrimeNG({
     }
 })
 ```
-</details>
 
 ## Overlayappendto-
 
@@ -142,9 +122,6 @@ Defines the default location of the overlays; self refers to the host element an
 ## Provider-
 
 The initial configuration is defined by the providePrimeNG provider during application startup.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
@@ -158,28 +135,20 @@ export const appConfig: ApplicationConfig = {
     ]
 };
 ```
-</details>
 
 ## Ripple-
 
 Ripple is an optional animation for the supported components such as buttons. It is disabled by default.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 providePrimeNG({ 
     ripple: true
 })
 ```
-</details>
 
 ## Theme-
 
 PrimeNG provides 4 predefined themes out of the box; Aura, Material, Lara and Nora. See the theming documentation for details.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
@@ -204,14 +173,10 @@ export const appConfig: ApplicationConfig = {
     ]
 };
 ```
-</details>
 
 ## Zindex-
 
 ZIndexes are managed automatically to make sure layering of overlay components work seamlessly when combining multiple components. Still there may be cases where you'd like to configure the configure default values such as a custom layout where header section is fixed. In a case like this, dropdown needs to be displayed below the application header but a modal dialog should be displayed above. PrimeNG configuration offers the zIndex property to customize the default values for components categories. Default values are described below and can be customized when setting up PrimeNG.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { PrimeNGConfig } from 'primeng/api';
@@ -234,5 +199,4 @@ export class AppComponent implements OnInit {
     }
 }
 ```
-</details>
 

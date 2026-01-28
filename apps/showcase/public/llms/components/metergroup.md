@@ -10,12 +10,27 @@ Screen Reader MeterGroup component uses meter role in addition to the aria-value
 
 MeterGroup requires a value as the data to display where each item in the collection should be a type of MeterItem .
 
+```typescript
+import { Component } from '@angular/core';
+import { MeterGroupModule } from 'primeng/metergroup';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-metergroup [value]="value" />
+        </div>
+    `,
+    standalone: true,
+    imports: [MeterGroupModule]
+})
+export class MetergroupBasicDemo {
+    value: any[] = [{ label: 'Space used', value: 15, color: 'var(--p-primary-color)' }];
+}
+```
+
 ## Icon
 
 Icons can be displayed next to the labels instead of the default marker.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -34,14 +49,10 @@ export class MetergroupIconDemo {
     value: any[];
 }
 ```
-</details>
 
 ## Label
 
 The position of the labels relative to the meters is defined using the labelPosition property. The default orientation of the labels is horizontal, and the vertical alternative is available through the labelOrientation option.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -60,14 +71,10 @@ export class MetergroupLabelDemo {
     value: any[];
 }
 ```
-</details>
 
 ## Min Max
 
 Boundaries are configured with the min and max values whose defaults are 0 and 100 respectively.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -86,14 +93,10 @@ export class MetergroupMinmaxDemo {
     value: any[];
 }
 ```
-</details>
 
 ## Multiple
 
 Adding more items to the array displays the meters in a group.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -112,14 +115,10 @@ export class MetergroupMultipleDemo {
     value: any[];
 }
 ```
-</details>
 
 ## Template
 
 MeterGroup provides templating support for labels, meter items, and content around the meters.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -174,14 +173,10 @@ export class MetergroupTemplateDemo {
     value: any[];
 }
 ```
-</details>
 
 ## Vertical
 
 Layout of the MeterGroup is configured with the orientation property that accepts either horizontal or vertical as available options.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -200,7 +195,6 @@ export class MetergroupVerticalDemo {
     value: any[];
 }
 ```
-</details>
 
 ## Pass Through Options
 

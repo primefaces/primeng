@@ -6,27 +6,36 @@ ProgressBar is a process status indicator.
 
 Screen Reader ProgressBar components uses progressbar role along with aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using aria-labelledby and aria-label props.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <span id="label_status">Status</span>
 <p-progressbar aria-labelledby="label_status" />
 
 <p-progressbar aria-label="Status" />
 ```
-</details>
 
 ## Basic
 
 ProgressBar is used with the value property.
 
+```typescript
+import { Component } from '@angular/core';
+import { ProgressBarModule } from 'primeng/progressbar';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-progressbar [value]="50" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ProgressBarModule]
+})
+export class ProgressbarBasicDemo {}
+```
+
 ## Dynamic
 
 Value is reactive so updating it dynamically changes the bar as well.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -72,14 +81,10 @@ export class ProgressbarDynamicDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Indeterminate
 
 For progresses with no value to track, set the mode property to indeterminate .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -100,14 +105,10 @@ export class ProgressbarIndeterminateDemo {
     private messageService = inject(MessageService);
 }
 ```
-</details>
 
 ## Template
 
 content template allows displaying custom content inside the progressbar.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -128,7 +129,6 @@ import { ProgressBarModule } from 'primeng/progressbar';
 })
 export class ProgressbarTemplateDemo {}
 ```
-</details>
 
 ## Progress Bar
 

@@ -6,27 +6,55 @@ Listbox is used to select one or more values from a list of items.
 
 Screen Reader Value to describe the component can be provided ariaLabelledBy or ariaLabel props. The list element has a listbox role with the aria-multiselectable attribute that sets to true when multiple selection is enabled. Each list item has an option role with aria-selected and aria-disabled as their attributes.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <span id="lb">Options</span>
 <p-listbox ariaLabelledBy="lb"/>
 
 <p-listbox ariaLabel="City"/>
 ```
-</details>
 
 ## Basic
 
 Listbox is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Default property name for the optionLabel is label and value for the optionValue . If optionValue is omitted and the object has no value property, the object itself becomes the value of an option. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
 
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ListboxModule, FormsModule]
+})
+export class ListboxBasicDemo implements OnInit {
+    cities!: City[];
+    selectedCity!: City;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+
 ## Checkbox
 
 Listbox allows item selection using checkboxes.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -62,14 +90,10 @@ export class ListboxCheckboxDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Checkmark
 
 An alternative way to highlight the selected option is displaying a checkmark instead.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -105,14 +129,10 @@ export class ListboxCheckmarkDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -148,14 +168,10 @@ export class ListboxDisabledDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## dragdrop-doc
 
 Items can be reordered using drag and drop by enabling dragdrop property. Depends on &#64;angular/cdk package.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -186,14 +202,10 @@ export class ListboxDragdropDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Filter
 
 ListBox provides built-in filtering that is enabled by adding the filter property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -229,14 +241,10 @@ export class ListboxFilterDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Group
 
 Options can be grouped when a nested data structures is provided.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -306,14 +314,10 @@ export class ListboxGroupDemo {
     }
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -349,14 +353,10 @@ export class ListboxInvalidDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Multiple
 
 ListBox allows choosing a single item by default, enable multiple property to choose more than one. When the optional metaKeySelection is present, behavior is changed in a way that selecting a new item requires meta key to be present.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -392,14 +392,10 @@ export class ListboxMultipleDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 Listbox can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -467,14 +463,10 @@ export class ListboxReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Template
 
 For custom content support define a template named item where the default local template variable refers to an option.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -523,12 +515,8 @@ export class ListboxTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -585,14 +573,10 @@ export class ListboxTemplatedrivenformsDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Virtual Scroll
 
 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -640,7 +624,6 @@ export class ListboxVirtualscrollDemo {
     }
 }
 ```
-</details>
 
 ## Listbox
 

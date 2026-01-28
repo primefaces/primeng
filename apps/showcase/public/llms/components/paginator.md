@@ -10,12 +10,33 @@ Screen Reader Paginator is placed inside a nav element to indicate a navigation 
 
 Paginator is used as a controlled component with first , rows and onPageChange properties to manage the first index and number of records to display per page. Total number of records need to be with totalRecords property. Default template includes a dropdown to change the rows so rowsPerPageOptions is also necessary for the dropdown options.
 
+```typescript
+import { Component } from '@angular/core';
+import { Paginator, PaginatorModule } from 'primeng/paginator';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
+        </div>
+    `,
+    standalone: true,
+    imports: [PaginatorModule]
+})
+export class PaginatorBasicDemo {
+    first: number = 0;
+    rows: number = 10;
+
+    onPageChange(event: PaginatorState) {
+        this.first = event.first ?? 0;
+        this.rows = event.rows ?? 10;
+    }
+}
+```
+
 ## currentpagereport-doc
 
 Current page report item in the template displays information about the pagination state. Default value is ({{ '{' }}currentPage{{ '}' }} of {{ '{' }}totalPages{{ '}' }}) whereas available placeholders are the following; {{ '{' }}currentPage{{ '}' }} {{ '{' }}totalPages{{ '}' }} {{ '{' }}rows{{ '}' }} {{ '{' }}first{{ '}' }} {{ '{' }}last{{ '}' }} {{ '{' }}totalRecords{{ '}' }}
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -49,14 +70,10 @@ export class PaginatorCurrentpagereportDemo {
     }
 }
 ```
-</details>
 
 ## Images
 
 Sample image gallery implementation using paginator.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -82,14 +99,10 @@ export class PaginatorImagesDemo {
     }
 }
 ```
-</details>
 
 ## Template
 
 Templating allows overriding the default content of the UI elements by defining callbacks using the element name.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -176,7 +189,6 @@ export class PaginatorTemplateDemo {
     }
 }
 ```
-</details>
 
 ## Paginator
 

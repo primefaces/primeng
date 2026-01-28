@@ -6,6 +6,22 @@ AutoFocus manages focus on focusable element on load.
 
 AutoFocus is applied to any focusable input element with the pAutoFocus directive.
 
+```typescript
+import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <input type="text" pInputText [pAutoFocus]="true" placeholder="Automatically focused" />
+        </div>
+    `,
+    standalone: true,
+    imports: [InputTextModule]
+})
+export class AutofocusBasicDemo {}
+```
+
 ## Auto Focus
 
 AutoFocus manages focus on focusable element on load.

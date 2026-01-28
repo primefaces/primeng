@@ -6,9 +6,6 @@ InputNumber is an input component to provide numerical input.
 
 Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel , ariaDescribedBy props. The input element uses spinbutton role in addition to the aria-valuemin , aria-valuemax and aria-valuenow attributes.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <label for="price">Price</label>
 <p-inputnumber inputId="price" />
@@ -21,14 +18,10 @@ Screen Reader Value to describe the component can either be provided via label t
 <p-inputnumber ariaDescribedBy="describe" />
 <small id="describe">Information</small>
 ```
-</details>
 
 ## Buttons
 
 Spinner buttons are enabled using the showButtons options and layout is defined with the buttonLayout . Default value is "stacked" whereas "horizontal" and "stacked" are alternatives. Note that even there are no buttons, up and down arrow keys can be used to spin the values with keyboard.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -68,14 +61,10 @@ export class InputnumberButtonsDemo {
     value3: number = 25;
 }
 ```
-</details>
 
 ## Clear Icon
 
 When showClear is enabled, a clear icon is displayed to clear the value.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -95,14 +84,10 @@ export class InputnumberCleariconDemo {
     value: number | undefined;
 }
 ```
-</details>
 
 ## Currency
 
 Currency formatting is specified by setting the mode option to currency and currency property. In addition currencyDisplay option allows how the currency is displayed, valid values are "symbol" (default) or "code".
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -140,14 +125,10 @@ export class InputnumberCurrencyDemo {
     value4: number = 5002;
 }
 ```
-</details>
 
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -167,14 +148,10 @@ export class InputnumberDisabledDemo {
     value1: number = 50;
 }
 ```
-</details>
 
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -194,14 +171,10 @@ export class InputnumberFilledDemo {
     value1!: number;
 }
 ```
-</details>
 
 ## Float Label
 
 A floating label appears on top of the input field when focused. Visit FloatLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -235,14 +208,10 @@ export class InputnumberFloatlabelDemo {
     value3: number | undefined;
 }
 ```
-</details>
 
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -262,14 +231,10 @@ export class InputnumberFluidDemo {
     value: number | undefined;
 }
 ```
-</details>
 
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -293,14 +258,10 @@ export class InputnumberIftalabelDemo {
     value: number | undefined;
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -322,14 +283,10 @@ export class InputnumberInvalidDemo {
     value2!: number;
 }
 ```
-</details>
 
 ## Locale
 
 Localization information such as grouping and decimal symbols are defined with the locale property which defaults to the user locale.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -367,14 +324,10 @@ export class InputnumberLocaleDemo {
     value4: number = 732762;
 }
 ```
-</details>
 
 ## Numerals
 
 InputNumber is used as a controlled input with ngModel property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -412,14 +365,10 @@ export class InputnumberNumeralsDemo {
     value4: number = 50;
 }
 ```
-</details>
 
 ## Prefix & Suffix
 
 Custom texts e.g. units can be placed before or after the input section with the prefix and suffix properties.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -457,14 +406,10 @@ export class InputnumberPrefixsuffixDemo {
     value4: number = 20;
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 InputNumber can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -519,14 +464,10 @@ export class InputnumberReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 InputNumber provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -550,12 +491,8 @@ export class InputnumberSizesDemo {
     value3!: number;
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -596,14 +533,10 @@ export class InputnumberTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Vertical
 
 Buttons can also placed vertically by setting buttonLayout as vertical .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -630,7 +563,6 @@ export class InputnumberVerticalDemo {
     value1: number = 50;
 }
 ```
-</details>
 
 ## Input Number
 

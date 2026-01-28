@@ -10,12 +10,35 @@ Screen Reader Menu component uses the menu role and the value to describe the me
 
 Menu requires a collection of menuitems as its model .
 
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuModule } from 'primeng/menu';
+import { MenuItem } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-menu [model]="items" />
+        </div>
+    `,
+    standalone: true,
+    imports: [MenuModule]
+})
+export class MenuBasicDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [
+            { label: 'New', icon: 'pi pi-plus' },
+            { label: 'Search', icon: 'pi pi-search' }
+        ];
+    }
+}
+```
+
 ## Command
 
 The function to invoke when an item is clicked is defined using the command property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -66,14 +89,10 @@ export class MenuCommandDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Group
 
 Menu supports one level of nesting by defining children with items property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -126,14 +145,10 @@ export class MenuGroupDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Popup
 
 Popup mode is enabled by setting popup property to true and calling toggle method with an event of the target.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -175,14 +190,10 @@ export class MenuPopupDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Router
 
 Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -229,14 +240,10 @@ export class MenuRouterDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Template
 
 Menu offers item customization with the item template that receives the menuitem instance from the model as a parameter. The submenu header has its own submenuheader template, additional slots named start and end are provided to embed content before or after the menu.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -361,7 +368,6 @@ export class MenuTemplateDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Menu
 

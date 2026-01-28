@@ -6,24 +6,32 @@ ProgressSpinner is a process status indicator.
 
 Screen Reader ProgressSpinner components uses progressbar role. Value to describe the component can be defined using aria-labelledby and aria-label props.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <p-progress-spinner aria-label="Loading"></p-progress-spinner>
 ```
-</details>
 
 ## Basic
 
 An infinite spin animation is displayed by default.
 
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-progress-spinner ariaLabel="loading" />
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class ProgressspinnerBasicDemo {}
+```
+
 ## Custom
 
 ProgressSpinner can be customized with styling property like strokeWidth and fill .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -39,7 +47,6 @@ import { Component } from '@angular/core';
 })
 export class ProgressspinnerCustomDemo {}
 ```
-</details>
 
 ## Progress Spinner
 

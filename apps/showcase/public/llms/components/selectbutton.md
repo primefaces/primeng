@@ -10,12 +10,29 @@ Screen Reader The container element that wraps the buttons has a group role wher
 
 SelectButton requires a value to bind and a collection of options.
 
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectButtonModule } from 'primeng/selectbutton';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectButtonModule, FormsModule]
+})
+export class SelectbuttonBasicDemo {
+    stateOptions: any[];
+    value: string = 'one-way';
+}
+```
+
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused entirely. Certain options can also be disabled using the optionDisabled property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -39,14 +56,10 @@ export class SelectbuttonDisabledDemo {
     value2: string = 'Option 1';
 }
 ```
-</details>
 
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -67,14 +80,10 @@ export class SelectbuttonFluidDemo {
     value: string = 'one-way';
 }
 ```
-</details>
 
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -95,14 +104,10 @@ export class SelectbuttonInvalidDemo {
     value: string | undefined;
 }
 ```
-</details>
 
 ## Multiple
 
 SelectButton allows selecting only one item by default and setting multiple option enables choosing more than one item. In multiple case, model property should be an array.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -123,14 +128,10 @@ export class SelectbuttonMultipleDemo {
     value!: number;
 }
 ```
-</details>
 
 ## reactiveforms-doc
 
 SelectButton can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -186,14 +187,10 @@ export class SelectbuttonReactiveformsDemo {
     }
 }
 ```
-</details>
 
 ## Sizes
 
 SelectButton provides small and large sizes as alternatives to the base.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -218,14 +215,10 @@ export class SelectbuttonSizesDemo {
     options: any[];
 }
 ```
-</details>
 
 ## Template
 
 For custom content support define a template named item where the default local template variable refers to an option.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -250,12 +243,8 @@ export class SelectbuttonTemplateDemo {
     justifyOptions: any[];
 }
 ```
-</details>
 
 ## templatedrivenforms-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -297,7 +286,6 @@ export class SelectbuttonTemplatedrivenformsDemo {
     }
 }
 ```
-</details>
 
 ## Select Button
 

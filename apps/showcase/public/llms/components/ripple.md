@@ -10,9 +10,6 @@ Screen Reader Ripple element has the aria-hidden attribute as true so that it ge
 
 Styling Demo Content.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 import { Component } from '@angular/core';
 import { RippleModule } from 'primeng/ripple';
@@ -37,14 +34,10 @@ import { RippleModule } from 'primeng/ripple';
 })
 export class RippleCustomDemo {}
 ```
-</details>
 
 ## Default
 
 Default Demo Content.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -66,7 +59,6 @@ import { RippleModule } from 'primeng/ripple';
 })
 export class RippleDefaultDemo {}
 ```
-</details>
 
 ## Ripple
 

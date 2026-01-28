@@ -10,6 +10,86 @@ Screen Reader Chart components internally use canvas element, refer to the Chart
 
 A chart is configured with 3 properties; type , data and options . Chart type is defined using the type property that accepts pie , doughtnut , line , bar , radar and polarArea as a value. The data defines datasets represented with the chart and the options provide numerous customization options to customize the presentation.
 
+```typescript
+import { Component, OnInit, inject } from '@angular/core';
+import { ChartModule } from 'primeng/chart';
+
+@Component({
+    template: `
+        <div class="card">
+            <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ChartModule]
+})
+export class ChartBasicDemo implements OnInit {
+    basicData: any;
+    basicOptions: any;
+    platformId = inject(PLATFORM_ID);
+    configService = inject(AppConfigService);
+    designerService = inject(DesignerService);
+
+    ngOnInit() {
+        this.initChart();
+    }
+
+    initChart() {
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+            const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+        
+            this.basicData = {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                datasets: [
+                    {
+                        label: 'Sales',
+                        data: [540, 325, 702, 620],
+                        backgroundColor: ['rgba(249, 115, 22, 0.2)', 'rgba(6, 182, 212, 0.2)', 'rgb(107, 114, 128, 0.2)', 'rgba(139, 92, 246, 0.2)'],
+                        borderColor: ['rgb(249, 115, 22)', 'rgb(6, 182, 212)', 'rgb(107, 114, 128)', 'rgb(139, 92, 246)'],
+                        borderWidth: 1
+                    }
+                ]
+            };
+        
+            this.basicOptions = {
+                maintainAspectRatio: false,
+                aspectRatio: 0.8,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder
+                        }
+                    }
+                }
+            };
+            this.cd.markForCheck();
+        }
+    }
+}
+```
+
 ## Chart.js
 
 To begin with, first you must install the charts.js package using npm and then include it in your project. An example with CLI would be;
@@ -17,9 +97,6 @@ To begin with, first you must install the charts.js package using npm and then i
 ## Combo
 
 Different chart types can be combined in the same graph using the type option of a dataset.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -115,14 +192,10 @@ export class ChartComboDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Doughnut
 
 A doughnut chart is a variant of the pie chart, with a blank center allowing for additional information about the data as a whole to be included.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -179,14 +252,10 @@ export class ChartDoughnutDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Horizontal Bar
 
 A bar chart is rendered horizontally when indexAxis option is set as y .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -277,14 +346,10 @@ export class ChartHorizontalbarDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Line
 
 A line chart or line graph is a type of chart which displays information as a series of data points called 'markers' connected by straight line segments.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -373,14 +438,10 @@ export class ChartLineDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## linestyle-doc
 
 Various styles of a line series can be customized to display customizations like an area chart.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -476,12 +537,8 @@ export class ChartLinestyleDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## methods-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -522,14 +579,10 @@ import { Component } from '@angular/core';
 })
 export class ChartMethodsDemo {}
 ```
-</details>
 
 ## MultiAxis
 
 Multiple axes can be added using the scales option.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -634,14 +687,10 @@ export class ChartMultiaxisDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Pie
 
 A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -698,14 +747,10 @@ export class ChartPieDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Polar Area
 
 Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -775,12 +820,8 @@ export class ChartPolarareaDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## props-doc
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -855,14 +896,10 @@ import { Component } from '@angular/core';
 })
 export class ChartPropsDemo {}
 ```
-</details>
 
 ## radar-doc
 
 A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes starting from the same point.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -939,14 +976,10 @@ export class ChartRadarDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Stacked Bar
 
 Bars can be stacked on top of each other when stacked option of a scale is enabled.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1045,14 +1078,10 @@ export class ChartStackedbarDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Vertical Bar
 
 A bar chart or bar graph is a chart that presents grouped data with rectangular bars with lengths proportional to the values that they represent.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1142,7 +1171,6 @@ export class ChartVerticalbarDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Pass Through Options
 

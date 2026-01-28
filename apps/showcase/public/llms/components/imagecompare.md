@@ -6,9 +6,6 @@ Compare two images side by side with a slider.
 
 Screen Reader ImageComponent component uses a native range slider internally. Value to describe the component can be defined using aria-labelledby and aria-label props. Keyboard Support Key Function tab Moves focus to the component. left arrow up arrow Decrements the value. right arrow down arrow Increments the value. home Set the minimum value. end Set the maximum value. page up Increments the value by 10 steps. page down Decrements the value by 10 steps.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <span id="image_label">Compare Images</span>
 <p-imagecompare class="shadow-lg rounded-2xl" aria-labelledby="image-label">
@@ -19,18 +16,37 @@ Screen Reader ImageComponent component uses a native range slider internally. Va
     ...
 </p-imagecompare>
 ```
-</details>
 
 ## Basic
 
 Images are defined using templating with left and right templates. Use the style or class properties to define the size of the container.
 
+```typescript
+import { Component } from '@angular/core';
+import { ImageCompareModule } from 'primeng/imagecompare';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-imagecompare class="shadow-lg rounded-2xl">
+                <ng-template #left>
+                    <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
+                </ng-template>
+                <ng-template #right>
+                    <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
+                </ng-template>
+            </p-imagecompare>
+        </div>
+    `,
+    standalone: true,
+    imports: [ImageCompareModule]
+})
+export class ImagecompareBasicDemo {}
+```
+
 ## Responsive
 
 Apply responsive styles to the container element to optimize display per screen size.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -54,7 +70,6 @@ import { ImageCompareModule } from 'primeng/imagecompare';
 })
 export class ImagecompareResponsiveDemo {}
 ```
-</details>
 
 ## Pass Through Options
 

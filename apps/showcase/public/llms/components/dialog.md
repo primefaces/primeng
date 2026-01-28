@@ -6,9 +6,6 @@ Dialog is a container to display content in an overlay window.
 
 Screen Reader Dialog component uses dialog role along with aria-labelledby referring to the header element however any attribute is passed to the root element so you may use aria-labelledby to override this default behavior. In addition aria-modal is added since focus is kept within the popup. It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding tabIndex would be necessary. Trigger element also requires aria-expanded and aria-controls to be handled explicitly. Close element is a button with an aria-label that refers to the aria.close property of the locale API by default, you may use closeButtonProps to customize the element and override the default aria-label . Maximize element is a button with an aria-label that refers to the aria.maximizeLabel and aria.minimizeLabel property of the locale API. It cannot be customized using the maximizeButtonProps . Overlay Keyboard Support Key Function tab Moves focus to the next the focusable element within the dialog. shift + tab Moves focus to the previous the focusable element within the dialog. escape Closes the dialog if closeOnEscape is true. Close Button Keyboard Support Key Function enter Closes the dialog. space Closes the dialog.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <p-button icon="pi pi-external-link" (click)="visible = true" aria-controls="{{visible ? 'dialog' : null}}" aria-expanded="{{visible ? true : false}}" />
 
@@ -16,18 +13,53 @@ Screen Reader Dialog component uses dialog role along with aria-labelledby refer
     <p>Content</p>
 </p-dialog>
 ```
-</details>
 
 ## Basic
 
 Dialog is used as a container and visibility is controlled with visible property.
 
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-button (click)="showDialog()" label="Show" />
+            <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+                <span class="p-text-secondary block mb-8">Update your information.</span>
+                <div class="flex items-center gap-4 mb-4">
+                    <label for="username" class="font-semibold w-24">Username</label>
+                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex items-center gap-4 mb-8">
+                    <label for="email" class="font-semibold w-24">Email</label>
+                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex justify-end gap-2">
+                    <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+                    <p-button label="Save" (click)="visible = false" />
+                </div>
+            </p-dialog>
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, DialogModule, InputTextModule]
+})
+export class DialogBasicDemo {
+    visible: boolean = false;
+
+    showDialog() {
+        this.visible = true;
+    }
+}
+```
+
 ## Headless
 
 Headless mode allows you to customize the entire user interface instead of the default elements.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -103,14 +135,10 @@ export class DialogHeadlessDemo {
     }
 }
 ```
-</details>
 
 ## Long Content
 
 Dialog automatically displays a scroller when content exceeds viewport.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -168,14 +196,10 @@ export class DialogLongcontentDemo {
     }
 }
 ```
-</details>
 
 ## Maximizable
 
 Setting maximizable property to true enables the full screen mode.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -205,14 +229,10 @@ export class DialogMaximizableDemo {
     }
 }
 ```
-</details>
 
 ## modal-doc
 
 Mask layer behind the Dialog can be turned on by setting the modal property to true .
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -242,14 +262,10 @@ export class DialogModalDemo {
     }
 }
 ```
-</details>
 
 ## overlaysinside-doc
 
 When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can either append the overlay to the body by using appendTo property or allow overflow in dialog.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -297,14 +313,10 @@ export class DialogOverlaysinsideDemo implements OnInit {
     }
 }
 ```
-</details>
 
 ## Position
 
 The position property is used to display a Dialog at all edges and corners of the screen.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -358,14 +370,10 @@ export class DialogPositionDemo {
     }
 }
 ```
-</details>
 
 ## Responsive
 
 Dialog width can be adjusted per screen size with the breakpoints option where a key defines the max-width for the breakpoint and value for the corresponding width. When no breakpoint matches width defined in style property is used.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -395,14 +403,10 @@ export class DialogResponsiveDemo {
     }
 }
 ```
-</details>
 
 ## Template
 
 Dialog can be customized using header and footer templates.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -449,14 +453,10 @@ export class DialogTemplateDemo {
     }
 }
 ```
-</details>
 
 ## Without Modal
 
 Mask layer behind the Dialog is configured with the modal property. By default, no modal layer is added.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -496,7 +496,6 @@ export class DialogWithoutmodalDemo {
     }
 }
 ```
-</details>
 
 ## Dialog
 

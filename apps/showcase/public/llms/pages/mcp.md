@@ -18,9 +18,6 @@ claude mcp add primeng -- npx -y @primeng/mcp
 
 Create .cursor/mcp.json in your project or ~/.cursor/mcp.json for global configuration.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 {
     "mcpServers": {
@@ -31,14 +28,10 @@ Create .cursor/mcp.json in your project or ~/.cursor/mcp.json for global configu
     }
 }
 ```
-</details>
 
 ## Exampleprompts-
 
 Once installed, try asking your AI assistant:
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 "Show me how to use the Table component with sorting and filtering"
@@ -48,7 +41,6 @@ Once installed, try asking your AI assistant:
 "What's the best component for a date picker?"
 "How do I migrate from PrimeNG v20 to v21?"
 ```
-</details>
 
 ## Introduction-
 
@@ -76,9 +68,6 @@ Component Information Tools for exploring and understanding PrimeNG components. 
 
 Create .vscode/mcp.json in your project or ~/Library/Application Support/Code/User/mcp.json for global configuration.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 {
     "servers": {
@@ -89,14 +78,10 @@ Create .vscode/mcp.json in your project or ~/Library/Application Support/Code/Us
     }
 }
 ```
-</details>
 
 ## Windsurf-
 
 Edit ~/.codeium/windsurf/mcp_config.json to add the PrimeNG MCP server.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 {
@@ -108,14 +93,10 @@ Edit ~/.codeium/windsurf/mcp_config.json to add the PrimeNG MCP server.
     }
 }
 ```
-</details>
 
 ## Zed-
 
 Add to your Zed settings at ~/.config/zed/settings.json (Linux) or ~/Library/Application Support/Zed/settings.json (macOS).
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 {
@@ -129,5 +110,4 @@ Add to your Zed settings at ~/.config/zed/settings.json (Linux) or ~/Library/App
     }
 }
 ```
-</details>
 

@@ -6,9 +6,6 @@ Drawer is a container component displayed as an overlay.
 
 Screen Reader Drawer component uses complementary role by default, since any attribute is passed to the root element aria role can be changed depending on your use case and additional attributes like aria-labelledby can be added. In addition aria-modal is added since focus is kept within the drawer when opened. It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding tabIndex would be necessary. Trigger element also requires aria-expanded and aria-controls to be handled explicitly. Overlay Keyboard Support Key Function tab Moves focus to the next the focusable element within the drawer. shift + tab Moves focus to the previous the focusable element within the drawer. escape Closes the dialog if closeOnEscape is true. Close Button Keyboard Support Key Function enter Closes the drawer. space Closes the drawer.
 
-<details>
-<summary>TypeScript Example</summary>
-
 ```typescript
 <p-button
     icon="pi pi-arrow-right"
@@ -25,18 +22,39 @@ Screen Reader Drawer component uses complementary role by default, since any att
     content
 </p-drawer>
 ```
-</details>
 
 ## Basic
 
 Drawer is used as a container and visibility is controlled with a binding to visible .
 
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { DrawerModule } from 'primeng/drawer';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-drawer [(visible)]="visible" header="Drawer">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                </p>
+            </p-drawer>
+            <p-button (click)="visible = true" icon="pi pi-arrow-right" />
+        </div>
+    `,
+    standalone: true,
+    imports: [ButtonModule, DrawerModule]
+})
+export class DrawerBasicDemo {
+    visible: boolean = false;
+}
+```
+
 ## Full Screen
 
 Drawer can cover the whole page when fullScreen property is enabled.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -62,14 +80,10 @@ export class DrawerFullscreenDemo {
     visible: boolean = false;
 }
 ```
-</details>
 
 ## Headless
 
 Headless mode allows you to customize the entire user interface instead of the default elements.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -296,14 +310,10 @@ export class DrawerHeadlessDemo {
     }
 }
 ```
-</details>
 
 ## Position
 
 Drawer location is configured with the position property that can take left , right , top and bottom as a value.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -355,14 +365,10 @@ export class DrawerPositionDemo {
     visible4: boolean = false;
 }
 ```
-</details>
 
 ## Size
 
 Drawer dimension can be defined with style or class properties, this responsive example utilizes Tailwind.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -388,14 +394,10 @@ export class DrawerSizeDemo {
     visible: boolean = false;
 }
 ```
-</details>
 
 ## Template
 
 Drawer is customizable by header , content , footer templates.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -434,7 +436,6 @@ export class DrawerTemplateDemo {
     visible: boolean = false;
 }
 ```
-</details>
 
 ## Drawer
 

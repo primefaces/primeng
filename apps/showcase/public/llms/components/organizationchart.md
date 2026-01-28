@@ -10,10 +10,25 @@ Screen Reader Component currently uses a table based implementation and does not
 
 OrganizationChart requires a collection of TreeNode instances as a value .
 
-## colored.-doc
+```typescript
+import { Component } from '@angular/core';
+import { TreeNode } from 'primeng/api';
 
-<details>
-<summary>TypeScript Example</summary>
+@Component({
+    template: `
+        <div class="card flex justify-center overflow-x-auto">
+            <p-organization-chart [value]="data" />
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class OrganizationchartBasicDemo {
+    data: TreeNode[];
+}
+```
+
+## colored.-doc
 
 ```typescript
 import { Component } from '@angular/core';
@@ -45,12 +60,8 @@ export class OrganizationchartColored.Demo {
     data: TreeNode[];
 }
 ```
-</details>
 
 ## Selection
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -85,14 +96,10 @@ export class OrganizationchartSelectionDemo {
     data: TreeNode[];
 }
 ```
-</details>
 
 ## Template
 
 Custom content instead of a node label is defined using the pTemplate property.
-
-<details>
-<summary>TypeScript Example</summary>
 
 ```typescript
 import { Component } from '@angular/core';
@@ -118,7 +125,6 @@ export class OrganizationchartTemplateDemo {
     data: TreeNode[];
 }
 ```
-</details>
 
 ## Pass Through Options
 
