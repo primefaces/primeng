@@ -688,7 +688,6 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
 /**
  * InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.
  * @group Components
- * @deprecated Use pInputMask instead.
  */
 @Component({
     selector: 'p-inputmask, p-inputMask, p-input-mask',

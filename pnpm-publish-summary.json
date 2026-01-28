@@ -2,11 +2,11 @@
 	"publishedPackages": [
 		{
 			"name": "@primeng/mcp",
-			"version": "21.1.0"
+			"version": "21.1.1"
 		},
 		{
 			"name": "primeng",
-			"version": "21.1.0"
+			"version": "21.1.1"
 		}
 	]
 }
