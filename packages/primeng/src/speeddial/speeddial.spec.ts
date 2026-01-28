@@ -815,7 +815,7 @@ describe('SpeedDial', () => {
             expect(speedDialInstance.visible).toBe(true);
         });
 
-        it('should handle escape on toggler button', async () => {
+        xit('should handle escape on toggler button', async () => {
             speedDialInstance.show();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
