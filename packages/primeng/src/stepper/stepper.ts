@@ -90,6 +90,8 @@ export class StepList extends BaseComponent<StepListPassThrough> {
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
+    componentName = 'StepList';
+
     steps = contentChildren(forwardRef(() => Step));
 
     _componentStyle = inject(StepListStyle);
@@ -120,6 +122,8 @@ export class StepperSeparator extends BaseComponent<StepperSeparatorPassThrough>
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
+    componentName = 'StepperSeparator';
+
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
@@ -149,6 +153,8 @@ export class StepItem extends BaseComponent<StepItemPassThrough> {
     $pcStepItem: StepItem | undefined = inject(STEPITEM_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    componentName = 'StepItem';
 
     _componentStyle = inject(StepItemStyle);
 
@@ -235,6 +241,8 @@ export class Step extends BaseComponent<StepPassThrough> {
     $pcStep: Step | undefined = inject(STEP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    componentName = 'Step';
 
     pcStepper = inject(forwardRef(() => Stepper));
 
@@ -343,6 +351,8 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
+    componentName = 'StepPanel';
+
     pcStepper = inject(forwardRef(() => Stepper));
 
     onAfterViewChecked(): void {
@@ -428,6 +438,9 @@ export class StepPanels extends BaseComponent<StepPanelsPassThrough> {
     $pcStepPanels: StepPanels | undefined = inject(STEPPANELS_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    componentName = 'StepPanels';
+
     _componentStyle = inject(StepPanelsStyle);
 
     onAfterViewChecked(): void {

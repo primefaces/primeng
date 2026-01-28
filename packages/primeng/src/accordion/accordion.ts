@@ -94,6 +94,8 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
+    componentName = 'AccordionPanel';
+
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('root'));
     }
@@ -168,6 +170,8 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
     $pcAccordionHeader: AccordionHeader | undefined = inject(ACCORDION_HEADER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    componentName = 'AccordionHeader';
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('root'));
@@ -353,6 +357,8 @@ export class AccordionContent extends BaseComponent<AccordionContentPassThrough>
     $pcAccordionContent: AccordionContent | undefined = inject(ACCORDION_CONTENT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    componentName = 'AccordionContent';
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('root'));
