@@ -1142,7 +1142,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
             this.disableModality();
         }
 
-        if (this.blockScroll && hasClass(this.document.body, 'p-overflow-hidden')) {
+        if (hasClass(this.document.body, 'p-overflow-hidden')) {
             removeClass(this.document.body, 'p-overflow-hidden');
         }
 
