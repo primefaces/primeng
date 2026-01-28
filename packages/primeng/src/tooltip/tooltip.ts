@@ -657,6 +657,8 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     }
 
     isOutOfBounds(): boolean {
+        if (!this.fitContent) return false;
+
         let offset = this.container.getBoundingClientRect();
         let targetTop = offset.top;
         let targetLeft = offset.left;
