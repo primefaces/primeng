@@ -36,7 +36,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
      * Event to show the tooltip.
      * @group Props
      */
-    @Input() tooltipEvent: 'hover' | 'focus' | 'both' | string | any = 'hover';
+    @Input() tooltipEvent: 'hover' | 'focus' | 'both' = 'hover';
     /**
      * Type of CSS position.
      * @group Props
