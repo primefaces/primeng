@@ -766,10 +766,10 @@ describe('Card', () => {
             expect(typeof card.getBlockableElement).toBe('function');
         });
 
-        it('should return first child element from getBlockableElement', () => {
+        it('should return host element from getBlockableElement', () => {
             const blockableElement = card.getBlockableElement();
             expect(blockableElement).toBeTruthy();
-            expect(blockableElement).toBe(cardEl.nativeElement.children[0]);
+            expect(blockableElement).toBe(cardEl.nativeElement);
         });
 
         it('should return correct blockable element with complex content', async () => {
@@ -780,7 +780,7 @@ describe('Card', () => {
             const blockableElement = complexCard.getBlockableElement();
 
             expect(blockableElement).toBeTruthy();
-            expect(blockableElement.parentElement).toBe(complexFixture.debugElement.query(By.directive(Card)).nativeElement);
+            expect(blockableElement).toBe(complexFixture.debugElement.query(By.directive(Card)).nativeElement);
         });
     });
 

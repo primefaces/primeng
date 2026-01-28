@@ -147,7 +147,7 @@ export class Card extends BaseComponent<CardPassThrough> implements BlockableUI 
     _style = signal<{ [klass: string]: any } | null | undefined>(null);
 
     getBlockableElement(): HTMLElement {
-        return this.el.nativeElement.children[0];
+        return this.el.nativeElement;
     }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
