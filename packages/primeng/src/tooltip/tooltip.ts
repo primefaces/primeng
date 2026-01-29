@@ -588,7 +588,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
             embeddedViewRef.detectChanges();
             embeddedViewRef.rootNodes.forEach((node) => this.tooltipText.appendChild(node));
         } else if (this.getOption('escape')) {
-            this.tooltipText.innerHTML = '';
+            this.tooltipText.textContent = '';
             this.tooltipText.appendChild(document.createTextNode(content));
         } else {
             this.tooltipText.innerHTML = content;
