@@ -1,5 +1,18 @@
 # Changelog
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [19.2.0-lts](https://www.npmjs.com/package/primeng/v/19.2.0-lts) (2025-01-29)
+
+**Enhancements:**
+- Tooltip: Touch events support [\#8454](https://github.com/primefaces/primeng/issues/8454)
+- Tooltip: Add ability to enable tooltip only if element has ellipsis [\#12246](https://github.com/primefaces/primeng/issues/12246)
+
+**Fixed bugs:**
+- TreeSelect: #filtericon template is not applied [\#19316](https://github.com/primefaces/primeng/issues/19316)
+- Listbox: aria-multiselectable always true [\#19304](https://github.com/primefaces/primeng/issues/19304)
+- Picklist: showSourceFilter/showTargetFilter not working [\#19252](https://github.com/primefaces/primeng/issues/19252)
+- Table: column resizing behaves in reverse direction in RTL mode [\#19290](https://github.com/primefaces/primeng/issues/19290)
+- Dialog: headerTemplate should receive ariaLabelledBy in context [\#19333](https://github.com/primefaces/primeng/issues/19333)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [19.1.7-lts](https://www.npmjs.com/package/primeng/v/19.1.7-lts) (2025-12-22)
 
 **Fixed bugs:**

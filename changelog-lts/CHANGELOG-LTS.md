@@ -6,9 +6,10 @@
 
 | Version | Status | End of STS | End of LTS | Changes |
 |---------|--------|------------|------------|---------|
-| v20 | STS | After v21 release | After v23 release | |
+| v21 | STS | After v22 release | After v24 release | |
+| v20 | LTS | After v21 release | After v23 release | [Changelog](./v20-LTS.md) |
 | v19 | LTS | After v20 release | After v22 release | [Changelog](./v19-LTS.md) |
-| v18 | LTS | After v19 release | After v21 release | [Changelog](./v18-LTS.md) |
+| v18 | Legacy | After v19 release | After v21 release | [Changelog](./v18-LTS.md) |
 | v17 | Legacy | After v18 release | After v20 release | |
 | v16 | Legacy | After v17 release | After v19 release | |
 | v15 | Legacy | After v16 release | After v18 release | |
