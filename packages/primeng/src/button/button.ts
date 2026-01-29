@@ -62,6 +62,8 @@ const INTERNAL_BUTTON_CLASSES = {
     hostDirectives: [Bind]
 })
 export class ButtonLabel extends BaseComponent {
+    componentName = 'ButtonLabel';
+
     /**
      * Used to pass attributes to DOM elements inside the pButtonLabel.
      * @defaultValue undefined
@@ -113,6 +115,8 @@ export class ButtonLabel extends BaseComponent {
     hostDirectives: [Bind]
 })
 export class ButtonIcon extends BaseComponent {
+    componentName = 'ButtonIcon';
+
     /**
      * Used to pass attributes to DOM elements inside the pButtonIcon.
      * @defaultValue undefined
@@ -168,6 +172,8 @@ export class ButtonIcon extends BaseComponent {
     hostDirectives: [Bind]
 })
 export class ButtonDirective extends BaseComponent {
+    componentName = 'Button';
+
     $pcButtonDirective: ButtonDirective | undefined = inject(BUTTON_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
