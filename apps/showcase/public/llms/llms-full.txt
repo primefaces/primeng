@@ -11553,7 +11553,7 @@ Locale for different languages and formats is defined globally, refer to the Pri
 
 ## Mask
 
-DatePicker can be used with the pInputMask directive to enforce a specific input format. The mask pattern should match the date format.
+DatePicker can be used with the pInputMask directive to enforce a specific input format.
 
 **Example:**
 

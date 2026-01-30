@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-01-30T07:15:08.116Z",
+  "generatedAt": "2026-01-30T12:46:52.144Z",
   "totalDemos": 803,
   "demos": {
     "Image-template-demo": {
@@ -3232,7 +3232,7 @@
       "component": "datepicker",
       "section": "mask",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { DatePickerModule } from 'primeng/datepicker';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-datepicker [(ngModel)]=\"date\" dateFormat=\"dd/mm/yy\" placeholder=\"dd/mm/yyyy\" pInputMask=\"99/99/9999\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [DatePickerModule, FormsModule]\n})\nexport class DatepickerMaskDemo {\n    date: Date | undefined;\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { DatePickerModule } from 'primeng/datepicker';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-datepicker [(ngModel)]=\"date\" dateFormat=\"dd/mm/yy\" placeholder=\"dd/mm/yyyy\" pInputMask=\"99/99/9999\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [DatePickerModule, InputMaskModule, FormsModule]\n})\nexport class DatepickerMaskDemo {\n    date: Date | undefined;\n}"
       },
       "metadata": {
         "services": [],
@@ -3240,6 +3240,7 @@
         "extFiles": [],
         "imports": [
           "DatePickerModule",
+          "InputMaskModule",
           "FormsModule"
         ]
       }

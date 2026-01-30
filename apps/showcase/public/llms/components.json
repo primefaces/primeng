@@ -9621,7 +9621,7 @@
         {
           "id": "mask",
           "label": "Mask",
-          "description": "DatePicker can be used with the pInputMask directive to enforce a specific input format. The mask pattern should match the date format.",
+          "description": "DatePicker can be used with the pInputMask directive to enforce a specific input format.",
           "examples": {
             "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { DatePickerModule } from 'primeng/datepicker';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-datepicker [(ngModel)]=\"date\" dateFormat=\"dd/mm/yy\" placeholder=\"dd/mm/yyyy\" pInputMask=\"99/99/9999\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [DatePickerModule, FormsModule]\n})\nexport class DatepickerMaskDemo {\n    date: Date | undefined;\n}"
           }

@@ -1015,6 +1015,11 @@ function detectPrimeNGModules(template) {
         modules.add('TooltipModule');
     }
 
+    // Check for pInputMask directive
+    if (/pInputMask/.test(template)) {
+        modules.add('InputMaskModule');
+    }
+
     // Check for ngModel (needs FormsModule)
     if (/\[\(ngModel\)\]/.test(template) || /ngModel/.test(template)) {
         modules.add('FormsModule');
