@@ -480,6 +480,7 @@ DatePicker can be used with the pInputMask directive to enforce a specific input
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     template: `
@@ -488,7 +489,7 @@ import { DatePickerModule } from 'primeng/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [DatePickerModule, InputMaskModule, FormsModule]
 })
 export class DatepickerMaskDemo {
     date: Date | undefined;
@@ -529,9 +530,46 @@ import { Component } from '@angular/core';
 export class DatepickerMethodsDemo {}
 ```
 
-## minmaxdox
+## Min / Max
 
 Boundaries for the permitted dates that can be entered are defined with minDate and maxDate properties.
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-datepicker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
+        </div>
+    `,
+    standalone: true,
+    imports: [DatePickerModule, FormsModule]
+})
+export class DatepickerMinmaxDemo implements OnInit {
+    date: Date | undefined;
+    minDate: Date | undefined;
+    maxDate: Date | undefined;
+
+    ngOnInit() {
+        let today = new Date();
+        let month = today.getMonth();
+        let year = today.getFullYear();
+        let prevMonth = month === 0 ? 11 : month - 1;
+        let prevYear = prevMonth === 11 ? year - 1 : year;
+        let nextMonth = month === 11 ? 0 : month + 1;
+        let nextYear = nextMonth === 0 ? year + 1 : year;
+        this.minDate = new Date();
+        this.minDate.setMonth(prevMonth);
+        this.minDate.setFullYear(prevYear);
+        this.maxDate = new Date();
+        this.maxDate.setMonth(nextMonth);
+        this.maxDate.setFullYear(nextYear);
+    }
+}
+```
 
 ## month-doc
 
@@ -579,7 +617,7 @@ export class DatepickerMultipleDemo {
 }
 ```
 
-## multiplemonths.-doc
+## Multiple Months
 
 Number of months to display is configured with the numberOfMonths property.
 
@@ -597,7 +635,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerMultiplemonths.Demo {
+export class DatepickerMultiplemonthsDemo {
     date: Date[] | undefined;
 }
 ```

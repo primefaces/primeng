@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-01-30T12:46:52.144Z",
-  "totalDemos": 803,
+  "generatedAt": "2026-01-30T13:09:21.370Z",
+  "totalDemos": 804,
   "demos": {
     "Image-template-demo": {
       "key": "Image-template-demo",
@@ -3157,13 +3157,13 @@
         ]
       }
     },
-    "datepicker-multiplemonths.-demo": {
-      "key": "datepicker-multiplemonths.-demo",
-      "selector": "datepicker-multiplemonths.-demo",
+    "datepicker-multiplemonths-demo": {
+      "key": "datepicker-multiplemonths-demo",
+      "selector": "datepicker-multiplemonths-demo",
       "component": "datepicker",
-      "section": "multiplemonths.",
+      "section": "multiplemonths",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { DatePickerModule } from 'primeng/datepicker';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-datepicker [(ngModel)]=\"date\" [numberOfMonths]=\"2\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [DatePickerModule, FormsModule]\n})\nexport class DatepickerMultiplemonths.Demo {\n    date: Date[] | undefined;\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { DatePickerModule } from 'primeng/datepicker';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-datepicker [(ngModel)]=\"date\" [numberOfMonths]=\"2\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [DatePickerModule, FormsModule]\n})\nexport class DatepickerMultiplemonthsDemo {\n    date: Date[] | undefined;\n}"
       },
       "metadata": {
         "services": [],
@@ -3200,6 +3200,24 @@
       "section": "month",
       "code": {
         "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { DatePickerModule } from 'primeng/datepicker';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-datepicker [(ngModel)]=\"date\" view=\"month\" dateFormat=\"mm/yy\" [readonlyInput]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [DatePickerModule, FormsModule]\n})\nexport class DatepickerMonthDemo {\n    date: Date[] | undefined;\n}"
+      },
+      "metadata": {
+        "services": [],
+        "primeNGServices": [],
+        "extFiles": [],
+        "imports": [
+          "DatePickerModule",
+          "FormsModule"
+        ]
+      }
+    },
+    "datepicker-minmax-demo": {
+      "key": "datepicker-minmax-demo",
+      "selector": "datepicker-minmax-demo",
+      "component": "datepicker",
+      "section": "minmax",
+      "code": {
+        "typescript": "import { Component, OnInit } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { DatePickerModule } from 'primeng/datepicker';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-datepicker [(ngModel)]=\"date\" [minDate]=\"minDate\" [maxDate]=\"maxDate\" [readonlyInput]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [DatePickerModule, FormsModule]\n})\nexport class DatepickerMinmaxDemo implements OnInit {\n    date: Date | undefined;\n    minDate: Date | undefined;\n    maxDate: Date | undefined;\n\n    ngOnInit() {\n        let today = new Date();\n        let month = today.getMonth();\n        let year = today.getFullYear();\n        let prevMonth = month === 0 ? 11 : month - 1;\n        let prevYear = prevMonth === 11 ? year - 1 : year;\n        let nextMonth = month === 11 ? 0 : month + 1;\n        let nextYear = nextMonth === 0 ? year + 1 : year;\n        this.minDate = new Date();\n        this.minDate.setMonth(prevMonth);\n        this.minDate.setFullYear(prevYear);\n        this.maxDate = new Date();\n        this.maxDate.setMonth(nextMonth);\n        this.maxDate.setFullYear(nextYear);\n    }\n}"
       },
       "metadata": {
         "services": [],
