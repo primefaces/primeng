@@ -12,6 +12,7 @@ import { ImportDoc } from '@/doc/datepicker/import-doc';
 import { InlineDoc } from '@/doc/datepicker/inline-doc';
 import { InvalidDoc } from '@/doc/datepicker/invalid-doc';
 import { LocaleDoc } from '@/doc/datepicker/locale-doc';
+import { MaskDoc } from '@/doc/datepicker/mask-doc';
 import { MinMaxDoc } from '@/doc/datepicker/minmaxdox';
 import { MonthDoc } from '@/doc/datepicker/month-doc';
 import { MultipleDoc } from '@/doc/datepicker/multiple-doc';
@@ -51,6 +52,11 @@ export class DatePickerDemo {
             id: 'format',
             label: 'Format',
             component: FormatDoc
+        },
+        {
+            id: 'mask',
+            label: 'Mask',
+            component: MaskDoc
         },
         {
             id: 'locale',

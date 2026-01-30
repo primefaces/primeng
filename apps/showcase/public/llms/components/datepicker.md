@@ -472,6 +472,29 @@ export class DatepickerInvalidDemo {
 
 Locale for different languages and formats is defined globally, refer to the PrimeNG Locale configuration for more information.
 
+## Mask
+
+DatePicker can be used with the pInputMask directive to enforce a specific input format. The mask pattern should match the date format.
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <p-datepicker [(ngModel)]="date" dateFormat="dd/mm/yy" placeholder="dd/mm/yyyy" pInputMask="99/99/9999" />
+        </div>
+    `,
+    standalone: true,
+    imports: [DatePickerModule, FormsModule]
+})
+export class DatepickerMaskDemo {
+    date: Date | undefined;
+}
+```
+
 ## methods-doc
 
 ```typescript

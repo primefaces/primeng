@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-01-28T14:11:58.781Z",
-  "totalDemos": 802,
+  "generatedAt": "2026-01-30T07:15:08.116Z",
+  "totalDemos": 803,
   "demos": {
     "Image-template-demo": {
       "key": "Image-template-demo",
@@ -3224,6 +3224,24 @@
         "primeNGServices": [],
         "extFiles": [],
         "imports": []
+      }
+    },
+    "datepicker-mask-demo": {
+      "key": "datepicker-mask-demo",
+      "selector": "datepicker-mask-demo",
+      "component": "datepicker",
+      "section": "mask",
+      "code": {
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { DatePickerModule } from 'primeng/datepicker';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-datepicker [(ngModel)]=\"date\" dateFormat=\"dd/mm/yy\" placeholder=\"dd/mm/yyyy\" pInputMask=\"99/99/9999\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [DatePickerModule, FormsModule]\n})\nexport class DatepickerMaskDemo {\n    date: Date | undefined;\n}"
+      },
+      "metadata": {
+        "services": [],
+        "primeNGServices": [],
+        "extFiles": [],
+        "imports": [
+          "DatePickerModule",
+          "FormsModule"
+        ]
       }
     },
     "datepicker-invalid-demo": {
