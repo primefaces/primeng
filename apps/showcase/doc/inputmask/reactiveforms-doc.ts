@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { InputMaskModule } from 'primeng/inputmask';
+import { InputText } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
@@ -12,7 +13,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 @Component({
     selector: 'reactiveforms-doc',
     standalone: true,
-    imports: [ReactiveFormsModule, InputMaskModule, ButtonModule, ToastModule, MessageModule, FluidModule, AppCodeModule, AppDocSectionText],
+    imports: [ReactiveFormsModule, InputMaskModule, InputText, ButtonModule, ToastModule, MessageModule, FluidModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>InputMask can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
@@ -21,7 +22,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-inputmask mask="99-999999" formControlName="value" placeholder="99-999999" [invalid]="isInvalid('value')" fluid />
+                    <input pInputText pInputMask="99-999999" formControlName="value" placeholder="99-999999" [invalid]="isInvalid('value')" fluid />
                     @if (isInvalid('value')) {
                         <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
                     }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputMaskModule } from 'primeng/inputmask';
+import { InputText } from 'primeng/inputtext';
 import { FluidModule } from 'primeng/fluid';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -8,7 +9,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 @Component({
     selector: 'mask-doc',
     standalone: true,
-    imports: [FormsModule, InputMaskModule, FluidModule, AppCodeModule, AppDocSectionText],
+    imports: [FormsModule, InputMaskModule, InputText, FluidModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -19,15 +20,15 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <span class="font-bold block mb-2">SSN</span>
-                <p-inputmask mask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
+                <input pInputText pInputMask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
             </div>
             <div class="flex-auto">
                 <span class="font-bold block mb-2">Phone</span>
-                <p-inputmask mask="(999) 999-9999" [(ngModel)]="value2" placeholder="(999) 999-9999" />
+                <input pInputText pInputMask="(999) 999-9999" [(ngModel)]="value2" placeholder="(999) 999-9999" />
             </div>
             <div class="flex-auto">
                 <span class="font-bold block mb-2">Serial Number</span>
-                <p-inputmask mask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999" />
+                <input pInputText pInputMask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999" />
             </div>
         </p-fluid>
         <app-code></app-code>

@@ -13,7 +13,6 @@ import { SizesDoc } from '@/doc/inputmask/sizes-doc';
 import { SlotCharDoc } from '@/doc/inputmask/slotchar-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputmask/templatedrivenforms-doc';
 import { FluidDoc } from '@/doc/inputmask/fluid-doc';
-import { ClearIconDoc } from '@/doc/inputmask/clearicon-doc';
 import { PTComponent } from '@/doc/inputmask/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
@@ -74,11 +73,6 @@ export class InputMaskDemo {
             id: 'iftalabel',
             label: 'Ifta Label',
             component: IftaLabelDoc
-        },
-        {
-            id: 'clearicon',
-            label: 'Clear Icon',
-            component: ClearIconDoc
         },
         {
             id: 'sizes',

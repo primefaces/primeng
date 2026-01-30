@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-01-30T13:09:21.370Z",
+  "generatedAt": "2026-01-30T14:19:53.137Z",
   "totalDemos": 804,
   "demos": {
     "Image-template-demo": {
@@ -5465,17 +5465,18 @@
       "component": "inputmask",
       "section": "templatedrivenforms",
       "code": {
-        "typescript": "import { Component, inject } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputMaskModule } from 'primeng/inputmask';\nimport { MessageModule } from 'primeng/message';\nimport { ToastModule } from 'primeng/toast';\nimport { ButtonModule } from 'primeng/button';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast />\n        <div class=\"card flex justify-center\">\n            <form #exampleForm=\"ngForm\" (ngSubmit)=\"onSubmit(exampleForm)\" class=\"flex justify-center flex-col gap-4 md:w-56\">\n                <div class=\"flex flex-col gap-1\">\n                    <p-inputmask name=\"serial\" mask=\"99-999999\" #serialNumber=\"ngModel\" [(ngModel)]=\"value\" placeholder=\"99-999999\" [invalid]=\"serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)\" required fluid />\n                    @if (serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)) {\n                        <p-message severity=\"error\" size=\"small\" variant=\"simple\">Serial number is required.</p-message>\n                    }\n                </div>\n                <button pButton severity=\"secondary\" type=\"submit\"><span pButtonLabel>Submit</span></button>\n            </form>\n        </div>\n    `,\n    standalone: true,\n    imports: [InputMaskModule, MessageModule, ToastModule, ButtonModule, FormsModule]\n})\nexport class InputmaskTemplatedrivenformsDemo {\n    messageService = inject(MessageService);\n    items: any[] = [];\n    value: any;\n\n    onSubmit(form: any) {\n        if (form.valid) {\n            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });\n            form.resetForm();\n        }\n    }\n}"
+        "typescript": "import { Component, inject } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { MessageModule } from 'primeng/message';\nimport { ToastModule } from 'primeng/toast';\nimport { ButtonModule } from 'primeng/button';\nimport { InputTextModule } from 'primeng/inputtext';\nimport { InputMaskModule } from 'primeng/inputmask';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast />\n        <div class=\"card flex justify-center\">\n            <form #exampleForm=\"ngForm\" (ngSubmit)=\"onSubmit(exampleForm)\" class=\"flex justify-center flex-col gap-4 md:w-56\">\n                <div class=\"flex flex-col gap-1\">\n                    <input pInputText name=\"serial\" pInputMask=\"99-999999\" #serialNumber=\"ngModel\" [(ngModel)]=\"value\" placeholder=\"99-999999\" [invalid]=\"serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)\" required fluid />\n                    @if (serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)) {\n                        <p-message severity=\"error\" size=\"small\" variant=\"simple\">Serial number is required.</p-message>\n                    }\n                </div>\n                <button pButton severity=\"secondary\" type=\"submit\"><span pButtonLabel>Submit</span></button>\n            </form>\n        </div>\n    `,\n    standalone: true,\n    imports: [MessageModule, ToastModule, ButtonModule, InputTextModule, InputMaskModule, FormsModule]\n})\nexport class InputmaskTemplatedrivenformsDemo {\n    messageService = inject(MessageService);\n    items: any[] = [];\n    value: any;\n\n    onSubmit(form: any) {\n        if (form.valid) {\n            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });\n            form.resetForm();\n        }\n    }\n}"
       },
       "metadata": {
         "services": [],
         "primeNGServices": [],
         "extFiles": [],
         "imports": [
-          "InputMaskModule",
           "MessageModule",
           "ToastModule",
           "ButtonModule",
+          "InputTextModule",
+          "InputMaskModule",
           "FormsModule"
         ]
       }
@@ -5486,13 +5487,14 @@
       "component": "inputmask",
       "section": "slotchar",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-inputmask [(ngModel)]=\"value\" mask=\"99/99/9999\" placeholder=\"99/99/9999\" slotChar=\"mm/dd/yyyy\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputMaskModule, FormsModule]\n})\nexport class InputmaskSlotcharDemo {\n    value: string | undefined;\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputTextModule } from 'primeng/inputtext';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <input pInputText [(ngModel)]=\"value\" pInputMask=\"99/99/9999\" placeholder=\"99/99/9999\" slotChar=\"mm/dd/yyyy\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputTextModule, InputMaskModule, FormsModule]\n})\nexport class InputmaskSlotcharDemo {\n    value: string | undefined;\n}"
       },
       "metadata": {
         "services": [],
         "primeNGServices": [],
         "extFiles": [],
         "imports": [
+          "InputTextModule",
           "InputMaskModule",
           "FormsModule"
         ]
@@ -5504,13 +5506,14 @@
       "component": "inputmask",
       "section": "sizes",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex flex-col items-center gap-4\">\n            <p-inputmask [(ngModel)]=\"value1\" placeholder=\"Small\" size=\"small\" mask=\"99-999999\" />\n            <p-inputmask [(ngModel)]=\"value2\" placeholder=\"Normal\" mask=\"99-999999\" />\n            <p-inputmask [(ngModel)]=\"value3\" placeholder=\"Large\" size=\"large\" mask=\"99-999999\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputMaskModule, FormsModule]\n})\nexport class InputmaskSizesDemo {\n    value1: string | undefined;\n    value2: string | undefined;\n    value3: string | undefined;\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputTextModule } from 'primeng/inputtext';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex flex-col items-center gap-4\">\n            <input pInputText [(ngModel)]=\"value1\" placeholder=\"Small\" pSize=\"small\" pInputMask=\"99-999999\" />\n            <input pInputText [(ngModel)]=\"value2\" placeholder=\"Normal\" pInputMask=\"99-999999\" />\n            <input pInputText [(ngModel)]=\"value3\" placeholder=\"Large\" pSize=\"large\" pInputMask=\"99-999999\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputTextModule, InputMaskModule, FormsModule]\n})\nexport class InputmaskSizesDemo {\n    value1: string | undefined;\n    value2: string | undefined;\n    value3: string | undefined;\n}"
       },
       "metadata": {
         "services": [],
         "primeNGServices": [],
         "extFiles": [],
         "imports": [
+          "InputTextModule",
           "InputMaskModule",
           "FormsModule"
         ]
@@ -5522,17 +5525,18 @@
       "component": "inputmask",
       "section": "reactiveforms",
       "code": {
-        "typescript": "import { Component, inject } from '@angular/core';\nimport { ReactiveFormsModule } from '@angular/forms';\nimport { InputMaskModule } from 'primeng/inputmask';\nimport { MessageModule } from 'primeng/message';\nimport { ToastModule } from 'primeng/toast';\nimport { ButtonModule } from 'primeng/button';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast />\n        <div class=\"card flex justify-center\">\n            <form [formGroup]=\"exampleForm\" (ngSubmit)=\"onSubmit()\" class=\"flex flex-col gap-4 sm:w-56\">\n                <div class=\"flex flex-col gap-1\">\n                    <p-inputmask mask=\"99-999999\" formControlName=\"value\" placeholder=\"99-999999\" [invalid]=\"isInvalid('value')\" fluid />\n                    @if (isInvalid('value')) {\n                        <p-message severity=\"error\" size=\"small\" variant=\"simple\">Serial number is required.</p-message>\n                    }\n                </div>\n                <button pButton severity=\"secondary\" type=\"submit\"><span pButtonLabel>Submit</span></button>\n            </form>\n        </div>\n    `,\n    standalone: true,\n    imports: [InputMaskModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]\n})\nexport class InputmaskReactiveformsDemo {\n    messageService = inject(MessageService);\n    items: any[] | undefined;\n    exampleForm: FormGroup | undefined;\n    formSubmitted: boolean = false;\n\n    constructor() {\n        this.exampleForm = this.fb.group({\n                    value: ['', Validators.required]\n                });\n    }\n\n    onSubmit() {\n        this.formSubmitted = true;\n        if (this.exampleForm.valid) {\n            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });\n            this.exampleForm.reset();\n            this.formSubmitted = false;\n        }\n    }\n\n    isInvalid(controlName: string) {\n        const control = this.exampleForm.get(controlName);\n        return control?.invalid && (control.touched || this.formSubmitted);\n    }\n}"
+        "typescript": "import { Component, inject } from '@angular/core';\nimport { ReactiveFormsModule } from '@angular/forms';\nimport { MessageModule } from 'primeng/message';\nimport { ToastModule } from 'primeng/toast';\nimport { ButtonModule } from 'primeng/button';\nimport { InputTextModule } from 'primeng/inputtext';\nimport { InputMaskModule } from 'primeng/inputmask';\nimport { MessageService } from 'primeng/api';\n\n@Component({\n    template: `\n        <p-toast />\n        <div class=\"card flex justify-center\">\n            <form [formGroup]=\"exampleForm\" (ngSubmit)=\"onSubmit()\" class=\"flex flex-col gap-4 sm:w-56\">\n                <div class=\"flex flex-col gap-1\">\n                    <input pInputText pInputMask=\"99-999999\" formControlName=\"value\" placeholder=\"99-999999\" [invalid]=\"isInvalid('value')\" fluid />\n                    @if (isInvalid('value')) {\n                        <p-message severity=\"error\" size=\"small\" variant=\"simple\">Serial number is required.</p-message>\n                    }\n                </div>\n                <button pButton severity=\"secondary\" type=\"submit\"><span pButtonLabel>Submit</span></button>\n            </form>\n        </div>\n    `,\n    standalone: true,\n    imports: [MessageModule, ToastModule, ButtonModule, InputTextModule, InputMaskModule, ReactiveFormsModule]\n})\nexport class InputmaskReactiveformsDemo {\n    messageService = inject(MessageService);\n    items: any[] | undefined;\n    exampleForm: FormGroup | undefined;\n    formSubmitted: boolean = false;\n\n    constructor() {\n        this.exampleForm = this.fb.group({\n                    value: ['', Validators.required]\n                });\n    }\n\n    onSubmit() {\n        this.formSubmitted = true;\n        if (this.exampleForm.valid) {\n            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });\n            this.exampleForm.reset();\n            this.formSubmitted = false;\n        }\n    }\n\n    isInvalid(controlName: string) {\n        const control = this.exampleForm.get(controlName);\n        return control?.invalid && (control.touched || this.formSubmitted);\n    }\n}"
       },
       "metadata": {
         "services": [],
         "primeNGServices": [],
         "extFiles": [],
         "imports": [
-          "InputMaskModule",
           "MessageModule",
           "ToastModule",
           "ButtonModule",
+          "InputTextModule",
+          "InputMaskModule",
           "ReactiveFormsModule"
         ]
       }
@@ -5543,13 +5547,14 @@
       "component": "inputmask",
       "section": "optional",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-inputmask mask=\"(999) 999-9999? x99999\" [(ngModel)]=\"value\" placeholder=\"(999) 999-9999? x99999\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputMaskModule, FormsModule]\n})\nexport class InputmaskOptionalDemo {\n    value: string | undefined;\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputTextModule } from 'primeng/inputtext';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <input pInputText pInputMask=\"(999) 999-9999? x99999\" [(ngModel)]=\"value\" placeholder=\"(999) 999-9999? x99999\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputTextModule, InputMaskModule, FormsModule]\n})\nexport class InputmaskOptionalDemo {\n    value: string | undefined;\n}"
       },
       "metadata": {
         "services": [],
         "primeNGServices": [],
         "extFiles": [],
         "imports": [
+          "InputTextModule",
           "InputMaskModule",
           "FormsModule"
         ]
@@ -5561,13 +5566,14 @@
       "component": "inputmask",
       "section": "mask",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <p-fluid class=\"card flex flex-wrap gap-4\">\n            <div class=\"flex-auto\">\n                <span class=\"font-bold block mb-2\">SSN</span>\n                <p-inputmask mask=\"999-99-9999\" [(ngModel)]=\"value1\" placeholder=\"999-99-9999\" />\n            </div>\n            <div class=\"flex-auto\">\n                <span class=\"font-bold block mb-2\">Phone</span>\n                <p-inputmask mask=\"(999) 999-9999\" [(ngModel)]=\"value2\" placeholder=\"(999) 999-9999\" />\n            </div>\n            <div class=\"flex-auto\">\n                <span class=\"font-bold block mb-2\">Serial Number</span>\n                <p-inputmask mask=\"a*-999-a999\" [(ngModel)]=\"value3\" placeholder=\"a*-999-a999\" />\n            </div>\n        </p-fluid>\n    `,\n    standalone: true,\n    imports: [InputMaskModule, FormsModule]\n})\nexport class InputmaskMaskDemo {\n    value1: string | undefined;\n    value2: string | undefined;\n    value3: string | undefined;\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputTextModule } from 'primeng/inputtext';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <p-fluid class=\"card flex flex-wrap gap-4\">\n            <div class=\"flex-auto\">\n                <span class=\"font-bold block mb-2\">SSN</span>\n                <input pInputText pInputMask=\"999-99-9999\" [(ngModel)]=\"value1\" placeholder=\"999-99-9999\" />\n            </div>\n            <div class=\"flex-auto\">\n                <span class=\"font-bold block mb-2\">Phone</span>\n                <input pInputText pInputMask=\"(999) 999-9999\" [(ngModel)]=\"value2\" placeholder=\"(999) 999-9999\" />\n            </div>\n            <div class=\"flex-auto\">\n                <span class=\"font-bold block mb-2\">Serial Number</span>\n                <input pInputText pInputMask=\"a*-999-a999\" [(ngModel)]=\"value3\" placeholder=\"a*-999-a999\" />\n            </div>\n        </p-fluid>\n    `,\n    standalone: true,\n    imports: [InputTextModule, InputMaskModule, FormsModule]\n})\nexport class InputmaskMaskDemo {\n    value1: string | undefined;\n    value2: string | undefined;\n    value3: string | undefined;\n}"
       },
       "metadata": {
         "services": [],
         "primeNGServices": [],
         "extFiles": [],
         "imports": [
+          "InputTextModule",
           "InputMaskModule",
           "FormsModule"
         ]
@@ -5579,13 +5585,14 @@
       "component": "inputmask",
       "section": "invalid",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex flex-wrap justify-center gap-4\">\n            <p-inputmask [(ngModel)]=\"value1\" mask=\"99-999999\" placeholder=\"Serial Key\" [invalid]=\"!value1\" />\n            <p-inputmask [(ngModel)]=\"value2\" mask=\"99-999999\" placeholder=\"Serial Key\" [invalid]=\"!value2\" variant=\"filled\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputMaskModule, FormsModule]\n})\nexport class InputmaskInvalidDemo {\n    value1: string | undefined;\n    value2: string | undefined;\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputTextModule } from 'primeng/inputtext';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex flex-wrap justify-center gap-4\">\n            <input pInputText [(ngModel)]=\"value1\" pInputMask=\"99-999999\" placeholder=\"Serial Key\" [invalid]=\"!value1\" />\n            <input pInputText [(ngModel)]=\"value2\" pInputMask=\"99-999999\" placeholder=\"Serial Key\" [invalid]=\"!value2\" variant=\"filled\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputTextModule, InputMaskModule, FormsModule]\n})\nexport class InputmaskInvalidDemo {\n    value1: string | undefined;\n    value2: string | undefined;\n}"
       },
       "metadata": {
         "services": [],
         "primeNGServices": [],
         "extFiles": [],
         "imports": [
+          "InputTextModule",
           "InputMaskModule",
           "FormsModule"
         ]
@@ -5597,7 +5604,7 @@
       "component": "inputmask",
       "section": "iftalabel",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { IftaLabelModule } from 'primeng/iftalabel';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-iftalabel>\n                <p-inputmask id=\"ssn\" [(ngModel)]=\"value\" mask=\"999-99-9999\" autocomplete=\"off\" />\n                <label for=\"ssn\">SSN</label>\n            </p-iftalabel>\n        </div>\n    `,\n    standalone: true,\n    imports: [IftaLabelModule, InputMaskModule, FormsModule]\n})\nexport class InputmaskIftalabelDemo {\n    value: string | undefined;\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { IftaLabelModule } from 'primeng/iftalabel';\nimport { InputTextModule } from 'primeng/inputtext';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-iftalabel>\n                <input pInputText id=\"ssn\" [(ngModel)]=\"value\" pInputMask=\"999-99-9999\" autocomplete=\"off\" />\n                <label for=\"ssn\">SSN</label>\n            </p-iftalabel>\n        </div>\n    `,\n    standalone: true,\n    imports: [IftaLabelModule, InputTextModule, InputMaskModule, FormsModule]\n})\nexport class InputmaskIftalabelDemo {\n    value: string | undefined;\n}"
       },
       "metadata": {
         "services": [],
@@ -5605,6 +5612,7 @@
         "extFiles": [],
         "imports": [
           "IftaLabelModule",
+          "InputTextModule",
           "InputMaskModule",
           "FormsModule"
         ]
@@ -5616,13 +5624,14 @@
       "component": "inputmask",
       "section": "fluid",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card\">\n            <p-inputmask mask=\"99-999999\" [(ngModel)]=\"value\" placeholder=\"99-999999\" fluid />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputMaskModule, FormsModule]\n})\nexport class InputmaskFluidDemo {\n    value: string | undefined;\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputTextModule } from 'primeng/inputtext';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card\">\n            <input pInputText pInputMask=\"99-999999\" [(ngModel)]=\"value\" placeholder=\"99-999999\" fluid />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputTextModule, InputMaskModule, FormsModule]\n})\nexport class InputmaskFluidDemo {\n    value: string | undefined;\n}"
       },
       "metadata": {
         "services": [],
         "primeNGServices": [],
         "extFiles": [],
         "imports": [
+          "InputTextModule",
           "InputMaskModule",
           "FormsModule"
         ]
@@ -5634,7 +5643,7 @@
       "component": "inputmask",
       "section": "floatlabel",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { FloatLabelModule } from 'primeng/floatlabel';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex flex-wrap justify-center items-end gap-4\">\n            <p-floatlabel>\n                <p-inputmask id=\"over_label\" [(ngModel)]=\"value1\" mask=\"999-99-9999\" />\n                <label for=\"over_label\">Over Label</label>\n            </p-floatlabel>\n            <p-floatlabel variant=\"in\">\n                <p-inputmask id=\"in_label\" [(ngModel)]=\"value2\" mask=\"999-99-9999\" />\n                <label for=\"in_label\">In Label</label>\n            </p-floatlabel>\n            <p-floatlabel variant=\"on\">\n                <p-inputmask id=\"on_label\" [(ngModel)]=\"value3\" mask=\"999-99-9999\" />\n                <label for=\"on_label\">On Label</label>\n            </p-floatlabel>\n        </div>\n    `,\n    standalone: true,\n    imports: [FloatLabelModule, InputMaskModule, FormsModule]\n})\nexport class InputmaskFloatlabelDemo {\n    value1: string | undefined;\n    value2: string | undefined;\n    value3: string | undefined;\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { FloatLabelModule } from 'primeng/floatlabel';\nimport { InputTextModule } from 'primeng/inputtext';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex flex-wrap justify-center items-end gap-4\">\n            <p-floatlabel>\n                <input pInputText id=\"over_label\" [(ngModel)]=\"value1\" pInputMask=\"999-99-9999\" />\n                <label for=\"over_label\">Over Label</label>\n            </p-floatlabel>\n            <p-floatlabel variant=\"in\">\n                <input pInputText id=\"in_label\" [(ngModel)]=\"value2\" pInputMask=\"999-99-9999\" />\n                <label for=\"in_label\">In Label</label>\n            </p-floatlabel>\n            <p-floatlabel variant=\"on\">\n                <input pInputText id=\"on_label\" [(ngModel)]=\"value3\" pInputMask=\"999-99-9999\" />\n                <label for=\"on_label\">On Label</label>\n            </p-floatlabel>\n        </div>\n    `,\n    standalone: true,\n    imports: [FloatLabelModule, InputTextModule, InputMaskModule, FormsModule]\n})\nexport class InputmaskFloatlabelDemo {\n    value1: string | undefined;\n    value2: string | undefined;\n    value3: string | undefined;\n}"
       },
       "metadata": {
         "services": [],
@@ -5642,6 +5651,7 @@
         "extFiles": [],
         "imports": [
           "FloatLabelModule",
+          "InputTextModule",
           "InputMaskModule",
           "FormsModule"
         ]
@@ -5653,13 +5663,14 @@
       "component": "inputmask",
       "section": "filled",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-inputmask mask=\"99-999999\" [(ngModel)]=\"value\" variant=\"filled\" placeholder=\"99-999999\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputMaskModule, FormsModule]\n})\nexport class InputmaskFilledDemo {\n    value: string | undefined;\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputTextModule } from 'primeng/inputtext';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <input pInputText pInputMask=\"99-999999\" [(ngModel)]=\"value\" variant=\"filled\" placeholder=\"99-999999\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputTextModule, InputMaskModule, FormsModule]\n})\nexport class InputmaskFilledDemo {\n    value: string | undefined;\n}"
       },
       "metadata": {
         "services": [],
         "primeNGServices": [],
         "extFiles": [],
         "imports": [
+          "InputTextModule",
           "InputMaskModule",
           "FormsModule"
         ]
@@ -5671,13 +5682,14 @@
       "component": "inputmask",
       "section": "disabled",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-inputmask mask=\"999-99-9999\" [(ngModel)]=\"value\" [disabled]=\"true\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputMaskModule, FormsModule]\n})\nexport class InputmaskDisabledDemo {\n    value: string | undefined;\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputTextModule } from 'primeng/inputtext';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <input pInputText pInputMask=\"999-99-9999\" [(ngModel)]=\"value\" disabled />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputTextModule, InputMaskModule, FormsModule]\n})\nexport class InputmaskDisabledDemo {\n    value: string | undefined;\n}"
       },
       "metadata": {
         "services": [],
         "primeNGServices": [],
         "extFiles": [],
         "imports": [
+          "InputTextModule",
           "InputMaskModule",
           "FormsModule"
         ]
@@ -5707,13 +5719,14 @@
       "component": "inputmask",
       "section": "basic",
       "code": {
-        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-inputmask mask=\"99-999999\" [(ngModel)]=\"value\" placeholder=\"99-999999\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputMaskModule, FormsModule]\n})\nexport class InputmaskBasicDemo {\n    value: string | undefined;\n}"
+        "typescript": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { InputTextModule } from 'primeng/inputtext';\nimport { InputMaskModule } from 'primeng/inputmask';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <input pInputText pInputMask=\"99-999999\" [(ngModel)]=\"value\" placeholder=\"99-999999\" />\n        </div>\n    `,\n    standalone: true,\n    imports: [InputTextModule, InputMaskModule, FormsModule]\n})\nexport class InputmaskBasicDemo {\n    value: string | undefined;\n}"
       },
       "metadata": {
         "services": [],
         "primeNGServices": [],
         "extFiles": [],
         "imports": [
+          "InputTextModule",
           "InputMaskModule",
           "FormsModule"
         ]
