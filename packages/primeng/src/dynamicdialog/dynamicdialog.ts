@@ -259,7 +259,11 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
     }
 
     getAriaLabelledBy() {
-        const { header, showHeader } = this.ddconfig;
+        const { header, showHeader, ariaLabelledBy } = this.ddconfig;
+
+        if (ariaLabelledBy) {
+            return ariaLabelledBy;
+        }
 
         if (header === null || showHeader === false) {
             return null;
