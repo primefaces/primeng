@@ -48,6 +48,7 @@ import {
     DatePickerResponsiveOptions,
     DatePickerTypeView,
     DatePickerYearChangeEvent,
+    DatePickerTimeChangeEvent,
     LocaleSettings,
     Month,
     NavigationState
@@ -327,9 +328,13 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
-                        <input pInputText type="number" class="p-datepicker-time-input"
-                               [pBind]="ptm('hour')" [value]="currentHour < 10 ? '0' + currentHour : currentHour"
-                               (input)="onHourChange($event)" min="0" max="24" />
+                        <input type="number"
+                               [class]="cx('timeInput')"
+                               [pBind]="ptm('hour')"
+                               [value]="currentHour && currentHour < 10 ? '0' + currentHour : currentHour"
+                               (input)="onHourChange($event)"
+                               min="0"
+                               max="24" />
                         <p-button
                             rounded
                             variant="text"
@@ -379,9 +384,15 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
-                        <input pInputText class="p-datepicker-time-input" type="number" (input)="onMinuteChange($event)"
-                               [pBind]="ptm('minute')" [value]="currentMinute < 10 ? '0' + currentMinute : currentMinute" min="0"
-                               max="60" />
+                        <input
+                            type="number"
+                            (input)="onMinuteChange($event)"
+                            [class]="cx('timeInput')"
+                            [pBind]="ptm('minute')"
+                            [value]="currentMinute && currentMinute < 10 ? '0' + currentMinute : currentMinute"
+                            min="0"
+                            max="60"
+                        />
                         <p-button
                             rounded
                             variant="text"
@@ -431,9 +442,15 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
-                        <input pInputText class="p-datepicker-time-input" type="number" (input)="onSecondChange($event)"
-                               [pBind]="ptm('second')" [value]="currentSecond < 10 ? '0' + currentSecond : currentSecond" min="0"
-                               max="60" />
+                        <input
+                            type="number"
+                            (input)="onSecondChange($event)"
+                            [class]="cx('timeInput')"
+                            [pBind]="ptm('second')"
+                            [value]="currentSecond && currentSecond < 10 ? '0' + currentSecond : currentSecond"
+                            min="0"
+                            max="60"
+                        />
                         <p-button
                             rounded
                             variant="text"
