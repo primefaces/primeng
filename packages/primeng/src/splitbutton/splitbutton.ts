@@ -321,7 +321,7 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
-    @Output() onDropdownClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+    @Output() onDropdownClick: EventEmitter<Event> = new EventEmitter<MouseEvent | KeyboardEvent>();
 
     @ViewChild('defaultbtn') buttonViewChild: ElementRef | undefined;
 
@@ -378,14 +378,14 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
         this.menu?.hide();
     }
 
-    onDropdownButtonClick(event?: MouseEvent) {
+    onDropdownButtonClick(event: MouseEvent | KeyboardEvent) {
         this.onDropdownClick.emit(event);
-        this.menu?.toggle({ currentTarget: this.el?.nativeElement, relativeAlign: this.appendTo == null });
+        this.menu?.toggle({ currentTarget: this.el?.nativeElement, relatedTarget: event.currentTarget, relativeAlign: this.appendTo == null });
     }
 
     onDropdownButtonKeydown(event: KeyboardEvent) {
         if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
-            this.onDropdownButtonClick();
+            this.onDropdownButtonClick(event);
             event.preventDefault();
         }
     }
