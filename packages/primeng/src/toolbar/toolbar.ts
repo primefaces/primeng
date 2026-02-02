@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
+import { NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, contentChild, inject, InjectionToken, input, NgModule, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { BlockableUI, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ToolbarStyle } from './style/toolbarstyle';
@@ -15,26 +15,32 @@ const TOOLBAR_INSTANCE = new InjectionToken<Toolbar>('TOOLBAR_INSTANCE');
 @Component({
     selector: 'p-toolbar',
     standalone: true,
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [NgTemplateOutlet, SharedModule, BindModule],
     template: `
         <ng-content></ng-content>
-        <div [class]="cx('start')" *ngIf="startTemplate || _startTemplate" [pBind]="ptm('start')">
-            <ng-container *ngTemplateOutlet="startTemplate || _startTemplate"></ng-container>
-        </div>
-        <div [class]="cx('center')" *ngIf="centerTemplate || _centerTemplate" [pBind]="ptm('center')">
-            <ng-container *ngTemplateOutlet="centerTemplate || _centerTemplate"></ng-container>
-        </div>
-        <div [class]="cx('end')" *ngIf="endTemplate || _endTemplate" [pBind]="ptm('end')">
-            <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
-        </div>
+        @if (startTemplate()) {
+            <div [class]="cx('start')" [pBind]="ptm('start')">
+                <ng-container *ngTemplateOutlet="startTemplate()"></ng-container>
+            </div>
+        }
+        @if (centerTemplate()) {
+            <div [class]="cx('center')" [pBind]="ptm('center')">
+                <ng-container *ngTemplateOutlet="centerTemplate()"></ng-container>
+            </div>
+        }
+        @if (endTemplate()) {
+            <div [class]="cx('end')" [pBind]="ptm('end')">
+                <ng-container *ngTemplateOutlet="endTemplate()"></ng-container>
+            </div>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [ToolbarStyle, { provide: TOOLBAR_INSTANCE, useExisting: Toolbar }, { provide: PARENT_INSTANCE, useExisting: Toolbar }],
     host: {
-        '[class]': 'cn(cx("root"), styleClass)',
+        '[class]': 'cn(cx("root"), styleClass())',
         role: 'toolbar',
-        '[attr.aria-labelledby]': 'ariaLabelledBy'
+        '[attr.aria-labelledby]': 'ariaLabelledBy()'
     },
     hostDirectives: [Bind]
 })
@@ -53,12 +59,12 @@ export class Toolbar extends BaseComponent<ToolbarPassThrough> implements Blocka
      * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Defines a string value that labels an interactive element.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined;
+    ariaLabelledBy = input<string>();
 
     _componentStyle = inject(ToolbarStyle);
 
@@ -69,47 +75,19 @@ export class Toolbar extends BaseComponent<ToolbarPassThrough> implements Blocka
      * Custom start template.
      * @group Templates
      */
-    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<void> | undefined;
+    startTemplate = contentChild<TemplateRef<void>>('start');
 
     /**
      * Custom end template.
      * @group Templates
      */
-    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<void> | undefined;
+    endTemplate = contentChild<TemplateRef<void>>('end');
 
     /**
      * Custom center template.
      * @group Templates
      */
-    @ContentChild('center', { descendants: false }) centerTemplate: TemplateRef<void> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    _startTemplate: TemplateRef<void> | undefined;
-
-    _endTemplate: TemplateRef<void> | undefined;
-
-    _centerTemplate: TemplateRef<void> | undefined;
-
-    onAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'start':
-                case 'left':
-                    this._startTemplate = item.template;
-                    break;
-
-                case 'end':
-                case 'right':
-                    this._endTemplate = item.template;
-                    break;
-
-                case 'center':
-                    this._centerTemplate = item.template;
-                    break;
-            }
-        });
-    }
+    centerTemplate = contentChild<TemplateRef<void>>('center');
 }
 
 @NgModule({
