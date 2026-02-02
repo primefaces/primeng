@@ -1,24 +1,5 @@
-import { CommonModule } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ContentChild,
-    EventEmitter,
-    forwardRef,
-    HostListener,
-    inject,
-    InjectionToken,
-    Input,
-    input,
-    InputSignalWithTransform,
-    model,
-    NgModule,
-    Output,
-    signal,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, HostListener, inject, InjectionToken, input, InputSignalWithTransform, model, NgModule, output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { MotionOptions } from '@primeuix/motion';
 import { findSingle, focus, getAttribute, uuid } from '@primeuix/utils';
 import { BlockableUI, SharedModule } from 'primeng/api';
@@ -76,7 +57,7 @@ const ACCORDION_INSTANCE = new InjectionToken<Accordion>('ACCORDION_INSTANCE');
  */
 @Component({
     selector: 'p-accordion-panel, p-accordionpanel',
-    imports: [CommonModule, BindModule],
+    imports: [BindModule],
     standalone: true,
     template: `<ng-content />`,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -131,21 +112,26 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
  */
 @Component({
     selector: 'p-accordion-header, p-accordionheader',
-    imports: [CommonModule, ChevronDownIcon, ChevronUpIcon, BindModule],
+    imports: [NgTemplateOutlet, ChevronDownIcon, ChevronUpIcon, BindModule],
     standalone: true,
     template: `
         <ng-content />
-        @if (toggleicon) {
-            <ng-template *ngTemplateOutlet="toggleicon; context: { active: active() }"></ng-template>
+        @if (toggleicon()) {
+            <ng-container *ngTemplateOutlet="toggleicon(); context: { active: active() }"></ng-container>
         } @else {
-            <ng-container *ngIf="active()">
-                <span *ngIf="pcAccordion.collapseIcon" [class]="cn(cx('toggleicon'), pcAccordion.collapseIcon)" [attr.aria-hidden]="true" [pBind]="ptm('toggleicon')"></span>
-                <svg data-p-icon="chevron-up" *ngIf="!pcAccordion.collapseIcon" [class]="cx('toggleicon')" [pBind]="ptm('toggleicon')" [attr.aria-hidden]="true" />
-            </ng-container>
-            <ng-container *ngIf="!active()">
-                <span *ngIf="pcAccordion.expandIcon" [class]="cn(cx('toggleicon'), pcAccordion.expandIcon)" [attr.aria-hidden]="true" [pBind]="ptm('toggleicon')"></span>
-                <svg data-p-icon="chevron-down" *ngIf="!pcAccordion.expandIcon" [attr.aria-hidden]="true" [pBind]="ptm('toggleicon')" />
-            </ng-container>
+            @if (active()) {
+                @if (pcAccordion.collapseIcon()) {
+                    <span [class]="cn(cx('toggleicon'), pcAccordion.collapseIcon())" [attr.aria-hidden]="true" [pBind]="ptm('toggleicon')"></span>
+                } @else {
+                    <svg data-p-icon="chevron-up" [class]="cx('toggleicon')" [pBind]="ptm('toggleicon')" [attr.aria-hidden]="true" />
+                }
+            } @else {
+                @if (pcAccordion.expandIcon()) {
+                    <span [class]="cn(cx('toggleicon'), pcAccordion.expandIcon())" [attr.aria-hidden]="true" [pBind]="ptm('toggleicon')"></span>
+                } @else {
+                    <svg data-p-icon="chevron-down" [attr.aria-hidden]="true" [pBind]="ptm('toggleicon')" />
+                }
+            }
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -161,7 +147,7 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
         '[attr.data-p-active]': 'active()',
         '[attr.data-p-disabled]': 'disabled()',
         '[style.user-select]': '"none"',
-        '[attr.data-p]': 'dataP'
+        '[attr.data-p]': 'dataP()'
     },
     hostDirectives: [Ripple, Bind],
     providers: [AccordionStyle, { provide: ACCORDION_HEADER_INSTANCE, useExisting: AccordionHeader }, { provide: PARENT_INSTANCE, useExisting: AccordionHeader }]
@@ -198,7 +184,7 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
      * @see {@link AccordionToggleIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('toggleicon') toggleicon: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
+    toggleicon = contentChild<TemplateRef<AccordionToggleIconTemplateContext>>('toggleicon');
 
     @HostListener('click', ['$event']) onClick(event?: MouseEvent | KeyboardEvent) {
         if (this.disabled()) {
@@ -321,16 +307,16 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
         event.preventDefault();
     }
 
-    get dataP() {
-        return this.cn({
+    dataP = computed(() =>
+        this.cn({
             active: this.active()
-        });
-    }
+        })
+    );
 }
 
 @Component({
     selector: 'p-accordion-content, p-accordioncontent',
-    imports: [CommonModule, BindModule, MotionModule],
+    imports: [BindModule, MotionModule],
     standalone: true,
     template: `
         <p-motion [visible]="active()" name="p-collapsible" hideStrategy="visibility" [mountOnEnter]="false" [unmountOnLeave]="false" [options]="computedMotionOptions()">
@@ -393,10 +379,10 @@ export class AccordionContent extends BaseComponent<AccordionContentPassThrough>
 @Component({
     selector: 'p-accordion',
     standalone: true,
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     template: ` <ng-content />`,
     host: {
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass())"
     },
     hostDirectives: [Bind],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -430,17 +416,17 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
      * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Icon of a collapsed tab.
      * @group Props
      */
-    @Input() expandIcon: string | undefined;
+    expandIcon = input<string>();
     /**
      * Icon of an expanded tab.
      * @group Props
      */
-    @Input() collapseIcon: string | undefined;
+    collapseIcon = input<string>();
     /**
      * When enabled, the focused tab is activated.
      * @defaultValue false
@@ -452,7 +438,7 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
      * @group Props
      * @deprecated since v21.0.0, use `motionOptions` instead.
      */
-    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    transitionOptions = input<string>('400ms cubic-bezier(0.86, 0, 0.07, 1)');
 
     /**
      * The motion options.
@@ -472,13 +458,13 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
      * @param {AccordionTabCloseEvent} event - Custom tab close event.
      * @group Emits
      */
-    @Output() onClose: EventEmitter<AccordionTabCloseEvent> = new EventEmitter();
+    onClose = output<AccordionTabCloseEvent>();
     /**
      * Callback to invoke when a tab gets expanded.
      * @param {AccordionTabOpenEvent} event - Custom tab open event.
      * @group Emits
      */
-    @Output() onOpen: EventEmitter<AccordionTabOpenEvent> = new EventEmitter();
+    onOpen = output<AccordionTabOpenEvent>();
 
     id = signal(uuid('pn_id_'));
 
