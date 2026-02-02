@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, input, model, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -15,7 +14,7 @@ const TABS_INSTANCE = new InjectionToken<Tabs>('TABS_INSTANCE');
 @Component({
     selector: 'p-tabs',
     standalone: true,
-    imports: [CommonModule, BindModule],
+    imports: [BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

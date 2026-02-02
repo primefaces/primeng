@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, HostListener, inject, InjectionToken, input, model, ViewEncapsulation } from '@angular/core';
 import { equals, focus, getAttribute } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
@@ -19,7 +19,7 @@ const TAB_INSTANCE = new InjectionToken<Tab>('TAB_INSTANCE');
 @Component({
     selector: 'p-tab',
     standalone: true,
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -193,11 +193,11 @@ export class Tab extends BaseComponent<TabPassThrough> {
     }
 
     findFirstTab() {
-        return this.findNextTab(this.pcTabList?.tabs?.nativeElement?.firstElementChild, true);
+        return this.findNextTab(this.pcTabList?.tabs()?.nativeElement?.firstElementChild, true);
     }
 
     findLastTab() {
-        return this.findPrevTab(this.pcTabList?.tabs?.nativeElement?.lastElementChild, true);
+        return this.findPrevTab(this.pcTabList?.tabs()?.nativeElement?.lastElementChild, true);
     }
 
     changeActiveValue() {

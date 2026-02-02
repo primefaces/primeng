@@ -1,7 +1,7 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, effect, ElementRef, forwardRef, inject, InjectionToken, QueryList, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, contentChild, effect, ElementRef, forwardRef, inject, InjectionToken, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
 import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
@@ -19,7 +19,7 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
 @Component({
     selector: 'p-tablist',
     standalone: true,
-    imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule, BindModule],
+    imports: [NgTemplateOutlet, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule, BindModule],
     template: `
         @if (showNavigators() && isPrevButtonEnabled()) {
             <button
@@ -33,8 +33,8 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
                 [attr.data-pc-group-section]="'navigator'"
                 (click)="onPrevButtonClick()"
             >
-                @if (prevIconTemplate || _prevIconTemplate) {
-                    <ng-container *ngTemplateOutlet="prevIconTemplate || _prevIconTemplate" />
+                @if (prevIconTemplate()) {
+                    <ng-container *ngTemplateOutlet="prevIconTemplate()" />
                 } @else {
                     <svg data-p-icon="chevron-left" />
                 }
@@ -58,8 +58,8 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
                 [attr.data-pc-group-section]="'navigator'"
                 (click)="onNextButtonClick()"
             >
-                @if (nextIconTemplate || _nextIconTemplate) {
-                    <ng-container *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate" />
+                @if (nextIconTemplate()) {
+                    <ng-container *ngTemplateOutlet="nextIconTemplate()" />
                 } @else {
                     <svg data-p-icon="chevron-right" />
                 }
@@ -89,25 +89,23 @@ export class TabList extends BaseComponent<TabListPassThrough> {
      * @type {TemplateRef<any> | undefined}
      * @group Templates
      */
-    @ContentChild('previcon', { descendants: false }) prevIconTemplate: TemplateRef<any> | undefined;
+    prevIconTemplate = contentChild<TemplateRef<any>>('previcon');
     /**
      * A template reference variable that represents the next icon in a UI component.
      * @type {TemplateRef<any> | undefined}
      * @group Templates
      */
-    @ContentChild('nexticon', { descendants: false }) nextIconTemplate: TemplateRef<any> | undefined;
+    nextIconTemplate = contentChild<TemplateRef<any>>('nexticon');
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    content = viewChild<ElementRef<HTMLDivElement>>('content');
 
-    @ViewChild('content') content: ElementRef<HTMLDivElement>;
+    prevButton = viewChild<ElementRef<HTMLButtonElement>>('prevButton');
 
-    @ViewChild('prevButton') prevButton: ElementRef<HTMLButtonElement>;
+    nextButton = viewChild<ElementRef<HTMLButtonElement>>('nextButton');
 
-    @ViewChild('nextButton') nextButton: ElementRef<HTMLButtonElement>;
+    inkbar = viewChild<ElementRef<HTMLSpanElement>>('inkbar');
 
-    @ViewChild('inkbar') inkbar: ElementRef<HTMLSpanElement>;
-
-    @ViewChild('tabs') tabs: ElementRef<HTMLDivElement>;
+    tabs = viewChild<ElementRef<HTMLDivElement>>('tabs');
 
     pcTabs = inject(forwardRef(() => Tabs));
 
@@ -152,23 +150,6 @@ export class TabList extends BaseComponent<TabListPassThrough> {
         }
     }
 
-    _prevIconTemplate: TemplateRef<any> | undefined;
-
-    _nextIconTemplate: TemplateRef<any> | undefined;
-
-    onAfterContentInit() {
-        this.templates?.forEach((t) => {
-            switch (t.getType()) {
-                case 'previcon':
-                    this._prevIconTemplate = t.template;
-                    break;
-                case 'nexticon':
-                    this._nextIconTemplate = t.template;
-                    break;
-            }
-        });
-    }
-
     onDestroy() {
         this.unbindResizeObserver();
     }
@@ -180,7 +161,8 @@ export class TabList extends BaseComponent<TabListPassThrough> {
     }
 
     onPrevButtonClick() {
-        const _content = this.content.nativeElement;
+        const _content = this.content()?.nativeElement;
+        if (!_content) return;
         const width = getWidth(_content);
         const pos = Math.abs(_content.scrollLeft) - width;
         const scrollLeft = pos <= 0 ? 0 : pos;
@@ -189,7 +171,8 @@ export class TabList extends BaseComponent<TabListPassThrough> {
     }
 
     onNextButtonClick() {
-        const _content = this.content.nativeElement;
+        const _content = this.content()?.nativeElement;
+        if (!_content) return;
         const width = getWidth(_content) - this.getVisibleButtonWidths();
         const pos = _content.scrollLeft + width;
         const lastPos = _content.scrollWidth - width;
@@ -199,8 +182,9 @@ export class TabList extends BaseComponent<TabListPassThrough> {
     }
 
     updateButtonState() {
-        const _content = this.content?.nativeElement;
+        const _content = this.content()?.nativeElement;
         const _list = this.el?.nativeElement;
+        if (!_content) return;
 
         const { scrollWidth, offsetWidth } = _content;
         const scrollLeft = Math.abs(_content.scrollLeft);
@@ -211,20 +195,19 @@ export class TabList extends BaseComponent<TabListPassThrough> {
     }
 
     updateInkBar() {
-        const _content = this.content?.nativeElement;
-        const _inkbar = this.inkbar?.nativeElement;
-        const _tabs = this.tabs?.nativeElement;
+        const _content = this.content()?.nativeElement;
+        const _inkbar = this.inkbar()?.nativeElement;
+        const _tabs = this.tabs()?.nativeElement;
+        if (!_content || !_inkbar || !_tabs) return;
 
         const activeTab = findSingle(_content, '[data-pc-name="tab"][data-p-active="true"]');
-        if (_inkbar) {
-            _inkbar.style.width = getOuterWidth(activeTab) + 'px';
-            _inkbar.style.left = <any>getOffset(activeTab).left - <any>getOffset(_tabs).left + 'px';
-        }
+        _inkbar.style.width = getOuterWidth(activeTab) + 'px';
+        _inkbar.style.left = <any>getOffset(activeTab).left - <any>getOffset(_tabs).left + 'px';
     }
 
     getVisibleButtonWidths() {
-        const _prevBtn = this.prevButton?.nativeElement;
-        const _nextBtn = this.nextButton?.nativeElement;
+        const _prevBtn = this.prevButton()?.nativeElement;
+        const _nextBtn = this.nextButton()?.nativeElement;
 
         return [_prevBtn, _nextBtn].reduce((acc, el) => (el ? acc + getWidth(el) : acc), 0);
     }
