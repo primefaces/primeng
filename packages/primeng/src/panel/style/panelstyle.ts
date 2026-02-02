@@ -3,24 +3,31 @@ import { style } from '@primeuix/styles/panel';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => [
-        'p-panel p-component',
-        {
-            'p-panel-toggleable': instance.toggleable,
-            'p-panel-expanded': !instance._collapsed && instance.toggleable,
-            'p-panel-collapsed': instance._collapsed && instance.toggleable
-        }
-    ],
+    root: ({ instance }) => {
+        const toggleable = instance.toggleable();
+        const collapsed = instance.collapsed();
+        return [
+            'p-panel p-component',
+            {
+                'p-panel-toggleable': toggleable,
+                'p-panel-expanded': !collapsed && toggleable,
+                'p-panel-collapsed': collapsed && toggleable
+            }
+        ];
+    },
     header: 'p-panel-header',
     title: 'p-panel-title',
-    headerActions: ({ instance }) => [
-        'p-panel-header-actions',
-        {
-            'p-panel-icons-start': instance.iconPos === 'start',
-            'p-panel-icons-end': instance.iconPos === 'end',
-            'p-panel-icons-center': instance.iconPos === 'center'
-        }
-    ],
+    headerActions: ({ instance }) => {
+        const iconPos = instance.iconPos();
+        return [
+            'p-panel-header-actions',
+            {
+                'p-panel-icons-start': iconPos === 'start',
+                'p-panel-icons-end': iconPos === 'end',
+                'p-panel-icons-center': iconPos === 'center'
+            }
+        ];
+    },
     pcToggleButton: 'p-panel-toggle-button',
     contentContainer: 'p-panel-content-container',
     contentWrapper: 'p-panel-content-wrapper',
