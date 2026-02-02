@@ -1,5 +1,4 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, InjectionToken, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -15,7 +14,7 @@ const DIVIDER_INSTANCE = new InjectionToken<Divider>('DIVIDER_INSTANCE');
 @Component({
     selector: 'p-divider',
     standalone: true,
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     template: `
         <div [pBind]="ptm('content')" [class]="cx('content')">
             <ng-content></ng-content>
@@ -24,11 +23,11 @@ const DIVIDER_INSTANCE = new InjectionToken<Divider>('DIVIDER_INSTANCE');
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[attr.aria-orientation]': 'layout',
+        '[attr.aria-orientation]': 'layout()',
         role: 'separator',
-        '[class]': "cn(cx('root'), styleClass)",
+        '[class]': "cn(cx('root'), styleClass())",
         '[style]': "sx('root')",
-        '[attr.data-p]': 'dataP'
+        '[attr.data-p]': 'dataP()'
     },
     providers: [DividerStyle, { provide: DIVIDER_INSTANCE, useExisting: Divider }, { provide: PARENT_INSTANCE, useExisting: Divider }],
     hostDirectives: [Bind]
@@ -40,39 +39,43 @@ export class Divider extends BaseComponent<DividerPassThrough> {
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
-    }
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
+
     /**
      * Specifies the orientation.
      * @group Props
      */
-    @Input() layout: 'horizontal' | 'vertical' | undefined = 'horizontal';
+    layout = input<'horizontal' | 'vertical'>('horizontal');
+
     /**
      * Border style type.
      * @group Props
      */
-    @Input() type: 'solid' | 'dashed' | 'dotted' | undefined = 'solid';
+    type = input<'solid' | 'dashed' | 'dotted'>('solid');
+
     /**
      * Alignment of the content.
      * @group Props
      */
-    @Input() align: 'left' | 'center' | 'right' | 'top' | 'bottom' | undefined;
+    align = input<'left' | 'center' | 'right' | 'top' | 'bottom'>();
 
     _componentStyle = inject(DividerStyle);
 
-    get dataP() {
+    dataP = computed(() => {
         return this.cn({
-            [this.align as string]: this.align,
-            [this.layout as string]: this.layout,
-            [this.type as string]: this.type
+            [this.align() as string]: this.align(),
+            [this.layout() as string]: this.layout(),
+            [this.type() as string]: this.type()
         });
+    });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }
 

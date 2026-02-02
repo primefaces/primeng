@@ -4,24 +4,33 @@ import { BaseStyle } from 'primeng/base';
 
 /* Position */
 const inlineStyles = {
-    root: ({ instance }) => ({
-        justifyContent: instance.layout === 'horizontal' ? (instance.align === 'center' || instance.align == null ? 'center' : instance.align === 'left' ? 'flex-start' : instance.align === 'right' ? 'flex-end' : null) : null,
-        alignItems: instance.layout === 'vertical' ? (instance.align === 'center' || instance.align == null ? 'center' : instance.align === 'top' ? 'flex-start' : instance.align === 'bottom' ? 'flex-end' : null) : null
-    })
+    root: ({ instance }) => {
+        const layout = instance.layout();
+        const align = instance.align();
+        return {
+            justifyContent: layout === 'horizontal' ? (align === 'center' || align == null ? 'center' : align === 'left' ? 'flex-start' : align === 'right' ? 'flex-end' : null) : null,
+            alignItems: layout === 'vertical' ? (align === 'center' || align == null ? 'center' : align === 'top' ? 'flex-start' : align === 'bottom' ? 'flex-end' : null) : null
+        };
+    }
 };
 
 const classes = {
-    root: ({ instance }) => [
-        'p-divider p-component',
-        'p-divider-' + instance.layout,
-        'p-divider-' + instance.type,
-        { 'p-divider-left': instance.layout === 'horizontal' && (!instance.align || instance.align === 'left') },
-        { 'p-divider-center': instance.layout === 'horizontal' && instance.align === 'center' },
-        { 'p-divider-right': instance.layout === 'horizontal' && instance.align === 'right' },
-        { 'p-divider-top': instance.layout === 'vertical' && instance.align === 'top' },
-        { 'p-divider-center': instance.layout === 'vertical' && (!instance.align || instance.align === 'center') },
-        { 'p-divider-bottom': instance.layout === 'vertical' && instance.align === 'bottom' }
-    ],
+    root: ({ instance }) => {
+        const layout = instance.layout();
+        const type = instance.type();
+        const align = instance.align();
+        return [
+            'p-divider p-component',
+            'p-divider-' + layout,
+            'p-divider-' + type,
+            { 'p-divider-left': layout === 'horizontal' && (!align || align === 'left') },
+            { 'p-divider-center': layout === 'horizontal' && align === 'center' },
+            { 'p-divider-right': layout === 'horizontal' && align === 'right' },
+            { 'p-divider-top': layout === 'vertical' && align === 'top' },
+            { 'p-divider-center': layout === 'vertical' && (!align || align === 'center') },
+            { 'p-divider-bottom': layout === 'vertical' && align === 'bottom' }
+        ];
+    },
     content: 'p-divider-content'
 };
 
