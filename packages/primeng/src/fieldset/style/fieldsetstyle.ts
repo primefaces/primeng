@@ -3,13 +3,17 @@ import { style } from '@primeuix/styles/fieldset';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => [
-        'p-fieldset p-component',
-        {
-            'p-fieldset-toggleable': instance.toggleable,
-            'p-fieldset-collapsed': instance.collapsed && instance.toggleable
-        }
-    ],
+    root: ({ instance }) => {
+        const toggleable = instance.toggleable();
+        const collapsed = instance.collapsed();
+        return [
+            'p-fieldset p-component',
+            {
+                'p-fieldset-toggleable': toggleable,
+                'p-fieldset-collapsed': collapsed && toggleable
+            }
+        ];
+    },
     legend: 'p-fieldset-legend',
     legendLabel: 'p-fieldset-legend-label',
     toggleButton: 'p-fieldset-toggle-button',
