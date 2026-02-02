@@ -6415,6 +6415,7 @@ export class ColumnFilter extends BaseComponent {
                     [pt]="ptm('pcFilterCheckbox')"
                     [indeterminate]="filterConstraint?.value === null"
                     [binary]="true"
+                    [ariaLabel]="ariaLabel"
                     *ngSwitchCase="'boolean'"
                     [ngModel]="filterConstraint?.value"
                     (ngModelChange)="onModelChange($event)"
