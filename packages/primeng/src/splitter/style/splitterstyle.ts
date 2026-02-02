@@ -3,14 +3,14 @@ import { style } from '@primeuix/styles/splitter';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-splitter p-component', 'p-splitter-' + instance.layout],
+    root: ({ instance }) => ['p-splitter p-component', 'p-splitter-' + instance.layout()],
     panel: ({ instance }) => ['p-splitterpanel', { 'p-splitterpanel-nested': instance.nestedState() }],
     gutter: 'p-splitter-gutter',
     gutterHandle: 'p-splitter-gutter-handle'
 };
 
 const inlineStyles = {
-    root: ({ instance }) => [{ display: 'flex', 'flex-wrap': 'nowrap' }, instance.layout === 'vertical' ? { 'flex-direction': 'column' } : '']
+    root: ({ instance }) => [{ display: 'flex', 'flex-wrap': 'nowrap' }, instance.layout() === 'vertical' ? { 'flex-direction': 'column' } : '']
 };
 
 @Injectable()
