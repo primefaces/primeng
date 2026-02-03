@@ -1853,7 +1853,6 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
                 this.overlayVisible && this.hide(this.filter);
             }
         }
-        event.stopPropagation();
     }
 
     onFirstHiddenFocus(event) {
