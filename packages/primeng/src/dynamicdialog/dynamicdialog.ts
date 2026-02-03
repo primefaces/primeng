@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ComponentRef, inject, InjectionToken, NgModule, Type, ViewChild, ViewEncapsulation } from '@angular/core';
+import { NgComponentOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, ComponentRef, inject, InjectionToken, NgModule, signal, Type, viewChild, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -16,10 +16,10 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
 @Component({
     selector: 'p-dynamicDialog, p-dynamicdialog, p-dynamic-dialog',
     standalone: true,
-    imports: [CommonModule, SharedModule, DynamicDialogContent, Dialog, BindModule],
+    imports: [NgComponentOutlet, SharedModule, DynamicDialogContent, Dialog, BindModule],
     template: `
         <p-dialog
-            [(visible)]="visible"
+            [visible]="visible()"
             [header]="ddconfig?.header"
             [draggable]="ddconfig?.draggable !== false"
             [resizable]="ddconfig?.resizable !== false"
@@ -49,7 +49,7 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
             [maximizeButtonProps]="{ severity: 'secondary', variant: 'text', rounded: true }"
             [style]="dialogStyle"
             [position]="position"
-            (onHide)="onDialogHide($event)"
+            (onHide)="onDialogHide()"
             (onMaximize)="onDialogMaximize($event)"
             (onResizeInit)="onDialogResizeInit($event)"
             (onResizeEnd)="onDialogResizeEnd($event)"
@@ -60,27 +60,43 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
             hostName="DynamicDialog"
             [unstyled]="isUnstyled"
         >
-            <ng-template #header *ngIf="headerTemplate">
-                <ng-container *ngComponentOutlet="headerTemplate"></ng-container>
-            </ng-template>
-            <ng-template #content *ngIf="contentTemplate">
-                <ng-container *ngComponentOutlet="contentTemplate"></ng-container>
-            </ng-template>
-            <ng-template #footer *ngIf="footerTemplate">
-                <ng-container *ngComponentOutlet="footerTemplate"></ng-container>
-            </ng-template>
-            <ng-template #closeicon *ngIf="closeIconTemplate">
-                <ng-container *ngComponentOutlet="closeIconTemplate"></ng-container>
-            </ng-template>
-            <ng-template #maximizeicon *ngIf="maximizeIconTemplate">
-                <ng-container *ngComponentOutlet="maximizeIconTemplate"></ng-container>
-            </ng-template>
-            <ng-template #minimizeicon *ngIf="minimizeIconTemplate">
-                <ng-container *ngComponentOutlet="minimizeIconTemplate"></ng-container>
-            </ng-template>
+            @if (headerTemplate) {
+                <ng-template #header>
+                    <ng-container *ngComponentOutlet="headerTemplate"></ng-container>
+                </ng-template>
+            }
+            @if (contentTemplate) {
+                <ng-template #content>
+                    <ng-container *ngComponentOutlet="contentTemplate"></ng-container>
+                </ng-template>
+            }
+            @if (footerTemplate) {
+                <ng-template #footer>
+                    <ng-container *ngComponentOutlet="footerTemplate"></ng-container>
+                </ng-template>
+            }
+            @if (closeIconTemplate) {
+                <ng-template #closeicon>
+                    <ng-container *ngComponentOutlet="closeIconTemplate"></ng-container>
+                </ng-template>
+            }
+            @if (maximizeIconTemplate) {
+                <ng-template #maximizeicon>
+                    <ng-container *ngComponentOutlet="maximizeIconTemplate"></ng-container>
+                </ng-template>
+            }
+            @if (minimizeIconTemplate) {
+                <ng-template #minimizeicon>
+                    <ng-container *ngComponentOutlet="minimizeIconTemplate"></ng-container>
+                </ng-template>
+            }
 
-            <ng-template pDynamicDialogContent *ngIf="!contentTemplate"></ng-template>
-            <div *ngIf="ddconfig.footer && !footerTemplate">{{ ddconfig.footer }}</div>
+            @if (!contentTemplate) {
+                <ng-template pDynamicDialogContent></ng-template>
+            }
+            @if (ddconfig.footer && !footerTemplate) {
+                <div>{{ ddconfig.footer }}</div>
+            }
         </p-dialog>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
@@ -101,15 +117,15 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
-    visible: boolean = true;
+    visible = signal<boolean>(true);
 
     componentRef: Nullable<ComponentRef<any>>;
 
     id: string = uuid('pn_id_');
 
-    @ViewChild(DynamicDialogContent) insertionPoint: Nullable<DynamicDialogContent>;
+    insertionPoint = viewChild(DynamicDialogContent);
 
-    @ViewChild(Dialog) dialog: Nullable<Dialog>;
+    dialog = viewChild(Dialog);
 
     childComponentType: Nullable<Type<any>>;
 
@@ -131,20 +147,20 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         return this.ddconfig.maximizable!;
     }
 
-    get maximizeIcon(): string {
-        return this.ddconfig.maximizeIcon!;
+    get maximizeIcon(): string | undefined {
+        return this.ddconfig.maximizeIcon;
     }
 
-    get minimizeIcon(): string {
-        return this.ddconfig.minimizeIcon!;
+    get minimizeIcon(): string | undefined {
+        return this.ddconfig.minimizeIcon;
     }
 
-    get closable() {
-        return this.ddconfig.closable!;
+    get closable(): boolean | undefined {
+        return this.ddconfig.closable;
     }
 
-    get position(): string {
-        return this.ddconfig.position!;
+    get position(): string | undefined {
+        return this.ddconfig.position;
     }
 
     get defaultCloseAriaLabel(): string {
@@ -155,31 +171,31 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         return this.ddconfig.breakpoints;
     }
 
-    get footerTemplate() {
+    get footerTemplate(): Type<any> | undefined {
         return this.ddconfig?.templates?.footer;
     }
 
-    get headerTemplate() {
+    get headerTemplate(): Type<any> | undefined {
         return this.ddconfig?.templates?.header;
     }
 
-    get contentTemplate() {
+    get contentTemplate(): Type<any> | undefined {
         return this.ddconfig?.templates?.content;
     }
 
-    get minimizeIconTemplate(): any {
+    get minimizeIconTemplate(): Type<any> | undefined {
         return this.ddconfig?.templates?.minimizeicon;
     }
 
-    get maximizeIconTemplate(): any {
+    get maximizeIconTemplate(): Type<any> | undefined {
         return this.ddconfig?.templates?.maximizeicon;
     }
 
-    get closeIconTemplate() {
+    get closeIconTemplate(): Type<any> | undefined {
         return this.ddconfig?.templates?.closeicon;
     }
 
-    get dialogStyle() {
+    get dialogStyle(): { [klass: string]: any } {
         return {
             ...(this.ddconfig?.style || {}),
             ...(this.ddconfig?.width && { width: this.ddconfig.width }),
@@ -187,7 +203,7 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         };
     }
 
-    get header() {
+    get header(): string | undefined {
         return this.ddconfig.header;
     }
 
@@ -195,11 +211,11 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         return this.ddconfig.data;
     }
 
-    get dialogId() {
+    get dialogId(): string {
         return this.$attrSelector;
     }
 
-    get isUnstyled() {
+    get isUnstyled(): boolean {
         return this.ddconfig.unstyled || this.$unstyled();
     }
 
@@ -268,7 +284,7 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
     }
 
     loadChildComponent(componentType: Type<any>) {
-        let viewContainerRef = this.insertionPoint?.viewContainerRef;
+        let viewContainerRef = this.insertionPoint()?.viewContainerRef;
         viewContainerRef?.clear();
 
         this.componentRef = viewContainerRef?.createComponent(componentType);
@@ -282,7 +298,7 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         this.dialogRef.onChildComponentLoaded.next(this.componentRef!.instance);
     }
 
-    onDialogHide(event: any) {
+    onDialogHide() {
         this.dialogRef.destroy();
     }
 
@@ -307,8 +323,7 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
     }
 
     close() {
-        this.visible = false;
-        this.cd.markForCheck();
+        this.visible.set(false);
     }
 
     hide() {
