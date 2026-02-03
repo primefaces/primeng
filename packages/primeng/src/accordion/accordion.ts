@@ -486,27 +486,33 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
 
     @HostListener('keydown', ['$event'])
     onKeydown(event) {
-        switch (event.code) {
-            case 'ArrowDown':
-                this.onTabArrowDownKey(event);
-                break;
+        if (!this.targetIsTextEditor(event)) {
+            switch (event.code) {
+                case 'ArrowDown':
+                    this.onTabArrowDownKey(event);
+                    break;
 
-            case 'ArrowUp':
-                this.onTabArrowUpKey(event);
-                break;
+                case 'ArrowUp':
+                    this.onTabArrowUpKey(event);
+                    break;
 
-            case 'Home':
-                if (!event.shiftKey) {
-                    this.onTabHomeKey(event);
-                }
-                break;
+                case 'Home':
+                    if (!event.shiftKey) {
+                        this.onTabHomeKey(event);
+                    }
+                    break;
 
-            case 'End':
-                if (!event.shiftKey) {
-                    this.onTabEndKey(event);
-                }
-                break;
+                case 'End':
+                    if (!event.shiftKey) {
+                        this.onTabEndKey(event);
+                    }
+                    break;
+            }
         }
+    }
+
+    targetIsTextEditor(event): boolean {
+        return ['input', 'textarea'].includes(event.target?.tagName?.toLowerCase());
     }
 
     onTabArrowDownKey(event) {
