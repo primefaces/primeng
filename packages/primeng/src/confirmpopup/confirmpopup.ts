@@ -158,18 +158,6 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
      */
     defaultFocus = input<string>('accept');
     /**
-     * Transition options of the show animation.
-     * @group Props
-     * @deprecated since v21.0.0. Use `motionOptions` instead.
-     */
-    showTransitionOptions = input<string>('.12s cubic-bezier(0, 0, 0.2, 1)');
-    /**
-     * Transition options of the hide animation.
-     * @group Props
-     * @deprecated since v21.0.0. Use `motionOptions` instead.
-     */
-    hideTransitionOptions = input<string>('.1s linear');
-    /**
      * Whether to automatically manage layering.
      * @group Props
      */
@@ -218,7 +206,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
      * @defaultValue 'body'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('body');
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined>('body');
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
@@ -394,12 +382,14 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
     }
 
     alignArrow() {
-        const containerOffset = <any>getOffset(this.container);
-        const targetOffset = <any>getOffset(this.confirmation?.target as any);
+        const containerOffset = getOffset(this.container);
+        const targetOffset = getOffset(this.confirmation?.target as HTMLElement);
+        const containerLeft = containerOffset.left as number;
+        const targetLeft = targetOffset.left as number;
         let arrowLeft = 0;
 
-        if (containerOffset && targetOffset && containerOffset.left < targetOffset.left) {
-            arrowLeft = targetOffset.left - containerOffset.left;
+        if (containerOffset && targetOffset && containerLeft < targetLeft) {
+            arrowLeft = targetLeft - containerLeft;
         }
         if (this.container) {
             (this.container as HTMLDivElement).style.setProperty('--p-confirmpopup-arrow-left', `${arrowLeft}px`);
@@ -439,7 +429,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         }
 
         this.hide();
-        focus(this.confirmation?.target as any);
+        focus(this.confirmation?.target as HTMLElement);
     }
 
     onReject() {
@@ -448,7 +438,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         }
 
         this.hide();
-        focus(this.confirmation?.target as any);
+        focus(this.confirmation?.target as HTMLElement);
     }
 
     onOverlayClick(event: MouseEvent) {

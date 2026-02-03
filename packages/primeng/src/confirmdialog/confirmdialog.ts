@@ -20,7 +20,8 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { findSingle, setAttribute, uuid } from '@primeuix/utils';
+import { MotionOptions } from '@primeuix/motion';
+import { setAttribute, uuid } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, ConfirmEventType, Footer, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
@@ -38,7 +39,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
  * @group Components
  */
 @Component({
-    selector: 'p-confirmDialog, p-confirmdialog, p-confirm-dialog',
+    selector: 'p-confirmdialog, p-confirm-dialog',
     standalone: true,
     imports: [NgTemplateOutlet, NgClass, Button, Dialog, SharedModule, Bind],
     template: `
@@ -61,6 +62,8 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
             [draggable]="draggable()"
             [baseZIndex]="baseZIndex()"
             [autoZIndex]="autoZIndex()"
+            [motionOptions]="computedMotionOptions()"
+            [maskMotionOptions]="computedMaskMotionOptions()"
             [maskStyleClass]="cn(cx('mask'), maskStyleClass())"
             [unstyled]="unstyled()"
             (onHide)="onDialogHide()"
@@ -264,7 +267,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
      * Specifies if clicking the modal background should hide the dialog.
      * @group Props
      */
-    dismissableMask = input<boolean, any>(undefined, { transform: booleanAttribute });
+    dismissableMask = input(undefined, { transform: booleanAttribute });
     /**
      * Determines whether scrolling behavior should be blocked within the component.
      * @group Props
@@ -285,7 +288,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
      * @defaultValue 'body'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('body');
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined>('body');
     /**
      * Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.
      * @group Props
@@ -302,10 +305,15 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
      */
     baseZIndex = input(0, { transform: numberAttribute });
     /**
-     * Transition options of the animation.
+     * The motion options.
      * @group Props
      */
-    transitionOptions = input<string>('150ms cubic-bezier(0, 0, 0.2, 1)');
+    motionOptions = input<MotionOptions>();
+    /**
+     * The motion options for the mask.
+     * @group Props
+     */
+    maskMotionOptions = input<MotionOptions>();
     /**
      * When enabled, can only focus on elements inside the confirm dialog.
      * @group Props
@@ -320,7 +328,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
      * Object literal to define widths per screen size.
      * @group Props
      */
-    breakpoints = input<any>();
+    breakpoints = input<Record<string, string>>();
     /**
      * Defines if background should be blocked when dialog is displayed.
      * @group Props
@@ -396,6 +404,20 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
+
+    computedMaskMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('maskMotion'),
+            ...this.maskMotionOptions()
+        };
+    });
+
     confirmation: Nullable<Confirmation>;
 
     maskVisible = signal(false);
@@ -410,7 +432,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
 
     preWidth: number | undefined;
 
-    styleElement: any;
+    styleElement: HTMLStyleElement | null = null;
 
     id = uuid('pn_id_');
 
@@ -482,28 +504,6 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
         const optionClass = this.option(opt);
 
         return [cxClass, optionClass].filter(Boolean).join(' ');
-    }
-
-    getElementToFocus() {
-        if (!this.dialog?.el?.nativeElement) return;
-
-        switch (this.option('defaultFocus')) {
-            case 'accept':
-                return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-accept');
-
-            case 'reject':
-                return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-reject');
-
-            case 'close':
-                return findSingle(this.dialog.el.nativeElement, '.p-dialog-header-close');
-
-            case 'none':
-                return null;
-
-            //backward compatibility
-            default:
-                return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-accept');
-        }
     }
 
     createStyle() {

@@ -1,5 +1,6 @@
 import { Type } from '@angular/core';
-import type { DialogPassThrough } from 'primeng/types/dialog';
+import type { MotionOptions } from '@primeuix/motion';
+import type { DialogPassThrough, DialogPosition } from 'primeng/types/dialog';
 
 /**
  * Dialogs can be created dynamically with any component as the content using a DialogService.
@@ -92,10 +93,15 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      */
     styleClass?: string;
     /**
-     * Transition options of the animation.
+     * The motion options for the dialog.
      * @group Props
      */
-    transitionOptions?: string;
+    motionOptions?: MotionOptions;
+    /**
+     * The motion options for the mask.
+     * @group Props
+     */
+    maskMotionOptions?: MotionOptions;
     /**
      * Adds a close icon to the header to hide the dialog.
      * @group Props
@@ -157,10 +163,10 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      */
     minimizeIcon?: string;
     /**
-     * Position of the dialog, options are "center", "top", "bottom", "left", "right", "topleft", "topright", "bottomleft" or "bottomright".
+     * Position of the dialog.
      * @group Props
      */
-    position?: string;
+    position?: DialogPosition;
     /**
      * Defines a string that labels the close button for accessibility.
      * @group Props

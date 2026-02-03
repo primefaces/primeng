@@ -14,7 +14,7 @@ import { DynamicDialogStyle } from './style/dynamicdialogstyle';
 const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALOG_INSTANCE');
 
 @Component({
-    selector: 'p-dynamicDialog, p-dynamicdialog, p-dynamic-dialog',
+    selector: 'p-dynamicdialog, p-dynamic-dialog',
     standalone: true,
     imports: [NgComponentOutlet, SharedModule, DynamicDialogContent, Dialog, BindModule],
     template: `
@@ -41,7 +41,8 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
             [maximizable]="maximizable"
             [keepInViewport]="keepInViewport"
             [focusTrap]="ddconfig?.focusTrap !== false"
-            [transitionOptions]="ddconfig?.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'"
+            [motionOptions]="motionOptions"
+            [maskMotionOptions]="maskMotionOptions"
             [closeAriaLabel]="ddconfig?.closeAriaLabel || defaultCloseAriaLabel"
             [minimizeIcon]="minimizeIcon"
             [maximizeIcon]="maximizeIcon"
@@ -159,7 +160,7 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         return this.ddconfig.closable;
     }
 
-    get position(): string | undefined {
+    get position() {
         return this.ddconfig.position;
     }
 
@@ -219,6 +220,14 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         return this.ddconfig.unstyled || this.$unstyled();
     }
 
+    get motionOptions() {
+        return this.ddconfig.motionOptions;
+    }
+
+    get maskMotionOptions() {
+        return this.ddconfig.maskMotionOptions;
+    }
+
     maximized: boolean | undefined;
 
     dragging: boolean | undefined;
@@ -228,8 +237,6 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
     ariaLabelledBy: string | undefined | null;
 
     _style: any = {};
-
-    styleElement: any;
 
     lastPageX: number | undefined;
 
@@ -302,7 +309,7 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         this.dialogRef.destroy();
     }
 
-    onDialogMaximize(event: any) {
+    onDialogMaximize(event: { maximized: boolean | undefined }) {
         this.maximized = event.maximized;
         this.dialogRef.maximize(event);
     }
@@ -550,39 +557,11 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         }
     }
 
-    createStyle() {
-        if (!this.styleElement && this.breakpoints) {
-            this.styleElement = this.renderer.createElement('style');
-            this.styleElement.type = 'text/css';
-            this.renderer.appendChild(this.document.head, this.styleElement);
-
-            let innerHTML = '';
-            for (let breakpoint in this.breakpoints) {
-                innerHTML += `
-                    @media screen and (max-width: ${breakpoint}) {
-                        .p-dialog[${this.dialogId}] {
-                            width: ${this.breakpoints[breakpoint]} !important;
-                        }
-                    }
-                `;
-            }
-            this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
-        }
-    }
-
-    destroyStyle() {
-        if (this.styleElement) {
-            this.renderer.removeChild(this.document.head, this.styleElement);
-            this.styleElement = null;
-        }
-    }
-
     onDestroy() {
         this.onContainerDestroy();
         if (this.componentRef && typeof this.componentRef.destroy === 'function') {
             this.componentRef.destroy();
         }
-        this.destroyStyle();
     }
 }
 

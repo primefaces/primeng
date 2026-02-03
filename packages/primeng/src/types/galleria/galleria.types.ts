@@ -130,6 +130,10 @@ export interface GalleriaPassThroughOptions<I = unknown> {
      * Used to pass options to the motion component/directive.
      */
     motion?: MotionOptions;
+    /**
+     * Used to pass motion options for the mask animation.
+     */
+    maskMotion?: MotionOptions;
 }
 
 /**

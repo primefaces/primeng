@@ -98,7 +98,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      * @defaultValue 'body'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('body');
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined>('body');
     /**
      * Whether to automatically manage layering.
      * @group Props
@@ -119,18 +119,6 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      * @group Props
      */
     focusOnShow = input(true, { transform: booleanAttribute });
-    /**
-     * Transition options of the show animation.
-     * @group Props
-     * @deprecated since v21.0.0. Use `motionOptions` instead.
-     */
-    showTransitionOptions = input<string>('.12s cubic-bezier(0, 0, 0.2, 1)');
-    /**
-     * Transition options of the hide animation.
-     * @group Props
-     * @deprecated since v21.0.0. Use `motionOptions` instead.
-     */
-    hideTransitionOptions = input<string>('.1s linear');
     /**
      * The motion options.
      * @group Props
@@ -166,7 +154,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
 
     documentClickListener: VoidListener;
 
-    target: any;
+    target: HTMLElement | null = null;
 
     willHide: Nullable<boolean>;
 
@@ -205,7 +193,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
                         return;
                     }
 
-                    if (!this.container?.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
+                    if (!this.container?.contains(event.target) && this.target !== event.target && !this.target?.contains(event.target) && !this.selfClick) {
                         this.hide();
                     }
 
@@ -257,7 +245,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
             this.container = null;
         }
 
-        this.target = target || event.currentTarget || event.target;
+        this.target = (target || event.currentTarget || event.target) as HTMLElement;
         this.overlayVisible = true;
         this.render = true;
         this.cd.markForCheck();
@@ -307,17 +295,21 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         if (this.target && this.container) {
             absolutePosition(this.container, this.target, false);
 
-            const containerOffset = <any>getOffset(this.container);
-            const targetOffset = <any>getOffset(this.target);
+            const containerOffset = getOffset(this.container);
+            const targetOffset = getOffset(this.target);
+            const containerLeft = containerOffset.left as number;
+            const containerTop = containerOffset.top as number;
+            const targetLeft = targetOffset.left as number;
+            const targetTop = targetOffset.top as number;
             const borderRadius = this.document.defaultView?.getComputedStyle(this.container).getPropertyValue('border-radius');
             let arrowLeft = 0;
 
-            if (containerOffset.left < targetOffset.left) {
-                arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius!) * 2;
+            if (containerLeft < targetLeft) {
+                arrowLeft = targetLeft - containerLeft - parseFloat(borderRadius!) * 2;
             }
             this.container.style.setProperty($dt('popover.arrow.left').name, `${arrowLeft}px`);
 
-            if (containerOffset.top < targetOffset.top) {
+            if (containerTop < targetTop) {
                 this.container.setAttribute('data-p-popover-flipped', 'true');
                 !this.$unstyled() && addClass(this.container, 'p-popover-flipped');
             }
@@ -371,7 +363,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
     }
 
     focus() {
-        let focusable = <any>findSingle(this.container!, '[autofocus]');
+        const focusable = findSingle(this.container!, '[autofocus]') as HTMLElement | null;
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);
