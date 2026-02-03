@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, computed, Directive, effect, ElementRef, inject, InjectionToken, Injector, input, PLATFORM_ID, Renderer2, signal, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, computed, Directive, effect, ElementRef, inject, InjectionToken, Injector, input, isSignal, PLATFORM_ID, Renderer2, signal, SimpleChanges } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { cn, getKeyValue, isArray, isFunction, isNotEmpty, isString, mergeProps, resolve, toFlatCase, uuid } from '@primeuix/utils';
 import type { Lifecycle, PassThroughOptions } from 'primeng/api';
@@ -80,7 +80,8 @@ export class BaseComponent<PT = any> implements Lifecycle {
     }
 
     private get $hostName() {
-        return this['hostName'];
+        const hostName = this['hostName'];
+        return isSignal(hostName) ? hostName() : hostName;
     }
 
     get $el() {
