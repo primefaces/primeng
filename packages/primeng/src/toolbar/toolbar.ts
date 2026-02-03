@@ -38,7 +38,7 @@ const TOOLBAR_INSTANCE = new InjectionToken<Toolbar>('TOOLBAR_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     providers: [ToolbarStyle, { provide: TOOLBAR_INSTANCE, useExisting: Toolbar }, { provide: PARENT_INSTANCE, useExisting: Toolbar }],
     host: {
-        '[class]': 'cn(cx("root"), styleClass())',
+        '[class]': 'cx("root")',
         role: 'toolbar',
         '[attr.aria-labelledby]': 'ariaLabelledBy()'
     },
@@ -54,12 +54,6 @@ export class Toolbar extends BaseComponent<ToolbarPassThrough> implements Blocka
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
-    /**
-     * Style class of the component.
-     * @deprecated since v20.0.0, use `class` instead.
-     * @group Props
-     */
-    styleClass = input<string>();
     /**
      * Defines a string value that labels an interactive element.
      * @group Props

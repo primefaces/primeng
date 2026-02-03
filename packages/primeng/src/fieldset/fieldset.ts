@@ -66,7 +66,7 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
             </legend>
             <div
                 [pBind]="ptm('contentContainer')"
-                [pMotion]="!toggleable() || (toggleable() && !collapsed())"
+                [pMotion]="isContentVisible()"
                 pMotionName="p-collapsible"
                 [pMotionOptions]="computedMotionOptions()"
                 [class]="cx('contentContainer')"
@@ -74,7 +74,7 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
                 role="region"
                 [attr.aria-labelledby]="id + '_header'"
                 [attr.aria-hidden]="collapsed()"
-                [attr.tabindex]="collapsed() ? '-1' : undefined"
+                [attr.tabindex]="contentTabindex()"
                 (pMotionOnAfterEnter)="onToggleDone($event)"
                 (pMotionOnAfterLeave)="onToggleDone($event)"
             >
@@ -133,17 +133,10 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     styleClass = input<string>();
 
     /**
-     * Transition options of the panel animation.
-     * @group Props
-     * @deprecated since v21.0.0, use `motionOptions` instead.
-     */
-    transitionOptions = input('400ms cubic-bezier(0.86, 0, 0.07, 1)');
-
-    /**
      * The motion options.
      * @group Props
      */
-    motionOptions = input<MotionOptions | undefined>();
+    motionOptions = input<MotionOptions>();
 
     /**
      * Callback to invoke before panel toggle.
@@ -194,6 +187,10 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     buttonAriaLabel = computed(() => this.legend());
 
     dataP = computed(() => this.cn({ toggleable: this.toggleable() }));
+
+    contentTabindex = computed(() => (this.collapsed() ? '-1' : undefined));
+
+    isContentVisible = computed(() => !this.toggleable() || (this.toggleable() && !this.collapsed()));
 
     computedMotionOptions = computed<MotionOptions>(() => {
         return {

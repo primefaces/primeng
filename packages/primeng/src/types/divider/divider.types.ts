@@ -1,6 +1,24 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Defines the layout orientation of the divider.
+ * @group Types
+ */
+export type DividerLayout = 'horizontal' | 'vertical';
+
+/**
+ * Defines the border style type of the divider.
+ * @group Types
+ */
+export type DividerType = 'solid' | 'dashed' | 'dotted';
+
+/**
+ * Defines the alignment of the divider content.
+ * @group Types
+ */
+export type DividerAlign = 'left' | 'center' | 'right' | 'top' | 'bottom';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

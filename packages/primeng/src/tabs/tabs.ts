@@ -82,7 +82,7 @@ export class Tabs extends BaseComponent<TabsPassThrough> {
 
     _componentStyle = inject(TabsStyle);
 
-    updateValue(newValue) {
+    updateValue(newValue: string | number | undefined) {
         this.value.update(() => newValue);
     }
 }

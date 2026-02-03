@@ -3,7 +3,7 @@ import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { DividerStyle } from './style/dividerstyle';
-import { DividerPassThrough } from 'primeng/types/divider';
+import { DividerAlign, DividerLayout, DividerPassThrough, DividerType } from 'primeng/types/divider';
 
 const DIVIDER_INSTANCE = new InjectionToken<Divider>('DIVIDER_INSTANCE');
 
@@ -25,7 +25,7 @@ const DIVIDER_INSTANCE = new InjectionToken<Divider>('DIVIDER_INSTANCE');
     host: {
         '[attr.aria-orientation]': 'layout()',
         role: 'separator',
-        '[class]': "cn(cx('root'), styleClass())",
+        '[class]': "cx('root')",
         '[style]': "sx('root')",
         '[attr.data-p]': 'dataP()'
     },
@@ -40,29 +40,22 @@ export class Divider extends BaseComponent<DividerPassThrough> {
     bindDirectiveInstance = inject(Bind, { self: true });
 
     /**
-     * Style class of the component.
-     * @deprecated since v20.0.0, use `class` instead.
-     * @group Props
-     */
-    styleClass = input<string>();
-
-    /**
      * Specifies the orientation.
      * @group Props
      */
-    layout = input<'horizontal' | 'vertical'>('horizontal');
+    layout = input<DividerLayout>('horizontal');
 
     /**
      * Border style type.
      * @group Props
      */
-    type = input<'solid' | 'dashed' | 'dotted'>('solid');
+    type = input<DividerType>('solid');
 
     /**
      * Alignment of the content.
      * @group Props
      */
-    align = input<'left' | 'center' | 'right' | 'top' | 'bottom'>();
+    align = input<DividerAlign>();
 
     _componentStyle = inject(DividerStyle);
 

@@ -5,7 +5,7 @@ import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Nullable } from 'primeng/ts-helpers';
-import { ScrollPanelPassThrough } from 'primeng/types/scrollpanel';
+import { ScrollPanelOrientation, ScrollPanelPassThrough } from 'primeng/types/scrollpanel';
 import { ScrollPanelStyle } from './style/scrollpanelstyle';
 
 const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTANCE');
@@ -15,7 +15,7 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
  * @group Components
  */
 @Component({
-    selector: 'p-scroll-panel, p-scrollPanel, p-scrollpanel',
+    selector: 'p-scroll-panel, p-scrollpanel',
     standalone: true,
     imports: [NgTemplateOutlet, SharedModule, BindModule],
     template: `
@@ -63,7 +63,7 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
     encapsulation: ViewEncapsulation.None,
     providers: [ScrollPanelStyle, { provide: SCROLLPANEL_INSTANCE, useExisting: ScrollPanel }, { provide: PARENT_INSTANCE, useExisting: ScrollPanel }],
     host: {
-        '[class]': 'cn(cx("root"), styleClass())'
+        '[class]': 'cx("root")'
     },
     hostDirectives: [Bind]
 })
@@ -73,13 +73,6 @@ export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
     $pcScrollPanel: ScrollPanel | undefined = inject(SCROLLPANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
-
-    /**
-     * Style class of the component.
-     * @deprecated since v20.0.0, use `class` instead.
-     * @group Props
-     */
-    styleClass = input<string>();
 
     /**
      * Step factor to scroll the content while pressing the arrow keys.
@@ -107,7 +100,7 @@ export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
 
     scrollXRatio: number | undefined;
 
-    timeoutFrame: any = (fn: VoidFunction) => setTimeout(fn, 0);
+    timeoutFrame = (fn: VoidFunction) => setTimeout(fn, 0);
 
     initialized: boolean = false;
 
@@ -123,9 +116,9 @@ export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
 
     lastScrollTop = signal(0);
 
-    orientation: string = 'vertical';
+    orientation: ScrollPanelOrientation = 'vertical';
 
-    timer: any;
+    timer: ReturnType<typeof setTimeout> | undefined;
 
     contentId: string | undefined;
 
@@ -139,9 +132,9 @@ export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
 
     yBarMouseDownListener: VoidFunction | null | undefined;
 
-    documentMouseMoveListener: Nullable<(event?: any) => void>;
+    documentMouseMoveListener: Nullable<(event: MouseEvent) => void>;
 
-    documentMouseUpListener: Nullable<(event?: any) => void>;
+    documentMouseUpListener: Nullable<(event: Event) => void>;
 
     _componentStyle = inject(ScrollPanelStyle);
 
@@ -179,7 +172,7 @@ export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
         let xBar = this.xBarViewChild()!.nativeElement;
         const window = this.document.defaultView as Window;
 
-        let containerStyles: { [klass: string]: any } = window.getComputedStyle(container),
+        let containerStyles = window.getComputedStyle(container),
             xBarStyles = window.getComputedStyle(xBar),
             pureContainerHeight = getHeight(container) - parseInt(xBarStyles['height'], 10);
 
@@ -237,19 +230,20 @@ export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
         });
     }
 
-    onScroll(event) {
-        if (this.lastScrollLeft() !== event.target.scrollLeft) {
-            this.lastScrollLeft.set(event.target.scrollLeft);
+    onScroll(event: Event) {
+        const target = event.target as HTMLElement;
+        if (this.lastScrollLeft() !== target.scrollLeft) {
+            this.lastScrollLeft.set(target.scrollLeft);
             this.orientation = 'horizontal';
-        } else if (this.lastScrollTop() !== event.target.scrollTop) {
-            this.lastScrollTop.set(event.target.scrollTop);
+        } else if (this.lastScrollTop() !== target.scrollTop) {
+            this.lastScrollTop.set(target.scrollTop);
             this.orientation = 'vertical';
         }
 
         this.moveBar();
     }
 
-    onKeyDown(event) {
+    onKeyDown(event: KeyboardEvent) {
         if (this.orientation === 'vertical') {
             switch (event.code) {
                 case 'ArrowDown': {
@@ -307,13 +301,13 @@ export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
         this.clearTimer();
     }
 
-    repeat(bar, step) {
+    repeat(bar: 'scrollTop' | 'scrollLeft', step: number) {
         const content = this.contentViewChild();
         content?.nativeElement && (content.nativeElement[bar] += step);
         this.moveBar();
     }
 
-    setTimer(bar, step) {
+    setTimer(bar: 'scrollTop' | 'scrollLeft', step: number) {
         this.clearTimer();
         this.timer = setTimeout(() => {
             this.repeat(bar, step);
@@ -335,8 +329,8 @@ export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
         }
 
         if (!this.documentMouseUpListener) {
-            this.documentMouseUpListener = (e) => {
-                this.onDocumentMouseUp(e);
+            this.documentMouseUpListener = () => {
+                this.onDocumentMouseUp();
             };
             this.document.addEventListener('mouseup', this.documentMouseUpListener);
         }
@@ -425,7 +419,7 @@ export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
         content.scrollTop = scrollTop;
     }
 
-    onFocus(event) {
+    onFocus(event: FocusEvent) {
         if (this.xBarViewChild()?.nativeElement?.isSameNode(event.target)) {
             this.orientation = 'horizontal';
         } else if (this.yBarViewChild()?.nativeElement?.isSameNode(event.target)) {
@@ -439,7 +433,7 @@ export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
         }
     }
 
-    onDocumentMouseUp(e: Event) {
+    onDocumentMouseUp() {
         const yBar = this.yBarViewChild();
         const xBar = this.xBarViewChild();
         yBar?.nativeElement?.setAttribute('data-p-scrollpanel-grabbed', 'false');

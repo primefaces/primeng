@@ -56,8 +56,7 @@ const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     providers: [CardStyle, { provide: CARD_INSTANCE, useExisting: Card }, { provide: PARENT_INSTANCE, useExisting: Card }],
     host: {
-        '[class]': "cn(cx('root'), styleClass())",
-        '[style]': 'style()'
+        '[class]': "cx('root')"
     },
     hostDirectives: [Bind]
 })
@@ -81,12 +80,6 @@ export class Card extends BaseComponent<CardPassThrough> implements BlockableUI 
      * @group Props
      */
     subheader = input<string>();
-
-    /**
-     * Inline style of the element.
-     * @group Props
-     */
-    style = input<{ [klass: string]: any } | null>();
 
     /**
      * Class of the element.

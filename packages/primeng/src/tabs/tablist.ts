@@ -202,7 +202,9 @@ export class TabList extends BaseComponent<TabListPassThrough> {
 
         const activeTab = findSingle(_content, '[data-pc-name="tab"][data-p-active="true"]');
         _inkbar.style.width = getOuterWidth(activeTab) + 'px';
-        _inkbar.style.left = <any>getOffset(activeTab).left - <any>getOffset(_tabs).left + 'px';
+        const activeTabOffset = getOffset(activeTab).left as number;
+        const tabsOffset = getOffset(_tabs).left as number;
+        _inkbar.style.left = activeTabOffset - tabsOffset + 'px';
     }
 
     getVisibleButtonWidths() {

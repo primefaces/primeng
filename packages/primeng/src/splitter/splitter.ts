@@ -5,7 +5,7 @@ import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import type { SplitterPassThrough, SplitterResizeEndEvent, SplitterResizeStartEvent } from 'primeng/types/splitter';
+import type { SplitterLayout, SplitterPassThrough, SplitterResizeEndEvent, SplitterResizeStartEvent, SplitterStateStorage } from 'primeng/types/splitter';
 import { SplitterStyle } from './style/splitterstyle';
 
 const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
@@ -53,7 +53,7 @@ const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[class]': "cn(cx('root'), styleClass())",
+        '[class]': "cx('root')",
         '[attr.data-p-gutter-resizing]': 'false',
         '[attr.data-p]': 'dataP()'
     },
@@ -62,16 +62,10 @@ const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
 })
 export class Splitter extends BaseComponent<SplitterPassThrough> {
     componentName = 'Splitter';
+
     $pcSplitter: Splitter | undefined = inject(SPLITTER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
-
-    /**
-     * Style class of the component.
-     * @deprecated since v20. Use `class` instead.
-     * @group Props
-     */
-    styleClass = input<string>();
 
     /**
      * Style class of the panel.
@@ -89,7 +83,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
      * Defines where a stateful splitter keeps its state, valid values are 'session' for sessionStorage and 'local' for localStorage.
      * @group Props
      */
-    stateStorage = input<string>('session');
+    stateStorage = input<SplitterStateStorage>('session');
 
     /**
      * Storage identifier of a stateful Splitter.
@@ -101,7 +95,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
      * Orientation of the panels. Valid values are 'horizontal' and 'vertical'.
      * @group Props
      */
-    layout = input<string>('horizontal');
+    layout = input<SplitterLayout>('horizontal');
 
     /**
      * Size of the divider in pixels.
@@ -141,7 +135,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
      */
     onResizeStart = output<SplitterResizeStartEvent>();
 
-    panelChildren = contentChildren<TemplateRef<any>>('panel');
+    panelChildren = contentChildren<TemplateRef<void>>('panel');
 
     constructor() {
         super();
@@ -172,7 +166,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
 
     nestedState = computed(() => this.splitter());
 
-    panels: any[] = [];
+    panels: TemplateRef<void>[] = [];
 
     dragging: boolean = false;
 
@@ -202,9 +196,9 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
 
     prevPanelIndex: Nullable<number>;
 
-    timer: any;
+    timer: ReturnType<typeof setTimeout> | undefined;
 
-    prevSize: any;
+    prevSize: string | undefined;
 
     _componentStyle = inject(SplitterStyle);
 
@@ -246,13 +240,18 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
         }
     }
 
-    resizeStart(event: TouchEvent | MouseEvent, index: number, isKeyDown?: boolean) {
+    resizeStart(event: TouchEvent | MouseEvent | KeyboardEvent, index: number, isKeyDown?: boolean) {
         this.gutterElement = (event.currentTarget as HTMLElement) || (event.target as HTMLElement).parentElement;
         this.size = this.horizontal() ? getWidth((this.el as ElementRef).nativeElement) : getHeight((this.el as ElementRef).nativeElement);
 
         if (!isKeyDown) {
+            const inputEvent = event as TouchEvent | MouseEvent;
+            const isMouseEvent = inputEvent instanceof MouseEvent;
+            const pageX = isMouseEvent ? inputEvent.pageX : inputEvent.changedTouches[0].pageX;
+            const pageY = isMouseEvent ? inputEvent.pageY : inputEvent.changedTouches[0].pageY;
+
             this.dragging = true;
-            this.startPos = this.horizontal() ? (event instanceof MouseEvent ? event.pageX : event.changedTouches[0].pageX) : event instanceof MouseEvent ? event.pageY : event.changedTouches[0].pageY;
+            this.startPos = this.horizontal() ? pageX : pageY;
         }
 
         this.prevPanelElement = this.gutterElement.previousElementSibling as HTMLElement;
@@ -274,8 +273,8 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
         this.onResizeStart.emit({ originalEvent: event, sizes: this._panelSizes as number[] });
     }
 
-    onResize(event: MouseEvent, step?: number, isKeyDown?: boolean) {
-        let newPos, newPrevPanelSize, newNextPanelSize;
+    onResize(event: MouseEvent | TouchEvent | KeyboardEvent, step?: number, isKeyDown?: boolean) {
+        let newPos: number | undefined, newPrevPanelSize: number, newNextPanelSize: number;
 
         if (isKeyDown) {
             if (this.horizontal()) {
@@ -286,21 +285,22 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
                 newNextPanelSize = (100 * ((this.nextPanelSize ?? 0) + (step ?? 0))) / (this.size ?? 1);
             }
         } else {
+            const mouseEvent = event as MouseEvent;
             if (this.horizontal()) {
                 if (isRTL(this.el.nativeElement)) {
-                    newPos = (((this.startPos ?? 0) - event.pageX) * 100) / (this.size ?? 1);
+                    newPos = (((this.startPos ?? 0) - mouseEvent.pageX) * 100) / (this.size ?? 1);
                 } else {
-                    newPos = ((event.pageX - (this.startPos ?? 0)) * 100) / (this.size ?? 1);
+                    newPos = ((mouseEvent.pageX - (this.startPos ?? 0)) * 100) / (this.size ?? 1);
                 }
             } else {
-                newPos = ((event.pageY - (this.startPos ?? 0)) * 100) / (this.size ?? 1);
+                newPos = ((mouseEvent.pageY - (this.startPos ?? 0)) * 100) / (this.size ?? 1);
             }
 
             newPrevPanelSize = (this.prevPanelSize as number) + newPos;
             newNextPanelSize = (this.nextPanelSize as number) - newPos;
         }
 
-        this.prevSize = parseFloat(newPrevPanelSize).toFixed(4);
+        this.prevSize = newPrevPanelSize.toFixed(4);
 
         if (this.validateResize(newPrevPanelSize, newNextPanelSize)) {
             (this.prevPanelElement as HTMLElement).style.flexBasis = 'calc(' + newPrevPanelSize + '% - ' + (this.panels.length - 1) * this.gutterSize() + 'px)';
@@ -310,13 +310,13 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
         }
     }
 
-    resizeEnd(event: MouseEvent | TouchEvent) {
+    resizeEnd(event: MouseEvent | TouchEvent | KeyboardEvent) {
         if (this.isStateful()) {
             this.saveState();
         }
 
         this.onResizeEnd.emit({ originalEvent: event, sizes: this._panelSizes });
-        removeClass(this.gutterElement as any, 'p-splitter-gutter-resizing');
+        removeClass(this.gutterElement as HTMLElement, 'p-splitter-gutter-resizing');
         removeClass((this.el as ElementRef).nativeElement, 'p-splitter-resizing');
         this.clear();
     }
@@ -335,7 +335,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
         }
     }
 
-    onGutterTouchMove(event) {
+    onGutterTouchMove(event: TouchEvent) {
         this.onResize(event);
         event.preventDefault();
     }
@@ -347,12 +347,12 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
         if (event.cancelable) event.preventDefault();
     }
 
-    repeat(event, index, step) {
+    repeat(event: KeyboardEvent, index: number, step: number) {
         this.resizeStart(event, index, true);
         this.onResize(event, step, true);
     }
 
-    setTimer(event, index, step) {
+    setTimer(event: KeyboardEvent, index: number, step: number) {
         this.clearTimer();
         this.timer = setTimeout(() => {
             this.repeat(event, index, step);
@@ -365,12 +365,12 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
         }
     }
 
-    onGutterKeyUp(event) {
+    onGutterKeyUp(event: KeyboardEvent) {
         this.clearTimer();
         this.resizeEnd(event);
     }
 
-    onGutterKeyDown(event, index) {
+    onGutterKeyDown(event: KeyboardEvent, index: number) {
         switch (event.code) {
             case 'ArrowLeft': {
                 if (this.layout() === 'horizontal') {

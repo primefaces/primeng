@@ -2,6 +2,12 @@ import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Defines the scroll orientation for ScrollPanel component.
+ * @group Types
+ */
+export type ScrollPanelOrientation = 'vertical' | 'horizontal';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

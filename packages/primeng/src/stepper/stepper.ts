@@ -1,24 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    contentChild,
-    contentChildren,
-    effect,
-    forwardRef,
-    inject,
-    InjectionToken,
-    input,
-    InputSignal,
-    InputSignalWithTransform,
-    model,
-    ModelSignal,
-    NgModule,
-    signal,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, effect, forwardRef, inject, InjectionToken, input, model, NgModule, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 
 import { MotionOptions } from '@primeuix/motion';
 import { find, findIndexInList, uuid } from '@primeuix/utils';
@@ -162,11 +143,10 @@ export class StepItem extends BaseComponent<StepItemPassThrough> {
     pcStepper = inject(forwardRef(() => Stepper));
     /**
      * Value of step.
-     * @type {<number | undefined>}
      * @defaultValue undefined
      * @group Props
      */
-    value: ModelSignal<number | undefined> = model<number | undefined>();
+    value = model<number>();
 
     isActive = computed(() => this.pcStepper.value() === this.value());
 
@@ -196,17 +176,7 @@ export class StepItem extends BaseComponent<StepItemPassThrough> {
     imports: [NgTemplateOutlet, StepperSeparator, SharedModule, BindModule],
     template: `
         @if (!content()) {
-            <button
-                [attr.id]="id()"
-                [class]="cx('header')"
-                [pBind]="ptm('header')"
-                [attr.role]="'tab'"
-                [tabindex]="isStepDisabled() ? -1 : undefined"
-                [attr.aria-controls]="ariaControls()"
-                [disabled]="isStepDisabled()"
-                (click)="onStepClick()"
-                type="button"
-            >
+            <button [attr.id]="id()" [class]="cx('header')" [pBind]="ptm('header')" [attr.role]="'tab'" [tabindex]="stepTabindex()" [attr.aria-controls]="ariaControls()" [disabled]="isStepDisabled()" (click)="onStepClick()" type="button">
                 <span [class]="cx('number')" [pBind]="ptm('number')">{{ value() }}</span>
                 <span [class]="cx('title')" [pBind]="ptm('title')">
                     <ng-content></ng-content>
@@ -226,7 +196,7 @@ export class StepItem extends BaseComponent<StepItemPassThrough> {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': 'cx("root")',
-        '[attr.aria-current]': 'active() ? "step" : undefined',
+        '[attr.aria-current]': 'ariaCurrent()',
         '[attr.role]': '"presentation"',
         '[attr.data-p-active]': 'active()',
         '[attr.data-p-disabled]': 'isStepDisabled()'
@@ -249,24 +219,24 @@ export class Step extends BaseComponent<StepPassThrough> {
 
     /**
      * Active value of stepper.
-     * @type {number}
      * @defaultValue undefined
      * @group Props
      */
-    value: ModelSignal<number | undefined> = model<number | undefined>();
+    value = model<number>();
     /**
      * Whether the step is disabled.
-     * @type {boolean}
      * @defaultValue false
      * @group Props
      */
-    disabled: InputSignalWithTransform<any, boolean> = input(false, {
-        transform: (v: any | boolean) => transformToBoolean(v)
-    });
+    disabled = input(false, { transform: (v: unknown) => transformToBoolean(v) });
 
     active = computed(() => this.pcStepper.isStepActive(this.value()));
 
     isStepDisabled = computed(() => !this.active() && (this.pcStepper.linear() || this.disabled()));
+
+    stepTabindex = computed(() => (this.isStepDisabled() ? -1 : undefined));
+
+    ariaCurrent = computed(() => (this.active() ? 'step' : undefined));
 
     id = computed(() => `${this.pcStepper.id()}_step_${this.value()}`);
 
@@ -344,11 +314,10 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
 
     /**
      * Active value of stepper.
-     * @type {number}
      * @defaultValue undefined
      * @group Props
      */
-    value: ModelSignal<number | undefined> = model<number | undefined>(undefined);
+    value = model<number>();
 
     active = computed(() => this.pcStepper.value() === this.value());
 
@@ -451,28 +420,15 @@ export class Stepper extends BaseComponent<StepperPassThrough> {
     /**
      * A model that can hold a numeric value or be undefined.
      * @defaultValue undefined
-     * @type {ModelSignal<number | undefined>}
      * @group Props
      */
-    value: ModelSignal<number | undefined> = model<number | undefined>(undefined);
+    value = model<number>();
     /**
      * A boolean variable that captures user input.
      * @defaultValue false
-     * @type {InputSignalWithTransform<any, boolean >}
      * @group Props
      */
-    linear: InputSignalWithTransform<any, boolean> = input(false, {
-        transform: (v: any | boolean) => transformToBoolean(v)
-    });
-    /**
-     * Transition options of the animation.
-     * @defaultValue 400ms cubic-bezier(0.86, 0, 0.07, 1)
-     * @type {InputSignal<string >}
-     * @group Props
-     * @deprecated since v21.0.0, use `motionOptions` instead.
-     */
-    transitionOptions: InputSignal<string> = input<string>('400ms cubic-bezier(0.86, 0, 0.07, 1)');
-
+    linear = input(false, { transform: (v: unknown) => transformToBoolean(v) });
     /**
      * The motion options.
      * @group Props

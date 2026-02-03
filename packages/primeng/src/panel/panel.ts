@@ -8,7 +8,8 @@ import { Bind, BindModule } from 'primeng/bind';
 import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
-import type { PanelAfterToggleEvent, PanelBeforeToggleEvent, PanelHeaderIconsTemplateContext, PanelPassThrough } from 'primeng/types/panel';
+import type { PanelAfterToggleEvent, PanelBeforeToggleEvent, PanelHeaderIconsTemplateContext, PanelIconPos, PanelPassThrough, PanelToggler } from 'primeng/types/panel';
+import type { ButtonProps } from 'primeng/types/button';
 import { PanelStyle } from './style/panelstyle';
 
 const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
@@ -66,7 +67,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
         }
         <div
             [pBind]="ptm('contentContainer')"
-            [pMotion]="!toggleable() || (toggleable() && !collapsed())"
+            [pMotion]="isContentVisible()"
             pMotionName="p-collapsible"
             [pMotionOptions]="computedMotionOptions()"
             [class]="cx('contentContainer')"
@@ -74,7 +75,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
             role="region"
             [attr.aria-labelledby]="id() + '_header'"
             [attr.aria-hidden]="collapsed()"
-            [attr.tabindex]="collapsed() ? '-1' : undefined"
+            [attr.tabindex]="contentTabindex()"
             (pMotionOnAfterEnter)="onToggleDone($event)"
         >
             <div [pBind]="ptm('contentWrapper')" [class]="cx('contentWrapper')">
@@ -96,7 +97,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
     providers: [PanelStyle, { provide: PANEL_INSTANCE, useExisting: Panel }, { provide: PARENT_INSTANCE, useExisting: Panel }],
     host: {
         '[id]': 'id()',
-        '[class]': "cn(cx('root'), styleClass())",
+        '[class]': "cx('root')",
         '[attr.data-p]': 'dataP()'
     },
     hostDirectives: [Bind]
@@ -134,17 +135,10 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
     collapsed = model(false);
 
     /**
-     * Style class of the component.
-     * @group Props
-     * @deprecated since v20.0.0, use `class` instead.
-     */
-    styleClass = input<string>();
-
-    /**
      * Position of the icons.
      * @group Props
      */
-    iconPos = input<'start' | 'end' | 'center'>('end');
+    iconPos = input<PanelIconPos>('end');
 
     /**
      * Specifies if header of panel cannot be displayed.
@@ -156,20 +150,13 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * Specifies the toggler element to toggle the panel content.
      * @group Props
      */
-    toggler = input<'icon' | 'header'>('icon');
-
-    /**
-     * Transition options of the animation.
-     * @group Props
-     * @deprecated since v21.0.0, use `motionOptions` instead.
-     */
-    transitionOptions = input('400ms cubic-bezier(0.86, 0, 0.07, 1)');
+    toggler = input<PanelToggler>('icon');
 
     /**
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    toggleButtonProps = input<any>();
+    toggleButtonProps = input<ButtonProps>();
 
     /**
      * The motion options.
@@ -252,6 +239,10 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
     dataP = computed(() => this.cn({ toggleable: this.toggleable() }));
 
     hasFooter = computed(() => !!(this.footerFacet() || this.footerTemplate()));
+
+    contentTabindex = computed(() => (this.collapsed() ? '-1' : undefined));
+
+    isContentVisible = computed(() => !this.toggleable() || (this.toggleable() && !this.collapsed()));
 
     computedMotionOptions = computed<MotionOptions>(() => {
         return {

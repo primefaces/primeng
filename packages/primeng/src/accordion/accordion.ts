@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, HostListener, inject, InjectionToken, input, InputSignalWithTransform, model, NgModule, output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, HostListener, inject, InjectionToken, input, model, NgModule, output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { MotionOptions } from '@primeuix/motion';
 import { findSingle, focus, getAttribute, uuid } from '@primeuix/utils';
 import { BlockableUI, SharedModule } from 'primeng/api';
@@ -8,7 +8,7 @@ import { Bind, BindModule } from 'primeng/bind';
 import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
-import { AccordionContentPassThrough, AccordionHeaderPassThrough, AccordionPanelPassThrough, AccordionPassThrough } from 'primeng/types/accordion';
+import { AccordionContentPassThrough, AccordionHeaderPassThrough, AccordionPanelPassThrough, AccordionPassThrough, AccordionValue } from 'primeng/types/accordion';
 import { transformToBoolean } from 'primeng/utils';
 import { AccordionStyle } from './style/accordionstyle';
 
@@ -87,18 +87,18 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
      * @defaultValue undefined
      * @group Props
      */
-    value = model<undefined | null | string | number | string[] | number[]>(undefined);
+    value = model<AccordionValue>(undefined);
     /**
      * Disables the tab when enabled.
      * @defaultValue false
      * @group Props
      */
-    disabled: InputSignalWithTransform<any, boolean> = input(false, { transform: (v: any) => transformToBoolean(v) });
+    disabled = input(false, { transform: (v: unknown) => transformToBoolean(v) });
 
     active = computed(() => (this.pcAccordion.multiple() ? this.valueEquals(this.pcAccordion.value(), this.value()) : this.pcAccordion.value() === this.value()));
 
-    valueEquals(currentValue: any, value: any): boolean {
-        if (Array.isArray(currentValue)) {
+    valueEquals(currentValue: AccordionValue, value: AccordionValue): boolean {
+        if (Array.isArray(currentValue) && (typeof value === 'string' || typeof value === 'number')) {
             return currentValue.includes(value);
         }
         return currentValue === value;
@@ -241,36 +241,34 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
         this.pcAccordion.updateValue(this.pcAccordionPanel.value());
     }
 
-    private findPanel(headerElement) {
-        return headerElement?.closest('[data-pc-name="accordionpanel"]');
+    private findPanel(headerElement: EventTarget | null) {
+        return (headerElement as HTMLElement | null)?.closest('[data-pc-name="accordionpanel"]') as HTMLElement | null;
     }
 
-    private findHeader(panelElement) {
-        return findSingle(panelElement, '[data-pc-name="accordionheader"]');
+    private findHeader(panelElement: HTMLElement | null) {
+        return panelElement ? (findSingle(panelElement, '[data-pc-name="accordionheader"]') as HTMLElement | null) : null;
     }
 
-    private findNextPanel(panelElement, selfCheck = false) {
-        const element = selfCheck ? panelElement : panelElement.nextElementSibling;
-
+    private findNextPanel(panelElement: HTMLElement | null, selfCheck = false) {
+        const element = selfCheck ? panelElement : (panelElement?.nextElementSibling as HTMLElement | null);
         return element ? (getAttribute(element, 'data-p-disabled') ? this.findNextPanel(element) : this.findHeader(element)) : null;
     }
 
-    private findPrevPanel(panelElement, selfCheck = false) {
-        const element = selfCheck ? panelElement : panelElement.previousElementSibling;
-
+    private findPrevPanel(panelElement: HTMLElement | null, selfCheck = false) {
+        const element = selfCheck ? panelElement : (panelElement?.previousElementSibling as HTMLElement | null);
         return element ? (getAttribute(element, 'data-p-disabled') ? this.findPrevPanel(element) : this.findHeader(element)) : null;
     }
 
     private findFirstPanel() {
-        return this.findNextPanel(this.pcAccordion.el.nativeElement.firstElementChild, true);
+        return this.findNextPanel(this.pcAccordion.el.nativeElement.firstElementChild as HTMLElement | null, true);
     }
 
     private findLastPanel() {
-        return this.findPrevPanel(this.pcAccordion.el.nativeElement.lastElementChild, true);
+        return this.findPrevPanel(this.pcAccordion.el.nativeElement.lastElementChild as HTMLElement | null, true);
     }
 
-    private changeFocusedPanel(event, element) {
-        focus(element);
+    private changeFocusedPanel(_event: KeyboardEvent, element: HTMLElement | null) {
+        if (element) focus(element);
     }
 
     private arrowDownKey(event: KeyboardEvent) {
@@ -281,21 +279,18 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
 
     private arrowUpKey(event: KeyboardEvent) {
         const prevPanel = this.findPrevPanel(this.findPanel(event.currentTarget));
-
         prevPanel ? this.changeFocusedPanel(event, prevPanel) : this.onEndKey(event);
         event.preventDefault();
     }
 
     private onHomeKey(event: KeyboardEvent) {
         const firstPanel = this.findFirstPanel();
-
         this.changeFocusedPanel(event, firstPanel);
         event.preventDefault();
     }
 
     private onEndKey(event: KeyboardEvent) {
         const lastPanel = this.findLastPanel();
-
         this.changeFocusedPanel(event, lastPanel);
         event.preventDefault();
     }
@@ -382,7 +377,7 @@ export class AccordionContent extends BaseComponent<AccordionContentPassThrough>
     imports: [SharedModule, BindModule],
     template: ` <ng-content />`,
     host: {
-        '[class]': "cn(cx('root'), styleClass())"
+        '[class]': "cx('root')"
     },
     hostDirectives: [Bind],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -404,19 +399,13 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
      * @defaultValue undefined
      * @group Props
      */
-    value = model<undefined | null | string | number | string[] | number[]>(undefined);
+    value = model<AccordionValue>(undefined);
     /**
      * When enabled, multiple tabs can be activated at the same time.
      * @defaultValue false
      * @group Props
      */
-    multiple = input(false, { transform: (v: any) => transformToBoolean(v) });
-    /**
-     * Class of the element.
-     * @deprecated since v20.0.0, use `class` instead.
-     * @group Props
-     */
-    styleClass = input<string>();
+    multiple = input(false, { transform: (v: unknown) => transformToBoolean(v) });
     /**
      * Icon of a collapsed tab.
      * @group Props
@@ -432,14 +421,7 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
      * @defaultValue false
      * @group Props
      */
-    selectOnFocus = input(false, { transform: (v: any) => transformToBoolean(v) });
-    /**
-     * Transition options of the animation.
-     * @group Props
-     * @deprecated since v21.0.0, use `motionOptions` instead.
-     */
-    transitionOptions = input<string>('400ms cubic-bezier(0.86, 0, 0.07, 1)');
-
+    selectOnFocus = input(false, { transform: (v: unknown) => transformToBoolean(v) });
     /**
      * The motion options.
      * @group Props
@@ -471,7 +453,7 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
     _componentStyle = inject(AccordionStyle);
 
     @HostListener('keydown', ['$event'])
-    onKeydown(event) {
+    onKeydown(event: KeyboardEvent) {
         switch (event.code) {
             case 'ArrowDown':
                 this.onTabArrowDownKey(event);
@@ -495,57 +477,63 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
         }
     }
 
-    onTabArrowDownKey(event) {
-        const nextHeaderAction = this.findNextHeaderAction(event.target.parentElement);
+    onTabArrowDownKey(event: KeyboardEvent) {
+        const nextHeaderAction = this.findNextHeaderAction((event.target as HTMLElement | null)?.parentElement ?? null);
         nextHeaderAction ? this.changeFocusedTab(nextHeaderAction) : this.onTabHomeKey(event);
-
         event.preventDefault();
     }
 
-    onTabArrowUpKey(event) {
-        const prevHeaderAction = this.findPrevHeaderAction(event.target.parentElement);
+    onTabArrowUpKey(event: KeyboardEvent) {
+        const prevHeaderAction = this.findPrevHeaderAction((event.target as HTMLElement | null)?.parentElement ?? null);
         prevHeaderAction ? this.changeFocusedTab(prevHeaderAction) : this.onTabEndKey(event);
-
         event.preventDefault();
     }
 
-    onTabHomeKey(event) {
+    onTabHomeKey(event: KeyboardEvent) {
         const firstHeaderAction = this.findFirstHeaderAction();
         this.changeFocusedTab(firstHeaderAction);
         event.preventDefault();
     }
 
-    changeFocusedTab(element) {
+    changeFocusedTab(element: HTMLElement | null) {
         if (element) {
             focus(element);
         }
     }
 
-    findNextHeaderAction(tabElement, selfCheck = false) {
-        const nextTabElement = selfCheck ? tabElement : tabElement.nextElementSibling;
-        const headerElement = findSingle(nextTabElement, '[data-pc-section="accordionheader"]');
+    findNextHeaderAction(tabElement: HTMLElement | null, selfCheck = false) {
+        const nextTabElement = selfCheck ? tabElement : (tabElement?.nextElementSibling as HTMLElement | null);
+        const headerElement = nextTabElement ? (findSingle(nextTabElement, '[data-pc-section="accordionheader"]') as HTMLElement | null) : null;
 
-        return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeaderAction(headerElement.parentElement) : findSingle(headerElement.parentElement as HTMLElement, '[data-pc-section="accordionheader"]')) : null;
+        if (!headerElement) return null;
+        if (getAttribute(headerElement, 'data-p-disabled')) {
+            return this.findNextHeaderAction(headerElement.parentElement);
+        }
+        return findSingle(headerElement.parentElement!, '[data-pc-section="accordionheader"]') as HTMLElement | null;
     }
 
-    findPrevHeaderAction(tabElement, selfCheck = false) {
-        const prevTabElement = selfCheck ? tabElement : tabElement.previousElementSibling;
-        const headerElement = findSingle(prevTabElement, '[data-pc-section="accordionheader"]');
+    findPrevHeaderAction(tabElement: HTMLElement | null, selfCheck = false) {
+        const prevTabElement = selfCheck ? tabElement : (tabElement?.previousElementSibling as HTMLElement | null);
+        const headerElement = prevTabElement ? (findSingle(prevTabElement, '[data-pc-section="accordionheader"]') as HTMLElement | null) : null;
 
-        return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeaderAction(headerElement.parentElement) : findSingle(headerElement.parentElement as HTMLElement, '[data-pc-section="accordionheader"]')) : null;
+        if (!headerElement) return null;
+        if (getAttribute(headerElement, 'data-p-disabled')) {
+            return this.findPrevHeaderAction(headerElement.parentElement);
+        }
+        return findSingle(headerElement.parentElement!, '[data-pc-section="accordionheader"]') as HTMLElement | null;
     }
 
     findFirstHeaderAction() {
-        const firstEl = this.el.nativeElement.firstElementChild;
+        const firstEl = this.el.nativeElement.firstElementChild as HTMLElement | null;
         return this.findNextHeaderAction(firstEl, true);
     }
 
     findLastHeaderAction() {
-        const lastEl = this.el.nativeElement.lastElementChild;
+        const lastEl = this.el.nativeElement.lastElementChild as HTMLElement | null;
         return this.findPrevHeaderAction(lastEl, true);
     }
 
-    onTabEndKey(event) {
+    onTabEndKey(event: KeyboardEvent) {
         const lastHeaderAction = this.findLastHeaderAction();
         this.changeFocusedTab(lastHeaderAction);
         event.preventDefault();
@@ -567,7 +555,7 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
                 newValue.push(value);
             }
 
-            this.value.set(newValue as typeof this.value extends (...args: any) => infer R ? R : never);
+            this.value.set(newValue);
         } else {
             if (currentValue === value) {
                 this.value.set(undefined);

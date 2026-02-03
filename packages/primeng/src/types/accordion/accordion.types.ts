@@ -2,6 +2,12 @@ import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Defines the value type for Accordion component.
+ * @group Types
+ */
+export type AccordionValue = string | number | (string | number)[] | null | undefined;
+
+/**
  * Defines valid pass-through options in Accordion component.
  * @template I Type of instance.
  *

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Directive, Input, NgModule, TemplateRef } from '@angular/core';
 
+// @todo discuss: pTemplate, p-header, p-footer deprecation
 @Component({
     selector: 'p-header',
     template: '<ng-content></ng-content>',

@@ -136,58 +136,58 @@ export class Tab extends BaseComponent<TabPassThrough> {
         this.bindMutationObserver();
     }
 
-    onArrowRightKey(event) {
-        const nextTab = this.findNextTab(event.currentTarget);
-        nextTab ? this.changeFocusedTab(event, nextTab) : this.onHomeKey(event);
+    onArrowRightKey(event: KeyboardEvent) {
+        const nextTab = this.findNextTab(event.currentTarget as HTMLElement);
+        nextTab ? this.changeFocusedTab(nextTab) : this.onHomeKey(event);
         event.preventDefault();
     }
 
-    onArrowLeftKey(event) {
-        const prevTab = this.findPrevTab(event.currentTarget);
+    onArrowLeftKey(event: KeyboardEvent) {
+        const prevTab = this.findPrevTab(event.currentTarget as HTMLElement);
 
-        prevTab ? this.changeFocusedTab(event, prevTab) : this.onEndKey(event);
+        prevTab ? this.changeFocusedTab(prevTab) : this.onEndKey(event);
         event.preventDefault();
     }
 
-    onHomeKey(event) {
+    onHomeKey(event: KeyboardEvent) {
         const firstTab = this.findFirstTab();
 
-        this.changeFocusedTab(event, firstTab);
+        this.changeFocusedTab(firstTab);
         event.preventDefault();
     }
 
-    onEndKey(event) {
+    onEndKey(event: KeyboardEvent) {
         const lastTab = this.findLastTab();
 
-        this.changeFocusedTab(event, lastTab);
+        this.changeFocusedTab(lastTab);
         event.preventDefault();
     }
 
-    onPageDownKey(event) {
+    onPageDownKey(event: KeyboardEvent) {
         this.scrollInView(this.findLastTab());
         event.preventDefault();
     }
 
-    onPageUpKey(event) {
+    onPageUpKey(event: KeyboardEvent) {
         this.scrollInView(this.findFirstTab());
         event.preventDefault();
     }
 
-    onEnterKey(event) {
+    onEnterKey(event: KeyboardEvent) {
         if (!this.disabled()) {
             this.changeActiveValue();
         }
         event.preventDefault();
     }
 
-    findNextTab(tabElement, selfCheck = false) {
-        const element = selfCheck ? tabElement : tabElement.nextElementSibling;
+    findNextTab(tabElement: Element | null, selfCheck = false): Element | null {
+        const element = selfCheck ? tabElement : tabElement?.nextElementSibling;
 
         return element ? (getAttribute(element, 'data-p-disabled') || getAttribute(element, 'data-pc-section') === 'activebar' ? this.findNextTab(element) : element) : null;
     }
 
-    findPrevTab(tabElement, selfCheck = false) {
-        const element = selfCheck ? tabElement : tabElement.previousElementSibling;
+    findPrevTab(tabElement: Element | null, selfCheck = false): Element | null {
+        const element = selfCheck ? tabElement : tabElement?.previousElementSibling;
 
         return element ? (getAttribute(element, 'data-p-disabled') || getAttribute(element, 'data-pc-section') === 'activebar' ? this.findPrevTab(element) : element) : null;
     }
@@ -204,12 +204,14 @@ export class Tab extends BaseComponent<TabPassThrough> {
         this.pcTabs.updateValue(this.value());
     }
 
-    changeFocusedTab(event, element) {
-        focus(element);
+    changeFocusedTab(element: Element | null) {
+        if (element) {
+            focus(element as HTMLElement);
+        }
         this.scrollInView(element);
     }
 
-    scrollInView(element) {
+    scrollInView(element: Element | null) {
         element?.scrollIntoView?.({ block: 'nearest' });
     }
 

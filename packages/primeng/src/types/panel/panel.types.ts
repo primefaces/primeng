@@ -4,6 +4,18 @@ import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 
 /**
+ * Defines the icon position for Panel component.
+ * @group Types
+ */
+export type PanelIconPos = 'start' | 'end' | 'center';
+
+/**
+ * Defines the toggler element for Panel component.
+ * @group Types
+ */
+export type PanelToggler = 'icon' | 'header';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

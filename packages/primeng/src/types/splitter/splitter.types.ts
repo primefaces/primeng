@@ -2,6 +2,18 @@ import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Defines the layout orientation for Splitter component.
+ * @group Types
+ */
+export type SplitterLayout = 'horizontal' | 'vertical';
+
+/**
+ * Defines the state storage type for Splitter component.
+ * @group Types
+ */
+export type SplitterStateStorage = 'session' | 'local';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
@@ -44,7 +56,7 @@ export interface SplitterResizeStartEvent {
     /**
      * Browser event.
      */
-    originalEvent: TouchEvent | MouseEvent;
+    originalEvent: TouchEvent | MouseEvent | KeyboardEvent;
     /**
      * Sizes of the panels, can be percentages, pixels, rem, or other CSS units.
      */
