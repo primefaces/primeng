@@ -6233,6 +6233,7 @@ export class ColumnFilter extends BaseComponent {
         return !(
             findSingle((this.overlay as HTMLElement).nextElementSibling!, '[data-pc-section="filteroverlay"]') ||
             findSingle((this.overlay as HTMLElement).nextElementSibling!, '[data-pc-name="popover"]') ||
+            findSingle((this.overlay as HTMLElement).nextElementSibling!, '[data-pc-name="pcoverlay"]') ||
             this.overlay?.isSameNode(event.target) ||
             this.overlay?.contains(event.target) ||
             this.icon?.nativeElement.isSameNode(event.target) ||
