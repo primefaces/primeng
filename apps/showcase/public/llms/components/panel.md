@@ -159,7 +159,7 @@ Panel is a container with the optional content toggle feature.
 | Name | Type | Description |
 |------|------|-------------|
 | header | TemplateRef<void> | Defines template option for header. |
-| icon | TemplateRef<void> | Defines template option for icon. |
+| icons | TemplateRef<void> | Defines template option for icons. |
 | content | TemplateRef<void> | Defines template option for content. |
 | footer | TemplateRef<void> | Defines template option for footer. |
 | headericons | TemplateRef<PanelHeaderIconsTemplateContext> | Defines template option for headerIcon. |

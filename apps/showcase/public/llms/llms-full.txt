@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2026-01-30
+Generated: 2026-02-03
 
 ---
 
@@ -17782,7 +17782,7 @@ InputMask component is used to enter input in a certain format such as numeric, 
 
 ## Accessibility
 
-Screen Reader InputMask component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props.
+Screen Reader InputMask directive is used with a native input element that implicitly includes any passed attribute. Value to describe the component can either be provided via label tag combined with id attribute or using aria-labelledby , aria-label attributes.
 
 **Example:**
 
@@ -26245,7 +26245,7 @@ Panel is a container with the optional content toggle feature.
 | Name | Type | Description |
 |------|------|-------------|
 | header | TemplateRef<void> | Defines template option for header. |
-| icon | TemplateRef<void> | Defines template option for icon. |
+| icons | TemplateRef<void> | Defines template option for icons. |
 | content | TemplateRef<void> | Defines template option for content. |
 | footer | TemplateRef<void> | Defines template option for footer. |
 | headericons | TemplateRef<PanelHeaderIconsTemplateContext> | Defines template option for headerIcon. |

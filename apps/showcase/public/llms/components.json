@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-01-30",
+  "generatedAt": "2026-02-03",
   "components": [
     {
       "name": "accordion",
@@ -16926,7 +16926,7 @@
         {
           "id": "accessibility",
           "label": "Accessibility",
-          "description": "Screen Reader InputMask component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props.",
+          "description": "Screen Reader InputMask directive is used with a native input element that implicitly includes any passed attribute. Value to describe the component can either be provided via label tag combined with id attribute or using aria-labelledby , aria-label attributes.",
           "examples": {
             "typescript": "<label for=\"date\">Date</label>\n<input pInputText id=\"date\" pInputMask=\"99/99/9999\" />\n\n<span id=\"phone\">Phone</span>\n<input pInputText pInputMask=\"(999) 999-9999\" aria-labelledby=\"phone\" />\n\n<input pInputText pInputMask=\"99\" aria-label=\"Age\" />"
           }
@@ -26403,9 +26403,9 @@
             "description": "Defines template option for header."
           },
           {
-            "name": "icon",
+            "name": "icons",
             "type": "TemplateRef<void>",
-            "description": "Defines template option for icon."
+            "description": "Defines template option for icons."
           },
           {
             "name": "content",
