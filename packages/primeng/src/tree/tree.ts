@@ -172,7 +172,7 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
                         [itemSize]="itemSize"
                         [level]="level + 1"
                         [loadingMode]="loadingMode"
-                        [pt]="pt"
+                        [pt]="pt()"
                         [unstyled]="unstyled()"
                     ></p-treeNode>
                 </ul>
