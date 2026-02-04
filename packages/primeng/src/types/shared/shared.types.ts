@@ -7,6 +7,8 @@ import type { ElementRef, TemplateRef } from '@angular/core';
  */
 export type AppendTo = HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined;
 
+// @todo: discuss naming
+
 /**
  * Style object type for inline styles.
  * Uses CSSStyleDeclaration for strict type checking and autocomplete support.
