@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, NgModule, NgZone, numberAttribute, TemplateRef, ViewContainerRef } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, NgModule, NgZone, numberAttribute, TemplateRef, untracked, ViewContainerRef } from '@angular/core';
 import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
 import { TooltipOptions } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -225,35 +225,9 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         effect(() => {
             const content = this.content();
 
-            if (this.active) {
-                if (content) {
-                    if (this.container && this.container.offsetParent) {
-                        this.updateText();
-                        this.align();
-                    } else {
-                        this.show();
-                    }
-                } else {
-                    this.hide();
-                }
-            }
-        });
-
-        effect(() => {
-            const disabled = this.tooltipDisabled();
-
-            if (disabled) {
-                this.deactivate();
-            }
-        });
-
-        effect(() => {
-            const options = this.tooltipOptions();
-            if (options) {
-                this.deactivate();
-
+            untracked(() => {
                 if (this.active) {
-                    if (this.getOption('tooltipLabel')) {
+                    if (content) {
                         if (this.container && this.container.offsetParent) {
                             this.updateText();
                             this.align();
@@ -264,7 +238,40 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
                         this.hide();
                     }
                 }
-            }
+            });
+        });
+
+        effect(() => {
+            const disabled = this.tooltipDisabled();
+
+            untracked(() => {
+                if (disabled) {
+                    this.deactivate();
+                }
+            });
+        });
+
+        effect(() => {
+            const options = this.tooltipOptions();
+
+            untracked(() => {
+                if (options) {
+                    this.deactivate();
+
+                    if (this.active) {
+                        if (this.getOption('tooltipLabel')) {
+                            if (this.container && this.container.offsetParent) {
+                                this.updateText();
+                                this.align();
+                            } else {
+                                this.show();
+                            }
+                        } else {
+                            this.hide();
+                        }
+                    }
+                }
+            });
         });
     }
 
