@@ -4,6 +4,12 @@ import { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@primeuix/motion';
 
 /**
+ * Element to receive the focus when the popup gets visible.
+ * @group Types
+ */
+export type ConfirmPopupDefaultFocus = 'accept' | 'reject' | 'none';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

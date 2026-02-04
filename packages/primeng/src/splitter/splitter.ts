@@ -5,6 +5,7 @@ import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import type { CSSProperties } from 'primeng/types/shared';
 import type { SplitterLayout, SplitterPassThrough, SplitterResizeEndEvent, SplitterResizeStartEvent, SplitterStateStorage } from 'primeng/types/splitter';
 import { SplitterStyle } from './style/splitterstyle';
 
@@ -77,7 +78,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
      * Inline style of the panel.
      * @group Props
      */
-    panelStyle = input<{ [klass: string]: any } | null>();
+    panelStyle = input<CSSProperties>();
 
     /**
      * Defines where a stateful splitter keeps its state, valid values are 'session' for sessionStorage and 'local' for localStorage.

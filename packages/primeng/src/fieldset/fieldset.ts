@@ -8,6 +8,7 @@ import { Bind, BindModule } from 'primeng/bind';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
 import type { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent, FieldsetPassThrough } from 'primeng/types/fieldset';
+import type { CSSProperties } from 'primeng/types/shared';
 import { FieldsetStyle } from './style/fieldsetstyle';
 
 const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
@@ -124,7 +125,7 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
      * Inline style of the component.
      * @group Props
      */
-    style = input<{ [klass: string]: any } | null>();
+    style = input<CSSProperties>();
 
     /**
      * Style class of the component.

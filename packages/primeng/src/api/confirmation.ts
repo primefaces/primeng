@@ -1,4 +1,8 @@
 import { EventEmitter } from '@angular/core';
+import type { ButtonProps } from 'primeng/types/button';
+import type { ConfirmDialogDefaultFocus } from 'primeng/types/confirmdialog';
+import type { DialogPosition } from 'primeng/types/dialog';
+import type { ConfirmEventType } from './confirmaeventtype';
 
 /**
  * Represents a confirmation dialog configuration.
@@ -24,11 +28,11 @@ export interface Confirmation {
     /**
      * The callback function to be executed when the accept button is clicked.
      */
-    accept?: Function;
+    accept?: () => void;
     /**
      * The callback function to be executed when the reject button is clicked.
      */
-    reject?: Function;
+    reject?: () => void;
     /**
      * The label text for the accept button.
      */
@@ -66,9 +70,10 @@ export interface Confirmation {
      */
     dismissableMask?: boolean;
     /**
-     * The ID or class name of the element to receive focus by default when the confirmation dialog is opened.
+     * Element to receive the focus when the dialog gets visible.
+     * @defaultValue 'accept'
      */
-    defaultFocus?: string;
+    defaultFocus?: ConfirmDialogDefaultFocus;
     /**
      * The CSS class name to be applied to the accept button.
      */
@@ -84,23 +89,23 @@ export interface Confirmation {
     /**
      * An event emitter for the accept event.
      */
-    acceptEvent?: EventEmitter<any>;
+    acceptEvent?: EventEmitter<void>;
     /**
      * An event emitter for the reject event.
      */
-    rejectEvent?: EventEmitter<any>;
+    rejectEvent?: EventEmitter<ConfirmEventType>;
     /**
      * Accept button properties.
      */
-    acceptButtonProps?: any;
+    acceptButtonProps?: ButtonProps;
     /**
      * Reject button properties.
      */
-    rejectButtonProps?: any;
+    rejectButtonProps?: ButtonProps;
     /**
      * Close button properties.
      */
-    closeButtonProps?: any;
+    closeButtonProps?: ButtonProps;
     /**
      * Defines if the dialog is closable.
      */
@@ -108,7 +113,7 @@ export interface Confirmation {
     /**
      * Defines the dialog position.
      */
-    position?: string;
+    position?: DialogPosition;
     /**
      * Specifies whether the dialog displayed as modal or not.
      * @defaultValue true

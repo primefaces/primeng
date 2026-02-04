@@ -6,6 +6,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Dialog, DialogPassThrough } from 'primeng/dialog';
 import { Nullable } from 'primeng/ts-helpers';
+import type { CSSProperties } from 'primeng/types/shared';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DynamicDialogContent } from './dynamicdialogcontent';
@@ -260,7 +261,7 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         return this.ddconfig?.templates?.closeicon;
     }
 
-    get dialogStyle(): { [klass: string]: any } {
+    get dialogStyle(): CSSProperties {
         return {
             ...(this.ddconfig?.style || {}),
             ...(this.ddconfig?.width && { width: this.ddconfig.width }),
@@ -307,8 +308,6 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
     resizing: boolean | undefined;
 
     ariaLabelledBy: string | undefined | null;
-
-    _style: { [klass: string]: any } = {};
 
     lastPageX: number | undefined;
 

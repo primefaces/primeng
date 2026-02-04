@@ -27,9 +27,9 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
-import type { AppendTo } from 'primeng/types/shared';
+import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { Nullable } from 'primeng/ts-helpers';
-import { ConfirmDialogHeadlessTemplateContext, ConfirmDialogMessageTemplateContext, ConfirmDialogPassThrough } from 'primeng/types/confirmdialog';
+import { ConfirmDialogDefaultFocus, ConfirmDialogHeadlessTemplateContext, ConfirmDialogMessageTemplateContext, ConfirmDialogPassThrough } from 'primeng/types/confirmdialog';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
 
@@ -63,6 +63,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
             [draggable]="draggable()"
             [baseZIndex]="baseZIndex()"
             [autoZIndex]="autoZIndex()"
+            [focusOnShow]="false"
             [motionOptions]="computedMotionOptions()"
             [maskMotionOptions]="computedMaskMotionOptions()"
             [maskStyleClass]="cn(cx('mask'), maskStyleClass())"
@@ -118,6 +119,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                             [styleClass]="getButtonStyleClass('pcRejectButton', 'rejectButtonStyleClass')"
                             [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
                             [buttonProps]="getRejectButtonProps()"
+                            [autofocus]="autoFocusReject"
                             [unstyled]="unstyled()"
                         >
                             <ng-template #icon>
@@ -140,6 +142,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                             [styleClass]="getButtonStyleClass('pcAcceptButton', 'acceptButtonStyleClass')"
                             [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
                             [buttonProps]="getAcceptButtonProps()"
+                            [autofocus]="autoFocusAccept"
                             [unstyled]="unstyled()"
                         >
                             <ng-template #icon>
@@ -193,7 +196,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
      * Inline style of the element.
      * @group Props
      */
-    style = input<{ [klass: string]: any } | null>();
+    style = input<CSSProperties>();
     /**
      * Class of the element.
      * @group Props
@@ -324,7 +327,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
      * Element to receive the focus when the dialog gets visible.
      * @group Props
      */
-    defaultFocus = input<'accept' | 'reject' | 'close' | 'none'>('accept');
+    defaultFocus = input<ConfirmDialogDefaultFocus>('accept');
     /**
      * Object literal to define widths per screen size.
      * @group Props
@@ -418,6 +421,18 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
             ...this.maskMotionOptions()
         };
     });
+
+    get focusTarget(): ConfirmDialogDefaultFocus {
+        return this.option('defaultFocus') ?? this.defaultFocus();
+    }
+
+    get autoFocusAccept(): boolean {
+        return this.focusTarget === 'accept';
+    }
+
+    get autoFocusReject(): boolean {
+        return this.focusTarget === 'reject';
+    }
 
     confirmation: Nullable<Confirmation>;
 

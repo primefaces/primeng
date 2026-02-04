@@ -32,7 +32,7 @@ import { blockBodyScroll, DomHandler, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
-import type { AppendTo } from 'primeng/types/shared';
+import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { DialogPassThrough, DialogPosition } from 'primeng/types/dialog';
 import { ZIndexUtils } from 'primeng/utils';
@@ -103,30 +103,30 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                                             <p-button
                                                 [pt]="ptm('pcMaximizeButton')"
                                                 [styleClass]="cx('pcMaximizeButton')"
-                                                [ariaLabel]="maximized ? minimizeLabel : maximizeLabel"
+                                                [ariaLabel]="maximizeButtonAriaLabel"
                                                 (onClick)="maximize()"
                                                 (keydown.enter)="maximize()"
-                                                [tabindex]="maximizable() ? '0' : '-1'"
+                                                [tabindex]="maximizeButtonTabindex"
                                                 [buttonProps]="maximizeButtonProps()"
                                                 [unstyled]="unstyled()"
                                                 [attr.data-pc-group-section]="'headericon'"
                                             >
                                                 <ng-template #icon>
-                                                    @if (maximizeIcon() && !maximizeIconTemplate() && !minimizeIconTemplate()) {
-                                                        <span [ngClass]="maximized ? minimizeIcon() : maximizeIcon()"></span>
+                                                    @if (showToggleIcon) {
+                                                        <span [ngClass]="toggleIcon"></span>
                                                     }
-                                                    @if (!maximizeIcon() && !maximizeButtonProps()?.icon) {
-                                                        @if (!maximized && !maximizeIconTemplate()) {
+                                                    @if (showDefaultMaximizeIcon) {
+                                                        @if (showMaximizeSvg) {
                                                             <svg data-p-icon="window-maximize" />
                                                         }
-                                                        @if (maximized && !minimizeIconTemplate()) {
+                                                        @if (showMinimizeSvg) {
                                                             <svg data-p-icon="window-minimize" />
                                                         }
                                                     }
-                                                    @if (!maximized && maximizeIconTemplate()) {
+                                                    @if (showMaximizeIconTemplate) {
                                                         <ng-container *ngTemplateOutlet="maximizeIconTemplate()"></ng-container>
                                                     }
-                                                    @if (maximized && minimizeIconTemplate()) {
+                                                    @if (showMinimizeIconTemplate) {
                                                         <ng-container *ngTemplateOutlet="minimizeIconTemplate()"></ng-container>
                                                     }
                                                 </ng-template>
@@ -145,7 +145,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                                                 [attr.data-pc-group-section]="'headericon'"
                                             >
                                                 <ng-template #icon>
-                                                    @if (!closeIconTemplate() && !closeButtonProps()?.icon) {
+                                                    @if (showDefaultCloseIcon) {
                                                         @if (closeIcon()) {
                                                             <span [class]="closeIcon()"></span>
                                                         } @else {
@@ -216,7 +216,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
      * Style of the content section.
      * @group Props
      */
-    contentStyle = input<{ [klass: string]: any } | null>();
+    contentStyle = input<CSSProperties>();
     /**
      * Style class of the content.
      * @group Props
@@ -266,7 +266,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
      * Style of the mask.
      * @group Props
      */
-    maskStyle = input<{ [klass: string]: any } | null>();
+    maskStyle = input<CSSProperties>();
     /**
      * Whether to show the header or not.
      * @group Props
@@ -397,7 +397,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
      * Inline style of the component.
      * @group Props
      */
-    style = input<{ [klass: string]: any } | null>();
+    style = input<CSSProperties>();
     /**
      * Position of the dialog, options are "center", "top", "bottom", "left", "right", "topleft", "topright", "bottomleft" or "bottomright".
      * @group Props
@@ -563,6 +563,47 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
     get minimizeLabel(): string {
         return this.config.getTranslation(TranslationKeys.ARIA)['minimizeLabel'];
     }
+
+    get maximizeButtonAriaLabel(): string {
+        return this.maximized ? this.minimizeLabel : this.maximizeLabel;
+    }
+
+    get maximizeButtonTabindex(): string {
+        return this.maximizable() ? '0' : '-1';
+    }
+
+    get toggleIcon(): string | undefined {
+        return this.maximized ? this.minimizeIcon() : this.maximizeIcon();
+    }
+
+    get showToggleIcon(): boolean {
+        return !!this.maximizeIcon() && !this.maximizeIconTemplate() && !this.minimizeIconTemplate();
+    }
+
+    get showDefaultMaximizeIcon(): boolean {
+        return !this.maximizeIcon() && !this.maximizeButtonProps()?.icon;
+    }
+
+    get showMaximizeSvg(): boolean {
+        return !this.maximized && !this.maximizeIconTemplate();
+    }
+
+    get showMinimizeSvg(): boolean {
+        return !!this.maximized && !this.minimizeIconTemplate();
+    }
+
+    get showMaximizeIconTemplate(): boolean {
+        return !this.maximized && !!this.maximizeIconTemplate();
+    }
+
+    get showMinimizeIconTemplate(): boolean {
+        return !!this.maximized && !!this.minimizeIconTemplate();
+    }
+
+    get showDefaultCloseIcon(): boolean {
+        return !this.closeIconTemplate() && !this.closeButtonProps()?.icon;
+    }
+
     zone: NgZone = inject(NgZone);
 
     constructor() {

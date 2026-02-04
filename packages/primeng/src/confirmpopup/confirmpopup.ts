@@ -32,9 +32,9 @@ import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { MotionModule } from 'primeng/motion';
-import type { AppendTo } from 'primeng/types/shared';
+import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ConfirmPopupContentTemplateContext, ConfirmPopupHeadlessTemplateContext, ConfirmPopupPassThrough } from 'primeng/types/confirmpopup';
+import { ConfirmPopupContentTemplateContext, ConfirmPopupDefaultFocus, ConfirmPopupHeadlessTemplateContext, ConfirmPopupPassThrough } from 'primeng/types/confirmpopup';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ConfirmPopupStyle } from './style/confirmpopupstyle';
@@ -74,54 +74,54 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
                         @if (contentTemplate()) {
                             <ng-container *ngTemplateOutlet="contentTemplate(); context: { $implicit: confirmation }"></ng-container>
                         } @else {
-                            @if (confirmation?.icon) {
+                            @if (hasIcon) {
                                 <i [pBind]="ptm('icon')" [class]="cx('icon')"></i>
                             }
-                            <span [pBind]="ptm('message')" [class]="cx('message')">{{ confirmation?.message }}</span>
+                            <span [pBind]="ptm('message')" [class]="cx('message')">{{ message }}</span>
                         }
                     </div>
                     <div [pBind]="ptm('footer')" [class]="cx('footer')">
-                        @if (confirmation?.rejectVisible !== false) {
+                        @if (rejectVisible) {
                             <p-button
                                 type="button"
                                 [label]="rejectButtonLabel"
                                 (onClick)="onReject()"
                                 [pt]="ptm('pcRejectButton')"
                                 [class]="cx('pcRejectButton')"
-                                [styleClass]="confirmation?.rejectButtonStyleClass"
-                                [size]="confirmation?.rejectButtonProps?.size || 'small'"
-                                [text]="confirmation?.rejectButtonProps?.text || false"
+                                [styleClass]="rejectButtonStyleClass"
+                                [size]="rejectButtonSize"
+                                [text]="rejectButtonText"
                                 [attr.aria-label]="rejectButtonLabel"
                                 [buttonProps]="getRejectButtonProps()"
                                 [autofocus]="autoFocusReject"
                                 [unstyled]="unstyled()"
                             >
                                 <ng-template #icon>
-                                    @if (confirmation?.rejectIcon) {
-                                        <i [class]="confirmation?.rejectIcon"></i>
+                                    @if (hasRejectIcon) {
+                                        <i [class]="rejectIcon"></i>
                                     } @else if (rejectIconTemplate()) {
                                         <ng-container *ngTemplateOutlet="rejectIconTemplate()"></ng-container>
                                     }
                                 </ng-template>
                             </p-button>
                         }
-                        @if (confirmation?.acceptVisible !== false) {
+                        @if (acceptVisible) {
                             <p-button
                                 type="button"
                                 [label]="acceptButtonLabel"
                                 (onClick)="onAccept()"
                                 [pt]="ptm('pcAcceptButton')"
                                 [class]="cx('pcAcceptButton')"
-                                [styleClass]="confirmation?.acceptButtonStyleClass"
-                                [size]="confirmation?.acceptButtonProps?.size || 'small'"
+                                [styleClass]="acceptButtonStyleClass"
+                                [size]="acceptButtonSize"
                                 [attr.aria-label]="acceptButtonLabel"
                                 [buttonProps]="getAcceptButtonProps()"
                                 [autofocus]="autoFocusAccept"
                                 [unstyled]="unstyled()"
                             >
                                 <ng-template #icon>
-                                    @if (confirmation?.acceptIcon) {
-                                        <i [class]="confirmation?.acceptIcon"></i>
+                                    @if (hasAcceptIcon) {
+                                        <i [class]="acceptIcon"></i>
                                     } @else if (acceptIconTemplate()) {
                                         <ng-container *ngTemplateOutlet="acceptIconTemplate()"></ng-container>
                                     }
@@ -157,7 +157,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
      * Element to receive the focus when the popup gets visible, valid values are "accept", "reject", and "none".
      * @group Props
      */
-    defaultFocus = input<string>('accept');
+    defaultFocus = input<ConfirmPopupDefaultFocus>('accept');
     /**
      * Whether to automatically manage layering.
      * @group Props
@@ -172,7 +172,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
      * Inline style of the component.
      * @group Props
      */
-    style = input<{ [klass: string]: any } | null>();
+    style = input<CSSProperties>();
     /**
      * Style class of the component.
      * @group Props
@@ -559,6 +559,58 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
     get rejectButtonLabel(): string {
         return this.confirmation?.rejectLabel || this.config.getTranslation(TranslationKeys.REJECT);
+    }
+
+    get rejectVisible(): boolean {
+        return this.confirmation?.rejectVisible !== false;
+    }
+
+    get acceptVisible(): boolean {
+        return this.confirmation?.acceptVisible !== false;
+    }
+
+    get rejectButtonSize() {
+        return this.confirmation?.rejectButtonProps?.size || 'small';
+    }
+
+    get rejectButtonText(): boolean {
+        return this.confirmation?.rejectButtonProps?.text || false;
+    }
+
+    get acceptButtonSize() {
+        return this.confirmation?.acceptButtonProps?.size || 'small';
+    }
+
+    get rejectButtonStyleClass(): string | undefined {
+        return this.confirmation?.rejectButtonStyleClass;
+    }
+
+    get acceptButtonStyleClass(): string | undefined {
+        return this.confirmation?.acceptButtonStyleClass;
+    }
+
+    get hasIcon(): boolean {
+        return !!this.confirmation?.icon;
+    }
+
+    get hasRejectIcon(): boolean {
+        return !!this.confirmation?.rejectIcon;
+    }
+
+    get hasAcceptIcon(): boolean {
+        return !!this.confirmation?.acceptIcon;
+    }
+
+    get rejectIcon(): string | undefined {
+        return this.confirmation?.rejectIcon;
+    }
+
+    get acceptIcon(): string | undefined {
+        return this.confirmation?.acceptIcon;
+    }
+
+    get message(): string | undefined {
+        return this.confirmation?.message;
     }
 
     onDestroy() {

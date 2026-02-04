@@ -5,6 +5,12 @@ import type { ButtonPassThrough } from 'primeng/types/button';
 import { MotionOptions } from '@primeuix/motion';
 
 /**
+ * Element to receive the focus when the dialog gets visible.
+ * @group Types
+ */
+export type ConfirmDialogDefaultFocus = 'accept' | 'reject' | 'close' | 'none';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

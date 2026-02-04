@@ -1,5 +1,24 @@
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, ElementRef, HostListener, inject, InjectionToken, input, NgModule, NgZone, numberAttribute, output, TemplateRef, ViewEncapsulation, ViewRef } from '@angular/core';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    contentChild,
+    ElementRef,
+    HostListener,
+    inject,
+    InjectionToken,
+    input,
+    NgModule,
+    NgZone,
+    numberAttribute,
+    output,
+    signal,
+    TemplateRef,
+    ViewEncapsulation,
+    ViewRef
+} from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { $dt } from '@primeuix/styled';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
@@ -8,7 +27,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { MotionModule } from 'primeng/motion';
-import type { AppendTo } from 'primeng/types/shared';
+import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { PopoverContentTemplateContext, PopoverPassThrough } from 'primeng/types/popover';
 import { ZIndexUtils } from 'primeng/utils';
@@ -28,7 +47,7 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
     providers: [PopoverStyle, { provide: POPOVER_INSTANCE, useExisting: Popover }, { provide: PARENT_INSTANCE, useExisting: Popover }],
     hostDirectives: [Bind],
     template: `
-        @if (render) {
+        @if (render()) {
             <div
                 [pBind]="ptm('root')"
                 [class]="cn(cx('root'), styleClass())"
@@ -36,10 +55,10 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
                 [ngStyle]="style()"
                 (click)="onOverlayClick($event)"
                 role="dialog"
-                [attr.aria-modal]="overlayVisible"
+                [attr.aria-modal]="overlayVisible()"
                 [attr.aria-label]="ariaLabel()"
                 [attr.aria-labelledBy]="ariaLabelledBy()"
-                [pMotion]="overlayVisible"
+                [pMotion]="overlayVisible()"
                 pMotionName="p-anchored-overlay"
                 [pMotionAppear]="true"
                 (pMotionOnEnter)="onAnimationStart($event)"
@@ -88,7 +107,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      * Inline style of the component.
      * @group Props
      */
-    style = input<{ [klass: string]: any } | null>();
+    style = input<CSSProperties>();
     /**
      * Style class of the component.
      * @group Props
@@ -147,9 +166,9 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
 
     container: Nullable<HTMLDivElement>;
 
-    overlayVisible: boolean = false;
+    overlayVisible = signal(false);
 
-    render: boolean = false;
+    render = signal(false);
 
     selfClick: boolean = false;
 
@@ -199,7 +218,6 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
                     }
 
                     this.selfClick = false;
-                    this.cd.markForCheck();
                 });
             }
         }
@@ -220,7 +238,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      * @group Method
      */
     toggle(event: any, target?: any) {
-        if (this.overlayVisible) {
+        if (this.overlayVisible()) {
             if (this.hasTargetChanged(event, target)) {
                 this.destroyCallback = () => {
                     this.show(null, target || event.currentTarget || event.target);
@@ -242,14 +260,13 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         target && event && event.stopPropagation();
 
         // Clear container if it exists from previous show
-        if (this.container && !this.overlayVisible) {
+        if (this.container && !this.overlayVisible()) {
             this.container = null;
         }
 
         this.target = (target || event.currentTarget || event.target) as HTMLElement;
-        this.overlayVisible = true;
-        this.render = true;
-        this.cd.markForCheck();
+        this.overlayVisible.set(true);
+        this.render.set(true);
     }
 
     onOverlayClick(event: MouseEvent) {
@@ -342,7 +359,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
     }
 
     onAnimationEnd() {
-        if (!this.overlayVisible) {
+        if (!this.overlayVisible()) {
             if (this.destroyCallback) {
                 this.destroyCallback();
                 this.destroyCallback = null;
@@ -358,7 +375,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
 
             this.onContainerDestroy();
             this.onHide.emit({});
-            this.render = false;
+            this.render.set(false);
             this.container = null;
         }
     }
@@ -376,8 +393,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      * @group Method
      */
     hide() {
-        this.overlayVisible = false;
-        this.cd.markForCheck();
+        this.overlayVisible.set(false);
     }
 
     onCloseClick(event: MouseEvent) {
@@ -391,7 +407,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
     }
 
     onWindowResize() {
-        if (this.overlayVisible && !isTouchDevice()) {
+        if (this.overlayVisible() && !isTouchDevice()) {
             this.hide();
         }
     }
@@ -416,7 +432,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.scrollHandler) {
                 this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
-                    if (this.overlayVisible) {
+                    if (this.overlayVisible()) {
                         this.hide();
                     }
                 });
