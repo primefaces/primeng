@@ -350,6 +350,8 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
     }
 
     onItemMouseEnter(param: any) {
+        this.menubarService.mouseLeaves.next(false);
+        
         if (this.autoDisplay) {
             const { event, processedItem } = param;
             this.itemMouseEnter.emit({ originalEvent: event, processedItem });
@@ -425,6 +427,7 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
             (blur)="onMenuBlur($event)"
             (keydown)="onKeyDown($event)"
             (itemMouseEnter)="onItemMouseEnter($event)"
+            (mouseenter)="onMouseEnter($event)"
             (mouseleave)="onMouseLeave($event)"
             [pt]="pt()"
             [pBind]="ptm('rootList')"
@@ -784,6 +787,8 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
     }
 
     onItemMouseEnter(event: any) {
+        this.menubarService.mouseLeaves.next(false);
+        
         if (!isTouchDevice()) {
             if (this.dirty) {
                 this.onItemChange(event, 'hover');
@@ -795,13 +800,14 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
 
     onMouseLeave(event: any) {
         const autoHideEnabled = this.menubarService.autoHide;
-        const autoHideDelay = this.menubarService.autoHideDelay;
 
         if (autoHideEnabled) {
-            setTimeout(() => {
-                this.menubarService.mouseLeaves.next(true);
-            }, autoHideDelay);
+            this.menubarService.mouseLeaves.next(true);
         }
+    }
+
+    onMouseEnter(event: any) {
+        this.menubarService.mouseLeaves.next(false);
     }
 
     changeFocusedItemIndex(event: any, index: number) {
