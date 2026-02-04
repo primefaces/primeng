@@ -31,11 +31,11 @@ export class DialogService {
             return null;
         }
 
-        const dialogRef = this.appendDialogComponentToBody<T>(config, componentType);
+        const dialogRef = this.appendDialogComponentToBody<T>(config);
 
         const componentRefInstance = this.dialogComponentRefMap.get(dialogRef);
         if (componentRefInstance) {
-            componentRefInstance.instance.childComponentType = componentType;
+            componentRefInstance.instance.childComponentType = componentType as Type<object>;
             componentRefInstance.instance.inputValues = config.inputValues || {};
         }
 
@@ -50,7 +50,7 @@ export class DialogService {
         return this.dialogComponentRefMap.get(ref)?.instance;
     }
 
-    private appendDialogComponentToBody<T>(config: DynamicDialogConfig, componentType: Type<T>): DynamicDialogRef<T> {
+    private appendDialogComponentToBody<T>(config: DynamicDialogConfig): DynamicDialogRef<T> {
         const map = new WeakMap();
         map.set(DynamicDialogConfig, config);
 
@@ -105,7 +105,7 @@ export class DialogService {
             return true;
         }
         let permission = true;
-        for (const [key, value] of this.dialogComponentRefMap) {
+        for (const [, value] of this.dialogComponentRefMap) {
             if (value.instance.childComponentType === componentType) {
                 permission = false;
                 break;
