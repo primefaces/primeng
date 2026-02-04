@@ -32,6 +32,7 @@ import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { MotionModule } from 'primeng/motion';
+import type { AppendTo } from 'primeng/types/shared';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ConfirmPopupContentTemplateContext, ConfirmPopupHeadlessTemplateContext, ConfirmPopupPassThrough } from 'primeng/types/confirmpopup';
 import { ZIndexUtils } from 'primeng/utils';
@@ -206,7 +207,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
      * @defaultValue 'body'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined>('body');
+    appendTo = input<AppendTo>('body');
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 

@@ -34,6 +34,7 @@ import { Fluid } from 'primeng/fluid';
 import { ChevronDownIcon, TimesIcon } from 'primeng/icons';
 import { Overlay } from 'primeng/overlay';
 import { Tree, TreeFilterEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
+import type { AppendTo } from 'primeng/types/shared';
 import { Nullable } from 'primeng/ts-helpers';
 import {
     TreeSelectHeaderTemplateContext,
@@ -448,7 +449,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
      * @defaultValue 'self'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    appendTo = input<AppendTo>(undefined);
     /**
      * The motion options.
      * @group Props

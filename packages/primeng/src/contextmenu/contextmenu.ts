@@ -56,6 +56,7 @@ import { AngleRightIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import type { AppendTo } from 'primeng/types/shared';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ContextMenuItemTemplateContext, ContextMenuPassThrough, ContextMenuSubmenuIconTemplateContext } from 'primeng/types/contextmenu';
 import { ZIndexUtils } from 'primeng/utils';
@@ -567,7 +568,7 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
      * @defaultValue 'self'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    appendTo = input<AppendTo>(undefined);
     /**
      * The motion options.
      * @group Props

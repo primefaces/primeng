@@ -33,6 +33,7 @@ import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseInput } from 'primeng/baseinput';
 import { Bind, BindModule } from 'primeng/bind';
 import { Chip } from 'primeng/chip';
+import type { AppendTo } from 'primeng/types/shared';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { ChevronDownIcon, SpinnerIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
@@ -661,7 +662,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
      * @defaultValue 'self'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    appendTo = input<AppendTo>(undefined);
     /**
      * The motion options.
      * @group Props

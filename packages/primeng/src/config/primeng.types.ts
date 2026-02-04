@@ -197,10 +197,6 @@ export type PrimeNGConfigType = {
     inputVariant?: 'outlined' | 'filled';
     overlayOptions?: OverlayOptions;
     translation?: Translation;
-    /**
-     * @experimental
-     * This property is not yet implemented. It will be available in a future release.
-     */
     unstyled?: boolean;
     zIndex?: ZIndex | null | undefined;
     pt?: GlobalPassThrough | null | undefined;

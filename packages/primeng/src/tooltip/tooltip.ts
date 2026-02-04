@@ -5,6 +5,7 @@ import { TooltipOptions } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BindModule } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import type { AppendTo } from 'primeng/types/shared';
 import { Nullable } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { TooltipStyle } from './style/tooltipstyle';
@@ -122,7 +123,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
      * @defaultValue 'self'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined>(undefined);
+    appendTo = input<AppendTo>(undefined);
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 

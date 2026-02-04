@@ -37,6 +37,7 @@ import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { BaseInput } from 'primeng/baseinput';
 import { Bind, BindModule } from 'primeng/bind';
+import type { AppendTo } from 'primeng/types/shared';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Fluid } from 'primeng/fluid';
 import { EyeIcon, EyeSlashIcon, TimesIcon } from 'primeng/icons';
@@ -652,7 +653,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
      * @defaultValue 'self'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('self');
+    appendTo = input<AppendTo>('self');
     /**
      * The motion options.
      * @group Props

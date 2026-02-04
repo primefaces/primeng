@@ -44,6 +44,7 @@ import { InputText } from 'primeng/inputtext';
 import { Overlay } from 'primeng/overlay';
 import { Scroller } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
+import type { AppendTo } from 'primeng/types/shared';
 import { Nullable } from 'primeng/ts-helpers';
 import {
     MultiSelectBlurEvent,
@@ -850,7 +851,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      * @defaultValue 'self'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    appendTo = input<AppendTo>(undefined);
     /**
      * The motion options.
      * @group Props

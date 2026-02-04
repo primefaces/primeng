@@ -30,6 +30,7 @@ import { Bind } from 'primeng/bind';
 import { ButtonDirective } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
+import type { AppendTo } from 'primeng/types/shared';
 import { TieredMenu } from 'primeng/tieredmenu';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonProps, MenuButtonProps, SplitButtonPassThrough } from 'primeng/types/splitbutton';
@@ -248,7 +249,7 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
      * @defaultValue 'body'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('body');
+    appendTo = input<AppendTo>('body');
     /**
      * Indicates the direction of the element.
      * @group Props

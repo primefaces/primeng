@@ -36,6 +36,7 @@ import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, Chevr
 import { InputText } from 'primeng/inputtext';
 import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
+import type { AppendTo } from 'primeng/types/shared';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
     DatePickerButtonBarTemplateContext,
@@ -944,7 +945,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      * @defaultValue 'self'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    appendTo = input<AppendTo>(undefined);
     /**
      * The motion options.
      * @group Props

@@ -37,6 +37,7 @@ import { Fluid } from 'primeng/fluid';
 import { AngleRightIcon, ChevronDownIcon, TimesIcon } from 'primeng/icons';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
+import type { AppendTo } from 'primeng/types/shared';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
     CascadeSelectBeforeHideEvent,
@@ -595,7 +596,7 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
      * @defaultValue 'self'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    appendTo = input<AppendTo>(undefined);
     /**
      * The motion options.
      * @group Props
