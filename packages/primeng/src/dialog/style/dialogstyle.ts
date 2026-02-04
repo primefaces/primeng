@@ -4,27 +4,24 @@ import { BaseStyle } from 'primeng/base';
 
 /* Position */
 const inlineStyles = {
-    mask: ({ instance }) => ({
-        position: 'fixed',
-        height: '100%',
-        width: '100%',
-        left: 0,
-        top: 0,
-        display: 'flex',
-        justifyContent:
-            instance.position === 'left' || instance.position === 'topleft' || instance.position === 'bottomleft'
-                ? 'flex-start'
-                : instance.position === 'right' || instance.position === 'topright' || instance.position === 'bottomright'
-                  ? 'flex-end'
-                  : 'center',
-        alignItems:
-            instance.position === 'top' || instance.position === 'topleft' || instance.position === 'topright'
-                ? 'flex-start'
-                : instance.position === 'bottom' || instance.position === 'bottomleft' || instance.position === 'bottomright'
-                  ? 'flex-end'
-                  : 'center',
-        pointerEvents: instance.modal ? 'auto' : 'none'
-    }),
+    mask: ({ instance }) => {
+        const position = instance.position();
+        const modal = instance.modal();
+        const maskStyle = instance.maskStyle();
+
+        return {
+            position: 'fixed',
+            height: '100%',
+            width: '100%',
+            left: 0,
+            top: 0,
+            display: 'flex',
+            justifyContent: position === 'left' || position === 'topleft' || position === 'bottomleft' ? 'flex-start' : position === 'right' || position === 'topright' || position === 'bottomright' ? 'flex-end' : 'center',
+            alignItems: position === 'top' || position === 'topleft' || position === 'topright' ? 'flex-start' : position === 'bottom' || position === 'bottomleft' || position === 'bottomright' ? 'flex-end' : 'center',
+            pointerEvents: modal ? 'auto' : 'none',
+            ...(maskStyle || {})
+        };
+    },
     root: {
         display: 'flex',
         flexDirection: 'column',
@@ -35,14 +32,15 @@ const inlineStyles = {
 const classes = {
     mask: ({ instance }) => {
         const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
-        const pos = positions.find((item) => item === instance.position);
+        const position = instance.position();
+        const pos = positions.find((item) => item === position);
 
-        return ['p-dialog-mask', { 'p-overlay-mask': instance.modal }, pos ? `p-dialog-${pos}` : ''];
+        return ['p-dialog-mask', { 'p-overlay-mask': instance.modal() }, pos ? `p-dialog-${pos}` : ''];
     },
     root: ({ instance }) => [
         'p-dialog p-component',
         {
-            'p-dialog-maximized': instance.maximizable && instance.maximized
+            'p-dialog-maximized': instance.maximizable() && instance.maximized()
         }
     ],
     header: 'p-dialog-header',

@@ -1,4 +1,4 @@
-import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
+import { isPlatformBrowser, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -47,13 +47,12 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
 @Component({
     selector: 'p-dialog',
     standalone: true,
-    imports: [NgTemplateOutlet, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule, Bind, MotionModule],
+    imports: [NgStyle, NgTemplateOutlet, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule, Bind, MotionModule],
     template: `
         @if (renderMask()) {
             <div
                 [class]="cn(cx('mask'), maskStyleClass())"
                 [style]="sx('mask')"
-                [ngStyle]="maskStyle()"
                 [pBind]="ptm('mask')"
                 [pMotion]="maskVisible"
                 [pMotionAppear]="true"
@@ -62,7 +61,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                 [pMotionOptions]="computedMaskMotionOptions()"
                 (pMotionOnAfterLeave)="onMaskAfterLeave()"
                 [attr.data-p-scrollblocker-active]="modal() || blockScroll()"
-                [attr.data-p]="dataP"
+                [attr.data-p]="dataP()"
             >
                 @if (renderDialog()) {
                     <div
@@ -84,7 +83,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                         [attr.role]="role()"
                         [attr.aria-labelledby]="ariaLabelledBy"
                         [attr.aria-modal]="true"
-                        [attr.data-p]="dataP"
+                        [attr.data-p]="dataP()"
                     >
                         @if (headlessTemplate()) {
                             <ng-container *ngTemplateOutlet="headlessTemplate()"></ng-container>
@@ -103,30 +102,30 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                                             <p-button
                                                 [pt]="ptm('pcMaximizeButton')"
                                                 [styleClass]="cx('pcMaximizeButton')"
-                                                [ariaLabel]="maximizeButtonAriaLabel"
+                                                [ariaLabel]="maximizeButtonAriaLabel()"
                                                 (onClick)="maximize()"
                                                 (keydown.enter)="maximize()"
-                                                [tabindex]="maximizeButtonTabindex"
+                                                [tabindex]="maximizeButtonTabindex()"
                                                 [buttonProps]="maximizeButtonProps()"
                                                 [unstyled]="unstyled()"
                                                 [attr.data-pc-group-section]="'headericon'"
                                             >
                                                 <ng-template #icon>
-                                                    @if (showToggleIcon) {
-                                                        <span [ngClass]="toggleIcon"></span>
+                                                    @if (showToggleIcon()) {
+                                                        <span [ngClass]="toggleIcon()"></span>
                                                     }
-                                                    @if (showDefaultMaximizeIcon) {
-                                                        @if (showMaximizeSvg) {
+                                                    @if (showDefaultMaximizeIcon()) {
+                                                        @if (showMaximizeSvg()) {
                                                             <svg data-p-icon="window-maximize" />
                                                         }
-                                                        @if (showMinimizeSvg) {
+                                                        @if (showMinimizeSvg()) {
                                                             <svg data-p-icon="window-minimize" />
                                                         }
                                                     }
-                                                    @if (showMaximizeIconTemplate) {
+                                                    @if (showMaximizeIconTemplate()) {
                                                         <ng-container *ngTemplateOutlet="maximizeIconTemplate()"></ng-container>
                                                     }
-                                                    @if (showMinimizeIconTemplate) {
+                                                    @if (showMinimizeIconTemplate()) {
                                                         <ng-container *ngTemplateOutlet="minimizeIconTemplate()"></ng-container>
                                                     }
                                                 </ng-template>
@@ -532,7 +531,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
 
     preventVisibleChangePropagation: boolean | undefined;
 
-    maximized: boolean | undefined;
+    maximized = signal(false);
 
     preMaximizeContentHeight: number | undefined;
 
@@ -564,45 +563,25 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
         return this.config.getTranslation(TranslationKeys.ARIA)['minimizeLabel'];
     }
 
-    get maximizeButtonAriaLabel(): string {
-        return this.maximized ? this.minimizeLabel : this.maximizeLabel;
-    }
+    maximizeButtonAriaLabel = computed(() => (this.maximized() ? this.minimizeLabel : this.maximizeLabel));
 
-    get maximizeButtonTabindex(): string {
-        return this.maximizable() ? '0' : '-1';
-    }
+    maximizeButtonTabindex = computed(() => (this.maximizable() ? '0' : '-1'));
 
-    get toggleIcon(): string | undefined {
-        return this.maximized ? this.minimizeIcon() : this.maximizeIcon();
-    }
+    toggleIcon = computed(() => (this.maximized() ? this.minimizeIcon() : this.maximizeIcon()));
 
-    get showToggleIcon(): boolean {
-        return !!this.maximizeIcon() && !this.maximizeIconTemplate() && !this.minimizeIconTemplate();
-    }
+    showToggleIcon = computed(() => !!this.maximizeIcon() && !this.maximizeIconTemplate() && !this.minimizeIconTemplate());
 
-    get showDefaultMaximizeIcon(): boolean {
-        return !this.maximizeIcon() && !this.maximizeButtonProps()?.icon;
-    }
+    showDefaultMaximizeIcon = computed(() => !this.maximizeIcon() && !this.maximizeButtonProps()?.icon);
 
-    get showMaximizeSvg(): boolean {
-        return !this.maximized && !this.maximizeIconTemplate();
-    }
+    showMaximizeSvg = computed(() => !this.maximized() && !this.maximizeIconTemplate());
 
-    get showMinimizeSvg(): boolean {
-        return !!this.maximized && !this.minimizeIconTemplate();
-    }
+    showMinimizeSvg = computed(() => this.maximized() && !this.minimizeIconTemplate());
 
-    get showMaximizeIconTemplate(): boolean {
-        return !this.maximized && !!this.maximizeIconTemplate();
-    }
+    showMaximizeIconTemplate = computed(() => !this.maximized() && !!this.maximizeIconTemplate());
 
-    get showMinimizeIconTemplate(): boolean {
-        return !!this.maximized && !!this.minimizeIconTemplate();
-    }
+    showMinimizeIconTemplate = computed(() => this.maximized() && !!this.minimizeIconTemplate());
 
-    get showDefaultCloseIcon(): boolean {
-        return !this.closeIconTemplate() && !this.closeButtonProps()?.icon;
-    }
+    showDefaultCloseIcon = computed(() => !this.closeIconTemplate() && !this.closeButtonProps()?.icon);
 
     zone: NgZone = inject(NgZone);
 
@@ -696,17 +675,17 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
     }
 
     maximize() {
-        this.maximized = !this.maximized;
+        this.maximized.update((v) => !v);
 
         if (!this.modal() && !this.blockScroll()) {
-            if (this.maximized) {
+            if (this.maximized()) {
                 blockBodyScroll();
             } else {
                 unblockBodyScroll();
             }
         }
 
-        this.onMaximize.emit({ maximized: this.maximized });
+        this.onMaximize.emit({ maximized: this.maximized() });
     }
 
     unbindMaskClickListener() {
@@ -1047,10 +1026,10 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
         this.unbindGlobalListeners();
         this.dragging = false;
 
-        if (this.maximized) {
+        if (this.maximized()) {
             removeClass(this.document.body, 'p-overflow-hidden');
             this.document.body.style.removeProperty('--scrollbar-width');
-            this.maximized = false;
+            this.maximized.set(false);
         }
 
         if (this.modal()) {
@@ -1090,12 +1069,12 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
         this.destroyStyle();
     }
 
-    get dataP() {
-        return this.cn({
-            maximized: this.maximized,
+    dataP = computed(() =>
+        this.cn({
+            maximized: this.maximized(),
             modal: this.modal()
-        });
-    }
+        })
+    );
 }
 
 @NgModule({
