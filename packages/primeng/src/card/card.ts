@@ -81,13 +81,6 @@ export class Card extends BaseComponent<CardPassThrough> implements BlockableUI 
      */
     subheader = input<string>();
 
-    /**
-     * Class of the element.
-     * @deprecated since v20.0.0, use `class` instead.
-     * @group Props
-     */
-    styleClass = input<string>();
-
     headerFacet = contentChild(Header);
 
     footerFacet = contentChild(Footer);
