@@ -67,4 +67,19 @@ export interface TooltipOptions {
      * When present, it adds a custom id to the tooltip.
      */
     id?: string;
+    /**
+     * Whether to hide tooltip when hovering over tooltip content.
+     * @defaultValue true
+     */
+    autoHide?: boolean;
+    /**
+     * Whether to hide tooltip on escape key press.
+     * @defaultValue true
+     */
+    hideOnEscape?: boolean;
+    /**
+     * Whether to show the tooltip only when the target text overflows (e.g., ellipsis is active).
+     * @defaultValue false
+     */
+    showOnEllipsis?: boolean;
 }

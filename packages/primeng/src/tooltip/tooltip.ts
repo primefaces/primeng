@@ -1,15 +1,14 @@
 import { isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, Input, NgModule, NgZone, numberAttribute, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, NgModule, NgZone, numberAttribute, TemplateRef, ViewContainerRef } from '@angular/core';
 import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
 import { TooltipOptions } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BindModule } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
-import { TooltipPassThroughOptions } from 'primeng/types/tooltip';
 import { ZIndexUtils } from 'primeng/utils';
 import { TooltipStyle } from './style/tooltipstyle';
-import type { TooltipPassThrough } from 'primeng/types/tooltip';
+import type { TooltipPassThrough, TooltipPassThroughOptions } from 'primeng/types/tooltip';
 
 const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
 
@@ -31,142 +30,141 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
      * Position of the tooltip.
      * @group Props
      */
-    @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' | string | undefined;
+    tooltipPosition = input<'right' | 'left' | 'top' | 'bottom'>();
     /**
      * Event to show the tooltip.
      * @group Props
      */
-    @Input() tooltipEvent: 'hover' | 'focus' | 'both' = 'hover';
+    tooltipEvent = input<'hover' | 'focus' | 'both'>('hover');
     /**
      * Type of CSS position.
      * @group Props
      */
-    @Input() positionStyle: string | undefined;
+    positionStyle = input<string>();
     /**
      * Style class of the tooltip.
      * @group Props
      */
-    @Input() tooltipStyleClass: string | undefined;
+    tooltipStyleClass = input<string>();
     /**
      * Whether the z-index should be managed automatically to always go on top or have a fixed value.
      * @group Props
      */
-    @Input() tooltipZIndex: string | undefined;
+    tooltipZIndex = input<string>();
     /**
      * By default the tooltip contents are rendered as text. Set to false to support html tags in the content.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) escape: boolean = true;
+    escape = input(true, { transform: booleanAttribute });
     /**
      * Delay to show the tooltip in milliseconds.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) showDelay: number | undefined;
+    showDelay = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     /**
      * Delay to hide the tooltip in milliseconds.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) hideDelay: number | undefined;
+    hideDelay = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     /**
      * Time to wait in milliseconds to hide the tooltip even it is active.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) life: number | undefined;
+    life = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     /**
      * Specifies the additional vertical offset of the tooltip from its default position.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) positionTop: number | undefined;
+    positionTop = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     /**
      * Specifies the additional horizontal offset of the tooltip from its default position.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) positionLeft: number | undefined;
+    positionLeft = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     /**
      * Whether to hide tooltip when hovering over tooltip content.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autoHide: boolean = true;
+    autoHide = input(true, { transform: booleanAttribute });
     /**
      * Automatically adjusts the element position when there is not enough space on the selected position.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) fitContent: boolean = true;
+    fitContent = input(true, { transform: booleanAttribute });
     /**
      * Whether to hide tooltip on escape key press.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) hideOnEscape: boolean = true;
+    hideOnEscape = input(true, { transform: booleanAttribute });
     /**
      * Whether to show the tooltip only when the target text overflows (e.g., ellipsis is active).
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showOnEllipsis: boolean = false;
+    showOnEllipsis = input(false, { transform: booleanAttribute });
     /**
      * Content of the tooltip.
      * @group Props
      */
-    @Input('pTooltip') content: string | TemplateRef<HTMLElement> | undefined;
+    content = input<string | TemplateRef<HTMLElement> | undefined>(undefined, { alias: 'pTooltip' });
     /**
      * When present, it specifies that the component should be disabled.
      * @defaultValue false
      * @group Props
      */
-    @Input('tooltipDisabled') get disabled(): boolean {
-        return this._disabled as boolean;
-    }
-    set disabled(val: boolean) {
-        this._disabled = val;
-        this.deactivate();
-    }
+    tooltipDisabled = input(false, { transform: booleanAttribute });
     /**
      * Specifies the tooltip configuration options for the component.
      * @group Props
      */
-    @Input() tooltipOptions: TooltipOptions | undefined;
+    tooltipOptions = input<TooltipOptions>();
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @defaultValue 'self'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined>(undefined);
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    _tooltipOptions = {
-        tooltipLabel: null,
-        tooltipPosition: 'right',
-        tooltipEvent: 'hover',
-        appendTo: 'body',
-        positionStyle: null,
-        tooltipStyleClass: null,
-        tooltipZIndex: 'auto',
-        escape: true,
-        disabled: null,
-        showDelay: null,
-        hideDelay: null,
-        positionTop: null,
-        positionLeft: null,
-        life: null,
-        autoHide: true,
-        hideOnEscape: true,
-        showOnEllipsis: false,
-        id: uuid('pn_id_') + '_tooltip'
-    };
+    private readonly tooltipId = uuid('pn_id_') + '_tooltip';
 
-    _disabled: boolean | undefined;
+    /**
+     * Computed tooltip options that merges individual props with tooltipOptions.
+     * Priority: tooltipOptions > individual props (with inline defaults)
+     */
+    _tooltipOptions = computed<TooltipOptions>(() => ({
+        tooltipLabel: this.content() as string,
+        tooltipPosition: this.tooltipPosition() ?? 'right',
+        tooltipEvent: this.tooltipEvent(),
+        appendTo: this.appendTo() ?? 'body',
+        positionStyle: this.positionStyle(),
+        tooltipStyleClass: this.tooltipStyleClass(),
+        tooltipZIndex: this.tooltipZIndex() ?? 'auto',
+        escape: this.escape(),
+        showDelay: this.showDelay(),
+        hideDelay: this.hideDelay(),
+        life: this.life(),
+        positionTop: this.positionTop() ?? 0,
+        positionLeft: this.positionLeft() ?? 0,
+        autoHide: this.autoHide(),
+        hideOnEscape: this.hideOnEscape(),
+        showOnEllipsis: this.showOnEllipsis(),
+        disabled: this.tooltipDisabled(),
+        ...this.tooltipOptions(),
+        id: this.tooltipId
+    }));
 
-    container: any;
+    container: HTMLDivElement | null = null;
 
     styleClass: string | undefined;
 
-    tooltipText: any;
+    tooltipText: HTMLDivElement | null = null;
 
     rootPTClasses: string = '';
 
-    showTimeout: any;
+    showTimeout: ReturnType<typeof setTimeout> | null = null;
 
-    hideTimeout: any;
+    hideTimeout: ReturnType<typeof setTimeout> | null = null;
 
     active: boolean | undefined;
 
@@ -190,21 +188,12 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
     documentEscapeListener: Nullable<Function>;
 
-    scrollHandler: any;
+    scrollHandler: ConnectedOverlayScrollHandler | null = null;
 
-    resizeListener: any;
+    resizeListener: ((event: Event) => void) | null = null;
 
     _componentStyle = inject(TooltipStyle);
 
-    interactionInProgress = false;
-
-    /**
-     * Used to pass attributes to DOM elements inside the Tooltip component.
-     * @defaultValue undefined
-     * @deprecated use pTooltipPT instead.
-     * @group Props
-     */
-    ptTooltip = input<TooltipPassThrough | undefined>();
     /**
      * Used to pass attributes to DOM elements inside the Tooltip component.
      * @defaultValue undefined
@@ -223,13 +212,59 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         private viewContainer: ViewContainerRef
     ) {
         super();
+
         effect(() => {
-            const pt = this.ptTooltip() || this.pTooltipPT();
+            const pt = this.pTooltipPT();
             pt && this.directivePT.set(pt);
         });
 
         effect(() => {
             this.pTooltipUnstyled() && this.directiveUnstyled.set(this.pTooltipUnstyled());
+        });
+
+        effect(() => {
+            const content = this.content();
+
+            if (this.active) {
+                if (content) {
+                    if (this.container && this.container.offsetParent) {
+                        this.updateText();
+                        this.align();
+                    } else {
+                        this.show();
+                    }
+                } else {
+                    this.hide();
+                }
+            }
+        });
+
+        effect(() => {
+            const disabled = this.tooltipDisabled();
+
+            if (disabled) {
+                this.deactivate();
+            }
+        });
+
+        effect(() => {
+            const options = this.tooltipOptions();
+            if (options) {
+                this.deactivate();
+
+                if (this.active) {
+                    if (this.getOption('tooltipLabel')) {
+                        if (this.container && this.container.offsetParent) {
+                            this.updateText();
+                            this.align();
+                        } else {
+                            this.show();
+                        }
+                    } else {
+                        this.hide();
+                    }
+                }
+            }
         });
     }
 
@@ -266,107 +301,6 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
                     target.addEventListener('blur', this.blurListener);
                 }
             });
-        }
-    }
-
-    onChanges(simpleChange: SimpleChanges) {
-        if (simpleChange.tooltipPosition) {
-            this.setOption({ tooltipPosition: simpleChange.tooltipPosition.currentValue });
-        }
-
-        if (simpleChange.tooltipEvent) {
-            this.setOption({ tooltipEvent: simpleChange.tooltipEvent.currentValue });
-        }
-
-        if (simpleChange.appendTo) {
-            this.setOption({ appendTo: simpleChange.appendTo.currentValue });
-        }
-
-        if (simpleChange.positionStyle) {
-            this.setOption({ positionStyle: simpleChange.positionStyle.currentValue });
-        }
-
-        if (simpleChange.tooltipStyleClass) {
-            this.setOption({ tooltipStyleClass: simpleChange.tooltipStyleClass.currentValue });
-        }
-
-        if (simpleChange.tooltipZIndex) {
-            this.setOption({ tooltipZIndex: simpleChange.tooltipZIndex.currentValue });
-        }
-
-        if (simpleChange.escape) {
-            this.setOption({ escape: simpleChange.escape.currentValue });
-        }
-
-        if (simpleChange.showDelay) {
-            this.setOption({ showDelay: simpleChange.showDelay.currentValue });
-        }
-
-        if (simpleChange.hideDelay) {
-            this.setOption({ hideDelay: simpleChange.hideDelay.currentValue });
-        }
-
-        if (simpleChange.life) {
-            this.setOption({ life: simpleChange.life.currentValue });
-        }
-
-        if (simpleChange.positionTop) {
-            this.setOption({ positionTop: simpleChange.positionTop.currentValue });
-        }
-
-        if (simpleChange.positionLeft) {
-            this.setOption({ positionLeft: simpleChange.positionLeft.currentValue });
-        }
-
-        if (simpleChange.disabled) {
-            this.setOption({ disabled: simpleChange.disabled.currentValue });
-        }
-
-        if (simpleChange.content) {
-            this.setOption({ tooltipLabel: simpleChange.content.currentValue });
-
-            if (this.active) {
-                if (simpleChange.content.currentValue) {
-                    if (this.container && this.container.offsetParent) {
-                        this.updateText();
-                        this.align();
-                    } else {
-                        this.show();
-                    }
-                } else {
-                    this.hide();
-                }
-            }
-        }
-
-        if (simpleChange.autoHide) {
-            this.setOption({ autoHide: simpleChange.autoHide.currentValue });
-        }
-
-        if (simpleChange.showOnEllipsis) {
-            this.setOption({ showOnEllipsis: simpleChange.showOnEllipsis.currentValue });
-        }
-
-        if (simpleChange.id) {
-            this.setOption({ id: simpleChange.id.currentValue });
-        }
-
-        if (simpleChange.tooltipOptions) {
-            this._tooltipOptions = { ...this._tooltipOptions, ...simpleChange.tooltipOptions.currentValue };
-            this.deactivate();
-
-            if (this.active) {
-                if (this.getOption('tooltipLabel')) {
-                    if (this.container && this.container.offsetParent) {
-                        this.updateText();
-                        this.align();
-                    } else {
-                        this.show();
-                    }
-                } else {
-                    this.hide();
-                }
-            }
         }
     }
 
@@ -408,7 +342,8 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     bindDocumentTouchListener() {
         if (!this.documentTouchListener) {
             this.documentTouchListener = this.renderer.listen('document', 'touchstart', (e: TouchEvent) => {
-                if (this.container && !this.container.contains(e.target) && !this.el.nativeElement.contains(e.target)) {
+                const target = e.target as Node;
+                if (this.container && !this.container.contains(target) && !this.el.nativeElement.contains(target)) {
                     this.deactivate();
                     this.unbindDocumentTouchListener();
                 }
@@ -441,46 +376,50 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     }
 
     activate() {
-        if (!this.interactionInProgress) {
-            if (this.getOption('showOnEllipsis') && !this.hasEllipsis()) {
-                return;
-            }
-            this.active = true;
-            this.clearHideTimeout();
+        if (this.active) return;
 
-            if (this.getOption('showDelay'))
-                this.showTimeout = setTimeout(() => {
-                    this.show();
-                }, this.getOption('showDelay'));
-            else this.show();
+        if (this.getOption('showOnEllipsis') && !this.hasEllipsis()) {
+            return;
+        }
 
-            if (this.getOption('life')) {
-                let duration = this.getOption('showDelay') ? this.getOption('life') + this.getOption('showDelay') : this.getOption('life');
-                this.hideTimeout = setTimeout(() => {
-                    this.hide();
-                }, duration);
-            }
+        this.active = true;
+        this.clearHideTimeout();
 
-            if (this.getOption('hideOnEscape')) {
-                this.documentEscapeListener = this.renderer.listen('document', 'keydown.escape', () => {
-                    this.deactivate();
-                    this.documentEscapeListener?.();
-                });
-            }
-            this.interactionInProgress = true;
+        const showDelay = this.getOption('showDelay');
+        if (showDelay) {
+            this.showTimeout = setTimeout(() => {
+                this.show();
+            }, showDelay);
+        } else {
+            this.show();
+        }
+
+        const life = this.getOption('life');
+        if (life) {
+            const duration = showDelay ? life + showDelay : life;
+            this.hideTimeout = setTimeout(() => {
+                this.hide();
+            }, duration);
+        }
+
+        if (this.getOption('hideOnEscape')) {
+            this.documentEscapeListener = this.renderer.listen('document', 'keydown.escape', () => {
+                this.deactivate();
+                this.documentEscapeListener?.();
+            });
         }
     }
 
     deactivate() {
-        this.interactionInProgress = false;
         this.active = false;
         this.clearShowTimeout();
 
-        if (this.getOption('hideDelay')) {
+        const hideDelay = this.getOption('hideDelay');
+        if (hideDelay) {
             this.clearHideTimeout(); //life timeout
             this.hideTimeout = setTimeout(() => {
                 this.hide();
-            }, this.getOption('hideDelay'));
+            }, hideDelay);
         } else {
             this.hide();
         }
@@ -496,43 +435,45 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
             this.remove();
         }
 
-        this.container = createElement('div', { class: this.cx('root'), 'p-bind': this.ptm('root'), 'data-pc-section': 'root' });
-        this.container.setAttribute('role', 'tooltip');
-        let tooltipArrow = createElement('div', { class: this.cx('arrow'), 'p-bind': this.ptm('arrow'), 'data-pc-section': 'arrow' });
-        this.container.appendChild(tooltipArrow);
-        this.tooltipText = createElement('div', { class: this.cx('text'), 'p-bind': this.ptm('text'), 'data-pc-section': 'text' });
+        const container = createElement('div', { class: this.cx('root'), 'p-bind': this.ptm('root'), 'data-pc-section': 'root' }) as HTMLDivElement;
+        const tooltipArrow = createElement('div', { class: this.cx('arrow'), 'p-bind': this.ptm('arrow'), 'data-pc-section': 'arrow' }) as HTMLDivElement;
+        const tooltipText = createElement('div', { class: this.cx('text'), 'p-bind': this.ptm('text'), 'data-pc-section': 'text' }) as HTMLDivElement;
+
+        container.setAttribute('role', 'tooltip');
+        container.appendChild(tooltipArrow);
+
+        this.container = container;
+        this.tooltipText = tooltipText;
 
         this.updateText();
 
         if (this.getOption('positionStyle')) {
-            this.container.style.position = this.getOption('positionStyle');
+            container.style.position = this.getOption('positionStyle');
         }
 
-        this.container.appendChild(this.tooltipText);
+        container.appendChild(tooltipText);
 
-        if (this.getOption('appendTo') === 'body') document.body.appendChild(this.container);
-        else if (this.getOption('appendTo') === 'target') appendChild(this.container, this.el.nativeElement);
-        else appendChild(this.getOption('appendTo'), this.container);
+        if (this.getOption('appendTo') === 'body') document.body.appendChild(container);
+        else if (this.getOption('appendTo') === 'target') appendChild(container, this.el.nativeElement);
+        else appendChild(this.getOption('appendTo'), container);
 
-        this.container.style.display = 'none';
+        container.style.display = 'none';
 
-        if (this.fitContent) {
-            this.container.style.width = 'fit-content';
+        if (this.fitContent()) {
+            container.style.width = 'fit-content';
         }
 
         if (this.isAutoHide()) {
-            this.container.style.pointerEvents = 'none';
+            container.style.pointerEvents = 'none';
         } else {
-            this.container.style.pointerEvents = 'unset';
+            container.style.pointerEvents = 'unset';
             this.bindContainerMouseleaveListener();
         }
     }
 
     bindContainerMouseleaveListener() {
-        if (!this.containerMouseleaveListener) {
-            const targetEl: any = this.container ?? this.container.nativeElement;
-
-            this.containerMouseleaveListener = this.renderer.listen(targetEl, 'mouseleave', (e) => {
+        if (!this.containerMouseleaveListener && this.container) {
+            this.containerMouseleaveListener = this.renderer.listen(this.container, 'mouseleave', () => {
                 this.deactivate();
             });
         }
@@ -552,23 +493,26 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
         this.create();
 
+        const container = this.container!;
         const nativeElement = this.el.nativeElement;
         const pDialogWrapper = nativeElement.closest('p-dialog');
 
         if (pDialogWrapper) {
             setTimeout(() => {
-                this.container && (this.container.style.display = 'inline-block');
-                this.container && this.align();
+                if (this.container) {
+                    this.container.style.display = 'inline-block';
+                    this.align();
+                }
             }, 100);
         } else {
-            this.container.style.display = 'inline-block';
+            container.style.display = 'inline-block';
             this.align();
         }
 
-        fadeIn(this.container, 250);
+        fadeIn(container, 250);
 
-        if (this.getOption('tooltipZIndex') === 'auto') ZIndexUtils.set('tooltip', this.container, this.config.zIndex.tooltip);
-        else this.container.style.zIndex = this.getOption('tooltipZIndex');
+        if (this.getOption('tooltipZIndex') === 'auto') ZIndexUtils.set('tooltip', container, this.config.zIndex.tooltip);
+        else container.style.zIndex = this.getOption('tooltipZIndex');
 
         this.bindDocumentResizeListener();
         this.bindScrollListener();
@@ -582,11 +526,13 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     }
 
     updateText() {
+        if (!this.tooltipText) return;
+
         const content = this.getOption('tooltipLabel');
-        if (content && typeof (content as TemplateRef<any>).createEmbeddedView === 'function') {
+        if (content && typeof content.createEmbeddedView === 'function') {
             const embeddedViewRef = this.viewContainer.createEmbeddedView(content);
             embeddedViewRef.detectChanges();
-            embeddedViewRef.rootNodes.forEach((node) => this.tooltipText.appendChild(node));
+            embeddedViewRef.rootNodes.forEach((node) => this.tooltipText!.appendChild(node));
         } else if (this.getOption('escape')) {
             this.tooltipText.innerHTML = '';
             this.tooltipText.appendChild(document.createTextNode(content));
@@ -633,81 +579,86 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         this.preAlign('right');
         const el = this.activeElement;
         const offsetLeft = getOuterWidth(el);
-        const offsetTop = (getOuterHeight(el) - getOuterHeight(this.container)) / 2;
+        const offsetTop = (getOuterHeight(el) - getOuterHeight(this.container!)) / 2;
         this.alignTooltip(offsetLeft, offsetTop);
         let arrowElement = this.getArrowElement();
 
-        arrowElement.style.top = '50%';
-        arrowElement.style.right = null;
-        arrowElement.style.bottom = null;
-        arrowElement.style.left = '0';
+        if (arrowElement) {
+            arrowElement.style.top = '50%';
+            arrowElement.style.right = '';
+            arrowElement.style.bottom = '';
+            arrowElement.style.left = '0';
+        }
     }
 
     alignLeft() {
         this.preAlign('left');
         let arrowElement = this.getArrowElement();
-        let offsetLeft = getOuterWidth(this.container);
-        let offsetTop = (getOuterHeight(this.el.nativeElement) - getOuterHeight(this.container)) / 2;
+        let offsetLeft = getOuterWidth(this.container!);
+        let offsetTop = (getOuterHeight(this.el.nativeElement) - getOuterHeight(this.container!)) / 2;
         this.alignTooltip(-offsetLeft, offsetTop);
 
-        arrowElement.style.top = '50%';
-        arrowElement.style.right = '0';
-        arrowElement.style.bottom = null;
-        arrowElement.style.left = null;
+        if (arrowElement) {
+            arrowElement.style.top = '50%';
+            arrowElement.style.right = '0';
+            arrowElement.style.bottom = '';
+            arrowElement.style.left = '';
+        }
     }
 
     alignTop() {
         this.preAlign('top');
         let arrowElement = this.getArrowElement();
         let hostOffset = this.getHostOffset();
-        let elementWidth = getOuterWidth(this.container);
+        let elementWidth = getOuterWidth(this.container!);
 
-        let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
-        let offsetTop = getOuterHeight(this.container);
+        let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container!)) / 2;
+        let offsetTop = getOuterHeight(this.container!);
         this.alignTooltip(offsetLeft, -offsetTop);
 
         let elementRelativeCenter = hostOffset.left - this.getHostOffset().left + elementWidth / 2;
-        arrowElement.style.top = null;
-        arrowElement.style.right = null;
-        arrowElement.style.bottom = '0';
-        arrowElement.style.left = elementRelativeCenter + 'px';
+        if (arrowElement) {
+            arrowElement.style.top = '';
+            arrowElement.style.right = '';
+            arrowElement.style.bottom = '0';
+            arrowElement.style.left = elementRelativeCenter + 'px';
+        }
     }
 
-    getArrowElement(): any {
-        return findSingle(this.container, '[data-pc-section="arrow"]');
+    getArrowElement(): HTMLElement | null {
+        return findSingle(this.container!, '[data-pc-section="arrow"]') as HTMLElement | null;
     }
 
     alignBottom() {
         this.preAlign('bottom');
         let arrowElement = this.getArrowElement();
-        let elementWidth = getOuterWidth(this.container);
+        let elementWidth = getOuterWidth(this.container!);
         let hostOffset = this.getHostOffset();
-        let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
+        let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container!)) / 2;
         let offsetTop = getOuterHeight(this.el.nativeElement);
         this.alignTooltip(offsetLeft, offsetTop);
 
         let elementRelativeCenter = hostOffset.left - this.getHostOffset().left + elementWidth / 2;
 
-        arrowElement.style.top = '0';
-        arrowElement.style.right = null;
-        arrowElement.style.bottom = null;
-        arrowElement.style.left = elementRelativeCenter + 'px';
+        if (arrowElement) {
+            arrowElement.style.top = '0';
+            arrowElement.style.right = '';
+            arrowElement.style.bottom = '';
+            arrowElement.style.left = elementRelativeCenter + 'px';
+        }
     }
 
-    alignTooltip(offsetLeft, offsetTop) {
+    alignTooltip(offsetLeft: number, offsetTop: number) {
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left + offsetLeft;
         let top = hostOffset.top + offsetTop;
-        this.container.style.left = left + this.getOption('positionLeft') + 'px';
-        this.container.style.top = top + this.getOption('positionTop') + 'px';
-    }
-
-    setOption(option: any) {
-        this._tooltipOptions = { ...this._tooltipOptions, ...option };
+        this.container!.style.left = left + this.getOption('positionLeft') + 'px';
+        this.container!.style.top = top + this.getOption('positionTop') + 'px';
     }
 
     getOption(option: string) {
-        return this._tooltipOptions[option as keyof typeof this.tooltipOptions];
+        const options = this._tooltipOptions();
+        return options[option];
     }
 
     getTarget(el: Element) {
@@ -715,17 +666,17 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     }
 
     preAlign(position: string) {
-        this.container.style.left = -999 + 'px';
-        this.container.style.top = -999 + 'px';
-        this.container.className = this.cn(this.cx('root'), this.ptm('root')?.class, 'p-tooltip-' + position, this.getOption('tooltipStyleClass'));
+        this.container!.style.left = -999 + 'px';
+        this.container!.style.top = -999 + 'px';
+        this.container!.className = this.cn(this.cx('root'), this.ptm('root')?.class, 'p-tooltip-' + position, this.getOption('tooltipStyleClass') ?? '') ?? '';
     }
 
     isOutOfBounds(): boolean {
-        let offset = this.container.getBoundingClientRect();
+        let offset = this.container!.getBoundingClientRect();
         let targetTop = offset.top;
         let targetLeft = offset.left;
-        let width = getOuterWidth(this.container);
-        let height = getOuterHeight(this.container);
+        let width = getOuterWidth(this.container!);
+        let height = getOuterHeight(this.container!);
         let viewport = getViewport();
 
         return targetLeft + width > viewport.width || targetLeft < 0 || targetTop < 0 || targetTop + height > viewport.height;
@@ -737,8 +688,9 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
     bindDocumentResizeListener() {
         this.zone.runOutsideAngular(() => {
-            this.resizeListener = this.onWindowResize.bind(this);
-            window.addEventListener('resize', this.resizeListener);
+            const listener = this.onWindowResize.bind(this);
+            this.resizeListener = listener;
+            window.addEventListener('resize', listener);
         });
     }
 
