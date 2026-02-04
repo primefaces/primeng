@@ -7,7 +7,7 @@ import { Step, StepItem, StepList, StepPanel, StepPanels, Stepper } from './step
 @Component({
     standalone: false,
     template: `
-        <p-stepper [(value)]="value" [linear]="linear" [transitionOptions]="transitionOptions">
+        <p-stepper [(value)]="value" [linear]="linear">
             <p-step-list>
                 <p-step [value]="1">Step 1</p-step>
                 <p-step [value]="2">Step 2</p-step>
@@ -30,7 +30,6 @@ import { Step, StepItem, StepList, StepPanel, StepPanels, Stepper } from './step
 class TestStepperComponent {
     value: number | undefined = 1;
     linear = false;
-    transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
     step3Disabled = false;
 }
 
@@ -144,20 +143,17 @@ describe('Stepper', () => {
 
             expect(stepperInstance.value()).toBeUndefined();
             expect(stepperInstance.linear()).toBe(false);
-            expect(stepperInstance.transitionOptions()).toBe('400ms cubic-bezier(0.86, 0, 0.07, 1)');
         });
 
         it('should accept custom values', async () => {
             component.value = 2;
             component.linear = true;
-            component.transitionOptions = '500ms ease-in-out';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
             expect(stepper.value()).toBe(2);
             expect(stepper.linear()).toBe(true);
-            expect(stepper.transitionOptions()).toBe('500ms ease-in-out');
         });
 
         it('should generate unique ID', () => {
@@ -567,15 +563,6 @@ describe('Stepper', () => {
             fixture.detectChanges();
 
             expect(stepper.linear()).toBe(true);
-        });
-
-        it('should handle empty transition options', async () => {
-            component.transitionOptions = '';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            expect(stepper.transitionOptions()).toBe('' as any);
         });
     });
 

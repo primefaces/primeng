@@ -20,13 +20,13 @@ class TestBasicToolbarComponent {
     standalone: false,
     template: `
         <p-toolbar>
-            <ng-template pTemplate="start">
+            <ng-template #start>
                 <button class="start-button">Start Button</button>
             </ng-template>
-            <ng-template pTemplate="center">
+            <ng-template #center>
                 <span class="center-text">Center Content</span>
             </ng-template>
-            <ng-template pTemplate="end">
+            <ng-template #end>
                 <button class="end-button">End Button</button>
             </ng-template>
         </p-toolbar>
@@ -38,13 +38,13 @@ class TestTemplateToolbarComponent {}
     standalone: false,
     template: `
         <p-toolbar>
-            <ng-template pTemplate="left">
+            <ng-template #start>
                 <button class="left-button">Left Button</button>
             </ng-template>
-            <ng-template pTemplate="center">
+            <ng-template #center>
                 <span class="center-text">Center Content</span>
             </ng-template>
-            <ng-template pTemplate="right">
+            <ng-template #end>
                 <button class="right-button">Right Button</button>
             </ng-template>
         </p-toolbar>
@@ -78,13 +78,13 @@ class TestContentChildToolbarComponent {
     standalone: false,
     template: `
         <p-toolbar>
-            <ng-template pTemplate="start">
+            <ng-template #start>
                 <button class="btn-new">New</button>
                 <button class="btn-upload">Upload</button>
                 <i class="icon-separator">|</i>
                 <button class="btn-save">Save</button>
             </ng-template>
-            <ng-template pTemplate="end">
+            <ng-template #end>
                 <input type="text" class="search-input" placeholder="Search" />
                 <button class="btn-search">Search</button>
             </ng-template>
@@ -97,7 +97,7 @@ class TestComplexToolbarComponent {}
     standalone: false,
     template: `
         <p-toolbar>
-            <ng-template pTemplate="start">
+            <ng-template #start>
                 <span>Only Start</span>
             </ng-template>
         </p-toolbar>
@@ -109,7 +109,7 @@ class TestStartOnlyToolbarComponent {}
     standalone: false,
     template: `
         <p-toolbar>
-            <ng-template pTemplate="center">
+            <ng-template #center>
                 <span>Only Center</span>
             </ng-template>
         </p-toolbar>
@@ -121,7 +121,7 @@ class TestCenterOnlyToolbarComponent {}
     standalone: false,
     template: `
         <p-toolbar>
-            <ng-template pTemplate="end">
+            <ng-template #end>
                 <span>Only End</span>
             </ng-template>
         </p-toolbar>
@@ -134,17 +134,17 @@ class TestEndOnlyToolbarComponent {}
     template: `
         <p-toolbar [ariaLabelledBy]="ariaLabel">
             <ng-container *ngIf="showStart">
-                <ng-template pTemplate="start">
+                <ng-template #start>
                     <button class="dynamic-start">Dynamic Start</button>
                 </ng-template>
             </ng-container>
             <ng-container *ngIf="showCenter">
-                <ng-template pTemplate="center">
+                <ng-template #center>
                     <span class="dynamic-center">Dynamic Center</span>
                 </ng-template>
             </ng-container>
             <ng-container *ngIf="showEnd">
-                <ng-template pTemplate="end">
+                <ng-template #end>
                     <button class="dynamic-end">Dynamic End</button>
                 </ng-template>
             </ng-container>
@@ -162,13 +162,13 @@ class TestDynamicToolbarComponent {
     standalone: false,
     template: `
         <p-toolbar [pt]="pt">
-            <ng-template pTemplate="start">
+            <ng-template #start>
                 <button>PT Test Start</button>
             </ng-template>
-            <ng-template pTemplate="center">
+            <ng-template #center>
                 <span>PT Test Center</span>
             </ng-template>
-            <ng-template pTemplate="end">
+            <ng-template #end>
                 <button>PT Test End</button>
             </ng-template>
         </p-toolbar>
@@ -778,8 +778,7 @@ describe('Toolbar', () => {
             ptComponent.pt = {
                 root: ({ instance }) => {
                     return {
-                        class: instance?.ariaLabelledBy ? 'HAS_ARIA' : 'NO_ARIA',
-                        'data-styleclass': instance?.styleClass
+                        class: instance?.ariaLabelledBy() ? 'HAS_ARIA' : 'NO_ARIA'
                     };
                 }
             };

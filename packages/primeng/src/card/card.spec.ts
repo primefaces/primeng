@@ -13,7 +13,7 @@ class TestBasicCardComponent {}
 @Component({
     standalone: false,
     template: `
-        <p-card [header]="header" [subheader]="subheader" [styleClass]="styleClass" [style]="style">
+        <p-card [header]="header" [subheader]="subheader" [style]="style">
             <div class="card-content">Custom Card Content</div>
         </p-card>
     `
@@ -21,7 +21,6 @@ class TestBasicCardComponent {}
 class TestCustomCardComponent {
     header: string | undefined;
     subheader: string | undefined;
-    styleClass: string | undefined;
     style: { [key: string]: any } | undefined;
 }
 
@@ -29,19 +28,19 @@ class TestCustomCardComponent {
     standalone: false,
     template: `
         <p-card>
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <div class="custom-header">Custom Header Template</div>
             </ng-template>
-            <ng-template pTemplate="title">
+            <ng-template #title>
                 <h2 class="custom-title">Custom Title Template</h2>
             </ng-template>
-            <ng-template pTemplate="subtitle">
+            <ng-template #subtitle>
                 <p class="custom-subtitle">Custom Subtitle Template</p>
             </ng-template>
-            <ng-template pTemplate="content">
+            <ng-template #content>
                 <div class="custom-content">Custom Content Template</div>
             </ng-template>
-            <ng-template pTemplate="footer">
+            <ng-template #footer>
                 <div class="custom-footer">Custom Footer Template</div>
             </ng-template>
         </p-card>
@@ -125,7 +124,7 @@ class TestDynamicCardComponent {
     standalone: false,
     template: `
         <p-card>
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <div class="header-with-actions">
                     <h3>Card with Actions</h3>
                     <button class="header-action" type="button">Action</button>
@@ -139,7 +138,7 @@ class TestDynamicCardComponent {
                     <li>Item 3</li>
                 </ul>
             </div>
-            <ng-template pTemplate="footer">
+            <ng-template #footer>
                 <div class="footer-buttons">
                     <button class="btn-primary" type="button">Save</button>
                     <button class="btn-secondary" type="button">Cancel</button>
@@ -174,7 +173,7 @@ class TestSubheaderOnlyCardComponent {}
     standalone: false,
     template: `
         <p-card>
-            <ng-template pTemplate="footer">
+            <ng-template #footer>
                 <div class="footer-only">Footer Only Content</div>
             </ng-template>
             <div class="content-with-footer">Content with footer only</div>
@@ -222,9 +221,8 @@ describe('Card', () => {
         });
 
         it('should have default values', () => {
-            expect(card.header).toBeUndefined();
-            expect(card.subheader).toBeUndefined();
-            expect(card.styleClass).toBeUndefined();
+            expect(card.header()).toBeUndefined();
+            expect(card.subheader()).toBeUndefined();
         });
 
         it('should have correct host attributes', async () => {
@@ -362,25 +360,6 @@ describe('Card', () => {
         beforeEach(() => {
             customFixture = TestBed.createComponent(TestCustomCardComponent);
             customComponent = customFixture.componentInstance;
-        });
-
-        it('should apply custom style class', async () => {
-            customComponent.styleClass = 'my-custom-class';
-            customFixture.changeDetectorRef.markForCheck();
-            await customFixture.whenStable();
-
-            const cardElement = customFixture.debugElement.query(By.directive(Card));
-            expect(cardElement.nativeElement.className).toContain('my-custom-class');
-        });
-
-        it('should apply multiple custom style classes', async () => {
-            customComponent.styleClass = 'class-one class-two';
-            customFixture.changeDetectorRef.markForCheck();
-            await customFixture.whenStable();
-
-            const cardElement = customFixture.debugElement.query(By.directive(Card));
-            expect(cardElement.nativeElement.className).toContain('class-one');
-            expect(cardElement.nativeElement.className).toContain('class-two');
         });
 
         it('should apply inline styles', async () => {
@@ -818,11 +797,11 @@ describe('Card', () => {
 
             const cardInstance = templateFixture.debugElement.query(By.directive(Card)).componentInstance;
 
-            expect(cardInstance._headerTemplate).toBeTruthy();
-            expect(cardInstance._titleTemplate).toBeTruthy();
-            expect(cardInstance._subtitleTemplate).toBeTruthy();
-            expect(cardInstance._contentTemplate).toBeTruthy();
-            expect(cardInstance._footerTemplate).toBeTruthy();
+            expect(cardInstance.headerTemplate()).toBeTruthy();
+            expect(cardInstance.titleTemplate()).toBeTruthy();
+            expect(cardInstance.subtitleTemplate()).toBeTruthy();
+            expect(cardInstance.contentTemplate()).toBeTruthy();
+            expect(cardInstance.footerTemplate()).toBeTruthy();
         });
 
         it('should handle templates with ngAfterContentInit lifecycle', async () => {
@@ -854,7 +833,6 @@ describe('Card', () => {
             expect(cardElement.nativeElement.getAttribute('data-pc-name')).toBe('card');
 
             customComponent.header = 'Changed Header';
-            customComponent.styleClass = 'changed-class';
             customFixture.changeDetectorRef.markForCheck();
             await customFixture.whenStable();
 
@@ -869,7 +847,6 @@ describe('Card', () => {
 
             customComponent.header = undefined as any;
             customComponent.subheader = undefined as any;
-            customComponent.styleClass = undefined as any;
             customComponent.style = undefined as any;
 
             await expect(async () => {
@@ -888,23 +865,19 @@ describe('Card', () => {
 
             customComponent.header = 'Header 1';
             customComponent.subheader = 'Subheader 1';
-            customComponent.styleClass = 'class-1';
             customFixture.changeDetectorRef.markForCheck();
             await customFixture.whenStable();
 
             customComponent.header = 'Header 2';
             customComponent.subheader = 'Subheader 2';
-            customComponent.styleClass = 'class-2';
             customFixture.changeDetectorRef.markForCheck();
             await customFixture.whenStable();
 
             const titleElement = customFixture.debugElement.query(By.css('.p-card-title'));
             const subtitleElement = customFixture.debugElement.query(By.css('.p-card-subtitle'));
-            const cardElement = customFixture.debugElement.query(By.directive(Card));
 
             expect(titleElement.nativeElement.textContent.trim()).toBe('Header 2');
             expect(subtitleElement.nativeElement.textContent.trim()).toBe('Subheader 2');
-            expect(cardElement.nativeElement.className).toContain('class-2');
         });
 
         it('should handle empty string values', async () => {
@@ -1278,7 +1251,7 @@ describe('Card', () => {
                     standalone: false,
                     template: `
                         <p-card [pt]="pt">
-                            <ng-template pTemplate="footer">
+                            <ng-template #footer>
                                 <div>Footer Content</div>
                             </ng-template>
                         </p-card>
@@ -1308,7 +1281,7 @@ describe('Card', () => {
                     standalone: false,
                     template: `
                         <p-card [pt]="pt">
-                            <ng-template pTemplate="header">
+                            <ng-template #header>
                                 <div>Header Content</div>
                             </ng-template>
                         </p-card>
@@ -1535,11 +1508,11 @@ describe('Card', () => {
                     standalone: false,
                     template: `
                         <p-card [pt]="pt" [header]="'Test Header'" [subheader]="'Test Subheader'">
-                            <ng-template pTemplate="header">
+                            <ng-template #header>
                                 <div>Header Content</div>
                             </ng-template>
                             <div>Content</div>
-                            <ng-template pTemplate="footer">
+                            <ng-template #footer>
                                 <div>Footer Content</div>
                             </ng-template>
                         </p-card>

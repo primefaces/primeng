@@ -167,7 +167,7 @@ describe('DynamicDialog', () => {
         });
 
         it('should have default values', () => {
-            expect(component.visible).toBe(true);
+            expect(component.visible()).toBe(true);
             expect(component.maximized).toBeUndefined();
             expect(component.dragging).toBeUndefined();
             expect(component.resizing).toBeUndefined();
@@ -186,7 +186,7 @@ describe('DynamicDialog', () => {
 
         it('should create aria-labelledby when header is present', async () => {
             mockConfig.showHeader = true;
-            component.visible = true;
+            component.visible.set(true);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             component.ngAfterViewInit();
@@ -198,7 +198,7 @@ describe('DynamicDialog', () => {
         it('should not create aria-labelledby when header is null', async () => {
             mockConfig.header = null as any;
             mockConfig.showHeader = false;
-            component.visible = true;
+            component.visible.set(true);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             component.ngAfterViewInit();
@@ -207,7 +207,7 @@ describe('DynamicDialog', () => {
 
         it('should not create aria-labelledby when showHeader is false', async () => {
             mockConfig.showHeader = false;
-            component.visible = true;
+            component.visible.set(true);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             component.ngAfterViewInit();
@@ -227,13 +227,13 @@ describe('DynamicDialog', () => {
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = TestDialogContentComponent;
-            component.visible = true; // Make dialog visible so template renders
+            component.visible.set(true); // Make dialog visible so template renders
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
         });
 
         it('should be visible by default', () => {
-            expect(component.visible).toBe(true);
+            expect(component.visible()).toBe(true);
         });
 
         it('should hide dialog when close is called', () => {
@@ -243,7 +243,7 @@ describe('DynamicDialog', () => {
 
         it('should close dialog when close method is called', () => {
             component.close();
-            expect(component.visible).toBe(false);
+            expect(component.visible()).toBe(false);
         });
 
         it('should handle close button click', async () => {
@@ -251,24 +251,24 @@ describe('DynamicDialog', () => {
             // Test onDialogHide which gets called when dialog closes
 
             // Simulate the onHide event from Dialog
-            component.onDialogHide({});
+            component.onDialogHide();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             expect(mockDialogRef.destroy).toHaveBeenCalled();
         });
 
         it('should call close on dialogRef on close icon click', async () => {
-            component.visible = true;
+            component.visible.set(true);
             const closeButton = fixture.debugElement.query(By.css('.p-dialog-close-button'));
             closeButton.nativeElement.click();
             expect(mockDialogRef.close).toHaveBeenCalled();
-            expect(component.visible).toBe(false);
+            expect(component.visible()).toBe(false);
         });
 
         it('should call close on dialogRef on Escape key press', async () => {
             mockConfig.closeOnEscape = true;
             component.container = document.createElement('div');
-            component.visible = true;
+            component.visible.set(true);
 
             const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape', keyCode: 27 });
             component.bindDocumentEscapeListener();
@@ -279,249 +279,8 @@ describe('DynamicDialog', () => {
         });
     });
 
-    describe('Drag and Drop Functionality', () => {
-        let fixture: ComponentFixture<DynamicDialog>;
-        let component: DynamicDialog;
-
-        beforeEach(async () => {
-            mockConfig.draggable = true;
-            mockConfig.header = 'Draggable Dialog';
-            mockConfig.showHeader = true;
-
-            fixture = TestBed.createComponent(DynamicDialog);
-            component = fixture.componentInstance;
-            component.childComponentType = DraggableDialogComponent;
-
-            // Setup container with parent element for drag functionality
-            const parentElement = document.createElement('div');
-            const containerElement = document.createElement('div');
-            parentElement.appendChild(containerElement);
-            document.body.appendChild(parentElement); // Add to DOM so parentElement is accessible
-            component.container = containerElement;
-            component.visible = true;
-
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-        });
-
-        it('should initialize drag on header mousedown', () => {
-            const targetElement = document.createElement('div');
-            const parentElement = document.createElement('div');
-            parentElement.appendChild(targetElement);
-
-            const mouseEvent = new MouseEvent('mousedown');
-            Object.defineProperty(mouseEvent, 'target', { value: targetElement });
-            Object.defineProperty(mouseEvent, 'pageX', { value: 100 });
-            Object.defineProperty(mouseEvent, 'pageY', { value: 100 });
-
-            // Mock DomHandler.getOffset to avoid parentElement issues
-            spyOn(DomHandler, 'getOffset').and.returnValue({ left: 50, top: 50 });
-            spyOn(component, 'bindDocumentDragListener');
-            spyOn(component, 'bindDocumentDragEndListener');
-
-            component.initDrag(mouseEvent);
-
-            expect(component.dragging).toBe(true);
-            expect(component.lastPageX).toBe(100);
-            expect(component.lastPageY).toBe(100);
-            expect(mockDialogRef.dragStart).toHaveBeenCalledWith(mouseEvent);
-        });
-
-        it('should not initialize drag when clicking on header icons', () => {
-            const iconElement = document.createElement('i');
-            iconElement.className = 'p-dialog-header-icon';
-            const mouseEvent = new MouseEvent('mousedown');
-            Object.defineProperty(mouseEvent, 'pageX', { value: 100 });
-            Object.defineProperty(mouseEvent, 'pageY', { value: 100 });
-            Object.defineProperty(mouseEvent, 'target', { value: iconElement });
-
-            component.initDrag(mouseEvent);
-
-            expect(component.dragging).toBeUndefined();
-        });
-
-        it('should handle drag movement', () => {
-            component.dragging = true;
-            component.lastPageX = 100;
-            component.lastPageY = 100;
-            component.container = document.createElement('div');
-            component.container.style.position = 'absolute';
-
-            // Mock getBoundingClientRect
-            spyOn(component.container, 'getBoundingClientRect').and.returnValue({
-                left: 50,
-                top: 50,
-                width: 200,
-                height: 150,
-                right: 250,
-                bottom: 200
-            } as any);
-
-            const mouseEvent = new MouseEvent('mousemove');
-            Object.defineProperty(mouseEvent, 'pageX', { value: 150 });
-            Object.defineProperty(mouseEvent, 'pageY', { value: 120 });
-            component.onDrag(mouseEvent);
-
-            expect(component.lastPageX).toBe(150);
-            expect(component.lastPageY).toBe(120);
-        });
-
-        it('should handle drag with keepInViewport constraint', () => {
-            mockConfig.keepInViewport = true;
-            component.dragging = true;
-            component.lastPageX = 100;
-            component.lastPageY = 100;
-            component.container = document.createElement('div');
-
-            spyOn(component.container, 'getBoundingClientRect').and.returnValue({
-                left: 50,
-                top: 50,
-                width: 200,
-                height: 150,
-                right: 250,
-                bottom: 200
-            } as any);
-
-            const mouseEvent = new MouseEvent('mousemove');
-            Object.defineProperty(mouseEvent, 'pageX', { value: 150 });
-            Object.defineProperty(mouseEvent, 'pageY', { value: 120 });
-            component.onDrag(mouseEvent);
-
-            expect(component.container.style.position).toBe('fixed');
-        });
-
-        it('should end drag properly', () => {
-            component.dragging = true;
-            const mouseEvent = new MouseEvent('mouseup');
-
-            spyOn(component.cd, 'detectChanges');
-
-            component.endDrag(mouseEvent);
-
-            expect(component.dragging).toBe(false);
-            expect(mockDialogRef.dragEnd).toHaveBeenCalledWith(mouseEvent);
-            expect(component.cd.detectChanges).toHaveBeenCalled();
-        });
-
-        it('should reset position correctly', () => {
-            component.container = document.createElement('div');
-            component.container.style.position = 'absolute';
-            component.container.style.left = '100px';
-            component.container.style.top = '50px';
-            component.container.style.margin = '10px';
-
-            component.resetPosition();
-
-            expect(component.container.style.position).toBe('' as any);
-            expect(component.container.style.left).toBe('' as any);
-            expect(component.container.style.top).toBe('' as any);
-            expect(component.container.style.margin).toBe('' as any);
-        });
-
-        afterEach(() => {
-            // Cleanup DOM elements
-            const containers = document.body.querySelectorAll('div');
-            containers.forEach((container) => {
-                if (container.parentElement === document.body) {
-                    document.body.removeChild(container);
-                }
-            });
-        });
-    });
-
-    describe('Resize Functionality', () => {
-        let fixture: ComponentFixture<DynamicDialog>;
-        let component: DynamicDialog;
-
-        beforeEach(async () => {
-            mockConfig.resizable = true;
-            mockConfig.header = 'Resizable Dialog';
-
-            fixture = TestBed.createComponent(DynamicDialog);
-            component = fixture.componentInstance;
-            component.childComponentType = ResizableDialogComponent;
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-        });
-
-        it('should initialize resize on handle mousedown', () => {
-            const mouseEvent = new MouseEvent('mousedown');
-            Object.defineProperty(mouseEvent, 'pageX', { value: 100 });
-            Object.defineProperty(mouseEvent, 'pageY', { value: 100 });
-
-            spyOn(component, 'bindDocumentResizeListeners');
-
-            component.initResize(mouseEvent);
-
-            expect(component.resizing).toBe(true);
-            expect(component.lastPageX).toBe(100);
-            expect(component.lastPageY).toBe(100);
-            expect(mockDialogRef.resizeInit).toHaveBeenCalledWith(mouseEvent);
-        });
-
-        it('should handle resize movement', () => {
-            component.resizing = true;
-            component.lastPageX = 100;
-            component.lastPageY = 100;
-            component.container = document.createElement('div');
-            component.contentViewChild = { nativeElement: document.createElement('div') } as any;
-
-            // Mock element dimensions
-            spyOn(component.container, 'getBoundingClientRect').and.returnValue({
-                left: 50,
-                top: 50,
-                width: 200,
-                height: 150,
-                right: 250,
-                bottom: 200
-            } as any);
-
-            const mouseEvent = new MouseEvent('mousemove');
-            Object.defineProperty(mouseEvent, 'pageX', { value: 150 });
-            Object.defineProperty(mouseEvent, 'pageY', { value: 130 });
-            component.onResize(mouseEvent);
-
-            expect(component.lastPageX).toBe(150);
-            expect(component.lastPageY).toBe(130);
-        });
-
-        it('should respect minimum dimensions during resize', () => {
-            component.resizing = true;
-            component.lastPageX = 100;
-            component.lastPageY = 100;
-            component.container = document.createElement('div');
-            component.container.style.minWidth = '300px';
-            component.container.style.minHeight = '200px';
-            component.contentViewChild = { nativeElement: document.createElement('div') } as any;
-
-            spyOn(component.container, 'getBoundingClientRect').and.returnValue({
-                left: 50,
-                top: 50,
-                width: 280,
-                height: 180,
-                right: 330,
-                bottom: 230
-            } as any);
-
-            const mouseEvent = new MouseEvent('mousemove');
-            Object.defineProperty(mouseEvent, 'pageX', { value: 90 });
-            Object.defineProperty(mouseEvent, 'pageY', { value: 90 });
-            component.onResize(mouseEvent);
-
-            // Should not resize below minimum dimensions
-            expect(component._style.width).toBeUndefined();
-        });
-
-        it('should end resize properly', () => {
-            component.resizing = true;
-            const mouseEvent = new MouseEvent('mouseup');
-
-            component.resizeEnd(mouseEvent);
-
-            expect(component.resizing).toBe(false);
-            expect(mockDialogRef.resizeEnd).toHaveBeenCalledWith(mouseEvent);
-        });
-    });
+    // Note: Drag and Resize functionality is now handled by the underlying p-dialog component
+    // These tests have been removed as they tested internal implementation details that no longer exist
 
     describe('Maximize and Minimize', () => {
         let fixture: ComponentFixture<DynamicDialog>;
@@ -535,7 +294,7 @@ describe('DynamicDialog', () => {
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = MaximizableDialogComponent;
-            component.visible = true; // Make dialog visible so template renders
+            component.visible.set(true); // Make dialog visible so template renders
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
         });
@@ -727,7 +486,7 @@ describe('DynamicDialog', () => {
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = TestDialogContentComponent;
-            component.visible = true; // Make dialog visible
+            component.visible.set(true); // Make dialog visible
         });
 
         it('should load child component correctly', () => {
@@ -739,9 +498,9 @@ describe('DynamicDialog', () => {
                 })
             };
 
-            component.insertionPoint = {
+            (component.insertionPoint as any) = () => ({
                 viewContainerRef: mockViewContainer as any
-            } as any;
+            });
 
             component.loadChildComponent(TestDialogContentComponent);
 
@@ -840,173 +599,6 @@ describe('DynamicDialog', () => {
         });
     });
 
-    describe('Cleanup and Memory Leak Prevention', () => {
-        let fixture: ComponentFixture<DynamicDialog>;
-        let component: DynamicDialog;
-
-        beforeEach(async () => {
-            mockConfig.header = 'Test Dialog';
-
-            fixture = TestBed.createComponent(DynamicDialog);
-            component = fixture.componentInstance;
-            component.childComponentType = TestDialogContentComponent;
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-        });
-
-        it('should cleanup all listeners on destroy', () => {
-            spyOn(component, 'onContainerDestroy');
-            spyOn(component, 'destroyStyle');
-
-            // Simulate component ref
-            component.componentRef = {
-                destroy: jasmine.createSpy('destroy')
-            } as any;
-
-            component.ngOnDestroy();
-
-            expect(component.onContainerDestroy).toHaveBeenCalled();
-            expect(component.componentRef!.destroy).toHaveBeenCalled();
-            expect(component.destroyStyle).toHaveBeenCalled();
-        });
-
-        it('should unbind all global listeners', () => {
-            spyOn(component, 'unbindDocumentEscapeListener');
-            spyOn(component, 'unbindDocumentResizeListeners');
-            spyOn(component, 'unbindDocumentDragListener');
-            spyOn(component, 'unbindDocumentDragEndListener');
-
-            component.unbindGlobalListeners();
-
-            expect(component.unbindDocumentEscapeListener).toHaveBeenCalled();
-            expect(component.unbindDocumentResizeListeners).toHaveBeenCalled();
-            expect(component.unbindDocumentDragListener).toHaveBeenCalled();
-            expect(component.unbindDocumentDragEndListener).toHaveBeenCalled();
-        });
-
-        it('should clear z-index utilities on container destroy', () => {
-            component.container = document.createElement('div');
-            mockConfig.autoZIndex = true;
-            mockConfig.modal = true; // Enable modal so disableModality gets called
-
-            spyOn(component, 'unbindGlobalListeners');
-            spyOn(component, 'disableModality');
-
-            component.onContainerDestroy();
-
-            expect(component.unbindGlobalListeners).toHaveBeenCalled();
-            expect(component.disableModality).toHaveBeenCalled();
-            expect(component.container).toBeNull();
-        });
-
-        it('should destroy style element on destroy', () => {
-            component.styleElement = document.createElement('style');
-            document.head.appendChild(component.styleElement);
-
-            spyOn(component.renderer, 'removeChild');
-            const styleElement = component.styleElement;
-
-            component.destroyStyle();
-
-            expect(component.renderer.removeChild).toHaveBeenCalledWith(document.head, styleElement);
-            expect(component.styleElement).toBeNull();
-        });
-
-        it('should unbind mask click listener', () => {
-            const mockListener = jasmine.createSpy('mockListener');
-            component.maskClickListener = mockListener;
-
-            component.unbindMaskClickListener();
-
-            expect(mockListener).toHaveBeenCalled();
-            expect(component.maskClickListener).toBeNull();
-        });
-
-        it('should unbind document listeners correctly', () => {
-            const mockResizeListener = jasmine.createSpy('mockResizeListener');
-            const mockResizeEndListener = jasmine.createSpy('mockResizeEndListener');
-
-            component.documentResizeListener = mockResizeListener;
-            component.documentResizeEndListener = mockResizeEndListener;
-
-            component.unbindDocumentResizeListeners();
-
-            expect(mockResizeListener).toHaveBeenCalled();
-            expect(mockResizeEndListener).toHaveBeenCalled();
-            expect(component.documentResizeListener).toBeNull();
-            expect(component.documentResizeEndListener).toBeNull();
-        });
-
-        it('should unbind drag listeners correctly', () => {
-            // Set up actual listeners first
-            const mockDragListener = jasmine.createSpy('dragListener');
-            const mockDragEndListener = jasmine.createSpy('dragEndListener');
-
-            component.documentDragListener = mockDragListener;
-            component.documentDragEndListener = mockDragEndListener;
-
-            expect(component.documentDragListener).not.toBeNull();
-            expect(component.documentDragEndListener).not.toBeNull();
-
-            component.unbindDocumentDragListener();
-            component.unbindDocumentDragEndListener();
-
-            // Check that listeners were called (they are removal functions)
-            expect(mockDragListener).toHaveBeenCalled();
-            expect(mockDragEndListener).toHaveBeenCalled();
-
-            // Check that references were nullified
-            expect(component.documentDragListener).toBeNull();
-            expect(component.documentDragEndListener).toBeNull();
-        });
-    });
-
-    describe('Breakpoints and Responsive Design', () => {
-        let fixture: ComponentFixture<DynamicDialog>;
-        let component: DynamicDialog;
-
-        beforeEach(async () => {
-            mockConfig.breakpoints = {
-                '960px': '75vw',
-                '640px': '90vw'
-            };
-
-            fixture = TestBed.createComponent(DynamicDialog);
-            component = fixture.componentInstance;
-            component.childComponentType = TestDialogContentComponent; // Set child component
-
-            // Mock platform to be browser for createStyle to work
-            Object.defineProperty(component, 'platformId', { value: 'browser' });
-
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-        });
-
-        it('should create style element for breakpoints', () => {
-            // Reset styleElement so createStyle can run again
-            component.styleElement = null as any;
-
-            spyOn(component.renderer, 'createElement').and.returnValue(document.createElement('style'));
-            spyOn(component.renderer, 'appendChild');
-            spyOn(component.renderer, 'setProperty');
-
-            // Call createStyle directly
-            component.createStyle();
-
-            expect(component.renderer.createElement).toHaveBeenCalledWith('style');
-            expect(component.renderer.appendChild).toHaveBeenCalled();
-            expect(component.renderer.setProperty).toHaveBeenCalled();
-        });
-
-        it('should generate correct CSS for breakpoints', () => {
-            // Reset styleElement so createStyle can run again
-            component.styleElement = null as any;
-
-            // Call createStyle directly
-            component.createStyle();
-
-            expect(component.styleElement).toBeTruthy();
-            expect(component.styleElement.type).toBe('text/css');
-        });
-    });
+    // Note: Cleanup, breakpoint and responsive design functionality is now handled by the underlying p-dialog component
+    // These tests have been removed as they tested internal implementation details that no longer exist
 });

@@ -10,7 +10,7 @@ import { Tooltip } from './tooltip';
     template: `
         <input
             #inputElement
-            pTooltip="Default tooltip text"
+            [pTooltip]="tooltipLabel"
             [tooltipPosition]="tooltipPosition"
             [tooltipEvent]="tooltipEvent"
             [positionStyle]="positionStyle"
@@ -35,6 +35,7 @@ import { Tooltip } from './tooltip';
 class TestBasicTooltipComponent {
     @ViewChild('inputElement', { read: ElementRef }) inputElement!: ElementRef;
 
+    tooltipLabel: string = 'Default tooltip text';
     tooltipPosition: 'right' | 'left' | 'top' | 'bottom' = 'right';
     tooltipEvent: 'hover' | 'focus' | 'both' = 'hover';
     positionStyle: string | undefined;
@@ -118,14 +119,14 @@ describe('Tooltip', () => {
         });
 
         it('should have default values', () => {
-            expect(tooltipDirective.tooltipPosition).toBe('right');
-            expect(tooltipDirective.tooltipEvent).toBe('hover');
-            expect(tooltipDirective.escape).toBe(true);
-            expect(tooltipDirective.autoHide).toBe(true);
-            expect(tooltipDirective.fitContent).toBe(true);
-            expect(tooltipDirective.hideOnEscape).toBe(true);
-            expect(tooltipDirective.content).toBe('Default tooltip text');
-            expect(tooltipDirective.disabled).toBeFalsy();
+            expect(tooltipDirective.getOption('tooltipPosition')).toBe('right');
+            expect(tooltipDirective.getOption('tooltipEvent')).toBe('hover');
+            expect(tooltipDirective.escape()).toBe(true);
+            expect(tooltipDirective.autoHide()).toBe(true);
+            expect(tooltipDirective.fitContent()).toBe(true);
+            expect(tooltipDirective.hideOnEscape()).toBe(true);
+            expect(tooltipDirective.content()).toBe('Default tooltip text');
+            expect(tooltipDirective.tooltipDisabled()).toBeFalsy();
         });
 
         it('should accept custom values', async () => {
@@ -141,14 +142,14 @@ describe('Tooltip', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tooltipDirective.tooltipPosition).toBe('top');
-            expect(tooltipDirective.tooltipEvent).toBe('focus');
-            expect(tooltipDirective.escape).toBe(false);
-            expect(tooltipDirective.showDelay).toBe(500);
-            expect(tooltipDirective.hideDelay).toBe(300);
-            expect(tooltipDirective.life).toBe(2000);
-            expect(tooltipDirective.autoHide).toBe(false);
-            expect(tooltipDirective.tooltipStyleClass).toBe('custom-tooltip');
+            expect(tooltipDirective.tooltipPosition()).toBe('top');
+            expect(tooltipDirective.tooltipEvent()).toBe('focus');
+            expect(tooltipDirective.escape()).toBe(false);
+            expect(tooltipDirective.showDelay()).toBe(500);
+            expect(tooltipDirective.hideDelay()).toBe(300);
+            expect(tooltipDirective.life()).toBe(2000);
+            expect(tooltipDirective.autoHide()).toBe(false);
+            expect(tooltipDirective.tooltipStyleClass()).toBe('custom-tooltip');
         });
 
         it('should disable tooltip when disabled is true', async () => {
@@ -157,7 +158,7 @@ describe('Tooltip', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tooltipDirective.disabled).toBe(true);
+            expect(tooltipDirective.tooltipDisabled()).toBe(true);
         });
     });
 
@@ -208,7 +209,7 @@ describe('Tooltip', () => {
         });
 
         it('should not show tooltip when content is empty', async () => {
-            tooltipDirective.setOption({ tooltipLabel: '' });
+            component.tooltipLabel = '';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -292,9 +293,12 @@ describe('Tooltip', () => {
             tooltipDirective = debugElement.injector.get(Tooltip);
         });
 
-        it('should get option values correctly', () => {
-            tooltipDirective.setOption({ tooltipPosition: 'top' });
-            tooltipDirective.setOption({ showDelay: 500 });
+        it('should get option values correctly', async () => {
+            component.tooltipPosition = 'top';
+            component.showDelay = 500;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             expect(tooltipDirective.getOption('tooltipPosition')).toBe('top');
             expect(tooltipDirective.getOption('showDelay')).toBe(500);
@@ -306,7 +310,7 @@ describe('Tooltip', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tooltipDirective.tooltipPosition).toBe('left');
+            expect(tooltipDirective.tooltipPosition()).toBe('left');
         });
 
         it('should handle out of bounds check', () => {
@@ -343,7 +347,7 @@ describe('Tooltip', () => {
         });
 
         it('should show tooltip after show delay', async () => {
-            tooltipDirective.setOption({ showDelay: 500 });
+            component.showDelay = 500;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -361,7 +365,7 @@ describe('Tooltip', () => {
         });
 
         it('should hide tooltip after hide delay', async () => {
-            tooltipDirective.setOption({ hideDelay: 300 });
+            component.hideDelay = 300;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -407,7 +411,7 @@ describe('Tooltip', () => {
 
         it('should handle escape key when hideOnEscape is true', async () => {
             spyOn(tooltipDirective, 'deactivate');
-            tooltipDirective.setOption({ hideOnEscape: true });
+            component.hideOnEscape = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -451,13 +455,13 @@ describe('Tooltip', () => {
         });
 
         it('should handle autoHide option correctly', async () => {
-            tooltipDirective.setOption({ autoHide: false });
+            component.autoHide = false;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(tooltipDirective.isAutoHide()).toBe(false);
 
-            tooltipDirective.setOption({ autoHide: true });
+            component.autoHide = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -466,14 +470,14 @@ describe('Tooltip', () => {
 
         it('should update text content correctly', async () => {
             tooltipDirective.tooltipText = document.createElement('div');
-            tooltipDirective.setOption({ escape: true });
+            component.escape = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
             spyOn(document, 'createTextNode').and.callThrough();
 
-            tooltipDirective.setOption({ tooltipLabel: 'Test content' });
+            component.tooltipLabel = 'Test content';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -485,8 +489,8 @@ describe('Tooltip', () => {
 
         it('should handle HTML content when escape is false', async () => {
             tooltipDirective.tooltipText = document.createElement('div');
-            tooltipDirective.setOption({ escape: false });
-            tooltipDirective.setOption({ tooltipLabel: '<strong>Bold</strong>' });
+            component.escape = false;
+            component.tooltipLabel = '<strong>Bold</strong>';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -512,7 +516,7 @@ describe('Tooltip', () => {
         });
 
         it('should handle template content', () => {
-            expect(tooltipDirective.content).toEqual(component.tooltipTemplate);
+            expect(tooltipDirective.content()).toEqual(component.tooltipTemplate);
         });
     });
 
@@ -632,15 +636,15 @@ describe('Tooltip', () => {
         });
 
         it('should handle options updates correctly', async () => {
-            const initialOptions = { ...tooltipDirective._tooltipOptions };
+            const initialLabel = tooltipDirective.getOption('tooltipLabel');
 
-            tooltipDirective.setOption({ tooltipLabel: 'New label' });
+            component.tooltipLabel = 'New label';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
             expect(tooltipDirective.getOption('tooltipLabel')).toBe('New label');
-            expect(tooltipDirective._tooltipOptions).not.toEqual(initialOptions);
+            expect(tooltipDirective.getOption('tooltipLabel')).not.toEqual(initialLabel);
         });
     });
 

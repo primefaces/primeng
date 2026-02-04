@@ -7,17 +7,7 @@ import { Accordion, AccordionContent, AccordionHeader, AccordionPanel, Accordion
     standalone: true,
     imports: [Accordion, AccordionPanel, AccordionHeader, AccordionContent],
     template: `
-        <p-accordion
-            [(value)]="value"
-            [multiple]="multiple"
-            [selectOnFocus]="selectOnFocus"
-            [expandIcon]="expandIcon"
-            [collapseIcon]="collapseIcon"
-            [transitionOptions]="transitionOptions"
-            [styleClass]="styleClass"
-            (onOpen)="onOpen($event)"
-            (onClose)="onClose($event)"
-        >
+        <p-accordion [(value)]="value" [multiple]="multiple" [selectOnFocus]="selectOnFocus" [expandIcon]="expandIcon" [collapseIcon]="collapseIcon" [motionOptions]="motionOptions" (onOpen)="onOpen($event)" (onClose)="onClose($event)">
             <p-accordion-panel [value]="'tab1'" [disabled]="tab1Disabled">
                 <p-accordion-header>
                     <span class="header-text">Tab 1 Header</span>
@@ -53,8 +43,7 @@ class TestAccordionComponent {
     selectOnFocus = false;
     expandIcon?: string;
     collapseIcon?: string;
-    transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-    styleClass?: string;
+    motionOptions?: any;
     tab1Disabled = false;
     tab2Disabled = false;
     tab3Disabled = false;
@@ -164,9 +153,8 @@ describe('Accordion', () => {
             expect(accordion.value()).toBeUndefined();
             expect(accordion.multiple()).toBe(false);
             expect(accordion.selectOnFocus()).toBe(false);
-            expect(accordion.transitionOptions).toBe('400ms cubic-bezier(0.86, 0, 0.07, 1)');
-            expect(accordion.expandIcon).toBeUndefined();
-            expect(accordion.collapseIcon).toBeUndefined();
+            expect(accordion.expandIcon()).toBeUndefined();
+            expect(accordion.collapseIcon()).toBeUndefined();
         });
 
         it('should accept custom values', async () => {
@@ -175,18 +163,14 @@ describe('Accordion', () => {
             component.selectOnFocus = true;
             component.expandIcon = 'pi pi-plus';
             component.collapseIcon = 'pi pi-minus';
-            component.transitionOptions = '200ms ease-in';
-            component.styleClass = 'custom-accordion';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
             expect(accordion.value()).toBe('tab1');
             expect(accordion.multiple()).toBe(true);
             expect(accordion.selectOnFocus()).toBe(true);
-            expect(accordion.expandIcon).toBe('pi pi-plus');
-            expect(accordion.collapseIcon).toBe('pi pi-minus');
-            expect(accordion.transitionOptions).toBe('200ms ease-in');
-            expect(accordion.styleClass).toBe('custom-accordion');
+            expect(accordion.expandIcon()).toBe('pi pi-plus');
+            expect(accordion.collapseIcon()).toBe('pi pi-minus');
         });
 
         it('should render all accordion panels', () => {
@@ -612,8 +596,8 @@ describe('Accordion', () => {
     });
 
     describe('Animation', () => {
-        it('should apply transition options', async () => {
-            component.transitionOptions = '300ms ease-out';
+        it('should apply motion options', async () => {
+            component.motionOptions = { duration: 300 };
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
@@ -647,8 +631,8 @@ describe('Accordion', () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
 
             // Check that custom expand icon is referenced (not necessarily displayed)
-            expect(accordion.expandIcon).toBe('pi pi-plus');
-            expect(accordion.collapseIcon).toBe('pi pi-minus');
+            expect(accordion.expandIcon()).toBe('pi pi-plus');
+            expect(accordion.collapseIcon()).toBe('pi pi-minus');
 
             headers[0].nativeElement.click();
             await fixture.whenStable();
@@ -857,13 +841,9 @@ describe('Accordion', () => {
     });
 
     describe('CSS Classes and Styling', () => {
-        it('should apply custom style class', async () => {
-            component.styleClass = 'custom-accordion';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
+        it('should have default CSS classes', async () => {
             const accordionElement = accordionEl.nativeElement;
-            expect(accordionElement.className).toContain('custom-accordion');
+            expect(accordionElement.className).toContain('p-accordion');
         });
 
         it('should apply correct data attributes', () => {

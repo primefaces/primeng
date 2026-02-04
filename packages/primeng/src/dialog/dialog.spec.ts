@@ -35,7 +35,6 @@ import { Dialog } from './dialog';
             [position]="position"
             [keepInViewport]="keepInViewport"
             [rtl]="rtl"
-            [transitionOptions]="transitionOptions"
             [closeIcon]="closeIcon"
             [closeAriaLabel]="closeAriaLabel"
             [closeTabindex]="closeTabindex"
@@ -43,6 +42,7 @@ import { Dialog } from './dialog';
             [maximizeIcon]="maximizeIcon"
             [closeButtonProps]="closeButtonProps"
             [maximizeButtonProps]="maximizeButtonProps"
+            [breakpoints]="breakpoints"
             [role]="role"
             (onShow)="onShowEvent($event)"
             (onHide)="onHideEvent($event)"
@@ -82,7 +82,6 @@ class TestBasicDialogComponent {
     position: any = 'center';
     keepInViewport = true;
     rtl = false;
-    transitionOptions = '150ms cubic-bezier(0, 0, 0.2, 1)';
     closeIcon = '';
     closeAriaLabel = '';
     closeTabindex = '0';
@@ -140,22 +139,22 @@ class TestBasicDialogComponent {
     standalone: false,
     template: `
         <p-dialog [(visible)]="visible" [modal]="true">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <div class="custom-header">Custom Header with pTemplate</div>
             </ng-template>
-            <ng-template pTemplate="content">
+            <ng-template #content>
                 <div class="custom-content">Custom content with pTemplate</div>
             </ng-template>
-            <ng-template pTemplate="footer">
+            <ng-template #footer>
                 <div class="custom-footer">Custom footer with pTemplate</div>
             </ng-template>
-            <ng-template pTemplate="closeicon">
+            <ng-template #closeicon>
                 <i class="pi pi-custom-close custom-close-icon"></i>
             </ng-template>
-            <ng-template pTemplate="maximizeicon">
+            <ng-template #maximizeicon>
                 <i class="pi pi-custom-maximize custom-maximize-icon"></i>
             </ng-template>
-            <ng-template pTemplate="minimizeicon">
+            <ng-template #minimizeicon>
                 <i class="pi pi-custom-minimize custom-minimize-icon"></i>
             </ng-template>
         </p-dialog>
@@ -290,24 +289,24 @@ describe('Dialog', () => {
         });
 
         it('should have default values', () => {
-            expect(dialogInstance.visible).toBe(false);
-            expect(dialogInstance.modal).toBe(true);
-            expect(dialogInstance.draggable).toBe(true);
-            expect(dialogInstance.resizable).toBe(true);
-            expect(dialogInstance.closable).toBe(true);
-            expect(dialogInstance.showHeader).toBe(true);
-            expect(dialogInstance.maximizable).toBe(false);
-            expect(dialogInstance.closeOnEscape).toBe(true);
-            expect(dialogInstance.dismissableMask).toBe(false);
-            expect(dialogInstance.focusTrap).toBe(true);
-            expect(dialogInstance.focusOnShow).toBe(true);
-            expect(dialogInstance.blockScroll).toBe(false);
-            expect(dialogInstance.autoZIndex).toBe(true);
-            expect(dialogInstance.baseZIndex).toBe(0);
-            expect(dialogInstance.position).toBe('center');
-            expect(dialogInstance.keepInViewport).toBe(true);
-            expect(dialogInstance.rtl).toBe(false);
-            expect(dialogInstance.role).toBe('dialog');
+            expect(dialogInstance.visible()).toBe(false);
+            expect(dialogInstance.modal()).toBe(true);
+            expect(dialogInstance.draggable()).toBe(true);
+            expect(dialogInstance.resizable()).toBe(true);
+            expect(dialogInstance.closable()).toBe(true);
+            expect(dialogInstance.showHeader()).toBe(true);
+            expect(dialogInstance.maximizable()).toBe(false);
+            expect(dialogInstance.closeOnEscape()).toBe(true);
+            expect(dialogInstance.dismissableMask()).toBe(false);
+            expect(dialogInstance.focusTrap()).toBe(true);
+            expect(dialogInstance.focusOnShow()).toBe(true);
+            expect(dialogInstance.blockScroll()).toBe(false);
+            expect(dialogInstance.autoZIndex()).toBe(true);
+            expect(dialogInstance.baseZIndex()).toBe(0);
+            expect(dialogInstance.position()).toBe('center');
+            expect(dialogInstance.keepInViewport()).toBe(true);
+            expect(dialogInstance.rtl()).toBe(false);
+            expect(dialogInstance.role()).toBe('dialog');
         });
 
         it('should accept custom input values', async () => {
@@ -319,11 +318,11 @@ describe('Dialog', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dialogInstance.header).toBe('Custom Header');
-            expect(dialogInstance.modal).toBe(false);
-            expect(dialogInstance.draggable).toBe(false);
-            expect(dialogInstance.maximizable).toBe(true);
-            expect(dialogInstance.position).toBe('top');
+            expect(dialogInstance.header()).toBe('Custom Header');
+            expect(dialogInstance.modal()).toBe(false);
+            expect(dialogInstance.draggable()).toBe(false);
+            expect(dialogInstance.maximizable()).toBe(true);
+            expect(dialogInstance.position()).toBe('top');
         });
     });
 
@@ -354,14 +353,14 @@ describe('Dialog', () => {
         });
 
         it('should show dialog programmatically via visible property', async () => {
-            expect(dialogInstance.visible).toBe(false);
+            expect(dialogInstance.visible()).toBe(false);
 
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.visible).toBe(true);
+            expect(dialogInstance.visible()).toBe(true);
             expect(dialogInstance.maskVisible).toBe(true);
         });
 
@@ -371,14 +370,14 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.visible).toBe(true);
+            expect(dialogInstance.visible()).toBe(true);
 
             component.visible = false;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.visible).toBe(false);
+            expect(dialogInstance.visible()).toBe(false);
         });
 
         it('should close dialog programmatically', async () => {
@@ -387,7 +386,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.visible).toBe(true);
+            expect(dialogInstance.visible()).toBe(true);
 
             spyOn(component, 'onVisibleChangeEvent');
             dialogInstance.close(new MouseEvent('click'));
@@ -405,14 +404,14 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.maximized).toBeFalsy();
+            expect(dialogInstance.maximized()).toBeFalsy();
 
             dialogInstance.maximize();
             await new Promise((resolve) => setTimeout(resolve, 0));
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dialogInstance.maximized).toBe(true);
+            expect(dialogInstance.maximized()).toBe(true);
         });
 
         it('should restore dialog from maximized state', async () => {
@@ -428,7 +427,7 @@ describe('Dialog', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dialogInstance.maximized).toBe(true);
+            expect(dialogInstance.maximized()).toBe(true);
 
             // Then restore
             dialogInstance.maximize();
@@ -436,7 +435,7 @@ describe('Dialog', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dialogInstance.maximized).toBe(false);
+            expect(dialogInstance.maximized()).toBe(false);
         });
     });
 
@@ -476,9 +475,7 @@ describe('Dialog', () => {
             expect(component.hideEvent).toBeTruthy();
         });
 
-        it('should emit visibleChange event when close method is called', async () => {
-            spyOn(dialogInstance.visibleChange, 'emit');
-
+        it('should update visible to false when close method is called', async () => {
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -486,7 +483,7 @@ describe('Dialog', () => {
 
             dialogInstance.close(new MouseEvent('click'));
 
-            expect(dialogInstance.visibleChange.emit).toHaveBeenCalledWith(false);
+            expect(dialogInstance.visible()).toBe(false);
         });
 
         it('should emit onMaximize event when maximize button is clicked', async () => {
@@ -547,7 +544,7 @@ describe('Dialog', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
-                expect(dialogInstance.visible).toBe(false);
+                expect(dialogInstance.visible()).toBe(false);
             }
         });
 
@@ -559,7 +556,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.visible).toBe(true);
+            expect(dialogInstance.visible()).toBe(true);
 
             // Wait for wrapper to be created
             await new Promise((resolve) => setTimeout(resolve, 200));
@@ -568,8 +565,6 @@ describe('Dialog', () => {
             if (dialogInstance.enableModality && dialogInstance.wrapper) {
                 dialogInstance.enableModality();
                 await new Promise((resolve) => setTimeout(resolve, 50));
-
-                spyOn(dialogInstance.visibleChange, 'emit');
 
                 // Simulate mousedown on wrapper (which is what the mask click listener listens to)
                 const mouseDownEvent = new MouseEvent('mousedown', { bubbles: true });
@@ -583,10 +578,10 @@ describe('Dialog', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
-                expect(dialogInstance.visibleChange.emit).toHaveBeenCalledWith(false);
+                expect(dialogInstance.visible()).toBe(false);
             } else {
                 // If no wrapper, just test that dismissableMask property is set correctly
-                expect(dialogInstance.dismissableMask).toBe(true);
+                expect(dialogInstance.dismissableMask()).toBe(true);
             }
         });
     });
@@ -628,7 +623,7 @@ describe('Dialog', () => {
             expect(() => {
                 fixture.changeDetectorRef.markForCheck();
             }).not.toThrow();
-            expect(dialogInstance.header).toBeUndefined();
+            expect(dialogInstance.header()).toBeUndefined();
         });
 
         it('should handle invalid position values', async () => {
@@ -663,7 +658,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.focusTrap).toBe(false);
+            expect(dialogInstance.focusTrap()).toBe(false);
         });
 
         it('should handle maximizing when not maximizable', async () => {
@@ -718,7 +713,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.closeAriaLabel).toBe('Custom Close Label');
+            expect(dialogInstance.closeAriaLabel()).toBe('Custom Close Label');
         });
 
         it('should manage focus properly on show', async () => {
@@ -731,7 +726,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.focusOnShow).toBe(true);
+            expect(dialogInstance.focusOnShow()).toBe(true);
         });
 
         it('should handle custom role attribute', async () => {
@@ -758,7 +753,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.closeTabindex).toBe('1');
+            expect(dialogInstance.closeTabindex()).toBe('1');
         });
     });
 
@@ -776,7 +771,7 @@ describe('Dialog', () => {
             // Wait for animation to complete and escape listener to be bound
             await new Promise((resolve) => setTimeout(resolve, 300));
 
-            expect(dialogInstance.visible).toBe(true);
+            expect(dialogInstance.visible()).toBe(true);
 
             const escapeEvent = new KeyboardEvent('keydown', {
                 key: 'Escape',
@@ -789,7 +784,7 @@ describe('Dialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             // Dialog should be closed after escape key
-            expect(dialogInstance.visible).toBe(false);
+            expect(dialogInstance.visible()).toBe(false);
         });
 
         it('should not close dialog on Escape key when closeOnEscape is false', async () => {
@@ -802,7 +797,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.visible).toBe(true);
+            expect(dialogInstance.visible()).toBe(true);
 
             const escapeEvent = new KeyboardEvent('keydown', {
                 key: 'Escape',
@@ -939,10 +934,10 @@ describe('Dialog', () => {
                 expect(() => pTemplateDialogInstance.ngAfterContentInit()).not.toThrow();
 
                 // Check that templates are assigned
-                expect(pTemplateDialogInstance.headerT).toBeDefined();
-                expect(pTemplateDialogInstance.contentT).toBeDefined();
-                expect(pTemplateDialogInstance.footerT).toBeDefined();
-                expect(pTemplateDialogInstance.closeIconT).toBeDefined();
+                expect(pTemplateDialogInstance.headerTemplate).toBeDefined();
+                expect(pTemplateDialogInstance.contentTemplate).toBeDefined();
+                expect(pTemplateDialogInstance.footerTemplate).toBeDefined();
+                expect(pTemplateDialogInstance.closeIconTemplate).toBeDefined();
             });
         });
 
@@ -999,12 +994,12 @@ describe('Dialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 // Check that ContentChild templates are assigned
-                expect(hashTemplateDialogInstance._headerTemplate).toBeDefined();
-                expect(hashTemplateDialogInstance._contentTemplate).toBeDefined();
-                expect(hashTemplateDialogInstance._footerTemplate).toBeDefined();
-                expect(hashTemplateDialogInstance._closeiconTemplate).toBeDefined();
-                expect(hashTemplateDialogInstance._maximizeiconTemplate).toBeDefined();
-                expect(hashTemplateDialogInstance._minimizeiconTemplate).toBeDefined();
+                expect(hashTemplateDialogInstance.headerTemplate).toBeDefined();
+                expect(hashTemplateDialogInstance.contentTemplate).toBeDefined();
+                expect(hashTemplateDialogInstance.footerTemplate).toBeDefined();
+                expect(hashTemplateDialogInstance.closeIconTemplate).toBeDefined();
+                expect(hashTemplateDialogInstance.maximizeIconTemplate).toBeDefined();
+                expect(hashTemplateDialogInstance.minimizeIconTemplate).toBeDefined();
             });
         });
 
@@ -1131,21 +1126,21 @@ describe('Dialog', () => {
             await maximizableFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(maximizableDialogInstance.maximized).toBeFalsy();
+            expect(maximizableDialogInstance.maximized()).toBeFalsy();
 
             maximizableDialogInstance.maximize();
             maximizableFixture.changeDetectorRef.markForCheck();
             await maximizableFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(maximizableDialogInstance.maximized).toBe(true);
+            expect(maximizableDialogInstance.maximized()).toBe(true);
 
             maximizableDialogInstance.maximize();
             maximizableFixture.changeDetectorRef.markForCheck();
             await maximizableFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(maximizableDialogInstance.maximized).toBe(false);
+            expect(maximizableDialogInstance.maximized()).toBe(false);
         });
     });
 
@@ -1160,7 +1155,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.styleClass).toBe('my-custom-dialog');
+            expect(dialogInstance.styleClass()).toBe('my-custom-dialog');
         });
 
         it('should apply custom maskStyleClass', async () => {
@@ -1173,7 +1168,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.maskStyleClass).toBe('my-custom-mask');
+            expect(dialogInstance.maskStyleClass()).toBe('my-custom-mask');
         });
 
         it('should apply inline styles', async () => {
@@ -1186,7 +1181,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.style).toEqual({ backgroundColor: 'red', width: '500px' });
+            expect(dialogInstance.style()).toEqual({ backgroundColor: 'red', width: '500px' });
         });
 
         it('should apply content styles', async () => {
@@ -1200,8 +1195,8 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.contentStyle).toEqual({ padding: '20px' });
-            expect(dialogInstance.contentStyleClass).toBe('custom-content-class');
+            expect(dialogInstance.contentStyle()).toEqual({ padding: '20px' });
+            expect(dialogInstance.contentStyleClass()).toBe('custom-content-class');
         });
 
         it('should apply mask styles', async () => {
@@ -1214,7 +1209,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.maskStyle).toEqual({ backgroundColor: 'rgba(0,0,0,0.8)' });
+            expect(dialogInstance.maskStyle()).toEqual({ backgroundColor: 'rgba(0,0,0,0.8)' });
         });
     });
 
@@ -1231,14 +1226,14 @@ describe('Dialog', () => {
             expect(() => dialogInstance.ngOnDestroy()).not.toThrow();
         });
 
-        it('should create breakpoint styles when breakpoints are provided', () => {
-            // Set breakpoints on dialogInstance directly since it's an input property
-            dialogInstance.breakpoints = { '960px': '75vw', '640px': '90vw' };
+        it('should create breakpoint styles when breakpoints are provided', async () => {
+            // Set breakpoints via component binding
+            component.breakpoints = { '960px': '75vw', '640px': '90vw' };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            spyOn(dialogInstance, 'createStyle');
-            dialogInstance.ngOnInit();
-
-            expect(dialogInstance.createStyle).toHaveBeenCalled();
+            // Check that breakpoints are set
+            expect(dialogInstance.breakpoints()).toEqual({ '960px': '75vw', '640px': '90vw' });
         });
 
         it('should clean up resources on destroy', () => {

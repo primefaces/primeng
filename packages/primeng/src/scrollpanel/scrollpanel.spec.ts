@@ -7,7 +7,7 @@ import { ScrollPanel } from './scrollpanel';
 @Component({
     standalone: false,
     template: `
-        <p-scrollpanel [styleClass]="styleClass" [step]="step" style="width: 400px; height: 200px;">
+        <p-scrollpanel [step]="step" style="width: 400px; height: 200px;">
             <div class="content-div" style="width: 800px; height: 600px; padding: 20px;">
                 <h2>Scrollable Content</h2>
                 <p>This is content that will cause scrollbars to appear.</p>
@@ -17,7 +17,6 @@ import { ScrollPanel } from './scrollpanel';
     `
 })
 class TestScrollPanelComponent {
-    styleClass = 'custom-scrollpanel';
     step = 5;
     items = Array.from({ length: 20 }, (_, i) => i + 1);
 }
@@ -26,7 +25,7 @@ class TestScrollPanelComponent {
     standalone: false,
     template: `
         <p-scrollpanel style="width: 300px; height: 150px;">
-            <ng-template pTemplate="content">
+            <ng-template #content>
                 <div class="template-content" style="width: 600px; height: 400px;">
                     <h3>Template Content</h3>
                     <p>This content is rendered via template.</p>
@@ -106,10 +105,10 @@ describe('ScrollPanel', () => {
             const fixture = TestBed.createComponent(ScrollPanel);
             const scrollPanelInstance = fixture.componentInstance;
 
-            expect(scrollPanelInstance.step).toBe(5);
+            expect(scrollPanelInstance.step()).toBe(5);
             expect(scrollPanelInstance.initialized).toBe(false);
-            expect(scrollPanelInstance.lastScrollLeft).toBe(0);
-            expect(scrollPanelInstance.lastScrollTop).toBe(0);
+            expect(scrollPanelInstance.lastScrollLeft()).toBe(0);
+            expect(scrollPanelInstance.lastScrollTop()).toBe(0);
             expect(scrollPanelInstance.orientation).toBe('vertical');
         });
 
@@ -119,7 +118,7 @@ describe('ScrollPanel', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(scrollPanel.step).toBe(10);
+            expect(scrollPanel.step()).toBe(10);
         });
 
         it('should generate unique content ID', () => {
@@ -166,16 +165,6 @@ describe('ScrollPanel', () => {
     });
 
     describe('CSS Classes and Styling', () => {
-        it('should apply custom styleClass', async () => {
-            component.styleClass = 'my-custom-panel';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            const scrollPanelElement = fixture.debugElement.query(By.css('p-scrollpanel'));
-            expect(scrollPanelElement.nativeElement.className).toContain('my-custom-panel');
-        });
-
         it('should apply custom styles via template', () => {
             // ScrollPanel doesn't have style input, it uses template style binding
             const scrollPanelElement = fixture.debugElement.query(By.css('p-scrollpanel'));
@@ -238,58 +227,56 @@ describe('ScrollPanel', () => {
 
         it('should handle content scroll events', async () => {
             // Initialize with different values to trigger the update logic
-            scrollPanel.lastScrollLeft = 0;
-            scrollPanel.lastScrollTop = 0;
+            scrollPanel.lastScrollLeft.set(0);
+            scrollPanel.lastScrollTop.set(0);
 
             // First scroll event with scrollLeft change
-            const scrollEvent1 = {
-                target: {
-                    scrollLeft: 100,
-                    scrollTop: 0
-                }
-            };
+            const scrollEvent1 = new Event('scroll');
+            Object.defineProperty(scrollEvent1, 'target', {
+                value: { scrollLeft: 100, scrollTop: 0 }
+            });
             scrollPanel.onScroll(scrollEvent1);
-            expect(scrollPanel.lastScrollLeft).toBe(100);
+            expect(scrollPanel.lastScrollLeft()).toBe(100);
             expect(scrollPanel.orientation).toBe('horizontal');
 
             // Second scroll event with scrollTop change (scrollLeft unchanged)
-            const scrollEvent2 = {
-                target: {
-                    scrollLeft: 100,
-                    scrollTop: 150
-                }
-            };
+            const scrollEvent2 = new Event('scroll');
+            Object.defineProperty(scrollEvent2, 'target', {
+                value: { scrollLeft: 100, scrollTop: 150 }
+            });
             scrollPanel.onScroll(scrollEvent2);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
-            expect(scrollPanel.lastScrollLeft).toBe(100);
-            expect(scrollPanel.lastScrollTop).toBe(150);
+            expect(scrollPanel.lastScrollLeft()).toBe(100);
+            expect(scrollPanel.lastScrollTop()).toBe(150);
             expect(scrollPanel.orientation).toBe('vertical');
         });
 
         it('should update orientation based on scroll direction', () => {
-            const scrollEvent = {
-                target: {
-                    scrollLeft: 100,
-                    scrollTop: 0
-                }
-            };
+            const scrollEvent = new Event('scroll');
+            Object.defineProperty(scrollEvent, 'target', {
+                value: { scrollLeft: 100, scrollTop: 0 },
+                writable: true
+            });
 
             scrollPanel.onScroll(scrollEvent);
             expect(scrollPanel.orientation).toBe('horizontal');
 
-            scrollEvent.target.scrollLeft = 100;
-            scrollEvent.target.scrollTop = 50;
-            scrollPanel.onScroll(scrollEvent);
+            const scrollEvent2 = new Event('scroll');
+            Object.defineProperty(scrollEvent2, 'target', {
+                value: { scrollLeft: 100, scrollTop: 50 }
+            });
+            scrollPanel.onScroll(scrollEvent2);
             expect(scrollPanel.orientation).toBe('vertical');
         });
 
         it('should programmatically scroll to top position', async () => {
             // Mock scrollTop behavior since test environment doesn't scroll
-            if (scrollPanel.contentViewChild) {
-                Object.defineProperty(scrollPanel.contentViewChild.nativeElement, 'scrollHeight', { value: 600, writable: true });
-                Object.defineProperty(scrollPanel.contentViewChild.nativeElement, 'clientHeight', { value: 200, writable: true });
+            const contentView = scrollPanel.contentViewChild();
+            if (contentView) {
+                Object.defineProperty(contentView.nativeElement, 'scrollHeight', { value: 600, writable: true });
+                Object.defineProperty(contentView.nativeElement, 'clientHeight', { value: 200, writable: true });
             }
 
             scrollPanel.scrollTop(100);
@@ -297,7 +284,7 @@ describe('ScrollPanel', () => {
             await fixture.whenStable();
 
             // Verify the method was called correctly - scroll behavior might not work in test
-            expect(scrollPanel.contentViewChild).toBeTruthy();
+            expect(scrollPanel.contentViewChild()).toBeTruthy();
         });
 
         it('should constrain scroll position within bounds', async () => {
@@ -305,14 +292,14 @@ describe('ScrollPanel', () => {
             scrollPanel.scrollTop(-50);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
-            expect(scrollPanel.contentViewChild?.nativeElement.scrollTop).toBe(0);
+            expect(scrollPanel.contentViewChild()?.nativeElement.scrollTop).toBe(0);
 
             // Test excessive scroll position (should be limited to max scrollable height)
             scrollPanel.scrollTop(99999);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
-            const maxScrollTop = scrollPanel.contentViewChild!.nativeElement.scrollHeight - scrollPanel.contentViewChild!.nativeElement.clientHeight;
-            expect(scrollPanel.contentViewChild!.nativeElement.scrollTop).toBe(maxScrollTop);
+            const maxScrollTop = scrollPanel.contentViewChild()!.nativeElement.scrollHeight - scrollPanel.contentViewChild()!.nativeElement.clientHeight;
+            expect(scrollPanel.contentViewChild()!.nativeElement.scrollTop).toBe(maxScrollTop);
         });
     });
 
@@ -377,10 +364,14 @@ describe('ScrollPanel', () => {
             const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
             const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
-            scrollPanel.onFocus({ target: xBar.nativeElement });
+            const focusEvent1 = new FocusEvent('focus');
+            Object.defineProperty(focusEvent1, 'target', { value: xBar.nativeElement });
+            scrollPanel.onFocus(focusEvent1);
             expect(scrollPanel.orientation).toBe('horizontal');
 
-            scrollPanel.onFocus({ target: yBar.nativeElement });
+            const focusEvent2 = new FocusEvent('focus');
+            Object.defineProperty(focusEvent2, 'target', { value: yBar.nativeElement });
+            scrollPanel.onFocus(focusEvent2);
             expect(scrollPanel.orientation).toBe('vertical');
         });
 
@@ -465,7 +456,7 @@ describe('ScrollPanel', () => {
             const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
             const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
-            scrollPanel.onDocumentMouseUp(new MouseEvent('mouseup'));
+            scrollPanel.onDocumentMouseUp();
 
             expect(scrollPanel.isXBarClicked).toBe(false);
             expect(scrollPanel.isYBarClicked).toBe(false);
@@ -483,13 +474,10 @@ describe('ScrollPanel', () => {
 
             const templateScrollPanel = templateFixture.debugElement.query(By.directive(ScrollPanel)).componentInstance;
 
-            // Test that component handles pTemplate without errors
-            expect(() => templateScrollPanel.ngAfterContentInit()).not.toThrow();
+            // Test that contentTemplate signal is defined and returns template
+            expect(templateScrollPanel.contentTemplate()).toBeDefined();
 
-            // Test that templates property exists and is processed
-            expect(templateScrollPanel.templates).toBeDefined();
-
-            // Verify pTemplate content container is rendered
+            // Verify content container is rendered
             const content = templateFixture.debugElement.query(By.css('.p-scrollpanel-content'));
             expect(content).toBeTruthy();
         });
@@ -502,11 +490,8 @@ describe('ScrollPanel', () => {
 
             const contentScrollPanel = contentTemplateFixture.debugElement.query(By.directive(ScrollPanel)).componentInstance;
 
-            // Test that component handles #content template without errors
-            expect(() => contentScrollPanel.ngAfterContentInit()).not.toThrow();
-
-            // Test that contentTemplate property exists (might be undefined in test environment)
-            expect(contentScrollPanel.contentTemplate).toBeDefined();
+            // Test that contentTemplate signal is defined and returns template
+            expect(contentScrollPanel.contentTemplate()).toBeDefined();
 
             // Verify content container is rendered
             const content = contentTemplateFixture.debugElement.query(By.css('.p-scrollpanel-content'));
@@ -539,26 +524,25 @@ describe('ScrollPanel', () => {
         });
 
         it('should render different template types correctly', async () => {
-            // Test pTemplate rendering
+            // Test #content template rendering
             const pTemplateFixture = TestBed.createComponent(TestTemplateScrollPanelComponent);
             pTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await pTemplateFixture.whenStable();
 
             const pTemplateScrollPanel = pTemplateFixture.debugElement.query(By.directive(ScrollPanel)).componentInstance;
-            // Test that templates are defined and can be processed
-            expect(pTemplateScrollPanel.templates).toBeDefined();
-            expect(() => pTemplateScrollPanel.ngAfterContentInit()).not.toThrow();
+            // Test that contentTemplate signal returns template
+            expect(pTemplateScrollPanel.contentTemplate()).toBeDefined();
 
-            // Test #content template rendering
+            // Test another #content template rendering
             const contentTemplateFixture = TestBed.createComponent(TestContentTemplateScrollPanelComponent);
             contentTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await contentTemplateFixture.whenStable();
 
             const contentScrollPanel = contentTemplateFixture.debugElement.query(By.directive(ScrollPanel)).componentInstance;
-            // Test that contentTemplate is defined (even if undefined in test environment)
-            expect(contentScrollPanel.contentTemplate).toBeDefined();
+            // Test that contentTemplate signal returns template
+            expect(contentScrollPanel.contentTemplate()).toBeDefined();
         });
     });
 
@@ -606,8 +590,8 @@ describe('ScrollPanel', () => {
             const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
             const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
-            scrollPanel.lastScrollLeft = 50;
-            scrollPanel.lastScrollTop = 75;
+            scrollPanel.lastScrollLeft.set(50);
+            scrollPanel.lastScrollTop.set(75);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -636,36 +620,32 @@ describe('ScrollPanel', () => {
 
         it('should handle rapid scroll events', async () => {
             // Initialize with starting values
-            scrollPanel.lastScrollLeft = 0;
-            scrollPanel.lastScrollTop = 0;
+            scrollPanel.lastScrollLeft.set(0);
+            scrollPanel.lastScrollTop.set(0);
 
             // Due to if/else if logic, only one dimension updates per call
             // First, trigger horizontal scrolls
             for (let i = 1; i <= 10; i++) {
-                const scrollEvent = {
-                    target: {
-                        scrollLeft: i * 10,
-                        scrollTop: 0 // Keep scrollTop same to trigger horizontal updates
-                    }
-                };
+                const scrollEvent = new Event('scroll');
+                Object.defineProperty(scrollEvent, 'target', {
+                    value: { scrollLeft: i * 10, scrollTop: 0 }
+                });
                 scrollPanel.onScroll(scrollEvent);
             }
 
-            expect(scrollPanel.lastScrollLeft).toBe(100);
+            expect(scrollPanel.lastScrollLeft()).toBe(100);
             expect(scrollPanel.orientation).toBe('horizontal');
 
             // Then trigger vertical scrolls
             for (let i = 1; i <= 10; i++) {
-                const scrollEvent = {
-                    target: {
-                        scrollLeft: 100, // Keep scrollLeft same to trigger vertical updates
-                        scrollTop: i * 15
-                    }
-                };
+                const scrollEvent = new Event('scroll');
+                Object.defineProperty(scrollEvent, 'target', {
+                    value: { scrollLeft: 100, scrollTop: i * 15 }
+                });
                 scrollPanel.onScroll(scrollEvent);
             }
 
-            expect(scrollPanel.lastScrollTop).toBe(150);
+            expect(scrollPanel.lastScrollTop()).toBe(150);
             expect(scrollPanel.orientation).toBe('vertical');
 
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -677,19 +657,19 @@ describe('ScrollPanel', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(scrollPanel.step).toBe(0);
+            expect(scrollPanel.step()).toBe(0);
 
             component.step = 1000;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(scrollPanel.step).toBe(1000);
+            expect(scrollPanel.step()).toBe(1000);
 
             component.step = -5;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(scrollPanel.step).toBe(-5);
+            expect(scrollPanel.step()).toBe(-5);
         });
 
         it('should handle window resize during scrollbar operations', async () => {
@@ -790,7 +770,7 @@ describe('ScrollPanel', () => {
             expect(yBar.nativeElement.getAttribute('data-p-scrollpanel-grabbed')).toBe('true');
             expect(document.body.getAttribute('data-p-scrollpanel-grabbed')).toBe('true');
 
-            scrollPanel.onDocumentMouseUp(new MouseEvent('mouseup'));
+            scrollPanel.onDocumentMouseUp();
 
             expect(yBar.nativeElement.getAttribute('data-p-scrollpanel-grabbed')).toBe('false');
             expect(document.body.getAttribute('data-p-scrollpanel-grabbed')).toBe('false');
@@ -827,11 +807,12 @@ describe('ScrollPanel', () => {
 
         it('should handle zero dimensions gracefully', async () => {
             // Mock content with zero dimensions
-            if (scrollPanel.contentViewChild) {
-                Object.defineProperty(scrollPanel.contentViewChild.nativeElement, 'scrollWidth', { value: 0, writable: true });
-                Object.defineProperty(scrollPanel.contentViewChild.nativeElement, 'scrollHeight', { value: 0, writable: true });
-                Object.defineProperty(scrollPanel.contentViewChild.nativeElement, 'clientWidth', { value: 0, writable: true });
-                Object.defineProperty(scrollPanel.contentViewChild.nativeElement, 'clientHeight', { value: 0, writable: true });
+            const contentView = scrollPanel.contentViewChild();
+            if (contentView) {
+                Object.defineProperty(contentView.nativeElement, 'scrollWidth', { value: 0, writable: true });
+                Object.defineProperty(contentView.nativeElement, 'scrollHeight', { value: 0, writable: true });
+                Object.defineProperty(contentView.nativeElement, 'clientWidth', { value: 0, writable: true });
+                Object.defineProperty(contentView.nativeElement, 'clientHeight', { value: 0, writable: true });
             }
 
             await expect(async () => {

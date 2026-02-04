@@ -31,8 +31,6 @@ import { Popover } from './popover';
             [autoZIndex]="autoZIndex"
             [baseZIndex]="baseZIndex"
             [focusOnShow]="focusOnShow"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
             [ariaLabel]="ariaLabel"
             [ariaLabelledBy]="ariaLabelledBy"
             [ariaCloseLabel]="ariaCloseLabel"
@@ -54,8 +52,6 @@ class TestBasicPopoverComponent {
     autoZIndex = true;
     baseZIndex = 0;
     focusOnShow = true;
-    showTransitionOptions = '.12s cubic-bezier(0, 0, 0.2, 1)';
-    hideTransitionOptions = '.1s linear';
     ariaLabel: string | undefined;
     ariaLabelledBy: string | undefined;
     ariaCloseLabel: string | undefined;
@@ -96,7 +92,7 @@ class TestTemplatePopoverComponent {
     template: `
         <button #targetButton (click)="popover.toggle($event)">Toggle</button>
         <p-popover #popover>
-            <ng-template pTemplate="content" let-closeCallback="closeCallback">
+            <ng-template #content let-closeCallback="closeCallback">
                 <div class="ptemplate-content">
                     PTemplate content
                     <button class="close-button" (click)="closeCallback()">Close</button>
@@ -114,7 +110,7 @@ class TestPTemplatePopoverComponent {
     standalone: false,
     template: `
         <button #targetButton (click)="popover.toggle($event)">Toggle</button>
-        <p-popover #popover [focusOnShow]="true">
+        <p-popover #popover [focusOnShow]="true" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy">
             <input autofocus type="text" class="focus-input" />
             <button tabindex="0">Button</button>
             <div tabindex="0">Focusable div</div>
@@ -124,6 +120,8 @@ class TestPTemplatePopoverComponent {
 class TestKeyboardNavigationComponent {
     @ViewChild('popover') popover!: Popover;
     @ViewChild('targetButton', { read: ElementRef }) targetButton!: ElementRef;
+    ariaLabel: string | undefined;
+    ariaLabelledBy: string | undefined;
 }
 
 describe('Popover', () => {
@@ -160,16 +158,14 @@ describe('Popover', () => {
         });
 
         it('should have default values', () => {
-            expect(popoverInstance.dismissable).toBe(true);
+            expect(popoverInstance.dismissable()).toBe(true);
             // appendTo can be a function or string, check if it's truthy
-            expect(popoverInstance.appendTo).toBeTruthy();
-            expect(popoverInstance.autoZIndex).toBe(true);
-            expect(popoverInstance.baseZIndex).toBe(0);
-            expect(popoverInstance.focusOnShow).toBe(true);
-            expect(popoverInstance.showTransitionOptions).toBe('.12s cubic-bezier(0, 0, 0.2, 1)');
-            expect(popoverInstance.hideTransitionOptions).toBe('.1s linear');
-            expect(popoverInstance.overlayVisible).toBe(false);
-            expect(popoverInstance.render).toBe(false);
+            expect(popoverInstance.appendTo()).toBeTruthy();
+            expect(popoverInstance.autoZIndex()).toBe(true);
+            expect(popoverInstance.baseZIndex()).toBe(0);
+            expect(popoverInstance.focusOnShow()).toBe(true);
+            expect(popoverInstance.overlayVisible()).toBe(false);
+            expect(popoverInstance.render()).toBe(false);
         });
 
         it('should accept custom values', async () => {
@@ -182,12 +178,12 @@ describe('Popover', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(popoverInstance.dismissable).toBe(false);
-            expect(popoverInstance.baseZIndex).toBe(1000);
-            expect(popoverInstance.focusOnShow).toBe(false);
-            expect(popoverInstance.ariaLabel).toBe('Custom popover');
-            expect(popoverInstance.styleClass).toBe('custom-class');
-            expect(popoverInstance.style).toEqual({ width: '300px', height: '200px' });
+            expect(popoverInstance.dismissable()).toBe(false);
+            expect(popoverInstance.baseZIndex()).toBe(1000);
+            expect(popoverInstance.focusOnShow()).toBe(false);
+            expect(popoverInstance.ariaLabel()).toBe('Custom popover');
+            expect(popoverInstance.styleClass()).toBe('custom-class');
+            expect(popoverInstance.style()).toEqual({ width: '300px', height: '200px' });
         });
     });
 
@@ -211,8 +207,8 @@ describe('Popover', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
-            expect(popoverInstance.overlayVisible).toBe(true);
-            expect(popoverInstance.render).toBe(true);
+            expect(popoverInstance.overlayVisible()).toBe(true);
+            expect(popoverInstance.render()).toBe(true);
             expect(popoverInstance.target).toBe(target);
         });
 
@@ -226,24 +222,24 @@ describe('Popover', () => {
 
             popoverInstance.hide();
 
-            expect(popoverInstance.overlayVisible).toBe(false);
+            expect(popoverInstance.overlayVisible()).toBe(false);
         });
 
         it('should toggle popover visibility', async () => {
             const mockEvent = new MouseEvent('click');
             const target = component.targetButton.nativeElement;
 
-            expect(popoverInstance.overlayVisible).toBe(false);
+            expect(popoverInstance.overlayVisible()).toBe(false);
 
             popoverInstance.toggle(mockEvent, target);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
-            expect(popoverInstance.overlayVisible).toBe(true);
+            expect(popoverInstance.overlayVisible()).toBe(true);
 
             popoverInstance.toggle(mockEvent, target);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
-            expect(popoverInstance.overlayVisible).toBe(false);
+            expect(popoverInstance.overlayVisible()).toBe(false);
         });
 
         it('should prevent toggle when animation is in progress', async () => {
@@ -258,7 +254,7 @@ describe('Popover', () => {
             popoverInstance.toggle(mockEvent, target);
 
             // In zoneless mode, toggle works immediately
-            expect(popoverInstance.overlayVisible).toBe(false);
+            expect(popoverInstance.overlayVisible()).toBe(false);
         });
 
         it('should handle target change in toggle', async () => {
@@ -371,7 +367,7 @@ describe('Popover', () => {
                 const mockCloseEvent = new MouseEvent('click');
                 spyOn(mockCloseEvent, 'preventDefault');
                 popoverInstance.onCloseClick(mockCloseEvent);
-                expect(popoverInstance.overlayVisible).toBe(false);
+                expect(popoverInstance.overlayVisible()).toBe(false);
                 expect(mockCloseEvent.preventDefault).toHaveBeenCalled();
             });
         });
@@ -390,7 +386,7 @@ describe('Popover', () => {
 
             it('should process pTemplate content in ngAfterContentInit', () => {
                 popoverInstance.ngAfterContentInit();
-                expect(popoverInstance._contentTemplate).toBeTruthy();
+                expect(popoverInstance.contentTemplate()).toBeTruthy();
             });
 
             it('should render pTemplate content correctly', async () => {
@@ -428,8 +424,8 @@ describe('Popover', () => {
             const mockEvent = new MouseEvent('click');
             const target = component.targetButton.nativeElement;
 
-            popoverInstance.ariaLabel = 'Test popover';
-            popoverInstance.ariaLabelledBy = 'test-label';
+            component.ariaLabel = 'Test popover';
+            component.ariaLabelledBy = 'test-label';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
@@ -485,7 +481,7 @@ describe('Popover', () => {
             const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
             popoverInstance.onEscapeKeydown(escapeEvent);
 
-            expect(popoverInstance.overlayVisible).toBe(false);
+            expect(popoverInstance.overlayVisible()).toBe(false);
         });
     });
 
@@ -527,7 +523,7 @@ describe('Popover', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(popoverInstance.style).toEqual({ border: '2px solid red', padding: '10px' });
+            expect(popoverInstance.style()).toEqual({ border: '2px solid red', padding: '10px' });
 
             const mockEvent = new MouseEvent('click');
             const target = component.targetButton.nativeElement;
@@ -542,19 +538,20 @@ describe('Popover', () => {
             fixture.detectChanges();
 
             const popoverElement = fixture.debugElement.query(By.css('[role="dialog"]'));
-            if (popoverElement && popoverInstance.style) {
+            const styleValue = popoverInstance.style();
+            if (popoverElement && styleValue) {
                 // Simulate ngStyle behavior
-                Object.keys(popoverInstance.style).forEach((key) => {
-                    popoverElement.nativeElement.style[key] = popoverInstance.style![key];
+                Object.keys(styleValue).forEach((key) => {
+                    popoverElement.nativeElement.style[key] = (styleValue as any)[key];
                 });
 
                 expect(popoverElement.nativeElement.style.border).toBe('2px solid red');
                 expect(popoverElement.nativeElement.style.padding).toBe('10px');
             }
 
-            expect(popoverInstance.style).toBeTruthy();
-            expect(Object.keys(popoverInstance.style!)).toContain('border');
-            expect(Object.keys(popoverInstance.style!)).toContain('padding');
+            expect(styleValue).toBeTruthy();
+            expect(Object.keys(styleValue!)).toContain('border');
+            expect(Object.keys(styleValue!)).toContain('padding');
         });
     });
 
@@ -657,7 +654,7 @@ describe('Popover', () => {
             await fixture.whenStable();
 
             // In zoneless mode without animation events, just verify the show worked
-            expect(popoverInstance.overlayVisible).toBe(true);
+            expect(popoverInstance.overlayVisible()).toBe(true);
         });
 
         it('should unbind listeners on container destroy', () => {
@@ -681,7 +678,7 @@ describe('Popover', () => {
             await fixture.whenStable();
 
             popoverInstance.onWindowResize();
-            expect(popoverInstance.overlayVisible).toBe(false);
+            expect(popoverInstance.overlayVisible()).toBe(false);
         });
 
         it('should handle overlay clicks correctly', () => {
@@ -757,7 +754,6 @@ describe('Popover', () => {
             popoverInstance.overlaySubscription = mockSubscription as any;
 
             popoverInstance.container = document.createElement('div');
-            popoverInstance.autoZIndex = true;
 
             popoverInstance.ngOnDestroy();
 

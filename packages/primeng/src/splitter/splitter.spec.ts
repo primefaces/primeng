@@ -961,7 +961,7 @@ describe('Splitter', () => {
 
         xit('should use instance variables in PT functions', async () => {
             ptSplitter = ptFixture.debugElement.query(By.directive(Splitter)).componentInstance;
-            ptSplitter.layout = 'vertical';
+            ptFixture.componentRef.setInput('layout', 'vertical');
             ptSplitter.dragging = true;
 
             ptComponent.pt = {
