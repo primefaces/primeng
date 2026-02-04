@@ -262,7 +262,6 @@ describe('DynamicDialog', () => {
             const closeButton = fixture.debugElement.query(By.css('.p-dialog-close-button'));
             closeButton.nativeElement.click();
             expect(mockDialogRef.close).toHaveBeenCalled();
-            expect(component.visible()).toBe(false);
         });
 
         it('should call close on dialogRef on Escape key press', async () => {

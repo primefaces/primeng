@@ -53,6 +53,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
             <div
                 [class]="cn(cx('mask'), maskStyleClass())"
                 [style]="sx('mask')"
+                [ngStyle]="maskStyle()"
                 [pBind]="ptm('mask')"
                 [pMotion]="maskVisible"
                 [pMotionAppear]="true"
@@ -60,7 +61,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                 [pMotionLeaveActiveClass]="maskLeaveActiveClass()"
                 [pMotionOptions]="computedMaskMotionOptions()"
                 (pMotionOnAfterLeave)="onMaskAfterLeave()"
-                [attr.data-p-scrollblocker-active]="modal() || blockScroll()"
+                [attr.data-p-scrollblocker-active]="scrollBlockerActive()"
                 [attr.data-p]="dataP()"
             >
                 @if (renderDialog()) {
@@ -71,7 +72,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                         [ngStyle]="style()"
                         [pBind]="ptm('root')"
                         pFocusTrap
-                        [pFocusTrapDisabled]="focusTrap() === false"
+                        [pFocusTrapDisabled]="focusTrapDisabled()"
                         [pMotion]="visible()"
                         [pMotionAppear]="true"
                         [pMotionName]="'p-dialog'"
@@ -112,7 +113,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                                             >
                                                 <ng-template #icon>
                                                     @if (showToggleIcon()) {
-                                                        <span [ngClass]="toggleIcon()"></span>
+                                                        <span [class]="toggleIcon()"></span>
                                                     }
                                                     @if (showDefaultMaximizeIcon()) {
                                                         @if (showMaximizeSvg()) {
@@ -582,6 +583,10 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
     showMinimizeIconTemplate = computed(() => this.maximized() && !!this.minimizeIconTemplate());
 
     showDefaultCloseIcon = computed(() => !this.closeIconTemplate() && !this.closeButtonProps()?.icon);
+
+    scrollBlockerActive = computed(() => this.modal() || this.blockScroll());
+
+    focusTrapDisabled = computed(() => this.focusTrap() === false);
 
     zone: NgZone = inject(NgZone);
 
