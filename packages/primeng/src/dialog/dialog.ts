@@ -82,7 +82,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                         (pMotionOnBeforeLeave)="onBeforeLeave($event)"
                         (pMotionOnAfterLeave)="onAfterLeave($event)"
                         [attr.role]="role()"
-                        [attr.aria-labelledby]="ariaLabelledBy"
+                        [attr.aria-labelledby]="ariaLabelledBy()"
                         [attr.aria-modal]="true"
                         [attr.data-p]="dataP()"
                     >
@@ -95,9 +95,9 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                             @if (showHeader()) {
                                 <div #titlebar [class]="cx('header')" [pBind]="ptm('header')" (mousedown)="initDrag($event)">
                                     @if (!headerTemplate()) {
-                                        <span [id]="ariaLabelledBy" [class]="cx('title')" [pBind]="ptm('title')">{{ header() }}</span>
+                                        <span [id]="ariaLabelledBy()" [class]="cx('title')" [pBind]="ptm('title')">{{ header() }}</span>
                                     }
-                                    <ng-container *ngTemplateOutlet="headerTemplate(); context: { ariaLabelledBy: ariaLabelledBy }"></ng-container>
+                                    <ng-container *ngTemplateOutlet="headerTemplate(); context: { ariaLabelledBy: ariaLabelledBy() }"></ng-container>
                                     <div [class]="cx('headerActions')" [pBind]="ptm('headerActions')">
                                         @if (maximizable()) {
                                             <p-button
@@ -510,7 +510,9 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
 
     dragging: boolean | undefined;
 
-    ariaLabelledBy: string | null = this.getAriaLabelledBy();
+    ariaId = uuid('pn_id_') + '_header';
+
+    ariaLabelledBy = computed(() => (this.header() !== null ? this.ariaId : null));
 
     documentDragListener: VoidListener;
 
@@ -608,10 +610,6 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
         if (this.breakpoints()) {
             this.createStyle();
         }
-    }
-
-    getAriaLabelledBy() {
-        return this.header() !== null ? uuid('pn_id_') + '_header' : null;
     }
 
     _focus(focusParentElement?: HTMLElement): boolean {
