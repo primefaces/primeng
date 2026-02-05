@@ -1,5 +1,6 @@
-import { ElementRef, inject, Injectable, PLATFORM_ID, signal, TemplateRef } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { FilterMatchMode, OverlayOptions, Translation } from 'primeng/api';
+import type { AppendTo } from 'primeng/types/shared';
 import { Subject } from 'rxjs';
 import type { PrimeNGConfigType, ThemeConfigType, ZIndex } from './primeng.types';
 import { ThemeProvider } from './themeprovider';
@@ -16,7 +17,7 @@ export class PrimeNG extends ThemeProvider {
 
     inputVariant = signal<'outlined' | 'filled' | null>(null);
 
-    overlayAppendTo = signal<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('self');
+    overlayAppendTo = signal<AppendTo>('self');
 
     overlayOptions: OverlayOptions = {};
 

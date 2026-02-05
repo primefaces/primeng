@@ -1,5 +1,5 @@
-import type { ElementRef, TemplateRef } from '@angular/core';
 import type { OverlayOptions, PassThroughOptions, Translation } from 'primeng/api';
+import type { AppendTo } from 'primeng/types/shared';
 import type { AccordionPassThrough } from 'primeng/types/accordion';
 import type { AutoCompletePassThrough } from 'primeng/types/autocomplete';
 import type { AvatarPassThrough } from 'primeng/types/avatar';
@@ -189,7 +189,7 @@ export interface GlobalPassThrough {
 
 export type PrimeNGConfigType = {
     ripple?: boolean;
-    overlayAppendTo?: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    overlayAppendTo?: AppendTo;
     /**
      * @deprecated Since v20. Use `inputVariant` instead.
      */
