@@ -1,4 +1,4 @@
-import { isPlatformBrowser, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -47,13 +47,12 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
 @Component({
     selector: 'p-dialog',
     standalone: true,
-    imports: [NgStyle, NgTemplateOutlet, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule, Bind, MotionModule],
+    imports: [NgTemplateOutlet, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule, Bind, MotionModule],
     template: `
         @if (renderMask()) {
             <div
                 [class]="cn(cx('mask'), maskStyleClass())"
                 [style]="sx('mask')"
-                [ngStyle]="maskStyle()"
                 [pBind]="ptm('mask')"
                 [pMotion]="maskVisible"
                 [pMotionAppear]="true"
@@ -69,7 +68,6 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                         #container
                         [class]="cn(cx('root'), styleClass())"
                         [style]="sx('root')"
-                        [ngStyle]="style()"
                         [pBind]="ptm('root')"
                         pFocusTrap
                         [pFocusTrapDisabled]="focusTrapDisabled()"
@@ -161,7 +159,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                                     </div>
                                 </div>
                             }
-                            <div #content [class]="cn(cx('content'), contentStyleClass())" [ngStyle]="contentStyle()" [pBind]="ptm('content')">
+                            <div #content [class]="cn(cx('content'), contentStyleClass())" [style]="contentStyle()" [pBind]="ptm('content')">
                                 <ng-content></ng-content>
                                 @if (contentTemplate()) {
                                     <ng-container *ngTemplateOutlet="contentTemplate()"></ng-container>

@@ -1,4 +1,4 @@
-import { DOCUMENT, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { DOCUMENT, NgTemplateOutlet } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -48,7 +48,7 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
 @Component({
     selector: 'p-confirmpopup',
     standalone: true,
-    imports: [NgStyle, NgTemplateOutlet, SharedModule, ButtonModule, FocusTrap, Bind, MotionModule],
+    imports: [NgTemplateOutlet, SharedModule, ButtonModule, FocusTrap, Bind, MotionModule],
     providers: [ConfirmPopupStyle, { provide: CONFIRMPOPUP_INSTANCE, useExisting: ConfirmPopup }, { provide: PARENT_INSTANCE, useExisting: ConfirmPopup }],
     hostDirectives: [Bind],
     template: `
@@ -63,7 +63,7 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
                 pFocusTrap
                 [pBind]="ptm('root')"
                 [class]="cn(cx('root'), styleClass())"
-                [ngStyle]="style()"
+                [style]="style()"
                 role="alertdialog"
                 (click)="onOverlayClick($event)"
             >

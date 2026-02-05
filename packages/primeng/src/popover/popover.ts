@@ -1,4 +1,4 @@
-import { isPlatformBrowser, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -43,7 +43,7 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
 @Component({
     selector: 'p-popover',
     standalone: true,
-    imports: [NgStyle, NgTemplateOutlet, SharedModule, Bind, MotionModule],
+    imports: [NgTemplateOutlet, SharedModule, Bind, MotionModule],
     providers: [PopoverStyle, { provide: POPOVER_INSTANCE, useExisting: Popover }, { provide: PARENT_INSTANCE, useExisting: Popover }],
     hostDirectives: [Bind],
     template: `
@@ -52,7 +52,6 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
                 [pBind]="ptm('root')"
                 [class]="cn(cx('root'), styleClass())"
                 [style]="sx('root')"
-                [ngStyle]="style()"
                 (click)="onOverlayClick($event)"
                 role="dialog"
                 [attr.aria-modal]="overlayVisible()"

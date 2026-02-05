@@ -7,6 +7,7 @@ const inlineStyles = {
     mask: ({ instance }) => {
         const position = instance.position();
         const modal = instance.modal();
+        const maskStyle = instance.maskStyle();
 
         return {
             position: 'fixed',
@@ -17,13 +18,19 @@ const inlineStyles = {
             display: 'flex',
             justifyContent: position === 'left' || position === 'topleft' || position === 'bottomleft' ? 'flex-start' : position === 'right' || position === 'topright' || position === 'bottomright' ? 'flex-end' : 'center',
             alignItems: position === 'top' || position === 'topleft' || position === 'topright' ? 'flex-start' : position === 'bottom' || position === 'bottomleft' || position === 'bottomright' ? 'flex-end' : 'center',
-            pointerEvents: modal ? 'auto' : 'none'
+            pointerEvents: modal ? 'auto' : 'none',
+            ...maskStyle
         };
     },
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        pointerEvents: 'auto'
+    root: ({ instance }) => {
+        const style = instance.style();
+
+        return {
+            display: 'flex',
+            flexDirection: 'column',
+            pointerEvents: 'auto',
+            ...style
+        };
     }
 };
 
