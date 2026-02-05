@@ -7,7 +7,7 @@ const classes = {
         const toggleable = instance.toggleable();
         const collapsed = instance.collapsed();
         return [
-            'p-panel p-component',
+            'p-panel p-component block',
             {
                 'p-panel-toggleable': toggleable,
                 'p-panel-expanded': !collapsed && toggleable,

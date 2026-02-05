@@ -7,7 +7,17 @@ import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { MotionModule } from 'primeng/motion';
-import { StepItemPassThrough, StepListPassThrough, StepPanelPassThrough, StepPanelsPassThrough, StepPassThrough, StepperPassThrough, StepperSeparatorPassThrough } from 'primeng/types/stepper';
+import {
+    StepContentTemplateContext,
+    StepItemPassThrough,
+    StepListPassThrough,
+    StepPanelContentTemplateContext,
+    StepPanelPassThrough,
+    StepPanelsPassThrough,
+    StepPassThrough,
+    StepperPassThrough,
+    StepperSeparatorPassThrough
+} from 'primeng/types/stepper';
 import { transformToBoolean } from 'primeng/utils';
 import { StepItemStyle } from './style/stepitemstyle';
 import { StepListStyle } from './style/stepliststyle';
@@ -23,32 +33,6 @@ const STEP_INSTANCE = new InjectionToken<Step>('STEP_INSTANCE');
 const STEPPANEL_INSTANCE = new InjectionToken<StepPanel>('STEPPANEL_INSTANCE');
 const STEPPANELS_INSTANCE = new InjectionToken<StepPanels>('STEPPANELS_INSTANCE');
 const STEPPERSEPARATOR_INSTANCE = new InjectionToken<StepperSeparator>('STEPPERSEPARATOR_INSTANCE');
-
-/**
- * Context interface for the StepPanel content template.
- * @property {() => void} activateCallback - Callback function to activate a step.
- * @property {number} value - The value associated with the step.
- * @property {boolean} active - A flag indicating whether the step is active.
- * @group Interface
- */
-export interface StepContentTemplateContext {
-    activateCallback: () => void;
-    value: number;
-    active: boolean;
-}
-
-/**
- * Context interface for the StepPanel content template.
- * @property {(index: number) => void} activateCallback - Callback function to activate a step.
- * @property {number} value - The value associated with the step.
- * @property {boolean} active - A flag indicating whether the step is active.
- * @group Interface
- */
-export interface StepPanelContentTemplateContext {
-    activateCallback: (index: number) => void;
-    value: number;
-    active: boolean;
-}
 
 @Component({
     selector: 'p-step-list',
@@ -186,7 +170,7 @@ export class StepItem extends BaseComponent<StepItemPassThrough> {
                 <p-stepper-separator />
             }
         } @else {
-            <ng-container *ngTemplateOutlet="content(); context: { activateCallback: onStepClick.bind(this), value: value(), active: active() }"></ng-container>
+            <ng-container *ngTemplateOutlet="content(); context: contentContext()"></ng-container>
             @if (isSeparatorVisible()) {
                 <p-stepper-separator />
             }
@@ -261,6 +245,14 @@ export class Step extends BaseComponent<StepPassThrough> {
 
     _componentStyle = inject(StepStyle);
 
+    private onStepClickCallback = this.onStepClick.bind(this);
+
+    contentContext = computed<StepContentTemplateContext>(() => ({
+        activateCallback: this.onStepClickCallback,
+        value: this.value(),
+        active: this.active()
+    }));
+
     onStepClick() {
         this.pcStepper.updateValue(this.value());
     }
@@ -281,7 +273,7 @@ export class Step extends BaseComponent<StepPassThrough> {
                     <p-stepper-separator />
                 }
                 <div [class]="cx('content')" [pBind]="ptm('content')">
-                    <ng-container *ngTemplateOutlet="contentTemplate(); context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate(); context: contentContext()"></ng-container>
                 </div>
             </div>
         </p-motion>
@@ -353,6 +345,14 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
     contentTemplate = contentChild<TemplateRef<StepPanelContentTemplateContext>>('content');
 
     _componentStyle = inject(StepPanelStyle);
+
+    updateValueCallback = this.updateValue.bind(this);
+
+    contentContext = computed<StepPanelContentTemplateContext>(() => ({
+        activateCallback: this.updateValueCallback,
+        value: this.value(),
+        active: this.active()
+    }));
 
     updateValue(value: number) {
         this.pcStepper.updateValue(value);

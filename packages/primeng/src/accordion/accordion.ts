@@ -8,44 +8,10 @@ import { Bind, BindModule } from 'primeng/bind';
 import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
-import { AccordionContentPassThrough, AccordionHeaderPassThrough, AccordionPanelPassThrough, AccordionPassThrough, AccordionValue } from 'primeng/types/accordion';
+import { AccordionContentPassThrough, AccordionHeaderPassThrough, AccordionPanelPassThrough, AccordionPassThrough, AccordionTabCloseEvent, AccordionTabOpenEvent, AccordionToggleIconTemplateContext, AccordionValue } from 'primeng/types/accordion';
 import { transformToBoolean } from 'primeng/utils';
 import { AccordionStyle } from './style/accordionstyle';
 
-/**
- * Custom tab open event.
- * @see {@link onOpen}
- * @group Interface
- */
-export interface AccordionTabOpenEvent {
-    /**
-     * Browser event.
-     */
-    originalEvent: Event;
-    /**
-     * Opened tab index.
-     */
-    index: number;
-}
-
-/**
- * Custom tab close event.
- * @see {@link onClose}
- * @extends {AccordionTabOpenEvent}
- * @group Interface
- */
-export interface AccordionTabCloseEvent extends AccordionTabOpenEvent {}
-
-/**
- * Toggle icon template context.
- * @group Interface
- */
-export interface AccordionToggleIconTemplateContext {
-    /**
-     * Represents the active status of the panel.
-     */
-    active: boolean;
-}
 const ACCORDION_PANEL_INSTANCE = new InjectionToken<AccordionPanel>('ACCORDION_PANEL_INSTANCE');
 const ACCORDION_HEADER_INSTANCE = new InjectionToken<AccordionHeader>('ACCORDION_HEADER_INSTANCE');
 const ACCORDION_CONTENT_INSTANCE = new InjectionToken<AccordionContent>('ACCORDION_CONTENT_INSTANCE');
@@ -117,7 +83,7 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
     template: `
         <ng-content />
         @if (toggleicon()) {
-            <ng-container *ngTemplateOutlet="toggleicon(); context: { active: active() }"></ng-container>
+            <ng-container *ngTemplateOutlet="toggleicon(); context: toggleIconContext()"></ng-container>
         } @else {
             @if (active()) {
                 @if (pcAccordion.collapseIcon()) {
@@ -185,6 +151,8 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
      * @group Templates
      */
     toggleicon = contentChild<TemplateRef<AccordionToggleIconTemplateContext>>('toggleicon');
+
+    toggleIconContext = computed<AccordionToggleIconTemplateContext>(() => ({ active: this.active() }));
 
     @HostListener('click', ['$event']) onClick(event?: MouseEvent | KeyboardEvent) {
         if (this.disabled()) {

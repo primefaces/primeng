@@ -1,7 +1,8 @@
 import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Accordion, AccordionContent, AccordionHeader, AccordionPanel, AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion';
+import { Accordion, AccordionContent, AccordionHeader, AccordionPanel } from './accordion';
+import type { AccordionTabCloseEvent, AccordionTabOpenEvent } from 'primeng/types/accordion';
 
 @Component({
     standalone: true,

@@ -171,3 +171,29 @@ export interface StepPanelsPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type StepPanelsPassThrough<I = unknown> = PassThrough<I, StepPanelsPassThroughOptions<I>>;
+
+/**
+ * Context interface for the StepPanel content template.
+ * @property {() => void} activateCallback - Callback function to activate a step.
+ * @property {number} value - The value associated with the step.
+ * @property {boolean} active - A flag indicating whether the step is active.
+ * @group Interface
+ */
+export interface StepContentTemplateContext {
+    activateCallback: () => void;
+    value: number | undefined;
+    active: boolean;
+}
+
+/**
+ * Context interface for the StepPanel content template.
+ * @property {(index: number) => void} activateCallback - Callback function to activate a step.
+ * @property {number} value - The value associated with the step.
+ * @property {boolean} active - A flag indicating whether the step is active.
+ * @group Interface
+ */
+export interface StepPanelContentTemplateContext {
+    activateCallback: (index: number) => void;
+    value: number | undefined;
+    active: boolean;
+}

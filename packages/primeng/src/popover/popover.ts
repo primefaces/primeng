@@ -67,7 +67,7 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
                 <div [pBind]="ptm('content')" [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                     <ng-content></ng-content>
                     @if (contentTemplate()) {
-                        <ng-container *ngTemplateOutlet="contentTemplate(); context: { closeCallback: onCloseClick.bind(this) }"></ng-container>
+                        <ng-container *ngTemplateOutlet="contentTemplate(); context: contentTemplateContext()"></ng-container>
                     }
                 </div>
             </div>
@@ -188,6 +188,10 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      * @group Templates
      */
     contentTemplate = contentChild<TemplateRef<PopoverContentTemplateContext>>('content');
+
+    onCloseClickCallback = this.onCloseClick.bind(this);
+
+    contentTemplateContext = computed<PopoverContentTemplateContext>(() => ({ closeCallback: this.onCloseClickCallback }));
 
     destroyCallback: Nullable<Function>;
 

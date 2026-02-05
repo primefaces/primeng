@@ -82,6 +82,15 @@ export interface DialogPassThroughOptions<I = unknown> {
 export type DialogPassThrough<I = unknown> = PassThrough<I, DialogPassThroughOptions<I>>;
 
 /**
+ * Context interface for the Dialog header template.
+ * @property {string | null} ariaLabelledBy - The aria-labelledby attribute value.
+ * @group Interface
+ */
+export interface DialogHeaderTemplateContext {
+    ariaLabelledBy: string | null;
+}
+
+/**
  * Defines valid templates in Dialog.
  * @group Templates
  */

@@ -34,7 +34,7 @@ import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons
 import { MotionModule } from 'primeng/motion';
 import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { DialogPassThrough, DialogPosition } from 'primeng/types/dialog';
+import { DialogHeaderTemplateContext, DialogPassThrough, DialogPosition } from 'primeng/types/dialog';
 import { ZIndexUtils } from 'primeng/utils';
 import { DialogStyle } from './style/dialogstyle';
 
@@ -95,7 +95,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                                     @if (!headerTemplate()) {
                                         <span [id]="ariaLabelledBy()" [class]="cx('title')" [pBind]="ptm('title')">{{ header() }}</span>
                                     }
-                                    <ng-container *ngTemplateOutlet="headerTemplate(); context: { ariaLabelledBy: ariaLabelledBy() }"></ng-container>
+                                    <ng-container *ngTemplateOutlet="headerTemplate(); context: headerTemplateContext()"></ng-container>
                                     <div [class]="cx('headerActions')" [pBind]="ptm('headerActions')">
                                         @if (maximizable()) {
                                             <p-button
@@ -511,6 +511,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
     ariaId = uuid('pn_id_') + '_header';
 
     ariaLabelledBy = computed(() => (this.header() !== null ? this.ariaId : null));
+
+    headerTemplateContext = computed<DialogHeaderTemplateContext>(() => ({ ariaLabelledBy: this.ariaLabelledBy() }));
 
     documentDragListener: VoidListener;
 

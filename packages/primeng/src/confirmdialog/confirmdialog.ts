@@ -6,7 +6,6 @@ import {
     computed,
     contentChild,
     effect,
-    ElementRef,
     EventEmitter,
     inject,
     InjectionToken,
@@ -72,16 +71,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
         >
             @if (headlessTemplate()) {
                 <ng-template #headless>
-                    <ng-container
-                        *ngTemplateOutlet="
-                            headlessTemplate();
-                            context: {
-                                $implicit: confirmation,
-                                onAccept: onAccept.bind(this),
-                                onReject: onReject.bind(this)
-                            }
-                        "
-                    ></ng-container>
+                    <ng-container *ngTemplateOutlet="headlessTemplate(); context: headlessContext()"></ng-container>
                 </ng-template>
             } @else {
                 @if (headerTemplate()) {
@@ -99,7 +89,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                         }
                     }
                     @if (messageTemplate()) {
-                        <ng-container *ngTemplateOutlet="messageTemplate(); context: { $implicit: confirmation }"></ng-container>
+                        <ng-container *ngTemplateOutlet="messageTemplate(); context: messageContext()"></ng-container>
                     } @else {
                         <span [class]="cx('message')" [pBind]="ptm('message')" [innerHTML]="option('message')"> </span>
                     }
@@ -406,6 +396,18 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
      */
     headlessTemplate = contentChild<TemplateRef<ConfirmDialogHeadlessTemplateContext>>('headless');
 
+    private onAcceptCallback = this.onAccept.bind(this);
+
+    private onRejectCallback = this.onReject.bind(this);
+
+    headlessContext = computed<ConfirmDialogHeadlessTemplateContext>(() => ({
+        $implicit: this.confirmation(),
+        onAccept: this.onAcceptCallback,
+        onReject: this.onRejectCallback
+    }));
+
+    messageContext = computed<ConfirmDialogMessageTemplateContext>(() => ({ $implicit: this.confirmation() }));
+
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     computedMotionOptions = computed<MotionOptions>(() => {
@@ -434,7 +436,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
         return this.focusTarget === 'reject';
     }
 
-    confirmation: Nullable<Confirmation>;
+    confirmation = signal<Nullable<Confirmation>>(null);
 
     maskVisible = signal(false);
 
@@ -474,18 +476,18 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
                 return;
             }
             if (confirmation.key === this.key()) {
-                this.confirmation = confirmation;
+                this.confirmation.set(confirmation);
 
                 this.visible.set(true);
 
-                if (this.confirmation.accept) {
-                    this.confirmation.acceptEvent = new EventEmitter();
-                    this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
+                if (confirmation.accept) {
+                    confirmation.acceptEvent = new EventEmitter();
+                    confirmation.acceptEvent.subscribe(confirmation.accept);
                 }
 
-                if (this.confirmation.reject) {
-                    this.confirmation.rejectEvent = new EventEmitter();
-                    this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
+                if (confirmation.reject) {
+                    confirmation.rejectEvent = new EventEmitter();
+                    confirmation.rejectEvent.subscribe(confirmation.reject);
                 }
             }
         });
@@ -502,8 +504,9 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
     }
 
     option(name: string, k?: string) {
-        if (this.confirmation && this.confirmation.hasOwnProperty(name)) {
-            return k ? this.confirmation[k] : this.confirmation[name];
+        const confirmation = this.confirmation();
+        if (confirmation && confirmation.hasOwnProperty(name)) {
+            return k ? confirmation[k] : confirmation[name];
         }
 
         const source: { [key: string]: any } = this;
@@ -545,10 +548,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
     }
 
     close() {
-        if (this.confirmation?.rejectEvent) {
-            this.confirmation.rejectEvent.emit(ConfirmEventType.CANCEL);
-        }
-
+        this.confirmation()?.rejectEvent?.emit(ConfirmEventType.CANCEL);
         this.hide(ConfirmEventType.CANCEL);
     }
 
@@ -560,7 +560,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
     }
 
     onDialogHide() {
-        this.confirmation = null;
+        this.confirmation.set(null);
     }
 
     destroyStyle() {
@@ -591,25 +591,18 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
     }
 
     onAccept() {
-        if (this.confirmation && this.confirmation.acceptEvent) {
-            this.confirmation.acceptEvent.emit();
-        }
+        this.confirmation()?.acceptEvent?.emit();
         this.hide(ConfirmEventType.ACCEPT);
     }
 
     onReject() {
-        if (this.confirmation && this.confirmation.rejectEvent) {
-            this.confirmation.rejectEvent.emit(ConfirmEventType.REJECT);
-        }
-
+        this.confirmation()?.rejectEvent?.emit(ConfirmEventType.REJECT);
         this.hide(ConfirmEventType.REJECT);
     }
 
     unsubscribeConfirmationEvents() {
-        if (this.confirmation) {
-            this.confirmation.acceptEvent?.unsubscribe();
-            this.confirmation.rejectEvent?.unsubscribe();
-        }
+        this.confirmation()?.acceptEvent?.unsubscribe();
+        this.confirmation()?.rejectEvent?.unsubscribe();
     }
 
     get acceptButtonLabel(): string {

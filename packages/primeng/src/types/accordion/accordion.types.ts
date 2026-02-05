@@ -8,6 +8,41 @@ import type { PassThrough, PassThroughOption } from 'primeng/api';
 export type AccordionValue = string | number | (string | number)[] | null | undefined;
 
 /**
+ * Custom tab open event.
+ * @see {@link onOpen}
+ * @group Interface
+ */
+export interface AccordionTabOpenEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Opened tab index.
+     */
+    index: number;
+}
+
+/**
+ * Custom tab close event.
+ * @see {@link onClose}
+ * @extends {AccordionTabOpenEvent}
+ * @group Interface
+ */
+export interface AccordionTabCloseEvent extends AccordionTabOpenEvent {}
+
+/**
+ * Toggle icon template context.
+ * @group Interface
+ */
+export interface AccordionToggleIconTemplateContext {
+    /**
+     * Represents the active status of the panel.
+     */
+    active: boolean;
+}
+
+/**
  * Defines valid pass-through options in Accordion component.
  * @template I Type of instance.
  *

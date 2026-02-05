@@ -58,7 +58,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
                                         <svg data-p-icon="plus" [pBind]="ptm('pcToggleButton.icon')" />
                                     }
                                 }
-                                <ng-container *ngTemplateOutlet="headerIconsTemplate(); context: { $implicit: collapsed() }"></ng-container>
+                                <ng-container *ngTemplateOutlet="headerIconsTemplate(); context: headerIconsContext()"></ng-container>
                             </ng-template>
                         </p-button>
                     }
@@ -241,6 +241,8 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
     hasFooter = computed(() => !!(this.footerFacet() || this.footerTemplate()));
 
     contentTabindex = computed(() => (this.collapsed() ? '-1' : undefined));
+
+    headerIconsContext = computed<PanelHeaderIconsTemplateContext>(() => ({ $implicit: this.collapsed() }));
 
     isContentVisible = computed(() => !this.toggleable() || (this.toggleable() && !this.collapsed()));
 
