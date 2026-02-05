@@ -247,7 +247,7 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
     }
 
     get ariaLabel() {
-        return this.config?.getTranslation(TranslationKeys.ARIA)[TranslationKeys.SELECT_COLOR];
+        return this.translate(TranslationKeys.ARIA, TranslationKeys.SELECT_COLOR);
     }
 
     onHueMousedown(event: MouseEvent) {

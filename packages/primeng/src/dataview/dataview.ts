@@ -413,7 +413,7 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
     _componentStyle = inject(DataViewStyle);
 
     get emptyMessageLabel(): string {
-        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
+        return this.emptyMessage || this.translate(TranslationKeys.EMPTY_MESSAGE);
     }
 
     filterService = inject(FilterService);

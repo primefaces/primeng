@@ -523,4 +523,9 @@ export class BaseComponent<PT = any> implements Lifecycle {
 
         return undefined;
     }
+
+    public translate(key: string, subKey?: string) {
+        const value = this.config.getTranslation(key);
+        return subKey ? value?.[subKey] : value;
+    }
 }

@@ -765,7 +765,7 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
     }
 
     get listLabel(): string {
-        return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
+        return this.translate(TranslationKeys.ARIA, 'listLabel');
     }
 
     get focusedOptionId() {

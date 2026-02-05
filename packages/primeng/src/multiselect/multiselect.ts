@@ -1223,11 +1223,11 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     clickInProgress: boolean = false;
 
     get emptyMessageLabel(): string {
-        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
+        return this.emptyMessage || this.translate(TranslationKeys.EMPTY_MESSAGE);
     }
 
     get emptyFilterMessageLabel(): string {
-        return this.emptyFilterMessage || this.config.getTranslation(TranslationKeys.EMPTY_FILTER_MESSAGE);
+        return this.emptyFilterMessage || this.translate(TranslationKeys.EMPTY_FILTER_MESSAGE);
     }
 
     get isVisibleClearIcon(): boolean | undefined {
@@ -1239,7 +1239,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     get listLabel(): string {
-        return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
+        return this.translate(TranslationKeys.ARIA, 'listLabel');
     }
 
     private getAllVisibleAndNonVisibleOptions() {
@@ -1566,7 +1566,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     getSelectedItemsLabel() {
         let pattern = /{(.*?)}/;
-        let message = this.selectedItemsLabel ? this.selectedItemsLabel : this.config.getTranslation(TranslationKeys.SELECTION_MESSAGE);
+        let message = this.selectedItemsLabel ? this.selectedItemsLabel : this.translate(TranslationKeys.SELECTION_MESSAGE);
 
         if (pattern.test(message)) {
             return message.replace(message.match(pattern)[0], this.modelValue().length + '');

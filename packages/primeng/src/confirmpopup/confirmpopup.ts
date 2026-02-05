@@ -554,11 +554,11 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
     }
 
     get acceptButtonLabel(): string {
-        return this.confirmation?.acceptLabel || this.config.getTranslation(TranslationKeys.ACCEPT);
+        return this.confirmation?.acceptLabel || this.translate(TranslationKeys.ACCEPT);
     }
 
     get rejectButtonLabel(): string {
-        return this.confirmation?.rejectLabel || this.config.getTranslation(TranslationKeys.REJECT);
+        return this.confirmation?.rejectLabel || this.translate(TranslationKeys.REJECT);
     }
 
     get rejectVisible(): boolean {

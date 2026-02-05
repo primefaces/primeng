@@ -557,11 +557,11 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
     private zIndexForLayering?: number;
 
     get maximizeLabel(): string {
-        return this.config.getTranslation(TranslationKeys.ARIA)['maximizeLabel'];
+        return this.translate(TranslationKeys.ARIA, 'maximizeLabel');
     }
 
     get minimizeLabel(): string {
-        return this.config.getTranslation(TranslationKeys.ARIA)['minimizeLabel'];
+        return this.translate(TranslationKeys.ARIA, 'minimizeLabel');
     }
 
     maximizeButtonAriaLabel = computed(() => (this.maximized() ? this.minimizeLabel : this.maximizeLabel));

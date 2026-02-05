@@ -948,7 +948,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     }
 
     get listLabel(): string {
-        return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
+        return this.translate(TranslationKeys.ARIA, 'listLabel');
     }
 
     get virtualScrollerDisabled() {

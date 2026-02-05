@@ -105,7 +105,7 @@ export class FileContent extends BaseComponent {
     formatSize(bytes: number) {
         const k = 1024;
         const dm = 3;
-        const sizes = this.config.getTranslation(TranslationKeys.FILE_SIZE_TYPES);
+        const sizes = this.translate(TranslationKeys.FILE_SIZE_TYPES);
 
         if (bytes === 0) {
             return `0 ${sizes[0]}`;
@@ -805,18 +805,14 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
         else if (this.hasFiles()) {
             if (this.files && this.files.length === 1) return this.files[0].name;
 
-            return this.config.getTranslation('fileChosenMessage')?.replace('{0}', this.files.length);
+            return this.translate('fileChosenMessage')?.replace('{0}', this.files.length);
         }
 
-        return this.config.getTranslation('noFileChosenMessage') || '';
+        return this.translate('noFileChosenMessage') || '';
     }
 
     completedLabel() {
-        return this.config.getTranslation('completed') || '';
-    }
-
-    getTranslation(option: string) {
-        return this.config.getTranslation(option);
+        return this.translate('completed') || '';
     }
 
     choose() {
@@ -1174,7 +1170,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
     formatSize(bytes: number) {
         const k = 1024;
         const dm = 3;
-        const sizes = this.getTranslation(TranslationKeys.FILE_SIZE_TYPES);
+        const sizes = this.translate(TranslationKeys.FILE_SIZE_TYPES);
 
         if (bytes === 0) {
             return `0 ${sizes[0]}`;
@@ -1214,23 +1210,23 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
     }
 
     get chooseButtonLabel(): string {
-        return this.chooseLabel || this.config.getTranslation(TranslationKeys.CHOOSE);
+        return this.chooseLabel || this.translate(TranslationKeys.CHOOSE);
     }
 
     get uploadButtonLabel(): string {
-        return this.uploadLabel || this.config.getTranslation(TranslationKeys.UPLOAD);
+        return this.uploadLabel || this.translate(TranslationKeys.UPLOAD);
     }
 
     get cancelButtonLabel(): string {
-        return this.cancelLabel || this.config.getTranslation(TranslationKeys.CANCEL);
+        return this.cancelLabel || this.translate(TranslationKeys.CANCEL);
     }
 
     get browseFilesLabel(): string {
-        return this.config.getTranslation(TranslationKeys.ARIA)[TranslationKeys.BROWSE_FILES];
+        return this.translate(TranslationKeys.ARIA, TranslationKeys.BROWSE_FILES);
     }
 
     get pendingLabel() {
-        return this.config.getTranslation(TranslationKeys.PENDING);
+        return this.translate(TranslationKeys.PENDING);
     }
 
     onDestroy() {

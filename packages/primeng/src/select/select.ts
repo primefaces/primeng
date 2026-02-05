@@ -971,11 +971,11 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     clicked = signal<boolean>(false);
 
     get emptyMessageLabel(): string {
-        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
+        return this.emptyMessage || this.translate(TranslationKeys.EMPTY_MESSAGE);
     }
 
     get emptyFilterMessageLabel(): string {
-        return this.emptyFilterMessage || this.config.getTranslation(TranslationKeys.EMPTY_FILTER_MESSAGE);
+        return this.emptyFilterMessage || this.translate(TranslationKeys.EMPTY_FILTER_MESSAGE);
     }
 
     get isVisibleClearIcon(): boolean | undefined {
@@ -983,7 +983,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     get listLabel(): string {
-        return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
+        return this.translate(TranslationKeys.ARIA, 'listLabel');
     }
 
     get focusedOptionId() {

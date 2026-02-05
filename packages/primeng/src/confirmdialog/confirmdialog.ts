@@ -613,11 +613,11 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
     }
 
     get acceptButtonLabel(): string {
-        return this.option('acceptLabel') || this.getAcceptButtonProps()?.label || this.config.getTranslation(TranslationKeys.ACCEPT);
+        return this.option('acceptLabel') || this.getAcceptButtonProps()?.label || this.translate(TranslationKeys.ACCEPT);
     }
 
     get rejectButtonLabel(): string {
-        return this.option('rejectLabel') || this.getRejectButtonProps()?.label || this.config.getTranslation(TranslationKeys.REJECT);
+        return this.option('rejectLabel') || this.getRejectButtonProps()?.label || this.translate(TranslationKeys.REJECT);
     }
 
     getAcceptButtonProps() {

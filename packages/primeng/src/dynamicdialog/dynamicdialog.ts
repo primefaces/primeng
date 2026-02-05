@@ -230,7 +230,7 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
     }
 
     get defaultCloseAriaLabel(): string {
-        return this.config.getTranslation(TranslationKeys.ARIA)['close'];
+        return this.translate(TranslationKeys.ARIA, 'close');
     }
 
     get breakpoints() {

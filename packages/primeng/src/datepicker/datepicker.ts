@@ -154,7 +154,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 [attr.id]="panelId"
                 [ngStyle]="panelStyle"
                 [class]="cn(cx('panel'), panelStyleClass)"
-                [attr.aria-label]="getTranslation('chooseDate')"
+                [attr.aria-label]="translate('chooseDate')"
                 [attr.role]="inline ? null : 'dialog'"
                 [attr.aria-modal]="inline ? null : 'true'"
                 (click)="onOverlayClick($event)"
@@ -194,7 +194,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                         (keydown)="onContainerButtonKeydown($event)"
                                         [class]="cx('selectMonth')"
                                         [attr.disabled]="switchViewButtonDisabled() ? '' : undefined"
-                                        [attr.aria-label]="this.getTranslation('chooseMonth')"
+                                        [attr.aria-label]="this.translate('chooseMonth')"
                                         pRipple
                                         [pBind]="ptm('selectMonth')"
                                         [attr.data-pc-group-section]="'navigator'"
@@ -208,7 +208,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                         (keydown)="onContainerButtonKeydown($event)"
                                         [class]="cx('selectYear')"
                                         [attr.disabled]="switchViewButtonDisabled() ? '' : undefined"
-                                        [attr.aria-label]="getTranslation('chooseYear')"
+                                        [attr.aria-label]="translate('chooseYear')"
                                         pRipple
                                         [pBind]="ptm('selectYear')"
                                         [attr.data-pc-group-section]="'navigator'"
@@ -244,7 +244,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 <thead [pBind]="ptm('tableHeader')">
                                     <tr [pBind]="ptm('tableHeaderRow')">
                                         <th *ngIf="showWeek" [class]="cx('weekHeader')" [pBind]="ptm('weekHeader')">
-                                            <span [pBind]="ptm('weekHeaderLabel')">{{ getTranslation('weekHeader') }}</span>
+                                            <span [pBind]="ptm('weekHeaderLabel')">{{ translate('weekHeader') }}</span>
                                         </th>
                                         <th [class]="cx('weekDayCell')" scope="col" *ngFor="let weekDay of weekDays; let begin = first; let end = last" [pBind]="ptm('weekDayCell')">
                                             <span [class]="cx('weekDay')" [pBind]="ptm('weekDay')">{{ weekDay }}</span>
@@ -319,7 +319,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('nextHour')"
+                            [attr.aria-label]="translate('nextHour')"
                             [pt]="ptm('pcIncrementButton')"
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
@@ -342,7 +342,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('prevHour')"
+                            [attr.aria-label]="translate('prevHour')"
                             [pt]="ptm('pcDecrementButton')"
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
@@ -369,7 +369,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('nextMinute')"
+                            [attr.aria-label]="translate('nextMinute')"
                             [pt]="ptm('pcIncrementButton')"
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
@@ -392,7 +392,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('prevMinute')"
+                            [attr.aria-label]="translate('prevMinute')"
                             [pt]="ptm('pcDecrementButton')"
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
@@ -419,7 +419,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('nextSecond')"
+                            [attr.aria-label]="translate('nextSecond')"
                             [pt]="ptm('pcIncrementButton')"
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
@@ -442,7 +442,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('prevSecond')"
+                            [attr.aria-label]="translate('prevSecond')"
                             [pt]="ptm('pcDecrementButton')"
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
@@ -464,7 +464,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             (keydown)="onContainerButtonKeydown($event)"
                             (onClick)="toggleAMPM($event)"
                             (keydown.enter)="toggleAMPM($event)"
-                            [attr.aria-label]="getTranslation('am')"
+                            [attr.aria-label]="translate('am')"
                             [pt]="ptm('pcIncrementButton')"
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
@@ -482,7 +482,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             (keydown)="onContainerButtonKeydown($event)"
                             (click)="toggleAMPM($event)"
                             (keydown.enter)="toggleAMPM($event)"
-                            [attr.aria-label]="getTranslation('pm')"
+                            [attr.aria-label]="translate('pm')"
                             [pt]="ptm('pcDecrementButton')"
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
@@ -500,7 +500,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         <p-button
                             size="small"
                             [styleClass]="cx('pcTodayButton')"
-                            [label]="getTranslation('today')"
+                            [label]="translate('today')"
                             (keydown)="onContainerButtonKeydown($event)"
                             (onClick)="onTodayButtonClick($event)"
                             [ngClass]="todayButtonStyleClass"
@@ -513,7 +513,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         <p-button
                             size="small"
                             [styleClass]="cx('pcClearButton')"
-                            [label]="getTranslation('clear')"
+                            [label]="translate('clear')"
                             (keydown)="onContainerButtonKeydown($event)"
                             (onClick)="onClearButtonClick($event)"
                             [ngClass]="clearButtonStyleClass"
@@ -1278,15 +1278,15 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     get iconButtonAriaLabel() {
-        return this.iconAriaLabel ? this.iconAriaLabel : this.getTranslation('chooseDate');
+        return this.iconAriaLabel ? this.iconAriaLabel : this.translate('chooseDate');
     }
 
     get prevIconAriaLabel() {
-        return this.currentView === 'year' ? this.getTranslation('prevDecade') : this.currentView === 'month' ? this.getTranslation('prevYear') : this.getTranslation('prevMonth');
+        return this.currentView === 'year' ? this.translate('prevDecade') : this.currentView === 'month' ? this.translate('prevYear') : this.translate('prevMonth');
     }
 
     get nextIconAriaLabel() {
-        return this.currentView === 'year' ? this.getTranslation('nextDecade') : this.currentView === 'month' ? this.getTranslation('nextYear') : this.getTranslation('nextMonth');
+        return this.currentView === 'year' ? this.translate('nextDecade') : this.currentView === 'month' ? this.translate('nextYear') : this.translate('nextMonth');
     }
 
     constructor(
@@ -1405,10 +1405,6 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         });
     }
 
-    getTranslation(option: string) {
-        return this.config.getTranslation(option);
-    }
-
     populateYearOptions(start: number, end: number) {
         this.yearOptions = [];
 
@@ -1420,7 +1416,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     createWeekDays() {
         this.weekDays = [];
         let dayIndex = this.getFirstDateOfWeek();
-        let dayLabels = this.getTranslation(TranslationKeys.DAY_NAMES_MIN);
+        let dayLabels = this.translate(TranslationKeys.DAY_NAMES_MIN);
         for (let i = 0; i < 7; i++) {
             this.weekDays.push(dayLabels[dayIndex]);
             dayIndex = dayIndex == 6 ? 0 : ++dayIndex;
@@ -1430,7 +1426,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     monthPickerValues() {
         let monthPickerValues: any[] = [];
         for (let i = 0; i <= 11; i++) {
-            monthPickerValues.push(this.config.getTranslation('monthNamesShort')[i]);
+            monthPickerValues.push(this.translate('monthNamesShort')[i]);
         }
 
         return monthPickerValues;
@@ -2169,7 +2165,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     getMonthName(index: number) {
-        return this.config.getTranslation('monthNames')[index];
+        return this.translate('monthNames')[index];
     }
 
     getYear(month: any) {
@@ -3302,11 +3298,11 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     getDateFormat() {
-        return this.dateFormat || this.getTranslation('dateFormat');
+        return this.dateFormat || this.translate('dateFormat');
     }
 
     getFirstDateOfWeek() {
-        return this._firstDayOfWeek || this.getTranslation(TranslationKeys.FIRST_DAY_OF_WEEK);
+        return this._firstDayOfWeek || this.translate(TranslationKeys.FIRST_DAY_OF_WEEK);
     }
 
     // Ported from jquery-ui datepicker formatDate
@@ -3352,7 +3348,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                             output += formatNumber('d', date.getDate(), 2);
                             break;
                         case 'D':
-                            output += formatName('D', date.getDay(), this.getTranslation(TranslationKeys.DAY_NAMES_SHORT), this.getTranslation(TranslationKeys.DAY_NAMES));
+                            output += formatName('D', date.getDay(), this.translate(TranslationKeys.DAY_NAMES_SHORT), this.translate(TranslationKeys.DAY_NAMES));
                             break;
                         case 'o':
                             output += formatNumber('o', Math.round((new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 86400000), 3);
@@ -3361,7 +3357,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                             output += formatNumber('m', date.getMonth() + 1, 2);
                             break;
                         case 'M':
-                            output += formatName('M', date.getMonth(), this.getTranslation(TranslationKeys.MONTH_NAMES_SHORT), this.getTranslation(TranslationKeys.MONTH_NAMES));
+                            output += formatName('M', date.getMonth(), this.translate(TranslationKeys.MONTH_NAMES_SHORT), this.translate(TranslationKeys.MONTH_NAMES));
                             break;
                         case 'y':
                             output += lookAhead('y') ? date.getFullYear() : (date.getFullYear() % 100 < 10 ? '0' : '') + (date.getFullYear() % 100);
@@ -3541,7 +3537,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                         day = getNumber('d');
                         break;
                     case 'D':
-                        getName('D', this.getTranslation(TranslationKeys.DAY_NAMES_SHORT), this.getTranslation(TranslationKeys.DAY_NAMES));
+                        getName('D', this.translate(TranslationKeys.DAY_NAMES_SHORT), this.translate(TranslationKeys.DAY_NAMES));
                         break;
                     case 'o':
                         doy = getNumber('o');
@@ -3550,7 +3546,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                         month = getNumber('m');
                         break;
                     case 'M':
-                        month = getName('M', this.getTranslation(TranslationKeys.MONTH_NAMES_SHORT), this.getTranslation(TranslationKeys.MONTH_NAMES));
+                        month = getName('M', this.translate(TranslationKeys.MONTH_NAMES_SHORT), this.translate(TranslationKeys.MONTH_NAMES));
                         break;
                     case 'y':
                         year = getNumber('y');

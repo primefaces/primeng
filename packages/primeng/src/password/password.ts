@@ -913,27 +913,23 @@ export class Password extends BaseInput<PasswordPassThrough> {
     }
 
     promptText() {
-        return this.promptLabel || this.getTranslation(TranslationKeys.PASSWORD_PROMPT);
+        return this.promptLabel || this.translate(TranslationKeys.PASSWORD_PROMPT);
     }
 
     weakText() {
-        return this.weakLabel || this.getTranslation(TranslationKeys.WEAK);
+        return this.weakLabel || this.translate(TranslationKeys.WEAK);
     }
 
     mediumText() {
-        return this.mediumLabel || this.getTranslation(TranslationKeys.MEDIUM);
+        return this.mediumLabel || this.translate(TranslationKeys.MEDIUM);
     }
 
     strongText() {
-        return this.strongLabel || this.getTranslation(TranslationKeys.STRONG);
+        return this.strongLabel || this.translate(TranslationKeys.STRONG);
     }
 
     inputType(unmasked: boolean) {
         return unmasked ? 'text' : 'password';
-    }
-
-    getTranslation(option: string) {
-        return this.config.getTranslation(option);
     }
 
     clear() {

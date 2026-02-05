@@ -5877,27 +5877,27 @@ export class ColumnFilter extends BaseComponent {
     }
 
     get showMenuButtonLabel() {
-        return this.config.getTranslation(TranslationKeys.SHOW_FILTER_MENU);
+        return this.translate(TranslationKeys.SHOW_FILTER_MENU);
     }
 
     get applyButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.APPLY);
+        return this.translate(TranslationKeys.APPLY);
     }
 
     get clearButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.CLEAR);
+        return this.translate(TranslationKeys.CLEAR);
     }
 
     get addRuleButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.ADD_RULE);
+        return this.translate(TranslationKeys.ADD_RULE);
     }
 
     get removeRuleButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.REMOVE_RULE);
+        return this.translate(TranslationKeys.REMOVE_RULE);
     }
 
     get noFilterLabel(): string {
-        return this.config.getTranslation(TranslationKeys.NO_FILTER);
+        return this.translate(TranslationKeys.NO_FILTER);
     }
 
     get filterMenuButtonAriaLabel() {
@@ -5940,7 +5940,7 @@ export class ColumnFilter extends BaseComponent {
             this.matchModeOptions ||
             (this.config as any).filterMatchModeOptions[this.type]?.map((key: any) => {
                 return {
-                    label: this.config.getTranslation(key),
+                    label: this.translate(key),
                     value: key
                 };
             });
@@ -5949,11 +5949,11 @@ export class ColumnFilter extends BaseComponent {
     generateOperatorOptions() {
         this.operatorOptions = [
             {
-                label: this.config.getTranslation(TranslationKeys.MATCH_ALL),
+                label: this.translate(TranslationKeys.MATCH_ALL),
                 value: FilterOperator.AND
             },
             {
-                label: this.config.getTranslation(TranslationKeys.MATCH_ANY),
+                label: this.translate(TranslationKeys.MATCH_ANY),
                 value: FilterOperator.OR
             }
         ];

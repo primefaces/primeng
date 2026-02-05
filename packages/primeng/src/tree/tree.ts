@@ -1357,7 +1357,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
     }
 
     get emptyMessageLabel(): string {
-        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
+        return this.emptyMessage || this.translate(TranslationKeys.EMPTY_MESSAGE);
     }
 
     updateSerializedValue() {

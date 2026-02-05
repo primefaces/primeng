@@ -156,7 +156,7 @@ export class Chip extends BaseComponent<ChipPassThrough> {
     visible: boolean = true;
 
     get removeAriaLabel() {
-        return this.config.getTranslation(TranslationKeys.ARIA)['removeLabel'];
+        return this.translate(TranslationKeys.ARIA, 'removeLabel');
     }
     /**
      * Used to pass all properties of the chipProps to the Chip component.
