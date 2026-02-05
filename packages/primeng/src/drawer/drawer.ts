@@ -78,7 +78,7 @@ const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
                         @if (header()) {
                             <div [pBind]="ptm('title')" [class]="cx('title')">{{ header() }}</div>
                         }
-                        @if (showCloseIcon() && closable()) {
+                        @if (showCloseButton()) {
                             <p-button
                                 [pt]="ptm('pcCloseButton')"
                                 [class]="cx('pcCloseButton')"
@@ -308,6 +308,8 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
      * @group Templates
      */
     headlessTemplate = contentChild<TemplateRef<void>>('headless');
+
+    showCloseButton = computed(() => this.showCloseIcon() && this.closable());
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
