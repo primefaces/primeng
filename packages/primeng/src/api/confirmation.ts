@@ -1,7 +1,4 @@
 import { EventEmitter } from '@angular/core';
-import type { ButtonProps } from 'primeng/types/button';
-import type { ConfirmDialogDefaultFocus } from 'primeng/types/confirmdialog';
-import type { DialogPosition } from 'primeng/types/dialog';
 import type { ConfirmEventType } from './confirmaeventtype';
 
 /**
@@ -73,7 +70,7 @@ export interface Confirmation {
      * Element to receive the focus when the dialog gets visible.
      * @defaultValue 'accept'
      */
-    defaultFocus?: ConfirmDialogDefaultFocus;
+    defaultFocus?: any; // @todo: discuss - ConfirmDialogDefaultFocus type causes circular dependency
     /**
      * The CSS class name to be applied to the accept button.
      */
@@ -97,15 +94,15 @@ export interface Confirmation {
     /**
      * Accept button properties.
      */
-    acceptButtonProps?: ButtonProps;
+    acceptButtonProps?: any; // @todo: discuss - ButtonProps type causes circular dependency
     /**
      * Reject button properties.
      */
-    rejectButtonProps?: ButtonProps;
+    rejectButtonProps?: any; // @todo: discuss - ButtonProps type causes circular dependency
     /**
      * Close button properties.
      */
-    closeButtonProps?: ButtonProps;
+    closeButtonProps?: any; // @todo: discuss - ButtonProps type causes circular dependency
     /**
      * Defines if the dialog is closable.
      */
@@ -113,7 +110,7 @@ export interface Confirmation {
     /**
      * Defines the dialog position.
      */
-    position?: DialogPosition;
+    position?: any; // @todo: discuss - DialogPosition type causes circular dependency
     /**
      * Specifies whether the dialog displayed as modal or not.
      * @defaultValue true
