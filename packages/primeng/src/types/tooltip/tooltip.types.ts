@@ -1,6 +1,18 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Defines the position of the tooltip.
+ * @group Types
+ */
+export type TooltipPosition = 'right' | 'left' | 'top' | 'bottom';
+
+/**
+ * Defines the event that triggers the tooltip.
+ * @group Types
+ */
+export type TooltipEvent = 'hover' | 'focus' | 'both';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

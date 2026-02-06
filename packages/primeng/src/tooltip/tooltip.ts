@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, NgModule, NgZone, numberAttribute, TemplateRef, untracked, ViewContainerRef } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, NgModule, numberAttribute, TemplateRef, untracked, ViewContainerRef } from '@angular/core';
 import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
 import { TooltipOptions } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -9,7 +9,7 @@ import type { AppendTo } from 'primeng/types/shared';
 import { Nullable } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { TooltipStyle } from './style/tooltipstyle';
-import type { TooltipPassThrough, TooltipPassThroughOptions } from 'primeng/types/tooltip';
+import type { TooltipEvent, TooltipPassThrough, TooltipPassThroughOptions, TooltipPosition } from 'primeng/types/tooltip';
 
 const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
 
@@ -31,12 +31,12 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
      * Position of the tooltip.
      * @group Props
      */
-    tooltipPosition = input<'right' | 'left' | 'top' | 'bottom'>();
+    tooltipPosition = input<TooltipPosition>();
     /**
      * Event to show the tooltip.
      * @group Props
      */
-    tooltipEvent = input<'hover' | 'focus' | 'both'>('hover');
+    tooltipEvent = input<TooltipEvent>('hover');
     /**
      * Type of CSS position.
      * @group Props
@@ -208,10 +208,9 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
      */
     pTooltipUnstyled = input<boolean | undefined>();
 
-    constructor(
-        public zone: NgZone,
-        private viewContainer: ViewContainerRef
-    ) {
+    private viewContainer = inject(ViewContainerRef);
+
+    constructor() {
         super();
 
         effect(() => {
@@ -278,37 +277,35 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
     onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
-            this.zone.runOutsideAngular(() => {
-                const tooltipEvent = this.getOption('tooltipEvent');
+            const tooltipEvent = this.getOption('tooltipEvent');
 
-                if (tooltipEvent === 'hover' || tooltipEvent === 'both') {
-                    this.mouseEnterListener = this.onMouseEnter.bind(this);
-                    this.mouseLeaveListener = this.onMouseLeave.bind(this);
-                    this.clickListener = this.onInputClick.bind(this);
-                    this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
-                    this.el.nativeElement.addEventListener('click', this.clickListener);
-                    this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
+            if (tooltipEvent === 'hover' || tooltipEvent === 'both') {
+                this.mouseEnterListener = this.onMouseEnter.bind(this);
+                this.mouseLeaveListener = this.onMouseLeave.bind(this);
+                this.clickListener = this.onInputClick.bind(this);
+                this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
+                this.el.nativeElement.addEventListener('click', this.clickListener);
+                this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
 
-                    // Touch support
-                    this.touchStartListener = this.onTouchStart.bind(this);
-                    this.touchEndListener = this.onTouchEnd.bind(this);
-                    this.el.nativeElement.addEventListener('touchstart', this.touchStartListener, { passive: true });
-                    this.el.nativeElement.addEventListener('touchend', this.touchEndListener, { passive: true });
+                // Touch support
+                this.touchStartListener = this.onTouchStart.bind(this);
+                this.touchEndListener = this.onTouchEnd.bind(this);
+                this.el.nativeElement.addEventListener('touchstart', this.touchStartListener, { passive: true });
+                this.el.nativeElement.addEventListener('touchend', this.touchEndListener, { passive: true });
+            }
+            if (tooltipEvent === 'focus' || tooltipEvent === 'both') {
+                this.focusListener = this.onFocus.bind(this);
+                this.blurListener = this.onBlur.bind(this);
+
+                let target = this.el.nativeElement.querySelector('.p-component');
+
+                if (!target) {
+                    target = this.getTarget(this.el.nativeElement);
                 }
-                if (tooltipEvent === 'focus' || tooltipEvent === 'both') {
-                    this.focusListener = this.onFocus.bind(this);
-                    this.blurListener = this.onBlur.bind(this);
 
-                    let target = this.el.nativeElement.querySelector('.p-component');
-
-                    if (!target) {
-                        target = this.getTarget(this.el.nativeElement);
-                    }
-
-                    target.addEventListener('focus', this.focusListener);
-                    target.addEventListener('blur', this.blurListener);
-                }
-            });
+                target.addEventListener('focus', this.focusListener);
+                target.addEventListener('blur', this.blurListener);
+            }
         }
     }
 
@@ -695,11 +692,9 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     }
 
     bindDocumentResizeListener() {
-        this.zone.runOutsideAngular(() => {
-            const listener = this.onWindowResize.bind(this);
-            this.resizeListener = listener;
-            window.addEventListener('resize', listener);
-        });
+        const listener = this.onWindowResize.bind(this);
+        this.resizeListener = listener;
+        window.addEventListener('resize', listener);
     }
 
     unbindDocumentResizeListener() {
