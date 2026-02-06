@@ -2,6 +2,12 @@ import { TemplateRef } from '@angular/core';
 import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Defines the position of the dock.
+ * @group Types
+ */
+export type DockPosition = 'bottom' | 'top' | 'left' | 'right';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

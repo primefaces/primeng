@@ -5,7 +5,7 @@ import { BaseStyle } from 'primeng/base';
 const classes = {
     root: ({ instance }) => [
         'p-dock p-component',
-        `p-dock-${instance.position}`,
+        `p-dock-${instance.position()}`,
         {
             'p-dock-mobile': instance.queryMatches()
         }

@@ -9,13 +9,12 @@ import { Dock } from './dock';
 
 @Component({
     standalone: false,
-    template: ` <p-dock [id]="id" [model]="model" [position]="position" [styleClass]="styleClass" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" [breakpoint]="breakpoint" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)"> </p-dock> `
+    template: ` <p-dock [id]="id" [model]="model" [position]="position" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" [breakpoint]="breakpoint" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)"> </p-dock> `
 })
 class TestBasicDockComponent {
     id: string | undefined;
     model: MenuItem[] | undefined = [{ label: 'File', icon: 'pi pi-file' }, { label: 'Edit', icon: 'pi pi-pencil' }, { separator: true }, { label: 'Settings', icon: 'pi pi-cog' }];
     position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
-    styleClass: string | undefined;
     ariaLabel: string | undefined;
     ariaLabelledBy: string | undefined;
     breakpoint: string | undefined;
@@ -86,21 +85,6 @@ class TestItemTemplateDockComponent {
 
 @Component({
     standalone: false,
-    selector: 'test-ptemplate-dock',
-    template: `
-        <p-dock [model]="model">
-            <ng-template pTemplate="item" let-item>
-                <span class="p-template-item">{{ item.label }}</span>
-            </ng-template>
-        </p-dock>
-    `
-})
-class TestPTemplateDockComponent {
-    model: MenuItem[] = [{ label: 'PTemplate Item 1' }, { label: 'PTemplate Item 2' }];
-}
-
-@Component({
-    standalone: false,
     selector: 'test-disabled-items-dock',
     template: ` <p-dock [model]="disabledModel"></p-dock> `
 })
@@ -111,11 +95,10 @@ class TestDisabledItemsDockComponent {
 @Component({
     standalone: false,
     selector: 'test-styled-dock',
-    template: ` <p-dock [model]="model" [styleClass]="customStyleClass"></p-dock> `
+    template: ` <p-dock [model]="model" class="custom-dock-class"></p-dock> `
 })
 class TestStyledDockComponent {
     model: MenuItem[] = [{ label: 'Test', icon: 'pi pi-test' }];
-    customStyleClass = 'custom-dock-class';
 }
 
 @Component({
@@ -184,7 +167,6 @@ describe('Dock', () => {
                 TestPositionDockComponent,
                 TestRouterDockComponent,
                 TestItemTemplateDockComponent,
-                TestPTemplateDockComponent,
                 TestDisabledItemsDockComponent,
                 TestStyledDockComponent,
                 TestMinimalDockComponent,
@@ -220,7 +202,6 @@ describe('Dock', () => {
         });
 
         it('should have required dependencies injected', () => {
-            expect(dockInstance.cd).toBeTruthy();
             expect(dockInstance._componentStyle).toBeTruthy();
             expect(dockInstance.constructor.name).toBe('Dock');
         });
@@ -232,36 +213,34 @@ describe('Dock', () => {
 
             const freshDock = freshFixture.debugElement.query(By.directive(Dock)).componentInstance;
 
-            expect(freshDock.model).toBeNull();
-            expect(freshDock.position).toBe('bottom');
-            expect(freshDock.breakpoint).toBe('960px');
+            expect(freshDock.model()).toBeNull();
+            expect(freshDock.position()).toBe('bottom');
+            expect(freshDock.breakpoint()).toBe('960px');
             expect(freshDock.tabindex).toBe(0);
-            expect(freshDock.focused).toBe(false);
-            expect(freshDock.focusedOptionIndex).toBe(-1);
-            expect(freshDock.currentIndex).toBe(-3);
+            expect(freshDock.focused()).toBe(false);
+            expect(freshDock.focusedOptionIndex()).toBe(-1);
+            expect(freshDock.currentIndex()).toBe(-3);
         });
 
         it('should accept custom values', async () => {
             const testModel: MenuItem[] = [{ label: 'Test Item' }];
             component.model = testModel;
             component.position = 'top';
-            component.styleClass = 'custom-dock';
             component.ariaLabel = 'Custom Dock';
             component.breakpoint = '768px';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dockInstance.model).toBe(testModel);
-            expect(dockInstance.position).toBe('top');
-            expect(dockInstance.styleClass).toBe('custom-dock');
-            expect(dockInstance.ariaLabel).toBe('Custom Dock');
-            expect(dockInstance.breakpoint).toBe('768px');
+            expect(dockInstance.model()).toBe(testModel);
+            expect(dockInstance.position()).toBe('top');
+            expect(dockInstance.ariaLabel()).toBe('Custom Dock');
+            expect(dockInstance.breakpoint()).toBe('768px');
         });
 
         it('should initialize with generated id', () => {
-            expect(dockInstance.id).toBeTruthy();
-            expect(typeof dockInstance.id).toBe('string');
-            expect(dockInstance.id).toMatch(/^pn_id_/);
+            expect(dockInstance.$id()).toBeTruthy();
+            expect(typeof dockInstance.$id()).toBe('string');
+            expect(dockInstance.$id()).toMatch(/^pn_id_/);
         });
 
         it('should have onFocus and onBlur output emitters', () => {
@@ -282,7 +261,7 @@ describe('Dock', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dockInstance.model).toBe(newModel);
+            expect(dockInstance.model()).toBe(newModel);
         });
 
         it('should update position input', async () => {
@@ -290,15 +269,7 @@ describe('Dock', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dockInstance.position).toBe('left');
-        });
-
-        it('should update styleClass input', async () => {
-            component.styleClass = 'test-class';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            expect(dockInstance.styleClass).toBe('test-class');
+            expect(dockInstance.position()).toBe('left');
         });
 
         it('should update ariaLabel and ariaLabelledBy inputs', async () => {
@@ -307,22 +278,22 @@ describe('Dock', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dockInstance.ariaLabel).toBe('Test Dock');
-            expect(dockInstance.ariaLabelledBy).toBe('dock-label');
+            expect(dockInstance.ariaLabel()).toBe('Test Dock');
+            expect(dockInstance.ariaLabelledBy()).toBe('dock-label');
         });
 
         it('should update breakpoint input', async () => {
             component.breakpoint = '768px';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            expect(dockInstance.breakpoint).toBe('768px');
+            expect(dockInstance.breakpoint()).toBe('768px');
         });
 
         it('should update id input', async () => {
             component.id = 'custom-dock-id';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            expect(dockInstance.id).toBe('custom-dock-id');
+            expect(dockInstance.$id()).toBe('custom-dock-id');
         });
     });
 
@@ -457,12 +428,12 @@ describe('Dock', () => {
 
         it('should update currentIndex on mouse enter', () => {
             dockInstance.onItemMouseEnter(2);
-            expect(dockInstance.currentIndex).toBe(2);
+            expect(dockInstance.currentIndex()).toBe(2);
         });
 
         it('should reset currentIndex on mouse leave', () => {
             dockInstance.onListMouseLeave();
-            expect(dockInstance.currentIndex).toBe(-3);
+            expect(dockInstance.currentIndex()).toBe(-3);
         });
     });
 
@@ -475,74 +446,24 @@ describe('Dock', () => {
 
             const itemTemplateDock = itemTemplateFixture.debugElement.query(By.directive(Dock)).componentInstance;
 
-            expect(() => itemTemplateDock.ngAfterContentInit()).not.toThrow();
-            expect(itemTemplateDock.itemTemplate).toBeDefined();
+            expect(itemTemplateDock.itemTemplate()).toBeDefined();
         });
 
-        it('should handle pTemplate processing', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateDockComponent);
-            pTemplateFixture.changeDetectorRef.markForCheck();
-            await pTemplateFixture.whenStable();
-            await new Promise((resolve) => setTimeout(resolve, 100));
-
-            const pTemplateDock = pTemplateFixture.debugElement.query(By.directive(Dock)).componentInstance;
-
-            expect(() => pTemplateDock.ngAfterContentInit()).not.toThrow();
-            expect(pTemplateDock.templates).toBeDefined();
-        });
-
-        it('should process PrimeTemplate types correctly', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateDockComponent);
-            pTemplateFixture.changeDetectorRef.markForCheck();
-            await pTemplateFixture.whenStable();
-            await new Promise((resolve) => setTimeout(resolve, 100));
-
-            const pTemplateDock = pTemplateFixture.debugElement.query(By.directive(Dock)).componentInstance;
-
-            pTemplateDock.ngAfterContentInit();
-
-            expect(pTemplateDock.templates).toBeDefined();
-        });
-
-        it('should prioritize itemTemplate over _itemTemplate', async () => {
+        it('should render #item template correctly', async () => {
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateDockComponent);
             itemTemplateFixture.changeDetectorRef.markForCheck();
             await itemTemplateFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const itemTemplateDock = itemTemplateFixture.debugElement.query(By.directive(Dock)).componentInstance;
-
-            itemTemplateDock.ngAfterContentInit();
-
-            expect(itemTemplateDock.itemTemplate).toBeDefined();
-        });
-
-        it('should render different template types correctly', async () => {
-            // Test pTemplate rendering
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateDockComponent);
-            pTemplateFixture.changeDetectorRef.markForCheck();
-            await pTemplateFixture.whenStable();
-            await new Promise((resolve) => setTimeout(resolve, 100));
-
-            const pTemplateDock = pTemplateFixture.debugElement.query(By.directive(Dock)).componentInstance;
-            expect(pTemplateDock.templates).toBeDefined();
-            expect(() => pTemplateDock.ngAfterContentInit()).not.toThrow();
-
-            // Test #item template rendering
-            const itemTemplateFixture = TestBed.createComponent(TestItemTemplateDockComponent);
-            itemTemplateFixture.changeDetectorRef.markForCheck();
-            await itemTemplateFixture.whenStable();
-            await new Promise((resolve) => setTimeout(resolve, 100));
-
-            const itemTemplateDock = itemTemplateFixture.debugElement.query(By.directive(Dock)).componentInstance;
-            expect(itemTemplateDock.itemTemplate).toBeDefined();
+            expect(itemTemplateDock.itemTemplate()).toBeDefined();
         });
     });
 
     describe('Keyboard Navigation Tests', () => {
         beforeEach(() => {
-            dockInstance.focused = true;
-            dockInstance.focusedOptionIndex = 0;
+            dockInstance.focused.set(true);
+            dockInstance.focusedOptionIndex.set(0);
         });
 
         it('should handle arrow right key for horizontal positions', async () => {
@@ -657,19 +578,19 @@ describe('Dock', () => {
 
             dockInstance.onListFocus(focusEvent);
 
-            expect(dockInstance.focused).toBe(true);
+            expect(dockInstance.focused()).toBe(true);
             expect(dockInstance.onFocus.emit).toHaveBeenCalledWith(focusEvent);
         });
 
         it('should emit onBlur when list loses focus', () => {
             spyOn(dockInstance.onBlur, 'emit');
             const blurEvent = new FocusEvent('blur');
-            dockInstance.focused = true;
+            dockInstance.focused.set(true);
 
             dockInstance.onListBlur(blurEvent);
 
-            expect(dockInstance.focused).toBe(false);
-            expect(dockInstance.focusedOptionIndex).toBe(-1);
+            expect(dockInstance.focused()).toBe(false);
+            expect(dockInstance.focusedOptionIndex()).toBe(-1);
             expect(dockInstance.onBlur.emit).toHaveBeenCalledWith(blurEvent);
         });
 
@@ -687,11 +608,11 @@ describe('Dock', () => {
         });
 
         it('should get focusedOptionId correctly', () => {
-            dockInstance.focusedOptionIndex = -1;
-            expect(dockInstance.focusedOptionId).toBeNull();
+            dockInstance.focusedOptionIndex.set(-1);
+            expect(dockInstance.focusedOptionId()).toBeNull();
 
-            dockInstance.focusedOptionIndex = '2';
-            expect(dockInstance.focusedOptionId).toBe('2');
+            dockInstance.focusedOptionIndex.set('2');
+            expect(dockInstance.focusedOptionId()).toBe('2');
         });
     });
 
@@ -717,7 +638,7 @@ describe('Dock', () => {
         it('should apply correct CSS classes based on position', () => {
             // This test assumes CSS classes are applied based on position
             // The actual CSS class structure depends on the component's styling implementation
-            expect(dockInstance.position).toBe('bottom'); // Default position
+            expect(dockInstance.position()).toBe('bottom'); // Default position
         });
 
         it('should have generated id on list element', () => {
@@ -756,27 +677,23 @@ describe('Dock', () => {
         });
 
         it('should set aria-activedescendant when focused', async () => {
-            dockInstance.focused = true;
-            dockInstance.focusedOptionIndex = '1';
+            dockInstance.focused.set(true);
+            dockInstance.focusedOptionIndex.set('1');
 
-            // Verify the getter works correctly
-            expect(dockInstance.focusedOptionId).toBe('1');
+            // Verify the computed works correctly
+            expect(dockInstance.focusedOptionId()).toBe('1');
 
-            // Force change detection
-            dockInstance.cd.markForCheck();
-            dockInstance.cd.detectChanges();
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
             const ariaActivedescendant = listElement.nativeElement.getAttribute('aria-activedescendant');
 
-            // Template uses {{ focused ? focusedOptionId : undefined }}
             expect(ariaActivedescendant).toBe('1');
         });
 
         it('should not set aria-activedescendant when not focused', async () => {
-            dockInstance.focused = false;
+            dockInstance.focused.set(false);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
@@ -806,14 +723,7 @@ describe('Dock', () => {
     describe('Router Integration Tests', () => {
         it('should handle router links', async () => {
             const routerFixture = TestBed.createComponent(TestRouterDockComponent);
-            const routerDock = routerFixture.debugElement.query(By.directive(Dock)).componentInstance;
 
-            routerFixture.changeDetectorRef.markForCheck();
-            await routerFixture.whenStable();
-
-            // Force change detection
-            routerDock.cd.markForCheck();
-            routerDock.cd.detectChanges();
             routerFixture.changeDetectorRef.markForCheck();
             await routerFixture.whenStable();
 
@@ -854,8 +764,8 @@ describe('Dock', () => {
             await disabledFixture.whenStable();
 
             const disabledDock = disabledFixture.debugElement.query(By.directive(Dock)).componentInstance;
-            const disabledItem = disabledDock.model[1];
-            const functionDisabledItem = disabledDock.model[2];
+            const disabledItem = disabledDock.model()[1];
+            const functionDisabledItem = disabledDock.model()[2];
 
             expect(disabledDock.disabled(disabledItem)).toBe(true);
             expect(disabledDock.disabled(functionDisabledItem)).toBe(true);
@@ -885,7 +795,7 @@ describe('Dock', () => {
             await dynamicFixture.whenStable();
 
             // Initially empty
-            expect(dynamicDock.model.length).toBe(0);
+            expect(dynamicDock.model().length).toBe(0);
 
             // Add items
             dynamicComponent.addItem({ label: 'Item 1', icon: 'pi pi-test' });
@@ -893,23 +803,23 @@ describe('Dock', () => {
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
-            expect(dynamicDock.model.length).toBe(2);
-            expect(dynamicDock.model[0].label).toBe('Item 1');
+            expect(dynamicDock.model().length).toBe(2);
+            expect(dynamicDock.model()[0].label).toBe('Item 1');
 
             // Remove item
             dynamicComponent.removeItem(0);
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
-            expect(dynamicDock.model.length).toBe(1);
-            expect(dynamicDock.model[0].label).toBe('Item 2');
+            expect(dynamicDock.model().length).toBe(1);
+            expect(dynamicDock.model()[0].label).toBe('Item 2');
 
             // Clear all
             dynamicComponent.clearItems();
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
-            expect(dynamicDock.model.length).toBe(0);
+            expect(dynamicDock.model().length).toBe(0);
         });
     });
 
@@ -924,7 +834,7 @@ describe('Dock', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
             }).not.toThrow();
-            expect(dockInstance.model).toBeUndefined();
+            expect(dockInstance.model()).toBeUndefined();
         });
 
         it('should handle items without icons', async () => {
@@ -982,7 +892,6 @@ describe('Dock', () => {
     describe('Public Methods', () => {
         it('should have required public methods', () => {
             expect(typeof dockInstance.getItemId).toBe('function');
-            expect(typeof dockInstance.getItemProp).toBe('function');
             expect(typeof dockInstance.disabled).toBe('function');
             expect(typeof dockInstance.isItemActive).toBe('function');
             expect(typeof dockInstance.isClickableRouterLink).toBe('function');
@@ -992,15 +901,15 @@ describe('Dock', () => {
             const itemWithId = { id: 'custom-id', label: 'Test' };
             const itemWithoutId = { label: 'Test' };
 
-            expect(dockInstance.getItemId(itemWithId, 0)).toBe('custom-id');
-            expect(dockInstance.getItemId(itemWithoutId, 2)).toBe('2');
+            expect(dockInstance.getItemId(itemWithId as any, 0)).toBe('custom-id');
+            expect(dockInstance.getItemId(itemWithoutId as any, 2)).toBe('2');
         });
 
         it('should check item active state correctly', () => {
-            dockInstance.focusedOptionIndex = 1;
+            dockInstance.focusedOptionIndex.set(1);
 
-            expect(dockInstance.isItemActive(1)).toBe(true);
-            expect(dockInstance.isItemActive(2)).toBe(false);
+            expect(dockInstance.isItemActive('1')).toBe(true);
+            expect(dockInstance.isItemActive('2')).toBe(false);
         });
 
         it('should handle disabled property correctly', () => {
@@ -1009,10 +918,10 @@ describe('Dock', () => {
             const functionDisabledItem = { disabled: () => true };
             const undefinedItem = {};
 
-            expect(dockInstance.disabled(enabledItem)).toBe(false);
-            expect(dockInstance.disabled(disabledItem)).toBe(true);
-            expect(dockInstance.disabled(functionDisabledItem)).toBe(true);
-            expect(dockInstance.disabled(undefinedItem)).toBe(false);
+            expect(dockInstance.disabled(enabledItem as any)).toBe(false);
+            expect(dockInstance.disabled(disabledItem as any)).toBe(true);
+            expect(dockInstance.disabled(functionDisabledItem as any)).toBe(true);
+            expect(dockInstance.disabled(undefinedItem as any)).toBe(false);
         });
     });
 
@@ -1104,15 +1013,15 @@ describe('Dock', () => {
                 list: ({ instance }: any) => {
                     return {
                         class: {
-                            HAS_MODEL: instance?.model?.length > 0,
-                            IS_TOP: instance?.position === 'top'
+                            HAS_MODEL: instance?.model()?.length > 0,
+                            IS_TOP: instance?.position() === 'top'
                         }
                     };
                 },
                 listContainer: ({ instance }: any) => {
                     return {
                         style: {
-                            'background-color': instance?.position === 'top' ? 'yellow' : 'red'
+                            'background-color': instance?.position() === 'top' ? 'yellow' : 'red'
                         }
                     };
                 }
