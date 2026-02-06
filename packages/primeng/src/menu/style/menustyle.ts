@@ -3,14 +3,17 @@ import { style } from '@primeuix/styles/menu';
 import { BaseStyle } from 'primeng/base';
 
 const inlineStyles = {
-    root: ({ instance }) => ({ position: instance.popup ? 'absolute' : 'relative' })
+    root: ({ instance }) => ({
+        position: instance.popup() ? 'absolute' : 'relative',
+        ...instance.style()
+    })
 };
 
 const classes = {
     root: ({ instance }) => [
         'p-menu p-component',
         {
-            'p-menu-overlay': instance.popup
+            'p-menu-overlay': instance.popup()
         }
     ],
     start: 'p-menu-start',

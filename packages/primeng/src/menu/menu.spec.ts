@@ -18,8 +18,6 @@ import { Menu } from './menu';
             [styleClass]="styleClass"
             [autoZIndex]="autoZIndex"
             [baseZIndex]="baseZIndex"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
             [ariaLabel]="ariaLabel"
             [ariaLabelledBy]="ariaLabelledBy"
             [tabindex]="tabindex"
@@ -40,8 +38,6 @@ class TestBasicMenuComponent {
     styleClass: string | undefined;
     autoZIndex: boolean = true;
     baseZIndex: number = 0;
-    showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-    hideTransitionOptions: string = '.1s linear';
     ariaLabel: string | undefined;
     ariaLabelledBy: string | undefined;
     tabindex: number = 0;
@@ -173,13 +169,13 @@ class TestItemTemplateMenuComponent {
     selector: 'test-ptemplate-menu',
     template: `
         <p-menu [model]="model">
-            <ng-template pTemplate="item" let-item>
+            <ng-template #item let-item>
                 <span class="p-template-item">{{ item.label }}</span>
             </ng-template>
-            <ng-template pTemplate="start">
+            <ng-template #start>
                 <div class="menu-start">Header Content</div>
             </ng-template>
-            <ng-template pTemplate="end">
+            <ng-template #end>
                 <div class="menu-end">Footer Content</div>
             </ng-template>
         </p-menu>
@@ -324,14 +320,12 @@ describe('Menu', () => {
 
             const freshMenu = freshFixture.debugElement.query(By.directive(Menu)).componentInstance;
 
-            expect(freshMenu.model).toBeUndefined();
-            expect(freshMenu.popup).toBeUndefined();
-            expect(freshMenu.autoZIndex).toBe(true);
-            expect(freshMenu.baseZIndex).toBe(0);
-            expect(freshMenu.tabindex).toBe(0);
-            expect(freshMenu.showTransitionOptions).toBe('.12s cubic-bezier(0, 0, 0.2, 1)');
-            expect(freshMenu.hideTransitionOptions).toBe('.1s linear');
-            expect(freshMenu.focused).toBe(false);
+            expect(freshMenu.model()).toBeUndefined();
+            expect(freshMenu.popup()).toBe(false);
+            expect(freshMenu.autoZIndex()).toBe(true);
+            expect(freshMenu.baseZIndex()).toBe(0);
+            expect(freshMenu.tabindex()).toBe(0);
+            expect(freshMenu.focused()).toBe(false);
             expect(menuInstance.focusedOptionIndex()).toBe(-1);
         });
 
@@ -345,11 +339,11 @@ describe('Menu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(menuInstance.model).toBe(testModel);
-            expect(menuInstance.popup).toBe(true);
-            expect(menuInstance.styleClass).toBe('custom-menu');
-            expect(menuInstance.ariaLabel).toBe('Custom Menu');
-            expect(menuInstance.tabindex).toBe(1);
+            expect(menuInstance.model()).toBe(testModel);
+            expect(menuInstance.popup()).toBe(true);
+            expect(menuInstance.styleClass()).toBe('custom-menu');
+            expect(menuInstance.ariaLabel()).toBe('Custom Menu');
+            expect(menuInstance.tabindex()).toBe(1);
         });
 
         it('should initialize with generated id', () => {
@@ -358,9 +352,9 @@ describe('Menu', () => {
             const freshMenu = freshFixture.debugElement.query(By.directive(Menu)).componentInstance;
             freshFixture.detectChanges();
 
-            expect(freshMenu.id).toBeTruthy();
-            expect(typeof freshMenu.id).toBe('string');
-            expect(freshMenu.id).toMatch(/^pn_id_/);
+            expect(freshMenu.$id()).toBeTruthy();
+            expect(typeof freshMenu.$id()).toBe('string');
+            expect(freshMenu.$id()).toMatch(/^pn_id_/);
         });
 
         it('should have output emitters', () => {
@@ -385,7 +379,7 @@ describe('Menu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(menuInstance.model).toBe(newModel);
+            expect(menuInstance.model()).toBe(newModel);
         });
 
         it('should update popup input', async () => {
@@ -393,7 +387,7 @@ describe('Menu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(menuInstance.popup).toBe(true);
+            expect(menuInstance.popup()).toBe(true);
         });
 
         it('should update style inputs', async () => {
@@ -402,8 +396,8 @@ describe('Menu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(menuInstance.style).toEqual({ width: '200px' });
-            expect(menuInstance.styleClass).toBe('test-class');
+            expect(menuInstance.style()).toEqual({ width: '200px' });
+            expect(menuInstance.styleClass()).toBe('test-class');
         });
 
         it('should update z-index inputs', async () => {
@@ -412,18 +406,8 @@ describe('Menu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(menuInstance.autoZIndex).toBe(false);
-            expect(menuInstance.baseZIndex).toBe(1000);
-        });
-
-        it('should update transition inputs', async () => {
-            component.showTransitionOptions = '.2s ease-in';
-            component.hideTransitionOptions = '.15s ease-out';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            expect(menuInstance.showTransitionOptions).toBe('.2s ease-in');
-            expect(menuInstance.hideTransitionOptions).toBe('.15s ease-out');
+            expect(menuInstance.autoZIndex()).toBe(false);
+            expect(menuInstance.baseZIndex()).toBe(1000);
         });
 
         it('should update aria inputs', async () => {
@@ -432,44 +416,44 @@ describe('Menu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(menuInstance.ariaLabel).toBe('Test Menu');
-            expect(menuInstance.ariaLabelledBy).toBe('menu-label');
+            expect(menuInstance.ariaLabel()).toBe('Test Menu');
+            expect(menuInstance.ariaLabelledBy()).toBe('menu-label');
         });
 
         it('should update tabindex input', async () => {
             component.tabindex = 2;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            expect(menuInstance.tabindex).toBe(2);
+            expect(menuInstance.tabindex()).toBe(2);
         });
 
         it('should update id input', async () => {
             component.id = 'custom-menu-id';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            expect(menuInstance.id).toBe('custom-menu-id');
+            expect(menuInstance.id()).toBe('custom-menu-id');
         });
     });
 
     describe('Menu Item Display Tests', () => {
         it('should render menu items from model', async () => {
             // Verify model has correct structure
-            expect(menuInstance.model).toBeDefined();
-            expect(menuInstance.model!.length).toBe(4); // File, Edit, separator, Settings
+            expect(menuInstance.model()).toBeDefined();
+            expect(menuInstance.model()!.length).toBe(4); // File, Edit, separator, Settings
             // Count non-separator items
-            const nonSeparatorItems = menuInstance.model!.filter((item) => !item.separator);
+            const nonSeparatorItems = menuInstance.model()!.filter((item) => !item.separator);
             expect(nonSeparatorItems.length).toBe(3);
         });
 
         it('should render item icons when provided', async () => {
             // Verify items have icons in model
-            const itemsWithIcons = menuInstance.model!.filter((item) => item.icon);
+            const itemsWithIcons = menuInstance.model()!.filter((item) => item.icon);
             expect(itemsWithIcons.length).toBeGreaterThanOrEqual(3);
         });
 
         it('should render item labels', async () => {
             // Verify labels in model
-            const items = menuInstance.model!.filter((item) => !item.separator);
+            const items = menuInstance.model()!.filter((item) => !item.separator);
             expect(items[0].label).toBe('File');
             expect(items[1].label).toBe('Edit');
             expect(items[2].label).toBe('Settings');
@@ -493,7 +477,7 @@ describe('Menu', () => {
             await emptyFixture.whenStable();
 
             const emptyMenu = emptyFixture.debugElement.query(By.directive(Menu)).componentInstance;
-            expect(emptyMenu.model).toBeUndefined();
+            expect(emptyMenu.model()).toBeUndefined();
         });
 
         it('should handle null model', async () => {
@@ -502,12 +486,12 @@ describe('Menu', () => {
             await minimalFixture.whenStable();
 
             const minimalMenu = minimalFixture.debugElement.query(By.directive(Menu)).componentInstance;
-            expect(minimalMenu.model).toBeUndefined();
+            expect(minimalMenu.model()).toBeUndefined();
         });
 
         it('should render separators', async () => {
             // Verify model has separator
-            const separators = menuInstance.model!.filter((item) => item.separator);
+            const separators = menuInstance.model()!.filter((item) => item.separator);
             expect(separators.length).toBe(1);
         });
     });
@@ -542,9 +526,9 @@ describe('Menu', () => {
             // Verify the menu instance has submenu
             const submenuInstance = submenuFixture.debugElement.query(By.directive(Menu)).componentInstance;
             expect(submenuInstance.hasSubMenu()).toBe(true);
-            expect(submenuInstance.model.length).toBe(2); // File and Edit groups
-            expect(submenuInstance.model[0].items.length).toBe(2); // File has 2 items
-            expect(submenuInstance.model[1].items.length).toBe(2); // Edit has 2 items
+            expect(submenuInstance.model().length).toBe(2); // File and Edit groups
+            expect(submenuInstance.model()[0].items.length).toBe(2); // File has 2 items
+            expect(submenuInstance.model()[1].items.length).toBe(2); // Edit has 2 items
         });
     });
 
@@ -556,11 +540,11 @@ describe('Menu', () => {
             await commandFixture.whenStable();
 
             const commandMenu = commandFixture.debugElement.query(By.directive(Menu)).componentInstance;
-            expect(commandMenu.model.length).toBe(1);
-            expect(commandMenu.model[0].label).toBe('Command Item');
+            expect(commandMenu.model().length).toBe(1);
+            expect(commandMenu.model()[0].label).toBe('Command Item');
 
             // Simulate command execution directly
-            commandMenu.model[0].command({ item: commandMenu.model[0], originalEvent: new Event('click') });
+            commandMenu.model()[0].command({ item: commandMenu.model()[0], originalEvent: new Event('click') });
 
             expect(commandComponent.commandExecuted).toBeDefined();
             expect(commandComponent.commandExecuted.item.label).toBe('Command Item');
@@ -572,8 +556,8 @@ describe('Menu', () => {
             await disabledFixture.whenStable();
 
             const disabledMenu = disabledFixture.debugElement.query(By.directive(Menu)).componentInstance;
-            const disabledItem = disabledMenu.model[1];
-            const functionDisabledItem = disabledMenu.model[2];
+            const disabledItem = disabledMenu.model()[1];
+            const functionDisabledItem = disabledMenu.model()[2];
 
             expect(disabledMenu.disabled(disabledItem.disabled)).toBe(true);
             expect(disabledMenu.disabled(functionDisabledItem.disabled)).toBe(true);
@@ -587,10 +571,10 @@ describe('Menu', () => {
             const disabledMenu = disabledFixture.debugElement.query(By.directive(Menu)).componentInstance;
 
             // Verify model is correct
-            expect(disabledMenu.model.length).toBe(3);
-            expect(disabledMenu.disabled(disabledMenu.model[0].disabled)).toBe(false);
-            expect(disabledMenu.disabled(disabledMenu.model[1].disabled)).toBe(true);
-            expect(disabledMenu.disabled(disabledMenu.model[2].disabled)).toBe(true);
+            expect(disabledMenu.model().length).toBe(3);
+            expect(disabledMenu.disabled(disabledMenu.model()[0].disabled)).toBe(false);
+            expect(disabledMenu.disabled(disabledMenu.model()[1].disabled)).toBe(true);
+            expect(disabledMenu.disabled(disabledMenu.model()[2].disabled)).toBe(true);
         });
     });
 
@@ -606,7 +590,7 @@ describe('Menu', () => {
             expect(itemTemplateMenu.itemTemplate).toBeDefined();
         });
 
-        it('should handle pTemplate processing', async () => {
+        it('should handle template processing', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
             pTemplateFixture.detectChanges();
             await pTemplateFixture.whenStable();
@@ -614,10 +598,11 @@ describe('Menu', () => {
             const pTemplateMenu = pTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
 
             expect(() => pTemplateMenu.ngAfterContentInit()).not.toThrow();
-            expect(pTemplateMenu.templates).toBeDefined();
+            expect(pTemplateMenu.startTemplate).toBeDefined();
+            expect(pTemplateMenu.endTemplate).toBeDefined();
         });
 
-        it('should process PrimeTemplate types correctly', async () => {
+        it('should process template types correctly', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
             pTemplateFixture.changeDetectorRef.markForCheck();
             await pTemplateFixture.whenStable();
@@ -626,14 +611,15 @@ describe('Menu', () => {
 
             pTemplateMenu.ngAfterContentInit();
 
-            expect(pTemplateMenu.templates).toBeDefined();
-            expect(pTemplateMenu._startTemplate).toBeDefined();
-            expect(pTemplateMenu._endTemplate).toBeDefined();
+            expect(pTemplateMenu.startTemplate()).toBeDefined();
+            expect(pTemplateMenu.endTemplate()).toBeDefined();
+            expect(pTemplateMenu.itemTemplate()).toBeDefined();
         });
 
-        it('should render start and end templates', () => {
+        it('should render start and end templates', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
             pTemplateFixture.detectChanges();
+            await pTemplateFixture.whenStable();
 
             const startContent = pTemplateFixture.debugElement.query(By.css('.menu-start'));
             const endContent = pTemplateFixture.debugElement.query(By.css('.menu-end'));
@@ -657,13 +643,14 @@ describe('Menu', () => {
         });
 
         it('should render different template types correctly', async () => {
-            // Test pTemplate rendering
+            // Test template rendering with #start, #end, #item
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
             pTemplateFixture.changeDetectorRef.markForCheck();
             await pTemplateFixture.whenStable();
 
             const pTemplateMenu = pTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
-            expect(pTemplateMenu.templates).toBeDefined();
+            expect(pTemplateMenu.startTemplate()).toBeDefined();
+            expect(pTemplateMenu.endTemplate()).toBeDefined();
             expect(() => pTemplateMenu.ngAfterContentInit()).not.toThrow();
 
             // Test #item template rendering
@@ -672,13 +659,13 @@ describe('Menu', () => {
             await itemTemplateFixture.whenStable();
 
             const itemTemplateMenu = itemTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
-            expect(itemTemplateMenu.itemTemplate).toBeDefined();
+            expect(itemTemplateMenu.itemTemplate()).toBeDefined();
         });
     });
 
     describe('Keyboard Navigation Tests', () => {
         beforeEach(() => {
-            menuInstance.focused = true;
+            menuInstance.focused.set(true);
         });
 
         it('should handle arrow down key', () => {
@@ -756,18 +743,18 @@ describe('Menu', () => {
 
             menuInstance.onListFocus(focusEvent);
 
-            expect(menuInstance.focused).toBe(true);
+            expect(menuInstance.focused()).toBe(true);
             expect(menuInstance.onFocus.emit).toHaveBeenCalledWith(focusEvent);
         });
 
         it('should emit onBlur when list loses focus', () => {
             spyOn(menuInstance.onBlur, 'emit');
             const blurEvent = new FocusEvent('blur');
-            menuInstance.focused = true;
+            menuInstance.focused.set(true);
 
             menuInstance.onListBlur(blurEvent);
 
-            expect(menuInstance.focused).toBe(false);
+            expect(menuInstance.focused()).toBe(false);
             expect(menuInstance.focusedOptionIndex()).toBe(-1);
             expect(menuInstance.onBlur.emit).toHaveBeenCalledWith(blurEvent);
         });
@@ -825,15 +812,15 @@ describe('Menu', () => {
             const menuInstance = styleFixture.debugElement.query(By.directive(Menu)).componentInstance;
 
             // Check that component received the style input
-            expect(menuInstance.style).toEqual({ border: '2px solid red', padding: '10px' });
+            expect(menuInstance.style()).toEqual({ border: '2px solid red', padding: '10px' });
 
             const hostElement = styleFixture.debugElement.query(By.css('div[data-pc-name="menu"]')).nativeElement;
 
             // Manually apply styles to test the style binding works as expected
             // This simulates what ngStyle directive would do in a real browser
-            if (menuInstance.style) {
-                Object.keys(menuInstance.style).forEach((key) => {
-                    hostElement.style[key] = menuInstance.style[key];
+            if (menuInstance.style()) {
+                Object.keys(menuInstance.style()).forEach((key) => {
+                    hostElement.style[key] = menuInstance.style()[key];
                 });
             }
 
@@ -842,9 +829,9 @@ describe('Menu', () => {
             expect(hostElement.style.padding).toBe('10px');
 
             // Also verify the template binding
-            expect(menuInstance.style).toBeTruthy();
-            expect(Object.keys(menuInstance.style)).toContain('border');
-            expect(Object.keys(menuInstance.style)).toContain('padding');
+            expect(menuInstance.style()).toBeTruthy();
+            expect(Object.keys(menuInstance.style())).toContain('border');
+            expect(Object.keys(menuInstance.style())).toContain('padding');
         });
 
         it('should have proper data attributes', () => {
@@ -860,7 +847,7 @@ describe('Menu', () => {
 
             const containerElement = freshFixture.debugElement.query(By.css('div[data-pc-name="menu"]'));
             expect(containerElement.nativeElement.getAttribute('id')).toBeTruthy();
-            expect(containerElement.nativeElement.getAttribute('id')).toBe(freshMenu.id);
+            expect(containerElement.nativeElement.getAttribute('id')).toBe(freshMenu.$id());
         });
 
         it('should have generated id on list element', () => {
@@ -879,8 +866,8 @@ describe('Menu', () => {
 
         it('should have proper ARIA attributes on menu items', async () => {
             // Verify the menu has proper ARIA setup
-            expect(menuInstance.model).toBeDefined();
-            expect(menuInstance.model!.length).toBeGreaterThan(0);
+            expect(menuInstance.model()).toBeDefined();
+            expect(menuInstance.model()!.length).toBeGreaterThan(0);
 
             // Check that the menu list has proper ARIA attributes
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
@@ -889,7 +876,7 @@ describe('Menu', () => {
         });
 
         it('should set aria-activedescendant when focused', () => {
-            menuInstance.focused = true;
+            menuInstance.focused.set(true);
             menuInstance.focusedOptionIndex.set('test_id');
 
             fixture.detectChanges();
@@ -901,7 +888,7 @@ describe('Menu', () => {
         });
 
         it('should not set aria-activedescendant when not focused', () => {
-            menuInstance.focused = false;
+            menuInstance.focused.set(false);
             fixture.detectChanges();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
@@ -970,16 +957,20 @@ describe('Menu', () => {
             spyOn(menuInstance.onHide, 'emit');
 
             // Show menu
-            const mockEvent = { currentTarget: document.createElement('button') };
+            const mockEvent = new MouseEvent('click');
+            Object.defineProperty(mockEvent, 'currentTarget', {
+                value: document.createElement('button'),
+                configurable: true
+            });
             menuInstance.show(mockEvent);
 
-            expect(menuInstance.visible).toBe(true);
-            expect(menuInstance.overlayVisible).toBe(true);
+            expect(menuInstance.visible()).toBe(true);
+            expect(menuInstance.overlayVisible()).toBe(true);
 
             // Hide menu
             menuInstance.hide();
 
-            expect(menuInstance.visible).toBe(false);
+            expect(menuInstance.visible()).toBe(false);
         });
 
         it('should toggle popup menu visibility', async () => {
@@ -995,11 +986,11 @@ describe('Menu', () => {
 
             // First toggle - should show
             menuInstance.toggle(mockEvent);
-            expect(menuInstance.visible).toBe(true);
+            expect(menuInstance.visible()).toBe(true);
 
             // Second toggle - should hide
             menuInstance.toggle(mockEvent);
-            expect(menuInstance.visible).toBe(false);
+            expect(menuInstance.visible()).toBe(false);
         });
 
         it('should handle overlay click', async () => {
@@ -1039,7 +1030,7 @@ describe('Menu', () => {
             await dynamicFixture.whenStable();
 
             // Initially empty
-            expect(dynamicMenu.model.length).toBe(0);
+            expect(dynamicMenu.model().length).toBe(0);
 
             // Add items
             dynamicComponent.addItem({ label: 'Item 1', icon: 'pi pi-test' });
@@ -1047,23 +1038,23 @@ describe('Menu', () => {
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
-            expect(dynamicMenu.model.length).toBe(2);
-            expect(dynamicMenu.model[0].label).toBe('Item 1');
+            expect(dynamicMenu.model().length).toBe(2);
+            expect(dynamicMenu.model()[0].label).toBe('Item 1');
 
             // Remove item
             dynamicComponent.removeItem(0);
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
-            expect(dynamicMenu.model.length).toBe(1);
-            expect(dynamicMenu.model[0].label).toBe('Item 2');
+            expect(dynamicMenu.model().length).toBe(1);
+            expect(dynamicMenu.model()[0].label).toBe('Item 2');
 
             // Clear all
             dynamicComponent.clearItems();
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
-            expect(dynamicMenu.model.length).toBe(0);
+            expect(dynamicMenu.model().length).toBe(0);
         });
     });
 
@@ -1082,11 +1073,11 @@ describe('Menu', () => {
 
         it('should create popup menu', () => {
             expect(popupMenuInstance).toBeTruthy();
-            expect(popupMenuInstance.popup).toBe(true);
+            expect(popupMenuInstance.popup()).toBe(true);
         });
 
         it('should be hidden by default', () => {
-            expect(popupMenuInstance.visible).toBeFalsy();
+            expect(popupMenuInstance.visible()).toBeFalsy();
         });
 
         it('should show menu when toggle is called with event', () => {
@@ -1098,7 +1089,7 @@ describe('Menu', () => {
             });
 
             popupMenuInstance.toggle(mockEvent);
-            expect(popupMenuInstance.visible).toBe(true);
+            expect(popupMenuInstance.visible()).toBe(true);
         });
 
         it('should hide menu when toggle is called again', () => {
@@ -1111,31 +1102,31 @@ describe('Menu', () => {
 
             // First toggle - should show
             popupMenuInstance.toggle(mockEvent);
-            expect(popupMenuInstance.visible).toBe(true);
+            expect(popupMenuInstance.visible()).toBe(true);
 
             // Second toggle - should hide
             popupMenuInstance.toggle(mockEvent);
-            expect(popupMenuInstance.visible).toBe(false);
+            expect(popupMenuInstance.visible()).toBe(false);
         });
 
         it('should show popup menu via button click', () => {
             const toggleButton = popupFixture.debugElement.query(By.css('.toggle-button'));
 
-            expect(popupMenuInstance.visible).toBeFalsy();
+            expect(popupMenuInstance.visible()).toBeFalsy();
 
             toggleButton.nativeElement.click();
             popupFixture.detectChanges();
 
-            expect(popupMenuInstance.visible).toBe(true);
+            expect(popupMenuInstance.visible()).toBe(true);
         });
 
         it('should render popup menu items when visible', async () => {
             // Verify model is set correctly (nested structure)
-            expect(popupMenuInstance.model!.length).toBe(1);
-            expect(popupMenuInstance.model![0].label).toBe('Options');
-            expect(popupMenuInstance.model![0].items!.length).toBe(2);
-            expect(popupMenuInstance.model![0].items![0].label).toBe('Refresh');
-            expect(popupMenuInstance.model![0].items![1].label).toBe('Export');
+            expect(popupMenuInstance.model()!.length).toBe(1);
+            expect(popupMenuInstance.model()![0].label).toBe('Options');
+            expect(popupMenuInstance.model()![0].items!.length).toBe(2);
+            expect(popupMenuInstance.model()![0].items![0].label).toBe('Refresh');
+            expect(popupMenuInstance.model()![0].items![1].label).toBe('Export');
 
             // Show the menu
             const toggleButton = popupFixture.debugElement.query(By.css('.toggle-button'));
@@ -1143,29 +1134,33 @@ describe('Menu', () => {
             popupFixture.detectChanges();
             await popupFixture.whenStable();
 
-            expect(popupMenuInstance.visible).toBe(true);
+            expect(popupMenuInstance.visible()).toBe(true);
         });
 
         it('should execute command when popup menu item is clicked', async () => {
             expect(popupComponent.refreshCalled).toBe(false);
 
             // Execute command directly since DOM rendering is flaky in zoneless mode
-            popupMenuInstance.model![0].items![0].command!({ item: popupMenuInstance.model![0].items![0], originalEvent: new Event('click') });
+            popupMenuInstance.model()![0].items![0].command!({ item: popupMenuInstance.model()![0].items![0], originalEvent: new Event('click') });
 
             expect(popupComponent.refreshCalled).toBe(true);
         });
 
         it('should hide popup menu after item click', async () => {
             // Show the menu
-            const mockEvent = { currentTarget: document.createElement('button') };
+            const mockEvent = new MouseEvent('click');
+            Object.defineProperty(mockEvent, 'currentTarget', {
+                value: document.createElement('button'),
+                configurable: true
+            });
             popupMenuInstance.show(mockEvent);
-            expect(popupMenuInstance.visible).toBe(true);
+            expect(popupMenuInstance.visible()).toBe(true);
 
             // Simulate item click which should hide the menu
-            popupMenuInstance.itemClick({ originalEvent: new Event('click'), item: popupMenuInstance.model![0].items![0] }, 'test-id');
+            popupMenuInstance.itemClick({ originalEvent: new Event('click'), item: popupMenuInstance.model()![0].items![0] as MenuItem }, 'test-id');
 
             // Menu should hide after item click
-            expect(popupMenuInstance.visible).toBe(false);
+            expect(popupMenuInstance.visible()).toBe(false);
         });
 
         it('should show popup menu programmatically', () => {
@@ -1175,11 +1170,11 @@ describe('Menu', () => {
                 configurable: true
             });
 
-            expect(popupMenuInstance.visible).toBeFalsy();
+            expect(popupMenuInstance.visible()).toBeFalsy();
 
             popupMenuInstance.show(mockEvent);
 
-            expect(popupMenuInstance.visible).toBe(true);
+            expect(popupMenuInstance.visible()).toBe(true);
         });
 
         it('should hide popup menu programmatically', () => {
@@ -1191,12 +1186,12 @@ describe('Menu', () => {
             });
 
             popupMenuInstance.show(mockEvent);
-            expect(popupMenuInstance.visible).toBe(true);
+            expect(popupMenuInstance.visible()).toBe(true);
 
             // Then hide it
             popupMenuInstance.hide();
 
-            expect(popupMenuInstance.visible).toBe(false);
+            expect(popupMenuInstance.visible()).toBe(false);
         });
 
         it('should handle overlay click to hide menu', () => {
@@ -1204,7 +1199,7 @@ describe('Menu', () => {
 
             // Show menu
             popupMenuInstance.show(mockEvent);
-            expect(popupMenuInstance.visible).toBe(true);
+            expect(popupMenuInstance.visible()).toBe(true);
 
             // Simulate overlay click
             spyOn(popupMenuInstance, 'hide');
@@ -1227,7 +1222,7 @@ describe('Menu', () => {
         it('should have proper ARIA attributes for popup', () => {
             // Check that component exists
             expect(popupMenuInstance).toBeTruthy();
-            expect(popupMenuInstance.popup).toBe(true);
+            expect(popupMenuInstance.popup()).toBe(true);
 
             // Show menu to check visibility
             const mockEvent = new MouseEvent('click');
@@ -1237,7 +1232,7 @@ describe('Menu', () => {
             });
 
             popupMenuInstance.show(mockEvent);
-            expect(popupMenuInstance.visible).toBe(true);
+            expect(popupMenuInstance.visible()).toBe(true);
         });
     });
 
@@ -1249,7 +1244,7 @@ describe('Menu', () => {
             await freshFixture.whenStable();
 
             const freshMenu = freshFixture.debugElement.query(By.directive(Menu)).componentInstance;
-            expect(freshMenu.model).toBeUndefined();
+            expect(freshMenu.model()).toBeUndefined();
         });
 
         it('should handle items without icons', async () => {
@@ -1269,7 +1264,7 @@ describe('Menu', () => {
             await styledFixture.whenStable();
 
             const menuInstance = styledFixture.debugElement.query(By.directive(Menu)).componentInstance;
-            expect(menuInstance.styleClass).toBe('custom-menu-class');
+            expect(menuInstance.styleClass()).toBe('custom-menu-class');
 
             const menuElement = styledFixture.debugElement.query(By.css('div[data-pc-name="menu"]'));
             expect(menuElement.nativeElement.classList.contains('custom-menu-class')).toBe(true);
@@ -1288,17 +1283,21 @@ describe('Menu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const mockEvent = { currentTarget: document.createElement('button') };
+            const mockEvent = new MouseEvent('click');
+            Object.defineProperty(mockEvent, 'currentTarget', {
+                value: document.createElement('button'),
+                configurable: true
+            });
 
             // Rapid show/hide
             menuInstance.show(mockEvent);
-            expect(menuInstance.visible).toBe(true);
+            expect(menuInstance.visible()).toBe(true);
 
             menuInstance.hide();
-            expect(menuInstance.visible).toBe(false);
+            expect(menuInstance.visible()).toBe(false);
 
             menuInstance.show(mockEvent);
-            expect(menuInstance.visible).toBe(true);
+            expect(menuInstance.visible()).toBe(true);
         });
 
         it('should handle disabled items click prevention', async () => {
@@ -1306,15 +1305,18 @@ describe('Menu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
+            const originalEvent = new Event('click');
+            spyOn(originalEvent, 'preventDefault');
+
             const mockEvent = {
-                originalEvent: { preventDefault: jasmine.createSpy('preventDefault') },
-                item: { disabled: true }
+                originalEvent: originalEvent,
+                item: { label: 'Disabled Item', disabled: true } as MenuItem
             };
 
             menuInstance.itemClick(mockEvent, 'test_id');
             await fixture.whenStable();
 
-            expect(mockEvent.originalEvent.preventDefault).toHaveBeenCalled();
+            expect(originalEvent.preventDefault).toHaveBeenCalled();
         });
     });
 
@@ -1367,19 +1369,23 @@ describe('Menu', () => {
         });
 
         it('should get tab index value correctly', () => {
-            menuInstance.tabindex = 0;
-            expect(menuInstance.getTabIndexValue()).toBe('0');
+            // tabindex is now an input signal, we test through the component
+            const freshFixture = TestBed.createComponent(Menu);
+            freshFixture.componentRef.setInput('tabindex', 0);
+            freshFixture.detectChanges();
+            expect(freshFixture.componentInstance.getTabIndexValue()).toBe('0');
 
-            menuInstance.tabindex = -1;
-            expect(menuInstance.getTabIndexValue()).toBe('-1');
+            freshFixture.componentRef.setInput('tabindex', -1);
+            freshFixture.detectChanges();
+            expect(freshFixture.componentInstance.getTabIndexValue()).toBe('-1');
         });
 
         it('should handle activedescendant correctly', () => {
-            menuInstance.focused = true;
+            menuInstance.focused.set(true);
             menuInstance.focusedOptionIndex.set('test_id');
             expect(menuInstance.activedescendant()).toBe('test_id');
 
-            menuInstance.focused = false;
+            menuInstance.focused.set(false);
             expect(menuInstance.activedescendant()).toBeUndefined();
         });
     });
@@ -1543,7 +1549,7 @@ describe('Menu', () => {
                 ptFixture.componentRef.setInput('pt', {
                     root: ({ instance }) => {
                         return {
-                            class: instance.popup ? 'POPUP_MENU' : 'STATIC_MENU'
+                            class: instance.popup() ? 'POPUP_MENU' : 'STATIC_MENU'
                         };
                     }
                 });
@@ -1560,7 +1566,7 @@ describe('Menu', () => {
                     list: ({ instance }) => {
                         return {
                             style: {
-                                'border-color': instance.model?.length > 1 ? 'green' : 'red'
+                                'border-color': instance.model()?.length > 1 ? 'green' : 'red'
                             }
                         };
                     }
@@ -1578,7 +1584,7 @@ describe('Menu', () => {
                 ptFixture.componentRef.setInput('pt', {
                     root: ({ instance }) => {
                         return {
-                            class: instance.tabindex === 5 ? 'CUSTOM_TABINDEX' : ''
+                            class: instance.tabindex() === 5 ? 'CUSTOM_TABINDEX' : ''
                         };
                     }
                 });
@@ -1596,7 +1602,7 @@ describe('Menu', () => {
                 ptFixture.componentRef.setInput('pt', {
                     root: ({ instance }) => {
                         return {
-                            class: !instance.popup && instance.tabindex === 0 ? 'STATIC_WITH_TABINDEX' : ''
+                            class: !instance.popup() && instance.tabindex() === 0 ? 'STATIC_WITH_TABINDEX' : ''
                         };
                     }
                 });
@@ -1651,7 +1657,7 @@ describe('Menu', () => {
                     root: ({ instance }) => {
                         return {
                             onclick: () => {
-                                instanceModelLength = instance.model?.length || 0;
+                                instanceModelLength = instance.model()?.length || 0;
                             }
                         };
                     }
@@ -1957,7 +1963,7 @@ describe('Menu', () => {
             const fixture = TestBed.createComponent(Menu);
             const menu = fixture.componentInstance;
             const disabledFn = () => true;
-            const testItem = { label: 'Test Item', disabled: disabledFn };
+            const testItem = { label: 'Test Item', disabled: disabledFn } as any;
             const testId = 'test-item-id';
 
             fixture.componentRef.setInput('model', [testItem]);
