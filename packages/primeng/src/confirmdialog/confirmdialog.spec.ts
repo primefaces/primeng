@@ -940,7 +940,7 @@ describe('ConfirmDialog', () => {
 
     describe('Edge Cases and Error Handling', () => {
         it('should handle missing confirmation gracefully', () => {
-            confirmDialogInstance.confirmation = null as any;
+            confirmDialogInstance.confirmation.set(null);
 
             expect(() => {
                 confirmDialogInstance.option('message');

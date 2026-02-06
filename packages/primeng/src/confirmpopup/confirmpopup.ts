@@ -329,7 +329,8 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
     @HostListener('document:keydown.Escape', ['$event'])
     onEscapeKeydown(event: KeyboardEvent) {
-        if (this.confirmation()?.closeOnEscape !== false) {
+        const confirmation = this.confirmation();
+        if (confirmation && confirmation.closeOnEscape !== false) {
             this.onReject();
         }
     }

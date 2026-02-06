@@ -740,7 +740,7 @@ describe('Breadcrumb', () => {
             if (homeLink) {
                 expect(homeLink.nativeElement.getAttribute('aria-label')).toBe('Go to homepage');
             } else {
-                expect(breadcrumbInstance.homeAriaLabel).toBe('Go to homepage');
+                expect(breadcrumbInstance.homeAriaLabel()).toBe('Go to homepage');
             }
         });
 
