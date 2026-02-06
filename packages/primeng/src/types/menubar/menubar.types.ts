@@ -2,6 +2,60 @@ import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { MenuItem } from 'primeng/api';
 import type { BadgePassThrough } from 'primeng/types/badge';
+import type { CSSProperties } from 'primeng/types/shared';
+
+/**
+ * Processed menu item structure used internally.
+ * @group Interface
+ */
+export interface ProcessedMenuItem {
+    item: MenuItem;
+    index: number;
+    level: number;
+    key: string;
+    parent: ProcessedMenuItem | Record<string, never>;
+    parentKey: string;
+    items?: ProcessedMenuItem[];
+}
+
+/**
+ * Focused item info structure.
+ * @group Interface
+ */
+export interface FocusedItemInfo {
+    index: number;
+    level: number;
+    parentKey: string;
+    item: MenuItem | null;
+}
+
+/**
+ * Item click event.
+ * @group Events
+ */
+export interface MenubarItemClickEvent {
+    originalEvent: Event;
+    processedItem: ProcessedMenuItem;
+    isFocus?: boolean;
+}
+
+/**
+ * Item mouse enter event.
+ * @group Events
+ */
+export interface MenubarItemMouseEnterEvent {
+    originalEvent: Event;
+    processedItem: ProcessedMenuItem;
+}
+
+/**
+ * Menubar inline styles.
+ * @group Interface
+ */
+export interface MenubarInlineStyles {
+    root?: CSSProperties;
+    submenu?: CSSProperties;
+}
 
 /**
  * Custom pass-through(pt) options.
