@@ -2,7 +2,6 @@ import { Component, DebugElement, NO_ERRORS_SCHEMA, provideZonelessChangeDetecti
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbItemClickEvent } from 'primeng/types/breadcrumb';
@@ -67,21 +66,6 @@ class TestItemTemplateBreadcrumbComponent {
     standalone: false,
     template: `
         <p-breadcrumb [model]="model" [home]="home">
-            <ng-template pTemplate="item" let-item>
-                <span class="p-template-item">{{ item.label }}</span>
-            </ng-template>
-        </p-breadcrumb>
-    `
-})
-class TestPTemplateItemBreadcrumbComponent {
-    model: MenuItem[] = [{ label: 'PTemplate Category' }, { label: 'PTemplate Item' }];
-    home: MenuItem = { label: 'PTemplate Home' };
-}
-
-@Component({
-    standalone: false,
-    template: `
-        <p-breadcrumb [model]="model" [home]="home">
             <ng-template #separator>
                 <span class="custom-separator"> > </span>
             </ng-template>
@@ -89,21 +73,6 @@ class TestPTemplateItemBreadcrumbComponent {
     `
 })
 class TestSeparatorTemplateBreadcrumbComponent {
-    model: MenuItem[] = [{ label: 'First' }, { label: 'Second' }];
-    home: MenuItem = { label: 'Home' };
-}
-
-@Component({
-    standalone: false,
-    template: `
-        <p-breadcrumb [model]="model" [home]="home">
-            <ng-template pTemplate="separator">
-                <i class="p-template-separator pi pi-angle-right"></i>
-            </ng-template>
-        </p-breadcrumb>
-    `
-})
-class TestPTemplateSeparatorBreadcrumbComponent {
     model: MenuItem[] = [{ label: 'First' }, { label: 'Second' }];
     home: MenuItem = { label: 'Home' };
 }
@@ -171,7 +140,6 @@ describe('Breadcrumb', () => {
     let fixture: ComponentFixture<TestBasicBreadcrumbComponent>;
     let breadcrumbElement: DebugElement;
     let breadcrumbInstance: Breadcrumb;
-    let router: Router;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -179,9 +147,7 @@ describe('Breadcrumb', () => {
                 TestBasicBreadcrumbComponent,
                 TestStaticBreadcrumbComponent,
                 TestItemTemplateBreadcrumbComponent,
-                TestPTemplateItemBreadcrumbComponent,
                 TestSeparatorTemplateBreadcrumbComponent,
-                TestPTemplateSeparatorBreadcrumbComponent,
                 TestRouterBreadcrumbComponent,
                 TestStyledBreadcrumbComponent,
                 TestMinimalBreadcrumbComponent,
@@ -205,7 +171,6 @@ describe('Breadcrumb', () => {
         component = fixture.componentInstance;
         breadcrumbElement = fixture.debugElement.query(By.directive(Breadcrumb));
         breadcrumbInstance = breadcrumbElement.componentInstance;
-        router = TestBed.inject(Router);
         fixture.detectChanges();
     });
 
@@ -215,7 +180,6 @@ describe('Breadcrumb', () => {
         });
 
         it('should have required dependencies injected', () => {
-            expect(breadcrumbInstance.router).toBeTruthy();
             expect(breadcrumbInstance._componentStyle).toBeTruthy();
             expect(breadcrumbInstance.constructor.name).toBe('Breadcrumb');
         });
@@ -226,11 +190,11 @@ describe('Breadcrumb', () => {
 
             const freshBreadcrumb = freshFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
 
-            expect(freshBreadcrumb.model).toBeUndefined();
-            expect(freshBreadcrumb.home).toBeUndefined();
-            expect(freshBreadcrumb.style).toBeUndefined();
-            expect(freshBreadcrumb.styleClass).toBeUndefined();
-            expect(freshBreadcrumb.homeAriaLabel).toBeUndefined();
+            expect(freshBreadcrumb.model()).toBeUndefined();
+            expect(freshBreadcrumb.home()).toBeUndefined();
+            expect(freshBreadcrumb.style()).toBeUndefined();
+            expect(freshBreadcrumb.styleClass()).toBeUndefined();
+            expect(freshBreadcrumb.homeAriaLabel()).toBeUndefined();
         });
 
         it('should accept custom values', async () => {
@@ -245,18 +209,10 @@ describe('Breadcrumb', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(breadcrumbInstance.model).toBe(testModel);
-            expect(breadcrumbInstance.home).toBe(testHome);
-            expect(breadcrumbInstance.styleClass).toBe('custom-class');
-            expect(breadcrumbInstance.homeAriaLabel).toBe('Custom Home');
-        });
-
-        it('should initialize templates properties', () => {
-            expect(breadcrumbInstance.templates).toBeDefined();
-            expect(breadcrumbInstance._itemTemplate).toBeUndefined();
-            expect(breadcrumbInstance._separatorTemplate).toBeUndefined();
-            expect(breadcrumbInstance.itemTemplate).toBeUndefined();
-            expect(breadcrumbInstance.separatorTemplate).toBeUndefined();
+            expect(breadcrumbInstance.model()).toBe(testModel);
+            expect(breadcrumbInstance.home()).toBe(testHome);
+            expect(breadcrumbInstance.styleClass()).toBe('custom-class');
+            expect(breadcrumbInstance.homeAriaLabel()).toBe('Custom Home');
         });
 
         it('should have onItemClick output emitter', () => {
@@ -272,7 +228,7 @@ describe('Breadcrumb', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(breadcrumbInstance.model).toBe(newModel);
+            expect(breadcrumbInstance.model()).toBe(newModel);
         });
 
         it('should update home input', async () => {
@@ -281,7 +237,7 @@ describe('Breadcrumb', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(breadcrumbInstance.home).toBe(newHome);
+            expect(breadcrumbInstance.home()).toBe(newHome);
         });
 
         it('should update style input', async () => {
@@ -290,7 +246,7 @@ describe('Breadcrumb', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(breadcrumbInstance.style).toBe(newStyle);
+            expect(breadcrumbInstance.style()).toBe(newStyle);
         });
 
         it('should update styleClass input', async () => {
@@ -298,7 +254,7 @@ describe('Breadcrumb', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(breadcrumbInstance.styleClass).toBe('test-class');
+            expect(breadcrumbInstance.styleClass()).toBe('test-class');
         });
 
         it('should update homeAriaLabel input', async () => {
@@ -306,7 +262,7 @@ describe('Breadcrumb', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(breadcrumbInstance.homeAriaLabel).toBe('Go to home page');
+            expect(breadcrumbInstance.homeAriaLabel()).toBe('Go to home page');
         });
 
         it('should handle undefined inputs', async () => {
@@ -319,11 +275,11 @@ describe('Breadcrumb', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(breadcrumbInstance.model).toBeUndefined();
-            expect(breadcrumbInstance.home).toBeUndefined();
-            expect(breadcrumbInstance.style).toBeUndefined();
-            expect(breadcrumbInstance.styleClass).toBeUndefined();
-            expect(breadcrumbInstance.homeAriaLabel).toBeUndefined();
+            expect(breadcrumbInstance.model()).toBeUndefined();
+            expect(breadcrumbInstance.home()).toBeUndefined();
+            expect(breadcrumbInstance.style()).toBeUndefined();
+            expect(breadcrumbInstance.styleClass()).toBeUndefined();
+            expect(breadcrumbInstance.homeAriaLabel()).toBeUndefined();
         });
     });
 
@@ -365,7 +321,7 @@ describe('Breadcrumb', () => {
                 expect(homeIcon).toBeTruthy();
             } else {
                 // Icon might be rendered differently in test environment
-                expect(breadcrumbInstance.home?.icon).toBe('pi pi-home');
+                expect(breadcrumbInstance.home()?.icon).toBe('pi pi-home');
             }
         });
 
@@ -382,7 +338,7 @@ describe('Breadcrumb', () => {
                 expect(defaultHomeIcon).toBeTruthy();
             } else {
                 // Default icon might render differently in test environment
-                expect(breadcrumbInstance.home).toBeTruthy();
+                expect(breadcrumbInstance.home()).toBeTruthy();
             }
         });
 
@@ -399,7 +355,7 @@ describe('Breadcrumb', () => {
                 expect(homeLink.nativeElement.getAttribute('ng-reflect-router-link')).toBe('/');
             } else {
                 // RouterLink might not be reflected in test environment
-                expect(breadcrumbInstance.home?.routerLink).toBe('/');
+                expect(breadcrumbInstance.home()?.routerLink).toBe('/');
             }
         });
 
@@ -415,7 +371,7 @@ describe('Breadcrumb', () => {
             if (homeLink) {
                 expect(homeLink.nativeElement.getAttribute('href')).toBe('/home');
             } else {
-                expect(breadcrumbInstance.home?.url).toBe('/home');
+                expect(breadcrumbInstance.home()?.url).toBe('/home');
             }
         });
 
@@ -432,7 +388,7 @@ describe('Breadcrumb', () => {
             if (homeLink) {
                 expect(homeLink.nativeElement.getAttribute('aria-label')).toBe('Navigate to home');
             } else {
-                expect(breadcrumbInstance.homeAriaLabel).toBe('Navigate to home');
+                expect(breadcrumbInstance.homeAriaLabel()).toBe('Navigate to home');
             }
         });
 
@@ -448,7 +404,7 @@ describe('Breadcrumb', () => {
             if (homeLink) {
                 expect(homeLink.nativeElement.hasAttribute('tabindex')).toBe(false);
             } else {
-                expect(breadcrumbInstance.home?.disabled).toBe(true);
+                expect(breadcrumbInstance.home()?.disabled).toBe(true);
             }
         });
     });
@@ -474,7 +430,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             // Check if label exists in the component model
-            expect(breadcrumbInstance.model?.[0]?.label).toBe('Test Item');
+            expect(breadcrumbInstance.model()?.[0]?.label).toBe('Test Item');
         });
 
         it('should display item icons', async () => {
@@ -487,7 +443,7 @@ describe('Breadcrumb', () => {
             if (itemIcon) {
                 expect(itemIcon).toBeTruthy();
             } else {
-                expect(breadcrumbInstance.model?.[0]?.icon).toBe('pi pi-file');
+                expect(breadcrumbInstance.model()?.[0]?.icon).toBe('pi pi-file');
             }
         });
 
@@ -497,7 +453,7 @@ describe('Breadcrumb', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(breadcrumbInstance.model?.[0]?.routerLink).toBe('/router');
+            expect(breadcrumbInstance.model()?.[0]?.routerLink).toBe('/router');
         });
 
         it('should handle invisible items', async () => {
@@ -532,8 +488,8 @@ describe('Breadcrumb', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(breadcrumbInstance.model?.[0]?.label).toBe('<b>Bold Item</b>');
-            expect(breadcrumbInstance.model?.[0]?.escape).toBe(false);
+            expect(breadcrumbInstance.model()?.[0]?.label).toBe('<b>Bold Item</b>');
+            expect(breadcrumbInstance.model()?.[0]?.escape).toBe(false);
         });
     });
 
@@ -631,19 +587,7 @@ describe('Breadcrumb', () => {
 
             const itemTemplateBreadcrumb = itemTemplateFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
 
-            expect(() => itemTemplateBreadcrumb.ngAfterContentInit()).not.toThrow();
-            expect(itemTemplateBreadcrumb.itemTemplate).toBeDefined();
-        });
-
-        it('should handle pTemplate item processing', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateItemBreadcrumbComponent);
-            pTemplateFixture.detectChanges();
-            await new Promise((resolve) => setTimeout(resolve, 100));
-
-            const pTemplateBreadcrumb = pTemplateFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
-
-            expect(() => pTemplateBreadcrumb.ngAfterContentInit()).not.toThrow();
-            expect(pTemplateBreadcrumb.templates).toBeDefined();
+            expect(itemTemplateBreadcrumb.itemTemplate()).toBeDefined();
         });
 
         it('should render custom item template', async () => {
@@ -659,7 +603,7 @@ describe('Breadcrumb', () => {
             } else {
                 // Template processing might work differently in test environment
                 const breadcrumbComp = itemTemplateFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
-                expect(breadcrumbComp.itemTemplate).toBeDefined();
+                expect(breadcrumbComp.itemTemplate()).toBeDefined();
             }
         });
 
@@ -670,8 +614,7 @@ describe('Breadcrumb', () => {
 
             const separatorBreadcrumb = separatorTemplateFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
 
-            expect(() => separatorBreadcrumb.ngAfterContentInit()).not.toThrow();
-            expect(separatorBreadcrumb.separatorTemplate).toBeDefined();
+            expect(separatorBreadcrumb.separatorTemplate()).toBeDefined();
         });
 
         it('should render custom separator template', async () => {
@@ -686,37 +629,13 @@ describe('Breadcrumb', () => {
             } else {
                 // Template might not render in test environment
                 const breadcrumbComp = separatorTemplateFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
-                expect(breadcrumbComp.separatorTemplate).toBeDefined();
+                expect(breadcrumbComp.separatorTemplate()).toBeDefined();
             }
         });
 
-        it('should process PrimeTemplate types correctly', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateItemBreadcrumbComponent);
-            pTemplateFixture.detectChanges();
-            await new Promise((resolve) => setTimeout(resolve, 100));
-
-            const pTemplateBreadcrumb = pTemplateFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
-
-            pTemplateBreadcrumb.ngAfterContentInit();
-
-            expect(pTemplateBreadcrumb.templates).toBeDefined();
-        });
-
-        it('should prioritize itemTemplate over _itemTemplate', async () => {
-            const itemTemplateFixture = TestBed.createComponent(TestItemTemplateBreadcrumbComponent);
-            itemTemplateFixture.detectChanges();
-            await new Promise((resolve) => setTimeout(resolve, 100));
-
-            const breadcrumbComp = itemTemplateFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
-
-            expect(breadcrumbComp.itemTemplate).toBeDefined();
-            expect(() => breadcrumbComp.ngAfterContentInit()).not.toThrow();
-        });
-
         it('should handle missing templates gracefully', () => {
-            expect(() => breadcrumbInstance.ngAfterContentInit()).not.toThrow();
-            expect(breadcrumbInstance._itemTemplate).toBeUndefined();
-            expect(breadcrumbInstance._separatorTemplate).toBeUndefined();
+            expect(breadcrumbInstance.itemTemplate()).toBeUndefined();
+            expect(breadcrumbInstance.separatorTemplate()).toBeUndefined();
         });
     });
 
@@ -802,8 +721,8 @@ describe('Breadcrumb', () => {
 
             fixture.detectChanges();
 
-            expect(breadcrumbInstance.model?.[0]?.style).toEqual({ color: 'red', fontWeight: 'bold' });
-            expect(breadcrumbInstance.model?.[0]?.styleClass).toBe('item-class');
+            expect(breadcrumbInstance.model()?.[0]?.style).toEqual({ color: 'red', fontWeight: 'bold' });
+            expect(breadcrumbInstance.model()?.[0]?.styleClass).toBe('item-class');
         });
     });
 
@@ -833,7 +752,7 @@ describe('Breadcrumb', () => {
 
             fixture.detectChanges();
 
-            expect(breadcrumbInstance.model?.[0]?.disabled).toBe(true);
+            expect(breadcrumbInstance.model()?.[0]?.disabled).toBe(true);
         });
 
         it('should handle tabindex for enabled items', async () => {
@@ -844,7 +763,7 @@ describe('Breadcrumb', () => {
 
             fixture.detectChanges();
 
-            expect(breadcrumbInstance.model?.[0]?.disabled).toBe(false);
+            expect(breadcrumbInstance.model()?.[0]?.disabled).toBe(false);
         });
 
         it('should support title attributes', async () => {
@@ -856,8 +775,8 @@ describe('Breadcrumb', () => {
 
             fixture.detectChanges();
 
-            expect(breadcrumbInstance.home?.title).toBe('Home Page');
-            expect(breadcrumbInstance.model?.[0]?.title).toBe('Item Page');
+            expect(breadcrumbInstance.home()?.title).toBe('Home Page');
+            expect(breadcrumbInstance.model()?.[0]?.title).toBe('Item Page');
         });
 
         it('should support tooltip options', async () => {
@@ -869,8 +788,8 @@ describe('Breadcrumb', () => {
 
             fixture.detectChanges();
 
-            expect(breadcrumbInstance.home?.tooltipOptions?.tooltipLabel).toBe('Home tooltip');
-            expect(breadcrumbInstance.model?.[0]?.tooltipOptions?.tooltipLabel).toBe('Item tooltip');
+            expect(breadcrumbInstance.home()?.tooltipOptions?.tooltipLabel).toBe('Home tooltip');
+            expect(breadcrumbInstance.model()?.[0]?.tooltipOptions?.tooltipLabel).toBe('Item tooltip');
         });
     });
 
@@ -884,7 +803,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(breadcrumbInstance.model).toBeUndefined();
+            expect(breadcrumbInstance.model()).toBeUndefined();
         });
 
         it('should handle empty model array', async () => {
@@ -896,7 +815,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(breadcrumbInstance.model).toEqual([]);
+            expect(breadcrumbInstance.model()).toEqual([]);
         });
 
         it('should handle items without labels', async () => {
@@ -908,7 +827,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(breadcrumbInstance.model?.[0]?.url).toBe('/no-label');
+            expect(breadcrumbInstance.model()?.[0]?.url).toBe('/no-label');
         });
 
         it('should handle items with special characters in labels', async () => {
@@ -928,7 +847,7 @@ describe('Breadcrumb', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                expect(breadcrumbInstance.model?.[0]?.label).toBe(item.label);
+                expect(breadcrumbInstance.model()?.[0]?.label).toBe(item.label);
                 expect(() => fixture.detectChanges()).not.toThrow();
             }
         });
@@ -946,7 +865,7 @@ describe('Breadcrumb', () => {
 
             fixture.detectChanges();
 
-            expect(breadcrumbInstance.model?.length).toBe(50);
+            expect(breadcrumbInstance.model()?.length).toBe(50);
             expect(() => fixture.detectChanges()).not.toThrow();
         });
 
@@ -961,8 +880,8 @@ describe('Breadcrumb', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                expect(breadcrumbInstance.model).toBe(model);
-                expect(breadcrumbInstance.styleClass).toBe(`class-${index}`);
+                expect(breadcrumbInstance.model()).toBe(model);
+                expect(breadcrumbInstance.styleClass()).toBe(`class-${index}`);
             }
         });
 
@@ -995,10 +914,10 @@ describe('Breadcrumb', () => {
             const instance1 = fixture1.debugElement.query(By.directive(Breadcrumb)).componentInstance;
             const instance2 = fixture2.debugElement.query(By.directive(Breadcrumb)).componentInstance;
 
-            expect(instance1.model?.[0]?.label).toBe('Breadcrumb 1');
-            expect(instance1.styleClass).toBe('breadcrumb-1');
-            expect(instance2.model?.[0]?.label).toBe('Breadcrumb 2');
-            expect(instance2.styleClass).toBe('breadcrumb-2');
+            expect(instance1.model()?.[0]?.label).toBe('Breadcrumb 1');
+            expect(instance1.styleClass()).toBe('breadcrumb-1');
+            expect(instance2.model()?.[0]?.label).toBe('Breadcrumb 2');
+            expect(instance2.styleClass()).toBe('breadcrumb-2');
             expect(instance1).not.toBe(instance2);
         });
     });
@@ -1010,9 +929,9 @@ describe('Breadcrumb', () => {
 
             const staticBreadcrumb = staticFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
 
-            expect(staticBreadcrumb.model.length).toBe(2);
-            expect(staticBreadcrumb.model[0].label).toBe('Category');
-            expect(staticBreadcrumb.home.icon).toBe('pi pi-home');
+            expect(staticBreadcrumb.model().length).toBe(2);
+            expect(staticBreadcrumb.model()[0].label).toBe('Category');
+            expect(staticBreadcrumb.home().icon).toBe('pi pi-home');
         });
 
         it('should work with styled component', () => {
@@ -1029,8 +948,8 @@ describe('Breadcrumb', () => {
 
             const routerBreadcrumb = routerFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
 
-            expect(routerBreadcrumb.model[0].routerLink).toBe('/products');
-            expect(routerBreadcrumb.home.routerLink).toBe('/');
+            expect(routerBreadcrumb.model()[0].routerLink).toBe('/products');
+            expect(routerBreadcrumb.home().routerLink).toBe('/');
         });
 
         it('should maintain state across property changes', async () => {
@@ -1042,8 +961,8 @@ describe('Breadcrumb', () => {
 
             fixture.detectChanges();
 
-            expect(breadcrumbInstance.model?.[0]?.label).toBe('Initial');
-            expect(breadcrumbInstance.styleClass).toBe('initial-class');
+            expect(breadcrumbInstance.model()?.[0]?.label).toBe('Initial');
+            expect(breadcrumbInstance.styleClass()).toBe('initial-class');
 
             component.model = [{ label: 'Updated' }];
             component.styleClass = 'updated-class';
@@ -1053,8 +972,8 @@ describe('Breadcrumb', () => {
 
             fixture.detectChanges();
 
-            expect(breadcrumbInstance.model?.[0]?.label).toBe('Updated');
-            expect(breadcrumbInstance.styleClass).toBe('updated-class');
+            expect(breadcrumbInstance.model()?.[0]?.label).toBe('Updated');
+            expect(breadcrumbInstance.styleClass()).toBe('updated-class');
         });
 
         it('should work with dynamic content changes', async () => {
@@ -1064,7 +983,7 @@ describe('Breadcrumb', () => {
 
             const dynamicBreadcrumb = dynamicFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
 
-            expect(dynamicBreadcrumb.model.length).toBe(0);
+            expect(dynamicBreadcrumb.model().length).toBe(0);
 
             // Add items dynamically
             dynamicComponent.addItem({ label: 'Dynamic 1', url: '/d1' });
@@ -1073,8 +992,8 @@ describe('Breadcrumb', () => {
             await dynamicFixture.whenStable();
             dynamicFixture.detectChanges();
 
-            expect(dynamicBreadcrumb.model.length).toBe(2);
-            expect(dynamicBreadcrumb.model[0].label).toBe('Dynamic 1');
+            expect(dynamicBreadcrumb.model().length).toBe(2);
+            expect(dynamicBreadcrumb.model()[0].label).toBe('Dynamic 1');
 
             // Clear items
             dynamicComponent.clearItems();
@@ -1082,7 +1001,7 @@ describe('Breadcrumb', () => {
             await dynamicFixture.whenStable();
             dynamicFixture.detectChanges();
 
-            expect(dynamicBreadcrumb.model.length).toBe(0);
+            expect(dynamicBreadcrumb.model().length).toBe(0);
         });
 
         it('should handle complete workflow with templates', async () => {
@@ -1092,19 +1011,15 @@ describe('Breadcrumb', () => {
 
             const templateBreadcrumb = templateFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
 
-            expect(templateBreadcrumb.model.length).toBe(2);
-            expect(templateBreadcrumb.home.label).toBe('Custom Home');
-            expect(templateBreadcrumb.itemTemplate).toBeDefined();
+            expect(templateBreadcrumb.model().length).toBe(2);
+            expect(templateBreadcrumb.home().label).toBe('Custom Home');
+            expect(templateBreadcrumb.itemTemplate()).toBeDefined();
         });
     });
 
     describe('Public Methods', () => {
         it('should have onClick method', () => {
             expect(typeof breadcrumbInstance.onClick).toBe('function');
-        });
-
-        it('should have ngAfterContentInit method', () => {
-            expect(typeof breadcrumbInstance.ngAfterContentInit).toBe('function');
         });
 
         it('should call onClick programmatically', () => {
@@ -1131,21 +1046,6 @@ describe('Breadcrumb', () => {
                 originalEvent: mockEvent,
                 item: testItem
             });
-        });
-
-        it('should call ngAfterContentInit programmatically', () => {
-            expect(() => breadcrumbInstance.ngAfterContentInit()).not.toThrow();
-        });
-
-        it('should process templates in ngAfterContentInit', async () => {
-            const templateFixture = TestBed.createComponent(TestPTemplateItemBreadcrumbComponent);
-            templateFixture.detectChanges();
-            await new Promise((resolve) => setTimeout(resolve, 100));
-
-            const templateBreadcrumb = templateFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
-
-            expect(() => templateBreadcrumb.ngAfterContentInit()).not.toThrow();
-            expect(templateBreadcrumb.templates).toBeDefined();
         });
 
         it('should handle preventDefault in onClick for disabled items', () => {
@@ -1234,14 +1134,14 @@ describe('Breadcrumb', () => {
                 list: ({ instance }: any) => {
                     return {
                         class: {
-                            HAS_MODEL: instance?.model?.length > 0
+                            HAS_MODEL: instance?.model()?.length > 0
                         }
                     };
                 },
                 homeItem: ({ instance }: any) => {
                     return {
                         style: {
-                            'background-color': instance?.home ? 'yellow' : 'red'
+                            'background-color': instance?.home() ? 'yellow' : 'red'
                         }
                     };
                 }
