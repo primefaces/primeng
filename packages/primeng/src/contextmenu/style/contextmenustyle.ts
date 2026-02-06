@@ -3,7 +3,10 @@ import { style } from '@primeuix/styles/contextmenu';
 import { BaseStyle } from 'primeng/base';
 
 const inlineStyles = {
-    root: { position: 'absolute' }
+    root: ({ instance }) => ({
+        position: 'absolute',
+        ...instance.style()
+    })
 };
 
 const classes = {
@@ -15,7 +18,7 @@ const classes = {
             'p-contextmenu-item-active': instance.isItemActive(processedItem),
             'p-focus': instance.isItemFocused(processedItem),
             'p-disabled': instance.isItemDisabled(processedItem),
-            'p-contextmenu-mobile': instance.queryMatches
+            'p-contextmenu-mobile': instance.queryMatches()
         }
     ],
     itemContent: 'p-contextmenu-item-content',

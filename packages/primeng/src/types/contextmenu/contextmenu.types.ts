@@ -65,6 +65,41 @@ export interface ContextMenuPassThroughOptions<I = unknown> {
 export type ContextMenuPassThrough<I = unknown> = PassThrough<I, ContextMenuPassThroughOptions<I>>;
 
 /**
+ * Processed menu item used internally.
+ * @group Interface
+ */
+export interface ContextMenuProcessedItem {
+    /**
+     * Menu item instance.
+     */
+    item: MenuItem;
+    /**
+     * Index of the item in its parent.
+     */
+    index: number;
+    /**
+     * Nesting level of the item.
+     */
+    level: number;
+    /**
+     * Unique key of the item.
+     */
+    key: string;
+    /**
+     * Parent processed item.
+     */
+    parent: ContextMenuProcessedItem | Record<string, never>;
+    /**
+     * Parent key.
+     */
+    parentKey: string;
+    /**
+     * Child processed items.
+     */
+    items?: ContextMenuProcessedItem[];
+}
+
+/**
  * Custom item template context.
  * @group Interface
  */
