@@ -77,7 +77,6 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
                                         [skipLocationChange]="item.skipLocationChange"
                                         [replaceUrl]="item.replaceUrl"
                                         [state]="item.state"
-                                        [attr.aria-hidden]="true"
                                         [pBind]="getPTOptions(item, i, 'itemLink')"
                                     >
                                         @if (item.icon && !itemTemplate()) {
@@ -102,7 +101,6 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
                                         [attr.title]="item.title"
                                         [attr.data-automationid]="item.automationId"
                                         [attr.tabindex]="getItemTabIndex(item)"
-                                        [attr.aria-hidden]="true"
                                         [pBind]="getPTOptions(item, i, 'itemLink')"
                                     >
                                         @if (item.icon && !itemTemplate()) {
