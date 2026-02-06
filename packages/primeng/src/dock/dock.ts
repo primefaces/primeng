@@ -63,7 +63,7 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
                                         [class]="cn(cx('itemLink'), item?.linkClass)"
                                         [style]="item?.linkStyle"
                                         routerLinkActive="router-link-active"
-                                        [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                                        [routerLinkActiveOptions]="getRouterLinkActiveOptions(item)"
                                         [target]="item.target"
                                         [attr.title]="item.title"
                                         [attr.data-automationid]="item.automationId"
@@ -90,7 +90,7 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
                                 } @else {
                                     <a
                                         [tooltipPosition]="item.tooltipPosition"
-                                        [attr.href]="item.url || null"
+                                        [attr.href]="getItemUrl(item)"
                                         [class]="cn(cx('itemLink'), item?.linkClass)"
                                         [style]="item?.linkStyle"
                                         pRipple
@@ -224,7 +224,16 @@ export class Dock extends BaseComponent<DockPassThrough> {
     });
 
     getItemTabIndex(item: MenuItem) {
-        return item.disabled ? null : item.tabindex ? item.tabindex : '-1';
+        if (item.disabled) return null;
+        return item.tabindex ?? '-1';
+    }
+
+    getRouterLinkActiveOptions(item: MenuItem) {
+        return item.routerLinkActiveOptions || { exact: false };
+    }
+
+    getItemUrl(item: MenuItem) {
+        return item.url || null;
     }
 
     onInit() {
