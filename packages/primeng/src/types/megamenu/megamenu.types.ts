@@ -1,5 +1,57 @@
 import { TemplateRef } from '@angular/core';
-import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
+import type { MegaMenuItem, MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
+
+/**
+ * Orientation of the megamenu.
+ * @group Types
+ */
+export type MegaMenuOrientation = 'horizontal' | 'vertical';
+
+/**
+ * Processed menu item structure used internally.
+ * @group Interface
+ */
+export interface ProcessedMegaMenuItem {
+    item: MegaMenuItem;
+    index: number;
+    level: number;
+    key: string;
+    parent: ProcessedMegaMenuItem | Record<string, never>;
+    parentKey: string;
+    columnIndex?: number;
+    items?: ProcessedMegaMenuItem[][] | ProcessedMegaMenuItem[];
+}
+
+/**
+ * Focused item info structure.
+ * @group Interface
+ */
+export interface MegaMenuFocusedItemInfo {
+    index: number;
+    level: number;
+    parentKey: string;
+    key?: string;
+    item: MegaMenuItem | null;
+}
+
+/**
+ * Item click event.
+ * @group Events
+ */
+export interface MegaMenuItemClickEvent {
+    originalEvent: Event;
+    processedItem: ProcessedMegaMenuItem;
+    isFocus?: boolean;
+}
+
+/**
+ * Item mouse enter event.
+ * @group Events
+ */
+export interface MegaMenuItemMouseEnterEvent {
+    originalEvent: Event;
+    processedItem: ProcessedMegaMenuItem;
+}
 
 /**
  * Custom pass-through(pt) options.

@@ -5,24 +5,17 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MegaMenuItem, SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
+import { ProcessedMegaMenuItem } from 'primeng/types/megamenu';
 import { MegaMenu } from './megamenu';
+
+function createProcessedMegaMenuItem(item: MegaMenuItem, key: string, index: number = 0, level: number = 0, parentKey: string = ''): ProcessedMegaMenuItem {
+    return { item, key, index, level, parent: {}, parentKey };
+}
 
 @Component({
     standalone: false,
     template: `
-        <p-megamenu
-            [id]="id"
-            [model]="model"
-            [orientation]="orientation"
-            [styleClass]="styleClass"
-            [breakpoint]="breakpoint"
-            [scrollHeight]="scrollHeight"
-            [disabled]="disabled"
-            [tabindex]="tabindex"
-            [ariaLabel]="ariaLabel"
-            [ariaLabelledBy]="ariaLabelledBy"
-            [pt]="pt"
-        >
+        <p-megamenu [id]="id" [model]="model" [orientation]="orientation" [breakpoint]="breakpoint" [scrollHeight]="scrollHeight" [disabled]="disabled" [tabindex]="tabindex" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" [pt]="pt">
         </p-megamenu>
     `
 })
@@ -67,7 +60,6 @@ class TestBasicMegaMenuComponent {
         { label: 'Simple Item', icon: 'pi pi-home', disabled: true }
     ];
     @Input() orientation: 'horizontal' | 'vertical' | string = 'horizontal';
-    @Input() styleClass: string | undefined;
     @Input() breakpoint: string = '960px';
     @Input() scrollHeight: string = '20rem';
     @Input() disabled: boolean = false;
@@ -181,30 +173,6 @@ class TestTemplateMegaMenuComponent {
 
 @Component({
     standalone: false,
-    selector: 'test-ptemplate-megamenu',
-    template: `
-        <p-megamenu [model]="model">
-            <ng-template pTemplate="start">
-                <div class="ptemplate-start">PTemplate Start</div>
-            </ng-template>
-            <ng-template pTemplate="end">
-                <div class="ptemplate-end">PTemplate End</div>
-            </ng-template>
-            <ng-template pTemplate="item" let-item>
-                <span class="ptemplate-item">{{ item.label }}</span>
-            </ng-template>
-            <ng-template pTemplate="button">
-                <button class="ptemplate-button">PTemplate Button</button>
-            </ng-template>
-        </p-megamenu>
-    `
-})
-class TestPTemplateMegaMenuComponent {
-    model: MegaMenuItem[] = [{ label: 'PTemplate Item 1' }, { label: 'PTemplate Item 2' }];
-}
-
-@Component({
-    standalone: false,
     selector: 'test-disabled-megamenu',
     template: ` <p-megamenu [model]="disabledModel"></p-megamenu> `
 })
@@ -215,11 +183,10 @@ class TestDisabledMegaMenuComponent {
 @Component({
     standalone: false,
     selector: 'test-styled-megamenu',
-    template: ` <p-megamenu [model]="model" [styleClass]="customStyleClass"></p-megamenu> `
+    template: ` <p-megamenu [model]="model"></p-megamenu> `
 })
 class TestStyledMegaMenuComponent {
     model: MegaMenuItem[] = [{ label: 'Styled Item', icon: 'pi pi-test' }];
-    customStyleClass = 'custom-megamenu-class';
 }
 
 @Component({
@@ -316,7 +283,6 @@ describe('MegaMenu', () => {
                 TestVerticalMegaMenuComponent,
                 TestRouterMegaMenuComponent,
                 TestTemplateMegaMenuComponent,
-                TestPTemplateMegaMenuComponent,
                 TestDisabledMegaMenuComponent,
                 TestStyledMegaMenuComponent,
                 TestMinimalMegaMenuComponent,
@@ -361,31 +327,29 @@ describe('MegaMenu', () => {
 
             const freshMegaMenu = freshFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
 
-            expect(freshMegaMenu.model).toBeUndefined();
-            expect(freshMegaMenu.orientation).toBe('horizontal');
-            expect(freshMegaMenu.breakpoint).toBe('960px');
-            expect(freshMegaMenu.scrollHeight).toBe('20rem');
-            expect(freshMegaMenu.disabled).toBe(false);
-            expect(freshMegaMenu.tabindex).toBe(0);
-            expect(freshMegaMenu.focused).toBe(false);
-            expect(freshMegaMenu.mobileActive).toBe(false);
+            expect(freshMegaMenu.model()).toBeUndefined();
+            expect(freshMegaMenu.orientation()).toBe('horizontal');
+            expect(freshMegaMenu.breakpoint()).toBe('960px');
+            expect(freshMegaMenu.scrollHeight()).toBe('20rem');
+            expect(freshMegaMenu.disabled()).toBe(false);
+            expect(freshMegaMenu.tabindex()).toBe(0);
+            expect(freshMegaMenu.focused()).toBe(false);
+            expect(freshMegaMenu.mobileActive()).toBe(false);
         });
 
         it('should accept custom values', async () => {
             const testModel: MegaMenuItem[] = [{ label: 'Test Item' }];
             component.model = testModel;
             component.orientation = 'vertical';
-            component.styleClass = 'custom-megamenu';
             component.ariaLabel = 'Custom MegaMenu';
             component.tabindex = 1;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(megaMenuInstance.model).toBe(testModel);
-            expect(megaMenuInstance.orientation).toBe('vertical');
-            expect(megaMenuInstance.styleClass).toBe('custom-megamenu');
-            expect(megaMenuInstance.ariaLabel).toBe('Custom MegaMenu');
-            expect(megaMenuInstance.tabindex).toBe(1);
+            expect(megaMenuInstance.model()).toBe(testModel);
+            expect(megaMenuInstance.orientation()).toBe('vertical');
+            expect(megaMenuInstance.ariaLabel()).toBe('Custom MegaMenu');
+            expect(megaMenuInstance.tabindex()).toBe(1);
         });
 
         it('should initialize with generated id', () => {
@@ -393,9 +357,9 @@ describe('MegaMenu', () => {
             const freshMegaMenu = freshFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
             freshFixture.detectChanges();
 
-            expect(freshMegaMenu.id).toBeTruthy();
-            expect(typeof freshMegaMenu.id).toBe('string');
-            expect(freshMegaMenu.id).toMatch(/^pn_id_/);
+            expect(freshMegaMenu.$id()).toBeTruthy();
+            expect(typeof freshMegaMenu.$id()).toBe('string');
+            expect(freshMegaMenu.$id()).toMatch(/^pn_id_/);
         });
 
         it('should initialize signal states', () => {
@@ -407,7 +371,7 @@ describe('MegaMenu', () => {
 
         it('should process model items on initialization', () => {
             expect(megaMenuInstance.processedItems).toBeDefined();
-            expect(megaMenuInstance.processedItems.length).toBeGreaterThan(0);
+            expect(megaMenuInstance.processedItems().length).toBeGreaterThan(0);
         });
     });
 
@@ -418,8 +382,8 @@ describe('MegaMenu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(megaMenuInstance.model).toBe(newModel);
-            expect(megaMenuInstance.processedItems.length).toBe(1);
+            expect(megaMenuInstance.model()).toBe(newModel);
+            expect(megaMenuInstance.processedItems().length).toBe(1);
         });
 
         it('should update orientation input', async () => {
@@ -427,19 +391,17 @@ describe('MegaMenu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(megaMenuInstance.orientation).toBe('vertical');
+            expect(megaMenuInstance.orientation()).toBe('vertical');
         });
 
         it('should update styling inputs', async () => {
-            component.styleClass = 'test-class';
             component.breakpoint = '768px';
             component.scrollHeight = '15rem';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(megaMenuInstance.styleClass).toBe('test-class');
-            expect(megaMenuInstance.breakpoint).toBe('768px');
-            expect(megaMenuInstance.scrollHeight).toBe('15rem');
+            expect(megaMenuInstance.breakpoint()).toBe('768px');
+            expect(megaMenuInstance.scrollHeight()).toBe('15rem');
         });
 
         it('should update disabled and tabindex inputs', async () => {
@@ -448,8 +410,8 @@ describe('MegaMenu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(megaMenuInstance.disabled).toBe(true);
-            expect(megaMenuInstance.tabindex).toBe(2);
+            expect(megaMenuInstance.disabled()).toBe(true);
+            expect(megaMenuInstance.tabindex()).toBe(2);
         });
 
         it('should update aria inputs', async () => {
@@ -458,15 +420,15 @@ describe('MegaMenu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(megaMenuInstance.ariaLabel).toBe('Test MegaMenu');
-            expect(megaMenuInstance.ariaLabelledBy).toBe('megamenu-label');
+            expect(megaMenuInstance.ariaLabel()).toBe('Test MegaMenu');
+            expect(megaMenuInstance.ariaLabelledBy()).toBe('megamenu-label');
         });
 
         it('should update id input', async () => {
             component.id = 'custom-megamenu-id';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            expect(megaMenuInstance.id).toBe('custom-megamenu-id');
+            expect(megaMenuInstance.id()).toBe('custom-megamenu-id');
         });
     });
 
@@ -525,7 +487,7 @@ describe('MegaMenu', () => {
 
     describe('Mega Panel Tests', () => {
         it('should detect if model has mega panels', () => {
-            const firstProcessedItem = megaMenuInstance.processedItems[0];
+            const firstProcessedItem = megaMenuInstance.processedItems()[0];
             expect(megaMenuInstance.isProcessedItemGroup(firstProcessedItem)).toBe(true);
         });
 
@@ -557,7 +519,7 @@ describe('MegaMenu', () => {
             component.orientation = 'horizontal';
             fixture.detectChanges();
 
-            expect(megaMenuInstance.orientation).toBe('horizontal');
+            expect(megaMenuInstance.orientation()).toBe('horizontal');
 
             const rootList = fixture.debugElement.query(By.css('ul[data-pc-section="rootlist"]'));
             expect(rootList.nativeElement.getAttribute('aria-orientation')).toBe('horizontal');
@@ -568,7 +530,7 @@ describe('MegaMenu', () => {
             verticalFixture.detectChanges();
 
             const verticalMegaMenu = verticalFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
-            expect(verticalMegaMenu.orientation).toBe('vertical');
+            expect(verticalMegaMenu.orientation()).toBe('vertical');
 
             const rootList = verticalFixture.debugElement.query(By.css('ul[data-pc-section="rootlist"]'));
             expect(rootList.nativeElement.getAttribute('aria-orientation')).toBe('vertical');
@@ -651,37 +613,11 @@ describe('MegaMenu', () => {
             const itemTemplateMegaMenu = itemTemplateFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
 
             expect(() => itemTemplateMegaMenu.ngAfterContentInit()).not.toThrow();
-            expect(itemTemplateMegaMenu.itemTemplate).toBeDefined();
+            expect(itemTemplateMegaMenu.itemTemplate()).toBeDefined();
 
             // Verify custom template content is rendered
             const customItems = itemTemplateFixture.debugElement.queryAll(By.css('.custom-item'));
             expect(customItems.length).toBeGreaterThanOrEqual(2);
-        });
-
-        it('should handle pTemplate processing', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateMegaMenuComponent);
-            pTemplateFixture.changeDetectorRef.markForCheck();
-            await pTemplateFixture.whenStable();
-
-            const pTemplateMegaMenu = pTemplateFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
-
-            expect(() => pTemplateMegaMenu.ngAfterContentInit()).not.toThrow();
-            expect(pTemplateMegaMenu.templates).toBeDefined();
-        });
-
-        it('should process PrimeTemplate types correctly', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateMegaMenuComponent);
-            pTemplateFixture.changeDetectorRef.markForCheck();
-            await pTemplateFixture.whenStable();
-
-            const pTemplateMegaMenu = pTemplateFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
-
-            pTemplateMegaMenu.ngAfterContentInit();
-
-            expect(pTemplateMegaMenu.templates).toBeDefined();
-            expect(pTemplateMegaMenu._startTemplate).toBeDefined();
-            expect(pTemplateMegaMenu._endTemplate).toBeDefined();
-            expect(pTemplateMegaMenu._buttonTemplate).toBeDefined();
         });
 
         it('should render start and end templates', () => {
@@ -715,32 +651,22 @@ describe('MegaMenu', () => {
 
             itemTemplateMegaMenu.ngAfterContentInit();
 
-            expect(itemTemplateMegaMenu.itemTemplate).toBeDefined();
+            expect(itemTemplateMegaMenu.itemTemplate()).toBeDefined();
         });
 
-        it('should render different template types correctly', async () => {
-            // Test pTemplate rendering
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateMegaMenuComponent);
-            pTemplateFixture.changeDetectorRef.markForCheck();
-            await pTemplateFixture.whenStable();
-
-            const pTemplateMegaMenu = pTemplateFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
-            expect(pTemplateMegaMenu.templates).toBeDefined();
-            expect(() => pTemplateMegaMenu.ngAfterContentInit()).not.toThrow();
-
-            // Test #item template rendering
+        it('should render #item template correctly', async () => {
             const itemTemplateFixture = TestBed.createComponent(TestTemplateMegaMenuComponent);
             itemTemplateFixture.changeDetectorRef.markForCheck();
             await itemTemplateFixture.whenStable();
 
             const itemTemplateMegaMenu = itemTemplateFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
-            expect(itemTemplateMegaMenu.itemTemplate).toBeDefined();
+            expect(itemTemplateMegaMenu.itemTemplate()).toBeDefined();
         });
     });
 
     describe('Keyboard Navigation Tests', () => {
         beforeEach(() => {
-            megaMenuInstance.focused = true;
+            megaMenuInstance.focused.set(true);
         });
 
         it('should handle arrow down key', () => {
@@ -849,19 +775,19 @@ describe('MegaMenu', () => {
 
             megaMenuInstance.onMenuFocus(focusEvent);
 
-            expect(megaMenuInstance.focused).toBe(true);
+            expect(megaMenuInstance.focused()).toBe(true);
             expect(megaMenuInstance.focusedItemInfo().index).toBeGreaterThanOrEqual(-1);
         });
 
         it('should handle blur events', () => {
             jasmine.clock().install();
             const blurEvent = new FocusEvent('blur');
-            megaMenuInstance.focused = true;
+            megaMenuInstance.focused.set(true);
 
             megaMenuInstance.onMenuBlur(blurEvent);
             jasmine.clock().tick(10);
 
-            expect(megaMenuInstance.focused).toBe(false);
+            expect(megaMenuInstance.focused()).toBe(false);
             expect(megaMenuInstance.focusedItemInfo().index).toBe(-1);
             expect(megaMenuInstance.searchValue).toBe('' as any);
             expect(megaMenuInstance.dirty).toBe(false);
@@ -869,11 +795,11 @@ describe('MegaMenu', () => {
         });
 
         it('should get focusedItemId correctly', () => {
-            megaMenuInstance.focusedItemInfo.set({ index: -1, key: '', parentKey: '', item: null });
-            expect(megaMenuInstance.focusedItemId).toBeNull();
+            megaMenuInstance.focusedItemInfo.set({ index: -1, level: 0, key: '', parentKey: '', item: null });
+            expect(megaMenuInstance.focusedItemId()).toBeNull();
 
-            megaMenuInstance.focusedItemInfo.set({ index: 0, key: 'test_key', parentKey: '', item: null });
-            expect(megaMenuInstance.focusedItemId).toBeTruthy();
+            megaMenuInstance.focusedItemInfo.set({ index: 0, level: 0, key: 'test_key', parentKey: '', item: null });
+            expect(megaMenuInstance.focusedItemId()).toBeTruthy();
         });
 
         it('should change focused item info', () => {
@@ -889,16 +815,6 @@ describe('MegaMenu', () => {
     });
 
     describe('CSS Classes and Styling', () => {
-        it('should apply styleClass when provided', () => {
-            const styleFixture = TestBed.createComponent(TestStyledMegaMenuComponent);
-            styleFixture.detectChanges();
-
-            const megaMenuElement = styleFixture.debugElement.query(By.directive(MegaMenu));
-            const hostElement = megaMenuElement.nativeElement;
-
-            expect(hostElement.classList.contains('custom-megamenu-class')).toBe(true);
-        });
-
         it('should have proper data attributes', () => {
             const hostElement = fixture.debugElement.query(By.directive(MegaMenu)).nativeElement;
             expect(hostElement.getAttribute('data-pc-name')).toBe('megamenu');
@@ -912,14 +828,14 @@ describe('MegaMenu', () => {
 
             const hostElement = freshFixture.debugElement.query(By.directive(MegaMenu)).nativeElement;
             expect(hostElement.getAttribute('id')).toBeTruthy();
-            expect(hostElement.getAttribute('id')).toBe(freshMegaMenu.id);
+            expect(hostElement.getAttribute('id')).toBe(freshMegaMenu.$id());
         });
 
         it('should have generated id on host element', () => {
             // MegaMenu sets id on the host element (p-megamenu), not on the ul element
             const hostElement = fixture.debugElement.query(By.directive(MegaMenu)).nativeElement;
             expect(hostElement.getAttribute('id')).toBeTruthy();
-            expect(hostElement.getAttribute('id')).toBe(megaMenuInstance.id);
+            expect(hostElement.getAttribute('id')).toBe(megaMenuInstance.$id());
         });
     });
 
@@ -958,8 +874,8 @@ describe('MegaMenu', () => {
         });
 
         it('should set aria-activedescendant when focused', () => {
-            megaMenuInstance.focused = true;
-            megaMenuInstance.focusedItemInfo.set({ index: 0, key: 'test_key', parentKey: '', item: null });
+            megaMenuInstance.focused.set(true);
+            megaMenuInstance.focusedItemInfo.set({ index: 0, level: 0, key: 'test_key', parentKey: '', item: null });
 
             fixture.detectChanges();
 
@@ -972,8 +888,8 @@ describe('MegaMenu', () => {
             }
 
             // Verify that the focused state is properly set regardless
-            expect(megaMenuInstance.focused).toBe(true);
-            expect(megaMenuInstance.focusedItemInfo()).toEqual({ index: 0, key: 'test_key', parentKey: '', item: null });
+            expect(megaMenuInstance.focused()).toBe(true);
+            expect(megaMenuInstance.focusedItemInfo()).toEqual({ index: 0, level: 0, key: 'test_key', parentKey: '', item: null });
         });
 
         it('should set aria-label when provided', async () => {
@@ -982,7 +898,7 @@ describe('MegaMenu', () => {
             await fixture.whenStable();
 
             // Check if ariaLabel is set on component instance
-            expect(megaMenuInstance.ariaLabel).toBe('Main Navigation Menu');
+            expect(megaMenuInstance.ariaLabel()).toBe('Main Navigation Menu');
 
             // The current implementation may not bind aria-label to ul element
             const listElement = fixture.debugElement.query(By.css('ul[data-pc-section="rootlist"]'));
@@ -1000,7 +916,7 @@ describe('MegaMenu', () => {
             await fixture.whenStable();
 
             // Check if ariaLabelledBy is set on component instance
-            expect(megaMenuInstance.ariaLabelledBy).toBe('megamenu-heading');
+            expect(megaMenuInstance.ariaLabelledBy()).toBe('megamenu-heading');
 
             // The current implementation may not bind aria-labelledby to ul element
             const listElement = fixture.debugElement.query(By.css('ul[data-pc-section="rootlist"]'));
@@ -1019,8 +935,8 @@ describe('MegaMenu', () => {
                 expect(groupedItems.length).toBeGreaterThanOrEqual(1);
             } else {
                 // If no grouped items are found, verify the model has group items
-                const hasGroupedItems = megaMenuInstance.processedItems.some((item) => item.items && item.items.length > 0);
-                expect(hasGroupedItems || megaMenuInstance.processedItems.length).toBeGreaterThan(0);
+                const hasGroupedItems = megaMenuInstance.processedItems().some((item) => item.items && item.items.length > 0);
+                expect(hasGroupedItems || megaMenuInstance.processedItems().length).toBeGreaterThan(0);
             }
         });
     });
@@ -1035,7 +951,7 @@ describe('MegaMenu', () => {
             expect(routerMegaMenu).toBeTruthy();
 
             // Verify that model items with router links are processed
-            const hasRouterItems = routerMegaMenu.processedItems.some((item) => {
+            const hasRouterItems = routerMegaMenu.processedItems().some((item) => {
                 function hasRouterLink(processedItem) {
                     if (processedItem.item && processedItem.item.routerLink) return true;
                     if (processedItem.items && processedItem.items.length) {
@@ -1053,7 +969,7 @@ describe('MegaMenu', () => {
             routerFixture.detectChanges();
 
             const routerMegaMenu = routerFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
-            const processedItems = routerMegaMenu.processedItems;
+            const processedItems = routerMegaMenu.processedItems();
 
             // Find item with query params
             let foundQueryParams = false;
@@ -1091,7 +1007,7 @@ describe('MegaMenu', () => {
                 });
             }
 
-            checkForRouterLinks(routerMegaMenu.processedItems);
+            checkForRouterLinks(routerMegaMenu.processedItems());
             expect(foundRouterLinks).toBe(true);
         });
     });
@@ -1102,7 +1018,7 @@ describe('MegaMenu', () => {
             responsiveFixture.detectChanges();
 
             const responsiveMegaMenu = responsiveFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
-            expect(responsiveMegaMenu.breakpoint).toBe('768px');
+            expect(responsiveMegaMenu.breakpoint()).toBe('768px');
         });
 
         it('should show menu button on mobile', () => {
@@ -1136,7 +1052,7 @@ describe('MegaMenu', () => {
             await dynamicFixture.whenStable();
 
             // Initially empty
-            expect(dynamicMegaMenu.model.length).toBe(0);
+            expect(dynamicMegaMenu.model()!.length).toBe(0);
 
             // Add items
             dynamicComponent.addItem({ label: 'Item 1', icon: 'pi pi-test' });
@@ -1144,23 +1060,23 @@ describe('MegaMenu', () => {
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
-            expect(dynamicMegaMenu.model.length).toBe(2);
-            expect(dynamicMegaMenu.model[0].label).toBe('Item 1');
+            expect(dynamicMegaMenu.model()!.length).toBe(2);
+            expect(dynamicMegaMenu.model()![0].label).toBe('Item 1');
 
             // Remove item
             dynamicComponent.removeItem(0);
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
-            expect(dynamicMegaMenu.model.length).toBe(1);
-            expect(dynamicMegaMenu.model[0].label).toBe('Item 2');
+            expect(dynamicMegaMenu.model()!.length).toBe(1);
+            expect(dynamicMegaMenu.model()![0].label).toBe('Item 2');
 
             // Clear all
             dynamicComponent.clearItems();
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
-            expect(dynamicMegaMenu.model.length).toBe(0);
+            expect(dynamicMegaMenu.model()!.length).toBe(0);
         });
     });
 
@@ -1172,7 +1088,7 @@ describe('MegaMenu', () => {
             await fixture.whenStable();
 
             expect(() => fixture.changeDetectorRef.markForCheck()).not.toThrow();
-            expect(megaMenuInstance.model).toBeUndefined();
+            expect(megaMenuInstance.model()).toBeUndefined();
         });
 
         it('should handle items without icons', async () => {
@@ -1206,7 +1122,7 @@ describe('MegaMenu', () => {
         });
 
         it('should handle rapid show/hide calls', () => {
-            megaMenuInstance.mobileActive = false;
+            megaMenuInstance.mobileActive.set(false);
 
             // Rapid toggle
             megaMenuInstance.show();
@@ -1271,27 +1187,28 @@ describe('MegaMenu', () => {
         });
 
         it('should check if processed item is group correctly', () => {
-            const regularProcessedItem = { items: null };
-            const groupProcessedItem = { items: [{ label: 'Sub' }] };
+            const regularProcessedItem = createProcessedMegaMenuItem({ label: 'Regular' }, '0');
+            const groupProcessedItem = createProcessedMegaMenuItem({ label: 'Group' }, '1');
+            groupProcessedItem.items = [[createProcessedMegaMenuItem({ label: 'Sub' }, '1_0')]];
 
             expect(megaMenuInstance.isProcessedItemGroup(regularProcessedItem)).toBe(false);
             expect(megaMenuInstance.isProcessedItemGroup(groupProcessedItem)).toBe(true);
         });
 
         it('should check if processed item is selected correctly', () => {
-            const processedItem = { key: 'test_key' };
+            const processedItem = createProcessedMegaMenuItem({ label: 'Test' }, 'test_key');
 
             megaMenuInstance.activeItem.set(null);
             expect(megaMenuInstance.isSelected(processedItem)).toBe(false);
 
-            megaMenuInstance.activeItem.set({ key: 'test_key' });
+            megaMenuInstance.activeItem.set(createProcessedMegaMenuItem({ label: 'Test' }, 'test_key'));
             expect(megaMenuInstance.isSelected(processedItem)).toBe(true);
         });
 
         it('should validate item correctly', () => {
-            const validItem = { item: { label: 'Valid' } };
-            const disabledItem = { item: { label: 'Disabled', disabled: true } };
-            const separatorItem = { item: { separator: true } };
+            const validItem = createProcessedMegaMenuItem({ label: 'Valid' }, '0');
+            const disabledItem = createProcessedMegaMenuItem({ label: 'Disabled', disabled: true }, '1');
+            const separatorItem = createProcessedMegaMenuItem({ separator: true }, '2');
 
             expect(megaMenuInstance.isValidItem(validItem)).toBe(true);
             expect(megaMenuInstance.isValidItem(disabledItem)).toBe(false);
@@ -1299,7 +1216,7 @@ describe('MegaMenu', () => {
         });
 
         it('should find visible item correctly', () => {
-            const visibleItems = megaMenuInstance.visibleItems;
+            const visibleItems = megaMenuInstance.visibleItems();
 
             if (visibleItems.length > 0) {
                 const foundItem = megaMenuInstance.findVisibleItem(0);
@@ -1470,7 +1387,7 @@ describe('MegaMenu', () => {
                     }
                 });
                 megaMenuInstance.queryMatches.set(true);
-                megaMenuInstance.mobileActive = true;
+                megaMenuInstance.mobileActive.set(true);
                 fixture.detectChanges();
 
                 const buttonElement = fixture.debugElement.query(By.css('a[role="button"]'));
