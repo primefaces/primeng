@@ -365,7 +365,7 @@ export class Overlay extends BaseComponent {
 
     hostAttrSelector = input<string>();
 
-    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
+    $appendTo = computed(() => this.appendTo() || this.overlayOptions.appendTo || this.config.overlayAppendTo());
 
     _contentTemplate: TemplateRef<OverlayContentTemplateContext> | undefined;
 
