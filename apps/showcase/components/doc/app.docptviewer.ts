@@ -36,14 +36,21 @@ export const getPTOptions = (name) => {
         columnfilter: 'table'
     };
 
+    const passthroughNameMapping = {
+        scroller: 'virtualscroller'
+    };
+
+    const passthroughName = passthroughNameMapping[name.toLowerCase()] || name;
+
     const lookupName = componentMapping[name.toLowerCase()] || name.toLowerCase();
+
     const componentTypes = APIDoc[lookupName]?.types;
 
-    const passThrough = componentTypes.interfaces.values.find((t) => t.name.toLowerCase() === `${name}PassThroughOptions`.toLowerCase());
+    const passThrough = componentTypes.interfaces.values.find((t) => t.name.toLowerCase() === `${passthroughName}passthroughoptions`.toLowerCase());
 
     const { props } = passThrough;
 
-    const options = componentTypes.interfaces.values.find((t) => t.name.toLowerCase() === `${name}PassThroughMethodOptions`.toLowerCase());
+    const options = componentTypes.interfaces.values.find((t) => t.name.toLowerCase() === `${passthroughName}passthroughmethodoptions`.toLowerCase());
 
     let data = [];
 

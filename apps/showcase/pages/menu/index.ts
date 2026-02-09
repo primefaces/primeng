@@ -1,12 +1,12 @@
-import { AccessibilityDoc } from '@/doc/menu/accessibilitydoc';
-import { BasicDoc } from '@/doc/menu/basicdoc';
-import { CommandDoc } from '@/doc/menu/commanddoc';
-import { GroupDoc } from '@/doc/menu/groupdoc';
-import { ImportDoc } from '@/doc/menu/importdoc';
-import { PopupDoc } from '@/doc/menu/popupdoc';
+import { AccessibilityDoc } from '@/doc/menu/accessibility-doc';
+import { BasicDoc } from '@/doc/menu/basic-doc';
+import { CommandDoc } from '@/doc/menu/command-doc';
+import { GroupDoc } from '@/doc/menu/group-doc';
+import { ImportDoc } from '@/doc/menu/import-doc';
+import { PopupDoc } from '@/doc/menu/popup-doc';
 import { PTComponent } from '@/doc/menu/pt/PTComponent';
-import { RouterDoc } from '@/doc/menu/routerdoc';
-import { TemplateDoc } from '@/doc/menu/templatedoc';
+import { RouterDoc } from '@/doc/menu/router-doc';
+import { TemplateDoc } from '@/doc/menu/template-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

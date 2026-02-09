@@ -1,0 +1,52 @@
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'accessibility-doc',
+    standalone: true,
+    imports: [AppCodeModule, AppDocSectionText],
+    template: ` <div>
+        <app-docsectiontext>
+            <h3>Screen Reader</h3>
+            <p>
+                InputMask directive is used with a native input element that implicitly includes any passed attribute. Value to describe the component can either be provided via <i>label</i> tag combined with <i>id</i> attribute or using
+                <i>aria-labelledby</i>, <i>aria-label</i> attributes.
+            </p>
+        </app-docsectiontext>
+
+        <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+
+        <h3>Keyboard Support</h3>
+        <div class="doc-tablewrapper">
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <i>tab</i>
+                        </td>
+                        <td>Moves focus to the input.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>`
+})
+export class AccessibilityDoc {
+    code: Code = {
+        typescript: `<label for="date">Date</label>
+<input pInputText id="date" pInputMask="99/99/9999" />
+
+<span id="phone">Phone</span>
+<input pInputText pInputMask="(999) 999-9999" aria-labelledby="phone" />
+
+<input pInputText pInputMask="99" aria-label="Age" />`
+    };
+}

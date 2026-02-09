@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { BadgePassThrough } from 'primeng/types/badge';
@@ -46,32 +45,54 @@ export interface ButtonPassThroughOptions<I = unknown> {
 export type ButtonPassThrough<I = unknown> = PassThrough<I, ButtonPassThroughOptions<I>>;
 
 /**
+ * Custom icon template context.
+ * @group Interface
+ */
+export interface ButtonIconTemplateContext {
+    /**
+     * Style class of the icon.
+     */
+    class: string;
+    /**
+     * Pass-through options for the icon element.
+     */
+    pt: any;
+}
+
+/**
+ * Custom loading icon template context.
+ * @group Interface
+ */
+export interface ButtonLoadingIconTemplateContext {
+    /**
+     * Style class of the loading icon.
+     */
+    class: string;
+    /**
+     * Pass-through options for the loading icon element.
+     */
+    pt: any;
+}
+
+/**
  * Defines valid templates in Button.
  * @group Templates
  */
 export interface ButtonTemplates {
     /**
-     * Custom template of content.
+     * Custom content template.
      */
-    content(): TemplateRef<any>;
+    content(): TemplateRef<void>;
     /**
-     * Custom template of icon.
+     * Custom icon template.
+     * @param {Object} context - icon context.
      */
-    icon(context: {
-        /**
-         * Icon class.
-         */
-        class: NgClass;
-    }): TemplateRef<NgClass>;
+    icon(context: ButtonIconTemplateContext): TemplateRef<ButtonIconTemplateContext>;
     /**
-     * Custom template of loadingicon.
+     * Custom loading icon template.
+     * @param {Object} context - loading icon context.
      */
-    loadingicon(context: {
-        /**
-         * Icon class.
-         */
-        class: NgClass;
-    }): TemplateRef<NgClass>;
+    loadingicon(context: ButtonLoadingIconTemplateContext): TemplateRef<ButtonLoadingIconTemplateContext>;
 }
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';

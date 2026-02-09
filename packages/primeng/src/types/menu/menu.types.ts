@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -53,6 +54,10 @@ export interface MenuPassThroughOptions<I = unknown> {
      * Used to pass attributes to the end's DOM element.
      */
     end?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
@@ -64,6 +69,28 @@ export interface MenuPassThroughOptions<I = unknown> {
 export type MenuPassThrough<I = unknown> = PassThrough<I, MenuPassThroughOptions<I>>;
 
 /**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface MenuItemTemplateContext {
+    /**
+     * Menu item instance.
+     */
+    $implicit: MenuItem;
+}
+
+/**
+ * Custom submenu header template context.
+ * @group Interface
+ */
+export interface MenuSubmenuHeaderTemplateContext {
+    /**
+     * Submenu item instance.
+     */
+    $implicit: MenuItem;
+}
+
+/**
  * Defines valid templates in Menu.
  * @group Templates
  */
@@ -71,27 +98,19 @@ export interface MenuTemplates {
     /**
      * Custom template of start.
      */
-    start(): TemplateRef<any>;
+    start(): TemplateRef<void>;
     /**
      * Custom template of end.
      */
-    end(): TemplateRef<any>;
+    end(): TemplateRef<void>;
     /**
      * Custom template of item.
+     * @param {Object} context - item context.
      */
-    item(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: MenuItem;
-    }): TemplateRef<{ $implicit: MenuItem }>;
+    item(context: MenuItemTemplateContext): TemplateRef<MenuItemTemplateContext>;
     /**
-     * Custom template of submenuheader.
+     * Custom template of submenu header.
+     * @param {Object} context - submenu header context.
      */
-    submenuheader(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: MenuItem;
-    }): TemplateRef<{ $implicit: MenuItem }>;
+    submenuheader(context: MenuSubmenuHeaderTemplateContext): TemplateRef<MenuSubmenuHeaderTemplateContext>;
 }

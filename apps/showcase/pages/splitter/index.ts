@@ -1,9 +1,9 @@
-import { AccessibilityDoc } from '@/doc/splitter/accessibilitydoc';
-import { HorizontalDoc } from '@/doc/splitter/horizontaldoc';
-import { ImportDoc } from '@/doc/splitter/importdoc';
-import { NestedDoc } from '@/doc/splitter/nesteddoc';
-import { SizeDoc } from '@/doc/splitter/sizedoc';
-import { VerticalDoc } from '@/doc/splitter/verticaldoc';
+import { AccessibilityDoc } from '@/doc/splitter/accessibility-doc';
+import { HorizontalDoc } from '@/doc/splitter/horizontal-doc';
+import { ImportDoc } from '@/doc/splitter/import-doc';
+import { NestedDoc } from '@/doc/splitter/nested-doc';
+import { SizeDoc } from '@/doc/splitter/size-doc';
+import { VerticalDoc } from '@/doc/splitter/vertical-doc';
 import { PTComponent } from '@/doc/splitter/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';

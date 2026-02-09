@@ -1,4 +1,4 @@
-import { AppDocApiTable } from '@/components/doc/app.docapitable';
+import { AppDocPtTable } from '@/components/doc/app.docpttable';
 import { getPTOptions } from '@/components/doc/app.docptviewer';
 import { AppDocSection } from '@/components/doc/app.docsection';
 import { Component } from '@angular/core';
@@ -18,6 +18,6 @@ import { PTViewer } from './PTViewer';
 export class PTComponent {
     docs = [
         { id: 'pt.viewer', label: 'Viewer', component: PTViewer },
-        { id: 'pt.doc.editor', label: 'Editor PT Options', component: AppDocApiTable, data: getPTOptions('Editor') }
+        { id: 'pt.doc.editor', label: 'Editor PT Options', component: AppDocPtTable, data: getPTOptions('Editor') }
     ];
 }

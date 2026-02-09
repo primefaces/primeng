@@ -1,5 +1,5 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputGroup } from './inputgroup';
@@ -61,7 +61,8 @@ describe('InputGroup', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicInputGroupComponent]
+                imports: [TestBasicInputGroupComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicInputGroupComponent);
@@ -107,7 +108,8 @@ describe('InputGroup', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestStyledInputGroupComponent]
+                imports: [TestStyledInputGroupComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestStyledInputGroupComponent);
@@ -133,9 +135,10 @@ describe('InputGroup', () => {
             expect(inputGroupElement.nativeElement.classList.contains('custom-input-group')).toBe(true);
         });
 
-        it('should update styleClass dynamically', () => {
+        it('should update styleClass dynamically', async () => {
             component.customClass = 'new-custom-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const inputGroupInstance = fixture.debugElement.query(By.directive(InputGroup)).componentInstance;
             const inputGroupElement = fixture.debugElement.query(By.directive(InputGroup));
@@ -151,7 +154,8 @@ describe('InputGroup', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestAddonStyledComponent]
+                imports: [TestAddonStyledComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestAddonStyledComponent);
@@ -175,10 +179,11 @@ describe('InputGroup', () => {
             expect(addonElement.nativeElement.classList.contains('custom-addon')).toBe(true);
         });
 
-        it('should update addon styles dynamically', () => {
+        it('should update addon styles dynamically', async () => {
             component.addonStyle = { color: 'red' };
             component.addonClass = 'updated-addon';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const addonInstance = fixture.debugElement.query(By.directive(InputGroupAddon)).componentInstance;
             const addonElement = fixture.debugElement.query(By.directive(InputGroupAddon));
@@ -196,7 +201,8 @@ describe('InputGroup', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicInputGroupComponent]
+                imports: [TestBasicInputGroupComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicInputGroupComponent);
@@ -209,14 +215,14 @@ describe('InputGroup', () => {
             expect(inputElement.nativeElement.value).toBe('' as any);
         });
 
-        it('should update input value when model changes', fakeAsync(() => {
+        it('should update input value when model changes', async () => {
             component.username = 'testuser';
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
             expect(inputElement.nativeElement.value).toBe('testuser');
-        }));
+        });
     });
 
     describe('Edge Cases', () => {
@@ -225,7 +231,8 @@ describe('InputGroup', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicInputGroupComponent]
+                imports: [TestBasicInputGroupComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicInputGroupComponent);
@@ -257,10 +264,11 @@ describe('InputGroup', () => {
             expect(addonElement.nativeElement.textContent.trim()).toBe('' as any);
         });
 
-        it('should handle undefined styleClass', () => {
+        it('should handle undefined styleClass', async () => {
             const inputGroupInstance = fixture.debugElement.query(By.directive(InputGroup)).componentInstance;
             inputGroupInstance.styleClass = undefined as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(inputGroupInstance.styleClass).toBeUndefined();
         });
@@ -274,7 +282,8 @@ describe('InputGroup PassThrough Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [InputGroup, FormsModule]
+            imports: [InputGroup, FormsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(InputGroup);
@@ -390,6 +399,7 @@ describe('InputGroup PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [InputGroup, FormsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             inputGroup: {
@@ -417,6 +427,7 @@ describe('InputGroup PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [InputGroup, FormsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             inputGroup: {

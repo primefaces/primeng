@@ -18,14 +18,34 @@ export interface CheckboxChangeEvent {
 }
 
 /**
+ * Custom checkbox icon template context.
+ * @group Interface
+ */
+export interface CheckboxIconTemplateContext {
+    /**
+     * State of the checkbox.
+     */
+    checked: boolean;
+    /**
+     * Style class of the icon.
+     */
+    class: string;
+    /**
+     * DataP attributes.
+     */
+    dataP: string;
+}
+
+/**
  * Defines valid templates in Checkbox.
  * @group Templates
  */
 export interface CheckboxTemplates {
     /**
-     * Custom checkbox icon template
+     * Custom checkbox icon template.
+     * @param {Object} context - icon context.
      */
-    icon(): TemplateRef<any>;
+    icon(context: CheckboxIconTemplateContext): TemplateRef<CheckboxIconTemplateContext>;
 }
 
 /**

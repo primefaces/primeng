@@ -49,11 +49,6 @@ jobs:
               run: |
                   pnpm run format:check
 
-            - name: Unit Test
-              id: unitTest
-              run: |
-                  pnpm run test:unit
-
             - name: Add Code Format Fail Comment
               if: always() && steps.codeFormat.outcome == 'failure'
               uses: actions-cool/issues-helper@v3

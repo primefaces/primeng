@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Code } from '@/domain/code';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'v20-backward-compatible-doc',
@@ -48,11 +48,11 @@ export class BackwardCompatibleDoc {
     };
 
     code2: Code = {
-        html: `<input type="text" pattern="email" [invalid]="email.invalid && (email.touched || sampleForm.submitted)" />`
+        typescript: `<input type="text" pattern="email" [invalid]="email.invalid && (email.touched || sampleForm.submitted)" />`
     };
 
     code3: Code = {
-        html: `<!-- Deprecated -->
+        typescript: `<!-- Deprecated -->
 <p-select styleClass="mx-auto" />
 
 <!-- New -->

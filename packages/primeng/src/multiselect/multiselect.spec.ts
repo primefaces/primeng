@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, signal, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, computed, provideZonelessChangeDetection, signal, ViewChild } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NgForm, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -392,7 +392,7 @@ describe('MultiSelect', () => {
                 TestComplexEdgeCasesMultiSelectComponent
             ],
             imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
-            providers: [provideNoopAnimations()]
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicMultiSelectComponent);
@@ -482,18 +482,17 @@ describe('MultiSelect', () => {
             fixture.detectChanges();
         });
 
-        it('should show panel programmatically', fakeAsync(() => {
+        it('should show panel programmatically', async () => {
             expect(multiSelect.overlayVisible).toBeFalsy();
 
             multiSelect.show();
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(multiSelect.overlayVisible).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should hide panel programmatically', fakeAsync(() => {
+        it('should hide panel programmatically', async () => {
             // Test show functionality first
             expect(multiSelect.overlayVisible).toBe(false);
             multiSelect.show();
@@ -502,9 +501,7 @@ describe('MultiSelect', () => {
             // Test hide functionality
             multiSelect.hide();
             expect(multiSelect.overlayVisible).toBe(false);
-
-            flush();
-        }));
+        });
 
         it('should update model programmatically', () => {
             const newValue = [component.options[0], component.options[1]];
@@ -514,21 +511,20 @@ describe('MultiSelect', () => {
             expect(multiSelect.modelValue()).toEqual(newValue);
         });
 
-        it('should clear selection', fakeAsync(() => {
+        it('should clear selection', async () => {
             component.selectedCities = [component.options[0]];
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             multiSelect.clear(new Event('click'));
 
             expect(multiSelect.modelValue()).toBeNull();
             expect(component.clearEvent).not.toBeNull(); // clearEvent can be undefined from the void event
-            flush();
-        }));
+        });
 
-        it('should reset filter', fakeAsync(() => {
+        it('should reset filter', async () => {
             multiSelect.show();
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             multiSelect._filterValue.set('test');
@@ -537,12 +533,12 @@ describe('MultiSelect', () => {
             multiSelect.resetFilter();
 
             expect(multiSelect._filterValue()).toBeNull();
-            flush();
-        }));
+        });
 
-        it('should handle maxSelectionLimitReached', () => {
+        it('should handle maxSelectionLimitReached', async () => {
             component.selectionLimit = 2;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             multiSelect.updateModel([component.options[0], component.options[1]]);
 
@@ -559,7 +555,7 @@ describe('MultiSelect', () => {
             fixture.detectChanges();
         });
 
-        it('should emit onChange event when selection changes', fakeAsync(() => {
+        it('should emit onChange event when selection changes', async () => {
             spyOn(component, 'onSelectionChange');
 
             const option = component.options[0];
@@ -568,21 +564,19 @@ describe('MultiSelect', () => {
                 option: option
             });
 
-            tick();
+            await fixture.whenStable();
 
             expect(component.onSelectionChange).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
-        it('should emit onFilter event when filtering', fakeAsync(() => {
+        it('should emit onFilter event when filtering', async () => {
             spyOn(component, 'onFilter');
 
             const event = { target: { value: 'test' } } as any;
             multiSelect.onFilterInputChange(event);
 
             expect(component.onFilter).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
         it('should emit onFocus event', () => {
             spyOn(component, 'onFocus');
@@ -629,9 +623,9 @@ describe('MultiSelect', () => {
             expect(component.onSelectAllChange).toHaveBeenCalled();
         });
 
-        it('should handle toggle all selection', fakeAsync(() => {
+        it('should handle toggle all selection', async () => {
             multiSelect.show();
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const headerCheckbox = fixture.debugElement.query(By.css('.p-multiselect-header .p-checkbox'));
@@ -642,18 +636,17 @@ describe('MultiSelect', () => {
                 checked: true
             });
 
-            tick();
+            await fixture.whenStable();
 
             // Should select all valid options (excluding disabled)
             expect(multiSelect.modelValue()).toBeDefined();
-            flush();
-        }));
+        });
 
-        it('should remove option when chip is clicked', fakeAsync(() => {
+        it('should remove option when chip is clicked', async () => {
             component.display = 'chip';
             component.selectedCities = [component.options[0], component.options[1]];
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             spyOn(component, 'onRemove');
 
@@ -661,20 +654,18 @@ describe('MultiSelect', () => {
 
             expect(component.onRemove).toHaveBeenCalled();
             expect(multiSelect.modelValue()).toEqual([component.options[1]]);
-            flush();
-        }));
+        });
     });
 
     describe('Keyboard Navigation', () => {
-        beforeEach(fakeAsync(() => {
+        beforeEach(async () => {
             fixture.detectChanges();
             multiSelect.show();
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
-            flush();
-        }));
+        });
 
-        it('should handle arrow down key', fakeAsync(() => {
+        it('should handle arrow down key', async () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
             spyOn(keyEvent, 'preventDefault');
             spyOn(keyEvent, 'stopPropagation');
@@ -684,10 +675,9 @@ describe('MultiSelect', () => {
             expect(keyEvent.preventDefault).toHaveBeenCalled();
             expect(keyEvent.stopPropagation).toHaveBeenCalled();
             expect(multiSelect.focusedOptionIndex()).toBeGreaterThan(-1);
-            flush();
-        }));
+        });
 
-        it('should handle arrow up key', fakeAsync(() => {
+        it('should handle arrow up key', async () => {
             multiSelect.focusedOptionIndex.set(1);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
@@ -699,10 +689,9 @@ describe('MultiSelect', () => {
             expect(keyEvent.preventDefault).toHaveBeenCalled();
             expect(keyEvent.stopPropagation).toHaveBeenCalled();
             expect(multiSelect.focusedOptionIndex()).toBe(0);
-            flush();
-        }));
+        });
 
-        it('should handle enter key', fakeAsync(() => {
+        it('should handle enter key', async () => {
             multiSelect.focusedOptionIndex.set(0);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Enter' });
@@ -712,10 +701,9 @@ describe('MultiSelect', () => {
 
             expect(keyEvent.preventDefault).toHaveBeenCalled();
             expect(multiSelect.modelValue()).toContain(component.options[0]);
-            flush();
-        }));
+        });
 
-        it('should handle space key', fakeAsync(() => {
+        it('should handle space key', async () => {
             multiSelect.focusedOptionIndex.set(0);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Space' });
@@ -725,10 +713,9 @@ describe('MultiSelect', () => {
 
             expect(keyEvent.preventDefault).toHaveBeenCalled();
             expect(multiSelect.modelValue()).toContain(component.options[0]);
-            flush();
-        }));
+        });
 
-        it('should handle escape key', fakeAsync(() => {
+        it('should handle escape key', async () => {
             expect(multiSelect.overlayVisible).toBe(true);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Escape' });
@@ -740,28 +727,26 @@ describe('MultiSelect', () => {
             expect(keyEvent.preventDefault).toHaveBeenCalled();
             expect(keyEvent.stopPropagation).toHaveBeenCalled();
             expect(multiSelect.overlayVisible).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should handle tab key', fakeAsync(() => {
+        it('should handle tab key', async () => {
             // First open the overlay to test tab behavior
             multiSelect.show();
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Tab' });
 
             multiSelect.onKeyDown(keyEvent);
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Tab key should close the overlay (or at least not cause errors)
             // overlayVisible might still be true depending on implementation
             expect(multiSelect.overlayVisible === false || multiSelect.overlayVisible === true).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle ctrl+a for select all', fakeAsync(() => {
+        it('should handle ctrl+a for select all', async () => {
             const keyEvent = new KeyboardEvent('keydown', {
                 code: 'KeyA',
                 ctrlKey: true
@@ -774,10 +759,9 @@ describe('MultiSelect', () => {
             // Should select all valid options
             const validOptions = component.options.filter((opt) => !opt.disabled);
             expect(multiSelect.modelValue().length).toBe(validOptions.length);
-            flush();
-        }));
+        });
 
-        it('should handle home key', fakeAsync(() => {
+        it('should handle home key', async () => {
             multiSelect.focusedOptionIndex.set(2);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Home' });
@@ -787,10 +771,9 @@ describe('MultiSelect', () => {
 
             expect(keyEvent.preventDefault).toHaveBeenCalled();
             expect(multiSelect.focusedOptionIndex()).toBe(0);
-            flush();
-        }));
+        });
 
-        it('should handle end key', fakeAsync(() => {
+        it('should handle end key', async () => {
             multiSelect.focusedOptionIndex.set(0);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'End' });
@@ -802,30 +785,27 @@ describe('MultiSelect', () => {
             // Should focus on last valid option (not disabled)
             const lastValidIndex = component.options.length - 2; // Exclude disabled Tokyo
             expect(multiSelect.focusedOptionIndex()).toBe(lastValidIndex);
-            flush();
-        }));
+        });
 
-        it('should handle page down key', fakeAsync(() => {
+        it('should handle page down key', async () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'PageDown' });
             spyOn(keyEvent, 'preventDefault');
 
             multiSelect.onKeyDown(keyEvent);
 
             expect(keyEvent.preventDefault).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
-        it('should handle page up key', fakeAsync(() => {
+        it('should handle page up key', async () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'PageUp' });
             spyOn(keyEvent, 'preventDefault');
 
             multiSelect.onKeyDown(keyEvent);
 
             expect(keyEvent.preventDefault).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
-        it('should handle character search', fakeAsync(() => {
+        it('should handle character search', async () => {
             const keyEvent = new KeyboardEvent('keydown', { key: 'L' });
             spyOn(keyEvent, 'preventDefault');
 
@@ -835,8 +815,7 @@ describe('MultiSelect', () => {
             // Should focus on London (first option starting with L)
             const londonIndex = component.options.findIndex((opt) => opt.name === 'London');
             expect(multiSelect.focusedOptionIndex()).toBe(londonIndex);
-            flush();
-        }));
+        });
     });
 
     describe('Accessibility', () => {
@@ -853,9 +832,9 @@ describe('MultiSelect', () => {
             expect(hiddenInput.nativeElement.getAttribute('aria-expanded')).toBe('false');
         });
 
-        it('should update ARIA attributes when panel opens', fakeAsync(() => {
+        it('should update ARIA attributes when panel opens', async () => {
             multiSelect.show();
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const hiddenInput = fixture.debugElement.query(By.css('.p-hidden-accessible input'));
@@ -863,19 +842,17 @@ describe('MultiSelect', () => {
 
             const listId = multiSelect.id + '_list';
             expect(hiddenInput.nativeElement.getAttribute('aria-controls')).toBe(listId);
-            flush();
-        }));
+        });
 
-        it('should have proper list ARIA attributes', fakeAsync(() => {
+        it('should have proper list ARIA attributes', async () => {
             multiSelect.show();
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const list = fixture.debugElement.query(By.css('[role="listbox"]'));
             expect(list).toBeTruthy();
             expect(list.nativeElement.getAttribute('aria-multiselectable')).toBe('true');
-            flush();
-        }));
+        });
 
         it('should handle focus and blur properly', () => {
             const hiddenInput = fixture.debugElement.query(By.css('.p-hidden-accessible input'));
@@ -890,31 +867,31 @@ describe('MultiSelect', () => {
             expect(multiSelect.focused).toBe(false);
         });
 
-        it('should manage tabindex correctly', () => {
+        it('should manage tabindex correctly', async () => {
             const hiddenInput = fixture.debugElement.query(By.css('.p-hidden-accessible input'));
             expect(hiddenInput.nativeElement.tabIndex).toBe(0);
 
             component.disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(hiddenInput.nativeElement.tabIndex).toBe(-1);
         });
     });
 
     describe('Filtering', () => {
-        beforeEach(fakeAsync(() => {
+        beforeEach(async () => {
             component.filter = true;
             fixture.detectChanges();
             multiSelect.show();
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
-            flush();
-        }));
+        });
 
-        it('should filter options by name', fakeAsync(() => {
+        it('should filter options by name', async () => {
             // First open the dropdown to access filter input
             multiSelect.show();
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const filterInput = fixture.debugElement.query(By.css('.p-multiselect-filter input'));
@@ -928,50 +905,50 @@ describe('MultiSelect', () => {
                 multiSelect.filterValue = 'New';
                 multiSelect.onFilterInputChange({ target: { value: 'New' } } as any);
             }
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const visibleOptions = multiSelect.visibleOptions();
             expect(visibleOptions.length).toBe(1);
             expect(visibleOptions[0].name).toBe('New York');
-            flush();
-        }));
+        });
 
-        it('should filter options by custom field', fakeAsync(() => {
+        it('should filter options by custom field', async () => {
             component.filterBy = 'code';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             multiSelect.show();
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const filterInput = fixture.debugElement.query(By.css('.p-multiselect-filter input'));
             if (filterInput?.nativeElement) {
                 filterInput.nativeElement.value = 'NY';
                 filterInput.nativeElement.dispatchEvent(new Event('input'));
-                tick();
+                await fixture.whenStable();
                 fixture.detectChanges();
             } else {
                 // If no filter input, set filter value directly
                 multiSelect.filterValue = 'NY';
                 multiSelect.onFilterInputChange({ target: { value: 'NY' } } as any);
-                tick();
+                await fixture.whenStable();
                 fixture.detectChanges();
             }
 
             const visibleOptions = multiSelect.visibleOptions();
             expect(visibleOptions.length).toBe(1);
             expect(visibleOptions[0].code).toBe('NY');
-            flush();
-        }));
+        });
 
-        it('should reset filter when hiding panel', fakeAsync(() => {
+        it('should reset filter when hiding panel', async () => {
             component.resetFilterOnHide = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // First open dropdown to access filter input
             multiSelect.show();
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const filterInput = fixture.debugElement.query(By.css('.p-multiselect-filter input'));
@@ -983,37 +960,35 @@ describe('MultiSelect', () => {
                 multiSelect.filterValue = 'test';
                 multiSelect.onFilterInputChange({ target: { value: 'test' } } as any);
             }
-            tick();
+            await fixture.whenStable();
 
             expect(multiSelect._filterValue()).toBe('test');
 
             multiSelect.hide();
-            tick();
+            await fixture.whenStable();
 
             expect(multiSelect._filterValue()).toBeNull();
-            flush();
-        }));
+        });
 
-        it('should show empty filter message', fakeAsync(() => {
+        it('should show empty filter message', async () => {
             component.emptyFilterMessage = 'No results found';
             multiSelect.filter = true;
             multiSelect.show();
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Filter with a value that won't match any options
             const event = { target: { value: 'xyz' } } as any;
             multiSelect.onFilterInputChange(event);
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const emptyMessage = fixture.debugElement.query(By.css('.p-multiselect-empty-message'));
             expect(emptyMessage).toBeTruthy();
             expect(emptyMessage.nativeElement.textContent.trim()).toBe('No results found');
-            flush();
-        }));
+        });
 
-        it('should handle filter keydown events', fakeAsync(() => {
+        it('should handle filter keydown events', async () => {
             const filterInput = fixture.debugElement.query(By.css('.p-multiselect-filter input'));
 
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
@@ -1022,8 +997,7 @@ describe('MultiSelect', () => {
             multiSelect.onFilterKeyDown(enterEvent);
 
             expect(enterEvent.preventDefault).toHaveBeenCalled();
-            flush();
-        }));
+        });
     });
 
     describe('CSS Classes and Styling', () => {
@@ -1058,19 +1032,18 @@ describe('MultiSelect', () => {
             expect(element.style.padding).toBe('10px');
         });
 
-        it('should apply panel style classes', fakeAsync(() => {
+        it('should apply panel style classes', async () => {
             component.panelStyleClass = 'custom-panel';
             component.panelStyle = { width: '300px' };
             fixture.detectChanges();
 
             multiSelect.show();
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const panel = fixture.debugElement.query(By.css('.p-multiselect-overlay'));
             expect(panel).toBeTruthy();
-            flush();
-        }));
+        });
 
         it('should show loading icon when loading', () => {
             component.loading = true;
@@ -1098,11 +1071,11 @@ describe('MultiSelect', () => {
             expect(clearIcon || fixture.debugElement.query(By.css('[data-pc-section="clearicon"]')) || multiSelect.showClear).toBeTruthy();
         });
 
-        it('should display selected items as comma-separated list', fakeAsync(() => {
+        it('should display selected items as comma-separated list', async () => {
             component.display = 'comma';
             component.selectedCities = [component.options[0], component.options[1]];
             fixture.detectChanges();
-            tick(); // Allow ngModel binding to process
+            await fixture.whenStable(); // Allow ngModel binding to process
             fixture.detectChanges();
 
             // Check if model value was updated
@@ -1118,14 +1091,13 @@ describe('MultiSelect', () => {
                 // If label element not found, at least verify selection is set
                 expect(component.selectedCities).toEqual([component.options[0], component.options[1]]);
             }
-            flush();
-        }));
+        });
 
-        it('should display selected items as chips', fakeAsync(() => {
+        it('should display selected items as chips', async () => {
             component.display = 'chip';
             component.selectedCities = [component.options[0]];
             fixture.detectChanges();
-            tick(); // Allow ngModel binding to process
+            await fixture.whenStable(); // Allow ngModel binding to process
             fixture.detectChanges();
 
             // Verify model value is set
@@ -1134,8 +1106,7 @@ describe('MultiSelect', () => {
             const chip = fixture.debugElement.query(By.css('p-chip'));
             // Chip might not be rendered or use different selector
             expect(chip || fixture.debugElement.query(By.css('.p-multiselect-chip')) || component.display === 'chip').toBeTruthy();
-            flush();
-        }));
+        });
     });
 
     describe('Edge Cases', () => {
@@ -1166,7 +1137,7 @@ describe('MultiSelect', () => {
             expect(multiSelect.overlayVisible).toBeFalsy();
         });
 
-        it('should handle rapid click events', fakeAsync(() => {
+        it('should handle rapid click events', async () => {
             let clickCount = 0;
             spyOn(multiSelect, 'onContainerClick').and.callFake(() => {
                 clickCount++;
@@ -1179,11 +1150,10 @@ describe('MultiSelect', () => {
             element.click();
             element.click();
 
-            tick(200);
+            await fixture.whenStable();
 
             expect(multiSelect.onContainerClick).toHaveBeenCalledTimes(3);
-            flush();
-        }));
+        });
 
         it('should handle selection limit', () => {
             component.selectionLimit = 2;
@@ -1242,7 +1212,7 @@ describe('MultiSelect Form Integration', () => {
         await TestBed.configureTestingModule({
             declarations: [TestFormMultiSelectComponent],
             imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
-            providers: [provideNoopAnimations()]
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestFormMultiSelectComponent);
@@ -1256,80 +1226,74 @@ describe('MultiSelect Form Integration', () => {
         expect(component.form.get('selectedCities')?.value).toEqual([]);
     });
 
-    it('should validate required field', fakeAsync(() => {
+    it('should validate required field', async () => {
         expect(component.form.get('selectedCities')?.invalid).toBe(true);
         expect(component.form.get('selectedCities')?.errors?.['required']).toBe(true);
 
         // Select a city
         component.form.get('selectedCities')?.setValue([component.options[0]]);
-        tick();
+        await fixture.whenStable();
 
         expect(component.form.get('selectedCities')?.valid).toBe(true);
         expect(component.form.get('selectedCities')?.errors).toBeNull();
-        flush();
-    }));
+    });
 
-    it('should update form control value when selection changes', fakeAsync(() => {
+    it('should update form control value when selection changes', async () => {
         const selectedCity = component.options[0];
 
         multiSelect.updateModel([selectedCity]);
-        tick();
+        await fixture.whenStable();
 
         expect(component.form.get('selectedCities')?.value).toEqual([selectedCity]);
-        flush();
-    }));
+    });
 
-    it('should handle form control setValue', fakeAsync(() => {
+    it('should handle form control setValue', async () => {
         const selectedCities = [component.options[0], component.options[1]];
 
         component.form.get('selectedCities')?.setValue(selectedCities);
-        fixture.detectChanges();
-        tick();
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
 
         expect(multiSelect.modelValue()).toEqual(selectedCities);
-        flush();
-    }));
+    });
 
-    it('should handle form control patchValue', fakeAsync(() => {
+    it('should handle form control patchValue', async () => {
         const selectedCities = [component.options[2]];
 
         component.form.patchValue({ selectedCities });
-        fixture.detectChanges();
-        tick();
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
 
         expect(multiSelect.modelValue()).toEqual(selectedCities);
-        flush();
-    }));
+    });
 
-    it('should handle form reset', fakeAsync(() => {
+    it('should handle form reset', async () => {
         component.form.get('selectedCities')?.setValue([component.options[0]]);
-        tick();
+        await fixture.whenStable();
 
         component.form.reset();
-        fixture.detectChanges();
-        tick();
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
 
         expect(multiSelect.modelValue()).toBeNull();
         expect(component.form.get('selectedCities')?.pristine).toBe(true);
-        flush();
-    }));
+    });
 
-    it('should handle disabled state through form control', fakeAsync(() => {
+    it('should handle disabled state through form control', async () => {
         component.form.get('selectedCities')?.disable();
-        fixture.detectChanges();
-        tick();
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
 
         expect(multiSelect.$disabled()).toBe(true);
 
         component.form.get('selectedCities')?.enable();
-        fixture.detectChanges();
-        tick();
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
 
         expect(multiSelect.$disabled()).toBe(false);
-        flush();
-    }));
+    });
 
-    it('should track form control status', fakeAsync(() => {
+    it('should track form control status', async () => {
         const control = component.form.get('selectedCities');
 
         expect(control?.pristine).toBe(true);
@@ -1338,14 +1302,13 @@ describe('MultiSelect Form Integration', () => {
         control?.setValue([component.options[0]]);
         control?.markAsTouched();
         control?.markAsDirty(); // Explicitly mark as dirty
-        fixture.detectChanges(); // Important: let the form control update
-        tick();
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
 
         expect(control?.dirty).toBe(true);
         expect(control?.touched).toBe(true);
         expect(control?.valid).toBe(true);
-        flush();
-    }));
+    });
 });
 
 describe('MultiSelect Templates', () => {
@@ -1357,7 +1320,7 @@ describe('MultiSelect Templates', () => {
         await TestBed.configureTestingModule({
             declarations: [TestTemplateMultiSelectComponent],
             imports: [CommonModule, FormsModule, MultiSelectModule],
-            providers: [provideNoopAnimations()]
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestTemplateMultiSelectComponent);
@@ -1385,9 +1348,9 @@ describe('MultiSelect Templates', () => {
         }
     });
 
-    it('should render custom item template', fakeAsync(() => {
+    it('should render custom item template', async () => {
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const customItems = fixture.debugElement.queryAll(By.css('.custom-item'));
@@ -1396,55 +1359,52 @@ describe('MultiSelect Templates', () => {
         const firstItem = customItems[0];
         expect(firstItem.query(By.css('.city-name'))).toBeTruthy();
         expect(firstItem.query(By.css('.city-code'))).toBeTruthy();
-        flush();
-    }));
+    });
 
-    it('should render custom header template', fakeAsync(() => {
+    it('should render custom header template', async () => {
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const customHeader = fixture.debugElement.query(By.css('.custom-header'));
         expect(customHeader).toBeTruthy();
         expect(customHeader.nativeElement.textContent).toBe('Select Your Cities');
-        flush();
-    }));
+    });
 
-    it('should render custom footer template', fakeAsync(() => {
+    it('should render custom footer template', async () => {
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const customFooter = fixture.debugElement.query(By.css('.custom-footer'));
         expect(customFooter).toBeTruthy();
         expect(customFooter.nativeElement.textContent).toContain('0 cities selected');
-        flush();
-    }));
+    });
 
-    it('should render custom empty template', fakeAsync(() => {
+    it('should render custom empty template', async () => {
         component.options = [];
         fixture.detectChanges();
 
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const customEmpty = fixture.debugElement.query(By.css('.custom-empty'));
         expect(customEmpty).toBeTruthy();
         expect(customEmpty.nativeElement.textContent).toBe('No cities found');
-        flush();
-    }));
+    });
 
-    it('should render custom empty filter template', fakeAsync(() => {
+    it('should render custom empty filter template', async () => {
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const filterInput = fixture.debugElement.query(By.css('.p-multiselect-filter input'));
         if (filterInput) {
             filterInput.nativeElement.value = 'xyz';
             filterInput.nativeElement.dispatchEvent(new Event('input'));
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const customEmptyFilter = fixture.debugElement.query(By.css('.custom-empty-filter'));
@@ -1458,8 +1418,7 @@ describe('MultiSelect Templates', () => {
             // If no filter input, at least check the component exists
             expect(multiSelect).toBeDefined();
         }
-        flush();
-    }));
+    });
 
     it('should handle chip removal through template', () => {
         component.selectedCities = [component.options[0], component.options[1]];
@@ -1487,7 +1446,7 @@ describe('MultiSelect Content Child Templates', () => {
         await TestBed.configureTestingModule({
             declarations: [TestContentChildMultiSelectComponent],
             imports: [CommonModule, FormsModule, MultiSelectModule],
-            providers: [provideNoopAnimations()]
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestContentChildMultiSelectComponent);
@@ -1495,9 +1454,9 @@ describe('MultiSelect Content Child Templates', () => {
         multiSelect = fixture.debugElement.query(By.directive(MultiSelect)).componentInstance;
     });
 
-    it('should process content child templates on init', fakeAsync(() => {
+    it('should process content child templates on init', async () => {
         fixture.detectChanges();
-        tick();
+        await fixture.whenStable();
 
         // After content init should process templates - check if they exist or component is initialized
         const hasItemTemplate = !!(multiSelect.itemTemplate || multiSelect._itemTemplate);
@@ -1509,25 +1468,23 @@ describe('MultiSelect Content Child Templates', () => {
 
         // At least some templates should be processed, or component should be properly initialized
         expect(hasItemTemplate || hasSelectedItemsTemplate || hasHeaderTemplate || hasFooterTemplate || hasEmptyTemplate || hasEmptyFilterTemplate || multiSelect).toBeDefined();
-        flush();
-    }));
+    });
 
-    it('should render content child item template', fakeAsync(() => {
+    it('should render content child item template', async () => {
         fixture.detectChanges();
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const customItems = fixture.debugElement.queryAll(By.css('.content-child-item'));
         expect(customItems.length).toBeGreaterThan(0);
         expect(customItems[0].nativeElement.textContent).toContain('New York - NY');
-        flush();
-    }));
+    });
 
-    it('should render content child selected items template', fakeAsync(() => {
+    it('should render content child selected items template', async () => {
         component.selectedCities = [component.options[0]];
-        fixture.detectChanges();
-        tick(100); // Give more time for ngModel binding
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         // Ensure modelValue is synchronized
@@ -1536,58 +1493,55 @@ describe('MultiSelect Content Child Templates', () => {
         const customSelected = fixture.debugElement.query(By.css('.content-child-selected'));
         // Content child templates might not be rendered immediately or use different selector
         expect(customSelected || fixture.debugElement.query(By.css('[data-pc-section="selecteditems"]')) || component.selectedCities.length > 0).toBeTruthy();
-        flush();
-    }));
+    });
 
-    it('should render content child header template', fakeAsync(() => {
+    it('should render content child header template', async () => {
         fixture.detectChanges();
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const customHeader = fixture.debugElement.query(By.css('.content-child-header'));
         expect(customHeader).toBeTruthy();
         expect(customHeader.nativeElement.textContent).toBe('Cities Header');
-        flush();
-    }));
+    });
 
-    it('should render content child footer template', fakeAsync(() => {
+    it('should render content child footer template', async () => {
         fixture.detectChanges();
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const customFooter = fixture.debugElement.query(By.css('.content-child-footer'));
         expect(customFooter).toBeTruthy();
         expect(customFooter.nativeElement.textContent).toBe('Cities Footer');
-        flush();
-    }));
+    });
 
-    it('should render content child empty template', fakeAsync(() => {
+    it('should render content child empty template', async () => {
         component.options = [];
         fixture.detectChanges();
 
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const customEmpty = fixture.debugElement.query(By.css('.content-child-empty'));
         expect(customEmpty).toBeTruthy();
         expect(customEmpty.nativeElement.textContent).toBe('No data');
-        flush();
-    }));
+    });
 
-    it('should render content child empty filter template', fakeAsync(() => {
+    it('should render content child empty filter template', async () => {
         fixture.detectChanges();
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const filterInput = fixture.debugElement.query(By.css('.p-multiselect-filter input'));
         if (filterInput?.nativeElement) {
             filterInput.nativeElement.value = 'nonexistent';
             filterInput.nativeElement.dispatchEvent(new Event('input'));
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const customEmptyFilter = fixture.debugElement.query(By.css('.content-child-empty-filter'));
@@ -1597,15 +1551,15 @@ describe('MultiSelect Content Child Templates', () => {
             // If no filter input, just check that empty filter template renders when needed
             multiSelect.filterValue = 'nonexistent';
             multiSelect.onFilterInputChange({ target: { value: 'nonexistent' } } as any);
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const customEmptyFilter = fixture.debugElement.query(By.css('.content-child-empty-filter'));
             expect(customEmptyFilter).toBeTruthy();
             expect(customEmptyFilter.nativeElement.textContent).toBe('No filter results');
         }
-        flush();
-    }));
+    });
 });
 
 describe('MultiSelect Grouped Options', () => {
@@ -1617,7 +1571,7 @@ describe('MultiSelect Grouped Options', () => {
         await TestBed.configureTestingModule({
             declarations: [TestGroupedMultiSelectComponent],
             imports: [CommonModule, FormsModule, MultiSelectModule],
-            providers: [provideNoopAnimations()]
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestGroupedMultiSelectComponent);
@@ -1626,9 +1580,9 @@ describe('MultiSelect Grouped Options', () => {
         fixture.detectChanges();
     });
 
-    it('should render grouped options', fakeAsync(() => {
+    it('should render grouped options', async () => {
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const optionGroups = fixture.debugElement.queryAll(By.css('.p-multiselect-option-group'));
@@ -1636,22 +1590,20 @@ describe('MultiSelect Grouped Options', () => {
 
         expect(optionGroups[0].nativeElement.textContent.trim()).toBe('USA');
         expect(optionGroups[1].nativeElement.textContent.trim()).toBe('Italy');
-        flush();
-    }));
+    });
 
-    it('should render options under groups', fakeAsync(() => {
+    it('should render options under groups', async () => {
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const options = fixture.debugElement.queryAll(By.css('li[pMultiSelectItem]'));
         expect(options!.length).toBe(6); // 3 USA cities + 3 Italy cities
-        flush();
-    }));
+    });
 
-    it('should handle selection from grouped options', fakeAsync(() => {
+    it('should handle selection from grouped options', async () => {
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const firstOption = component.groupedOptions[0].items[0]; // New York
@@ -1660,22 +1612,22 @@ describe('MultiSelect Grouped Options', () => {
             option: firstOption
         });
 
-        tick();
+        await fixture.whenStable();
 
         expect(multiSelect.modelValue()).toContain(firstOption);
-        flush();
-    }));
+    });
 
-    it('should filter grouped options correctly', fakeAsync(() => {
+    it('should filter grouped options correctly', async () => {
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const filterInput = fixture.debugElement.query(By.css('.p-multiselect-filter input'));
         if (filterInput?.nativeElement) {
             filterInput.nativeElement.value = 'New';
             filterInput.nativeElement.dispatchEvent(new Event('input'));
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const visibleOptions = multiSelect.visibleOptions();
@@ -1691,8 +1643,7 @@ describe('MultiSelect Grouped Options', () => {
             // Filter input not available, skip detailed assertions
             expect(multiSelect.filter).toBe(true);
         }
-        flush();
-    }));
+    });
 });
 
 describe('MultiSelect Virtual Scrolling', () => {
@@ -1704,7 +1655,7 @@ describe('MultiSelect Virtual Scrolling', () => {
         await TestBed.configureTestingModule({
             declarations: [TestVirtualScrollMultiSelectComponent],
             imports: [CommonModule, FormsModule, MultiSelectModule],
-            providers: [provideNoopAnimations()]
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestVirtualScrollMultiSelectComponent);
@@ -1720,26 +1671,25 @@ describe('MultiSelect Virtual Scrolling', () => {
         expect(multiSelect.virtualScrollerDisabled).toBe(false);
     });
 
-    it('should handle large datasets', fakeAsync(() => {
+    it('should handle large datasets', async () => {
         expect(component.options.length).toBe(1000);
 
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const scroller = fixture.debugElement.query(By.css('p-scroller'));
         expect(scroller).toBeTruthy();
-        flush();
-    }));
+    });
 
-    it('should handle lazy loading', fakeAsync(() => {
+    it('should handle lazy loading', async () => {
         component.lazy = true;
         fixture.detectChanges();
 
         spyOn(component, 'onLazyLoad');
 
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         // Virtual scroller should emit lazy load events
@@ -1751,15 +1701,14 @@ describe('MultiSelect Virtual Scrolling', () => {
 
             expect(component.onLazyLoad).toHaveBeenCalled();
         }
-        flush();
-    }));
+    });
 
-    it('should scroll to selected item', fakeAsync(() => {
+    it('should scroll to selected item', async () => {
         component.selectedCities = [component.options[500]]; // Middle item
         fixture.detectChanges();
 
         multiSelect.show();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         // First check if scroller exists and if scrollInView method exists
@@ -1769,7 +1718,7 @@ describe('MultiSelect Virtual Scrolling', () => {
             if (typeof multiSelect.scrollInView === 'function') {
                 // scrollInView uses setTimeout(0) internally, so we need to wait
                 multiSelect.scrollInView(500);
-                tick(1); // Wait for setTimeout(0)
+                await fixture.whenStable();
                 fixture.detectChanges();
 
                 if (scrollSpy.calls.count() > 0) {
@@ -1791,8 +1740,7 @@ describe('MultiSelect Virtual Scrolling', () => {
             expect(multiSelect).toBeDefined();
             expect(component.selectedCities).toEqual([component.options[500]]);
         }
-        flush();
-    }));
+    });
 });
 
 // Dynamic Data Sources Test Component - Tests signals, observables, getters, async pipes, late-loading
@@ -2513,7 +2461,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
         await TestBed.configureTestingModule({
             declarations: [TestDynamicDataSourcesMultiSelectComponent],
             imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
-            providers: [provideNoopAnimations()]
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestDynamicDataSourcesMultiSelectComponent);
@@ -2522,135 +2470,128 @@ describe('MultiSelect Dynamic Data Sources', () => {
     });
 
     describe('Signal-based Data Sources', () => {
-        it('should work with signal options', fakeAsync(() => {
+        it('should work with signal options', async () => {
             expect(component.signalMultiSelect.options!.length).toBe(3);
             expect(component.signalMultiSelect.options![0].name).toBe('Signal City 1');
 
             // Test signal updates
             component.updateSignalData();
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.signalMultiSelect.options!.length).toBe(2);
             expect(component.signalMultiSelect.options![0].name).toBe('Updated Signal 1');
-            flush();
-        }));
+        });
 
-        it('should work with signal placeholder', fakeAsync(() => {
+        it('should work with signal placeholder', async () => {
             expect(component.signalMultiSelect.placeholder()).toBe('Select from signal');
 
             component.updatePlaceholder();
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.signalMultiSelect.placeholder()).toBe('Updated placeholder');
-            flush();
-        }));
+        });
 
-        it('should work with signal disabled state', fakeAsync(() => {
+        it('should work with signal disabled state', async () => {
             expect(component.signalMultiSelect.$disabled()).toBe(false);
 
             component.toggleDisabled();
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.signalMultiSelect.$disabled()).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should work with signal filter state', fakeAsync(() => {
+        it('should work with signal filter state', async () => {
             expect(component.signalMultiSelect.filter).toBe(true);
 
             component.toggleFilter();
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.signalMultiSelect.filter).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should add items to signal dynamically', fakeAsync(() => {
+        it('should add items to signal dynamically', async () => {
             const initialCount = component.signalMultiSelect.options!.length;
 
             component.addToSignal();
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.signalMultiSelect.options!.length).toBe(initialCount + 1);
             expect(component.signalMultiSelect.options![initialCount].name).toContain('New City');
-            flush();
-        }));
+        });
     });
 
     describe('Computed Signal Data Sources', () => {
-        it('should work with computed options', fakeAsync(() => {
+        it('should work with computed options', async () => {
             const computedOptions = component.computedOptions();
             expect(computedOptions.length).toBe(3);
             expect(computedOptions[0].displayName).toBe('Signal City 1 (SC1)');
 
             component.updateSignalData();
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const updatedComputedOptions = component.computedOptions();
             expect(updatedComputedOptions.length).toBe(2);
             expect(updatedComputedOptions[0].displayName).toBe('Updated Signal 1 (US1)');
-            flush();
-        }));
+        });
 
-        it('should work with computed placeholder', fakeAsync(() => {
+        it('should work with computed placeholder', async () => {
             const computedPlaceholder = component.computedPlaceholder();
             expect(computedPlaceholder).toBe('Select from 3 computed options');
 
             component.updateSignalData();
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const updatedPlaceholder = component.computedPlaceholder();
             expect(updatedPlaceholder).toBe('Select from 2 computed options');
-            flush();
-        }));
+        });
 
-        it('should work with computed maxSelectedLabels', fakeAsync(() => {
+        it('should work with computed maxSelectedLabels', async () => {
             const computedMaxLabels = component.computedMaxLabels();
             expect(computedMaxLabels).toBe(3);
 
             component.updateSignalData(); // Changes to 2 items
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const updatedMaxLabels = component.computedMaxLabels();
             expect(updatedMaxLabels).toBe(2);
-            flush();
-        }));
+        });
     });
 
     describe('Observable and Async Pipe Data Sources', () => {
-        it('should work with observable options via async pipe', fakeAsync(() => {
-            tick(150); // Wait for observable delay
-            fixture.detectChanges();
+        it('should work with observable options via async pipe', async () => {
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.asyncMultiSelect.options?.length).toBe(2);
             expect(component.asyncMultiSelect.options?.[0].name).toBe('Observable City 1');
-            flush();
-        }));
+        });
 
-        it('should update when observable data changes', fakeAsync(() => {
-            tick(150);
-            fixture.detectChanges();
+        it('should update when observable data changes', async () => {
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.updateObservableData();
-            tick();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.asyncMultiSelect.options?.length).toBe(3);
             expect(component.asyncMultiSelect.options?.[0].name).toBe('Updated Observable 1');
-            flush();
-        }));
+        });
 
-        it('should work with observable placeholder via async pipe', fakeAsync(() => {
-            tick(200); // Increased wait time
-            fixture.detectChanges();
+        it('should work with observable placeholder via async pipe', async () => {
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const placeholder = component.asyncMultiSelect.placeholder();
             // Async pipe may not have resolved yet, so allow for null/undefined
@@ -2660,37 +2601,34 @@ describe('MultiSelect Dynamic Data Sources', () => {
                 // Async pipe still resolving, just ensure no error
                 expect(placeholder).toBeNull();
             }
-            flush();
-        }));
+        });
     });
 
     describe('Getter-based Data Sources', () => {
-        it('should work with getter options', fakeAsync(() => {
+        it('should work with getter options', async () => {
             expect(component.getterMultiSelect.options!.length).toBe(2);
             expect(component.getterMultiSelect.options![0].name).toBe('Getter City 1');
 
             component.updateGetterData();
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.getterMultiSelect.options![0].name).toBe('Updated Getter 1');
-            flush();
-        }));
+        });
 
         it('should work with getter placeholder', () => {
             expect(component.getterMultiSelect.placeholder()).toBe('Select from getter');
         });
 
-        it('should work with getter disabled state', fakeAsync(() => {
+        it('should work with getter disabled state', async () => {
             expect(component.getterMultiSelect.$disabled()).toBe(false);
 
             component.toggleGetterDisabled();
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.getterMultiSelect.$disabled()).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('Function-based Property Data Sources', () => {
@@ -2728,16 +2666,18 @@ describe('MultiSelect Dynamic Data Sources', () => {
             expect(component.lateLoadMultiSelect.loading).toBe(true);
         });
 
-        it('should populate late-loaded data after timeout', fakeAsync(() => {
+        it('should populate late-loaded data after timeout', async () => {
             component.simulateLateLoad();
-            tick(150);
-            fixture.detectChanges();
+
+            // Wait for the setTimeout to complete and trigger change detection
+            await new Promise((resolve) => setTimeout(resolve, 150));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.lateLoadMultiSelect.options!.length).toBe(3);
             expect(component.lateLoadMultiSelect.loading).toBe(false);
             expect(component.lateLoadMultiSelect.options![0].name).toBe('Late Loaded City 1');
-            flush();
-        }));
+        });
     });
 });
 
@@ -2750,7 +2690,7 @@ describe('MultiSelect Comprehensive Form Integration', () => {
         await TestBed.configureTestingModule({
             declarations: [TestComprehensiveFormMultiSelectComponent],
             imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
-            providers: [provideNoopAnimations()]
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestComprehensiveFormMultiSelectComponent);
@@ -2765,80 +2705,74 @@ describe('MultiSelect Comprehensive Form Integration', () => {
             expect(control?.value).toEqual([]);
         });
 
-        it('should work with FormControl setValue', fakeAsync(() => {
+        it('should work with FormControl setValue', async () => {
             const cities = [component.allCities[0], component.allCities[1]];
             component.setReactiveValue(cities);
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.reactiveMultiSelect.modelValue()).toEqual(cities);
             expect(component.reactiveForm.get('cities')?.value).toEqual(cities);
-            flush();
-        }));
+        });
 
-        it('should work with FormControl patchValue', fakeAsync(() => {
+        it('should work with FormControl patchValue', async () => {
             const cities = [component.allCities[2]];
             component.patchReactiveValue(cities);
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.reactiveMultiSelect.modelValue()).toEqual(cities);
-            flush();
-        }));
+        });
 
-        it('should work with FormControl reset', fakeAsync(() => {
+        it('should work with FormControl reset', async () => {
             component.setReactiveValue([component.allCities[0]]);
-            tick();
+            await fixture.whenStable();
 
             component.resetReactiveForm();
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.reactiveMultiSelect.modelValue()).toBeNull();
             expect(component.reactiveForm.get('cities')?.pristine).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should work with FormControl disable/enable', fakeAsync(() => {
+        it('should work with FormControl disable/enable', async () => {
             expect(component.reactiveMultiSelect.$disabled()).toBe(false);
 
             component.disableReactiveControl();
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.reactiveMultiSelect.$disabled()).toBe(true);
 
             component.enableReactiveControl();
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.reactiveMultiSelect.$disabled()).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should work with FormControl markAsTouched', fakeAsync(() => {
+        it('should work with FormControl markAsTouched', async () => {
             const control = component.reactiveForm.get('cities');
             expect(control?.touched).toBe(false);
 
             component.markReactiveTouched();
-            tick();
+            await fixture.whenStable();
 
             expect(control?.touched).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should work with FormControl markAsDirty', fakeAsync(() => {
+        it('should work with FormControl markAsDirty', async () => {
             const control = component.reactiveForm.get('cities');
             expect(control?.dirty).toBe(false);
 
             component.markReactiveDirty();
-            tick();
+            await fixture.whenStable();
 
             expect(control?.dirty).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should work with dynamic validators', fakeAsync(() => {
+        it('should work with dynamic validators', async () => {
             const control = component.reactiveForm.get('cities');
 
             // Initially has required validator
@@ -2847,29 +2781,28 @@ describe('MultiSelect Comprehensive Form Integration', () => {
 
             // Update validators
             component.updateReactiveValidators();
-            tick();
+            await fixture.whenStable();
 
             // Should still be invalid due to minItems validator
             expect(control?.invalid).toBe(true);
 
             // Add an item to satisfy minItems(1)
             component.setReactiveValue([component.allCities[0]]);
-            tick();
+            await fixture.whenStable();
 
             expect(control?.valid).toBe(true);
 
             // Clear validators
             component.clearReactiveValidators();
-            tick();
+            await fixture.whenStable();
 
             component.setReactiveValue([]);
-            tick();
+            await fixture.whenStable();
 
             expect(control?.valid).toBe(true); // No validators now
-            flush();
-        }));
+        });
 
-        it('should work with custom validators', fakeAsync(() => {
+        it('should work with custom validators', async () => {
             const validatedControl = component.reactiveForm.get('validatedCities');
 
             // Should be invalid initially (required + minItems)
@@ -2878,55 +2811,52 @@ describe('MultiSelect Comprehensive Form Integration', () => {
 
             // Add 1 item - should still be invalid due to minItems(2)
             validatedControl?.setValue([component.allCities[0]]);
-            tick();
+            await fixture.whenStable();
 
             expect(validatedControl?.invalid).toBe(true);
             expect(validatedControl?.errors?.['minItems']).toBeTruthy();
 
             // Add 2 items - should be valid
             validatedControl?.setValue([component.allCities[0], component.allCities[1]]);
-            tick();
+            await fixture.whenStable();
 
             expect(validatedControl?.valid).toBe(true);
 
             // Add 5 items - should be invalid due to maxItems(4)
             validatedControl?.setValue(component.allCities.slice(0, 5));
-            tick();
+            await fixture.whenStable();
 
             expect(validatedControl?.invalid).toBe(true);
             expect(validatedControl?.errors?.['maxItems']).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should work with updateOn blur', fakeAsync(() => {
+        it('should work with updateOn blur', async () => {
             const validatedControl = component.reactiveForm.get('validatedCities');
 
             // Set value through form control instead of component directly
             validatedControl?.setValue([component.allCities[0]]);
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Value should be updated
             expect(validatedControl?.value).toEqual([component.allCities[0]]);
-            flush();
-        }));
+        });
     });
 
     describe('Template-driven Forms (NgModel) Integration', () => {
-        it('should work with NgModel', fakeAsync(() => {
+        it('should work with NgModel', async () => {
             expect(component.ngModelMultiSelect.modelValue()).toEqual([]);
 
             component.ngModelValue = [component.allCities[0]];
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.ngModelMultiSelect.modelValue()).toEqual([component.allCities[0]]);
-            flush();
-        }));
+        });
 
-        it('should work with NgModel validation', fakeAsync(() => {
-            fixture.detectChanges();
-            tick();
+        it('should work with NgModel validation', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Should be invalid initially due to required
             expect(component.citiesModel?.invalid).toBe(true);
@@ -2934,30 +2864,28 @@ describe('MultiSelect Comprehensive Form Integration', () => {
 
             // Add a value
             component.ngModelValue = [component.allCities[0]];
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.citiesModel?.valid).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should work with NgModel required validation', fakeAsync(() => {
-            fixture.detectChanges();
-            tick();
+        it('should work with NgModel required validation', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.citiesModel?.hasError('required')).toBe(true);
 
             component.ngModelValue = [component.allCities[0]];
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.citiesModel?.hasError('required')).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should track form validity through template form', fakeAsync(() => {
-            fixture.detectChanges();
-            tick();
+        it('should track form validity through template form', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Initially should be invalid due to required fields
             expect(component.templateForm?.valid).toBe(false);
@@ -2965,13 +2893,12 @@ describe('MultiSelect Comprehensive Form Integration', () => {
             // Set both required fields
             component.ngModelValue = [component.allCities[0]];
             component.ngModelValidatedValue = [component.allCities[1]];
-            fixture.detectChanges();
-            tick(100); // Give more time for form validation to process
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Template form validation can be async, wait more
-            tick(200);
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Check if valid or at least not still false due to async validation
             if (component.templateForm?.valid !== undefined) {
@@ -2985,8 +2912,7 @@ describe('MultiSelect Comprehensive Form Integration', () => {
                 expect(component.ngModelValue.length).toBeGreaterThan(0);
                 expect(component.ngModelValidatedValue.length).toBeGreaterThan(0);
             }
-            flush();
-        }));
+        });
     });
 });
 
@@ -2999,7 +2925,7 @@ describe('MultiSelect ViewChild Properties', () => {
         await TestBed.configureTestingModule({
             declarations: [TestViewChildMultiSelectComponent],
             imports: [CommonModule, FormsModule, MultiSelectModule],
-            providers: [provideNoopAnimations()]
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestViewChildMultiSelectComponent);
@@ -3007,14 +2933,15 @@ describe('MultiSelect ViewChild Properties', () => {
         fixture.detectChanges();
     });
 
-    it('should expose ViewChild properties correctly', fakeAsync(() => {
+    it('should expose ViewChild properties correctly', async () => {
         // Test initial ViewChild access
         expect(component.mainMultiSelect).toBeTruthy();
 
         // Show overlay to ensure ViewChild elements are rendered
         component.callShowMethod();
-        tick();
-        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
 
         // Test ViewChild properties
         expect(component.getOverlayViewChild()).toBeTruthy();
@@ -3034,50 +2961,44 @@ describe('MultiSelect ViewChild Properties', () => {
 
         // Header checkbox should be available
         expect(component.getHeaderCheckbox()).toBeTruthy();
+    });
 
-        flush();
-    }));
-
-    it('should allow method calls through ViewChild', fakeAsync(() => {
+    it('should allow method calls through ViewChild', async () => {
         // Test show method
         expect(component.mainMultiSelect.overlayVisible).toBeFalsy();
         component.callShowMethod();
-        tick();
+        await fixture.whenStable();
         expect(component.mainMultiSelect.overlayVisible).toBe(true);
 
         // Test hide method
         component.callHideMethod();
-        tick();
+        await fixture.whenStable();
         expect(component.mainMultiSelect.overlayVisible).toBe(false);
+    });
 
-        flush();
-    }));
-
-    it('should allow model manipulation through ViewChild', fakeAsync(() => {
+    it('should allow model manipulation through ViewChild', async () => {
         const testValue = [component.cities[0]];
 
         component.callUpdateModelMethod(testValue);
-        tick();
+        await fixture.whenStable();
 
         expect(component.getModelValue()).toEqual(testValue);
-        flush();
-    }));
+    });
 
-    it('should allow clear method through ViewChild', fakeAsync(() => {
+    it('should allow clear method through ViewChild', async () => {
         // Set initial value
         component.callUpdateModelMethod([component.cities[0]]);
-        tick();
+        await fixture.whenStable();
         expect(component.getModelValue()).toEqual([component.cities[0]]);
 
         // Clear
         component.callClearMethod();
-        tick();
+        await fixture.whenStable();
 
         expect(component.getModelValue()).toBeNull();
-        flush();
-    }));
+    });
 
-    it('should expose utility methods through ViewChild', fakeAsync(() => {
+    it('should expose utility methods through ViewChild', async () => {
         // Test isEmpty - checks if there are no visible options, not selection state
         const isEmptyResult = component.isEmpty();
         if (typeof isEmptyResult === 'boolean') {
@@ -3086,7 +3007,7 @@ describe('MultiSelect ViewChild Properties', () => {
 
             // Update model and verify isEmpty still reflects options availability
             component.callUpdateModelMethod([component.cities[0]]);
-            tick();
+            await fixture.whenStable();
 
             // Still false because options are still available
             expect(component.isEmpty()).toBe(false);
@@ -3101,28 +3022,24 @@ describe('MultiSelect ViewChild Properties', () => {
 
         // Test focused option index
         expect(component.getFocusedOptionIndex()).toBe(-1);
+    });
 
-        flush();
-    }));
-
-    it('should handle filter operations through ViewChild', fakeAsync(() => {
+    it('should handle filter operations through ViewChild', async () => {
         component.callShowMethod();
-        tick();
+        await fixture.whenStable();
 
         // Set filter value
         component.mainMultiSelect._filterValue.set('ViewChild City 1');
-        tick();
+        await fixture.whenStable();
 
         expect(component.getFilterValue()).toBe('ViewChild City 1');
 
         // Reset filter
         component.callResetFilterMethod();
         expect(component.getFilterValue()).toBeNull();
+    });
 
-        flush();
-    }));
-
-    it('should test maxSelectionLimitReached method', fakeAsync(() => {
+    it('should test maxSelectionLimitReached method', async () => {
         // Initially no limit reached - check if method exists
         const limitResult = component.isMaxSelectionLimitReached();
         if (typeof limitResult === 'boolean') {
@@ -3131,22 +3048,20 @@ describe('MultiSelect ViewChild Properties', () => {
             // Set selection limit
             component.mainMultiSelect.selectionLimit = 2;
             component.callUpdateModelMethod([component.cities[0], component.cities[1]]);
-            tick();
+            await fixture.whenStable();
 
             expect(component.isMaxSelectionLimitReached()).toBe(true);
         } else {
             // Method doesn't exist, test selection limit directly
             component.mainMultiSelect.selectionLimit = 2;
             component.callUpdateModelMethod([component.cities[0], component.cities[1]]);
-            tick();
+            await fixture.whenStable();
 
             // Should have reached limit based on values
             const modelValue = component.getModelValue();
             expect(modelValue?.length).toBe(2);
         }
-
-        flush();
-    }));
+    });
 });
 
 // Complex Edge Cases Tests
@@ -3158,7 +3073,7 @@ describe('MultiSelect Complex Edge Cases', () => {
         await TestBed.configureTestingModule({
             declarations: [TestComplexEdgeCasesMultiSelectComponent],
             imports: [CommonModule, FormsModule, MultiSelectModule],
-            providers: [provideNoopAnimations()]
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestComplexEdgeCasesMultiSelectComponent);
@@ -3167,40 +3082,45 @@ describe('MultiSelect Complex Edge Cases', () => {
     });
 
     describe('Performance and Large Datasets', () => {
-        it('should handle large datasets efficiently', fakeAsync(() => {
+        it('should handle large datasets efficiently', async () => {
             expect(component.largeDataset.length).toBe(10000);
             expect(component.largeDataMultiSelect.virtualScroll).toBe(true);
 
             component.largeDataMultiSelect.show();
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Should only render visible items due to virtual scrolling
             const renderedItems = fixture.debugElement.queryAll(By.css('.p-multiselect-option'));
             expect(renderedItems.length).toBeLessThan(100); // Much less than 10k
+        });
 
-            flush();
-        }));
-
-        it('should handle rapid selection updates', fakeAsync(() => {
+        it('should handle rapid selection updates', async () => {
             component.rapidSelectionUpdates();
-            tick(1500); // Allow all updates to complete
+
+            // Wait for the setInterval (100 iterations * 10ms = 1000ms) to complete
+            await new Promise((resolve) => setTimeout(resolve, 1100));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Should not crash or cause performance issues
             expect(component.selectedLargeData.length).toBe(1);
-            flush();
-        }));
+        });
 
-        it('should handle memory leak prevention', fakeAsync(() => {
+        it('should handle memory leak prevention', async () => {
             const initialOptionsLength = component.memoryTestOptions.length;
 
             component.memoryLeakTest();
-            tick(1500);
+
+            // Wait for all setTimeout calls (100 iterations * 10ms = 1000ms) to complete
+            await new Promise((resolve) => setTimeout(resolve, 1100));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Should not accumulate infinite memory
             expect(component.memoryTestOptions.length).toBeGreaterThan(initialOptionsLength);
-            flush();
-        }));
+        });
 
         it('should clear large dataset without errors', () => {
             expect(() => {
@@ -3212,12 +3132,13 @@ describe('MultiSelect Complex Edge Cases', () => {
     });
 
     describe('Unicode and Special Characters', () => {
-        it('should handle Unicode characters correctly', fakeAsync(() => {
+        it('should handle Unicode characters correctly', async () => {
             expect(component.unicodeOptions.length).toBe(7);
 
             component.unicodeMultiSelect.show();
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Should render Unicode characters without issues
             const options = fixture.debugElement.queryAll(By.css('li[pMultiSelectItem]'));
@@ -3226,9 +3147,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             // Test Chinese characters
             const chineseOption = component.unicodeOptions.find((opt) => opt.name === '\u5317\u4eac');
             expect(chineseOption).toBeTruthy();
-
-            flush();
-        }));
+        });
 
         it('should handle emoji characters', () => {
             const emojiOption = component.unicodeOptions.find((opt) => opt.code === 'STAR');
@@ -3271,31 +3190,30 @@ describe('MultiSelect Complex Edge Cases', () => {
             expect(htmlOption?.name).toContain('onerror');
         });
 
-        it('should render XSS content safely in the DOM', fakeAsync(() => {
+        it('should render XSS content safely in the DOM', async () => {
             component.xssMultiSelect.show();
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Should not execute any scripts
             expect(() => {
                 const options = fixture.debugElement.queryAll(By.css('li[pMultiSelectItem]'));
                 expect(options!.length).toBeGreaterThan(0);
             }).not.toThrow();
-
-            flush();
-        }));
+        });
     });
 
     describe('Null and Undefined Handling', () => {
-        it('should handle null options gracefully', fakeAsync(() => {
+        it('should handle null options gracefully', async () => {
             expect(() => {
                 component.nullHandlingMultiSelect.show();
-                tick();
-                fixture.detectChanges();
             }).not.toThrow();
 
-            flush();
-        }));
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+        });
 
         it('should handle undefined options gracefully', () => {
             const undefinedOptions = component.nullTestOptions.filter((opt) => opt === undefined);
@@ -3320,27 +3238,26 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).not.toThrow();
         });
 
-        it('should not crash with circular object references', fakeAsync(() => {
+        it('should not crash with circular object references', async () => {
             expect(() => {
                 component.circularMultiSelect.show();
-                tick();
-                fixture.detectChanges();
             }).not.toThrow();
 
-            flush();
-        }));
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+        });
 
-        it('should handle circular references in selection', fakeAsync(() => {
+        it('should handle circular references in selection', async () => {
             const circularOption = component.circularOptions[0];
 
             expect(() => {
                 component.selectedCircular = [circularOption];
-                fixture.detectChanges();
-                tick();
             }).not.toThrow();
 
-            flush();
-        }));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+        });
     });
 
     describe('Error Handling', () => {
@@ -3369,15 +3286,18 @@ describe('MultiSelect Complex Edge Cases', () => {
     });
 
     describe('Memory Management', () => {
-        it('should handle lazy loading correctly', fakeAsync(() => {
+        it('should handle lazy loading correctly', async () => {
             const initialLength = component.memoryTestOptions.length;
 
             component.handleLazyLoad({ first: 50, rows: 25 });
-            tick(200);
+
+            // Wait for the setTimeout (100ms) in handleLazyLoad to complete
+            await new Promise((resolve) => setTimeout(resolve, 150));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.memoryTestOptions.length).toBeGreaterThan(initialLength);
-            flush();
-        }));
+        });
 
         it('should not create memory leaks with large datasets', () => {
             const initialLength = component.largeDataset.length;
@@ -3403,6 +3323,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 imports: [MultiSelectModule, FormsModule],
                 providers: [
                     provideNoopAnimations(),
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             multiselect: {
@@ -3434,6 +3355,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 imports: [MultiSelectModule, FormsModule],
                 providers: [
                     provideNoopAnimations(),
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             multiselect: {
@@ -3473,6 +3395,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 imports: [MultiSelectModule, FormsModule],
                 providers: [
                     provideNoopAnimations(),
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             multiselect: {
@@ -3503,6 +3426,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 imports: [MultiSelectModule, FormsModule],
                 providers: [
                     provideNoopAnimations(),
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             multiselect: {
@@ -3536,6 +3460,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 imports: [MultiSelectModule, FormsModule],
                 providers: [
                     provideNoopAnimations(),
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             multiselect: {
@@ -3566,7 +3491,7 @@ describe('MultiSelect Complex Edge Cases', () => {
         it('PT Case 6: should work inline with component instance', async () => {
             await TestBed.configureTestingModule({
                 imports: [MultiSelectModule, FormsModule],
-                providers: [provideNoopAnimations()]
+                providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(MultiSelect);
@@ -3588,6 +3513,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 imports: [MultiSelectModule, FormsModule],
                 providers: [
                     provideNoopAnimations(),
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             multiselect: {
@@ -3624,6 +3550,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 imports: [MultiSelectModule, FormsModule],
                 providers: [
                     provideNoopAnimations(),
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             multiselect: {
@@ -3653,6 +3580,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 imports: [MultiSelectModule, FormsModule],
                 providers: [
                     provideNoopAnimations(),
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             multiselect: {
@@ -3685,6 +3613,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 imports: [MultiSelectModule, FormsModule],
                 providers: [
                     provideNoopAnimations(),
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             multiselect: {
@@ -3724,6 +3653,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 imports: [MultiSelectModule, FormsModule],
                 providers: [
                     provideNoopAnimations(),
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             multiselect: {
@@ -3759,6 +3689,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 imports: [MultiSelectModule, FormsModule],
                 providers: [
                     provideNoopAnimations(),
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             multiselect: {

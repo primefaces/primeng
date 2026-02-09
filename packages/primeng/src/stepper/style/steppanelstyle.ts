@@ -8,6 +8,7 @@ const classes = {
             'p-steppanel-active': instance.isVertical() && instance.active()
         }
     ],
+    contentWrapper: 'p-steppanel-content-wrapper',
     content: 'p-steppanel-content'
 };
 
@@ -31,7 +32,17 @@ export enum StepPanelClasses {
     /**
      * Class name of the root element
      */
-    root = 'p-steppanel'
+    root = 'p-steppanel',
+
+    /**
+     * Class name of the content wrapper element
+     */
+    contentWrapper = 'p-steppanel-content-wrapper',
+
+    /**
+     * Class name of the content element
+     */
+    content = 'p-steppanel-content'
 }
 
 export interface StepPanelStyle extends BaseStyle {}

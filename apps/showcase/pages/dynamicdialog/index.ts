@@ -1,12 +1,12 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { CloseDoc } from '@/doc/dynamicdialog/closedoc';
-import { CustomizationDoc } from '@/doc/dynamicdialog/customizationdoc';
-import { ExampleDoc } from '@/doc/dynamicdialog/exampledoc';
-import { ImportDoc } from '@/doc/dynamicdialog/importdoc';
-import { OpenDoc } from '@/doc/dynamicdialog/opendoc';
-import { PassingDataDoc } from '@/doc/dynamicdialog/passingdatadoc';
+import { CloseDoc } from '@/doc/dynamicdialog/close-doc';
+import { CustomizationDoc } from '@/doc/dynamicdialog/customization-doc';
+import { ExampleDoc } from '@/doc/dynamicdialog/example-doc';
+import { ImportDoc } from '@/doc/dynamicdialog/import-doc';
+import { OpenDoc } from '@/doc/dynamicdialog/open-doc';
+import { PassingDataDoc } from '@/doc/dynamicdialog/passingdata-doc';
 import { PTComponent } from '@/doc/dynamicdialog/pt/PTComponent';
-import { UsageDoc } from '@/doc/dynamicdialog/usagedoc';
+import { UsageDoc } from '@/doc/dynamicdialog/usage-doc';
 import { Component } from '@angular/core';
 
 @Component({

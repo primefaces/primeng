@@ -45,13 +45,13 @@ export type SplitButtonPassThrough<I = unknown> = PassThrough<I, SplitButtonPass
  */
 export interface SplitButtonTemplates {
     /**
-     * Custom template of content.
+     * Custom content template.
      */
-    content(): TemplateRef<any>;
+    content(): TemplateRef<void>;
     /**
-     * Custom template of dropdownicon.
+     * Custom dropdown icon template.
      */
-    dropdownicon(): TemplateRef<any>;
+    dropdownicon(): TemplateRef<void>;
 }
 /**
  * Defines ButtonProps interface.

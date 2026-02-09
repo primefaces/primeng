@@ -23,11 +23,13 @@ const SKELETON_INSTANCE = new InjectionToken<Skeleton>('SKELETON_INSTANCE');
     host: {
         '[attr.aria-hidden]': 'true',
         '[class]': "cn(cx('root'), styleClass)",
-        '[style]': 'containerStyle'
+        '[style]': 'containerStyle',
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
 export class Skeleton extends BaseComponent<SkeletonPassThrough> {
+    componentName = 'Skeleton';
     $pcSkeleton: Skeleton | undefined = inject(SKELETON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -78,10 +80,18 @@ export class Skeleton extends BaseComponent<SkeletonPassThrough> {
     get containerStyle() {
         const inlineStyles = this._componentStyle?.inlineStyles['root'];
         let style;
-        if (this.size) style = { ...inlineStyles, width: this.size, height: this.size, borderRadius: this.borderRadius };
-        else style = { ...inlineStyles, width: this.width, height: this.height, borderRadius: this.borderRadius };
+        if (!this.$unstyled()) {
+            if (this.size) style = { ...inlineStyles, width: this.size, height: this.size, borderRadius: this.borderRadius };
+            else style = { ...inlineStyles, width: this.width, height: this.height, borderRadius: this.borderRadius };
+        }
 
         return style;
+    }
+
+    get dataP() {
+        return this.cn({
+            [this.shape]: this.shape
+        });
     }
 }
 

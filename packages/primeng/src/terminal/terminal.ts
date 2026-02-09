@@ -43,6 +43,7 @@ const TERMINAL_INSTANCE = new InjectionToken<Terminal>('TERMINAL_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Terminal extends BaseComponent<TerminalPassThrough> implements AfterViewInit, AfterViewChecked, OnDestroy {
+    componentName = 'Terminal';
     $pcTerminal: Terminal | undefined = inject(TERMINAL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -92,7 +93,7 @@ export class Terminal extends BaseComponent<TerminalPassThrough> implements Afte
     }
 
     onAfterViewInit() {
-        this.container = find(this.el.nativeElement, '.p-terminal')[0];
+        this.container = this.el.nativeElement;
     }
 
     onAfterViewChecked() {

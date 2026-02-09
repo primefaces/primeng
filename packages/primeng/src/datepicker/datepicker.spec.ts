@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
-import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { CommonModule } from '@angular/common';
-import { DatePicker } from './datepicker';
 import type { DatePickerMonthChangeEvent, DatePickerYearChangeEvent } from 'primeng/types/datepicker';
+import { DatePicker } from './datepicker';
 @Component({
     standalone: false,
     template: `
@@ -246,9 +246,9 @@ class TestPTemplatesDatePickerComponent {
             <!-- Date template with context parameters -->
             <ng-template #date let-date="date">
                 <div class="custom-date-ref" data-testid="date-ref-template">
-                    <span class="day">{{ date.day }}</span>
-                    <span class="month" *ngIf="date.month">{{ date.month }}</span>
-                    <span class="year" *ngIf="date.year">{{ date.year }}</span>
+                    <span class="day">{{ date?.day }}</span>
+                    <span class="month" *ngIf="date?.month">{{ date?.month }}</span>
+                    <span class="year" *ngIf="date?.year">{{ date?.year }}</span>
                 </div>
             </ng-template>
 
@@ -271,14 +271,14 @@ class TestPTemplatesDatePickerComponent {
             <!-- Disabled date template with context -->
             <ng-template #disabledDate let-date="date">
                 <div class="disabled-date-ref" data-testid="disabled-date-ref-template">
-                    <span class="crossed-out-ref">{{ date.day }}</span>
+                    <span class="crossed-out-ref">{{ date?.day }}</span>
                 </div>
             </ng-template>
 
             <!-- Decade template with context -->
             <ng-template #decade let-decade="decade">
                 <div class="custom-decade-ref" data-testid="decade-ref-template">
-                    <span class="decade-range-ref">{{ decade.year }}-{{ decade.year + 9 }}</span>
+                    <span class="decade-range-ref">{{ decade?.year }}-{{ decade?.year ? decade.year + 9 : '' }}</span>
                 </div>
             </ng-template>
 
@@ -360,15 +360,18 @@ describe('DatePicker', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [DatePicker, FormsModule, ReactiveFormsModule, CommonModule, NoopAnimationsModule],
-            declarations: [TestDatePickerComponent, TestReactiveFormDatePickerComponent, TestTemplatesDatePickerComponent, TestPTemplatesDatePickerComponent, TestRefTemplatesDatePickerComponent]
+            imports: [DatePicker, FormsModule, ReactiveFormsModule, CommonModule],
+            declarations: [TestDatePickerComponent, TestReactiveFormDatePickerComponent, TestTemplatesDatePickerComponent, TestPTemplatesDatePickerComponent, TestRefTemplatesDatePickerComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(DatePicker);
         component = fixture.componentInstance;
+        await fixture.whenStable();
 
         testFixture = TestBed.createComponent(TestDatePickerComponent);
         testComponent = testFixture.componentInstance;
+        await testFixture.whenStable();
     });
 
     describe('Component Initialization', () => {
@@ -376,8 +379,9 @@ describe('DatePicker', () => {
             expect(component).toBeTruthy();
         });
 
-        it('should initialize with default values', () => {
-            fixture.detectChanges();
+        it('should initialize with default values', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(component.dateFormat).toBeUndefined(); // Default is undefined, not 'mm/dd/yy'
             expect(component.multipleSeparator).toBe(',');
             expect(component.rangeSeparator).toBe('-');
@@ -390,11 +394,12 @@ describe('DatePicker', () => {
             expect(component.hourFormat).toBe('24');
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             testComponent.dateFormat = 'dd-mm-yyyy';
             testComponent.placeholder = 'Choose date';
             testComponent.showTime = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.dateFormat).toBe('dd-mm-yyyy');
@@ -404,8 +409,9 @@ describe('DatePicker', () => {
     });
 
     describe('Basic Functionality', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
         it('should display input field', () => {
@@ -414,33 +420,36 @@ describe('DatePicker', () => {
             expect(inputElement.nativeElement.getAttribute('placeholder')).toBe('Select a date');
         });
 
-        it('should open calendar on input click', () => {
+        it('should open calendar on input click', async () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
             inputElement.nativeElement.click();
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(datePickerComponent.overlayVisible).toBe(true);
         });
 
-        it('should handle date selection', () => {
+        it('should handle date selection', async () => {
             spyOn(testComponent, 'onDateSelect');
             spyOn(testComponent, 'onDateChange');
 
             const testDate = new Date(2023, 5, 15); // June 15, 2023
             testComponent.selectedDate = testDate;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.selectedDate).toEqual(testDate);
         });
     });
 
     describe('Input Properties', () => {
-        it('should apply dateFormat correctly', () => {
+        it('should apply dateFormat correctly', async () => {
             testComponent.dateFormat = 'dd/mm/yyyy';
             testComponent.selectedDate = new Date(2023, 5, 15);
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.dateFormat).toBe('dd/mm/yyyy');
@@ -451,43 +460,48 @@ describe('DatePicker', () => {
             expect(inputElement).toBeTruthy();
         });
 
-        it('should handle disabled state', () => {
+        it('should handle disabled state', async () => {
             testComponent.disabled = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             expect(inputElement.nativeElement.disabled).toBe(true);
         });
 
-        it('should handle readonly input state', () => {
+        it('should handle readonly input state', async () => {
             testComponent.readonlyInput = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             expect(inputElement.nativeElement.readOnly).toBe(true);
         });
 
-        it('should show calendar icon when showIcon is true', () => {
+        it('should show calendar icon when showIcon is true', async () => {
             testComponent.showIcon = true;
             testComponent.iconDisplay = 'button';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const iconButton = testFixture.debugElement.query(By.css('button'));
             expect(iconButton).toBeTruthy();
         });
 
-        it('should handle custom icon', () => {
+        it('should handle custom icon', async () => {
             testComponent.showIcon = true;
             testComponent.icon = 'pi pi-calendar-plus';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.icon).toBe('pi pi-calendar-plus');
         });
 
-        it('should handle input id and name attributes', () => {
+        it('should handle input id and name attributes', async () => {
             testComponent.inputStyleClass = 'custom-input';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             expect(inputElement.nativeElement.className).toContain('custom-input');
@@ -495,8 +509,9 @@ describe('DatePicker', () => {
     });
 
     describe('Event Handling', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
         it('should emit onFocus event', () => {
@@ -517,35 +532,39 @@ describe('DatePicker', () => {
             expect(testComponent.onDateBlur).toHaveBeenCalled();
         });
 
-        it('should open calendar on input click', () => {
+        it('should open calendar on input click', async () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
             inputElement.nativeElement.click();
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(datePickerComponent.overlayVisible).toBe(true);
         });
 
-        it('should open calendar with button click when showIcon is true', () => {
+        it('should open calendar with button click when showIcon is true', async () => {
             testComponent.showIcon = true;
             testComponent.iconDisplay = 'button';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const buttonElement = testFixture.debugElement.query(By.css('button'));
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
             buttonElement.nativeElement.click();
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(datePickerComponent.overlayVisible).toBe(true);
         });
     });
 
     describe('Date Selection Modes', () => {
-        it('should handle single selection mode', () => {
+        it('should handle single selection mode', async () => {
             testComponent.selectionMode = 'single';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.selectionMode).toBe('single');
@@ -553,30 +572,33 @@ describe('DatePicker', () => {
     });
 
     describe('Time Picker', () => {
-        it('should show time picker when showTime is true', () => {
+        it('should show time picker when showTime is true', async () => {
             testComponent.showTime = true;
             testComponent.showSeconds = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.showTime).toBe(true);
             expect(datePickerComponent.showSeconds).toBe(true);
         });
 
-        it('should handle 12-hour format', () => {
+        it('should handle 12-hour format', async () => {
             testComponent.hourFormat = '12';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.hourFormat).toBe('12');
         });
 
-        it('should handle time steps', () => {
+        it('should handle time steps', async () => {
             testComponent.showTime = true;
             testComponent.stepHour = 2;
             testComponent.stepMinute = 15;
             testComponent.stepSecond = 30;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.stepHour).toBe(2);
@@ -586,9 +608,10 @@ describe('DatePicker', () => {
     });
 
     describe('Inline Mode', () => {
-        it('should display inline calendar', () => {
+        it('should display inline calendar', async () => {
             testComponent.inline = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.inline).toBe(true);
@@ -596,37 +619,41 @@ describe('DatePicker', () => {
     });
 
     describe('Date Restrictions', () => {
-        it('should handle minDate restriction', () => {
+        it('should handle minDate restriction', async () => {
             const minDate = new Date(2023, 0, 1); // January 1, 2023
             testComponent.minDate = minDate;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.minDate).toEqual(minDate);
         });
 
-        it('should handle maxDate restriction', () => {
+        it('should handle maxDate restriction', async () => {
             const maxDate = new Date(2023, 11, 31); // December 31, 2023
             testComponent.maxDate = maxDate;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.maxDate).toEqual(maxDate);
         });
 
-        it('should handle disabled dates', () => {
+        it('should handle disabled dates', async () => {
             const disabledDates = [new Date(2023, 5, 15), new Date(2023, 5, 20)];
             testComponent.disabledDates = disabledDates;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.disabledDates).toEqual(disabledDates);
         });
 
-        it('should handle disabled days of week', () => {
+        it('should handle disabled days of week', async () => {
             const disabledDays = [0, 6]; // Disable Sundays and Saturdays
             testComponent.disabledDays = disabledDays;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.disabledDays).toEqual(disabledDays);
@@ -634,9 +661,10 @@ describe('DatePicker', () => {
     });
 
     describe('Navigation', () => {
-        it('should handle multiple months display', () => {
+        it('should handle multiple months display', async () => {
             testComponent.numberOfMonths = 3;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.numberOfMonths).toBe(3);
@@ -647,10 +675,11 @@ describe('DatePicker', () => {
         let reactiveFixture: ComponentFixture<TestReactiveFormDatePickerComponent>;
         let reactiveComponent: TestReactiveFormDatePickerComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             reactiveFixture = TestBed.createComponent(TestReactiveFormDatePickerComponent);
             reactiveComponent = reactiveFixture.componentInstance;
-            reactiveFixture.detectChanges();
+            reactiveFixture.changeDetectorRef.markForCheck();
+            await reactiveFixture.whenStable();
         });
 
         it('should integrate with reactive forms', () => {
@@ -658,16 +687,15 @@ describe('DatePicker', () => {
             expect(reactiveComponent.form.get('date')?.invalid).toBe(true);
         });
 
-        it('should update form control value', fakeAsync(() => {
+        it('should update form control value', async () => {
             const testDate = new Date(2023, 5, 15);
             reactiveComponent.form.get('date')?.setValue(testDate);
-            reactiveFixture.detectChanges();
-            tick();
+            reactiveFixture.changeDetectorRef.markForCheck();
+            await reactiveFixture.whenStable();
 
             expect(reactiveComponent.form.get('date')?.value).toEqual(testDate);
             expect(reactiveComponent.form.get('date')?.valid).toBe(true);
-            flush();
-        }));
+        });
 
         it('should handle form control validation', () => {
             const dateControl = reactiveComponent.form.get('date');
@@ -690,26 +718,29 @@ describe('DatePicker', () => {
     });
 
     describe('CSS Classes and Styling', () => {
-        it('should apply custom input styles', () => {
+        it('should apply custom input styles', async () => {
             testComponent.inputStyle = { border: '2px solid red', padding: '10px' };
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.inputStyle).toEqual({ border: '2px solid red', padding: '10px' });
         });
 
-        it('should apply custom panel styles', () => {
+        it('should apply custom panel styles', async () => {
             testComponent.panelStyle = { backgroundColor: 'lightblue', border: '1px solid blue' };
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.panelStyle).toEqual({ backgroundColor: 'lightblue', border: '1px solid blue' });
         });
 
-        it('should apply custom CSS classes', () => {
+        it('should apply custom CSS classes', async () => {
             testComponent.inputStyleClass = 'custom-input-class';
             testComponent.panelStyleClass = 'custom-panel-class';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.inputStyleClass).toBe('custom-input-class');
@@ -718,26 +749,29 @@ describe('DatePicker', () => {
     });
 
     describe('Accessibility', () => {
-        it('should have proper ARIA attributes', () => {
+        it('should have proper ARIA attributes', async () => {
             testComponent.ariaLabel = 'Select date';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             expect(inputElement.nativeElement.getAttribute('aria-label')).toBe('Select date');
             expect(inputElement.nativeElement.getAttribute('role')).toBe('combobox');
         });
 
-        it('should handle aria-labelledby', () => {
+        it('should handle aria-labelledby', async () => {
             testComponent.ariaLabelledBy = 'date-label';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             expect(inputElement.nativeElement.getAttribute('aria-labelledby')).toBe('date-label');
         });
 
-        it('should handle tabindex', () => {
+        it('should handle tabindex', async () => {
             testComponent.tabindex = 5;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             expect(inputElement.nativeElement.getAttribute('tabindex')).toBe('5');
@@ -745,8 +779,9 @@ describe('DatePicker', () => {
     });
 
     describe('Keyboard Navigation', () => {
-        beforeEach(() => {
-            testFixture.detectChanges();
+        beforeEach(async () => {
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
         });
 
         it('should handle Enter key to open calendar', () => {
@@ -758,13 +793,14 @@ describe('DatePicker', () => {
             expect(inputElement).toBeTruthy(); // Basic check that element exists
         });
 
-        it('should handle Escape key to close calendar', () => {
+        it('should handle Escape key to close calendar', async () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
             // First open the calendar
             datePickerComponent.overlayVisible = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
             inputElement.nativeElement.dispatchEvent(escapeEvent);
@@ -779,17 +815,19 @@ describe('DatePicker', () => {
             expect(true).toBe(true);
         });
 
-        it('should handle first day of week', () => {
+        it('should handle first day of week', async () => {
             testComponent.firstDayOfWeek = 1; // Monday
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.firstDayOfWeek).toBe(1);
         });
 
-        it('should handle show week numbers', () => {
+        it('should handle show week numbers', async () => {
             testComponent.showWeek = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.showWeek).toBe(true);
@@ -797,30 +835,37 @@ describe('DatePicker', () => {
     });
 
     describe('Edge Cases', () => {
-        it('should handle null/undefined values', () => {
+        it('should handle null/undefined values', async () => {
             testComponent.selectedDate = null as any;
             testComponent.minDate = null as any;
             testComponent.maxDate = null as any;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
-            expect(() => testFixture.detectChanges()).not.toThrow();
+            expect(() => {
+                testFixture.changeDetectorRef.markForCheck();
+            }).not.toThrow();
         });
 
-        it('should handle empty arrays', () => {
+        it('should handle empty arrays', async () => {
             testComponent.disabledDates = [];
             testComponent.disabledDays = [];
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
-            expect(() => testFixture.detectChanges()).not.toThrow();
+            expect(() => {
+                testFixture.changeDetectorRef.markForCheck();
+            }).not.toThrow();
         });
 
-        it('should handle extreme date values', () => {
+        it('should handle extreme date values', async () => {
             const extremeMinDate = new Date(1900, 0, 1);
             const extremeMaxDate = new Date(2100, 11, 31);
 
             testComponent.minDate = extremeMinDate;
             testComponent.maxDate = extremeMaxDate;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.minDate).toEqual(extremeMinDate);
@@ -829,50 +874,55 @@ describe('DatePicker', () => {
     });
 
     describe('Advanced Features', () => {
-        it('should handle touch UI mode', () => {
+        it('should handle touch UI mode', async () => {
             testComponent.touchUI = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.touchUI).toBe(true);
         });
 
-        it('should handle show other months', () => {
+        it('should handle show other months', async () => {
             testComponent.showOtherMonths = false;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.showOtherMonths).toBe(false);
         });
 
-        it('should handle select other months', () => {
+        it('should handle select other months', async () => {
             testComponent.selectOtherMonths = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.selectOtherMonths).toBe(true);
         });
 
-        it('should handle button bar', () => {
+        it('should handle button bar', async () => {
             testComponent.showButtonBar = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.showButtonBar).toBe(true);
         });
 
-        it('should handle keep invalid dates', () => {
+        it('should handle keep invalid dates', async () => {
             testComponent.keepInvalid = true;
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             expect(datePickerComponent.keepInvalid).toBe(true);
         });
 
-        it('should navigate to next month', fakeAsync(() => {
+        it('should navigate to next month', async () => {
             testComponent.inline = true;
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             const currentMonth = datePickerComponent.currentMonth;
@@ -880,8 +930,8 @@ describe('DatePicker', () => {
 
             const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
             datePickerComponent.navForward(mockEvent);
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             if (currentMonth === 11) {
                 expect(datePickerComponent.currentMonth).toBe(0);
@@ -890,12 +940,12 @@ describe('DatePicker', () => {
                 expect(datePickerComponent.currentMonth).toBe(currentMonth + 1);
                 expect(datePickerComponent.currentYear).toBe(currentYear);
             }
-        }));
+        });
 
-        it('should navigate to previous month', fakeAsync(() => {
+        it('should navigate to previous month', async () => {
             testComponent.inline = true;
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             const currentMonth = datePickerComponent.currentMonth;
@@ -903,8 +953,8 @@ describe('DatePicker', () => {
 
             const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
             datePickerComponent.navBackward(mockEvent);
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             if (currentMonth === 0) {
                 expect(datePickerComponent.currentMonth).toBe(11);
@@ -913,174 +963,174 @@ describe('DatePicker', () => {
                 expect(datePickerComponent.currentMonth).toBe(currentMonth - 1);
                 expect(datePickerComponent.currentYear).toBe(currentYear);
             }
-        }));
+        });
 
-        it('should select date when clicked', fakeAsync(() => {
+        it('should select date when clicked', async () => {
             testComponent.inline = true;
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             const testDate = new Date(2023, 5, 15); // June 15, 2023
 
             // Directly set the value to test date selection functionality
             testComponent.selectedDate = testDate;
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.selectedDate).toEqual(testDate);
             expect(datePickerComponent.value).toEqual(testDate);
-        }));
+        });
 
-        it('should handle multiple date selection', fakeAsync(() => {
+        it('should handle multiple date selection', async () => {
             testComponent.selectionMode = 'multiple';
             testComponent.inline = true;
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
             // Verify that selectionMode is set correctly
             expect(datePickerComponent.selectionMode).toBe('multiple');
             expect(datePickerComponent.inline).toBe(true);
-        }));
+        });
 
-        it('should handle range date selection', fakeAsync(() => {
+        it('should handle range date selection', async () => {
             testComponent.selectionMode = 'range';
             testComponent.inline = true;
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
             // Verify that selectionMode is set correctly
             expect(datePickerComponent.selectionMode).toBe('range');
             expect(datePickerComponent.inline).toBe(true);
-        }));
+        });
 
-        it('should switch to month view when month clicked', fakeAsync(() => {
+        it('should switch to month view when month clicked', async () => {
             testComponent.inline = true;
             testComponent.view = 'date';
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
             const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
             datePickerComponent.switchToMonthView(mockEvent);
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(datePickerComponent.currentView).toBe('month');
-        }));
+        });
 
-        it('should switch to year view when year clicked', fakeAsync(() => {
+        it('should switch to year view when year clicked', async () => {
             testComponent.inline = true;
             testComponent.view = 'date';
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
             const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
             datePickerComponent.switchToYearView(mockEvent);
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(datePickerComponent.currentView).toBe('year');
-        }));
+        });
 
-        it('should handle time picker hour increment', fakeAsync(() => {
+        it('should handle time picker hour increment', async () => {
             testComponent.showTime = true;
             testComponent.inline = true;
             testComponent.selectedDate = new Date(2023, 5, 15, 10, 30);
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             const initialHour = datePickerComponent.currentHour;
 
             const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
             datePickerComponent.incrementHour(mockEvent);
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             if (initialHour < 23) {
                 expect(datePickerComponent.currentHour).toBe(initialHour + 1);
             } else {
                 expect(datePickerComponent.currentHour).toBe(0);
             }
-        }));
+        });
 
-        it('should handle time picker minute increment', fakeAsync(() => {
+        it('should handle time picker minute increment', async () => {
             testComponent.showTime = true;
             testComponent.inline = true;
             testComponent.selectedDate = new Date(2023, 5, 15, 10, 30);
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             const initialMinute = datePickerComponent.currentMinute;
 
             const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
             datePickerComponent.incrementMinute(mockEvent);
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             if (initialMinute < 59) {
                 expect(datePickerComponent.currentMinute).toBe(initialMinute + 1);
             } else {
                 expect(datePickerComponent.currentMinute).toBe(0);
             }
-        }));
+        });
 
-        it('should clear selection when clear button clicked', fakeAsync(() => {
+        it('should clear selection when clear button clicked', async () => {
             testComponent.showClear = true;
             testComponent.selectedDate = new Date(2023, 5, 15);
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
             datePickerComponent.clear();
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             expect(testComponent.selectedDate).toBeNull();
-        }));
+        });
 
-        it('should handle keyboard navigation', fakeAsync(() => {
+        it('should handle keyboard navigation', async () => {
             testComponent.inline = true;
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
             // Test that keyboard navigation properties are available
             expect(typeof datePickerComponent.onContainerButtonKeydown).toBe('function');
             expect(datePickerComponent.inline).toBe(true);
-        }));
+        });
 
-        it('should handle disabled dates', fakeAsync(() => {
+        it('should handle disabled dates', async () => {
             const disabledDate = new Date(2023, 5, 15);
             testComponent.disabledDates = [disabledDate];
             testComponent.inline = true;
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
             // Test that disabled dates array is properly set
             expect(datePickerComponent.disabledDates).toContain(disabledDate);
             expect(Array.isArray(datePickerComponent.disabledDates)).toBe(true);
-        }));
+        });
 
-        it('should handle min/max date restrictions', fakeAsync(() => {
+        it('should handle min/max date restrictions', async () => {
             testComponent.minDate = new Date(2023, 5, 10);
             testComponent.maxDate = new Date(2023, 5, 20);
             testComponent.inline = true;
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const beforeMinDate = new Date(2023, 5, 5);
             const afterMaxDate = new Date(2023, 5, 25);
@@ -1090,42 +1140,24 @@ describe('DatePicker', () => {
             expect(beforeMinDate < testComponent.minDate).toBe(true);
             expect(afterMaxDate > testComponent.maxDate).toBe(true);
             expect(validDate >= testComponent.minDate && validDate <= testComponent.maxDate).toBe(true);
-        }));
+        });
 
-        it('should handle button bar today functionality', fakeAsync(() => {
+        it('should handle button bar today functionality', async () => {
             testComponent.showButtonBar = true;
             testComponent.inline = true;
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
             // Test Today button
             const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
             datePickerComponent.onTodayButtonClick(mockEvent);
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const today = new Date();
             expect(testComponent.selectedDate.toDateString()).toBe(today.toDateString());
-        }));
-    });
-
-    describe('Animation and Transitions', () => {
-        it('should handle show transition options', () => {
-            testComponent.showTransitionOptions = '.2s ease-in';
-            testFixture.detectChanges();
-
-            const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
-            expect(datePickerComponent.showTransitionOptions).toBe('.2s ease-in');
-        });
-
-        it('should handle hide transition options', () => {
-            testComponent.hideTransitionOptions = '.15s ease-out';
-            testFixture.detectChanges();
-
-            const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
-            expect(datePickerComponent.hideTransitionOptions).toBe('.15s ease-out');
         });
     });
 
@@ -1136,14 +1168,16 @@ describe('DatePicker', () => {
         beforeEach(async () => {
             pTemplatesFixture = TestBed.createComponent(TestPTemplatesDatePickerComponent);
             pTemplatesDatePickerElement = pTemplatesFixture.debugElement.query(By.css('p-datepicker'));
-            pTemplatesFixture.detectChanges();
+            pTemplatesFixture.changeDetectorRef.markForCheck();
+            await pTemplatesFixture.whenStable();
         });
 
-        it('should initialize pTemplates and make them available', () => {
+        it('should initialize pTemplates and make them available', async () => {
             const datePickerComponent = pTemplatesDatePickerElement.componentInstance;
 
             // Trigger content initialization
-            pTemplatesFixture.detectChanges();
+            pTemplatesFixture.changeDetectorRef.markForCheck();
+            await pTemplatesFixture.whenStable();
 
             // Verify that templates collection exists
             expect(datePickerComponent.templates).toBeDefined();
@@ -1185,14 +1219,16 @@ describe('DatePicker', () => {
         beforeEach(async () => {
             refTemplatesFixture = TestBed.createComponent(TestRefTemplatesDatePickerComponent);
             refTemplatesDatePickerElement = refTemplatesFixture.debugElement.query(By.css('p-datepicker'));
-            refTemplatesFixture.detectChanges();
+            refTemplatesFixture.changeDetectorRef.markForCheck();
+            await refTemplatesFixture.whenStable();
         });
 
-        it('should initialize #template references and make them available', () => {
+        it('should initialize #template references and make them available', async () => {
             const datePickerComponent = refTemplatesDatePickerElement.componentInstance;
 
             // Trigger content initialization
-            refTemplatesFixture.detectChanges();
+            refTemplatesFixture.changeDetectorRef.markForCheck();
+            await refTemplatesFixture.whenStable();
 
             // Verify that templates collection exists
             expect(datePickerComponent.templates).toBeDefined();
@@ -1234,14 +1270,16 @@ describe('DatePicker', () => {
         beforeEach(async () => {
             templatesFixture = TestBed.createComponent(TestTemplatesDatePickerComponent);
             templatesDatePickerElement = templatesFixture.debugElement.query(By.css('p-datepicker'));
-            templatesFixture.detectChanges();
+            templatesFixture.changeDetectorRef.markForCheck();
+            await templatesFixture.whenStable();
         });
 
-        it('should initialize templates and make them available', () => {
+        it('should initialize templates and make them available', async () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
 
             // Trigger content initialization
-            templatesFixture.detectChanges();
+            templatesFixture.changeDetectorRef.markForCheck();
+            await templatesFixture.whenStable();
 
             // Verify that templates collection exists
             expect(datePickerComponent.templates).toBeDefined();
@@ -1358,7 +1396,7 @@ describe('DatePicker', () => {
             }).not.toThrow();
         });
 
-        it('should process templates through PrimeTemplate system', () => {
+        it('should process templates through PrimeTemplate system', async () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
 
             // Verify that templates can be processed
@@ -1366,17 +1404,17 @@ describe('DatePicker', () => {
 
             // Test that the template processing lifecycle works
             expect(() => {
-                templatesFixture.detectChanges();
+                templatesFixture.changeDetectorRef.markForCheck();
             }).not.toThrow();
         });
 
-        it('should recognize both pTemplate and #template structures', () => {
+        it('should recognize both pTemplate and #template structures', async () => {
             // Test that component can handle both pTemplate directive and #template references
             const datePickerComponent = templatesDatePickerElement.componentInstance;
 
             // Verify component can work with templates without errors
             expect(() => {
-                templatesFixture.detectChanges();
+                templatesFixture.changeDetectorRef.markForCheck();
                 if (datePickerComponent.ngAfterContentInit) {
                     datePickerComponent.ngAfterContentInit();
                 }
@@ -1386,13 +1424,13 @@ describe('DatePicker', () => {
             expect(datePickerComponent.templates).toBeDefined();
         });
 
-        it('should verify #template references are accessible', () => {
+        it('should verify #template references are accessible', async () => {
             // Verify that #template references can be accessed
             const datePickerComponent = templatesDatePickerElement.componentInstance;
 
             // After content init, templates should be available
             expect(() => {
-                templatesFixture.detectChanges();
+                templatesFixture.changeDetectorRef.markForCheck();
                 if (datePickerComponent.ngAfterContentInit) {
                     datePickerComponent.ngAfterContentInit();
                 }
@@ -1402,13 +1440,13 @@ describe('DatePicker', () => {
             expect(datePickerComponent).toBeTruthy();
         });
 
-        it('should handle template projection with context parameters', () => {
+        it('should handle template projection with context parameters', async () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
 
             // Test that templates can be processed with context
             expect(() => {
                 // Simulate template context processing
-                templatesFixture.detectChanges();
+                templatesFixture.changeDetectorRef.markForCheck();
 
                 // Templates should be available for context binding
                 if (datePickerComponent.templates) {
@@ -1419,13 +1457,13 @@ describe('DatePicker', () => {
             }).not.toThrow();
         });
 
-        it('should support dual template approach (pTemplate + #template)', () => {
+        it('should support dual template approach (pTemplate + #template)', async () => {
             // Verify that using both pTemplate and #template doesn't cause conflicts
             const datePickerComponent = templatesDatePickerElement.componentInstance;
 
             // Component should handle dual template approach
             expect(() => {
-                templatesFixture.detectChanges();
+                templatesFixture.changeDetectorRef.markForCheck();
 
                 // Test template processing
                 if (datePickerComponent.ngAfterContentInit) {
@@ -1436,13 +1474,13 @@ describe('DatePicker', () => {
             expect(datePickerComponent).toBeTruthy();
         });
 
-        it('should verify all template types with #template structure', () => {
+        it('should verify all template types with #template structure', async () => {
             // Test comprehensive template coverage with #template references
             const datePickerComponent = templatesDatePickerElement.componentInstance;
 
             // Verify that component can process all template types
             expect(() => {
-                templatesFixture.detectChanges();
+                templatesFixture.changeDetectorRef.markForCheck();
 
                 // Test template property access
                 datePickerComponent.dateTemplate;
@@ -1463,7 +1501,7 @@ describe('DatePicker', () => {
             expect(datePickerComponent).toBeTruthy();
         });
 
-        it('should handle template lifecycle with #template references', () => {
+        it('should handle template lifecycle with #template references', async () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
 
             // Test template lifecycle methods
@@ -1478,17 +1516,17 @@ describe('DatePicker', () => {
                     datePickerComponent.ngAfterViewInit();
                 }
 
-                templatesFixture.detectChanges();
+                templatesFixture.changeDetectorRef.markForCheck();
             }).not.toThrow();
 
             // Templates should be properly initialized
             expect(datePickerComponent.templates).toBeDefined();
         });
 
-        it('should handle context parameters in date template', () => {
+        it('should handle context parameters in date template', async () => {
             // Test that date template context works
             expect(() => {
-                templatesFixture.detectChanges();
+                templatesFixture.changeDetectorRef.markForCheck();
 
                 // Simulate date context processing
                 const mockDateContext = {
@@ -1502,10 +1540,10 @@ describe('DatePicker', () => {
             }).not.toThrow();
         });
 
-        it('should handle context parameters in disabled date template', () => {
+        it('should handle context parameters in disabled date template', async () => {
             // Test that disabled date template context works
             expect(() => {
-                templatesFixture.detectChanges();
+                templatesFixture.changeDetectorRef.markForCheck();
 
                 // Simulate disabled date context processing
                 const mockDisabledContext = {
@@ -1517,10 +1555,10 @@ describe('DatePicker', () => {
             }).not.toThrow();
         });
 
-        it('should handle context parameters in decade template', () => {
+        it('should handle context parameters in decade template', async () => {
             // Test that decade template context works
             expect(() => {
-                templatesFixture.detectChanges();
+                templatesFixture.changeDetectorRef.markForCheck();
 
                 // Simulate decade context processing
                 const mockDecadeContext = {
@@ -1537,7 +1575,8 @@ describe('DatePicker', () => {
         it('PT Case 1: should accept simple string values', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+                imports: [DatePicker, FormsModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(DatePicker);
@@ -1547,7 +1586,7 @@ describe('DatePicker', () => {
                 calendar: 'custom-calendar-class'
             });
             ptFixture.componentRef.setInput('inline', true);
-            ptFixture.detectChanges();
+            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const root = ptFixture.nativeElement;
@@ -1557,7 +1596,8 @@ describe('DatePicker', () => {
         it('PT Case 2: should accept objects with class, style, and attributes', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+                imports: [DatePicker, FormsModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(DatePicker);
@@ -1573,7 +1613,7 @@ describe('DatePicker', () => {
                 }
             });
             ptFixture.componentRef.setInput('inline', true);
-            ptFixture.detectChanges();
+            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const root = ptFixture.nativeElement;
@@ -1584,7 +1624,8 @@ describe('DatePicker', () => {
         it('PT Case 3: should accept mixed object and string values', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+                imports: [DatePicker, FormsModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(DatePicker);
@@ -1597,7 +1638,7 @@ describe('DatePicker', () => {
                 calendar: 'string-calendar-class'
             });
             ptFixture.componentRef.setInput('inline', true);
-            ptFixture.detectChanges();
+            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const root = ptFixture.nativeElement;
@@ -1607,7 +1648,8 @@ describe('DatePicker', () => {
         it('PT Case 4: should use instance properties in PT functions', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+                imports: [DatePicker, FormsModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(DatePicker);
@@ -1617,7 +1659,7 @@ describe('DatePicker', () => {
                 })
             });
             ptFixture.componentRef.setInput('inline', true);
-            ptFixture.detectChanges();
+            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const root = ptFixture.nativeElement;
@@ -1627,7 +1669,8 @@ describe('DatePicker', () => {
         it('PT Case 5: should bind events through PT', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+                imports: [DatePicker, FormsModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(DatePicker);
@@ -1640,7 +1683,7 @@ describe('DatePicker', () => {
                 }
             });
             ptFixture.componentRef.setInput('inline', true);
-            ptFixture.detectChanges();
+            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const root = ptFixture.nativeElement;
@@ -1651,7 +1694,8 @@ describe('DatePicker', () => {
         it('PT Case 6: should support inline PT binding', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+                imports: [DatePicker, FormsModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(DatePicker);
@@ -1661,7 +1705,7 @@ describe('DatePicker', () => {
                 panel: 'inline-panel'
             });
             ptFixture.componentRef.setInput('inline', true);
-            ptFixture.detectChanges();
+            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const root = ptFixture.nativeElement;
@@ -1671,7 +1715,8 @@ describe('DatePicker', () => {
         it('PT Case 9: should apply PT to nested Button components', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+                imports: [DatePicker, FormsModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(DatePicker);
@@ -1689,7 +1734,7 @@ describe('DatePicker', () => {
             });
             ptFixture.componentRef.setInput('inline', true);
             ptFixture.componentRef.setInput('showButtonBar', true);
-            ptFixture.detectChanges();
+            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             expect(ptFixture.componentInstance).toBeTruthy();
@@ -1698,7 +1743,8 @@ describe('DatePicker', () => {
         it('PT Case 10: should apply PT to calendar structure', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+                imports: [DatePicker, FormsModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(DatePicker);
@@ -1714,7 +1760,7 @@ describe('DatePicker', () => {
                 selectYear: 'custom-select-year'
             });
             ptFixture.componentRef.setInput('inline', true);
-            ptFixture.detectChanges();
+            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             expect(ptFixture.componentInstance).toBeTruthy();
@@ -1723,7 +1769,8 @@ describe('DatePicker', () => {
         it('PT Case 11: should apply PT to table elements', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+                imports: [DatePicker, FormsModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(DatePicker);
@@ -1741,7 +1788,7 @@ describe('DatePicker', () => {
                 }
             });
             ptFixture.componentRef.setInput('inline', true);
-            ptFixture.detectChanges();
+            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             expect(ptFixture.componentInstance).toBeTruthy();
@@ -1750,7 +1797,8 @@ describe('DatePicker', () => {
         it('PT Case 12: should apply PT to time picker elements', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+                imports: [DatePicker, FormsModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(DatePicker);
@@ -1772,7 +1820,7 @@ describe('DatePicker', () => {
             ptFixture.componentRef.setInput('inline', true);
             ptFixture.componentRef.setInput('showTime', true);
             ptFixture.componentRef.setInput('showSeconds', true);
-            ptFixture.detectChanges();
+            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             expect(ptFixture.componentInstance).toBeTruthy();

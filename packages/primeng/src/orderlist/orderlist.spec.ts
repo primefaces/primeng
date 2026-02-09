@@ -1,7 +1,7 @@
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -380,7 +380,7 @@ describe('OrderList', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, SharedModule, OrderList],
-            providers: [provideNoopAnimations()],
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()],
             declarations: [
                 TestBasicOrderListComponent,
                 TestTemplatesOrderListComponent,
@@ -417,7 +417,7 @@ describe('OrderList', () => {
             expect(orderList.responsive).toBeFalsy();
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             component.header = 'Custom Header';
             component.responsive = true;
             component.stripedRows = true;
@@ -425,7 +425,8 @@ describe('OrderList', () => {
             component.dragdrop = true;
             component.controlsPosition = 'right';
             component.filterBy = 'name';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(orderList.header).toBe('Custom Header');
             expect(orderList.responsive).toBe(true);
@@ -457,11 +458,12 @@ describe('OrderList', () => {
             fixture.detectChanges();
         });
 
-        it('should move selected items up', () => {
+        it('should move selected items up', async () => {
             const initialOrder = [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveUp();
+            await fixture.whenStable();
 
             // Product B (index 1) should move to index 0
             // Product D (index 3) should move to index 2
@@ -472,25 +474,25 @@ describe('OrderList', () => {
             expect(component.onReorder).toHaveBeenCalledWith(component.selection);
         });
 
-        it('should move selected items to top', fakeAsync(() => {
+        it('should move selected items to top', async () => {
             [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveTop();
-            tick();
+            await fixture.whenStable();
 
             // Selected items should move to the beginning (B first, then D in final positions)
             expect(component.products[0].id).toBe('2'); // Product B moved to top
             expect(component.products[1].id).toBe('4'); // Product D moved to second
             expect(component.onReorder).toHaveBeenCalledWith(component.selection);
-            flush();
-        }));
+        });
 
-        it('should move selected items down', () => {
+        it('should move selected items down', async () => {
             [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveDown();
+            await fixture.whenStable();
 
             // Product D (index 3) should move to index 4
             // Product B (index 1) should move to index 2
@@ -499,11 +501,12 @@ describe('OrderList', () => {
             expect(component.onReorder).toHaveBeenCalledWith(component.selection);
         });
 
-        it('should move selected items to bottom', () => {
+        it('should move selected items to bottom', async () => {
             [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveBottom();
+            await fixture.whenStable();
 
             // Selected items should move to the end (B first, then D)
             expect(component.products[3].id).toBe('2'); // Product B moved to end
@@ -511,9 +514,10 @@ describe('OrderList', () => {
             expect(component.onReorder).toHaveBeenCalledWith(component.selection);
         });
 
-        it('should not move items when no selection', () => {
+        it('should not move items when no selection', async () => {
             component.selection = [];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             const initialOrder = [...component.products];
 
             orderList.moveUp();
@@ -521,16 +525,18 @@ describe('OrderList', () => {
             expect(component.products).toEqual(initialOrder);
         });
 
-        it('should move multiple selected items even when some cannot move up', () => {
+        it('should move multiple selected items even when some cannot move up', async () => {
             // Select items at positions 0, 2, and 4 (first, third, and fifth items)
             // First item (index 0) cannot move up, but others can
             component.selection = [component.products[0], component.products[2], component.products[4]];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const initialOrder = [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveUp();
+            await fixture.whenStable();
 
             // First item (A) should stay at position 0 (can't move up)
             expect(component.products[0]).toEqual(initialOrder[0]); // Product A stays
@@ -542,16 +548,18 @@ describe('OrderList', () => {
             expect(component.onReorder).toHaveBeenCalledWith(component.selection);
         });
 
-        it('should move multiple selected items even when some cannot move down', () => {
+        it('should move multiple selected items even when some cannot move down', async () => {
             // Select items at positions 0, 2, and 4 (first, third, and fifth items)
             // Last item (index 4) cannot move down, but others can
             component.selection = [component.products[0], component.products[2], component.products[4]];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const initialOrder = [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveDown();
+            await fixture.whenStable();
 
             // First item (A) should move to position 1 (was at 0, moves down)
             expect(component.products[1]).toEqual(initialOrder[0]); // Product A moved down
@@ -563,30 +571,33 @@ describe('OrderList', () => {
             expect(component.onReorder).toHaveBeenCalledWith(component.selection);
         });
 
-        it('should not move items when disabled', () => {
+        it('should not move items when disabled', async () => {
             component.disabled = true;
             component.selection = [component.products[1]]; // Select second item
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Test that buttons are disabled, not the methods themselves
             const upButton = fixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
             expect(upButton.nativeElement.disabled).toBe(true);
         });
 
-        it('should check if item is selected', () => {
+        it('should check if item is selected', async () => {
             component.selection = [component.products[0], component.products[2]];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(orderList.isSelected(component.products[0])).toBe(true);
             expect(orderList.isSelected(component.products[1])).toBe(false);
             expect(orderList.isSelected(component.products[2])).toBe(true);
         });
 
-        it('should check if list is empty', () => {
+        it('should check if list is empty', async () => {
             expect(orderList.isEmpty()).toBe(false);
 
             component.products = [];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(orderList.isEmpty()).toBe(true);
         });
@@ -596,18 +607,21 @@ describe('OrderList', () => {
             expect(visibleOptions).toEqual(component.products);
         });
 
-        it('should check if move is disabled', () => {
+        it('should check if move is disabled', async () => {
             // First clear any existing selection from beforeEach
             component.selection = [];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(orderList.moveDisabled()).toBe(true); // No selection
 
             component.selection = [component.products[0]];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(orderList.moveDisabled()).toBeFalsy(); // Has selection
 
             component.disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(orderList.moveDisabled()).toBe(true); // Disabled
         });
 
@@ -628,19 +642,22 @@ describe('OrderList', () => {
             expect(defaultProps.severity).toBe('secondary');
         });
 
-        it('should reset filter', () => {
+        it('should reset filter', async () => {
             component.filterBy = 'name';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             orderList.filterValue = 'test';
             orderList.resetFilter();
+            await fixture.whenStable();
 
             expect(orderList.filterValue).toBe('');
         });
 
-        it('should check if item is visible', () => {
+        it('should check if item is visible', async () => {
             component.filterBy = 'name';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Without filter, all items should be visible
             expect(orderList.isItemVisible(component.products[0])).toBe(true);
@@ -648,6 +665,7 @@ describe('OrderList', () => {
             // With filter
             orderList.filterValue = 'Product A';
             orderList.filter();
+            await fixture.whenStable();
 
             expect(orderList.isItemVisible(component.products[0])).toBe(true);
             expect(orderList.isItemVisible(component.products[1])).toBeUndefined();
@@ -655,7 +673,7 @@ describe('OrderList', () => {
     });
 
     describe('Event Handling', () => {
-        it('should emit selectionChange event', fakeAsync(() => {
+        it('should emit selectionChange event', async () => {
             spyOn(component, 'onSelectionChange');
             const newSelection = [component.products[0], component.products[1]];
 
@@ -663,14 +681,13 @@ describe('OrderList', () => {
                 originalEvent: new Event('change'),
                 value: newSelection
             });
-            tick();
+            await fixture.whenStable();
 
             expect(component.onSelectionChange).toHaveBeenCalledWith(newSelection);
             expect(orderList.d_selection).toEqual(newSelection);
-            flush();
-        }));
+        });
 
-        it('should emit onSelectionChange event with originalEvent', fakeAsync(() => {
+        it('should emit onSelectionChange event with originalEvent', async () => {
             spyOn(component, 'onSelectionChangeEvent');
             const event = new Event('change');
             const newSelection = [component.products[0]];
@@ -679,14 +696,13 @@ describe('OrderList', () => {
                 originalEvent: event,
                 value: newSelection
             });
-            tick();
+            await fixture.whenStable();
 
             expect(component.onSelectionChangeEvent).toHaveBeenCalledWith({
                 originalEvent: event,
                 value: newSelection
             });
-            flush();
-        }));
+        });
 
         it('should emit onReorder event when moving items', () => {
             spyOn(component, 'onReorder');
@@ -698,7 +714,7 @@ describe('OrderList', () => {
             expect(component.onReorder).toHaveBeenCalledWith(component.selection);
         });
 
-        it('should emit onFilterEvent when filtering', fakeAsync(() => {
+        it('should emit onFilterEvent when filtering', async () => {
             component.filterBy = 'name';
             fixture.detectChanges();
             spyOn(component, 'onFilterEvent');
@@ -710,12 +726,11 @@ describe('OrderList', () => {
             });
 
             orderList.onFilterKeyup(event);
-            tick();
+            await fixture.whenStable();
 
             expect(component.onFilterEvent).toHaveBeenCalled();
             expect(orderList.filterValue).toBe('product a');
-            flush();
-        }));
+        });
 
         it('should emit onFocus event', () => {
             spyOn(component, 'onFocus');
@@ -822,9 +837,10 @@ describe('OrderList', () => {
             });
         });
 
-        it('should enable move buttons when items are selected', () => {
+        it('should enable move buttons when items are selected', async () => {
             component.selection = [component.products[1]];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const buttons = fixture.debugElement.queryAll(By.css('button'));
 
@@ -833,9 +849,10 @@ describe('OrderList', () => {
             });
         });
 
-        it('should move items up when clicking move up button', () => {
+        it('should move items up when clicking move up button', async () => {
             component.selection = [component.products[2]]; // Select Item 3
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const moveUpButton = fixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
             moveUpButton.nativeElement.click();
@@ -844,47 +861,53 @@ describe('OrderList', () => {
             expect(component.products[2].name).toBe('Item 2');
         });
 
-        it('should move items to top when clicking move top button', fakeAsync(() => {
+        it('should move items to top when clicking move top button', async () => {
             component.selection = [component.products[3]]; // Select Item 4
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const moveTopButton = fixture.debugElement.query(By.css('[data-pc-name="pcmovetopbutton"]'));
             moveTopButton.nativeElement.click();
-            tick();
+            await fixture.whenStable();
 
             expect(component.products[0].name).toBe('Item 4');
             expect(component.products[1].name).toBe('Item 1');
-            flush();
-        }));
+        });
 
-        it('should move items down when clicking move down button', () => {
+        it('should move items down when clicking move down button', async () => {
             component.selection = [component.products[1]]; // Select Item 2
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const moveDownButton = fixture.debugElement.query(By.css('[data-pc-name="pcmovedownbutton"]'));
             moveDownButton.nativeElement.click();
+            await fixture.whenStable();
 
             expect(component.products[1].name).toBe('Item 3');
             expect(component.products[2].name).toBe('Item 2');
         });
 
-        it('should move items to bottom when clicking move bottom button', () => {
+        it('should move items to bottom when clicking move bottom button', async () => {
             component.selection = [component.products[1]]; // Select Item 2
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const moveBottomButton = fixture.debugElement.query(By.css('[data-pc-name="pcmovebottombutton"]'));
             moveBottomButton.nativeElement.click();
+            await fixture.whenStable();
 
             expect(component.products[4].name).toBe('Item 2');
             expect(component.products[3].name).toBe('Item 5');
         });
 
-        it('should handle multiple item selection', () => {
+        it('should handle multiple item selection', async () => {
             component.selection = [component.products[1], component.products[3]]; // Select Item 2 and Item 4
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const moveUpButton = fixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
             moveUpButton.nativeElement.click();
+            await fixture.whenStable();
 
             expect(component.products[0].name).toBe('Item 2'); // Item 2 moved up
             expect(component.products[1].name).toBe('Item 1'); // Item 1 moved down
@@ -1110,7 +1133,7 @@ describe('OrderList', () => {
             expect(orderList.visibleOptions?.[0].name).toBe('Product A');
         });
 
-        it('should filter items on keyup event', fakeAsync(() => {
+        it('should filter items on keyup event', async () => {
             const filterFixture = TestBed.createComponent(TestFilterOrderListComponent);
             filterFixture.detectChanges();
             const filterOrderList = filterFixture.debugElement.query(By.directive(OrderList)).componentInstance;
@@ -1122,12 +1145,11 @@ describe('OrderList', () => {
             });
 
             filterOrderList.onFilterKeyup(event);
-            tick();
+            await filterFixture.whenStable();
 
             expect(filterOrderList.filterValue).toBe('electronics');
             expect(filterOrderList.visibleOptions?.length).toBe(2);
-            flush();
-        }));
+        });
 
         it('should reset filter correctly', () => {
             orderList.filterValue = 'test';
@@ -1146,9 +1168,10 @@ describe('OrderList', () => {
             expect(orderList.isEmpty()).toBe(true);
         });
 
-        it('should handle filter with different match modes', () => {
+        it('should handle filter with different match modes', async () => {
             component.filterMatchMode = 'startsWith';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             orderList.filterValue = 'product';
             orderList.filter();
@@ -1156,9 +1179,10 @@ describe('OrderList', () => {
             expect(orderList.visibleOptions?.length).toBe(5); // All products start with "Product"
         });
 
-        it('should handle filter with locale', () => {
+        it('should handle filter with locale', async () => {
             component.filterLocale = 'en-US';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             orderList.filterValue = 'PRODUCT';
             orderList.filter();
@@ -1194,14 +1218,15 @@ describe('OrderList', () => {
             expect(orderList.selection).toEqual(newSelection);
         });
 
-        it('should handle meta key selection', () => {
+        it('should handle meta key selection', async () => {
             component.metaKeySelection = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(orderList.metaKeySelection).toBe(true);
         });
 
-        it('should handle selection change events', fakeAsync(() => {
+        it('should handle selection change events', async () => {
             spyOn(component, 'onSelectionChange');
             spyOn(component, 'onSelectionChangeEvent');
 
@@ -1211,21 +1236,21 @@ describe('OrderList', () => {
             };
 
             orderList.onChangeSelection(changeEvent);
-            tick();
+            await fixture.whenStable();
 
             expect(component.onSelectionChange).toHaveBeenCalledWith(changeEvent.value);
             expect(component.onSelectionChangeEvent).toHaveBeenCalledWith(changeEvent);
             expect(orderList.d_selection).toEqual(changeEvent.value);
-            flush();
-        }));
+        });
     });
 
     describe('Accessibility and Keyboard Navigation', () => {
-        it('should have correct ARIA labels', () => {
+        it('should have correct ARIA labels', async () => {
             component.ariaLabel = 'Product order list';
             component.ariaLabelledBy = 'header-id';
             component.ariaFilterLabel = 'Filter products';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(orderList.ariaLabel).toBe('Product order list');
             expect(orderList.ariaLabelledBy).toBe('header-id');
@@ -1239,16 +1264,18 @@ describe('OrderList', () => {
             expect(orderList.moveBottomAriaLabel).toBeTruthy();
         });
 
-        it('should handle tabindex', () => {
+        it('should handle tabindex', async () => {
             component.tabindex = 5;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(orderList.tabindex).toBe(5);
         });
 
-        it('should handle autoOptionFocus', () => {
+        it('should handle autoOptionFocus', async () => {
             component.autoOptionFocus = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(orderList.autoOptionFocus).toBe(false);
         });
@@ -1285,9 +1312,10 @@ describe('OrderList', () => {
             expect(orderList.getVisibleOptions()).toBe(null);
         });
 
-        it('should handle rapid move operations', fakeAsync(() => {
+        it('should handle rapid move operations', async () => {
             component.selection = [component.products[2]];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             let moveCount = 0;
             orderList.onReorder.subscribe(() => moveCount++);
@@ -1296,11 +1324,10 @@ describe('OrderList', () => {
             orderList.moveUp();
             orderList.moveDown();
             orderList.moveUp();
-            tick();
+            await fixture.whenStable();
 
             expect(moveCount).toBe(3);
-            flush();
-        }));
+        });
 
         it('should handle large datasets efficiently', () => {
             const largeData: any[] = [];
@@ -1334,65 +1361,71 @@ describe('OrderList', () => {
             }).not.toThrow();
         });
 
-        it('should handle concurrent operations', fakeAsync(() => {
+        it('should handle concurrent operations', async () => {
             component.selection = [component.products[1]];
             component.filterBy = 'name';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Concurrent move and filter
             orderList.moveUp();
             orderList.filterValue = 'Product';
             orderList.filter();
-            tick();
+            await fixture.whenStable();
 
             expect(orderList.visibleOptions).toBeTruthy();
-            flush();
-        }));
+        });
     });
 
     describe('CSS Classes and Styling', () => {
-        it('should apply custom styleClass', () => {
+        it('should apply custom styleClass', async () => {
             component.styleClass = 'custom-orderlist-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const orderListElement = fixture.debugElement.query(By.css('p-orderlist'));
             expect(orderListElement.nativeElement.className).toContain('custom-orderlist-class');
         });
 
-        it('should apply list style', () => {
+        it('should apply list style', async () => {
             component.listStyle = { height: '400px', border: '1px solid red' };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(orderList.listStyle).toEqual({ height: '400px', border: '1px solid red' });
         });
 
-        it('should handle responsive styling', () => {
+        it('should handle responsive styling', async () => {
             component.responsive = true;
             component.breakpoint = '768px';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(orderList.responsive).toBe(true);
             expect(orderList.breakpoint).toBe('768px');
         });
 
-        it('should apply striped rows', () => {
+        it('should apply striped rows', async () => {
             component.stripedRows = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(orderList.stripedRows).toBe(true);
         });
 
-        it('should handle controls position', () => {
+        it('should handle controls position', async () => {
             component.controlsPosition = 'right';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(orderList.controlsPosition).toBe('right');
         });
 
-        it('should apply button styles', () => {
+        it('should apply button styles', async () => {
             component.buttonProps = { severity: 'primary' };
             component.moveUpButtonProps = { size: 'small' };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const upButtonProps = orderList.getButtonProps('up');
             expect(upButtonProps).toEqual({ severity: 'primary', size: 'small' });
@@ -1413,7 +1446,7 @@ describe('OrderList', () => {
             expect(endTime - startTime).toBeLessThan(1000); // Should complete in less than 1 second
         });
 
-        it('should handle rapid selection changes', fakeAsync(() => {
+        it('should handle rapid selection changes', async () => {
             let changeCount = 0;
             orderList.selectionChange.subscribe(() => changeCount++);
 
@@ -1423,12 +1456,11 @@ describe('OrderList', () => {
                     originalEvent: new Event('change'),
                     value: [component.products[i % component.products.length]]
                 });
-                tick(10);
             }
+            await fixture.whenStable();
 
             expect(changeCount).toBe(5);
-            flush();
-        }));
+        });
     });
 
     describe('Lifecycle and Cleanup', () => {
@@ -1527,8 +1559,8 @@ describe('OrderList', () => {
                 expect(comprehensiveOrderList).toBeTruthy();
             });
 
-            it('should process all pTemplate templates in ngAfterContentInit', fakeAsync(() => {
-                tick();
+            it('should process all pTemplate templates in ngAfterContentInit', async () => {
+                await comprehensiveFixture.whenStable();
 
                 expect(comprehensiveOrderList._itemTemplate).toBeDefined();
                 expect(comprehensiveOrderList._headerTemplate).toBeDefined();
@@ -1540,12 +1572,10 @@ describe('OrderList', () => {
                 expect(comprehensiveOrderList._moveDownIconTemplate).toBeDefined();
                 expect(comprehensiveOrderList._moveBottomIconTemplate).toBeDefined();
                 expect(comprehensiveOrderList._filterIconTemplate).toBeDefined();
+            });
 
-                flush();
-            }));
-
-            it('should apply item template with context (product, selected, index)', fakeAsync(() => {
-                tick();
+            it('should apply item template with context (product, selected, index)', async () => {
+                await comprehensiveFixture.whenStable();
 
                 const itemElements = comprehensiveFixture.debugElement.queryAll(By.css('.custom-item-template'));
                 expect(itemElements.length).toBeGreaterThan(0);
@@ -1554,15 +1584,14 @@ describe('OrderList', () => {
                 expect(firstItem.nativeElement.textContent).toContain('Item: Product A');
                 expect(firstItem.nativeElement.textContent).toContain('Index: 0');
                 expect(firstItem.nativeElement.textContent).toContain('Selected: false');
+            });
 
-                flush();
-            }));
-
-            it('should apply item template with selection context', fakeAsync(() => {
+            it('should apply item template with selection context', async () => {
                 comprehensiveComponent.selection = [comprehensiveComponent.products[0]];
                 comprehensiveOrderList.selection = [comprehensiveComponent.products[0]];
+                comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
-                tick();
+                await comprehensiveFixture.whenStable();
 
                 const selectedItemElement = comprehensiveFixture.debugElement.query(By.css('.custom-item-template'));
                 if (selectedItemElement && selectedItemElement.nativeElement.textContent.includes('Selected: true')) {
@@ -1571,12 +1600,10 @@ describe('OrderList', () => {
                     // Fallback: verify selection is set in component
                     expect(comprehensiveOrderList.isSelected(comprehensiveComponent.products[0])).toBe(true);
                 }
+            });
 
-                flush();
-            }));
-
-            it('should apply header template', fakeAsync(() => {
-                tick();
+            it('should apply header template', async () => {
+                await comprehensiveFixture.whenStable();
 
                 const headerElement = comprehensiveFixture.debugElement.query(By.css('.custom-header-template'));
                 if (headerElement) {
@@ -1585,14 +1612,13 @@ describe('OrderList', () => {
                     // Fallback: verify template is configured
                     expect(comprehensiveOrderList._headerTemplate).toBeDefined();
                 }
+            });
 
-                flush();
-            }));
-
-            it('should apply empty message template when no data', fakeAsync(() => {
+            it('should apply empty message template when no data', async () => {
                 comprehensiveComponent.products = [];
+                comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
-                tick();
+                await comprehensiveFixture.whenStable();
 
                 const emptyElement = comprehensiveFixture.debugElement.query(By.css('.custom-empty-template'));
                 if (emptyElement) {
@@ -1601,18 +1627,18 @@ describe('OrderList', () => {
                     // Fallback: verify empty state
                     expect(comprehensiveComponent.products.length).toBe(0);
                 }
+            });
 
-                flush();
-            }));
-
-            it('should apply empty filter message template when filtered results are empty', fakeAsync(() => {
+            it('should apply empty filter message template when filtered results are empty', async () => {
                 comprehensiveComponent.filterBy = 'name';
+                comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
 
                 comprehensiveOrderList.filterValue = 'nonexistent';
                 comprehensiveOrderList.filter();
+                comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
-                tick();
+                await comprehensiveFixture.whenStable();
 
                 const emptyFilterElement = comprehensiveFixture.debugElement.query(By.css('.custom-empty-filter-template'));
                 if (emptyFilterElement) {
@@ -1621,14 +1647,13 @@ describe('OrderList', () => {
                     // Fallback: verify empty filter state
                     expect(comprehensiveOrderList.visibleOptions?.length).toBe(0);
                 }
+            });
 
-                flush();
-            }));
-
-            it('should apply filter template when filtering enabled', fakeAsync(() => {
+            it('should apply filter template when filtering enabled', async () => {
                 comprehensiveComponent.filterBy = 'name';
+                comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
-                tick();
+                await comprehensiveFixture.whenStable();
 
                 const filterElement = comprehensiveFixture.debugElement.query(By.css('.custom-filter-template input'));
                 if (filterElement) {
@@ -1637,14 +1662,13 @@ describe('OrderList', () => {
                     // Fallback: verify filter is configured
                     expect(comprehensiveOrderList._filterTemplate).toBeDefined();
                 }
+            });
 
-                flush();
-            }));
-
-            it('should apply move up icon template', fakeAsync(() => {
+            it('should apply move up icon template', async () => {
                 comprehensiveComponent.selection = [comprehensiveComponent.products[1]];
+                comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
-                tick();
+                await comprehensiveFixture.whenStable();
 
                 const moveUpButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
                 if (moveUpButton) {
@@ -1656,14 +1680,13 @@ describe('OrderList', () => {
                     // Fallback: verify template is configured
                     expect(comprehensiveOrderList._moveUpIconTemplate).toBeDefined();
                 }
+            });
 
-                flush();
-            }));
-
-            it('should apply move top icon template', fakeAsync(() => {
+            it('should apply move top icon template', async () => {
                 comprehensiveComponent.selection = [comprehensiveComponent.products[1]];
+                comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
-                tick();
+                await comprehensiveFixture.whenStable();
 
                 const moveTopButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-name="pcmovetopbutton"]'));
                 if (moveTopButton) {
@@ -1675,14 +1698,13 @@ describe('OrderList', () => {
                     // Fallback: verify template is configured
                     expect(comprehensiveOrderList._moveTopIconTemplate).toBeDefined();
                 }
+            });
 
-                flush();
-            }));
-
-            it('should apply move down icon template', fakeAsync(() => {
+            it('should apply move down icon template', async () => {
                 comprehensiveComponent.selection = [comprehensiveComponent.products[1]];
+                comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
-                tick();
+                await comprehensiveFixture.whenStable();
 
                 const moveDownButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-name="pcmovedownbutton"]'));
                 if (moveDownButton) {
@@ -1694,14 +1716,13 @@ describe('OrderList', () => {
                     // Fallback: verify template is configured
                     expect(comprehensiveOrderList._moveDownIconTemplate).toBeDefined();
                 }
+            });
 
-                flush();
-            }));
-
-            it('should apply move bottom icon template', fakeAsync(() => {
+            it('should apply move bottom icon template', async () => {
                 comprehensiveComponent.selection = [comprehensiveComponent.products[1]];
+                comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
-                tick();
+                await comprehensiveFixture.whenStable();
 
                 const moveBottomButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-name="pcmovebottombutton"]'));
                 if (moveBottomButton) {
@@ -1713,8 +1734,7 @@ describe('OrderList', () => {
                     // Fallback: verify template is configured
                     expect(comprehensiveOrderList._moveBottomIconTemplate).toBeDefined();
                 }
-                flush();
-            }));
+            });
         });
 
         describe('#template Approach (ContentChild References)', () => {
@@ -1734,8 +1754,8 @@ describe('OrderList', () => {
                 expect(contentChildOrderList).toBeTruthy();
             });
 
-            it('should access ContentChild template references', fakeAsync(() => {
-                tick();
+            it('should access ContentChild template references', async () => {
+                await contentChildFixture.whenStable();
 
                 const hasTemplates =
                     contentChildOrderList.itemTemplate ||
@@ -1750,49 +1770,45 @@ describe('OrderList', () => {
                     contentChildOrderList.filterIconTemplate;
 
                 expect(hasTemplates).toBeTruthy();
+            });
 
-                flush();
-            }));
-
-            it('should apply item template with #template reference', fakeAsync(() => {
-                tick();
+            it('should apply item template with #template reference', async () => {
+                await contentChildFixture.whenStable();
 
                 const itemElements = contentChildFixture.debugElement.queryAll(By.css('.contentchild-item-template'));
                 const firstItem = itemElements.length > 0 ? itemElements[0] : undefined;
                 expect(firstItem?.nativeElement.textContent).toContain('ContentChild Item: Product A');
+            });
 
-                flush();
-            }));
-
-            it('should apply header template with #template reference', fakeAsync(() => {
-                tick();
+            it('should apply header template with #template reference', async () => {
+                await contentChildFixture.whenStable();
 
                 const headerElement = contentChildFixture.debugElement.query(By.css('.contentchild-header-template'));
                 expect(headerElement?.nativeElement.textContent).toBe('ContentChild Header Template');
-                flush();
-            }));
+            });
 
-            it('should apply empty message template with #template reference', fakeAsync(() => {
+            it('should apply empty message template with #template reference', async () => {
                 contentChildComponent.products = [];
+                contentChildFixture.changeDetectorRef.markForCheck();
                 contentChildFixture.detectChanges();
-                tick();
+                await contentChildFixture.whenStable();
 
                 const emptyElement = contentChildFixture.debugElement.query(By.css('.contentchild-empty-template'));
                 expect(emptyElement?.nativeElement.textContent).toBe('ContentChild Empty Template');
+            });
 
-                flush();
-            }));
-
-            it('should apply empty filter template with #template reference', fakeAsync(() => {
+            it('should apply empty filter template with #template reference', async () => {
                 contentChildComponent.filterBy = 'name';
+                contentChildFixture.changeDetectorRef.markForCheck();
                 contentChildFixture.detectChanges();
-                tick();
+                await contentChildFixture.whenStable();
 
                 // Trigger filtering through OrderList
                 contentChildOrderList.filterValue = 'nonexistent';
                 contentChildOrderList.filter();
+                contentChildFixture.changeDetectorRef.markForCheck();
                 contentChildFixture.detectChanges();
-                tick();
+                await contentChildFixture.whenStable();
 
                 const emptyFilterElement = contentChildFixture.debugElement.query(By.css('.contentchild-empty-filter-template'));
                 if (emptyFilterElement) {
@@ -1801,79 +1817,74 @@ describe('OrderList', () => {
                     // Fallback: verify empty filter state
                     expect(contentChildOrderList.visibleOptions?.length).toBe(0);
                 }
+            });
 
-                flush();
-            }));
-
-            it('should apply filter template with #template reference', fakeAsync(() => {
+            it('should apply filter template with #template reference', async () => {
                 contentChildComponent.filterBy = 'name';
+                contentChildFixture.changeDetectorRef.markForCheck();
                 contentChildFixture.detectChanges();
-                tick();
+                await contentChildFixture.whenStable();
 
                 const filterElement = contentChildFixture.debugElement.query(By.css('.contentchild-filter-template'));
                 expect(filterElement).toBeTruthy();
-
-                flush();
-            }));
+            });
         });
 
         describe('Template Context Verification', () => {
-            it('should pass correct context to item pTemplate', fakeAsync(() => {
-                tick();
+            it('should pass correct context to item pTemplate', async () => {
+                await comprehensiveFixture.whenStable();
 
                 // Verify item template receives context with $implicit (product), selected, and index
                 const itemElements = comprehensiveFixture.debugElement.queryAll(By.css('.custom-item-template'));
                 const secondItem = itemElements.length > 0 ? itemElements[1] : undefined;
                 expect(secondItem?.nativeElement.textContent).toContain('Index: 1');
                 expect(secondItem?.nativeElement.textContent).toContain('Item: Product B');
+            });
 
-                flush();
-            }));
-
-            it('should update template context when selection changes', fakeAsync(() => {
+            it('should update template context when selection changes', async () => {
                 // Initially no selection
-                tick();
+                await comprehensiveFixture.whenStable();
                 const initialItem = comprehensiveFixture.debugElement.query(By.css('.custom-item-template'));
                 expect(initialItem?.nativeElement.textContent).toContain('Selected: false');
 
                 // Add selection - set both component and orderList selection
                 comprehensiveComponent.selection = [comprehensiveComponent.products[0]];
                 comprehensiveOrderList.selection = [comprehensiveComponent.products[0]];
+                comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
-                tick();
+                await comprehensiveFixture.whenStable();
                 comprehensiveFixture.detectChanges(); // Additional change detection for template context update
 
                 const selectedItem = comprehensiveFixture.debugElement.query(By.css('.custom-item-template'));
                 expect(selectedItem?.nativeElement.textContent).toContain('Selected: true');
+            });
 
-                flush();
-            }));
-
-            it('should handle template context with filter state changes', fakeAsync(() => {
+            it('should handle template context with filter state changes', async () => {
                 comprehensiveComponent.filterBy = 'name';
+                comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
 
                 // Apply filter
                 comprehensiveOrderList.filterValue = 'Product A';
                 comprehensiveOrderList.filter();
+                comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
-                tick();
+                await comprehensiveFixture.whenStable();
 
                 // Should only show filtered items
                 const visibleItems = comprehensiveFixture.debugElement.queryAll(By.css('.custom-item-template'));
                 expect(visibleItems?.[0].nativeElement.textContent).toContain('Item: Product A');
                 expect(visibleItems?.[0].nativeElement.textContent).toContain('Index: 0');
+            });
 
-                flush();
-            }));
-
-            it('should handle both template approaches without conflict', fakeAsync(() => {
+            it('should handle both template approaches without conflict', async () => {
                 const pTemplateFixture = TestBed.createComponent(TestComprehensiveTemplatesOrderListComponent);
                 const contentChildFixture = TestBed.createComponent(TestContentChildTemplatesOrderListComponent);
 
                 pTemplateFixture.detectChanges();
                 contentChildFixture.detectChanges();
-                tick();
+                await pTemplateFixture.whenStable();
+                await contentChildFixture.whenStable();
 
                 // Both components should work independently
                 expect(pTemplateFixture.componentInstance).toBeTruthy();
@@ -1884,9 +1895,7 @@ describe('OrderList', () => {
 
                 expect(pTemplateOrderList).toBeTruthy();
                 expect(contentChildOrderList).toBeTruthy();
-
-                flush();
-            }));
+            });
         });
     });
 });

@@ -1,3 +1,4 @@
+import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -25,3 +26,18 @@ export interface ImageComparePassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type ImageComparePassThrough<I = unknown> = PassThrough<I, ImageComparePassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in ImageCompare.
+ * @group Templates
+ */
+export interface ImageCompareTemplates {
+    /**
+     * Custom left side template.
+     */
+    left(): TemplateRef<void>;
+    /**
+     * Custom right side template.
+     */
+    right(): TemplateRef<void>;
+}

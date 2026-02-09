@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { PassThrough, PassThroughOption, ScrollerOptions } from 'primeng/api';
 /**
  * Defines valid pass-through options in ListBox component.
  * @template I Type of instance.
@@ -179,7 +179,116 @@ export interface ListboxClickEvent {
  */
 export interface ListboxDoubleClickEvent extends ListboxClickEvent {}
 /**
- * Defines valid templates in Panel.
+ * Custom item template context.
+ * @group Interface
+ */
+export interface ListboxItemTemplateContext<T = any> {
+    /**
+     * Data of the option.
+     */
+    $implicit: T;
+    /**
+     * Index of the option.
+     */
+    index: number;
+    /**
+     * Whether the option is selected.
+     */
+    selected: boolean;
+    /**
+     * Whether the option is disabled.
+     */
+    disabled: boolean;
+}
+
+/**
+ * Custom group template context.
+ * @group Interface
+ */
+export interface ListboxGroupTemplateContext<T = any> {
+    /**
+     * Group option data.
+     */
+    $implicit: T;
+}
+
+/**
+ * Custom header template context.
+ * @group Interface
+ */
+export interface ListboxHeaderTemplateContext<T = any> {
+    /**
+     * Current model value.
+     */
+    $implicit: T;
+    /**
+     * Visible options.
+     */
+    options: any[];
+}
+
+/**
+ * Custom filter template context.
+ * @group Interface
+ */
+export interface ListboxFilterTemplateContext {
+    /**
+     * Filter options.
+     */
+    options: ListboxFilterOptions;
+}
+
+/**
+ * Custom footer template context.
+ * @group Interface
+ */
+export interface ListboxFooterTemplateContext<T = any> {
+    /**
+     * Current model value.
+     */
+    $implicit: T;
+    /**
+     * Visible options.
+     */
+    options: any[];
+}
+
+/**
+ * Custom check icon template context.
+ * @group Interface
+ */
+export interface ListboxCheckIconTemplateContext {
+    /**
+     * Whether the item is selected.
+     */
+    $implicit: boolean;
+}
+
+/**
+ * Custom checkmark template context.
+ * Note: Uses 'implicit' property instead of '$implicit'.
+ * @group Interface
+ */
+export interface ListboxCheckmarkTemplateContext {
+    /**
+     * Whether the item is selected.
+     */
+    implicit: boolean;
+}
+
+/**
+ * Custom loader template context.
+ * @group Interface
+ */
+export interface ListboxLoaderTemplateContext {
+    /**
+     * Scroller options.
+     */
+    options: ScrollerOptions;
+}
+
+/**
+ * Defines valid templates in Listbox.
  * @group Templates
  */
 export interface ListboxTemplates {
@@ -187,69 +296,54 @@ export interface ListboxTemplates {
      * Custom item template.
      * @param {Object} context - item data.
      */
-    item(context: {
-        /**
-         * Data of the option.
-         */
-        $implicit: any;
-        /**
-         * Index of the option.
-         */
-        index: number;
-    }): TemplateRef<{ $implicit: any; index: number }>;
+    item(context: ListboxItemTemplateContext): TemplateRef<ListboxItemTemplateContext>;
     /**
      * Custom group template.
      * @param {Object} context - group data.
      */
-    group(context: {
-        /**
-         * Group option.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    group(context: ListboxGroupTemplateContext): TemplateRef<ListboxGroupTemplateContext>;
     /**
      * Custom header template.
+     * @param {Object} context - header context.
      */
-    header(): TemplateRef<any>;
+    header(context: ListboxHeaderTemplateContext): TemplateRef<ListboxHeaderTemplateContext>;
     /**
      * Custom filter template.
      * @param {Object} context - filter options.
      */
-    filter(context: {
-        /**
-         * Filter options.
-         */
-        options: ListboxFilterOptions;
-    }): TemplateRef<any>;
+    filter(context: ListboxFilterTemplateContext): TemplateRef<ListboxFilterTemplateContext>;
     /**
      * Custom footer template.
+     * @param {Object} context - footer context.
      */
-    footer(): TemplateRef<any>;
+    footer(context: ListboxFooterTemplateContext): TemplateRef<ListboxFooterTemplateContext>;
     /**
      * Custom empty template.
      */
-    empty(): TemplateRef<any>;
+    empty(): TemplateRef<void>;
     /**
      * Custom empty filter template.
      */
-    emptyfilter(): TemplateRef<any>;
+    emptyfilter(): TemplateRef<void>;
     /**
      * Custom filter icon template.
      */
-    filtericon(): TemplateRef<any>;
+    filtericon(): TemplateRef<void>;
     /**
      * Custom check icon template.
+     * @param {Object} context - check icon context.
      */
-    checkicon(): TemplateRef<any>;
+    checkicon(context: ListboxCheckIconTemplateContext): TemplateRef<ListboxCheckIconTemplateContext>;
     /**
      * Custom checkmark template.
+     * @param {Object} context - checkmark context.
      */
-    checkmark(context: {
-        /**
-         * Selection status.
-         */
-        $implicit: boolean;
-    }): TemplateRef<{ $implicit: boolean }>;
+    checkmark(context: ListboxCheckmarkTemplateContext): TemplateRef<ListboxCheckmarkTemplateContext>;
+    /**
+     * Custom loader template for virtual scroll.
+     * @param {Object} context - loader context.
+     */
+    loader(context: ListboxLoaderTemplateContext): TemplateRef<ListboxLoaderTemplateContext>;
 }
 
 /**

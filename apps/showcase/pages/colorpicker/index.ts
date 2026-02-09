@@ -1,12 +1,12 @@
-import { AccessibilityDoc } from '@/doc/colorpicker/accessibilitydoc';
-import { BasicDoc } from '@/doc/colorpicker/basicdoc';
-import { DisabledDoc } from '@/doc/colorpicker/disableddoc';
-import { FormatDoc } from '@/doc/colorpicker/formatdoc';
-import { ImportDoc } from '@/doc/colorpicker/importdoc';
-import { InlineDoc } from '@/doc/colorpicker/inlinedoc';
+import { AccessibilityDoc } from '@/doc/colorpicker/accessibility-doc';
+import { BasicDoc } from '@/doc/colorpicker/basic-doc';
+import { DisabledDoc } from '@/doc/colorpicker/disabled-doc';
+import { FormatDoc } from '@/doc/colorpicker/format-doc';
+import { ImportDoc } from '@/doc/colorpicker/import-doc';
+import { InlineDoc } from '@/doc/colorpicker/inline-doc';
 import { PTComponent } from '@/doc/colorpicker/pt/PTComponent';
-import { ReactiveFormsDoc } from '@/doc/colorpicker/reactiveformsdoc';
-import { TemplateDrivenFormsDoc } from '@/doc/colorpicker/templatedrivenformsdoc';
+import { ReactiveFormsDoc } from '@/doc/colorpicker/reactiveforms-doc';
+import { TemplateDrivenFormsDoc } from '@/doc/colorpicker/templatedrivenforms-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/chip';
 import { BaseStyle } from 'primeng/base';
 
+const inlineStyles = {
+    root: ({ instance }) => ({
+        display: !instance.visible && 'none'
+    })
+};
+
 const classes = {
     root: ({ instance }) => [
         'p-chip p-component',
@@ -22,6 +28,8 @@ export class ChipStyle extends BaseStyle {
     style = style;
 
     classes = classes;
+
+    inlineStyles = inlineStyles;
 }
 
 /**

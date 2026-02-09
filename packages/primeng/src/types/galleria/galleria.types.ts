@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -125,6 +126,10 @@ export interface GalleriaPassThroughOptions<I = unknown> {
      * Used to pass attributes to the footer's DOM element.
      */
     footer?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
@@ -151,76 +156,100 @@ export interface GalleriaResponsiveOptions {
 }
 
 /**
+ * Custom indicator template context.
+ * @group Interface
+ */
+export interface GalleriaIndicatorTemplateContext {
+    /**
+     * Index of the indicator.
+     */
+    $implicit: number;
+}
+
+/**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface GalleriaItemTemplateContext<T = any> {
+    /**
+     * Item instance.
+     */
+    $implicit: T;
+}
+
+/**
+ * Custom thumbnail template context.
+ * @group Interface
+ */
+export interface GalleriaThumbnailTemplateContext<T = any> {
+    /**
+     * Item instance.
+     */
+    $implicit: T;
+}
+
+/**
+ * Custom caption template context.
+ * @group Interface
+ */
+export interface GalleriaCaptionTemplateContext<T = any> {
+    /**
+     * Item instance.
+     */
+    $implicit: T;
+}
+
+/**
  * Defines valid templates in Galleria.
  * @group Templates
  */
 export interface GalleriaTemplates {
     /**
-     * Custom template of header.
+     * Custom header template.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
-     * Custom template of footer.
+     * Custom footer template.
      */
-    footer(): TemplateRef<any>;
+    footer(): TemplateRef<void>;
     /**
-     * Custom template of indicator.
-     * @param {Object} context - indicator data.
+     * Custom indicator template.
+     * @param {Object} context - indicator context.
      */
-    indicator(context: {
-        /**
-         * Index of the item.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    indicator(context: GalleriaIndicatorTemplateContext): TemplateRef<GalleriaIndicatorTemplateContext>;
     /**
-     * Custom template of closeicon.
+     * Custom close icon template.
      */
-    closeicon(): TemplateRef<any>;
+    closeicon(): TemplateRef<void>;
     /**
-     * Custom template of itemnexticon.
+     * Custom item next icon template.
      */
-    itemnexticon(): TemplateRef<any>;
+    itemnexticon(): TemplateRef<void>;
     /**
-     * Custom template of itempreviousicon.
+     * Custom item previous icon template.
      */
-    itempreviousicon(): TemplateRef<any>;
+    itempreviousicon(): TemplateRef<void>;
     /**
-     * Custom template of previousthumbnailicon.
+     * Custom previous thumbnail icon template.
      */
-    previousthumbnailicon(): TemplateRef<any>;
+    previousthumbnailicon(): TemplateRef<void>;
     /**
-     * Custom template of nextthumbnailicon.
+     * Custom next thumbnail icon template.
      */
-    nextthumbnailicon(): TemplateRef<any>;
+    nextthumbnailicon(): TemplateRef<void>;
     /**
-     * Custom template of caption.
-     * @param {Object} context - item data.
+     * Custom caption template.
+     * @param {Object} context - caption context.
      */
-    caption(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    caption(context: GalleriaCaptionTemplateContext): TemplateRef<GalleriaCaptionTemplateContext>;
     /**
-     * Custom template of thumbnail.
-     * @param {Object} context - item data.
+     * Custom thumbnail template.
+     * @param {Object} context - thumbnail context.
      */
-    thumbnail(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    thumbnail(context: GalleriaThumbnailTemplateContext): TemplateRef<GalleriaThumbnailTemplateContext>;
     /**
-     * Custom template of item.
-     * @param {Object} context - item data.
+     * Custom item template.
+     * @param {Object} context - item context.
      */
-    item(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    item(context: GalleriaItemTemplateContext): TemplateRef<GalleriaItemTemplateContext>;
 }

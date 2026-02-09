@@ -412,6 +412,103 @@ export interface TreeTableFilterOptions {
     isStrictMode: boolean;
 }
 /**
+ * Custom columns template context.
+ * @group Interface
+ */
+export interface TreeTableColumnsTemplateContext {
+    /**
+     * Columns instance.
+     */
+    $implicit: any[];
+}
+
+/**
+ * Custom body template context.
+ * @group Interface
+ */
+export interface TreeTableBodyTemplateContext {
+    /**
+     * Node instance.
+     */
+    $implicit: TreeNode;
+    /**
+     * Serialized node.
+     */
+    node: TreeNode;
+    /**
+     * Row data.
+     */
+    rowData: any;
+    /**
+     * Columns instance.
+     */
+    columns: any[];
+}
+
+/**
+ * Custom empty message template context.
+ * @group Interface
+ */
+export interface TreeTableEmptyMessageTemplateContext {
+    /**
+     * Columns instance.
+     */
+    $implicit: any[];
+    /**
+     * Whether the column is frozen.
+     */
+    frozen: boolean;
+}
+
+/**
+ * Custom sort icon template context.
+ * @group Interface
+ */
+export interface TreeTableSortIconTemplateContext {
+    /**
+     * Sort order.
+     */
+    $implicit: number;
+}
+
+/**
+ * Custom checkbox icon template context.
+ * @group Interface
+ */
+export interface TreeTableCheckboxIconTemplateContext {
+    /**
+     * Checkbox state.
+     */
+    $implicit: boolean;
+    /**
+     * Partial selection state of row node.
+     */
+    partialSelected: boolean;
+}
+
+/**
+ * Custom header checkbox icon template context.
+ * @group Interface
+ */
+export interface TreeTableHeaderCheckboxIconTemplateContext {
+    /**
+     * Checkbox state.
+     */
+    $implicit: boolean;
+}
+
+/**
+ * Custom toggler icon template context.
+ * @group Interface
+ */
+export interface TreeTableTogglerIconTemplateContext {
+    /**
+     * Expand state of row node.
+     */
+    $implicit: boolean;
+}
+
+/**
  * Defines valid templates in TreeTable.
  * @group Templates
  */
@@ -419,189 +516,117 @@ export interface TreeTableTemplates {
     /**
      * Custom caption template.
      */
-    caption(): TemplateRef<any>;
+    caption(): TemplateRef<void>;
     /**
      * Custom header template.
-     * @param {Object} context - header data.
+     * @param {TreeTableColumnsTemplateContext} context - header context.
      */
-    header(context: {
-        /**
-         * Columns instance.
-         */
-        $implicit: any[];
-    }): TemplateRef<{ $implicit: any[] }>;
+    header(context: TreeTableColumnsTemplateContext): TemplateRef<TreeTableColumnsTemplateContext>;
     /**
      * Custom body template.
-     * @param {Object} context - body data.
+     * @param {TreeTableBodyTemplateContext} context - body context.
      */
-    body(context: {
-        $implicit: TreeNode;
-        /**
-         * Serialized node.
-         */
-        node: TreeNode;
-        /**
-         * Row data.
-         */
-        rowData: any;
-        /**
-         * Columns instance.
-         */
-        columns: any[];
-    }): TemplateRef<{ $implicit: TreeNode; node: TreeNode; rowData: any; columns: any[] }>;
+    body(context: TreeTableBodyTemplateContext): TemplateRef<TreeTableBodyTemplateContext>;
     /**
      * Custom footer template.
-     * @param {Object} context - footer data.
+     * @param {TreeTableColumnsTemplateContext} context - footer context.
      */
-    footer(context: {
-        /**
-         * Columns instance.
-         */
-        $implicit: any[];
-    }): TemplateRef<{ $implicit: any[] }>;
+    footer(context: TreeTableColumnsTemplateContext): TemplateRef<TreeTableColumnsTemplateContext>;
     /**
      * Custom summary template.
      */
-    summary(): TemplateRef<any>;
+    summary(): TemplateRef<void>;
     /**
      * Custom colgroup template.
-     * @param {Object} context - column group data.
+     * @param {TreeTableColumnsTemplateContext} context - column group context.
      */
-    colgroup(context: {
-        /**
-         * Columns instance.
-         */
-        $implicit: any[];
-    }): TemplateRef<{ $implicit: any[] }>;
+    colgroup(context: TreeTableColumnsTemplateContext): TemplateRef<TreeTableColumnsTemplateContext>;
     /**
-     * Custom emptymessage template.
+     * Custom empty message template.
+     * @param {TreeTableEmptyMessageTemplateContext} context - empty message context.
      */
-    emptymessage(context: {
-        /**
-         * Columns instance.
-         */
-        $implicit: any[];
-        /**
-         * Boolean value indicates whether column is frozen.
-         */
-        frozen: boolean;
-    }): TemplateRef<{ $implicit: any[]; frozen: boolean }>;
+    emptymessage(context: TreeTableEmptyMessageTemplateContext): TemplateRef<TreeTableEmptyMessageTemplateContext>;
     /**
      * Custom paginator left section template.
      */
-    paginatorleft(): TemplateRef<any>;
+    paginatorleft(): TemplateRef<void>;
     /**
      * Custom paginator right section template.
      */
-    paginatorright(): TemplateRef<any>;
+    paginatorright(): TemplateRef<void>;
     /**
-     * Custom paginator dropdown template.
+     * Custom paginator dropdown item template.
      */
-    paginatordropdownitem(): TemplateRef<any>;
+    paginatordropdownitem(): TemplateRef<void>;
     /**
-     * Custom frozenheader template.
-     * @param {Object} context - frozen header data.
+     * Custom frozen header template.
+     * @param {TreeTableColumnsTemplateContext} context - frozen header context.
      */
-    frozenheader(context: {
-        /**
-         * Columns instance.
-         */
-        $implicit: any[];
-    }): TemplateRef<{ $implicit: any[] }>;
+    frozenheader(context: TreeTableColumnsTemplateContext): TemplateRef<TreeTableColumnsTemplateContext>;
     /**
-     * Custom frozenbody template.
+     * Custom frozen body template.
      */
-    frozenbody(): TemplateRef<any>;
+    frozenbody(): TemplateRef<void>;
     /**
-     * Custom frozenfooter template.
-     * @param {Object} context - frozen footer data.
+     * Custom frozen footer template.
+     * @param {TreeTableColumnsTemplateContext} context - frozen footer context.
      */
-    frozenfooter(context: {
-        /**
-         * Columns instance.
-         */
-        $implicit: any[];
-    }): TemplateRef<{ $implicit: any[] }>;
+    frozenfooter(context: TreeTableColumnsTemplateContext): TemplateRef<TreeTableColumnsTemplateContext>;
     /**
      * Custom frozen column group template.
-     * @param {Object} context - group data.
+     * @param {TreeTableColumnsTemplateContext} context - frozen column group context.
      */
-    frozencolgroup(context: {
-        /**
-         * Columns instance.
-         */
-        $implicit: any[];
-    }): TemplateRef<{ $implicit: any[] }>;
+    frozencolgroup(context: TreeTableColumnsTemplateContext): TemplateRef<TreeTableColumnsTemplateContext>;
     /**
      * Custom loading icon template.
      */
-    loadingicon(): TemplateRef<any>;
+    loadingicon(): TemplateRef<void>;
     /**
      * Custom reorder indicator up icon template.
      */
-    reorderindicatorupicon(): TemplateRef<any>;
+    reorderindicatorupicon(): TemplateRef<void>;
     /**
      * Custom reorder indicator down icon template.
      */
-    reorderindicatordownicon(): TemplateRef<any>;
+    reorderindicatordownicon(): TemplateRef<void>;
     /**
      * Custom sort icon template.
-     * @param {Object} context - sort data.
+     * @param {TreeTableSortIconTemplateContext} context - sort icon context.
      */
-    sorticon(context: {
-        /**
-         * Sort order.
-         */
-        $implicit: number;
-    }): TemplateRef<{ $implicit: number }>;
+    sorticon(context: TreeTableSortIconTemplateContext): TemplateRef<TreeTableSortIconTemplateContext>;
     /**
      * Custom checkbox icon template.
-     * @param {Object} context - checkbox data.
+     * @param {TreeTableCheckboxIconTemplateContext} context - checkbox icon context.
      */
-    checkboxicon(context: {
-        /**
-         * Checkbox state.
-         */
-        $implicit: boolean;
-        /**
-         * Partial selection state of row node.
-         */
-        partialSelected: boolean;
-    }): TemplateRef<{ $implicit: boolean; partialSelected: boolean }>;
+    checkboxicon(context: TreeTableCheckboxIconTemplateContext): TemplateRef<TreeTableCheckboxIconTemplateContext>;
     /**
      * Custom header checkbox icon template.
-     * @param {Object} context - checkbox data.
+     * @param {TreeTableHeaderCheckboxIconTemplateContext} context - header checkbox icon context.
      */
-    headercheckboxicon(context: {
-        /**
-         * Checkbox state.
-         */
-        $implicit: boolean;
-    }): TemplateRef<{ $implicit: boolean }>;
+    headercheckboxicon(context: TreeTableHeaderCheckboxIconTemplateContext): TemplateRef<TreeTableHeaderCheckboxIconTemplateContext>;
     /**
      * Custom toggler icon template.
-     * @param {Object} context - toggle icon data.
+     * @param {TreeTableTogglerIconTemplateContext} context - toggler icon context.
      */
-    togglericon(context: {
-        /**
-         * Expand state of row node.
-         */
-        $implicit: boolean;
-    }): TemplateRef<{ $implicit: boolean }>;
+    togglericon(context: TreeTableTogglerIconTemplateContext): TemplateRef<TreeTableTogglerIconTemplateContext>;
     /**
      * Custom paginator first page link icon template.
      */
-    paginatorfirstpagelinkicon(): TemplateRef<any>;
+    paginatorfirstpagelinkicon(): TemplateRef<void>;
     /**
-     * Custom paginatorlastpagelinkicon template.
+     * Custom paginator last page link icon template.
      */
-    paginatorlastpagelinkicon(): TemplateRef<any>;
+    paginatorlastpagelinkicon(): TemplateRef<void>;
     /**
-     * Custom paginatorpreviouspagelinkicon template.
+     * Custom paginator previous page link icon template.
      */
-    paginatorpreviouspagelinkicon(): TemplateRef<any>;
+    paginatorpreviouspagelinkicon(): TemplateRef<void>;
     /**
-     * Custom paginatornextpagelinkicon template.
+     * Custom paginator next page link icon template.
      */
-    paginatornextpagelinkicon(): TemplateRef<any>;
+    paginatornextpagelinkicon(): TemplateRef<void>;
+    /**
+     * Custom loader template.
+     */
+    loader(): TemplateRef<void>;
 }

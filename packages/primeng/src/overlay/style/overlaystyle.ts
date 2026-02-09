@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const style = /*css*/ `
-.p-overlay {
-    position: absolute;
-    top: 0;
-}
+const inlineStyles = {
+    root: () => ({ position: 'absolute', top: '0' })
+};
 
+const style = /*css*/ `
 .p-overlay-modal {
     display: flex;
     align-items: center;
@@ -20,6 +19,7 @@ const style = /*css*/ `
 
 .p-overlay-content {
     transform-origin: inherit;
+    will-change: transform;
 }
 
 /* Github Issue #18560 */
@@ -95,7 +95,7 @@ const classes = {
     root: ({ instance }: { instance: any }) => [
         'p-overlay p-component',
         {
-            'p-overlay-modal p-overlay-mask p-overlay-mask-enter': instance.modal,
+            'p-overlay-modal p-overlay-mask p-overlay-mask-enter-active': instance.modal,
             'p-overlay-center': instance.modal && instance.overlayResponsiveDirection === 'center',
             'p-overlay-top': instance.modal && instance.overlayResponsiveDirection === 'top',
             'p-overlay-top-start': instance.modal && instance.overlayResponsiveDirection === 'top-start',
@@ -121,4 +121,6 @@ export class OverlayStyle extends BaseStyle {
     style = style;
 
     classes = classes;
+
+    inlineStyles = inlineStyles;
 }

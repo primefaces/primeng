@@ -53,23 +53,23 @@ export type CardPassThrough<I = unknown> = PassThrough<I, CardPassThroughOptions
  */
 export interface CardTemplates {
     /**
-     * Custom template of header.
+     * Custom header template.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
-     * Custom template of title.
+     * Custom title template.
      */
-    title(): TemplateRef<any>;
+    title(): TemplateRef<void>;
     /**
-     * Custom template of subtitle.
+     * Custom subtitle template.
      */
-    subtitle(): TemplateRef<any>;
+    subtitle(): TemplateRef<void>;
     /**
-     * Custom template of content.
+     * Custom content template.
      */
-    content(): TemplateRef<any>;
+    content(): TemplateRef<void>;
     /**
-     * Custom template of footer.
+     * Custom footer template.
      */
-    footer(): TemplateRef<any>;
+    footer(): TemplateRef<void>;
 }

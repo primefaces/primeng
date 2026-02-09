@@ -3,13 +3,12 @@ import { style as stepper_style } from '@primeuix/styles/stepper';
 import { BaseStyle } from 'primeng/base';
 
 const style = /*css*/ `
-    ${stepper_style}
+${stepper_style}
 
-    /* For PrimeNG */
-    .p-steppanel:not(.p-steppanel-active) > .p-steppanel-content,
-    .p-steppanel-content.ng-animating {
-        overflow: hidden;
-    }
+.p-steppanel .p-motion {
+    display: grid;
+    grid-template-rows: 1fr;
+}
 `;
 
 const classes = {

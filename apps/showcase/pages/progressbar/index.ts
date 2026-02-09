@@ -1,10 +1,10 @@
-import { AccessibilityDoc } from '@/doc/progressbar/accessibilitydoc';
-import { BasicDoc } from '@/doc/progressbar/basicdoc';
-import { DynamicDoc } from '@/doc/progressbar/dynamicdoc';
-import { ImportDoc } from '@/doc/progressbar/importdoc';
-import { IndeterminateDoc } from '@/doc/progressbar/indeterminatedoc';
+import { AccessibilityDoc } from '@/doc/progressbar/accessibility-doc';
+import { BasicDoc } from '@/doc/progressbar/basic-doc';
+import { DynamicDoc } from '@/doc/progressbar/dynamic-doc';
+import { ImportDoc } from '@/doc/progressbar/import-doc';
+import { IndeterminateDoc } from '@/doc/progressbar/indeterminate-doc';
 import { PTComponent } from '@/doc/progressbar/pt/PTComponent';
-import { TemplateDoc } from '@/doc/progressbar/templatedoc';
+import { TemplateDoc } from '@/doc/progressbar/template-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 

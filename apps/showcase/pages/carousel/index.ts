@@ -1,11 +1,11 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { AccessibilityDoc } from '@/doc/carousel/accessibilitydoc';
-import { BasicDoc } from '@/doc/carousel/basicdoc';
-import { CircularDoc } from '@/doc/carousel/circulardoc';
-import { ImportDoc } from '@/doc/carousel/importdoc';
+import { AccessibilityDoc } from '@/doc/carousel/accessibility-doc';
+import { BasicDoc } from '@/doc/carousel/basic-doc';
+import { CircularDoc } from '@/doc/carousel/circular-doc';
+import { ImportDoc } from '@/doc/carousel/import-doc';
 import { PTComponent } from '@/doc/carousel/pt/PTComponent';
-import { ResponsiveDoc } from '@/doc/carousel/responsivedoc';
-import { VerticalDoc } from '@/doc/carousel/verticaldoc';
+import { ResponsiveDoc } from '@/doc/carousel/responsive-doc';
+import { VerticalDoc } from '@/doc/carousel/vertical-doc';
 import { Component } from '@angular/core';
 
 @Component({

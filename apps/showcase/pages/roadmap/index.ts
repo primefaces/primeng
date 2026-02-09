@@ -11,7 +11,8 @@ import { Meta, Title } from '@angular/platform-browser';
                 <h1>Roadmap</h1>
                 <p>
                     At <a href="https://www.primetek.com.tr/" target="_blank" rel="noopener noreferrer" class="text-primary font-medium hover:underline">PrimeTek</a>, we are passionate about improving PrimeNG and would like to share our ideas for
-                    2025 with the community. These are planned to be implemented in parallel to the regular maintenance work of the library involving review of issue tickets, PRs, LTS updates and PrimeNG PRO support.
+                    2026 (Year 10) with the community. These are planned to be implemented in parallel to the regular maintenance work of the library involving review of issue tickets, PRs, LTS updates and PrimeNG PRO support. Based on semantic
+                    versioning guidelines, PrimeNG updates will be backward compatible with a clear migration path when necessary.
                 </p>
             </div>
 
@@ -29,59 +30,58 @@ import { Meta, Title } from '@angular/platform-browser';
                             <div class="shrink-0 p-4 bg-blue-500 text-white rounded font-bold text-lg flex items-center justify-center w-56">COMPONENTS</div>
                             <div class="flex-1 flex gap-4 flex-col">
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">New Theme Editor</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Advanced visual theme designer with support for the entire design token set, Figma to theme code and cloud storage.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-blue-500 rounded" style="width: 100%; height: 4px"></div>
-                                    </div>
+                                    <h2 class="text-lg font-bold mt-0 mb-2">Internal Refactor</h2>
+                                    <p class="mt-0 mb-4 leading-normal">Refactor of internal component implementations with modern Angular APIs.</p>
+                                </div>
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                    <h2 class="text-lg font-bold mt-0 mb-2">Component Updates</h2>
+                                    <p class="mt-0 mb-4 leading-normal">Enhanced Menus, ColorPicker, Org Chart, Toast. Brand new CommandMenu component.</p>
+                                </div>
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                    <h2 class="text-lg font-bold mt-0 mb-2">PrimeUI+</h2>
+                                    <p class="mt-0 mb-4 leading-normal">New TextEditor and Event Calendar components.</p>
+                                </div>
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                    <h2 class="text-lg font-bold mt-0 mb-2">Theming API Enhancements</h2>
+                                    <p class="mt-0 mb-4 leading-normal">Significant performance and devex updates.</p>
+                                </div>
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                    <h2 class="text-lg font-bold mt-0 mb-2">PrimeIcons Update</h2>
+                                    <p class="mt-0 mb-4 leading-normal">100+ new icons.</p>
                                 </div>
                             </div>
                             <div class="flex-1 flex gap-4 flex-col">
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">&#64;primeuix/themes</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Migrate to the new theming package that is shared between all Prime UI libraries.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-blue-500 rounded" style="width: 100%; height: 4px"></div>
-                                    </div>
+                                    <h2 class="text-lg font-bold mt-0 mb-2">PrimeUI+</h2>
+                                    <p class="mt-0 mb-4 leading-normal">PrimeCharts, Advanced DataGrid, PDF Viewer and Gantt Chart.</p>
+                                </div>
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                    <h2 class="text-lg font-bold mt-0 mb-2">Internal Refactor</h2>
+                                    <p class="mt-0 mb-4 leading-normal">Refactor of internal component implementations with modern Angular APIs.</p>
                                 </div>
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">Form Enhancements</h2>
-                                    <p class="mt-0 mb-4 leading-normal">First class support for template-driven and reactive forms.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-blue-500 rounded" style="width: 100%; height: 4px"></div>
-                                    </div>
-                                </div>
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">PrimeNG v20</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Release of v20 after Angular v20 release featuring primeuix migration.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-blue-500 rounded" style="width: 100%; height: 4px"></div>
-                                    </div>
+                                    <h2 class="text-lg font-bold mt-0 mb-2">PrimeNG v22</h2>
+                                    <p class="mt-0 mb-4 leading-normal">Angular v22 compatible version.</p>
                                 </div>
                             </div>
                             <div class="flex-1 flex gap-4 flex-col">
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">Remastered Components - Phase I</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Initiate internal modernization of components to utilize the modern Angular APIs featuring new test suite, pass-through attributes, signals, control flow, zoneless and more.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-blue-500 rounded" style="width: 0%; height: 4px"></div>
-                                    </div>
+                                    <h2 class="text-lg font-bold mt-0 mb-2">PrimeUI+</h2>
+                                    <p class="mt-0 mb-4 leading-normal">Timeline, Diagram and File Manager.</p>
+                                </div>
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                    <h2 class="text-lg font-bold mt-0 mb-2">Internal Refactor</h2>
+                                    <p class="mt-0 mb-4 leading-normal">Refactor of internal component implementations with modern Angular APIs.</p>
                                 </div>
                             </div>
                             <div class="flex-1 flex gap-4 flex-col">
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">Remastered Components - Phase II</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Continue internal modernization of components.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-blue-500 rounded" style="width: 0%; height: 4px"></div>
-                                    </div>
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                    <h2 class="text-lg font-bold mt-0 mb-2">Internal Refactor</h2>
+                                    <p class="mt-0 mb-4 leading-normal">Refactor of internal component implementations with modern Angular APIs.</p>
                                 </div>
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">PrimeNG v21</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Angular v21 compatible version.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-blue-500 rounded" style="width: 0%; height: 4px"></div>
-                                    </div>
+                                    <h2 class="text-lg font-bold mt-0 mb-2">PrimeNG v23</h2>
+                                    <p class="mt-0 mb-4 leading-normal">Angular v23 compatible version.</p>
                                 </div>
                             </div>
                         </div>
@@ -89,72 +89,43 @@ import { Meta, Title } from '@angular/platform-browser';
                             <div class="shrink-0 p-4 bg-indigo-500 text-white rounded font-bold text-lg flex items-center justify-center w-56">FIGMA UI Kit</div>
                             <div class="flex-1 flex gap-4 flex-col">
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-indigo-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">Updates to Sync PrimeNG Design Tokens</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Continuous updates to sync the design tokens in Figma with the theme code.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded invisible">
-                                        <div class="bg-indigo-500 rounded" style="width: 20%; height: 4px"></div>
-                                    </div>
+                                    <h2 class="text-lg font-bold mt-0 mb-2">UI Kit v4</h2>
+                                    <p class="mt-0 leading-normal">Migration from Tokens Studio to Figma Variables.</p>
                                 </div>
                             </div>
+                            <div class="flex-1 flex gap-4 flex-col">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-indigo-500 border-l-4">
+                                    <h2 class="text-lg font-bold mt-0 mb-2">New Design Tokens</h2>
+                                    <p class="mt-0 leading-normal">New tokens such as typography and spacing.</p>
+                                </div>
+                            </div>
+                            <div class="flex-1 flex gap-4 flex-col"></div>
+                            <div class="flex-1 flex gap-4 flex-col"></div>
                         </div>
                         <div class="flex gap-4 border-b border-surface pb-4">
                             <div class="shrink-0 p-4 bg-violet-500 text-white rounded font-bold text-lg flex items-center justify-center w-56">TEMPLATES</div>
                             <div class="flex-1 flex gap-4 flex-col">
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-violet-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">Updates to v19+</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Migrate to v19+, ngmodule to standalone, and Primeflex to Tailwind.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-violet-500 rounded" style="width: 100%; height: 4px"></div>
-                                    </div>
-                                </div>
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-violet-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">Diamond Remaster</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Redesigned version of Diamond with an entirely new design.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-violet-500 rounded" style="width: 100%; height: 4px"></div>
-                                    </div>
+                                    <h2 class="text-lg font-bold mt-0 mb-2">Maintenance and Quality</h2>
+                                    <p class="mt-0 leading-normal">Focus on improving the quality with maintenance updates.</p>
                                 </div>
                             </div>
-                            <div class="flex-1 flex gap-4 flex-col">
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-violet-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">Poseidon Remaster</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Remastered version of Poseidon with a brand new design.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-violet-500 rounded" style="width: 100%; height: 4px"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex-1 flex gap-4 flex-col">
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-violet-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">Template Updates</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Update all templates to Angular and PrimeNG v20.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-violet-500 rounded" style="width: 0%; height: 4px"></div>
-                                    </div>
-                                </div>
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-violet-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">Avalon Remaster</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Redesigned version of Avalon with a fresh look and feel.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-violet-500 rounded" style="width: 0%; height: 4px"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex-1 flex gap-4 flex-col"></div>
                         </div>
                         <div class="flex gap-4 border-b border-surface pb-4">
                             <div class="shrink-0 p-4 bg-orange-500 text-white rounded font-bold text-lg flex items-center justify-center w-56">PRIMEBLOCKS</div>
-                            <div class="flex-1 flex gap-4 flex-col"></div>
-                            <div class="flex-1 flex gap-4 flex-col"></div>
                             <div class="flex-1 flex gap-4 flex-col">
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-orange-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">Next-Gen PrimeBlocks</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Tailwind CSS blocks at <a href="https://primeblocks.org" target="_blank" rel="noopener noreferrer" class="text-primary font-medium hover:underline">PrimeBlocks</a>.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-orange-500 rounded" style="width: 0%; height: 4px"></div>
-                                    </div>
+                                    <h2 class="text-lg font-bold mt-0 mb-2">Maintenance and Quality</h2>
+                                    <p class="mt-0 leading-normal">Focus on improving the quality with maintenance updates.</p>
                                 </div>
                             </div>
+                            <div class="flex-1 flex gap-4 flex-col">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-orange-500 border-l-4">
+                                    <h2 class="text-lg font-bold mt-0 mb-2">Block Builder</h2>
+                                    <p class="mt-0 leading-normal">AI Based PrimeBlock builder.</p>
+                                </div>
+                            </div>
+                            <div class="flex-1 flex gap-4 flex-col"></div>
                             <div class="flex-1 flex gap-4 flex-col"></div>
                         </div>
                     </div>

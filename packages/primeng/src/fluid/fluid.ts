@@ -25,6 +25,8 @@ const FLUID_INSTANCE = new InjectionToken<Fluid>('FLUID_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Fluid extends BaseComponent<FluidPassThrough> {
+    componentName = 'Fluid';
+
     $pcFluid: Fluid | undefined = inject(FLUID_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

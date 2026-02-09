@@ -42,6 +42,8 @@ export class BaseComponent<PT = any> implements Lifecycle {
 
     private _themeScopedListener: () => void;
 
+    private themeChangeListenerMap: Map<string, any> = new Map();
+
     /******************** Inputs ********************/
 
     /**
@@ -52,9 +54,8 @@ export class BaseComponent<PT = any> implements Lifecycle {
     dt = input<Object | undefined>();
     /**
      * Indicates whether the component should be rendered without styles.
-     *
-     * @experimental
-     * This property is not yet implemented. It will be available in a future release.
+     * @defaultValue undefined
+     * @group Props
      */
     unstyled = input<boolean | undefined>();
     /**
@@ -75,22 +76,28 @@ export class BaseComponent<PT = any> implements Lifecycle {
     $attrSelector = uuid('pc');
 
     get $name() {
-        return this['componentName'] || this.constructor?.name?.replace(/^_/, '') || 'UnknownComponent';
+        return this['componentName'] || 'UnknownComponent';
     }
 
     private get $hostName() {
         return this['hostName'];
     }
 
+    get $el() {
+        return this.el?.nativeElement;
+    }
+
+    directivePT = signal<any>(undefined);
+
+    directiveUnstyled = signal<boolean | undefined>(undefined);
+
     $unstyled = computed(() => {
-        return this.unstyled() !== undefined ? this.unstyled() : this.config?.unstyled() || false;
+        return this.unstyled() ?? this.directiveUnstyled() ?? this.config?.unstyled() ?? false;
     });
 
     $pt = computed(() => {
         return resolve(this.pt() || this.directivePT(), this.$params);
     });
-
-    directivePT = signal<any>(undefined);
 
     get $globalPT() {
         return this._getPT(this.config?.pt(), undefined, (value) => resolve(value, this.$params));
@@ -159,35 +166,31 @@ export class BaseComponent<PT = any> implements Lifecycle {
         // watch _dt_ changes
         effect((onCleanup) => {
             if (this.document && !isPlatformServer(this.platformId)) {
-                ThemeService.off('theme:change', this._themeScopedListener);
-
                 if (this.dt()) {
                     this._loadScopedThemeStyles(this.dt());
                     this._themeScopedListener = () => this._loadScopedThemeStyles(this.dt());
-                    this._themeChangeListener(this._themeScopedListener);
+                    this._themeChangeListener('_themeScopedListener', this._themeScopedListener);
                 } else {
                     this._unloadScopedThemeStyles();
                 }
             }
 
             onCleanup(() => {
-                ThemeService.off('theme:change', this._themeScopedListener);
+                this._offThemeChangeListener('_themeScopedListener');
             });
         });
 
         // watch _unstyled_ changes
         effect((onCleanup) => {
             if (this.document && !isPlatformServer(this.platformId)) {
-                ThemeService.off('theme:change', this._loadCoreStyles);
-
                 if (!this.$unstyled()) {
                     this._loadCoreStyles();
-                    this._themeChangeListener(this._loadCoreStyles); // Update styles with theme settings
+                    this._themeChangeListener('_loadCoreStyles', this._loadCoreStyles); // Update styles with theme settings
                 }
             }
 
             onCleanup(() => {
-                ThemeService.off('theme:change', this._loadCoreStyles);
+                this._offThemeChangeListener('_loadCoreStyles');
             });
         });
 
@@ -254,7 +257,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
      */
     ngAfterViewInit() {
         // @todo - remove this after implementing pt for root
-        this.el?.nativeElement?.setAttribute(this.$attrSelector, '');
+        this.$el?.setAttribute(this.$attrSelector, '');
 
         this.onAfterViewInit();
         this._hook('onAfterViewInit');
@@ -326,7 +329,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
 
     private _loadStyles() {
         this._load();
-        this._themeChangeListener(() => this._load());
+        this._themeChangeListener('_load', () => this._load());
     }
 
     private _loadGlobalStyles() {
@@ -389,15 +392,25 @@ export class BaseComponent<PT = any> implements Lifecycle {
         this.scopedStyleEl?.remove();
     }
 
-    private _themeChangeListener(callback = () => {}) {
+    private _themeChangeListener(id: string, callback = () => {}) {
+        this._offThemeChangeListener(id);
         Base.clearLoadedStyleNames();
-        ThemeService.on('theme:change', callback.bind(this));
+        const hold = callback.bind(this);
+        this.themeChangeListenerMap.set(id, hold);
+        ThemeService.on('theme:change', hold);
     }
 
     private _removeThemeListeners() {
-        ThemeService.off('theme:change', this._loadCoreStyles);
-        ThemeService.off('theme:change', this._load);
-        ThemeService.off('theme:change', this._themeScopedListener);
+        this._offThemeChangeListener('_themeScopedListener');
+        this._offThemeChangeListener('_loadCoreStyles');
+        this._offThemeChangeListener('_load');
+    }
+
+    private _offThemeChangeListener(id: string) {
+        if (this.themeChangeListenerMap.has(id)) {
+            ThemeService.off('theme:change', this.themeChangeListenerMap.get(id));
+            this.themeChangeListenerMap.delete(id);
+        }
     }
 
     /********** Passthrough **********/

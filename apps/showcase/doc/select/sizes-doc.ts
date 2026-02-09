@@ -1,0 +1,46 @@
+import { Component, OnInit } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    selector: 'sizes-doc',
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule],
+    template: `
+        <app-docsectiontext>
+            <p>Select provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>
+        </app-docsectiontext>
+        <div class="card flex flex-col items-center gap-4">
+            <p-select [(ngModel)]="value1" [options]="cities" optionLabel="name" size="small" placeholder="Small" class="w-full md:w-56" />
+            <p-select [(ngModel)]="value2" [options]="cities" optionLabel="name" placeholder="Normal" class="w-full md:w-56" />
+            <p-select [(ngModel)]="value3" [options]="cities" optionLabel="name" size="large" placeholder="Large" class="w-full md:w-56" />
+        </div>
+        <app-code></app-code>
+    `
+})
+export class SizesDoc implements OnInit {
+    value1: City | undefined;
+
+    value2: City | undefined;
+
+    value3: City | undefined;
+
+    cities: City[];
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}

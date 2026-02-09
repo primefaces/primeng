@@ -1,20 +1,19 @@
-import { AccessibilityDoc } from '@/doc/overlay/accessibilitydoc';
-import { AppendToDoc } from '@/doc/overlay/appendtodoc';
-import { AutoZIndexDoc } from '@/doc/overlay/autozindexdoc';
-import { BaseZIndexDoc } from '@/doc/overlay/basezindexdoc';
-import { OverlayBasicDemo } from '@/doc/overlay/basicdoc';
-import { EventsDoc } from '@/doc/overlay/eventsdoc';
-import { HideOnEscapeDoc } from '@/doc/overlay/hideonescapedoc';
-import { ImportDoc } from '@/doc/overlay/importdoc';
-import { ModeDoc } from '@/doc/overlay/modedoc';
-import { PTComponent } from '@/doc/overlay/pt/PTComponent';
-import { ResponsiveDoc } from '@/doc/overlay/responsivedoc';
-import { StyleDoc } from '@/doc/overlay/styledoc';
-import { TargetDoc } from '@/doc/overlay/targetdoc';
-import { OverlayTemplateDemo } from '@/doc/overlay/templatedoc';
-import { TransitionOptionsDoc } from '@/doc/overlay/transitionoptionsdoc';
-import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
+import { AccessibilityDoc } from '@/doc/overlay/accessibility-doc';
+import { AppendToDoc } from '@/doc/overlay/appendto-doc';
+import { AutoZIndexDoc } from '@/doc/overlay/autozindex-doc';
+import { BaseZIndexDoc } from '@/doc/overlay/basezindex-doc';
+import { OverlayBasicDemo } from '@/doc/overlay/basic-doc';
+import { EventsDoc } from '@/doc/overlay/events-doc';
+import { HideOnEscapeDoc } from '@/doc/overlay/hideonescape-doc';
+import { ImportDoc } from '@/doc/overlay/import-doc';
+import { ModeDoc } from '@/doc/overlay/mode-doc';
+import { PTComponent } from '@/doc/overlay/pt/PTComponent';
+import { ResponsiveDoc } from '@/doc/overlay/responsive-doc';
+import { TargetDoc } from '@/doc/overlay/target-doc';
+import { OverlayTemplateDemo } from '@/doc/overlay/template-doc';
+import { TransitionOptionsDoc } from '@/doc/overlay/transitionoptions-doc';
+import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc
@@ -70,11 +69,6 @@ export class OverlayDemo {
                     id: 'target',
                     label: 'Target',
                     component: TargetDoc
-                },
-                {
-                    id: 'style',
-                    label: 'Style',
-                    component: StyleDoc
                 },
                 {
                     id: 'base-z-index',

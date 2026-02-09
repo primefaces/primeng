@@ -1,7 +1,7 @@
-import { Component, DebugElement, input } from '@angular/core';
+import { Component, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { Fluid, FluidModule } from './fluid';
 
 @Component({
@@ -180,7 +180,7 @@ class TestFluidComplexLayoutComponent {}
 describe('Fluid', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [FluidModule, NoopAnimationsModule],
+            imports: [FluidModule],
             declarations: [
                 TestBasicFluidComponent,
                 TestFluidWithContentComponent,
@@ -190,7 +190,8 @@ describe('Fluid', () => {
                 TestFluidResponsiveComponent,
                 TestFluidDynamicContentComponent,
                 TestFluidComplexLayoutComponent
-            ]
+            ],
+            providers: [provideZonelessChangeDetection()]
         });
     });
 
@@ -446,22 +447,24 @@ describe('Fluid', () => {
             element = fixture.debugElement.query(By.directive(Fluid)).nativeElement;
         });
 
-        it('should handle conditional content display', () => {
+        it('should handle conditional content display', async () => {
             // Initially first section is shown
             expect(element.querySelector('.first-section')).toBeTruthy();
             expect(element.querySelector('.second-section')).toBeFalsy();
 
             // Show second section
             component.showSecondSection = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.querySelector('.second-section')).toBeTruthy();
         });
 
-        it('should handle content visibility changes', () => {
+        it('should handle content visibility changes', async () => {
             // Hide first section
             component.showFirstSection = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.querySelector('.first-section')).toBeFalsy();
             expect(element.querySelector('.dynamic-input-1')).toBeFalsy();
@@ -480,18 +483,20 @@ describe('Fluid', () => {
             });
         });
 
-        it('should update dynamic content', () => {
+        it('should update dynamic content', async () => {
             // Add new item
             component.dynamicItems.push({ label: 'Item 3', value: 'Value 3' });
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const dynamicItems = element.querySelectorAll('.dynamic-item');
             expect(dynamicItems.length).toBe(3);
         });
 
-        it('should handle empty dynamic content', () => {
+        it('should handle empty dynamic content', async () => {
             component.dynamicItems = [];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const dynamicItems = element.querySelectorAll('.dynamic-item');
             expect(dynamicItems.length).toBe(0);

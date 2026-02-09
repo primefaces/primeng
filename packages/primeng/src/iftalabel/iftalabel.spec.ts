@@ -1,5 +1,5 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { IftaLabel } from './iftalabel';
@@ -40,7 +40,8 @@ describe('IftaLabel', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicIftaLabelComponent]
+                imports: [TestBasicIftaLabelComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicIftaLabelComponent);
@@ -74,7 +75,8 @@ describe('IftaLabel', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestEmailIftaLabelComponent]
+                imports: [TestEmailIftaLabelComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestEmailIftaLabelComponent);
@@ -90,14 +92,14 @@ describe('IftaLabel', () => {
             expect(labelElement.nativeElement.textContent.trim()).toBe('Email Address');
         });
 
-        it('should update input value when model changes', fakeAsync(() => {
+        it('should update input value when model changes', async () => {
             component.email = 'test@example.com';
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
             expect(inputElement.nativeElement.value).toBe('test@example.com');
-        }));
+        });
     });
 
     describe('Edge Cases', () => {
@@ -106,7 +108,8 @@ describe('IftaLabel', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicIftaLabelComponent]
+                imports: [TestBasicIftaLabelComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicIftaLabelComponent);
@@ -119,14 +122,14 @@ describe('IftaLabel', () => {
             expect(inputElement.nativeElement.value).toBe('' as any);
         });
 
-        it('should handle empty string model', fakeAsync(() => {
+        it('should handle empty string model', async () => {
             component.value = '';
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
             expect(inputElement.nativeElement.value).toBe('' as any);
-        }));
+        });
     });
 });
 
@@ -137,7 +140,8 @@ describe('IftaLabel PassThrough Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [IftaLabel, FormsModule]
+            imports: [IftaLabel, FormsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(IftaLabel);
@@ -215,6 +219,7 @@ describe('IftaLabel PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [IftaLabel, FormsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             iftaLabel: {
@@ -242,6 +247,7 @@ describe('IftaLabel PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [IftaLabel, FormsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             iftaLabel: {

@@ -42,20 +42,32 @@ export interface InplacePassThroughOptions<I = unknown> {
 export type InplacePassThrough<I = unknown> = PassThrough<I, InplacePassThroughOptions<I>>;
 
 /**
+ * Custom content template context.
+ * @group Interface
+ */
+export interface InplaceContentTemplateContext {
+    /**
+     * Callback to invoke to close the inplace content.
+     */
+    closeCallback: (event: MouseEvent) => void;
+}
+
+/**
  * Defines valid templates in Inplace.
  * @group Templates
  */
 export interface InplaceTemplates {
     /**
-     * Custom template of display.
+     * Custom display template.
      */
-    display(): TemplateRef<any>;
+    display(): TemplateRef<void>;
     /**
-     * Custom template of content.
+     * Custom content template.
+     * @param {Object} context - content context.
      */
-    content(): TemplateRef<any>;
+    content(context: InplaceContentTemplateContext): TemplateRef<InplaceContentTemplateContext>;
     /**
-     * Custom template of close icon.
+     * Custom close icon template.
      */
-    closeicon(): TemplateRef<any>;
+    closeicon(): TemplateRef<void>;
 }

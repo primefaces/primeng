@@ -1,7 +1,7 @@
-import { AccessibilityDoc } from '@/doc/ripple/accessibilitydoc';
-import { CustomDoc } from '@/doc/ripple/customdoc';
-import { DefaultDoc } from '@/doc/ripple/defaultdoc';
-import { ImportDoc } from '@/doc/ripple/importdoc';
+import { AccessibilityDoc } from '@/doc/ripple/accessibility-doc';
+import { CustomDoc } from '@/doc/ripple/custom-doc';
+import { DefaultDoc } from '@/doc/ripple/default-doc';
+import { ImportDoc } from '@/doc/ripple/import-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 @Component({

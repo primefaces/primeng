@@ -82,6 +82,8 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     hostDirectives: [Bind]
 })
 export class Editor extends BaseEditableHolder<EditorPassThrough> {
+    componentName = 'Editor';
+
     $pcEditor: Editor | undefined = inject(EDITOR_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -394,8 +396,8 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
     private initQuillElements(): void {
         if (!this.quillElements) {
             this.quillElements = {
-                editorElement: findSingle(this.el.nativeElement, 'div.p-editor-content'),
-                toolbarElement: findSingle(this.el.nativeElement, 'div.p-editor-toolbar')
+                editorElement: findSingle(this.el.nativeElement, 'div[data-pc-section="content"]'),
+                toolbarElement: findSingle(this.el.nativeElement, 'div[data-pc-section="toolbar"]')
             } as any;
         }
     }
