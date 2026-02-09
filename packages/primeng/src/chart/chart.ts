@@ -24,9 +24,20 @@ const CHART_INSTANCE = new InjectionToken<UIChart>('CHART_INSTANCE');
         '[class]': "cx('root')",
         '[style]': "sx('root')"
     },
-    providers: [ChartStyle, { provide: CHART_INSTANCE, useExisting: UIChart }]
+    providers: [ChartStyle, { provide: CHART_INSTANCE, useExisting: UIChart }],
+    hostDirectives: [Bind]
 })
 export class UIChart extends BaseComponent<ChartPassThrough> {
+    componentName = 'Chart';
+
+    $pcChart: UIChart | undefined = inject(CHART_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Type of the chart.
      * @group Props
