@@ -60,7 +60,7 @@ const CONTEXTMENU_INSTANCE = new InjectionToken<ContextMenu>('CONTEXTMENU_INSTAN
 const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUSUB_INSTANCE');
 
 @Component({
-    selector: 'p-contextMenuSub, p-contextmenu-sub',
+    selector: 'p-contextmenu-sub',
     standalone: true,
     imports: [NgTemplateOutlet, RouterModule, Ripple, TooltipModule, AngleRightIcon, BadgeModule, SharedModule, BindModule, MotionModule],
     template: `
@@ -432,7 +432,7 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> {
  * @group Components
  */
 @Component({
-    selector: 'p-contextMenu, p-contextmenu, p-context-menu',
+    selector: 'p-contextmenu, p-context-menu',
     standalone: true,
     imports: [ContextMenuSub, RouterModule, TooltipModule, BadgeModule, SharedModule, BindModule, MotionModule],
     template: `

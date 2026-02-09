@@ -53,7 +53,7 @@ export class MenubarService {
 }
 
 @Component({
-    selector: 'p-menubarSub, p-menubarsub, [pMenubarSub]',
+    selector: 'p-menubarsub, [pMenubarSub]',
     standalone: true,
     imports: [NgTemplateOutlet, RouterModule, Ripple, TooltipModule, AngleDownIcon, AngleRightIcon, BadgeModule, SharedModule, BindModule],
     template: `
