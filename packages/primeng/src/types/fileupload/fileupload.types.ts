@@ -3,8 +3,57 @@ import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { BadgePassThrough } from 'primeng/types/badge';
 import type { ButtonPassThrough } from 'primeng/types/button';
-import type { MessagePassThrough } from 'primeng/types/message';
+import type { MessagePassThrough, MessageSeverity } from 'primeng/types/message';
 import type { ProgressBarPassThrough } from 'primeng/types/progressbar';
+
+/**
+ * Message displayed in FileUpload component.
+ * @group Interface
+ */
+export interface FileUploadMessage {
+    /**
+     * Severity of the message.
+     */
+    severity: MessageSeverity;
+    /**
+     * Text content of the message.
+     */
+    text: string;
+}
+
+/**
+ * Event emitted from FileContent component when a file is removed.
+ * @group Interface
+ */
+export interface FileContentRemoveEvent {
+    /**
+     * Browser event.
+     */
+    event: Event;
+    /**
+     * Index of the removed file.
+     */
+    index: number;
+}
+
+/**
+ * Context for file remove icon template.
+ * @group Interface
+ */
+export interface FileRemoveIconTemplateContext {
+    /**
+     * CSS class for the icon.
+     */
+    class: string;
+    /**
+     * File being removed.
+     */
+    file: File;
+    /**
+     * Index of the file.
+     */
+    index: number;
+}
 
 /**
  * Custom pass-through(pt) options.
@@ -194,7 +243,7 @@ export interface FileSelectEvent {
     /**
      * Uploaded files.
      */
-    files: File[];
+    files: FileList | File[];
     /**
      * All files to be uploaded.
      */
@@ -286,7 +335,7 @@ export interface FileUploadContentTemplateContext {
     /**
      * Status messages about upload process.
      */
-    messages: any[];
+    messages: FileUploadMessage[];
     /**
      * Callback to invoke on choose button click.
      */
@@ -303,6 +352,17 @@ export interface FileUploadContentTemplateContext {
      * Callback to invoke on remove uploaded file.
      */
     removeUploadedFileCallback: (index: number) => void;
+}
+
+/**
+ * Custom file template context.
+ * @group Interface
+ */
+export interface FileUploadFileTemplateContext {
+    /**
+     * The file.
+     */
+    $implicit: File;
 }
 
 /**
