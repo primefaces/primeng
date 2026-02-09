@@ -3,7 +3,12 @@ import { style } from '@primeuix/styles/message';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-message p-component p-message-' + instance.severity, instance.variant && 'p-message-' + instance.variant, { 'p-message-sm': instance.size === 'small', 'p-message-lg': instance.size === 'large' }],
+    root: ({ instance }) => {
+        const severity = instance.severity();
+        const variant = instance.variant();
+        const size = instance.size();
+        return ['p-message p-component p-message-' + severity, variant && 'p-message-' + variant, { 'p-message-sm': size === 'small', 'p-message-lg': size === 'large' }];
+    },
     contentWrapper: 'p-message-content-wrapper',
     content: 'p-message-content',
     icon: 'p-message-icon',

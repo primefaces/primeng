@@ -3,6 +3,35 @@ import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Message severity type.
+ * @group Types
+ */
+export type MessageSeverity = 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast';
+
+/**
+ * Message variant type.
+ * @group Types
+ */
+export type MessageVariant = 'outlined' | 'text' | 'simple';
+
+/**
+ * Message size type.
+ * @group Types
+ */
+export type MessageSize = 'large' | 'small';
+
+/**
+ * Message close event.
+ * @group Interface
+ */
+export interface MessageCloseEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+}
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
