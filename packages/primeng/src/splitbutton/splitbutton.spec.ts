@@ -379,7 +379,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
 
             expect(splitButtonInstance.model).toEqual(newModel);
-            expect(splitButtonInstance.menu?.model).toEqual(newModel);
+            expect(splitButtonInstance.menu?.model()).toEqual(newModel);
         });
 
         it('should update label property', async () => {

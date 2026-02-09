@@ -1,6 +1,64 @@
 import { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@primeuix/motion';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
+
+/**
+ * Processed menu item used internally.
+ * @group Interface
+ */
+export interface TieredMenuProcessedItem {
+    /**
+     * Menu item instance.
+     */
+    item: MenuItem;
+    /**
+     * Index of the item in its parent.
+     */
+    index: number;
+    /**
+     * Nesting level of the item.
+     */
+    level: number;
+    /**
+     * Unique key of the item.
+     */
+    key: string;
+    /**
+     * Parent processed item.
+     */
+    parent: TieredMenuProcessedItem | Record<string, never>;
+    /**
+     * Parent key.
+     */
+    parentKey: string;
+    /**
+     * Child processed items.
+     */
+    items: TieredMenuProcessedItem[];
+}
+
+/**
+ * Focused item info used internally.
+ * @group Interface
+ */
+export interface TieredMenuFocusedItemInfo {
+    /**
+     * Index of the focused item.
+     */
+    index: number;
+    /**
+     * Nesting level of the focused item.
+     */
+    level?: number;
+    /**
+     * Parent key of the focused item.
+     */
+    parentKey: string;
+    /**
+     * Focused item instance.
+     */
+    item?: MenuItem | null;
+}
 
 /**
  * Custom pass-through(pt) options.
@@ -65,6 +123,63 @@ export interface TieredMenuPassThroughOptions<I = unknown> {
 export type TieredMenuPassThrough<I = unknown> = PassThrough<I, TieredMenuPassThroughOptions<I>>;
 
 /**
+ * Item click event.
+ * @group Interface
+ */
+export interface TieredMenuItemClickEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Processed item instance.
+     */
+    processedItem: TieredMenuProcessedItem;
+    /**
+     * Whether to focus the menu.
+     */
+    isFocus?: boolean;
+}
+
+/**
+ * Item mouse enter event.
+ * @group Interface
+ */
+export interface TieredMenuItemMouseEnterEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Processed item instance.
+     */
+    processedItem: TieredMenuProcessedItem;
+    /**
+     * Whether to focus the menu.
+     */
+    focus?: boolean;
+}
+
+/**
+ * Toggle event.
+ * @group Interface
+ */
+export interface TieredMenuToggleEvent {
+    /**
+     * Current target element.
+     */
+    currentTarget?: EventTarget | null;
+    /**
+     * Related target element.
+     */
+    relatedTarget?: EventTarget | null;
+    /**
+     * Whether to use relative alignment.
+     */
+    relativeAlign?: boolean;
+}
+
+/**
  * Custom item template context.
  * @group Interface
  */
@@ -72,7 +187,7 @@ export interface TieredMenuItemTemplateContext {
     /**
      * Item instance.
      */
-    $implicit: any;
+    $implicit: MenuItem;
     /**
      * Whether the item has a submenu.
      */

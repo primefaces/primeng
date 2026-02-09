@@ -10,7 +10,7 @@ const classes = {
     root: ({ instance }) => [
         'p-tieredmenu p-component',
         {
-            'p-tieredmenu-overlay': instance.popup,
+            'p-tieredmenu-overlay': instance.popup(),
             'p-tieredmenu-mobile': instance.queryMatches()
         }
     ],
