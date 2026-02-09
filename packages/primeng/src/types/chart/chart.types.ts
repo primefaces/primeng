@@ -1,4 +1,36 @@
+import type { ChartData, ChartOptions, Plugin } from 'chart.js';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+
+/**
+ * Defines the type of chart.
+ * @group Types
+ */
+export type ChartType = 'bar' | 'line' | 'scatter' | 'bubble' | 'pie' | 'doughnut' | 'polarArea' | 'radar';
+
+/**
+ * Re-export chart.js types for convenience.
+ * @group Types
+ */
+export type { ChartData, ChartOptions, Plugin as ChartPlugin };
+
+/**
+ * Event emitted when chart data is selected.
+ * @group Events
+ */
+export interface ChartDataSelectEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Selected element.
+     */
+    element: unknown;
+    /**
+     * Selected dataset.
+     */
+    dataset: unknown[];
+}
 
 /**
  * Custom pass-through(pt) options.

@@ -1,11 +1,11 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, NgZone, Output, ViewEncapsulation } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { booleanAttribute, ChangeDetectionStrategy, Component, effect, inject, InjectionToken, input, NgModule, output, ViewEncapsulation } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChartStyle } from './style/chartstyle';
 import { Bind, BindModule } from 'primeng/bind';
-import type { ChartPassThrough } from 'primeng/types/chart';
+import type { ChartData, ChartDataSelectEvent, ChartOptions, ChartPassThrough, ChartPlugin, ChartType } from 'primeng/types/chart';
 
 const CHART_INSTANCE = new InjectionToken<UIChart>('CHART_INSTANCE');
 
@@ -16,118 +16,92 @@ const CHART_INSTANCE = new InjectionToken<UIChart>('CHART_INSTANCE');
 @Component({
     selector: 'p-chart',
     standalone: true,
-    imports: [CommonModule, SharedModule, BindModule],
-    template: `
-        <canvas
-            role="img"
-            [attr.aria-label]="ariaLabel"
-            [attr.aria-labelledby]="ariaLabelledBy"
-            [attr.width]="responsive && !width ? null : width"
-            [attr.height]="responsive && !height ? null : height"
-            (click)="onCanvasClick($event)"
-            [pBind]="ptm('canvas')"
-        ></canvas>
-    `,
+    imports: [SharedModule, BindModule],
+    template: ` <canvas role="img" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="ariaLabelledBy()" [attr.width]="canvasWidth()" [attr.height]="canvasHeight()" (click)="onCanvasClick($event)" [pBind]="ptm('canvas')"></canvas> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cx('root')",
         '[style]': "sx('root')"
     },
-    providers: [ChartStyle, { provide: CHART_INSTANCE, useExisting: UIChart }],
-    hostDirectives: [Bind]
+    providers: [ChartStyle, { provide: CHART_INSTANCE, useExisting: UIChart }]
 })
 export class UIChart extends BaseComponent<ChartPassThrough> {
-    componentName = 'Chart';
-
-    $pcChart: UIChart | undefined = inject(CHART_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
-
-    bindDirectiveInstance = inject(Bind, { self: true });
-
-    onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
-    }
-
     /**
      * Type of the chart.
      * @group Props
      */
-    @Input() type: 'bar' | 'line' | 'scatter' | 'bubble' | 'pie' | 'doughnut' | 'polarArea' | 'radar' | undefined;
+    type = input<ChartType>();
     /**
      * Array of per-chart plugins to customize the chart behaviour.
      * @group Props
      */
-    @Input() plugins: any[] = [];
+    plugins = input<ChartPlugin[]>([]);
     /**
      * Width of the chart.
      * @group Props
      */
-    @Input() width: string | undefined;
+    width = input<string>();
     /**
      * Height of the chart.
      * @group Props
      */
-    @Input() height: string | undefined;
+    height = input<string>();
     /**
      * Whether the chart is redrawn on screen size change.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) responsive: boolean = true;
+    responsive = input(true, { transform: booleanAttribute });
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string>();
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined;
+    ariaLabelledBy = input<string>();
     /**
      * Data to display.
      * @group Props
      */
-    @Input() get data(): any {
-        return this._data;
-    }
-    set data(val: any) {
-        this._data = val;
-        this.reinit();
-    }
+    data = input<ChartData>();
     /**
      * Options to customize the chart.
      * @group Props
      */
-    @Input() get options(): any {
-        return this._options;
-    }
-    set options(val: any) {
-        this._options = val;
-        this.reinit();
-    }
+    options = input<ChartOptions>({});
     /**
      * Callback to execute when an element on chart is clicked.
      * @group Emits
      */
-    @Output() onDataSelect: EventEmitter<any> = new EventEmitter<any>();
-
-    isBrowser: boolean = false;
-
-    initialized: boolean | undefined;
-
-    _data: any;
-
-    _options: any = {};
-
-    chart: any;
+    onDataSelect = output<ChartDataSelectEvent>();
 
     _componentStyle = inject(ChartStyle);
 
-    constructor(
-        public el: ElementRef,
-        private zone: NgZone
-    ) {
+    initialized = false;
+
+    chart: Chart | null = null;
+
+    constructor() {
         super();
+
+        effect(() => {
+            const data = this.data();
+            const options = this.options();
+            if (this.initialized && (data || options)) {
+                this.reinit();
+            }
+        });
+    }
+
+    canvasWidth() {
+        return this.responsive() && !this.width() ? null : this.width();
+    }
+
+    canvasHeight() {
+        return this.responsive() && !this.height() ? null : this.height();
     }
 
     onAfterViewInit() {
@@ -137,8 +111,8 @@ export class UIChart extends BaseComponent<ChartPassThrough> {
 
     onCanvasClick(event: Event) {
         if (this.chart) {
-            const element = this.chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
-            const dataset = this.chart.getElementsAtEventForMode(event, 'dataset', { intersect: true }, false);
+            const element = this.chart.getElementsAtEventForMode(event as unknown as globalThis.Event, 'nearest', { intersect: true }, false);
+            const dataset = this.chart.getElementsAtEventForMode(event as unknown as globalThis.Event, 'dataset', { intersect: true }, false);
 
             if (element && element[0] && dataset) {
                 this.onDataSelect.emit({ originalEvent: event, element: element[0], dataset: dataset });
@@ -148,37 +122,40 @@ export class UIChart extends BaseComponent<ChartPassThrough> {
 
     initChart() {
         if (isPlatformBrowser(this.platformId)) {
-            let opts = this.options || {};
-            opts.responsive = this.responsive;
+            const opts = this.options() || {};
+            opts.responsive = this.responsive();
 
             // allows chart to resize in responsive mode
-            if (opts.responsive && (this.height || this.width)) {
+            if (opts.responsive && (this.height() || this.width())) {
                 opts.maintainAspectRatio = false;
             }
 
-            this.zone.runOutsideAngular(() => {
-                this.chart = new Chart(this.el.nativeElement.children[0], {
-                    type: this.type,
-                    data: this.data,
-                    options: this.options,
-                    plugins: this.plugins
-                });
+            const type = this.type();
+            const data = this.data();
+            if (!type || !data) return;
+
+            this.chart = new Chart(this.el.nativeElement.children[0] as HTMLCanvasElement, {
+                type,
+                data,
+                options: this.options(),
+                plugins: this.plugins()
             });
         }
     }
 
-    getCanvas() {
+    getCanvas(): HTMLCanvasElement {
         return this.el.nativeElement.children[0];
     }
 
-    getBase64Image() {
-        return this.chart.toBase64Image();
+    getBase64Image(): string {
+        return this.chart?.toBase64Image() ?? '';
     }
 
     generateLegend() {
         if (this.chart) {
-            return this.chart.generateLegend();
+            return (this.chart as any).generateLegend();
         }
+        return undefined;
     }
 
     refresh() {
