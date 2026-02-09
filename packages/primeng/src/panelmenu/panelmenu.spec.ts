@@ -8,7 +8,7 @@ import { PanelMenu } from './panelmenu';
 
 @Component({
     standalone: false,
-    template: ` <p-panelmenu [id]="id" [model]="model" [multiple]="multiple" [transitionOptions]="transitionOptions" [styleClass]="styleClass" [tabindex]="tabindex"> </p-panelmenu> `
+    template: ` <p-panelmenu [id]="id" [model]="model" [multiple]="multiple" [tabindex]="tabindex"> </p-panelmenu> `
 })
 class TestBasicPanelMenuComponent {
     id: string | undefined;
@@ -33,8 +33,6 @@ class TestBasicPanelMenuComponent {
         }
     ];
     multiple: boolean | undefined;
-    transitionOptions: string | undefined;
-    styleClass: string | undefined;
     tabindex: number | undefined;
 }
 
@@ -62,7 +60,7 @@ class TestMultiplePanelMenuComponent {
     standalone: false,
     template: `
         <p-panelmenu [model]="model">
-            <ng-template let-item pTemplate="item">
+            <ng-template #item let-item>
                 <div class="custom-item">{{ item.label }}</div>
             </ng-template>
         </p-panelmenu>
@@ -81,10 +79,10 @@ class TestTemplatePanelMenuComponent {
     standalone: false,
     template: `
         <p-panelmenu [model]="model">
-            <ng-template pTemplate="headericon">
+            <ng-template #headericon>
                 <i class="custom-header-icon"></i>
             </ng-template>
-            <ng-template pTemplate="submenuicon">
+            <ng-template #submenuicon>
                 <i class="custom-submenu-icon"></i>
             </ng-template>
         </p-panelmenu>
@@ -168,7 +166,7 @@ class TestDisabledPanelMenuComponent {
 @Component({
     standalone: false,
     selector: 'test-styled-panelmenu',
-    template: ` <p-panelmenu [model]="model" styleClass="custom-panel" [transitionOptions]="transitionOptions"> </p-panelmenu> `
+    template: ` <p-panelmenu [model]="model" class="custom-panel"> </p-panelmenu> `
 })
 class TestStyledPanelMenuComponent {
     model: MenuItem[] = [
@@ -178,7 +176,6 @@ class TestStyledPanelMenuComponent {
             items: [{ label: 'Styled Item' }]
         }
     ];
-    transitionOptions: string = '300ms ease-in';
 }
 
 @Component({
@@ -284,19 +281,16 @@ describe('PanelMenu', () => {
         });
 
         it('should have correct default values', () => {
-            expect(panelMenuInstance.multiple).toBe(false);
-
-            // Note: In test environment, @Input properties with default values may not be initialized
-            // unless explicitly set. This tests the actual default behavior when no input is provided.
-            expect(panelMenuInstance.transitionOptions || '400ms cubic-bezier(0.86, 0, 0.07, 1)').toBe('400ms cubic-bezier(0.86, 0, 0.07, 1)');
+            expect(panelMenuInstance.multiple()).toBe(false);
 
             // tabindex can be undefined, 0, or NaN in test environment
-            expect(panelMenuInstance.tabindex === undefined || panelMenuInstance.tabindex === 0 || isNaN(panelMenuInstance.tabindex)).toBe(true);
+            const tabindexValue = panelMenuInstance.tabindex();
+            expect(tabindexValue === undefined || tabindexValue === 0 || (typeof tabindexValue === 'number' && isNaN(tabindexValue))).toBe(true);
         });
 
         it('should generate unique id if not provided', () => {
-            expect(panelMenuInstance.id).toBeTruthy();
-            expect(panelMenuInstance.id).toMatch(/^pn_id_/);
+            expect(panelMenuInstance.$id()).toBeTruthy();
+            expect(panelMenuInstance.$id()).toMatch(/^pn_id_/);
         });
 
         it('should use custom id when provided', async () => {
@@ -304,12 +298,12 @@ describe('PanelMenu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(panelMenuInstance.id).toBe('custom_panel_menu');
+            expect(panelMenuInstance.id()).toBe('custom_panel_menu');
         });
 
         it('should initialize with provided model', () => {
-            expect(panelMenuInstance.model).toEqual(component.model);
-            expect(panelMenuInstance.model!.length).toBe(2);
+            expect(panelMenuInstance.model()).toEqual(component.model);
+            expect(panelMenuInstance.model()!.length).toBe(2);
         });
 
         it('should have proper component structure', () => {
@@ -327,7 +321,7 @@ describe('PanelMenu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(panelMenuInstance.model).toEqual(newModel);
+            expect(panelMenuInstance.model()).toEqual(newModel);
         });
 
         it('should update multiple property', async () => {
@@ -335,23 +329,7 @@ describe('PanelMenu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(panelMenuInstance.multiple).toBe(true);
-        });
-
-        it('should update transitionOptions property', async () => {
-            component.transitionOptions = '300ms ease-in';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            expect(panelMenuInstance.transitionOptions).toBe('300ms ease-in');
-        });
-
-        it('should update styleClass property', async () => {
-            component.styleClass = 'custom-class';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            expect(panelMenuInstance.styleClass).toBe('custom-class');
+            expect(panelMenuInstance.multiple()).toBe(true);
         });
 
         it('should update tabindex property', async () => {
@@ -359,7 +337,7 @@ describe('PanelMenu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(panelMenuInstance.tabindex).toBe(1);
+            expect(panelMenuInstance.tabindex()).toBe(1);
         });
 
         it('should handle undefined model', async () => {
@@ -367,7 +345,7 @@ describe('PanelMenu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(panelMenuInstance.model).toBeUndefined();
+            expect(panelMenuInstance.model()).toBeUndefined();
         });
 
         it('should handle empty model', async () => {
@@ -375,17 +353,12 @@ describe('PanelMenu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(panelMenuInstance.model).toEqual([]);
+            expect(panelMenuInstance.model()).toEqual([]);
         });
     });
 
     describe('Panel Expansion and Collapse', () => {
         it('should expand panel on header click', async () => {
-            // Set transition options to prevent animation errors
-            component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
             const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
 
             panelHeader.triggerEventHandler('click', { currentTarget: panelHeader.nativeElement });
@@ -396,10 +369,6 @@ describe('PanelMenu', () => {
         });
 
         it('should collapse expanded panel on header click', async () => {
-            // Set transition options to prevent animation errors
-            component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
             component.model![0].expanded = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -413,10 +382,6 @@ describe('PanelMenu', () => {
         });
 
         it('should collapse other panels in single mode', async () => {
-            // Set transition options to prevent animation errors
-            component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
             component.model![0].expanded = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -454,9 +419,6 @@ describe('PanelMenu', () => {
         });
 
         it('should show panel content when expanded', async () => {
-            component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
             component.model![0].expanded = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -553,12 +515,6 @@ describe('PanelMenu', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await templateFixture.whenStable();
 
-            const panelMenuInstance = templateFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
-
-            expect(() => panelMenuInstance.ngAfterContentInit()).not.toThrow();
-
-            expect(panelMenuInstance.templates).toBeDefined();
-
             const menuContent = templateFixture.debugElement.query(By.css('.p-panelmenu-content'));
             expect(menuContent).toBeTruthy();
         });
@@ -572,9 +528,7 @@ describe('PanelMenu', () => {
 
             const panelMenuInstance = itemTemplateFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
 
-            expect(() => panelMenuInstance.ngAfterContentInit()).not.toThrow();
-
-            expect(panelMenuInstance.itemTemplate).toBeDefined();
+            expect(panelMenuInstance.itemTemplate()).toBeDefined();
 
             const menuContent = itemTemplateFixture.debugElement.query(By.css('.p-panelmenu-content'));
             expect(menuContent).toBeTruthy();
@@ -587,10 +541,6 @@ describe('PanelMenu', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await pTemplateFixture.whenStable();
 
-            const pTemplatePanelMenu = pTemplateFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
-            expect(pTemplatePanelMenu.templates).toBeDefined();
-            expect(() => pTemplatePanelMenu.ngAfterContentInit()).not.toThrow();
-
             const itemTemplateFixture = TestBed.createComponent(TestContentItemTemplatePanelMenuComponent);
             itemTemplateFixture.componentInstance.model[0].expanded = true;
             itemTemplateFixture.detectChanges();
@@ -598,7 +548,7 @@ describe('PanelMenu', () => {
             await itemTemplateFixture.whenStable();
 
             const itemTemplatePanelMenu = itemTemplateFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
-            expect(itemTemplatePanelMenu.itemTemplate).toBeDefined();
+            expect(itemTemplatePanelMenu.itemTemplate()).toBeDefined();
         });
 
         it('should render custom item template with pTemplate', async () => {
@@ -620,13 +570,9 @@ describe('PanelMenu', () => {
 
             const panelMenuInstance = iconTemplateFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
 
-            // Test that header icon template is processed
-            expect(() => panelMenuInstance.ngAfterContentInit()).not.toThrow();
-            expect(panelMenuInstance.templates).toBeDefined();
-
-            const customHeaderIcons = iconTemplateFixture.debugElement.queryAll(By.css('.custom-header-icon'));
             // Template may not render if component structure differs, verify component exists
             expect(iconTemplateFixture.componentInstance).toBeTruthy();
+            expect(panelMenuInstance.headerIconTemplate()).toBeDefined();
         });
 
         it('should render custom submenu icon template', async () => {
@@ -639,13 +585,9 @@ describe('PanelMenu', () => {
 
             const panelMenuInstance = iconTemplateFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
 
-            // Test that submenu icon template is processed
-            expect(() => panelMenuInstance.ngAfterContentInit()).not.toThrow();
-            expect(panelMenuInstance.templates).toBeDefined();
-
-            const customSubmenuIcons = iconTemplateFixture.debugElement.queryAll(By.css('.custom-submenu-icon'));
             // Template may not render if component structure differs
             expect(iconTemplateFixture.componentInstance).toBeTruthy();
+            expect(panelMenuInstance.submenuIconTemplate()).toBeDefined();
         });
 
         it('should use default templates when custom ones are not provided', () => {
@@ -697,10 +639,6 @@ describe('PanelMenu', () => {
         });
 
         it('should update aria-expanded when panel state changes', async () => {
-            component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
             const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
 
             expect(panelHeader.nativeElement.getAttribute('aria-expanded')).toBe('false');
@@ -725,10 +663,6 @@ describe('PanelMenu', () => {
 
     describe('Keyboard Navigation', () => {
         it('should handle Enter key on panel header', async () => {
-            component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
             const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
 
             panelHeader.triggerEventHandler('keydown', {
@@ -743,10 +677,6 @@ describe('PanelMenu', () => {
         });
 
         it('should handle Space key on panel header', async () => {
-            component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
             const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
 
             panelHeader.triggerEventHandler('keydown', {
@@ -762,8 +692,6 @@ describe('PanelMenu', () => {
 
         it('should handle Arrow Down key navigation', () => {
             const keyboardFixture = TestBed.createComponent(TestKeyboardPanelMenuComponent);
-            const keyboardPanelMenu = keyboardFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
-            keyboardPanelMenu.containerViewChild = { nativeElement: { firstElementChild: null } };
             keyboardFixture.detectChanges();
 
             const panelHeader = keyboardFixture.debugElement.query(By.css('[data-pc-section="header"]'));
@@ -786,8 +714,6 @@ describe('PanelMenu', () => {
 
         it('should handle Arrow Up key navigation', () => {
             const keyboardFixture = TestBed.createComponent(TestKeyboardPanelMenuComponent);
-            const keyboardPanelMenu = keyboardFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
-            keyboardPanelMenu.containerViewChild = { nativeElement: { lastElementChild: null } };
             keyboardFixture.detectChanges();
 
             const panelHeaders = keyboardFixture.debugElement.queryAll(By.css('[data-pc-section="header"]'));
@@ -814,8 +740,6 @@ describe('PanelMenu', () => {
 
         it('should handle Home key navigation', () => {
             const keyboardFixture = TestBed.createComponent(TestKeyboardPanelMenuComponent);
-            const keyboardPanelMenu = keyboardFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
-            keyboardPanelMenu.containerViewChild = { nativeElement: { firstElementChild: null } };
             keyboardFixture.detectChanges();
 
             const panelHeader = keyboardFixture.debugElement.query(By.css('[data-pc-section="header"]'));
@@ -837,8 +761,6 @@ describe('PanelMenu', () => {
 
         it('should handle End key navigation', () => {
             const keyboardFixture = TestBed.createComponent(TestKeyboardPanelMenuComponent);
-            const keyboardPanelMenu = keyboardFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
-            keyboardPanelMenu.containerViewChild = { nativeElement: { lastElementChild: null } };
             keyboardFixture.detectChanges();
 
             const panelHeader = keyboardFixture.debugElement.query(By.css('[data-pc-section="header"]'));
@@ -865,7 +787,7 @@ describe('PanelMenu', () => {
             expect(panelMenuElement.classList).toContain('p-component');
         });
 
-        it('should apply custom styleClass', () => {
+        it('should apply custom class', () => {
             const styledFixture = TestBed.createComponent(TestStyledPanelMenuComponent);
             const styledElement = styledFixture.debugElement.query(By.directive(PanelMenu)).nativeElement;
             styledFixture.detectChanges();
@@ -887,10 +809,6 @@ describe('PanelMenu', () => {
         });
 
         it('should apply active styling to expanded panels', async () => {
-            component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
             const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
 
             panelHeader.triggerEventHandler('click', { currentTarget: panelHeader.nativeElement });
@@ -967,14 +885,14 @@ describe('PanelMenu', () => {
             const dynamicComponent = dynamicFixture.componentInstance;
             const dynamicPanelMenu = dynamicFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
 
-            expect(dynamicPanelMenu.model || []).toEqual([]);
+            expect(dynamicPanelMenu.model() || []).toEqual([]);
 
             dynamicComponent.updateModel();
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicPanelMenu.model.length).toBe(1);
-            expect(dynamicPanelMenu.model[0].label).toBe('Dynamic Panel');
+            expect(dynamicPanelMenu.model()!.length).toBe(1);
+            expect(dynamicPanelMenu.model()![0].label).toBe('Dynamic Panel');
         });
 
         it('should handle model changes with expanded state', async () => {
@@ -990,7 +908,7 @@ describe('PanelMenu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(panelMenuInstance.model).toEqual(newModel);
+            expect(panelMenuInstance.model()).toEqual(newModel);
 
             const panelContent = fixture.debugElement.query(By.css('.p-panelmenu-content'));
             expect(panelContent).toBeTruthy();
@@ -1016,7 +934,7 @@ describe('PanelMenu', () => {
             emptyFixture.detectChanges();
 
             const emptyPanelMenu = emptyFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
-            expect(emptyPanelMenu.model).toEqual([]);
+            expect(emptyPanelMenu.model()).toEqual([]);
 
             const panels = emptyFixture.debugElement.queryAll(By.css('[data-pc-section="panel"]'));
             expect(panels.length).toBe(0);
@@ -1028,7 +946,7 @@ describe('PanelMenu', () => {
             await fixture.whenStable();
 
             // Should not throw error
-            expect(panelMenuInstance.model).toEqual([]);
+            expect(panelMenuInstance.model()).toEqual([]);
         });
 
         it('should handle items without labels', async () => {
@@ -1104,10 +1022,6 @@ describe('PanelMenu', () => {
 
     describe('Public Methods', () => {
         it('should collapse all panels with collapseAll method', async () => {
-            // Set transition options and expand multiple panels
-            component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
             component.model![0].expanded = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1163,7 +1077,7 @@ describe('PanelMenu', () => {
             const itemWithFunction = {
                 label: () => 'Dynamic Label',
                 disabled: () => true
-            };
+            } as any;
 
             expect(panelMenuInstance.getItemProp(itemWithFunction, 'label')).toBe('Dynamic Label');
             expect(panelMenuInstance.isItemDisabled(itemWithFunction)).toBe(true);
@@ -1177,7 +1091,7 @@ describe('PanelMenu', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(PanelMenu);
             panelMenu = fixture.componentInstance;
-            panelMenu.model = [
+            fixture.componentRef.setInput('model', [
                 {
                     label: 'Documents',
                     icon: 'pi pi-file',
@@ -1186,7 +1100,7 @@ describe('PanelMenu', () => {
                         { label: 'Personal', icon: 'pi pi-user' }
                     ]
                 }
-            ];
+            ]);
         });
 
         describe('Case 1: Simple string classes', () => {
@@ -1288,11 +1202,11 @@ describe('PanelMenu', () => {
 
         describe('Case 4: Instance variables', () => {
             it('should use instance variables in PT', async () => {
-                panelMenu.multiple = true;
+                fixture.componentRef.setInput('multiple', true);
 
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => ({
-                        'data-multiple': instance?.multiple ? 'true' : 'false'
+                        'data-multiple': instance?.multiple() ? 'true' : 'false'
                     })
                 });
 
@@ -1332,9 +1246,8 @@ describe('PanelMenu', () => {
         describe('Case 6: Inline PT', () => {
             it('should work with inline PT configuration', async () => {
                 const testFixture = TestBed.createComponent(PanelMenu);
-                const testComponent = testFixture.componentInstance;
 
-                testComponent.model = [{ label: 'Test', items: [{ label: 'Item' }] }];
+                testFixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Item' }] }]);
                 testFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
 
                 testFixture.detectChanges();
@@ -1347,9 +1260,8 @@ describe('PanelMenu', () => {
 
             it('should work with inline PT object configuration', async () => {
                 const testFixture = TestBed.createComponent(PanelMenu);
-                const testComponent = testFixture.componentInstance;
 
-                testComponent.model = [{ label: 'Test', items: [{ label: 'Item' }] }];
+                testFixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Item' }] }]);
                 testFixture.componentRef.setInput('pt', {
                     root: { class: 'INLINE_OBJECT_CLASS' }
                 });

@@ -3,6 +3,57 @@ import type { MotionOptions } from '@primeuix/motion';
 import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Processed menu item used internally by PanelMenu.
+ * @group Interface
+ */
+export interface ProcessedMenuItem {
+    /**
+     * Unique key for the item.
+     */
+    key: string;
+    /**
+     * Original menu item.
+     */
+    item: MenuItem;
+    /**
+     * Child items.
+     */
+    items?: ProcessedMenuItem[];
+    /**
+     * Whether the item is expanded.
+     */
+    expanded?: boolean;
+    /**
+     * Whether this is a separator.
+     */
+    separator?: boolean;
+    /**
+     * Nesting level.
+     */
+    level: number;
+    /**
+     * Index within siblings.
+     */
+    index: number;
+    /**
+     * Parent processed item.
+     */
+    parent?: ProcessedMenuItem;
+    /**
+     * Parent item's key.
+     */
+    parentKey: string;
+    /**
+     * Item icon.
+     */
+    icon?: string;
+    /**
+     * Item badge.
+     */
+    badge?: string;
+}
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
