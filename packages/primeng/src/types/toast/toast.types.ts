@@ -113,6 +113,14 @@ export interface ToastTemplates {
 export type ToastPositionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' | 'center';
 
 /**
+ * Breakpoints configuration for responsive Toast styling.
+ * Keys are media query breakpoints (e.g., '960px', '640px').
+ * Values are CSS style objects.
+ * @group Types
+ */
+export type ToastBreakpoints = Record<string, Partial<CSSStyleDeclaration>>;
+
+/**
  * Custom close event.
  * @see {@link Toast.onClose}
  * @group Events

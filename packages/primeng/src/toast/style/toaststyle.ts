@@ -5,20 +5,20 @@ import { BaseStyle } from 'primeng/base';
 // Position
 const inlineStyles = {
     root: ({ instance }) => {
-        const { _position } = instance;
+        const position = instance.position();
 
         return {
             position: 'fixed',
-            top: _position === 'top-right' || _position === 'top-left' || _position === 'top-center' ? '20px' : _position === 'center' ? '50%' : null,
-            right: (_position === 'top-right' || _position === 'bottom-right') && '20px',
-            bottom: (_position === 'bottom-left' || _position === 'bottom-right' || _position === 'bottom-center') && '20px',
-            left: _position === 'top-left' || _position === 'bottom-left' ? '20px' : _position === 'center' || _position === 'top-center' || _position === 'bottom-center' ? '50%' : null
+            top: position === 'top-right' || position === 'top-left' || position === 'top-center' ? '20px' : position === 'center' ? '50%' : null,
+            right: (position === 'top-right' || position === 'bottom-right') && '20px',
+            bottom: (position === 'bottom-left' || position === 'bottom-right' || position === 'bottom-center') && '20px',
+            left: position === 'top-left' || position === 'bottom-left' ? '20px' : position === 'center' || position === 'top-center' || position === 'bottom-center' ? '50%' : null
         };
     }
 };
 
 const classes = {
-    root: ({ instance }) => ['p-toast p-component', `p-toast-${instance._position}`],
+    root: ({ instance }) => ['p-toast p-component', `p-toast-${instance.position()}`],
 
     message: ({ instance }) => ({
         'p-toast-message': true,
