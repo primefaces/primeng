@@ -1,6 +1,18 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Defines the size of the avatar.
+ * @group Types
+ */
+export type AvatarSize = 'normal' | 'large' | 'xlarge';
+
+/**
+ * Defines the shape of the avatar.
+ * @group Types
+ */
+export type AvatarShape = 'square' | 'circle';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

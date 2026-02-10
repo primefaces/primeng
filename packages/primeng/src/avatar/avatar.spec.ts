@@ -66,16 +66,6 @@ class TestShapeAvatarComponent {
 
 @Component({
     standalone: false,
-    selector: 'test-style-class-avatar',
-    template: `<p-avatar [label]="label" [styleClass]="styleClass"></p-avatar>`
-})
-class TestStyleClassAvatarComponent {
-    label = 'EF';
-    styleClass = 'custom-avatar';
-}
-
-@Component({
-    standalone: false,
     selector: 'test-aria-avatar',
     template: `<p-avatar [label]="label" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy"></p-avatar>`
 })
@@ -99,7 +89,7 @@ class TestContentAvatarComponent {}
 @Component({
     standalone: false,
     selector: 'test-dynamic-avatar',
-    template: ` <p-avatar [label]="label" [icon]="icon" [image]="image" [size]="size" [shape]="shape" [styleClass]="styleClass" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" (onImageError)="onImageError($event)"> </p-avatar> `
+    template: ` <p-avatar [label]="label" [icon]="icon" [image]="image" [size]="size" [shape]="shape" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" (onImageError)="onImageError($event)"> </p-avatar> `
 })
 class TestDynamicAvatarComponent {
     label: string | undefined;
@@ -107,7 +97,6 @@ class TestDynamicAvatarComponent {
     image: string | undefined;
     size: 'normal' | 'large' | 'xlarge' | undefined = 'normal';
     shape: 'square' | 'circle' | undefined = 'square';
-    styleClass: string | undefined;
     ariaLabel: string | undefined;
     ariaLabelledBy: string | undefined;
     imageError: Event | null = null as any;
@@ -143,7 +132,6 @@ describe('Avatar', () => {
                 TestImageAvatarComponent,
                 TestSizeAvatarComponent,
                 TestShapeAvatarComponent,
-                TestStyleClassAvatarComponent,
                 TestAriaAvatarComponent,
                 TestContentAvatarComponent,
                 TestDynamicAvatarComponent
@@ -171,14 +159,13 @@ describe('Avatar', () => {
         });
 
         it('should have default values', () => {
-            expect(component.label).toBeUndefined();
-            expect(component.icon).toBeUndefined();
-            expect(component.image).toBeUndefined();
-            expect(component.size).toBe('normal');
-            expect(component.shape).toBe('square');
-            expect(component.styleClass).toBeUndefined();
-            expect(component.ariaLabel).toBeUndefined();
-            expect(component.ariaLabelledBy).toBeUndefined();
+            expect(component.label()).toBeUndefined();
+            expect(component.icon()).toBeUndefined();
+            expect(component.image()).toBeUndefined();
+            expect(component.size()).toBe('normal');
+            expect(component.shape()).toBe('square');
+            expect(component.ariaLabel()).toBeUndefined();
+            expect(component.ariaLabelledBy()).toBeUndefined();
         });
 
         it('should apply base CSS classes', () => {
@@ -481,56 +468,6 @@ describe('Avatar', () => {
         });
     });
 
-    describe('Style Class', () => {
-        let fixture: ComponentFixture<TestStyleClassAvatarComponent>;
-        let component: TestStyleClassAvatarComponent;
-        let element: HTMLElement;
-
-        beforeEach(async () => {
-            fixture = TestBed.createComponent(TestStyleClassAvatarComponent);
-            component = fixture.componentInstance;
-            await fixture.whenStable();
-            element = fixture.debugElement.query(By.directive(Avatar)).nativeElement;
-        });
-
-        it('should apply custom style class', () => {
-            expect(element.classList.contains('custom-avatar')).toBe(true);
-        });
-
-        it('should update style class dynamically', async () => {
-            component.styleClass = 'new-custom-class';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            expect(element.classList.contains('new-custom-class')).toBe(true);
-        });
-
-        it('should maintain base classes with custom style class', () => {
-            expect(element.classList.contains('p-avatar')).toBe(true);
-            expect(element.classList.contains('p-component')).toBe(true);
-            expect(element.classList.contains('custom-avatar')).toBe(true);
-        });
-
-        it('should handle multiple custom classes', async () => {
-            component.styleClass = 'class1 class2 class3';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            expect(element.classList.contains('class1')).toBe(true);
-            expect(element.classList.contains('class2')).toBe(true);
-            expect(element.classList.contains('class3')).toBe(true);
-        });
-
-        it('should handle undefined style class', async () => {
-            component.styleClass = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            expect(element.classList.contains('p-avatar')).toBe(true);
-            expect(element.classList.contains('p-component')).toBe(true);
-        });
-    });
-
     describe('Accessibility', () => {
         let fixture: ComponentFixture<TestAriaAvatarComponent>;
         let component: TestAriaAvatarComponent;
@@ -671,13 +608,11 @@ describe('Avatar', () => {
             component.label = 'XY';
             component.size = 'large';
             component.shape = 'circle';
-            component.styleClass = 'custom-class';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar-lg')).toBe(true);
             expect(element.classList.contains('p-avatar-circle')).toBe(true);
-            expect(element.classList.contains('custom-class')).toBe(true);
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
             expect(labelElement.nativeElement.textContent.trim()).toBe('XY');
@@ -748,18 +683,16 @@ describe('Avatar', () => {
             component.image = undefined as any;
             component.size = undefined as any;
             component.shape = undefined as any;
-            component.styleClass = undefined as any;
             component.ariaLabel = undefined as any;
             component.ariaLabelledBy = undefined as any;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(avatarComponent.label).toBeUndefined();
-            expect(avatarComponent.icon).toBeUndefined();
-            expect(avatarComponent.image).toBeUndefined();
-            expect(avatarComponent.size).toBeUndefined();
-            expect(avatarComponent.shape).toBeUndefined();
-            expect(avatarComponent.styleClass).toBeUndefined();
+            expect(avatarComponent.label()).toBeUndefined();
+            expect(avatarComponent.icon()).toBeUndefined();
+            expect(avatarComponent.image()).toBeUndefined();
+            expect(avatarComponent.size()).toBeUndefined();
+            expect(avatarComponent.shape()).toBeUndefined();
         });
     });
 
@@ -801,7 +734,6 @@ describe('Avatar', () => {
             component.label = null as any;
             component.icon = null as any;
             component.image = null as any;
-            component.styleClass = null as any;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
@@ -874,7 +806,6 @@ describe('Avatar', () => {
             component.image = '/path/to/image.jpg';
             component.size = 'large';
             component.shape = 'circle';
-            component.styleClass = 'custom-1 custom-2';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
@@ -883,8 +814,6 @@ describe('Avatar', () => {
             expect(element.classList.contains('p-avatar-image')).toBe(true);
             expect(element.classList.contains('p-avatar-lg')).toBe(true);
             expect(element.classList.contains('p-avatar-circle')).toBe(true);
-            expect(element.classList.contains('custom-1')).toBe(true);
-            expect(element.classList.contains('custom-2')).toBe(true);
         });
 
         it('should remove p-avatar-image class when image is removed', async () => {
@@ -1141,7 +1070,7 @@ describe('Avatar', () => {
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => {
                         return {
-                            class: instance?.size === 'large' ? 'LARGE_SIZE' : 'NORMAL_SIZE'
+                            class: instance?.size() === 'large' ? 'LARGE_SIZE' : 'NORMAL_SIZE'
                         };
                     }
                 });
@@ -1159,7 +1088,7 @@ describe('Avatar', () => {
                     label: ({ instance }: any) => {
                         return {
                             style: {
-                                'background-color': instance?.shape === 'circle' ? 'yellow' : 'red'
+                                'background-color': instance?.shape() === 'circle' ? 'yellow' : 'red'
                             }
                         };
                     }
@@ -1179,7 +1108,7 @@ describe('Avatar', () => {
                     icon: ({ instance }: any) => {
                         return {
                             class: {
-                                HAS_LABEL: !!instance?.label
+                                HAS_LABEL: !!instance?.label()
                             }
                         };
                     }
@@ -1205,7 +1134,7 @@ describe('Avatar', () => {
                 fixture.componentRef.setInput('pt', {
                     image: ({ instance }: any) => {
                         return {
-                            'data-has-aria': instance?.ariaLabel ? 'true' : 'false'
+                            'data-has-aria': instance?.ariaLabel() ? 'true' : 'false'
                         };
                     }
                 });
