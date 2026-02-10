@@ -154,7 +154,7 @@ describe('FocusTrap', () => {
         });
 
         it('should have default values', () => {
-            expect(directive.pFocusTrapDisabled).toBe(false);
+            expect(directive.pFocusTrapDisabled()).toBe(false);
         });
 
         it('should inject platform ID and document', () => {
@@ -772,46 +772,11 @@ describe('FocusTrap', () => {
             directive = fixture.debugElement.query(By.directive(FocusTrap)).injector.get(FocusTrap);
         });
 
-        it('should call ngOnInit and create hidden elements', () => {
-            spyOn(directive, 'createHiddenFocusableElements').and.callThrough();
+        it('should create hidden elements on init', () => {
+            fixture.detectChanges();
 
-            directive.ngOnInit();
-
-            expect(directive.createHiddenFocusableElements).toHaveBeenCalled();
-        });
-
-        it('should handle ngOnChanges for pFocusTrapDisabled', () => {
-            const changes = {
-                pFocusTrapDisabled: {
-                    currentValue: true,
-                    previousValue: false,
-                    firstChange: false,
-                    isFirstChange: () => false
-                }
-            };
-
-            spyOn(directive, 'removeHiddenFocusableElements');
-
-            directive.ngOnChanges(changes);
-
-            expect(directive.removeHiddenFocusableElements).toHaveBeenCalled();
-        });
-
-        it('should handle ngOnChanges when enabling focus trap', () => {
-            const changes = {
-                pFocusTrapDisabled: {
-                    currentValue: false,
-                    previousValue: true,
-                    firstChange: false,
-                    isFirstChange: () => false
-                }
-            };
-
-            spyOn(directive, 'createHiddenFocusableElements');
-
-            directive.ngOnChanges(changes);
-
-            expect(directive.createHiddenFocusableElements).toHaveBeenCalled();
+            expect(directive.firstHiddenFocusableElement).toBeTruthy();
+            expect(directive.lastHiddenFocusableElement).toBeTruthy();
         });
     });
 

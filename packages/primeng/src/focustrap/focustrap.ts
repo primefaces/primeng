@@ -1,5 +1,5 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, Directive, inject, Input, NgModule, PLATFORM_ID, SimpleChanges } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { booleanAttribute, Directive, effect, input, NgModule } from '@angular/core';
 import { createElement, focus, getFirstFocusableElement, getLastFocusableElement } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 
@@ -16,29 +16,30 @@ export class FocusTrap extends BaseComponent {
      * When set as true, focus wouldn't be managed.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) pFocusTrapDisabled: boolean = false;
-
-    platformId = inject(PLATFORM_ID);
-
-    document: Document = inject(DOCUMENT);
+    pFocusTrapDisabled = input(false, { transform: booleanAttribute });
 
     firstHiddenFocusableElement!: HTMLElement;
 
     lastHiddenFocusableElement!: HTMLElement;
 
-    onInit() {
-        if (isPlatformBrowser(this.platformId) && !this.pFocusTrapDisabled) {
-            !this.firstHiddenFocusableElement && !this.lastHiddenFocusableElement && this.createHiddenFocusableElements();
-        }
+    constructor() {
+        super();
+
+        effect(() => {
+            const disabled = this.pFocusTrapDisabled();
+            if (isPlatformBrowser(this.platformId)) {
+                if (disabled) {
+                    this.removeHiddenFocusableElements();
+                } else if (!this.firstHiddenFocusableElement && !this.lastHiddenFocusableElement) {
+                    this.createHiddenFocusableElements();
+                }
+            }
+        });
     }
 
-    onChanges(changes: SimpleChanges) {
-        if (changes.pFocusTrapDisabled && isPlatformBrowser(this.platformId)) {
-            if (changes.pFocusTrapDisabled.currentValue) {
-                this.removeHiddenFocusableElements();
-            } else {
-                this.createHiddenFocusableElements();
-            }
+    onInit() {
+        if (isPlatformBrowser(this.platformId) && !this.pFocusTrapDisabled()) {
+            !this.firstHiddenFocusableElement && !this.lastHiddenFocusableElement && this.createHiddenFocusableElements();
         }
     }
 
@@ -51,14 +52,15 @@ export class FocusTrap extends BaseComponent {
             this.lastHiddenFocusableElement.parentNode.removeChild(this.lastHiddenFocusableElement);
         }
     }
-    getComputedSelector(selector) {
+
+    getComputedSelector(selector: string | null) {
         return `:not(.p-hidden-focusable):not([data-p-hidden-focusable="true"])${selector ?? ''}`;
     }
 
     createHiddenFocusableElements() {
         const tabindex = '0';
 
-        const createFocusableElement = (onFocus) => {
+        const createFocusableElement = (onFocus: (event: FocusEvent) => void) => {
             return createElement('span', {
                 class: 'p-hidden-accessible p-hidden-focusable',
                 tabindex,
@@ -80,20 +82,24 @@ export class FocusTrap extends BaseComponent {
         this.el.nativeElement.append(this.lastHiddenFocusableElement);
     }
 
-    onFirstHiddenElementFocus(event) {
+    onFirstHiddenElementFocus(event: FocusEvent) {
         const { currentTarget, relatedTarget } = event;
         const focusableElement =
-            relatedTarget === this.lastHiddenFocusableElement || !this.el.nativeElement?.contains(relatedTarget) ? getFirstFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)') : this.lastHiddenFocusableElement;
+            relatedTarget === this.lastHiddenFocusableElement || !this.el.nativeElement?.contains(relatedTarget as Node)
+                ? getFirstFocusableElement((currentTarget as HTMLElement).parentElement!, ':not(.p-hidden-focusable)')
+                : this.lastHiddenFocusableElement;
 
-        focus(focusableElement as any);
+        focus(focusableElement as HTMLElement);
     }
 
-    onLastHiddenElementFocus(event) {
+    onLastHiddenElementFocus(event: FocusEvent) {
         const { currentTarget, relatedTarget } = event;
         const focusableElement =
-            relatedTarget === this.firstHiddenFocusableElement || !this.el.nativeElement?.contains(relatedTarget) ? getLastFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)') : this.firstHiddenFocusableElement;
+            relatedTarget === this.firstHiddenFocusableElement || !this.el.nativeElement?.contains(relatedTarget as Node)
+                ? getLastFocusableElement((currentTarget as HTMLElement).parentElement!, ':not(.p-hidden-focusable)')
+                : this.firstHiddenFocusableElement;
 
-        focus(focusableElement as any);
+        focus(focusableElement as HTMLElement);
     }
 }
 
