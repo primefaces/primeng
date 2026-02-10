@@ -5,15 +5,15 @@ import { BaseStyle } from 'primeng/base';
 const classes = {
     mask: 'p-galleria-mask p-overlay-mask',
     root: ({ instance }) => {
-        const thumbnailsPosClass = instance.galleria.showThumbnails && instance.getPositionClass('p-galleria-thumbnails', instance.galleria.thumbnailsPosition);
-        const indicatorPosClass = instance.galleria.showIndicators && instance.getPositionClass('p-galleria-indicators', instance.galleria.indicatorsPosition);
+        const thumbnailsPosClass = instance.galleria.showThumbnails() && instance.getPositionClass('p-galleria-thumbnails', instance.galleria.thumbnailsPosition());
+        const indicatorPosClass = instance.galleria.showIndicators() && instance.getPositionClass('p-galleria-indicators', instance.galleria.indicatorsPosition());
 
         return [
             'p-galleria p-component',
             {
-                'p-galleria-fullscreen': instance.galleria.fullScreen,
-                'p-galleria-inset-indicators': instance.galleria.showIndicatorsOnItem,
-                'p-galleria-hover-navigators': instance.galleria.showItemNavigatorsOnHover && !instance.galleria.fullScreen
+                'p-galleria-fullscreen': instance.galleria.fullScreen(),
+                'p-galleria-inset-indicators': instance.galleria.showIndicatorsOnItem(),
+                'p-galleria-hover-navigators': instance.galleria.showItemNavigatorsOnHover() && !instance.galleria.fullScreen()
             },
             thumbnailsPosClass,
             indicatorPosClass

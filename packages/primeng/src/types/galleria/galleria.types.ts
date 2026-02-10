@@ -3,6 +3,12 @@ import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Position type for thumbnails and indicators.
+ * @group Types
+ */
+export type GalleriaPosition = 'bottom' | 'top' | 'left' | 'right';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

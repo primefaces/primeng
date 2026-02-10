@@ -1,9 +1,8 @@
-import { CommonModule } from '@angular/common';
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { GalleriaResponsiveOptions } from 'primeng/types/galleria';
 import { Galleria, GalleriaModule } from './galleria';
 
@@ -45,11 +44,8 @@ const mockImages = [
             [maskClass]="maskClass"
             [containerClass]="containerClass"
             [containerStyle]="containerStyle"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
-            [visible]="visible"
+            [(visible)]="visible"
             (activeIndexChange)="onActiveIndexChange($event)"
-            (visibleChange)="onVisibleChange($event)"
         >
             <ng-template #item let-item>
                 <img [src]="item.itemImageSrc" [alt]="item.alt" class="test-item-image" />
@@ -85,27 +81,20 @@ class TestBasicGalleriaComponent {
     maskClass: string | undefined;
     containerClass: string | undefined;
     containerStyle: { [klass: string]: any } | null | undefined;
-    showTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
-    hideTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
     visible: boolean = false;
 
     // Event handlers
     activeIndexChangeEvent: number | undefined;
-    visibleChangeEvent: boolean | undefined;
 
     onActiveIndexChange(index: number) {
         this.activeIndexChangeEvent = index;
-    }
-
-    onVisibleChange(visible: boolean) {
-        this.visibleChangeEvent = visible;
     }
 }
 
 @Component({
     standalone: false,
     template: `
-        <p-galleria [value]="images" [fullScreen]="true" [visible]="true">
+        <p-galleria [value]="images" [fullScreen]="true" [(visible)]="visible">
             <ng-template #item let-item>
                 <img [src]="item.itemImageSrc" [alt]="item.alt" class="fullscreen-item" />
             </ng-template>
@@ -117,6 +106,7 @@ class TestBasicGalleriaComponent {
 })
 class TestFullScreenGalleriaComponent {
     images: any[] = mockImages;
+    visible: boolean = true;
 }
 
 @Component({
@@ -192,34 +182,11 @@ class TestTemplateGalleriaComponent {
     images: any[] = mockImages;
 }
 
-@Component({
-    standalone: false,
-    template: `
-        <p-galleria [value]="images">
-            <ng-template pTemplate="header">
-                <div class="ptemplate-header">PTemplate Header</div>
-            </ng-template>
-            <ng-template let-item pTemplate="item">
-                <img [src]="item.itemImageSrc" [alt]="item.alt" class="ptemplate-item" />
-            </ng-template>
-            <ng-template let-item pTemplate="thumbnail">
-                <img [src]="item.thumbnailImageSrc" [alt]="item.alt" class="ptemplate-thumbnail" />
-            </ng-template>
-            <ng-template pTemplate="footer">
-                <div class="ptemplate-footer">PTemplate Footer</div>
-            </ng-template>
-        </p-galleria>
-    `
-})
-class TestPTemplateGalleriaComponent {
-    images: any[] = mockImages;
-}
-
 describe('Galleria', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate],
-            declarations: [TestBasicGalleriaComponent, TestFullScreenGalleriaComponent, TestAutoPlayGalleriaComponent, TestResponsiveGalleriaComponent, TestIndicatorsGalleriaComponent, TestTemplateGalleriaComponent, TestPTemplateGalleriaComponent],
+            imports: [GalleriaModule, SharedModule],
+            declarations: [TestBasicGalleriaComponent, TestFullScreenGalleriaComponent, TestAutoPlayGalleriaComponent, TestResponsiveGalleriaComponent, TestIndicatorsGalleriaComponent, TestTemplateGalleriaComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
@@ -244,25 +211,25 @@ describe('Galleria', () => {
         });
 
         it('should have default values', () => {
-            expect(galleriaInstance.activeIndex).toBe(0);
-            expect(galleriaInstance.fullScreen).toBe(false);
-            expect(galleriaInstance.numVisible).toBe(3);
-            expect(galleriaInstance.showItemNavigators).toBe(false);
-            expect(galleriaInstance.showThumbnailNavigators).toBe(true);
-            expect(galleriaInstance.showItemNavigatorsOnHover).toBe(false);
-            expect(galleriaInstance.changeItemOnIndicatorHover).toBe(false);
-            expect(galleriaInstance.circular).toBe(false);
-            expect(galleriaInstance.autoPlay).toBe(false);
-            expect(galleriaInstance.shouldStopAutoplayByClick).toBe(true);
-            expect(galleriaInstance.transitionInterval).toBe(4000);
-            expect(galleriaInstance.showThumbnails).toBe(true);
-            expect(galleriaInstance.thumbnailsPosition).toBe('bottom');
-            expect(galleriaInstance.verticalThumbnailViewPortHeight).toBe('300px');
-            expect(galleriaInstance.showIndicators).toBe(false);
-            expect(galleriaInstance.showIndicatorsOnItem).toBe(false);
-            expect(galleriaInstance.indicatorsPosition).toBe('bottom');
-            expect(galleriaInstance.baseZIndex).toBe(0);
-            expect(galleriaInstance.visible).toBe(false);
+            expect(galleriaInstance.activeIndex()).toBe(0);
+            expect(galleriaInstance.fullScreen()).toBe(false);
+            expect(galleriaInstance.numVisible()).toBe(3);
+            expect(galleriaInstance.showItemNavigators()).toBe(false);
+            expect(galleriaInstance.showThumbnailNavigators()).toBe(true);
+            expect(galleriaInstance.showItemNavigatorsOnHover()).toBe(false);
+            expect(galleriaInstance.changeItemOnIndicatorHover()).toBe(false);
+            expect(galleriaInstance.circular()).toBe(false);
+            expect(galleriaInstance.autoPlay()).toBe(false);
+            expect(galleriaInstance.shouldStopAutoplayByClick()).toBe(true);
+            expect(galleriaInstance.transitionInterval()).toBe(4000);
+            expect(galleriaInstance.showThumbnails()).toBe(true);
+            expect(galleriaInstance.thumbnailsPosition()).toBe('bottom');
+            expect(galleriaInstance.verticalThumbnailViewPortHeight()).toBe('300px');
+            expect(galleriaInstance.showIndicators()).toBe(false);
+            expect(galleriaInstance.showIndicatorsOnItem()).toBe(false);
+            expect(galleriaInstance.indicatorsPosition()).toBe('bottom');
+            expect(galleriaInstance.baseZIndex()).toBe(0);
+            expect(galleriaInstance.visible()).toBe(false);
         });
 
         it('should accept input values', async () => {
@@ -278,20 +245,20 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.activeIndex).toBe(2);
-            expect(galleriaInstance.fullScreen).toBe(true);
-            expect(galleriaInstance.numVisible).toBe(5);
-            expect(galleriaInstance.showItemNavigators).toBe(true);
-            expect(galleriaInstance.circular).toBe(true);
-            expect(galleriaInstance.autoPlay).toBe(true);
-            expect(galleriaInstance.transitionInterval).toBe(2000);
-            expect(galleriaInstance.showIndicators).toBe(true);
-            expect(galleriaInstance.baseZIndex).toBe(1000);
+            expect(galleriaInstance.activeIndex()).toBe(2);
+            expect(galleriaInstance.fullScreen()).toBe(true);
+            expect(galleriaInstance.numVisible()).toBe(5);
+            expect(galleriaInstance.showItemNavigators()).toBe(true);
+            expect(galleriaInstance.circular()).toBe(true);
+            expect(galleriaInstance.autoPlay()).toBe(true);
+            expect(galleriaInstance.transitionInterval()).toBe(2000);
+            expect(galleriaInstance.showIndicators()).toBe(true);
+            expect(galleriaInstance.baseZIndex()).toBe(1000);
         });
 
         it('should initialize with value array', () => {
-            expect(galleriaInstance.value).toEqual(mockImages);
-            expect(galleriaInstance.value?.length).toBe(5);
+            expect(galleriaInstance.value()).toEqual(mockImages);
+            expect(galleriaInstance.value()?.length).toBe(5);
         });
 
         it('should set numVisibleLimit when value length is less than numVisible', async () => {
@@ -300,7 +267,7 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.numVisibleLimit).toBe(2);
+            expect(galleriaInstance.numVisibleLimit()).toBe(2);
         });
     });
 
@@ -318,21 +285,16 @@ describe('Galleria', () => {
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
-        it('should handle activeIndex getter and setter', () => {
-            galleriaInstance.activeIndex = 3;
-            expect(galleriaInstance.activeIndex).toBe(3);
-        });
-
-        it('should handle visible getter and setter', () => {
-            galleriaInstance.visible = true;
-            expect(galleriaInstance.visible).toBe(true);
+        it('should handle visible model signal', () => {
+            galleriaInstance.visible.set(true);
+            expect(galleriaInstance.visible()).toBe(true);
             expect(galleriaInstance.maskVisible).toBe(true);
         });
 
         it('should handle mask visibility correctly', () => {
             expect(galleriaInstance.maskVisible).toBe(false);
 
-            galleriaInstance.visible = true;
+            galleriaInstance.visible.set(true);
             expect(galleriaInstance.maskVisible).toBe(true);
         });
     });
@@ -357,43 +319,50 @@ describe('Galleria', () => {
             galleriaInstance.onActiveItemChange(2);
 
             expect(component.onActiveIndexChange).toHaveBeenCalledWith(2);
-            expect(galleriaInstance.activeIndex).toBe(2);
+            expect(galleriaInstance._activeIndex()).toBe(2);
         });
 
         it('should not emit activeIndexChange if index is same', () => {
             spyOn(galleriaInstance.activeIndexChange, 'emit');
 
-            galleriaInstance.activeIndex = 1;
+            galleriaInstance._activeIndex.set(1);
             galleriaInstance.onActiveItemChange(1);
 
             expect(galleriaInstance.activeIndexChange.emit).not.toHaveBeenCalled();
         });
 
-        it('should emit visibleChange event', () => {
-            spyOn(component, 'onVisibleChange');
-
+        it('should handle onMaskHide', () => {
+            galleriaInstance.visible.set(true);
             galleriaInstance.onMaskHide();
 
-            expect(component.onVisibleChange).toHaveBeenCalledWith(false);
-            expect(galleriaInstance.visible).toBe(false);
+            expect(galleriaInstance.visible()).toBe(false);
         });
 
         it('should handle onMaskHide with event target check', () => {
+            const sameElement = document.createElement('div');
+            const mockEvent = {
+                target: sameElement,
+                currentTarget: sameElement
+            } as any;
+
+            galleriaInstance.visible.set(true);
+
+            // Same target and currentTarget - should hide
+            galleriaInstance.onMaskHide(mockEvent);
+            expect(galleriaInstance.visible()).toBe(false);
+        });
+
+        it('should not hide when target and currentTarget are different', () => {
             const mockEvent = {
                 target: document.createElement('div'),
                 currentTarget: document.createElement('div')
             } as any;
 
-            spyOn(galleriaInstance.visibleChange, 'emit');
+            galleriaInstance.visible.set(true);
 
             // Different target and currentTarget - should not hide
             galleriaInstance.onMaskHide(mockEvent);
-            expect(galleriaInstance.visibleChange.emit).not.toHaveBeenCalled();
-
-            // Same target and currentTarget - should hide
-            mockEvent.target = mockEvent.currentTarget;
-            galleriaInstance.onMaskHide(mockEvent);
-            expect(galleriaInstance.visibleChange.emit).toHaveBeenCalledWith(false);
+            expect(galleriaInstance.visible()).toBe(true);
         });
     });
 
@@ -412,11 +381,11 @@ describe('Galleria', () => {
         });
 
         it('should enable fullScreen mode', () => {
-            expect(galleriaInstance.fullScreen).toBe(true);
+            expect(galleriaInstance.fullScreen()).toBe(true);
         });
 
         it('should show mask when in fullScreen and visible', () => {
-            expect(galleriaInstance.visible).toBe(true);
+            expect(galleriaInstance.visible()).toBe(true);
             expect(galleriaInstance.maskVisible).toBe(true);
         });
 
@@ -444,13 +413,13 @@ describe('Galleria', () => {
         });
 
         it('should enable autoPlay mode', () => {
-            expect(galleriaInstance.autoPlay).toBe(true);
-            expect(galleriaInstance.circular).toBe(true);
-            expect(galleriaInstance.transitionInterval).toBe(1000);
+            expect(galleriaInstance.autoPlay()).toBe(true);
+            expect(galleriaInstance.circular()).toBe(true);
+            expect(galleriaInstance.transitionInterval()).toBe(1000);
         });
 
         it('should have shouldStopAutoplayByClick enabled by default', () => {
-            expect(galleriaInstance.shouldStopAutoplayByClick).toBe(true);
+            expect(galleriaInstance.shouldStopAutoplayByClick()).toBe(true);
         });
     });
 
@@ -469,12 +438,12 @@ describe('Galleria', () => {
         });
 
         it('should accept responsive options', () => {
-            expect(galleriaInstance.responsiveOptions).toEqual(component.responsiveOptions);
-            expect(galleriaInstance.responsiveOptions?.length).toBe(3);
+            expect(galleriaInstance.responsiveOptions()).toEqual(component.responsiveOptions);
+            expect(galleriaInstance.responsiveOptions()?.length).toBe(3);
         });
 
         it('should have correct breakpoints and numVisible values', () => {
-            const options = galleriaInstance.responsiveOptions!;
+            const options = galleriaInstance.responsiveOptions()!;
             expect(options[0].breakpoint).toBe('1024px');
             expect(options[0].numVisible).toBe(3);
             expect(options[1].breakpoint).toBe('768px');
@@ -499,17 +468,17 @@ describe('Galleria', () => {
         });
 
         it('should enable indicators and disable thumbnails', () => {
-            expect(galleriaInstance.showIndicators).toBe(true);
-            expect(galleriaInstance.showThumbnails).toBe(false);
+            expect(galleriaInstance.showIndicators()).toBe(true);
+            expect(galleriaInstance.showThumbnails()).toBe(false);
         });
 
         it('should use default indicator position', () => {
-            expect(galleriaInstance.indicatorsPosition).toBe('bottom');
-            expect(galleriaInstance.showIndicatorsOnItem).toBe(false);
+            expect(galleriaInstance.indicatorsPosition()).toBe('bottom');
+            expect(galleriaInstance.showIndicatorsOnItem()).toBe(false);
         });
     });
 
-    describe('Template Content Projection - #template approach', () => {
+    describe('Template Content Projection', () => {
         let fixture: ComponentFixture<TestTemplateGalleriaComponent>;
         let component: TestTemplateGalleriaComponent;
 
@@ -525,7 +494,6 @@ describe('Galleria', () => {
                 expect(headerContent.nativeElement.textContent).toContain('Gallery Header');
             }
 
-            // Add explicit expectation to avoid "no expectations" warning
             expect(fixture.componentInstance).toBeTruthy();
         });
 
@@ -560,52 +528,6 @@ describe('Galleria', () => {
         });
     });
 
-    describe('Template Content Projection - pTemplate approach', () => {
-        let fixture: ComponentFixture<TestPTemplateGalleriaComponent>;
-        let component: TestPTemplateGalleriaComponent;
-        let galleriaInstance: Galleria;
-
-        beforeEach(() => {
-            fixture = TestBed.createComponent(TestPTemplateGalleriaComponent);
-            component = fixture.componentInstance;
-            fixture.detectChanges();
-
-            const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
-            galleriaInstance = galleriaEl.componentInstance as Galleria;
-        });
-
-        it('should process pTemplate correctly', () => {
-            galleriaInstance.ngAfterContentInit();
-            fixture.detectChanges();
-
-            // Verify that template processing works
-            expect(galleriaInstance.ngAfterContentInit).toBeDefined();
-        });
-
-        it('should render pTemplate content', () => {
-            const ptemplateHeader = fixture.debugElement.query(By.css('.ptemplate-header'));
-            const ptemplateFooter = fixture.debugElement.query(By.css('.ptemplate-footer'));
-
-            // pTemplate content might not be rendered in test environment
-            if (ptemplateHeader) {
-                expect(ptemplateHeader.nativeElement.textContent).toContain('PTemplate Header');
-            }
-            if (ptemplateFooter) {
-                expect(ptemplateFooter.nativeElement.textContent).toContain('PTemplate Footer');
-            }
-        });
-
-        it('should process all template types', () => {
-            const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
-            const instance = galleriaEl.componentInstance as Galleria;
-
-            instance.ngAfterContentInit();
-
-            // Check that the method exists and can be called without error
-            expect(() => instance.ngAfterContentInit()).not.toThrow();
-        });
-    });
-
     describe('CSS Classes and Styling', () => {
         let fixture: ComponentFixture<TestBasicGalleriaComponent>;
         let component: TestBasicGalleriaComponent;
@@ -625,7 +547,7 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.maskClass).toBe('custom-mask-class');
+            expect(galleriaInstance.maskClass()).toBe('custom-mask-class');
         });
 
         it('should apply custom container class and style', async () => {
@@ -634,18 +556,8 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.containerClass).toBe('custom-container-class');
-            expect(galleriaInstance.containerStyle).toEqual({ width: '800px', height: '600px' });
-        });
-
-        it('should apply custom transition options', async () => {
-            component.showTransitionOptions = '300ms ease-in';
-            component.hideTransitionOptions = '200ms ease-out';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            expect(galleriaInstance.showTransitionOptions).toBe('300ms ease-in');
-            expect(galleriaInstance.hideTransitionOptions).toBe('200ms ease-out');
+            expect(galleriaInstance.containerClass()).toBe('custom-container-class');
+            expect(galleriaInstance.containerStyle()).toEqual({ width: '800px', height: '600px' });
         });
 
         it('should have proper galleria root structure', () => {
@@ -675,7 +587,7 @@ describe('Galleria', () => {
                 component.thumbnailsPosition = position;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
-                expect(galleriaInstance.thumbnailsPosition).toBe(position);
+                expect(galleriaInstance.thumbnailsPosition()).toBe(position);
             }
         });
 
@@ -686,7 +598,7 @@ describe('Galleria', () => {
                 component.indicatorsPosition = position;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
-                expect(galleriaInstance.indicatorsPosition).toBe(position);
+                expect(galleriaInstance.indicatorsPosition()).toBe(position);
             }
         });
 
@@ -695,7 +607,7 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.verticalThumbnailViewPortHeight).toBe('400px');
+            expect(galleriaInstance.verticalThumbnailViewPortHeight()).toBe('400px');
         });
 
         it('should handle show indicators on item', async () => {
@@ -703,7 +615,7 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.showIndicatorsOnItem).toBe(true);
+            expect(galleriaInstance.showIndicatorsOnItem()).toBe(true);
         });
     });
 
@@ -726,36 +638,11 @@ describe('Galleria', () => {
         });
 
         it('should have proper ARIA attributes for windowed mode', () => {
-            // Create a windowed galleria component
             const windowedFixture = TestBed.createComponent(TestBasicGalleriaComponent);
             windowedFixture.detectChanges();
 
-            // In windowed mode, should use 'region' role if any ARIA attributes are present
             const galleriaRoot = windowedFixture.debugElement.query(By.css('p-galleria'));
             expect(galleriaRoot).toBeTruthy();
-        });
-
-        it('should handle focus management in animations', () => {
-            const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
-            const galleriaInstance = galleriaEl.componentInstance as Galleria;
-
-            // Mock container element
-            galleriaInstance.container = {
-                nativeElement: document.createElement('div')
-            } as any;
-
-            // Add a mock close button element
-            const closeButton = document.createElement('button');
-            closeButton.setAttribute('data-pc-section', 'closebutton');
-            galleriaInstance.container!.nativeElement.appendChild(closeButton);
-
-            // const mockAnimationEvent = {
-            //     toState: 'visible'
-            // } as AnimationEvent;
-
-            // expect(() => {
-            //     galleriaInstance.onAnimationStart(mockAnimationEvent);
-            // }).not.toThrow();
         });
 
         it('should provide proper alt attributes on images', () => {
@@ -787,7 +674,7 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.value).toEqual([]);
+            expect(galleriaInstance.value()).toEqual([]);
         });
 
         it('should handle null images', async () => {
@@ -795,7 +682,7 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.value).toBe(null as any);
+            expect(galleriaInstance.value()).toBe(null as any);
         });
 
         it('should handle single image', async () => {
@@ -803,24 +690,14 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.value?.length).toBe(1);
-        });
-
-        it('should handle activeIndex beyond bounds', () => {
-            galleriaInstance.activeIndex = 999;
-            expect(galleriaInstance.activeIndex).toBe(999); // Component should accept any value
-        });
-
-        it('should handle negative activeIndex', () => {
-            galleriaInstance.activeIndex = -1;
-            expect(galleriaInstance.activeIndex).toBe(-1);
+            expect(galleriaInstance.value()?.length).toBe(1);
         });
 
         it('should handle undefined id', () => {
             component.id = undefined as any;
             fixture.detectChanges();
 
-            expect(galleriaInstance.id).toBeUndefined();
+            expect(galleriaInstance.id()).toBeUndefined();
         });
 
         it('should handle custom id', async () => {
@@ -828,80 +705,14 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.id).toBe('custom-galleria-id');
-        });
-
-        it('should handle animation events with missing elements', () => {
-            galleriaInstance.mask = undefined as any;
-
-            // const mockAnimationEvent = {
-            //     toState: 'void'
-            // } as AnimationEvent;
-
-            // expect(() => {
-            //     galleriaInstance.onAnimationStart(mockAnimationEvent);
-            // }).not.toThrow();
+            expect(galleriaInstance.id()).toBe('custom-galleria-id');
         });
 
         it('should handle mask hide without event', () => {
-            spyOn(galleriaInstance.visibleChange, 'emit');
-
+            galleriaInstance.visible.set(true);
             galleriaInstance.onMaskHide();
 
-            expect(galleriaInstance.visibleChange.emit).toHaveBeenCalledWith(false);
-        });
-    });
-
-    describe('ngOnChanges Lifecycle', () => {
-        let fixture: ComponentFixture<TestBasicGalleriaComponent>;
-        let component: TestBasicGalleriaComponent;
-        let galleriaInstance: Galleria;
-
-        beforeEach(() => {
-            fixture = TestBed.createComponent(TestBasicGalleriaComponent);
-            component = fixture.componentInstance;
-            fixture.detectChanges();
-
-            const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
-            galleriaInstance = galleriaEl.componentInstance as Galleria;
-        });
-
-        it('should set numVisibleLimit when value changes to smaller array', async () => {
-            const smallArray = mockImages.slice(0, 2);
-            component.images = smallArray;
-            component.numVisible = 5;
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            // Simulate ngOnChanges
-            galleriaInstance.ngOnChanges({
-                value: {
-                    currentValue: smallArray,
-                    previousValue: mockImages,
-                    firstChange: false,
-                    isFirstChange: () => false
-                }
-            });
-
-            expect(galleriaInstance.numVisibleLimit).toBe(2);
-        });
-
-        it('should reset numVisibleLimit when value is sufficient', async () => {
-            component.images = mockImages; // 5 images
-            component.numVisible = 3; // Want to show 3
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            galleriaInstance.ngOnChanges({
-                value: {
-                    currentValue: mockImages,
-                    previousValue: [],
-                    firstChange: false,
-                    isFirstChange: () => false
-                }
-            });
-
-            expect(galleriaInstance.numVisibleLimit).toBe(0);
+            expect(galleriaInstance.visible()).toBe(false);
         });
     });
 
@@ -909,7 +720,7 @@ describe('Galleria', () => {
         it('PT Case 1: should accept simple string values', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [CommonModule, GalleriaModule],
+                imports: [GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -942,7 +753,7 @@ describe('Galleria', () => {
         it('PT Case 2: should accept objects with class, style, and attributes', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [CommonModule, GalleriaModule],
+                imports: [GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -979,7 +790,7 @@ describe('Galleria', () => {
         it('PT Case 3: should accept mixed object and string values', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [CommonModule, GalleriaModule],
+                imports: [GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1012,36 +823,11 @@ describe('Galleria', () => {
                 expect(itemsContainer.classList.contains('string-items-container-class')).toBe(true);
             }
         });
-        // TODO: will be refactored
-        // it('PT Case 4: should use instance properties in PT functions', async () => {
-        //     await TestBed.resetTestingModule();
-        //     await TestBed.configureTestingModule({
-        //         imports: [CommonModule, GalleriaModule]
-        //     }).compileComponents();
-
-        //     const ptFixture = TestBed.createComponent(Galleria);
-
-        //     ptFixture.componentRef.setInput('value', mockImages);
-        //     ptFixture.componentRef.setInput('fullScreen', true);
-        //     ptFixture.componentRef.setInput('pt', {
-        //         root: ({ instance }) => {
-        //             return {
-        //                 class: instance.parent.instance.fullScreen ? 'fullscreen-gallery' : 'inline-gallery'
-        //             };
-        //         }
-        //     });
-        //     ptFixture.detectChanges();
-        //     await ptFixture.whenStable();
-
-        //     const rootElement = ptFixture.nativeElement.querySelector('[data-pc-section="root"]');
-        //     expect(rootElement?.classList.contains('fullscreen-gallery')).toBe(true);
-        //     expect(rootElement?.classList.contains('inline-gallery')).toBe(false);
-        // });
 
         it('PT Case 5: should bind events through PT', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [CommonModule, GalleriaModule],
+                imports: [GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1070,7 +856,7 @@ describe('Galleria', () => {
         it('PT Case 6: should support inline PT binding', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [CommonModule, GalleriaModule],
+                imports: [GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1098,7 +884,7 @@ describe('Galleria', () => {
         it('PT Case 9: should apply PT to navigation buttons', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [CommonModule, GalleriaModule],
+                imports: [GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1146,7 +932,7 @@ describe('Galleria', () => {
         it('PT Case 10: should apply PT to thumbnail elements', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [CommonModule, GalleriaModule],
+                imports: [GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1197,7 +983,7 @@ describe('Galleria', () => {
         it('PT Case 11: should apply PT to indicator elements', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [CommonModule, GalleriaModule],
+                imports: [GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1235,7 +1021,7 @@ describe('Galleria', () => {
         it('PT Case 12: should apply PT to fullscreen mask and close button', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [CommonModule, GalleriaModule],
+                imports: [GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
