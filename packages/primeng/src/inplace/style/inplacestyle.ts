@@ -4,7 +4,7 @@ import { BaseStyle } from 'primeng/base';
 
 const classes = {
     root: () => ['p-inplace p-component'],
-    display: ({ instance }) => ['p-inplace-display', { 'p-disabled': instance.disabled }],
+    display: ({ instance }) => ['p-inplace-display', { 'p-disabled': instance.disabled() }],
     content: 'p-inplace-content'
 };
 
