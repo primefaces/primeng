@@ -6,7 +6,7 @@ const classes = {
     root: ({ instance }) => [
         'p-image p-component',
         {
-            'p-image-preview': instance.preview
+            'p-image-preview': instance.preview()
         }
     ],
     previewMask: 'p-image-preview-mask',
@@ -18,13 +18,13 @@ const classes = {
     zoomOutButton: ({ instance }) => [
         'p-image-action p-image-zoom-out-button',
         {
-            'p-disabled': instance.isZoomOutDisabled
+            'p-disabled': instance.isZoomOutDisabled()
         }
     ],
     zoomInButton: ({ instance }) => [
         'p-image-action p-image-zoom-in-button',
         {
-            'p-disabled': instance.isZoomInDisabled
+            'p-disabled': instance.isZoomInDisabled()
         }
     ],
     closeButton: 'p-image-action p-image-close-button',

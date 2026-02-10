@@ -11,10 +11,7 @@ const mockPreviewImageSrc = 'https://primefaces.org/cdn/primeng/images/galleria/
 
 @Component({
     standalone: false,
-    template: `
-        <p-image [src]="src" [alt]="alt" [width]="width" [height]="height" [srcSet]="srcSet" [sizes]="sizes" [loading]="loading" [imageClass]="imageClass" [imageStyle]="imageStyle" [styleClass]="styleClass" (onImageError)="onImageError($event)">
-        </p-image>
-    `
+    template: ` <p-image [src]="src" [alt]="alt" [width]="width" [height]="height" [srcSet]="srcSet" [sizes]="sizes" [loading]="loading" [imageClass]="imageClass" [imageStyle]="imageStyle" (onImageError)="onImageError($event)"> </p-image> `
 })
 class TestBasicImageComponent {
     src: string = mockImageSrc;
@@ -26,7 +23,6 @@ class TestBasicImageComponent {
     loading: 'lazy' | 'eager' | undefined = 'lazy';
     imageClass: string = 'test-image-class';
     imageStyle: any = { border: '1px solid red' };
-    styleClass: string = 'test-style-class';
     imageErrorEvent: Event | null = null as any;
 
     onImageError(event: Event) {
@@ -37,19 +33,7 @@ class TestBasicImageComponent {
 @Component({
     standalone: false,
     template: `
-        <p-image
-            [src]="src"
-            [alt]="alt"
-            [width]="width"
-            [preview]="true"
-            [previewImageSrc]="previewImageSrc"
-            [previewImageSrcSet]="previewImageSrcSet"
-            [previewImageSizes]="previewImageSizes"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
-            (onShow)="onShow($event)"
-            (onHide)="onHide($event)"
-        >
+        <p-image [src]="src" [alt]="alt" [width]="width" [preview]="true" [previewImageSrc]="previewImageSrc" [previewImageSrcSet]="previewImageSrcSet" [previewImageSizes]="previewImageSizes" (onShow)="onShow($event)" (onHide)="onHide($event)">
         </p-image>
     `
 })
@@ -60,8 +44,6 @@ class TestPreviewImageComponent {
     previewImageSrc: string = mockPreviewImageSrc;
     previewImageSrcSet: string = '';
     previewImageSizes: string = '';
-    showTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
-    hideTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
     showEvent: any = null as any;
     hideEvent: any = null as any;
 
@@ -112,44 +94,6 @@ class TestTemplateImageComponent {
     previewImageSrc: string = mockPreviewImageSrc;
 }
 
-@Component({
-    standalone: false,
-    template: `
-        <p-image [src]="src" [alt]="alt" [width]="width" [preview]="true">
-            <ng-template pTemplate="indicator">
-                <i class="pi pi-eye ptemplate-indicator"></i>
-            </ng-template>
-            <ng-template pTemplate="image">
-                <img [src]="src" [alt]="alt" class="ptemplate-image" />
-            </ng-template>
-            <ng-template pTemplate="preview" let-style="style" let-previewCallback="previewCallback">
-                <img [src]="previewImageSrc" [alt]="alt" [style]="style" (click)="previewCallback()" class="ptemplate-preview" />
-            </ng-template>
-            <ng-template pTemplate="rotaterighticon">
-                <i class="pi pi-refresh ptemplate-rotate-right"></i>
-            </ng-template>
-            <ng-template pTemplate="rotatelefticon">
-                <i class="pi pi-undo ptemplate-rotate-left"></i>
-            </ng-template>
-            <ng-template pTemplate="zoomouticon">
-                <i class="pi pi-minus ptemplate-zoom-out"></i>
-            </ng-template>
-            <ng-template pTemplate="zoominicon">
-                <i class="pi pi-plus ptemplate-zoom-in"></i>
-            </ng-template>
-            <ng-template pTemplate="closeicon">
-                <i class="pi pi-times ptemplate-close"></i>
-            </ng-template>
-        </p-image>
-    `
-})
-class TestPTemplateImageComponent {
-    src: string = mockImageSrc;
-    alt: string = 'PTemplate Test Image';
-    width: string = '250';
-    previewImageSrc: string = mockPreviewImageSrc;
-}
-
 describe('Image', () => {
     let component: Image;
     let fixture: ComponentFixture<Image>;
@@ -157,7 +101,7 @@ describe('Image', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [ImageModule, SharedModule],
-            declarations: [TestBasicImageComponent, TestPreviewImageComponent, TestTemplateImageComponent, TestPTemplateImageComponent],
+            declarations: [TestBasicImageComponent, TestPreviewImageComponent, TestTemplateImageComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -171,14 +115,12 @@ describe('Image', () => {
         });
 
         it('should have default values', () => {
-            expect(component.preview).toBe(false);
+            expect(component.preview()).toBe(false);
             expect(component.maskVisible).toBe(false);
             expect(component.previewVisible).toBe(false);
-            expect(component.rotate).toBe(0);
-            expect(component.scale).toBe(1);
+            expect(component.rotate()).toBe(0);
+            expect(component.scale()).toBe(1);
             expect(component.previewClick).toBe(false);
-            expect(component.showTransitionOptions).toBe('150ms cubic-bezier(0, 0, 0.2, 1)');
-            expect(component.hideTransitionOptions).toBe('150ms cubic-bezier(0, 0, 0.2, 1)');
         });
 
         it('should accept custom input values', () => {
@@ -194,11 +136,11 @@ describe('Image', () => {
         });
 
         it('should render image element with proper attributes', async () => {
-            component.src = mockImageSrc;
-            component.alt = 'Test Image';
-            component.width = '300';
-            component.height = '200';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.componentRef.setInput('src', mockImageSrc);
+            fixture.componentRef.setInput('alt', 'Test Image');
+            fixture.componentRef.setInput('width', '300');
+            fixture.componentRef.setInput('height', '200');
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('img'));
@@ -277,46 +219,46 @@ describe('Image', () => {
         });
 
         it('should rotate right', () => {
-            const initialRotate = imageInstance.rotate;
+            const initialRotate = imageInstance.rotate();
             imageInstance.rotateRight();
-            expect(imageInstance.rotate).toBe(initialRotate + 90);
+            expect(imageInstance.rotate()).toBe(initialRotate + 90);
             expect(imageInstance.previewClick).toBe(true);
         });
 
         it('should rotate left', () => {
-            const initialRotate = imageInstance.rotate;
+            const initialRotate = imageInstance.rotate();
             imageInstance.rotateLeft();
-            expect(imageInstance.rotate).toBe(initialRotate - 90);
+            expect(imageInstance.rotate()).toBe(initialRotate - 90);
             expect(imageInstance.previewClick).toBe(true);
         });
 
         it('should zoom in', () => {
-            const initialScale = imageInstance.scale;
+            const initialScale = imageInstance.scale();
             imageInstance.zoomIn();
-            expect(imageInstance.scale).toBe(initialScale + 0.1);
+            expect(imageInstance.scale()).toBeCloseTo(initialScale + 0.1);
             expect(imageInstance.previewClick).toBe(true);
         });
 
         it('should zoom out', () => {
-            const initialScale = imageInstance.scale;
+            const initialScale = imageInstance.scale();
             imageInstance.zoomOut();
-            expect(imageInstance.scale).toBe(initialScale - 0.1);
+            expect(imageInstance.scale()).toBeCloseTo(initialScale - 0.1);
             expect(imageInstance.previewClick).toBe(true);
         });
 
         it('should disable zoom out at minimum scale', () => {
-            imageInstance.scale = 0.5; // minimum scale
-            expect(imageInstance.isZoomOutDisabled).toBe(true);
+            imageInstance.scale.set(0.5); // minimum scale
+            expect(imageInstance.isZoomOutDisabled()).toBe(true);
         });
 
         it('should disable zoom in at maximum scale', () => {
-            imageInstance.scale = 1.5; // maximum scale
-            expect(imageInstance.isZoomInDisabled).toBe(true);
+            imageInstance.scale.set(1.5); // maximum scale
+            expect(imageInstance.isZoomInDisabled()).toBe(true);
         });
 
         it('should calculate image preview style correctly', () => {
-            imageInstance.rotate = 90;
-            imageInstance.scale = 1.2;
+            imageInstance.rotate.set(90);
+            imageInstance.scale.set(1.2);
             const style = imageInstance.imagePreviewStyle();
             expect(style.transform).toBe('rotate(90deg) scale(1.2)');
         });
@@ -337,17 +279,6 @@ describe('Image', () => {
 
             const customImage = testFixture.debugElement.query(By.css('.custom-image'));
             expect(customImage).toBeTruthy();
-        });
-
-        it('should render custom templates with pTemplate approach', () => {
-            const testFixture = TestBed.createComponent(TestPTemplateImageComponent);
-            testFixture.detectChanges();
-
-            const pTemplateIndicator = testFixture.debugElement.query(By.css('.ptemplate-indicator'));
-            const pTemplateImage = testFixture.debugElement.query(By.css('.ptemplate-image'));
-
-            expect(pTemplateIndicator).toBeTruthy();
-            expect(pTemplateImage).toBeTruthy();
         });
     });
 
@@ -433,7 +364,7 @@ describe('Image', () => {
         });
 
         it('should have zoom image aria label', () => {
-            expect(imageInstance.zoomImageAriaLabel).toBeDefined();
+            expect(imageInstance.zoomImageAriaLabel()).toBeDefined();
         });
 
         it('should have right arrow aria label', () => {
@@ -457,59 +388,6 @@ describe('Image', () => {
         });
     });
 
-    describe('Component Lifecycle', () => {
-        let testFixture: ComponentFixture<TestTemplateImageComponent>;
-        let imageInstance: Image;
-
-        beforeEach(() => {
-            testFixture = TestBed.createComponent(TestTemplateImageComponent);
-            testFixture.detectChanges();
-            imageInstance = testFixture.debugElement.query(By.directive(Image)).componentInstance;
-        });
-
-        it('should process templates on ngAfterContentInit', () => {
-            // Mock templates
-            const mockIndicatorTemplate = {} as any;
-            const mockImageTemplate = {} as any;
-            const mockPreviewTemplate = {} as any;
-            const mockRotateRightTemplate = {} as any;
-            const mockRotateLeftTemplate = {} as any;
-            const mockZoomOutTemplate = {} as any;
-            const mockZoomInTemplate = {} as any;
-            const mockCloseTemplate = {} as any;
-
-            const mockTemplates = [
-                { getType: () => 'indicator', template: mockIndicatorTemplate },
-                { getType: () => 'image', template: mockImageTemplate },
-                { getType: () => 'preview', template: mockPreviewTemplate },
-                { getType: () => 'rotaterighticon', template: mockRotateRightTemplate },
-                { getType: () => 'rotatelefticon', template: mockRotateLeftTemplate },
-                { getType: () => 'zoomouticon', template: mockZoomOutTemplate },
-                { getType: () => 'zoominicon', template: mockZoomInTemplate },
-                { getType: () => 'closeicon', template: mockCloseTemplate }
-            ];
-
-            // Mock templates QueryList
-            const mockQueryList = {
-                forEach: (callback: (template: any) => void) => {
-                    mockTemplates.forEach(callback);
-                }
-            };
-
-            imageInstance.templates = mockQueryList as any;
-            imageInstance.ngAfterContentInit();
-
-            expect(imageInstance._indicatorTemplate).toBe(mockIndicatorTemplate);
-            expect(imageInstance._imageTemplate).toBe(mockImageTemplate);
-            expect(imageInstance._previewTemplate).toBe(mockPreviewTemplate);
-            expect(imageInstance._rotateRightIconTemplate).toBe(mockRotateRightTemplate);
-            expect(imageInstance._rotateLeftIconTemplate).toBe(mockRotateLeftTemplate);
-            expect(imageInstance._zoomOutIconTemplate).toBe(mockZoomOutTemplate);
-            expect(imageInstance._zoomInIconTemplate).toBe(mockZoomInTemplate);
-            expect(imageInstance._closeIconTemplate).toBe(mockCloseTemplate);
-        });
-    });
-
     describe('Public Methods', () => {
         let testFixture: ComponentFixture<TestPreviewImageComponent>;
         let imageInstance: Image;
@@ -521,8 +399,8 @@ describe('Image', () => {
         });
 
         it('should close preview and reset values', () => {
-            imageInstance.rotate = 90;
-            imageInstance.scale = 1.2;
+            imageInstance.rotate.set(90);
+            imageInstance.scale.set(1.2);
             imageInstance.previewVisible = true;
             imageInstance.wrapper = document.createElement('div');
 
@@ -532,8 +410,8 @@ describe('Image', () => {
 
             // rotate and scale are reset in onMaskAfterLeave (after animation completes)
             imageInstance.onMaskAfterLeave();
-            expect(imageInstance.rotate).toBe(0);
-            expect(imageInstance.scale).toBe(1);
+            expect(imageInstance.rotate()).toBe(0);
+            expect(imageInstance.scale()).toBe(1);
         });
 
         it('should handle image error', () => {
@@ -609,11 +487,6 @@ describe('Image', () => {
             const imageElement = testFixture.debugElement.query(By.css('img'));
             expect(imageElement.nativeElement.classList.contains('test-image-class')).toBe(true);
             expect(imageElement.nativeElement.style.border).toBe('1px solid red');
-        });
-
-        it('should apply component style class', () => {
-            const imageComponent = testFixture.debugElement.query(By.directive(Image));
-            expect(imageComponent.nativeElement.classList.contains('test-style-class')).toBe(true);
         });
     });
 
@@ -845,7 +718,7 @@ describe('Image', () => {
                     previewMask: ({ instance }: any) => {
                         return {
                             onclick: () => {
-                                instance.scale = 2.0;
+                                instance.scale.set(2.0);
                             }
                         };
                     }
@@ -860,7 +733,7 @@ describe('Image', () => {
                 previewButton.nativeElement.click();
                 await testFixture.whenStable();
 
-                expect(testComponent.scale).toBe(2.0);
+                expect(testComponent.scale()).toBe(2.0);
             });
         });
 
