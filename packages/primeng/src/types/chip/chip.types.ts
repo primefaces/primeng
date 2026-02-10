@@ -1,5 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { CSSProperties } from 'primeng/types/shared';
 
 /**
  * Custom pass-through(pt) options.
@@ -63,7 +64,7 @@ export interface ChipProps {
     icon?: string | undefined;
     image?: string | undefined;
     alt?: string | undefined;
-    style?: { [klass: string]: any } | null | undefined;
+    style?: CSSProperties;
     styleClass?: string | undefined;
     removable?: boolean | undefined;
     removeIcon?: string | undefined;

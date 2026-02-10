@@ -4,7 +4,7 @@ import { BaseStyle } from 'primeng/base';
 
 const inlineStyles = {
     root: ({ instance }) => ({
-        display: !instance.visible && 'none'
+        display: !instance.visible() && 'none'
     })
 };
 
@@ -12,7 +12,7 @@ const classes = {
     root: ({ instance }) => [
         'p-chip p-component',
         {
-            'p-disabled': instance.disabled
+            'p-disabled': instance.disabled()
         }
     ],
     image: 'p-chip-image',

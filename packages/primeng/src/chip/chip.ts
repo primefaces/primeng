@@ -1,26 +1,8 @@
-import { CommonModule } from '@angular/common';
-import {
-    AfterContentInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    EventEmitter,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    Output,
-    QueryList,
-    SimpleChanges,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
-import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, inject, InjectionToken, input, NgModule, output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { TimesCircleIcon } from 'primeng/icons';
 import { ChipProps, ChipPassThrough } from 'primeng/types/chip';
 import { ChipStyle } from './style/chipstyle';
 
@@ -33,59 +15,57 @@ const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
 @Component({
     selector: 'p-chip',
     standalone: true,
-    imports: [CommonModule, TimesCircleIcon, SharedModule, Bind],
+    imports: [NgClass, NgTemplateOutlet, SharedModule, Bind],
     template: `
-        <ng-content></ng-content>
-        <img [pBind]="ptm('image')" [class]="cx('image')" [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
-        <ng-template #iconTemplate><span [pBind]="ptm('icon')" *ngIf="icon" [class]="icon" [ngClass]="cx('icon')"></span></ng-template>
-        <div [pBind]="ptm('label')" [class]="cx('label')" *ngIf="label">{{ label }}</div>
-        <ng-container *ngIf="removable">
-            <ng-container *ngIf="!removeIconTemplate && !_removeIconTemplate">
-                <span
-                    [pBind]="ptm('removeIcon')"
-                    *ngIf="removeIcon"
-                    [class]="removeIcon"
-                    [ngClass]="cx('removeIcon')"
-                    (click)="close($event)"
-                    (keydown)="onKeydown($event)"
-                    [attr.tabindex]="disabled ? -1 : 0"
-                    [attr.aria-label]="removeAriaLabel"
-                    role="button"
-                ></span>
-                <svg
-                    [pBind]="ptm('removeIcon')"
-                    data-p-icon="times-circle"
-                    *ngIf="!removeIcon"
-                    [class]="cx('removeIcon')"
-                    (click)="close($event)"
-                    (keydown)="onKeydown($event)"
-                    [attr.tabindex]="disabled ? -1 : 0"
-                    [attr.aria-label]="removeAriaLabel"
-                    role="button"
-                />
-            </ng-container>
-            <span
-                [pBind]="ptm('removeIcon')"
-                *ngIf="removeIconTemplate || _removeIconTemplate"
-                [attr.tabindex]="disabled ? -1 : 0"
-                [class]="cx('removeIcon')"
-                (click)="close($event)"
-                (keydown)="onKeydown($event)"
-                [attr.aria-label]="removeAriaLabel"
-                role="button"
-            >
-                <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate"></ng-template>
-            </span>
-        </ng-container>
+        <ng-content />
+        @if (_image()) {
+            <img [pBind]="ptm('image')" [class]="cx('image')" [src]="_image()" (error)="imageError($event)" [alt]="_alt()" />
+        } @else if (_icon()) {
+            <span [pBind]="ptm('icon')" [class]="_icon()" [ngClass]="cx('icon')"></span>
+        }
+        @if (_label()) {
+            <div [pBind]="ptm('label')" [class]="cx('label')">{{ _label() }}</div>
+        }
+        @if (_removable()) {
+            @if (!removeIconTemplate()) {
+                @if (_removeIcon()) {
+                    <span
+                        [pBind]="ptm('removeIcon')"
+                        [class]="_removeIcon()"
+                        [ngClass]="cx('removeIcon')"
+                        (click)="close($event)"
+                        (keydown)="onKeydown($event)"
+                        [attr.tabindex]="removeIconTabindex()"
+                        [attr.aria-label]="removeAriaLabel()"
+                        role="button"
+                    ></span>
+                } @else {
+                    <svg
+                        [pBind]="ptm('removeIcon')"
+                        data-p-icon="times-circle"
+                        [class]="cx('removeIcon')"
+                        (click)="close($event)"
+                        (keydown)="onKeydown($event)"
+                        [attr.tabindex]="removeIconTabindex()"
+                        [attr.aria-label]="removeAriaLabel()"
+                        role="button"
+                    />
+                }
+            } @else {
+                <span [pBind]="ptm('removeIcon')" [attr.tabindex]="removeIconTabindex()" [class]="cx('removeIcon')" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel()" role="button">
+                    <ng-template *ngTemplateOutlet="removeIconTemplate()"></ng-template>
+                </span>
+            }
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [ChipStyle, { provide: CHIP_INSTANCE, useExisting: Chip }, { provide: PARENT_INSTANCE, useExisting: Chip }],
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
+        '[class]': "cx('root')",
         '[style]': "sx('root')",
-        '[attr.aria-label]': 'label',
-        '[attr.data-p]': 'dataP'
+        '[attr.aria-label]': '_label()',
+        '[attr.data-p]': 'dataP()'
     },
     hostDirectives: [Bind]
 })
@@ -96,146 +76,101 @@ export class Chip extends BaseComponent<ChipPassThrough> {
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    onAfterViewChecked(): void {
+    onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
+
     /**
      * Defines the text to display.
      * @group Props
      */
-    @Input() label: string | undefined;
+    label = input<string>();
     /**
      * Defines the icon to display.
      * @group Props
      */
-    @Input() icon: string | undefined;
+    icon = input<string>();
     /**
      * Defines the image to display.
      * @group Props
      */
-    @Input() image: string | undefined;
+    image = input<string>();
     /**
      * Alt attribute of the image.
      * @group Props
      */
-    @Input() alt: string | undefined;
-    /**
-     * Class of the element.
-     * @deprecated since v20.0.0, use `class` instead.
-     * @group Props
-     */
-    @Input() styleClass: string | undefined;
+    alt = input<string>();
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined = false;
+    disabled = input(false, { transform: booleanAttribute });
     /**
      * Whether to display a remove icon.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) removable: boolean | undefined = false;
+    removable = input(false, { transform: booleanAttribute });
     /**
      * Icon of the remove element.
      * @group Props
      */
-    @Input() removeIcon: string | undefined;
+    removeIcon = input<string>();
+    /**
+     * Used to pass all properties of the chipProps to the Chip component.
+     * @group Props
+     */
+    chipProps = input<ChipProps>();
     /**
      * Callback to invoke when a chip is removed.
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
-    @Output() onRemove: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+    onRemove = output<MouseEvent>();
     /**
      * This event is triggered if an error occurs while loading an image file.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
-
-    visible: boolean = true;
-
-    get removeAriaLabel() {
-        return this.translate(TranslationKeys.ARIA, 'removeLabel');
-    }
-    /**
-     * Used to pass all properties of the chipProps to the Chip component.
-     * @group Props
-     */
-    @Input() get chipProps(): ChipProps | undefined {
-        return this._chipProps;
-    }
-    set chipProps(val: ChipProps | undefined) {
-        this._chipProps = val;
-
-        if (val && typeof val === 'object') {
-            //@ts-ignore
-            Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
-        }
-    }
-
-    _chipProps: ChipProps | undefined;
-
-    _componentStyle = inject(ChipStyle);
+    onImageError = output<Event>();
 
     /**
      * Custom remove icon template.
      * @group Templates
      */
-    @ContentChild('removeicon', { descendants: false }) removeIconTemplate: TemplateRef<void> | undefined;
+    removeIconTemplate = contentChild<TemplateRef<void>>('removeicon', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    visible = signal(true);
 
-    _removeIconTemplate: TemplateRef<void> | undefined;
+    _componentStyle = inject(ChipStyle);
 
-    onAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'removeicon':
-                    this._removeIconTemplate = item.template;
-                    break;
+    _label = computed(() => this.chipProps()?.label ?? this.label());
 
-                default:
-                    this._removeIconTemplate = item.template;
-                    break;
-            }
-        });
+    _icon = computed(() => this.chipProps()?.icon ?? this.icon());
+
+    _image = computed(() => this.chipProps()?.image ?? this.image());
+
+    _alt = computed(() => this.chipProps()?.alt ?? this.alt());
+
+    _removable = computed(() => this.chipProps()?.removable ?? this.removable());
+
+    _removeIcon = computed(() => this.chipProps()?.removeIcon ?? this.removeIcon());
+
+    removeAriaLabel = computed(() => this.translate(TranslationKeys.ARIA, 'removeLabel'));
+
+    removeIconTabindex = computed(() => (this.disabled() ? -1 : 0));
+
+    dataP = computed(() =>
+        this.cn({
+            removable: this._removable()
+        })
+    );
+
+    close(event: MouseEvent | KeyboardEvent) {
+        this.visible.set(false);
+        this.onRemove.emit(event as MouseEvent);
     }
 
-    onChanges(simpleChanges: SimpleChanges) {
-        if (simpleChanges.chipProps && simpleChanges.chipProps.currentValue) {
-            const { currentValue } = simpleChanges.chipProps;
-
-            if (currentValue.label !== undefined) {
-                this.label = currentValue.label;
-            }
-            if (currentValue.icon !== undefined) {
-                this.icon = currentValue.icon;
-            }
-            if (currentValue.image !== undefined) {
-                this.image = currentValue.image;
-            }
-            if (currentValue.alt !== undefined) {
-                this.alt = currentValue.alt;
-            }
-            if (currentValue.styleClass !== undefined) {
-                this.styleClass = currentValue.styleClass;
-            }
-            if (currentValue.removable !== undefined) {
-                this.removable = currentValue.removable;
-            }
-            if (currentValue.removeIcon !== undefined) {
-                this.removeIcon = currentValue.removeIcon;
-            }
-        }
-    }
-
-    close(event: MouseEvent) {
-        this.visible = false;
-        this.onRemove.emit(event);
-    }
-
-    onKeydown(event) {
+    onKeydown(event: KeyboardEvent) {
         if (event.key === 'Enter' || event.key === 'Backspace') {
             this.close(event);
         }
@@ -243,12 +178,6 @@ export class Chip extends BaseComponent<ChipPassThrough> {
 
     imageError(event: Event) {
         this.onImageError.emit(event);
-    }
-
-    get dataP() {
-        return this.cn({
-            removable: this.removable
-        });
     }
 }
 
