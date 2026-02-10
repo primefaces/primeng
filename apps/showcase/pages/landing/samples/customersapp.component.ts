@@ -85,7 +85,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         </td>
                         <td>
                             <div class="flex items-center">
-                                <p-overlayBadge [severity]="data.active === undefined ? 'contrast' : data.active ? 'success' : 'danger'" styleClass="w-fit">
+                                <p-overlaybadge [severity]="data.active === undefined ? 'contrast' : data.active ? 'success' : 'danger'" styleClass="w-fit">
                                     <p-avatar
                                         [image]="data.image"
                                         [label]="!data.image ? data.capName : ''"
@@ -94,7 +94,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                             'rounded-md overflow-hidden flex': true
                                         }"
                                     />
-                                </p-overlayBadge>
+                                </p-overlaybadge>
 
                                 <div class="ml-4 leading-6 text-color font-medium">{{ data.name }}</div>
                             </div>

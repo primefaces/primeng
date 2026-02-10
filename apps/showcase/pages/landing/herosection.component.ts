@@ -238,9 +238,9 @@ import { OverviewApp } from './samples/overviewapp.component';
                                 </div>
                                 <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
                                     <div *ngFor="let data of callLogs" class="flex items-center gap-3 p-2">
-                                        <p-overlayBadge severity="success" styleClass="w-fit">
+                                        <p-overlaybadge severity="success" styleClass="w-fit">
                                             <p-avatar [image]="data.image" size="normal" styleClass="rounded-md w-10 h-10 overflow-hidden flex" />
-                                        </p-overlayBadge>
+                                        </p-overlaybadge>
 
                                         <div class="flex-1">
                                             <div class="text-sm leading-5 font-medium text-color">{{ data.name }}</div>

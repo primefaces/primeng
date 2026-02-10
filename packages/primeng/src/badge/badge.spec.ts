@@ -49,15 +49,6 @@ class TestDisabledBadgeComponent {
 
 @Component({
     standalone: false,
-    selector: 'test-style-class-badge',
-    template: `<p-badge [styleClass]="styleClass" value="1"></p-badge>`
-})
-class TestStyleClassBadgeComponent {
-    styleClass = 'custom-badge';
-}
-
-@Component({
-    standalone: false,
     selector: 'test-directive-badge',
     template: `<button #button pBadge [value]="value">Button</button>`
 })
@@ -69,11 +60,11 @@ class TestDirectiveBadgeComponent {
 @Component({
     standalone: false,
     selector: 'test-directive-size-badge',
-    template: `<button pBadge [value]="value" [size]="size">Button</button>`
+    template: `<button pBadge [value]="value" [badgeSize]="badgeSize">Button</button>`
 })
 class TestDirectiveSizeBadgeComponent {
     value: string | number = '1';
-    size: 'large' | 'xlarge' | 'small' | null | undefined;
+    badgeSize: 'large' | 'xlarge' | 'small' | null | undefined;
 }
 
 @Component({
@@ -109,25 +100,14 @@ class TestDirectiveStyleBadgeComponent {
 
 @Component({
     standalone: false,
-    selector: 'test-deprecated-size-badge',
-    template: `<button pBadge [value]="value" [size]="size">Button</button>`
-})
-class TestDeprecatedSizeBadgeComponent {
-    value: string | number = '1';
-    size: 'large' | 'xlarge' | 'small' | null | undefined;
-}
-
-@Component({
-    standalone: false,
     selector: 'test-dynamic-badge',
-    template: ` <p-badge [value]="value" [badgeSize]="badgeSize" [severity]="severity" [badgeDisabled]="disabled" [styleClass]="styleClass"> </p-badge> `
+    template: ` <p-badge [value]="value" [badgeSize]="badgeSize" [severity]="severity" [badgeDisabled]="disabled"> </p-badge> `
 })
 class TestDynamicBadgeComponent {
     value: string | number | null = '1';
     badgeSize: 'small' | 'large' | 'xlarge' | null = null as any;
     severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null = null as any;
     disabled = false;
-    styleClass = '';
 }
 
 describe('Badge', () => {
@@ -140,13 +120,11 @@ describe('Badge', () => {
                 TestSizeBadgeComponent,
                 TestSeverityBadgeComponent,
                 TestDisabledBadgeComponent,
-                TestStyleClassBadgeComponent,
                 TestDirectiveBadgeComponent,
                 TestDirectiveSizeBadgeComponent,
                 TestDirectiveSeverityBadgeComponent,
                 TestDirectiveDisabledBadgeComponent,
                 TestDirectiveStyleBadgeComponent,
-                TestDeprecatedSizeBadgeComponent,
                 TestDynamicBadgeComponent
             ],
             providers: [provideZonelessChangeDetection()]
@@ -175,10 +153,9 @@ describe('Badge', () => {
             it('should have default values', () => {
                 expect(component.value()).toBeUndefined();
                 expect(component.badgeSize()).toBeUndefined();
-                expect(component.size()).toBeUndefined();
+                expect(component.badgeSize()).toBeUndefined();
                 expect(component.severity()).toBeUndefined();
                 expect(component.badgeDisabled()).toBe(false);
-                expect(component.styleClass()).toBeUndefined();
             });
 
             it('should apply base CSS classes', () => {
@@ -430,32 +407,6 @@ describe('Badge', () => {
                 expect(element.style.display).toBe('' as any);
             });
         });
-
-        describe('Style Class', () => {
-            let fixture: ComponentFixture<TestStyleClassBadgeComponent>;
-            let component: TestStyleClassBadgeComponent;
-            let element: HTMLElement;
-
-            beforeEach(async () => {
-                fixture = TestBed.createComponent(TestStyleClassBadgeComponent);
-                component = fixture.componentInstance;
-                await fixture.whenStable();
-
-                element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
-            });
-
-            it('should apply custom style class', () => {
-                expect(element.classList.contains('custom-badge')).toBe(true);
-            });
-
-            it('should update style class dynamically', async () => {
-                component.styleClass = 'new-custom-class';
-                fixture.changeDetectorRef.markForCheck();
-                await fixture.whenStable();
-
-                expect(element.classList.contains('new-custom-class')).toBe(true);
-            });
-        });
     });
 
     describe('Badge Directive', () => {
@@ -532,7 +483,7 @@ describe('Badge', () => {
             beforeEach(async () => {
                 fixture = TestBed.createComponent(TestDirectiveSizeBadgeComponent);
                 component = fixture.componentInstance;
-                component.size = 'large'; // Set initial size to ensure badge creation
+                component.badgeSize = 'large'; // Set initial size to ensure badge creation
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
@@ -547,7 +498,7 @@ describe('Badge', () => {
             });
 
             it('should apply xlarge size class', async () => {
-                component.size = 'xlarge';
+                component.badgeSize = 'xlarge';
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
@@ -563,7 +514,7 @@ describe('Badge', () => {
                 expect(badgeElement?.classList.contains('p-badge-lg')).toBe(true);
                 expect(badgeElement?.classList.contains('p-badge-xl')).toBe(false);
 
-                component.size = 'xlarge';
+                component.badgeSize = 'xlarge';
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
@@ -735,14 +686,12 @@ describe('Badge', () => {
             component.value = '99';
             component.badgeSize = 'large';
             component.severity = 'danger';
-            component.styleClass = 'urgent';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
             expect(element.textContent?.trim()).toBe('99');
             expect(element.classList.contains('p-badge-lg')).toBe(true);
             expect(element.classList.contains('p-badge-danger')).toBe(true);
-            expect(element.classList.contains('urgent')).toBe(true);
         });
 
         it('should handle transitions between different states', async () => {
@@ -886,7 +835,6 @@ describe('Badge', () => {
             component.value = '1';
             component.badgeSize = 'large';
             component.severity = 'danger';
-            component.styleClass = 'custom';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
@@ -898,7 +846,6 @@ describe('Badge', () => {
             expect(element.classList.contains('p-badge-circle')).toBe(true);
             expect(element.classList.contains('p-badge-lg')).toBe(true);
             expect(element.classList.contains('p-badge-danger')).toBe(true);
-            expect(element.classList.contains('custom')).toBe(true);
         });
 
         it('should handle conflicting size classes correctly', async () => {

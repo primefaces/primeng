@@ -56,9 +56,9 @@ import { TooltipModule } from 'primeng/tooltip';
                         <input type="text" pInputText placeholder="Search" />
                     </p-iconfield>
                     <p-button severity="secondary" outlined>
-                        <p-overlayBadge severity="danger" styleClass="!min-w-0 !w-2.5 !h-2.5">
+                        <p-overlaybadge severity="danger" styleClass="!min-w-0 !w-2.5 !h-2.5">
                             <i class="pi pi-bell"></i>
-                        </p-overlayBadge>
+                        </p-overlaybadge>
                     </p-button>
                 </div>
             </div>

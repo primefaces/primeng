@@ -1,6 +1,18 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Defines the size of the badge.
+ * @group Types
+ */
+export type BadgeSize = 'small' | 'large' | 'xlarge' | null;
+
+/**
+ * Defines the severity of the badge.
+ * @group Types
+ */
+export type BadgeSeverity = 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null;
+
+/**
  * Custom passthrough(pt) options.
  * @see {@link Badge.pt}
  * @group Interface

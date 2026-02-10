@@ -60,9 +60,9 @@ import { TooltipModule } from 'primeng/tooltip';
             <div class="flex-1 flex flex-col gap-6">
                 <div class="border border-surface rounded-3xl p-6 flex flex-col gap-6">
                     <div class="flex items-center gap-3">
-                        <p-overlayBadge severity="danger" styleClass="w-fit">
+                        <p-overlaybadge severity="danger" styleClass="w-fit">
                             <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden flex" />
-                        </p-overlayBadge>
+                        </p-overlaybadge>
 
                         <div>
                             <div class="font-medium text-color leading-6">Jacob Jones</div>
@@ -88,9 +88,9 @@ import { TooltipModule } from 'primeng/tooltip';
                     <p-selectbutton [(ngModel)]="selectedUserSelectButtonOption" [options]="userSelectButtonOptions" />
                     <div class="flex flex-col gap-4">
                         <div class="p-2 rounded-2xl flex items-center gap-3 bg-emphasis">
-                            <p-overlayBadge severity="danger" class="w-fit">
+                            <p-overlaybadge severity="danger" class="w-fit">
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden w-10 h-10 block" />
-                            </p-overlayBadge>
+                            </p-overlaybadge>
 
                             <div class="flex-1">
                                 <div class="text-color text-sm font-medium leading-5">Jacob Jones</div>
@@ -99,9 +99,9 @@ import { TooltipModule } from 'primeng/tooltip';
                             <p-button label="Join" />
                         </div>
                         <div class="p-2 rounded-2xl flex items-center gap-3 bg-emphasis">
-                            <p-overlayBadge severity="danger" class="w-fit">
+                            <p-overlaybadge severity="danger" class="w-fit">
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" class="rounded-lg overflow-hidden w-10 h-10 flex" />
-                            </p-overlayBadge>
+                            </p-overlaybadge>
 
                             <div class="flex-1">
                                 <div class="text-color text-sm font-medium leading-5">Courtney Henry</div>

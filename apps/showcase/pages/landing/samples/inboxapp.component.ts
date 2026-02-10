@@ -97,7 +97,7 @@ import { Tag } from 'primeng/tag';
                         </td>
                         <td>
                             <div class="flex items-center">
-                                <p-overlayBadge severity="danger" styleClass="w-fit">
+                                <p-overlaybadge severity="danger" styleClass="w-fit">
                                     <p-avatar
                                         [image]="data.image"
                                         [label]="!data.image ? data.capName : ''"
@@ -106,7 +106,7 @@ import { Tag } from 'primeng/tag';
                                             'rounded-md overflow-hidden flex': true
                                         }"
                                     />
-                                </p-overlayBadge>
+                                </p-overlaybadge>
 
                                 <div class="ml-4 leading-6 text-color font-medium">{{ data.name }}</div>
                             </div>

@@ -27,9 +27,9 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                     <input type="text" pInputText [(ngModel)]="search" placeholder="Search" />
                 </p-iconfield>
                 <p-button severity="secondary" outlined>
-                    <p-overlayBadge severity="danger" badgeSize="small" styleClass="!min-w-0 !w-2.5 !h-2.5">
+                    <p-overlaybadge severity="danger" badgeSize="small" styleClass="!min-w-0 !w-2.5 !h-2.5">
                         <i class="pi pi-bell"></i>
-                    </p-overlayBadge>
+                    </p-overlaybadge>
                 </p-button>
                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" shape="circle" class="w-9 h-9 cursor-pointer" />
             </div>
