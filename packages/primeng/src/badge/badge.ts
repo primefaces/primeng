@@ -93,7 +93,7 @@ export class BadgeDirective extends BaseComponent {
     _componentStyle = inject(BadgeStyle);
 
     private get activeElement(): HTMLElement {
-        return this.el.nativeElement.nodeName.indexOf('-') != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement;
+        return this.el.nativeElement.nodeName.indexOf('-') != -1 ? this.el.nativeElement.firstElementChild : this.el.nativeElement;
     }
 
     private get canUpdateBadge(): boolean {
