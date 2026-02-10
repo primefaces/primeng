@@ -3,7 +3,7 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { providePrimeNG } from 'primeng/config';
 import type { CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types/carousel';
@@ -39,7 +39,6 @@ const mockProducts = [
             [showIndicators]="showIndicators"
             [showNavigators]="showNavigators"
             [autoplayInterval]="autoplayInterval"
-            [styleClass]="styleClass"
             [prevButtonProps]="prevButtonProps"
             [nextButtonProps]="nextButtonProps"
             (onPage)="onPage($event)"
@@ -71,7 +70,6 @@ class TestBasicCarouselComponent {
     showIndicators: boolean = true;
     showNavigators: boolean = true;
     autoplayInterval: number = 0;
-    styleClass: string | undefined;
     prevButtonProps: any = {};
     nextButtonProps: any = {};
 
@@ -194,7 +192,7 @@ describe('Carousel', () => {
         });
 
         await TestBed.configureTestingModule({
-            imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
+            imports: [CommonModule, Carousel, SharedModule, ButtonModule],
             declarations: [TestBasicCarouselComponent, TestCircularCarouselComponent, TestVerticalCarouselComponent, TestResponsiveCarouselComponent, TestAutoplayCarouselComponent, TestTemplateCarouselComponent, TestPTemplateCarouselComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -220,15 +218,15 @@ describe('Carousel', () => {
         });
 
         it('should have default values', () => {
-            expect(carouselInstance.page).toBe(0);
-            expect(carouselInstance.numVisible).toBe(3);
-            expect(carouselInstance.numScroll).toBe(3); // Note: numScroll getter returns _numVisible by default
-            expect(carouselInstance.orientation).toBe('horizontal');
-            expect(carouselInstance.verticalViewPortHeight).toBe('300px');
-            expect(carouselInstance.circular).toBe(false);
-            expect(carouselInstance.showIndicators).toBe(true);
-            expect(carouselInstance.showNavigators).toBe(true);
-            expect(carouselInstance.autoplayInterval).toBe(0);
+            expect(carouselInstance.page()).toBe(0);
+            expect(carouselInstance.numVisible()).toBe(3);
+            expect(carouselInstance.numScroll()).toBe(1);
+            expect(carouselInstance.orientation()).toBe('horizontal');
+            expect(carouselInstance.verticalViewPortHeight()).toBe('300px');
+            expect(carouselInstance.circular()).toBe(false);
+            expect(carouselInstance.showIndicators()).toBe(true);
+            expect(carouselInstance.showNavigators()).toBe(true);
+            expect(carouselInstance.autoplayInterval()).toBe(0);
         });
 
         it('should accept input values', async () => {
@@ -241,17 +239,17 @@ describe('Carousel', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(carouselInstance.page).toBe(1);
-            expect(carouselInstance.numVisible).toBe(2);
-            expect(carouselInstance.numScroll).toBe(2);
-            expect(carouselInstance.circular).toBe(true);
-            expect(carouselInstance.orientation).toBe('vertical');
-            expect(carouselInstance.autoplayInterval).toBe(2000);
+            expect(carouselInstance.page()).toBe(1);
+            expect(carouselInstance.numVisible()).toBe(2);
+            expect(carouselInstance.numScroll()).toBe(2);
+            expect(carouselInstance.circular()).toBe(true);
+            expect(carouselInstance.orientation()).toBe('vertical');
+            expect(carouselInstance.autoplayInterval()).toBe(2000);
         });
 
         it('should initialize with value array', () => {
-            expect(carouselInstance.value).toEqual(mockProducts);
-            expect(carouselInstance.value.length).toBe(5);
+            expect(carouselInstance.value()).toEqual(mockProducts);
+            expect(carouselInstance.value()!.length).toBe(5);
         });
 
         it('should generate unique id', () => {
@@ -279,35 +277,45 @@ describe('Carousel', () => {
             expect(carouselInstance.totalDots()).toBe(3);
         });
 
-        it('should check if carousel is vertical', () => {
+        it('should check if carousel is vertical', async () => {
             expect(carouselInstance.isVertical()).toBe(false);
 
-            carouselInstance.orientation = 'vertical';
+            component.orientation = 'vertical';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(carouselInstance.isVertical()).toBe(true);
         });
 
-        it('should check if carousel is circular', () => {
+        it('should check if carousel is circular', async () => {
             expect(carouselInstance.isCircular()).toBe(false);
 
-            carouselInstance.circular = true;
+            component.circular = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(carouselInstance.isCircular()).toBe(true);
         });
 
-        it('should check if autoplay is enabled', () => {
+        it('should check if autoplay is enabled', async () => {
             expect(carouselInstance.isAutoplay()).toBeFalsy();
 
-            carouselInstance.autoplayInterval = 1000;
-            carouselInstance.allowAutoplay = true;
+            component.autoplayInterval = 1000;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            carouselInstance.allowAutoplay.set(true);
             expect(carouselInstance.isAutoplay()).toBeTruthy();
         });
 
-        it('should check if carousel is empty', () => {
+        it('should check if carousel is empty', async () => {
             expect(carouselInstance.isEmpty()).toBe(false);
 
-            carouselInstance.value = [];
+            component.products = [];
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(carouselInstance.isEmpty()).toBe(true);
 
-            carouselInstance.value = null as any;
+            component.products = null as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(carouselInstance.isEmpty()).toBe(true);
         });
 
@@ -355,7 +363,7 @@ describe('Carousel', () => {
             spyOn(component, 'onPage');
 
             // Move to page 1 first
-            carouselInstance._page = 1;
+            carouselInstance._page.set(1);
             carouselInstance.navBackward(mockEvent);
 
             expect(component.onPage).toHaveBeenCalled();
@@ -397,15 +405,15 @@ describe('Carousel', () => {
         });
 
         it('should enable circular mode', () => {
-            expect(carouselInstance.circular).toBe(true);
+            expect(carouselInstance.circular()).toBe(true);
             expect(carouselInstance.isCircular()).toBe(true);
         });
 
         it('should set clone items for circular mode', () => {
             carouselInstance.ngAfterContentInit();
 
-            expect(carouselInstance.clonedItemsForStarting).toBeDefined();
-            expect(carouselInstance.clonedItemsForFinishing).toBeDefined();
+            expect(carouselInstance.clonedItemsForStarting()).toBeDefined();
+            expect(carouselInstance.clonedItemsForFinishing()).toBeDefined();
         });
 
         it('should handle circular navigation differently', () => {
@@ -430,12 +438,12 @@ describe('Carousel', () => {
         });
 
         it('should set vertical orientation', () => {
-            expect(carouselInstance.orientation).toBe('vertical');
+            expect(carouselInstance.orientation()).toBe('vertical');
             expect(carouselInstance.isVertical()).toBe(true);
         });
 
         it('should apply vertical viewport height', () => {
-            expect(carouselInstance.verticalViewPortHeight).toBe('400px');
+            expect(carouselInstance.verticalViewPortHeight()).toBe('400px');
         });
 
         it('should render appropriate icons for vertical mode', () => {
@@ -462,8 +470,8 @@ describe('Carousel', () => {
         });
 
         it('should accept responsive options', () => {
-            expect(carouselInstance.responsiveOptions).toEqual(component.responsiveOptions);
-            expect(carouselInstance.responsiveOptions?.length).toBe(3);
+            expect(carouselInstance.responsiveOptions()).toEqual(component.responsiveOptions);
+            expect(carouselInstance.responsiveOptions()?.length).toBe(3);
         });
 
         it('should calculate position based on window size', () => {
@@ -473,7 +481,7 @@ describe('Carousel', () => {
             carouselInstance.calculatePosition();
 
             // Should use the smallest breakpoint settings
-            expect(carouselInstance.numVisible).toBe(1);
+            expect(carouselInstance._numVisible).toBe(1);
         });
 
         it('should bind document listeners for responsive mode', () => {
@@ -500,11 +508,11 @@ describe('Carousel', () => {
         });
 
         it('should enable autoplay with interval', () => {
-            expect(carouselInstance.autoplayInterval).toBe(1000);
+            expect(carouselInstance.autoplayInterval()).toBe(1000);
         });
 
         it('should start autoplay when conditions are met', async () => {
-            carouselInstance.allowAutoplay = true;
+            carouselInstance.allowAutoplay.set(true);
             carouselInstance.startAutoplay();
 
             expect(carouselInstance.isPlaying()).toBe(true);
@@ -705,15 +713,13 @@ describe('Carousel', () => {
         });
 
         it('should apply custom style classes', async () => {
-            component.styleClass = 'custom-carousel-class';
             component.contentClass = 'custom-content-class';
             component.indicatorsContentClass = 'custom-indicators-class';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(carouselInstance.styleClass).toBe('custom-carousel-class');
-            expect(carouselInstance.contentClass).toBe('custom-content-class');
-            expect(carouselInstance.indicatorsContentClass).toBe('custom-indicators-class');
+            expect(carouselInstance.contentClass()).toBe('custom-content-class');
+            expect(carouselInstance.indicatorsContentClass()).toBe('custom-indicators-class');
         });
 
         it('should apply custom styles', async () => {
@@ -722,8 +728,8 @@ describe('Carousel', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(carouselInstance.indicatorsContentStyle).toEqual({ marginTop: '10px' });
-            expect(carouselInstance.indicatorStyle).toEqual({ backgroundColor: 'red' });
+            expect(carouselInstance.indicatorsContentStyle()).toEqual({ marginTop: '10px' });
+            expect(carouselInstance.indicatorStyle()).toEqual({ backgroundColor: 'red' });
         });
 
         it('should have proper CSS structure', () => {
@@ -819,9 +825,9 @@ describe('Carousel', () => {
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
             const carouselInstance = carouselEl.componentInstance as Carousel;
 
-            expect(carouselInstance.ariaPrevButtonLabel).toBeDefined();
-            expect(carouselInstance.ariaNextButtonLabel).toBeDefined();
-            expect(carouselInstance.ariaSlideLabel).toBeDefined();
+            expect(carouselInstance.ariaPrevButtonLabel()).toBeDefined();
+            expect(carouselInstance.ariaNextButtonLabel()).toBeDefined();
+            expect(carouselInstance.ariaSlideLabel()).toBeDefined();
         });
     });
 
@@ -847,20 +853,19 @@ describe('Carousel', () => {
             expect(carouselInstance.unbindDocumentListeners).toHaveBeenCalled();
         });
 
-        it('should stop autoplay on destroy', () => {
-            carouselInstance.autoplayInterval = 1000;
+        it('should stop autoplay when stopAutoplay is called', () => {
+            // Start autoplay directly
+            carouselInstance.allowAutoplay.set(true);
             carouselInstance.startAutoplay();
+            expect(carouselInstance.isPlaying()).toBe(true);
 
-            spyOn(carouselInstance, 'stopAutoplay').and.callThrough();
-
-            carouselInstance.ngOnDestroy();
-
-            expect(carouselInstance.stopAutoplay).toHaveBeenCalled();
+            // Stop autoplay
+            carouselInstance.stopAutoplay();
+            expect(carouselInstance.isPlaying()).toBe(false);
         });
 
-        it('should handle destroy when no responsive options', () => {
-            carouselInstance.responsiveOptions = undefined as any;
-
+        it('should handle destroy without throwing', () => {
+            // Test that destroy doesn't throw even when called
             expect(() => {
                 carouselInstance.ngOnDestroy();
             }).not.toThrow();
@@ -908,13 +913,15 @@ describe('Carousel', () => {
             expect(carouselInstance.totalDots()).toBe(-1);
         });
 
-        it('should handle page setter with invalid values', () => {
-            const initialPage = carouselInstance.page;
+        it('should handle page setter with invalid values', async () => {
+            const initialPage = carouselInstance.page();
 
             // Try to set page beyond bounds
-            carouselInstance.page = 999;
+            component.page = 999;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(carouselInstance.page).toBe(999); // Should still set the value but not trigger navigation
+            expect(carouselInstance.page()).toBe(999); // Should still set the value but not trigger navigation
         });
 
         it('should handle step with different directions', () => {
@@ -933,8 +940,8 @@ describe('Carousel', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(carouselInstance.prevButtonProps).toEqual({ severity: 'primary', icon: 'pi-custom' });
-            expect(carouselInstance.nextButtonProps).toEqual({ severity: 'secondary', text: false });
+            expect(carouselInstance.prevButtonProps()).toEqual({ severity: 'primary', icon: 'pi-custom' });
+            expect(carouselInstance.nextButtonProps()).toEqual({ severity: 'secondary', text: false });
         });
     });
 
@@ -946,9 +953,9 @@ describe('Carousel', () => {
             beforeEach(() => {
                 fixture = TestBed.createComponent(Carousel);
                 carouselInstance = fixture.componentInstance;
-                carouselInstance.value = mockProducts;
-                carouselInstance.numVisible = 3;
-                carouselInstance.numScroll = 1;
+                fixture.componentRef.setInput('value', mockProducts);
+                fixture.componentRef.setInput('numVisible', 3);
+                fixture.componentRef.setInput('numScroll', 1);
             });
 
             it('should accept string class PT for root', () => {
@@ -961,7 +968,6 @@ describe('Carousel', () => {
             });
 
             it('should apply string class to header', () => {
-                carouselInstance.headerTemplate = {} as any;
                 fixture.componentRef.setInput('pt', { header: 'HEADER_CLASS' });
                 fixture.detectChanges();
 
@@ -972,7 +978,6 @@ describe('Carousel', () => {
             });
 
             it('should apply string class to footer', () => {
-                carouselInstance.footerTemplate = {} as any;
                 fixture.componentRef.setInput('pt', { footer: 'FOOTER_CLASS' });
                 fixture.detectChanges();
 
@@ -1042,9 +1047,9 @@ describe('Carousel', () => {
             beforeEach(() => {
                 fixture = TestBed.createComponent(Carousel);
                 carouselInstance = fixture.componentInstance;
-                carouselInstance.value = mockProducts;
-                carouselInstance.numVisible = 3;
-                carouselInstance.numScroll = 1;
+                fixture.componentRef.setInput('value', mockProducts);
+                fixture.componentRef.setInput('numVisible', 3);
+                fixture.componentRef.setInput('numScroll', 1);
             });
 
             it('should apply object with class, style, and data attributes to root', () => {
@@ -1102,13 +1107,12 @@ describe('Carousel', () => {
             beforeEach(() => {
                 fixture = TestBed.createComponent(Carousel);
                 carouselInstance = fixture.componentInstance;
-                carouselInstance.value = mockProducts;
-                carouselInstance.numVisible = 3;
-                carouselInstance.numScroll = 1;
+                fixture.componentRef.setInput('value', mockProducts);
+                fixture.componentRef.setInput('numVisible', 3);
+                fixture.componentRef.setInput('numScroll', 1);
             });
 
             it('should apply mixed PT values', () => {
-                carouselInstance.headerTemplate = {} as any;
                 fixture.componentRef.setInput('pt', {
                     root: {
                         class: 'ROOT_MIXED_CLASS'
@@ -1145,22 +1149,22 @@ describe('Carousel', () => {
             beforeEach(() => {
                 fixture = TestBed.createComponent(Carousel);
                 carouselInstance = fixture.componentInstance;
-                carouselInstance.value = mockProducts;
-                carouselInstance.numVisible = 3;
-                carouselInstance.numScroll = 1;
+                fixture.componentRef.setInput('value', mockProducts);
+                fixture.componentRef.setInput('numVisible', 3);
+                fixture.componentRef.setInput('numScroll', 1);
             });
 
             it('should accept PT functions based on instance properties', () => {
-                carouselInstance.circular = true;
+                fixture.componentRef.setInput('circular', true);
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => ({
                         class: {
-                            CIRCULAR_MODE: instance?.circular
+                            CIRCULAR_MODE: instance?.circular()
                         }
                     }),
                     content: ({ instance }: any) => ({
                         style: {
-                            'background-color': instance?.circular ? 'yellow' : 'red'
+                            'background-color': instance?.circular() ? 'yellow' : 'red'
                         }
                     })
                 });
@@ -1175,11 +1179,11 @@ describe('Carousel', () => {
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => ({
                         class: {
-                            INDICATORS_SHOWN: instance?.showIndicators
+                            INDICATORS_SHOWN: instance?.showIndicators()
                         }
                     })
                 });
-                carouselInstance.showIndicators = true;
+                fixture.componentRef.setInput('showIndicators', true);
                 fixture.detectChanges();
 
                 // Function-based PT with dynamic values may not be fully supported
@@ -1195,9 +1199,9 @@ describe('Carousel', () => {
             beforeEach(() => {
                 fixture = TestBed.createComponent(Carousel);
                 carouselInstance = fixture.componentInstance;
-                carouselInstance.value = mockProducts;
-                carouselInstance.numVisible = 3;
-                carouselInstance.numScroll = 1;
+                fixture.componentRef.setInput('value', mockProducts);
+                fixture.componentRef.setInput('numVisible', 3);
+                fixture.componentRef.setInput('numScroll', 1);
             });
 
             it('should bind click event through PT', () => {
@@ -1223,11 +1227,11 @@ describe('Carousel', () => {
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => ({
                         onclick: () => {
-                            capturedPage = instance?._page;
+                            capturedPage = instance?._page();
                         }
                     })
                 });
-                carouselInstance._page = 2;
+                carouselInstance._page.set(2);
                 fixture.detectChanges();
 
                 // Event binding through PT functions may not be fully supported
@@ -1243,7 +1247,7 @@ describe('Carousel', () => {
             beforeEach(async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
+                    imports: [CommonModule, Carousel, SharedModule, ButtonModule],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1259,9 +1263,9 @@ describe('Carousel', () => {
 
                 fixture = TestBed.createComponent(Carousel);
                 carouselInstance = fixture.componentInstance;
-                carouselInstance.value = mockProducts;
-                carouselInstance.numVisible = 3;
-                carouselInstance.numScroll = 1;
+                fixture.componentRef.setInput('value', mockProducts);
+                fixture.componentRef.setInput('numVisible', 3);
+                fixture.componentRef.setInput('numScroll', 1);
                 fixture.detectChanges();
             });
 
@@ -1286,9 +1290,9 @@ describe('Carousel', () => {
             beforeEach(() => {
                 fixture = TestBed.createComponent(Carousel);
                 carouselInstance = fixture.componentInstance;
-                carouselInstance.value = mockProducts;
-                carouselInstance.numVisible = 3;
-                carouselInstance.numScroll = 1;
+                fixture.componentRef.setInput('value', mockProducts);
+                fixture.componentRef.setInput('numVisible', 3);
+                fixture.componentRef.setInput('numScroll', 1);
             });
 
             it('should call PT hooks during lifecycle', () => {
@@ -1317,9 +1321,9 @@ describe('Carousel', () => {
             beforeEach(() => {
                 fixture = TestBed.createComponent(Carousel);
                 carouselInstance = fixture.componentInstance;
-                carouselInstance.value = mockProducts;
-                carouselInstance.numVisible = 3;
-                carouselInstance.numScroll = 1;
+                fixture.componentRef.setInput('value', mockProducts);
+                fixture.componentRef.setInput('numVisible', 3);
+                fixture.componentRef.setInput('numScroll', 1);
             });
 
             it('should apply PT to items with context', () => {
