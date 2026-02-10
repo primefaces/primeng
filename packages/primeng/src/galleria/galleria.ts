@@ -839,6 +839,10 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
 
     rightButtonFocused = false;
 
+    private get aria() {
+        return this.galleria.config.translation.aria;
+    }
+
     constructor() {
         super();
 
@@ -968,15 +972,15 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
     }
 
     ariaSlideLabel() {
-        return this.galleria.config.translation.aria?.slide;
+        return this.aria?.slide;
     }
 
     ariaSlideNumber(value: any) {
-        return this.galleria.config.translation.aria?.slideNumber?.replace(/{slideNumber}/g, value);
+        return this.aria?.slideNumber?.replace(/{slideNumber}/g, value);
     }
 
     ariaPageLabel(value: any) {
-        return this.galleria.config.translation.aria?.pageLabel?.replace(/{page}/g, value);
+        return this.aria?.pageLabel?.replace(/{page}/g, value);
     }
 }
 
@@ -1109,6 +1113,10 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
     _componentStyle = inject(GalleriaStyle);
 
     viewportHeight = computed(() => (this.isVertical() ? this.contentHeight() : ''));
+
+    private get aria() {
+        return this.galleria.config.translation.aria;
+    }
 
     constructor() {
         super();
@@ -1578,15 +1586,15 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
     }
 
     ariaPrevButtonLabel() {
-        return this.galleria.config.translation.aria?.prevPageLabel;
+        return this.aria?.prevPageLabel;
     }
 
     ariaNextButtonLabel() {
-        return this.galleria.config.translation.aria?.nextPageLabel;
+        return this.aria?.nextPageLabel;
     }
 
     ariaPageLabel(value: any) {
-        return this.galleria.config.translation.aria?.pageLabel?.replace(/{page}/g, value);
+        return this.aria?.pageLabel?.replace(/{page}/g, value);
     }
 }
 
