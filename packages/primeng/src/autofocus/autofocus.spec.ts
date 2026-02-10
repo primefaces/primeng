@@ -235,9 +235,8 @@ describe('AutoFocus', () => {
             expect(directive.focused).toBe(false);
         });
 
-        it('should inject platform ID and document', () => {
+        it('should inject platform ID', () => {
             expect(directive.platformId).toBeDefined();
-            expect(directive.document).toBeDefined();
         });
 
         it('should inject host element reference', () => {
@@ -860,8 +859,8 @@ describe('AutoFocus', () => {
             textareaDirective.focused = false;
 
             // Input should not be called since shouldAutoFocus is now false
-            expect(inputDirective.autofocus).toBe(false);
-            expect(textareaDirective.autofocus).toBe(true);
+            expect(inputDirective.autofocus()).toBe(false);
+            expect(textareaDirective.autofocus()).toBe(true);
 
             textareaDirective.ngAfterContentChecked();
             await new Promise((resolve) => setTimeout(resolve, 10));
