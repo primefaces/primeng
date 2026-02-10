@@ -1,4 +1,4 @@
-import { computed, Directive, effect, ElementRef, input, NgModule, Renderer2, signal } from '@angular/core';
+import { computed, Directive, effect, ElementRef, inject, input, NgModule, Renderer2, signal } from '@angular/core';
 import { cn, equals } from '@primeuix/utils';
 
 /**
@@ -28,10 +28,11 @@ export class Bind {
 
     private listeners: { eventName: string; unlisten: () => void }[] = [];
 
-    constructor(
-        private el: ElementRef,
-        private renderer: Renderer2
-    ) {
+    private el = inject(ElementRef);
+
+    private renderer = inject(Renderer2);
+
+    constructor() {
         effect(() => {
             const { style, class: className, ...rest } = this.attrs() || {};
 
