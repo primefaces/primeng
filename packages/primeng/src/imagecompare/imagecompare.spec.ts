@@ -36,26 +36,6 @@ class TestBasicImageCompareComponent {
 @Component({
     standalone: false,
     template: `
-        <p-imagecompare>
-            <ng-template pTemplate="left">
-                <img [src]="leftImage" [alt]="leftImageAlt" class="ptemplate-left" />
-            </ng-template>
-            <ng-template pTemplate="right">
-                <img [src]="rightImage" [alt]="rightImageAlt" class="ptemplate-right" />
-            </ng-template>
-        </p-imagecompare>
-    `
-})
-class TestPTemplateImageCompareComponent {
-    leftImage: string = mockImages.leftImage;
-    rightImage: string = mockImages.rightImage;
-    leftImageAlt: string = 'Left PTemplate Image';
-    rightImageAlt: string = 'Right PTemplate Image';
-}
-
-@Component({
-    standalone: false,
-    template: `
         <div dir="rtl">
             <p-imagecompare>
                 <ng-template #left>
@@ -123,7 +103,7 @@ describe('ImageCompare', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [ImageCompareModule, SharedModule],
-            declarations: [TestBasicImageCompareComponent, TestPTemplateImageCompareComponent, TestRTLImageCompareComponent, TestCustomContentImageCompareComponent, TestPTImageCompareComponent],
+            declarations: [TestBasicImageCompareComponent, TestRTLImageCompareComponent, TestCustomContentImageCompareComponent, TestPTImageCompareComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -137,22 +117,21 @@ describe('ImageCompare', () => {
         });
 
         it('should have default values', () => {
-            expect(component.tabindex).toBeUndefined();
-            expect(component.ariaLabel).toBeUndefined();
-            expect(component.ariaLabelledby).toBeUndefined();
+            expect(component.tabindex()).toBeUndefined();
+            expect(component.ariaLabel()).toBeUndefined();
+            expect(component.ariaLabelledby()).toBeUndefined();
             expect(component.isRTL).toBe(false);
         });
 
         it('should accept custom input values', () => {
             const testFixture = TestBed.createComponent(TestBasicImageCompareComponent);
-            const testComponent = testFixture.componentInstance;
             testFixture.detectChanges();
 
             const imageCompareElement = testFixture.debugElement.query(By.directive(ImageCompare));
             const imageCompareInstance = imageCompareElement.componentInstance;
 
-            expect(imageCompareInstance.tabindex).toBe(0);
-            expect(imageCompareInstance.ariaLabel).toBe('Image Compare');
+            expect(imageCompareInstance.tabindex()).toBe(0);
+            expect(imageCompareInstance.ariaLabel()).toBe('Image Compare');
         });
 
         it('should render slider input element', () => {
@@ -177,17 +156,6 @@ describe('ImageCompare', () => {
             expect(rightImage).toBeTruthy();
             expect(leftImage.nativeElement.src).toBe(mockImages.leftImage);
             expect(rightImage.nativeElement.src).toBe(mockImages.rightImage);
-        });
-
-        it('should render left and right templates with pTemplate approach', () => {
-            const testFixture = TestBed.createComponent(TestPTemplateImageCompareComponent);
-            testFixture.detectChanges();
-
-            const leftImage = testFixture.debugElement.query(By.css('.ptemplate-left'));
-            const rightImage = testFixture.debugElement.query(By.css('.ptemplate-right'));
-
-            expect(leftImage).toBeTruthy();
-            expect(rightImage).toBeTruthy();
         });
 
         it('should render custom content in templates', () => {
@@ -361,34 +329,6 @@ describe('ImageCompare', () => {
 
             expect(imageCompareInstance.updateDirection).toHaveBeenCalled();
             expect(imageCompareInstance.observeDirectionChanges).toHaveBeenCalled();
-        });
-
-        it('should process templates on ngAfterContentInit', () => {
-            // Mock templates
-            const mockLeftTemplate = {} as any;
-            const mockRightTemplate = {} as any;
-            const mockTemplate1 = {
-                getType: () => 'left',
-                template: mockLeftTemplate
-            };
-            const mockTemplate2 = {
-                getType: () => 'right',
-                template: mockRightTemplate
-            };
-
-            // Mock templates QueryList
-            const mockTemplates = {
-                forEach: (callback: Function) => {
-                    callback(mockTemplate1);
-                    callback(mockTemplate2);
-                }
-            };
-
-            imageCompareInstance.templates = mockTemplates as any;
-            imageCompareInstance.ngAfterContentInit();
-
-            expect(imageCompareInstance._leftTemplate).toBe(mockLeftTemplate);
-            expect(imageCompareInstance._rightTemplate).toBe(mockRightTemplate);
         });
 
         it('should cleanup mutation observer on ngOnDestroy', () => {
@@ -616,7 +556,7 @@ describe('ImageCompare', () => {
                     root: ({ instance }) => {
                         // Instance parameter is available in PT functions
                         return {
-                            class: instance?.tabindex ? 'HAS_TAB_VALUE' : 'NO_TAB_VALUE'
+                            class: instance?.tabindex() ? 'HAS_TAB_VALUE' : 'NO_TAB_VALUE'
                         };
                     }
                 };
@@ -706,7 +646,7 @@ describe('ImageCompare', () => {
                     root: ({ instance }) => {
                         return {
                             onclick: () => {
-                                instanceTabindex = instance?.tabindex;
+                                instanceTabindex = instance?.tabindex();
                             }
                         };
                     }

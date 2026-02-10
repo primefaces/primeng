@@ -1,6 +1,6 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, contentChild, inject, InjectionToken, input, NgModule, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ImageComparePassThrough } from 'primeng/types/imagecompare';
@@ -13,20 +13,19 @@ const IMAGECOMPARE_INSTANCE = new InjectionToken<ImageCompare>('IMAGECOMPARE_INS
  * @group Components
  */
 @Component({
-    selector: 'p-imageCompare, p-imagecompare, p-image-compare',
+    selector: 'p-image-compare, p-imagecompare',
     standalone: true,
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [NgTemplateOutlet, SharedModule, BindModule],
     template: `
-        <ng-template *ngTemplateOutlet="leftTemplate || _leftTemplate"></ng-template>
-        <ng-template *ngTemplateOutlet="rightTemplate || _rightTemplate"></ng-template>
-
+        <ng-container *ngTemplateOutlet="leftTemplate()"></ng-container>
+        <ng-container *ngTemplateOutlet="rightTemplate()"></ng-container>
         <input type="range" min="0" max="100" value="50" (input)="onSlide($event)" [class]="cx('slider')" [pBind]="ptm('slider')" />
     `,
     host: {
         '[class]': "cx('root')",
-        '[attr.tabindex]': 'tabindex',
-        '[attr.aria-labelledby]': 'ariaLabelledby',
-        '[attr.aria-label]': 'ariaLabel'
+        '[attr.tabindex]': 'tabindex()',
+        '[attr.aria-labelledby]': 'ariaLabelledby()',
+        '[attr.aria-label]': 'ariaLabel()'
     },
     hostDirectives: [Bind],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,40 +38,37 @@ export class ImageCompare extends BaseComponent<ImageComparePassThrough> {
     $pcImageCompare: ImageCompare | undefined = inject(IMAGECOMPARE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
     /**
      * Index of the element in tabbing order.
      * @defaultValue 0
      * @group Props
      */
-    @Input() tabindex: number | undefined;
+    tabindex = input<number>();
+
     /**
      * Defines a string value that labels an interactive element.
      * @group Props
      */
-    @Input() ariaLabelledby: string | undefined;
+    ariaLabelledby = input<string>();
+
     /**
      * Identifier of the underlying input element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string>();
 
     /**
      * Custom left side template.
      * @group Templates
      */
-    @ContentChild('left', { descendants: false }) leftTemplate: TemplateRef<void> | undefined;
+    leftTemplate = contentChild<TemplateRef<void>>('left', { descendants: false });
 
     /**
      * Custom right side template.
      * @group Templates
      */
-    @ContentChild('right', { descendants: false }) rightTemplate: TemplateRef<void> | undefined;
-
-    _leftTemplate: TemplateRef<void> | undefined;
-
-    _rightTemplate: TemplateRef<void> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    rightTemplate = contentChild<TemplateRef<void>>('right', { descendants: false });
 
     _componentStyle = inject(ImageCompareStyle);
 
@@ -89,27 +85,17 @@ export class ImageCompare extends BaseComponent<ImageComparePassThrough> {
         this.observeDirectionChanges();
     }
 
-    onAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'left':
-                    this._leftTemplate = item.template;
-                    break;
-                case 'right':
-                    this._rightTemplate = item.template;
-                    break;
+    onSlide(event: Event) {
+        const target = event.target as HTMLInputElement;
+        const value = target.value;
+        const image = target.previousElementSibling as HTMLElement | null;
+
+        if (image) {
+            if (this.isRTL) {
+                image.style.clipPath = `polygon(${100 - +value}% 0, 100% 0, 100% 100%, ${100 - +value}% 100%)`;
+            } else {
+                image.style.clipPath = `polygon(0 0, ${value}% 0, ${value}% 100%, 0 100%)`;
             }
-        });
-    }
-
-    onSlide(event) {
-        const value = event.target.value;
-        const image = event.target.previousElementSibling;
-
-        if (this.isRTL) {
-            image.style.clipPath = `polygon(${100 - value}% 0, 100% 0, 100% 100%, ${100 - value}% 100%)`;
-        } else {
-            image.style.clipPath = `polygon(0 0, ${value}% 0, ${value}% 100%, 0 100%)`;
         }
     }
 
