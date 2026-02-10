@@ -6,7 +6,7 @@ const classes = {
     root: ({ instance }) => [
         'p-blockui p-blockui-mask',
         {
-            'p-blockui-mask-document': !instance.target
+            'p-blockui-mask-document': !instance.target()
         }
     ]
 };
