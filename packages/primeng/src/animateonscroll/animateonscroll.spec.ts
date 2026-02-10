@@ -158,12 +158,12 @@ describe('AnimateOnScroll', () => {
         });
 
         it('should have default values', () => {
-            expect(directive.threshold).toBe(0.5);
-            expect(directive.once).toBe(false);
-            expect(directive.enterClass).toBeUndefined();
-            expect(directive.leaveClass).toBeUndefined();
-            expect(directive.root).toBeUndefined();
-            expect(directive.rootMargin).toBeUndefined();
+            expect(directive.threshold()).toBe(0.5);
+            expect(directive.once()).toBe(false);
+            expect(directive.enterClass()).toBeUndefined();
+            expect(directive.leaveClass()).toBeUndefined();
+            expect(directive.root()).toBeUndefined();
+            expect(directive.rootMargin()).toBeUndefined();
         });
 
         it('should apply host class', () => {
@@ -318,7 +318,7 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
-            expect(directive.options.threshold).toBe(0.8);
+            expect(directive.options().threshold).toBe(0.8);
         });
 
         it('should use custom rootMargin', async () => {
@@ -327,7 +327,7 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
-            expect(directive.options.rootMargin).toBe('10px');
+            expect(directive.options().rootMargin).toBe('10px');
         });
 
         it('should use custom root element', async () => {
@@ -337,7 +337,7 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
-            expect(directive.options.root).toBe(rootElement);
+            expect(directive.options().root).toBe(rootElement);
         });
 
         it('should default threshold to 0.5 when undefined', async () => {
@@ -346,7 +346,7 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
-            expect(directive.options.threshold).toBe(0.5);
+            expect(directive.options().threshold).toBe(0.5);
         });
     });
 
@@ -502,7 +502,7 @@ describe('AnimateOnScroll', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(directive.enterClass).toBe('new-enter-class');
+            expect(directive.enterClass()).toBe('new-enter-class');
         });
 
         it('should handle dynamic threshold changes', async () => {
@@ -510,8 +510,8 @@ describe('AnimateOnScroll', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(directive.threshold).toBe(0.9);
-            expect(directive.options.threshold).toBe(0.9);
+            expect(directive.threshold()).toBe(0.9);
+            expect(directive.options().threshold).toBe(0.9);
         });
 
         it('should handle dynamic once property changes', async () => {
@@ -519,7 +519,7 @@ describe('AnimateOnScroll', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(directive.once).toBe(true);
+            expect(directive.once()).toBe(true);
         });
     });
 
@@ -584,7 +584,7 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             const directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
-            expect(directive.options.root).toBeNull();
+            expect(directive.options().root).toBeNull();
         });
 
         it('should handle elements with top <= 0', async () => {
@@ -697,7 +697,7 @@ describe('AnimateOnScroll', () => {
         });
 
         it('should return correct options object', () => {
-            const options = directive.options;
+            const options = directive.options();
 
             expect(options.threshold).toBe(0.8);
             expect(options.rootMargin).toBe('10px');

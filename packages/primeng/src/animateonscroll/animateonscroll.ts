@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, Directive, Input, NgModule, numberAttribute } from '@angular/core';
+import { booleanAttribute, computed, Directive, input, NgModule, numberAttribute } from '@angular/core';
 import { addClass, removeClass } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 
@@ -25,46 +25,57 @@ export class AnimateOnScroll extends BaseComponent {
      * Selector to define the CSS class for enter animation.
      * @group Props
      */
-    @Input() enterClass: string | undefined;
+    enterClass = input<string>();
+
     /**
      * Selector to define the CSS class for leave animation.
      * @group Props
      */
-    @Input() leaveClass: string | undefined;
+    leaveClass = input<string>();
+
     /**
      * Specifies the root option of the IntersectionObserver API.
      * @group Props
      */
-    @Input() root: HTMLElement | undefined | null;
+    root = input<HTMLElement | null>();
+
     /**
      * Specifies the rootMargin option of the IntersectionObserver API.
      * @group Props
      */
-    @Input() rootMargin: string | undefined;
+    rootMargin = input<string>();
+
     /**
      * Specifies the threshold option of the IntersectionObserver API
      * @group Props
      */
-    @Input({ transform: numberAttribute }) threshold: number | undefined = 0.5;
+    threshold = input(0.5, { transform: numberAttribute });
+
     /**
      * Whether the scroll event listener should be removed after initial run.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) once: boolean = false;
+    once = input(false, { transform: booleanAttribute });
 
     observer: IntersectionObserver | undefined;
 
-    resetObserver: any;
+    resetObserver: IntersectionObserver | undefined;
 
     isObserverActive: boolean = false;
 
-    animationState: any;
+    animationState: 'enter' | 'leave' | undefined;
 
     animationEndListener: VoidFunction | null | undefined;
 
+    options = computed<AnimateOnScrollOptions>(() => ({
+        root: this.root(),
+        rootMargin: this.rootMargin(),
+        threshold: this.threshold() || 0.5
+    }));
+
     onInit() {
         if (isPlatformBrowser(this.platformId)) {
-            this.renderer.setStyle(this.el.nativeElement, 'opacity', this.enterClass ? '0' : '');
+            this.renderer.setStyle(this.el.nativeElement, 'opacity', this.enterClass() ? '0' : '');
         }
     }
 
@@ -72,14 +83,6 @@ export class AnimateOnScroll extends BaseComponent {
         if (isPlatformBrowser(this.platformId)) {
             this.bindIntersectionObserver();
         }
-    }
-
-    get options(): AnimateOnScrollOptions {
-        return {
-            root: this.root,
-            rootMargin: this.rootMargin,
-            threshold: this.threshold || 0.5
-        };
     }
 
     bindIntersectionObserver() {
@@ -93,7 +96,7 @@ export class AnimateOnScroll extends BaseComponent {
             }
 
             this.isObserverActive = true;
-        }, this.options);
+        }, this.options());
 
         setTimeout(() => this.observer?.observe(this.el.nativeElement), 0);
 
@@ -102,25 +105,26 @@ export class AnimateOnScroll extends BaseComponent {
         this.resetObserver = new IntersectionObserver(
             ([entry]) => {
                 if (entry.boundingClientRect.top > 0 && !entry.isIntersecting) {
-                    this.el.nativeElement.style.opacity = this.enterClass ? '0' : '';
-                    removeClass(this.el.nativeElement, [this.enterClass, this.leaveClass]);
+                    this.el.nativeElement.style.opacity = this.enterClass() ? '0' : '';
+                    removeClass(this.el.nativeElement, [this.enterClass(), this.leaveClass()]);
 
-                    this.resetObserver.unobserve(this.el.nativeElement);
+                    this.resetObserver?.unobserve(this.el.nativeElement);
                 }
 
                 this.animationState = undefined;
             },
-            { ...this.options, threshold: 0 }
+            { ...this.options(), threshold: 0 }
         );
     }
 
     enter() {
-        if (this.animationState !== 'enter' && this.enterClass) {
+        const enterClass = this.enterClass();
+        if (this.animationState !== 'enter' && enterClass) {
             this.el.nativeElement.style.opacity = '';
-            removeClass(this.el.nativeElement, this.leaveClass);
-            addClass(this.el.nativeElement, this.enterClass);
+            removeClass(this.el.nativeElement, this.leaveClass());
+            addClass(this.el.nativeElement, enterClass);
 
-            this.once && this.unbindIntersectionObserver();
+            this.once() && this.unbindIntersectionObserver();
 
             this.bindAnimationEvents();
             this.animationState = 'enter';
@@ -128,10 +132,11 @@ export class AnimateOnScroll extends BaseComponent {
     }
 
     leave() {
-        if (this.animationState !== 'leave' && this.leaveClass) {
-            this.el.nativeElement.style.opacity = this.enterClass ? '0' : '';
-            removeClass(this.el.nativeElement, this.enterClass);
-            addClass(this.el.nativeElement, this.leaveClass);
+        const leaveClass = this.leaveClass();
+        if (this.animationState !== 'leave' && leaveClass) {
+            this.el.nativeElement.style.opacity = this.enterClass() ? '0' : '';
+            removeClass(this.el.nativeElement, this.enterClass());
+            addClass(this.el.nativeElement, leaveClass);
 
             this.bindAnimationEvents();
             this.animationState = 'leave';
@@ -141,8 +146,8 @@ export class AnimateOnScroll extends BaseComponent {
     bindAnimationEvents() {
         if (!this.animationEndListener) {
             this.animationEndListener = this.renderer.listen(this.el.nativeElement, 'animationend', () => {
-                removeClass(this.el.nativeElement, [this.enterClass, this.leaveClass]);
-                !this.once && this.resetObserver.observe(this.el.nativeElement);
+                removeClass(this.el.nativeElement, [this.enterClass(), this.leaveClass()]);
+                !this.once() && this.resetObserver?.observe(this.el.nativeElement);
                 this.unbindAnimationEvents();
             });
         }
