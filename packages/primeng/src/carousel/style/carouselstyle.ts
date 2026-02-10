@@ -24,9 +24,9 @@ const classes = {
     itemClone: ({ instance, index }) => [
         'p-carousel-item p-carousel-item-clone',
         {
-            'p-carousel-item-active': instance.totalShiftedItems * -1 === instance.value.length,
+            'p-carousel-item-active': instance.totalShiftedItems() * -1 === instance.value()?.length,
             'p-carousel-item-start': 0 === index,
-            'p-carousel-item-end': instance.clonedItemsForStarting.length - 1 === index
+            'p-carousel-item-end': instance.clonedItemsForStarting().length - 1 === index
         }
     ],
     item: ({ instance, index }) => [
@@ -43,14 +43,14 @@ const classes = {
             'p-disabled': instance.isForwardNavDisabled()
         }
     ],
-    indicatorList: ({ instance }) => ['p-carousel-indicator-list', instance.indicatorsContentClass],
+    indicatorList: ({ instance }) => ['p-carousel-indicator-list', instance.indicatorsContentClass()],
     indicator: ({ instance, index }) => [
         'p-carousel-indicator',
         {
-            'p-carousel-indicator-active': instance._page === index
+            'p-carousel-indicator-active': instance._page() === index
         }
     ],
-    indicatorButton: ({ instance }) => ['p-carousel-indicator-button', instance.indicatorStyleClass],
+    indicatorButton: ({ instance }) => ['p-carousel-indicator-button', instance.indicatorStyleClass()],
     footer: 'p-carousel-footer'
 };
 

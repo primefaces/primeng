@@ -3,6 +3,12 @@ import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThroughOptions } from 'primeng/types/button';
 
 /**
+ * Defines the orientation of the carousel.
+ * @group Types
+ */
+export type CarouselOrientation = 'horizontal' | 'vertical';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
