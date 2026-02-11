@@ -32,13 +32,14 @@ class TestSkeletonShapesComponent {
 @Component({
     standalone: false,
     selector: 'test-skeleton-dimensions',
-    template: ` <p-skeleton [width]="width" [height]="height" [size]="size" [shape]="shape"> </p-skeleton> `
+    template: ` <p-skeleton [width]="width" [height]="height" [size]="size" [shape]="shape" [borderRadius]="borderRadius"> </p-skeleton> `
 })
 class TestSkeletonDimensionsComponent {
     width = '200px';
     height = '50px';
     size: string | undefined;
     shape = 'rectangle';
+    borderRadius: string | undefined;
 }
 
 @Component({
@@ -54,10 +55,9 @@ class TestSkeletonAnimationsComponent {
 @Component({
     standalone: false,
     selector: 'test-skeleton-styling',
-    template: ` <p-skeleton [styleClass]="styleClass" [shape]="shape" [borderRadius]="borderRadius"> </p-skeleton> `
+    template: ` <p-skeleton [shape]="shape" [borderRadius]="borderRadius"> </p-skeleton> `
 })
 class TestSkeletonStylingComponent {
-    styleClass = 'custom-skeleton';
     shape = 'circle';
     borderRadius = '8px';
 }
@@ -69,9 +69,9 @@ class TestSkeletonStylingComponent {
         <div class="card-skeleton">
             <p-skeleton shape="circle" size="4rem"></p-skeleton>
             <div class="content">
-                <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
-                <p-skeleton width="8rem" styleClass="mb-2"></p-skeleton>
-                <p-skeleton height="0.5rem" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="10rem"></p-skeleton>
+                <p-skeleton width="8rem"></p-skeleton>
+                <p-skeleton height="0.5rem"></p-skeleton>
             </div>
         </div>
     `
@@ -84,13 +84,13 @@ class TestSkeletonCardLayoutComponent {}
     template: `
         <div class="table-skeleton">
             <div class="table-header">
-                <p-skeleton width="100%" height="2rem" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="100%" height="2rem"></p-skeleton>
             </div>
             <div class="table-rows">
                 <div *ngFor="let row of rows; trackBy: trackByFn" class="table-row">
-                    <p-skeleton width="25%" height="1.5rem" styleClass="mr-2"></p-skeleton>
-                    <p-skeleton width="25%" height="1.5rem" styleClass="mr-2"></p-skeleton>
-                    <p-skeleton width="25%" height="1.5rem" styleClass="mr-2"></p-skeleton>
+                    <p-skeleton width="25%" height="1.5rem"></p-skeleton>
+                    <p-skeleton width="25%" height="1.5rem"></p-skeleton>
+                    <p-skeleton width="25%" height="1.5rem"></p-skeleton>
                     <p-skeleton width="25%" height="1.5rem"></p-skeleton>
                 </div>
             </div>
@@ -115,7 +115,7 @@ class TestSkeletonEmptyComponent {}
 @Component({
     standalone: false,
     selector: 'test-skeleton-dynamic',
-    template: ` <p-skeleton [shape]="dynamicShape" [animation]="dynamicAnimation" [width]="dynamicWidth" [height]="dynamicHeight" [size]="dynamicSize" [borderRadius]="dynamicBorderRadius" [styleClass]="dynamicStyleClass"> </p-skeleton> `
+    template: ` <p-skeleton [shape]="dynamicShape" [animation]="dynamicAnimation" [width]="dynamicWidth" [height]="dynamicHeight" [size]="dynamicSize" [borderRadius]="dynamicBorderRadius"> </p-skeleton> `
 })
 class TestSkeletonDynamicComponent {
     dynamicShape = 'rectangle';
@@ -124,7 +124,6 @@ class TestSkeletonDynamicComponent {
     dynamicHeight = '20px';
     dynamicSize: string | undefined;
     dynamicBorderRadius: string | undefined;
-    dynamicStyleClass: string | undefined;
 }
 
 describe('Skeleton', () => {
@@ -169,19 +168,19 @@ describe('Skeleton', () => {
             const newFixture = TestBed.createComponent(TestBasicSkeletonComponent);
             const newSkeleton = newFixture.debugElement.query(By.directive(Skeleton)).componentInstance;
 
-            expect(newSkeleton.shape).toBe('rectangle');
-            expect(newSkeleton.animation).toBe('wave');
-            expect(newSkeleton.width).toBe('100%');
-            expect(newSkeleton.height).toBe('1rem');
-            expect(newSkeleton.borderRadius).toBeUndefined();
-            expect(newSkeleton.size).toBeUndefined();
+            expect(newSkeleton.shape()).toBe('rectangle');
+            expect(newSkeleton.animation()).toBe('wave');
+            expect(newSkeleton.width()).toBe('100%');
+            expect(newSkeleton.height()).toBe('1rem');
+            expect(newSkeleton.borderRadius()).toBeUndefined();
+            expect(newSkeleton.size()).toBeUndefined();
         });
 
         it('should accept custom values', () => {
-            expect(skeleton.shape).toBe(component.shape);
-            expect(skeleton.animation).toBe(component.animation);
-            expect(skeleton.width).toBe(component.width);
-            expect(skeleton.height).toBe(component.height);
+            expect(skeleton.shape()).toBe(component.shape);
+            expect(skeleton.animation()).toBe(component.animation);
+            expect(skeleton.width()).toBe(component.width);
+            expect(skeleton.height()).toBe(component.height);
         });
 
         it('should extend BaseComponent', () => {
@@ -216,7 +215,7 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.shape).toBe('rectangle');
+            expect(skeleton.shape()).toBe('rectangle');
         });
 
         it('should handle circle shape', async () => {
@@ -225,7 +224,7 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.shape).toBe('circle');
+            expect(skeleton.shape()).toBe('circle');
         });
 
         it('should handle square shape', async () => {
@@ -234,7 +233,7 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.shape).toBe('square');
+            expect(skeleton.shape()).toBe('square');
         });
 
         it('should handle custom shapes', async () => {
@@ -243,7 +242,7 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.shape).toBe('custom-shape');
+            expect(skeleton.shape()).toBe('custom-shape');
         });
 
         it('should apply border radius correctly', async () => {
@@ -252,8 +251,8 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.borderRadius).toBe('10px');
-            expect(skeleton.containerStyle.borderRadius).toBe('10px');
+            expect(skeleton.borderRadius()).toBe('10px');
+            expect(skeleton.containerStyle()?.borderRadius).toBe('10px');
         });
 
         it('should handle size property for square elements', async () => {
@@ -263,9 +262,9 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.size).toBe('50px');
-            expect(skeleton.containerStyle.width).toBe('50px');
-            expect(skeleton.containerStyle.height).toBe('50px');
+            expect(skeleton.size()).toBe('50px');
+            expect(skeleton.containerStyle()?.width).toBe('50px');
+            expect(skeleton.containerStyle()?.height).toBe('50px');
         });
     });
 
@@ -283,11 +282,11 @@ describe('Skeleton', () => {
         });
 
         it('should apply custom width and height', () => {
-            expect(skeleton.width).toBe(component.width);
-            expect(skeleton.height).toBe(component.height);
+            expect(skeleton.width()).toBe(component.width);
+            expect(skeleton.height()).toBe(component.height);
 
-            expect(skeleton.containerStyle.width).toBe('200px');
-            expect(skeleton.containerStyle.height).toBe('50px');
+            expect(skeleton.containerStyle()?.width).toBe('200px');
+            expect(skeleton.containerStyle()?.height).toBe('50px');
         });
 
         it('should prioritize size over width/height when size is provided', async () => {
@@ -296,8 +295,8 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.containerStyle.width).toBe('100px');
-            expect(skeleton.containerStyle.height).toBe('100px');
+            expect(skeleton.containerStyle()?.width).toBe('100px');
+            expect(skeleton.containerStyle()?.height).toBe('100px');
         });
 
         it('should use width/height when size is not provided', async () => {
@@ -308,8 +307,8 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.containerStyle.width).toBe('300px');
-            expect(skeleton.containerStyle.height).toBe('40px');
+            expect(skeleton.containerStyle()?.width).toBe('300px');
+            expect(skeleton.containerStyle()?.height).toBe('40px');
         });
 
         it('should handle percentage values', async () => {
@@ -319,8 +318,8 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.containerStyle.width).toBe('75%');
-            expect(skeleton.containerStyle.height).toBe('2em');
+            expect(skeleton.containerStyle()?.width).toBe('75%');
+            expect(skeleton.containerStyle()?.height).toBe('2em');
         });
 
         it('should handle viewport units', async () => {
@@ -330,8 +329,8 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.containerStyle.width).toBe('50vw');
-            expect(skeleton.containerStyle.height).toBe('10vh');
+            expect(skeleton.containerStyle()?.width).toBe('50vw');
+            expect(skeleton.containerStyle()?.height).toBe('10vh');
         });
 
         it('should handle rem and em units', async () => {
@@ -341,8 +340,8 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.containerStyle.width).toBe('20rem');
-            expect(skeleton.containerStyle.height).toBe('3em');
+            expect(skeleton.containerStyle()?.width).toBe('20rem');
+            expect(skeleton.containerStyle()?.height).toBe('3em');
         });
     });
 
@@ -365,7 +364,7 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.animation).toBe('wave');
+            expect(skeleton.animation()).toBe('wave');
         });
 
         it('should handle pulse animation', async () => {
@@ -374,7 +373,7 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.animation).toBe('pulse');
+            expect(skeleton.animation()).toBe('pulse');
         });
 
         it('should handle none animation', async () => {
@@ -383,7 +382,7 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.animation).toBe('none');
+            expect(skeleton.animation()).toBe('none');
         });
 
         it('should handle custom animation types', async () => {
@@ -392,7 +391,7 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.animation).toBe('custom-animation');
+            expect(skeleton.animation()).toBe('custom-animation');
         });
     });
 
@@ -412,79 +411,77 @@ describe('Skeleton', () => {
             element = debugElement.nativeElement;
         });
 
-        it('should apply custom styleClass', () => {
-            expect(element.classList.contains('custom-skeleton')).toBe(true);
-        });
-
         it('should apply root CSS class through cx method', () => {
             const classes = element.className;
             expect(classes).toBeTruthy();
         });
 
         it('should merge inline styles with component styles', () => {
-            const containerStyle = skeleton.containerStyle;
+            const containerStyle = skeleton.containerStyle();
             expect(containerStyle).toBeTruthy();
-            expect(containerStyle.borderRadius).toBe('8px');
-        });
-
-        it('should handle undefined styleClass', async () => {
-            component.styleClass = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            expect(() => fixture.detectChanges()).not.toThrow();
+            expect(containerStyle?.borderRadius).toBe('8px');
         });
     });
 
     describe('Container Style Calculation', () => {
         let fixture: ComponentFixture<TestSkeletonDimensionsComponent>;
+        let component: TestSkeletonDimensionsComponent;
         let skeleton: Skeleton;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestSkeletonDimensionsComponent);
+            component = fixture.componentInstance;
             fixture.detectChanges();
             skeleton = fixture.debugElement.query(By.directive(Skeleton)).componentInstance;
         });
 
-        it('should calculate container style with size property', () => {
-            skeleton.size = '80px';
-            skeleton.borderRadius = '5px';
+        it('should calculate container style with size property', async () => {
+            component.size = '80px';
+            component.borderRadius = '5px';
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-            const style = skeleton.containerStyle;
+            const style = skeleton.containerStyle();
 
-            expect(style.width).toBe('80px');
-            expect(style.height).toBe('80px');
-            expect(style.borderRadius).toBe('5px');
+            expect(style?.width).toBe('80px');
+            expect(style?.height).toBe('80px');
+            expect(style?.borderRadius).toBe('5px');
         });
 
-        it('should calculate container style with width and height', () => {
-            skeleton.size = undefined as any;
-            skeleton.width = '150px';
-            skeleton.height = '30px';
-            skeleton.borderRadius = '3px';
+        it('should calculate container style with width and height', async () => {
+            component.size = undefined;
+            component.width = '150px';
+            component.height = '30px';
+            component.borderRadius = '3px';
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-            const style = skeleton.containerStyle;
+            const style = skeleton.containerStyle();
 
-            expect(style.width).toBe('150px');
-            expect(style.height).toBe('30px');
-            expect(style.borderRadius).toBe('3px');
+            expect(style?.width).toBe('150px');
+            expect(style?.height).toBe('30px');
+            expect(style?.borderRadius).toBe('3px');
         });
 
         it('should merge with component inline styles', () => {
-            const style = skeleton.containerStyle;
+            const style = skeleton.containerStyle();
 
             // Should have component inline styles merged
             expect(style).toBeTruthy();
             expect(typeof style).toBe('object');
         });
 
-        it('should handle missing borderRadius', () => {
-            skeleton.borderRadius = undefined as any;
+        it('should handle missing borderRadius', async () => {
+            component.borderRadius = undefined;
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-            const style = skeleton.containerStyle;
+            const style = skeleton.containerStyle();
 
-            expect(style.borderRadius).toBeUndefined();
+            expect(style?.borderRadius).toBeUndefined();
         });
     });
 
@@ -525,13 +522,13 @@ describe('Skeleton', () => {
             expect(skeletons.length).toBe(4); // 1 circle + 3 rectangles
 
             // Circle avatar skeleton
-            expect(skeletons[0].componentInstance.shape).toBe('circle');
-            expect(skeletons[0].componentInstance.size).toBe('4rem');
+            expect(skeletons[0].componentInstance.shape()).toBe('circle');
+            expect(skeletons[0].componentInstance.size()).toBe('4rem');
 
             // Content skeletons
-            expect(skeletons[1].componentInstance.width).toBe('10rem');
-            expect(skeletons[2].componentInstance.width).toBe('8rem');
-            expect(skeletons[3].componentInstance.height).toBe('0.5rem');
+            expect(skeletons[1].componentInstance.width()).toBe('10rem');
+            expect(skeletons[2].componentInstance.width()).toBe('8rem');
+            expect(skeletons[3].componentInstance.height()).toBe('0.5rem');
         });
 
         it('should work in data table layout', () => {
@@ -542,12 +539,12 @@ describe('Skeleton', () => {
             expect(skeletons.length).toBe(21); // 1 header + 20 cells (5 rows * 4 columns)
 
             // Header skeleton
-            expect(skeletons[0].componentInstance.width).toBe('100%');
-            expect(skeletons[0].componentInstance.height).toBe('2rem');
+            expect(skeletons[0].componentInstance.width()).toBe('100%');
+            expect(skeletons[0].componentInstance.height()).toBe('2rem');
 
             // Row cell skeletons
-            expect(skeletons[1].componentInstance.width).toBe('25%');
-            expect(skeletons[1].componentInstance.height).toBe('1.5rem');
+            expect(skeletons[1].componentInstance.width()).toBe('25%');
+            expect(skeletons[1].componentInstance.height()).toBe('1.5rem');
         });
     });
 
@@ -569,7 +566,7 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.shape).toBe('circle');
+            expect(skeleton.shape()).toBe('circle');
         });
 
         it('should update animation dynamically', async () => {
@@ -578,7 +575,7 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.animation).toBe('pulse');
+            expect(skeleton.animation()).toBe('pulse');
         });
 
         it('should update dimensions dynamically', async () => {
@@ -588,10 +585,10 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.width).toBe('250px');
-            expect(skeleton.height).toBe('60px');
-            expect(skeleton.containerStyle.width).toBe('250px');
-            expect(skeleton.containerStyle.height).toBe('60px');
+            expect(skeleton.width()).toBe('250px');
+            expect(skeleton.height()).toBe('60px');
+            expect(skeleton.containerStyle()?.width).toBe('250px');
+            expect(skeleton.containerStyle()?.height).toBe('60px');
         });
 
         it('should update size dynamically', async () => {
@@ -600,9 +597,9 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.size).toBe('120px');
-            expect(skeleton.containerStyle.width).toBe('120px');
-            expect(skeleton.containerStyle.height).toBe('120px');
+            expect(skeleton.size()).toBe('120px');
+            expect(skeleton.containerStyle()?.width).toBe('120px');
+            expect(skeleton.containerStyle()?.height).toBe('120px');
         });
 
         it('should update border radius dynamically', async () => {
@@ -611,114 +608,125 @@ describe('Skeleton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(skeleton.borderRadius).toBe('15px');
-            expect(skeleton.containerStyle.borderRadius).toBe('15px');
-        });
-
-        it('should update styleClass dynamically', async () => {
-            component.dynamicStyleClass = 'new-style';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            const element = fixture.debugElement.query(By.directive(Skeleton)).nativeElement;
-            expect(element.classList.contains('new-style')).toBe(true);
+            expect(skeleton.borderRadius()).toBe('15px');
+            expect(skeleton.containerStyle()?.borderRadius).toBe('15px');
         });
     });
 
     describe('Edge Cases', () => {
-        let fixture: ComponentFixture<TestSkeletonEmptyComponent>;
+        let fixture: ComponentFixture<TestSkeletonDynamicComponent>;
+        let component: TestSkeletonDynamicComponent;
         let skeleton: Skeleton;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(TestSkeletonEmptyComponent);
+            fixture = TestBed.createComponent(TestSkeletonDynamicComponent);
+            component = fixture.componentInstance;
             fixture.detectChanges();
             skeleton = fixture.debugElement.query(By.directive(Skeleton)).componentInstance;
         });
 
         it('should handle empty/default configuration', () => {
-            expect(skeleton).toBeTruthy();
-            expect(skeleton.shape).toBe('rectangle');
-            expect(skeleton.animation).toBe('wave');
-            expect(skeleton.width).toBe('100%');
-            expect(skeleton.height).toBe('1rem');
+            const emptyFixture = TestBed.createComponent(TestSkeletonEmptyComponent);
+            emptyFixture.detectChanges();
+            const emptySkeleton = emptyFixture.debugElement.query(By.directive(Skeleton)).componentInstance;
+
+            expect(emptySkeleton).toBeTruthy();
+            expect(emptySkeleton.shape()).toBe('rectangle');
+            expect(emptySkeleton.animation()).toBe('wave');
+            expect(emptySkeleton.width()).toBe('100%');
+            expect(emptySkeleton.height()).toBe('1rem');
         });
 
-        it('should handle zero dimensions', () => {
-            skeleton.width = '0px';
-            skeleton.height = '0px';
+        it('should handle zero dimensions', async () => {
+            component.dynamicWidth = '0px';
+            component.dynamicHeight = '0px';
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-            const style = skeleton.containerStyle;
-            expect(style.width).toBe('0px');
-            expect(style.height).toBe('0px');
+            const style = skeleton.containerStyle();
+            expect(style?.width).toBe('0px');
+            expect(style?.height).toBe('0px');
         });
 
-        it('should handle very large dimensions', () => {
-            skeleton.width = '9999px';
-            skeleton.height = '9999px';
+        it('should handle very large dimensions', async () => {
+            component.dynamicWidth = '9999px';
+            component.dynamicHeight = '9999px';
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-            const style = skeleton.containerStyle;
-            expect(style.width).toBe('9999px');
-            expect(style.height).toBe('9999px');
+            const style = skeleton.containerStyle();
+            expect(style?.width).toBe('9999px');
+            expect(style?.height).toBe('9999px');
         });
 
-        it('should handle empty strings', () => {
-            skeleton.width = '';
-            skeleton.height = '';
+        it('should handle empty strings', async () => {
+            component.dynamicWidth = '';
+            component.dynamicHeight = '';
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-            const style = skeleton.containerStyle;
-            expect(style.width).toBe('' as any);
-            expect(style.height).toBe('' as any);
+            const style = skeleton.containerStyle();
+            expect(style?.width).toBe('' as any);
+            expect(style?.height).toBe('' as any);
         });
 
-        it('should handle null/undefined values gracefully', () => {
-            skeleton.borderRadius = undefined as any;
-            skeleton.size = undefined as any;
+        it('should handle null/undefined values gracefully', async () => {
+            component.dynamicBorderRadius = undefined;
+            component.dynamicSize = undefined;
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(() => {
-                const style = skeleton.containerStyle;
+                const style = skeleton.containerStyle();
                 expect(style).toBeTruthy();
             }).not.toThrow();
         });
 
-        it('should handle invalid CSS values', () => {
-            skeleton.width = 'invalid-value';
-            skeleton.height = 'another-invalid';
+        it('should handle invalid CSS values', async () => {
+            component.dynamicWidth = 'invalid-value';
+            component.dynamicHeight = 'another-invalid';
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-            const style = skeleton.containerStyle;
-            expect(style.width).toBe('invalid-value');
-            expect(style.height).toBe('another-invalid');
+            const style = skeleton.containerStyle();
+            expect(style?.width).toBe('invalid-value');
+            expect(style?.height).toBe('another-invalid');
         });
 
         it('should handle rapid property updates', async () => {
-            skeleton.shape = 'rectangle';
-            skeleton.cd.markForCheck();
+            component.dynamicShape = 'rectangle';
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
-            skeleton.shape = 'circle';
-            skeleton.cd.markForCheck();
+            component.dynamicShape = 'circle';
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
-            skeleton.shape = 'square';
-            skeleton.cd.markForCheck();
+            component.dynamicShape = 'square';
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
-            expect(skeleton.shape).toBe('square');
+            expect(skeleton.shape()).toBe('square');
         });
 
-        it('should handle complex CSS calc expressions', () => {
-            skeleton.width = 'calc(100% - 20px)';
-            skeleton.height = 'calc(50vh - 10px)';
+        it('should handle complex CSS calc expressions', async () => {
+            component.dynamicWidth = 'calc(100% - 20px)';
+            component.dynamicHeight = 'calc(50vh - 10px)';
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-            const style = skeleton.containerStyle;
-            expect(style.width).toBe('calc(100% - 20px)');
-            expect(style.height).toBe('calc(50vh - 10px)');
+            const style = skeleton.containerStyle();
+            expect(style?.width).toBe('calc(100% - 20px)');
+            expect(style?.height).toBe('calc(50vh - 10px)');
         });
     });
 
@@ -800,7 +808,7 @@ describe('Skeleton', () => {
                             <p-skeleton width="100%" height="10rem"></p-skeleton>
                         </div>
                         <div class="footer">
-                            <p-skeleton width="4rem" height="2rem" styleClass="mr-2"></p-skeleton>
+                            <p-skeleton width="4rem" height="2rem"></p-skeleton>
                             <p-skeleton width="4rem" height="2rem"></p-skeleton>
                         </div>
                     </div>
@@ -821,11 +829,11 @@ describe('Skeleton', () => {
             expect(skeletons.length).toBe(6);
 
             // Verify different configurations
-            expect(skeletons[0].componentInstance.shape).toBe('circle');
-            expect(skeletons[0].componentInstance.size).toBe('3rem');
+            expect(skeletons[0].componentInstance.shape()).toBe('circle');
+            expect(skeletons[0].componentInstance.size()).toBe('3rem');
 
-            expect(skeletons[3].componentInstance.width).toBe('100%');
-            expect(skeletons[3].componentInstance.height).toBe('10rem');
+            expect(skeletons[3].componentInstance.width()).toBe('100%');
+            expect(skeletons[3].componentInstance.height()).toBe('10rem');
         });
 
         it('should work with conditional rendering', async () => {
@@ -1138,7 +1146,7 @@ describe('Skeleton', () => {
                 root: ({ instance }: any) => {
                     return {
                         style: {
-                            opacity: instance?.animation === 'pulse' ? '0.8' : '1'
+                            opacity: instance?.animation() === 'pulse' ? '0.8' : '1'
                         }
                     };
                 }

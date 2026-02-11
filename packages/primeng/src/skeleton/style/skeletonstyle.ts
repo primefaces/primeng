@@ -10,8 +10,8 @@ const classes = {
     root: ({ instance }) => [
         'p-skeleton p-component',
         {
-            'p-skeleton-circle': instance.shape === 'circle',
-            'p-skeleton-animation-none': instance.animation === 'none'
+            'p-skeleton-circle': instance.shape() === 'circle',
+            'p-skeleton-animation-none': instance.animation() === 'none'
         }
     ]
 };
