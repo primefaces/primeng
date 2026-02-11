@@ -6,8 +6,8 @@ const classes = {
     root: ({ instance }) => [
         'p-metergroup p-component',
         {
-            'p-metergroup-horizontal': instance.orientation === 'horizontal',
-            'p-metergroup-vertical': instance.orientation === 'vertical'
+            'p-metergroup-horizontal': instance.orientation() === 'horizontal',
+            'p-metergroup-vertical': instance.orientation() === 'vertical'
         }
     ],
     meters: 'p-metergroup-meters',
@@ -15,8 +15,8 @@ const classes = {
     labelList: ({ instance }) => [
         'p-metergroup-label-list',
         {
-            'p-metergroup-label-list-vertical': instance.labelOrientation === 'vertical',
-            'p-metergroup-label-list-horizontal': instance.labelOrientation === 'horizontal'
+            'p-metergroup-label-list-vertical': instance.labelOrientation() === 'vertical',
+            'p-metergroup-label-list-horizontal': instance.labelOrientation() === 'horizontal'
         }
     ],
     label: 'p-metergroup-label',

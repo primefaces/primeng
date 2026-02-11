@@ -1,6 +1,10 @@
 import type { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
+export type MeterGroupOrientation = 'horizontal' | 'vertical';
+
+export type MeterGroupLabelPosition = 'start' | 'end';
+
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
@@ -90,7 +94,7 @@ export interface MeterGroupMeterTemplateContext {
     /**
      * Current orientation of the component.
      */
-    orientation: 'horizontal' | 'vertical';
+    orientation: MeterGroupOrientation;
     /**
      * Style class of the meter item.
      */
