@@ -3,18 +3,22 @@ import { style } from '@primeuix/styles/tag';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => [
-        'p-tag p-component',
-        {
-            'p-tag-info': instance.severity === 'info',
-            'p-tag-success': instance.severity === 'success',
-            'p-tag-warn': instance.severity === 'warn',
-            'p-tag-danger': instance.severity === 'danger',
-            'p-tag-secondary': instance.severity === 'secondary',
-            'p-tag-contrast': instance.severity === 'contrast',
-            'p-tag-rounded': instance.rounded
-        }
-    ],
+    root: ({ instance }) => {
+        const severity = instance.severity();
+        const rounded = instance.rounded();
+        return [
+            'p-tag p-component',
+            {
+                'p-tag-info': severity === 'info',
+                'p-tag-success': severity === 'success',
+                'p-tag-warn': severity === 'warn',
+                'p-tag-danger': severity === 'danger',
+                'p-tag-secondary': severity === 'secondary',
+                'p-tag-contrast': severity === 'contrast',
+                'p-tag-rounded': rounded
+            }
+        ];
+    },
     icon: 'p-tag-icon',
     label: 'p-tag-label'
 };
