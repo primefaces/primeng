@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Directive, effect, inject, NgModule, NgZone } from '@angular/core';
+import { Directive, effect, inject, NgModule } from '@angular/core';
 import { addClass, getHeight, getOffset, getOuterHeight, getOuterWidth, getWidth, removeClass, remove as utils_remove } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -20,33 +20,27 @@ import { RippleStyle } from './style/ripplestyle';
 export class Ripple extends BaseComponent {
     componentName = 'Ripple';
 
-    zone: NgZone = inject(NgZone);
-
     _componentStyle = inject(RippleStyle);
 
     animationListener: VoidListener;
 
     mouseDownListener: VoidListener;
 
-    timeout: any;
+    timeout: ReturnType<typeof setTimeout> | undefined;
 
     constructor() {
         super();
         effect(() => {
             if (isPlatformBrowser(this.platformId)) {
                 if (this.config.ripple()) {
-                    this.zone.runOutsideAngular(() => {
-                        this.create();
-                        this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
-                    });
+                    this.create();
+                    this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
                 } else {
                     this.remove();
                 }
             }
         });
     }
-
-    onAfterViewInit() {}
 
     onMouseDown(event: MouseEvent) {
         let ink = this.getInk();
@@ -63,7 +57,7 @@ export class Ripple extends BaseComponent {
             ink.style.width = d + 'px';
         }
 
-        let offset = <any>getOffset(this.el.nativeElement);
+        const offset = getOffset(this.el.nativeElement) as { left: number; top: number };
         let x = event.pageX - offset.left + this.document.body.scrollTop - getWidth(ink) / 2;
         let y = event.pageY - offset.top + this.document.body.scrollLeft - getHeight(ink) / 2;
 
@@ -105,8 +99,8 @@ export class Ripple extends BaseComponent {
             clearTimeout(this.timeout);
         }
 
-        !this.$unstyled() && removeClass(event.currentTarget as any, 'p-ink-active');
-        (event.currentTarget as any).setAttribute('data-p-ink-active', 'false');
+        !this.$unstyled() && removeClass(event.currentTarget as HTMLElement, 'p-ink-active');
+        (event.currentTarget as HTMLElement).setAttribute('data-p-ink-active', 'false');
     }
 
     create() {
