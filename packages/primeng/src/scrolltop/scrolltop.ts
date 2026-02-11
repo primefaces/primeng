@@ -52,7 +52,7 @@ const SCROLLTOP_INSTANCE = new InjectionToken<ScrollTop>('SCROLLTOP_INSTANCE');
                         }
                     }
                     @if (iconTemplate()) {
-                        <ng-container [ngTemplateOutlet]="iconTemplate()!" [ngTemplateOutletContext]="{ styleClass: cx('icon') }"></ng-container>
+                        <ng-container [ngTemplateOutlet]="iconTemplate()!" [ngTemplateOutletContext]="getIconTemplateContext()"></ng-container>
                     }
                 </ng-template>
             </p-button>
@@ -138,6 +138,10 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
             ...this.motionOptions()
         };
     });
+
+    getIconTemplateContext() {
+        return { styleClass: this.cx('icon') };
+    }
 
     documentScrollListener: VoidFunction | null | undefined;
 
