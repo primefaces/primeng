@@ -4,6 +4,18 @@ import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 
 /**
+ * Defines the target of the ScrollTop.
+ * @group Types
+ */
+export type ScrollTopTarget = 'window' | 'parent';
+
+/**
+ * Defines the scrolling behavior of the ScrollTop.
+ * @group Types
+ */
+export type ScrollTopBehavior = 'auto' | 'smooth';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

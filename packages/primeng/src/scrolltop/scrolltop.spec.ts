@@ -58,18 +58,13 @@ class TestScrollTopWithTemplateComponent {}
 @Component({
     standalone: false,
     selector: 'test-scrolltop-with-styles',
-    template: `
-        <p-scrolltop [threshold]="threshold" [style]="customStyle" [styleClass]="customClass" [behavior]="behavior" [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions" [buttonProps]="buttonProps">
-        </p-scrolltop>
-    `
+    template: ` <p-scrolltop [threshold]="threshold" [style]="customStyle" [styleClass]="customClass" [behavior]="behavior" [buttonProps]="buttonProps"> </p-scrolltop> `
 })
 class TestScrollTopWithStylesComponent {
     threshold = 200;
     customStyle = { position: 'fixed', bottom: '20px', right: '20px' };
     customClass = 'custom-scrolltop';
     behavior: 'auto' | 'smooth' = 'smooth';
-    showTransitionOptions = '.3s';
-    hideTransitionOptions = '.3s';
     buttonProps = { rounded: false, severity: 'danger', size: 'large' };
 }
 
@@ -125,20 +120,18 @@ describe('ScrollTop', () => {
             const newFixture = TestBed.createComponent(TestBasicScrollTopComponent);
             const newScrollTop = newFixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
 
-            expect(newScrollTop.target).toBe('window');
-            expect(newScrollTop.threshold).toBe(400);
-            expect(newScrollTop.behavior).toBe('smooth');
-            expect(newScrollTop.showTransitionOptions).toBe('.15s');
-            expect(newScrollTop.hideTransitionOptions).toBe('.15s');
+            expect(newScrollTop.target()).toBe('window');
+            expect(newScrollTop.threshold()).toBe(400);
+            expect(newScrollTop.behavior()).toBe('smooth');
             expect(newScrollTop.visible()).toBe(false);
         });
 
         it('should accept custom threshold', () => {
-            expect(scrollTop.threshold).toBe(component.threshold);
+            expect(scrollTop.threshold()).toBe(component.threshold);
         });
 
         it('should accept custom target', () => {
-            expect(scrollTop.target).toBe(component.target);
+            expect(scrollTop.target()).toBe(component.target);
         });
 
         it('should extend BaseComponent', () => {
@@ -163,7 +156,6 @@ describe('ScrollTop', () => {
             fixture.detectChanges();
 
             spyOn(scrollTop, 'bindParentScrollListener');
-            scrollTop.target = 'parent';
             scrollTop.ngOnInit();
             expect(scrollTop.bindParentScrollListener).toHaveBeenCalled();
         });
@@ -250,13 +242,17 @@ describe('ScrollTop', () => {
             });
         });
 
-        it('should scroll to top with auto behavior', () => {
-            scrollTop.behavior = 'auto';
+        it('should scroll to top with auto behavior', async () => {
+            const styleFixture = TestBed.createComponent(TestScrollTopWithStylesComponent);
+            styleFixture.componentInstance.behavior = 'auto';
+            styleFixture.detectChanges();
+            const autoScrollTop = styleFixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
+
             const scrollSpy = jasmine.createSpy('scroll');
             const mockWindow = { scroll: scrollSpy };
-            spyOnProperty(scrollTop.document, 'defaultView').and.returnValue(mockWindow as any);
+            spyOnProperty(autoScrollTop.document, 'defaultView').and.returnValue(mockWindow as any);
 
-            scrollTop.onClick();
+            autoScrollTop.onClick();
 
             expect(scrollSpy).toHaveBeenCalledWith({
                 top: 0,
@@ -265,14 +261,17 @@ describe('ScrollTop', () => {
         });
 
         it('should scroll parent element when target is parent', () => {
-            scrollTop.target = 'parent';
+            const parentFixture = TestBed.createComponent(TestScrollTopWithParentComponent);
+            parentFixture.detectChanges();
+            const parentScrollTop = parentFixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
+
             const parentElement = document.createElement('div');
             const scrollSpy = jasmine.createSpy('scroll');
             parentElement.scroll = scrollSpy;
 
-            spyOnProperty(scrollTop.el.nativeElement, 'parentElement').and.returnValue(parentElement);
+            spyOnProperty(parentScrollTop.el.nativeElement, 'parentElement').and.returnValue(parentElement);
 
-            scrollTop.onClick();
+            parentScrollTop.onClick();
 
             expect(scrollSpy).toHaveBeenCalledWith({
                 top: 0,
@@ -362,7 +361,7 @@ describe('ScrollTop', () => {
             scrollTop.visible.set(true);
             fixture.detectChanges();
 
-            expect(scrollTop.icon).toBe(component.icon);
+            expect(scrollTop._icon()).toBe(component.icon);
 
             const iconElement = fixture.debugElement.query(By.css('.pi-arrow-up'));
             expect(iconElement).toBeTruthy();
@@ -392,22 +391,6 @@ describe('ScrollTop', () => {
             expect(customIcon).toBeTruthy();
             expect(customIcon.nativeElement.textContent).toBe('↑');
         });
-
-        it('should process templates in ngAfterContentInit', () => {
-            const fixture = TestBed.createComponent(TestScrollTopWithTemplateComponent);
-            const scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
-
-            // Mock the templates property to simulate template processing
-            const mockTemplate = { getType: () => 'icon', template: {} };
-            scrollTop.templates = { first: () => mockTemplate, forEach: (fn: Function) => fn(mockTemplate) };
-
-            expect(() => scrollTop.ngAfterContentInit()).not.toThrow();
-            if (scrollTop._iconTemplate) {
-                expect(scrollTop._iconTemplate).toBeDefined();
-            } else {
-                expect(scrollTop.templates).toBeDefined();
-            }
-        });
     });
 
     describe('Button Properties', () => {
@@ -432,14 +415,14 @@ describe('ScrollTop', () => {
                 expect(button.nativeElement.getAttribute('aria-label')).toBe(component.buttonAriaLabel);
             } else {
                 // If button component doesn't render, check component property
-                expect(scrollTop.buttonAriaLabel).toBe(component.buttonAriaLabel);
+                expect(scrollTop.buttonAriaLabel()).toBe(component.buttonAriaLabel);
             }
         });
 
         it('should apply default button props', () => {
             const defaultScrollTop = TestBed.createComponent(TestBasicScrollTopComponent).debugElement.query(By.directive(ScrollTop)).componentInstance;
 
-            expect(defaultScrollTop.buttonProps).toEqual({
+            expect(defaultScrollTop.buttonProps()).toEqual({
                 rounded: true
             });
         });
@@ -451,8 +434,8 @@ describe('ScrollTop', () => {
             const scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
 
             // Check if the component received the button props
-            if (scrollTop.buttonProps && scrollTop.buttonProps.severity === 'danger') {
-                expect(scrollTop.buttonProps).toEqual(
+            if (scrollTop.buttonProps() && scrollTop.buttonProps().severity === 'danger') {
+                expect(scrollTop.buttonProps()).toEqual(
                     jasmine.objectContaining({
                         rounded: false,
                         severity: 'danger'
@@ -482,16 +465,11 @@ describe('ScrollTop', () => {
         });
 
         it('should apply custom style', () => {
-            expect(scrollTop.style).toEqual(component.customStyle);
+            expect(scrollTop.style()).toEqual(component.customStyle);
         });
 
         it('should apply custom styleClass', () => {
-            expect(scrollTop.styleClass).toBe(component.customClass);
-        });
-
-        it('should apply transition options', () => {
-            expect(scrollTop.showTransitionOptions).toBe(component.showTransitionOptions);
-            expect(scrollTop.hideTransitionOptions).toBe(component.hideTransitionOptions);
+            expect(scrollTop.styleClass()).toBe(component.customClass);
         });
     });
 
@@ -616,12 +594,14 @@ describe('ScrollTop', () => {
         });
 
         it('should clean up on destroy for parent target', () => {
-            scrollTop.target = 'parent';
-            spyOn(scrollTop, 'unbindParentScrollListener');
+            const parentFixture = TestBed.createComponent(TestScrollTopWithParentComponent);
+            parentFixture.detectChanges();
+            const parentScrollTop = parentFixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
+            spyOn(parentScrollTop, 'unbindParentScrollListener');
 
-            scrollTop.ngOnDestroy();
+            parentScrollTop.ngOnDestroy();
 
-            expect(scrollTop.unbindParentScrollListener).toHaveBeenCalled();
+            expect(parentScrollTop.unbindParentScrollListener).toHaveBeenCalled();
         });
 
         it('should call super.ngOnInit', () => {
@@ -639,16 +619,22 @@ describe('ScrollTop', () => {
 
     describe('Edge Cases', () => {
         let fixture: ComponentFixture<TestBasicScrollTopComponent>;
+        let component: TestBasicScrollTopComponent;
         let scrollTop: ScrollTop;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestBasicScrollTopComponent);
+            component = fixture.componentInstance;
             fixture.detectChanges();
             scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
         });
 
         it('should handle zero threshold', () => {
-            scrollTop.threshold = 0;
+            // Use component with threshold=0
+            component.threshold = 0;
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+
             scrollTop.checkVisibility(1);
             expect(scrollTop.visible()).toBe(true);
 
@@ -678,30 +664,32 @@ describe('ScrollTop', () => {
         });
 
         it('should handle missing parent element', () => {
-            scrollTop.target = 'parent';
-            spyOnProperty(scrollTop.el.nativeElement, 'parentElement').and.returnValue(null);
+            const parentFixture = TestBed.createComponent(TestScrollTopWithParentComponent);
+            parentFixture.detectChanges();
+            const parentScrollTop = parentFixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
+
+            spyOnProperty(parentScrollTop.el.nativeElement, 'parentElement').and.returnValue(null);
 
             // Mock the scroll method on parent element to avoid null access
-            spyOn(scrollTop, 'onClick').and.callFake(() => {
+            spyOn(parentScrollTop, 'onClick').and.callFake(() => {
                 // Simulate safe onClick behavior when parent is null
-                if (!scrollTop.el.nativeElement.parentElement) {
+                if (!parentScrollTop.el.nativeElement.parentElement) {
                     return;
                 }
             });
 
-            expect(() => scrollTop.onClick()).not.toThrow();
+            expect(() => parentScrollTop.onClick()).not.toThrow();
         });
 
         it('should handle null document.defaultView', () => {
             spyOnProperty(scrollTop.document, 'defaultView').and.returnValue(null as any);
 
             // Mock onClick to safely handle null defaultView
-            const originalOnClick = scrollTop.onClick;
             spyOn(scrollTop, 'onClick').and.callFake(() => {
                 try {
                     const defaultView = scrollTop.document.defaultView;
                     if (defaultView) {
-                        defaultView.scroll({ top: 0, behavior: scrollTop.behavior as ScrollBehavior });
+                        defaultView.scroll({ top: 0, behavior: scrollTop.behavior() as ScrollBehavior });
                     }
                 } catch (error) {
                     // Handle error gracefully
@@ -722,26 +710,27 @@ describe('ScrollTop', () => {
         });
     });
 
-    describe('Icon Property Setter/Getter', () => {
+    describe('Icon Property', () => {
         let fixture: ComponentFixture<TestScrollTopWithIconComponent>;
+        let component: TestScrollTopWithIconComponent;
         let scrollTop: ScrollTop;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestScrollTopWithIconComponent);
+            component = fixture.componentInstance;
             fixture.detectChanges();
             scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
         });
 
-        it('should set and get icon property', () => {
-            scrollTop.icon = 'pi pi-chevron-up';
-            expect(scrollTop.icon).toBe('pi pi-chevron-up');
-            expect(scrollTop._icon).toBe('pi pi-chevron-up');
+        it('should get icon property', () => {
+            expect(scrollTop._icon()).toBe('pi pi-arrow-up');
         });
 
-        it('should handle undefined icon', () => {
-            scrollTop.icon = undefined as any;
-            expect(scrollTop.icon).toBeUndefined();
-            expect(scrollTop._icon).toBeUndefined();
+        it('should handle undefined icon', async () => {
+            component.icon = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            expect(scrollTop._icon()).toBeUndefined();
         });
     });
 
@@ -800,7 +789,7 @@ describe('ScrollTop', () => {
             if (button) {
                 expect(button.nativeElement.getAttribute('aria-label')).toBe(component.buttonAriaLabel);
             } else {
-                expect(scrollTop.buttonAriaLabel).toBe(component.buttonAriaLabel);
+                expect(scrollTop.buttonAriaLabel()).toBe(component.buttonAriaLabel);
             }
         });
 
@@ -820,7 +809,7 @@ describe('ScrollTop', () => {
                 expect(button.nativeElement.hasAttribute('aria-label')).toBe(false);
             } else {
                 // Button might not be rendered in test environment
-                expect(scrollTop.buttonAriaLabel).toBeUndefined();
+                expect(scrollTop.buttonAriaLabel()).toBeUndefined();
             }
         });
 
@@ -859,8 +848,8 @@ describe('ScrollTop', () => {
 
             const scrollTops = fixture.debugElement.queryAll(By.directive(ScrollTop));
             expect(scrollTops.length).toBe(2);
-            expect(scrollTops[0].componentInstance.threshold).toBe(100);
-            expect(scrollTops[1].componentInstance.threshold).toBe(200);
+            expect(scrollTops[0].componentInstance.threshold()).toBe(100);
+            expect(scrollTops[1].componentInstance.threshold()).toBe(200);
         });
 
         it('should work with nested scrollable containers', () => {
@@ -1078,8 +1067,8 @@ describe('ScrollTop', () => {
                 host: ({ instance }: any) => {
                     return {
                         class: {
-                            TARGET_PARENT: instance?.target === 'parent',
-                            TARGET_WINDOW: instance?.target === 'window'
+                            TARGET_PARENT: instance?.target() === 'parent',
+                            TARGET_WINDOW: instance?.target() === 'window'
                         }
                     };
                 }
@@ -1100,7 +1089,7 @@ describe('ScrollTop', () => {
                 root: ({ instance }: any) => {
                     return {
                         style: {
-                            opacity: instance?.threshold > 400 ? '1' : '0.5'
+                            opacity: instance?.threshold() > 400 ? '1' : '0.5'
                         }
                     };
                 }
