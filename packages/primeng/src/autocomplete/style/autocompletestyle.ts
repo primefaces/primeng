@@ -45,11 +45,11 @@ const classes = {
         'p-autocomplete p-component p-inputwrapper',
         {
             'p-invalid': instance.invalid(),
-            'p-focus': instance.focused,
+            'p-focus': instance.focused(),
             'p-inputwrapper-filled': instance.$filled(),
-            'p-inputwrapper-focus': (instance.focused && !instance.$disabled()) || instance.autofocus || instance.overlayVisible,
-            'p-autocomplete-open': instance.overlayVisible,
-            'p-autocomplete-clearable': instance.showClear && !instance.$disabled(),
+            'p-inputwrapper-focus': (instance.focused() && !instance.$disabled()) || instance.autofocus() || instance.overlayVisible(),
+            'p-autocomplete-open': instance.overlayVisible(),
+            'p-autocomplete-clearable': instance.showClear() && !instance.$disabled(),
             'p-autocomplete-fluid': instance.hasFluid
         }
     ],
