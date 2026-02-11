@@ -1,9 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, numberAttribute, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { NgTemplateOutlet } from '@angular/common';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, inject, InjectionToken, input, NgModule, numberAttribute, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ProgressBarContentTemplateContext, ProgressBarPassThrough } from 'primeng/types/progressbar';
+import type { ProgressBarContentTemplateContext, ProgressBarMode, ProgressBarPassThrough } from 'primeng/types/progressbar';
 import { ProgressBarStyle } from './style/progressbarstyle';
 
 const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTANCE');
@@ -13,17 +13,23 @@ const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTAN
  * @group Components
  */
 @Component({
-    selector: 'p-progressBar, p-progressbar, p-progress-bar',
+    selector: 'p-progressbar, p-progress-bar',
     standalone: true,
-    imports: [CommonModule, SharedModule, Bind],
+    imports: [NgTemplateOutlet, SharedModule, Bind],
     template: `
-        <div *ngIf="mode === 'determinate'" [class]="cn(cx('value'), valueStyleClass)" [pBind]="ptm('value')" [style.width]="value + '%'" [style.display]="'flex'" [style.background]="color" [attr.data-p]="dataP">
-            <div [class]="cx('label')" [pBind]="ptm('label')" [attr.data-p]="dataP">
-                <div *ngIf="showValue && !contentTemplate && !_contentTemplate" [style.display]="value != null && value !== 0 ? 'flex' : 'none'">{{ value }}{{ unit }}</div>
-                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: value }"></ng-container>
+        @if (mode() === 'determinate') {
+            <div [class]="cn(cx('value'), valueStyleClass())" [pBind]="ptm('value')" [style.width]="value() + '%'" [style.display]="'flex'" [style.background]="color()" [attr.data-p]="dataP()">
+                <div [class]="cx('label')" [pBind]="ptm('label')" [attr.data-p]="dataP()">
+                    @if (showLabel()) {
+                        <div [style.display]="labelDisplay()">{{ value() }}{{ unit() }}</div>
+                    }
+                    <ng-container [ngTemplateOutlet]="contentTemplate()!" [ngTemplateOutletContext]="contentTemplateContext()"></ng-container>
+                </div>
             </div>
-        </div>
-        <div *ngIf="mode === 'indeterminate'" [class]="cn(cx('value'), valueStyleClass)" [pBind]="ptm('value')" [style.background]="color" [attr.data-p]="dataP"></div>
+        }
+        @if (mode() === 'indeterminate') {
+            <div [class]="cn(cx('value'), valueStyleClass())" [pBind]="ptm('value')" [style.background]="color()" [attr.data-p]="dataP()"></div>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -31,11 +37,11 @@ const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTAN
     host: {
         role: 'progressbar',
         '[attr.aria-valuemin]': '0',
-        '[attr.aria-valuenow]': 'value',
+        '[attr.aria-valuenow]': 'value()',
         '[attr.aria-valuemax]': '100',
-        '[attr.aria-level]': 'value + unit',
-        '[class]': "cn(cx('root'), styleClass)",
-        '[attr.data-p]': 'dataP'
+        '[attr.aria-level]': 'value() + unit()',
+        '[class]': "cx('root')",
+        '[attr.data-p]': 'dataP()'
     },
     hostDirectives: [Bind]
 })
@@ -50,75 +56,65 @@ export class ProgressBar extends BaseComponent<ProgressBarPassThrough> {
      * Current value of the progress.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) value: number | undefined;
+    value = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
+
     /**
      * Whether to display the progress bar value.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showValue: boolean = true;
-    /**
-     * Style class of the element.
-     * @deprecated since v20.0.0, use `class` instead.
-     * @group Props
-     */
-    @Input() styleClass: string | undefined;
+    showValue = input(true, { transform: booleanAttribute });
+
     /**
      * Style class of the value element.
      * @group Props
      */
-    @Input() valueStyleClass: string | undefined;
+    valueStyleClass = input<string>();
+
     /**
      * Unit sign appended to the value.
      * @group Props
      */
-    @Input() unit: string = '%';
+    unit = input('%');
+
     /**
      * Defines the mode of the progress
      * @defaultValue 'determinate'
      * @group Props
      */
-    @Input() mode: 'determinate' | 'indeterminate' = 'determinate';
+    mode = input<ProgressBarMode>('determinate');
+
     /**
      * Color for the background of the progress.
      * @group Props
      */
-    @Input() color: string | undefined;
+    color = input<string>();
+
     /**
      * Template of the content.
      * @param {ProgressBarContentTemplateContext} context - content context.
      * @see {@link ProgressBarContentTemplateContext}
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<ProgressBarContentTemplateContext> | undefined;
-
-    onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
-    }
+    contentTemplate = contentChild<TemplateRef<ProgressBarContentTemplateContext>>('content', { descendants: false });
 
     _componentStyle = inject(ProgressBarStyle);
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    _contentTemplate: TemplateRef<ProgressBarContentTemplateContext> | undefined;
-
-    onAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this._contentTemplate = item.template;
-                    break;
-                default:
-                    this._contentTemplate = item.template;
-            }
-        });
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
-    get dataP() {
-        return this.cn({
-            determinate: this.mode === 'determinate',
-            indeterminate: this.mode === 'indeterminate'
-        });
-    }
+    dataP = computed(() =>
+        this.cn({
+            determinate: this.mode() === 'determinate',
+            indeterminate: this.mode() === 'indeterminate'
+        })
+    );
+
+    contentTemplateContext = computed(() => ({ $implicit: this.value() }));
+
+    showLabel = computed(() => this.showValue() && !this.contentTemplate());
+
+    labelDisplay = computed(() => (this.value() != null && this.value() !== 0 ? 'flex' : 'none'));
 }
 
 @NgModule({

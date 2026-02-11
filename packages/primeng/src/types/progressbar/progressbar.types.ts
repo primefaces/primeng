@@ -2,6 +2,12 @@ import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Defines the mode of the progress bar.
+ * @group Types
+ */
+export type ProgressBarMode = 'determinate' | 'indeterminate';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
