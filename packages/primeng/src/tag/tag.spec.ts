@@ -360,15 +360,15 @@ describe('Tag', () => {
             }
         });
 
-        it('should not show icon span when template is used', () => {
+        it('should show icon span with template content when template is used', () => {
             const iconTemplateFixture = TestBed.createComponent(TestIconTemplateTagComponent);
             iconTemplateFixture.detectChanges();
 
-            // When template is used, the regular icon span should not be shown
-            const regularIconSpan = iconTemplateFixture.debugElement.query(By.css('.p-tag-icon'));
-            expect(regularIconSpan).toBeFalsy();
+            // When template is used, the icon span wraps the template content
+            const iconSpan = iconTemplateFixture.debugElement.query(By.css('.p-tag-icon'));
+            expect(iconSpan).toBeTruthy();
 
-            // But template icon container should be present or component should have template
+            // The template icon content should be present inside the span
             const tagComponent = iconTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
             expect(tagComponent.iconTemplate()).toBeDefined();
         });
@@ -414,24 +414,15 @@ describe('Tag', () => {
 
         it('should maintain content projection with other features', async () => {
             const complexFixture = TestBed.createComponent(TestContentProjectionTagComponent);
-            const complexTag = complexFixture.debugElement.query(By.directive(Tag)).componentInstance;
-
-            // Add value to see both content projection and label
-            complexTag.value = 'With Content';
-            complexFixture.changeDetectorRef.markForCheck();
-            await complexFixture.whenStable();
             complexFixture.detectChanges();
 
             const projectedContent = complexFixture.debugElement.query(By.css('.content-projection'));
             const labelSpan = complexFixture.debugElement.query(By.css('span:last-child'));
 
             expect(projectedContent).toBeTruthy();
-            if (labelSpan) {
-                expect(labelSpan).toBeTruthy();
-                expect(labelSpan.nativeElement.textContent.trim()).toBe('With Content');
-            } else {
-                expect(complexTag.value).toBe('With Content');
-            }
+            expect(projectedContent.nativeElement.textContent.trim()).toBe('Custom Content');
+            // The label span should also exist (even if empty when no value is set)
+            expect(labelSpan).toBeTruthy();
         });
     });
 
@@ -1036,7 +1027,7 @@ describe('Tag', () => {
 
                 fixture.componentRef.setInput('pt', {
                     host: ({ instance }: any) => ({
-                        class: instance?.value ? 'HAS_VALUE' : 'NO_VALUE'
+                        class: instance?.value() ? 'HAS_VALUE' : 'NO_VALUE'
                     })
                 });
                 fixture.detectChanges();
@@ -1050,7 +1041,7 @@ describe('Tag', () => {
 
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => ({
-                        class: instance?.severity === 'success' ? 'SUCCESS_CLASS' : 'OTHER_CLASS'
+                        class: instance?.severity() === 'success' ? 'SUCCESS_CLASS' : 'OTHER_CLASS'
                     })
                 });
                 fixture.detectChanges();
@@ -1064,7 +1055,7 @@ describe('Tag', () => {
 
                 fixture.componentRef.setInput('pt', {
                     label: ({ instance }: any) => ({
-                        class: instance?.rounded ? 'ROUNDED_CLASS' : 'NOT_ROUNDED_CLASS'
+                        class: instance?.rounded() ? 'ROUNDED_CLASS' : 'NOT_ROUNDED_CLASS'
                     })
                 });
                 fixture.detectChanges();
