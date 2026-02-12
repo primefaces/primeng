@@ -2,6 +2,12 @@ import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Defines valid format options for ColorPicker.
+ * @group Types
+ */
+export type ColorPickerFormat = 'hex' | 'rgb' | 'hsb';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

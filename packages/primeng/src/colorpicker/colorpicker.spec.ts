@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { providePrimeNG } from 'primeng/config';
-import { ColorPickerChangeEvent } from 'primeng/types/colorpicker';
+import { ColorPickerChangeEvent, ColorPickerFormat } from 'primeng/types/colorpicker';
 import { ColorPicker } from './colorpicker';
 
 @Component({
@@ -29,14 +29,12 @@ import { ColorPicker } from './colorpicker';
 })
 class TestBasicColorPickerComponent {
     color: string | any = '#ff0000';
-    format: 'hex' | 'rgb' | 'hsb' = 'hex';
+    format: ColorPickerFormat = 'hex';
     inline: boolean = false;
     disabled: boolean = false;
     tabindex: string = '0';
     inputId: string | undefined;
     autoZIndex: boolean = true;
-    showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-    hideTransitionOptions: string = '.1s linear';
     autofocus: boolean = false;
     defaultColor: string = 'ff0000';
     appendTo: any = undefined as any;
@@ -71,7 +69,7 @@ class TestReactiveFormColorPickerComponent {
         selectedColor: new FormControl<string | null>(null, [Validators.required])
     });
 
-    format: 'hex' | 'rgb' | 'hsb' = 'hex';
+    format: ColorPickerFormat = 'hex';
     defaultColor: string = '989898';
 
     changeEvent: ColorPickerChangeEvent | undefined;
@@ -168,11 +166,11 @@ describe('ColorPicker', () => {
         it('should have default values', () => {
             const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
 
-            expect(colorPickerInstance.format).toBe('hex');
-            expect(colorPickerInstance.inline).toBeFalsy();
+            expect(colorPickerInstance.format()).toBe('hex');
+            expect(colorPickerInstance.inline()).toBeFalsy();
             expect(colorPickerInstance.disabled()).toBe(false);
-            expect(colorPickerInstance.autoZIndex).toBe(true);
-            expect(colorPickerInstance.defaultColor).toBe('ff0000');
+            expect(colorPickerInstance.autoZIndex()).toBe(true);
+            expect(colorPickerInstance.defaultColor()).toBe('ff0000');
         });
 
         it('should accept custom values', async () => {
@@ -186,11 +184,11 @@ describe('ColorPicker', () => {
 
             const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
 
-            expect(colorPickerInstance.format).toBe('rgb');
-            expect(colorPickerInstance.inline).toBe(true);
+            expect(colorPickerInstance.format()).toBe('rgb');
+            expect(colorPickerInstance.inline()).toBe(true);
             expect(colorPickerInstance.disabled()).toBe(true);
-            expect(colorPickerInstance.autoZIndex).toBe(false);
-            expect(colorPickerInstance.defaultColor).toBe('00ff00');
+            expect(colorPickerInstance.autoZIndex()).toBe(false);
+            expect(colorPickerInstance.defaultColor()).toBe('00ff00');
         });
     });
 
@@ -280,7 +278,7 @@ describe('ColorPicker', () => {
             const hexPicker = testFixture.debugElement.query(By.css('#hex-picker'));
             const hexPickerInstance = hexPicker.componentInstance;
 
-            expect(hexPickerInstance.format).toBe('hex');
+            expect(hexPickerInstance.format()).toBe('hex');
             expect(testComponent.hexColor).toBe('#6466f1');
         });
 
@@ -288,7 +286,7 @@ describe('ColorPicker', () => {
             const rgbPicker = testFixture.debugElement.query(By.css('#rgb-picker'));
             const rgbPickerInstance = rgbPicker.componentInstance;
 
-            expect(rgbPickerInstance.format).toBe('rgb');
+            expect(rgbPickerInstance.format()).toBe('rgb');
             expect(testComponent.rgbColor).toEqual({ r: 100, g: 102, b: 241 });
         });
 
@@ -296,7 +294,7 @@ describe('ColorPicker', () => {
             const hsbPicker = testFixture.debugElement.query(By.css('#hsb-picker'));
             const hsbPickerInstance = hsbPicker.componentInstance;
 
-            expect(hsbPickerInstance.format).toBe('hsb');
+            expect(hsbPickerInstance.format()).toBe('hsb');
             expect(testComponent.hsbColor).toEqual({ h: 239, s: 59, b: 95 });
         });
 
@@ -519,7 +517,7 @@ describe('ColorPicker', () => {
             await testFixture.whenStable();
 
             const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
-            expect(colorPickerInstance.autofocus).toBe(true);
+            expect(colorPickerInstance.autofocus()).toBe(true);
         });
     });
 
@@ -595,7 +593,7 @@ describe('ColorPicker', () => {
             await testFixture.whenStable();
 
             const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
-            expect(colorPickerInstance.defaultColor).toBe('00ff00');
+            expect(colorPickerInstance.defaultColor()).toBe('00ff00');
         });
     });
 
@@ -1032,18 +1030,18 @@ describe('ColorPicker', () => {
                         pt: {
                             colorPicker: {
                                 root: ({ instance }: any) => ({
-                                    class: instance?.inline ? 'PT_INLINE_MODE' : 'PT_OVERLAY_MODE'
+                                    class: instance?.inline() ? 'PT_INLINE_MODE' : 'PT_OVERLAY_MODE'
                                 }),
                                 panel: ({ instance }: any) => ({
                                     style: {
-                                        'background-color': instance?.inline ? 'lightblue' : 'lightgreen'
+                                        'background-color': instance?.inline() ? 'lightblue' : 'lightgreen'
                                     } as any
                                 }),
                                 preview: ({ instance }: any) => ({
-                                    'data-p-format': instance?.format
+                                    'data-p-format': instance?.format()
                                 }),
                                 content: ({ instance }: any) => ({
-                                    class: instance?.format ? `PT_FORMAT_${instance.format.toUpperCase()}` : 'PT_NO_FORMAT'
+                                    class: instance?.format() ? `PT_FORMAT_${instance.format().toUpperCase()}` : 'PT_NO_FORMAT'
                                 })
                             }
                         }
@@ -1077,13 +1075,13 @@ describe('ColorPicker', () => {
                         pt: {
                             colorPicker: {
                                 root: ({ instance }: any) => ({
-                                    class: instance?.inline ? 'PT_INLINE' : 'PT_OVERLAY',
+                                    class: instance?.inline() ? 'PT_INLINE' : 'PT_OVERLAY',
                                     'data-p-disabled': instance?.$disabled()
                                 }),
                                 preview: ({ instance }: any) => ({
-                                    'data-p-format': instance?.format,
+                                    'data-p-format': instance?.format(),
                                     style: {
-                                        'border-color': instance?.format === 'rgb' ? 'blue' : 'red'
+                                        'border-color': instance?.format() === 'rgb' ? 'blue' : 'red'
                                     } as any
                                 })
                             }
@@ -1702,14 +1700,14 @@ describe('ColorPicker', () => {
                         pt: {
                             colorPicker: {
                                 root: ({ instance }: any) => ({
-                                    class: instance?.inline ? 'PT_INLINE' : 'PT_OVERLAY',
-                                    'data-format': instance?.format,
+                                    class: instance?.inline() ? 'PT_INLINE' : 'PT_OVERLAY',
+                                    'data-format': instance?.format(),
                                     'data-disabled': instance?.$disabled()
                                 }),
                                 panel: ({ instance }: any) => ({
-                                    class: instance?.inline ? 'PT_PANEL_INLINE' : 'PT_PANEL_OVERLAY',
+                                    class: instance?.inline() ? 'PT_PANEL_INLINE' : 'PT_PANEL_OVERLAY',
                                     style: {
-                                        border: instance?.inline ? '1px solid blue' : '1px solid red'
+                                        border: instance?.inline() ? '1px solid blue' : '1px solid red'
                                     } as any
                                 }),
                                 colorSelector: ({ instance }: any) => ({
