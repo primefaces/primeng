@@ -17,7 +17,7 @@ const classes = {
     root: ({ instance }) => [
         'p-radiobutton p-component',
         {
-            'p-radiobutton-checked': instance.checked,
+            'p-radiobutton-checked': instance.checked(),
             'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-variant-filled': instance.$variant() === 'filled',

@@ -5028,7 +5028,7 @@ export class TableRadioButton extends BaseComponent {
                 this.value
             );
 
-            this.inputViewChild?.inputViewChild.nativeElement?.focus();
+            this.inputViewChild?.inputViewChild().nativeElement?.focus();
         }
         DomHandler.clearSelection();
     }
