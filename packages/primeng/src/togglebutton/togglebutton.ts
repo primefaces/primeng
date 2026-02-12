@@ -42,7 +42,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: Provider = {
         <ng-container *ngTemplateOutlet="contentTemplate(); context: getTemplateContext()"></ng-container>
         @if (!contentTemplate()) {
             @if (!iconTemplate()) {
-                @if (onIcon() || offIcon()) {
+                @if (hasIcon()) {
                     <span [class]="iconClass()" [pBind]="ptm('icon')"></span>
                 }
             } @else {
@@ -102,7 +102,7 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
      * Index of the element in tabbing order.
      * @group Props
      */
-    tabindex = input<number, any>(0, { transform: numberAttribute });
+    tabindex = input(0, { transform: numberAttribute });
     /**
      * Position of the icon.
      * @group Props
@@ -155,6 +155,8 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
     hasOnLabel = computed(() => !!(this.onLabel() && this.onLabel().length > 0));
 
     hasOffLabel = computed(() => !!(this.offLabel() && this.offLabel().length > 0));
+
+    hasIcon = computed(() => !!(this.onIcon() || this.offIcon()));
 
     active = computed(() => this.checked() === true);
 
