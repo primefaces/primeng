@@ -207,8 +207,6 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
                 originalEvent: event,
                 checked: this.checked()
             });
-
-            this.cd.markForCheck();
         }
     }
 
