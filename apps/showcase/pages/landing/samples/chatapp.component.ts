@@ -29,7 +29,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
             </div>
             <div class="px-5">
                 <p-iconfield iconPosition="left">
-                    <p-inputIcon class="pi pi-search"> </p-inputIcon>
+                    <p-inputicon class="pi pi-search"> </p-inputicon>
                     <input type="text" pInputText [(ngModel)]="search" placeholder="Search" class="w-full" />
                 </p-iconfield>
             </div>
