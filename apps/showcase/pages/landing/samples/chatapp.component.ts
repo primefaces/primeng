@@ -34,7 +34,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 </p-iconfield>
             </div>
             <div class="w-full px-5">
-                <p-selectButton [(ngModel)]="value" [options]="options" aria-labelledby="basic" class="w-full" styleClass="w-full" />
+                <p-selectbutton [(ngModel)]="value" [options]="options" aria-labelledby="basic" class="w-full" styleClass="w-full" />
             </div>
             <div class="flex-1 flex flex-col">
                 <div

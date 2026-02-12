@@ -1,38 +1,20 @@
-import { CommonModule } from '@angular/common';
-import {
-    AfterContentInit,
-    AfterViewChecked,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    EventEmitter,
-    forwardRef,
-    inject,
-    InjectionToken,
-    input,
-    Input,
-    NgModule,
-    numberAttribute,
-    Output,
-    QueryList,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, InjectionToken, input, NgModule, numberAttribute, output, Provider, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, resolveFieldData } from '@primeuix/utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Bind, BindModule } from 'primeng/bind';
 import { ToggleButton } from 'primeng/togglebutton';
 import { SelectButtonChangeEvent, SelectButtonItemTemplateContext, SelectButtonOptionClickEvent, SelectButtonPassThrough } from 'primeng/types/selectbutton';
+import type { InputSize } from 'primeng/types/shared';
+import type { ToggleButtonChangeEvent } from 'primeng/types/togglebutton';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
 
 const SELECTBUTTON_INSTANCE = new InjectionToken<SelectButton>('SELECTBUTTON_INSTANCE');
 
-export const SELECTBUTTON_VALUE_ACCESSOR: any = {
+export const SELECTBUTTON_VALUE_ACCESSOR: Provider = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => SelectButton),
     multi: true
@@ -42,18 +24,18 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-selectButton, p-selectbutton, p-select-button',
+    selector: 'p-selectbutton, p-select-button',
     standalone: true,
-    imports: [ToggleButton, FormsModule, CommonModule, SharedModule, BindModule],
+    imports: [ToggleButton, FormsModule, NgTemplateOutlet, SharedModule, BindModule],
     template: `
-        @for (option of options; track getOptionLabel(option); let i = $index) {
+        @for (option of options(); track getOptionLabel(option); let i = $index) {
             <p-togglebutton
-                [autofocus]="autofocus"
-                [styleClass]="styleClass"
+                [autofocus]="autofocus()"
+                [styleClass]="styleClass()"
                 [ngModel]="isSelected(option)"
-                [onLabel]="this.getOptionLabel(option)"
-                [offLabel]="this.getOptionLabel(option)"
-                [disabled]="$disabled() || isOptionDisabled(option)"
+                [onLabel]="getOptionLabel(option)"
+                [offLabel]="getOptionLabel(option)"
+                [disabled]="isButtonDisabled(option)"
                 (onChange)="onOptionSelect($event, option, i)"
                 [allowEmpty]="getAllowEmpty()"
                 [size]="size()"
@@ -61,9 +43,9 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 [pt]="ptm('pcToggleButton')"
                 [unstyled]="unstyled()"
             >
-                @if (itemTemplate || _itemTemplate) {
+                @if (itemTemplate()) {
                     <ng-template #content>
-                        <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: option, index: i }"></ng-container>
+                        <ng-container *ngTemplateOutlet="itemTemplate(); context: getItemContext(option, i)"></ng-container>
                     </ng-template>
                 }
             </p-togglebutton>
@@ -75,124 +57,118 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     host: {
         '[class]': "cx('root')",
         '[attr.role]': '"group"',
-        '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[attr.data-p]': 'dataP'
+        '[attr.aria-labelledby]': 'ariaLabelledBy()',
+        '[attr.data-p]': 'dataP()'
     },
     hostDirectives: [Bind]
 })
-export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> implements AfterViewChecked {
+export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> {
     componentName = 'SelectButton';
     /**
      * An array of selectitems to display as the available options.
      * @group Props
      */
-    @Input() options: any[] | undefined;
+    options = input<any[]>();
     /**
      * Name of the label field of an option.
      * @group Props
      */
-    @Input() optionLabel: string | undefined;
+    optionLabel = input<string>();
     /**
      * Name of the value field of an option.
      * @group Props
      */
-    @Input() optionValue: string | undefined;
+    optionValue = input<string>();
     /**
      * Name of the disabled field of an option.
      * @group Props
      */
-    @Input() optionDisabled: string | undefined;
+    optionDisabled = input<string>();
     /**
      * Whether selection can be cleared.
      * @group Props
      */
-    get unselectable(): boolean {
-        return this._unselectable;
-    }
-    private _unselectable: boolean = false;
-
-    @Input({ transform: booleanAttribute })
-    set unselectable(value: boolean) {
-        this._unselectable = value;
-        this.allowEmpty = !value;
-    }
-
+    unselectable = input(false, { transform: booleanAttribute });
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number = 0;
+    tabindex = input(0, { transform: numberAttribute });
     /**
      * When specified, allows selecting multiple values.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) multiple: boolean | undefined;
+    multiple = input(false, { transform: booleanAttribute });
     /**
      * Whether selection can not be cleared.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) allowEmpty: boolean = true;
+    allowEmpty = input(true, { transform: booleanAttribute });
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined;
+    ariaLabelledBy = input<string>();
     /**
      * A property to uniquely identify a value in options.
      * @group Props
      */
-    @Input() dataKey: string | undefined;
+    dataKey = input<string>();
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    autofocus = input(false, { transform: booleanAttribute });
     /**
      * Specifies the size of the component.
      * @defaultValue undefined
      * @group Props
      */
-    size = input<'large' | 'small' | undefined>();
+    size = input<InputSize>();
     /**
      * Spans 100% width of the container when enabled.
      * @defaultValue undefined
      * @group Props
      */
-    fluid = input(undefined, { transform: booleanAttribute });
+    fluid = input(false, { transform: booleanAttribute });
     /**
      * Callback to invoke on input click.
      * @param {SelectButtonOptionClickEvent} event - Custom click event.
      * @group Emits
      */
-    @Output() onOptionClick: EventEmitter<SelectButtonOptionClickEvent> = new EventEmitter<SelectButtonOptionClickEvent>();
+    onOptionClick = output<SelectButtonOptionClickEvent>();
     /**
      * Callback to invoke on selection change.
      * @param {SelectButtonChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<SelectButtonChangeEvent> = new EventEmitter<SelectButtonChangeEvent>();
+    onChange = output<SelectButtonChangeEvent>();
     /**
      * Custom item template.
      * @param {SelectButtonItemTemplateContext} context - item context.
      * @see {@link SelectButtonItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<SelectButtonItemTemplateContext> | undefined;
+    itemTemplate = contentChild<TemplateRef<SelectButtonItemTemplateContext>>('item', { descendants: false });
 
-    _itemTemplate: TemplateRef<SelectButtonItemTemplateContext> | undefined;
+    equalityKey = computed(() => (this.optionValue() ? null : this.dataKey()));
 
-    get equalityKey() {
-        return this.optionValue ? null : this.dataKey;
-    }
+    $allowEmpty = computed(() => (this.unselectable() ? false : this.allowEmpty()));
 
-    value: any;
+    dataP = computed(() =>
+        this.cn({
+            invalid: this.invalid()
+        })
+    );
 
-    focusedIndex: number = 0;
+    value = signal<any>(null);
+
+    focusedIndex = signal(0);
 
     _componentStyle = inject(SelectButtonStyle);
 
@@ -200,76 +176,91 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    onAfterViewChecked(): void {
+    onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
     getAllowEmpty() {
-        if (this.multiple) {
-            return this.allowEmpty || this.value?.length !== 1;
+        if (this.multiple()) {
+            return this.$allowEmpty() || this.value()?.length !== 1;
         }
-        return this.allowEmpty;
+        return this.$allowEmpty();
     }
 
     getOptionLabel(option: any) {
-        return this.optionLabel ? resolveFieldData(option, this.optionLabel) : option.label != undefined ? option.label : option;
+        const optionLabel = this.optionLabel();
+        return optionLabel ? resolveFieldData(option, optionLabel) : option.label != undefined ? option.label : option;
     }
 
     getOptionValue(option: any) {
-        return this.optionValue ? resolveFieldData(option, this.optionValue) : this.optionLabel || option.value === undefined ? option : option.value;
+        const optionValue = this.optionValue();
+        const optionLabel = this.optionLabel();
+        return optionValue ? resolveFieldData(option, optionValue) : optionLabel || option.value === undefined ? option : option.value;
     }
 
     isOptionDisabled(option: any) {
-        return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option.disabled !== undefined ? option.disabled : false;
+        const optionDisabled = this.optionDisabled();
+        return optionDisabled ? resolveFieldData(option, optionDisabled) : option.disabled !== undefined ? option.disabled : false;
     }
 
-    onOptionSelect(event, option, index) {
+    isButtonDisabled(option: any) {
+        return this.$disabled() || this.isOptionDisabled(option);
+    }
+
+    getItemContext(option: any, index: number) {
+        return { $implicit: option, index };
+    }
+
+    onOptionSelect(event: ToggleButtonChangeEvent, option: any, index: number) {
         if (this.$disabled() || this.isOptionDisabled(option)) {
             return;
         }
 
         let selected = this.isSelected(option);
 
-        if (selected && this.unselectable) {
+        if (selected && this.unselectable()) {
             return;
         }
 
         let optionValue = this.getOptionValue(option);
         let newValue;
 
-        if (this.multiple) {
-            if (selected) newValue = this.value.filter((val) => !equals(val, optionValue, this.equalityKey || undefined));
-            else newValue = this.value ? [...this.value, optionValue] : [optionValue];
+        if (this.multiple()) {
+            if (selected) newValue = this.value().filter((val: any) => !equals(val, optionValue, this.equalityKey() || undefined));
+            else newValue = this.value() ? [...this.value(), optionValue] : [optionValue];
         } else {
-            if (selected && !this.allowEmpty) {
+            if (selected && !this.$allowEmpty()) {
                 return;
             }
             newValue = selected ? null : optionValue;
         }
 
-        this.focusedIndex = index;
-        this.value = newValue;
-        this.writeModelValue(this.value);
-        this.onModelChange(this.value);
+        this.focusedIndex.set(index);
+        this.value.set(newValue);
+        this.writeModelValue(this.value());
+        this.onModelChange(this.value());
 
         this.onChange.emit({
-            originalEvent: event,
-            value: this.value
+            originalEvent: event.originalEvent,
+            value: this.value()
         });
 
         this.onOptionClick.emit({
-            originalEvent: event,
+            originalEvent: event.originalEvent,
             option: option,
             index: index
         });
     }
 
-    changeTabIndexes(event, direction) {
-        let firstTabableChild, index;
+    changeTabIndexes(event: Event, direction: string) {
+        let firstTabableChild: { elem: HTMLElement; index: number } | undefined;
+        let index: number;
 
         for (let i = 0; i <= this.el.nativeElement.children.length - 1; i++) {
             if (this.el.nativeElement.children[i].getAttribute('tabindex') === '0') firstTabableChild = { elem: this.el.nativeElement.children[i], index: i };
         }
+
+        if (!firstTabableChild) return;
 
         if (direction === 'prev') {
             if (firstTabableChild.index === 0) index = this.el.nativeElement.children.length - 1;
@@ -279,52 +270,40 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
             else index = firstTabableChild.index + 1;
         }
 
-        this.focusedIndex = index;
+        this.focusedIndex.set(index);
         this.el.nativeElement.children[index].focus();
     }
 
     onFocus(event: Event, index: number) {
-        this.focusedIndex = index;
+        this.focusedIndex.set(index);
     }
 
     onBlur() {
         this.onModelTouched();
     }
 
-    removeOption(option: any): void {
-        this.value = this.value.filter((val: any) => !equals(val, this.getOptionValue(option), this.dataKey));
+    removeOption(option: any) {
+        this.value.set(this.value().filter((val: any) => !equals(val, this.getOptionValue(option), this.dataKey())));
     }
 
     isSelected(option: any) {
         let selected = false;
         const optionValue = this.getOptionValue(option);
 
-        if (this.multiple) {
-            if (this.value && Array.isArray(this.value)) {
-                for (let val of this.value) {
-                    if (equals(val, optionValue, this.dataKey)) {
+        if (this.multiple()) {
+            if (this.value() && Array.isArray(this.value())) {
+                for (let val of this.value()) {
+                    if (equals(val, optionValue, this.dataKey())) {
                         selected = true;
                         break;
                     }
                 }
             }
         } else {
-            selected = equals(this.getOptionValue(option), this.value, this.equalityKey || undefined);
+            selected = equals(this.getOptionValue(option), this.value(), this.equalityKey() || undefined);
         }
 
         return selected;
-    }
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    onAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'item':
-                    this._itemTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     /**
@@ -333,16 +312,9 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
      * @see {@link BaseEditableHolder.writeControlValue}
      * Writes the value to the control.
      */
-    writeControlValue(value: any, setModelValue: (value: any) => void): void {
-        this.value = value;
-        setModelValue(this.value);
-        this.cd.markForCheck();
-    }
-
-    get dataP() {
-        return this.cn({
-            invalid: this.invalid()
-        });
+    writeControlValue(value: any, setModelValue: (value: any) => void) {
+        this.value.set(value);
+        setModelValue(this.value());
     }
 }
 
