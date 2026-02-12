@@ -4,7 +4,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { providePrimeNG } from 'primeng/config';
 import { ToggleSwitchChangeEvent } from 'primeng/types/toggleswitch';
@@ -16,7 +15,7 @@ describe('ToggleSwitch', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent],
+            imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent],
             declarations: [TestBasicToggleSwitchComponent, TestFormToggleSwitchComponent, TestTemplateToggleSwitchComponent, TestPrimeTemplateToggleSwitchComponent, TestRequiredToggleSwitchComponent, TestNamedToggleSwitchComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -31,29 +30,27 @@ describe('ToggleSwitch', () => {
         });
 
         it('should have default values', () => {
-            expect(component.trueValue).toBe(true);
-            expect(component.falseValue).toBe(false);
-            expect(component.focused).toBe(false);
-            expect(component.readonly).toBeUndefined();
-            expect(component.tabindex).toBeUndefined();
+            expect(component.trueValue()).toBe(true);
+            expect(component.falseValue()).toBe(false);
+            expect(component.focused()).toBe(false);
+            expect(component.readonly()).toBe(false);
+            expect(component.tabindex()).toBeUndefined();
         });
 
         it('should accept custom values', () => {
-            component.trueValue = 'yes';
-            component.falseValue = 'no';
-            component.styleClass = 'custom-class';
-            component.inputId = 'test-input';
-            component.readonly = true;
-            component.tabindex = 5;
+            fixture.componentRef.setInput('trueValue', 'yes');
+            fixture.componentRef.setInput('falseValue', 'no');
+            fixture.componentRef.setInput('inputId', 'test-input');
+            fixture.componentRef.setInput('readonly', true);
+            fixture.componentRef.setInput('tabindex', 5);
 
             fixture.detectChanges();
 
-            expect(component.trueValue).toBe('yes');
-            expect(component.falseValue).toBe('no');
-            expect(component.styleClass).toBe('custom-class');
-            expect(component.inputId).toBe('test-input');
-            expect(component.readonly).toBe(true);
-            expect(component.tabindex).toBe(5);
+            expect(component.trueValue()).toBe('yes');
+            expect(component.falseValue()).toBe('no');
+            expect(component.inputId()).toBe('test-input');
+            expect(component.readonly()).toBe(true);
+            expect(component.tabindex()).toBe(5);
         });
 
         it('should handle size input', () => {
@@ -69,24 +66,25 @@ describe('ToggleSwitch', () => {
 
         it('should check if component is checked correctly', () => {
             component.writeModelValue(true);
-            expect(component.checked()).toBe(true);
+            expect(component.$checked()).toBe(true);
 
             component.writeModelValue(false);
-            expect(component.checked()).toBe(false);
+            expect(component.$checked()).toBe(false);
 
             // Test with custom true/false values
-            component.trueValue = 'on';
-            component.falseValue = 'off';
+            fixture.componentRef.setInput('trueValue', 'on');
+            fixture.componentRef.setInput('falseValue', 'off');
+            fixture.detectChanges();
             component.writeModelValue('on');
-            expect(component.checked()).toBe(true);
+            expect(component.$checked()).toBe(true);
 
             component.writeModelValue('off');
-            expect(component.checked()).toBe(false);
+            expect(component.$checked()).toBe(false);
         });
 
-        it('should handle onClick correctly', () => {
-            // Mock the input element to prevent errors
-            component.input = { nativeElement: { focus: jasmine.createSpy('focus') } } as any;
+        it('should handle onClick correctly', async () => {
+            fixture.detectChanges();
+            await fixture.whenStable();
 
             const mockEvent = new Event('click');
             spyOn(component.onChange, 'emit');
@@ -105,9 +103,9 @@ describe('ToggleSwitch', () => {
             });
         });
 
-        it('should handle onClick when checked', () => {
-            // Mock the input element to prevent errors
-            component.input = { nativeElement: { focus: jasmine.createSpy('focus') } } as any;
+        it('should handle onClick when checked', async () => {
+            fixture.detectChanges();
+            await fixture.whenStable();
 
             const mockEvent = new Event('click');
             spyOn(component.onChange, 'emit');
@@ -136,7 +134,8 @@ describe('ToggleSwitch', () => {
 
         it('should not handle onClick when readonly', () => {
             const mockEvent = new Event('click');
-            component.readonly = true;
+            fixture.componentRef.setInput('readonly', true);
+            fixture.detectChanges();
             spyOn(component.onChange, 'emit');
             spyOn(component, 'writeModelValue');
 
@@ -148,16 +147,16 @@ describe('ToggleSwitch', () => {
 
         it('should handle focus events', () => {
             component.onFocus();
-            expect(component.focused).toBe(true);
+            expect(component.focused()).toBe(true);
         });
 
         it('should handle blur events', () => {
-            component.focused = true;
+            component.focused.set(true);
             spyOn(component, 'onModelTouched');
 
             component.onBlur();
 
-            expect(component.focused).toBe(false);
+            expect(component.focused()).toBe(false);
             expect(component.onModelTouched).toHaveBeenCalled();
         });
 
@@ -287,7 +286,7 @@ describe('ToggleSwitch', () => {
             primeTemplateFixture.detectChanges();
 
             expect(toggleSwitchInstance).toBeTruthy();
-            expect(toggleSwitchInstance._handleTemplate !== undefined || toggleSwitchInstance._handleTemplate === undefined).toBe(true);
+            expect(toggleSwitchInstance.handleTemplate).toBeDefined();
         });
     });
 
@@ -347,13 +346,13 @@ describe('ToggleSwitch', () => {
         it('should focus input element after click', () => {
             const toggleSwitch = testFixture.debugElement.query(By.css('p-toggleswitch')).componentInstance;
 
-            if (toggleSwitch && toggleSwitch.input) {
-                spyOn(toggleSwitch.input.nativeElement, 'focus');
+            if (toggleSwitch && toggleSwitch.inputEl()) {
+                spyOn(toggleSwitch.inputEl().nativeElement, 'focus');
 
                 const mockEvent = new Event('click');
                 toggleSwitch.onClick(mockEvent);
 
-                expect(toggleSwitch.input.nativeElement.focus).toHaveBeenCalled();
+                expect(toggleSwitch.inputEl().nativeElement.focus).toHaveBeenCalled();
             } else {
                 expect(toggleSwitch).toBeTruthy();
             }
@@ -392,7 +391,7 @@ describe('ToggleSwitch', () => {
             if (input) {
                 expect(input.nativeElement.getAttribute('aria-checked')).toBe('true');
             } else {
-                expect(toggleSwitchComponent.checked()).toBe(true);
+                expect(toggleSwitchComponent.$checked()).toBe(true);
             }
         });
 
@@ -457,57 +456,62 @@ describe('ToggleSwitch', () => {
 
     describe('Edge Cases', () => {
         it('should handle custom trueValue and falseValue', () => {
-            component.trueValue = 1;
-            component.falseValue = 0;
+            fixture.componentRef.setInput('trueValue', 1);
+            fixture.componentRef.setInput('falseValue', 0);
+            fixture.detectChanges();
 
             component.writeModelValue(1);
-            expect(component.checked()).toBe(true);
+            expect(component.$checked()).toBe(true);
 
             component.writeModelValue(0);
-            expect(component.checked()).toBe(false);
+            expect(component.$checked()).toBe(false);
 
             component.writeModelValue('other');
-            expect(component.checked()).toBe(false);
+            expect(component.$checked()).toBe(false);
         });
 
         it('should handle string trueValue and falseValue', () => {
-            component.trueValue = 'enabled';
-            component.falseValue = 'disabled';
+            fixture.componentRef.setInput('trueValue', 'enabled');
+            fixture.componentRef.setInput('falseValue', 'disabled');
+            fixture.detectChanges();
 
             component.writeModelValue('enabled');
-            expect(component.checked()).toBe(true);
+            expect(component.$checked()).toBe(true);
 
             component.writeModelValue('disabled');
-            expect(component.checked()).toBe(false);
+            expect(component.$checked()).toBe(false);
         });
 
         it('should handle object trueValue and falseValue', () => {
             const trueObj = { status: 'active' };
             const falseObj = { status: 'inactive' };
 
-            component.trueValue = trueObj;
-            component.falseValue = falseObj;
+            fixture.componentRef.setInput('trueValue', trueObj);
+            fixture.componentRef.setInput('falseValue', falseObj);
+            fixture.detectChanges();
 
             component.writeModelValue(trueObj);
-            expect(component.checked()).toBe(true);
+            expect(component.$checked()).toBe(true);
 
             component.writeModelValue(falseObj);
-            expect(component.checked()).toBe(false);
+            expect(component.$checked()).toBe(false);
         });
 
         it('should handle null and undefined values', () => {
-            component.trueValue = true;
-            component.falseValue = false;
+            fixture.componentRef.setInput('trueValue', true);
+            fixture.componentRef.setInput('falseValue', false);
+            fixture.detectChanges();
 
             component.writeModelValue(null);
-            expect(component.checked()).toBe(false);
+            expect(component.$checked()).toBe(false);
 
             component.writeModelValue(undefined);
-            expect(component.checked()).toBe(false);
+            expect(component.$checked()).toBe(false);
         });
 
         it('should handle rapid clicks', async () => {
-            component.input = { nativeElement: { focus: jasmine.createSpy('focus') } } as any;
+            fixture.detectChanges();
+            await fixture.whenStable();
 
             const mockEvent = new Event('click');
             let changeCount = 0;
@@ -525,22 +529,23 @@ describe('ToggleSwitch', () => {
             expect(changeCount).toBe(5);
         });
 
-        it('should maintain state consistency after multiple operations', () => {
-            component.input = { nativeElement: { focus: jasmine.createSpy('focus') } } as any;
+        it('should maintain state consistency after multiple operations', async () => {
+            fixture.detectChanges();
+            await fixture.whenStable();
 
             const mockEvent = new Event('click');
 
             component.writeModelValue(false);
-            expect(component.checked()).toBe(false);
+            expect(component.$checked()).toBe(false);
 
             component.onClick(mockEvent);
-            expect(component.checked()).toBe(true);
+            expect(component.$checked()).toBe(true);
 
             component.onClick(mockEvent);
-            expect(component.checked()).toBe(false);
+            expect(component.$checked()).toBe(false);
 
             component.writeModelValue(true);
-            expect(component.checked()).toBe(true);
+            expect(component.$checked()).toBe(true);
         });
 
         it('should handle writeControlValue correctly', () => {
@@ -555,25 +560,21 @@ describe('ToggleSwitch', () => {
     });
 
     describe('Input Properties and Styling', () => {
-        it('should handle styleClass input', () => {
-            component.styleClass = 'custom-toggle';
-            expect(component.styleClass).toBe('custom-toggle');
-        });
-
         it('should handle inputId', () => {
-            component.inputId = 'my-toggle-input';
+            fixture.componentRef.setInput('inputId', 'my-toggle-input');
             fixture.detectChanges();
 
             const input = fixture.debugElement.query(By.css('input'));
             if (input) {
                 expect(input.nativeElement.getAttribute('id')).toBe('my-toggle-input');
             } else {
-                expect(component.inputId).toBe('my-toggle-input');
+                expect(component.inputId()).toBe('my-toggle-input');
             }
         });
 
         it('should handle readonly state', () => {
-            component.readonly = true;
+            fixture.componentRef.setInput('readonly', true);
+            fixture.detectChanges();
 
             const mockEvent = new Event('click');
             spyOn(component, 'writeModelValue');
@@ -674,7 +675,7 @@ class TestTemplateToggleSwitchComponent {
     standalone: false,
     template: `
         <p-toggleswitch [(ngModel)]="checked">
-            <ng-template pTemplate="handle" let-checked="checked">
+            <ng-template #handle let-checked="checked">
                 <div class="prime-template-handle">Prime Handle</div>
             </ng-template>
         </p-toggleswitch>
@@ -700,14 +701,14 @@ class TestNamedToggleSwitchComponent {
     name: string = '';
 }
 
-// ToggleSwitch pTemplate component
+// ToggleSwitch #handle template component (legacy pTemplate test)
 @Component({
     standalone: true,
-    imports: [ToggleSwitch, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleSwitch, FormsModule, CommonModule],
     template: `
         <p-toggleswitch [(ngModel)]="checked">
-            <!-- Handle template with pTemplate -->
-            <ng-template pTemplate="handle" let-checked="checked">
+            <!-- Handle template with #handle reference -->
+            <ng-template #handle let-checked="checked">
                 <span class="custom-template-handle" [attr.data-testid]="'ptemplate-handle-' + (checked ? 'on' : 'off')" [title]="checked ? 'Template Handle On' : 'Template Handle Off'">
                     <i [class]="checked ? 'pi pi-check' : 'pi pi-times'"></i>
                     {{ checked ? 'ON' : 'OFF' }}
@@ -723,7 +724,7 @@ class TestToggleSwitchPTemplateComponent {
 // ToggleSwitch #template reference component
 @Component({
     standalone: true,
-    imports: [ToggleSwitch, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleSwitch, FormsModule, CommonModule],
     template: `
         <p-toggleswitch [(ngModel)]="checked">
             <!-- Handle template with #template reference -->
@@ -773,7 +774,7 @@ describe('ToggleSwitch pTemplate Tests', () => {
         await fixture.whenStable();
 
         // Verify that the toggle switch component is working with the value
-        expect(toggleSwitchInstance.checked()).toBe(false);
+        expect(toggleSwitchInstance.$checked()).toBe(false);
         expect(component.checked).toBe(false);
     });
 
@@ -786,13 +787,13 @@ describe('ToggleSwitch pTemplate Tests', () => {
         await new Promise((resolve) => setTimeout(resolve, 100));
         await fixture.whenStable();
 
-        expect(toggleSwitchInstance.checked()).toBe(true);
+        expect(toggleSwitchInstance.$checked()).toBe(true);
         expect(component.checked).toBe(true);
     });
 
     it('should update templates when checked state changes', async () => {
         // Initially unchecked
-        expect(toggleSwitchInstance.checked()).toBe(false);
+        expect(toggleSwitchInstance.$checked()).toBe(false);
 
         // Change to checked
         component.checked = true;
@@ -802,7 +803,7 @@ describe('ToggleSwitch pTemplate Tests', () => {
         await new Promise((resolve) => setTimeout(resolve, 100));
         await fixture.whenStable();
 
-        expect(toggleSwitchInstance.checked()).toBe(true);
+        expect(toggleSwitchInstance.$checked()).toBe(true);
     });
 
     it('should apply context to templates correctly', async () => {
@@ -814,7 +815,7 @@ describe('ToggleSwitch pTemplate Tests', () => {
         await fixture.whenStable();
 
         // Verify that the toggle switch component works correctly
-        expect(toggleSwitchInstance.checked()).toBe(true);
+        expect(toggleSwitchInstance.$checked()).toBe(true);
         expect(toggleSwitchInstance.focused).toBeDefined();
     });
 
@@ -828,7 +829,7 @@ describe('ToggleSwitch pTemplate Tests', () => {
             await fixture.whenStable();
 
             // Verify that ngAfterContentInit is called correctly
-            expect(toggleSwitchInstance.checked).toBeDefined();
+            expect(toggleSwitchInstance.$checked).toBeDefined();
             expect(component.checked).toBeDefined();
         }
     });
@@ -867,7 +868,7 @@ describe('ToggleSwitch #template Reference Tests', () => {
         await fixture.whenStable();
 
         // Verify that the toggle switch component is working with the value
-        expect(toggleSwitchInstance.checked()).toBe(false);
+        expect(toggleSwitchInstance.$checked()).toBe(false);
         expect(component.checked).toBe(false);
     });
 
@@ -880,13 +881,13 @@ describe('ToggleSwitch #template Reference Tests', () => {
         await new Promise((resolve) => setTimeout(resolve, 100));
         await fixture.whenStable();
 
-        expect(toggleSwitchInstance.checked()).toBe(true);
+        expect(toggleSwitchInstance.$checked()).toBe(true);
         expect(component.checked).toBe(true);
     });
 
     it('should update templates when checked state changes', async () => {
         // Initially unchecked
-        expect(toggleSwitchInstance.checked()).toBe(false);
+        expect(toggleSwitchInstance.$checked()).toBe(false);
 
         // Change to checked
         component.checked = true;
@@ -896,7 +897,7 @@ describe('ToggleSwitch #template Reference Tests', () => {
         await new Promise((resolve) => setTimeout(resolve, 100));
         await fixture.whenStable();
 
-        expect(toggleSwitchInstance.checked()).toBe(true);
+        expect(toggleSwitchInstance.$checked()).toBe(true);
     });
 
     it('should apply context to templates correctly', async () => {
@@ -908,7 +909,7 @@ describe('ToggleSwitch #template Reference Tests', () => {
         await fixture.whenStable();
 
         // Verify that the toggle switch component works correctly
-        expect(toggleSwitchInstance.checked()).toBe(true);
+        expect(toggleSwitchInstance.$checked()).toBe(true);
         expect(toggleSwitchInstance.focused).toBeDefined();
     });
 
@@ -922,7 +923,7 @@ describe('ToggleSwitch #template Reference Tests', () => {
             await fixture.whenStable();
 
             // Verify that ngAfterContentInit is called correctly
-            expect(toggleSwitchInstance.checked).toBeDefined();
+            expect(toggleSwitchInstance.$checked).toBeDefined();
             expect(component.checked).toBeDefined();
         }
     });
@@ -1102,7 +1103,7 @@ describe('PassThrough (PT) Tests', () => {
             pt = {
                 root: ({ instance }: any) => {
                     return {
-                        class: instance?.checked() ? 'CHECKED_CLASS' : 'UNCHECKED_CLASS'
+                        class: instance?.$checked() ? 'CHECKED_CLASS' : 'UNCHECKED_CLASS'
                     };
                 },
                 slider: ({ instance }: any) => {
