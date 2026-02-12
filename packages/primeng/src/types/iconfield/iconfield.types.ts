@@ -1,5 +1,7 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
+export type IconFieldIconPosition = 'right' | 'left';
+
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.

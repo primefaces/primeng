@@ -3,13 +3,16 @@ import { style } from '@primeuix/styles/iconfield';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => [
-        'p-iconfield',
-        {
-            'p-iconfield-left': instance.iconPosition == 'left',
-            'p-iconfield-right': instance.iconPosition == 'right'
-        }
-    ]
+    root: ({ instance }) => {
+        const iconPosition = instance.iconPosition();
+        return [
+            'p-iconfield',
+            {
+                'p-iconfield-left': iconPosition === 'left',
+                'p-iconfield-right': iconPosition === 'right'
+            }
+        ];
+    }
 };
 
 @Injectable()

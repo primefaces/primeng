@@ -1,8 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewChecked, ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, InjectionToken, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { IconFieldPassThrough } from 'primeng/types/iconfield';
+import { IconFieldIconPosition, IconFieldPassThrough } from 'primeng/types/iconfield';
 import { IconFieldStyle } from './style/iconfieldstyle';
 
 const ICONFIELD_INSTANCE = new InjectionToken<IconField>('ICONFIELD_INSTANCE');
@@ -12,22 +11,22 @@ const ICONFIELD_INSTANCE = new InjectionToken<IconField>('ICONFIELD_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-iconfield, p-iconField, p-icon-field',
+    selector: 'p-iconfield, p-icon-field',
     standalone: true,
-    imports: [CommonModule, BindModule],
+    imports: [BindModule],
     template: ` <ng-content></ng-content>`,
     providers: [IconFieldStyle, { provide: ICONFIELD_INSTANCE, useExisting: IconField }, { provide: PARENT_INSTANCE, useExisting: IconField }],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cx('root')"
     },
     hostDirectives: [Bind]
 })
-export class IconField extends BaseComponent<IconFieldPassThrough> implements AfterViewChecked {
+export class IconField extends BaseComponent<IconFieldPassThrough> {
     componentName = 'IconField';
 
-    @Input() hostName: any = '';
+    hostName = input<any>('');
 
     _componentStyle = inject(IconFieldStyle);
 
@@ -35,7 +34,7 @@ export class IconField extends BaseComponent<IconFieldPassThrough> implements Af
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    onAfterViewChecked(): void {
+    onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
@@ -43,13 +42,7 @@ export class IconField extends BaseComponent<IconFieldPassThrough> implements Af
      * Position of the icon.
      * @group Props
      */
-    @Input() iconPosition: 'right' | 'left' = 'left';
-    /**
-     * Style class of the component.
-     * @deprecated since v20.0.0, use `class` instead.
-     * @group Props
-     */
-    @Input() styleClass: string;
+    iconPosition = input<IconFieldIconPosition>('left');
 }
 
 @NgModule({
