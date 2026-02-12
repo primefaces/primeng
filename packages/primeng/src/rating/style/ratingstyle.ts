@@ -15,7 +15,7 @@ const classes = {
     root: ({ instance }) => [
         'p-rating',
         {
-            'p-readonly': instance.readonly,
+            'p-readonly': instance.readonly(),
             'p-disabled': instance.$disabled()
         }
     ],
