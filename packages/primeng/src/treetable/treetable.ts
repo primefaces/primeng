@@ -3325,7 +3325,7 @@ export class TTContextMenuRow extends BaseComponent {
     selector: 'p-treeTableCheckbox, p-treetable-checkbox, p-tree-table-checkbox',
     standalone: false,
     template: `
-        <p-checkbox [ngModel]="checked" [pt]="ptm('pcRowCheckbox')" (onChange)="onClick($event)" [binary]="true" [disabled]="disabled" [indeterminate]="partialChecked" [styleClass]="cx('pcNodeCheckbox')" [tabIndex]="-1" [unstyled]="unstyled()">
+        <p-checkbox [ngModel]="checked" [pt]="ptm('pcRowCheckbox')" (onChange)="onClick($event)" [binary]="true" [disabled]="disabled" [indeterminate]="partialChecked" [class]="cx('pcNodeCheckbox')" [tabIndex]="-1" [unstyled]="unstyled()">
             <ng-container *ngIf="tt.checkboxIconTemplate || tt._checkboxIconTemplate">
                 <ng-template pTemplate="icon">
                     <ng-template *ngTemplateOutlet="tt.checkboxIconTemplate || tt._checkboxIconTemplate; context: { $implicit: checked, partialSelected: partialChecked }"></ng-template>

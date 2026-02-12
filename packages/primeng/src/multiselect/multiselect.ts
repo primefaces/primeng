@@ -1967,7 +1967,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         }
 
         this.onChange.emit({ originalEvent: event, value: this.value });
-        DomHandler.focus(this.headerCheckboxViewChild?.inputViewChild?.nativeElement);
+        DomHandler.focus(this.headerCheckboxViewChild?.inputViewChild()?.nativeElement);
         this.headerCheckboxFocus = true;
 
         event.originalEvent.preventDefault();
