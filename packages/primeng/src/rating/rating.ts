@@ -26,7 +26,7 @@ export const RATING_VALUE_ACCESSOR: Provider = {
  */
 @Component({
     selector: 'p-rating',
-    imports: [NgStyle, NgTemplateOutlet, AutoFocus, StarFillIcon, StarIcon, SharedModule, BindModule],
+    imports: [NgTemplateOutlet, AutoFocus, StarFillIcon, StarIcon, SharedModule, BindModule],
     standalone: true,
     template: `
         @for (star of starsArray; track star; let i = $index) {
