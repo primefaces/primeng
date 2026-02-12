@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, Directive, ElementRef, EventEmitter, forwardRef, HostListener, Inject, Input, NgModule, Output, PLATFORM_ID, Provider } from '@angular/core';
+import { booleanAttribute, Directive, effect, ElementRef, forwardRef, inject, input, NgModule, output, PLATFORM_ID, Provider } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, Validator } from '@angular/forms';
 import { getBrowser, isAndroid } from '@primeuix/utils';
 
@@ -69,59 +69,59 @@ const SAFARI_KEYS: SafariKeys = {
 @Directive({
     selector: '[pKeyFilter]',
     standalone: true,
-    providers: [KEYFILTER_VALIDATOR]
+    providers: [KEYFILTER_VALIDATOR],
+    host: {
+        '(input)': 'onInput($event)',
+        '(keypress)': 'onKeyPress($event)',
+        '(paste)': 'onPaste($event)'
+    }
 })
 export class KeyFilter implements Validator {
     /**
      * When enabled, instead of blocking keys, input is validated internally to test against the regular expression.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) pValidateOnly: boolean | undefined;
+    pValidateOnly = input(false, { transform: booleanAttribute });
     /**
      * Sets the pattern for key filtering.
      * @group Props
      */
-
-    @Input('pKeyFilter') set pattern(_pattern: RegExp | KeyFilterPattern | null | undefined) {
-        this._pattern = _pattern;
-
-        if (_pattern instanceof RegExp) {
-            this.regex = _pattern;
-        } else if (_pattern && _pattern in DEFAULT_MASKS) {
-            this.regex = DEFAULT_MASKS[_pattern as keyof typeof DEFAULT_MASKS];
-        } else {
-            this.regex = /./;
-        }
-    }
-    get pattern(): RegExp | KeyFilterPattern | null | undefined {
-        return this._pattern;
-    }
+    pattern = input<RegExp | KeyFilterPattern | null | undefined>(undefined, { alias: 'pKeyFilter' });
 
     /**
      * Emits a value whenever the ngModel of the component changes.
      * @param {(string | number)} modelValue - Custom model change event.
      * @group Emits
      */
-    @Output() ngModelChange: EventEmitter<string | number> = new EventEmitter<string | number>();
+    ngModelChange = output<string | number>();
 
     regex: RegExp = /./;
-
-    _pattern: RegExp | KeyFilterPattern | null | undefined;
 
     isAndroid: boolean;
 
     lastValue: any;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef
-    ) {
+    private document = inject(DOCUMENT);
+    private platformId = inject(PLATFORM_ID);
+    el = inject(ElementRef);
+
+    constructor() {
         if (isPlatformBrowser(this.platformId)) {
             this.isAndroid = isAndroid();
         } else {
             this.isAndroid = false;
         }
+
+        effect(() => {
+            const _pattern = this.pattern();
+            if (_pattern instanceof RegExp) {
+                this.regex = _pattern;
+            } else if (_pattern && _pattern in DEFAULT_MASKS) {
+                this.regex = DEFAULT_MASKS[_pattern as keyof typeof DEFAULT_MASKS];
+            } else {
+                this.regex = /./;
+            }
+        });
     }
 
     isNavKeyPress(e: KeyboardEvent) {
@@ -172,9 +172,8 @@ export class KeyFilter implements Validator {
         return true;
     }
 
-    @HostListener('input', ['$event'])
     onInput(e: KeyboardEvent) {
-        if (this.isAndroid && !this.pValidateOnly) {
+        if (this.isAndroid && !this.pValidateOnly()) {
             let val = this.el.nativeElement.value;
             let lastVal = this.lastValue || '';
 
@@ -201,9 +200,8 @@ export class KeyFilter implements Validator {
         }
     }
 
-    @HostListener('keypress', ['$event'])
     onKeyPress(e: KeyboardEvent) {
-        if (this.isAndroid || this.pValidateOnly) {
+        if (this.isAndroid || this.pValidateOnly()) {
             return;
         }
 
@@ -239,7 +237,6 @@ export class KeyFilter implements Validator {
         }
     }
 
-    @HostListener('paste', ['$event'])
     onPaste(e: ClipboardEvent) {
         let clipboardData = e.clipboardData;
 
@@ -273,7 +270,7 @@ export class KeyFilter implements Validator {
     }
 
     validate(_c: AbstractControl): { [key: string]: any } | any {
-        if (this.pValidateOnly) {
+        if (this.pValidateOnly()) {
             let value = this.el.nativeElement.value;
             if (value && !this.regex.test(value)) {
                 return {

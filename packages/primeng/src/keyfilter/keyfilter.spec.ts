@@ -84,7 +84,7 @@ describe('KeyFilter', () => {
             testComponent.pattern = customRegex;
             fixture.detectChanges();
 
-            expect(directive.pattern).toBe(customRegex);
+            expect(directive.pattern()).toBe(customRegex);
             expect(directive.regex).toBe(customRegex);
         });
 
@@ -92,7 +92,7 @@ describe('KeyFilter', () => {
             testComponent.pattern = 'pint';
             fixture.detectChanges();
 
-            expect(directive.pattern).toBe('pint');
+            expect(directive.pattern()).toBe('pint');
             expect(directive.regex.toString()).toBe('/^[\\d]*$/');
         });
 
@@ -100,7 +100,7 @@ describe('KeyFilter', () => {
             testComponent.pattern = 'int';
             fixture.detectChanges();
 
-            expect(directive.pattern).toBe('int');
+            expect(directive.pattern()).toBe('int');
             expect(directive.regex.toString()).toBe('/^[-]?[\\d]*$/');
         });
 
@@ -108,7 +108,7 @@ describe('KeyFilter', () => {
             testComponent.pattern = 'pnum';
             fixture.detectChanges();
 
-            expect(directive.pattern).toBe('pnum');
+            expect(directive.pattern()).toBe('pnum');
             expect(directive.regex.toString()).toBe('/^[\\d\\.]*$/');
         });
 
@@ -116,7 +116,7 @@ describe('KeyFilter', () => {
             testComponent.pattern = 'money';
             fixture.detectChanges();
 
-            expect(directive.pattern).toBe('money');
+            expect(directive.pattern()).toBe('money');
             expect(directive.regex.toString()).toBe('/^[\\d\\.\\s,]*$/');
         });
 
@@ -124,7 +124,7 @@ describe('KeyFilter', () => {
             testComponent.pattern = 'num';
             fixture.detectChanges();
 
-            expect(directive.pattern).toBe('num');
+            expect(directive.pattern()).toBe('num');
             expect(directive.regex.toString()).toBe('/^[-]?[\\d\\.]*$/');
         });
 
@@ -132,7 +132,7 @@ describe('KeyFilter', () => {
             testComponent.pattern = 'hex';
             fixture.detectChanges();
 
-            expect(directive.pattern).toBe('hex');
+            expect(directive.pattern()).toBe('hex');
             expect(directive.regex.toString()).toBe('/^[0-9a-f]*$/i');
         });
 
@@ -140,7 +140,7 @@ describe('KeyFilter', () => {
             testComponent.pattern = 'email';
             fixture.detectChanges();
 
-            expect(directive.pattern).toBe('email');
+            expect(directive.pattern()).toBe('email');
             expect(directive.regex.toString()).toBe('/^[a-z0-9_\\.\\-@]*$/i');
         });
 
@@ -148,7 +148,7 @@ describe('KeyFilter', () => {
             testComponent.pattern = 'alpha';
             fixture.detectChanges();
 
-            expect(directive.pattern).toBe('alpha');
+            expect(directive.pattern()).toBe('alpha');
             expect(directive.regex.toString()).toBe('/^[a-z_]*$/i');
         });
 
@@ -156,7 +156,7 @@ describe('KeyFilter', () => {
             testComponent.pattern = 'alphanum';
             fixture.detectChanges();
 
-            expect(directive.pattern).toBe('alphanum');
+            expect(directive.pattern()).toBe('alphanum');
             expect(directive.regex.toString()).toBe('/^[a-z0-9_]*$/i');
         });
 
@@ -171,7 +171,7 @@ describe('KeyFilter', () => {
             testComponent.pattern = null as any;
             fixture.detectChanges();
 
-            expect(directive.pattern).toBe(null);
+            expect(directive.pattern()).toBe(null);
             expect(directive.regex.toString()).toBe('/./');
         });
     });
