@@ -1,9 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewChecked, ChangeDetectionStrategy, Component, inject, InjectionToken, NgModule, ViewEncapsulation } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, InjectionToken, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
+import { Bind } from 'primeng/bind';
 import { IftaLabelPassThrough } from 'primeng/types/iftalabel';
 import { IftaLabelStyle } from './style/iftalabelstyle';
 
@@ -14,10 +12,10 @@ const IFTALABEL_INSTANCE = new InjectionToken<IftaLabel>('IFTALABEL_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-iftalabel, p-iftaLabel, p-ifta-label',
+    selector: 'p-iftalabel, p-ifta-label',
     standalone: true,
-    imports: [BindModule],
-    template: ` <ng-content></ng-content> `,
+    imports: [],
+    template: `<ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [IftaLabelStyle, { provide: IFTALABEL_INSTANCE, useExisting: IftaLabel }, { provide: PARENT_INSTANCE, useExisting: IftaLabel }],
@@ -26,7 +24,7 @@ const IFTALABEL_INSTANCE = new InjectionToken<IftaLabel>('IFTALABEL_INSTANCE');
         '[class]': "cx('root')"
     }
 })
-export class IftaLabel extends BaseComponent<IftaLabelPassThrough> implements AfterViewChecked {
+export class IftaLabel extends BaseComponent<IftaLabelPassThrough> {
     componentName = 'IftaLabel';
 
     _componentStyle = inject(IftaLabelStyle);
@@ -35,13 +33,13 @@ export class IftaLabel extends BaseComponent<IftaLabelPassThrough> implements Af
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    onAfterViewChecked(): void {
+    onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }
 
 @NgModule({
-    imports: [IftaLabel, CommonModule, SharedModule, RouterModule],
+    imports: [IftaLabel, SharedModule],
     exports: [IftaLabel, SharedModule]
 })
 export class IftaLabelModule {}
