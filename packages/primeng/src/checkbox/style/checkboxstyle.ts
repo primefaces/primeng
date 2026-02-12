@@ -17,7 +17,7 @@ const classes = {
     root: ({ instance }) => [
         'p-checkbox p-component',
         {
-            'p-checkbox-checked p-highlight': instance.checked,
+            'p-checkbox-checked p-highlight': instance.checked(),
             'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-variant-filled': instance.$variant() === 'filled',

@@ -1,43 +1,41 @@
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     computed,
-    ContentChild,
-    ContentChildren,
+    contentChild,
+    effect,
     ElementRef,
-    EventEmitter,
     forwardRef,
     inject,
     InjectionToken,
     input,
-    Input,
     NgModule,
     numberAttribute,
-    Output,
-    QueryList,
+    output,
+    Provider,
     signal,
-    SimpleChanges,
     TemplateRef,
-    ViewChild,
+    viewChild,
     ViewEncapsulation
 } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { contains, equals } from '@primeuix/utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Bind, BindModule } from 'primeng/bind';
 import { CheckIcon } from 'primeng/icons/check';
 import { MinusIcon } from 'primeng/icons/minus';
 import { Nullable } from 'primeng/ts-helpers';
+import type { CSSProperties, InputSize, InputVariant } from 'primeng/types/shared';
 import { CheckboxChangeEvent, CheckboxIconTemplateContext, CheckboxPassThrough } from 'primeng/types/checkbox';
 import { CheckboxStyle } from './style/checkboxstyle';
 
 const CHECKBOX_INSTANCE = new InjectionToken<Checkbox>('CHECKBOX_INSTANCE');
 
-export const CHECKBOX_VALUE_ACCESSOR: any = {
+export const CHECKBOX_VALUE_ACCESSOR: Provider = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Checkbox),
     multi: true
@@ -47,187 +45,179 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-checkbox, p-checkBox, p-check-box',
+    selector: 'p-checkbox, p-check-box',
     standalone: true,
-    imports: [CommonModule, SharedModule, CheckIcon, MinusIcon, BindModule],
+    imports: [NgTemplateOutlet, SharedModule, CheckIcon, MinusIcon, BindModule],
     template: `
         <input
             #input
-            [attr.id]="inputId"
+            [attr.id]="inputId()"
             type="checkbox"
-            [attr.value]="value"
+            [attr.value]="value()"
             [attr.name]="name()"
-            [checked]="checked"
-            [attr.tabindex]="tabindex"
-            [attr.required]="required() ? '' : undefined"
-            [attr.readonly]="readonly ? '' : undefined"
-            [attr.disabled]="$disabled() ? '' : undefined"
-            [attr.aria-labelledby]="ariaLabelledBy"
-            [attr.aria-label]="ariaLabel"
-            [style]="inputStyle"
-            [class]="cn(cx('input'), inputClass)"
+            [checked]="checked()"
+            [attr.tabindex]="tabindex()"
+            [attr.required]="requiredAttr()"
+            [attr.readonly]="readonlyAttr()"
+            [attr.disabled]="disabledAttr()"
+            [attr.aria-labelledby]="ariaLabelledBy()"
+            [attr.aria-label]="ariaLabel()"
+            [style]="inputStyle()"
+            [class]="cn(cx('input'), inputClass())"
             [pBind]="ptm('input')"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (change)="handleChange($event)"
         />
-        <div [class]="cx('box')" [pBind]="ptm('box')" [attr.data-p]="dataP">
-            <ng-container *ngIf="!checkboxIconTemplate && !_checkboxIconTemplate">
-                <ng-container *ngIf="checked">
-                    <span *ngIf="checkboxIcon" [class]="cx('icon')" [ngClass]="checkboxIcon" [pBind]="ptm('icon')" [attr.data-p]="dataP"></span>
-                    <svg data-p-icon="check" *ngIf="!checkboxIcon" [class]="cx('icon')" [pBind]="ptm('icon')" [attr.data-p]="dataP" />
-                </ng-container>
-                <svg data-p-icon="minus" *ngIf="_indeterminate()" [class]="cx('icon')" [pBind]="ptm('icon')" [attr.data-p]="dataP" />
-            </ng-container>
-            <ng-template *ngTemplateOutlet="checkboxIconTemplate || _checkboxIconTemplate; context: { checked: checked, class: cx('icon'), dataP: dataP }"></ng-template>
+        <div [class]="cx('box')" [pBind]="ptm('box')" [attr.data-p]="dataP()">
+            @if (!iconTemplate()) {
+                @if (checked()) {
+                    @if (checkboxIcon()) {
+                        <span [class]="cn(cx('icon'), checkboxIcon())" [pBind]="ptm('icon')" [attr.data-p]="dataP()"></span>
+                    } @else {
+                        <svg data-p-icon="check" [class]="cx('icon')" [pBind]="ptm('icon')" [attr.data-p]="dataP()" />
+                    }
+                }
+                @if (_indeterminate()) {
+                    <svg data-p-icon="minus" [class]="cx('icon')" [pBind]="ptm('icon')" [attr.data-p]="dataP()" />
+                }
+            } @else {
+                <ng-container *ngTemplateOutlet="iconTemplate(); context: iconTemplateContext()"></ng-container>
+            }
         </div>
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR, CheckboxStyle, { provide: CHECKBOX_INSTANCE, useExisting: Checkbox }, { provide: PARENT_INSTANCE, useExisting: Checkbox }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
-        '[attr.data-p-highlight]': 'checked',
-        '[attr.data-p-checked]': 'checked',
+        '[class]': "cx('root')",
+        '[attr.data-p-highlight]': 'checked()',
+        '[attr.data-p-checked]': 'checked()',
         '[attr.data-p-disabled]': '$disabled()',
-        '[attr.data-p]': 'dataP'
+        '[attr.data-p]': 'dataP()'
     },
     hostDirectives: [Bind]
 })
 export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
     componentName = 'Checkbox';
 
-    @Input() hostName: any = '';
     /**
      * Value of the checkbox.
      * @group Props
      */
-    @Input() value: any;
+    value = input<any>();
     /**
      * Allows to select a boolean value instead of multiple values.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) binary: boolean | undefined;
+    binary = input(false, { transform: booleanAttribute });
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined;
+    ariaLabelledBy = input<string>();
     /**
      * Used to define a string that labels the input element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string>();
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+    tabindex = input<number>();
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
      */
-    @Input() inputId: string | undefined;
+    inputId = input<string>();
     /**
      * Inline style of the input element.
      * @group Props
      */
-    @Input() inputStyle: { [klass: string]: any } | null | undefined;
-    /**
-     * Style class of the component.
-     * @deprecated since v20.0.0, use `class` instead.
-     * @group Props
-     */
-    @Input() styleClass: string | undefined;
+    inputStyle = input<CSSProperties>();
     /**
      * Style class of the input element.
      * @group Props
      */
-    @Input() inputClass: string | undefined;
+    inputClass = input<string>();
     /**
      * When present, it specifies input state as indeterminate.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) indeterminate: boolean = false;
+    indeterminate = input(false, { transform: booleanAttribute });
     /**
      * Form control value.
      * @group Props
      */
-    @Input() formControl: FormControl | undefined;
+    formControl = input<FormControl>();
     /**
      * Icon class of the checkbox icon.
      * @group Props
      */
-    @Input() checkboxIcon: string | undefined;
+    checkboxIcon = input<string>();
     /**
      * When present, it specifies that the component cannot be edited.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
+    readonly = input(false, { transform: booleanAttribute });
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    autofocus = input(false, { transform: booleanAttribute });
     /**
      * Value in checked state.
      * @group Props
      */
-    @Input() trueValue: any = true;
+    trueValue = input<any>(true);
     /**
      * Value in unchecked state.
      * @group Props
      */
-    @Input() falseValue: any = false;
+    falseValue = input<any>(false);
     /**
      * Specifies the input variant of the component.
      * @defaultValue undefined
      * @group Props
      */
-    variant = input<'filled' | 'outlined' | undefined>();
+    variant = input<InputVariant>();
     /**
      * Specifies the size of the component.
      * @defaultValue undefined
      * @group Props
      */
-    size = input<'large' | 'small' | undefined>();
+    size = input<InputSize>();
     /**
      * Callback to invoke on value change.
      * @param {CheckboxChangeEvent} event - Custom value change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<CheckboxChangeEvent> = new EventEmitter();
+    onChange = output<CheckboxChangeEvent>();
     /**
      * Callback to invoke when the receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    onFocus = output<Event>();
     /**
      * Callback to invoke when the loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
+    onBlur = output<Event>();
 
-    @ViewChild('input') inputViewChild: Nullable<ElementRef>;
+    inputViewChild = viewChild<ElementRef>('input');
 
-    get checked() {
-        return this._indeterminate() ? false : this.binary ? this.modelValue() === this.trueValue : contains(this.value, this.modelValue());
-    }
-
-    _indeterminate = signal<any>(undefined);
     /**
      * Custom checkbox icon template.
      * @group Templates
      */
-    @ContentChild('icon', { descendants: false }) checkboxIconTemplate: TemplateRef<CheckboxIconTemplateContext> | undefined;
+    iconTemplate = contentChild<TemplateRef<CheckboxIconTemplateContext>>('icon', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+    _indeterminate = signal<boolean>(false);
 
-    _checkboxIconTemplate: TemplateRef<CheckboxIconTemplateContext> | undefined;
-
-    focused: boolean = false;
+    focused = signal(false);
 
     _componentStyle = inject(CheckboxStyle);
 
@@ -237,31 +227,47 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
-    onAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'icon':
-                    this._checkboxIconTemplate = item.template;
-                    break;
-                case 'checkboxicon':
-                    this._checkboxIconTemplate = item.template;
-                    break;
-            }
-        });
-    }
+    requiredAttr = computed(() => (this.required() ? '' : undefined));
 
-    onChanges(changes: SimpleChanges) {
-        if (changes.indeterminate) {
-            this._indeterminate.set(changes.indeterminate.currentValue);
-        }
+    readonlyAttr = computed(() => (this.readonly() ? '' : undefined));
+
+    disabledAttr = computed(() => (this.$disabled() ? '' : undefined));
+
+    checked = computed(() => {
+        if (this._indeterminate()) return false;
+        return this.binary() ? this.modelValue() === this.trueValue() : contains(this.value(), this.modelValue());
+    });
+
+    iconTemplateContext = computed(() => ({
+        checked: this.checked(),
+        class: this.cx('icon'),
+        dataP: this.dataP()
+    }));
+
+    dataP = computed(() => {
+        return this.cn({
+            invalid: this.invalid(),
+            checked: this.checked(),
+            disabled: this.$disabled(),
+            filled: this.$variant() === 'filled',
+            [this.size() as string]: this.size()
+        });
+    });
+
+    constructor() {
+        super();
+        effect(() => {
+            const indeterminate = this.indeterminate();
+            this._indeterminate.set(indeterminate);
+        });
     }
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
-    updateModel(event) {
-        let newModelValue;
+    updateModel(event: Event) {
+        let newModelValue: any;
 
         /*
          * When `formControlName` or `formControl` is used - `writeValue` is not called after control changes.
@@ -270,20 +276,21 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
          * */
         const selfControl = this.injector.get<NgControl | null>(NgControl, null, { optional: true, self: true });
 
-        const currentModelValue = selfControl && !this.formControl ? selfControl.value : this.modelValue();
+        const currentModelValue = selfControl && !this.formControl() ? selfControl.value : this.modelValue();
 
-        if (!this.binary) {
-            if (this.checked || this._indeterminate()) newModelValue = currentModelValue.filter((val) => !equals(val, this.value));
-            else newModelValue = currentModelValue ? [...currentModelValue, this.value] : [this.value];
+        if (!this.binary()) {
+            if (this.checked() || this._indeterminate()) newModelValue = currentModelValue.filter((val: unknown) => !equals(val, this.value()));
+            else newModelValue = currentModelValue ? [...currentModelValue, this.value()] : [this.value()];
 
             this.onModelChange(newModelValue);
             this.writeModelValue(newModelValue);
 
-            if (this.formControl) {
-                this.formControl.setValue(newModelValue);
+            const formControl = this.formControl();
+            if (formControl) {
+                formControl.setValue(newModelValue);
             }
         } else {
-            newModelValue = this._indeterminate() ? this.trueValue : this.checked ? this.falseValue : this.trueValue;
+            newModelValue = this._indeterminate() ? this.trueValue() : this.checked() ? this.falseValue() : this.trueValue();
             this.writeModelValue(newModelValue);
             this.onModelChange(newModelValue);
         }
@@ -295,25 +302,25 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
         this.onChange.emit({ checked: newModelValue, originalEvent: event });
     }
 
-    handleChange(event) {
-        if (!this.readonly) {
+    handleChange(event: Event) {
+        if (!this.readonly()) {
             this.updateModel(event);
         }
     }
 
-    onInputFocus(event) {
-        this.focused = true;
+    onInputFocus(event: FocusEvent) {
+        this.focused.set(true);
         this.onFocus.emit(event);
     }
 
-    onInputBlur(event) {
-        this.focused = false;
+    onInputBlur(event: FocusEvent) {
+        this.focused.set(false);
         this.onBlur.emit(event);
         this.onModelTouched();
     }
 
     focus() {
-        this.inputViewChild?.nativeElement.focus();
+        this.inputViewChild()?.nativeElement.focus();
     }
 
     /**
@@ -324,17 +331,6 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
         setModelValue(value);
-        this.cd.markForCheck();
-    }
-
-    get dataP() {
-        return this.cn({
-            invalid: this.invalid(),
-            checked: this.checked,
-            disabled: this.$disabled(),
-            filled: this.$variant() === 'filled',
-            [this.size() as string]: this.size()
-        });
     }
 }
 
