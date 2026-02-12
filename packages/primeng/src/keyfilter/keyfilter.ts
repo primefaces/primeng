@@ -102,7 +102,9 @@ export class KeyFilter implements Validator {
     lastValue: any;
 
     private document = inject(DOCUMENT);
+
     private platformId = inject(PLATFORM_ID);
+
     el = inject(ElementRef);
 
     constructor() {
