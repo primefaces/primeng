@@ -3,8 +3,64 @@ import { style } from '@primeuix/styles/slider';
 import { BaseStyle } from 'primeng/base';
 
 const inlineStyles = {
-    handle: { position: 'absolute' },
-    range: { position: 'absolute' }
+    handle: ({ instance }) => ({
+        position: 'absolute',
+        transition: instance.dragging() ? 'none' : null,
+        'inset-inline-start': instance.isHorizontal() ? instance.handleValue() + '%' : null,
+        bottom: instance.isVertical() ? instance.handleValue() + '%' : null
+    }),
+    range: ({ instance }) => {
+        const offset = instance.offset();
+        const diff = instance.diff();
+        const handleValues = instance.handleValues();
+
+        if (instance.range() && instance.isHorizontal()) {
+            return {
+                position: 'absolute',
+                'inset-inline-start': offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%',
+                width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'
+            };
+        }
+
+        if (instance.range() && instance.isVertical()) {
+            return {
+                position: 'absolute',
+                bottom: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%',
+                height: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'
+            };
+        }
+
+        if (!instance.range() && instance.isVertical()) {
+            return {
+                position: 'absolute',
+                height: instance.handleValue() + '%'
+            };
+        }
+
+        // Single horizontal (default)
+        return {
+            position: 'absolute',
+            width: instance.handleValue() + '%'
+        };
+    },
+    startHandler: ({ instance }) => {
+        const handleValues = instance.handleValues();
+        return {
+            position: 'absolute',
+            transition: instance.dragging() ? 'none' : null,
+            'inset-inline-start': !instance.isVertical() ? (handleValues[0] > 100 ? '100%' : handleValues[0] + '%') : null,
+            bottom: instance.isVertical() ? handleValues[0] + '%' : 'auto'
+        };
+    },
+    endHandler: ({ instance }) => {
+        const handleValues = instance.handleValues();
+        return {
+            position: 'absolute',
+            transition: instance.dragging() ? 'none' : null,
+            'inset-inline-start': instance.isVertical() ? null : handleValues[1] + '%',
+            bottom: instance.isVertical() ? handleValues[1] + '%' : 'auto'
+        };
+    }
 };
 
 const classes = {
@@ -13,9 +69,9 @@ const classes = {
         {
             'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
-            'p-slider-horizontal': instance.orientation === 'horizontal',
-            'p-slider-vertical': instance.orientation === 'vertical',
-            'p-slider-animate': instance.animate
+            'p-slider-horizontal': instance.isHorizontal(),
+            'p-slider-vertical': instance.isVertical(),
+            'p-slider-animate': instance.animate()
         }
     ],
     range: 'p-slider-range',

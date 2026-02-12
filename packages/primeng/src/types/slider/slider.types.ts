@@ -1,6 +1,12 @@
 import { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Defines the orientation of the slider.
+ * @group Types
+ */
+export type SliderOrientation = 'horizontal' | 'vertical';
+
+/**
  * Custom passthrough(pt) options.
  * @template I Type of instance.
  *

@@ -21,7 +21,7 @@ import { AppCode } from '@/components/doc/app.code';
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-4">
-                    <p-slider formControlName="value" styleClass="w-56" />
+                    <p-slider formControlName="value" class="w-56" />
                     @if (isInvalid('value')) {
                         <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
                     }
