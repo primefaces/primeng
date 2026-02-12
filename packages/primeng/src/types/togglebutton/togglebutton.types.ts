@@ -2,6 +2,12 @@ import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Position of the icon.
+ * @group Types
+ */
+export type ToggleButtonIconPos = 'left' | 'right';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
