@@ -1,4 +1,4 @@
-import { Component, inject, InjectionToken, Input, NgModule } from '@angular/core';
+import { Component, inject, InjectionToken, NgModule } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -12,14 +12,14 @@ const INPUTGROUP_INSTANCE = new InjectionToken<InputGroup>('INPUTGROUP_INSTANCE'
  * @group Components
  */
 @Component({
-    selector: 'p-inputgroup, p-inputGroup, p-input-group',
+    selector: 'p-inputgroup, p-input-group',
     standalone: true,
     imports: [BindModule],
     template: ` <ng-content></ng-content> `,
     providers: [InputGroupStyle, { provide: INPUTGROUP_INSTANCE, useExisting: InputGroup }, { provide: PARENT_INSTANCE, useExisting: InputGroup }],
     hostDirectives: [Bind],
     host: {
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cx('root')"
     }
 })
 export class InputGroup extends BaseComponent<InputGroupPassThrough> {
@@ -31,16 +31,9 @@ export class InputGroup extends BaseComponent<InputGroupPassThrough> {
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    onAfterViewChecked(): void {
+    onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
-
-    /**
-     * Class of the element.
-     * @deprecated since v20.0.0, use `class` instead.
-     * @group Props
-     */
-    @Input() styleClass: string | undefined;
 }
 
 @NgModule({
