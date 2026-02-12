@@ -1,5 +1,7 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
+export type FloatLabelVariant = 'in' | 'over' | 'on';
+
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.

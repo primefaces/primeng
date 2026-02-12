@@ -12,14 +12,17 @@ const style = /*css*/ `
 `;
 
 const classes = {
-    root: ({ instance }) => [
-        'p-floatlabel',
-        {
-            'p-floatlabel-over': instance.variant === 'over',
-            'p-floatlabel-on': instance.variant === 'on',
-            'p-floatlabel-in': instance.variant === 'in'
-        }
-    ]
+    root: ({ instance }) => {
+        const variant = instance.variant();
+        return [
+            'p-floatlabel',
+            {
+                'p-floatlabel-over': variant === 'over',
+                'p-floatlabel-on': variant === 'on',
+                'p-floatlabel-in': variant === 'in'
+            }
+        ];
+    }
 };
 
 @Injectable()

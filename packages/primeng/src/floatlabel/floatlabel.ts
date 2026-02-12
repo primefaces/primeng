@@ -1,9 +1,8 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewChecked, ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, InjectionToken, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { FloatLabelPassThrough } from 'primeng/types/floatlabel';
+import { FloatLabelPassThrough, FloatLabelVariant } from 'primeng/types/floatlabel';
 import { FloatLabelStyle } from './style/floatlabelstyle';
 
 const FLOATLABEL_INSTANCE = new InjectionToken<FloatLabel>('FLOATLABEL_INSTANCE');
@@ -13,9 +12,9 @@ const FLOATLABEL_INSTANCE = new InjectionToken<FloatLabel>('FLOATLABEL_INSTANCE'
  * @group Components
  */
 @Component({
-    selector: 'p-floatlabel, p-floatLabel, p-float-label',
+    selector: 'p-floatlabel, p-float-label',
     standalone: true,
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -25,7 +24,7 @@ const FLOATLABEL_INSTANCE = new InjectionToken<FloatLabel>('FLOATLABEL_INSTANCE'
     },
     hostDirectives: [Bind]
 })
-export class FloatLabel extends BaseComponent<FloatLabelPassThrough> implements AfterViewChecked {
+export class FloatLabel extends BaseComponent<FloatLabelPassThrough> {
     componentName = 'FloatLabel';
 
     _componentStyle = inject(FloatLabelStyle);
@@ -34,7 +33,7 @@ export class FloatLabel extends BaseComponent<FloatLabelPassThrough> implements 
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    onAfterViewChecked(): void {
+    onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
@@ -42,7 +41,7 @@ export class FloatLabel extends BaseComponent<FloatLabelPassThrough> implements 
      * Defines the positioning of the label relative to the input.
      * @group Props
      */
-    @Input() variant: 'in' | 'over' | 'on' = 'over';
+    variant = input<FloatLabelVariant>('over');
 }
 
 @NgModule({
