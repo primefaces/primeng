@@ -295,17 +295,17 @@ export class CascadeSelectSub extends BaseComponent {
                 type="text"
                 role="combobox"
                 [attr.name]="name()"
-                [attr.required]="$requiredAttr()"
-                [attr.disabled]="$disabledAttr()"
+                [attr.required]="requiredAttr()"
+                [attr.disabled]="disabledAttr()"
                 [attr.placeholder]="placeholder()"
                 [attr.tabindex]="$tabindex()"
                 [attr.id]="inputId()"
                 [attr.aria-label]="ariaLabel()"
                 [attr.aria-labelledby]="ariaLabelledBy()"
                 [attr.aria-haspopup]="'tree'"
-                [attr.aria-expanded]="$ariaExpanded()"
-                [attr.aria-controls]="$ariaControls()"
-                [attr.aria-activedescendant]="$ariaActiveDescendant()"
+                [attr.aria-expanded]="ariaExpanded()"
+                [attr.aria-controls]="ariaControls()"
+                [attr.aria-activedescendant]="ariaActiveDescendant()"
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (keydown)="onInputKeyDown($event)"
@@ -321,7 +321,7 @@ export class CascadeSelectSub extends BaseComponent {
             }
         </span>
 
-        @if ($showClearIcon()) {
+        @if (showClearIcon()) {
             @if (!clearIconTemplate()) {
                 <svg data-p-icon="times" [class]="cx('clearIcon')" (click)="clear($event)" [pBind]="ptm('clearIcon')" [attr.aria-hidden]="true" />
             } @else {
@@ -331,12 +331,12 @@ export class CascadeSelectSub extends BaseComponent {
             }
         }
 
-        <div [class]="cx('dropdown')" role="button" aria-haspopup="listbox" [attr.aria-expanded]="$ariaExpanded()" [pBind]="ptm('dropdown')" [attr.aria-hidden]="true">
+        <div [class]="cx('dropdown')" role="button" aria-haspopup="listbox" [attr.aria-expanded]="ariaExpanded()" [pBind]="ptm('dropdown')" [attr.aria-hidden]="true">
             @if (loading()) {
                 @if (loadingIconTemplate()) {
                     <ng-container *ngTemplateOutlet="loadingIconTemplate()"></ng-container>
                 } @else {
-                    <span [class]="$loadingIconClass()" aria-hidden="true" [pBind]="ptm('loadingIcon')"></span>
+                    <span [class]="loadingIconClass()" aria-hidden="true" [pBind]="ptm('loadingIcon')"></span>
                 }
             } @else {
                 @if (!triggerIconTemplate()) {
@@ -378,7 +378,7 @@ export class CascadeSelectSub extends BaseComponent {
                             [class]="cx('list')"
                             [options]="processedOptions"
                             [selectId]="$id()"
-                            [focusedOptionId]="$focusedOptionIdValue()"
+                            [focusedOptionId]="focusedOptionIdValue()"
                             [activeOptionPath]="activeOptionPath()"
                             [optionLabel]="optionLabel()"
                             [optionValue]="optionValue()"
@@ -766,21 +766,21 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
 
     $tabindex = computed(() => (!this.$disabled() ? this.tabindex() : -1));
 
-    $requiredAttr = computed(() => (this.required() ? '' : undefined));
+    requiredAttr = computed(() => (this.required() ? '' : undefined));
 
-    $disabledAttr = computed(() => (this.$disabled() ? '' : undefined));
+    disabledAttr = computed(() => (this.$disabled() ? '' : undefined));
 
-    $ariaExpanded = computed(() => this.overlayVisible() ?? false);
+    ariaExpanded = computed(() => this.overlayVisible() ?? false);
 
-    $ariaControls = computed(() => (this.overlayVisible() ? this.$id() + '_tree' : null));
+    ariaControls = computed(() => (this.overlayVisible() ? this.$id() + '_tree' : null));
 
-    $ariaActiveDescendant = computed(() => (this.focused() ? this.focusedOptionId : undefined));
+    ariaActiveDescendant = computed(() => (this.focused() ? this.focusedOptionId : undefined));
 
-    $showClearIcon = computed(() => this.$filled() && !this.$disabled() && this.showClear());
+    showClearIcon = computed(() => this.$filled() && !this.$disabled() && this.showClear());
 
-    $focusedOptionIdValue = computed(() => (this.focused() ? this.focusedOptionId : undefined));
+    focusedOptionIdValue = computed(() => (this.focused() ? this.focusedOptionId : undefined));
 
-    $loadingIconClass = computed(() => {
+    loadingIconClass = computed(() => {
         const icon = this.loadingIcon();
         if (icon) {
             return this.cn(this.cx('loadingIcon'), icon + 'pi-spin');

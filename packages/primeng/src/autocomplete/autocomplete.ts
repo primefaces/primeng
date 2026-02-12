@@ -96,9 +96,9 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR = {
                 [attr.size]="inputSize()"
                 [attr.maxlength]="maxlength()"
                 [attr.tabindex]="$tabindex()"
-                [attr.required]="$requiredAttr()"
-                [attr.readonly]="$readonlyAttr()"
-                [attr.disabled]="$disabledAttr()"
+                [attr.required]="requiredAttr()"
+                [attr.readonly]="readonlyAttr()"
+                [attr.disabled]="disabledAttr()"
                 [attr.aria-label]="ariaLabel()"
                 [attr.aria-labelledby]="ariaLabelledBy()"
                 [attr.aria-required]="required()"
@@ -192,9 +192,9 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR = {
                         [attr.placeholder]="getMultiplePlaceholder()"
                         aria-autocomplete="list"
                         [attr.tabindex]="$tabindex()"
-                        [attr.required]="$requiredAttr()"
-                        [attr.readonly]="$readonlyAttr()"
-                        [attr.disabled]="$disabledAttr()"
+                        [attr.required]="requiredAttr()"
+                        [attr.readonly]="readonlyAttr()"
+                        [attr.disabled]="disabledAttr()"
                         [attr.aria-label]="ariaLabel()"
                         [attr.aria-labelledby]="ariaLabelledBy()"
                         [attr.aria-required]="required()"
@@ -261,7 +261,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR = {
                                 [tabindex]="-1"
                                 [pt]="ptm('virtualScroller')"
                                 [items]="visibleOptions()"
-                                [style]="$scrollerStyle()"
+                                [style]="scrollerStyle()"
                                 [itemSize]="virtualScrollItemSize()"
                                 [autoSize]="true"
                                 [lazy]="lazy()"
@@ -873,15 +873,15 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     $showClear = computed(() => this.$filled() && !this.$disabled() && this.showClear() && !this.loading());
 
-    $scrollerStyle = computed(() => ({ height: this.scrollHeight() }));
+    scrollerStyle = computed(() => ({ height: this.scrollHeight() }));
 
     $tabindex = computed(() => (!this.$disabled() ? this.tabindex() : -1));
 
-    $requiredAttr = computed(() => (this.required() ? '' : undefined));
+    requiredAttr = computed(() => (this.required() ? '' : undefined));
 
-    $readonlyAttr = computed(() => (this.readonly() ? '' : undefined));
+    readonlyAttr = computed(() => (this.readonly() ? '' : undefined));
 
-    $disabledAttr = computed(() => (this.$disabled() ? '' : undefined));
+    disabledAttr = computed(() => (this.$disabled() ? '' : undefined));
 
     $listId = computed(() => this.$id() + '_list');
 
