@@ -1,10 +1,11 @@
-import { booleanAttribute, computed, Directive, effect, HostListener, inject, InjectionToken, input, Input, NgModule } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, inject, InjectionToken, input, NgModule } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseModelHolder } from 'primeng/basemodelholder';
 import { Bind } from 'primeng/bind';
 import { Fluid } from 'primeng/fluid';
 import { InputTextPassThrough } from 'primeng/types/inputtext';
+import type { InputSize, InputVariant } from 'primeng/types/shared';
 import { InputTextStyle } from './style/inputtextstyle';
 
 const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
@@ -18,7 +19,8 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
     standalone: true,
     host: {
         '[class]': "cx('root')",
-        '[attr.data-p]': 'dataP'
+        '[attr.data-p]': 'dataP()',
+        '(input)': 'onInput()'
     },
     providers: [InputTextStyle, { provide: INPUTTEXT_INSTANCE, useExisting: InputText }, { provide: PARENT_INSTANCE, useExisting: InputText }],
     hostDirectives: [Bind]
@@ -26,15 +28,8 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
 export class InputText extends BaseModelHolder<InputTextPassThrough> {
     componentName = 'InputText';
 
-    @Input() hostName: any = '';
+    hostName = input('');
 
-    /**
-     * Used to pass attributes to DOM elements inside the InputText component.
-     * @defaultValue undefined
-     * @deprecated use pInputTextPT instead.
-     * @group Props
-     */
-    ptInputText = input<InputTextPassThrough>();
     /**
      * Used to pass attributes to DOM elements inside the InputText component.
      * @defaultValue undefined
@@ -46,7 +41,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
      * @defaultValue undefined
      * @group Props
      */
-    pInputTextUnstyled = input<boolean | undefined>();
+    pInputTextUnstyled = input<boolean>();
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
@@ -60,13 +55,13 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
      * Defines the size of the component.
      * @group Props
      */
-    @Input('pSize') pSize: 'large' | 'small' | undefined;
+    pSize = input<InputSize>(undefined, { alias: 'pSize' });
     /**
      * Specifies the input variant of the component.
      * @defaultValue undefined
      * @group Props
      */
-    variant = input<'filled' | 'outlined' | undefined>();
+    variant = input<InputVariant>();
     /**
      * Spans 100% width of the container when enabled.
      * @defaultValue undefined
@@ -84,10 +79,23 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
 
     _componentStyle = inject(InputTextStyle);
 
+    get hasFluid() {
+        return this.fluid() ?? !!this.pcFluid;
+    }
+
+    dataP = computed(() =>
+        this.cn({
+            invalid: this.invalid(),
+            fluid: this.hasFluid,
+            filled: this.$variant() === 'filled',
+            [this.pSize() as string]: this.pSize()
+        })
+    );
+
     constructor() {
         super();
         effect(() => {
-            const pt = this.ptInputText() || this.pInputTextPT();
+            const pt = this.pInputTextPT();
             pt && this.directivePT.set(pt);
         });
 
@@ -109,22 +117,8 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 
-    @HostListener('input')
     onInput() {
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
-    }
-
-    get hasFluid() {
-        return this.fluid() ?? !!this.pcFluid;
-    }
-
-    get dataP() {
-        return this.cn({
-            invalid: this.invalid(),
-            fluid: this.hasFluid,
-            filled: this.$variant() === 'filled',
-            [this.pSize as string]: this.pSize
-        });
     }
 }
 
