@@ -6,7 +6,6 @@ const style = /*css*/ `
     ${radiobutton_style}
 
     /* For PrimeNG */
-    p-radioButton.ng-invalid.ng-dirty .p-radiobutton-box,
     p-radio-button.ng-invalid.ng-dirty .p-radiobutton-box,
     p-radiobutton.ng-invalid.ng-dirty .p-radiobutton-box {
         border-color: dt('radiobutton.invalid.border.color');
