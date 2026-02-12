@@ -13,3 +13,15 @@ export type AppendTo = HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'b
  * @group Types
  */
 export type CSSProperties = Partial<CSSStyleDeclaration> | null | undefined;
+
+/**
+ * Input size for form components.
+ * @group Types
+ */
+export type InputSize = 'small' | 'large';
+
+/**
+ * Input variant for form components.
+ * @group Types
+ */
+export type InputVariant = 'filled' | 'outlined';

@@ -2,6 +2,83 @@ import { ElementRef, TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Processed option structure used internally.
+ * @group Interface
+ */
+export interface CascadeSelectProcessedOption {
+    option: unknown;
+    index: number;
+    level: number;
+    key: string;
+    parent?: CascadeSelectProcessedOption | Record<string, unknown>;
+    parentKey: string;
+    children?: CascadeSelectProcessedOption[];
+    selected?: boolean;
+}
+
+/**
+ * Focused option info structure.
+ * @group Interface
+ */
+export interface CascadeSelectFocusedOptionInfo {
+    index: number;
+    level?: number;
+    parentKey: string;
+}
+
+/**
+ * Internal option change event (used by CascadeSelectSub).
+ * @group Interface
+ */
+export interface CascadeSelectSubChangeEvent {
+    originalEvent: Event;
+    processedOption: CascadeSelectProcessedOption;
+    isFocus?: boolean;
+}
+
+/**
+ * Internal focus change event (used by CascadeSelectSub).
+ * @group Interface
+ */
+export interface CascadeSelectSubFocusChangeEvent {
+    originalEvent: Event;
+    processedOption: CascadeSelectProcessedOption;
+}
+
+/**
+ * Internal option change event.
+ * @group Interface
+ */
+export interface CascadeSelectOptionChangeEvent {
+    originalEvent?: Event | null;
+    processedOption: CascadeSelectProcessedOption;
+    isHide?: boolean;
+    type?: 'hover';
+}
+
+/**
+ * Internal option click event.
+ * @group Interface
+ */
+export interface CascadeSelectOptionClickEvent {
+    originalEvent: Event;
+    processedOption: CascadeSelectProcessedOption;
+    isFocus?: boolean;
+    isHide?: boolean;
+    preventSelection?: boolean;
+    type?: 'hover';
+}
+
+/**
+ * Internal option mouse event.
+ * @group Interface
+ */
+export interface CascadeSelectOptionMouseEvent {
+    originalEvent: Event;
+    processedOption: CascadeSelectProcessedOption;
+}
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

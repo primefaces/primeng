@@ -64,8 +64,6 @@ const mockCountries = [
             [optionGroupChildren]="optionGroupChildren"
             [placeholder]="placeholder"
             [disabled]="disabled"
-            [style]="style"
-            [styleClass]="styleClass"
             [panelStyle]="panelStyle"
             [panelStyleClass]="panelStyleClass"
             [showClear]="showClear"
@@ -171,8 +169,6 @@ class TestCascadeSelectComponent {
     appendTo: any;
 
     // Styling
-    style: any = {};
-    styleClass: string = '';
     panelStyle: any = {};
     panelStyleClass: string = '';
 
@@ -287,16 +283,16 @@ class TestCascadeSelectComponent {
             [loading]="loading"
             [showClear]="showClear"
         >
-            <!-- Value template with pTemplate -->
-            <ng-template pTemplate="value" let-value let-placeholder="placeholder">
+            <!-- Value template with #value -->
+            <ng-template #value let-value let-placeholder="placeholder">
                 <div class="ptemplate-value" [attr.data-testid]="'ptemplate-value'">
                     <span class="value-text" *ngIf="value">{{ value.cname || value.name }} - pTemplate</span>
                     <span class="placeholder-text" *ngIf="!value">{{ placeholder }} (pTemplate)</span>
                 </div>
             </ng-template>
 
-            <!-- Option template with pTemplate -->
-            <ng-template pTemplate="option" let-option let-level="level">
+            <!-- Option template with #option -->
+            <ng-template #option let-option let-level="level">
                 <div class="ptemplate-option" [attr.data-testid]="'ptemplate-option'" [attr.data-level]="level">
                     <i class="pi pi-flag" *ngIf="level === 0"></i>
                     <i class="pi pi-map" *ngIf="level === 1"></i>
@@ -305,8 +301,8 @@ class TestCascadeSelectComponent {
                 </div>
             </ng-template>
 
-            <!-- Header template with pTemplate -->
-            <ng-template pTemplate="header">
+            <!-- Header template with #header -->
+            <ng-template #header>
                 <div class="ptemplate-header" [attr.data-testid]="'ptemplate-header'">
                     <i class="pi pi-search"></i>
                     <h4 class="header-title">Select Location (pTemplate)</h4>
@@ -314,34 +310,34 @@ class TestCascadeSelectComponent {
                 </div>
             </ng-template>
 
-            <!-- Footer template with pTemplate -->
-            <ng-template pTemplate="footer">
+            <!-- Footer template with #footer -->
+            <ng-template #footer>
                 <div class="ptemplate-footer" [attr.data-testid]="'ptemplate-footer'">
                     <small class="footer-text">Choose your location (pTemplate)</small>
                     <button class="footer-button" type="button">Help</button>
                 </div>
             </ng-template>
 
-            <!-- Trigger icon template with pTemplate -->
-            <ng-template pTemplate="triggericon">
+            <!-- Trigger icon template with #triggericon -->
+            <ng-template #triggericon>
                 <i class="pi pi-angle-down ptemplate-triggericon" [attr.data-testid]="'ptemplate-triggericon'"></i>
             </ng-template>
 
-            <!-- Loading icon template with pTemplate -->
-            <ng-template pTemplate="loadingicon">
+            <!-- Loading icon template with #loadingicon -->
+            <ng-template #loadingicon>
                 <div class="ptemplate-loadingicon" [attr.data-testid]="'ptemplate-loadingicon'">
                     <i class="pi pi-spin pi-spinner loading-icon"></i>
                     <span class="loading-text">Loading...</span>
                 </div>
             </ng-template>
 
-            <!-- Option group icon template with pTemplate -->
-            <ng-template pTemplate="optiongroupicon">
+            <!-- Option group icon template with #optiongroupicon -->
+            <ng-template #optiongroupicon>
                 <i class="pi pi-chevron-right ptemplate-optiongroupicon" [attr.data-testid]="'ptemplate-optiongroupicon'"></i>
             </ng-template>
 
-            <!-- Clear icon template with pTemplate -->
-            <ng-template pTemplate="clearicon">
+            <!-- Clear icon template with #clearicon -->
+            <ng-template #clearicon>
                 <div class="ptemplate-clearicon" [attr.data-testid]="'ptemplate-clearicon'">
                     <i class="pi pi-times clear-icon"></i>
                     <span class="clear-text">Clear</span>
@@ -390,16 +386,16 @@ describe('CascadeSelect', () => {
         });
 
         it('should have default values', async () => {
-            expect(component.placeholder).toBeUndefined();
+            expect(component.placeholder()).toBeUndefined();
             expect(component.$disabled()).toBe(false);
-            expect(component.showClear).toBe(false);
-            expect(component.loading).toBe(false);
-            expect(component.tabindex).toBe(0);
+            expect(component.showClear()).toBe(false);
+            expect(component.loading()).toBe(false);
+            expect(component.tabindex()).toBe(0);
         });
 
         it('should have value accessor provider', async () => {
             expect(CASCADESELECT_VALUE_ACCESSOR).toBeTruthy();
-            expect(CASCADESELECT_VALUE_ACCESSOR.provide).toBe(NG_VALUE_ACCESSOR);
+            expect((CASCADESELECT_VALUE_ACCESSOR as { provide: unknown }).provide).toBe(NG_VALUE_ACCESSOR);
         });
 
         it('should render input element', async () => {
@@ -429,7 +425,7 @@ describe('CascadeSelect', () => {
             await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-            expect(cascadeSelectInstance.options.every((item: any) => typeof item === 'string')).toBe(true);
+            expect(cascadeSelectInstance.options().every((item: any) => typeof item === 'string')).toBe(true);
         });
 
         it('should work with number array', async () => {
@@ -438,7 +434,7 @@ describe('CascadeSelect', () => {
             await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-            expect(cascadeSelectInstance.options.every((item: any) => typeof item === 'number')).toBe(true);
+            expect(cascadeSelectInstance.options().every((item: any) => typeof item === 'number')).toBe(true);
         });
 
         it('should work with object array', async () => {
@@ -448,8 +444,8 @@ describe('CascadeSelect', () => {
             await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-            expect(cascadeSelectInstance.options.every((item: any) => typeof item === 'object')).toBe(true);
-            expect(cascadeSelectInstance.optionLabel).toBe('name');
+            expect(cascadeSelectInstance.options().every((item: any) => typeof item === 'object')).toBe(true);
+            expect(cascadeSelectInstance.optionLabel()).toBe('name');
         });
 
         it('should work with getters and setters', async () => {
@@ -583,7 +579,7 @@ describe('CascadeSelect', () => {
             await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-            expect(cascadeSelectInstance.optionLabel).toBe('name');
+            expect(cascadeSelectInstance.optionLabel()).toBe('name');
         });
 
         it('should work with optionLabel as function', async () => {
@@ -593,7 +589,7 @@ describe('CascadeSelect', () => {
             await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-            expect(typeof cascadeSelectInstance.optionLabel).toBe('function');
+            expect(typeof cascadeSelectInstance.optionLabel()).toBe('function');
         });
 
         it('should work with optionValue as string', async () => {
@@ -603,7 +599,7 @@ describe('CascadeSelect', () => {
             await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-            expect(cascadeSelectInstance.optionValue).toBe('code');
+            expect(cascadeSelectInstance.optionValue()).toBe('code');
         });
 
         it('should work with optionValue as function', async () => {
@@ -613,7 +609,7 @@ describe('CascadeSelect', () => {
             await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-            expect(typeof cascadeSelectInstance.optionValue).toBe('function');
+            expect(typeof cascadeSelectInstance.optionValue()).toBe('function');
         });
 
         it('should work with dynamic updated values', async () => {
@@ -637,7 +633,7 @@ describe('CascadeSelect', () => {
             await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-            expect(cascadeSelectInstance.placeholder).toBe('Custom placeholder');
+            expect(cascadeSelectInstance.placeholder()).toBe('Custom placeholder');
         });
 
         it('should work with loading state', async () => {
@@ -646,7 +642,7 @@ describe('CascadeSelect', () => {
             await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-            expect(cascadeSelectInstance.loading).toBe(true);
+            expect(cascadeSelectInstance.loading()).toBe(true);
         });
 
         it('should work with appendTo', async () => {
@@ -660,14 +656,9 @@ describe('CascadeSelect', () => {
             expect(appendToValue).toBe('body');
         });
 
-        it('should work with styles and styleClass', async () => {
-            testComponent.style = { border: '2px solid blue', padding: '5px' };
-            testComponent.styleClass = 'custom-cascadeselect';
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-
+        it('should render with default styles', async () => {
             const cascadeSelectElement = testFixture.debugElement.query(By.directive(CascadeSelect));
-            expect(cascadeSelectElement.nativeElement.classList.contains('custom-cascadeselect')).toBe(true);
+            expect(cascadeSelectElement.nativeElement.classList.contains('p-cascadeselect')).toBe(true);
         });
 
         it('should work with panelStyle and panelStyleClass', async () => {
@@ -677,8 +668,8 @@ describe('CascadeSelect', () => {
             await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-            expect(cascadeSelectInstance.panelStyle).toEqual({ background: 'lightgray' });
-            expect(cascadeSelectInstance.panelStyleClass).toBe('custom-panel');
+            expect(cascadeSelectInstance.panelStyle()).toEqual({ background: 'lightgray' });
+            expect(cascadeSelectInstance.panelStyleClass()).toBe('custom-panel');
         });
     });
 
@@ -729,8 +720,6 @@ describe('CascadeSelect', () => {
             await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-            // Ensure showClear is set on the component instance and modelValue has a value
-            cascadeSelectInstance.showClear = true;
             cascadeSelectInstance.writeValue(mockCountries[0].states[0].cities[0]); // Set value via ControlValueAccessor
             await testFixture.whenStable();
 
@@ -917,8 +906,8 @@ describe('CascadeSelect', () => {
             await testFixture.whenStable();
 
             const cascadeSelectInstance = testFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-            expect(cascadeSelectInstance.loading).toBe(true);
-            expect(cascadeSelectInstance.loadingIcon).toBe('pi pi-spin pi-cog');
+            expect(cascadeSelectInstance.loading()).toBe(true);
+            expect(cascadeSelectInstance.loadingIcon()).toBe('pi pi-spin pi-cog');
         });
 
         it('should handle large datasets efficiently', async () => {
@@ -1038,7 +1027,7 @@ describe('CascadeSelect', () => {
             cascadeSelectInstance.writeValue(mockCountries[0].states[0].cities[0]);
             await testFixture.whenStable();
 
-            expect(cascadeSelectInstance.showClear).toBe(true);
+            expect(cascadeSelectInstance.showClear()).toBe(true);
             expect(cascadeSelectInstance.$filled()).toBe(true);
         });
 
@@ -1070,7 +1059,7 @@ describe('CascadeSelect', () => {
                 } else {
                     // Verify template is loaded even if not rendered
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                    expect(cascadeSelectInstance._valueTemplate).toBeTruthy();
+                    expect(cascadeSelectInstance.valueTemplate()).toBeTruthy();
                 }
             });
 
@@ -1092,13 +1081,13 @@ describe('CascadeSelect', () => {
                 } else {
                     // Verify template is loaded
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                    expect(cascadeSelectInstance._valueTemplate).toBeTruthy();
+                    expect(cascadeSelectInstance.valueTemplate()).toBeTruthy();
                 }
             });
 
             it('should set valueTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                expect(cascadeSelectInstance._valueTemplate).toBeTruthy();
+                expect(cascadeSelectInstance.valueTemplate()).toBeTruthy();
             });
         });
 
@@ -1132,7 +1121,7 @@ describe('CascadeSelect', () => {
                 } else {
                     // Verify template is loaded even if not rendered
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                    expect(cascadeSelectInstance._optionTemplate).toBeTruthy();
+                    expect(cascadeSelectInstance.optionTemplate()).toBeTruthy();
                 }
             });
 
@@ -1149,12 +1138,12 @@ describe('CascadeSelect', () => {
                 await pTemplateFixture.whenStable();
 
                 // Verify option template handles level context correctly
-                expect(cascadeSelectInstance._optionTemplate).toBeTruthy();
+                expect(cascadeSelectInstance.optionTemplate()).toBeTruthy();
             });
 
             it('should set optionTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                expect(cascadeSelectInstance._optionTemplate).toBeTruthy();
+                expect(cascadeSelectInstance.optionTemplate()).toBeTruthy();
             });
         });
 
@@ -1171,13 +1160,13 @@ describe('CascadeSelect', () => {
                 } else {
                     // Verify template is loaded even if not rendered
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                    expect(cascadeSelectInstance._headerTemplate).toBeTruthy();
+                    expect(cascadeSelectInstance.headerTemplate()).toBeTruthy();
                 }
             });
 
             it('should set headerTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                expect(cascadeSelectInstance._headerTemplate).toBeTruthy();
+                expect(cascadeSelectInstance.headerTemplate()).toBeTruthy();
             });
         });
 
@@ -1194,13 +1183,13 @@ describe('CascadeSelect', () => {
                 } else {
                     // Verify template is loaded even if not rendered
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                    expect(cascadeSelectInstance._footerTemplate).toBeTruthy();
+                    expect(cascadeSelectInstance.footerTemplate()).toBeTruthy();
                 }
             });
 
             it('should set footerTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                expect(cascadeSelectInstance._footerTemplate).toBeTruthy();
+                expect(cascadeSelectInstance.footerTemplate()).toBeTruthy();
             });
         });
 
@@ -1213,13 +1202,13 @@ describe('CascadeSelect', () => {
                 } else {
                     // Verify template is loaded even if not rendered
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                    expect(cascadeSelectInstance._triggerIconTemplate).toBeTruthy();
+                    expect(cascadeSelectInstance.triggerIconTemplate()).toBeTruthy();
                 }
             });
 
             it('should set triggerIconTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                expect(cascadeSelectInstance._triggerIconTemplate).toBeTruthy();
+                expect(cascadeSelectInstance.triggerIconTemplate()).toBeTruthy();
             });
         });
 
@@ -1236,13 +1225,13 @@ describe('CascadeSelect', () => {
                 } else {
                     // Verify template is loaded even if not rendered
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                    expect(cascadeSelectInstance._loadingIconTemplate).toBeTruthy();
+                    expect(cascadeSelectInstance.loadingIconTemplate()).toBeTruthy();
                 }
             });
 
             it('should set loadingIconTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                expect(cascadeSelectInstance._loadingIconTemplate).toBeTruthy();
+                expect(cascadeSelectInstance.loadingIconTemplate()).toBeTruthy();
             });
         });
 
@@ -1261,13 +1250,13 @@ describe('CascadeSelect', () => {
                 } else {
                     // Verify template is loaded even if not rendered
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                    expect(cascadeSelectInstance._groupIconTemplate).toBeTruthy();
+                    expect(cascadeSelectInstance.groupIconTemplate()).toBeTruthy();
                 }
             });
 
             it('should set groupIconTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                expect(cascadeSelectInstance._groupIconTemplate).toBeTruthy();
+                expect(cascadeSelectInstance.groupIconTemplate()).toBeTruthy();
             });
         });
 
@@ -1285,7 +1274,7 @@ describe('CascadeSelect', () => {
                 } else {
                     // Verify template is loaded even if not rendered
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                    expect(cascadeSelectInstance._clearIconTemplate).toBeTruthy();
+                    expect(cascadeSelectInstance.clearIconTemplate()).toBeTruthy();
                 }
             });
 
@@ -1296,7 +1285,6 @@ describe('CascadeSelect', () => {
                 await pTemplateFixture.whenStable();
 
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                cascadeSelectInstance.showClear = true;
                 cascadeSelectInstance.writeValue(mockCountries[0].states[0].cities[0]); // Set value via ControlValueAccessor
                 await pTemplateFixture.whenStable();
 
@@ -1309,7 +1297,7 @@ describe('CascadeSelect', () => {
 
             it('should set clearIconTemplate in ngAfterContentInit', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                expect(cascadeSelectInstance._clearIconTemplate).toBeTruthy();
+                expect(cascadeSelectInstance.clearIconTemplate()).toBeTruthy();
             });
         });
 
@@ -1318,14 +1306,14 @@ describe('CascadeSelect', () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
 
                 // Verify all templates are set
-                expect(cascadeSelectInstance._valueTemplate).toBeTruthy();
-                expect(cascadeSelectInstance._optionTemplate).toBeTruthy();
-                expect(cascadeSelectInstance._headerTemplate).toBeTruthy();
-                expect(cascadeSelectInstance._footerTemplate).toBeTruthy();
-                expect(cascadeSelectInstance._triggerIconTemplate).toBeTruthy();
-                expect(cascadeSelectInstance._loadingIconTemplate).toBeTruthy();
-                expect(cascadeSelectInstance._groupIconTemplate).toBeTruthy();
-                expect(cascadeSelectInstance._clearIconTemplate).toBeTruthy();
+                expect(cascadeSelectInstance.valueTemplate()).toBeTruthy();
+                expect(cascadeSelectInstance.optionTemplate()).toBeTruthy();
+                expect(cascadeSelectInstance.headerTemplate()).toBeTruthy();
+                expect(cascadeSelectInstance.footerTemplate()).toBeTruthy();
+                expect(cascadeSelectInstance.triggerIconTemplate()).toBeTruthy();
+                expect(cascadeSelectInstance.loadingIconTemplate()).toBeTruthy();
+                expect(cascadeSelectInstance.groupIconTemplate()).toBeTruthy();
+                expect(cascadeSelectInstance.clearIconTemplate()).toBeTruthy();
             });
 
             it('should handle context parameters correctly for all templates', async () => {
@@ -1369,27 +1357,27 @@ describe('CascadeSelect', () => {
 
                 // If templates not rendered, at least verify they are loaded
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                expect(cascadeSelectInstance._valueTemplate).toBeTruthy();
-                expect(cascadeSelectInstance._headerTemplate).toBeTruthy();
-                expect(cascadeSelectInstance._loadingIconTemplate).toBeTruthy();
+                expect(cascadeSelectInstance.valueTemplate()).toBeTruthy();
+                expect(cascadeSelectInstance.headerTemplate()).toBeTruthy();
+                expect(cascadeSelectInstance.loadingIconTemplate()).toBeTruthy();
             });
 
             it('should handle template inheritance and composition', async () => {
                 const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
 
                 // Test that templates are properly composed and don't conflict
-                expect(cascadeSelectInstance._valueTemplate).toBeTruthy();
-                expect(cascadeSelectInstance._optionTemplate).toBeTruthy();
+                expect(cascadeSelectInstance.valueTemplate()).toBeTruthy();
+                expect(cascadeSelectInstance.optionTemplate()).toBeTruthy();
 
                 // Verify no template conflicts using internal templates
-                expect(cascadeSelectInstance._valueTemplate).not.toBe(cascadeSelectInstance._optionTemplate);
+                expect(cascadeSelectInstance.valueTemplate()).not.toBe(cascadeSelectInstance.optionTemplate());
 
                 // If ContentChild templates are available, verify they don't conflict
                 if (cascadeSelectInstance.headerTemplate && cascadeSelectInstance.footerTemplate) {
                     expect(cascadeSelectInstance.headerTemplate).not.toBe(cascadeSelectInstance.footerTemplate);
                 } else {
                     // At least verify internal templates are different
-                    expect(cascadeSelectInstance._headerTemplate).not.toBe(cascadeSelectInstance._footerTemplate);
+                    expect(cascadeSelectInstance.headerTemplate()).not.toBe(cascadeSelectInstance.footerTemplate());
                 }
             });
 
@@ -1404,8 +1392,8 @@ describe('CascadeSelect', () => {
 
                 await pTemplateFixture.whenStable();
 
-                expect(cascadeSelectInstance._valueTemplate).toBeTruthy();
-                expect(cascadeSelectInstance._optionTemplate).toBeTruthy();
+                expect(cascadeSelectInstance.valueTemplate()).toBeTruthy();
+                expect(cascadeSelectInstance.optionTemplate()).toBeTruthy();
             });
 
             it('should handle template context data binding correctly', async () => {
@@ -1436,7 +1424,7 @@ describe('CascadeSelect', () => {
                 } else {
                     // Even if not rendered, template should be loaded
                     const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
-                    expect(cascadeSelectInstance._headerTemplate).toBeTruthy();
+                    expect(cascadeSelectInstance.headerTemplate()).toBeTruthy();
                 }
             });
         });
@@ -1449,10 +1437,10 @@ describe('CascadeSelect', () => {
         beforeEach(async () => {
             ptFixture = TestBed.createComponent(CascadeSelect);
             ptComponent = ptFixture.componentInstance;
-            ptComponent.options = mockCountries as any;
-            ptComponent.optionLabel = 'cname';
-            ptComponent.optionGroupLabel = 'name';
-            ptComponent.optionGroupChildren = ['states', 'cities'];
+            ptFixture.componentRef.setInput('options', mockCountries);
+            ptFixture.componentRef.setInput('optionLabel', 'cname');
+            ptFixture.componentRef.setInput('optionGroupLabel', 'name');
+            ptFixture.componentRef.setInput('optionGroupChildren', ['states', 'cities']);
         });
 
         describe('Case 1: Simple string classes', () => {
@@ -1529,7 +1517,7 @@ describe('CascadeSelect', () => {
             });
 
             it('should apply PT string classes to clearIcon', async () => {
-                ptComponent.showClear = true;
+                ptFixture.componentRef.setInput('showClear', true);
                 ptComponent.writeValue(mockCountries[0].states[0].cities[0]);
                 ptFixture.componentRef.setInput('pt', {
                     clearIcon: 'CLEAR_ICON_CLASS'
@@ -1541,7 +1529,7 @@ describe('CascadeSelect', () => {
                     expect(clearIcon.nativeElement.classList.contains('CLEAR_ICON_CLASS')).toBe(true);
                 } else {
                     // Clear icon not rendered, but test should pass as PT would be applied if it was rendered
-                    expect(ptComponent.showClear).toBe(true);
+                    expect(ptComponent.showClear()).toBe(true);
                 }
             });
 
@@ -1746,13 +1734,13 @@ describe('CascadeSelect', () => {
 
         describe('Case 4: Use variables from instance', () => {
             it('should apply PT using instance properties', async () => {
-                ptComponent.showClear = true;
+                ptFixture.componentRef.setInput('showClear', true);
                 await ptFixture.whenStable(); // Apply showClear first
 
                 ptFixture.componentRef.setInput('pt', {
                     root: ({ instance }) => {
                         return {
-                            class: instance?.showClear ? 'HAS_SHOW_CLEAR' : ''
+                            class: instance?.showClear() ? 'HAS_SHOW_CLEAR' : ''
                         };
                     }
                 });
@@ -1763,13 +1751,13 @@ describe('CascadeSelect', () => {
             });
 
             it('should apply PT with instance-based styling', async () => {
-                ptComponent.placeholder = 'Test';
+                ptFixture.componentRef.setInput('placeholder', 'Test');
                 await ptFixture.whenStable(); // Apply placeholder first
 
                 ptFixture.componentRef.setInput('pt', {
                     label: ({ instance }) => {
                         return {
-                            'data-has-placeholder': instance?.placeholder ? 'true' : 'false'
+                            'data-has-placeholder': instance?.placeholder() ? 'true' : 'false'
                         };
                     }
                 });
@@ -1783,7 +1771,7 @@ describe('CascadeSelect', () => {
                 ptFixture.componentRef.setInput('pt', {
                     root: ({ instance }) => {
                         return {
-                            class: !!instance?.options ? 'HAS_OPTIONS' : ''
+                            class: !!instance?.options() ? 'HAS_OPTIONS' : ''
                         };
                     }
                 });
@@ -1794,13 +1782,13 @@ describe('CascadeSelect', () => {
             });
 
             it('should apply PT based on showClear property', async () => {
-                ptComponent.showClear = true;
+                ptFixture.componentRef.setInput('showClear', true);
                 await ptFixture.whenStable(); // Apply showClear first
 
                 ptFixture.componentRef.setInput('pt', {
                     root: ({ instance }) => {
                         return {
-                            'data-show-clear': instance?.showClear ? 'true' : 'false'
+                            'data-show-clear': instance?.showClear() ? 'true' : 'false'
                         };
                     }
                 });
@@ -1832,14 +1820,14 @@ describe('CascadeSelect', () => {
 
             it('should handle PT event binding with instance access', async () => {
                 let instanceValue: any;
-                ptComponent.placeholder = 'Test Placeholder';
+                ptFixture.componentRef.setInput('placeholder', 'Test Placeholder');
                 await ptFixture.whenStable(); // Apply placeholder first
 
                 ptFixture.componentRef.setInput('pt', {
                     label: ({ instance }) => {
                         return {
                             onclick: () => {
-                                instanceValue = instance?.placeholder;
+                                instanceValue = instance?.placeholder();
                             }
                         };
                     }
@@ -2009,7 +1997,7 @@ describe('CascadeSelect', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 // Verify component is working even if options aren't fully rendered
-                expect(ptComponent.overlayVisible).toBe(true);
+                expect(ptComponent.overlayVisible()).toBe(true);
             });
         });
 
@@ -2059,14 +2047,14 @@ describe('CascadeSelect', () => {
 
             it('should preserve PT when component state changes', async () => {
                 // Set placeholder BEFORE PT binding so instance-based PT function can evaluate correctly
-                ptComponent.placeholder = 'Test Placeholder';
+                ptFixture.componentRef.setInput('placeholder', 'Test Placeholder');
 
                 ptFixture.componentRef.setInput('pt', {
                     root: 'PERSISTENT_PT',
                     label: ({ instance }) => {
                         return {
                             class: {
-                                HAS_PLACEHOLDER: !!instance?.placeholder
+                                HAS_PLACEHOLDER: !!instance?.placeholder()
                             }
                         };
                     }

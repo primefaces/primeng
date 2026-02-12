@@ -23,15 +23,15 @@ const classes = {
         'p-cascadeselect p-component p-inputwrapper',
         {
             'p-cascadeselect p-component p-inputwrapper': true,
-            'p-cascadeselect-clearable': instance.showClear && !instance.$disabled(),
+            'p-cascadeselect-clearable': instance.showClear() && !instance.$disabled(),
             'p-cascadeselect-mobile': instance.queryMatches(),
             'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
-            'p-focus': instance.focused,
+            'p-focus': instance.focused(),
             'p-inputwrapper-filled': instance.modelValue(),
             'p-variant-filled': instance.$variant() === 'filled',
-            'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
-            'p-cascadeselect-open': instance.overlayVisible,
+            'p-inputwrapper-focus': instance.focused() || instance.overlayVisible(),
+            'p-cascadeselect-open': instance.overlayVisible(),
             'p-cascadeselect-fluid': instance.hasFluid,
             'p-cascadeselect-sm p-inputfield-sm': instance.size() === 'small',
             'p-cascadeselect-lg p-inputfield-lg': instance.size() === 'large'
@@ -40,8 +40,8 @@ const classes = {
     label: ({ instance }) => [
         'p-cascadeselect-label',
         {
-            'p-placeholder': instance.label() === instance.placeholder,
-            'p-cascadeselect-label-empty': !instance.value && (instance.label() === 'p-emptylabel' || instance.label().length === 0)
+            'p-placeholder': instance.label() === instance.placeholder(),
+            'p-cascadeselect-label-empty': !instance.value() && (instance.label() === 'p-emptylabel' || instance.label().length === 0)
         }
     ],
     clearIcon: 'p-cascadeselect-clear-icon',
