@@ -1,10 +1,11 @@
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, inject, InjectionToken, input, NgModule, output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ChipProps, ChipPassThrough } from 'primeng/types/chip';
 import { ChipStyle } from './style/chipstyle';
+import { TimesCircleIcon } from 'primeng/icons';
 
 const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
 
@@ -15,13 +16,13 @@ const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
 @Component({
     selector: 'p-chip',
     standalone: true,
-    imports: [NgClass, NgTemplateOutlet, SharedModule, Bind],
+    imports: [NgTemplateOutlet, SharedModule, Bind, TimesCircleIcon],
     template: `
         <ng-content />
         @if (_image()) {
             <img [pBind]="ptm('image')" [class]="cx('image')" [src]="_image()" (error)="imageError($event)" [alt]="_alt()" />
         } @else if (_icon()) {
-            <span [pBind]="ptm('icon')" [class]="_icon()" [ngClass]="cx('icon')"></span>
+            <span [pBind]="ptm('icon')" [class]="cn(cx('icon'), _icon())"></span>
         }
         @if (_label()) {
             <div [pBind]="ptm('label')" [class]="cx('label')">{{ _label() }}</div>
@@ -31,8 +32,7 @@ const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
                 @if (_removeIcon()) {
                     <span
                         [pBind]="ptm('removeIcon')"
-                        [class]="_removeIcon()"
-                        [ngClass]="cx('removeIcon')"
+                        [class]="cn(cx('removeIcon'), _removeIcon())"
                         (click)="close($event)"
                         (keydown)="onKeydown($event)"
                         [attr.tabindex]="removeIconTabindex()"
