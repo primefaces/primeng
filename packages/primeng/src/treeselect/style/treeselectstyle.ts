@@ -25,22 +25,22 @@ const style = /*css*/ `
 `;
 
 const inlineStyles = {
-    root: ({ instance }) => ({ position: instance.$appendTo() === 'self' ? 'relative' : undefined, ...instance.containerStyle })
+    root: ({ instance }) => ({ position: instance.$appendTo() === 'self' ? 'relative' : undefined })
 };
 
 const classes = {
     root: ({ instance }) => [
         'p-treeselect p-component p-inputwrapper',
         {
-            'p-treeselect-display-chip': instance.display === 'chip',
+            'p-treeselect-display-chip': instance.display() === 'chip',
             'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
-            'p-focus': instance.focused,
+            'p-focus': instance.focused(),
             'p-variant-filled': instance.$variant() === 'filled',
-            'p-inputwrapper-filled': !instance.emptyValue,
-            'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
-            'p-treeselect-open': instance.overlayVisible,
-            'p-treeselect-clearable': instance.showClear,
+            'p-inputwrapper-filled': !instance.emptyValue(),
+            'p-inputwrapper-focus': instance.focused() || instance.overlayVisible(),
+            'p-treeselect-open': instance.overlayVisible(),
+            'p-treeselect-clearable': instance.showClear(),
             'p-treeselect-fluid': instance.hasFluid,
             'p-treeselect-sm p-inputfield-sm': instance.size() === 'small',
             'p-treeselect-lg p-inputfield-lg': instance.size() === 'large'
@@ -50,8 +50,8 @@ const classes = {
     label: ({ instance }) => [
         'p-treeselect-label',
         {
-            'p-placeholder': instance.label === instance.placeholder,
-            'p-treeselect-label-empty': !instance.placeholder && instance.emptyValue
+            'p-placeholder': instance.label() === instance.placeholder(),
+            'p-treeselect-label-empty': !instance.placeholder() && instance.emptyValue()
         }
     ],
     clearIcon: 'p-treeselect-clear-icon',

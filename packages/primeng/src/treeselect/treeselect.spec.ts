@@ -78,7 +78,6 @@ const mockTreeNodes: TreeNode[] = [
             [ariaLabelledBy]="ariaLabelledBy"
             [panelClass]="panelClass"
             [panelStyle]="panelStyle"
-            [containerStyle]="containerStyle"
             [labelStyle]="labelStyle"
             [labelStyleClass]="labelStyleClass"
             [appendTo]="appendTo"
@@ -204,7 +203,6 @@ class TestTreeSelectComponent {
     // Styling
     panelClass: string = '';
     panelStyle: any = {};
-    containerStyle: any = {};
     labelStyle: any = {};
     labelStyleClass: string = '';
     appendTo: any;
@@ -333,8 +331,8 @@ class TestTreeSelectComponent {
     standalone: false,
     template: `
         <p-treeselect [(ngModel)]="selectedValue" [options]="options" [placeholder]="placeholder" [disabled]="disabled" [showClear]="showClear" [filter]="filter">
-            <!-- Value template with pTemplate -->
-            <ng-template pTemplate="value" let-value let-placeholder="placeholder">
+            <!-- Value template -->
+            <ng-template #value let-value let-placeholder="placeholder">
                 <div class="ptemplate-value" [attr.data-testid]="'ptemplate-value'">
                     <span class="value-text" *ngIf="value && !isArrayValue(value)">{{ value.label }} - pTemplate</span>
                     <span class="multi-value-text" *ngIf="value && isArrayValue(value)">{{ value.length }} selected - pTemplate</span>
@@ -342,8 +340,8 @@ class TestTreeSelectComponent {
                 </div>
             </ng-template>
 
-            <!-- Header template with pTemplate -->
-            <ng-template pTemplate="header" let-value let-options="options">
+            <!-- Header template -->
+            <ng-template #header let-value let-options="options">
                 <div class="ptemplate-header" [attr.data-testid]="'ptemplate-header'">
                     <i class="pi pi-search"></i>
                     <h4 class="header-title">Select Tree Node (pTemplate)</h4>
@@ -351,44 +349,44 @@ class TestTreeSelectComponent {
                 </div>
             </ng-template>
 
-            <!-- Footer template with pTemplate -->
-            <ng-template pTemplate="footer" let-value let-options="options">
+            <!-- Footer template -->
+            <ng-template #footer let-value let-options="options">
                 <div class="ptemplate-footer" [attr.data-testid]="'ptemplate-footer'">
                     <small class="footer-text">Choose your node (pTemplate)</small>
                     <button class="footer-button" type="button">Help</button>
                 </div>
             </ng-template>
 
-            <!-- Empty template with pTemplate -->
-            <ng-template pTemplate="empty">
+            <!-- Empty template -->
+            <ng-template #empty>
                 <div class="ptemplate-empty" [attr.data-testid]="'ptemplate-empty'">
                     <i class="pi pi-info-circle"></i>
                     <span class="empty-text">No tree nodes found (pTemplate)</span>
                 </div>
             </ng-template>
 
-            <!-- Trigger icon template with pTemplate -->
-            <ng-template pTemplate="triggericon">
+            <!-- Trigger icon template -->
+            <ng-template #triggericon>
                 <i class="pi pi-angle-down ptemplate-triggericon" [attr.data-testid]="'ptemplate-triggericon'"></i>
             </ng-template>
 
-            <!-- Clear icon template with pTemplate -->
-            <ng-template pTemplate="clearicon">
+            <!-- Clear icon template -->
+            <ng-template #clearicon>
                 <div class="ptemplate-clearicon" [attr.data-testid]="'ptemplate-clearicon'">
                     <i class="pi pi-times clear-icon"></i>
                     <span class="clear-text">Clear</span>
                 </div>
             </ng-template>
 
-            <!-- Item toggler icon template with pTemplate -->
-            <ng-template pTemplate="itemtogglericon" let-expanded>
+            <!-- Item toggler icon template -->
+            <ng-template #itemtogglericon let-expanded>
                 <i class="ptemplate-itemtogglericon" [attr.data-testid]="'ptemplate-itemtogglericon'" [attr.data-expanded]="expanded">
                     <span class="toggler-text">{{ expanded ? 'Collapse' : 'Expand' }}</span>
                 </i>
             </ng-template>
 
-            <!-- Item checkbox icon template with pTemplate -->
-            <ng-template pTemplate="itemcheckboxicon" let-selected let-partialSelected="partialSelected">
+            <!-- Item checkbox icon template -->
+            <ng-template #itemcheckboxicon let-selected let-partialSelected="partialSelected">
                 <div class="ptemplate-itemcheckboxicon" [attr.data-testid]="'ptemplate-itemcheckboxicon'" [attr.data-selected]="selected" [attr.data-partial]="partialSelected">
                     <i class="checkbox-icon" [class.selected]="selected" [class.partial]="partialSelected"></i>
                     <span class="checkbox-text">
@@ -397,8 +395,8 @@ class TestTreeSelectComponent {
                 </div>
             </ng-template>
 
-            <!-- Item loading icon template with pTemplate -->
-            <ng-template pTemplate="itemloadingicon">
+            <!-- Item loading icon template -->
+            <ng-template #itemloadingicon>
                 <div class="ptemplate-itemloadingicon" [attr.data-testid]="'ptemplate-itemloadingicon'">
                     <i class="pi pi-spin pi-spinner loading-icon"></i>
                     <span class="loading-text">Loading...</span>
@@ -457,15 +455,15 @@ describe('TreeSelect', () => {
         });
 
         it('should initialize with default properties', () => {
-            expect(component.selectionMode).toBe('single');
-            expect(component.display).toBe('comma');
-            expect(component.scrollHeight).toBe('400px');
-            expect(component.propagateSelectionDown).toBe(true);
-            expect(component.propagateSelectionUp).toBe(true);
-            expect(component.resetFilterOnHide).toBe(true);
-            expect(component.metaKeySelection).toBe(false);
-            expect(component.showClear).toBe(false);
-            expect(component.filter).toBe(false);
+            expect(component.selectionMode()).toBe('single');
+            expect(component.display()).toBe('comma');
+            expect(component.scrollHeight()).toBe('400px');
+            expect(component.propagateSelectionDown()).toBe(true);
+            expect(component.propagateSelectionUp()).toBe(true);
+            expect(component.resetFilterOnHide()).toBe(true);
+            expect(component.metaKeySelection()).toBe(false);
+            expect(component.showClear()).toBe(false);
+            expect(component.filter()).toBe(false);
         });
     });
 
@@ -481,8 +479,8 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.options).toEqual(mockTreeNodes);
-            expect(treeSelectInstance.options.length).toBe(2);
+            expect(treeSelectInstance._options()).toEqual(mockTreeNodes);
+            expect(treeSelectInstance._options()!.length).toBe(2);
         });
 
         it('should work with string-based TreeNode array', async () => {
@@ -496,7 +494,7 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.options).toEqual(stringNodes);
+            expect(treeSelectInstance._options()).toEqual(stringNodes);
         });
 
         it('should work with number-based TreeNode array', async () => {
@@ -507,7 +505,7 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.options).toEqual(numberNodes);
+            expect(treeSelectInstance._options()).toEqual(numberNodes);
         });
 
         it('should work with getters and setters', async () => {
@@ -517,8 +515,8 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.options).toBeDefined();
-            expect(treeSelectInstance.options.length).toBe(2);
+            expect(treeSelectInstance._options()).toBeDefined();
+            expect(treeSelectInstance._options()!.length).toBe(2);
         });
 
         it('should work with signals', async () => {
@@ -528,8 +526,8 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.options).toBeDefined();
-            expect(treeSelectInstance.options.length).toBe(1);
+            expect(treeSelectInstance._options()).toBeDefined();
+            expect(treeSelectInstance._options()!.length).toBe(1);
         });
 
         it('should work with observables and async pipe', async () => {
@@ -541,8 +539,8 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.options).toBeDefined();
-            expect(treeSelectInstance.options.length).toBe(1);
+            expect(treeSelectInstance._options()).toBeDefined();
+            expect(treeSelectInstance._options()!.length).toBe(1);
         });
 
         it('should work with late-loaded values', async () => {
@@ -552,8 +550,8 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.options).toBeDefined();
-            expect(treeSelectInstance.options.length).toBe(1);
+            expect(treeSelectInstance._options()).toBeDefined();
+            expect(treeSelectInstance._options()!.length).toBe(1);
         });
     });
 
@@ -571,7 +569,7 @@ describe('TreeSelect', () => {
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
             // Use writeValue to simulate ControlValueAccessor behavior
             treeSelectInstance.writeValue(mockTreeNodes[0]);
-            expect(treeSelectInstance.value).toEqual(mockTreeNodes[0]);
+            expect(treeSelectInstance._value()).toEqual(mockTreeNodes[0]);
         });
 
         it('should work with reactive forms', async () => {
@@ -666,7 +664,7 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.placeholder).toBe('Choose a tree node');
+            expect(treeSelectInstance.placeholder()).toBe('Choose a tree node');
         });
 
         it('should work with disabled state', async () => {
@@ -686,7 +684,7 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.selectionMode).toBe('multiple');
+            expect(treeSelectInstance.selectionMode()).toBe('multiple');
         });
 
         it('should work with display mode', async () => {
@@ -696,7 +694,7 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.display).toBe('chip');
+            expect(treeSelectInstance.display()).toBe('chip');
         });
 
         it('should work with filter', async () => {
@@ -709,10 +707,10 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.filter).toBe(true);
-            expect(treeSelectInstance.filterBy).toBe('label');
-            expect(treeSelectInstance.filterMode).toBe('strict');
-            expect(treeSelectInstance.filterPlaceholder).toBe('Search nodes');
+            expect(treeSelectInstance.filter()).toBe(true);
+            expect(treeSelectInstance.filterBy()).toBe('label');
+            expect(treeSelectInstance.filterMode()).toBe('strict');
+            expect(treeSelectInstance.filterPlaceholder()).toBe('Search nodes');
         });
 
         it('should work with loading state', async () => {
@@ -722,7 +720,7 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.loading).toBe(true);
+            expect(treeSelectInstance.loading()).toBe(true);
         });
 
         it('should work with virtualScroll', async () => {
@@ -734,9 +732,9 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.virtualScroll).toBe(true);
-            expect(treeSelectInstance.virtualScrollItemSize).toBe(35);
-            expect(treeSelectInstance.scrollHeight).toBe('300px');
+            expect(treeSelectInstance.virtualScroll()).toBe(true);
+            expect(treeSelectInstance.virtualScrollItemSize()).toBe(35);
+            expect(treeSelectInstance.scrollHeight()).toBe('300px');
         });
 
         it('should work with appendTo', async () => {
@@ -751,7 +749,6 @@ describe('TreeSelect', () => {
         });
 
         it('should work with styles and styleClass', async () => {
-            testComponent.containerStyle = { border: '2px solid blue', padding: '5px' };
             testComponent.labelStyle = { color: 'red', fontWeight: 'bold' };
             testComponent.labelStyleClass = 'custom-label';
             testComponent.panelClass = 'custom-panel';
@@ -761,11 +758,10 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.containerStyle).toEqual({ border: '2px solid blue', padding: '5px' });
-            expect(treeSelectInstance.labelStyle).toEqual({ color: 'red', fontWeight: 'bold' });
-            expect(treeSelectInstance.labelStyleClass).toBe('custom-label');
-            expect(treeSelectInstance.panelClass).toBe('custom-panel');
-            expect(treeSelectInstance.panelStyle).toEqual({ backgroundColor: 'lightgray' });
+            expect(treeSelectInstance.labelStyle()).toEqual({ color: 'red', fontWeight: 'bold' });
+            expect(treeSelectInstance.labelStyleClass()).toBe('custom-label');
+            expect(treeSelectInstance.panelClass()).toBe('custom-panel');
+            expect(treeSelectInstance.panelStyle()).toEqual({ backgroundColor: 'lightgray' });
         });
     });
 
@@ -796,7 +792,7 @@ describe('TreeSelect', () => {
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
             // Use writeValue to simulate ControlValueAccessor behavior
             treeSelectInstance.writeValue(mockTreeNodes[0]);
-            expect(treeSelectInstance.value).toEqual(mockTreeNodes[0]);
+            expect(treeSelectInstance._value()).toEqual(mockTreeNodes[0]);
         });
 
         it('should emit onShow event', async () => {
@@ -845,13 +841,13 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.showClear).toBe(true);
+            expect(treeSelectInstance.showClear()).toBe(true);
 
             // Verify clear icon is available when showClear is true and value exists
             if (treeSelectInstance.checkValue && treeSelectInstance.checkValue()) {
                 expect(true).toBe(true); // Clear functionality is configured
             } else {
-                expect(treeSelectInstance.showClear).toBe(true); // At least verify showClear is set
+                expect(treeSelectInstance.showClear()).toBe(true); // At least verify showClear is set
             }
         });
 
@@ -925,7 +921,7 @@ describe('TreeSelect', () => {
                 } else {
                     // Verify template is loaded even if not rendered
                     const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-                    expect(treeSelectInstance._valueTemplate).toBeTruthy();
+                    expect(treeSelectInstance.valueTemplate()).toBeTruthy();
                 }
             });
 
@@ -947,13 +943,13 @@ describe('TreeSelect', () => {
                 } else {
                     // Verify template is loaded
                     const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-                    expect(treeSelectInstance._valueTemplate).toBeTruthy();
+                    expect(treeSelectInstance.valueTemplate()).toBeTruthy();
                 }
             });
 
             it('should set valueTemplate in ngAfterContentInit', () => {
                 const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-                expect(treeSelectInstance._valueTemplate).toBeTruthy();
+                expect(treeSelectInstance.valueTemplate()).toBeTruthy();
             });
         });
 
@@ -981,13 +977,13 @@ describe('TreeSelect', () => {
                 } else {
                     // Verify template is loaded even if not rendered
                     const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-                    expect(treeSelectInstance._headerTemplate).toBeTruthy();
+                    expect(treeSelectInstance.headerTemplate()).toBeTruthy();
                 }
             });
 
             it('should set headerTemplate in ngAfterContentInit', () => {
                 const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-                expect(treeSelectInstance._headerTemplate).toBeTruthy();
+                expect(treeSelectInstance.headerTemplate()).toBeTruthy();
             });
         });
 
@@ -1015,13 +1011,13 @@ describe('TreeSelect', () => {
                 } else {
                     // Verify template is loaded even if not rendered
                     const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-                    expect(treeSelectInstance._footerTemplate).toBeTruthy();
+                    expect(treeSelectInstance.footerTemplate()).toBeTruthy();
                 }
             });
 
             it('should set footerTemplate in ngAfterContentInit', () => {
                 const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-                expect(treeSelectInstance._footerTemplate).toBeTruthy();
+                expect(treeSelectInstance.footerTemplate()).toBeTruthy();
             });
         });
 
@@ -1049,13 +1045,13 @@ describe('TreeSelect', () => {
                 } else {
                     // Verify template is loaded even if not rendered
                     const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-                    expect(treeSelectInstance._emptyTemplate).toBeTruthy();
+                    expect(treeSelectInstance.emptyTemplate()).toBeTruthy();
                 }
             });
 
             it('should set emptyTemplate in ngAfterContentInit', () => {
                 const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-                expect(treeSelectInstance._emptyTemplate).toBeTruthy();
+                expect(treeSelectInstance.emptyTemplate()).toBeTruthy();
             });
         });
 
@@ -1068,13 +1064,13 @@ describe('TreeSelect', () => {
                 } else {
                     // Verify template is loaded even if not rendered
                     const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-                    expect(treeSelectInstance._triggerIconTemplate).toBeTruthy();
+                    expect(treeSelectInstance.triggerIconTemplate()).toBeTruthy();
                 }
             });
 
             it('should set triggerIconTemplate in ngAfterContentInit', () => {
                 const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-                expect(treeSelectInstance._triggerIconTemplate).toBeTruthy();
+                expect(treeSelectInstance.triggerIconTemplate()).toBeTruthy();
             });
         });
 
@@ -1103,13 +1099,13 @@ describe('TreeSelect', () => {
                 } else {
                     // Verify template is loaded even if not rendered
                     const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-                    expect(treeSelectInstance._clearIconTemplate).toBeTruthy();
+                    expect(treeSelectInstance.clearIconTemplate()).toBeTruthy();
                 }
             });
 
             it('should set clearIconTemplate in ngAfterContentInit', () => {
                 const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-                expect(treeSelectInstance._clearIconTemplate).toBeTruthy();
+                expect(treeSelectInstance.clearIconTemplate()).toBeTruthy();
             });
         });
 
@@ -1118,12 +1114,12 @@ describe('TreeSelect', () => {
                 const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
 
                 // Verify all templates are set
-                expect(treeSelectInstance._valueTemplate).toBeTruthy();
-                expect(treeSelectInstance._headerTemplate).toBeTruthy();
-                expect(treeSelectInstance._footerTemplate).toBeTruthy();
-                expect(treeSelectInstance._emptyTemplate).toBeTruthy();
-                expect(treeSelectInstance._triggerIconTemplate).toBeTruthy();
-                expect(treeSelectInstance._clearIconTemplate).toBeTruthy();
+                expect(treeSelectInstance.valueTemplate()).toBeTruthy();
+                expect(treeSelectInstance.headerTemplate()).toBeTruthy();
+                expect(treeSelectInstance.footerTemplate()).toBeTruthy();
+                expect(treeSelectInstance.emptyTemplate()).toBeTruthy();
+                expect(treeSelectInstance.triggerIconTemplate()).toBeTruthy();
+                expect(treeSelectInstance.clearIconTemplate()).toBeTruthy();
             });
 
             it('should handle context parameters correctly for all templates', async () => {
@@ -1173,23 +1169,23 @@ describe('TreeSelect', () => {
 
                 // If templates not rendered, at least verify they are loaded
                 const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-                expect(treeSelectInstance._valueTemplate).toBeTruthy();
-                expect(treeSelectInstance._headerTemplate).toBeTruthy();
-                expect(treeSelectInstance._clearIconTemplate).toBeTruthy();
+                expect(treeSelectInstance.valueTemplate()).toBeTruthy();
+                expect(treeSelectInstance.headerTemplate()).toBeTruthy();
+                expect(treeSelectInstance.clearIconTemplate()).toBeTruthy();
             });
 
             it('should handle template inheritance and composition', () => {
                 const treeSelectInstance = pTemplateFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
 
                 // Test that templates are properly composed and don't conflict
-                expect(treeSelectInstance._valueTemplate).toBeTruthy();
-                expect(treeSelectInstance._headerTemplate).toBeTruthy();
+                expect(treeSelectInstance.valueTemplate()).toBeTruthy();
+                expect(treeSelectInstance.headerTemplate()).toBeTruthy();
 
                 // Verify no template conflicts using internal templates
-                expect(treeSelectInstance._valueTemplate).not.toBe(treeSelectInstance._headerTemplate);
+                expect(treeSelectInstance.valueTemplate()).not.toBe(treeSelectInstance.headerTemplate());
 
                 // At least verify internal templates are different
-                expect(treeSelectInstance._headerTemplate).not.toBe(treeSelectInstance._footerTemplate);
+                expect(treeSelectInstance.headerTemplate()).not.toBe(treeSelectInstance.footerTemplate());
             });
         });
     });
@@ -1251,12 +1247,12 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.selectionMode).toBe('multiple');
+            expect(treeSelectInstance.selectionMode()).toBe('multiple');
             // Use the component's internal value check method or property
-            if (treeSelectInstance.value) {
-                expect(Array.isArray(treeSelectInstance.value)).toBe(true);
+            if (treeSelectInstance._value()) {
+                expect(Array.isArray(treeSelectInstance._value())).toBe(true);
             } else {
-                expect(treeSelectInstance.selectionMode).toBe('multiple'); // At least verify the mode was set
+                expect(treeSelectInstance.selectionMode()).toBe('multiple'); // At least verify the mode was set
             }
         });
 
@@ -1269,9 +1265,9 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.selectionMode).toBe('checkbox');
-            expect(treeSelectInstance.propagateSelectionDown).toBe(true);
-            expect(treeSelectInstance.propagateSelectionUp).toBe(true);
+            expect(treeSelectInstance.selectionMode()).toBe('checkbox');
+            expect(treeSelectInstance.propagateSelectionDown()).toBe(true);
+            expect(treeSelectInstance.propagateSelectionUp()).toBe(true);
         });
 
         it('should handle filter functionality', async () => {
@@ -1289,9 +1285,9 @@ describe('TreeSelect', () => {
 
             // Verify filter properties are set
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.filter).toBe(true);
-            expect(treeSelectInstance.filterBy).toBe('label');
-            expect(treeSelectInstance.filterMode).toBe('lenient');
+            expect(treeSelectInstance.filter()).toBe(true);
+            expect(treeSelectInstance.filterBy()).toBe('label');
+            expect(treeSelectInstance.filterMode()).toBe('lenient');
         });
 
         it('should handle empty state properly', async () => {
@@ -1302,8 +1298,8 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.options).toEqual([]);
-            expect(treeSelectInstance.emptyMessage).toBe('No nodes available');
+            expect(treeSelectInstance._options()).toEqual([]);
+            expect(treeSelectInstance.emptyMessage()).toBe('No nodes available');
         });
 
         it('should handle large datasets with virtual scrolling', async () => {
@@ -1325,9 +1321,9 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.options.length).toBe(1000);
-            expect(treeSelectInstance.virtualScroll).toBe(true);
-            expect(treeSelectInstance.virtualScrollItemSize).toBe(32);
+            expect(treeSelectInstance._options()!.length).toBe(1000);
+            expect(treeSelectInstance.virtualScroll()).toBe(true);
+            expect(treeSelectInstance.virtualScrollItemSize()).toBe(32);
         });
 
         it('should handle dynamic option updates', async () => {
@@ -1350,7 +1346,7 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.options.length).toBe(2);
+            expect(treeSelectInstance._options()!.length).toBe(2);
         });
     });
 
@@ -1371,7 +1367,7 @@ describe('TreeSelect', () => {
             treeSelectInstance.writeValue(mockTreeNodes[0]);
             testFixture.detectChanges();
 
-            expect(treeSelectInstance.showClear).toBe(true);
+            expect(treeSelectInstance.showClear()).toBe(true);
             expect(treeSelectInstance.checkValue()).toBe(true);
         });
 
@@ -1392,7 +1388,7 @@ describe('TreeSelect', () => {
             testFixture.detectChanges();
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
-            expect(treeSelectInstance.autofocus).toBe(true);
+            expect(treeSelectInstance.autofocus()).toBe(true);
         });
     });
 
@@ -1419,7 +1415,7 @@ describe('TreeSelect', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TreeSelect);
-            fixture.componentInstance.options = mockTreeNodes;
+            fixture.componentRef.setInput('options', mockTreeNodes);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -1445,7 +1441,7 @@ describe('TreeSelect', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TreeSelect);
-            fixture.componentInstance.options = mockTreeNodes;
+            fixture.componentRef.setInput('options', mockTreeNodes);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -1471,7 +1467,7 @@ describe('TreeSelect', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TreeSelect);
-            fixture.componentInstance.options = mockTreeNodes;
+            fixture.componentRef.setInput('options', mockTreeNodes);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -1500,7 +1496,7 @@ describe('TreeSelect', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TreeSelect);
-            fixture.componentInstance.options = mockTreeNodes;
+            fixture.componentRef.setInput('options', mockTreeNodes);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -1532,7 +1528,7 @@ describe('TreeSelect', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TreeSelect);
-            fixture.componentInstance.options = mockTreeNodes;
+            fixture.componentRef.setInput('options', mockTreeNodes);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();

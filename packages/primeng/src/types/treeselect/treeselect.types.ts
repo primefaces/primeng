@@ -5,6 +5,24 @@ import { OverlayPassThrough } from 'primeng/types/overlay';
 import { TreePassThrough } from 'primeng/types/tree';
 
 /**
+ * Defines how the selected items are displayed.
+ * @group Types
+ */
+export type TreeSelectDisplay = 'comma' | 'chip';
+
+/**
+ * Defines the selection mode.
+ * @group Types
+ */
+export type TreeSelectSelectionMode = 'single' | 'multiple' | 'checkbox';
+
+/**
+ * Defines the loading mode display.
+ * @group Types
+ */
+export type TreeSelectLoadingMode = 'mask' | 'icon';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
