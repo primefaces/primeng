@@ -22,7 +22,6 @@ import { MapperPipe, Password, PasswordDirective, PasswordModule } from './passw
             [placeholder]="placeholder"
             [inputId]="inputId"
             [inputStyleClass]="inputStyleClass"
-            [styleClass]="styleClass"
             [inputStyle]="inputStyle"
             [tabindex]="tabindex"
             [ariaLabel]="ariaLabel"
@@ -35,8 +34,6 @@ import { MapperPipe, Password, PasswordDirective, PasswordModule } from './passw
             [mediumRegex]="mediumRegex"
             [strongRegex]="strongRegex"
             [autocomplete]="autocomplete"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
             (onFocus)="onInputFocus($event)"
             (onBlur)="onInputBlur($event)"
             (onClear)="onClearEvent($event)"
@@ -55,7 +52,6 @@ class TestBasicPasswordComponent {
     placeholder: string = 'Enter password';
     inputId: string = '';
     inputStyleClass: string = '';
-    styleClass: string = '';
     inputStyle: any = null as any;
     tabindex: number = 0;
     ariaLabel: string = '';
@@ -68,9 +64,6 @@ class TestBasicPasswordComponent {
     mediumRegex: string = '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})';
     strongRegex: string = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})';
     autocomplete: string = 'current-password';
-    maxLength: number = 50;
-    showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-    hideTransitionOptions: string = '.1s linear';
 
     onInputFocus(event: Event) {}
     onInputBlur(event: Event) {}
@@ -269,32 +262,32 @@ describe('Password', () => {
         });
 
         it('should have default values', () => {
-            expect(component.feedback).toBe(true);
-            expect(component.toggleMask).toBeUndefined();
-            expect(component.showClear).toBe(false);
-            expect(component.autofocus).toBeUndefined();
-            expect(component.mediumRegex).toContain('(?=.*[a-z])(?=.*[A-Z])');
-            expect(component.strongRegex).toContain('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])');
-            expect(component.overlayVisible).toBe(false);
-            expect(component.unmasked).toBe(false);
+            expect(component.feedback()).toBe(true);
+            expect(component.toggleMask()).toBeUndefined();
+            expect(component.showClear()).toBe(false);
+            expect(component.autofocus()).toBeUndefined();
+            expect(component.mediumRegex()).toContain('(?=.*[a-z])(?=.*[A-Z])');
+            expect(component.strongRegex()).toContain('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])');
+            expect(component.overlayVisible()).toBe(false);
+            expect(component.unmasked()).toBe(false);
         });
 
         it('should initialize properties correctly', () => {
-            component.promptLabel = 'Custom prompt';
-            component.weakLabel = 'Custom weak';
-            component.mediumLabel = 'Custom medium';
-            component.strongLabel = 'Custom strong';
-            component.inputId = 'pwd-input';
-            component.placeholder = 'Password placeholder';
+            fixture.componentRef.setInput('promptLabel', 'Custom prompt');
+            fixture.componentRef.setInput('weakLabel', 'Custom weak');
+            fixture.componentRef.setInput('mediumLabel', 'Custom medium');
+            fixture.componentRef.setInput('strongLabel', 'Custom strong');
+            fixture.componentRef.setInput('inputId', 'pwd-input');
+            fixture.componentRef.setInput('placeholder', 'Password placeholder');
 
             fixture.detectChanges();
 
-            expect(component.promptLabel).toBe('Custom prompt');
-            expect(component.weakLabel).toBe('Custom weak');
-            expect(component.mediumLabel).toBe('Custom medium');
-            expect(component.strongLabel).toBe('Custom strong');
-            expect(component.inputId).toBe('pwd-input');
-            expect(component.placeholder).toBe('Password placeholder');
+            expect(component.promptLabel()).toBe('Custom prompt');
+            expect(component.weakLabel()).toBe('Custom weak');
+            expect(component.mediumLabel()).toBe('Custom medium');
+            expect(component.strongLabel()).toBe('Custom strong');
+            expect(component.inputId()).toBe('pwd-input');
+            expect(component.placeholder()).toBe('Password placeholder');
         });
 
         it('should initialize regex patterns', () => {
@@ -331,8 +324,8 @@ describe('Password', () => {
         });
 
         it('should handle custom regex patterns', () => {
-            component.mediumRegex = '^(?=.{4,})';
-            component.strongRegex = '^(?=.{8,})';
+            fixture.componentRef.setInput('mediumRegex', '^(?=.{4,})');
+            fixture.componentRef.setInput('strongRegex', '^(?=.{8,})');
             component.ngOnInit();
 
             expect(component.testStrength('abc')).toBe(1);
@@ -380,13 +373,13 @@ describe('Password', () => {
 
     describe('Public Methods', () => {
         it('should toggle mask visibility', () => {
-            expect(component.unmasked).toBe(false);
+            expect(component.unmasked()).toBe(false);
 
             component.onMaskToggle();
-            expect(component.unmasked).toBe(true);
+            expect(component.unmasked()).toBe(true);
 
             component.onMaskToggle();
-            expect(component.unmasked).toBe(false);
+            expect(component.unmasked()).toBe(false);
         });
 
         it('should clear password value', () => {
@@ -404,21 +397,22 @@ describe('Password', () => {
         });
 
         it('should return correct input type', () => {
-            expect(component.inputType(false)).toBe('password');
-            expect(component.inputType(true)).toBe('text');
+            expect(component.inputType()).toBe('password');
+            component.unmasked.set(true);
+            expect(component.inputType()).toBe('text');
         });
 
         it('should get translation texts', () => {
-            component.promptLabel = 'Custom prompt';
+            fixture.componentRef.setInput('promptLabel', 'Custom prompt');
             expect(component.promptText()).toBe('Custom prompt');
 
-            component.weakLabel = 'Custom weak';
+            fixture.componentRef.setInput('weakLabel', 'Custom weak');
             expect(component.weakText()).toBe('Custom weak');
 
-            component.mediumLabel = 'Custom medium';
+            fixture.componentRef.setInput('mediumLabel', 'Custom medium');
             expect(component.mediumText()).toBe('Custom medium');
 
-            component.strongLabel = 'Custom strong';
+            fixture.componentRef.setInput('strongLabel', 'Custom strong');
             expect(component.strongText()).toBe('Custom strong');
         });
     });
@@ -496,7 +490,7 @@ describe('Password', () => {
                 testFixture.detectChanges();
                 await testFixture.whenStable();
 
-                expect(passwordComponent.overlayVisible).toBe(true);
+                expect(passwordComponent.overlayVisible()).toBe(true);
             } else {
                 expect(true).toBe(true); // Placeholder expectation when input not found
             }
@@ -507,7 +501,7 @@ describe('Password', () => {
             testFixture.detectChanges();
 
             const passwordComponent = testFixture.debugElement.query(By.css('p-password')).componentInstance;
-            passwordComponent.overlayVisible = true;
+            passwordComponent.overlayVisible.set(true);
 
             const inputEl = testFixture.debugElement.query(By.css('input'));
             if (inputEl?.nativeElement) {
@@ -518,7 +512,7 @@ describe('Password', () => {
             testFixture.detectChanges();
             await testFixture.whenStable();
 
-            expect(passwordComponent.overlayVisible).toBe(false);
+            expect(passwordComponent.overlayVisible()).toBe(false);
         });
 
         it('should handle clear button click', async () => {
@@ -578,19 +572,19 @@ describe('Password', () => {
             testFixture.detectChanges();
             await testFixture.whenStable();
 
-            expect(passwordComponent.overlayVisible).toBe(true);
+            expect(passwordComponent.overlayVisible()).toBe(true);
         });
 
         it('should hide overlay on blur when feedback is enabled', async () => {
             const passwordComponent = testFixture.debugElement.query(By.css('p-password')).componentInstance;
             const inputEl = testFixture.debugElement.query(By.css('input'));
 
-            passwordComponent.overlayVisible = true;
+            passwordComponent.overlayVisible.set(true);
             inputEl.nativeElement.dispatchEvent(new Event('blur'));
             testFixture.detectChanges();
             await testFixture.whenStable();
 
-            expect(passwordComponent.overlayVisible).toBe(false);
+            expect(passwordComponent.overlayVisible()).toBe(false);
         });
 
         it('should not show overlay when feedback is disabled', async () => {
@@ -606,7 +600,7 @@ describe('Password', () => {
             testFixture.detectChanges();
             await testFixture.whenStable();
 
-            expect(passwordComponent.overlayVisible).toBe(false);
+            expect(passwordComponent.overlayVisible()).toBe(false);
         });
     });
 
@@ -842,20 +836,17 @@ describe('Password', () => {
             expect(passwordComponent).toBeTruthy();
         });
 
-        it('should have template collection initialized', () => {
+        it('should have template signals initialized', () => {
             const passwordComponent = templatesPasswordElement.componentInstance;
 
-            // Verify that the component has template properties
-            expect(passwordComponent.templates).toBeDefined();
-
-            // Test that we can access template-related properties without errors
+            // Test that we can access template-related signal properties without errors
             expect(() => {
-                passwordComponent.headerTemplate;
-                passwordComponent.contentTemplate;
-                passwordComponent.footerTemplate;
-                passwordComponent.clearIconTemplate;
-                passwordComponent.hideIconTemplate;
-                passwordComponent.showIconTemplate;
+                passwordComponent.headerTemplate();
+                passwordComponent.contentTemplate();
+                passwordComponent.footerTemplate();
+                passwordComponent.clearIconTemplate();
+                passwordComponent.hideIconTemplate();
+                passwordComponent.showIconTemplate();
             }).not.toThrow();
         });
 
@@ -867,25 +858,26 @@ describe('Password', () => {
             expect(templatesPasswordElement.componentInstance).toBeTruthy();
         });
 
-        it('should support ContentChild template projections', () => {
+        it('should support contentChild template projections', () => {
             const passwordComponent = templatesPasswordElement.componentInstance;
 
             // Verify component is ready to accept templates
             expect(passwordComponent).toBeTruthy();
 
-            // After content initialization should be callable without errors
+            // Template signals should be accessible
             expect(() => {
-                if (passwordComponent.ngAfterContentInit) {
-                    passwordComponent.ngAfterContentInit();
-                }
+                passwordComponent.headerTemplate();
+                passwordComponent.footerTemplate();
             }).not.toThrow();
         });
 
-        it('should process templates through PrimeTemplate system', () => {
+        it('should process templates through contentChild signals', () => {
             const passwordComponent = templatesPasswordElement.componentInstance;
 
-            // Verify that templates can be processed
-            expect(passwordComponent.templates).toBeDefined();
+            // Verify that template signals can be accessed
+            expect(passwordComponent.headerTemplate).toBeDefined();
+            expect(passwordComponent.contentTemplate).toBeDefined();
+            expect(passwordComponent.footerTemplate).toBeDefined();
 
             // Test that the template processing lifecycle works
             expect(() => {
@@ -893,36 +885,32 @@ describe('Password', () => {
             }).not.toThrow();
         });
 
-        it('should recognize both pTemplate and #template structures', () => {
-            // Test that component can handle both pTemplate directive and #template references
+        it('should recognize #template structures', () => {
+            // Test that component can handle #template references
             const passwordComponent = templatesPasswordElement.componentInstance;
 
             // Verify component can work with templates without errors
             expect(() => {
                 templatesFixture.detectChanges();
-                if (passwordComponent.ngAfterContentInit) {
-                    passwordComponent.ngAfterContentInit();
-                }
             }).not.toThrow();
 
-            // Templates should be available for processing
-            expect(passwordComponent.templates).toBeDefined();
+            // Template signals should be available
+            expect(passwordComponent.headerTemplate).toBeDefined();
+            expect(passwordComponent.contentTemplate).toBeDefined();
         });
 
         it('should verify #template references are accessible', () => {
             // Verify that #template references can be accessed
             const passwordComponent = templatesPasswordElement.componentInstance;
 
-            // After content init, templates should be available
+            // Templates should be available via contentChild signals
             expect(() => {
                 templatesFixture.detectChanges();
-                if (passwordComponent.ngAfterContentInit) {
-                    passwordComponent.ngAfterContentInit();
-                }
             }).not.toThrow();
 
-            // Component should be able to process templates
+            // Component should be able to access templates
             expect(passwordComponent).toBeTruthy();
+            expect(passwordComponent.headerTemplate).toBeDefined();
         });
 
         it('should handle template projection with context parameters', () => {
@@ -983,23 +971,15 @@ describe('Password', () => {
         it('should handle template lifecycle with #template references', () => {
             const passwordComponent = templatesPasswordElement.componentInstance;
 
-            // Test template lifecycle methods
+            // Test template lifecycle
             expect(() => {
-                // ngAfterContentInit should process templates
-                if (passwordComponent.ngAfterContentInit) {
-                    passwordComponent.ngAfterContentInit();
-                }
-
-                // ngAfterViewInit should be callable
-                if (passwordComponent.ngAfterViewInit) {
-                    passwordComponent.ngAfterViewInit();
-                }
-
                 templatesFixture.detectChanges();
             }).not.toThrow();
 
-            // Templates should be properly initialized
-            expect(passwordComponent.templates).toBeDefined();
+            // Template signals should be properly initialized
+            expect(passwordComponent.headerTemplate).toBeDefined();
+            expect(passwordComponent.contentTemplate).toBeDefined();
+            expect(passwordComponent.footerTemplate).toBeDefined();
         });
     });
 
@@ -1062,7 +1042,7 @@ describe('Password', () => {
 
         it('should handle invalid regex patterns gracefully', () => {
             expect(() => {
-                component.mediumRegex = '[invalid regex';
+                fixture.componentRef.setInput('mediumRegex', '[invalid regex');
                 component.ngOnInit();
             }).toThrow();
         });
@@ -1080,17 +1060,15 @@ describe('Password', () => {
         });
 
         it('should handle writeControlValue correctly', () => {
-            spyOn(component.cd, 'markForCheck');
             spyOn(component, 'updateUI');
             const mockSetValue = jasmine.createSpy('setModelValue');
 
-            component.feedback = true;
+            fixture.componentRef.setInput('feedback', true);
             component.writeControlValue('testPassword', mockSetValue);
 
             expect(component.value).toBe('testPassword');
             expect(mockSetValue).toHaveBeenCalledWith('testPassword');
             expect(component.updateUI).toHaveBeenCalledWith('testPassword');
-            expect(component.cd.markForCheck).toHaveBeenCalled();
         });
 
         it('should handle overlay service integration', () => {
@@ -1107,22 +1085,9 @@ describe('Password', () => {
     });
 
     describe('Input Properties', () => {
-        it('should handle maxLength property', () => {
-            component.maxLength = 20;
-            expect(component.maxLength).toBe(20);
-        });
-
-        it('should handle transition options', () => {
-            component.showTransitionOptions = '.2s ease-in';
-            component.hideTransitionOptions = '.1s ease-out';
-
-            expect(component.showTransitionOptions).toBe('.2s ease-in');
-            expect(component.hideTransitionOptions).toBe('.1s ease-out');
-        });
-
         it('should handle autocomplete attribute', () => {
-            component.autocomplete = 'new-password';
-            expect(component.autocomplete).toBe('new-password');
+            fixture.componentRef.setInput('autocomplete', 'new-password');
+            expect(component.autocomplete()).toBe('new-password');
         });
     });
 
@@ -1146,12 +1111,10 @@ describe('Password', () => {
         });
 
         it('should not create memory leaks on destroy', () => {
-            let testComponent: TestBasicPasswordComponent;
             let testFixture: ComponentFixture<TestBasicPasswordComponent>;
 
             testFixture = TestBed.createComponent(TestBasicPasswordComponent);
-            testComponent = testFixture.componentInstance;
-            testComponent.feedback = true;
+            testFixture.componentInstance.feedback = true;
             testFixture.detectChanges();
 
             // Simply test that destroy doesn't throw errors - memory leak detection is complex
@@ -1161,7 +1124,7 @@ describe('Password', () => {
         });
 
         it('should handle rapid UI updates efficiently', async () => {
-            component.feedback = true;
+            fixture.componentRef.setInput('feedback', true);
             const passwords = ['a', 'aB', 'aB1', 'aB1!', 'aB1!cD2@'];
 
             const startTime = performance.now();
@@ -1178,10 +1141,10 @@ describe('Password', () => {
 
     describe('Internationalization Tests', () => {
         it('should handle RTL languages', () => {
-            component.promptLabel = 'أدخل كلمة مرور';
-            component.weakLabel = 'ضعيف';
-            component.mediumLabel = 'متوسط';
-            component.strongLabel = 'قوي';
+            fixture.componentRef.setInput('promptLabel', 'أدخل كلمة مرور');
+            fixture.componentRef.setInput('weakLabel', 'ضعيف');
+            fixture.componentRef.setInput('mediumLabel', 'متوسط');
+            fixture.componentRef.setInput('strongLabel', 'قوي');
 
             expect(component.promptText()).toBe('أدخل كلمة مرور');
             expect(component.weakText()).toBe('ضعيف');
@@ -1213,7 +1176,7 @@ describe('Password', () => {
 
             malformedPatterns.forEach((pattern) => {
                 expect(() => {
-                    component.mediumRegex = pattern;
+                    fixture.componentRef.setInput('mediumRegex', pattern);
                     component.ngOnInit();
                 }).toThrow();
             });
@@ -1285,11 +1248,11 @@ describe('PasswordDirective', () => {
         });
 
         it('should have default values', () => {
-            expect(directive.promptLabel).toBe('Enter a password');
-            expect(directive.weakLabel).toBe('Weak');
-            expect(directive.mediumLabel).toBe('Medium');
-            expect(directive.strongLabel).toBe('Strong');
-            expect(directive.feedback).toBe(true);
+            expect(directive.promptLabel()).toBe('Enter a password');
+            expect(directive.weakLabel()).toBe('Weak');
+            expect(directive.mediumLabel()).toBe('Medium');
+            expect(directive.strongLabel()).toBe('Strong');
+            expect(directive.feedback()).toBe(true);
         });
     });
 
@@ -1836,7 +1799,7 @@ describe('Password Integration Tests', () => {
         testFixture.detectChanges();
         await testFixture.whenStable();
 
-        expect(passwordComponent.overlayVisible).toBe(true);
+        expect(passwordComponent.overlayVisible()).toBe(true);
 
         // Test keyup (should update strength)
         const keyupEvent = new KeyboardEvent('keyup');
@@ -1853,7 +1816,7 @@ describe('Password Integration Tests', () => {
         if (showIcon?.nativeElement) {
             showIcon.nativeElement.dispatchEvent(new Event('click'));
             testFixture.detectChanges();
-            expect(passwordComponent.unmasked).toBe(true);
+            expect(passwordComponent.unmasked()).toBe(true);
         }
 
         // Test blur (should hide overlay)
@@ -1861,7 +1824,7 @@ describe('Password Integration Tests', () => {
         testFixture.detectChanges();
         await testFixture.whenStable();
 
-        expect(passwordComponent.overlayVisible).toBe(false);
+        expect(passwordComponent.overlayVisible()).toBe(false);
     });
 });
 
