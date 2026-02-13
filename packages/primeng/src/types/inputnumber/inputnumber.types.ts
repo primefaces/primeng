@@ -3,6 +3,30 @@ import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
 
 /**
+ * Defines the button layout of the InputNumber component.
+ * @group Types
+ */
+export type InputNumberButtonLayout = 'stacked' | 'horizontal' | 'vertical';
+
+/**
+ * Defines the mode of the InputNumber component.
+ * @group Types
+ */
+export type InputNumberMode = 'decimal' | 'currency' | 'percent' | 'unit';
+
+/**
+ * Defines the currency display style of the InputNumber component.
+ * @group Types
+ */
+export type InputNumberCurrencyDisplay = 'symbol' | 'code' | 'name' | 'narrowSymbol';
+
+/**
+ * Defines the locale matching algorithm of the InputNumber component.
+ * @group Types
+ */
+export type InputNumberLocaleMatcher = 'lookup' | 'best fit';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

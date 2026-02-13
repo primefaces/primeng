@@ -29,11 +29,11 @@ const classes = {
     root: ({ instance }) => [
         'p-inputnumber p-component p-inputwrapper',
         {
-            'p-inputwrapper-filled': instance.$filled() || instance.allowEmpty === false,
+            'p-inputwrapper-filled': instance.$filled() || instance.allowEmpty() === false,
             'p-inputwrapper-focus': instance.focused,
-            'p-inputnumber-stacked': instance.showButtons && instance.buttonLayout === 'stacked',
-            'p-inputnumber-horizontal': instance.showButtons && instance.buttonLayout === 'horizontal',
-            'p-inputnumber-vertical': instance.showButtons && instance.buttonLayout === 'vertical',
+            'p-inputnumber-stacked': instance.showButtons() && instance.buttonLayout() === 'stacked',
+            'p-inputnumber-horizontal': instance.showButtons() && instance.buttonLayout() === 'horizontal',
+            'p-inputnumber-vertical': instance.showButtons() && instance.buttonLayout() === 'vertical',
             'p-inputnumber-fluid': instance.hasFluid,
             'p-invalid': instance.invalid()
         }
@@ -43,13 +43,13 @@ const classes = {
     incrementButton: ({ instance }) => [
         'p-inputnumber-button p-inputnumber-increment-button',
         {
-            'p-disabled': instance.showButtons && instance.max() != null && instance.maxlength()
+            'p-disabled': instance.showButtons() && instance.max() != null && instance.maxlength()
         }
     ],
     decrementButton: ({ instance }) => [
         'p-inputnumber-button p-inputnumber-decrement-button',
         {
-            'p-disabled': instance.showButtons && instance.min() != null && instance.minlength()
+            'p-disabled': instance.showButtons() && instance.min() != null && instance.minlength()
         }
     ],
     clearIcon: 'p-inputnumber-clear-icon'
