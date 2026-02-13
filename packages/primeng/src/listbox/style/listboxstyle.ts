@@ -46,7 +46,7 @@ const classes = {
     root: ({ instance }) => [
         'p-listbox p-component',
         {
-            'p-listbox-striped': instance.striped,
+            'p-listbox-striped': instance.striped(),
             'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-listbox-fluid': instance.fluid(),
@@ -61,7 +61,7 @@ const classes = {
     option: ({ instance, option, i, scrollerOptions }) => [
         'p-listbox-option',
         {
-            'p-listbox-option-selected': instance.isSelected(option) && instance.highlightOnSelect,
+            'p-listbox-option-selected': instance.isSelected(option) && instance.highlightOnSelect(),
             'p-focus': instance.focusedOptionIndex() === instance.getOptionIndex(i, scrollerOptions),
             'p-disabled': instance.isOptionDisabled(option)
         }

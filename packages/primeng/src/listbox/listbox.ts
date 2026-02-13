@@ -1,20 +1,17 @@
 import { CDK_DRAG_CONFIG, CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
-    ContentChild,
-    ContentChildren,
+    contentChild,
+    effect,
     ElementRef,
-    EventEmitter,
     HostListener,
     InjectionToken,
-    Input,
     NgModule,
-    Output,
-    QueryList,
+    output,
     TemplateRef,
-    ViewChild,
+    viewChild,
     ViewEncapsulation,
     booleanAttribute,
     computed,
@@ -26,7 +23,7 @@ import {
 } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
-import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
+import { FilterService, Footer, Header, ScrollerOptions, SharedModule } from 'primeng/api';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Bind, BindModule } from 'primeng/bind';
@@ -37,8 +34,8 @@ import { InputIcon } from 'primeng/inputicon';
 import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
 import { Scroller, ScrollerLazyLoadEvent } from 'primeng/scroller';
-import { Nullable } from 'primeng/ts-helpers';
-import {
+import type { CSSProperties } from 'primeng/types/shared';
+import type {
     ListBoxPassThrough,
     ListboxChangeEvent,
     ListboxCheckIconTemplateContext,
@@ -55,7 +52,7 @@ import {
     ListboxLoaderTemplateContext,
     ListboxSelectAllChangeEvent
 } from 'primeng/types/listbox';
-import { Subscription } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ListBoxStyle } from './style/listboxstyle';
 
 const LISTBOX_INSTANCE = new InjectionToken<Listbox>('LISTBOX_INSTANCE');
@@ -70,89 +67,95 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-listbox, p-listBox, p-list-box',
+    selector: 'p-listbox, p-list-box',
     standalone: true,
-    imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule, BindModule],
+    imports: [NgTemplateOutlet, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule, BindModule],
     template: `
         <span
             #firstHiddenFocusableElement
             role="presentation"
             class="p-hidden-accessible p-hidden-focusable"
-            [tabindex]="!$disabled() ? tabindex : -1"
+            [tabindex]="hiddenFocusableTabindex()"
             (focus)="onFirstHiddenFocus($event)"
             [attr.data-p-hidden-focusable]="true"
             [pBind]="ptm('hiddenFirstFocusableElement')"
         >
         </span>
-        <div [class]="cx('header')" *ngIf="headerFacet || headerTemplate || _headerTemplate" [pBind]="ptm('header')">
-            <ng-content select="p-header"></ng-content>
-            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
-        </div>
-        <div [class]="cx('header')" *ngIf="(checkbox && multiple && showToggleAll) || filter" [pBind]="ptm('header')">
-            <p-checkbox
-                #headerchkbox
-                (onChange)="onToggleAll($event)"
-                *ngIf="checkbox && multiple && showToggleAll"
-                [class]="cx('optionCheckIcon')"
-                [ngModel]="allSelected()"
-                [disabled]="$disabled()"
-                [tabindex]="-1"
-                [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
-                [binary]="true"
-                [attr.aria-label]="toggleAllAriaLabel"
-                [pt]="ptm('pcCheckbox')"
-                [unstyled]="unstyled()"
-            >
-                <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
-                    <ng-template #icon>
-                        <ng-template *ngTemplateOutlet="checkIconTemplate || _checkIconTemplate; context: { $implicit: allSelected() }"></ng-template>
-                    </ng-template>
-                </ng-container>
-            </p-checkbox>
-            <ng-container *ngIf="filterTemplate || _filterTemplate; else builtInFilterElement">
-                <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: filterOptions }"></ng-container>
-            </ng-container>
-            <ng-template #builtInFilterElement>
-                @if (filter) {
-                    <p-iconfield [pt]="ptm('pcFilterContainer')" hostName="listbox" [unstyled]="unstyled()">
-                        <input
-                            #filterInput
-                            pInputText
-                            type="text"
-                            [class]="cx('pcFilter')"
-                            role="searchbox"
-                            [value]="_filterValue() || ''"
-                            [attr.disabled]="$disabled() ? '' : undefined"
-                            [attr.aria-owns]="id + '_list'"
-                            [attr.aria-activedescendant]="focusedOptionId"
-                            [attr.placeholder]="filterPlaceHolder"
-                            [attr.aria-label]="ariaFilterLabel"
-                            [attr.tabindex]="!$disabled() && !focused ? tabindex : -1"
-                            (input)="onFilterChange($event)"
-                            (keydown)="onFilterKeyDown($event)"
-                            (blur)="onFilterBlur($event)"
-                            [pt]="ptm('pcFilter')"
-                            [unstyled]="unstyled()"
-                            hostName="listbox"
-                        />
-                        <p-inputicon [pt]="ptm('pcFilterIconContainer')" [unstyled]="unstyled()">
-                            <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [attr.aria-hidden]="true" [pBind]="ptm('filterIcon')" />
-                            <span *ngIf="filterIconTemplate || _filterIconTemplate" [attr.aria-hidden]="true">
-                                <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
-                            </span>
-                        </p-inputicon>
-                    </p-iconfield>
+        @if (hasHeader()) {
+            <div [class]="cx('header')" [pBind]="ptm('header')">
+                <ng-content select="p-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate(); context: headerTemplateContext()"></ng-container>
+            </div>
+        }
+        @if (hasCheckboxOrFilter()) {
+            <div [class]="cx('header')" [pBind]="ptm('header')">
+                @if (showCheckboxToggleAll()) {
+                    <p-checkbox
+                        #headerchkbox
+                        (onChange)="onToggleAll($event)"
+                        [class]="cx('optionCheckIcon')"
+                        [ngModel]="allSelected()"
+                        [disabled]="$disabled()"
+                        [tabindex]="-1"
+                        [variant]="checkboxVariant()"
+                        [binary]="true"
+                        [attr.aria-label]="toggleAllAriaLabel()"
+                        [pt]="ptm('pcCheckbox')"
+                        [unstyled]="unstyled()"
+                    >
+                        @if (checkIconTemplate()) {
+                            <ng-template #icon>
+                                <ng-container *ngTemplateOutlet="checkIconTemplate(); context: allSelectedContext()"></ng-container>
+                            </ng-template>
+                        }
+                    </p-checkbox>
                 }
-                <span role="status" [pBind]="ptm('hiddenFilterResult')" [attr.aria-live]="'polite'" class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
-                    {{ filterResultMessageText }}
-                </span>
-            </ng-template>
-        </div>
+                @if (filterTemplate()) {
+                    <ng-container *ngTemplateOutlet="filterTemplate(); context: getFilterTemplateContext()"></ng-container>
+                } @else {
+                    @if (filter()) {
+                        <p-iconfield [pt]="ptm('pcFilterContainer')" hostName="listbox" [unstyled]="unstyled()">
+                            <input
+                                #filterInput
+                                pInputText
+                                type="text"
+                                [class]="cx('pcFilter')"
+                                role="searchbox"
+                                [value]="filterInputValue()"
+                                [attr.disabled]="disabledAttr()"
+                                [attr.aria-owns]="listId()"
+                                [attr.aria-activedescendant]="focusedOptionId()"
+                                [attr.placeholder]="filterPlaceHolder()"
+                                [attr.aria-label]="ariaFilterLabel()"
+                                [attr.tabindex]="filterTabindex()"
+                                (input)="onFilterChange($event)"
+                                (keydown)="onFilterKeyDown($event)"
+                                (blur)="onFilterBlur($event)"
+                                [pt]="ptm('pcFilter')"
+                                [unstyled]="unstyled()"
+                                hostName="listbox"
+                            />
+                            <p-inputicon [pt]="ptm('pcFilterIconContainer')" [unstyled]="unstyled()">
+                                @if (showDefaultFilterIcon()) {
+                                    <svg data-p-icon="search" [attr.aria-hidden]="true" [pBind]="ptm('filterIcon')" />
+                                } @else {
+                                    <span [attr.aria-hidden]="true">
+                                        <ng-container *ngTemplateOutlet="filterIconTemplate()"></ng-container>
+                                    </span>
+                                }
+                            </p-inputicon>
+                        </p-iconfield>
+                    }
+                    <span role="status" [pBind]="ptm('hiddenFilterResult')" [attr.aria-live]="'polite'" class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
+                        {{ filterResultMessageText() }}
+                    </span>
+                }
+            </div>
+        }
         <div
             #container
-            [class]="cn(cx('listContainer'), listStyleClass)"
-            [ngStyle]="listStyle"
-            [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'"
+            [class]="cn(cx('listContainer'), listStyleClass())"
+            [style]="listContainerStyle()"
             cdkDropList
             [cdkDropListData]="cdkDropData()"
             (cdkDropListDropped)="drop($event)"
@@ -160,100 +163,100 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             (cdkDropListExited)="onDragExited()"
             [pBind]="ptm('listContainer')"
         >
-            @if (hasFilter() && isEmpty()) {
+            @if (showFilteredEmptyMessage()) {
                 <div [class]="cx('emptyMessage')" [pBind]="ptm('emptyMessage')">
-                    @if (!emptyFilterTemplate && !_emptyFilterTemplate && !_emptyTemplate && !emptyTemplate) {
-                        {{ emptyFilterMessageText }}
+                    @if (showDefaultFilterEmptyMessage()) {
+                        {{ emptyFilterMessageText() }}
                     } @else {
-                        <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || _emptyFilterTemplate || _emptyTemplate || emptyTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="emptyOrFilterTemplate()"></ng-container>
                     }
                 </div>
-            } @else if (!hasFilter() && isEmpty()) {
+            } @else if (showEmptyMessage()) {
                 <div [class]="cx('emptyMessage')" [pBind]="ptm('emptyMessage')">
-                    @if (!emptyTemplate && !_emptyTemplate) {
-                        {{ emptyMessage }}
+                    @if (!emptyTemplate()) {
+                        {{ emptyMessage() }}
                     } @else {
-                        <ng-container #empty *ngTemplateOutlet="emptyTemplate || _emptyTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="emptyTemplate()"></ng-container>
                     }
                 </div>
             } @else {
-                <p-scroller
-                    [pt]="ptm('virtualScroller')"
-                    hostName="listbox"
-                    #scroller
-                    *ngIf="virtualScroll"
-                    [items]="visibleOptions()"
-                    [style]="{ height: scrollHeight }"
-                    [itemSize]="virtualScrollItemSize"
-                    [autoSize]="true"
-                    [lazy]="lazy"
-                    [options]="virtualScrollOptions"
-                    (onLazyLoad)="onLazyLoad.emit($event)"
-                    [tabindex]="scrollerTabIndex"
-                >
-                    <ng-template #content let-items let-scrollerOptions="options">
-                        <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
-                    </ng-template>
-                    @if (loaderTemplate || _loaderTemplate) {
-                        <ng-template #loader let-scrollerOptions="options">
-                            <ng-container *ngTemplateOutlet="loaderTemplate || _loaderTemplate; context: { options: scrollerOptions }"></ng-container>
+                @if (virtualScroll()) {
+                    <p-scroller
+                        [pt]="ptm('virtualScroller')"
+                        hostName="listbox"
+                        #scroller
+                        [items]="visibleOptions()"
+                        [style]="scrollerStyle()"
+                        [itemSize]="virtualScrollItemSize()"
+                        [autoSize]="true"
+                        [lazy]="lazy()"
+                        [options]="virtualScrollOptions()"
+                        (onLazyLoad)="onLazyLoad.emit($event)"
+                        [tabindex]="scrollerTabIndex"
+                    >
+                        <ng-template #content let-items let-scrollerOptions="options">
+                            <ng-container *ngTemplateOutlet="buildInItems; context: getBuildInItemsContext(items, scrollerOptions)"></ng-container>
                         </ng-template>
-                    }
-                </p-scroller>
-                <ng-container *ngIf="!virtualScroll">
-                    <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
-                </ng-container>
+                        @if (loaderTemplate()) {
+                            <ng-template #loader let-scrollerOptions="options">
+                                <ng-container *ngTemplateOutlet="loaderTemplate(); context: getLoaderTemplateContext(scrollerOptions)"></ng-container>
+                            </ng-template>
+                        }
+                    </p-scroller>
+                } @else {
+                    <ng-container *ngTemplateOutlet="buildInItems; context: buildInItemsContext()"></ng-container>
+                }
 
                 <ng-template #buildInItems let-items let-scrollerOptions="options">
                     <ul
                         #list
-                        [id]="id + '_list'"
-                        [class]="cx('list')"
+                        [id]="listId()"
+                        [class]="cn(cx('list'), scrollerOptions.contentStyleClass)"
                         role="listbox"
                         [tabindex]="-1"
                         [attr.aria-multiselectable]="true"
-                        [ngClass]="scrollerOptions.contentStyleClass"
                         [style]="scrollerOptions.contentStyle"
-                        [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
-                        [attr.aria-label]="ariaLabel"
+                        [attr.aria-activedescendant]="ariaActiveDescendant()"
+                        [attr.aria-label]="ariaLabel()"
                         [attr.aria-disabled]="$disabled()"
                         (focus)="onListFocus($event)"
                         (blur)="onListBlur($event)"
                         (keydown)="onListKeyDown($event)"
                         [pBind]="ptm('list')"
                     >
-                        <ng-template ngFor let-option [ngForOf]="items" let-i="index">
-                            <ng-container *ngIf="isOptionGroup(option)">
+                        @for (option of items; track getOptionValue(option); let i = $index) {
+                            @if (isOptionGroup(option)) {
                                 <li
-                                    [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
+                                    [attr.id]="getOptionId(i, scrollerOptions)"
                                     [class]="cx('optionGroup')"
                                     [pBind]="getPTOptions(option.optionGroup, scrollerOptions, i, 'optionGroup')"
-                                    [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                    [style.height.px]="scrollerOptions.itemSize"
                                     role="option"
                                     cdkDrag
                                     [cdkDragData]="option"
-                                    [cdkDragDisabled]="!dragdrop"
+                                    [cdkDragDisabled]="dragdropDisabled()"
                                     (cdkDragStarted)="isDragging.set(true)"
                                     (cdkDragEnded)="isDragging.set(false)"
                                 >
-                                    <span *ngIf="!groupTemplate && !_groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
-                                    <ng-container *ngTemplateOutlet="groupTemplate || _groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
+                                    @if (showDefaultGroupLabel()) {
+                                        <span>{{ getOptionGroupLabel(option.optionGroup) }}</span>
+                                    }
+                                    <ng-container *ngTemplateOutlet="groupTemplate(); context: getGroupTemplateContext(option.optionGroup)"></ng-container>
                                 </li>
-                            </ng-container>
-                            <ng-container *ngIf="!isOptionGroup(option)">
+                            } @else {
                                 <li
                                     pRipple
                                     [class]="cx('option', { option, i, scrollerOptions })"
                                     role="option"
-                                    [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
-                                    [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                    [attr.id]="getOptionId(i, scrollerOptions)"
+                                    [style.height.px]="scrollerOptions.itemSize"
                                     [attr.aria-label]="getOptionLabel(option)"
                                     [attr.aria-selected]="isSelected(option)"
                                     [attr.aria-disabled]="isOptionDisabled(option)"
-                                    [attr.aria-setsize]="ariaSetSize"
+                                    [attr.aria-setsize]="ariaSetSize()"
                                     [attr.ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
                                     [attr.data-p-selected]="isSelected(option)"
-                                    [attr.data-p-focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
+                                    [attr.data-p-focused]="isOptionFocused(i, scrollerOptions)"
                                     [attr.data-p-disabled]="isOptionDisabled(option)"
                                     [pBind]="getPTOptions(option, scrollerOptions, i, 'option')"
                                     (click)="onOptionSelect($event, option, getOptionIndex(i, scrollerOptions))"
@@ -263,70 +266,70 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     (touchend)="onOptionTouchEnd()"
                                     cdkDrag
                                     [cdkDragData]="option"
-                                    [cdkDragDisabled]="!dragdrop"
+                                    [cdkDragDisabled]="dragdropDisabled()"
                                     (cdkDragStarted)="isDragging.set(true)"
                                     (cdkDragEnded)="isDragging.set(false)"
                                 >
-                                    <p-checkbox
-                                        *ngIf="checkbox && multiple"
-                                        [class]="cx('optionCheckIcon')"
-                                        [ngModel]="isSelected(option)"
-                                        [readonly]="true"
-                                        [disabled]="$disabled() || isOptionDisabled(option)"
-                                        [tabindex]="-1"
-                                        [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
-                                        [binary]="true"
-                                        [pt]="ptm('pcCheckbox')"
-                                        hostName="listbox"
-                                        [unstyled]="unstyled()"
-                                    >
-                                        <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
-                                            <ng-template #icon>
-                                                <ng-template *ngTemplateOutlet="checkIconTemplate || _checkIconTemplate; context: { $implicit: isSelected(option) }"></ng-template>
-                                            </ng-template>
-                                        </ng-container>
-                                    </p-checkbox>
-                                    <ng-container *ngIf="checkmark">
-                                        <ng-container *ngIf="!checkmarkTemplate && !_checkmarkTemplate">
-                                            <svg data-p-icon="blank" *ngIf="!isSelected(option)" [class]="cx('optionBlankIcon')" [pBind]="ptm('optionBlankIcon')" />
-                                            <svg data-p-icon="check" *ngIf="isSelected(option)" [class]="cx('optionCheckIcon')" [pBind]="ptm('optionCheckIcon')" />
-                                        </ng-container>
-                                        <ng-container *ngTemplateOutlet="checkmarkTemplate || _checkmarkTemplate; context: { implicit: isSelected(option) }"></ng-container>
-                                    </ng-container>
-                                    <span *ngIf="!itemTemplate && !_itemTemplate">{{ getOptionLabel(option) }}</span>
-                                    <ng-container
-                                        *ngTemplateOutlet="
-                                            itemTemplate || _itemTemplate;
-                                            context: {
-                                                $implicit: option,
-                                                index: getOptionIndex(i, scrollerOptions),
-                                                selected: isSelected(option),
-                                                disabled: isOptionDisabled(option)
+                                    @if (showOptionCheckbox()) {
+                                        <p-checkbox
+                                            [class]="cx('optionCheckIcon')"
+                                            [ngModel]="isSelected(option)"
+                                            [readonly]="true"
+                                            [disabled]="getOptionCheckboxDisabled(option)"
+                                            [tabindex]="-1"
+                                            [variant]="checkboxVariant()"
+                                            [binary]="true"
+                                            [pt]="ptm('pcCheckbox')"
+                                            hostName="listbox"
+                                            [unstyled]="unstyled()"
+                                        >
+                                            @if (checkIconTemplate()) {
+                                                <ng-template #icon>
+                                                    <ng-container *ngTemplateOutlet="checkIconTemplate(); context: getCheckIconContext(option)"></ng-container>
+                                                </ng-template>
                                             }
-                                        "
-                                    ></ng-container>
+                                        </p-checkbox>
+                                    }
+                                    @if (checkmark()) {
+                                        @if (showDefaultCheckmark()) {
+                                            @if (!isSelected(option)) {
+                                                <svg data-p-icon="blank" [class]="cx('optionBlankIcon')" [pBind]="ptm('optionBlankIcon')" />
+                                            } @else {
+                                                <svg data-p-icon="check" [class]="cx('optionCheckIcon')" [pBind]="ptm('optionCheckIcon')" />
+                                            }
+                                        }
+                                        <ng-container *ngTemplateOutlet="checkmarkTemplate(); context: getCheckmarkContext(option)"></ng-container>
+                                    }
+                                    @if (showDefaultItemLabel()) {
+                                        <span>{{ getOptionLabel(option) }}</span>
+                                    }
+                                    <ng-container *ngTemplateOutlet="itemTemplate(); context: getItemTemplateContext(option, i, scrollerOptions)"></ng-container>
                                 </li>
-                            </ng-container>
-                        </ng-template>
+                            }
+                        }
                     </ul>
                 </ng-template>
             }
         </div>
-        <div *ngIf="footerFacet || footerTemplate || _footerTemplate">
-            <ng-content select="p-footer"></ng-content>
-            <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
-        </div>
-        <span *ngIf="isEmpty()" role="status" aria-live="polite" class="p-hidden-accessible" [pBind]="ptm('hiddenEmptyMessage')">
-            {{ emptyMessage }}
-        </span>
+        @if (hasFooter()) {
+            <div>
+                <ng-content select="p-footer"></ng-content>
+                <ng-container *ngTemplateOutlet="footerTemplate(); context: footerTemplateContext()"></ng-container>
+            </div>
+        }
+        @if (isEmpty()) {
+            <span role="status" aria-live="polite" class="p-hidden-accessible" [pBind]="ptm('hiddenEmptyMessage')">
+                {{ emptyMessage() }}
+            </span>
+        }
         <span role="status" aria-live="polite" class="p-hidden-accessible" [pBind]="ptm('hiddenSelectedMessage')">
-            {{ selectedMessageText }}
+            {{ selectedMessageText() }}
         </span>
         <span
             #lastHiddenFocusableElement
             role="presentation"
             class="p-hidden-accessible p-hidden-focusable"
-            [tabindex]="!$disabled() ? tabindex : -1"
+            [tabindex]="hiddenFocusableTabindex()"
             (focus)="onLastHiddenFocus($event)"
             [attr.data-p-hidden-focusable]="true"
             [pBind]="ptm('hiddenLastFocusableEl')"
@@ -348,8 +351,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[attr.id]': 'id',
-        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.id]': '$id()',
+        '[class]': "cx('root')",
         '[attr.data-p]': 'containerDataP'
     },
     hostDirectives: [Bind]
@@ -357,13 +360,15 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     componentName = 'Listbox';
 
-    @Input() hostName: any = '';
+    hostName = input<string>('');
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcListbox: Listbox | undefined = inject(LISTBOX_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
-    onAfterViewChecked(): void {
+    filterService = inject(FilterService);
+
+    onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
@@ -371,271 +376,243 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * Unique identifier of the component.
      * @group Props
      */
-    @Input() id: string | undefined;
+    id = input<string>();
     /**
      * Text to display when the search is active. Defaults to global value in i18n translation configuration.
      * @group Props
      * @defaultValue '{0} results are available'
      */
-    @Input() searchMessage: string | undefined;
+    searchMessage = input<string>();
     /**
      * Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration.
      * @group Props
      * @defaultValue 'No selected item'
      */
-    @Input() emptySelectionMessage: string | undefined;
+    emptySelectionMessage = input<string>();
     /**
      * Text to be displayed in hidden accessible field when options are selected. Defaults to global value in i18n translation configuration.
      * @group Props
      * @defaultValue '{0} items selected'
      */
-    @Input() selectionMessage: string | undefined;
+    selectionMessage = input<string>();
     /**
      * Whether to focus on the first visible or selected element when the overlay panel is shown.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autoOptionFocus: boolean | undefined = true;
+    autoOptionFocus = input(true, { transform: booleanAttribute });
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string>();
     /**
      * When enabled, the focused option is selected.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) selectOnFocus: boolean | undefined;
+    selectOnFocus = input(undefined, { transform: booleanAttribute });
     /**
      * Locale to use in searching. The default locale is the host environment's current locale.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) searchLocale: boolean | undefined;
+    searchLocale = input(undefined, { transform: booleanAttribute });
     /**
      * When enabled, the hovered option will be focused.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) focusOnHover: boolean | undefined = true;
+    focusOnHover = input(true, { transform: booleanAttribute });
     /**
      * Text to display when filtering.
      * @group Props
      */
-    @Input() filterMessage: string | undefined;
+    filterMessage = input<string>();
     /**
      * Fields used when filtering the options, defaults to optionLabel.
      * @group Props
      */
-    @Input() filterFields: any[] | undefined;
+    filterFields = input<any[]>();
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) lazy: boolean = false;
+    lazy = input(false, { transform: booleanAttribute });
     /**
      * Whether the data should be loaded on demand during scroll.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) virtualScroll: boolean | undefined;
+    virtualScroll = input(undefined, { transform: booleanAttribute });
     /**
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
+    virtualScrollItemSize = input(undefined, { transform: numberAttribute });
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
      */
-    @Input() virtualScrollOptions: ScrollerOptions | undefined;
+    virtualScrollOptions = input<ScrollerOptions>();
     /**
      * Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
      * @group Props
      */
-    @Input() scrollHeight: string = '14rem';
+    scrollHeight = input<string>('14rem');
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
+    tabindex = input(0, { transform: numberAttribute });
     /**
      * When specified, allows selecting multiple values.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) multiple: boolean | undefined;
-    /**
-     * Style class of the container.
-     * @deprecated since v20.0.0, use `class` instead.
-     * @group Props
-     */
-    @Input() styleClass: string | undefined;
+    multiple = input(undefined, { transform: booleanAttribute });
     /**
      * Inline style of the list element.
      * @group Props
      */
-    @Input() listStyle: { [klass: string]: any } | null | undefined;
+    listStyle = input<CSSProperties>();
     /**
      * Style class of the list element.
      * @group Props
      */
-    @Input() listStyleClass: string | undefined;
+    listStyleClass = input<string>();
     /**
      * When present, it specifies that the element value cannot be changed.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
+    readonly = input(undefined, { transform: booleanAttribute });
     /**
      * When specified, allows selecting items with checkboxes.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) checkbox: boolean = false;
+    checkbox = input(false, { transform: booleanAttribute });
     /**
      * When specified, displays a filter input at header.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) filter: boolean = false;
+    filter = input(false, { transform: booleanAttribute });
     /**
      * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
      * @group Props
      */
-    @Input() filterBy: string | undefined;
+    filterBy = input<string>();
     /**
      * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' | string = 'contains';
+    filterMatchMode = input<string>('contains');
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
      */
-    @Input() filterLocale: string | undefined;
+    filterLocale = input<string>();
     /**
      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) metaKeySelection: boolean = false;
+    metaKeySelection = input(false, { transform: booleanAttribute });
     /**
      * A property to uniquely identify a value in options.
      * @group Props
      */
-    @Input() dataKey: string | undefined;
+    dataKey = input<string>();
     /**
      * Whether header checkbox is shown in multiple mode.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showToggleAll: boolean = true;
+    showToggleAll = input(true, { transform: booleanAttribute });
     /**
      * Name of the label field of an option.
      * @group Props
      */
-    @Input() optionLabel: string | undefined;
+    optionLabel = input<string>();
     /**
      * Name of the value field of an option.
      * @group Props
      */
-    @Input() optionValue: string | undefined;
+    optionValue = input<string>();
     /**
      * Name of the options field of an option group.
      * @group Props
      */
-    @Input() optionGroupChildren: string | undefined = 'items';
+    optionGroupChildren = input<string>('items');
     /**
      * Name of the label field of an option group.
      * @group Props
      */
-    @Input() optionGroupLabel: string | undefined = 'label';
+    optionGroupLabel = input<string>('label');
     /**
      * Name of the disabled field of an option or function to determine disabled state.
      * @group Props
      */
-    @Input() optionDisabled: string | ((item: any) => boolean) | undefined;
+    optionDisabled = input<string | ((item: any) => boolean)>();
     /**
      * Defines a string that labels the filter input.
      * @group Props
      */
-    @Input() ariaFilterLabel: string | undefined;
+    ariaFilterLabel = input<string>();
     /**
      * Defines placeholder of the filter input.
      * @group Props
      */
-    @Input() filterPlaceHolder: string | undefined;
+    filterPlaceHolder = input<string>();
     /**
      * Text to display when filtering does not return any results.
      * @group Props
      */
-    @Input() emptyFilterMessage: string | undefined;
+    emptyFilterMessage = input<string>();
     /**
      * Text to display when there is no data. Defaults to global value in i18n translation configuration.
      * @group Props
      */
-    @Input() emptyMessage: string | undefined;
+    emptyMessage = input<string>();
     /**
      * Whether to display options as grouped when nested options are provided.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) group: boolean | undefined;
+    group = input(undefined, { transform: booleanAttribute });
     /**
      * An array of selectitems to display as the available options.
      * @group Props
      */
-    @Input() get options(): any[] {
-        return this._options();
-    }
-    set options(val: any[]) {
-        this._options.set(val);
-    }
+    options = input<any[]>();
     /**
      * When specified, filter displays with this value.
      * @group Props
      */
-    @Input() get filterValue(): string {
-        return this._filterValue() || '';
-    }
-    set filterValue(val: string) {
-        this._filterValue.set(val);
-    }
+    filterValue = input<string>();
     /**
      * Whether all data is selected.
      * @group Props
      */
-    @Input() get selectAll(): boolean | undefined | null {
-        return this._selectAll;
-    }
-    set selectAll(value: boolean | undefined | null) {
-        this._selectAll = value;
-    }
+    selectAll = input<boolean>();
     /**
      * Whether to displays rows with alternating colors.
      * @group Props
      * @defaultValue false
      */
-    @Input({ transform: booleanAttribute }) striped: boolean | undefined = false;
+    striped = input(false, { transform: booleanAttribute });
     /**
      * Whether the selected option will be add highlight class.
      * @group Props
      * @defaultValue true
      */
-    @Input({ transform: booleanAttribute }) highlightOnSelect: boolean = true;
+    highlightOnSelect = input(true, { transform: booleanAttribute });
     /**
      * Whether the selected option will be shown with a check mark.
      * @group Props
      * @defaultValue false
      */
-    @Input({ transform: booleanAttribute }) checkmark: boolean = false;
+    checkmark = input(false, { transform: booleanAttribute });
     /**
      * Whether to enable dragdrop based reordering.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) dragdrop: boolean = false;
+    dragdrop = input(false, { transform: booleanAttribute });
     /**
      * Array to use for CDK drop list data binding. When not provided, uses options array.
      * @group Props
      */
-    @Input() dropListData: any[] | undefined;
-
-    /**
-     * Computed property for stable CDK drop list data reference
-     */
-    cdkDropData = computed(() => {
-        return this.dropListData || this._options();
-    });
+    dropListData = input<any[]>();
     /**
      * Spans 100% width of the container when enabled.
      * @defaultValue undefined
@@ -647,73 +624,73 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * @param {ListboxChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<ListboxChangeEvent> = new EventEmitter<ListboxChangeEvent>();
+    onChange = output<ListboxChangeEvent>();
     /**
      * Callback to invoke when option is clicked.
      * @param {ListboxClickEvent} event - Custom click event.
      * @group Emits
      */
-    @Output() onClick: EventEmitter<ListboxClickEvent> = new EventEmitter<ListboxClickEvent>();
+    onClick = output<ListboxClickEvent>();
     /**
      * Callback to invoke when option is double clicked.
      * @param {ListboxDoubleClickEvent} event - Custom double click event.
      * @group Emits
      */
-    @Output() onDblClick: EventEmitter<ListboxDoubleClickEvent> = new EventEmitter<ListboxDoubleClickEvent>();
+    onDblClick = output<ListboxDoubleClickEvent>();
     /**
      * Callback to invoke when data is filtered.
      * @param {ListboxFilterEvent} event - Custom filter event.
      * @group Emits
      */
-    @Output() onFilter: EventEmitter<ListboxFilterEvent> = new EventEmitter<ListboxFilterEvent>();
+    onFilter = output<ListboxFilterEvent>();
     /**
      * Callback to invoke when component receives focus.
      * @param {FocusEvent} event - Focus event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    onFocus = output<FocusEvent>();
     /**
      * Callback to invoke when component loses focus.
      * @param {FocusEvent} event - Blur event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    onBlur = output<FocusEvent>();
     /**
      * Callback to invoke when all data is selected.
      * @param {ListboxSelectAllChangeEvent} event - Custom select event.
      * @group Emits
      */
-    @Output() onSelectAllChange: EventEmitter<ListboxSelectAllChangeEvent> = new EventEmitter<ListboxSelectAllChangeEvent>();
+    onSelectAllChange = output<ListboxSelectAllChangeEvent>();
     /**
      * Emits on lazy load.
      * @param {ScrollerLazyLoadEvent} event - Scroller lazy load event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<ScrollerLazyLoadEvent> = new EventEmitter<ScrollerLazyLoadEvent>();
+    onLazyLoad = output<ScrollerLazyLoadEvent>();
     /**
      * Emits on item is dropped.
      * @param {CdkDragDrop<string[]>} event - Scroller lazy load event.
      * @group Emits
      */
-    @Output() onDrop: EventEmitter<CdkDragDrop<string[]>> = new EventEmitter<CdkDragDrop<string[]>>();
+    onDrop = output<CdkDragDrop<string[]>>();
 
-    @ViewChild('headerchkbox') headerCheckboxViewChild: Nullable<ElementRef>;
+    headerCheckboxViewChild = viewChild<ElementRef>('headerchkbox');
 
-    @ViewChild('filter') filterViewChild: Nullable<ElementRef>;
+    filterViewChild = viewChild<ElementRef>('filterInput');
 
-    @ViewChild('lastHiddenFocusableElement') lastHiddenFocusableElement: Nullable<ElementRef>;
+    lastHiddenFocusableElement = viewChild<ElementRef>('lastHiddenFocusableElement');
 
-    @ViewChild('firstHiddenFocusableElement') firstHiddenFocusableElement: Nullable<ElementRef>;
+    firstHiddenFocusableElement = viewChild<ElementRef>('firstHiddenFocusableElement');
 
-    @ViewChild('scroller') scroller: Nullable<Scroller>;
+    scroller = viewChild<Scroller>('scroller');
 
-    @ViewChild('list') listViewChild: Nullable<ElementRef>;
+    listViewChild = viewChild<ElementRef>('list');
 
-    @ViewChild('container') containerViewChild: Nullable<ElementRef>;
+    containerViewChild = viewChild<ElementRef>('container');
 
-    @ContentChild(Header) headerFacet: Nullable<TemplateRef<any>>;
+    headerFacet = contentChild(Header);
 
-    @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
+    footerFacet = contentChild(Footer);
 
     /**
      * Custom item template.
@@ -721,7 +698,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * @see {@link ListboxItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<ListboxItemTemplateContext> | undefined;
+    itemTemplate = contentChild<TemplateRef<ListboxItemTemplateContext>>('item', { descendants: false });
 
     /**
      * Custom group template.
@@ -729,7 +706,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * @see {@link ListboxGroupTemplateContext}
      * @group Templates
      */
-    @ContentChild('group', { descendants: false }) groupTemplate: TemplateRef<ListboxGroupTemplateContext> | undefined;
+    groupTemplate = contentChild<TemplateRef<ListboxGroupTemplateContext>>('group', { descendants: false });
 
     /**
      * Custom header template.
@@ -737,7 +714,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * @see {@link ListboxHeaderTemplateContext}
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<ListboxHeaderTemplateContext> | undefined;
+    headerTemplate = contentChild<TemplateRef<ListboxHeaderTemplateContext>>('header', { descendants: false });
 
     /**
      * Custom filter template.
@@ -745,7 +722,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * @see {@link ListboxFilterTemplateContext}
      * @group Templates
      */
-    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<ListboxFilterTemplateContext> | undefined;
+    filterTemplate = contentChild<TemplateRef<ListboxFilterTemplateContext>>('filter', { descendants: false });
 
     /**
      * Custom footer template.
@@ -753,25 +730,25 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * @see {@link ListboxFooterTemplateContext}
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<ListboxFooterTemplateContext> | undefined;
+    footerTemplate = contentChild<TemplateRef<ListboxFooterTemplateContext>>('footer', { descendants: false });
 
     /**
      * Custom empty filter message template.
      * @group Templates
      */
-    @ContentChild('emptyfilter', { descendants: false }) emptyFilterTemplate: TemplateRef<void> | undefined;
+    emptyFilterTemplate = contentChild<TemplateRef<void>>('emptyfilter', { descendants: false });
 
     /**
      * Custom empty message template.
      * @group Templates
      */
-    @ContentChild('empty', { descendants: false }) emptyTemplate: TemplateRef<void> | undefined;
+    emptyTemplate = contentChild<TemplateRef<void>>('empty', { descendants: false });
 
     /**
      * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<void> | undefined;
+    filterIconTemplate = contentChild<TemplateRef<void>>('filtericon', { descendants: false });
 
     /**
      * Custom check icon template.
@@ -779,7 +756,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * @see {@link ListboxCheckIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('checkicon', { descendants: false }) checkIconTemplate: TemplateRef<ListboxCheckIconTemplateContext> | undefined;
+    checkIconTemplate = contentChild<TemplateRef<ListboxCheckIconTemplateContext>>('checkicon', { descendants: false });
 
     /**
      * Custom checkmark icon template.
@@ -787,7 +764,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * @see {@link ListboxCheckmarkTemplateContext}
      * @group Templates
      */
-    @ContentChild('checkmark', { descendants: false }) checkmarkTemplate: TemplateRef<ListboxCheckmarkTemplateContext> | undefined;
+    checkmarkTemplate = contentChild<TemplateRef<ListboxCheckmarkTemplateContext>>('checkmark', { descendants: false });
 
     /**
      * Custom loader template.
@@ -795,31 +772,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * @see {@link ListboxLoaderTemplateContext}
      * @group Templates
      */
-    @ContentChild('loader', { descendants: false }) loaderTemplate: TemplateRef<ListboxLoaderTemplateContext> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-
-    _itemTemplate: TemplateRef<ListboxItemTemplateContext> | undefined;
-
-    _groupTemplate: TemplateRef<ListboxGroupTemplateContext> | undefined;
-
-    _headerTemplate: TemplateRef<ListboxHeaderTemplateContext> | undefined;
-
-    _filterTemplate: TemplateRef<ListboxFilterTemplateContext> | undefined;
-
-    _footerTemplate: TemplateRef<ListboxFooterTemplateContext> | undefined;
-
-    _emptyFilterTemplate: TemplateRef<void> | undefined;
-
-    _emptyTemplate: TemplateRef<void> | undefined;
-
-    _filterIconTemplate: TemplateRef<void> | undefined;
-
-    _checkIconTemplate: TemplateRef<ListboxCheckIconTemplateContext> | undefined;
-
-    _checkmarkTemplate: TemplateRef<ListboxCheckmarkTemplateContext> | undefined;
-
-    _loaderTemplate: TemplateRef<ListboxLoaderTemplateContext> | undefined;
+    loaderTemplate = contentChild<TemplateRef<ListboxLoaderTemplateContext>>('loader', { descendants: false });
 
     public _filterValue = signal<string | null | undefined>(null);
 
@@ -837,67 +790,13 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     public headerCheckboxFocus: boolean | undefined | null;
 
-    translationSubscription: Nullable<Subscription>;
+    private translation = toSignal(this.config.translationObserver, { initialValue: this.config.translation });
 
     focused: boolean | undefined;
 
     scrollerTabIndex: string = '0';
 
     _componentStyle = inject(ListBoxStyle);
-
-    get focusedOptionId() {
-        return this.focusedOptionIndex() !== -1 ? `${this.id}_${this.focusedOptionIndex()}` : null;
-    }
-
-    get filterResultMessageText() {
-        return isNotEmpty(this.visibleOptions()) ? this.filterMessageText.replaceAll('{0}', this.visibleOptions().length) : this.emptyFilterMessageText;
-    }
-
-    get filterMessageText() {
-        return this.filterMessage || this.config.translation.searchMessage || '';
-    }
-
-    get searchMessageText() {
-        return this.searchMessage || this.config.translation.searchMessage || '';
-    }
-
-    get emptyFilterMessageText() {
-        return this.emptyFilterMessage || this.config.translation.emptySearchMessage || this.config.translation.emptyFilterMessage || '';
-    }
-
-    get selectionMessageText() {
-        return this.selectionMessage || this.config.translation.selectionMessage || '';
-    }
-
-    get emptySelectionMessageText() {
-        return this.emptySelectionMessage || this.config.translation.emptySelectionMessage || '';
-    }
-
-    get selectedMessageText() {
-        return this.hasSelectedOption() ? this.selectionMessageText.replaceAll('{0}', this.multiple ? this.modelValue().length : '1') : this.emptySelectionMessageText;
-    }
-
-    get ariaSetSize() {
-        return this.visibleOptions().filter((option) => !this.isOptionGroup(option)).length;
-    }
-
-    get virtualScrollerDisabled() {
-        return !this.virtualScroll;
-    }
-
-    get searchFields() {
-        return this.filterBy?.split(',') || this.filterFields || [this.optionLabel];
-    }
-
-    get toggleAllAriaLabel() {
-        return this.config.translation.aria ? this.config.translation.aria[this.allSelected() ? 'selectAll' : 'unselectAll'] : undefined;
-    }
-
-    searchValue: string | undefined;
-
-    searchTimeout: any;
-
-    _selectAll: boolean | undefined | null = null;
 
     _options = signal<any>(null);
 
@@ -907,88 +806,236 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     isDragging = signal<boolean>(false);
 
+    searchValue: string | undefined;
+
+    searchTimeout: any;
+
+    private _internalId = uuid('pn_id_');
+
+    $id = computed(() => this.id() || this._internalId);
+
+    $tabindex = computed(() => this.tabindex() ?? 0);
+
+    /**
+     * Computed property for hidden focusable element tabindex
+     */
+    hiddenFocusableTabindex = computed(() => (!this.$disabled() ? this.$tabindex() : -1));
+
+    /**
+     * Computed property for header section visibility
+     */
+    hasHeader = computed(() => !!this.headerFacet() || !!this.headerTemplate());
+
+    /**
+     * Computed property for footer section visibility
+     */
+    hasFooter = computed(() => !!this.footerFacet() || !!this.footerTemplate());
+
+    /**
+     * Computed property for checkbox/filter header visibility
+     */
+    hasCheckboxOrFilter = computed(() => (this.checkbox() && this.multiple() && this.showToggleAll()) || this.filter());
+
+    /**
+     * Computed property for showing checkbox toggle all
+     */
+    showCheckboxToggleAll = computed(() => this.checkbox() && this.multiple() && this.showToggleAll());
+
+    /**
+     * Computed property for showing option checkbox
+     */
+    showOptionCheckbox = computed(() => this.checkbox() && this.multiple());
+
+    /**
+     * Computed property for showing filtered empty message
+     */
+    showFilteredEmptyMessage = computed(() => this.hasFilter() && this.isEmpty());
+
+    /**
+     * Computed property for showing empty message
+     */
+    showEmptyMessage = computed(() => !this.hasFilter() && this.isEmpty());
+
+    /**
+     * Computed property for aria-activedescendant
+     */
+    ariaActiveDescendant = computed(() => (this.focused ? this.focusedOptionId() : undefined));
+
+    /**
+     * Computed property for header template context
+     */
+    headerTemplateContext = computed(() => ({ $implicit: this.modelValue(), options: this.visibleOptions() }));
+
+    /**
+     * Computed property for footer template context
+     */
+    footerTemplateContext = computed(() => ({ $implicit: this.modelValue(), options: this.visibleOptions() }));
+
+    /**
+     * Computed property for filter input value
+     */
+    filterInputValue = computed(() => this._filterValue() || '');
+
+    /**
+     * Computed property for disabled attribute
+     */
+    disabledAttr = computed(() => (this.$disabled() ? '' : undefined));
+
+    /**
+     * Computed property for list id
+     */
+    listId = computed(() => `${this.$id()}_list`);
+
+    /**
+     * Computed property for scroller style
+     */
+    scrollerStyle = computed(() => ({ height: this.scrollHeight() }));
+
+    /**
+     * Computed property for showing default filter empty message
+     */
+    showDefaultFilterEmptyMessage = computed(() => !this.emptyFilterTemplate() && !this.emptyTemplate());
+
+    /**
+     * Computed property for empty or filter template
+     */
+    emptyOrFilterTemplate = computed(() => this.emptyFilterTemplate() || this.emptyTemplate());
+
+    /**
+     * Computed property for build in items context
+     */
+    buildInItemsContext = computed(() => ({ $implicit: this.visibleOptions(), options: {} }));
+
+    /**
+     * Computed property for dragdrop disabled
+     */
+    dragdropDisabled = computed(() => !this.dragdrop());
+
+    /**
+     * Computed property for check icon context
+     */
+    allSelectedContext = computed(() => ({ $implicit: this.allSelected() }));
+
+    /**
+     * Computed property for showing default checkmark
+     */
+    showDefaultCheckmark = computed(() => !this.checkmarkTemplate());
+
+    /**
+     * Computed property for showing default item label
+     */
+    showDefaultItemLabel = computed(() => !this.itemTemplate());
+
+    /**
+     * Computed property for showing default group label
+     */
+    showDefaultGroupLabel = computed(() => !this.groupTemplate());
+
+    /**
+     * Computed property for showing filter icon
+     */
+    showDefaultFilterIcon = computed(() => !this.filterIconTemplate());
+
+    /**
+     * Computed property for stable CDK drop list data reference
+     */
+    cdkDropData = computed(() => this.dropListData() || this._options());
+
+    checkboxVariant = computed(() => (this.config.inputStyle() === 'filled' || this.config.inputVariant() === 'filled' ? 'filled' : 'outlined'));
+
+    listContainerStyle = computed(() => {
+        const listStyle = this.listStyle();
+        const maxHeight = this.virtualScroll() ? 'auto' : this.scrollHeight() || 'auto';
+        return { ...listStyle, 'max-height': maxHeight };
+    });
+
+    focusedOptionId = computed(() => (this.focusedOptionIndex() !== -1 ? `${this.$id()}_${this.focusedOptionIndex()}` : null));
+
+    filterTabindex = computed(() => (!this.$disabled() && !this.focused ? this.$tabindex() : -1));
+
+    filterResultMessageText = computed(() => {
+        return isNotEmpty(this.visibleOptions()) ? this.filterMessageText().replaceAll('{0}', String(this.visibleOptions().length)) : this.emptyFilterMessageText();
+    });
+
+    filterMessageText = computed(() => {
+        const t = this.translation();
+        return this.filterMessage() || t?.searchMessage || '';
+    });
+
+    searchMessageText = computed(() => {
+        const t = this.translation();
+        return this.searchMessage() || t?.searchMessage || '';
+    });
+
+    emptyFilterMessageText = computed(() => {
+        const t = this.translation();
+        return this.emptyFilterMessage() || t?.emptySearchMessage || t?.emptyFilterMessage || '';
+    });
+
+    selectionMessageText = computed(() => {
+        const t = this.translation();
+        return this.selectionMessage() || t?.selectionMessage || '';
+    });
+
+    emptySelectionMessageText = computed(() => {
+        const t = this.translation();
+        return this.emptySelectionMessage() || t?.emptySelectionMessage || '';
+    });
+
+    selectedMessageText = computed(() => {
+        return this.hasSelectedOption() ? this.selectionMessageText().replaceAll('{0}', this.multiple() ? String(this.modelValue().length) : '1') : this.emptySelectionMessageText();
+    });
+
+    ariaSetSize = computed(() => this.visibleOptions().filter((option) => !this.isOptionGroup(option)).length);
+
+    virtualScrollerDisabled = computed(() => !this.virtualScroll());
+
+    searchFields = computed(() => this.filterBy()?.split(',') || this.filterFields() || [this.optionLabel()]);
+
+    toggleAllAriaLabel = computed(() => {
+        const t = this.translation();
+        return t?.aria ? t.aria[this.allSelected() ? 'selectAll' : 'unselectAll'] : undefined;
+    });
+
     @HostListener('focusout', ['$event'])
     onHostFocusOut(event: FocusEvent) {
         this.onFocusout(event);
     }
 
     visibleOptions = computed(() => {
-        const options = this.group ? this.flatOptions(this._options()) : this._options() || [];
-        return this._filterValue() ? this.filterService.filter(options, this.searchFields, this._filterValue(), this.filterMatchMode, this.filterLocale) : options;
+        const options = this.group() ? this.flatOptions(this._options()) : this._options() || [];
+        return this._filterValue() ? this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode(), this.filterLocale()) : options;
     });
 
-    constructor(public filterService: FilterService) {
+    constructor() {
         super();
+
+        // Sync options input to internal signal
+        effect(() => {
+            const opts = this.options();
+            if (opts !== undefined) {
+                this._options.set(opts);
+            }
+        });
+
+        // Sync filterValue input to internal signal
+        effect(() => {
+            const fv = this.filterValue();
+            if (fv !== undefined) {
+                this._filterValue.set(fv);
+            }
+        });
     }
 
     onInit() {
-        this.id = this.id || uuid('pn_id_');
-        this.translationSubscription = this.config.translationObserver.subscribe(() => {
-            this.cd.markForCheck();
-        });
-
         this.autoUpdateModel();
 
-        if (this.filterBy) {
+        if (this.filterBy()) {
             this.filterOptions = {
                 filter: (value) => this.onFilterChange(value),
                 reset: () => this.resetFilter()
             };
         }
-    }
-
-    onAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'item':
-                    this._itemTemplate = item.template;
-                    break;
-
-                case 'group':
-                    this._groupTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this._headerTemplate = item.template;
-                    break;
-
-                case 'filter':
-                    this._filterTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this._footerTemplate = item.template;
-                    break;
-
-                case 'empty':
-                    this._emptyTemplate = item.template;
-                    break;
-
-                case 'emptyfilter':
-                    this._emptyFilterTemplate = item.template;
-                    break;
-
-                case 'filtericon':
-                    this._filterIconTemplate = item.template;
-                    break;
-
-                case 'checkicon':
-                    this._checkIconTemplate = item.template;
-                    break;
-
-                case 'checkmark':
-                    this._checkmarkTemplate = item.template;
-                    break;
-
-                case 'loader':
-                    this._loaderTemplate = item.template;
-                    break;
-
-                default:
-                    this._itemTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     flatOptions(options) {
@@ -1004,7 +1051,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     autoUpdateModel() {
-        if (this.selectOnFocus && this.autoOptionFocus && !this.hasSelectedOption() && !this.multiple) {
+        if (this.selectOnFocus() && this.autoOptionFocus() && !this.hasSelectedOption() && !this.multiple()) {
             const focusedOptionIndex = this.findFirstFocusedOptionIndex();
             this.focusedOptionIndex.set(focusedOptionIndex);
             this.onOptionSelect(null, this.visibleOptions()[this.focusedOptionIndex()]);
@@ -1027,12 +1074,12 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     onOptionSelect(event, option, index = -1) {
-        if (this.$disabled() || this.isOptionDisabled(option) || this.readonly) {
+        if (this.$disabled() || this.isOptionDisabled(option) || this.readonly()) {
             return;
         }
 
         event && this.onClick.emit({ originalEvent: event, option, value: this.value });
-        this.multiple ? this.onOptionSelectMultiple(event, option) : this.onOptionSelectSingle(event, option);
+        this.multiple() ? this.onOptionSelectMultiple(event, option) : this.onOptionSelectSingle(event, option);
         this.optionTouched = false;
         index !== -1 && this.focusedOptionIndex.set(index);
     }
@@ -1040,7 +1087,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     onOptionSelectMultiple(event, option) {
         let selected = this.isSelected(option);
         let value: any[] = [];
-        let metaSelection = this.optionTouched ? false : this.metaKeySelection;
+        let metaSelection = this.optionTouched ? false : this.metaKeySelection();
 
         if (metaSelection) {
             let metaKey = event.metaKey || event.ctrlKey;
@@ -1062,7 +1109,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
         let selected = this.isSelected(option);
         let valueChanged = false;
         let value = null;
-        let metaSelection = this.optionTouched ? false : this.metaKeySelection;
+        let metaSelection = this.optionTouched ? false : this.metaKeySelection();
 
         if (metaSelection) {
             let metaKey = event.metaKey || event.ctrlKey;
@@ -1103,12 +1150,12 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     onToggleAll(event) {
-        if (this.$disabled() || this.readonly) {
+        if (this.$disabled() || this.readonly()) {
             return;
         }
-        focus(this.headerCheckboxViewChild?.nativeElement);
+        focus(this.headerCheckboxViewChild()?.nativeElement);
 
-        if (this.selectAll !== null) {
+        if (this.selectAll() !== null && this.selectAll() !== undefined) {
             this.onSelectAllChange.emit({
                 originalEvent: event,
                 checked: !this.allSelected()
@@ -1126,7 +1173,10 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     allSelected() {
-        return this.selectAll !== null ? this.selectAll : isNotEmpty(this.visibleOptions()) && this.visibleOptions().every((option) => this.isOptionGroup(option) || this.isOptionDisabled(option) || this.isSelected(option));
+        const selectAllValue = this.selectAll();
+        return selectAllValue !== null && selectAllValue !== undefined
+            ? selectAllValue
+            : isNotEmpty(this.visibleOptions()) && this.visibleOptions().every((option) => this.isOptionGroup(option) || this.isOptionDisabled(option) || this.isSelected(option));
     }
 
     onOptionTouchEnd() {
@@ -1142,13 +1192,13 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     onOptionMouseEnter(event: MouseEvent, index: number) {
-        if (this.focusOnHover && this.focused) {
+        if (this.focusOnHover() && this.focused) {
             this.changeFocusedOptionIndex(event, index);
         }
     }
 
     onOptionDoubleClick(event: MouseEvent, option: any) {
-        if (this.$disabled() || this.isOptionDisabled(option) || this.readonly) {
+        if (this.$disabled() || this.isOptionDisabled(option) || this.readonly()) {
             return;
         }
 
@@ -1160,36 +1210,42 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     onFirstHiddenFocus(event: FocusEvent) {
-        focus(this.listViewChild?.nativeElement);
+        focus(this.listViewChild()?.nativeElement);
         const firstFocusableEl = getFirstFocusableElement(this.el?.nativeElement, ':not([data-p-hidden-focusable="true"])');
-        this.lastHiddenFocusableElement?.nativeElement && (this.lastHiddenFocusableElement.nativeElement.tabIndex = isEmpty(firstFocusableEl) ? -1 : undefined);
-        this.firstHiddenFocusableElement?.nativeElement && (this.firstHiddenFocusableElement.nativeElement.tabIndex = -1);
+        const lastEl = this.lastHiddenFocusableElement();
+        const firstEl = this.firstHiddenFocusableElement();
+        lastEl?.nativeElement && (lastEl.nativeElement.tabIndex = isEmpty(firstFocusableEl) ? -1 : undefined);
+        firstEl?.nativeElement && (firstEl.nativeElement.tabIndex = -1);
     }
 
     onLastHiddenFocus(event: FocusEvent) {
         const relatedTarget = event.relatedTarget;
+        const lastEl = this.lastHiddenFocusableElement();
+        const firstEl = this.firstHiddenFocusableElement();
 
-        if (relatedTarget === this.listViewChild?.nativeElement) {
+        if (relatedTarget === this.listViewChild()?.nativeElement) {
             const firstFocusableEl = <any>getFirstFocusableElement(this.el?.nativeElement, ':not([data-p-hidden-focusable="true"])');
 
             focus(firstFocusableEl);
-            this.firstHiddenFocusableElement?.nativeElement && (this.firstHiddenFocusableElement.nativeElement.tabIndex = undefined);
+            firstEl?.nativeElement && (firstEl.nativeElement.tabIndex = undefined);
         } else {
-            focus(this.firstHiddenFocusableElement?.nativeElement);
+            focus(firstEl?.nativeElement);
         }
-        this.lastHiddenFocusableElement?.nativeElement && (this.lastHiddenFocusableElement.nativeElement.tabIndex = -1);
+        lastEl?.nativeElement && (lastEl.nativeElement.tabIndex = -1);
     }
 
     onFocusout(event: FocusEvent) {
-        if (!this.el.nativeElement.contains(event.relatedTarget) && this.lastHiddenFocusableElement && this.firstHiddenFocusableElement) {
-            this.firstHiddenFocusableElement.nativeElement.tabIndex = this.lastHiddenFocusableElement.nativeElement.tabIndex = undefined;
+        const lastEl = this.lastHiddenFocusableElement();
+        const firstEl = this.firstHiddenFocusableElement();
+        if (!this.el.nativeElement.contains(event.relatedTarget) && lastEl && firstEl) {
+            firstEl.nativeElement.tabIndex = lastEl.nativeElement.tabIndex = undefined;
             this.scrollerTabIndex = '0';
         }
     }
 
     onListFocus(event: FocusEvent) {
         this.focused = true;
-        const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : this.findSelectedOptionIndex();
+        const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus() ? this.findFirstFocusedOptionIndex() : this.findSelectedOptionIndex();
         this.focusedOptionIndex.set(focusedOptionIndex);
         this.scrollInView(focusedOptionIndex);
         this.onFocus.emit(event);
@@ -1228,7 +1284,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     onHeaderCheckboxTabKeyDown(event) {
-        focus(this.listViewChild?.nativeElement);
+        focus(this.listViewChild()?.nativeElement);
         event.preventDefault();
     }
 
@@ -1239,7 +1295,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
         this.startRangeIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
 
-        !this.virtualScrollerDisabled && this.scroller?.scrollToIndex(0);
+        !this.virtualScrollerDisabled() && this.scroller()?.scrollToIndex(0);
     }
 
     onFilterBlur(event: FocusEvent) {
@@ -1291,7 +1347,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
                 break;
 
             default:
-                if (this.multiple && event.code === 'KeyA' && metaKey) {
+                if (this.multiple() && event.code === 'KeyA' && metaKey) {
                     const value = this.visibleOptions()
                         .filter((option) => this.isValidOption(option))
                         .map((option) => this.getOptionValue(option));
@@ -1351,7 +1407,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     onArrowDownKey(event: KeyboardEvent) {
         const optionIndex = this.focusedOptionIndex() !== -1 ? this.findNextOptionIndex(this.focusedOptionIndex()) : this.findFirstFocusedOptionIndex();
 
-        if (this.multiple && event.shiftKey) {
+        if (this.multiple() && event.shiftKey) {
             this.onOptionSelectRange(event, this.startRangeIndex(), optionIndex);
         }
 
@@ -1362,7 +1418,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     onArrowUpKey(event: KeyboardEvent) {
         const optionIndex = this.focusedOptionIndex() !== -1 ? this.findPrevOptionIndex(this.focusedOptionIndex()) : this.findLastFocusedOptionIndex();
 
-        if (this.multiple && event.shiftKey) {
+        if (this.multiple() && event.shiftKey) {
             this.onOptionSelectRange(event, optionIndex, this.startRangeIndex());
         }
 
@@ -1382,7 +1438,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
             let metaKey = event.metaKey || event.ctrlKey;
             let optionIndex = this.findFirstOptionIndex();
 
-            if (this.multiple && event.shiftKey && metaKey) {
+            if (this.multiple() && event.shiftKey && metaKey) {
                 this.onOptionSelectRange(event, optionIndex, this.startRangeIndex());
             }
 
@@ -1403,7 +1459,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
             let metaKey = event.metaKey || event.ctrlKey;
             let optionIndex = this.findLastOptionIndex();
 
-            if (this.multiple && event.shiftKey && metaKey) {
+            if (this.multiple() && event.shiftKey && metaKey) {
                 this.onOptionSelectRange(event, this.startRangeIndex(), optionIndex);
             }
 
@@ -1425,7 +1481,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     onEnterKey(event) {
         if (this.focusedOptionIndex() !== -1) {
-            if (this.multiple && event.shiftKey) this.onOptionSelectRange(event, this.focusedOptionIndex());
+            if (this.multiple() && event.shiftKey) this.onOptionSelectRange(event, this.focusedOptionIndex());
             else this.onOptionSelect(event, this.visibleOptions()[this.focusedOptionIndex()]);
         }
 
@@ -1442,28 +1498,28 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     getOptionGroupChildren(optionGroup) {
-        return this.optionGroupChildren ? resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
+        return this.optionGroupChildren() ? resolveFieldData(optionGroup, this.optionGroupChildren()) : optionGroup.items;
     }
 
     getOptionGroupLabel(optionGroup: any) {
-        return this.optionGroupLabel ? resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label !== undefined ? optionGroup.label : optionGroup;
+        return this.optionGroupLabel() ? resolveFieldData(optionGroup, this.optionGroupLabel()) : optionGroup && optionGroup.label !== undefined ? optionGroup.label : optionGroup;
     }
 
     getOptionLabel(option) {
-        return this.optionLabel ? resolveFieldData(option, this.optionLabel) : option.label != undefined ? option.label : option;
+        return this.optionLabel() ? resolveFieldData(option, this.optionLabel()) : option.label != undefined ? option.label : option;
     }
 
     getOptionIndex(index, scrollerOptions) {
-        return this.virtualScrollerDisabled ? index : scrollerOptions && scrollerOptions.getItemOptions(index)['index'];
+        return this.virtualScrollerDisabled() ? index : scrollerOptions && scrollerOptions.getItemOptions(index)['index'];
     }
 
     getOptionValue(option: any) {
-        return this.optionValue ? resolveFieldData(option, this.optionValue) : !this.optionLabel && option && option.value !== undefined ? option.value : option;
+        return this.optionValue() ? resolveFieldData(option, this.optionValue()) : !this.optionLabel() && option && option.value !== undefined ? option.value : option;
     }
 
     getAriaPosInset(index: number) {
         return (
-            (this.optionGroupLabel
+            (this.optionGroupLabel()
                 ? index -
                   this.visibleOptions()
                       .slice(0, index)
@@ -1482,12 +1538,57 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
         });
     }
 
+    getOptionId(index: number, scrollerOptions: any) {
+        return `${this.$id()}_${this.getOptionIndex(index, scrollerOptions)}`;
+    }
+
+    getOptionCheckboxDisabled(option: any) {
+        return this.$disabled() || this.isOptionDisabled(option);
+    }
+
+    getCheckIconContext(option: any) {
+        return { $implicit: this.isSelected(option) };
+    }
+
+    getCheckmarkContext(option: any) {
+        return { implicit: this.isSelected(option) };
+    }
+
+    getGroupTemplateContext(optionGroup: any) {
+        return { $implicit: optionGroup };
+    }
+
+    getItemTemplateContext(option: any, index: number, scrollerOptions: any) {
+        return {
+            $implicit: option,
+            index: this.getOptionIndex(index, scrollerOptions),
+            selected: this.isSelected(option),
+            disabled: this.isOptionDisabled(option)
+        };
+    }
+
+    getFilterTemplateContext() {
+        return { options: this.filterOptions };
+    }
+
+    getBuildInItemsContext(items: any[], scrollerOptions: any) {
+        return { $implicit: items, options: scrollerOptions };
+    }
+
+    getLoaderTemplateContext(scrollerOptions: any) {
+        return { options: scrollerOptions };
+    }
+
+    isOptionFocused(index: number, scrollerOptions: any) {
+        return this.focusedOptionIndex() === this.getOptionIndex(index, scrollerOptions);
+    }
+
     hasSelectedOption() {
         return isNotEmpty(this.modelValue());
     }
 
     isOptionGroup(option) {
-        return this.optionGroupLabel && option.optionGroup && option.group;
+        return this.optionGroupLabel() && option.optionGroup && option.group;
     }
 
     changeFocusedOptionIndex(event, index) {
@@ -1495,7 +1596,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
             this.focusedOptionIndex.set(index);
             this.scrollInView();
 
-            if (this.selectOnFocus && !this.multiple) {
+            if (this.selectOnFocus() && !this.multiple()) {
                 this.onOptionSelect(event, this.visibleOptions()[index]);
             }
         }
@@ -1546,17 +1647,17 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     isOptionMatched(option) {
-        return this.isValidOption(option) && this.getOptionLabel(option)?.toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue?.toLocaleLowerCase(this.filterLocale));
+        return this.isValidOption(option) && this.getOptionLabel(option)?.toLocaleLowerCase(this.filterLocale()).startsWith(this.searchValue?.toLocaleLowerCase(this.filterLocale()));
     }
 
     scrollInView(index = -1) {
-        const id = index !== -1 ? `${this.id}_${index}` : this.focusedOptionId;
-        const element = findSingle(this.listViewChild?.nativeElement, `li[id="${id}"]`);
+        const id = index !== -1 ? `${this.$id()}_${index}` : this.focusedOptionId();
+        const element = findSingle(this.listViewChild()?.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-        } else if (!this.virtualScrollerDisabled) {
-            this.virtualScroll && this.scroller?.scrollToIndex(index !== -1 ? index : this.focusedOptionIndex());
+        } else if (!this.virtualScrollerDisabled()) {
+            this.virtualScroll() && this.scroller()?.scrollToIndex(index !== -1 ? index : this.focusedOptionIndex());
         }
     }
 
@@ -1624,7 +1725,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     findSelectedOptionIndex() {
         if (this.$filled()) {
-            if (this.multiple) {
+            if (this.multiple()) {
                 for (let index = this.modelValue().length - 1; index >= 0; index--) {
                     const value = this.modelValue()[index];
                     const matchedOptionIndex = this.visibleOptions().findIndex((option) => this.isValidSelectedOption(option) && this.isEquals(value, this.getOptionValue(option)));
@@ -1656,7 +1757,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     equalityKey() {
-        return this.optionValue ? null : this.dataKey;
+        return this.optionValue() ? null : this.dataKey();
     }
 
     isValidSelectedOption(option) {
@@ -1664,10 +1765,11 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     isOptionDisabled(option: any) {
-        if (isFunction(this.optionDisabled)) {
-            return this.optionDisabled(option);
+        const optionDisabledValue = this.optionDisabled();
+        if (isFunction(optionDisabledValue)) {
+            return optionDisabledValue(option);
         }
-        return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : false;
+        return optionDisabledValue ? resolveFieldData(option, optionDisabledValue) : false;
     }
 
     isEquals(value1, value2) {
@@ -1677,7 +1779,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     isSelected(option) {
         const optionValue = this.getOptionValue(option);
 
-        if (this.multiple) return (this.modelValue() || []).some((value) => this.isEquals(value, optionValue));
+        if (this.multiple()) return (this.modelValue() || []).some((value) => this.isEquals(value, optionValue));
         else return this.isEquals(this.modelValue(), optionValue);
     }
 
@@ -1694,8 +1796,9 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     resetFilter() {
-        if (this.filterViewChild && this.filterViewChild.nativeElement) {
-            this.filterViewChild.nativeElement.value = '';
+        const filterEl = this.filterViewChild();
+        if (filterEl && filterEl.nativeElement) {
+            filterEl.nativeElement.value = '';
         }
 
         this._filterValue.set(null);
@@ -1715,7 +1818,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
         this.isDragging.set(false);
         if (event) {
             // If dragdrop is enabled and same container (reordering), automatically handle reordering
-            if (this.dragdrop && event.previousContainer === event.container) {
+            if (this.dragdrop() && event.previousContainer === event.container) {
                 const currentOptions = [...this._options()];
                 moveItemInArray(currentOptions, event.previousIndex, event.currentIndex);
                 this._options.set(currentOptions);
@@ -1726,9 +1829,6 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
                     this.writeModelValue(this.modelValue());
                     this.onModelChange(this.modelValue());
                 }
-
-                // Mark for change detection
-                this.cd.markForCheck();
             }
 
             // Always emit the event for custom handling
@@ -1752,13 +1852,6 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
         this.value = value;
         setModelValue(this.value);
-        this.cd.markForCheck();
-    }
-
-    onDestroy() {
-        if (this.translationSubscription) {
-            this.translationSubscription.unsubscribe();
-        }
     }
 }
 
