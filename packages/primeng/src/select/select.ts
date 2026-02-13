@@ -99,7 +99,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
             @if (!template()) {
                 <span [pBind]="$pcSelect?.ptm('optionLabel')">{{ label() ?? 'empty' }}</span>
             }
-            <ng-container *ngTemplateOutlet="template(); context: { $implicit: option() }"></ng-container>
+            <ng-container *ngTemplateOutlet="template(); context: templateContext()"></ng-container>
         </li>
     `,
     providers: [SelectStyle, { provide: PARENT_INSTANCE, useExisting: SelectItem }]
@@ -138,6 +138,8 @@ export class SelectItem extends BaseComponent {
     index = input<number>();
 
     scrollerOptions = input<any>();
+
+    templateContext = computed(() => ({ $implicit: this.option() }));
 
     onClick = output<any>();
 
@@ -901,6 +903,8 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     _placeholder = signal<string | undefined>(undefined);
 
+    _options = signal<any[] | null>(null);
+
     value: any;
 
     hover: Nullable<boolean>;
@@ -959,7 +963,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
             const filteredOptions =
                 !_filterBy && !this.filterFields() && !this.optionValue()
-                    ? this.options()?.filter((option) => {
+                    ? this._options()?.filter((option) => {
                           if (option.label) {
                               return option.label.toString().toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
                           }
@@ -968,7 +972,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
                     : this.filterService.filter(options, this.searchFields(), this._filterValue().trim(), this.filterMatchMode(), this.filterLocale());
 
             if (this.group()) {
-                const optionGroups = this.options() || [];
+                const optionGroups = this._options() || [];
                 const filtered: any[] = [];
 
                 optionGroups.forEach((group) => {
@@ -1016,7 +1020,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     $placeholder = computed(() => {
         const modelVal = this.modelValue();
-        return modelVal === undefined || modelVal === null ? this.placeholder() : undefined;
+        return modelVal === undefined || modelVal === null ? this.placeholder() || this._placeholder() : undefined;
     });
 
     $required = computed(() => (this.required() ? '' : undefined));
@@ -1119,11 +1123,11 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
             }
         });
 
-        // Handle options input changes
+        // Handle options input changes with deepEquals check
         effect(() => {
             const opts = this.options();
-            // Trigger optionsChanged when options change
-            if (opts !== undefined) {
+            if (!deepEquals(opts, this._options())) {
+                this._options.set(opts ?? null);
                 this.optionsChanged = true;
             }
         });
@@ -1134,7 +1138,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     private getAllVisibleAndNonVisibleOptions() {
-        return this.group() ? this.flatOptions(this.options()) : this.options() || [];
+        return this.group() ? this.flatOptions(this._options()) : this._options() || [];
     }
 
     onInit() {
@@ -1220,7 +1224,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     allowModelChange() {
-        return !!this.modelValue() && !this.placeholder() && (this.modelValue() === undefined || this.modelValue() === null) && !this.editable() && this.options() && this.options()!.length;
+        return !!this.modelValue() && !this.placeholder() && (this.modelValue() === undefined || this.modelValue() === null) && !this.editable() && this._options() && this._options()!.length;
     }
 
     isSelected(option) {
@@ -1346,7 +1350,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     isEmpty() {
-        return !this.options() || (this.visibleOptions() && this.visibleOptions().length === 0);
+        return !this._options() || (this.visibleOptions() && this.visibleOptions().length === 0);
     }
 
     onEditableInput(event: Event) {
@@ -1381,7 +1385,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         this.itemsWrapper = <any>findSingle(this.overlayViewChild()?.overlayViewChild?.nativeElement, this.virtualScroll() ? '[data-pc-name="virtualscroller"]' : '[data-pc-section="listcontainer"]');
         this.virtualScroll() && this.scroller()?.setContentEl(this.itemsViewChild()?.nativeElement);
 
-        if (this.options() && this.options()!.length) {
+        if (this._options() && this._options()!.length) {
             if (this.virtualScroll()) {
                 const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
                 if (selectedIndex !== -1) {
@@ -1962,7 +1966,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     get labelDataP() {
         return this.cn({
-            placeholder: this.label === this.placeholder,
+            placeholder: this.label() === this.placeholder(),
             clearable: this.showClear(),
             disabled: this.$disabled(),
             [this.size() as string]: this.size(),
