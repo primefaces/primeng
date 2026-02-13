@@ -23,8 +23,8 @@ const classes = {
             'p-datepicker-fluid': instance.hasFluid,
             'p-inputwrapper-filled': instance.$filled(),
             'p-variant-filled': instance.$variant() === 'filled',
-            'p-inputwrapper-focus': instance.focus || instance.overlayVisible,
-            'p-focus': instance.focus || instance.overlayVisible
+            'p-inputwrapper-focus': instance.focus() || instance.overlayVisible(),
+            'p-focus': instance.focus() || instance.overlayVisible()
         }
     ],
     pcInputText: 'p-datepicker-input',
@@ -35,9 +35,9 @@ const classes = {
         'p-datepicker-panel p-component',
         {
             'p-datepicker-panel p-component': true,
-            'p-datepicker-panel-inline': instance.inline,
+            'p-datepicker-panel-inline': instance.inline(),
             'p-disabled': instance.$disabled(),
-            'p-datepicker-timeonly': instance.timeOnly
+            'p-datepicker-timeonly': instance.timeOnly()
         }
     ],
     calendarContainer: 'p-datepicker-calendar-container',

@@ -5,6 +5,18 @@ import type { ButtonPassThrough } from 'primeng/types/button';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
 
 /**
+ * Defines the icon display mode.
+ * @group Types
+ */
+export type DatePickerIconDisplay = 'input' | 'button';
+
+/**
+ * Defines the selection mode.
+ * @group Types
+ */
+export type DatePickerSelectionMode = 'single' | 'multiple' | 'range';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  * @see {@link DatePicker.pt}
@@ -486,7 +498,7 @@ export interface DatePickerResponsiveOptions {
  * Custom type for the DatePicker views.
  * @group Types
  */
-export type DatePickerTypeView = 'date' | 'month' | 'year';
+export type DatePickerViewType = 'date' | 'month' | 'year';
 /**
  * Custom type for the DatePicker navigation state.
  * @group Types
