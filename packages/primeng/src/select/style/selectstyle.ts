@@ -26,11 +26,11 @@ const classes = {
         {
             'p-disabled': instance.$disabled(),
             'p-variant-filled': instance.$variant() === 'filled',
-            'p-focus': instance.focused,
+            'p-focus': instance.focused(),
             'p-invalid': instance.invalid(),
             'p-inputwrapper-filled': instance.$filled(),
-            'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
-            'p-select-open': instance.overlayVisible,
+            'p-inputwrapper-focus': instance.focused() || instance.overlayVisible(),
+            'p-select-open': instance.overlayVisible(),
             'p-select-fluid': instance.hasFluid,
             'p-select-sm p-inputfield-sm': instance.size() === 'small',
             'p-select-lg p-inputfield-lg': instance.size() === 'large'
@@ -40,7 +40,7 @@ const classes = {
         'p-select-label',
         {
             'p-placeholder': instance.placeholder() && instance.label() === instance.placeholder(),
-            'p-select-label-empty': !instance.editable && !instance.selectedItemTemplate && (instance.label() === undefined || instance.label() === null || instance.label() === 'p-emptylabel' || instance.label().length === 0)
+            'p-select-label-empty': !instance.editable() && !instance.selectedItemTemplate() && (instance.label() === undefined || instance.label() === null || instance.label() === 'p-emptylabel' || instance.label().length === 0)
         }
     ],
     clearIcon: 'p-select-clear-icon',
@@ -57,9 +57,9 @@ const classes = {
     option: ({ instance }) => [
         'p-select-option',
         {
-            'p-select-option-selected': instance.selected && !instance.checkmark,
-            'p-disabled': instance.disabled,
-            'p-focus': instance.focused
+            'p-select-option-selected': instance.selected() && !instance.checkmark(),
+            'p-disabled': instance.disabled(),
+            'p-focus': instance.focused()
         }
     ],
     optionLabel: 'p-select-option-label',
