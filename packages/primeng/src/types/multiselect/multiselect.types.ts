@@ -7,6 +7,11 @@ import type { InputIconPassThrough } from 'primeng/types/inputicon';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
 
 /**
+ * Defines the display mode of multiselect.
+ */
+export type MultiSelectDisplay = 'comma' | 'chip';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  * @see {@link MultiSelect.pt}
@@ -227,6 +232,44 @@ export interface MultiSelectRemoveEvent {
      * Removed value.
      */
     removed: unknown;
+}
+
+/**
+ * Custom item click event.
+ * @group Events
+ */
+export interface MultiSelectItemClickEvent<T = any> {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Selected option.
+     */
+    option: T;
+    /**
+     * Whether the option is selected.
+     */
+    selected: boolean;
+}
+
+/**
+ * Custom item mouse enter event.
+ * @group Events
+ */
+export interface MultiSelectItemMouseEnterEvent<T = any> {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Hovered option.
+     */
+    option: T;
+    /**
+     * Whether the option is selected.
+     */
+    selected: boolean;
 }
 
 /**
