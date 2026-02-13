@@ -21,7 +21,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { findIndexInList, setAttribute, uuid } from '@primeuix/utils';
-import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { FilterMatchModeType, FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ButtonModule, ButtonProps } from 'primeng/button';
@@ -250,7 +250,7 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
      * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
+    @Input() filterMatchMode: FilterMatchModeType = 'contains';
 
     /**
      * Indicates the width of the screen at which the component should change its behavior.

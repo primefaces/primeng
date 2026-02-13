@@ -20,3 +20,29 @@ export class FilterMatchMode {
     public static readonly DATE_BEFORE = 'dateBefore';
     public static readonly DATE_AFTER = 'dateAfter';
 }
+
+/**
+ * Defines the filter match mode type.
+ * @group Types
+ */
+export type FilterMatchModeType =
+    | 'startsWith'
+    | 'contains'
+    | 'notContains'
+    | 'endsWith'
+    | 'equals'
+    | 'notEquals'
+    | 'in'
+    | 'between'
+    | 'lt'
+    | 'lte'
+    | 'gt'
+    | 'gte'
+    | 'is'
+    | 'isNot'
+    | 'before'
+    | 'after'
+    | 'dateIs'
+    | 'dateIsNot'
+    | 'dateBefore'
+    | 'dateAfter';

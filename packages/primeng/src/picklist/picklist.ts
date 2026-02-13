@@ -22,7 +22,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { find, findIndexInList, isEmpty, setAttribute, uuid } from '@primeuix/utils';
-import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { FilterMatchModeType, FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ButtonModule, ButtonProps } from 'primeng/button';
@@ -637,7 +637,7 @@ export class PickList extends BaseComponent {
      * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' | string = 'contains';
+    @Input() filterMatchMode: FilterMatchModeType = 'contains';
     /**
      * Whether to displays rows with alternating colors.
      * @group Props

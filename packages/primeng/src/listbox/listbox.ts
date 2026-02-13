@@ -23,7 +23,7 @@ import {
 } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
-import { FilterService, Footer, Header, ScrollerOptions, SharedModule } from 'primeng/api';
+import { FilterMatchModeType, FilterService, Footer, Header, ScrollerOptions, SharedModule } from 'primeng/api';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Bind, BindModule } from 'primeng/bind';
@@ -499,7 +499,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * Defines how the items are filtered.
      * @group Props
      */
-    filterMatchMode = input<string>('contains');
+    filterMatchMode = input<FilterMatchModeType>('contains');
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
