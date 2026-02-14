@@ -397,6 +397,13 @@ export class Overlay extends BaseComponent {
 
     _options: OverlayOptions | undefined;
 
+    /**
+     * The last target element position to align the overlay when the target moves and appendTo is 'body'.
+     */
+    private lastTargetPosition: { top: number; left: number } | null = { top: 0, left: 0 };
+    private mutationObserver: MutationObserver | null = null;
+    private checkMovementTimeout: any = null;
+
     modalVisible: boolean = false;
 
     isOverlayClicked: boolean = false;
@@ -414,8 +421,6 @@ export class Overlay extends BaseComponent {
     bindDirectiveInstance = inject(Bind, { self: true });
 
     private documentKeyboardListener: VoidListener;
-
-    private window: Window | null;
 
     protected transformOptions: any = {
         default: 'scaleY(0.8)',
@@ -540,7 +545,7 @@ export class Overlay extends BaseComponent {
         this.appendOverlay();
         this.alignOverlay();
         this.setZIndex();
-
+        this.saveTargetPosition();
         this.handleEvents('onBeforeEnter', event);
     }
 
@@ -613,6 +618,7 @@ export class Overlay extends BaseComponent {
         this.bindDocumentClickListener();
         this.bindDocumentResizeListener();
         this.bindDocumentKeyboardListener();
+        this.bindMutationObserver();
     }
 
     unbindListeners() {
@@ -620,6 +626,7 @@ export class Overlay extends BaseComponent {
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.unbindDocumentKeyboardListener();
+        this.unbindMutationObserver();
     }
 
     bindScrollListener() {
@@ -703,6 +710,61 @@ export class Overlay extends BaseComponent {
         if (this.documentKeyboardListener) {
             this.documentKeyboardListener();
             this.documentKeyboardListener = null;
+        }
+    }
+
+    private saveTargetPosition() {
+        if (this.$appendTo() !== 'body') {
+            return;
+        }
+
+        this.lastTargetPosition = this.getTargetPosition();
+    }
+
+    private getTargetPosition() {
+        const rect = (this.targetEl as Element)?.getBoundingClientRect();
+
+        return rect ? { top: Math.round(rect.top), left: Math.round(rect.left) } : null;
+    }
+
+    bindMutationObserver() {
+        if (this.mutationObserver === null && this.$appendTo() === 'body' && typeof MutationObserver !== 'undefined') {
+            this.mutationObserver = new MutationObserver(() => this.checkTargetMovement());
+            this.mutationObserver.observe(this.document.body, { childList: true, attributes: true, subtree: true });
+        }
+    }
+
+    unbindMutationObserver() {
+        this.mutationObserver?.disconnect();
+        this.mutationObserver = null;
+
+        if (this.checkMovementTimeout) {
+            clearTimeout(this.checkMovementTimeout);
+            this.checkMovementTimeout = null;
+        }
+    }
+
+    private checkTargetMovement() {
+        if (this.visible) {
+            const pos = this.getTargetPosition();
+
+            if (!pos) {
+                return;
+            }
+
+            if (!this.lastTargetPosition || this.lastTargetPosition.top !== pos.top || this.lastTargetPosition.left !== pos.left) {
+                this.lastTargetPosition = pos;
+                this.alignOverlay();
+
+                if (this.checkMovementTimeout) {
+                    clearTimeout(this.checkMovementTimeout);
+                }
+
+                this.checkMovementTimeout = setTimeout(() => {
+                    this.checkMovementTimeout = null;
+                    this.checkTargetMovement();
+                }, 100);
+            }
         }
     }
 
