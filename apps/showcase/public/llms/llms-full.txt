@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2026-02-03
+Generated: 2026-02-14
 
 ---
 
@@ -24623,27 +24623,31 @@ export class MultiselectTemplatedrivenformsDemo {
 
 ## VirtualScroll
 
-VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item.
+VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item. Enable lazy to load data from a backend on demand.
 
 **Example:**
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectItem } from 'primeng/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
             <p-multiselect
-                [options]="items"
+                [options]="items()"
                 [showToggleAll]="true"
                 [selectAll]="selectAll"
                 [(ngModel)]="selectedItems"
                 optionLabel="label"
                 [virtualScroll]="true"
                 [virtualScrollItemSize]="43"
-                placeholder="Select Cities"
+                [lazy]="true"
+                (onLazyLoad)="onLazyLoad($event)"
+                [loading]="loading()"
+                placeholder="Select Items"
                 (onSelectAllChange)="onSelectAllChange($event)"
                 [maxSelectedLabels]="3"
                 class="w-full md:w-80"
@@ -24660,9 +24664,50 @@ import { MultiSelectModule } from 'primeng/multiselect';
     imports: [MultiSelectModule, FormsModule]
 })
 export class MultiselectVirtualscrollDemo {
-    items: any = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }));
+    backendItems: SelectItem[] = Array.from({ length: 10000 }, (_, i) => ({ label: `Item #${i}`, value: i }));
+    items = signal<SelectItem[] | null>(null);
     selectedItems!: any[];
     selectAll: boolean = false;
+    loading = signal<boolean>(false);
+    loadLazyTimeout: any = null;
+    currentFilter: string | null = null;
+
+    onLazyLoad(event) {
+        this.loading.set(true);
+        
+        if (this.loadLazyTimeout) {
+            clearTimeout(this.loadLazyTimeout);
+        }
+        
+        //imitate delay of a backend call
+        this.loadLazyTimeout = setTimeout(
+            () => {
+                let { first, last, filter } = event;
+        
+                // Reset items when filter changes
+                if (filter !== this.currentFilter) {
+                    this.currentFilter = filter;
+                    this.items.set(null);
+                }
+        
+                // Simulate backend filtering
+                const filteredBackendItems = filter ? this.backendItems.filter((item) => item.label.toLowerCase().includes(filter.toLowerCase())) : this.backendItems;
+        
+                // Create sparse array with correct size if null, otherwise copy existing
+                const items = this.items() ? [...this.items()] : (Array.from({ length: filteredBackendItems.length }) as SelectItem[]);
+        
+                // Populate only the requested range
+                const slice = filteredBackendItems.slice(first, last);
+                for (let i = 0; i < slice.length; i++) {
+                    items[first + i] = slice[i];
+                }
+        
+                this.items.set(items);
+                this.loading.set(false);
+            },
+            Math.random() * 1000 + 250
+        );
+    }
 
     onSelectAllChange(event) {
         this.selectedItems = event.checked ? [...this.ms.visibleOptions()] : [];
@@ -24741,6 +24786,7 @@ MultiSelect is used to select multiple items from a collection.
 | placeholder | Signal<string> | - | Label to display when there are no selections. |
 | options | any[] | - | An array of objects to display as the available options. |
 | filterValue | string | - | When specified, filter displays with this value. |
+| lazySelectedOptions |  | - | Selected options to display when using lazy loading. Used to keep a reference of selected options when they are not present in the current options list. |
 | selectAll | boolean | - | Whether all data is selected. |
 | focusOnHover | boolean | true | Indicates whether to focus on options when hovering over them, defaults to optionLabel. |
 | filterFields | any[] | - | Fields used when filtering the options, defaults to optionLabel. |
@@ -31077,7 +31123,7 @@ export class SelectInvalidDemo {
 **Example:**
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { SelectItem } from 'primeng/api';
@@ -31085,28 +31131,33 @@ import { SelectItem } from 'primeng/api';
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />
+            <p-select
+                [options]="items()"
+                [(ngModel)]="selectedItem"
+                placeholder="Select Item"
+                [filter]="true"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="32"
+                [lazy]="true"
+                (onLazyLoad)="onLazyLoad($event)"
+                [loading]="loading()"
+                class="w-full md:w-56"
+            />
         </div>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]
 })
 export class SelectLazyvirtualscrollDemo {
-    items: SelectItem[];
-    selectedItem: string | undefined;
-    loading: boolean = false;
+    backendItems: SelectItem[] = Array.from({ length: 10000 }, (_, i) => ({ label: `Item #${i}`, value: i }));
+    items = signal<SelectItem[] | null>(null);
+    selectedItem: SelectItem | undefined = this.backendItems[5000];
+    loading = signal<boolean>(false);
     loadLazyTimeout: any = null;
-    options: ScrollerOptions;
-
-    constructor() {
-        this.items = [];
-                for (let i = 0; i < 10000; i++) {
-                    this.items.push({ label: 'Item ' + i, value: 'Item ' + i });
-                }
-    }
+    currentFilter: string | null = null;
 
     onLazyLoad(event) {
-        this.loading = true;
+        this.loading.set(true);
         
         if (this.loadLazyTimeout) {
             clearTimeout(this.loadLazyTimeout);
@@ -31115,15 +31166,28 @@ export class SelectLazyvirtualscrollDemo {
         //imitate delay of a backend call
         this.loadLazyTimeout = setTimeout(
             () => {
-                const { first, last } = event;
-                const items = [...this.items];
+                let { first, last, filter } = event;
         
-                for (let i = first; i < last; i++) {
-                    items[i] = { label: `Item #${i}`, value: i };
+                // Reset items when filter changes
+                if (filter !== this.currentFilter) {
+                    this.currentFilter = filter;
+                    this.items.set(null);
                 }
         
-                this.items = items;
-                this.loading = false;
+                // Simulate backend filtering
+                const filteredBackendItems = filter ? this.backendItems.filter((item) => item.label.toLowerCase().includes(filter.toLowerCase())) : this.backendItems;
+        
+                // Create sparse array with correct size if null, otherwise copy existing
+                const items = this.items() ? [...this.items()] : (Array.from({ length: filteredBackendItems.length }) as SelectItem[]);
+        
+                // Populate only the requested range
+                const slice = filteredBackendItems.slice(first, last);
+                for (let i = 0; i < slice.length; i++) {
+                    items[first + i] = slice[i];
+                }
+        
+                this.items.set(items);
+                this.loading.set(false);
             },
             Math.random() * 1000 + 250
         );
