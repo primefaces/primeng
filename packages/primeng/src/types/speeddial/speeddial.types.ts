@@ -3,6 +3,18 @@ import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 
 /**
+ * Defines the direction of the SpeedDial.
+ * @group Types
+ */
+export type SpeedDialDirection = 'up' | 'down' | 'left' | 'right' | 'up-left' | 'up-right' | 'down-left' | 'down-right';
+
+/**
+ * Defines the type of the SpeedDial.
+ * @group Types
+ */
+export type SpeedDialType = 'linear' | 'circle' | 'semi-circle' | 'quarter-circle';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
