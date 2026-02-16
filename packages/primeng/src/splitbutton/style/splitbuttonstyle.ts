@@ -3,16 +3,19 @@ import { style } from '@primeuix/styles/splitbutton';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => [
-        'p-splitbutton p-component',
-        {
-            'p-splitbutton-raised': instance.raised,
-            'p-splitbutton-rounded': instance.rounded,
-            'p-splitbutton-outlined': instance.outlined,
-            'p-splitbutton-text': instance.text,
-            [`p-splitbutton-${instance.size === 'small' ? 'sm' : 'lg'}`]: instance.size
-        }
-    ],
+    root: ({ instance }) => {
+        const size = instance.size();
+        return [
+            'p-splitbutton p-component',
+            {
+                'p-splitbutton-raised': instance.raised(),
+                'p-splitbutton-rounded': instance.rounded(),
+                'p-splitbutton-outlined': instance.outlined(),
+                'p-splitbutton-text': instance.text(),
+                [`p-splitbutton-${size === 'small' ? 'sm' : 'lg'}`]: size
+            }
+        ];
+    },
     pcButton: 'p-splitbutton-button',
     pcDropdown: 'p-splitbutton-dropdown p-button-icon-only'
 };

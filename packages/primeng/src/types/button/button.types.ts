@@ -125,3 +125,5 @@ export interface ButtonProps {
 }
 
 export type ButtonSeverity = 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+
+export type ButtonSize = 'small' | 'large';

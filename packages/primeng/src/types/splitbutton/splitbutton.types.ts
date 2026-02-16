@@ -2,6 +2,13 @@ import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import { MenuPassThrough } from 'primeng/types/menu';
+import type { CSSProperties } from 'primeng/types/shared';
+
+/**
+ * Defines the icon position of the SplitButton.
+ * @group Types
+ */
+export type SplitButtonIconPosition = 'left' | 'right';
 
 /**
  * Custom pass-through(pt) options.
@@ -67,4 +74,15 @@ export interface MenuButtonProps {
     ariaHasPopup?: boolean;
     ariaExpanded?: boolean;
     ariaControls?: string;
+}
+
+/**
+ * Defines valid properties in SplitButton component.
+ * @group Properties
+ */
+export interface SplitButtonProps {
+    /**
+     * Inline style of the overlay menu.
+     */
+    menuStyle?: CSSProperties;
 }
