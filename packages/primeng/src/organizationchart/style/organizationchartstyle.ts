@@ -3,12 +3,13 @@ import { style } from '@primeuix/styles/organizationchart';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-organizationchart p-component', { 'p-organizationchart-preservespace': instance.preserveSpace }],
+    root: 'p-organizationchart p-component',
     table: 'p-organizationchart-table',
-    node: ({ instance }) => [
-        'p-organizationchart-node',
-        { 'p-organizationchart-node': true, 'p-organizationchart-node-selectable': instance.chart.selectionMode && instance.node.selectable !== false, 'p-organizationchart-node-selected': instance.isSelected() }
-    ],
+    node: ({ instance }) => {
+        const selectionMode = instance.chart.selectionMode();
+        const node = instance.node();
+        return ['p-organizationchart-node', { 'p-organizationchart-node': true, 'p-organizationchart-node-selectable': selectionMode && node?.selectable !== false, 'p-organizationchart-node-selected': instance.isSelected() }];
+    },
     nodeToggleButton: 'p-organizationchart-node-toggle-button',
     nodeToggleButtonIcon: 'p-organizationchart-node-toggle-button-icon',
     connectors: 'p-organizationchart-connectors',

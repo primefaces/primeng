@@ -14,14 +14,18 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         >
         <div class="card overflow-x-auto">
             <p-organization-chart [value]="data" [collapsible]="true">
-                <ng-template let-node pTemplate="person">
-                    <div class="flex flex-col">
-                        <div class="flex flex-col items-center">
-                            <img [src]="node.data.image" class="mb-4 w-12 h-12" />
-                            <span class="font-bold mb-2">{{ node.data.name }}</span>
-                            <span>{{ node.data.title }}</span>
+                <ng-template #node let-node>
+                    @if (node.type === 'person') {
+                        <div class="flex flex-col">
+                            <div class="flex flex-col items-center">
+                                <img [src]="node.data.image" class="mb-4 w-12 h-12" />
+                                <span class="font-bold mb-2">{{ node.data.name }}</span>
+                                <span>{{ node.data.title }}</span>
+                            </div>
                         </div>
-                    </div>
+                    } @else {
+                        <div>{{ node.label }}</div>
+                    }
                 </ng-template>
             </p-organization-chart>
         </div>

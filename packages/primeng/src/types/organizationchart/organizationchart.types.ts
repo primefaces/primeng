@@ -3,6 +3,11 @@ import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TreeNode } from 'primeng/api';
 
 /**
+ * Defines the selection mode.
+ */
+export type OrganizationChartSelectionMode = 'single' | 'multiple';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
@@ -121,6 +126,16 @@ export interface OrganizationChartNodeCollapseEvent extends OrganizationChartNod
  * @group Templates
  */
 export interface OrganizationChartTemplates {
+    /**
+     * Custom node template.
+     * @param {Object} context - node data.
+     */
+    node(context: {
+        /**
+         * Node instance.
+         */
+        $implicit: TreeNode;
+    }): TemplateRef<{ $implicit: TreeNode }>;
     /**
      * Custom toggler icon template.
      * @param {Object} context - item data.

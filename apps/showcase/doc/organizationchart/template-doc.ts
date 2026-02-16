@@ -10,11 +10,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     imports: [OrganizationChartModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>Custom content instead of a node <i>label</i> is defined using the <i>pTemplate</i> property.</p>
+            <p>Custom content instead of a node <i>label</i> is defined using the <i>#node</i> template reference.</p>
         </app-docsectiontext>
         <div class="card overflow-x-auto">
             <p-organization-chart [value]="data" [collapsible]="true">
-                <ng-template let-node pTemplate="default">
+                <ng-template #node let-node>
                     <div class="flex flex-col items-center">
                         <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
                         <div class="mt-4 font-medium text-lg">{{ node.label }}</div>
