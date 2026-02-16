@@ -290,14 +290,15 @@ export class ButtonDirective extends BaseComponent {
 
     getStyleClass(): string[] {
         const styleClass: string[] = [INTERNAL_BUTTON_CLASSES.button, INTERNAL_BUTTON_CLASSES.component];
-        const loading = this.loading();
-        const text = this.text();
-        const severity = this.severity();
-        const plain = this.plain();
-        const raised = this.raised();
-        const size = this.size();
-        const outlined = this.outlined();
-        const rounded = this.rounded();
+        const props = this.buttonProps();
+        const loading = this.loading() || props?.loading;
+        const text = this.text() || props?.text;
+        const severity = this.severity() || props?.severity;
+        const plain = this.plain() || props?.plain;
+        const raised = this.raised() || props?.raised;
+        const size = this.size() || props?.size;
+        const outlined = this.outlined() || props?.outlined;
+        const rounded = this.rounded() || props?.rounded;
 
         if (loading) {
             styleClass.push(INTERNAL_BUTTON_CLASSES.disabled, INTERNAL_BUTTON_CLASSES.loading);
