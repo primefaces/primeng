@@ -1,11 +1,9 @@
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ListboxModule } from 'primeng/listbox';
 import { RippleModule } from 'primeng/ripple';
@@ -49,7 +47,7 @@ interface Product {
             [ariaLabel]="ariaLabel"
             [ariaLabelledBy]="ariaLabelledBy"
             [ariaFilterLabel]="ariaFilterLabel"
-            [styleClass]="styleClass"
+            [class]="styleClass"
             [buttonProps]="buttonProps"
             [moveUpButtonProps]="moveUpButtonProps"
             [moveTopButtonProps]="moveTopButtonProps"
@@ -62,7 +60,7 @@ interface Product {
             (onFocus)="onFocus($event)"
             (onBlur)="onBlur($event)"
         >
-            <ng-template pTemplate="item" let-product let-index="index">
+            <ng-template #item let-product let-index="index">
                 <div class="product-item" [attr.data-index]="index">
                     <div class="product-name">{{ product.name }}</div>
                     <div class="product-category">{{ product.category }}</div>
@@ -163,23 +161,23 @@ class TestBasicOrderListComponent {
                 <div class="custom-empty-filter">No items found</div>
             </ng-template>
 
-            <ng-template pTemplate="moveupicon">
+            <ng-template #moveupicon>
                 <i class="pi pi-arrow-up custom-move-up"></i>
             </ng-template>
 
-            <ng-template pTemplate="movetopicon">
+            <ng-template #movetopicon>
                 <i class="pi pi-angle-double-up custom-move-top"></i>
             </ng-template>
 
-            <ng-template pTemplate="movedownicon">
+            <ng-template #movedownicon>
                 <i class="pi pi-arrow-down custom-move-down"></i>
             </ng-template>
 
-            <ng-template pTemplate="movebottomicon">
+            <ng-template #movebottomicon>
                 <i class="pi pi-angle-double-down custom-move-bottom"></i>
             </ng-template>
 
-            <ng-template pTemplate="filtericon">
+            <ng-template #filtericon>
                 <i class="pi pi-search custom-filter"></i>
             </ng-template>
         </p-orderlist>
@@ -196,10 +194,10 @@ class TestTemplatesOrderListComponent {
     standalone: false,
     template: `
         <p-orderlist [value]="[]" [filterBy]="'name'">
-            <ng-template pTemplate="empty">
+            <ng-template #empty>
                 <div class="empty-template">No products available</div>
             </ng-template>
-            <ng-template pTemplate="emptyfilter">
+            <ng-template #emptyfilter>
                 <div class="empty-filter-template">No filtered products</div>
             </ng-template>
         </p-orderlist>
@@ -211,7 +209,7 @@ class TestEmptyTemplatesOrderListComponent {}
     standalone: false,
     template: `
         <p-orderlist [value]="products" [dragdrop]="true" [selection]="selection" [(ngModel)]="selection">
-            <ng-template pTemplate="item" let-product>
+            <ng-template #item let-product>
                 <div class="drag-item">{{ product.name }}</div>
             </ng-template>
         </p-orderlist>
@@ -230,7 +228,7 @@ class TestDragDropOrderListComponent {
     standalone: false,
     template: `
         <p-orderlist [value]="products" [filterBy]="'name,category'" filterPlaceholder="Filter products">
-            <ng-template pTemplate="item" let-product>
+            <ng-template #item let-product>
                 <div class="filter-item">{{ product.name }} - {{ product.category }}</div>
             </ng-template>
         </p-orderlist>
@@ -244,57 +242,57 @@ class TestFilterOrderListComponent {
     ];
 }
 
-// Comprehensive template testing component for pTemplate approach
+// Comprehensive template testing component
 @Component({
     standalone: false,
     template: `
         <p-orderlist [value]="products" [selection]="selection" [filterBy]="filterBy">
             <!-- Item template with full context -->
-            <ng-template pTemplate="item" let-product let-selected="selected" let-index="index">
+            <ng-template #item let-product let-selected="selected" let-index="index">
                 <div class="custom-item-template">Item: {{ product.name }} | Index: {{ index }} | Selected: {{ selected }}</div>
             </ng-template>
 
             <!-- Header template -->
-            <ng-template pTemplate="header">
-                <div class="custom-header-template">Custom OrderList Header with pTemplate</div>
+            <ng-template #header>
+                <div class="custom-header-template">Custom OrderList Header</div>
             </ng-template>
 
             <!-- Empty message template -->
-            <ng-template pTemplate="empty">
-                <div class="custom-empty-template">No items available - pTemplate</div>
+            <ng-template #empty>
+                <div class="custom-empty-template">No items available</div>
             </ng-template>
 
             <!-- Empty filter message template -->
-            <ng-template pTemplate="emptyfilter">
-                <div class="custom-empty-filter-template">No filtered items found - pTemplate</div>
+            <ng-template #emptyfilter>
+                <div class="custom-empty-filter-template">No filtered items found</div>
             </ng-template>
 
             <!-- Filter template -->
-            <ng-template pTemplate="filter">
+            <ng-template #filter>
                 <div class="custom-filter-template">
                     <input type="text" placeholder="Search products..." />
                 </div>
             </ng-template>
 
             <!-- Move icon templates -->
-            <ng-template pTemplate="moveupicon">
+            <ng-template #moveupicon>
                 <span class="custom-move-up-icon">UP</span>
             </ng-template>
 
-            <ng-template pTemplate="movetopicon">
+            <ng-template #movetopicon>
                 <span class="custom-move-top-icon">TOP</span>
             </ng-template>
 
-            <ng-template pTemplate="movedownicon">
+            <ng-template #movedownicon>
                 <span class="custom-move-down-icon">DOWN</span>
             </ng-template>
 
-            <ng-template pTemplate="movebottomicon">
+            <ng-template #movebottomicon>
                 <span class="custom-move-bottom-icon">BOTTOM</span>
             </ng-template>
 
             <!-- Filter icon template -->
-            <ng-template pTemplate="filtericon">
+            <ng-template #filtericon>
                 <span class="custom-filter-icon">SEARCH</span>
             </ng-template>
         </p-orderlist>
@@ -311,12 +309,11 @@ class TestComprehensiveTemplatesOrderListComponent {
     filterBy: string | undefined;
 }
 
-// ContentChild template testing component for #template approach
+// ContentChild template testing component
 @Component({
     standalone: false,
     template: `
         <p-orderlist [value]="products" [selection]="selection" [filterBy]="filterBy">
-            <!-- ContentChild templates using #template references -->
             <ng-template #item let-product let-selected="selected" let-index="index">
                 <div class="contentchild-item-template">ContentChild Item: {{ product.name }} | Index: {{ index }} | Selected: {{ selected }}</div>
             </ng-template>
@@ -379,7 +376,7 @@ describe('OrderList', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, SharedModule, OrderList],
+            imports: [FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, OrderList],
             providers: [provideNoopAnimations(), provideZonelessChangeDetection()],
             declarations: [
                 TestBasicOrderListComponent,
@@ -405,16 +402,16 @@ describe('OrderList', () => {
         });
 
         it('should have default values', () => {
-            expect(orderList.controlsPosition).toBe('left');
-            expect(orderList.metaKeySelection).toBe(false);
-            expect(orderList.dragdrop).toBe(false);
-            expect(orderList.breakpoint).toBe('960px');
-            expect(orderList.filterMatchMode).toBe('contains');
-            expect(orderList.scrollHeight).toBe('14rem');
-            expect(orderList.autoOptionFocus).toBe(true);
-            expect(orderList.stripedRows).toBeFalsy();
-            expect(orderList.disabled).toBe(false);
-            expect(orderList.responsive).toBeFalsy();
+            expect(orderList.controlsPosition()).toBe('left');
+            expect(orderList.metaKeySelection()).toBe(false);
+            expect(orderList.dragdrop()).toBe(false);
+            expect(orderList.breakpoint()).toBe('960px');
+            expect(orderList.filterMatchMode()).toBe('contains');
+            expect(orderList.scrollHeight()).toBe('14rem');
+            expect(orderList.autoOptionFocus()).toBe(true);
+            expect(orderList.stripedRows()).toBeFalsy();
+            expect(orderList.disabled()).toBe(false);
+            expect(orderList.responsive()).toBeFalsy();
         });
 
         it('should accept custom values', async () => {
@@ -428,22 +425,22 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.header).toBe('Custom Header');
-            expect(orderList.responsive).toBe(true);
-            expect(orderList.stripedRows).toBe(true);
-            expect(orderList.metaKeySelection).toBe(true);
-            expect(orderList.dragdrop).toBe(true);
-            expect(orderList.controlsPosition).toBe('right');
-            expect(orderList.filterBy).toBe('name');
+            expect(orderList.header()).toBe('Custom Header');
+            expect(orderList.responsive()).toBe(true);
+            expect(orderList.stripedRows()).toBe(true);
+            expect(orderList.metaKeySelection()).toBe(true);
+            expect(orderList.dragdrop()).toBe(true);
+            expect(orderList.controlsPosition()).toBe('right');
+            expect(orderList.filterBy()).toBe('name');
         });
 
         it('should initialize with provided value', () => {
-            expect(orderList.value).toEqual(component.products);
-            expect(orderList.value?.length).toBe(5);
+            expect(orderList.value()).toEqual(component.products);
+            expect(orderList.value()?.length).toBe(5);
         });
 
         it('should initialize selection as empty array', () => {
-            expect(orderList.selection).toEqual([]);
+            expect(orderList.selection()).toEqual([]);
             expect(orderList.d_selection).toEqual([]);
         });
 
@@ -612,34 +609,31 @@ describe('OrderList', () => {
             component.selection = [];
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            expect(orderList.moveDisabled()).toBe(true); // No selection
+            expect(orderList.$moveDisabled()).toBe(true); // No selection
 
             component.selection = [component.products[0]];
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            expect(orderList.moveDisabled()).toBeFalsy(); // Has selection
+            expect(orderList.$moveDisabled()).toBeFalsy(); // Has selection
 
             component.disabled = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            expect(orderList.moveDisabled()).toBe(true); // Disabled
+            expect(orderList.$moveDisabled()).toBe(true); // Disabled
         });
 
         it('should get button props for different directions', () => {
-            const upProps = orderList.getButtonProps('up');
+            const upProps = orderList.upButtonProps();
             expect(upProps.severity).toBe('secondary');
 
-            const topProps = orderList.getButtonProps('top');
+            const topProps = orderList.topButtonProps();
             expect(topProps.severity).toBe('secondary');
 
-            const downProps = orderList.getButtonProps('down');
+            const downProps = orderList.downButtonProps();
             expect(downProps.severity).toBe('secondary');
 
-            const bottomProps = orderList.getButtonProps('bottom');
+            const bottomProps = orderList.bottomButtonProps();
             expect(bottomProps.severity).toBe('secondary');
-
-            const defaultProps = orderList.getButtonProps('unknown');
-            expect(defaultProps.severity).toBe('secondary');
         });
 
         it('should reset filter', async () => {
@@ -647,11 +641,11 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            orderList.filterValue = 'test';
+            orderList.filterValue.set('test');
             orderList.resetFilter();
             await fixture.whenStable();
 
-            expect(orderList.filterValue).toBe('');
+            expect(orderList.filterValue()).toBe('');
         });
 
         it('should check if item is visible', async () => {
@@ -663,7 +657,7 @@ describe('OrderList', () => {
             expect(orderList.isItemVisible(component.products[0])).toBe(true);
 
             // With filter
-            orderList.filterValue = 'Product A';
+            orderList.filterValue.set('Product A');
             orderList.filter();
             await fixture.whenStable();
 
@@ -729,7 +723,7 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             expect(component.onFilterEvent).toHaveBeenCalled();
-            expect(orderList.filterValue).toBe('product a');
+            expect(orderList.filterValue()).toBe('product a');
         });
 
         it('should emit onFocus event', () => {
@@ -781,13 +775,13 @@ describe('OrderList', () => {
             expect(emptyTemplate.nativeElement.textContent).toBe('No products available');
         });
 
-        it('should process PrimeTemplate directives correctly', () => {
+        it('should have icon templates set', () => {
             const templateFixture = TestBed.createComponent(TestTemplatesOrderListComponent);
             const templateOrderList = templateFixture.debugElement.query(By.directive(OrderList)).componentInstance;
             templateFixture.detectChanges();
 
-            // After ngAfterContentInit, some templates should be set
-            const hasIconTemplates = templateOrderList._moveUpIconTemplate || templateOrderList._moveTopIconTemplate || templateOrderList._moveDownIconTemplate || templateOrderList._moveBottomIconTemplate || templateOrderList._filterIconTemplate;
+            const hasIconTemplates =
+                templateOrderList.moveUpIconTemplate() || templateOrderList.moveTopIconTemplate() || templateOrderList.moveDownIconTemplate() || templateOrderList.moveBottomIconTemplate() || templateOrderList.filterIconTemplate();
             expect(hasIconTemplates).toBeTruthy();
         });
 
@@ -796,8 +790,7 @@ describe('OrderList', () => {
             const templateOrderList = templateFixture.debugElement.query(By.directive(OrderList)).componentInstance;
             templateFixture.detectChanges();
 
-            // ContentChild templates should be populated for template references
-            const hasContentChildTemplates = templateOrderList.headerTemplate || templateOrderList.itemTemplate || templateOrderList.emptyMessageTemplate || templateOrderList.emptyFilterMessageTemplate;
+            const hasContentChildTemplates = templateOrderList.headerTemplate() || templateOrderList.itemTemplate() || templateOrderList.emptyMessageTemplate() || templateOrderList.emptyFilterMessageTemplate();
             expect(hasContentChildTemplates).toBeTruthy();
         });
     });
@@ -921,7 +914,7 @@ describe('OrderList', () => {
             component.dragdrop = true;
             fixture.detectChanges();
 
-            expect(orderList.dragdrop).toBe(true);
+            expect(orderList.dragdrop()).toBe(true);
         });
 
         it('should handle drop event', () => {
@@ -1016,10 +1009,6 @@ describe('OrderList', () => {
                 orderList.onDrop(dragDropEvent);
 
                 // All selected items should move together
-                // Original: [Product A, Product B, Product C, Product D, Product E] - select A & C, drag A to position 1
-                // itemsBefore = 1 (only A is before position 1), targetIndex = 1 - 1 = 0
-                // After removal: [Product B, Product D, Product E]
-                // Insert at position 0: [Product A, Product C, Product B, Product D, Product E]
                 expect(component.products[0]).toEqual(originalOrder[0]); // Product A moved to position 0
                 expect(component.products[1]).toEqual(originalOrder[2]); // Product C moved to position 1
                 expect(component.products[2]).toEqual(originalOrder[1]); // Product B moved to position 2
@@ -1104,10 +1093,6 @@ describe('OrderList', () => {
                 orderList.onDrop(dragDropEvent);
 
                 // Selected items should move together maintaining their relative order
-                // Original: [Product A, Product B, Product C, Product D, Product E] - select A, C, D, drag A to position 1
-                // itemsBefore = 1 (only A is before position 1), targetIndex = 1 - 1 = 0
-                // After removal: [Product B, Product E]
-                // Insert at position 0: [Product A, Product C, Product D, Product B, Product E]
                 expect(component.products[0]).toEqual(originalOrder[0]); // Product A moved to position 0
                 expect(component.products[1]).toEqual(originalOrder[2]); // Product C moved to position 1
                 expect(component.products[2]).toEqual(originalOrder[3]); // Product D moved to position 2
@@ -1125,12 +1110,12 @@ describe('OrderList', () => {
         });
 
         it('should filter items based on filter value', () => {
-            orderList.filterValue = 'product a';
+            orderList.filterValue.set('product a');
             orderList.filter();
 
-            expect(orderList.visibleOptions).toBeTruthy();
-            expect(orderList.visibleOptions?.length).toBe(1);
-            expect(orderList.visibleOptions?.[0].name).toBe('Product A');
+            expect(orderList.visibleOptions()).toBeTruthy();
+            expect(orderList.visibleOptions()?.length).toBe(1);
+            expect(orderList.visibleOptions()?.[0].name).toBe('Product A');
         });
 
         it('should filter items on keyup event', async () => {
@@ -1147,24 +1132,24 @@ describe('OrderList', () => {
             filterOrderList.onFilterKeyup(event);
             await filterFixture.whenStable();
 
-            expect(filterOrderList.filterValue).toBe('electronics');
-            expect(filterOrderList.visibleOptions?.length).toBe(2);
+            expect(filterOrderList.filterValue()).toBe('electronics');
+            expect(filterOrderList.visibleOptions()?.length).toBe(2);
         });
 
         it('should reset filter correctly', () => {
-            orderList.filterValue = 'test';
+            orderList.filterValue.set('test');
             orderList.resetFilter();
             fixture.detectChanges();
 
-            expect(orderList.filterValue).toBe('');
+            expect(orderList.filterValue()).toBe('');
         });
 
         it('should handle empty filter results', () => {
-            orderList.filterValue = 'nonexistent';
+            orderList.filterValue.set('nonexistent');
             orderList.filter();
 
-            expect(orderList.visibleOptions).toBeTruthy();
-            expect(orderList.visibleOptions?.length).toBe(0);
+            expect(orderList.visibleOptions()).toBeTruthy();
+            expect(orderList.visibleOptions()?.length).toBe(0);
             expect(orderList.isEmpty()).toBe(true);
         });
 
@@ -1173,10 +1158,10 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            orderList.filterValue = 'product';
+            orderList.filterValue.set('product');
             orderList.filter();
 
-            expect(orderList.visibleOptions?.length).toBe(5); // All products start with "Product"
+            expect(orderList.visibleOptions()?.length).toBe(5); // All products start with "Product"
         });
 
         it('should handle filter with locale', async () => {
@@ -1184,10 +1169,10 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            orderList.filterValue = 'PRODUCT';
+            orderList.filterValue.set('PRODUCT');
             orderList.filter();
 
-            expect(orderList.visibleOptions?.length).toBe(5);
+            expect(orderList.visibleOptions()?.length).toBe(5);
         });
     });
 
@@ -1210,12 +1195,14 @@ describe('OrderList', () => {
             expect(orderList.isSelected(component.products[2])).toBe(true);
         });
 
-        it('should update selection through setter', () => {
+        it('should update selection through model', async () => {
             const newSelection = [component.products[1], component.products[3]];
-            orderList.selection = newSelection;
+            component.selection = newSelection;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(orderList.d_selection).toEqual(newSelection);
-            expect(orderList.selection).toEqual(newSelection);
+            expect(orderList.selection()).toEqual(newSelection);
         });
 
         it('should handle meta key selection', async () => {
@@ -1223,7 +1210,7 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.metaKeySelection).toBe(true);
+            expect(orderList.metaKeySelection()).toBe(true);
         });
 
         it('should handle selection change events', async () => {
@@ -1252,16 +1239,16 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.ariaLabel).toBe('Product order list');
-            expect(orderList.ariaLabelledBy).toBe('header-id');
-            expect(orderList.ariaFilterLabel).toBe('Filter products');
+            expect(orderList.ariaLabel()).toBe('Product order list');
+            expect(orderList.ariaLabelledBy()).toBe('header-id');
+            expect(orderList.ariaFilterLabel()).toBe('Filter products');
         });
 
         it('should have move button ARIA labels', () => {
-            expect(orderList.moveUpAriaLabel).toBeTruthy();
-            expect(orderList.moveTopAriaLabel).toBeTruthy();
-            expect(orderList.moveDownAriaLabel).toBeTruthy();
-            expect(orderList.moveBottomAriaLabel).toBeTruthy();
+            expect(orderList.moveUpAriaLabel()).toBeTruthy();
+            expect(orderList.moveTopAriaLabel()).toBeTruthy();
+            expect(orderList.moveDownAriaLabel()).toBeTruthy();
+            expect(orderList.moveBottomAriaLabel()).toBeTruthy();
         });
 
         it('should handle tabindex', async () => {
@@ -1269,7 +1256,7 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.tabindex).toBe(5);
+            expect(orderList.tabindex()).toBe(5);
         });
 
         it('should handle autoOptionFocus', async () => {
@@ -1277,7 +1264,7 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.autoOptionFocus).toBe(false);
+            expect(orderList.autoOptionFocus()).toBe(false);
         });
 
         it('should handle focus and blur events', () => {
@@ -1350,7 +1337,7 @@ describe('OrderList', () => {
             const endTime = performance.now();
 
             expect(endTime - startTime).toBeLessThan(1000);
-            expect(orderList.value?.length).toBe(1000);
+            expect(orderList.value()?.length).toBe(1000);
         });
 
         it('should handle malformed data', () => {
@@ -1369,16 +1356,16 @@ describe('OrderList', () => {
 
             // Concurrent move and filter
             orderList.moveUp();
-            orderList.filterValue = 'Product';
+            orderList.filterValue.set('Product');
             orderList.filter();
             await fixture.whenStable();
 
-            expect(orderList.visibleOptions).toBeTruthy();
+            expect(orderList.visibleOptions()).toBeTruthy();
         });
     });
 
     describe('CSS Classes and Styling', () => {
-        it('should apply custom styleClass', async () => {
+        it('should apply custom class', async () => {
             component.styleClass = 'custom-orderlist-class';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1392,7 +1379,7 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.listStyle).toEqual({ height: '400px', border: '1px solid red' });
+            expect(orderList.listStyle()).toEqual({ height: '400px', border: '1px solid red' });
         });
 
         it('should handle responsive styling', async () => {
@@ -1401,8 +1388,8 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.responsive).toBe(true);
-            expect(orderList.breakpoint).toBe('768px');
+            expect(orderList.responsive()).toBe(true);
+            expect(orderList.breakpoint()).toBe('768px');
         });
 
         it('should apply striped rows', async () => {
@@ -1410,7 +1397,7 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.stripedRows).toBe(true);
+            expect(orderList.stripedRows()).toBe(true);
         });
 
         it('should handle controls position', async () => {
@@ -1418,7 +1405,7 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.controlsPosition).toBe('right');
+            expect(orderList.controlsPosition()).toBe('right');
         });
 
         it('should apply button styles', async () => {
@@ -1427,7 +1414,7 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const upButtonProps = orderList.getButtonProps('up');
+            const upButtonProps = orderList.upButtonProps();
             expect(upButtonProps).toEqual({ severity: 'primary', size: 'small' });
         });
     });
@@ -1448,7 +1435,7 @@ describe('OrderList', () => {
 
         it('should handle rapid selection changes', async () => {
             let changeCount = 0;
-            orderList.selectionChange.subscribe(() => changeCount++);
+            orderList.selection.subscribe(() => changeCount++);
 
             // Rapid selection changes
             for (let i = 0; i < 5; i++) {
@@ -1470,11 +1457,14 @@ describe('OrderList', () => {
             expect(orderList.filterService).toBeTruthy();
         });
 
-        it('should handle ngOnInit correctly', () => {
+        it('should handle ngOnInit correctly', async () => {
             spyOn(orderList, 'createStyle');
 
-            orderList.responsive = true;
-            orderList.filterBy = 'name';
+            component.responsive = true;
+            component.filterBy = 'name';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             orderList.ngOnInit();
 
             expect(orderList.createStyle).toHaveBeenCalled();
@@ -1491,8 +1481,10 @@ describe('OrderList', () => {
             expect(templateFixture.componentInstance.products.length).toBeGreaterThan(0);
         });
 
-        it('should destroy style on destroy', () => {
-            orderList.responsive = true;
+        it('should destroy style on destroy', async () => {
+            component.responsive = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             orderList.ngOnInit();
             orderList.createStyle();
 
@@ -1502,22 +1494,29 @@ describe('OrderList', () => {
             expect(orderList.destroyStyle).toHaveBeenCalled();
         });
 
-        it('should handle value changes', () => {
+        it('should handle value changes', async () => {
             const newProducts = [{ id: '10', code: 'P010', name: 'New Product', description: 'New Description', price: 1000, quantity: 1, inventoryStatus: 'INSTOCK', category: 'New Category' }];
 
-            orderList.value = newProducts;
+            component.products = newProducts;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(orderList._value).toEqual(newProducts);
+            expect(orderList.value()).toEqual(newProducts);
         });
 
-        it('should handle value changes with filter', () => {
-            orderList.filterBy = 'name';
-            orderList.filterValue = 'test';
+        it('should handle value changes with filter', async () => {
+            component.filterBy = 'name';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
+            orderList.filterValue.set('test');
             spyOn(orderList, 'filter');
 
             const newProducts = [{ id: '10', code: 'P010', name: 'Test Product', description: 'Test Description', price: 1000, quantity: 1, inventoryStatus: 'INSTOCK', category: 'Test Category' }];
 
-            orderList.value = newProducts;
+            component.products = newProducts;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(orderList.filter).toHaveBeenCalled();
         });
@@ -1526,17 +1525,18 @@ describe('OrderList', () => {
     describe('TrackBy Function', () => {
         it('should use default trackBy function', () => {
             const item = { id: '1', name: 'Test' };
-            const result = orderList.trackBy(0, item);
+            const result = orderList.trackBy()(0, item);
             expect(result).toBe(item.id);
         });
 
-        it('should use custom trackBy function', () => {
+        it('should use custom trackBy function', async () => {
             const customTrackBy = (_index: number, item: any) => item.code;
             component.trackBy = customTrackBy;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const item = { id: '1', code: 'TEST', name: 'Test' };
-            const result = orderList.trackBy(0, item);
+            const result = orderList.trackBy()(0, item);
             expect(result).toBe('TEST');
         });
     });
@@ -1553,25 +1553,25 @@ describe('OrderList', () => {
             comprehensiveFixture.detectChanges();
         });
 
-        describe('pTemplate Approach - All Template Elements', () => {
-            it('should create component with all pTemplate templates', () => {
+        describe('Template Tests - All Template Elements', () => {
+            it('should create component with all templates', () => {
                 expect(comprehensiveComponent).toBeTruthy();
                 expect(comprehensiveOrderList).toBeTruthy();
             });
 
-            it('should process all pTemplate templates in ngAfterContentInit', async () => {
+            it('should process all templates', async () => {
                 await comprehensiveFixture.whenStable();
 
-                expect(comprehensiveOrderList._itemTemplate).toBeDefined();
-                expect(comprehensiveOrderList._headerTemplate).toBeDefined();
-                expect(comprehensiveOrderList._emptyMessageTemplate).toBeDefined();
-                expect(comprehensiveOrderList._emptyFilterMessageTemplate).toBeDefined();
-                expect(comprehensiveOrderList._filterTemplate).toBeDefined();
-                expect(comprehensiveOrderList._moveUpIconTemplate).toBeDefined();
-                expect(comprehensiveOrderList._moveTopIconTemplate).toBeDefined();
-                expect(comprehensiveOrderList._moveDownIconTemplate).toBeDefined();
-                expect(comprehensiveOrderList._moveBottomIconTemplate).toBeDefined();
-                expect(comprehensiveOrderList._filterIconTemplate).toBeDefined();
+                expect(comprehensiveOrderList.itemTemplate()).toBeDefined();
+                expect(comprehensiveOrderList.headerTemplate()).toBeDefined();
+                expect(comprehensiveOrderList.emptyMessageTemplate()).toBeDefined();
+                expect(comprehensiveOrderList.emptyFilterMessageTemplate()).toBeDefined();
+                expect(comprehensiveOrderList.filterTemplate()).toBeDefined();
+                expect(comprehensiveOrderList.moveUpIconTemplate()).toBeDefined();
+                expect(comprehensiveOrderList.moveTopIconTemplate()).toBeDefined();
+                expect(comprehensiveOrderList.moveDownIconTemplate()).toBeDefined();
+                expect(comprehensiveOrderList.moveBottomIconTemplate()).toBeDefined();
+                expect(comprehensiveOrderList.filterIconTemplate()).toBeDefined();
             });
 
             it('should apply item template with context (product, selected, index)', async () => {
@@ -1588,7 +1588,6 @@ describe('OrderList', () => {
 
             it('should apply item template with selection context', async () => {
                 comprehensiveComponent.selection = [comprehensiveComponent.products[0]];
-                comprehensiveOrderList.selection = [comprehensiveComponent.products[0]];
                 comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
                 await comprehensiveFixture.whenStable();
@@ -1607,10 +1606,10 @@ describe('OrderList', () => {
 
                 const headerElement = comprehensiveFixture.debugElement.query(By.css('.custom-header-template'));
                 if (headerElement) {
-                    expect(headerElement.nativeElement.textContent).toBe('Custom OrderList Header with pTemplate');
+                    expect(headerElement.nativeElement.textContent).toBe('Custom OrderList Header');
                 } else {
                     // Fallback: verify template is configured
-                    expect(comprehensiveOrderList._headerTemplate).toBeDefined();
+                    expect(comprehensiveOrderList.headerTemplate()).toBeDefined();
                 }
             });
 
@@ -1622,7 +1621,7 @@ describe('OrderList', () => {
 
                 const emptyElement = comprehensiveFixture.debugElement.query(By.css('.custom-empty-template'));
                 if (emptyElement) {
-                    expect(emptyElement.nativeElement.textContent).toBe('No items available - pTemplate');
+                    expect(emptyElement.nativeElement.textContent).toBe('No items available');
                 } else {
                     // Fallback: verify empty state
                     expect(comprehensiveComponent.products.length).toBe(0);
@@ -1634,7 +1633,7 @@ describe('OrderList', () => {
                 comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
 
-                comprehensiveOrderList.filterValue = 'nonexistent';
+                comprehensiveOrderList.filterValue.set('nonexistent');
                 comprehensiveOrderList.filter();
                 comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
@@ -1642,10 +1641,10 @@ describe('OrderList', () => {
 
                 const emptyFilterElement = comprehensiveFixture.debugElement.query(By.css('.custom-empty-filter-template'));
                 if (emptyFilterElement) {
-                    expect(emptyFilterElement.nativeElement.textContent).toBe('No filtered items found - pTemplate');
+                    expect(emptyFilterElement.nativeElement.textContent).toBe('No filtered items found');
                 } else {
                     // Fallback: verify empty filter state
-                    expect(comprehensiveOrderList.visibleOptions?.length).toBe(0);
+                    expect(comprehensiveOrderList.visibleOptions()?.length).toBe(0);
                 }
             });
 
@@ -1660,7 +1659,7 @@ describe('OrderList', () => {
                     expect(filterElement.nativeElement.placeholder).toBe('Search products...');
                 } else {
                     // Fallback: verify filter is configured
-                    expect(comprehensiveOrderList._filterTemplate).toBeDefined();
+                    expect(comprehensiveOrderList.filterTemplate()).toBeDefined();
                 }
             });
 
@@ -1678,7 +1677,7 @@ describe('OrderList', () => {
                     }
                 } else {
                     // Fallback: verify template is configured
-                    expect(comprehensiveOrderList._moveUpIconTemplate).toBeDefined();
+                    expect(comprehensiveOrderList.moveUpIconTemplate()).toBeDefined();
                 }
             });
 
@@ -1696,7 +1695,7 @@ describe('OrderList', () => {
                     }
                 } else {
                     // Fallback: verify template is configured
-                    expect(comprehensiveOrderList._moveTopIconTemplate).toBeDefined();
+                    expect(comprehensiveOrderList.moveTopIconTemplate()).toBeDefined();
                 }
             });
 
@@ -1714,7 +1713,7 @@ describe('OrderList', () => {
                     }
                 } else {
                     // Fallback: verify template is configured
-                    expect(comprehensiveOrderList._moveDownIconTemplate).toBeDefined();
+                    expect(comprehensiveOrderList.moveDownIconTemplate()).toBeDefined();
                 }
             });
 
@@ -1732,7 +1731,7 @@ describe('OrderList', () => {
                     }
                 } else {
                     // Fallback: verify template is configured
-                    expect(comprehensiveOrderList._moveBottomIconTemplate).toBeDefined();
+                    expect(comprehensiveOrderList.moveBottomIconTemplate()).toBeDefined();
                 }
             });
         });
@@ -1758,16 +1757,16 @@ describe('OrderList', () => {
                 await contentChildFixture.whenStable();
 
                 const hasTemplates =
-                    contentChildOrderList.itemTemplate ||
-                    contentChildOrderList.headerTemplate ||
-                    contentChildOrderList.emptyMessageTemplate ||
-                    contentChildOrderList.emptyFilterMessageTemplate ||
-                    contentChildOrderList.filterTemplate ||
-                    contentChildOrderList.moveUpIconTemplate ||
-                    contentChildOrderList.moveTopIconTemplate ||
-                    contentChildOrderList.moveDownIconTemplate ||
-                    contentChildOrderList.moveBottomIconTemplate ||
-                    contentChildOrderList.filterIconTemplate;
+                    contentChildOrderList.itemTemplate() ||
+                    contentChildOrderList.headerTemplate() ||
+                    contentChildOrderList.emptyMessageTemplate() ||
+                    contentChildOrderList.emptyFilterMessageTemplate() ||
+                    contentChildOrderList.filterTemplate() ||
+                    contentChildOrderList.moveUpIconTemplate() ||
+                    contentChildOrderList.moveTopIconTemplate() ||
+                    contentChildOrderList.moveDownIconTemplate() ||
+                    contentChildOrderList.moveBottomIconTemplate() ||
+                    contentChildOrderList.filterIconTemplate();
 
                 expect(hasTemplates).toBeTruthy();
             });
@@ -1804,7 +1803,7 @@ describe('OrderList', () => {
                 await contentChildFixture.whenStable();
 
                 // Trigger filtering through OrderList
-                contentChildOrderList.filterValue = 'nonexistent';
+                contentChildOrderList.filterValue.set('nonexistent');
                 contentChildOrderList.filter();
                 contentChildFixture.changeDetectorRef.markForCheck();
                 contentChildFixture.detectChanges();
@@ -1815,7 +1814,7 @@ describe('OrderList', () => {
                     expect(emptyFilterElement.nativeElement.textContent).toBe('ContentChild Empty Filter Template');
                 } else {
                     // Fallback: verify empty filter state
-                    expect(contentChildOrderList.visibleOptions?.length).toBe(0);
+                    expect(contentChildOrderList.visibleOptions()?.length).toBe(0);
                 }
             });
 
@@ -1831,7 +1830,7 @@ describe('OrderList', () => {
         });
 
         describe('Template Context Verification', () => {
-            it('should pass correct context to item pTemplate', async () => {
+            it('should pass correct context to item template', async () => {
                 await comprehensiveFixture.whenStable();
 
                 // Verify item template receives context with $implicit (product), selected, and index
@@ -1847,9 +1846,8 @@ describe('OrderList', () => {
                 const initialItem = comprehensiveFixture.debugElement.query(By.css('.custom-item-template'));
                 expect(initialItem?.nativeElement.textContent).toContain('Selected: false');
 
-                // Add selection - set both component and orderList selection
+                // Add selection
                 comprehensiveComponent.selection = [comprehensiveComponent.products[0]];
-                comprehensiveOrderList.selection = [comprehensiveComponent.products[0]];
                 comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
                 await comprehensiveFixture.whenStable();
@@ -1865,7 +1863,7 @@ describe('OrderList', () => {
                 comprehensiveFixture.detectChanges();
 
                 // Apply filter
-                comprehensiveOrderList.filterValue = 'Product A';
+                comprehensiveOrderList.filterValue.set('Product A');
                 comprehensiveOrderList.filter();
                 comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();

@@ -4,6 +4,11 @@ import type { ButtonPassThrough } from 'primeng/types/button';
 import type { ListBoxPassThrough } from 'primeng/types/listbox';
 
 /**
+ * Defines the position of the controls.
+ */
+export type OrderListControlsPosition = 'left' | 'right';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
