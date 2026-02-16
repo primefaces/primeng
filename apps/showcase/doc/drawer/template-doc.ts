@@ -27,12 +27,20 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </p>
                 <ng-template #footer>
                     <div class="flex items-center gap-2">
-                        <button pButton label="Account" icon="pi pi-user" class="w-full" outlined></button>
-                        <button pButton label="Logout" icon="pi pi-sign-out" class="w-full" severity="danger" text></button>
+                        <button pButton class="w-full" outlined>
+                            <span pButtonIcon class="pi pi-user"></span>
+                            <span pButtonLabel>Account</span>
+                        </button>
+                        <button pButton class="w-full" severity="danger" text>
+                            <span pButtonIcon class="pi pi-sign-out"></span>
+                            <span pButtonLabel>Logout</span>
+                        </button>
                     </div>
                 </ng-template>
             </p-drawer>
-            <button pButton (click)="visible = true" icon="pi pi-plus"></button>
+            <button pButton (click)="visible = true">
+                <span pButtonIcon class="pi pi-plus"></span>
+            </button>
         </div>
         <app-code></app-code>
     `

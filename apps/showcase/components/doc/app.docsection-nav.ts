@@ -48,10 +48,10 @@ import { fromEvent } from 'rxjs';
                     <div class="text-center text-sm mt-4 text-secondary">{{ ad.details }}</div>
                     <span class="flex justify-center mt-4">
                         @if (ad.href) {
-                            <a pButton label="Learn More" size="small" [href]="ad.href" target="_blank" rel="noopener" rounded></a>
+                            <a pButton size="small" [href]="ad.href" target="_blank" rel="noopener" rounded><span pButtonLabel>Learn More</span></a>
                         }
                         @if (ad.routerLink) {
-                            <a pButton label="Learn More" size="small" [routerLink]="ad.routerLink" rounded></a>
+                            <a pButton size="small" [routerLink]="ad.routerLink" rounded><span pButtonLabel>Learn More</span></a>
                         }
                     </span>
                 </div>

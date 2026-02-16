@@ -32,7 +32,9 @@ import { TableModule } from 'primeng/table';
                             <td>{{ customer.company }}</td>
                             <td>{{ customer.representative.name }}</td>
                             <td>
-                                <button pButton pRipple type="button" [icon]="'pi pi-lock-open'" (click)="toggleLock(customer, true, index)" size="small" text></button>
+                                <button pButton pRipple type="button" (click)="toggleLock(customer, true, index)" size="small" text>
+                                    <span pButtonIcon class="pi pi-lock-open"></span>
+                                </button>
                             </td>
                         </tr>
                     </ng-template>
@@ -43,7 +45,9 @@ import { TableModule } from 'primeng/table';
                             <td>{{ customer.company }}</td>
                             <td>{{ customer.representative.name }}</td>
                             <td>
-                                <button pButton pRipple type="button" [icon]="'pi pi-lock'" [disabled]="lockedCustomers.length >= 2" (click)="toggleLock(customer, false, index)" size="small" text></button>
+                                <button pButton pRipple type="button" [disabled]="lockedCustomers.length >= 2" (click)="toggleLock(customer, false, index)" size="small" text>
+                                    <span pButtonIcon class="pi pi-lock"></span>
+                                </button>
                             </td>
                         </tr>
                     </ng-template>

@@ -124,7 +124,9 @@ import { Tag } from 'primeng/tag';
                                     <p-progressbar [value]="customer.activity" [showValue]="false" [style]="{ height: '6px' }"></p-progressbar>
                                 </td>
                                 <td style="text-align: center">
-                                    <button pButton type="button" class="p-button-text p-button-icon-only" icon="pi pi-cog"></button>
+                                    <button pButton type="button" class="p-button-text p-button-icon-only">
+                                        <span pButtonIcon class="pi pi-cog"></span>
+                                    </button>
                                 </td>
                             </tr>
                         </ng-template>

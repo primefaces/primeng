@@ -91,9 +91,15 @@ import { ToastModule } from 'primeng/toast';
                             </td>
                             <td>
                                 <div class="flex items-center justify-center gap-2">
-                                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" text rounded severity="secondary"></button>
-                                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" text rounded severity="secondary"></button>
-                                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" text rounded severity="secondary"></button>
+                                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow (click)="onRowEditInit(product)" text rounded severity="secondary">
+                                        <span pButtonIcon class="pi pi-pencil"></span>
+                                    </button>
+                                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow (click)="onRowEditSave(product)" text rounded severity="secondary">
+                                        <span pButtonIcon class="pi pi-check"></span>
+                                    </button>
+                                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow (click)="onRowEditCancel(product, ri)" text rounded severity="secondary">
+                                        <span pButtonIcon class="pi pi-times"></span>
+                                    </button>
                                 </div>
                             </td>
                         </tr>

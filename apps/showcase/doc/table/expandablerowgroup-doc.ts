@@ -32,7 +32,9 @@ import { TagModule } from 'primeng/tag';
                     <ng-template #groupheader let-customer let-rowIndex="rowIndex" let-expanded="expanded">
                         <tr>
                             <td colspan="5">
-                                <button type="button" pButton pRipple [pRowToggler]="customer" text rounded plain class="mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                                <button type="button" pButton pRipple [pRowToggler]="customer" text rounded plain class="mr-2">
+                                    <span pButtonIcon [class]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></span>
+                                </button>
                                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle; display: inline-block" />
                                 <span class="font-bold ml-2">{{ customer.representative.name }}</span>
                             </td>

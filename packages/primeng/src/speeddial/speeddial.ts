@@ -50,7 +50,6 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                 pButton
                 pRipple
                 [style]="buttonStyle()"
-                [icon]="buttonIconClass()"
                 [class]="buttonClass()"
                 [disabled]="disabled()"
                 [attr.aria-expanded]="visible()"
@@ -64,6 +63,9 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                 [pt]="ptm('pcButton')"
                 [unstyled]="unstyled()"
             >
+                @if (buttonIconClass()) {
+                    <span pButtonIcon [pt]="ptm('pcButton')['icon']" [class]="buttonIconClass()"></span>
+                }
                 @if (showDefaultIcon()) {
                     <svg data-p-icon="plus" pButtonIcon [pt]="ptm('pcButton')['icon']" />
                 }

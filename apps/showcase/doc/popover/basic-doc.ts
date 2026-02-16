@@ -34,7 +34,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         <div class="flex">
                             <p-inputgroup>
                                 <input pInputText disabled />
-                                <button pButton label="Invite" icon="pi pi-users"></button>
+                                <button pButton>
+                                    <span pButtonIcon class="pi pi-users"></span>
+                                    <span pButtonLabel>Invite</span>
+                                </button>
                             </p-inputgroup>
                         </div>
                     </div>

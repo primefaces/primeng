@@ -281,8 +281,8 @@ import { TooltipModule } from 'primeng/tooltip';
                         </label>
                     </div>
                     <div class="flex items-center gap-2">
-                        <button pButton label="Cancel" outlined class="flex-1"></button>
-                        <button pButton label="Upload" class="flex-1"></button>
+                        <button pButton outlined class="flex-1"><span pButtonLabel>Cancel</span></button>
+                        <button pButton class="flex-1"><span pButtonLabel>Upload</span></button>
                     </div>
                 </div>
                 <div class="border border-surface rounded-3xl p-6">
@@ -407,7 +407,7 @@ import { TooltipModule } from 'primeng/tooltip';
                     <div class="flex items-center justify-center">
                         <p-inputotp [(ngModel)]="forgotPasswordOTP" [length]="6" [integerOnly]="true" class="w-full [&>*]:flex-1 [&>*]:min-h-14 [&>*]:text-2xl" />
                     </div>
-                    <button pButton label="Change password" class="w-full"></button>
+                    <button pButton class="w-full"><span pButtonLabel>Change password</span></button>
                 </div>
                 <div class="border border-surface rounded-3xl p-6">
                     <div class="text-color font-medium leading-6 mb-6">Price Range</div>
@@ -434,8 +434,8 @@ import { TooltipModule } from 'primeng/tooltip';
                         </div>
                     </div>
                     <div class="flex items-center gap-3 flex-wrap [&>*]:flex-1 mt-6">
-                        <button pButton label="Undo" outlined class="w-full"></button>
-                        <button pButton label="Random" class="w-full"></button>
+                        <button pButton outlined class="w-full"><span pButtonLabel>Undo</span></button>
+                        <button pButton class="w-full"><span pButtonLabel>Random</span></button>
                     </div>
                 </div>
             </div>

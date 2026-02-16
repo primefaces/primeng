@@ -6,7 +6,7 @@ import { MenuItem, TooltipOptions } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ButtonDirective } from 'primeng/button';
+import { ButtonDirective, ButtonIcon, ButtonLabel } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import type { AppendTo, CSSProperties } from 'primeng/types/shared';
@@ -25,7 +25,7 @@ const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTAN
 @Component({
     selector: 'p-splitbutton, p-split-button',
     standalone: true,
-    imports: [NgTemplateOutlet, ButtonDirective, TieredMenu, AutoFocus, ChevronDownIcon, Ripple, TooltipModule],
+    imports: [NgTemplateOutlet, ButtonDirective, ButtonIcon, ButtonLabel, TieredMenu, AutoFocus, ChevronDownIcon, Ripple, TooltipModule],
     template: `
         @if (contentTemplate()) {
             <button
@@ -37,8 +37,6 @@ const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTAN
                 [text]="text()"
                 [outlined]="outlined()"
                 [size]="size()"
-                [icon]="icon()"
-                [iconPos]="iconPos()"
                 (click)="onDefaultButtonClick($event)"
                 [disabled]="disabled()"
                 [attr.tabindex]="tabindex()"
@@ -50,7 +48,15 @@ const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTAN
                 [pt]="ptm('pcButton')"
                 [unstyled]="unstyled()"
             >
-                <ng-container *ngTemplateOutlet="contentTemplate()" />
+                @if (icon() && iconPos() === 'left') {
+                    <span pButtonIcon [class]="icon()"></span>
+                }
+                <span pButtonLabel>
+                    <ng-container *ngTemplateOutlet="contentTemplate()" />
+                </span>
+                @if (icon() && iconPos() === 'right') {
+                    <span pButtonIcon [class]="icon()"></span>
+                }
             </button>
         } @else {
             <button
@@ -63,9 +69,6 @@ const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTAN
                 [text]="text()"
                 [outlined]="outlined()"
                 [size]="size()"
-                [icon]="icon()"
-                [iconPos]="iconPos()"
-                [label]="label()"
                 (click)="onDefaultButtonClick($event)"
                 [disabled]="$buttonDisabled()"
                 [attr.tabindex]="tabindex()"
@@ -76,7 +79,17 @@ const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTAN
                 [tooltipOptions]="tooltipOptions()"
                 [pt]="ptm('pcButton')"
                 [unstyled]="unstyled()"
-            ></button>
+            >
+                @if (icon() && iconPos() === 'left') {
+                    <span pButtonIcon [class]="icon()"></span>
+                }
+                @if (label()) {
+                    <span pButtonLabel>{{ label() }}</span>
+                }
+                @if (icon() && iconPos() === 'right') {
+                    <span pButtonIcon [class]="icon()"></span>
+                }
+            </button>
         }
         <button
             type="button"
@@ -98,10 +111,10 @@ const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTAN
             [unstyled]="unstyled()"
         >
             @if (dropdownIcon()) {
-                <span [class]="dropdownIcon()"></span>
+                <span pButtonIcon [class]="dropdownIcon()"></span>
             } @else {
                 @if (!dropdownIconTemplate()) {
-                    <svg data-p-icon="chevron-down" />
+                    <svg data-p-icon="chevron-down" pButtonIcon />
                 }
                 @if (dropdownIconTemplate()) {
                     <ng-container *ngTemplateOutlet="dropdownIconTemplate()" />

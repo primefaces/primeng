@@ -229,12 +229,6 @@ export class ButtonDirective extends BaseComponent {
     rounded = input(false, { transform: booleanAttribute });
 
     /**
-     * Position of the icon.
-     * @group Props
-     */
-    iconPos = input<ButtonIconPosition>('left');
-
-    /**
      * Icon to display in loading state.
      * @group Props
      */

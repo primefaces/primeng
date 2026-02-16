@@ -21,7 +21,10 @@ import { TableModule } from 'primeng/table';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center">
-                    <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="Show"></button>
+                    <button type="button" (click)="showDialog()" pButton>
+                        <span pButtonIcon class="pi pi-external-link"></span>
+                        <span pButtonLabel>Show</span>
+                    </button>
                 </div>
                 <p-dialog header="Header" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="{ width: '75vw' }" [contentStyle]="{ height: '300px' }">
                     <p-table [value]="customers" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
