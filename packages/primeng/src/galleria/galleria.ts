@@ -11,6 +11,7 @@ import {
     inject,
     InjectionToken,
     input,
+    linkedSignal,
     model,
     NgModule,
     numberAttribute,
@@ -38,642 +39,10 @@ import { GalleriaStyle } from './style/galleriastyle';
 
 const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
 
-/**
- * Galleria is an advanced content gallery component.
- * @group Components
- */
-@Component({
-    selector: 'p-galleria',
-    standalone: false,
-    template: `
-        @if (fullScreen()) {
-            <div #container>
-                @if (renderMask()) {
-                    <div
-                        [pBind]="ptm('mask')"
-                        [pMotion]="maskVisible"
-                        [pMotionAppear]="true"
-                        [pMotionEnterActiveClass]="maskEnterActiveClass()"
-                        [pMotionLeaveActiveClass]="maskLeaveActiveClass()"
-                        [pMotionOptions]="computedMaskMotionOptions()"
-                        (pMotionOnAfterLeave)="onMaskAfterLeave()"
-                        [class]="cn(cx('mask'), maskClass())"
-                        [attr.role]="maskRole()"
-                        [attr.aria-modal]="maskAriaModal()"
-                        (click)="onMaskHide($event)"
-                    >
-                        @if (renderContent()) {
-                            <div
-                                pGalleriaContent
-                                [pMotion]="visible()"
-                                [pMotionAppear]="true"
-                                [pMotionName]="'p-galleria'"
-                                [pMotionOptions]="computedMotionOptions()"
-                                (pMotionOnBeforeEnter)="onBeforeEnter($event)"
-                                (pMotionOnBeforeLeave)="onBeforeLeave()"
-                                (pMotionOnAfterLeave)="onAfterLeave()"
-                                [value]="value()"
-                                [activeIndex]="_activeIndex()"
-                                [numVisible]="d_numVisible()"
-                                (maskHide)="onMaskHide()"
-                                (activeItemChange)="onActiveItemChange($event)"
-                                [style]="containerStyle()"
-                                [fullScreen]="fullScreen()"
-                                [pt]="pt()"
-                                pFocusTrap
-                                [pFocusTrapDisabled]="!fullScreen()"
-                                [unstyled]="unstyled()"
-                            ></div>
-                        }
-                    </div>
-                }
-            </div>
-        } @else {
-            <div pGalleriaContent [pt]="pt()" [unstyled]="unstyled()" [value]="value()" [activeIndex]="_activeIndex()" [numVisible]="d_numVisible()" (activeItemChange)="onActiveItemChange($event)"></div>
-        }
-    `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    providers: [GalleriaStyle, { provide: GALLERIA_INSTANCE, useExisting: Galleria }, { provide: PARENT_INSTANCE, useExisting: Galleria }],
-    hostDirectives: [Bind]
-})
-export class Galleria extends BaseComponent<GalleriaPassThrough> {
-    componentName = 'Galleria';
-
-    bindDirectiveInstance = inject(Bind, { self: true });
-
-    $pcGalleria: Galleria | undefined = inject(GALLERIA_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
-
-    onAfterViewChecked() {
-        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
-    }
-
-    /**
-     * Index of the first item.
-     * @group Props
-     */
-    activeIndex = input(0, { transform: numberAttribute });
-
-    /**
-     * Whether to display the component on fullscreen.
-     * @group Props
-     */
-    fullScreen = input(false, { transform: booleanAttribute });
-
-    /**
-     * Unique identifier of the element.
-     * @group Props
-     */
-    id = input<string>();
-
-    /**
-     * An array of objects to display.
-     * @group Props
-     */
-    value = input<any[]>();
-
-    /**
-     * Number of items per page.
-     * @group Props
-     */
-    numVisible = input(3, { transform: numberAttribute });
-
-    /**
-     * An array of options for responsive design.
-     * @see {GalleriaResponsiveOptions}
-     * @group Props
-     */
-    responsiveOptions = input<GalleriaResponsiveOptions[]>();
-
-    /**
-     * Whether to display navigation buttons in item section.
-     * @group Props
-     */
-    showItemNavigators = input(false, { transform: booleanAttribute });
-
-    /**
-     * Whether to display navigation buttons in thumbnail container.
-     * @group Props
-     */
-    showThumbnailNavigators = input(true, { transform: booleanAttribute });
-
-    /**
-     * Whether to display navigation buttons on item hover.
-     * @group Props
-     */
-    showItemNavigatorsOnHover = input(false, { transform: booleanAttribute });
-
-    /**
-     * When enabled, item is changed on indicator hover.
-     * @group Props
-     */
-    changeItemOnIndicatorHover = input(false, { transform: booleanAttribute });
-
-    /**
-     * Defines if scrolling would be infinite.
-     * @group Props
-     */
-    circular = input(false, { transform: booleanAttribute });
-
-    /**
-     * Items are displayed with a slideshow in autoPlay mode.
-     * @group Props
-     */
-    autoPlay = input(false, { transform: booleanAttribute });
-
-    /**
-     * When enabled, autorun should stop by click.
-     * @group Props
-     */
-    shouldStopAutoplayByClick = input(true, { transform: booleanAttribute });
-
-    /**
-     * Time in milliseconds to scroll items.
-     * @group Props
-     */
-    transitionInterval = input(4000, { transform: numberAttribute });
-
-    /**
-     * Whether to display thumbnail container.
-     * @group Props
-     */
-    showThumbnails = input(true, { transform: booleanAttribute });
-
-    /**
-     * Position of thumbnails.
-     * @group Props
-     */
-    thumbnailsPosition = input<GalleriaPosition>('bottom');
-
-    /**
-     * Height of the viewport in vertical thumbnail.
-     * @group Props
-     */
-    verticalThumbnailViewPortHeight = input('300px');
-
-    /**
-     * Whether to display indicator container.
-     * @group Props
-     */
-    showIndicators = input(false, { transform: booleanAttribute });
-
-    /**
-     * When enabled, indicator container is displayed on item container.
-     * @group Props
-     */
-    showIndicatorsOnItem = input(false, { transform: booleanAttribute });
-
-    /**
-     * Position of indicators.
-     * @group Props
-     */
-    indicatorsPosition = input<GalleriaPosition>('bottom');
-
-    /**
-     * Base zIndex value to use in layering.
-     * @group Props
-     */
-    baseZIndex = input(0, { transform: numberAttribute });
-
-    /**
-     * Style class of the mask on fullscreen mode.
-     * @group Props
-     */
-    maskClass = input<string>();
-
-    /**
-     * Style class of the component on fullscreen mode. Otherwise, the 'class' property can be used.
-     * @group Props
-     */
-    containerClass = input<string>();
-
-    /**
-     * Inline style of the component on fullscreen mode. Otherwise, the 'style' property can be used.
-     * @group Props
-     */
-    containerStyle = input<CSSProperties>();
-
-    /**
-     * The motion options.
-     * @group Props
-     */
-    motionOptions = input<MotionOptions>();
-
-    computedMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('motion'),
-            ...this.motionOptions()
-        };
-    });
-
-    /**
-     * The mask motion options.
-     * @group Props
-     */
-    maskMotionOptions = input<MotionOptions>();
-
-    computedMaskMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('maskMotion'),
-            ...this.maskMotionOptions()
-        };
-    });
-
-    maskEnterActiveClass = computed(() => (this.fullScreen() ? 'p-overlay-mask-enter-active' : ''));
-
-    maskLeaveActiveClass = computed(() => (this.fullScreen() ? 'p-overlay-mask-leave-active' : ''));
-
-    maskRole = computed(() => (this.fullScreen() ? 'dialog' : 'region'));
-
-    maskAriaModal = computed(() => (this.fullScreen() ? 'true' : undefined));
-
-    /**
-     * Specifies the visibility of the mask on fullscreen mode.
-     * @group Props
-     */
-    visible = model(false);
-
-    renderMask = signal<boolean>(false);
-    renderContent = signal<boolean>(false);
-
-    /**
-     * Callback to invoke on active index change.
-     * @param {number} number - Active index.
-     * @group Emits
-     */
-    activeIndexChange = output<number>();
-
-    container = viewChild<ElementRef>('container');
-
-    _activeIndex = signal(0);
-
-    /**
-     * Custom header template.
-     * @group Templates
-     */
-    headerTemplate = contentChild<TemplateRef<void>>('header', { descendants: false });
-
-    /**
-     * Custom footer template.
-     * @group Templates
-     */
-    footerTemplate = contentChild<TemplateRef<void>>('footer', { descendants: false });
-
-    /**
-     * Custom indicator template.
-     * @group Templates
-     */
-    indicatorTemplate = contentChild<TemplateRef<GalleriaIndicatorTemplateContext>>('indicator', { descendants: false });
-
-    /**
-     * Custom caption template.
-     * @group Templates
-     */
-    captionTemplate = contentChild<TemplateRef<GalleriaCaptionTemplateContext>>('caption', { descendants: false });
-
-    /**
-     * Custom close icon template.
-     * @group Templates
-     */
-    closeIconTemplate = contentChild<TemplateRef<void>>('closeicon', { descendants: false });
-
-    /**
-     * Custom previous thumbnail icon template.
-     * @group Templates
-     */
-    previousThumbnailIconTemplate = contentChild<TemplateRef<void>>('previousthumbnailicon', { descendants: false });
-
-    /**
-     * Custom next thumbnail icon template.
-     * @group Templates
-     */
-    nextThumbnailIconTemplate = contentChild<TemplateRef<void>>('nextthumbnailicon', { descendants: false });
-
-    /**
-     * Custom item previous icon template.
-     * @group Templates
-     */
-    itemPreviousIconTemplate = contentChild<TemplateRef<void>>('itempreviousicon', { descendants: false });
-
-    /**
-     * Custom item next icon template.
-     * @group Templates
-     */
-    itemNextIconTemplate = contentChild<TemplateRef<void>>('itemnexticon', { descendants: false });
-
-    /**
-     * Custom item template.
-     * @group Templates
-     */
-    itemTemplate = contentChild<TemplateRef<GalleriaItemTemplateContext>>('item', { descendants: false });
-
-    /**
-     * Custom thumbnail template.
-     * @group Templates
-     */
-    thumbnailTemplate = contentChild<TemplateRef<GalleriaThumbnailTemplateContext>>('thumbnail', { descendants: false });
-
-    maskVisible = false;
-
-    numVisibleLimit = signal(0);
-
-    d_numVisible = computed(() => this.numVisibleLimit() || this.numVisible());
-
-    _componentStyle = inject(GalleriaStyle);
-
-    mask: HTMLElement | undefined;
-
-    element = inject(ElementRef);
-
-    constructor() {
-        super();
-
-        // Effect for visible changes
-        effect(() => {
-            const isVisible = this.visible();
-            if (isVisible && !this.maskVisible) {
-                this.maskVisible = true;
-                this.renderMask.set(true);
-                this.renderContent.set(true);
-            } else if (!isVisible && this.maskVisible) {
-                this.maskVisible = false;
-            }
-        });
-
-        // Effect for activeIndex changes
-        effect(() => {
-            this._activeIndex.set(this.activeIndex());
-        });
-
-        // Effect for value changes
-        effect(() => {
-            const val = this.value();
-            if (val && val.length < this.numVisible()) {
-                this.numVisibleLimit.set(val.length);
-            } else {
-                this.numVisibleLimit.set(0);
-            }
-        });
-    }
-
-    onMaskHide(event?: MouseEvent) {
-        if (!event || event.target === event.currentTarget) {
-            this.visible.set(false);
-        }
-    }
-
-    onActiveItemChange(index: number) {
-        if (this._activeIndex() !== index) {
-            this._activeIndex.set(index);
-            this.activeIndexChange.emit(index);
-        }
-    }
-
-    onBeforeEnter(event: MotionEvent) {
-        this.mask = <HTMLElement>event.element?.parentElement;
-        this.enableModality();
-        setTimeout(() => {
-            const focusTarget = findSingle(this.container()?.nativeElement, '[data-pc-section="closebutton"]');
-            if (focusTarget) focus(focusTarget as HTMLElement);
-        }, 25);
-    }
-
-    onBeforeLeave() {
-        if (this.mask) {
-            this.maskVisible = false;
-        }
-    }
-
-    onAfterLeave() {
-        this.disableModality();
-        this.renderContent.set(false);
-    }
-
-    onMaskAfterLeave() {
-        if (!this.renderContent()) {
-            this.renderMask.set(false);
-        }
-    }
-
-    enableModality() {
-        //@ts-ignore
-        blockBodyScroll();
-        if (this.mask) {
-            ZIndexUtils.set('modal', this.mask, this.baseZIndex() || this.config.zIndex.modal);
-        }
-    }
-
-    disableModality() {
-        //@ts-ignore
-        unblockBodyScroll();
-        if (this.mask) {
-            ZIndexUtils.clear(this.mask);
-        }
-    }
-
-    onDestroy() {
-        if (this.fullScreen()) {
-            removeClass(this.document.body, 'p-overflow-hidden');
-        }
-
-        if (this.mask) {
-            this.disableModality();
-        }
-    }
-}
-
-@Component({
-    selector: 'div[pGalleriaContent]',
-    standalone: false,
-    template: `
-        @if (hasValue()) {
-            @if (galleria.fullScreen()) {
-                <button type="button" [pBind]="getPTOptions('closeButton')" [class]="cx('closeButton')" (click)="maskHide.emit(true)" [attr.aria-label]="closeAriaLabel()">
-                    @if (!galleria.closeIconTemplate()) {
-                        <svg data-p-icon="times" [pBind]="getPTOptions('closeIcon')" [class]="cx('closeIcon')" />
-                    }
-                    <ng-template [ngTemplateOutlet]="galleria.closeIconTemplate()"></ng-template>
-                </button>
-            }
-            @if (shouldRenderHeader()) {
-                <div pGalleriaItemSlot [unstyled]="unstyled()" type="header" [pBind]="getPTOptions('header')" [class]="cx('header')"></div>
-            }
-            <div [pBind]="getPTOptions('content')" [class]="cx('content')" [attr.aria-live]="contentAriaLive()">
-                <div
-                    pGalleriaItem
-                    [id]="id()"
-                    [value]="value()"
-                    [activeIndex]="_activeIndex()"
-                    [circular]="galleria.circular()"
-                    (onActiveIndexChange)="onActiveIndexChange($event)"
-                    [showIndicators]="galleria.showIndicators()"
-                    [changeItemOnIndicatorHover]="galleria.changeItemOnIndicatorHover()"
-                    [showItemNavigators]="galleria.showItemNavigators()"
-                    [autoPlay]="galleria.autoPlay()"
-                    [slideShowActive]="slideShowActive"
-                    (startSlideShow)="startSlideShow()"
-                    (stopSlideShow)="stopSlideShow()"
-                    [pt]="pt()"
-                    [unstyled]="unstyled()"
-                    [class]="cx('itemsContainer')"
-                ></div>
-
-                @if (galleria.showThumbnails()) {
-                    <div
-                        pGalleriaThumbnails
-                        [containerId]="id()"
-                        [value]="value()"
-                        (onActiveIndexChange)="onActiveIndexChange($event)"
-                        [activeIndex]="_activeIndex()"
-                        [numVisible]="numVisible()"
-                        [responsiveOptions]="galleria.responsiveOptions()"
-                        [circular]="galleria.circular()"
-                        [isVertical]="isVertical()"
-                        [contentHeight]="galleria.verticalThumbnailViewPortHeight()"
-                        [showThumbnailNavigators]="galleria.showThumbnailNavigators()"
-                        [slideShowActive]="slideShowActive"
-                        (stopSlideShow)="stopSlideShow()"
-                        [pt]="pt()"
-                        [unstyled]="unstyled()"
-                    ></div>
-                }
-            </div>
-            @if (shouldRenderFooter()) {
-                <div pGalleriaItemSlot [pBind]="getPTOptions('footer')" [class]="cx('footer')" type="footer" [unstyled]="unstyled()"></div>
-            }
-        }
-    `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [GalleriaStyle],
-    host: {
-        '[attr.id]': 'id()',
-        '[attr.role]': '"region"',
-        '[style]': 'hostStyle()',
-        '[class]': "cx('root')"
-    },
-    hostDirectives: [Bind]
-})
-export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
-    hostName: string = 'Galleria';
-
-    galleria = inject(Galleria);
-
-    bindDirectiveInstance = inject(Bind, { self: true });
-
-    onAfterViewChecked() {
-        this.bindDirectiveInstance.setAttrs(this.getPTOptions('root'));
-    }
-
-    value = input<any[]>([]);
-
-    numVisible = input<number>();
-
-    fullScreen = model(false);
-
-    maskHide = output<boolean>();
-
-    activeItemChange = output<number>();
-
-    closeButton = viewChild<ElementRef>('closeButton');
-
-    _componentStyle = inject(GalleriaStyle);
-
-    $pcGalleria: Galleria | undefined = inject(GALLERIA_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
-
-    private _generatedId = uuid('pn_id_');
-
-    id = computed(() => this.galleria.id() || this._generatedId);
-
-    _activeIndex = signal(0);
-
-    slideShowActive = true;
-
-    interval: any;
-
-    hostStyle = computed(() => (!this.galleria.fullScreen() ? this.galleria.containerStyle() : {}));
-
-    contentAriaLive = computed(() => (this.galleria.autoPlay() ? 'polite' : 'off'));
-
-    isVertical = computed(() => this.galleria.thumbnailsPosition() === 'left' || this.galleria.thumbnailsPosition() === 'right');
-
-    hasValue = computed(() => {
-        const val = this.value();
-        return val && val.length > 0;
-    });
-
-    // For custom fullscreen
-    @HostListener('document:fullscreenchange')
-    handleFullscreenChange() {
-        if (document?.fullscreenElement === this.el.nativeElement?.children[0]) {
-            this.fullScreen.set(true);
-        } else {
-            this.fullScreen.set(false);
-        }
-    }
-
-    shouldRenderHeader() {
-        return !!this.galleria.headerTemplate();
-    }
-
-    shouldRenderFooter() {
-        return !!this.galleria.footerTemplate();
-    }
-
-    startSlideShow() {
-        if (isPlatformBrowser(this.galleria.platformId)) {
-            this.interval = setInterval(() => {
-                let activeIndex = this.galleria.circular() && this.value()!.length - 1 === this._activeIndex() ? 0 : this._activeIndex() + 1;
-                this.onActiveIndexChange(activeIndex);
-                this._activeIndex.set(activeIndex);
-            }, this.galleria.transitionInterval());
-
-            this.slideShowActive = true;
-        }
-    }
-
-    stopSlideShow() {
-        if (this.galleria.autoPlay() && !this.galleria.shouldStopAutoplayByClick()) {
-            return;
-        }
-
-        if (this.interval) {
-            clearInterval(this.interval);
-        }
-
-        this.slideShowActive = false;
-    }
-
-    getPositionClass(preClassName: string, position: string) {
-        const positions = ['top', 'left', 'bottom', 'right'];
-        const pos = positions.find((item) => item === position);
-
-        return pos ? `${preClassName}-${pos}` : '';
-    }
-
-    onActiveIndexChange(index: number) {
-        if (this._activeIndex() !== index) {
-            this._activeIndex.set(index);
-            this.activeItemChange.emit(this._activeIndex());
-        }
-    }
-
-    closeAriaLabel() {
-        return this.config.translation.aria ? this.config.translation.aria.close : undefined;
-    }
-
-    getPTOptions(key: string) {
-        return this.ptm(key, {
-            context: {
-                pt: this.pt(),
-                unstyled: this.unstyled()
-            }
-        });
-    }
-}
-
 @Component({
     selector: 'div[pGalleriaItemSlot]',
-    standalone: false,
+    standalone: true,
+    imports: [NgTemplateOutlet],
     template: `
         @if (shouldRender()) {
             <ng-container [ngTemplateOutlet]="contentTemplate()" [ngTemplateOutletContext]="context()"></ng-container>
@@ -729,7 +98,8 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
 
 @Component({
     selector: 'div[pGalleriaItem]',
-    standalone: false,
+    standalone: true,
+    imports: [NgTemplateOutlet, BindModule, ChevronLeftIcon, ChevronRightIcon, GalleriaItemSlot],
     template: `
         <div [pBind]="ptm('items')" [class]="cx('items')">
             @if (showItemNavigators()) {
@@ -828,7 +198,7 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
 
     _componentStyle = inject(GalleriaStyle);
 
-    _activeIndex = signal(0);
+    _activeIndex = linkedSignal(() => this.activeIndexInput());
 
     activeItem = computed(() => {
         const val = this.value();
@@ -845,14 +215,6 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
 
     constructor() {
         super();
-
-        // Sync activeIndex input to internal signal
-        effect(() => {
-            const idx = this.activeIndexInput();
-            if (idx !== undefined) {
-                this._activeIndex.set(idx);
-            }
-        });
 
         // Handle autoPlay changes
         effect(() => {
@@ -986,7 +348,8 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
 
 @Component({
     selector: 'div[pGalleriaThumbnails]',
-    standalone: false,
+    standalone: true,
+    imports: [NgTemplateOutlet, BindModule, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, GalleriaItemSlot],
     template: `
         <div [pBind]="ptm('thumbnailContent')" [class]="cx('thumbnailContent')">
             @if (showThumbnailNavigators()) {
@@ -1100,15 +463,31 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
 
     documentResizeListener: VoidListener;
 
-    _numVisible = signal(0);
-
-    d_numVisible = signal(0);
+    _numVisible = linkedSignal(() => this.numVisibleInput());
 
     _oldNumVisible = 0;
 
-    _activeIndex = signal(0);
+    d_numVisible = linkedSignal<number, number>({
+        source: () => this.numVisibleInput(),
+        computation: (source, previous) => {
+            if (previous) {
+                this._oldNumVisible = previous.value;
+            }
+            return source;
+        }
+    });
 
     _oldactiveIndex = 0;
+
+    _activeIndex = linkedSignal<number, number>({
+        source: () => this.activeIndexInput(),
+        computation: (source, previous) => {
+            if (previous) {
+                this._oldactiveIndex = previous.value;
+            }
+            return source;
+        }
+    });
 
     _componentStyle = inject(GalleriaStyle);
 
@@ -1116,25 +495,6 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
 
     private get aria() {
         return this.galleria.config.translation.aria;
-    }
-
-    constructor() {
-        super();
-
-        // Sync numVisible input to internal signals
-        effect(() => {
-            const num = this.numVisibleInput();
-            this._oldNumVisible = this.d_numVisible();
-            this._numVisible.set(num);
-            this.d_numVisible.set(num);
-        });
-
-        // Sync activeIndex input to internal signal
-        effect(() => {
-            const idx = this.activeIndexInput();
-            this._oldactiveIndex = this._activeIndex();
-            this._activeIndex.set(idx);
-        });
     }
 
     isActiveItem(index: number) {
@@ -1598,9 +958,640 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
     }
 }
 
+@Component({
+    selector: 'div[pGalleriaContent]',
+    standalone: true,
+    imports: [NgTemplateOutlet, BindModule, TimesIcon, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails],
+    template: `
+        @if (hasValue()) {
+            @if (galleria.fullScreen()) {
+                <button type="button" [pBind]="getPTOptions('closeButton')" [class]="cx('closeButton')" (click)="maskHide.emit(true)" [attr.aria-label]="closeAriaLabel()">
+                    @if (!galleria.closeIconTemplate()) {
+                        <svg data-p-icon="times" [pBind]="getPTOptions('closeIcon')" [class]="cx('closeIcon')" />
+                    }
+                    <ng-template [ngTemplateOutlet]="galleria.closeIconTemplate()"></ng-template>
+                </button>
+            }
+            @if (shouldRenderHeader()) {
+                <div pGalleriaItemSlot [unstyled]="unstyled()" type="header" [pBind]="getPTOptions('header')" [class]="cx('header')"></div>
+            }
+            <div [pBind]="getPTOptions('content')" [class]="cx('content')" [attr.aria-live]="contentAriaLive()">
+                <div
+                    pGalleriaItem
+                    [id]="id()"
+                    [value]="value()"
+                    [activeIndex]="_activeIndex()"
+                    [circular]="galleria.circular()"
+                    (onActiveIndexChange)="onActiveIndexChange($event)"
+                    [showIndicators]="galleria.showIndicators()"
+                    [changeItemOnIndicatorHover]="galleria.changeItemOnIndicatorHover()"
+                    [showItemNavigators]="galleria.showItemNavigators()"
+                    [autoPlay]="galleria.autoPlay()"
+                    [slideShowActive]="slideShowActive"
+                    (startSlideShow)="startSlideShow()"
+                    (stopSlideShow)="stopSlideShow()"
+                    [pt]="pt()"
+                    [unstyled]="unstyled()"
+                    [class]="cx('itemsContainer')"
+                ></div>
+
+                @if (galleria.showThumbnails()) {
+                    <div
+                        pGalleriaThumbnails
+                        [containerId]="id()"
+                        [value]="value()"
+                        (onActiveIndexChange)="onActiveIndexChange($event)"
+                        [activeIndex]="_activeIndex()"
+                        [numVisible]="numVisible()"
+                        [responsiveOptions]="galleria.responsiveOptions()"
+                        [circular]="galleria.circular()"
+                        [isVertical]="isVertical()"
+                        [contentHeight]="galleria.verticalThumbnailViewPortHeight()"
+                        [showThumbnailNavigators]="galleria.showThumbnailNavigators()"
+                        [slideShowActive]="slideShowActive"
+                        (stopSlideShow)="stopSlideShow()"
+                        [pt]="pt()"
+                        [unstyled]="unstyled()"
+                    ></div>
+                }
+            </div>
+            @if (shouldRenderFooter()) {
+                <div pGalleriaItemSlot [pBind]="getPTOptions('footer')" [class]="cx('footer')" type="footer" [unstyled]="unstyled()"></div>
+            }
+        }
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [GalleriaStyle],
+    host: {
+        '[attr.id]': 'id()',
+        '[attr.role]': '"region"',
+        '[style]': 'hostStyle()',
+        '[class]': "cx('root')"
+    },
+    hostDirectives: [Bind]
+})
+export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
+    hostName: string = 'Galleria';
+
+    galleria = inject(Galleria);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.getPTOptions('root'));
+    }
+
+    value = input<any[]>([]);
+
+    numVisible = input<number>();
+
+    fullScreen = model(false);
+
+    activeIndexInput = input<number>(0, { alias: 'activeIndex' });
+
+    maskHide = output<boolean>();
+
+    activeItemChange = output<number>();
+
+    closeButton = viewChild<ElementRef>('closeButton');
+
+    _componentStyle = inject(GalleriaStyle);
+
+    $pcGalleria: Galleria | undefined = inject(GALLERIA_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    private _generatedId = uuid('pn_id_');
+
+    id = computed(() => this.galleria.id() || this._generatedId);
+
+    _activeIndex = linkedSignal(() => this.activeIndexInput());
+
+    slideShowActive = true;
+
+    interval: any;
+
+    hostStyle = computed(() => (!this.galleria.fullScreen() ? this.galleria.containerStyle() : {}));
+
+    contentAriaLive = computed(() => (this.galleria.autoPlay() ? 'polite' : 'off'));
+
+    isVertical = computed(() => this.galleria.thumbnailsPosition() === 'left' || this.galleria.thumbnailsPosition() === 'right');
+
+    hasValue = computed(() => {
+        const val = this.value();
+        return val && val.length > 0;
+    });
+
+    // For custom fullscreen
+    @HostListener('document:fullscreenchange')
+    handleFullscreenChange() {
+        if (document?.fullscreenElement === this.el.nativeElement?.children[0]) {
+            this.fullScreen.set(true);
+        } else {
+            this.fullScreen.set(false);
+        }
+    }
+
+    shouldRenderHeader() {
+        return !!this.galleria.headerTemplate();
+    }
+
+    shouldRenderFooter() {
+        return !!this.galleria.footerTemplate();
+    }
+
+    startSlideShow() {
+        if (isPlatformBrowser(this.galleria.platformId)) {
+            this.interval = setInterval(() => {
+                let activeIndex = this.galleria.circular() && this.value()!.length - 1 === this._activeIndex() ? 0 : this._activeIndex() + 1;
+                this.onActiveIndexChange(activeIndex);
+                this._activeIndex.set(activeIndex);
+            }, this.galleria.transitionInterval());
+
+            this.slideShowActive = true;
+        }
+    }
+
+    stopSlideShow() {
+        if (this.galleria.autoPlay() && !this.galleria.shouldStopAutoplayByClick()) {
+            return;
+        }
+
+        if (this.interval) {
+            clearInterval(this.interval);
+        }
+
+        this.slideShowActive = false;
+    }
+
+    getPositionClass(preClassName: string, position: string) {
+        const positions = ['top', 'left', 'bottom', 'right'];
+        const pos = positions.find((item) => item === position);
+
+        return pos ? `${preClassName}-${pos}` : '';
+    }
+
+    onActiveIndexChange(index: number) {
+        if (this._activeIndex() !== index) {
+            this._activeIndex.set(index);
+            this.activeItemChange.emit(this._activeIndex());
+        }
+    }
+
+    closeAriaLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.close : undefined;
+    }
+
+    getPTOptions(key: string) {
+        return this.ptm(key, {
+            context: {
+                pt: this.pt(),
+                unstyled: this.unstyled()
+            }
+        });
+    }
+}
+
+/**
+ * Galleria is an advanced content gallery component.
+ * @group Components
+ */
+@Component({
+    selector: 'p-galleria',
+    standalone: true,
+    imports: [GalleriaContent, BindModule, MotionModule, FocusTrap],
+    template: `
+        @if (fullScreen()) {
+            <div #container>
+                @if (renderMask()) {
+                    <div
+                        [pBind]="ptm('mask')"
+                        [pMotion]="maskVisible"
+                        [pMotionAppear]="true"
+                        [pMotionEnterActiveClass]="maskEnterActiveClass()"
+                        [pMotionLeaveActiveClass]="maskLeaveActiveClass()"
+                        [pMotionOptions]="computedMaskMotionOptions()"
+                        (pMotionOnAfterLeave)="onMaskAfterLeave()"
+                        [class]="cn(cx('mask'), maskClass())"
+                        [attr.role]="maskRole()"
+                        [attr.aria-modal]="maskAriaModal()"
+                        (click)="onMaskHide($event)"
+                    >
+                        @if (renderContent()) {
+                            <div
+                                pGalleriaContent
+                                [pMotion]="visible()"
+                                [pMotionAppear]="true"
+                                [pMotionName]="'p-galleria'"
+                                [pMotionOptions]="computedMotionOptions()"
+                                (pMotionOnBeforeEnter)="onBeforeEnter($event)"
+                                (pMotionOnBeforeLeave)="onBeforeLeave()"
+                                (pMotionOnAfterLeave)="onAfterLeave()"
+                                [value]="value()"
+                                [activeIndex]="_activeIndex()"
+                                [numVisible]="d_numVisible()"
+                                (maskHide)="onMaskHide()"
+                                (activeItemChange)="onActiveItemChange($event)"
+                                [style]="containerStyle()"
+                                [fullScreen]="fullScreen()"
+                                [pt]="pt()"
+                                pFocusTrap
+                                [pFocusTrapDisabled]="!fullScreen()"
+                                [unstyled]="unstyled()"
+                            ></div>
+                        }
+                    </div>
+                }
+            </div>
+        } @else {
+            <div pGalleriaContent [pt]="pt()" [unstyled]="unstyled()" [value]="value()" [activeIndex]="_activeIndex()" [numVisible]="d_numVisible()" (activeItemChange)="onActiveItemChange($event)"></div>
+        }
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    providers: [GalleriaStyle, { provide: GALLERIA_INSTANCE, useExisting: Galleria }, { provide: PARENT_INSTANCE, useExisting: Galleria }],
+    hostDirectives: [Bind]
+})
+export class Galleria extends BaseComponent<GalleriaPassThrough> {
+    componentName = 'Galleria';
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcGalleria: Galleria | undefined = inject(GALLERIA_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
+    /**
+     * Index of the first item.
+     * @group Props
+     */
+    activeIndex = input(0, { transform: numberAttribute });
+
+    /**
+     * Whether to display the component on fullscreen.
+     * @group Props
+     */
+    fullScreen = input(false, { transform: booleanAttribute });
+
+    /**
+     * Unique identifier of the element.
+     * @group Props
+     */
+    id = input<string>();
+
+    /**
+     * An array of objects to display.
+     * @group Props
+     */
+    value = input<any[]>();
+
+    /**
+     * Number of items per page.
+     * @group Props
+     */
+    numVisible = input(3, { transform: numberAttribute });
+
+    /**
+     * An array of options for responsive design.
+     * @see {GalleriaResponsiveOptions}
+     * @group Props
+     */
+    responsiveOptions = input<GalleriaResponsiveOptions[]>();
+
+    /**
+     * Whether to display navigation buttons in item section.
+     * @group Props
+     */
+    showItemNavigators = input(false, { transform: booleanAttribute });
+
+    /**
+     * Whether to display navigation buttons in thumbnail container.
+     * @group Props
+     */
+    showThumbnailNavigators = input(true, { transform: booleanAttribute });
+
+    /**
+     * Whether to display navigation buttons on item hover.
+     * @group Props
+     */
+    showItemNavigatorsOnHover = input(false, { transform: booleanAttribute });
+
+    /**
+     * When enabled, item is changed on indicator hover.
+     * @group Props
+     */
+    changeItemOnIndicatorHover = input(false, { transform: booleanAttribute });
+
+    /**
+     * Defines if scrolling would be infinite.
+     * @group Props
+     */
+    circular = input(false, { transform: booleanAttribute });
+
+    /**
+     * Items are displayed with a slideshow in autoPlay mode.
+     * @group Props
+     */
+    autoPlay = input(false, { transform: booleanAttribute });
+
+    /**
+     * When enabled, autorun should stop by click.
+     * @group Props
+     */
+    shouldStopAutoplayByClick = input(true, { transform: booleanAttribute });
+
+    /**
+     * Time in milliseconds to scroll items.
+     * @group Props
+     */
+    transitionInterval = input(4000, { transform: numberAttribute });
+
+    /**
+     * Whether to display thumbnail container.
+     * @group Props
+     */
+    showThumbnails = input(true, { transform: booleanAttribute });
+
+    /**
+     * Position of thumbnails.
+     * @group Props
+     */
+    thumbnailsPosition = input<GalleriaPosition>('bottom');
+
+    /**
+     * Height of the viewport in vertical thumbnail.
+     * @group Props
+     */
+    verticalThumbnailViewPortHeight = input('300px');
+
+    /**
+     * Whether to display indicator container.
+     * @group Props
+     */
+    showIndicators = input(false, { transform: booleanAttribute });
+
+    /**
+     * When enabled, indicator container is displayed on item container.
+     * @group Props
+     */
+    showIndicatorsOnItem = input(false, { transform: booleanAttribute });
+
+    /**
+     * Position of indicators.
+     * @group Props
+     */
+    indicatorsPosition = input<GalleriaPosition>('bottom');
+
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
+    baseZIndex = input(0, { transform: numberAttribute });
+
+    /**
+     * Style class of the mask on fullscreen mode.
+     * @group Props
+     */
+    maskClass = input<string>();
+
+    /**
+     * Style class of the component on fullscreen mode. Otherwise, the 'class' property can be used.
+     * @group Props
+     */
+    containerClass = input<string>();
+
+    /**
+     * Inline style of the component on fullscreen mode. Otherwise, the 'style' property can be used.
+     * @group Props
+     */
+    containerStyle = input<CSSProperties>();
+
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions>();
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
+
+    /**
+     * The mask motion options.
+     * @group Props
+     */
+    maskMotionOptions = input<MotionOptions>();
+
+    computedMaskMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('maskMotion'),
+            ...this.maskMotionOptions()
+        };
+    });
+
+    maskEnterActiveClass = computed(() => (this.fullScreen() ? 'p-overlay-mask-enter-active' : ''));
+
+    maskLeaveActiveClass = computed(() => (this.fullScreen() ? 'p-overlay-mask-leave-active' : ''));
+
+    maskRole = computed(() => (this.fullScreen() ? 'dialog' : 'region'));
+
+    maskAriaModal = computed(() => (this.fullScreen() ? 'true' : undefined));
+
+    /**
+     * Specifies the visibility of the mask on fullscreen mode.
+     * @group Props
+     */
+    visible = model(false);
+
+    renderMask = signal<boolean>(false);
+    renderContent = signal<boolean>(false);
+
+    /**
+     * Callback to invoke on active index change.
+     * @param {number} number - Active index.
+     * @group Emits
+     */
+    activeIndexChange = output<number>();
+
+    container = viewChild<ElementRef>('container');
+
+    _activeIndex = linkedSignal(() => this.activeIndex());
+
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    headerTemplate = contentChild<TemplateRef<void>>('header', { descendants: false });
+
+    /**
+     * Custom footer template.
+     * @group Templates
+     */
+    footerTemplate = contentChild<TemplateRef<void>>('footer', { descendants: false });
+
+    /**
+     * Custom indicator template.
+     * @group Templates
+     */
+    indicatorTemplate = contentChild<TemplateRef<GalleriaIndicatorTemplateContext>>('indicator', { descendants: false });
+
+    /**
+     * Custom caption template.
+     * @group Templates
+     */
+    captionTemplate = contentChild<TemplateRef<GalleriaCaptionTemplateContext>>('caption', { descendants: false });
+
+    /**
+     * Custom close icon template.
+     * @group Templates
+     */
+    closeIconTemplate = contentChild<TemplateRef<void>>('closeicon', { descendants: false });
+
+    /**
+     * Custom previous thumbnail icon template.
+     * @group Templates
+     */
+    previousThumbnailIconTemplate = contentChild<TemplateRef<void>>('previousthumbnailicon', { descendants: false });
+
+    /**
+     * Custom next thumbnail icon template.
+     * @group Templates
+     */
+    nextThumbnailIconTemplate = contentChild<TemplateRef<void>>('nextthumbnailicon', { descendants: false });
+
+    /**
+     * Custom item previous icon template.
+     * @group Templates
+     */
+    itemPreviousIconTemplate = contentChild<TemplateRef<void>>('itempreviousicon', { descendants: false });
+
+    /**
+     * Custom item next icon template.
+     * @group Templates
+     */
+    itemNextIconTemplate = contentChild<TemplateRef<void>>('itemnexticon', { descendants: false });
+
+    /**
+     * Custom item template.
+     * @group Templates
+     */
+    itemTemplate = contentChild<TemplateRef<GalleriaItemTemplateContext>>('item', { descendants: false });
+
+    /**
+     * Custom thumbnail template.
+     * @group Templates
+     */
+    thumbnailTemplate = contentChild<TemplateRef<GalleriaThumbnailTemplateContext>>('thumbnail', { descendants: false });
+
+    maskVisible = false;
+
+    numVisibleLimit = signal(0);
+
+    d_numVisible = computed(() => this.numVisibleLimit() || this.numVisible());
+
+    _componentStyle = inject(GalleriaStyle);
+
+    mask: HTMLElement | undefined;
+
+    element = inject(ElementRef);
+
+    constructor() {
+        super();
+
+        // Effect for visible changes
+        effect(() => {
+            const isVisible = this.visible();
+            if (isVisible && !this.maskVisible) {
+                this.maskVisible = true;
+                this.renderMask.set(true);
+                this.renderContent.set(true);
+            } else if (!isVisible && this.maskVisible) {
+                this.maskVisible = false;
+            }
+        });
+
+        // Effect for value changes
+        effect(() => {
+            const val = this.value();
+            if (val && val.length < this.numVisible()) {
+                this.numVisibleLimit.set(val.length);
+            } else {
+                this.numVisibleLimit.set(0);
+            }
+        });
+    }
+
+    onMaskHide(event?: MouseEvent) {
+        if (!event || event.target === event.currentTarget) {
+            this.visible.set(false);
+        }
+    }
+
+    onActiveItemChange(index: number) {
+        if (this._activeIndex() !== index) {
+            this._activeIndex.set(index);
+            this.activeIndexChange.emit(index);
+        }
+    }
+
+    onBeforeEnter(event: MotionEvent) {
+        this.mask = <HTMLElement>event.element?.parentElement;
+        this.enableModality();
+        setTimeout(() => {
+            const focusTarget = findSingle(this.container()?.nativeElement, '[data-pc-section="closebutton"]');
+            if (focusTarget) focus(focusTarget as HTMLElement);
+        }, 25);
+    }
+
+    onBeforeLeave() {
+        if (this.mask) {
+            this.maskVisible = false;
+        }
+    }
+
+    onAfterLeave() {
+        this.disableModality();
+        this.renderContent.set(false);
+    }
+
+    onMaskAfterLeave() {
+        if (!this.renderContent()) {
+            this.renderMask.set(false);
+        }
+    }
+
+    enableModality() {
+        //@ts-ignore
+        blockBodyScroll();
+        if (this.mask) {
+            ZIndexUtils.set('modal', this.mask, this.baseZIndex() || this.config.zIndex.modal);
+        }
+    }
+
+    disableModality() {
+        //@ts-ignore
+        unblockBodyScroll();
+        if (this.mask) {
+            ZIndexUtils.clear(this.mask);
+        }
+    }
+
+    onDestroy() {
+        if (this.fullScreen()) {
+            removeClass(this.document.body, 'p-overflow-hidden');
+        }
+
+        if (this.mask) {
+            this.disableModality();
+        }
+    }
+}
+
 @NgModule({
-    imports: [NgTemplateOutlet, SharedModule, Ripple, TimesIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, FocusTrap, BindModule, MotionModule],
-    exports: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule],
-    declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails]
+    imports: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule],
+    exports: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule]
 })
 export class GalleriaModule {}
