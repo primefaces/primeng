@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { BadgePassThrough } from 'primeng/types/badge';
+import type { BadgePassThrough, BadgeSeverity } from 'primeng/types/badge';
 import type { CSSProperties } from 'primeng/types/shared';
 
 /**
@@ -100,8 +100,6 @@ export type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
 export type ButtonVariant = 'outlined' | 'text';
 
-export type ButtonBadgeSeverity = 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
-
 export interface ButtonProps {
     type?: string;
     iconPos?: ButtonIconPosition;
@@ -122,7 +120,7 @@ export interface ButtonProps {
     size?: 'small' | 'large' | undefined;
     style?: CSSProperties;
     styleClass?: string | undefined;
-    badgeSeverity?: ButtonBadgeSeverity;
+    badgeSeverity?: BadgeSeverity;
     ariaLabel?: string | undefined;
     autofocus?: boolean | undefined;
     variant?: string | undefined;

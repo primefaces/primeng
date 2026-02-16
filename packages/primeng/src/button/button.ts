@@ -8,9 +8,10 @@ import { Bind } from 'primeng/bind';
 import { Fluid } from 'primeng/fluid';
 import { SpinnerIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
-import type { ButtonBadgeSeverity, ButtonIconPosition, ButtonIconTemplateContext, ButtonLoadingIconTemplateContext, ButtonPassThrough, ButtonProps, ButtonSeverity, ButtonSize, ButtonVariant } from 'primeng/types/button';
+import type { ButtonIconPosition, ButtonIconTemplateContext, ButtonLoadingIconTemplateContext, ButtonPassThrough, ButtonProps, ButtonSeverity, ButtonSize, ButtonVariant } from 'primeng/types/button';
 import type { CSSProperties } from 'primeng/types/shared';
 import { ButtonStyle } from './style/buttonstyle';
+import { BadgeSeverity } from 'primeng/types/badge';
 
 const BUTTON_INSTANCE = new InjectionToken<Button>('BUTTON_INSTANCE');
 
@@ -536,7 +537,7 @@ export class Button extends BaseComponent<ButtonPassThrough> {
      * @group Props
      * @defaultValue secondary
      */
-    badgeSeverity = input<ButtonBadgeSeverity>('secondary');
+    badgeSeverity = input<BadgeSeverity>('secondary');
 
     /**
      * Used to define a string that autocomplete attribute the current element.
