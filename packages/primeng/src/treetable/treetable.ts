@@ -148,7 +148,7 @@ export class TreeTableService {
             [first]="first"
             [totalRecords]="totalRecords"
             [pageLinkSize]="pageLinks"
-            [styleClass]="cx('pcPaginator')"
+            [class]="cx('pcPaginator')"
             [alwaysShow]="alwaysShowPaginator"
             (onPageChange)="onPageChange($event)"
             [rowsPerPageOptions]="rowsPerPageOptions"
@@ -165,19 +165,19 @@ export class TreeTableService {
             [locale]="paginatorLocale"
             [unstyled]="unstyled()"
         >
-            <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate">
+            <ng-template #firstpagelinkicon *ngIf="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate">
                 <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate"></ng-container>
             </ng-template>
 
-            <ng-template pTemplate="previouspagelinkicon" *ngIf="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate">
+            <ng-template #previouspagelinkicon *ngIf="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate">
                 <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate"></ng-container>
             </ng-template>
 
-            <ng-template pTemplate="lastpagelinkicon" *ngIf="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate">
+            <ng-template #lastpagelinkicon *ngIf="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate">
                 <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate"></ng-container>
             </ng-template>
 
-            <ng-template pTemplate="nextpagelinkicon" *ngIf="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate">
+            <ng-template #nextpagelinkicon *ngIf="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate">
                 <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate"></ng-container>
             </ng-template>
         </p-paginator>
@@ -225,7 +225,7 @@ export class TreeTableService {
             [first]="first"
             [totalRecords]="totalRecords"
             [pageLinkSize]="pageLinks"
-            [styleClass]="cx('pcPaginator')"
+            [class]="cx('pcPaginator')"
             [alwaysShow]="alwaysShowPaginator"
             (onPageChange)="onPageChange($event)"
             [rowsPerPageOptions]="rowsPerPageOptions"
@@ -242,19 +242,19 @@ export class TreeTableService {
             [locale]="paginatorLocale"
             [unstyled]="unstyled()"
         >
-            <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate">
+            <ng-template #firstpagelinkicon *ngIf="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate">
                 <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate"></ng-container>
             </ng-template>
 
-            <ng-template pTemplate="previouspagelinkicon" *ngIf="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate">
+            <ng-template #previouspagelinkicon *ngIf="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate">
                 <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate"></ng-container>
             </ng-template>
 
-            <ng-template pTemplate="lastpagelinkicon" *ngIf="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate">
+            <ng-template #lastpagelinkicon *ngIf="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate">
                 <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate"></ng-container>
             </ng-template>
 
-            <ng-template pTemplate="nextpagelinkicon" *ngIf="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate">
+            <ng-template #nextpagelinkicon *ngIf="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate">
                 <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate"></ng-container>
             </ng-template>
         </p-paginator>
