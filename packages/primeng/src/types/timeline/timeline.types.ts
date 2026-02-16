@@ -2,6 +2,16 @@ import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
+ * Defines valid align values for Timeline.
+ */
+export type TimelineAlign = 'left' | 'right' | 'top' | 'bottom' | 'alternate';
+
+/**
+ * Defines valid layout values for Timeline.
+ */
+export type TimelineLayout = 'vertical' | 'horizontal';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

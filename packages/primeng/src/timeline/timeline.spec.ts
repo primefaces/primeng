@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -18,7 +17,7 @@ interface EventItem {
 // Basic test component
 @Component({
     standalone: false,
-    template: ` <p-timeline [value]="events" [align]="align" [layout]="layout" [styleClass]="styleClass"> </p-timeline> `
+    template: ` <p-timeline [value]="events" [align]="align" [layout]="layout" [class]="styleClass"> </p-timeline> `
 })
 class TestBasicTimelineComponent {
     events: EventItem[] = [
@@ -60,31 +59,6 @@ class TestTemplatesTimelineComponent {
         { status: 'Processing', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' }
     ];
     align: string = 'left';
-}
-
-// PrimeTemplate test component
-@Component({
-    standalone: false,
-    template: `
-        <p-timeline [value]="events">
-            <ng-template pTemplate="content" let-event>
-                <div class="prime-content">{{ event.status }}</div>
-            </ng-template>
-
-            <ng-template pTemplate="opposite" let-event>
-                <div class="prime-opposite">{{ event.date }}</div>
-            </ng-template>
-
-            <ng-template pTemplate="marker" let-event>
-                <div class="prime-marker">
-                    <i [class]="event.icon"></i>
-                </div>
-            </ng-template>
-        </p-timeline>
-    `
-})
-class TestPrimeTemplateTimelineComponent {
-    events: EventItem[] = [{ status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0' }];
 }
 
 // Empty state test component
@@ -145,8 +119,8 @@ describe('Timeline', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, Timeline],
-            declarations: [TestBasicTimelineComponent, TestTemplatesTimelineComponent, TestPrimeTemplateTimelineComponent, TestEmptyTimelineComponent, TestComplexTimelineComponent],
+            imports: [Timeline],
+            declarations: [TestBasicTimelineComponent, TestTemplatesTimelineComponent, TestEmptyTimelineComponent, TestComplexTimelineComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -164,28 +138,25 @@ describe('Timeline', () => {
         });
 
         it('should have default values', () => {
-            expect(timeline.align).toBe('left');
-            expect(timeline.layout).toBe('vertical');
-            expect(timeline.value).toBeDefined();
-            expect(timeline.styleClass).toBeUndefined();
+            expect(timeline.align()).toBe('left');
+            expect(timeline.layout()).toBe('vertical');
+            expect(timeline.value()).toBeDefined();
         });
 
         it('should accept custom values', async () => {
             component.align = 'right';
             component.layout = 'horizontal';
-            component.styleClass = 'custom-timeline';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(timeline.align).toBe('right');
-            expect(timeline.layout).toBe('horizontal');
-            expect(timeline.styleClass).toBe('custom-timeline');
+            expect(timeline.align()).toBe('right');
+            expect(timeline.layout()).toBe('horizontal');
         });
 
         it('should initialize with provided value', () => {
-            expect(timeline.value).toEqual(component.events);
-            expect(timeline.value?.length).toBe(4);
+            expect(timeline.value()).toEqual(component.events);
+            expect(timeline.value()?.length).toBe(4);
         });
 
         it('should handle empty value array', async () => {
@@ -194,8 +165,8 @@ describe('Timeline', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(timeline.value).toEqual([]);
-            expect(timeline.value?.length).toBe(0);
+            expect(timeline.value()).toEqual([]);
+            expect(timeline.value()?.length).toBe(0);
         });
 
         it('should handle undefined value', async () => {
@@ -204,7 +175,7 @@ describe('Timeline', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(timeline.value).toBeUndefined();
+            expect(timeline.value()).toBeUndefined();
         });
     });
 
@@ -220,15 +191,14 @@ describe('Timeline', () => {
 
         it('should handle ContentChild templates', () => {
             const templateFixture = TestBed.createComponent(TestTemplatesTimelineComponent);
-            const templateComponent = templateFixture.componentInstance;
             templateFixture.detectChanges();
 
             const templateTimeline = templateFixture.debugElement.query(By.directive(Timeline)).componentInstance;
 
             // ContentChild templates should be populated
-            expect(templateTimeline.contentTemplate).toBeTruthy();
-            expect(templateTimeline.oppositeTemplate).toBeTruthy();
-            expect(templateTimeline.markerTemplate).toBeTruthy();
+            expect(templateTimeline.contentTemplate()).toBeTruthy();
+            expect(templateTimeline.oppositeTemplate()).toBeTruthy();
+            expect(templateTimeline.markerTemplate()).toBeTruthy();
 
             // Check if custom templates are rendered
             const customContent = templateFixture.debugElement.queryAll(By.css('.custom-content'));
@@ -238,22 +208,6 @@ describe('Timeline', () => {
             expect(customContent.length).toBe(2);
             expect(customOpposite.length).toBe(2);
             expect(customMarker.length).toBe(2);
-        });
-
-        it('should process PrimeTemplate directives correctly', () => {
-            const templateFixture = TestBed.createComponent(TestPrimeTemplateTimelineComponent);
-            const templateComponent = templateFixture.componentInstance;
-            templateFixture.detectChanges();
-
-            const templateTimeline = templateFixture.debugElement.query(By.directive(Timeline)).componentInstance;
-
-            // Component should be initialized successfully
-            expect(templateTimeline).toBeTruthy();
-            expect(templateComponent.events.length).toBeGreaterThan(0);
-
-            // Timeline should render events even if templates are not properly processed in test environment
-            const events = templateFixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
-            expect(events.length).toBe(templateComponent.events.length);
         });
 
         it('should provide correct template context variables', () => {
@@ -307,7 +261,7 @@ describe('Timeline', () => {
 
             const events = fixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
             expect(events.length).toBe(1);
-            expect(timeline.value).toEqual(newEvents);
+            expect(timeline.value()).toEqual(newEvents);
         });
 
         it('should handle complex event data', () => {
@@ -351,21 +305,21 @@ describe('Timeline', () => {
     describe('Layout and Alignment', () => {
         it('should apply correct alignment classes', async () => {
             // Test left alignment (default)
-            expect(timeline.align).toBe('left');
+            expect(timeline.align()).toBe('left');
 
             // Test right alignment
             component.align = 'right';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(timeline.align).toBe('right');
+            expect(timeline.align()).toBe('right');
 
             // Test alternate alignment
             component.align = 'alternate';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(timeline.align).toBe('alternate');
+            expect(timeline.align()).toBe('alternate');
 
             // Test top alignment (for horizontal layout)
             component.layout = 'horizontal';
@@ -373,27 +327,27 @@ describe('Timeline', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(timeline.align).toBe('top');
-            expect(timeline.layout).toBe('horizontal');
+            expect(timeline.align()).toBe('top');
+            expect(timeline.layout()).toBe('horizontal');
 
             // Test bottom alignment (for horizontal layout)
             component.align = 'bottom';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(timeline.align).toBe('bottom');
+            expect(timeline.align()).toBe('bottom');
         });
 
         it('should apply correct layout classes', async () => {
             // Test vertical layout (default)
-            expect(timeline.layout).toBe('vertical');
+            expect(timeline.layout()).toBe('vertical');
 
             // Test horizontal layout
             component.layout = 'horizontal';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(timeline.layout).toBe('horizontal');
+            expect(timeline.layout()).toBe('horizontal');
         });
 
         it('should handle different layout and alignment combinations', async () => {
@@ -412,8 +366,8 @@ describe('Timeline', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                expect(timeline.layout).toBe(combo.layout);
-                expect(timeline.align).toBe(combo.align);
+                expect(timeline.layout()).toBe(combo.layout);
+                expect(timeline.align()).toBe(combo.align);
             }
         });
 
@@ -447,15 +401,6 @@ describe('Timeline', () => {
             expect(timelineEl.nativeElement).toBeTruthy();
         });
 
-        it('should apply custom style class', async () => {
-            component.styleClass = 'my-custom-timeline';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            expect(timeline.styleClass).toBe('my-custom-timeline');
-        });
-
         it('should apply host element attributes', () => {
             const hostElement = fixture.debugElement.query(By.directive(Timeline)).nativeElement;
 
@@ -475,15 +420,6 @@ describe('Timeline', () => {
             expect(separator).toBeTruthy();
             expect(marker).toBeTruthy();
             expect(content).toBeTruthy();
-        });
-
-        it('should handle multiple CSS classes', async () => {
-            component.styleClass = 'class1 class2 class3';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            expect(timeline.styleClass).toBe('class1 class2 class3');
         });
     });
 
@@ -611,16 +547,6 @@ describe('Timeline', () => {
     });
 
     describe('Lifecycle and Cleanup', () => {
-        it('should handle ngAfterContentInit correctly', () => {
-            const templateFixture = TestBed.createComponent(TestPrimeTemplateTimelineComponent);
-            const templateTimeline = templateFixture.debugElement.query(By.directive(Timeline)).componentInstance;
-            templateFixture.detectChanges();
-
-            // Component should be initialized successfully
-            expect(templateTimeline).toBeTruthy();
-            expect(templateFixture.componentInstance.events.length).toBeGreaterThan(0);
-        });
-
         it('should not create memory leaks on destroy', async () => {
             component.events = [{ status: 'Test Event', date: '20/10/2020', icon: 'pi pi-info' }];
             fixture.changeDetectorRef.markForCheck();
@@ -642,7 +568,7 @@ describe('Timeline', () => {
             fixture.detectChanges();
 
             expect(timeline).toBeTruthy();
-            expect(timeline.value).toEqual(component.events);
+            expect(timeline.value()).toEqual(component.events);
         });
 
         it('should maintain state during template changes', () => {
@@ -655,7 +581,7 @@ describe('Timeline', () => {
 
             // Original component should still work
             fixture.detectChanges();
-            expect(timeline.value).toEqual(initialEvents);
+            expect(timeline.value()).toEqual(initialEvents);
         });
 
         it('should handle multiple timeline instances', () => {
@@ -677,7 +603,7 @@ describe('Timeline', () => {
             const templateTimeline = templateFixture.debugElement.query(By.directive(Timeline)).componentInstance;
             templateFixture.detectChanges();
 
-            expect(templateTimeline.contentTemplate).toBeTruthy();
+            expect(templateTimeline.contentTemplate()).toBeTruthy();
 
             expect(() => {
                 templateFixture.destroy();
@@ -733,8 +659,8 @@ describe('Timeline', () => {
 
     describe('Component State Management', () => {
         it('should maintain component state during value updates', async () => {
-            const originalAlign = timeline.align;
-            const originalLayout = timeline.layout;
+            const originalAlign = timeline.align();
+            const originalLayout = timeline.layout();
 
             // Update events
             component.events = [{ status: 'New Event' }];
@@ -743,8 +669,8 @@ describe('Timeline', () => {
             fixture.detectChanges();
 
             // Component state should remain unchanged
-            expect(timeline.align).toBe(originalAlign);
-            expect(timeline.layout).toBe(originalLayout);
+            expect(timeline.align()).toBe(originalAlign);
+            expect(timeline.layout()).toBe(originalLayout);
         });
 
         it('should reflect input property changes immediately', async () => {
@@ -752,36 +678,28 @@ describe('Timeline', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(timeline.align).toBe('right');
+            expect(timeline.align()).toBe('right');
 
             component.layout = 'horizontal';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(timeline.layout).toBe('horizontal');
-
-            component.styleClass = 'new-style';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-            expect(timeline.styleClass).toBe('new-style');
+            expect(timeline.layout()).toBe('horizontal');
         });
 
         it('should handle concurrent property changes', async () => {
             // Change multiple properties at once
             component.align = 'alternate';
             component.layout = 'vertical';
-            component.styleClass = 'concurrent-test';
             component.events = [{ status: 'Concurrent Test 1' }, { status: 'Concurrent Test 2' }];
 
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(timeline.align).toBe('alternate');
-            expect(timeline.layout).toBe('vertical');
-            expect(timeline.styleClass).toBe('concurrent-test');
-            expect(timeline.value?.length).toBe(2);
+            expect(timeline.align()).toBe('alternate');
+            expect(timeline.layout()).toBe('vertical');
+            expect(timeline.value()?.length).toBe(2);
 
             const events = fixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
             expect(events.length).toBe(2);
