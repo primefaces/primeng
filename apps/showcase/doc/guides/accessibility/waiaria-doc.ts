@@ -34,7 +34,7 @@ import { CheckboxModule } from 'primeng/checkbox';
             <p class="doc-section-description mt-4">
                 However the best practice is combining semantic HTML for accessibility while keeping the design for UX. This approach involves hiding a native checkbox for accessibility and using javascript events to update its state. Notice the
                 usage of
-                <i>p-sr-only</i>
+                <i>p-hidden-accessible</i>
                 that hides the elements from the user but not from the screen reader.
             </p>
             <app-code [code]="code4" [hideToggleCode]="true"></app-code>
@@ -67,7 +67,7 @@ export class WAIARIADoc {
     code4: Code = {
         typescript: `<label for="chkbox">Remember Me></label>
 <div class="fancy-checkbox" (click)="toggle()">
-    <input class="p-sr-only" type="checkbox" id="chkbox" (focus)="updateParentVisuals()" (blur)="updateParentVisuals()" (keydown)="$event.keyCode === 32 && updateParentVisuals()">
+    <input class="p-hidden-accessible" type="checkbox" id="chkbox" (focus)="updateParentVisuals()" (blur)="updateParentVisuals()" (keydown)="$event.keyCode === 32 && updateParentVisuals()">
     <i *ngIf="checked" class="checked-icon"></i>
 </div>`
     };
