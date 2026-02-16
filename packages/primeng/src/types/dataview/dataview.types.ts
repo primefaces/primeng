@@ -3,6 +3,18 @@ import { TemplateRef } from '@angular/core';
 import { PaginatorPassThrough } from 'primeng/types/paginator';
 
 /**
+ * Defines the layout mode of DataView.
+ * @group Types
+ */
+export type DataViewLayout = 'list' | 'grid';
+
+/**
+ * Defines the position of the paginator.
+ * @group Types
+ */
+export type DataViewPaginatorPosition = 'top' | 'bottom' | 'both';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
@@ -148,7 +160,7 @@ export interface DataViewLayoutChangeEvent {
     /**
      * Layout of the component.
      */
-    layout: 'list' | 'grid';
+    layout: DataViewLayout;
 }
 
 /**

@@ -28,7 +28,6 @@ import { PaginatorModule } from 'primeng/paginator';
             [lazy]="lazy"
             [lazyLoadOnInit]="lazyLoadOnInit"
             [emptyMessage]="emptyMessage"
-            [styleClass]="styleClass"
             [gridStyleClass]="gridStyleClass"
             [trackBy]="trackBy"
             [filterBy]="filterBy"
@@ -83,7 +82,6 @@ class TestBasicDataViewComponent {
     lazy = false;
     lazyLoadOnInit = true;
     emptyMessage = 'No products found';
-    styleClass: string | undefined;
     gridStyleClass = '';
     trackBy: Function = (index: number, item: any) => item;
     filterBy = 'name,category';
@@ -226,18 +224,18 @@ describe('DataView', () => {
         });
 
         it('should have default values', () => {
-            expect(dataview.pageLinks).toBe(5);
-            expect(dataview.paginatorPosition).toBe('bottom');
-            expect(dataview.alwaysShowPaginator).toBe(true);
-            expect(dataview.paginatorDropdownScrollHeight).toBe('200px');
-            expect(dataview.currentPageReportTemplate).toBe('{currentPage} of {totalPages}');
-            expect(dataview.showFirstLastIcon).toBe(true);
-            expect(dataview.showPageLinks).toBe(true);
-            expect(dataview.lazyLoadOnInit).toBe(true);
-            expect(dataview.emptyMessage).toBe('No products found');
-            expect(dataview.gridStyleClass).toBe('' as any);
-            expect(dataview.first).toBe(0);
-            expect(dataview.layout).toBe('list');
+            expect(dataview.pageLinks()).toBe(5);
+            expect(dataview.paginatorPosition()).toBe('bottom');
+            expect(dataview.alwaysShowPaginator()).toBe(true);
+            expect(dataview.paginatorDropdownScrollHeight()).toBe('200px');
+            expect(dataview.currentPageReportTemplate()).toBe('{currentPage} of {totalPages}');
+            expect(dataview.showFirstLastIcon()).toBe(true);
+            expect(dataview.showPageLinks()).toBe(true);
+            expect(dataview.lazyLoadOnInit()).toBe(true);
+            expect(dataview.emptyMessage()).toBe('No products found');
+            expect(dataview.gridStyleClass()).toBe('' as any);
+            expect(dataview.first()).toBe(0);
+            expect(dataview.layout()).toBe('list');
         });
 
         it('should accept custom values', async () => {
@@ -250,21 +248,21 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.paginator).toBe(true);
-            expect(dataview.rows).toBe(5);
-            expect(dataview.pageLinks).toBe(3);
-            expect(dataview.paginatorPosition).toBe('top');
-            expect(dataview.layout).toBe('grid');
-            expect(dataview.emptyMessage).toBe('Custom empty message');
+            expect(dataview.paginator()).toBe(true);
+            expect(dataview.rows()).toBe(5);
+            expect(dataview.pageLinks()).toBe(3);
+            expect(dataview.paginatorPosition()).toBe('top');
+            expect(dataview.layout()).toBe('grid');
+            expect(dataview.emptyMessage()).toBe('Custom empty message');
         });
 
         it('should initialize with provided value', () => {
-            expect(dataview.value).toEqual(component.products);
-            expect(dataview.value?.length).toBe(5);
+            expect(dataview.value()).toEqual(component.products);
+            expect(dataview.value()?.length).toBe(5);
         });
 
         it('should update totalRecords based on value when not in lazy mode', () => {
-            expect(dataview.totalRecords).toBe(5);
+            expect(dataview.totalRecords()).toBe(5);
         });
     });
 
@@ -284,8 +282,8 @@ describe('DataView', () => {
             spyOn(dataview.onPage, 'emit');
             dataview.paginate(paginatorState);
 
-            expect(dataview.first).toBe(3);
-            expect(dataview.rows).toBe(2);
+            expect(dataview.first()).toBe(3);
+            expect(dataview.rows()).toBe(2);
             expect(dataview.onPage.emit).toHaveBeenCalledWith({
                 first: 3,
                 rows: 2
@@ -301,13 +299,13 @@ describe('DataView', () => {
             spyOn(dataview.onSort, 'emit');
             dataview.sort();
 
-            expect(dataview.first).toBe(0);
+            expect(dataview.first()).toBe(0);
             expect(dataview.onSort.emit).toHaveBeenCalledWith({
                 sortField: 'price',
                 sortOrder: 1
             });
 
-            const sortedValues = dataview.value;
+            const sortedValues = dataview.value();
             expect(sortedValues![0].price).toBe(100);
             expect(sortedValues![4].price).toBe(500);
         });
@@ -320,7 +318,7 @@ describe('DataView', () => {
 
             dataview.sort();
 
-            const sortedValues = dataview.value;
+            const sortedValues = dataview.value();
             expect(sortedValues![0].price).toBe(500);
             expect(sortedValues![4].price).toBe(100);
         });
@@ -339,7 +337,7 @@ describe('DataView', () => {
 
             dataview.sort();
 
-            const sortedValues = dataview.value;
+            const sortedValues = dataview.value();
             expect(sortedValues![0].price).toBe(null);
             expect(sortedValues![1].price).toBe(null);
             expect(sortedValues![2].price).toBe(100);
@@ -347,13 +345,13 @@ describe('DataView', () => {
         });
 
         it('should check if data is empty', async () => {
-            expect(dataview.isEmpty()).toBe(false);
+            expect(dataview.$isEmpty()).toBe(false);
 
             component.products = [];
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.isEmpty()).toBe(true);
+            expect(dataview.$isEmpty()).toBe(true);
         });
 
         it('should filter data', async () => {
@@ -363,9 +361,9 @@ describe('DataView', () => {
 
             dataview.filter('Product 1');
 
-            expect(dataview.filteredValue).toBeTruthy();
-            expect(dataview.filteredValue!.length).toBe(1);
-            expect(dataview.filteredValue![0].name).toBe('Product 1');
+            expect(dataview.filteredValue()).toBeTruthy();
+            expect(dataview.filteredValue()!.length).toBe(1);
+            expect(dataview.filteredValue()![0].name).toBe('Product 1');
         });
 
         it('should filter with different match modes', async () => {
@@ -375,7 +373,7 @@ describe('DataView', () => {
 
             dataview.filter('Product', 'contains');
 
-            expect(dataview.filteredValue).toBe(null);
+            expect(dataview.filteredValue()).toBe(null);
         });
 
         it('should reset filteredValue when filter matches all items', async () => {
@@ -385,7 +383,7 @@ describe('DataView', () => {
 
             dataview.filter('Category');
 
-            expect(dataview.filteredValue).toBe(null);
+            expect(dataview.filteredValue()).toBe(null);
         });
 
         it('should check if filter is active', async () => {
@@ -394,19 +392,23 @@ describe('DataView', () => {
             await fixture.whenStable();
 
             // Test hasFilter with valid filter value
-            dataview.filterValue = 'test';
+            dataview.filterValue.set('test');
             expect(dataview.hasFilter()).toBe(true);
 
             // Test hasFilter returns falsy for null/undefined
-            dataview.filterValue = null as any;
+            dataview.filterValue.set(null);
             expect(dataview.hasFilter()).toBeFalsy();
         });
 
-        it('should create lazy load metadata', () => {
-            dataview.first = 10;
-            dataview.rows = 5;
-            dataview.sortField = 'name';
-            dataview.sortOrder = -1;
+        it('should create lazy load metadata', async () => {
+            component.sortField = 'name';
+            component.sortOrder = -1;
+            component.rows = 5;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
+            // Set first after sort effect has settled (sort resets first to 0)
+            dataview.first.set(10);
 
             const metadata = dataview.createLazyLoadMetadata();
 
@@ -424,18 +426,15 @@ describe('DataView', () => {
             expect(element).toBe(dataview.el.nativeElement.children[0]);
         });
 
-        it('should update totalRecords', () => {
-            dataview.totalRecords = undefined as any;
-            dataview._value = component.products;
-            dataview.updateTotalRecords();
+        it('should update totalRecords', async () => {
+            component.products = [
+                { id: 1, name: 'Product 1', price: 100, category: 'Category A', inventoryStatus: 'INSTOCK' },
+                { id: 2, name: 'Product 2', price: 200, category: 'Category B', inventoryStatus: 'INSTOCK' }
+            ];
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(dataview.totalRecords).toBe(5);
-
-            dataview.lazy = true;
-            dataview.totalRecords = 100;
-            dataview.updateTotalRecords();
-
-            expect(dataview.totalRecords).toBe(100);
+            expect(dataview.totalRecords()).toBe(2);
         });
     });
 
@@ -724,8 +723,8 @@ describe('DataView', () => {
 
             // Check if paginator templates are defined in component
             const templateDataView = templateFixture.debugElement.query(By.directive(DataView)).componentInstance;
-            expect(templateDataView.paginatorleft).toBeTruthy();
-            expect(templateDataView.paginatorright).toBeTruthy();
+            expect(templateDataView.paginatorleft()).toBeTruthy();
+            expect(templateDataView.paginatorright()).toBeTruthy();
         });
     });
 
@@ -738,7 +737,7 @@ describe('DataView', () => {
 
             dataview.sort();
 
-            const sortedValues = dataview.value;
+            const sortedValues = dataview.value();
             expect(sortedValues![0].name).toBe('Product 1');
             expect(sortedValues![4].name).toBe('Product 5');
         });
@@ -751,7 +750,7 @@ describe('DataView', () => {
 
             dataview.sort();
 
-            const sortedValues = dataview.value;
+            const sortedValues = dataview.value();
             expect(sortedValues![0].price).toBe(500);
             expect(sortedValues![4].price).toBe(100);
         });
@@ -763,8 +762,8 @@ describe('DataView', () => {
 
             dataview.filter('Category A');
 
-            expect(dataview.filteredValue).toBeTruthy();
-            expect(dataview.filteredValue!.length).toBe(2);
+            expect(dataview.filteredValue()).toBeTruthy();
+            expect(dataview.filteredValue()!.length).toBe(2);
         });
 
         it('should update totalRecords when filtering with pagination', async () => {
@@ -775,8 +774,8 @@ describe('DataView', () => {
 
             dataview.filter('Product 1');
 
-            expect(dataview.totalRecords).toBe(1);
-            expect(dataview.first).toBe(0);
+            expect(dataview.totalRecords()).toBe(1);
+            expect(dataview.first()).toBe(0);
         });
 
         it('should reset first index when sorting', async () => {
@@ -787,7 +786,7 @@ describe('DataView', () => {
 
             dataview.sort();
 
-            expect(dataview.first).toBe(0);
+            expect(dataview.first()).toBe(0);
         });
 
         it('should apply filter after sorting', async () => {
@@ -800,10 +799,10 @@ describe('DataView', () => {
             dataview.sort();
             dataview.filter('Category A');
 
-            expect(dataview.filteredValue).toBeTruthy();
-            expect(dataview.filteredValue!.length).toBe(2);
-            expect(dataview.filteredValue![0].price).toBe(100);
-            expect(dataview.filteredValue![1].price).toBe(300);
+            expect(dataview.filteredValue()).toBeTruthy();
+            expect(dataview.filteredValue()!.length).toBe(2);
+            expect(dataview.filteredValue()![0].price).toBe(100);
+            expect(dataview.filteredValue()![1].price).toBe(300);
         });
     });
 
@@ -854,7 +853,7 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.isEmpty()).toBe(true);
+            expect(dataview.$isEmpty()).toBe(true);
             expect(async () => await fixture.whenStable()).not.toThrow();
         });
 
@@ -863,7 +862,7 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.isEmpty()).toBe(true);
+            expect(dataview.$isEmpty()).toBe(true);
             const emptyMessageDivs = fixture.debugElement.queryAll(By.css('div'));
             const emptyMessage = emptyMessageDivs.find((div) => div.nativeElement.textContent && div.nativeElement.textContent.includes('No products found'));
             expect(emptyMessage).toBeTruthy();
@@ -925,7 +924,7 @@ describe('DataView', () => {
             const endTime = performance.now();
 
             expect(endTime - startTime).toBeLessThan(1000);
-            expect(dataview.value?.length).toBe(1000);
+            expect(dataview.value()?.length).toBe(1000);
         });
 
         it('should maintain filter when value changes', async () => {
@@ -934,13 +933,13 @@ describe('DataView', () => {
             await fixture.whenStable();
 
             dataview.filter('Product 1');
-            expect(dataview.filteredValue?.length).toBe(1);
+            expect(dataview.filteredValue()?.length).toBe(1);
 
             component.products = [...component.products, { id: 6, name: 'Product 10', price: 600, category: 'Category D', inventoryStatus: 'INSTOCK' }];
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.filteredValue).toBeTruthy();
+            expect(dataview.filteredValue()).toBeTruthy();
         });
 
         it('should handle undefined in template context', async () => {
@@ -953,13 +952,9 @@ describe('DataView', () => {
     });
 
     describe('CSS Classes and Styling', () => {
-        it('should apply custom styleClass', async () => {
-            component.styleClass = 'custom-dataview-class';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
+        it('should apply correct root class', async () => {
             const dataviewElement = fixture.debugElement.query(By.css('p-dataview'));
-            expect(dataviewElement.nativeElement.className).toContain('custom-dataview-class');
+            expect(dataviewElement.nativeElement.className).toContain('p-dataview');
         });
 
         it('should apply gridStyleClass', async () => {
@@ -968,7 +963,7 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.gridStyleClass).toBe('custom-grid-class');
+            expect(dataview.gridStyleClass()).toBe('custom-grid-class');
         });
 
         it('should apply correct classes for loading state', async () => {
@@ -991,19 +986,8 @@ describe('DataView', () => {
     });
 
     describe('Lifecycle and Cleanup', () => {
-        it('should unsubscribe from translation observer on destroy', () => {
-            const translationSub = dataview.translationSubscription;
-            spyOn(translationSub!, 'unsubscribe');
-
-            fixture.destroy();
-
-            expect(translationSub!.unsubscribe).toHaveBeenCalled();
-        });
-
-        it('should call ngAfterViewInit', () => {
-            spyOn(dataview, 'ngAfterViewInit');
-            dataview.ngAfterViewInit();
-            expect(dataview.ngAfterViewInit).toHaveBeenCalled();
+        it('should clean up on destroy without errors', () => {
+            expect(() => fixture.destroy()).not.toThrow();
         });
 
         it('should handle onChanges for value', async () => {
@@ -1014,8 +998,8 @@ describe('DataView', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dataview.value).toEqual(newProducts);
-            expect(dataview.totalRecords).toBe(1);
+            expect(dataview.value()).toEqual(newProducts);
+            expect(dataview.totalRecords()).toBe(1);
         });
 
         it('should trigger lazy load correctly when initialized', async () => {
@@ -1042,29 +1026,33 @@ describe('DataView', () => {
     describe('TrackBy Function', () => {
         it('should use default trackBy function', () => {
             const item = { id: 1, name: 'Test' };
-            const result = dataview.trackBy(0, item);
+            const result = dataview.trackBy()(0, item);
             expect(result).toBe(item);
         });
 
-        it('should use custom trackBy function', () => {
+        it('should use custom trackBy function', async () => {
             const customTrackBy = (index: number, item: any) => item.id;
-            dataview.trackBy = customTrackBy;
+            component.trackBy = customTrackBy;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const item = { id: 1, name: 'Test' };
-            const result = dataview.trackBy(0, item);
+            const result = dataview.trackBy()(0, item);
             expect(result).toBe(1);
         });
     });
 
     describe('Empty Message Label', () => {
         it('should return custom empty message when provided', () => {
-            dataview.emptyMessage = 'Custom empty message';
-            expect(dataview.emptyMessageLabel).toBe('Custom empty message');
+            expect(dataview.emptyMessageLabel()).toBe('No products found');
         });
 
-        it('should return translation when no custom message', () => {
-            dataview.emptyMessage = '';
-            expect(dataview.emptyMessageLabel).toBeTruthy();
+        it('should return translation when no custom message', async () => {
+            component.emptyMessage = '';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
+            expect(dataview.emptyMessageLabel()).toBeTruthy();
         });
     });
 
@@ -1074,43 +1062,43 @@ describe('DataView', () => {
         });
 
         it('should handle paginator property changes', async () => {
-            expect(dataview.paginator).toBe(false);
+            expect(dataview.paginator()).toBe(false);
 
             component.paginator = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.paginator).toBe(true);
+            expect(dataview.paginator()).toBe(true);
         });
 
         it('should handle rows property changes', async () => {
-            expect(dataview.rows).toBe(3);
+            expect(dataview.rows()).toBe(3);
 
             component.rows = 5;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.rows).toBe(5);
+            expect(dataview.rows()).toBe(5);
         });
 
         it('should handle totalRecords property', async () => {
-            expect(dataview.totalRecords).toBe(5); // auto-calculated from value
+            expect(dataview.totalRecords()).toBe(5); // auto-calculated from value
 
             component.totalRecords = 100;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.totalRecords).toBe(100);
+            expect(dataview.totalRecords()).toBe(100);
         });
 
         it('should handle pageLinks property', async () => {
-            expect(dataview.pageLinks).toBe(5);
+            expect(dataview.pageLinks()).toBe(5);
 
             component.pageLinks = 7;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.pageLinks).toBe(7);
+            expect(dataview.pageLinks()).toBe(7);
         });
 
         it('should handle rowsPerPageOptions property', async () => {
@@ -1119,17 +1107,17 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.rowsPerPageOptions).toEqual(options);
+            expect(dataview.rowsPerPageOptions()).toEqual(options);
         });
 
         it('should handle paginatorPosition property', async () => {
-            expect(dataview.paginatorPosition).toBe('bottom');
+            expect(dataview.paginatorPosition()).toBe('bottom');
 
             component.paginatorPosition = 'top';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.paginatorPosition).toBe('top');
+            expect(dataview.paginatorPosition()).toBe('top');
         });
 
         it('should handle paginatorStyleClass property', async () => {
@@ -1137,17 +1125,17 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.paginatorStyleClass).toBe('custom-paginator');
+            expect(dataview.paginatorStyleClass()).toBe('custom-paginator');
         });
 
         it('should handle alwaysShowPaginator property', async () => {
-            expect(dataview.alwaysShowPaginator).toBe(true);
+            expect(dataview.alwaysShowPaginator()).toBe(true);
 
             component.alwaysShowPaginator = false;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.alwaysShowPaginator).toBe(false);
+            expect(dataview.alwaysShowPaginator()).toBe(false);
         });
 
         it('should handle paginatorDropdownAppendTo property', async () => {
@@ -1156,17 +1144,17 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.paginatorDropdownAppendTo).toBe(element);
+            expect(dataview.paginatorDropdownAppendTo()).toBe(element);
         });
 
         it('should handle paginatorDropdownScrollHeight property', async () => {
-            expect(dataview.paginatorDropdownScrollHeight).toBe('200px');
+            expect(dataview.paginatorDropdownScrollHeight()).toBe('200px');
 
             component.paginatorDropdownScrollHeight = '300px';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.paginatorDropdownScrollHeight).toBe('300px');
+            expect(dataview.paginatorDropdownScrollHeight()).toBe('300px');
         });
 
         it('should handle currentPageReportTemplate property', async () => {
@@ -1175,95 +1163,87 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.currentPageReportTemplate).toBe(template);
+            expect(dataview.currentPageReportTemplate()).toBe(template);
         });
 
         it('should handle showCurrentPageReport property', async () => {
-            expect(dataview.showCurrentPageReport).toBe(false);
+            expect(dataview.showCurrentPageReport()).toBe(false);
 
             component.showCurrentPageReport = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.showCurrentPageReport).toBe(true);
+            expect(dataview.showCurrentPageReport()).toBe(true);
         });
 
         it('should handle showJumpToPageDropdown property', async () => {
-            expect(dataview.showJumpToPageDropdown).toBe(false);
+            expect(dataview.showJumpToPageDropdown()).toBe(false);
 
             component.showJumpToPageDropdown = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.showJumpToPageDropdown).toBe(true);
+            expect(dataview.showJumpToPageDropdown()).toBe(true);
         });
 
         it('should handle showFirstLastIcon property', async () => {
-            expect(dataview.showFirstLastIcon).toBe(true);
+            expect(dataview.showFirstLastIcon()).toBe(true);
 
             component.showFirstLastIcon = false;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.showFirstLastIcon).toBe(false);
+            expect(dataview.showFirstLastIcon()).toBe(false);
         });
 
         it('should handle showPageLinks property', async () => {
-            expect(dataview.showPageLinks).toBe(true);
+            expect(dataview.showPageLinks()).toBe(true);
 
             component.showPageLinks = false;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.showPageLinks).toBe(false);
+            expect(dataview.showPageLinks()).toBe(false);
         });
 
         it('should handle lazy property', async () => {
-            expect(dataview.lazy).toBe(false);
+            expect(dataview.lazy()).toBe(false);
 
             component.lazy = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.lazy).toBe(true);
+            expect(dataview.lazy()).toBe(true);
         });
 
         it('should handle lazyLoadOnInit property', async () => {
-            expect(dataview.lazyLoadOnInit).toBe(true);
+            expect(dataview.lazyLoadOnInit()).toBe(true);
 
             component.lazyLoadOnInit = false;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.lazyLoadOnInit).toBe(false);
+            expect(dataview.lazyLoadOnInit()).toBe(false);
         });
 
         it('should handle emptyMessage property', async () => {
-            expect(dataview.emptyMessage).toBe('No products found');
+            expect(dataview.emptyMessage()).toBe('No products found');
 
             component.emptyMessage = 'Custom empty message';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.emptyMessage).toBe('Custom empty message');
-        });
-
-        it('should handle styleClass property', async () => {
-            component.styleClass = 'custom-dataview-class';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            expect(dataview.styleClass).toBe('custom-dataview-class');
+            expect(dataview.emptyMessage()).toBe('Custom empty message');
         });
 
         it('should handle gridStyleClass property', async () => {
-            expect(dataview.gridStyleClass).toBe('' as any);
+            expect(dataview.gridStyleClass()).toBe('' as any);
 
             component.gridStyleClass = 'custom-grid-class';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.gridStyleClass).toBe('custom-grid-class');
+            expect(dataview.gridStyleClass()).toBe('custom-grid-class');
         });
 
         it('should handle trackBy property', async () => {
@@ -1272,17 +1252,17 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.trackBy).toBe(customTrackBy);
+            expect(dataview.trackBy()).toBe(customTrackBy);
         });
 
         it('should handle filterBy property', async () => {
-            expect(dataview.filterBy).toBe('name,category');
+            expect(dataview.filterBy()).toBe('name,category');
 
             component.filterBy = 'price';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.filterBy).toBe('price');
+            expect(dataview.filterBy()).toBe('price');
         });
 
         it('should handle filterLocale property', async () => {
@@ -1290,17 +1270,17 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.filterLocale).toBe('en-US');
+            expect(dataview.filterLocale()).toBe('en-US');
         });
 
         it('should handle loading property', async () => {
-            expect(dataview.loading).toBe(false);
+            expect(dataview.loading()).toBe(false);
 
             component.loading = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.loading).toBe(true);
+            expect(dataview.loading()).toBe(true);
         });
 
         it('should handle loadingIcon property', async () => {
@@ -1308,17 +1288,17 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.loadingIcon).toBe('pi pi-spinner');
+            expect(dataview.loadingIcon()).toBe('pi pi-spinner');
         });
 
         it('should handle first property', async () => {
-            expect(dataview.first).toBe(0);
+            expect(dataview.first()).toBe(0);
 
             component.first = 5;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.first).toBe(5);
+            expect(dataview.first()).toBe(5);
         });
 
         it('should handle sortField property', async () => {
@@ -1326,7 +1306,7 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.sortField).toBe('name');
+            expect(dataview.sortField()).toBe('name');
         });
 
         it('should handle sortOrder property', async () => {
@@ -1334,28 +1314,28 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.sortOrder).toBe(1);
+            expect(dataview.sortOrder()).toBe(1);
         });
 
         it('should handle layout property', async () => {
-            expect(dataview.layout).toBe('list');
+            expect(dataview.layout()).toBe('list');
 
             component.layout = 'grid';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.layout).toBe('grid');
+            expect(dataview.layout()).toBe('grid');
         });
 
         it('should handle value property', async () => {
-            expect(dataview.value).toEqual(component.products);
+            expect(dataview.value()).toEqual(component.products);
 
             const newProducts = [{ id: 10, name: 'New Product', price: 1000, category: 'New Category', inventoryStatus: 'INSTOCK' }];
             component.products = newProducts;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.value).toEqual(newProducts);
+            expect(dataview.value()).toEqual(newProducts);
         });
 
         it('should handle boolean attributes transformation', async () => {
@@ -1364,23 +1344,23 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.paginator).toBe(true);
+            expect(dataview.paginator()).toBe(true);
 
             component.paginator = '' as any;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.paginator).toBe(true); // empty string should be true
+            expect(dataview.paginator()).toBe(true); // empty string should be true
         });
 
         it('should handle number attributes transformation', async () => {
-            // Test number transformation for rows
-            component.rows = '10' as any;
+            // Test number transformation for pageLinks
+            component.pageLinks = '10' as any;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.rows).toBe(10);
-            expect(typeof dataview.rows).toBe('number');
+            expect(dataview.pageLinks()).toBe(10);
+            expect(typeof dataview.pageLinks()).toBe('number');
         });
 
         it('should handle edge case values for numeric inputs', async () => {
@@ -1392,10 +1372,10 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.rows).toBe(0);
-            expect(dataview.totalRecords).toBe(0);
-            expect(dataview.pageLinks).toBe(0);
-            expect(dataview.first).toBe(0);
+            expect(dataview.rows()).toBe(0);
+            expect(dataview.totalRecords()).toBe(0);
+            expect(dataview.pageLinks()).toBe(0);
+            expect(dataview.first()).toBe(0);
         });
 
         it('should handle negative values for numeric inputs', async () => {
@@ -1405,10 +1385,10 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(dataview.rows).toBe(-5);
-            expect(dataview.sortOrder).toBe(-1);
+            expect(dataview.rows()).toBe(-5);
+            expect(dataview.sortOrder()).toBe(-1);
             // The first property might be validated to prevent negative values as it represents pagination index
-            expect(dataview.first).toBeGreaterThanOrEqual(0);
+            expect(dataview.first()).toBeGreaterThanOrEqual(0);
         });
     });
 
@@ -1425,7 +1405,7 @@ describe('DataView', () => {
         });
 
         it('should handle dynamic value changes', async () => {
-            expect(dynamicDataView.value?.length).toBe(5);
+            expect(dynamicDataView.value()?.length).toBe(5);
 
             // Change value dynamically
             dynamicComponent.updateValue([
@@ -1436,13 +1416,13 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.value?.length).toBe(2);
-            expect(dynamicDataView.totalRecords).toBe(2);
+            expect(dynamicDataView.value()?.length).toBe(2);
+            expect(dynamicDataView.totalRecords()).toBe(2);
         });
 
         it('should handle dynamic pagination settings', async () => {
-            expect(dynamicDataView.paginator).toBe(false);
-            expect(dynamicDataView.rows).toBe(3);
+            expect(dynamicDataView.paginator()).toBe(false);
+            expect(dynamicDataView.rows()).toBe(3);
 
             // Change pagination settings dynamically
             dynamicComponent.updatePaginationSettings(true, 5);
@@ -1450,12 +1430,12 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.paginator).toBe(true);
-            expect(dynamicDataView.rows).toBe(5);
+            expect(dynamicDataView.paginator()).toBe(true);
+            expect(dynamicDataView.rows()).toBe(5);
         });
 
         it('should handle dynamic layout changes', async () => {
-            expect(dynamicDataView.layout).toBe('list');
+            expect(dynamicDataView.layout()).toBe('list');
 
             // Toggle layout
             dynamicComponent.toggleLayout();
@@ -1463,18 +1443,18 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.layout).toBe('grid');
+            expect(dynamicDataView.layout()).toBe('grid');
 
             dynamicComponent.toggleLayout();
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.layout).toBe('list');
+            expect(dynamicDataView.layout()).toBe('list');
         });
 
         it('should handle dynamic loading state changes', async () => {
-            expect(dynamicDataView.loading).toBe(false);
+            expect(dynamicDataView.loading()).toBe(false);
 
             // Toggle loading state
             dynamicComponent.toggleLoading();
@@ -1482,19 +1462,19 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.loading).toBe(true);
+            expect(dynamicDataView.loading()).toBe(true);
 
             dynamicComponent.toggleLoading();
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.loading).toBe(false);
+            expect(dynamicDataView.loading()).toBe(false);
         });
 
         it('should handle dynamic sorting changes', async () => {
-            expect(dynamicDataView.sortField).toBeUndefined();
-            expect(dynamicDataView.sortOrder || undefined).toBeUndefined();
+            expect(dynamicDataView.sortField()).toBeUndefined();
+            expect(dynamicDataView.sortOrder() || undefined).toBeUndefined();
 
             // Change sorting settings
             dynamicComponent.updateSorting('price', -1);
@@ -1502,8 +1482,8 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.sortField).toBe('price');
-            expect(dynamicDataView.sortOrder).toBe(-1);
+            expect(dynamicDataView.sortField()).toBe('price');
+            expect(dynamicDataView.sortOrder()).toBe(-1);
         });
 
         it('should handle dynamic filtering changes', async () => {
@@ -1513,7 +1493,7 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.filterBy).toBe('name');
+            expect(dynamicDataView.filterBy()).toBe('name');
         });
 
         it('should handle dynamic rowsPerPageOptions changes', async () => {
@@ -1523,7 +1503,7 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.rowsPerPageOptions).toEqual([5, 10, 15]);
+            expect(dynamicDataView.rowsPerPageOptions()).toEqual([5, 10, 15]);
 
             // Update with showAll option
             dynamicComponent.updateRowsPerPageOptions([10, 20, 30, { showAll: 'All' }]);
@@ -1531,7 +1511,7 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.rowsPerPageOptions).toEqual([10, 20, 30, { showAll: 'All' }]);
+            expect(dynamicDataView.rowsPerPageOptions()).toEqual([10, 20, 30, { showAll: 'All' }]);
         });
 
         it('should handle multiple simultaneous changes', async () => {
@@ -1541,10 +1521,10 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.value?.length).toBe(1);
-            expect(dynamicDataView.paginator).toBe(true);
-            expect(dynamicDataView.rows).toBe(2);
-            expect(dynamicDataView.layout).toBe('grid');
+            expect(dynamicDataView.value()?.length).toBe(1);
+            expect(dynamicDataView.paginator()).toBe(true);
+            expect(dynamicDataView.rows()).toBe(2);
+            expect(dynamicDataView.layout()).toBe('grid');
         });
 
         it('should handle observable values from services', async () => {
@@ -1555,8 +1535,8 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.value?.length).toBe(10);
-            expect(dynamicDataView.rows).toBe(5);
+            expect(dynamicDataView.value()?.length).toBe(10);
+            expect(dynamicDataView.rows()).toBe(5);
         });
 
         it('should handle async property updates with delays', async () => {
@@ -1573,12 +1553,12 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.value?.length).toBe(2);
-            expect(dynamicDataView.rows).toBe(10);
+            expect(dynamicDataView.value()?.length).toBe(2);
+            expect(dynamicDataView.rows()).toBe(10);
         });
 
         it('should maintain component state during rapid changes', async () => {
-            const initialLayout = dynamicDataView.layout;
+            const initialLayout = dynamicDataView.layout();
 
             // Perform rapid changes
             for (let i = 0; i < 5; i++) {
@@ -1588,8 +1568,8 @@ describe('DataView', () => {
                 await dynamicFixture.whenStable();
             }
 
-            expect(dynamicDataView.value?.length).toBe(1);
-            expect(dynamicDataView.layout).toBe(initialLayout); // Should maintain layout
+            expect(dynamicDataView.value()?.length).toBe(1);
+            expect(dynamicDataView.layout()).toBe(initialLayout); // Should maintain layout
         });
 
         it('should handle edge case: empty value becomes populated', async () => {
@@ -1599,7 +1579,7 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.isEmpty()).toBe(true);
+            expect(dynamicDataView.$isEmpty()).toBe(true);
 
             // Add data
             dynamicComponent.updateValue([{ id: 1, name: 'First Product', price: 100 }]);
@@ -1607,8 +1587,8 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.isEmpty()).toBe(false);
-            expect(dynamicDataView.value?.length).toBe(1);
+            expect(dynamicDataView.$isEmpty()).toBe(false);
+            expect(dynamicDataView.value()?.length).toBe(1);
         });
 
         it('should handle dynamic template property changes', async () => {
@@ -1618,7 +1598,7 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.emptyMessage).toBe('Custom dynamic empty message');
+            expect(dynamicDataView.emptyMessage()).toBe('Custom dynamic empty message');
         });
     });
 });

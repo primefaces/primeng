@@ -3,13 +3,16 @@ import { style } from '@primeuix/styles/dataview';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => [
-        'p-dataview p-component',
-        {
-            'p-dataview-list': instance.layout === 'list',
-            'p-dataview-grid': instance.layout === 'grid'
-        }
-    ],
+    root: ({ instance }) => {
+        const layout = instance.layout();
+        return [
+            'p-dataview p-component',
+            {
+                'p-dataview-list': layout === 'list',
+                'p-dataview-grid': layout === 'grid'
+            }
+        ];
+    },
     header: 'p-dataview-header',
     loading: 'p-dataview-loading',
     loadingOverlay: 'p-dataview-loading-overlay p-overlay-mask',

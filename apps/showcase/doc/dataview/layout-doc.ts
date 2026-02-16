@@ -53,8 +53,13 @@ import { TagModule } from 'primeng/tag';
                                 <div class="flex flex-col md:items-end gap-8">
                                     <span class="text-xl font-semibold">{{ item.price | currency: 'USD' }}</span>
                                     <div class="flex flex-row-reverse md:flex-row gap-2">
-                                        <button pButton icon="pi pi-heart" [outlined]="true"></button>
-                                        <button pButton icon="pi pi-shopping-cart" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto md:flex-initial whitespace-nowrap"></button>
+                                        <button pButton [outlined]="true">
+                                            <span pButtonIcon class="pi pi-heart"></span>
+                                        </button>
+                                        <button pButton [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto md:flex-initial whitespace-nowrap">
+                                            <span pButtonIcon class="pi pi-shopping-cart"></span>
+                                            <span pButtonLabel>Buy Now</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -87,8 +92,13 @@ import { TagModule } from 'primeng/tag';
                                     <div class="flex flex-col gap-6 mt-6">
                                         <span class="text-2xl font-semibold">{{ product.price | currency: 'USD' }}</span>
                                         <div class="flex gap-2">
-                                            <button pButton icon="pi pi-shopping-cart" label="Buy Now" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto whitespace-nowrap"></button>
-                                            <button pButton icon="pi pi-heart" outlined></button>
+                                            <button pButton [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto whitespace-nowrap">
+                                                <span pButtonIcon class="pi pi-shopping-cart"></span>
+                                                <span pButtonLabel>Buy Now</span>
+                                            </button>
+                                            <button pButton outlined>
+                                                <span pButtonIcon class="pi pi-heart"></span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

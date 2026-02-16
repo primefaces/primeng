@@ -1,26 +1,46 @@
-import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, numberAttribute, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    contentChild,
+    effect,
+    ElementRef,
+    inject,
+    InjectionToken,
+    input,
+    model,
+    NgModule,
+    numberAttribute,
+    output,
+    signal,
+    TemplateRef,
+    untracked,
+    ViewEncapsulation
+} from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { resolveFieldData } from '@primeuix/utils';
-import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'primeng/api';
+import { BlockableUI, FilterService, Footer, Header, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { SpinnerIcon } from 'primeng/icons';
 import { PaginatorModule } from 'primeng/paginator';
-import { Nullable } from 'primeng/ts-helpers';
 import {
     DataViewGridTemplateContext,
+    DataViewLayout,
     DataViewLayoutChangeEvent,
     DataViewLazyLoadEvent,
     DataViewListTemplateContext,
     DataViewPageEvent,
     DataViewPaginatorDropdownItemTemplateContext,
     DataViewPaginatorLeftTemplateContext,
+    DataViewPaginatorPosition,
     DataViewPaginatorRightTemplateContext,
     DataViewPaginatorState,
     DataViewPassThrough,
     DataViewSortEvent
 } from 'primeng/types/dataview';
-import { Subscription } from 'rxjs';
 import { DataViewStyle } from './style/dataviewstyle';
 
 const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
@@ -32,110 +52,111 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
 @Component({
     selector: 'p-dataView, p-dataview, p-data-view',
     standalone: true,
-    imports: [CommonModule, PaginatorModule, SpinnerIcon, SharedModule, Bind],
+    imports: [NgTemplateOutlet, PaginatorModule, SpinnerIcon, Bind],
     template: `
-        @if (loading) {
+        @if (loading()) {
             <div [pBind]="ptm('loading')" [class]="cx('loading')">
                 <div [pBind]="ptm('loadingOverlay')" [class]="cx('loadingOverlay')">
-                    @if (loadingIcon) {
-                        <i [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
+                    @if (loadingIcon()) {
+                        <i [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon())"></i>
                     } @else {
                         <ng-container>
                             <svg [pBind]="ptm('loadingIcon')" data-p-icon="spinner" [spin]="true" [class]="cx('loadingIcon')" />
-                            <ng-template *ngTemplateOutlet="loadingicon"></ng-template>
+                            <ng-template *ngTemplateOutlet="loadingicon()"></ng-template>
                         </ng-container>
                     }
                 </div>
             </div>
         }
-        @if (header || headerTemplate) {
+        @if (showHeader()) {
             <div [pBind]="ptm('header')" [class]="cx('header')">
-                <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                <ng-content select="p-header" />
+                <ng-container *ngTemplateOutlet="headerTemplate()"></ng-container>
             </div>
         }
-        @if (paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')) {
+        @if (showTopPaginator()) {
             <p-paginator
-                [rows]="rows"
-                [first]="first"
-                [totalRecords]="totalRecords"
-                [pageLinkSize]="pageLinks"
-                [alwaysShow]="alwaysShowPaginator"
+                [rows]="rows()"
+                [first]="first()"
+                [totalRecords]="totalRecords()"
+                [pageLinkSize]="pageLinks()"
+                [alwaysShow]="alwaysShowPaginator()"
                 (onPageChange)="paginate($event)"
-                [rowsPerPageOptions]="rowsPerPageOptions"
-                [appendTo]="paginatorDropdownAppendTo"
-                [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-                [templateLeft]="paginatorleft"
-                [templateRight]="paginatorright"
-                [currentPageReportTemplate]="currentPageReportTemplate"
-                [showFirstLastIcon]="showFirstLastIcon"
-                [dropdownItemTemplate]="paginatordropdownitem"
-                [showCurrentPageReport]="showCurrentPageReport"
-                [showJumpToPageDropdown]="showJumpToPageDropdown"
-                [showPageLinks]="showPageLinks"
-                [styleClass]="cn(cx('pcPaginator', { position: 'top' }), paginatorStyleClass)"
+                [rowsPerPageOptions]="rowsPerPageOptions()"
+                [appendTo]="paginatorDropdownAppendTo()"
+                [dropdownScrollHeight]="paginatorDropdownScrollHeight()"
+                [templateLeft]="paginatorleft()"
+                [templateRight]="paginatorright()"
+                [currentPageReportTemplate]="currentPageReportTemplate()"
+                [showFirstLastIcon]="showFirstLastIcon()"
+                [dropdownItemTemplate]="paginatordropdownitem()"
+                [showCurrentPageReport]="showCurrentPageReport()"
+                [showJumpToPageDropdown]="showJumpToPageDropdown()"
+                [showPageLinks]="showPageLinks()"
+                [class]="cn(cx('pcPaginator', { position: 'top' }), paginatorStyleClass())"
                 [pt]="ptm('pcPaginator')"
                 [unstyled]="unstyled()"
             ></p-paginator>
         }
         <div [pBind]="ptm('content')" [class]="cx('content')">
-            @if (layout === 'list') {
+            @if (isListLayout()) {
                 <ng-container
                     *ngTemplateOutlet="
-                        listTemplate;
+                        listTemplate();
                         context: {
-                            $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value
+                            $implicit: displayedItems()
                         }
                     "
                 ></ng-container>
             }
-            @if (layout === 'grid') {
+            @if (isGridLayout()) {
                 <ng-container
                     *ngTemplateOutlet="
-                        gridTemplate;
+                        gridTemplate();
                         context: {
-                            $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value
+                            $implicit: displayedItems()
                         }
                     "
                 ></ng-container>
             }
-            @if (isEmpty() && !loading) {
+            @if (showEmptyMessage()) {
                 <div [pBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')">
-                    <ng-container *ngIf="!emptymessageTemplate; else empty">
-                        {{ emptyMessageLabel }}
-                    </ng-container>
-                    <ng-container #empty *ngTemplateOutlet="emptymessageTemplate"></ng-container>
+                    @if (!emptymessageTemplate()) {
+                        {{ emptyMessageLabel() }}
+                    } @else {
+                        <ng-container *ngTemplateOutlet="emptymessageTemplate()"></ng-container>
+                    }
                 </div>
             }
         </div>
-        @if (paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')) {
+        @if (showBottomPaginator()) {
             <p-paginator
-                [rows]="rows"
-                [first]="first"
-                [totalRecords]="totalRecords"
-                [pageLinkSize]="pageLinks"
-                [alwaysShow]="alwaysShowPaginator"
+                [rows]="rows()"
+                [first]="first()"
+                [totalRecords]="totalRecords()"
+                [pageLinkSize]="pageLinks()"
+                [alwaysShow]="alwaysShowPaginator()"
                 (onPageChange)="paginate($event)"
-                [rowsPerPageOptions]="rowsPerPageOptions"
-                [appendTo]="paginatorDropdownAppendTo"
-                [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-                [templateLeft]="paginatorleft"
-                [templateRight]="paginatorright"
-                [currentPageReportTemplate]="currentPageReportTemplate"
-                [showFirstLastIcon]="showFirstLastIcon"
-                [dropdownItemTemplate]="paginatordropdownitem"
-                [showCurrentPageReport]="showCurrentPageReport"
-                [showJumpToPageDropdown]="showJumpToPageDropdown"
-                [showPageLinks]="showPageLinks"
-                [styleClass]="cn(cx('pcPaginator', { position: 'bottom' }), paginatorStyleClass)"
+                [rowsPerPageOptions]="rowsPerPageOptions()"
+                [appendTo]="paginatorDropdownAppendTo()"
+                [dropdownScrollHeight]="paginatorDropdownScrollHeight()"
+                [templateLeft]="paginatorleft()"
+                [templateRight]="paginatorright()"
+                [currentPageReportTemplate]="currentPageReportTemplate()"
+                [showFirstLastIcon]="showFirstLastIcon()"
+                [dropdownItemTemplate]="paginatordropdownitem()"
+                [showCurrentPageReport]="showCurrentPageReport()"
+                [showJumpToPageDropdown]="showJumpToPageDropdown()"
+                [showPageLinks]="showPageLinks()"
+                [class]="cn(cx('pcPaginator', { position: 'bottom' }), paginatorStyleClass())"
                 [pt]="ptm('pcPaginator')"
                 [unstyled]="unstyled()"
             ></p-paginator>
         }
-        @if (footer || footerTemplate) {
+        @if (showFooter()) {
             <div [pBind]="ptm('footer')" [class]="cx('footer')">
-                <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                <ng-content select="p-footer" />
+                <ng-container *ngTemplateOutlet="footerTemplate()"></ng-container>
             </div>
         }
     `,
@@ -143,7 +164,7 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     providers: [DataViewStyle, { provide: DATAVIEW_INSTANCE, useExisting: DataView }, { provide: PARENT_INSTANCE, useExisting: DataView }],
     host: {
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cx('root')"
     },
     hostDirectives: [Bind]
 })
@@ -154,7 +175,7 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
 
     $pcDataView: DataView | undefined = inject(DATAVIEW_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
-    onAfterViewChecked(): void {
+    onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
@@ -162,323 +183,349 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
      * When specified as true, enables the pagination.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) paginator: boolean | undefined;
+    paginator = input(false, { transform: booleanAttribute });
     /**
      * Number of rows to display per page.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) rows: number | undefined;
+    rows = model<number>();
     /**
      * Number of total records, defaults to length of value when not defined.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) totalRecords: number | undefined;
+    totalRecords = model<number>();
     /**
      * Number of page links to display in paginator.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) pageLinks: number = 5;
+    pageLinks = input(5, { transform: numberAttribute });
     /**
      * Array of integer/object values to display inside rows per page dropdown of paginator
      * @group Props
      */
-    @Input() rowsPerPageOptions: number[] | any[] | undefined;
+    rowsPerPageOptions = input<number[] | any[]>();
     /**
      * Position of the paginator.
      * @group Props
      */
-    @Input() paginatorPosition: 'top' | 'bottom' | 'both' = 'bottom';
+    paginatorPosition = input<DataViewPaginatorPosition>('bottom');
     /**
      * Custom style class for paginator
      * @group Props
      */
-    @Input() paginatorStyleClass: string | undefined;
+    paginatorStyleClass = input<string>();
     /**
      * Whether to show it even there is only one page.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) alwaysShowPaginator: boolean = true;
+    alwaysShowPaginator = input(true, { transform: booleanAttribute });
     /**
      * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() paginatorDropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    paginatorDropdownAppendTo = input<HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any>();
     /**
      * Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
      * @group Props
      */
-    @Input() paginatorDropdownScrollHeight: string = '200px';
+    paginatorDropdownScrollHeight = input('200px');
     /**
      * Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords}
      * @group Props
      */
-    @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
+    currentPageReportTemplate = input('{currentPage} of {totalPages}');
     /**
      * Whether to display current page report.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showCurrentPageReport: boolean | undefined;
+    showCurrentPageReport = input(false, { transform: booleanAttribute });
     /**
      * Whether to display a dropdown to navigate to any page.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showJumpToPageDropdown: boolean | undefined;
+    showJumpToPageDropdown = input(false, { transform: booleanAttribute });
     /**
      * When enabled, icons are displayed on paginator to go first and last page.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showFirstLastIcon: boolean = true;
+    showFirstLastIcon = input(true, { transform: booleanAttribute });
     /**
      * Whether to show page links.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showPageLinks: boolean = true;
+    showPageLinks = input(true, { transform: booleanAttribute });
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) lazy: boolean | undefined;
+    lazy = input(false, { transform: booleanAttribute });
     /**
      * Whether to call lazy loading on initialization.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) lazyLoadOnInit: boolean = true;
+    lazyLoadOnInit = input(true, { transform: booleanAttribute });
     /**
      * Text to display when there is no data. Defaults to global value in i18n translation configuration.
      * @group Props
      */
-    @Input() emptyMessage: string = '';
-    /**
-     * Style class of the component.
-     * @deprecated since v20.0.0, use `class` instead.
-     * @group Props
-     */
-    @Input() styleClass: string | undefined;
+    emptyMessage = input('');
     /**
      * Style class of the grid.
      * @group Props
      */
-    @Input() gridStyleClass: string = '';
+    gridStyleClass = input('');
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() trackBy: Function = (index: number, item: any) => item;
+    trackBy = input<Function>((_index: number, item: any) => item);
     /**
      * Comma separated list of fields in the object graph to search against.
      * @group Props
      */
-    @Input() filterBy: string | undefined;
+    filterBy = input<string>();
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
      */
-    @Input() filterLocale: string | undefined;
+    filterLocale = input<string>();
     /**
      * Displays a loader to indicate data load is in progress.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) loading: boolean | undefined;
+    loading = input(false, { transform: booleanAttribute });
     /**
      * The icon to show while indicating data load is in progress.
      * @group Props
      */
-    @Input() loadingIcon: string | undefined;
+    loadingIcon = input<string>();
     /**
      * Index of the first row to be displayed.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) first: number | undefined = 0;
+    first = model(0);
     /**
      * Property name of data to use in sorting by default.
      * @group Props
      */
-    @Input() sortField: string | undefined;
+    sortField = input<string>();
     /**
      * Order to sort the data by default.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) sortOrder: number | undefined;
+    sortOrder = input<number>();
     /**
      * An array of objects to display.
      * @group Props
      */
-    @Input() value: any[] | undefined;
+    value = model<any[]>();
     /**
      * Defines the layout mode.
      * @group Props
      */
-    @Input() layout: 'list' | 'grid' = 'list';
+    layout = input<DataViewLayout>('list');
     /**
      * Callback to invoke when paging, sorting or filtering happens in lazy mode.
      * @param {DataViewLazyLoadEvent} event - Custom lazy load event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<DataViewLazyLoadEvent> = new EventEmitter<DataViewLazyLoadEvent>();
+    onLazyLoad = output<DataViewLazyLoadEvent>();
     /**
      * Callback to invoke when pagination occurs.
      * @param {DataViewPageEvent} event - Custom page event.
      * @group Emits
      */
-    @Output() onPage: EventEmitter<DataViewPageEvent> = new EventEmitter<DataViewPageEvent>();
+    onPage = output<DataViewPageEvent>();
     /**
      * Callback to invoke when sorting occurs.
      * @param {DataViewSortEvent} event - Custom sort event.
      * @group Emits
      */
-    @Output() onSort: EventEmitter<DataViewSortEvent> = new EventEmitter<DataViewSortEvent>();
+    onSort = output<DataViewSortEvent>();
     /**
      * Callback to invoke when changing layout.
      * @param {DataViewLayoutChangeEvent} event - Custom layout change event.
      * @group Emits
      */
-    @Output() onChangeLayout: EventEmitter<DataViewLayoutChangeEvent> = new EventEmitter<DataViewLayoutChangeEvent>();
+    onChangeLayout = output<DataViewLayoutChangeEvent>();
     /**
      * Template for the list layout.
      * @param {DataViewListTemplateContext} context - list template context.
      * @group Templates
      */
-    @ContentChild('list') listTemplate: Nullable<TemplateRef<DataViewListTemplateContext>>;
+    listTemplate = contentChild<TemplateRef<DataViewListTemplateContext>>('list');
     /**
      * Template for grid layout.
      * @param {DataViewGridTemplateContext} context - grid template context.
      * @group Templates
      */
-    @ContentChild('grid') gridTemplate: TemplateRef<DataViewGridTemplateContext>;
+    gridTemplate = contentChild<TemplateRef<DataViewGridTemplateContext>>('grid');
     /**
      * Template for the header section.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: TemplateRef<void>;
+    headerTemplate = contentChild<TemplateRef<void>>('header');
     /**
      * Template for the empty message section.
      * @group Templates
      */
-    @ContentChild('emptymessage') emptymessageTemplate: TemplateRef<void>;
+    emptymessageTemplate = contentChild<TemplateRef<void>>('emptymessage');
     /**
      * Template for the footer section.
      * @group Templates
      */
-    @ContentChild('footer') footerTemplate: TemplateRef<void>;
+    footerTemplate = contentChild<TemplateRef<void>>('footer');
     /**
      * Template for the left side of paginator.
      * @param {DataViewPaginatorLeftTemplateContext} context - paginator left template context.
      * @group Templates
      */
-    @ContentChild('paginatorleft') paginatorleft: TemplateRef<DataViewPaginatorLeftTemplateContext>;
+    paginatorleft = contentChild<TemplateRef<DataViewPaginatorLeftTemplateContext>>('paginatorleft');
     /**
      * Template for the right side of paginator.
      * @param {DataViewPaginatorRightTemplateContext} context - paginator right template context.
      * @group Templates
      */
-    @ContentChild('paginatorright') paginatorright: TemplateRef<DataViewPaginatorRightTemplateContext>;
+    paginatorright = contentChild<TemplateRef<DataViewPaginatorRightTemplateContext>>('paginatorright');
     /**
      * Template for items in paginator dropdown.
      * @param {DataViewPaginatorDropdownItemTemplateContext} context - paginator dropdown item template context.
      * @group Templates
      */
-    @ContentChild('paginatordropdownitem') paginatordropdownitem: TemplateRef<DataViewPaginatorDropdownItemTemplateContext>;
+    paginatordropdownitem = contentChild<TemplateRef<DataViewPaginatorDropdownItemTemplateContext>>('paginatordropdownitem');
     /**
      * Template for loading icon.
      * @group Templates
      */
-    @ContentChild('loadingicon') loadingicon: TemplateRef<void>;
+    loadingicon = contentChild<TemplateRef<void>>('loadingicon');
     /**
      * Template for list icon.
      * @group Templates
      */
-    @ContentChild('listicon') listicon: TemplateRef<void>;
+    listicon = contentChild<TemplateRef<void>>('listicon');
     /**
      * Template for grid icon.
      * @group Templates
      */
-    @ContentChild('gridicon') gridicon: TemplateRef<void>;
+    gridicon = contentChild<TemplateRef<void>>('gridicon');
 
-    @ContentChild(Header) header: any;
+    header = contentChild(Header);
 
-    @ContentChild(Footer) footer: any;
+    footer = contentChild(Footer);
 
-    _value: Nullable<any[]>;
+    filteredValue = signal<any[] | null>(null);
 
-    filteredValue: Nullable<any[]>;
+    filterValue = signal<string | null>(null);
 
-    filterValue: Nullable<string>;
+    initialized = false;
 
-    initialized: Nullable<boolean>;
-
-    _layout: 'list' | 'grid' = 'list';
-
-    translationSubscription: Nullable<Subscription>;
+    private translation = toSignal(this.config.translationObserver, { initialValue: this.config.translation });
 
     _componentStyle = inject(DataViewStyle);
 
-    get emptyMessageLabel(): string {
-        return this.emptyMessage || this.translate(TranslationKeys.EMPTY_MESSAGE);
-    }
+    emptyMessageLabel = computed(() => {
+        this.translation();
+        return this.emptyMessage() || this.translate(TranslationKeys.EMPTY_MESSAGE);
+    });
+
+    displayedItems = computed(() => {
+        const items = this.filteredValue() || this.value();
+        if (!this.paginator()) return items;
+        const start = this.lazy() ? 0 : this.first();
+        const end = start + (this.rows() ?? 0);
+        return items?.slice(start, end) ?? [];
+    });
+
+    showHeader = computed(() => !!this.header() || !!this.headerTemplate());
+
+    showFooter = computed(() => !!this.footer() || !!this.footerTemplate());
+
+    showTopPaginator = computed(() => this.paginator() && (this.paginatorPosition() === 'top' || this.paginatorPosition() === 'both'));
+
+    showBottomPaginator = computed(() => this.paginator() && (this.paginatorPosition() === 'bottom' || this.paginatorPosition() === 'both'));
+
+    isListLayout = computed(() => this.layout() === 'list');
+
+    isGridLayout = computed(() => this.layout() === 'grid');
+
+    $isEmpty = computed(() => {
+        const data = this.filteredValue() || this.value();
+        return data == null || data.length == 0;
+    });
+
+    showEmptyMessage = computed(() => this.$isEmpty() && !this.loading());
 
     filterService = inject(FilterService);
 
+    constructor() {
+        super();
+
+        let layoutInit = false;
+        effect(() => {
+            const layout = this.layout();
+            if (layoutInit) {
+                untracked(() => this.onChangeLayout.emit({ layout }));
+            }
+            layoutInit = true;
+        });
+
+        effect(() => {
+            this.value();
+            untracked(() => {
+                this.updateTotalRecords();
+                if (!this.lazy() && this.hasFilter()) {
+                    this.filter(this.filterValue() as string);
+                }
+            });
+        });
+
+        let sortInit = false;
+        effect(() => {
+            this.sortField();
+            this.sortOrder();
+            if (sortInit) {
+                untracked(() => this.sort());
+            }
+            sortInit = true;
+        });
+    }
+
     onInit() {
-        if (this.lazy && this.lazyLoadOnInit) {
+        if (this.lazy() && this.lazyLoadOnInit()) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
-
-        this.translationSubscription = this.config.translationObserver.subscribe(() => {
-            this.cd.markForCheck();
-        });
         this.initialized = true;
     }
 
-    onAfterViewInit() {}
-
-    onChanges(simpleChanges: SimpleChanges) {
-        if (simpleChanges.layout && !simpleChanges.layout.firstChange) {
-            this.onChangeLayout.emit({ layout: simpleChanges.layout.currentValue });
-        }
-        if (simpleChanges.value) {
-            this._value = simpleChanges.value.currentValue;
-            this.updateTotalRecords();
-
-            if (!this.lazy && this.hasFilter()) {
-                this.filter(this.filterValue as string);
-            }
-        }
-
-        if (simpleChanges.sortField || simpleChanges.sortOrder) {
-            //avoid triggering lazy load prior to lazy initialization at onInit
-            if (!this.lazy || this.initialized) {
-                this.sort();
-            }
-        }
-    }
-
     updateTotalRecords() {
-        this.totalRecords = this.lazy ? this.totalRecords : this._value ? this._value.length : 0;
+        if (!this.lazy()) {
+            this.totalRecords.set(this.value()?.length ?? 0);
+        }
     }
 
     paginate(event: DataViewPaginatorState) {
-        this.first = event.first;
-        this.rows = event.rows;
+        this.first.set(event.first!);
+        this.rows.set(event.rows!);
 
-        if (this.lazy) {
+        if (this.lazy()) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
 
         this.onPage.emit({
-            first: <number>this.first,
-            rows: <number>this.rows
+            first: this.first(),
+            rows: this.rows()!
         });
     }
 
     sort() {
-        this.first = 0;
+        this.first.set(0);
 
-        if (this.lazy) {
+        if (this.lazy()) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        } else if (this.value) {
-            this.value.sort((data1, data2) => {
-                let value1 = resolveFieldData(data1, this.sortField);
-                let value2 = resolveFieldData(data2, this.sortField);
+        } else if (this.value()) {
+            const sorted = [...this.value()!].sort((data1, data2) => {
+                let value1 = resolveFieldData(data1, this.sortField());
+                let value2 = resolveFieldData(data2, this.sortField());
                 let result: number;
 
                 if (value1 == null && value2 != null) result = -1;
@@ -487,31 +534,28 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
                 else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2);
                 else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
 
-                return (this.sortOrder as number) * result;
+                return (this.sortOrder() as number) * result;
             });
 
+            this.value.set(sorted);
+
             if (this.hasFilter()) {
-                this.filter(this.filterValue as string);
+                this.filter(this.filterValue() as string);
             }
         }
 
         this.onSort.emit({
-            sortField: <string>this.sortField,
-            sortOrder: <number>this.sortOrder
+            sortField: this.sortField() as string,
+            sortOrder: this.sortOrder() as number
         });
-    }
-
-    isEmpty() {
-        let data = this.filteredValue || this.value;
-        return data == null || data.length == 0;
     }
 
     createLazyLoadMetadata(): DataViewLazyLoadEvent {
         return {
-            first: <number>this.first,
-            rows: <number>this.rows,
-            sortField: <string>this.sortField,
-            sortOrder: <number>this.sortOrder
+            first: this.first(),
+            rows: this.rows()!,
+            sortField: this.sortField() as string,
+            sortOrder: this.sortOrder() as number
         };
     }
 
@@ -520,19 +564,22 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
     }
 
     filter(filter: string, filterMatchMode: string = 'contains') {
-        this.filterValue = filter;
+        this.filterValue.set(filter);
 
-        if (this.value && this.value.length) {
-            let searchFields = (this.filterBy as string).split(',');
-            this.filteredValue = this.filterService.filter(this.value, searchFields, filter, filterMatchMode, this.filterLocale);
+        const val = this.value();
+        if (val && val.length) {
+            let searchFields = (this.filterBy() as string).split(',');
+            const filtered = this.filterService.filter(val, searchFields, filter, filterMatchMode, this.filterLocale());
 
-            if (this.filteredValue.length === this.value.length) {
-                this.filteredValue = null;
+            if (filtered.length === val.length) {
+                this.filteredValue.set(null);
+            } else {
+                this.filteredValue.set(filtered);
             }
 
-            if (this.paginator) {
-                this.first = 0;
-                this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
+            if (this.paginator()) {
+                this.first.set(0);
+                this.totalRecords.set(this.filteredValue() ? this.filteredValue()!.length : val.length);
             }
 
             this.cd.markForCheck();
@@ -540,18 +587,13 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
     }
 
     hasFilter() {
-        return this.filterValue && this.filterValue.trim().length > 0;
-    }
-
-    onDestroy() {
-        if (this.translationSubscription) {
-            this.translationSubscription.unsubscribe();
-        }
+        const fv = this.filterValue();
+        return fv && fv.trim().length > 0;
     }
 }
 
 @NgModule({
-    imports: [DataView, SharedModule],
-    exports: [DataView, SharedModule]
+    imports: [DataView],
+    exports: [DataView]
 })
 export class DataViewModule {}
