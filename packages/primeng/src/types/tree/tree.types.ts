@@ -8,6 +8,21 @@ import type { InputTextPassThrough } from 'primeng/types/inputtext';
 import type { VirtualScrollerPassThrough } from 'primeng/types/scroller';
 
 /**
+ * Defines the selection mode of the tree.
+ */
+export type TreeSelectionMode = 'single' | 'multiple' | 'checkbox' | null | undefined;
+
+/**
+ * Defines the loading mode of the tree.
+ */
+export type TreeLoadingMode = 'mask' | 'icon';
+
+/**
+ * Defines the context menu selection mode of the tree.
+ */
+export type TreeContextMenuSelectionMode = 'separate' | 'joint';
+
+/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *

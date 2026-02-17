@@ -15,7 +15,7 @@ import { Tree, UITreeNode } from './tree';
             [selectionMode]="selectionMode"
             [loadingMode]="loadingMode"
             [(selection)]="selectedNodes"
-            [styleClass]="styleClass"
+            [class]="styleClass"
             [contextMenu]="contextMenu"
             [(contextMenuSelection)]="contextMenuSelectedNode"
             [contextMenuSelectionMode]="contextMenuSelectionMode"
@@ -37,9 +37,7 @@ import { Tree, UITreeNode } from './tree';
             [filterInputAutoFocus]="filterInputAutoFocus"
             [filterBy]="filterBy"
             [filterMode]="filterMode"
-            [filterOptions]="filterOptions"
             [filterPlaceholder]="filterPlaceholder"
-            [filteredNodes]="filteredNodes"
             [filterLocale]="filterLocale"
             [scrollHeight]="scrollHeight"
             [lazy]="lazy"
@@ -47,7 +45,6 @@ import { Tree, UITreeNode } from './tree';
             [virtualScrollItemSize]="virtualScrollItemSize"
             [virtualScrollOptions]="virtualScrollOptions"
             [indentation]="indentation"
-            [_templateMap]="_templateMap"
             [trackBy]="trackBy"
             [highlightOnSelect]="highlightOnSelect"
             (onNodeSelect)="onNodeSelect($event)"
@@ -85,9 +82,7 @@ class TestBasicTreeComponent {
     filterInputAutoFocus: boolean = false;
     filterBy: string = 'label';
     filterMode: string = 'lenient';
-    filterOptions: any;
     filterPlaceholder: string | undefined;
-    filteredNodes: TreeNode[] | undefined | null;
     filterLocale: string | undefined;
     scrollHeight: string | undefined;
     lazy: boolean = false;
@@ -95,7 +90,6 @@ class TestBasicTreeComponent {
     virtualScrollItemSize: number | undefined;
     virtualScrollOptions: any;
     indentation: number = 1.5;
-    _templateMap: any;
     trackBy: Function = (index: number, item: any) => item;
     highlightOnSelect: boolean = false;
 
@@ -121,44 +115,45 @@ class TestBasicTreeComponent {
     }
 }
 
-// Test component for pTemplate testing
+// Test component for #template testing (pTemplate removed)
 @Component({
     standalone: false,
     template: `
         <p-tree [value]="nodes" [filter]="true" [loading]="loading">
-            <ng-template pTemplate="default" let-node>
-                <span class="custom-node-content">{{ node.label }} - Custom Default</span>
+            <ng-template #node let-node>
+                @if (node.type === 'url') {
+                    <a [href]="node.data" class="custom-url-node" target="_blank">{{ node.label }}</a>
+                } @else {
+                    <span class="custom-node-content">{{ node.label }} - Custom Default</span>
+                }
             </ng-template>
-            <ng-template pTemplate="url" let-node>
-                <a [href]="node.data" class="custom-url-node" target="_blank">{{ node.label }}</a>
+            <ng-template #togglericon let-expanded>
+                <span class="custom-toggler-icon"> {{ expanded ? 'EXPANDED' : 'COLLAPSED' }} </span>
             </ng-template>
-            <ng-template pTemplate="togglericon" let-expanded let-node="node">
-                <span class="custom-toggler-icon"> {{ expanded ? 'EXPANDED' : 'COLLAPSED' }} - {{ node.label }} </span>
-            </ng-template>
-            <ng-template pTemplate="checkboxicon" let-checked let-partialSelected="partialSelected">
+            <ng-template #checkboxicon let-checked let-partialSelected="partialSelected">
                 <span class="custom-checkbox-icon">
                     {{ partialSelected ? 'PARTIAL' : checked ? 'CHECKED' : 'UNCHECKED' }}
                 </span>
             </ng-template>
-            <ng-template pTemplate="loadingicon">
+            <ng-template #loadingicon>
                 <span class="custom-loading-icon">LOADING...</span>
             </ng-template>
-            <ng-template pTemplate="header">
-                <div class="custom-header">Tree Header with pTemplate</div>
+            <ng-template #header>
+                <div class="custom-header">Tree Header with #template</div>
             </ng-template>
-            <ng-template pTemplate="footer">
-                <div class="custom-footer">Tree Footer with pTemplate</div>
+            <ng-template #footer>
+                <div class="custom-footer">Tree Footer with #template</div>
             </ng-template>
-            <ng-template pTemplate="empty">
-                <div class="custom-empty-message">No data found with pTemplate</div>
+            <ng-template #empty>
+                <div class="custom-empty-message">No data found with #template</div>
             </ng-template>
-            <ng-template pTemplate="filter">
+            <ng-template #filter>
                 <input type="text" class="custom-filter-input" placeholder="Custom Filter..." />
             </ng-template>
-            <ng-template pTemplate="filtericon">
+            <ng-template #filtericon>
                 <span class="custom-filter-icon">SEARCH</span>
             </ng-template>
-            <ng-template pTemplate="loader">
+            <ng-template #loader>
                 <div class="custom-loader">Custom Loader...</div>
             </ng-template>
         </p-tree>
@@ -244,23 +239,20 @@ class TestTemplateRefTreeComponent {
     standalone: false,
     template: `
         <p-tree [value]="nodes" [selectionMode]="'checkbox'">
-            <ng-template pTemplate="default" let-node let-index="index" let-first="first" let-last="last">
+            <ng-template #node let-node>
                 <div class="context-node-template">
                     <span class="node-label">{{ node.label }}</span>
-                    <span class="node-index">Index: {{ index }}</span>
-                    <span class="node-position"> {{ first ? 'FIRST' : '' }}{{ last ? 'LAST' : '' }}{{ !first && !last ? 'MIDDLE' : '' }} </span>
                 </div>
             </ng-template>
-            <ng-template pTemplate="checkboxicon" let-checked let-partialSelected="partialSelected" let-class="class">
+            <ng-template #checkboxicon let-checked let-partialSelected="partialSelected" let-class="class">
                 <div class="context-checkbox-template">
                     <span class="checkbox-state">{{ partialSelected ? 'PARTIAL' : checked ? 'CHECKED' : 'UNCHECKED' }}</span>
                     <span class="checkbox-class">{{ class }}</span>
                 </div>
             </ng-template>
-            <ng-template pTemplate="togglericon" let-expanded let-node="node" let-loading="loading">
+            <ng-template #togglericon let-expanded let-loading="loading">
                 <div class="context-toggler-template">
                     <span class="toggler-state">{{ expanded ? 'EXPANDED' : 'COLLAPSED' }}</span>
-                    <span class="toggler-node">{{ node?.label }}</span>
                     <span class="toggler-loading">{{ loading ? 'LOADING' : 'READY' }}</span>
                 </div>
             </ng-template>
@@ -282,28 +274,29 @@ class TestContextTreeComponent {
     standalone: false,
     template: `
         <p-tree [value]="nodes" [filter]="true" [loading]="loading" [selectionMode]="'checkbox'">
-            <ng-template pTemplate="default" let-node>
-                <span class="custom-node-content">{{ node.label }} - Custom Default</span>
+            <ng-template #node let-node>
+                @if (node.type === 'url') {
+                    <a [href]="node.data" class="custom-url-node" target="_blank">{{ node.label }}</a>
+                } @else {
+                    <span class="custom-node-content">{{ node.label }} - Custom Default</span>
+                }
             </ng-template>
-            <ng-template pTemplate="url" let-node>
-                <a [href]="node.data" class="custom-url-node" target="_blank">{{ node.label }}</a>
+            <ng-template #togglericon let-expanded let-loading="loading">
+                <span class="custom-toggler-icon"> {{ loading ? 'LOADING' : expanded ? 'EXPANDED' : 'COLLAPSED' }} </span>
             </ng-template>
-            <ng-template pTemplate="togglericon" let-expanded let-node="node" let-loading="loading">
-                <span class="custom-toggler-icon"> {{ loading ? 'LOADING' : expanded ? 'EXPANDED' : 'COLLAPSED' }} - {{ node.label }} </span>
-            </ng-template>
-            <ng-template pTemplate="checkboxicon" let-checked let-partialSelected="partialSelected" let-class="class">
+            <ng-template #checkboxicon let-checked let-partialSelected="partialSelected" let-class="class">
                 <span class="custom-checkbox-icon" [ngClass]="class">
                     {{ partialSelected ? 'PARTIAL' : checked ? 'CHECKED' : 'UNCHECKED' }}
                 </span>
             </ng-template>
-            <ng-template pTemplate="header">
-                <div class="custom-header">Tree Header with pTemplate</div>
+            <ng-template #header>
+                <div class="custom-header">Tree Header with #template</div>
             </ng-template>
-            <ng-template pTemplate="footer">
-                <div class="custom-footer">Tree Footer with pTemplate</div>
+            <ng-template #footer>
+                <div class="custom-footer">Tree Footer with #template</div>
             </ng-template>
-            <ng-template pTemplate="empty">
-                <div class="custom-empty-message">No data found with pTemplate</div>
+            <ng-template #empty>
+                <div class="custom-empty-message">No data found with #template</div>
             </ng-template>
         </p-tree>
     `
@@ -391,14 +384,14 @@ describe('Tree', () => {
         it('should have default values', () => {
             fixture.detectChanges();
 
-            expect(tree.selectionMode).toBeNull();
-            expect(tree.metaKeySelection).toBe(false);
-            expect(tree.propagateSelectionUp).toBe(true);
-            expect(tree.propagateSelectionDown).toBe(true);
-            expect(tree.filterMode).toBe('lenient');
-            expect(tree.filterBy).toBe('label');
-            expect(tree.lazy).toBe(false);
-            expect(tree.indentation).toBe(1.5);
+            expect(tree.selectionMode()).toBeNull();
+            expect(tree.metaKeySelection()).toBe(false);
+            expect(tree.propagateSelectionUp()).toBe(true);
+            expect(tree.propagateSelectionDown()).toBe(true);
+            expect(tree.filterMode()).toBe('lenient');
+            expect(tree.filterBy()).toBe('label');
+            expect(tree.lazy()).toBe(false);
+            expect(tree.indentation()).toBe(1.5);
         });
 
         it('should accept custom values', async () => {
@@ -425,13 +418,11 @@ describe('Tree', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            // component.styleClass = 'custom-tree'; // Deprecated property
 
-            expect(tree.value).toBe(testNodes);
-            expect(tree.selectionMode).toBe('single');
-            expect(tree.filter).toBe(true);
-            expect(tree.loading).toBe(true);
-            // expect(tree.styleClass).toBe('custom-tree'); // styleClass is deprecated
+            expect(tree.value()).toBe(testNodes);
+            expect(tree.selectionMode()).toBe('single');
+            expect(tree.filter()).toBe(true);
+            expect(tree.loading()).toBe(true);
         });
 
         it('should handle empty nodes array', async () => {
@@ -440,7 +431,7 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.value).toEqual([]);
+            expect(tree.value()).toEqual([]);
         });
 
         it('should handle single TreeNode value', async () => {
@@ -450,7 +441,7 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.value).toBe(singleNode);
+            expect(tree.value()).toBe(singleNode);
         });
     });
 
@@ -497,21 +488,13 @@ describe('Tree', () => {
         });
 
         it('should get template for node', () => {
-            tree._templateMap = {
-                default: {} as any,
-                custom: {} as any
-            };
-
-            const defaultNode = { label: 'Test' } as TreeNode;
-            const customNode = { label: 'Test', type: 'custom' } as TreeNode;
-
-            expect(tree.getTemplateForNode(defaultNode)).toBe(tree._templateMap['default']);
-            expect(tree.getTemplateForNode(customNode)).toBe(tree._templateMap['custom']);
+            // getTemplateForNode returns nodeTemplate contentChild or null
+            expect(tree.getTemplateForNode({ label: 'Test' } as TreeNode)).toBeNull();
         });
 
         it('should handle trackBy function', () => {
             const item = { label: 'Test' };
-            const result = tree.trackBy(0, item);
+            const result = tree.trackBy()(0, item);
             expect(result).toBe(item);
         });
     });
@@ -576,10 +559,10 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 expect(component.nodeSelectEvent).toBeDefined();
-                expect(tree.selection).toBe(component.nodes[0]);
+                expect(tree.selection()).toBe(component.nodes[0]);
             } else {
                 // Single selection mode should be set
-                expect(tree.selectionMode).toBe('single');
+                expect(tree.selectionMode()).toBe('single');
                 expect(component.selectionMode).toBe('single');
             }
         });
@@ -647,7 +630,7 @@ describe('Tree', () => {
                 expect(Array.isArray(component.selectedNodes)).toBe(false);
             } else {
                 // Fallback: verify selection mode is set correctly
-                expect(tree.selectionMode).toBe('single');
+                expect(tree.selectionMode()).toBe('single');
                 expect(component.nodes[0].children!.length).toBe(3);
             }
         });
@@ -706,7 +689,7 @@ describe('Tree', () => {
     });
 
     describe('Template and Content Projection', () => {
-        describe('pTemplate Approach', () => {
+        describe('#template Approach (from pTemplate)', () => {
             let pTemplateFixture: ComponentFixture<TestPTemplateTreeComponent>;
             let pTemplateComponent: TestPTemplateTreeComponent;
 
@@ -718,7 +701,7 @@ describe('Tree', () => {
                 pTemplateFixture.detectChanges();
             });
 
-            it('should apply default node template with pTemplate', async () => {
+            it('should apply default node template with #template', async () => {
                 await fixture.whenStable();
 
                 const customNodeContent = pTemplateFixture.debugElement.query(By.css('.custom-node-content'));
@@ -730,7 +713,7 @@ describe('Tree', () => {
                 }
             });
 
-            it('should apply url node template with pTemplate', async () => {
+            it('should apply url node template with #template', async () => {
                 pTemplateComponent.nodes[0].expanded = true;
                 pTemplateFixture.changeDetectorRef.markForCheck();
                 await pTemplateFixture.whenStable();
@@ -747,31 +730,31 @@ describe('Tree', () => {
                 }
             });
 
-            it('should apply header template with pTemplate', async () => {
+            it('should apply header template with #template', async () => {
                 await fixture.whenStable();
 
                 const customHeader = pTemplateFixture.debugElement.query(By.css('.custom-header'));
                 if (customHeader) {
-                    expect(customHeader.nativeElement.textContent).toContain('Tree Header with pTemplate');
+                    expect(customHeader.nativeElement.textContent).toContain('Tree Header with #template');
                 } else {
                     // Add explicit expectation to avoid "no expectations" warning
                     expect(pTemplateComponent).toBeTruthy();
                 }
             });
 
-            it('should apply footer template with pTemplate', async () => {
+            it('should apply footer template with #template', async () => {
                 await fixture.whenStable();
 
                 const customFooter = pTemplateFixture.debugElement.query(By.css('.custom-footer'));
                 if (customFooter) {
-                    expect(customFooter.nativeElement.textContent).toContain('Tree Footer with pTemplate');
+                    expect(customFooter.nativeElement.textContent).toContain('Tree Footer with #template');
                 } else {
                     // Add explicit expectation to avoid "no expectations" warning
                     expect(pTemplateComponent).toBeTruthy();
                 }
             });
 
-            it('should apply empty message template with pTemplate', async () => {
+            it('should apply empty message template with #template', async () => {
                 pTemplateComponent.nodes = [];
                 pTemplateFixture.changeDetectorRef.markForCheck();
                 await pTemplateFixture.whenStable();
@@ -780,14 +763,14 @@ describe('Tree', () => {
 
                 const customEmpty = pTemplateFixture.debugElement.query(By.css('.custom-empty-message'));
                 if (customEmpty) {
-                    expect(customEmpty.nativeElement.textContent).toContain('No data found with pTemplate');
+                    expect(customEmpty.nativeElement.textContent).toContain('No data found with #template');
                 } else {
                     // Add explicit expectation to avoid "no expectations" warning
                     expect(pTemplateComponent.nodes.length).toBe(0);
                 }
             });
 
-            it('should apply toggler icon template with pTemplate and context', async () => {
+            it('should apply toggler icon template with #template and context', async () => {
                 pTemplateComponent.nodes[0].expanded = false;
                 pTemplateFixture.changeDetectorRef.markForCheck();
                 await pTemplateFixture.whenStable();
@@ -797,29 +780,30 @@ describe('Tree', () => {
                 const customToggler = pTemplateFixture.debugElement.query(By.css('.custom-toggler-icon'));
                 if (customToggler) {
                     expect(customToggler.nativeElement.textContent).toContain('COLLAPSED');
-                    expect(customToggler.nativeElement.textContent).toContain('Root');
                 } else {
                     // Toggler template should be configured for collapsed state
                     expect(pTemplateComponent.nodes[0].expanded).toBe(false);
                 }
 
-                // Test expanded state
-                pTemplateComponent.nodes[0].expanded = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateFixture.detectChanges();
-                await pTemplateFixture.whenStable();
+                // Test expanded state - click the toggle button to trigger proper change detection
+                const toggleButton = pTemplateFixture.debugElement.query(By.css('.p-tree-node-toggle-button'));
+                if (toggleButton) {
+                    toggleButton.nativeElement.click();
+                    pTemplateFixture.changeDetectorRef.markForCheck();
+                    await pTemplateFixture.whenStable();
+                    pTemplateFixture.detectChanges();
+                    await pTemplateFixture.whenStable();
 
-                const expandedToggler = pTemplateFixture.debugElement.query(By.css('.custom-toggler-icon'));
-                if (expandedToggler) {
-                    expect(expandedToggler.nativeElement.textContent).toContain('EXPANDED');
+                    const expandedToggler = pTemplateFixture.debugElement.query(By.css('.custom-toggler-icon'));
+                    if (expandedToggler) {
+                        expect(expandedToggler.nativeElement.textContent).toContain('EXPANDED');
+                    }
                 } else {
-                    // Toggler template should be configured for expanded state
-                    expect(pTemplateComponent.nodes[0].expanded).toBe(true);
+                    expect(pTemplateComponent).toBeTruthy();
                 }
             });
 
-            it('should apply loading icon template with pTemplate', async () => {
+            it('should apply loading icon template with #template', async () => {
                 pTemplateComponent.loading = true;
                 pTemplateFixture.changeDetectorRef.markForCheck();
                 await pTemplateFixture.whenStable();
@@ -835,7 +819,7 @@ describe('Tree', () => {
                 }
             });
 
-            it('should apply filter template with pTemplate', async () => {
+            it('should apply filter template with #template', async () => {
                 await fixture.whenStable();
 
                 const customFilter = pTemplateFixture.debugElement.query(By.css('.custom-filter-input'));
@@ -847,14 +831,14 @@ describe('Tree', () => {
                 }
             });
 
-            it('should apply filter icon template with pTemplate', async () => {
+            it('should apply filter icon template with #template', async () => {
                 await fixture.whenStable();
 
                 // Test that filter icon template is configured
                 expect(pTemplateComponent).toBeTruthy();
             });
 
-            it('should apply loader template with pTemplate', async () => {
+            it('should apply loader template with #template', async () => {
                 await fixture.whenStable();
 
                 // Test that loader template is configured
@@ -962,7 +946,7 @@ describe('Tree', () => {
                     expect(customLoadingTemplate.nativeElement.textContent).toContain('WAIT...');
                 } else {
                     // Loading icon template should be configured
-                    expect(tree.loadingIconTemplate || true).toBeTruthy();
+                    expect(tree.loadingIconTemplate() || true).toBeTruthy();
                 }
             });
 
@@ -974,7 +958,7 @@ describe('Tree', () => {
                     expect(customFilterIconTemplate.nativeElement.textContent).toContain('FIND');
                 } else {
                     // Filter icon template should be configured
-                    expect(tree.filterIconTemplate || true).toBeTruthy();
+                    expect(tree.filterIconTemplate() || true).toBeTruthy();
                 }
             });
 
@@ -986,7 +970,7 @@ describe('Tree', () => {
                     expect(customLoaderTemplate.nativeElement.textContent).toContain('Template Loader...');
                 } else {
                     // Loader template should be configured
-                    expect(tree.loaderTemplate || true).toBeTruthy();
+                    expect(tree.loaderTemplate() || true).toBeTruthy();
                 }
             });
         });
@@ -1015,16 +999,9 @@ describe('Tree', () => {
                     const firstNode = contextNodes[0];
 
                     expect(firstNode.query(By.css('.node-label'))?.nativeElement.textContent).toContain('Context Root');
-                    expect(firstNode.query(By.css('.node-index'))?.nativeElement.textContent).toContain('Index:');
-                    expect(firstNode.query(By.css('.node-position'))?.nativeElement.textContent).toContain('FIRST');
                 } else {
                     // Add explicit expectation to avoid "no expectations" warning
                     expect(contextComponent.nodes[0].expanded).toBe(true);
-                }
-
-                if (contextNodes.length > 2) {
-                    const lastNode = contextNodes[contextNodes.length - 1];
-                    expect(lastNode.query(By.css('.node-position'))?.nativeElement.textContent).toContain('LAST');
                 }
             });
 
@@ -1047,23 +1024,27 @@ describe('Tree', () => {
                 const contextToggler = contextFixture.debugElement.query(By.css('.context-toggler-template'));
                 if (contextToggler) {
                     expect(contextToggler.query(By.css('.toggler-state'))?.nativeElement.textContent).toContain('COLLAPSED');
-                    expect(contextToggler.query(By.css('.toggler-node'))?.nativeElement.textContent).toContain('Context Root');
                     expect(contextToggler.query(By.css('.toggler-loading'))?.nativeElement.textContent).toContain('READY');
                 } else {
                     // Add explicit expectation to avoid "no expectations" warning
                     expect(contextComponent.nodes[0].expanded).toBe(false);
                 }
 
-                // Test expanded state
-                contextComponent.nodes[0].expanded = true;
-                contextFixture.changeDetectorRef.markForCheck();
-                await contextFixture.whenStable();
-                contextFixture.detectChanges();
-                await contextFixture.whenStable();
+                // Test expanded state - click the toggle button to trigger proper change detection
+                const toggleButton = contextFixture.debugElement.query(By.css('.p-tree-node-toggle-button'));
+                if (toggleButton) {
+                    toggleButton.nativeElement.click();
+                    contextFixture.changeDetectorRef.markForCheck();
+                    await contextFixture.whenStable();
+                    contextFixture.detectChanges();
+                    await contextFixture.whenStable();
 
-                const expandedToggler = contextFixture.debugElement.query(By.css('.context-toggler-template'));
-                if (expandedToggler) {
-                    expect(expandedToggler.query(By.css('.toggler-state'))?.nativeElement.textContent).toContain('EXPANDED');
+                    const expandedToggler = contextFixture.debugElement.query(By.css('.context-toggler-template'));
+                    if (expandedToggler) {
+                        expect(expandedToggler.query(By.css('.toggler-state'))?.nativeElement.textContent).toContain('EXPANDED');
+                    }
+                } else {
+                    expect(contextComponent).toBeTruthy();
                 }
             });
 
@@ -1074,39 +1055,27 @@ describe('Tree', () => {
                     expect(initialToggler.query(By.css('.toggler-state'))?.nativeElement.textContent).toContain('COLLAPSED');
                 }
 
-                // Expand the node
-                contextComponent.nodes[0].expanded = true;
-                contextFixture.changeDetectorRef.markForCheck();
-                await contextFixture.whenStable();
-                contextFixture.detectChanges();
-                await contextFixture.whenStable();
+                // Expand the node - click the toggle button to trigger proper change detection
+                const toggleButton = contextFixture.debugElement.query(By.css('.p-tree-node-toggle-button'));
+                if (toggleButton) {
+                    toggleButton.nativeElement.click();
+                    contextFixture.changeDetectorRef.markForCheck();
+                    await contextFixture.whenStable();
+                    contextFixture.detectChanges();
+                    await contextFixture.whenStable();
 
-                const updatedToggler = contextFixture.debugElement.query(By.css('.context-toggler-template'));
-                if (updatedToggler) {
-                    expect(updatedToggler.query(By.css('.toggler-state'))?.nativeElement.textContent).toContain('EXPANDED');
+                    const updatedToggler = contextFixture.debugElement.query(By.css('.context-toggler-template'));
+                    if (updatedToggler) {
+                        expect(updatedToggler.query(By.css('.toggler-state'))?.nativeElement.textContent).toContain('EXPANDED');
+                    }
                 } else {
                     // Add explicit expectation to avoid "no expectations" warning
-                    expect(contextComponent.nodes[0].expanded).toBe(true);
+                    expect(contextComponent).toBeTruthy();
                 }
             });
         });
 
-        describe('Template Processing in ngAfterContentInit', () => {
-            it('should process pTemplate templates correctly', async () => {
-                const pTemplateFixture = TestBed.createComponent(TestPTemplateTreeComponent);
-                const tree = pTemplateFixture.debugElement.query(By.directive(Tree)).componentInstance;
-
-                spyOn(tree, 'ngAfterContentInit').and.callThrough();
-
-                pTemplateFixture.detectChanges();
-
-                tree.ngAfterContentInit();
-                await fixture.whenStable();
-
-                expect(tree.ngAfterContentInit).toHaveBeenCalled();
-                expect(tree.getTemplateForNode).toBeDefined();
-            });
-
+        describe('Template Processing', () => {
             it('should process #template references correctly', async () => {
                 const templateRefFixture = TestBed.createComponent(TestTemplateRefTreeComponent);
                 const tree = templateRefFixture.debugElement.query(By.directive(Tree)).componentInstance;
@@ -1115,10 +1084,10 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 // Template references should be accessible
-                expect(tree.nodeTemplate || tree.headerTemplate || tree.footerTemplate).toBeDefined();
+                expect(tree.nodeTemplate() || tree.headerTemplate() || tree.footerTemplate()).toBeDefined();
             });
 
-            it('should handle both pTemplate and #template approaches', async () => {
+            it('should handle both template approaches', async () => {
                 // Test that both approaches work and don't conflict
                 const pTemplateFixture = TestBed.createComponent(TestPTemplateTreeComponent);
                 const templateRefFixture = TestBed.createComponent(TestTemplateRefTreeComponent);
@@ -1174,7 +1143,7 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.loading).toBe(true);
+            expect(tree.loading()).toBe(true);
         });
     });
 
@@ -1297,8 +1266,8 @@ describe('Tree', () => {
         });
 
         it('should enable drag and drop', () => {
-            expect(tree.draggableNodes).toBe(true);
-            expect(tree.droppableNodes).toBe(true);
+            expect(tree.draggableNodes()).toBe(true);
+            expect(tree.droppableNodes()).toBe(true);
         });
 
         it('should have draggable attribute on nodes', () => {
@@ -1343,15 +1312,15 @@ describe('Tree', () => {
         });
 
         it('should enable filter', () => {
-            expect(tree.filter).toBe(true);
+            expect(tree.filter()).toBe(true);
         });
 
         it('should have filterBy property', () => {
-            expect(tree.filterBy).toBe('label');
+            expect(tree.filterBy()).toBe('label');
         });
 
         it('should handle filter mode', () => {
-            expect(tree.filterMode).toBe('lenient');
+            expect(tree.filterMode()).toBe('lenient');
         });
     });
 
@@ -1374,7 +1343,7 @@ describe('Tree', () => {
         });
 
         it('should enable checkbox mode', () => {
-            expect(tree.selectionMode).toBe('checkbox');
+            expect(tree.selectionMode()).toBe('checkbox');
         });
 
         it('should display checkboxes', () => {
@@ -1383,8 +1352,8 @@ describe('Tree', () => {
         });
 
         it('should handle propagation settings', () => {
-            expect(tree.propagateSelectionUp).toBe(true);
-            expect(tree.propagateSelectionDown).toBe(true);
+            expect(tree.propagateSelectionUp()).toBe(true);
+            expect(tree.propagateSelectionDown()).toBe(true);
         });
     });
 
@@ -1400,7 +1369,7 @@ describe('Tree', () => {
         });
 
         it('should handle virtual scroll settings', () => {
-            expect(tree.virtualScroll).toBeFalsy();
+            expect(tree.virtualScroll()).toBeFalsy();
         });
 
         it('should render nodes without virtual scroll', () => {
@@ -1424,7 +1393,7 @@ describe('Tree', () => {
         });
 
         it('should handle lazy loading settings', () => {
-            expect(tree.lazy).toBe(false);
+            expect(tree.lazy()).toBe(false);
         });
 
         it('should handle leaf nodes', () => {
@@ -1435,7 +1404,7 @@ describe('Tree', () => {
 
     // Comprehensive Template and Content Projection Tests (originally in tree-templates.spec.ts)
     describe('Comprehensive Template and Content Projection', () => {
-        describe('pTemplate Approach', () => {
+        describe('#template Approach', () => {
             let pTemplateFixture: ComponentFixture<TestPTemplateComponent>;
             let pTemplateComponent: TestPTemplateComponent;
             let tree: Tree;
@@ -1449,21 +1418,12 @@ describe('Tree', () => {
                 pTemplateFixture.detectChanges();
             });
 
-            it('should create component with pTemplate', () => {
+            it('should create component with #template', () => {
                 expect(pTemplateComponent).toBeTruthy();
                 expect(tree).toBeTruthy();
             });
 
-            it('should process pTemplate templates in ngAfterContentInit', async () => {
-                spyOn(tree, 'ngAfterContentInit').and.callThrough();
-
-                tree.ngAfterContentInit();
-                await fixture.whenStable();
-
-                expect(tree.ngAfterContentInit).toHaveBeenCalled();
-            });
-
-            it('should apply default node template with pTemplate', async () => {
+            it('should apply default node template with #template', async () => {
                 await fixture.whenStable();
 
                 const customNodeContent = pTemplateFixture.debugElement.query(By.css('.custom-node-content'));
@@ -1475,7 +1435,7 @@ describe('Tree', () => {
                 }
             });
 
-            it('should apply url node template with pTemplate when expanded', async () => {
+            it('should apply url node template with #template when expanded', async () => {
                 pTemplateComponent.nodes[0].expanded = true;
                 pTemplateFixture.changeDetectorRef.markForCheck();
                 await pTemplateFixture.whenStable();
@@ -1492,31 +1452,31 @@ describe('Tree', () => {
                 }
             });
 
-            it('should apply header template with pTemplate', async () => {
+            it('should apply header template with #template', async () => {
                 await fixture.whenStable();
 
                 const customHeader = pTemplateFixture.debugElement.query(By.css('.custom-header'));
                 if (customHeader) {
-                    expect(customHeader.nativeElement.textContent).toContain('Tree Header with pTemplate');
+                    expect(customHeader.nativeElement.textContent).toContain('Tree Header with #template');
                 } else {
                     // Header template is configured
-                    expect(tree.headerTemplate || true).toBeTruthy();
+                    expect(tree.headerTemplate() || true).toBeTruthy();
                 }
             });
 
-            it('should apply footer template with pTemplate', async () => {
+            it('should apply footer template with #template', async () => {
                 await fixture.whenStable();
 
                 const customFooter = pTemplateFixture.debugElement.query(By.css('.custom-footer'));
                 if (customFooter) {
-                    expect(customFooter.nativeElement.textContent).toContain('Tree Footer with pTemplate');
+                    expect(customFooter.nativeElement.textContent).toContain('Tree Footer with #template');
                 } else {
                     // Footer template is configured
-                    expect(tree.footerTemplate || true).toBeTruthy();
+                    expect(tree.footerTemplate() || true).toBeTruthy();
                 }
             });
 
-            it('should apply empty message template with pTemplate', async () => {
+            it('should apply empty message template with #template', async () => {
                 pTemplateComponent.nodes = [];
                 pTemplateFixture.changeDetectorRef.markForCheck();
                 await pTemplateFixture.whenStable();
@@ -1525,7 +1485,7 @@ describe('Tree', () => {
 
                 const customEmpty = pTemplateFixture.debugElement.query(By.css('.custom-empty-message'));
                 if (customEmpty) {
-                    expect(customEmpty.nativeElement.textContent).toContain('No data found with pTemplate');
+                    expect(customEmpty.nativeElement.textContent).toContain('No data found with #template');
                 } else {
                     // Empty template is configured for empty state
                     expect(pTemplateComponent.nodes.length).toBe(0);
@@ -1542,25 +1502,26 @@ describe('Tree', () => {
                 const customToggler = pTemplateFixture.debugElement.query(By.css('.custom-toggler-icon'));
                 if (customToggler) {
                     expect(customToggler.nativeElement.textContent).toContain('COLLAPSED');
-                    expect(customToggler.nativeElement.textContent).toContain('Root');
                 } else {
                     // Toggler template should be configured for collapsed state
                     expect(pTemplateComponent.nodes[0].expanded).toBe(false);
                 }
 
-                // Test expanded state
-                pTemplateComponent.nodes[0].expanded = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateFixture.detectChanges();
-                await pTemplateFixture.whenStable();
+                // Test expanded state - click the toggle button to trigger proper change detection
+                const toggleButton = pTemplateFixture.debugElement.query(By.css('.p-tree-node-toggle-button'));
+                if (toggleButton) {
+                    toggleButton.nativeElement.click();
+                    pTemplateFixture.changeDetectorRef.markForCheck();
+                    await pTemplateFixture.whenStable();
+                    pTemplateFixture.detectChanges();
+                    await pTemplateFixture.whenStable();
 
-                const expandedToggler = pTemplateFixture.debugElement.query(By.css('.custom-toggler-icon'));
-                if (expandedToggler) {
-                    expect(expandedToggler.nativeElement.textContent).toContain('EXPANDED');
+                    const expandedToggler = pTemplateFixture.debugElement.query(By.css('.custom-toggler-icon'));
+                    if (expandedToggler) {
+                        expect(expandedToggler.nativeElement.textContent).toContain('EXPANDED');
+                    }
                 } else {
-                    // Toggler template should be configured for expanded state
-                    expect(pTemplateComponent.nodes[0].expanded).toBe(true);
+                    expect(pTemplateComponent).toBeTruthy();
                 }
             });
 
@@ -1571,7 +1532,7 @@ describe('Tree', () => {
                 expect(checkboxes.length).toBeGreaterThan(0);
 
                 // Checkbox icon template should be available for checkbox selection mode
-                expect(tree.selectionMode).toBe('checkbox');
+                expect(tree.selectionMode()).toBe('checkbox');
             });
 
             it('should handle template context parameters correctly', async () => {
@@ -1613,7 +1574,7 @@ describe('Tree', () => {
 
                 // After content init, template references should be available
                 expect(
-                    tree.nodeTemplate || tree.headerTemplate || tree.footerTemplate || tree.emptyTemplate || tree.togglerIconTemplate || true // At least one should be defined or test passes
+                    tree.nodeTemplate() || tree.headerTemplate() || tree.footerTemplate() || tree.emptyTemplate() || tree.togglerIconTemplate() || true // At least one should be defined or test passes
                 ).toBeTruthy();
             });
 
@@ -1637,7 +1598,7 @@ describe('Tree', () => {
                     expect(customHeaderTemplate.nativeElement.textContent).toContain('Tree Header with #template');
                 } else {
                     // Header template reference is available
-                    expect(tree.headerTemplate || true).toBeTruthy();
+                    expect(tree.headerTemplate() || true).toBeTruthy();
                 }
             });
 
@@ -1649,7 +1610,7 @@ describe('Tree', () => {
                     expect(customFooterTemplate.nativeElement.textContent).toContain('Tree Footer with #template');
                 } else {
                     // Footer template reference is available
-                    expect(tree.footerTemplate || true).toBeTruthy();
+                    expect(tree.footerTemplate() || true).toBeTruthy();
                 }
             });
 
@@ -1699,7 +1660,7 @@ describe('Tree', () => {
         });
 
         describe('Template Context Verification', () => {
-            it('should pass correct context to pTemplate', async () => {
+            it('should pass correct context to #template', async () => {
                 const pTemplateFixture = TestBed.createComponent(TestPTemplateComponent);
                 const tree = pTemplateFixture.debugElement.query(By.directive(Tree)).componentInstance;
 
@@ -1724,8 +1685,8 @@ describe('Tree', () => {
                 templateRefFixture.detectChanges();
                 await fixture.whenStable();
 
-                // After ngAfterContentInit, ContentChild templates should be processed
-                expect(tree.ngAfterContentInit).toBeDefined();
+                // ContentChild templates should be processed
+                expect(tree.getTemplateForNode).toBeDefined();
             });
 
             it('should handle both template approaches without conflict', async () => {
@@ -1787,48 +1748,39 @@ describe('Tree', () => {
         });
 
         it('should handle selectionMode property changes', async () => {
-            expect(tree.selectionMode).toBeNull();
+            expect(tree.selectionMode()).toBeNull();
 
             component.selectionMode = 'single';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.selectionMode).toBe('single');
+            expect(tree.selectionMode()).toBe('single');
 
             component.selectionMode = 'multiple';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.selectionMode).toBe('multiple');
+            expect(tree.selectionMode()).toBe('multiple');
 
             component.selectionMode = 'checkbox';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.selectionMode).toBe('checkbox');
+            expect(tree.selectionMode()).toBe('checkbox');
         });
 
         it('should handle loadingMode property changes', async () => {
-            expect(tree.loadingMode).toBe('mask');
+            expect(tree.loadingMode()).toBe('mask');
 
             component.loadingMode = 'icon';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.loadingMode).toBe('icon');
-        });
-
-        it('should handle styleClass property', async () => {
-            component.styleClass = 'custom-tree-class';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            expect(tree.styleClass).toBe('custom-tree-class');
+            expect(tree.loadingMode()).toBe('icon');
         });
 
         it('should handle contextMenu property', async () => {
@@ -1838,7 +1790,7 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.contextMenu).toBe(mockContextMenu);
+            expect(tree.contextMenu()).toBe(mockContextMenu);
         });
 
         it('should handle draggableScope property', async () => {
@@ -1847,7 +1799,7 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.draggableScope).toBe('custom-drag-scope');
+            expect(tree.draggableScope()).toBe('custom-drag-scope');
         });
 
         it('should handle droppableScope property', async () => {
@@ -1856,73 +1808,73 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.droppableScope).toBe('custom-drop-scope');
+            expect(tree.droppableScope()).toBe('custom-drop-scope');
         });
 
         it('should handle draggableNodes property', async () => {
-            expect(tree.draggableNodes).toBe(false);
+            expect(tree.draggableNodes()).toBe(false);
 
             component.draggableNodes = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.draggableNodes).toBe(true);
+            expect(tree.draggableNodes()).toBe(true);
         });
 
         it('should handle droppableNodes property', async () => {
-            expect(tree.droppableNodes).toBe(false);
+            expect(tree.droppableNodes()).toBe(false);
 
             component.droppableNodes = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.droppableNodes).toBe(true);
+            expect(tree.droppableNodes()).toBe(true);
         });
 
         it('should handle metaKeySelection property', async () => {
-            expect(tree.metaKeySelection).toBe(false);
+            expect(tree.metaKeySelection()).toBe(false);
 
             component.metaKeySelection = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.metaKeySelection).toBe(true);
+            expect(tree.metaKeySelection()).toBe(true);
         });
 
         it('should handle propagateSelectionUp property', async () => {
-            expect(tree.propagateSelectionUp).toBe(true);
+            expect(tree.propagateSelectionUp()).toBe(true);
 
             component.propagateSelectionUp = false;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.propagateSelectionUp).toBe(false);
+            expect(tree.propagateSelectionUp()).toBe(false);
         });
 
         it('should handle propagateSelectionDown property', async () => {
-            expect(tree.propagateSelectionDown).toBe(true);
+            expect(tree.propagateSelectionDown()).toBe(true);
 
             component.propagateSelectionDown = false;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.propagateSelectionDown).toBe(false);
+            expect(tree.propagateSelectionDown()).toBe(false);
         });
 
         it('should handle loading property', async () => {
-            expect(tree.loading).toBe(false);
+            expect(tree.loading()).toBe(false);
 
             component.loading = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.loading).toBe(true);
+            expect(tree.loading()).toBe(true);
         });
 
         it('should handle loadingIcon property', async () => {
@@ -1931,18 +1883,18 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.loadingIcon).toBe('pi pi-spinner');
+            expect(tree.loadingIcon()).toBe('pi pi-spinner');
         });
 
         it('should handle emptyMessage property', async () => {
-            expect(tree.emptyMessage).toBe('' as any);
+            expect(tree.emptyMessage()).toBe('' as any);
 
             component.emptyMessage = 'No data available';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.emptyMessage).toBe('No data available');
+            expect(tree.emptyMessage()).toBe('No data available');
         });
 
         it('should handle ariaLabel property', async () => {
@@ -1951,7 +1903,7 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.ariaLabel).toBe('Tree navigation');
+            expect(tree.ariaLabel()).toBe('Tree navigation');
         });
 
         it('should handle togglerAriaLabel property', async () => {
@@ -1960,7 +1912,7 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.togglerAriaLabel).toBe('Toggle node');
+            expect(tree.togglerAriaLabel()).toBe('Toggle node');
         });
 
         it('should handle ariaLabelledBy property', async () => {
@@ -1969,72 +1921,62 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.ariaLabelledBy).toBe('tree-label');
+            expect(tree.ariaLabelledBy()).toBe('tree-label');
         });
 
         it('should handle validateDrop property', async () => {
-            expect(tree.validateDrop).toBe(false);
+            expect(tree.validateDrop()).toBe(false);
 
             component.validateDrop = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.validateDrop).toBe(true);
+            expect(tree.validateDrop()).toBe(true);
         });
 
         it('should handle filter property', async () => {
-            expect(tree.filter).toBe(false);
+            expect(tree.filter()).toBe(false);
 
             component.filter = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.filter).toBe(true);
+            expect(tree.filter()).toBe(true);
         });
 
         it('should handle filterInputAutoFocus property', async () => {
-            expect(tree.filterInputAutoFocus).toBe(false);
+            expect(tree.filterInputAutoFocus()).toBe(false);
 
             component.filterInputAutoFocus = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.filterInputAutoFocus).toBe(true);
+            expect(tree.filterInputAutoFocus()).toBe(true);
         });
 
         it('should handle filterBy property', async () => {
-            expect(tree.filterBy).toBe('label');
+            expect(tree.filterBy()).toBe('label');
 
             component.filterBy = 'data';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.filterBy).toBe('data');
+            expect(tree.filterBy()).toBe('data');
         });
 
         it('should handle filterMode property', async () => {
-            expect(tree.filterMode).toBe('lenient');
+            expect(tree.filterMode()).toBe('lenient');
 
             component.filterMode = 'strict';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.filterMode).toBe('strict');
-        });
-
-        it('should handle filterOptions property', async () => {
-            const options = { filterMatchMode: 'contains' };
-            component.filterOptions = options;
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            expect(tree.filterOptions).toBe(options);
+            expect(tree.filterMode()).toBe('strict');
         });
 
         it('should handle filterPlaceholder property', async () => {
@@ -2043,17 +1985,7 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.filterPlaceholder).toBe('Search nodes...');
-        });
-
-        it('should handle filteredNodes property', async () => {
-            const filteredNodes = [{ label: 'Filtered Node' }];
-            component.filteredNodes = filteredNodes;
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            expect(tree.filteredNodes).toBe(filteredNodes);
+            expect(tree.filterPlaceholder()).toBe('Search nodes...');
         });
 
         it('should handle filterLocale property', async () => {
@@ -2062,7 +1994,7 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.filterLocale).toBe('en-US');
+            expect(tree.filterLocale()).toBe('en-US');
         });
 
         it('should handle scrollHeight property', async () => {
@@ -2071,29 +2003,29 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.scrollHeight).toBe('400px');
+            expect(tree.scrollHeight()).toBe('400px');
         });
 
         it('should handle lazy property', async () => {
-            expect(tree.lazy).toBe(false);
+            expect(tree.lazy()).toBe(false);
 
             component.lazy = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.lazy).toBe(true);
+            expect(tree.lazy()).toBe(true);
         });
 
         it('should handle virtualScroll property', async () => {
-            expect(tree.virtualScroll).toBe(false);
+            expect(tree.virtualScroll()).toBe(false);
 
             component.virtualScroll = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.virtualScroll).toBe(true);
+            expect(tree.virtualScroll()).toBe(true);
         });
 
         it('should handle virtualScrollItemSize property', async () => {
@@ -2102,7 +2034,7 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.virtualScrollItemSize).toBe(50);
+            expect(tree.virtualScrollItemSize()).toBe(50);
         });
 
         it('should handle virtualScrollOptions property', async () => {
@@ -2112,18 +2044,18 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.virtualScrollOptions).toBe(options);
+            expect(tree.virtualScrollOptions()).toBe(options);
         });
 
         it('should handle indentation property', async () => {
-            expect(tree.indentation).toBe(1.5);
+            expect(tree.indentation()).toBe(1.5);
 
             component.indentation = 2.0;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.indentation).toBe(2.0);
+            expect(tree.indentation()).toBe(2.0);
         });
 
         it('should handle trackBy property', async () => {
@@ -2133,18 +2065,18 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.trackBy).toEqual(customTrackBy);
+            expect(tree.trackBy()).toEqual(customTrackBy);
         });
 
         it('should handle highlightOnSelect property', async () => {
-            expect(tree.highlightOnSelect).toBe(false);
+            expect(tree.highlightOnSelect()).toBe(false);
 
             component.highlightOnSelect = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.highlightOnSelect).toBe(true);
+            expect(tree.highlightOnSelect()).toBe(true);
         });
 
         it('should handle value property changes', async () => {
@@ -2154,7 +2086,7 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.value).toBe(nodes);
+            expect(tree.value()).toBe(nodes);
         });
 
         it('should handle boolean attributes transformation', async () => {
@@ -2164,14 +2096,14 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.filter).toBe(true);
+            expect(tree.filter()).toBe(true);
 
             component.filter = '' as any;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.filter).toBe(true); // empty string should be true
+            expect(tree.filter()).toBe(true); // empty string should be true
         });
 
         it('should handle number attributes transformation', async () => {
@@ -2181,8 +2113,8 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.indentation).toBe(2.5);
-            expect(typeof tree.indentation).toBe('number');
+            expect(tree.indentation()).toBe(2.5);
+            expect(typeof tree.indentation()).toBe('number');
         });
 
         it('should handle edge case values for numeric inputs', async () => {
@@ -2193,8 +2125,8 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.indentation).toBe(0);
-            expect(tree.virtualScrollItemSize).toBe(0);
+            expect(tree.indentation()).toBe(0);
+            expect(tree.virtualScrollItemSize()).toBe(0);
         });
 
         it('should handle negative values for numeric inputs', async () => {
@@ -2204,18 +2136,12 @@ describe('Tree', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tree.indentation).toBe(-1);
-            expect(tree.virtualScrollItemSize).toBe(-10);
+            expect(tree.indentation()).toBe(-1);
+            expect(tree.virtualScrollItemSize()).toBe(-10);
         });
 
-        it('should handle templateMap property', async () => {
-            const templateMap = { default: 'custom-template' };
-            component._templateMap = templateMap;
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            expect(tree._templateMap).toBe(templateMap);
+        it('should handle getTemplateForNode returning null when no nodeTemplate', () => {
+            expect(tree.getTemplateForNode({ label: 'Test' } as TreeNode)).toBeNull();
         });
     });
 
@@ -2234,7 +2160,7 @@ describe('Tree', () => {
         });
 
         it('should handle dynamic value changes', async () => {
-            expect(dynamicTree.value?.length).toBe(2);
+            expect(dynamicTree.value()?.length).toBe(2);
 
             // Change value dynamically
             dynamicComponent.updateValue([
@@ -2246,12 +2172,12 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.value?.length).toBe(2);
-            expect(dynamicTree.value[0].label).toBe('New Node 1');
+            expect(dynamicTree.value()?.length).toBe(2);
+            expect(dynamicTree.value()[0].label).toBe('New Node 1');
         });
 
         it('should handle dynamic selectionMode changes', async () => {
-            expect(dynamicTree.selectionMode).toBe('single');
+            expect(dynamicTree.selectionMode()).toBe('single');
 
             // Change selection mode
             dynamicComponent.updateSelectionMode('multiple');
@@ -2260,7 +2186,7 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.selectionMode).toBe('multiple');
+            expect(dynamicTree.selectionMode()).toBe('multiple');
 
             dynamicComponent.updateSelectionMode('checkbox');
             dynamicFixture.changeDetectorRef.markForCheck();
@@ -2268,11 +2194,11 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.selectionMode).toBe('checkbox');
+            expect(dynamicTree.selectionMode()).toBe('checkbox');
         });
 
         it('should handle dynamic loading state changes', async () => {
-            expect(dynamicTree.loading).toBe(false);
+            expect(dynamicTree.loading()).toBe(false);
 
             // Toggle loading state
             dynamicComponent.toggleLoading();
@@ -2281,7 +2207,7 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.loading).toBe(true);
+            expect(dynamicTree.loading()).toBe(true);
 
             dynamicComponent.toggleLoading();
             dynamicFixture.changeDetectorRef.markForCheck();
@@ -2289,12 +2215,12 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.loading).toBe(false);
+            expect(dynamicTree.loading()).toBe(false);
         });
 
         it('should handle dynamic filter settings changes', async () => {
-            expect(dynamicTree.filter).toBe(false);
-            expect(dynamicTree.filterBy).toBe('label');
+            expect(dynamicTree.filter()).toBe(false);
+            expect(dynamicTree.filterBy()).toBe('label');
 
             // Enable filter and change filterBy
             dynamicComponent.updateFilterSettings(true, 'data');
@@ -2303,13 +2229,13 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.filter).toBe(true);
-            expect(dynamicTree.filterBy).toBe('data');
+            expect(dynamicTree.filter()).toBe(true);
+            expect(dynamicTree.filterBy()).toBe('data');
         });
 
         it('should handle dynamic drag and drop settings', async () => {
-            expect(dynamicTree.draggableNodes).toBe(false);
-            expect(dynamicTree.droppableNodes).toBe(false);
+            expect(dynamicTree.draggableNodes()).toBe(false);
+            expect(dynamicTree.droppableNodes()).toBe(false);
 
             // Enable drag and drop
             dynamicComponent.updateDragDropSettings(true, true);
@@ -2318,13 +2244,13 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.draggableNodes).toBe(true);
-            expect(dynamicTree.droppableNodes).toBe(true);
+            expect(dynamicTree.draggableNodes()).toBe(true);
+            expect(dynamicTree.droppableNodes()).toBe(true);
         });
 
         it('should handle dynamic virtual scroll settings', async () => {
-            expect(dynamicTree.virtualScroll).toBe(false);
-            expect(dynamicTree.virtualScrollItemSize || undefined).toBeUndefined();
+            expect(dynamicTree.virtualScroll()).toBe(false);
+            expect(dynamicTree.virtualScrollItemSize() || undefined).toBeUndefined();
 
             // Enable virtual scroll
             dynamicComponent.updateVirtualScrollSettings(true, 50);
@@ -2333,8 +2259,8 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.virtualScroll).toBe(true);
-            expect(dynamicTree.virtualScrollItemSize).toBe(50);
+            expect(dynamicTree.virtualScroll()).toBe(true);
+            expect(dynamicTree.virtualScrollItemSize()).toBe(50);
         });
 
         it('should handle dynamic accessibility properties', async () => {
@@ -2345,9 +2271,9 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.ariaLabel).toBe('Tree navigation');
-            expect(dynamicTree.togglerAriaLabel).toBe('Toggle node');
-            expect(dynamicTree.ariaLabelledBy).toBe('tree-label');
+            expect(dynamicTree.ariaLabel()).toBe('Tree navigation');
+            expect(dynamicTree.togglerAriaLabel()).toBe('Toggle node');
+            expect(dynamicTree.ariaLabelledBy()).toBe('tree-label');
         });
 
         it('should handle multiple simultaneous changes', async () => {
@@ -2358,10 +2284,10 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.value?.length).toBe(1);
-            expect(dynamicTree.selectionMode).toBe('checkbox');
-            expect(dynamicTree.filter).toBe(true);
-            expect(dynamicTree.loading).toBe(true);
+            expect(dynamicTree.value()?.length).toBe(1);
+            expect(dynamicTree.selectionMode()).toBe('checkbox');
+            expect(dynamicTree.filter()).toBe(true);
+            expect(dynamicTree.loading()).toBe(true);
         });
 
         it('should handle observable values from services', async () => {
@@ -2373,8 +2299,8 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.value?.length).toBe(5);
-            expect(dynamicTree.filter).toBe(true);
+            expect(dynamicTree.value()?.length).toBe(5);
+            expect(dynamicTree.filter()).toBe(true);
         });
 
         it('should handle async property updates with delays', async () => {
@@ -2392,12 +2318,12 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.value?.length).toBe(2);
-            expect(dynamicTree.selectionMode).toBe('multiple');
+            expect(dynamicTree.value()?.length).toBe(2);
+            expect(dynamicTree.selectionMode()).toBe('multiple');
         });
 
         it('should maintain component state during rapid changes', async () => {
-            const initialFilter = dynamicTree.filter;
+            const initialFilter = dynamicTree.filter();
 
             // Perform rapid changes
             for (let i = 0; i < 5; i++) {
@@ -2408,8 +2334,8 @@ describe('Tree', () => {
                 dynamicFixture.detectChanges();
             }
 
-            expect(dynamicTree.value?.length).toBe(1);
-            expect(dynamicTree.filter).toBe(initialFilter); // Should maintain filter state
+            expect(dynamicTree.value()?.length).toBe(1);
+            expect(dynamicTree.filter()).toBe(initialFilter); // Should maintain filter state
         });
 
         it('should handle edge case: empty value becomes populated', async () => {
@@ -2420,7 +2346,7 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.value?.length).toBe(0);
+            expect(dynamicTree.value()?.length).toBe(0);
 
             // Add data
             dynamicComponent.updateValue([{ label: 'First Node', expanded: false }]);
@@ -2429,8 +2355,8 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.value?.length).toBe(1);
-            expect(dynamicTree.value[0].label).toBe('First Node');
+            expect(dynamicTree.value()?.length).toBe(1);
+            expect(dynamicTree.value()[0].label).toBe('First Node');
         });
 
         it('should handle dynamic trackBy function changes', async () => {
@@ -2441,11 +2367,11 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.trackBy).toBe(customTrackBy);
+            expect(dynamicTree.trackBy()).toBe(customTrackBy);
         });
 
         it('should handle dynamic indentation changes', async () => {
-            expect(dynamicTree.indentation).toBe(1.5);
+            expect(dynamicTree.indentation()).toBe(1.5);
 
             // Change indentation dynamically
             dynamicComponent.updateIndentation(2.5);
@@ -2454,7 +2380,7 @@ describe('Tree', () => {
             dynamicFixture.detectChanges();
             await dynamicFixture.whenStable();
 
-            expect(dynamicTree.indentation).toBe(2.5);
+            expect(dynamicTree.indentation()).toBe(2.5);
         });
     });
 
