@@ -110,7 +110,7 @@ export class FileContent extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-fileupload, p-fileUpload',
+    selector: 'p-fileupload',
     standalone: true,
     imports: [NgTemplateOutlet, Button, ProgressBar, Message, PlusIcon, UploadIcon, TimesIcon, SharedModule, FileContent, Bind],
     template: `

@@ -75,7 +75,7 @@ const presets = {
                         exported file to the Visual Editor.</span
                     >
                     <div class="flex justify-between">
-                        <p-fileUpload mode="basic" (onSelect)="onFileSelect($event)" [chooseButtonProps]="{ styleClass: 'btn-design choose-btn' }"></p-fileUpload>
+                        <p-fileupload mode="basic" (onSelect)="onFileSelect($event)" [chooseButtonProps]="{ styleClass: 'btn-design choose-btn' }" />
                         <button type="button" (click)="createThemeFromFigma()" class="btn-design">Create</button>
                     </div>
                 </div>
