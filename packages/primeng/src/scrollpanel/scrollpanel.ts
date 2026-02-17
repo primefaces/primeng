@@ -1,5 +1,5 @@
 import { NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, contentChild, ElementRef, inject, InjectionToken, input, NgModule, NgZone, numberAttribute, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, contentChild, ElementRef, inject, InjectionToken, input, NgModule, numberAttribute, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
 import { addClass, getHeight, removeClass, uuid } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -138,31 +138,27 @@ export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
 
     _componentStyle = inject(ScrollPanelStyle);
 
-    zone: NgZone = inject(NgZone);
-
     onInit() {
         this.contentId = uuid('pn_id_') + '_content';
     }
 
     onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
-            this.zone.runOutsideAngular(() => {
-                this.moveBar();
-                this.moveBar = this.moveBar.bind(this);
-                this.onXBarMouseDown = this.onXBarMouseDown.bind(this);
-                this.onYBarMouseDown = this.onYBarMouseDown.bind(this);
-                this.onDocumentMouseMove = this.onDocumentMouseMove.bind(this);
-                this.onDocumentMouseUp = this.onDocumentMouseUp.bind(this);
+            this.moveBar();
+            this.moveBar = this.moveBar.bind(this);
+            this.onXBarMouseDown = this.onXBarMouseDown.bind(this);
+            this.onYBarMouseDown = this.onYBarMouseDown.bind(this);
+            this.onDocumentMouseMove = this.onDocumentMouseMove.bind(this);
+            this.onDocumentMouseUp = this.onDocumentMouseUp.bind(this);
 
-                this.windowResizeListener = this.renderer.listen(window, 'resize', this.moveBar);
-                this.contentScrollListener = this.renderer.listen(this.contentViewChild()!.nativeElement, 'scroll', this.moveBar);
-                this.mouseEnterListener = this.renderer.listen(this.contentViewChild()!.nativeElement, 'mouseenter', this.moveBar);
-                this.xBarMouseDownListener = this.renderer.listen(this.xBarViewChild()!.nativeElement, 'mousedown', this.onXBarMouseDown);
-                this.yBarMouseDownListener = this.renderer.listen(this.yBarViewChild()!.nativeElement, 'mousedown', this.onYBarMouseDown);
-                this.calculateContainerHeight();
+            this.windowResizeListener = this.renderer.listen(window, 'resize', this.moveBar);
+            this.contentScrollListener = this.renderer.listen(this.contentViewChild()!.nativeElement, 'scroll', this.moveBar);
+            this.mouseEnterListener = this.renderer.listen(this.contentViewChild()!.nativeElement, 'mouseenter', this.moveBar);
+            this.xBarMouseDownListener = this.renderer.listen(this.xBarViewChild()!.nativeElement, 'mousedown', this.onXBarMouseDown);
+            this.yBarMouseDownListener = this.renderer.listen(this.yBarViewChild()!.nativeElement, 'mousedown', this.onYBarMouseDown);
+            this.calculateContainerHeight();
 
-                this.initialized = true;
-            });
+            this.initialized = true;
         }
     }
 

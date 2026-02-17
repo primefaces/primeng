@@ -1,24 +1,5 @@
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    contentChild,
-    ElementRef,
-    HostListener,
-    inject,
-    InjectionToken,
-    input,
-    NgModule,
-    NgZone,
-    numberAttribute,
-    output,
-    signal,
-    TemplateRef,
-    ViewEncapsulation,
-    ViewRef
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, ElementRef, HostListener, inject, InjectionToken, input, NgModule, numberAttribute, output, signal, TemplateRef, ViewEncapsulation, ViewRef } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { $dt } from '@primeuix/styled';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
@@ -200,8 +181,6 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
     overlaySubscription: Subscription | undefined;
 
     _componentStyle = inject(PopoverStyle);
-
-    zone = inject(NgZone);
 
     overlayService = inject(OverlayService);
 
@@ -386,9 +365,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
     focus() {
         const focusable = findSingle(this.container!, '[autofocus]') as HTMLElement | null;
         if (focusable) {
-            this.zone.runOutsideAngular(() => {
-                setTimeout(() => focusable.focus(), 5);
-            });
+            setTimeout(() => focusable.focus(), 5);
         }
     }
     /**

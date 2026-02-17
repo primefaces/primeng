@@ -1,24 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    contentChild,
-    effect,
-    EventEmitter,
-    inject,
-    InjectionToken,
-    input,
-    model,
-    NgModule,
-    NgZone,
-    numberAttribute,
-    output,
-    signal,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, effect, EventEmitter, inject, InjectionToken, input, model, NgModule, numberAttribute, output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { MotionOptions } from '@primeuix/motion';
 import { setAttribute, uuid } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, ConfirmEventType, Footer, SharedModule, TranslationKeys } from 'primeng/api';
@@ -458,10 +439,9 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
 
     translationSubscription: Subscription | undefined;
 
-    constructor(
-        private confirmationService: ConfirmationService,
-        public zone: NgZone
-    ) {
+    private confirmationService = inject(ConfirmationService);
+
+    constructor() {
         super();
 
         effect(() => {

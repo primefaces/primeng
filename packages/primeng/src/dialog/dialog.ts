@@ -12,7 +12,6 @@ import {
     input,
     model,
     NgModule,
-    NgZone,
     numberAttribute,
     output,
     signal,
@@ -590,8 +589,6 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
 
     focusTrapDisabled = computed(() => this.focusTrap() === false);
 
-    zone: NgZone = inject(NgZone);
-
     constructor() {
         super();
         effect(() => {
@@ -896,9 +893,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
 
     bindDocumentDragListener() {
         if (!this.documentDragListener) {
-            this.zone.runOutsideAngular(() => {
-                this.documentDragListener = this.renderer.listen(this.document.defaultView, 'mousemove', this.onDrag.bind(this));
-            });
+            this.documentDragListener = this.renderer.listen(this.document.defaultView, 'mousemove', this.onDrag.bind(this));
         }
     }
 
@@ -911,9 +906,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
 
     bindDocumentDragEndListener() {
         if (!this.documentDragEndListener) {
-            this.zone.runOutsideAngular(() => {
-                this.documentDragEndListener = this.renderer.listen(this.document.defaultView, 'mouseup', this.endDrag.bind(this));
-            });
+            this.documentDragEndListener = this.renderer.listen(this.document.defaultView, 'mouseup', this.endDrag.bind(this));
         }
     }
 
@@ -926,10 +919,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
 
     bindDocumentResizeListeners() {
         if (!this.documentResizeListener && !this.documentResizeEndListener) {
-            this.zone.runOutsideAngular(() => {
-                this.documentResizeListener = this.renderer.listen(this.document.defaultView, 'mousemove', this.onResize.bind(this));
-                this.documentResizeEndListener = this.renderer.listen(this.document.defaultView, 'mouseup', this.resizeEnd.bind(this));
-            });
+            this.documentResizeListener = this.renderer.listen(this.document.defaultView, 'mousemove', this.onResize.bind(this));
+            this.documentResizeEndListener = this.renderer.listen(this.document.defaultView, 'mouseup', this.resizeEnd.bind(this));
         }
     }
 

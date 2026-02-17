@@ -12,7 +12,6 @@ import {
     input,
     Input,
     NgModule,
-    NgZone,
     Output,
     QueryList,
     signal,
@@ -469,10 +468,9 @@ export class Overlay extends BaseComponent {
         return <any>getTargetElement(this.target, this.el?.nativeElement);
     }
 
-    constructor(
-        public overlayService: OverlayService,
-        private zone: NgZone
-    ) {
+    overlayService = inject(OverlayService);
+
+    constructor() {
         super();
     }
 
@@ -683,20 +681,16 @@ export class Overlay extends BaseComponent {
             return;
         }
 
-        this.zone.runOutsideAngular(() => {
-            this.documentKeyboardListener = this.renderer.listen(this.document.defaultView, 'keydown', (event) => {
-                if (this.overlayOptions.hideOnEscape === false || event.code !== 'Escape') {
-                    return;
-                }
+        this.documentKeyboardListener = this.renderer.listen(this.document.defaultView, 'keydown', (event) => {
+            if (this.overlayOptions.hideOnEscape === false || event.code !== 'Escape') {
+                return;
+            }
 
-                const valid = this.listener ? this.listener(event, { type: 'keydown', mode: this.overlayMode, valid: !isTouchDevice() }) : !isTouchDevice();
+            const valid = this.listener ? this.listener(event, { type: 'keydown', mode: this.overlayMode, valid: !isTouchDevice() }) : !isTouchDevice();
 
-                if (valid) {
-                    this.zone.run(() => {
-                        this.hide(event, true);
-                    });
-                }
-            });
+            if (valid) {
+                this.hide(event, true);
+            }
         });
     }
 

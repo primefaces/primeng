@@ -1,4 +1,4 @@
-import { AfterViewInit, booleanAttribute, Directive, ElementRef, EventEmitter, HostListener, Input, NgModule, NgZone, OnDestroy, Output, Renderer2 } from '@angular/core';
+import { AfterViewInit, booleanAttribute, Directive, ElementRef, EventEmitter, HostListener, inject, Input, NgModule, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { addClass, removeClass } from '@primeuix/utils';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -52,11 +52,9 @@ export class Draggable implements AfterViewInit, OnDestroy {
 
     _pDraggableDisabled: boolean = false;
 
-    constructor(
-        public el: ElementRef,
-        public zone: NgZone,
-        private renderer: Renderer2
-    ) {}
+    el = inject(ElementRef);
+
+    private renderer = inject(Renderer2);
 
     @Input() get pDraggableDisabled(): boolean {
         return this._pDraggableDisabled;
@@ -81,38 +79,30 @@ export class Draggable implements AfterViewInit, OnDestroy {
 
     bindDragListener() {
         if (!this.dragListener) {
-            this.zone.runOutsideAngular(() => {
-                this.dragListener = this.renderer.listen(this.el.nativeElement, 'drag', this.drag.bind(this));
-            });
+            this.dragListener = this.renderer.listen(this.el.nativeElement, 'drag', this.drag.bind(this));
         }
     }
 
     unbindDragListener() {
         if (this.dragListener) {
-            this.zone.runOutsideAngular(() => {
-                this.dragListener && this.dragListener();
-                this.dragListener = null;
-            });
+            this.dragListener();
+            this.dragListener = null;
         }
     }
 
     bindMouseListeners() {
         if (!this.mouseDownListener && !this.mouseUpListener) {
-            this.zone.runOutsideAngular(() => {
-                this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.mousedown.bind(this));
-                this.mouseUpListener = this.renderer.listen(this.el.nativeElement, 'mouseup', this.mouseup.bind(this));
-            });
+            this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.mousedown.bind(this));
+            this.mouseUpListener = this.renderer.listen(this.el.nativeElement, 'mouseup', this.mouseup.bind(this));
         }
     }
 
     unbindMouseListeners() {
         if (this.mouseDownListener && this.mouseUpListener) {
-            this.zone.runOutsideAngular(() => {
-                this.mouseDownListener && this.mouseDownListener();
-                this.mouseUpListener && this.mouseUpListener();
-                this.mouseDownListener = null;
-                this.mouseUpListener = null;
-            });
+            this.mouseDownListener();
+            this.mouseUpListener();
+            this.mouseDownListener = null;
+            this.mouseUpListener = null;
         }
     }
 
@@ -209,11 +199,9 @@ export class Droppable implements AfterViewInit, OnDestroy {
      */
     @Output() onDrop: EventEmitter<DragEvent> = new EventEmitter();
 
-    constructor(
-        public el: ElementRef,
-        public zone: NgZone,
-        private renderer: Renderer2
-    ) {}
+    el = inject(ElementRef);
+
+    private renderer = inject(Renderer2);
 
     dragOverListener: VoidListener;
 
@@ -225,18 +213,14 @@ export class Droppable implements AfterViewInit, OnDestroy {
 
     bindDragOverListener() {
         if (!this.dragOverListener) {
-            this.zone.runOutsideAngular(() => {
-                this.dragOverListener = this.renderer.listen(this.el.nativeElement, 'dragover', this.dragOver.bind(this));
-            });
+            this.dragOverListener = this.renderer.listen(this.el.nativeElement, 'dragover', this.dragOver.bind(this));
         }
     }
 
     unbindDragOverListener() {
         if (this.dragOverListener) {
-            this.zone.runOutsideAngular(() => {
-                this.dragOverListener && this.dragOverListener();
-                this.dragOverListener = null;
-            });
+            this.dragOverListener();
+            this.dragOverListener = null;
         }
     }
 
