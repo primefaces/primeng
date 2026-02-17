@@ -10,6 +10,7 @@ import { Dialog } from 'primeng/dialog';
 import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { Nullable } from 'primeng/ts-helpers';
 import { ConfirmDialogDefaultFocus, ConfirmDialogHeadlessTemplateContext, ConfirmDialogMessageTemplateContext, ConfirmDialogPassThrough } from 'primeng/types/confirmdialog';
+import type { DialogPosition } from 'primeng/types/dialog';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
 
@@ -318,7 +319,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> {
      *  Allows getting the position of the component.
      * @group Props
      */
-    position = input<'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright'>('center');
+    position = input<DialogPosition>('center');
     /**
      * Enables dragging to change the position using header.
      * @group Props
