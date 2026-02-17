@@ -1,4 +1,4 @@
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, effect, EventEmitter, inject, InjectionToken, input, model, NgModule, numberAttribute, output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { MotionOptions } from '@primeuix/motion';
 import { setAttribute, uuid } from '@primeuix/utils';
@@ -23,7 +23,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
 @Component({
     selector: 'p-confirmdialog, p-confirm-dialog',
     standalone: true,
-    imports: [NgTemplateOutlet, NgClass, Button, Dialog, SharedModule, Bind],
+    imports: [NgTemplateOutlet, Button, Dialog, SharedModule, Bind],
     template: `
         <p-dialog
             [pt]="pt"
@@ -67,7 +67,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                         <ng-container *ngTemplateOutlet="iconTemplate()"></ng-container>
                     } @else if (!iconTemplate() && !messageTemplate()) {
                         @if (option('icon')) {
-                            <i [ngClass]="cx('icon')" [class]="option('icon')" [pBind]="ptm('icon')"></i>
+                            <i [class]="cn(cx('icon'), option('icon'))" [pBind]="ptm('icon')"></i>
                         }
                     }
                     @if (messageTemplate()) {

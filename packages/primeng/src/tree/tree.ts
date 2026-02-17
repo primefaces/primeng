@@ -1,4 +1,4 @@
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -789,7 +789,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
 @Component({
     selector: 'p-tree',
     standalone: true,
-    imports: [NgTemplateOutlet, NgClass, Scroller, SearchIcon, SpinnerIcon, InputText, FormsModule, IconField, InputIcon, UITreeNode, AutoFocusModule, Bind],
+    imports: [NgTemplateOutlet, Scroller, SearchIcon, SpinnerIcon, InputText, FormsModule, IconField, InputIcon, UITreeNode, AutoFocusModule, Bind],
     template: `
         @if (showLoadingMask()) {
             <div [class]="cx('mask')" [pBind]="ptm('mask')" animate.enter="p-overlay-mask-enter-active" animate.leave="p-overlay-mask-leave-active">
@@ -864,8 +864,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                         @if (items) {
                             <ul
                                 #content
-                                [class]="cx('rootChildren')"
-                                [ngClass]="scrollerOptions.contentStyleClass"
+                                [class]="cn(cx('rootChildren'), scrollerOptions.contentStyleClass)"
                                 [style]="scrollerOptions.contentStyle"
                                 role="tree"
                                 [attr.aria-label]="ariaLabel()"
