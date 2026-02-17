@@ -1054,7 +1054,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      */
     headerCheckboxIconTemplate = contentChild<TemplateRef<MultiSelectHeaderCheckboxIconTemplateContext>>('headercheckboxicon', { descendants: false });
 
-    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputVariant());
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 

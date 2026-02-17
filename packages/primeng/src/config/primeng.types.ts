@@ -190,10 +190,6 @@ export interface GlobalPassThrough {
 export type PrimeNGConfigType = {
     ripple?: boolean;
     overlayAppendTo?: AppendTo;
-    /**
-     * @deprecated Since v20. Use `inputVariant` instead.
-     */
-    inputStyle?: 'outlined' | 'filled';
     inputVariant?: 'outlined' | 'filled';
     overlayOptions?: OverlayOptions;
     translation?: Translation;

@@ -225,7 +225,7 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
 
     $pcCheckbox: Checkbox | undefined = inject(CHECKBOX_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
-    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputVariant());
 
     requiredAttr = computed(() => (this.required() ? '' : undefined));
 

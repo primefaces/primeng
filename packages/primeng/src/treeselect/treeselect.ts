@@ -531,7 +531,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
 
     lastHiddenFocusableElementOnOverlay = viewChild<ElementRef>('lastHiddenFocusableEl');
 
-    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputVariant());
 
     pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 

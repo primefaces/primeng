@@ -10,10 +10,6 @@ export class PrimeNG extends ThemeProvider {
     ripple = signal<boolean>(false);
 
     public platformId: any = inject(PLATFORM_ID);
-    /**
-     * @deprecated Since v20. Use `inputVariant` instead.
-     */
-    inputStyle = signal<'outlined' | 'filled' | null>(null);
 
     inputVariant = signal<'outlined' | 'filled' | null>(null);
 
@@ -187,12 +183,11 @@ export class PrimeNG extends ThemeProvider {
     }
 
     setConfig(config: PrimeNGConfigType): void {
-        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo, zIndex, ptOptions, pt, unstyled } = config || {};
+        const { csp, ripple, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo, zIndex, ptOptions, pt, unstyled } = config || {};
 
         if (csp) this.csp.set(csp);
         if (overlayAppendTo) this.overlayAppendTo.set(overlayAppendTo);
         if (ripple) this.ripple.set(ripple);
-        if (inputStyle) this.inputStyle.set(inputStyle);
         if (inputVariant) this.inputVariant.set(inputVariant);
         if (overlayOptions) this.overlayOptions = overlayOptions;
         if (translation) this.setTranslation(translation);

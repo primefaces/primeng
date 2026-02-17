@@ -261,7 +261,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         return this.loadingMode() === 'icon' && !!this.node()?.loading;
     }
 
-    checkboxVariant = computed(() => (this.tree?.config.inputStyle() === 'filled' || this.tree?.config.inputVariant() === 'filled' ? 'filled' : 'outlined'));
+    checkboxVariant = computed(() => (this.tree?.config.inputVariant() === 'filled' ? 'filled' : 'outlined'));
 
     get togglerIconContext() {
         return {

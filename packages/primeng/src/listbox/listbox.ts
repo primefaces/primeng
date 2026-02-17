@@ -941,7 +941,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      */
     cdkDropData = computed(() => this.dropListData() || this._options());
 
-    checkboxVariant = computed(() => (this.config.inputStyle() === 'filled' || this.config.inputVariant() === 'filled' ? 'filled' : 'outlined'));
+    checkboxVariant = computed(() => (this.config.inputVariant() === 'filled' ? 'filled' : 'outlined'));
 
     listContainerStyle = computed(() => {
         const listStyle = this.listStyle();

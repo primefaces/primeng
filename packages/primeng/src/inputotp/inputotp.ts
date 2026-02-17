@@ -160,7 +160,7 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
 
     value = signal<any>(undefined);
 
-    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputVariant());
 
     inputMode = computed(() => (this.integerOnly() ? 'numeric' : 'text'));
 
