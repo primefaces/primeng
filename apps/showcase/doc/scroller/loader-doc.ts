@@ -30,7 +30,7 @@ import { CommonModule } from '@angular/common';
                             {{ item }}
                         </div>
                     </ng-template>
-                    <ng-template pTemplate="loader" let-options="options">
+                    <ng-template #loader let-options="options">
                         <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                             <p-skeleton [width]="options.even ? '60%' : '50%'" height="1.3rem"></p-skeleton>
                         </div>

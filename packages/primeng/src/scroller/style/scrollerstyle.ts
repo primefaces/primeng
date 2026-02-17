@@ -65,9 +65,9 @@ const classes = {
     root: ({ instance }) => [
         'p-virtualscroller',
         {
-            'p-virtualscroller-inline': instance.inline,
-            'p-virtualscroller-both p-both-scroll': instance.both,
-            'p-virtualscroller-horizontal p-horizontal-scroll': instance.horizontal
+            'p-virtualscroller-inline': instance.inline(),
+            'p-virtualscroller-both p-both-scroll': instance.both(),
+            'p-virtualscroller-horizontal p-horizontal-scroll': instance.horizontal()
         }
     ],
     content: 'p-virtualscroller-content',
@@ -75,7 +75,7 @@ const classes = {
     loader: ({ instance }) => [
         'p-virtualscroller-loader',
         {
-            'p-virtualscroller-loader-mask': !instance.loaderTemplate
+            'p-virtualscroller-loader-mask': !instance.loaderTemplate()
         }
     ],
     loadingIcon: 'p-virtualscroller-loading-icon'
