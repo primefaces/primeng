@@ -70,7 +70,7 @@ export interface Confirmation {
      * Element to receive the focus when the dialog gets visible.
      * @defaultValue 'accept'
      */
-    defaultFocus?: any; // @todo: discuss - ConfirmDialogDefaultFocus type causes circular dependency
+    defaultFocus?: 'accept' | 'reject' | 'close' | 'none';
     /**
      * The CSS class name to be applied to the accept button.
      */
