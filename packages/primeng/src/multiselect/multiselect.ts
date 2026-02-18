@@ -1217,7 +1217,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     focusedOptionIndex = signal<number>(-1);
 
-    disabledToggleAll = computed(() => this.$disabled() && !this.visibleOptions()?.length);
+    disabledToggleAll = computed(() => this.$disabled() || !this.visibleOptions()?.length);
 
     selectedOptions: any;
 
