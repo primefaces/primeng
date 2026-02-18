@@ -172,7 +172,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 <ng-container *ngTemplateOutlet="headerTemplate()"></ng-container>
                 @if (!timeOnly()) {
                     <div [class]="cx('calendarContainer')" [pBind]="ptm('calendarContainer')">
-                        @for (month of months(); track month; let i = $index) {
+                        @for (month of months(); track $index; let i = $index) {
                             <div [class]="cx('calendar')" [pBind]="ptm('calendar')">
                                 <div [class]="cx('header')" [pBind]="ptm('header')">
                                     <p-button
@@ -276,7 +276,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                             </tr>
                                         </thead>
                                         <tbody [pBind]="ptm('tableBody')">
-                                            @for (week of month.dates; track week; let j = $index) {
+                                            @for (week of month.dates; track $index; let j = $index) {
                                                 <tr [pBind]="ptm('tableBodyRow')">
                                                     @if (showWeek()) {
                                                         <td [class]="cx('weekNumber')" [pBind]="ptm('weekNumber')">
