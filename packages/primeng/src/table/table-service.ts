@@ -3,6 +3,7 @@ import { SortMeta } from 'primeng/api';
 import { Subject } from 'rxjs';
 
 export const TABLE_INSTANCE = new InjectionToken<any>('TABLE_INSTANCE');
+export const COLUMN_FILTER_INSTANCE = new InjectionToken<any>('COLUMN_FILTER_INSTANCE');
 
 @Injectable()
 export class TableService {

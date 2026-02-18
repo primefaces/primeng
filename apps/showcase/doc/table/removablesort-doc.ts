@@ -23,25 +23,25 @@ import { Table, TableModule } from 'primeng/table';
                             <th pSortableColumn="code">
                                 <div class="flex items-center gap-2">
                                     Code
-                                    <p-sortIcon field="code" />
+                                    <p-sort-icon field="code" />
                                 </div>
                             </th>
                             <th pSortableColumn="name">
                                 <div class="flex items-center gap-2">
                                     Name
-                                    <p-sortIcon field="name" />
+                                    <p-sort-icon field="name" />
                                 </div>
                             </th>
                             <th pSortableColumn="category">
                                 <div class="flex items-center gap-2">
                                     Category
-                                    <p-sortIcon field="category" />
+                                    <p-sort-icon field="category" />
                                 </div>
                             </th>
                             <th pSortableColumn="quantity">
                                 <div class="flex items-center gap-2">
                                     Quantity
-                                    <p-sortIcon field="quantity" />
+                                    <p-sort-icon field="quantity" />
                                 </div>
                             </th>
                         </tr>

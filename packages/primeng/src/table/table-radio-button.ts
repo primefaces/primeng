@@ -8,7 +8,7 @@ import { TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
 
 @Component({
-    selector: 'p-tableRadioButton',
+    selector: 'p-table-radio-button, p-tableradiobutton',
     standalone: true,
     imports: [RadioButtonModule, FormsModule],
     template: `<p-radiobutton

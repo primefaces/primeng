@@ -24,7 +24,7 @@ import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ColumnFilterFormElement } from './column-filter-form-element';
 import { TableStyle } from './style/tablestyle';
-import { TABLE_INSTANCE } from './table-service';
+import { COLUMN_FILTER_INSTANCE, TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
 
 /**
@@ -32,13 +32,13 @@ import type { Table } from './table';
  * @group Components
  */
 @Component({
-    selector: 'p-columnFilter, p-column-filter, p-columnfilter',
+    selector: 'p-column-filter, p-columnfilter',
     standalone: true,
     imports: [NgTemplateOutlet, FormsModule, ButtonModule, SelectModule, InputTextModule, InputNumberModule, CheckboxModule, DatePickerModule, BindModule, MotionModule, FilterIcon, FilterFillIcon, TrashIcon, PlusIcon, ColumnFilterFormElement],
     template: `
         <div [class]="cx('filter')">
             @if (display() === 'row') {
-                <p-columnFilterFormElement
+                <p-column-filter-form-element
                     class="p-fluid"
                     [type]="type()"
                     [field]="field()"
@@ -145,7 +145,7 @@ import type { Table } from './table';
                                             [unstyled]="unstyled()"
                                         />
                                     }
-                                    <p-columnFilterFormElement
+                                    <p-column-filter-form-element
                                         [type]="type()"
                                         [field]="field()"
                                         [filterConstraint]="fieldConstraint"
@@ -242,7 +242,7 @@ import type { Table } from './table';
             }
         </div>
     `,
-    providers: [TableStyle],
+    providers: [TableStyle, { provide: COLUMN_FILTER_INSTANCE, useExisting: ColumnFilter }],
     encapsulation: ViewEncapsulation.None,
     hostDirectives: [Bind]
 })

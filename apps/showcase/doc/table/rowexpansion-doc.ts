@@ -75,31 +75,31 @@ import { ToastModule } from 'primeng/toast';
                                                 <th pSortableColumn="id">
                                                     <div class="flex items-center gap-2">
                                                         Id
-                                                        <p-sortIcon field="price" />
+                                                        <p-sort-icon field="price" />
                                                     </div>
                                                 </th>
                                                 <th pSortableColumn="customer">
                                                     <div class="flex items-center gap-2">
                                                         Customer
-                                                        <p-sortIcon field="customer" />
+                                                        <p-sort-icon field="customer" />
                                                     </div>
                                                 </th>
                                                 <th pSortableColumn="date">
                                                     <div class="flex items-center gap-2">
                                                         Date
-                                                        <p-sortIcon field="date" />
+                                                        <p-sort-icon field="date" />
                                                     </div>
                                                 </th>
                                                 <th pSortableColumn="amount">
                                                     <div class="flex items-center gap-2">
                                                         Amount
-                                                        <p-sortIcon field="amount" />
+                                                        <p-sort-icon field="amount" />
                                                     </div>
                                                 </th>
                                                 <th pSortableColumn="status">
                                                     <div class="flex items-center gap-2">
                                                         Status
-                                                        <p-sortIcon field="status" />
+                                                        <p-sort-icon field="status" />
                                                     </div>
                                                 </th>
                                                 <th style="width: 4rem"></th>

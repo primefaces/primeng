@@ -1,4 +1,4 @@
-import { booleanAttribute, Directive, effect, HostListener, inject, input } from '@angular/core';
+import { booleanAttribute, Directive, effect, HostListener, inject, input, untracked } from '@angular/core';
 import { findSingle, setAttribute } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
@@ -27,13 +27,18 @@ export class EditableColumn extends BaseComponent {
 
     public dataTable = inject<Table>(TABLE_INSTANCE);
 
+    private initialized = false;
+
     constructor() {
         super();
         effect(() => {
             const data = this.data();
-            if (this.el.nativeElement && data !== undefined) {
-                this.dataTable.updateEditingCell(this.el.nativeElement, data, this.field(), <number>this.rowIndex());
-            }
+            untracked(() => {
+                if (this.el.nativeElement && this.initialized) {
+                    this.dataTable.updateEditingCell(this.el.nativeElement, data, this.field(), <number>this.rowIndex());
+                }
+                this.initialized = true;
+            });
         });
     }
 

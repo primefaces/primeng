@@ -65,7 +65,7 @@ describe('Table', () => {
             <p-table [value]="products" [selection]="selectedProducts" [selectionMode]="'multiple'" [dataKey]="'id'">
                 <ng-template #header>
                     <tr>
-                        <th><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                        <th><p-table-header-checkbox></p-table-header-checkbox></th>
                         <th>Name</th>
                         <th>Price</th>
                         <th>Status</th>
@@ -73,7 +73,7 @@ describe('Table', () => {
                 </ng-template>
                 <ng-template #body let-product>
                     <tr>
-                        <td><p-tableCheckbox [value]="product"></p-tableCheckbox></td>
+                        <td><p-table-checkbox [value]="product"></p-table-checkbox></td>
                         <td>{{ product.name }}</td>
                         <td>{{ product.price | currency }}</td>
                         <td>{{ product.inventoryStatus }}</td>
@@ -96,9 +96,9 @@ describe('Table', () => {
             <p-table [value]="products" [sortMode]="'multiple'">
                 <ng-template #header>
                     <tr>
-                        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                        <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+                        <th pSortableColumn="name">Name <p-sort-icon field="name"></p-sort-icon></th>
+                        <th pSortableColumn="price">Price <p-sort-icon field="price"></p-sort-icon></th>
+                        <th pSortableColumn="category">Category <p-sort-icon field="category"></p-sort-icon></th>
                     </tr>
                 </ng-template>
                 <ng-template #body let-product>
@@ -127,19 +127,19 @@ describe('Table', () => {
                     <tr>
                         <th>
                             Name
-                            <p-columnFilter field="name" matchMode="contains" display="menu">
+                            <p-column-filter field="name" matchMode="contains" display="menu">
                                 <ng-template #filter let-value let-filter="filterCallback">
                                     <input type="text" [(ngModel)]="value" (ngModelChange)="filter($event)" placeholder="Search by name" />
                                 </ng-template>
-                            </p-columnFilter>
+                            </p-column-filter>
                         </th>
                         <th>
                             Category
-                            <p-columnFilter field="category" matchMode="equals" display="menu">
+                            <p-column-filter field="category" matchMode="equals" display="menu">
                                 <ng-template #filter let-value let-filter="filterCallback">
                                     <p-select [(ngModel)]="value" [options]="categories" (ngModelChange)="filter($event)" placeholder="Select Category"> </p-select>
                                 </ng-template>
-                            </p-columnFilter>
+                            </p-column-filter>
                         </th>
                     </tr>
                 </ng-template>
@@ -330,12 +330,12 @@ describe('Table', () => {
         });
 
         it('should render checkboxes for selection', () => {
-            const checkboxes = testFixture.debugElement.queryAll(By.css('p-tableCheckbox'));
+            const checkboxes = testFixture.debugElement.queryAll(By.css('p-table-checkbox'));
             expect(checkboxes.length).toBe(testComponent.products.length);
         });
 
         it('should render header checkbox for select all', () => {
-            const headerCheckbox = testFixture.debugElement.query(By.css('p-tableHeaderCheckbox'));
+            const headerCheckbox = testFixture.debugElement.query(By.css('p-table-header-checkbox'));
             expect(headerCheckbox).toBeTruthy();
         });
     });
@@ -357,7 +357,7 @@ describe('Table', () => {
         });
 
         it('should render sort icons', () => {
-            const sortIcons = testFixture.debugElement.queryAll(By.css('p-sortIcon'));
+            const sortIcons = testFixture.debugElement.queryAll(By.css('p-sort-icon'));
             expect(sortIcons.length).toBe(3);
         });
 
@@ -384,7 +384,7 @@ describe('Table', () => {
         });
 
         it('should render column filters', () => {
-            const columnFilters = testFixture.debugElement.queryAll(By.css('p-columnFilter'));
+            const columnFilters = testFixture.debugElement.queryAll(By.css('p-column-filter'));
             expect(columnFilters.length).toBe(2);
         });
     });
@@ -672,14 +672,14 @@ describe('Table', () => {
                     </ng-template>
                     <ng-template #header>
                         <tr>
-                            <th><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                            <th><p-table-header-checkbox></p-table-header-checkbox></th>
                             <th pReorderableColumn pResizableColumn>
                                 Name
-                                <p-columnFilter field="name" matchMode="contains" display="menu">
+                                <p-column-filter field="name" matchMode="contains" display="menu">
                                     <ng-template #filter let-value let-filter="filterCallback">
                                         <input type="text" [(ngModel)]="value" (ngModelChange)="filter($event)" placeholder="Search" />
                                     </ng-template>
-                                </p-columnFilter>
+                                </p-column-filter>
                             </th>
                             <th pReorderableColumn pResizableColumn>Price</th>
                             <th pReorderableColumn pResizableColumn>Category</th>
@@ -687,7 +687,7 @@ describe('Table', () => {
                     </ng-template>
                     <ng-template #body let-product let-rowIndex="rowIndex">
                         <tr [pReorderableRow]="rowIndex">
-                            <td><p-tableCheckbox [value]="product"></p-tableCheckbox></td>
+                            <td><p-table-checkbox [value]="product"></p-table-checkbox></td>
                             <td>
                                 <span pReorderableRowHandle class="pi pi-bars"></span>
                                 {{ product.name }}
@@ -1109,24 +1109,24 @@ describe('Table', () => {
                         <tr>
                             <td>{{ product.id }}</td>
                             <td [pEditableColumn]="product" [pEditableColumnField]="'name'" [pEditableColumnRowIndex]="rowIndex">
-                                <p-cellEditor>
+                                <p-cell-editor>
                                     <ng-template #input>
                                         <input pInputText type="text" [(ngModel)]="product.name" class="name-input" />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.name }}
                                     </ng-template>
-                                </p-cellEditor>
+                                </p-cell-editor>
                             </td>
                             <td [pEditableColumn]="product" [pEditableColumnField]="'price'" [pEditableColumnRowIndex]="rowIndex">
-                                <p-cellEditor>
+                                <p-cell-editor>
                                     <ng-template #input>
                                         <input pInputText type="text" [(ngModel)]="product.price" class="price-input" />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.price | currency }}
                                     </ng-template>
-                                </p-cellEditor>
+                                </p-cell-editor>
                             </td>
                         </tr>
                     </ng-template>
@@ -1372,24 +1372,24 @@ describe('Table', () => {
                         <ng-template #body let-product let-rowIndex="rowIndex">
                             <tr>
                                 <td [pEditableColumn]="product" [pEditableColumnField]="'name'" [pEditableColumnRowIndex]="rowIndex" [pEditableColumnDisabled]="true">
-                                    <p-cellEditor>
+                                    <p-cell-editor>
                                         <ng-template #input>
                                             <input pInputText type="text" [(ngModel)]="product.name" class="name-input" />
                                         </ng-template>
                                         <ng-template #output>
                                             {{ product.name }}
                                         </ng-template>
-                                    </p-cellEditor>
+                                    </p-cell-editor>
                                 </td>
                                 <td [pEditableColumn]="product" [pEditableColumnField]="'price'" [pEditableColumnRowIndex]="rowIndex">
-                                    <p-cellEditor>
+                                    <p-cell-editor>
                                         <ng-template #input>
                                             <input pInputText type="text" [(ngModel)]="product.price" class="price-input" />
                                         </ng-template>
                                         <ng-template #output>
                                             {{ product.price | currency }}
                                         </ng-template>
-                                    </p-cellEditor>
+                                    </p-cell-editor>
                                 </td>
                             </tr>
                         </ng-template>

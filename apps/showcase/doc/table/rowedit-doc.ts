@@ -50,44 +50,44 @@ import { ToastModule } from 'primeng/toast';
                     <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
                         <tr [pEditableRow]="product">
                             <td>
-                                <p-cellEditor>
+                                <p-cell-editor>
                                     <ng-template #input>
                                         <input pInputText type="text" [(ngModel)]="product.code" />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.code }}
                                     </ng-template>
-                                </p-cellEditor>
+                                </p-cell-editor>
                             </td>
                             <td>
-                                <p-cellEditor>
+                                <p-cell-editor>
                                     <ng-template #input>
                                         <input pInputText type="text" [(ngModel)]="product.name" required />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.name }}
                                     </ng-template>
-                                </p-cellEditor>
+                                </p-cell-editor>
                             </td>
                             <td>
-                                <p-cellEditor>
+                                <p-cell-editor>
                                     <ng-template #input>
                                         <p-select [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="{ width: '100%' }" />
                                     </ng-template>
                                     <ng-template #output>
                                         <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                                     </ng-template>
-                                </p-cellEditor>
+                                </p-cell-editor>
                             </td>
                             <td>
-                                <p-cellEditor>
+                                <p-cell-editor>
                                     <ng-template #input>
                                         <input pInputText type="text" [(ngModel)]="product.price" />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.price | currency: 'USD' }}
                                     </ng-template>
-                                </p-cellEditor>
+                                </p-cell-editor>
                             </td>
                             <td>
                                 <div class="flex items-center justify-center gap-2">

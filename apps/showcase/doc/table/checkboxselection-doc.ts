@@ -21,7 +21,7 @@ import { TableModule } from 'primeng/table';
                     <ng-template #header>
                         <tr>
                             <th style="width: 4rem">
-                                <p-tableHeaderCheckbox />
+                                <p-table-header-checkbox />
                             </th>
                             <th>Code</th>
                             <th>Name</th>
@@ -32,7 +32,7 @@ import { TableModule } from 'primeng/table';
                     <ng-template #body let-product>
                         <tr>
                             <td>
-                                <p-tableCheckbox [value]="product" />
+                                <p-table-checkbox [value]="product" />
                             </td>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>

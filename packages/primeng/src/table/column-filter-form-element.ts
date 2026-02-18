@@ -11,12 +11,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { ColumnFilterPassThrough } from 'primeng/types/table';
 import { TableStyle } from './style/tablestyle';
-import { ColumnFilter } from './column-filter';
-import { TABLE_INSTANCE } from './table-service';
+import { COLUMN_FILTER_INSTANCE, TABLE_INSTANCE } from './table-service';
+import type { ColumnFilter } from './column-filter';
 import type { Table } from './table';
 
 @Component({
-    selector: 'p-columnFilterFormElement',
+    selector: 'p-column-filter-form-element, p-columnfilterformelement',
     standalone: true,
     imports: [NgTemplateOutlet, FormsModule, InputTextModule, InputNumberModule, CheckboxModule, DatePickerModule, BindModule],
     template: `
@@ -38,7 +38,7 @@ import type { Table } from './table';
                     />
                 }
                 @case ('numeric') {
-                    <p-inputNumber
+                    <p-input-number
                         [ngModel]="filterConstraint()?.value"
                         (ngModelChange)="onModelChange($event)"
                         (onKeyDown)="onNumericInputKeyDown($event)"
@@ -146,7 +146,7 @@ export class ColumnFilterFormElement extends BaseComponent<ColumnFilterPassThrou
 
     public dataTable = inject<Table>(TABLE_INSTANCE);
 
-    private colFilter = inject(ColumnFilter);
+    private colFilter = inject<ColumnFilter>(COLUMN_FILTER_INSTANCE);
 
     onModelChange(value: any) {
         const constraint = this.filterConstraint();

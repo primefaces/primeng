@@ -49,25 +49,25 @@ import { TagModule } from 'primeng/tag';
                             <th pSortableColumn="name" style="width:25%">
                                 <div class="flex items-center gap-2">
                                     Name
-                                    <p-sortIcon field="name" />
+                                    <p-sort-icon field="name" />
                                 </div>
                             </th>
                             <th pSortableColumn="country.name" style="width:25%">
                                 <div class="flex items-center gap-2">
                                     Country
-                                    <p-sortIcon field="country.name" />
+                                    <p-sort-icon field="country.name" />
                                 </div>
                             </th>
                             <th pSortableColumn="representative.name" style="width:25%">
                                 <div class="flex items-center gap-2">
                                     Representative
-                                    <p-sortIcon field="representative.name" />
+                                    <p-sort-icon field="representative.name" />
                                 </div>
                             </th>
                             <th pSortableColumn="status" style="width:25%">
                                 <div class="flex items-center gap-2">
                                     Status
-                                    <p-sortIcon field="status" />
+                                    <p-sort-icon field="status" />
                                 </div>
                             </th>
                         </tr>

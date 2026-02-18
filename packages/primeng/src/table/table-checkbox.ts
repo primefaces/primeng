@@ -9,7 +9,7 @@ import { TABLE_INSTANCE, TableService } from './table-service';
 import type { Table } from './table';
 
 @Component({
-    selector: 'p-tableCheckbox',
+    selector: 'p-table-checkbox, p-tablecheckbox',
     standalone: true,
     imports: [NgTemplateOutlet, CheckboxModule, FormsModule],
     template: `

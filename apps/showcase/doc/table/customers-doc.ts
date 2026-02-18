@@ -55,27 +55,27 @@ import { TagModule } from 'primeng/tag';
                     <ng-template #header>
                         <tr>
                             <th style="width: 4rem">
-                                <p-tableHeaderCheckbox />
+                                <p-table-header-checkbox />
                             </th>
                             <th pSortableColumn="name" style="min-width: 14rem">
                                 <div class="flex justify-between items-center gap-2">
                                     Name
-                                    <p-sortIcon field="name" />
-                                    <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
+                                    <p-sort-icon field="name" />
+                                    <p-column-filter type="text" field="name" display="menu" class="ml-auto" />
                                 </div>
                             </th>
                             <th pSortableColumn="country.name" style="min-width: 14rem">
                                 <div class="flex justify-between items-center gap-2">
                                     Country
-                                    <p-sortIcon field="country.name" />
-                                    <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
+                                    <p-sort-icon field="country.name" />
+                                    <p-column-filter type="text" field="country.name" display="menu" class="ml-auto" />
                                 </div>
                             </th>
                             <th pSortableColumn="representative.name" style="min-width: 14rem">
                                 <div class="flex justify-between items-center gap-2">
                                     Agent
-                                    <p-sortIcon field="representative.name" />
-                                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                                    <p-sort-icon field="representative.name" />
+                                    <p-column-filter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                                         <ng-template #filter let-value let-filter="filterCallback">
                                             <p-multiselect [filter]="false" [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" class="w-full">
                                                 <ng-template let-option #item>
@@ -86,28 +86,28 @@ import { TagModule } from 'primeng/tag';
                                                 </ng-template>
                                             </p-multiselect>
                                         </ng-template>
-                                    </p-columnFilter>
+                                    </p-column-filter>
                                 </div>
                             </th>
                             <th pSortableColumn="date" style="min-width: 14rem">
                                 <div class="flex justify-between items-center gap-2">
                                     Date
-                                    <p-sortIcon field="date" />
-                                    <p-columnFilter type="date" field="date" display="menu" class="ml-auto" />
+                                    <p-sort-icon field="date" />
+                                    <p-column-filter type="date" field="date" display="menu" class="ml-auto" />
                                 </div>
                             </th>
                             <th pSortableColumn="balance" style="min-width: 14rem">
                                 <div class="flex justify-between items-center gap-2">
                                     Balance
-                                    <p-sortIcon field="balance" />
-                                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
+                                    <p-sort-icon field="balance" />
+                                    <p-column-filter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
                                 </div>
                             </th>
                             <th pSortableColumn="status" style="min-width: 14rem">
                                 <div class="flex justify-between items-center gap-2">
                                     Status
-                                    <p-sortIcon field="status" />
-                                    <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
+                                    <p-sort-icon field="status" />
+                                    <p-column-filter field="status" matchMode="equals" display="menu" class="ml-auto">
                                         <ng-template #filter let-value let-filter="filterCallback">
                                             <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                                 <ng-template let-option #item>
@@ -115,14 +115,14 @@ import { TagModule } from 'primeng/tag';
                                                 </ng-template>
                                             </p-select>
                                         </ng-template>
-                                    </p-columnFilter>
+                                    </p-column-filter>
                                 </div>
                             </th>
                             <th pSortableColumn="activity" style="min-width: 14rem">
                                 <div class="flex justify-between items-center gap-2">
                                     Activity
-                                    <p-sortIcon field="activity" />
-                                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                                    <p-sort-icon field="activity" />
+                                    <p-column-filter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                                         <ng-template #filter let-filter="filterCallback">
                                             <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" class="m-4"></p-slider>
                                             <div class="flex items-center justify-between px-2">
@@ -130,7 +130,7 @@ import { TagModule } from 'primeng/tag';
                                                 <span>{{ activityValues[1] }}</span>
                                             </div>
                                         </ng-template>
-                                    </p-columnFilter>
+                                    </p-column-filter>
                                 </div>
                             </th>
                             <th style="width: 5rem"></th>
@@ -139,7 +139,7 @@ import { TagModule } from 'primeng/tag';
                     <ng-template #body let-customer>
                         <tr class="p-selectable-row">
                             <td>
-                                <p-tableCheckbox [value]="customer" />
+                                <p-table-checkbox [value]="customer" />
                             </td>
                             <td>
                                 {{ customer.name }}

@@ -7,7 +7,7 @@ import { TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
 
 @Component({
-    selector: 'p-cellEditor',
+    selector: 'p-cell-editor, p-celleditor',
     standalone: true,
     imports: [NgTemplateOutlet],
     template: `

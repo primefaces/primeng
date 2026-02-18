@@ -11,7 +11,7 @@ import { TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
 
 @Component({
-    selector: 'p-sortIcon',
+    selector: 'p-sort-icon, p-sorticon',
     standalone: true,
     imports: [NgTemplateOutlet, BadgeModule, SortAltIcon, SortAmountUpAltIcon, SortAmountDownIcon],
     template: `

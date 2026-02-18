@@ -11,7 +11,7 @@ import { TABLE_INSTANCE, TableService } from './table-service';
 import type { Table } from './table';
 
 @Component({
-    selector: 'p-tableHeaderCheckbox',
+    selector: 'p-table-header-checkbox, p-tableheadercheckbox',
     standalone: true,
     imports: [NgTemplateOutlet, CheckboxModule, FormsModule],
     template: `
