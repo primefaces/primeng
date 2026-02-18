@@ -1,10 +1,10 @@
-import { booleanAttribute, Directive, HostListener, inject, Input } from '@angular/core';
+import { booleanAttribute, computed, Directive, HostListener, inject, input, signal } from '@angular/core';
 import { getAttribute } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
-import { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableStyle } from './style/tablestyle';
-import { TABLE_INSTANCE, TableService } from './table-token';
+import { TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
 
 @Directive({
@@ -12,24 +12,30 @@ import type { Table } from './table';
     standalone: true,
     host: {
         '[class]': "cx('sortableColumn')",
-        '[tabindex]': 'isEnabled() ? "0" : null',
+        '[tabindex]': '$tabindex()',
         role: 'columnheader',
-        '[attr.aria-sort]': 'sortOrder'
+        '[attr.aria-sort]': 'ariaSort()'
     },
     providers: [TableStyle]
 })
 export class SortableColumn extends BaseComponent {
-    @Input('pSortableColumn') field: string | undefined;
+    field = input<string | undefined>(undefined, { alias: 'pSortableColumn' });
 
-    @Input({ transform: booleanAttribute }) pSortableColumnDisabled: boolean | undefined;
+    pSortableColumnDisabled = input(undefined, { transform: booleanAttribute });
 
     role = this.el.nativeElement?.tagName !== 'TH' ? 'columnheader' : null;
 
-    sorted: boolean | undefined;
+    sorted = signal(false);
 
-    sortOrder: string | undefined;
+    sortOrder = signal(0);
 
-    subscription: Subscription | undefined;
+    $tabindex = computed(() => (this.isEnabled() ? '0' : null));
+
+    ariaSort = computed(() => {
+        const sorted = this.sorted();
+        const order = this.sortOrder();
+        return sorted ? (order === 1 ? 'ascending' : 'descending') : 'none';
+    });
 
     _componentStyle = inject(TableStyle);
 
@@ -38,7 +44,7 @@ export class SortableColumn extends BaseComponent {
     constructor() {
         super();
         if (this.isEnabled()) {
-            this.subscription = this.dataTable.tableService.sortSource$.subscribe((sortMeta) => {
+            this.dataTable.tableService.sortSource$.pipe(takeUntilDestroyed()).subscribe(() => {
                 this.updateSortState();
             });
         }
@@ -54,17 +60,17 @@ export class SortableColumn extends BaseComponent {
         let sorted = false;
         let sortOrder = 0;
 
-        if (this.dataTable.sortMode === 'single') {
-            sorted = this.dataTable.isSorted(<string>this.field) as boolean;
+        if (this.dataTable.sortMode() === 'single') {
+            sorted = this.dataTable.isSorted(<string>this.field()) as boolean;
             sortOrder = this.dataTable.sortOrder;
-        } else if (this.dataTable.sortMode === 'multiple') {
-            const sortMeta = this.dataTable.getSortMeta(<string>this.field);
+        } else if (this.dataTable.sortMode() === 'multiple') {
+            const sortMeta = this.dataTable.getSortMeta(<string>this.field());
             sorted = !!sortMeta;
             sortOrder = sortMeta ? sortMeta.order : 0;
         }
 
-        this.sorted = sorted;
-        this.sortOrder = sorted ? (sortOrder === 1 ? 'ascending' : 'descending') : 'none';
+        this.sorted.set(sorted);
+        this.sortOrder.set(sortOrder);
     }
 
     @HostListener('click', ['$event'])
@@ -73,7 +79,7 @@ export class SortableColumn extends BaseComponent {
             this.updateSortState();
             this.dataTable.sort({
                 originalEvent: event,
-                field: this.field
+                field: this.field()
             });
 
             DomHandler.clearSelection();
@@ -89,7 +95,7 @@ export class SortableColumn extends BaseComponent {
     }
 
     isEnabled() {
-        return this.pSortableColumnDisabled !== true;
+        return this.pSortableColumnDisabled() !== true;
     }
 
     isFilterElement(element: HTMLElement) {
@@ -98,11 +104,5 @@ export class SortableColumn extends BaseComponent {
 
     private isFilterElementIconOrButton(element: HTMLElement) {
         return getAttribute(element, '[data-pc-name="pccolumnfilterbutton"]') || getAttribute(element, '[data-pc-section="columnfilterbuttonicon"]');
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 }

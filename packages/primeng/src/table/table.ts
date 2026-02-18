@@ -1,26 +1,8 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    inject,
-    Input,
-    NgZone,
-    numberAttribute,
-    Output,
-    QueryList,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, effect, ElementRef, inject, input, numberAttribute, output, TemplateRef, untracked, viewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { isClickable, setAttribute } from '@primeuix/utils';
-import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TableState } from 'primeng/api';
+import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, ScrollerOptions, SortMeta, TableState } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { CheckboxChangeEvent } from 'primeng/checkbox';
@@ -30,7 +12,6 @@ import { Scroller, ScrollerModule } from 'primeng/scroller';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { Nullable } from 'primeng/ts-helpers';
 import {
     ExportCSVOptions,
     TableColResizeEvent,
@@ -43,7 +24,16 @@ import {
     TableHeaderCheckboxToggleEvent,
     TableLazyLoadEvent,
     TablePageEvent,
+    TablePaginatorPosition,
+    TableColumnResizeMode,
+    TableEditMode,
     TablePassThrough,
+    TableRowExpandMode,
+    TableRowGroupMode,
+    TableSelectionMode,
+    TableSize,
+    TableSortMode,
+    TableStateStorage,
     TableRowCollapseEvent,
     TableRowExpandEvent,
     TableRowReorderEvent,
@@ -51,11 +41,12 @@ import {
     TableRowUnSelectEvent,
     TableSelectAllChangeEvent
 } from 'primeng/types/table';
+import type { CSSProperties } from 'primeng/types/shared';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { TableStyle } from './style/tablestyle';
 import { TableBody } from './table-body';
-import { TABLE_INSTANCE, TableService } from './table-token';
+import { TABLE_INSTANCE, TableService } from './table-service';
 /**
  * Table displays data in tabular format.
  * @group Components
@@ -63,102 +54,122 @@ import { TABLE_INSTANCE, TableService } from './table-token';
 @Component({
     selector: 'p-table',
     standalone: true,
-    imports: [CommonModule, PaginatorModule, ScrollerModule, FormsModule, BindModule, SharedModule, SpinnerIcon, ArrowDownIcon, ArrowUpIcon, TableBody],
+    imports: [NgTemplateOutlet, PaginatorModule, ScrollerModule, FormsModule, BindModule, SpinnerIcon, ArrowDownIcon, ArrowUpIcon, TableBody],
     template: `
-        <div [class]="cx('mask')" [pBind]="ptm('mask')" *ngIf="loading && showLoader" animate.enter="p-overlay-mask-enter-active" animate.leave="p-overlay-mask-leave-active">
-            <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), loadingIcon)" [pBind]="ptm('loadingIcon')"></i>
-            <ng-container *ngIf="!loadingIcon">
-                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [class]="cx('loadingIcon')" [pBind]="ptm('loadingIcon')" />
-                <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')" [pBind]="ptm('loadingIcon')">
-                    <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
-                </span>
-            </ng-container>
-        </div>
-        <div *ngIf="captionTemplate || _captionTemplate" [class]="cx('header')" [pBind]="ptm('header')">
-            <ng-container *ngTemplateOutlet="captionTemplate || _captionTemplate"></ng-container>
-        </div>
-        <p-paginator
-            [rows]="rows"
-            [first]="first"
-            [totalRecords]="totalRecords"
-            [pageLinkSize]="pageLinks"
-            [alwaysShow]="alwaysShowPaginator"
-            (onPageChange)="onPageChange($event)"
-            [rowsPerPageOptions]="rowsPerPageOptions"
-            *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
-            [templateLeft]="paginatorLeftTemplate || _paginatorLeftTemplate"
-            [templateRight]="paginatorRightTemplate || _paginatorRightTemplate"
-            [appendTo]="paginatorDropdownAppendTo"
-            [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-            [currentPageReportTemplate]="currentPageReportTemplate"
-            [showFirstLastIcon]="showFirstLastIcon"
-            [dropdownItemTemplate]="paginatorDropdownItemTemplate || _paginatorDropdownItemTemplate"
-            [showCurrentPageReport]="showCurrentPageReport"
-            [showJumpToPageDropdown]="showJumpToPageDropdown"
-            [showJumpToPageInput]="showJumpToPageInput"
-            [showPageLinks]="showPageLinks"
-            [class]="cx('pcPaginator') + ' ' + paginatorStyleClass && paginatorStyleClass"
-            [locale]="paginatorLocale"
-            [pt]="ptm('pcPaginator')"
-            [unstyled]="unstyled()"
-        >
-            <ng-template #dropdownicon *ngIf="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate">
-                <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate"></ng-container>
-            </ng-template>
-
-            <ng-template #firstpagelinkicon *ngIf="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate">
-                <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate"></ng-container>
-            </ng-template>
-
-            <ng-template #previouspagelinkicon *ngIf="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate">
-                <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate"></ng-container>
-            </ng-template>
-
-            <ng-template #lastpagelinkicon *ngIf="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate">
-                <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate"></ng-container>
-            </ng-template>
-
-            <ng-template #nextpagelinkicon *ngIf="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate">
-                <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate"></ng-container>
-            </ng-template>
-        </p-paginator>
-
-        <div #wrapper [class]="cx('tableContainer')" [ngStyle]="sx('tableContainer')" [pBind]="ptm('tableContainer')" [attr.data-p]="dataP">
-            <p-scroller
-                #scroller
-                *ngIf="virtualScroll"
-                [items]="processedData"
-                [columns]="columns"
-                [style]="{
-                    height: scrollHeight !== 'flex' ? scrollHeight : undefined
-                }"
-                [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
-                [itemSize]="virtualScrollItemSize"
-                [step]="rows"
-                [delay]="lazy ? virtualScrollDelay : 0"
-                [inline]="true"
-                [autoSize]="true"
-                [lazy]="lazy"
-                (onLazyLoad)="onLazyItemLoad($event)"
-                [loaderDisabled]="true"
-                [showSpacer]="false"
-                [showLoader]="loadingBodyTemplate || _loadingBodyTemplate"
-                [options]="virtualScrollOptions"
-                [pt]="ptm('virtualScroller')"
+        @if (showLoadingMask()) {
+            <div [class]="cx('mask')" [pBind]="ptm('mask')" animate.enter="p-overlay-mask-enter-active" animate.leave="p-overlay-mask-leave-active">
+                @if (loadingIcon()) {
+                    <i [class]="cn(cx('loadingIcon'), loadingIcon())" [pBind]="ptm('loadingIcon')"></i>
+                }
+                @if (!loadingIcon()) {
+                    @if (!loadingIconTemplate()) {
+                        <svg data-p-icon="spinner" [spin]="true" [class]="cx('loadingIcon')" [pBind]="ptm('loadingIcon')" />
+                    }
+                    @if (loadingIconTemplate()) {
+                        <span [class]="cx('loadingIcon')" [pBind]="ptm('loadingIcon')">
+                            <ng-template *ngTemplateOutlet="loadingIconTemplate()"></ng-template>
+                        </span>
+                    }
+                }
+            </div>
+        }
+        @if (captionTemplate()) {
+            <div [class]="cx('header')" [pBind]="ptm('header')">
+                <ng-container *ngTemplateOutlet="captionTemplate()"></ng-container>
+            </div>
+        }
+        @if (showTopPaginator()) {
+            <p-paginator
+                [rows]="rows"
+                [first]="first"
+                [totalRecords]="totalRecords"
+                [pageLinkSize]="pageLinks()"
+                [alwaysShow]="alwaysShowPaginator()"
+                (onPageChange)="onPageChange($event)"
+                [rowsPerPageOptions]="rowsPerPageOptions()"
+                [templateLeft]="paginatorLeftTemplate()"
+                [templateRight]="paginatorRightTemplate()"
+                [appendTo]="paginatorDropdownAppendTo()"
+                [dropdownScrollHeight]="paginatorDropdownScrollHeight()"
+                [currentPageReportTemplate]="currentPageReportTemplate()"
+                [showFirstLastIcon]="showFirstLastIcon()"
+                [dropdownItemTemplate]="paginatorDropdownItemTemplate()"
+                [showCurrentPageReport]="showCurrentPageReport()"
+                [showJumpToPageDropdown]="showJumpToPageDropdown()"
+                [showJumpToPageInput]="showJumpToPageInput()"
+                [showPageLinks]="showPageLinks()"
+                [class]="cn(cx('pcPaginator'), paginatorStyleClass())"
+                [locale]="paginatorLocale()"
+                [pt]="ptm('pcPaginator')"
+                [unstyled]="unstyled()"
             >
-                <ng-template #content let-items let-scrollerOptions="options">
-                    <ng-container
-                        *ngTemplateOutlet="
-                            buildInTable;
-                            context: {
-                                $implicit: items,
-                                options: scrollerOptions
-                            }
-                        "
-                    ></ng-container>
-                </ng-template>
-            </p-scroller>
-            <ng-container *ngIf="!virtualScroll">
+                @if (paginatorDropdownIconTemplate()) {
+                    <ng-template #dropdownicon>
+                        <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate()"></ng-container>
+                    </ng-template>
+                }
+
+                @if (paginatorFirstPageLinkIconTemplate()) {
+                    <ng-template #firstpagelinkicon>
+                        <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate()"></ng-container>
+                    </ng-template>
+                }
+
+                @if (paginatorPreviousPageLinkIconTemplate()) {
+                    <ng-template #previouspagelinkicon>
+                        <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate()"></ng-container>
+                    </ng-template>
+                }
+
+                @if (paginatorLastPageLinkIconTemplate()) {
+                    <ng-template #lastpagelinkicon>
+                        <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate()"></ng-container>
+                    </ng-template>
+                }
+
+                @if (paginatorNextPageLinkIconTemplate()) {
+                    <ng-template #nextpagelinkicon>
+                        <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate()"></ng-container>
+                    </ng-template>
+                }
+            </p-paginator>
+        }
+
+        <div #wrapper [class]="cx('tableContainer')" [style]="sx('tableContainer')" [pBind]="ptm('tableContainer')" [attr.data-p]="dataP">
+            @if (virtualScroll()) {
+                <p-scroller
+                    #scroller
+                    [items]="processedData"
+                    [columns]="columns"
+                    [style]="scrollerStyle()"
+                    [scrollHeight]="scrollerScrollHeight()"
+                    [itemSize]="virtualScrollItemSize()"
+                    [step]="rows"
+                    [delay]="scrollerDelay()"
+                    [inline]="true"
+                    [autoSize]="true"
+                    [lazy]="lazy()"
+                    (onLazyLoad)="onLazyItemLoad($event)"
+                    [loaderDisabled]="true"
+                    [showSpacer]="false"
+                    [showLoader]="loadingBodyTemplate()"
+                    [options]="virtualScrollOptions()"
+                    [pt]="ptm('virtualScroller')"
+                >
+                    <ng-template #content let-items let-scrollerOptions="options">
+                        <ng-container
+                            *ngTemplateOutlet="
+                                buildInTable;
+                                context: {
+                                    $implicit: items,
+                                    options: scrollerOptions
+                                }
+                            "
+                        ></ng-container>
+                    </ng-template>
+                </p-scroller>
+            }
+            @if (!virtualScroll()) {
                 <ng-container
                     *ngTemplateOutlet="
                         buildInTable;
@@ -168,132 +179,152 @@ import { TABLE_INSTANCE, TableService } from './table-token';
                         }
                     "
                 ></ng-container>
-            </ng-container>
+            }
 
             <ng-template #buildInTable let-items let-scrollerOptions="options">
-                <table #table role="table" [class]="cn(cx('table'), tableStyleClass)" [pBind]="ptm('table')" [style]="tableStyle" [attr.id]="id + '-table'">
-                    <ng-container *ngTemplateOutlet="colGroupTemplate || _colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
-                    <thead role="rowgroup" #thead [class]="cx('thead')" [ngStyle]="sx('thead')" [pBind]="ptm('thead')">
+                <table #table role="table" [class]="cn(cx('table'), tableStyleClass())" [pBind]="ptm('table')" [style]="tableStyle()" [attr.id]="id + '-table'">
+                    <ng-container *ngTemplateOutlet="colGroupTemplate(); context: { $implicit: scrollerOptions.columns }"></ng-container>
+                    <thead role="rowgroup" #thead [class]="cx('thead')" [style]="sx('thead')" [pBind]="ptm('thead')">
                         <ng-container
                             *ngTemplateOutlet="
-                                headerGroupedTemplate || headerTemplate || _headerTemplate;
+                                headerGroupedTemplate() || headerTemplate();
                                 context: {
                                     $implicit: scrollerOptions.columns
                                 }
                             "
                         ></ng-container>
                     </thead>
+                    @if (showFrozenBody()) {
+                        <tbody
+                            role="rowgroup"
+                            [class]="cx('tbody')"
+                            [pBind]="ptm('tbody')"
+                            [value]="frozenValue()"
+                            [frozenRows]="true"
+                            [pTableBody]="scrollerOptions.columns"
+                            [pTableBodyTemplate]="frozenBodyTemplate()"
+                            [unstyled]="unstyled()"
+                            [frozen]="true"
+                            [attr.data-p-virtualscroll]="virtualScroll()"
+                        ></tbody>
+                    }
                     <tbody
                         role="rowgroup"
-                        [class]="cx('tbody')"
-                        [pBind]="ptm('tbody')"
-                        *ngIf="frozenValue || frozenBodyTemplate || _frozenBodyTemplate"
-                        [value]="frozenValue"
-                        [frozenRows]="true"
-                        [pTableBody]="scrollerOptions.columns"
-                        [pTableBodyTemplate]="frozenBodyTemplate || _frozenBodyTemplate"
-                        [unstyled]="unstyled()"
-                        [frozen]="true"
-                        [attr.data-p-virtualscroll]="virtualScroll"
-                    ></tbody>
-                    <tbody
-                        role="rowgroup"
-                        [class]="cx('tbody', scrollerOptions.contentStyleClass)"
+                        [class]="cn(cx('tbody'), scrollerOptions.contentStyleClass)"
                         [pBind]="ptm('tbody')"
                         [style]="scrollerOptions.contentStyle"
                         [value]="dataToRender(scrollerOptions.rows)"
                         [pTableBody]="scrollerOptions.columns"
-                        [pTableBodyTemplate]="bodyTemplate || _bodyTemplate"
+                        [pTableBodyTemplate]="bodyTemplate()"
                         [scrollerOptions]="scrollerOptions"
                         [unstyled]="unstyled()"
-                        [attr.data-p-virtualscroll]="virtualScroll"
+                        [attr.data-p-virtualscroll]="virtualScroll()"
                     ></tbody>
-                    <tbody
-                        role="rowgroup"
-                        *ngIf="scrollerOptions.spacerStyle"
-                        [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'"
-                        [class]="cx('virtualScrollerSpacer')"
-                        [pBind]="ptm('virtualScrollerSpacer')"
-                    ></tbody>
-                    <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [ngClass]="cx('footer')" [ngStyle]="sx('tfoot')" [pBind]="ptm('tfoot')">
-                        <ng-container
-                            *ngTemplateOutlet="
-                                footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate;
-                                context: {
-                                    $implicit: scrollerOptions.columns
-                                }
-                            "
-                        ></ng-container>
-                    </tfoot>
+                    @if (scrollerOptions.spacerStyle) {
+                        <tbody role="rowgroup" [style]="getVirtualScrollerSpacerStyle(scrollerOptions)" [class]="cx('virtualScrollerSpacer')" [pBind]="ptm('virtualScrollerSpacer')"></tbody>
+                    }
+                    @if (showFooter()) {
+                        <tfoot role="rowgroup" #tfoot [class]="cx('footer')" [style]="sx('tfoot')" [pBind]="ptm('tfoot')">
+                            <ng-container
+                                *ngTemplateOutlet="
+                                    footerGroupedTemplate() || footerTemplate();
+                                    context: {
+                                        $implicit: scrollerOptions.columns
+                                    }
+                                "
+                            ></ng-container>
+                        </tfoot>
+                    }
                 </table>
             </ng-template>
         </div>
 
-        <p-paginator
-            [rows]="rows"
-            [first]="first"
-            [totalRecords]="totalRecords"
-            [pageLinkSize]="pageLinks"
-            [alwaysShow]="alwaysShowPaginator"
-            (onPageChange)="onPageChange($event)"
-            [rowsPerPageOptions]="rowsPerPageOptions"
-            *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
-            [templateLeft]="paginatorLeftTemplate || _paginatorLeftTemplate"
-            [templateRight]="paginatorRightTemplate || _paginatorRightTemplate"
-            [appendTo]="paginatorDropdownAppendTo"
-            [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-            [currentPageReportTemplate]="currentPageReportTemplate"
-            [showFirstLastIcon]="showFirstLastIcon"
-            [dropdownItemTemplate]="paginatorDropdownItemTemplate || _paginatorDropdownItemTemplate"
-            [showCurrentPageReport]="showCurrentPageReport"
-            [showJumpToPageDropdown]="showJumpToPageDropdown"
-            [showJumpToPageInput]="showJumpToPageInput"
-            [showPageLinks]="showPageLinks"
-            [class]="cx('pcPaginator') + ' ' + paginatorStyleClass && paginatorStyleClass"
-            [locale]="paginatorLocale"
-            [pt]="ptm('pcPaginator')"
-            [unstyled]="unstyled()"
-        >
-            <ng-template #dropdownicon *ngIf="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate">
-                <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate"></ng-container>
-            </ng-template>
+        @if (showBottomPaginator()) {
+            <p-paginator
+                [rows]="rows"
+                [first]="first"
+                [totalRecords]="totalRecords"
+                [pageLinkSize]="pageLinks()"
+                [alwaysShow]="alwaysShowPaginator()"
+                (onPageChange)="onPageChange($event)"
+                [rowsPerPageOptions]="rowsPerPageOptions()"
+                [templateLeft]="paginatorLeftTemplate()"
+                [templateRight]="paginatorRightTemplate()"
+                [appendTo]="paginatorDropdownAppendTo()"
+                [dropdownScrollHeight]="paginatorDropdownScrollHeight()"
+                [currentPageReportTemplate]="currentPageReportTemplate()"
+                [showFirstLastIcon]="showFirstLastIcon()"
+                [dropdownItemTemplate]="paginatorDropdownItemTemplate()"
+                [showCurrentPageReport]="showCurrentPageReport()"
+                [showJumpToPageDropdown]="showJumpToPageDropdown()"
+                [showJumpToPageInput]="showJumpToPageInput()"
+                [showPageLinks]="showPageLinks()"
+                [class]="cn(cx('pcPaginator'), paginatorStyleClass())"
+                [locale]="paginatorLocale()"
+                [pt]="ptm('pcPaginator')"
+                [unstyled]="unstyled()"
+            >
+                @if (paginatorDropdownIconTemplate()) {
+                    <ng-template #dropdownicon>
+                        <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate()"></ng-container>
+                    </ng-template>
+                }
 
-            <ng-template #firstpagelinkicon *ngIf="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate">
-                <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate"></ng-container>
-            </ng-template>
+                @if (paginatorFirstPageLinkIconTemplate()) {
+                    <ng-template #firstpagelinkicon>
+                        <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate()"></ng-container>
+                    </ng-template>
+                }
 
-            <ng-template #previouspagelinkicon *ngIf="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate">
-                <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate"></ng-container>
-            </ng-template>
+                @if (paginatorPreviousPageLinkIconTemplate()) {
+                    <ng-template #previouspagelinkicon>
+                        <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate()"></ng-container>
+                    </ng-template>
+                }
 
-            <ng-template #lastpagelinkicon *ngIf="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate">
-                <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate"></ng-container>
-            </ng-template>
+                @if (paginatorLastPageLinkIconTemplate()) {
+                    <ng-template #lastpagelinkicon>
+                        <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate()"></ng-container>
+                    </ng-template>
+                }
 
-            <ng-template #nextpagelinkicon *ngIf="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate">
-                <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate"></ng-container>
-            </ng-template>
-        </p-paginator>
+                @if (paginatorNextPageLinkIconTemplate()) {
+                    <ng-template #nextpagelinkicon>
+                        <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate()"></ng-container>
+                    </ng-template>
+                }
+            </p-paginator>
+        }
 
-        <div *ngIf="summaryTemplate || _summaryTemplate" [ngClass]="cx('footer')" [pBind]="ptm('footer')">
-            <ng-container *ngTemplateOutlet="summaryTemplate || _summaryTemplate"></ng-container>
-        </div>
+        @if (summaryTemplate()) {
+            <div [class]="cx('footer')" [pBind]="ptm('footer')">
+                <ng-container *ngTemplateOutlet="summaryTemplate()"></ng-container>
+            </div>
+        }
 
-        <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" [pBind]="ptm('columnResizeIndicator')" [style.display]="'none'" *ngIf="resizableColumns"></div>
-        <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" [pBind]="ptm('rowReorderIndicatorUp')" [style.display]="'none'" *ngIf="reorderableColumns">
-            <svg data-p-icon="arrow-down" *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" [pBind]="ptm('rowReorderIndicatorUp')['icon']" />
-            <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate || _reorderIndicatorUpIconTemplate"></ng-template>
-        </span>
-        <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" [pBind]="ptm('rowReorderIndicatorDown')" [style.display]="'none'" *ngIf="reorderableColumns">
-            <svg data-p-icon="arrow-up" *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" [pBind]="ptm('rowReorderIndicatorDown')['icon']" />
-            <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate || _reorderIndicatorDownIconTemplate"></ng-template>
-        </span>
+        @if (resizableColumns()) {
+            <div #resizeHelper [class]="cx('columnResizeIndicator')" [pBind]="ptm('columnResizeIndicator')" [style.display]="'none'"></div>
+        }
+        @if (reorderableColumns()) {
+            <span #reorderIndicatorUp [class]="cx('rowReorderIndicatorUp')" [pBind]="ptm('rowReorderIndicatorUp')" [style.display]="'none'">
+                @if (!reorderIndicatorUpIconTemplate()) {
+                    <svg data-p-icon="arrow-down" [pBind]="ptm('rowReorderIndicatorUp')['icon']" />
+                }
+                <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate()"></ng-template>
+            </span>
+            <span #reorderIndicatorDown [class]="cx('rowReorderIndicatorDown')" [pBind]="ptm('rowReorderIndicatorDown')" [style.display]="'none'">
+                @if (!reorderIndicatorDownIconTemplate()) {
+                    <svg data-p-icon="arrow-up" [pBind]="ptm('rowReorderIndicatorDown')['icon']" />
+                }
+                <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate()"></ng-template>
+            </span>
+        }
     `,
     providers: [TableService, TableStyle, { provide: TABLE_INSTANCE, useExisting: Table }, { provide: PARENT_INSTANCE, useExisting: Table }],
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
+        '[class]': "cx('root')",
         '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
@@ -304,380 +335,384 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * An array of objects to represent dynamic columns that are frozen.
      * @group Props
      */
-    @Input() frozenColumns: any[] | undefined;
+    frozenColumns = input<any[]>();
     /**
      * An array of objects to display as frozen.
      * @group Props
      */
-    @Input() frozenValue: any[] | undefined;
-    /**
-     * Style class of the component.
-     * @deprecated since v20.0.0, use `class` instead.
-     * @group Props
-     */
-    @Input() styleClass: string | undefined;
+    frozenValue = input<any[]>();
     /**
      * Inline style of the table.
      * @group Props
      */
-    @Input() tableStyle: { [klass: string]: any } | null | undefined;
+    tableStyle = input<CSSProperties>();
     /**
      * Style class of the table.
      * @group Props
      */
-    @Input() tableStyleClass: string | undefined;
+    tableStyleClass = input<string>();
     /**
      * When specified as true, enables the pagination.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) paginator: boolean | undefined;
+    paginator = input(undefined, { transform: booleanAttribute });
     /**
      * Number of page links to display in paginator.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) pageLinks: number = 5;
+    pageLinks = input(5, { transform: numberAttribute });
     /**
      * Array of integer/object values to display inside rows per page dropdown of paginator
      * @group Props
      */
-    @Input() rowsPerPageOptions: any[] | undefined;
+    rowsPerPageOptions = input<any[]>();
     /**
      * Whether to show it even there is only one page.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) alwaysShowPaginator: boolean = true;
+    alwaysShowPaginator = input(true, { transform: booleanAttribute });
     /**
      * Position of the paginator, options are "top", "bottom" or "both".
      * @group Props
      */
-    @Input() paginatorPosition: 'top' | 'bottom' | 'both' = 'bottom';
+    paginatorPosition = input<TablePaginatorPosition>('bottom');
     /**
      * Custom style class for paginator
      * @group Props
      */
-    @Input() paginatorStyleClass: string | undefined;
+    paginatorStyleClass = input<string>();
     /**
      * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() paginatorDropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    paginatorDropdownAppendTo = input<any>();
     /**
      * Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
      * @group Props
      */
-    @Input() paginatorDropdownScrollHeight: string = '200px';
+    paginatorDropdownScrollHeight = input('200px');
     /**
      * Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords}
      * @group Props
      */
-    @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
+    currentPageReportTemplate = input('{currentPage} of {totalPages}');
     /**
      * Whether to display current page report.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showCurrentPageReport: boolean | undefined;
+    showCurrentPageReport = input(undefined, { transform: booleanAttribute });
     /**
      * Whether to display a dropdown to navigate to any page.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showJumpToPageDropdown: boolean | undefined;
+    showJumpToPageDropdown = input(undefined, { transform: booleanAttribute });
     /**
      * Whether to display a input to navigate to any page.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showJumpToPageInput: boolean | undefined;
+    showJumpToPageInput = input(undefined, { transform: booleanAttribute });
     /**
      * When enabled, icons are displayed on paginator to go first and last page.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showFirstLastIcon: boolean = true;
+    showFirstLastIcon = input(true, { transform: booleanAttribute });
     /**
      * Whether to show page links.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showPageLinks: boolean = true;
+    showPageLinks = input(true, { transform: booleanAttribute });
     /**
      * Sort order to use when an unsorted column gets sorted by user interaction.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) defaultSortOrder: number = 1;
+    defaultSortOrder = input(1, { transform: numberAttribute });
     /**
      * Defines whether sorting works on single column or on multiple columns.
      * @group Props
      */
-    @Input() sortMode: 'single' | 'multiple' = 'single';
+    sortMode = input<TableSortMode>('single');
     /**
      * When true, resets paginator to first page after sorting. Available only when sortMode is set to single.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) resetPageOnSort: boolean = true;
+    resetPageOnSort = input(true, { transform: booleanAttribute });
     /**
      * Specifies the selection mode, valid values are "single" and "multiple".
      * @group Props
      */
-    @Input() selectionMode: 'single' | 'multiple' | undefined | null;
+    selectionMode = input<TableSelectionMode | undefined | null>();
     /**
      * When enabled with paginator and checkbox selection mode, the select all checkbox in the header will select all rows on the current page.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) selectionPageOnly: boolean | undefined;
+    selectionPageOnly = input(undefined, { transform: booleanAttribute });
     /**
      * Selected row with a context menu.
      * @group Props
      */
-    @Input() contextMenuSelection: any;
+    contextMenuSelectionInput = input<any>(undefined, { alias: 'contextMenuSelection' });
+
+    contextMenuSelection: any;
     /**
      * Callback to invoke on context menu selection change.
      * @param {*} object - row data.
      * @group Emits
      */
-    @Output() contextMenuSelectionChange: EventEmitter<any> = new EventEmitter();
+    contextMenuSelectionChange = output<any>();
     /**
      *  Defines the behavior of context menu selection, in "separate" mode context menu updates contextMenuSelection property whereas in joint mode selection property is used instead so that when row selection is enabled, both row selection and context menu selection use the same property.
      * @group Props
      */
-    @Input() contextMenuSelectionMode: string = 'separate';
+    contextMenuSelectionMode = input('separate');
     /**
      * A property to uniquely identify a record in data.
      * @group Props
      */
-    @Input() dataKey: string | undefined;
+    dataKey = input<string>();
     /**
      * Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) metaKeySelection: boolean | undefined = false;
+    metaKeySelection = input(false, { transform: booleanAttribute });
     /**
      * Defines if the row is selectable.
      * @group Props
      */
-    @Input() rowSelectable: (row: { data: any; index: number }) => boolean | undefined;
+    rowSelectable = input<(row: { data: any; index: number }) => boolean>();
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() rowTrackBy: Function = (index: number, item: any) => item;
+    rowTrackBy = input<Function>((index: number, item: any) => item);
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) lazy: boolean = false;
+    lazy = input(false, { transform: booleanAttribute });
     /**
      * Whether to call lazy loading on initialization.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) lazyLoadOnInit: boolean = true;
+    lazyLoadOnInit = input(true, { transform: booleanAttribute });
     /**
      * Algorithm to define if a row is selected, valid values are "equals" that compares by reference and "deepEquals" that compares all fields.
      * @group Props
      */
-    @Input() compareSelectionBy: 'equals' | 'deepEquals' = 'deepEquals';
+    compareSelectionBy = input<'equals' | 'deepEquals'>('deepEquals');
     /**
      * Character to use as the csv separator.
      * @group Props
      */
-    @Input() csvSeparator: string = ',';
+    csvSeparator = input(',');
     /**
      * Name of the exported file.
      * @group Props
      */
-    @Input() exportFilename: string = 'download';
+    exportFilename = input('download');
     /**
      * An array of FilterMetadata objects to provide external filters.
      * @group Props
      */
-    @Input() filters: { [s: string]: FilterMetadata | FilterMetadata[] } = {};
+    filtersInput = input<{ [s: string]: FilterMetadata | FilterMetadata[] }>({}, { alias: 'filters' });
+
+    filters: { [s: string]: FilterMetadata | FilterMetadata[] } = {};
     /**
      * An array of fields as string to use in global filtering.
      * @group Props
      */
-    @Input() globalFilterFields: string[] | undefined;
+    globalFilterFields = input<string[]>();
     /**
      * Delay in milliseconds before filtering the data.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) filterDelay: number = 300;
+    filterDelay = input(300, { transform: numberAttribute });
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
      */
-    @Input() filterLocale: string | undefined;
+    filterLocale = input<string>();
     /**
      * Map instance to keep the expanded rows where key of the map is the data key of the row.
      * @group Props
      */
-    @Input() expandedRowKeys: { [s: string]: boolean } = {};
+    expandedRowKeysInput = input<{ [s: string]: boolean }>({}, { alias: 'expandedRowKeys' });
+
+    expandedRowKeys: { [s: string]: boolean } = {};
     /**
      * Map instance to keep the rows being edited where key of the map is the data key of the row.
      * @group Props
      */
-    @Input() editingRowKeys: { [s: string]: boolean } = {};
+    editingRowKeysInput = input<{ [s: string]: boolean }>({}, { alias: 'editingRowKeys' });
+
+    editingRowKeys: { [s: string]: boolean } = {};
     /**
      * Whether multiple rows can be expanded at any time. Valid values are "multiple" and "single".
      * @group Props
      */
-    @Input() rowExpandMode: 'multiple' | 'single' = 'multiple';
+    rowExpandMode = input<TableRowExpandMode>('multiple');
     /**
      * Enables scrollable tables.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) scrollable: boolean | undefined;
+    scrollable = input(undefined, { transform: booleanAttribute });
     /**
      * Type of the row grouping, valid values are "subheader" and "rowspan".
      * @group Props
      */
-    @Input() rowGroupMode: 'subheader' | 'rowspan' | undefined;
+    rowGroupMode = input<TableRowGroupMode>();
     /**
      * Height of the scroll viewport in fixed pixels or the "flex" keyword for a dynamic size.
      * @group Props
      */
-    @Input() scrollHeight: string | undefined;
+    scrollHeight = input<string>();
     /**
      * Whether the data should be loaded on demand during scroll.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) virtualScroll: boolean | undefined;
+    virtualScroll = input(undefined, { transform: booleanAttribute });
     /**
      * Height of a row to use in calculations of virtual scrolling.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
+    virtualScrollItemSize = input(undefined, { transform: (v: unknown) => numberAttribute(v, undefined) });
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
      */
-    @Input() virtualScrollOptions: ScrollerOptions | undefined;
+    virtualScrollOptions = input<ScrollerOptions>();
     /**
      * Threshold in milliseconds to delay lazy loading during scrolling.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) virtualScrollDelay: number = 250;
+    virtualScrollDelay = input(250, { transform: numberAttribute });
     /**
      * Width of the frozen columns container.
      * @group Props
      */
-    @Input() frozenWidth: string | undefined;
+    frozenWidth = input<string>();
     /**
      * Local ng-template varilable of a ContextMenu.
      * @group Props
      */
-    @Input() contextMenu: any;
+    contextMenu = input<any>();
     /**
      * When enabled, columns can be resized using drag and drop.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) resizableColumns: boolean | undefined;
+    resizableColumns = input(undefined, { transform: booleanAttribute });
     /**
      * Defines whether the overall table width should change on column resize, valid values are "fit" and "expand".
      * @group Props
      */
-    @Input() columnResizeMode: string = 'fit';
+    columnResizeMode = input<TableColumnResizeMode>('fit');
     /**
      * When enabled, columns can be reordered using drag and drop.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) reorderableColumns: boolean | undefined;
+    reorderableColumns = input(undefined, { transform: booleanAttribute });
     /**
      * Displays a loader to indicate data load is in progress.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) loading: boolean | undefined;
+    loading = input(undefined, { transform: booleanAttribute });
     /**
      * The icon to show while indicating data load is in progress.
      * @group Props
      */
-    @Input() loadingIcon: string | undefined;
+    loadingIcon = input<string>();
     /**
      * Whether to show the loading mask when loading property is true.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showLoader: boolean = true;
+    showLoader = input(true, { transform: booleanAttribute });
     /**
      * Adds hover effect to rows without the need for selectionMode. Note that tr elements that can be hovered need to have "p-selectable-row" class for rowHover to work.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) rowHover: boolean | undefined;
+    rowHover = input(undefined, { transform: booleanAttribute });
     /**
      * Whether to use the default sorting or a custom one using sortFunction.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) customSort: boolean | undefined;
+    customSort = input(undefined, { transform: booleanAttribute });
     /**
      * Whether to use the initial sort badge or not.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showInitialSortBadge: boolean = true;
+    showInitialSortBadge = input(true, { transform: booleanAttribute });
     /**
      * Export function.
      * @group Props
      */
-    @Input() exportFunction: Function | undefined;
+    exportFunction = input<Function>();
     /**
      * Custom export header of the column to be exported as CSV.
      * @group Props
      */
-    @Input() exportHeader: string | undefined;
+    exportHeader = input<string>();
     /**
      * Unique identifier of a stateful table to use in state storage.
      * @group Props
      */
-    @Input() stateKey: string | undefined;
+    stateKey = input<string>();
     /**
      * Defines where a stateful table keeps its state, valid values are "session" for sessionStorage and "local" for localStorage.
      * @group Props
      */
-    @Input() stateStorage: 'session' | 'local' = 'session';
+    stateStorage = input<TableStateStorage>('session');
     /**
      * Defines the editing mode, valid values are "cell" and "row".
      * @group Props
      */
-    @Input() editMode: 'cell' | 'row' = 'cell';
+    editMode = input<TableEditMode>('cell');
     /**
      * Field name to use in row grouping.
      * @group Props
      */
-    @Input() groupRowsBy: any;
+    groupRowsBy = input<any>();
     /**
      * Defines the size of the table.
      * @group Props
      */
-    @Input() size: 'small' | 'large' | undefined;
+    size = input<TableSize>();
     /**
      * Whether to show grid lines between cells.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showGridlines: boolean | undefined;
+    showGridlines = input(undefined, { transform: booleanAttribute });
     /**
      * Whether to display rows with alternating colors.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) stripedRows: boolean | undefined;
+    stripedRows = input(undefined, { transform: booleanAttribute });
     /**
      * Order to sort when default row grouping is enabled.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) groupRowsByOrder: number = 1;
+    groupRowsByOrder = input(1, { transform: numberAttribute });
     /**
      * Defines the responsive mode, valid options are "stack" and "scroll".
      * @deprecated since v20.0.0, always defaults to scroll, stack mode needs custom implementation
      * @group Props
      */
-    @Input() responsiveLayout: string = 'scroll';
+    responsiveLayout = input('scroll');
     /**
      * The breakpoint to define the maximum width boundary when using stack responsive layout.
      * @group Props
      */
-    @Input() breakpoint: string = '960px';
+    breakpoint = input('960px');
     /**
      * Locale to be used in paginator formatting.
      * @group Props
      */
-    @Input() paginatorLocale: string | undefined;
+    paginatorLocale = input<string>();
     /**
      * An array of objects to display.
      * @group Props
      */
-    @Input() get value(): RowData[] {
+    valueInput = input<RowData[]>(undefined, { alias: 'value' });
+
+    get value(): RowData[] {
         return this._value;
     }
     set value(val: RowData[]) {
@@ -687,7 +722,9 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * An array of objects to represent dynamic columns.
      * @group Props
      */
-    @Input() get columns(): any[] | undefined {
+    columnsInput = input<any[]>(undefined, { alias: 'columns' });
+
+    get columns(): any[] | undefined {
         return this._columns;
     }
     set columns(cols: any[] | undefined) {
@@ -697,7 +734,9 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * Index of the first row to be displayed.
      * @group Props
      */
-    @Input() get first(): number | null | undefined {
+    firstInput = input<number | null>(undefined, { alias: 'first' });
+
+    get first(): number | null | undefined {
         return this._first;
     }
     set first(val: number | null | undefined) {
@@ -707,7 +746,9 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * Number of rows to display per page.
      * @group Props
      */
-    @Input() get rows(): number | undefined {
+    rowsInput = input<number>(undefined, { alias: 'rows' });
+
+    get rows(): number | undefined {
         return this._rows;
     }
     set rows(val: number | undefined) {
@@ -717,13 +758,22 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * Number of total records, defaults to length of value when not defined.
      * @group Props
      */
-    @Input() totalRecords: number = 0;
+    totalRecordsInput = input(0, { alias: 'totalRecords' });
+
+    get totalRecords() {
+        return this._totalRecords;
+    }
+    set totalRecords(val: number) {
+        this._totalRecords = val;
+    }
 
     /**
      * Name of the field to sort data by default.
      * @group Props
      */
-    @Input() get sortField(): string | undefined | null {
+    sortFieldInput = input<string | null>(undefined, { alias: 'sortField' });
+
+    get sortField(): string | undefined | null {
         return this._sortField;
     }
     set sortField(val: string | undefined | null) {
@@ -733,7 +783,9 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * Order to sort when default sorting is enabled.
      * @group Props
      */
-    @Input() get sortOrder(): number {
+    sortOrderInput = input(1, { alias: 'sortOrder' });
+
+    get sortOrder(): number {
         return this._sortOrder;
     }
     set sortOrder(val: number) {
@@ -743,7 +795,9 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * An array of SortMeta objects to sort the data by default in multiple sort mode.
      * @group Props
      */
-    @Input() get multiSortMeta(): SortMeta[] | undefined | null {
+    multiSortMetaInput = input<SortMeta[] | null>(undefined, { alias: 'multiSortMeta' });
+
+    get multiSortMeta(): SortMeta[] | undefined | null {
         return this._multiSortMeta;
     }
     set multiSortMeta(val: SortMeta[] | undefined | null) {
@@ -753,7 +807,9 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * Selected row in single mode or an array of values in multiple mode.
      * @group Props
      */
-    @Input() get selection(): any {
+    selectionInput = input<any>(undefined, { alias: 'selection' });
+
+    get selection(): any {
         return this._selection;
     }
     set selection(val: any) {
@@ -763,171 +819,161 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * Whether all data is selected.
      * @group Props
      */
-    @Input() get selectAll(): boolean | null {
-        return this._selection;
-    }
-    set selectAll(val: boolean | null) {
-        this._selection = val;
-    }
+    selectAllInput = input<boolean | null>(null, { alias: 'selectAll' });
     /**
      * Emits when the all of the items selected or unselected.
      * @param {TableSelectAllChangeEvent} event - custom  all selection change event.
      * @group Emits
      */
-    @Output() selectAllChange: EventEmitter<TableSelectAllChangeEvent> = new EventEmitter<TableSelectAllChangeEvent>();
+    selectAllChange = output<TableSelectAllChangeEvent>();
     /**
      * Callback to invoke on selection changed.
      * @param {any | null} value - selected data.
      * @group Emits
      */
-    @Output() selectionChange: EventEmitter<any | null> = new EventEmitter<any | null>();
+    selectionChange = output<any | null>();
     /**
      * Callback to invoke when a row is selected.
      * @param {TableRowSelectEvent} event - custom select event.
      * @group Emits
      */
-    @Output() onRowSelect: EventEmitter<TableRowSelectEvent<RowData>> = new EventEmitter<TableRowSelectEvent<RowData>>();
+    onRowSelect = output<TableRowSelectEvent<RowData>>();
     /**
      * Callback to invoke when a row is unselected.
      * @param {TableRowUnSelectEvent} event - custom unselect event.
      * @group Emits
      */
-    @Output() onRowUnselect: EventEmitter<TableRowUnSelectEvent<RowData>> = new EventEmitter<TableRowUnSelectEvent<RowData>>();
+    onRowUnselect = output<TableRowUnSelectEvent<RowData>>();
     /**
      * Callback to invoke when pagination occurs.
      * @param {TablePageEvent} event - custom pagination event.
      * @group Emits
      */
-    @Output() onPage: EventEmitter<TablePageEvent> = new EventEmitter<TablePageEvent>();
+    onPage = output<TablePageEvent>();
     /**
      * Callback to invoke when a column gets sorted.
      * @param {Object} object - sort meta.
      * @group Emits
      */
-    @Output() onSort: EventEmitter<{ multisortmeta: SortMeta[] } | any> = new EventEmitter<{ multisortmeta: SortMeta[] } | any>();
+    onSort = output<{ multisortmeta: SortMeta[] } | any>();
     /**
      * Callback to invoke when data is filtered.
      * @param {TableFilterEvent} event - custom filtering event.
      * @group Emits
      */
-    @Output() onFilter: EventEmitter<TableFilterEvent> = new EventEmitter<TableFilterEvent>();
+    onFilter = output<TableFilterEvent>();
     /**
      * Callback to invoke when paging, sorting or filtering happens in lazy mode.
      * @param {TableLazyLoadEvent} event - custom lazy loading event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<TableLazyLoadEvent> = new EventEmitter<TableLazyLoadEvent>();
+    onLazyLoad = output<TableLazyLoadEvent>();
     /**
      * Callback to invoke when a row is expanded.
      * @param {TableRowExpandEvent} event - custom row expand event.
      * @group Emits
      */
-    @Output() onRowExpand: EventEmitter<TableRowExpandEvent<RowData>> = new EventEmitter<TableRowExpandEvent<RowData>>();
+    onRowExpand = output<TableRowExpandEvent<RowData>>();
     /**
      * Callback to invoke when a row is collapsed.
      * @param {TableRowCollapseEvent} event - custom row collapse event.
      * @group Emits
      */
-    @Output() onRowCollapse: EventEmitter<TableRowCollapseEvent> = new EventEmitter<TableRowCollapseEvent>();
+    onRowCollapse = output<TableRowCollapseEvent>();
     /**
      * Callback to invoke when a row is selected with right click.
      * @param {TableContextMenuSelectEvent} event - custom context menu select event.
      * @group Emits
      */
-    @Output() onContextMenuSelect: EventEmitter<TableContextMenuSelectEvent<RowData>> = new EventEmitter<TableContextMenuSelectEvent<RowData>>();
+    onContextMenuSelect = output<TableContextMenuSelectEvent<RowData>>();
     /**
      * Callback to invoke when a column is resized.
      * @param {TableColResizeEvent} event - custom column resize event.
      * @group Emits
      */
-    @Output() onColResize: EventEmitter<TableColResizeEvent> = new EventEmitter<TableColResizeEvent>();
+    onColResize = output<TableColResizeEvent>();
     /**
      * Callback to invoke when a column is reordered.
      * @param {TableColumnReorderEvent} event - custom column reorder event.
      * @group Emits
      */
-    @Output() onColReorder: EventEmitter<TableColumnReorderEvent> = new EventEmitter<TableColumnReorderEvent>();
+    onColReorder = output<TableColumnReorderEvent>();
     /**
      * Callback to invoke when a row is reordered.
      * @param {TableRowReorderEvent} event - custom row reorder event.
      * @group Emits
      */
-    @Output() onRowReorder: EventEmitter<TableRowReorderEvent> = new EventEmitter<TableRowReorderEvent>();
+    onRowReorder = output<TableRowReorderEvent>();
     /**
      * Callback to invoke when a cell switches to edit mode.
      * @param {TableEditInitEvent} event - custom edit init event.
      * @group Emits
      */
-    @Output() onEditInit: EventEmitter<TableEditInitEvent> = new EventEmitter<TableEditInitEvent>();
+    onEditInit = output<TableEditInitEvent>();
     /**
      * Callback to invoke when cell edit is completed.
      * @param {TableEditCompleteEvent} event - custom edit complete event.
      * @group Emits
      */
-    @Output() onEditComplete: EventEmitter<TableEditCompleteEvent> = new EventEmitter<TableEditCompleteEvent>();
+    onEditComplete = output<TableEditCompleteEvent>();
     /**
      * Callback to invoke when cell edit is cancelled with escape key.
      * @param {TableEditCancelEvent} event - custom edit cancel event.
      * @group Emits
      */
-    @Output() onEditCancel: EventEmitter<TableEditCancelEvent> = new EventEmitter<TableEditCancelEvent>();
+    onEditCancel = output<TableEditCancelEvent>();
     /**
      * Callback to invoke when state of header checkbox changes.
      * @param {TableHeaderCheckboxToggleEvent} event - custom header checkbox event.
      * @group Emits
      */
-    @Output()
-    onHeaderCheckboxToggle: EventEmitter<TableHeaderCheckboxToggleEvent> = new EventEmitter<TableHeaderCheckboxToggleEvent>();
+    onHeaderCheckboxToggle = output<TableHeaderCheckboxToggleEvent>();
     /**
      * A function to implement custom sorting, refer to sorting section for details.
      * @param {any} any - sort meta.
      * @group Emits
      */
-    @Output() sortFunction: EventEmitter<any> = new EventEmitter<any>();
+    sortFunction = output<any>();
     /**
      * Callback to invoke on pagination.
      * @param {number} number - first element.
      * @group Emits
      */
-    @Output() firstChange: EventEmitter<number> = new EventEmitter<number>();
+    firstChange = output<number>();
     /**
      * Callback to invoke on rows change.
      * @param {number} number - Row count.
      * @group Emits
      */
-    @Output() rowsChange: EventEmitter<number> = new EventEmitter<number>();
+    rowsChange = output<number>();
     /**
      * Callback to invoke table state is saved.
      * @param {TableState} object - table state.
      * @group Emits
      */
-    @Output() onStateSave: EventEmitter<TableState> = new EventEmitter<TableState>();
+    onStateSave = output<TableState>();
     /**
      * Callback to invoke table state is restored.
      * @param {TableState} object - table state.
      * @group Emits
      */
-    @Output() onStateRestore: EventEmitter<TableState> = new EventEmitter<TableState>();
+    onStateRestore = output<TableState>();
 
-    @ViewChild('resizeHelper') resizeHelperViewChild: Nullable<ElementRef>;
+    resizeHelperViewChild = viewChild<ElementRef>('resizeHelper');
 
-    @ViewChild('reorderIndicatorUp')
-    reorderIndicatorUpViewChild: Nullable<ElementRef>;
+    reorderIndicatorUpViewChild = viewChild<ElementRef>('reorderIndicatorUp');
 
-    @ViewChild('reorderIndicatorDown')
-    reorderIndicatorDownViewChild: Nullable<ElementRef>;
+    reorderIndicatorDownViewChild = viewChild<ElementRef>('reorderIndicatorDown');
 
-    @ViewChild('wrapper') wrapperViewChild: Nullable<ElementRef>;
+    wrapperViewChild = viewChild<ElementRef>('wrapper');
 
-    @ViewChild('table') tableViewChild: Nullable<ElementRef>;
+    tableViewChild = viewChild<ElementRef>('table');
 
-    @ViewChild('thead') tableHeaderViewChild: Nullable<ElementRef>;
+    tableHeaderViewChild = viewChild<ElementRef>('thead');
 
-    @ViewChild('tfoot') tableFooterViewChild: Nullable<ElementRef>;
+    tableFooterViewChild = viewChild<ElementRef>('tfoot');
 
-    @ViewChild('scroller') scroller: Nullable<Scroller>;
-
-    @ContentChildren(PrimeTemplate) _templates: Nullable<QueryList<PrimeTemplate>>;
+    scroller = viewChild<Scroller>('scroller');
 
     _value: RowData[] = [];
 
@@ -941,102 +987,87 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     filteredValue: any[] | undefined | null;
 
-    // @todo will be refactored later
-    @ContentChild('header', { descendants: false }) _headerTemplate: TemplateRef<any>;
-    headerTemplate: Nullable<TemplateRef<any>>;
+    headerTemplate = contentChild<TemplateRef<any>>('header', { descendants: false });
 
-    @ContentChild('headergrouped', { descendants: false }) _headerGroupedTemplate: TemplateRef<any>;
-    headerGroupedTemplate: Nullable<TemplateRef<any>>;
+    headerGroupedTemplate = contentChild<TemplateRef<any>>('headergrouped', { descendants: false });
 
-    @ContentChild('body', { descendants: false }) _bodyTemplate: TemplateRef<any>;
-    bodyTemplate: Nullable<TemplateRef<any>>;
+    bodyTemplate = contentChild<TemplateRef<any>>('body', { descendants: false });
 
-    @ContentChild('loadingbody', { descendants: false }) _loadingBodyTemplate: TemplateRef<any>;
-    loadingBodyTemplate: Nullable<TemplateRef<any>>;
+    loadingBodyTemplate = contentChild<TemplateRef<any>>('loadingbody', { descendants: false });
 
-    @ContentChild('caption', { descendants: false }) _captionTemplate: TemplateRef<any>;
-    captionTemplate: Nullable<TemplateRef<any>>;
+    captionTemplate = contentChild<TemplateRef<any>>('caption', { descendants: false });
 
-    @ContentChild('footer', { descendants: false }) _footerTemplate: TemplateRef<any>;
-    footerTemplate: Nullable<TemplateRef<any>>;
+    footerTemplate = contentChild<TemplateRef<any>>('footer', { descendants: false });
 
-    @ContentChild('footergrouped', { descendants: false }) _footerGroupedTemplate: TemplateRef<any>;
-    footerGroupedTemplate: Nullable<TemplateRef<any>>;
+    footerGroupedTemplate = contentChild<TemplateRef<any>>('footergrouped', { descendants: false });
 
-    @ContentChild('summary', { descendants: false }) _summaryTemplate: TemplateRef<any>;
-    summaryTemplate: Nullable<TemplateRef<any>>;
+    summaryTemplate = contentChild<TemplateRef<any>>('summary', { descendants: false });
 
-    @ContentChild('colgroup', { descendants: false }) _colGroupTemplate: TemplateRef<any>;
-    colGroupTemplate: Nullable<TemplateRef<any>>;
+    colGroupTemplate = contentChild<TemplateRef<any>>('colgroup', { descendants: false });
 
-    @ContentChild('expandedrow', { descendants: false }) _expandedRowTemplate: TemplateRef<any>;
-    expandedRowTemplate: Nullable<TemplateRef<any>>;
+    expandedRowTemplate = contentChild<TemplateRef<any>>('expandedrow', { descendants: false });
 
-    @ContentChild('groupheader', { descendants: false }) _groupHeaderTemplate: TemplateRef<any>;
-    groupHeaderTemplate: Nullable<TemplateRef<any>>;
+    groupHeaderTemplate = contentChild<TemplateRef<any>>('groupheader', { descendants: false });
 
-    @ContentChild('groupfooter', { descendants: false }) _groupFooterTemplate: TemplateRef<any>;
-    groupFooterTemplate: Nullable<TemplateRef<any>>;
+    groupFooterTemplate = contentChild<TemplateRef<any>>('groupfooter', { descendants: false });
 
-    @ContentChild('frozenexpandedrow', { descendants: false }) _frozenExpandedRowTemplate: TemplateRef<any>;
-    frozenExpandedRowTemplate: Nullable<TemplateRef<any>>;
+    frozenExpandedRowTemplate = contentChild<TemplateRef<any>>('frozenexpandedrow', { descendants: false });
 
-    @ContentChild('frozenheader', { descendants: false }) _frozenHeaderTemplate: TemplateRef<any>;
-    frozenHeaderTemplate: Nullable<TemplateRef<any>>;
+    frozenHeaderTemplate = contentChild<TemplateRef<any>>('frozenheader', { descendants: false });
 
-    @ContentChild('frozenbody', { descendants: false }) _frozenBodyTemplate: TemplateRef<any>;
-    frozenBodyTemplate: Nullable<TemplateRef<any>>;
+    frozenBodyTemplate = contentChild<TemplateRef<any>>('frozenbody', { descendants: false });
 
-    @ContentChild('frozenfooter', { descendants: false }) _frozenFooterTemplate: TemplateRef<any>;
-    frozenFooterTemplate: Nullable<TemplateRef<any>>;
+    frozenFooterTemplate = contentChild<TemplateRef<any>>('frozenfooter', { descendants: false });
 
-    @ContentChild('frozencolgroup', { descendants: false }) _frozenColGroupTemplate: TemplateRef<any>;
-    frozenColGroupTemplate: Nullable<TemplateRef<any>>;
+    frozenColGroupTemplate = contentChild<TemplateRef<any>>('frozencolgroup', { descendants: false });
 
-    @ContentChild('emptymessage', { descendants: false }) _emptyMessageTemplate: TemplateRef<any>;
-    emptyMessageTemplate: Nullable<TemplateRef<any>>;
+    emptyMessageTemplate = contentChild<TemplateRef<any>>('emptymessage', { descendants: false });
 
-    @ContentChild('paginatorleft', { descendants: false }) _paginatorLeftTemplate: TemplateRef<any>;
-    paginatorLeftTemplate: Nullable<TemplateRef<any>>;
+    paginatorLeftTemplate = contentChild<TemplateRef<any>>('paginatorleft', { descendants: false });
 
-    @ContentChild('paginatorright', { descendants: false }) _paginatorRightTemplate: TemplateRef<any>;
-    paginatorRightTemplate: Nullable<TemplateRef<any>>;
+    paginatorRightTemplate = contentChild<TemplateRef<any>>('paginatorright', { descendants: false });
 
-    @ContentChild('paginatordropdownitem', { descendants: false }) _paginatorDropdownItemTemplate: TemplateRef<any>;
-    paginatorDropdownItemTemplate: Nullable<TemplateRef<any>>;
+    paginatorDropdownItemTemplate = contentChild<TemplateRef<any>>('paginatordropdownitem', { descendants: false });
 
-    @ContentChild('loadingicon', { descendants: false }) _loadingIconTemplate: TemplateRef<any>;
-    loadingIconTemplate: Nullable<TemplateRef<any>>;
+    loadingIconTemplate = contentChild<TemplateRef<any>>('loadingicon', { descendants: false });
 
-    @ContentChild('reorderindicatorupicon', { descendants: false }) _reorderIndicatorUpIconTemplate: TemplateRef<any>;
-    reorderIndicatorUpIconTemplate: Nullable<TemplateRef<any>>;
+    reorderIndicatorUpIconTemplate = contentChild<TemplateRef<any>>('reorderindicatorupicon', { descendants: false });
 
-    @ContentChild('reorderindicatordownicon', { descendants: false }) _reorderIndicatorDownIconTemplate: TemplateRef<any>;
-    reorderIndicatorDownIconTemplate: Nullable<TemplateRef<any>>;
+    reorderIndicatorDownIconTemplate = contentChild<TemplateRef<any>>('reorderindicatordownicon', { descendants: false });
 
-    @ContentChild('sorticon', { descendants: false }) _sortIconTemplate: TemplateRef<any>;
-    sortIconTemplate: Nullable<TemplateRef<any>>;
+    sortIconTemplate = contentChild<TemplateRef<any>>('sorticon', { descendants: false });
 
-    @ContentChild('checkboxicon', { descendants: false }) _checkboxIconTemplate: TemplateRef<any>;
-    checkboxIconTemplate: Nullable<TemplateRef<any>>;
+    checkboxIconTemplate = contentChild<TemplateRef<any>>('checkboxicon', { descendants: false });
 
-    @ContentChild('headercheckboxicon', { descendants: false }) _headerCheckboxIconTemplate: TemplateRef<any>;
-    headerCheckboxIconTemplate: Nullable<TemplateRef<any>>;
+    headerCheckboxIconTemplate = contentChild<TemplateRef<any>>('headercheckboxicon', { descendants: false });
 
-    @ContentChild('paginatordropdownicon', { descendants: false }) _paginatorDropdownIconTemplate: TemplateRef<any>;
-    paginatorDropdownIconTemplate: Nullable<TemplateRef<any>>;
+    paginatorDropdownIconTemplate = contentChild<TemplateRef<any>>('paginatordropdownicon', { descendants: false });
 
-    @ContentChild('paginatorfirstpagelinkicon', { descendants: false }) _paginatorFirstPageLinkIconTemplate: TemplateRef<any>;
-    paginatorFirstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    paginatorFirstPageLinkIconTemplate = contentChild<TemplateRef<any>>('paginatorfirstpagelinkicon', { descendants: false });
 
-    @ContentChild('paginatorlastpagelinkicon', { descendants: false }) _paginatorLastPageLinkIconTemplate: TemplateRef<any>;
-    paginatorLastPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    paginatorLastPageLinkIconTemplate = contentChild<TemplateRef<any>>('paginatorlastpagelinkicon', { descendants: false });
 
-    @ContentChild('paginatorpreviouspagelinkicon', { descendants: false }) _paginatorPreviousPageLinkIconTemplate: TemplateRef<any>;
-    paginatorPreviousPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    paginatorPreviousPageLinkIconTemplate = contentChild<TemplateRef<any>>('paginatorpreviouspagelinkicon', { descendants: false });
 
-    @ContentChild('paginatornextpagelinkicon', { descendants: false }) _paginatorNextPageLinkIconTemplate: TemplateRef<any>;
-    paginatorNextPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    paginatorNextPageLinkIconTemplate = contentChild<TemplateRef<any>>('paginatornextpagelinkicon', { descendants: false });
+
+    showLoadingMask = computed(() => this.loading() && this.showLoader());
+
+    showTopPaginator = computed(() => this.paginator() && (this.paginatorPosition() === 'top' || this.paginatorPosition() === 'both'));
+
+    showBottomPaginator = computed(() => this.paginator() && (this.paginatorPosition() === 'bottom' || this.paginatorPosition() === 'both'));
+
+    showFrozenBody = computed(() => !!(this.frozenValue() || this.frozenBodyTemplate()));
+
+    showFooter = computed(() => !!(this.footerGroupedTemplate() || this.footerTemplate()));
+
+    scrollerStyle = computed(() => ({
+        height: this.scrollHeight() !== 'flex' ? this.scrollHeight() : undefined
+    }));
+
+    scrollerScrollHeight = computed(() => (this.scrollHeight() !== 'flex' ? undefined : '100%'));
+
+    scrollerDelay = computed(() => (this.lazy() ? this.virtualScrollDelay() : 0));
 
     selectionKeys: any = {};
 
@@ -1122,19 +1153,209 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     tableService = inject(TableService);
 
-    zone = inject(NgZone);
-
     _componentStyle = inject(TableStyle);
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    private totalRecordsFirstSync = true;
+
+    constructor() {
+        super();
+
+        // Sync totalRecords (only first change to match original firstChange behavior)
+        effect(() => {
+            const val = this.totalRecordsInput();
+            if (this.totalRecordsFirstSync) {
+                this._totalRecords = val;
+                this.totalRecordsFirstSync = false;
+            }
+        });
+
+        // Sync value + side effects
+        effect(() => {
+            const val = this.valueInput();
+            untracked(() => {
+                if (val !== undefined) {
+                    if (this.isStateful() && !this.stateRestored && isPlatformBrowser(this.platformId)) {
+                        this.restoreState();
+                    }
+                    this._value = val;
+                    if (!this.lazy()) {
+                        this.totalRecords = this._totalRecords === 0 && this._value ? this._value.length : (this._totalRecords ?? 0);
+                        if (this.sortMode() == 'single' && (this.sortField || this.groupRowsBy())) this.sortSingle();
+                        else if (this.sortMode() == 'multiple' && (this.multiSortMeta || this.groupRowsBy())) this.sortMultiple();
+                        else if (this.hasFilter()) this._filter();
+                    }
+                    this.tableService.onValueChange(val);
+                }
+            });
+        });
+
+        // Sync columns + side effects
+        effect(() => {
+            const cols = this.columnsInput();
+            untracked(() => {
+                if (cols !== undefined) {
+                    if (!this.isStateful()) {
+                        this._columns = cols;
+                        this.tableService.onColumnsChange(cols);
+                    }
+                    if (this._columns && this.isStateful() && this.reorderableColumns() && !this.columnOrderStateRestored) {
+                        this.restoreColumnOrder();
+                        this.tableService.onColumnsChange(this._columns);
+                    }
+                }
+            });
+        });
+
+        // Sync first
+        effect(() => {
+            const val = this.firstInput();
+            if (val !== undefined) {
+                this._first = val;
+            }
+        });
+
+        // Sync rows
+        effect(() => {
+            const val = this.rowsInput();
+            if (val !== undefined) {
+                this._rows = val;
+            }
+        });
+
+        // Sync sortField + side effects
+        effect(() => {
+            const val = this.sortFieldInput();
+            untracked(() => {
+                if (val !== undefined) {
+                    this._sortField = val;
+                    if (!this.lazy() || this.initialized) {
+                        if (this.sortMode() === 'single') {
+                            this.sortSingle();
+                        }
+                    }
+                }
+            });
+        });
+
+        // groupRowsBy change effect
+        effect(() => {
+            this.groupRowsBy();
+            untracked(() => {
+                if (!this.lazy() || this.initialized) {
+                    if (this.sortMode() === 'single') {
+                        this.sortSingle();
+                    }
+                }
+            });
+        });
+
+        // Sync sortOrder + side effects
+        effect(() => {
+            const val = this.sortOrderInput();
+            untracked(() => {
+                this._sortOrder = val;
+                if (!this.lazy() || this.initialized) {
+                    if (this.sortMode() === 'single') {
+                        this.sortSingle();
+                    }
+                }
+            });
+        });
+
+        // groupRowsByOrder change effect
+        effect(() => {
+            this.groupRowsByOrder();
+            untracked(() => {
+                if (!this.lazy() || this.initialized) {
+                    if (this.sortMode() === 'single') {
+                        this.sortSingle();
+                    }
+                }
+            });
+        });
+
+        // Sync multiSortMeta + side effects
+        effect(() => {
+            const val = this.multiSortMetaInput();
+            untracked(() => {
+                if (val !== undefined) {
+                    this._multiSortMeta = val;
+                    if (this.sortMode() === 'multiple' && (this.initialized || (!this.lazy() && !this.virtualScroll()))) {
+                        this.sortMultiple();
+                    }
+                }
+            });
+        });
+
+        // Sync selection + side effects
+        effect(() => {
+            const val = this.selectionInput();
+            untracked(() => {
+                if (val !== undefined) {
+                    this._selection = val;
+                    if (!this.preventSelectionSetterPropagation) {
+                        this.updateSelectionKeys();
+                        this.tableService.onSelectionChange();
+                    }
+                    this.preventSelectionSetterPropagation = false;
+                }
+            });
+        });
+
+        // Sync selectAll + side effects (BUG FIX: now correctly uses _selectAll)
+        effect(() => {
+            const val = this.selectAllInput();
+            untracked(() => {
+                if (val !== null) {
+                    this._selectAll = val;
+                    if (!this.preventSelectionSetterPropagation) {
+                        this.updateSelectionKeys();
+                        this.tableService.onSelectionChange();
+                        if (this.isStateful()) {
+                            this.saveState();
+                        }
+                    }
+                    this.preventSelectionSetterPropagation = false;
+                }
+            });
+        });
+
+        // Sync contextMenuSelection
+        effect(() => {
+            const val = this.contextMenuSelectionInput();
+            if (val !== undefined) {
+                this.contextMenuSelection = val;
+            }
+        });
+
+        // Sync filters
+        effect(() => {
+            const val = this.filtersInput();
+            this.filters = val ?? {};
+        });
+
+        // Sync expandedRowKeys
+        effect(() => {
+            const val = this.expandedRowKeysInput();
+            this.expandedRowKeys = val ?? {};
+        });
+
+        // Sync editingRowKeys
+        effect(() => {
+            const val = this.editingRowKeysInput();
+            this.editingRowKeys = val ?? {};
+        });
+    }
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
     onInit() {
-        if (this.lazy && this.lazyLoadOnInit) {
-            if (!this.virtualScroll) {
+        if (this.lazy() && this.lazyLoadOnInit()) {
+            if (!this.virtualScroll()) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
 
@@ -1143,262 +1364,18 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             }
         }
 
-        if (this.responsiveLayout === 'stack') {
+        if (this.responsiveLayout() === 'stack') {
             this.createResponsiveStyle();
         }
 
         this.initialized = true;
     }
 
-    onAfterContentInit() {
-        (this._templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'caption':
-                    this.captionTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'headergrouped':
-                    this.headerGroupedTemplate = item.template;
-                    break;
-
-                case 'body':
-                    this.bodyTemplate = item.template;
-                    break;
-
-                case 'loadingbody':
-                    this.loadingBodyTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-
-                case 'footergrouped':
-                    this.footerGroupedTemplate = item.template;
-                    break;
-
-                case 'summary':
-                    this.summaryTemplate = item.template;
-                    break;
-
-                case 'colgroup':
-                    this.colGroupTemplate = item.template;
-                    break;
-
-                case 'expandedrow':
-                    this.expandedRowTemplate = item.template;
-                    break;
-
-                case 'groupheader':
-                    this.groupHeaderTemplate = item.template;
-                    break;
-
-                case 'groupfooter':
-                    this.groupFooterTemplate = item.template;
-                    break;
-
-                case 'frozenheader':
-                    this.frozenHeaderTemplate = item.template;
-                    break;
-
-                case 'frozenbody':
-                    this.frozenBodyTemplate = item.template;
-                    break;
-
-                case 'frozenfooter':
-                    this.frozenFooterTemplate = item.template;
-                    break;
-
-                case 'frozencolgroup':
-                    this.frozenColGroupTemplate = item.template;
-                    break;
-
-                case 'frozenexpandedrow':
-                    this.frozenExpandedRowTemplate = item.template;
-                    break;
-
-                case 'emptymessage':
-                    this.emptyMessageTemplate = item.template;
-                    break;
-
-                case 'paginatorleft':
-                    this.paginatorLeftTemplate = item.template;
-                    break;
-
-                case 'paginatorright':
-                    this.paginatorRightTemplate = item.template;
-                    break;
-
-                case 'paginatordropdownicon':
-                    this.paginatorDropdownIconTemplate = item.template;
-                    break;
-
-                case 'paginatordropdownitem':
-                    this.paginatorDropdownItemTemplate = item.template;
-                    break;
-
-                case 'paginatorfirstpagelinkicon':
-                    this.paginatorFirstPageLinkIconTemplate = item.template;
-                    break;
-
-                case 'paginatorlastpagelinkicon':
-                    this.paginatorLastPageLinkIconTemplate = item.template;
-                    break;
-
-                case 'paginatorpreviouspagelinkicon':
-                    this.paginatorPreviousPageLinkIconTemplate = item.template;
-                    break;
-
-                case 'paginatornextpagelinkicon':
-                    this.paginatorNextPageLinkIconTemplate = item.template;
-                    break;
-
-                case 'loadingicon':
-                    this.loadingIconTemplate = item.template;
-                    break;
-
-                case 'reorderindicatorupicon':
-                    this.reorderIndicatorUpIconTemplate = item.template;
-                    break;
-
-                case 'reorderindicatordownicon':
-                    this.reorderIndicatorDownIconTemplate = item.template;
-                    break;
-
-                case 'sorticon':
-                    this.sortIconTemplate = item.template;
-                    break;
-
-                case 'checkboxicon':
-                    this.checkboxIconTemplate = item.template;
-                    break;
-
-                case 'headercheckboxicon':
-                    this.headerCheckboxIconTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
     onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
-            if (this.isStateful() && this.resizableColumns) {
+            if (this.isStateful() && this.resizableColumns()) {
                 this.restoreColumnWidths();
             }
-        }
-    }
-
-    onChanges(simpleChange: SimpleChanges) {
-        if (simpleChange.totalRecords && simpleChange.totalRecords.firstChange) {
-            this._totalRecords = simpleChange.totalRecords.currentValue;
-        }
-
-        if (simpleChange.value) {
-            if (this.isStateful() && !this.stateRestored && isPlatformBrowser(this.platformId)) {
-                this.restoreState();
-            }
-
-            this._value = simpleChange.value.currentValue;
-
-            if (!this.lazy) {
-                this.totalRecords = this._totalRecords === 0 && this._value ? this._value.length : (this._totalRecords ?? 0);
-
-                if (this.sortMode == 'single' && (this.sortField || this.groupRowsBy)) this.sortSingle();
-                else if (this.sortMode == 'multiple' && (this.multiSortMeta || this.groupRowsBy)) this.sortMultiple();
-                else if (this.hasFilter())
-                    //sort already filters
-                    this._filter();
-            }
-
-            this.tableService.onValueChange(simpleChange.value.currentValue);
-        }
-
-        if (simpleChange.columns) {
-            if (!this.isStateful()) {
-                this._columns = simpleChange.columns.currentValue;
-                this.tableService.onColumnsChange(simpleChange.columns.currentValue);
-            }
-
-            if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored) {
-                this.restoreColumnOrder();
-
-                this.tableService.onColumnsChange(this._columns);
-            }
-        }
-
-        if (simpleChange.sortField) {
-            this._sortField = simpleChange.sortField.currentValue;
-
-            //avoid triggering lazy load prior to lazy initialization at onInit
-            if (!this.lazy || this.initialized) {
-                if (this.sortMode === 'single') {
-                    this.sortSingle();
-                }
-            }
-        }
-
-        if (simpleChange.groupRowsBy) {
-            //avoid triggering lazy load prior to lazy initialization at onInit
-            if (!this.lazy || this.initialized) {
-                if (this.sortMode === 'single') {
-                    this.sortSingle();
-                }
-            }
-        }
-
-        if (simpleChange.sortOrder) {
-            this._sortOrder = simpleChange.sortOrder.currentValue;
-
-            //avoid triggering lazy load prior to lazy initialization at onInit
-            if (!this.lazy || this.initialized) {
-                if (this.sortMode === 'single') {
-                    this.sortSingle();
-                }
-            }
-        }
-
-        if (simpleChange.groupRowsByOrder) {
-            //avoid triggering lazy load prior to lazy initialization at onInit
-            if (!this.lazy || this.initialized) {
-                if (this.sortMode === 'single') {
-                    this.sortSingle();
-                }
-            }
-        }
-
-        if (simpleChange.multiSortMeta) {
-            this._multiSortMeta = simpleChange.multiSortMeta.currentValue;
-            if (this.sortMode === 'multiple' && (this.initialized || (!this.lazy && !this.virtualScroll))) {
-                this.sortMultiple();
-            }
-        }
-
-        if (simpleChange.selection) {
-            this._selection = simpleChange.selection.currentValue;
-
-            if (!this.preventSelectionSetterPropagation) {
-                this.updateSelectionKeys();
-                this.tableService.onSelectionChange();
-            }
-            this.preventSelectionSetterPropagation = false;
-        }
-
-        if (simpleChange.selectAll) {
-            this._selectAll = simpleChange.selectAll.currentValue;
-
-            if (!this.preventSelectionSetterPropagation) {
-                this.updateSelectionKeys();
-                this.tableService.onSelectionChange();
-
-                if (this.isStateful()) {
-                    this.saveState();
-                }
-            }
-            this.preventSelectionSetterPropagation = false;
         }
     }
 
@@ -1411,8 +1388,8 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     dataToRender(data: any) {
         const _data = data || this.processedData;
 
-        if (_data && this.paginator) {
-            const first = this.lazy ? 0 : this.first;
+        if (_data && this.paginator()) {
+            const first = this.lazy() ? 0 : this.first;
             return _data.slice(first, <number>first + <number>this.rows);
         }
 
@@ -1420,14 +1397,14 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     updateSelectionKeys() {
-        if (this.dataKey && this._selection) {
+        if (this.dataKey() && this._selection) {
             this.selectionKeys = {};
             if (Array.isArray(this._selection)) {
                 for (let data of this._selection) {
-                    this.selectionKeys[String(ObjectUtils.resolveFieldData(data, this.dataKey))] = 1;
+                    this.selectionKeys[String(ObjectUtils.resolveFieldData(data, this.dataKey()))] = 1;
                 }
             } else {
-                this.selectionKeys[String(ObjectUtils.resolveFieldData(this._selection, this.dataKey))] = 1;
+                this.selectionKeys[String(ObjectUtils.resolveFieldData(this._selection, this.dataKey()))] = 1;
             }
         }
     }
@@ -1441,7 +1418,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             rows: <number>this.rows
         });
 
-        if (this.lazy) {
+        if (this.lazy()) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
 
@@ -1455,7 +1432,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
         this.anchorRowIndex = null;
 
-        if (this.scrollable) {
+        if (this.scrollable()) {
             this.resetScrollTop();
         }
     }
@@ -1463,22 +1440,22 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     sort(event: any) {
         let originalEvent = event.originalEvent;
 
-        if (this.sortMode === 'single') {
-            this._sortOrder = this.sortField === event.field ? this.sortOrder * -1 : this.defaultSortOrder;
+        if (this.sortMode() === 'single') {
+            this._sortOrder = this.sortField === event.field ? this.sortOrder * -1 : this.defaultSortOrder();
             this._sortField = event.field;
 
-            if (this.resetPageOnSort) {
+            if (this.resetPageOnSort()) {
                 this._first = 0;
                 this.firstChange.emit(this._first);
 
-                if (this.scrollable) {
+                if (this.scrollable()) {
                     this.resetScrollTop();
                 }
             }
 
             this.sortSingle();
         }
-        if (this.sortMode === 'multiple') {
+        if (this.sortMode() === 'multiple') {
             let metaKey = (<KeyboardEvent>originalEvent).metaKey || (<KeyboardEvent>originalEvent).ctrlKey;
             let sortMeta = this.getSortMeta(<string>event.field);
 
@@ -1491,11 +1468,11 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                         }
                     ];
 
-                    if (this.resetPageOnSort) {
+                    if (this.resetPageOnSort()) {
                         this._first = 0;
                         this.firstChange.emit(this._first);
 
-                        if (this.scrollable) {
+                        if (this.scrollable()) {
                             this.resetScrollTop();
                         }
                     }
@@ -1506,14 +1483,14 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 if (!metaKey || !this.multiSortMeta) {
                     this._multiSortMeta = [];
 
-                    if (this.resetPageOnSort) {
+                    if (this.resetPageOnSort()) {
                         this._first = 0;
                         this.firstChange.emit(this._first);
                     }
                 }
                 (<SortMeta[]>this._multiSortMeta).push({
                     field: <string>event.field,
-                    order: this.defaultSortOrder
+                    order: this.defaultSortOrder()
                 });
             }
 
@@ -1528,9 +1505,9 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     sortSingle() {
-        let field = this.sortField || this.groupRowsBy;
-        let order = this.sortField ? this.sortOrder : this.groupRowsByOrder;
-        if (this.groupRowsBy && this.sortField && this.groupRowsBy !== this.sortField) {
+        let field = this.sortField || this.groupRowsBy();
+        let order = this.sortField ? this.sortOrder : this.groupRowsByOrder();
+        if (this.groupRowsBy() && this.sortField && this.groupRowsBy() !== this.sortField) {
             this._multiSortMeta = [this.getGroupRowsMeta(), { field: this.sortField, order: this.sortOrder }];
             this.sortMultiple();
             return;
@@ -1541,13 +1518,13 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 this.restoringSort = false;
             }
 
-            if (this.lazy) {
+            if (this.lazy()) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             } else if (this.value) {
-                if (this.customSort) {
+                if (this.customSort()) {
                     this.sortFunction.emit({
                         data: this.value,
-                        mode: this.sortMode,
+                        mode: this.sortMode(),
                         field: field,
                         order: order
                     });
@@ -1585,19 +1562,19 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     sortMultiple() {
-        if (this.groupRowsBy) {
+        if (this.groupRowsBy()) {
             if (!this._multiSortMeta) this._multiSortMeta = [this.getGroupRowsMeta()];
-            else if ((<SortMeta[]>this.multiSortMeta)[0].field !== this.groupRowsBy) this._multiSortMeta = [this.getGroupRowsMeta(), ...this._multiSortMeta];
+            else if ((<SortMeta[]>this.multiSortMeta)[0].field !== this.groupRowsBy()) this._multiSortMeta = [this.getGroupRowsMeta(), ...this._multiSortMeta];
         }
 
         if (this.multiSortMeta) {
-            if (this.lazy) {
+            if (this.lazy()) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             } else if (this.value) {
-                if (this.customSort) {
+                if (this.customSort()) {
                     this.sortFunction.emit({
                         data: this.value,
-                        mode: this.sortMode,
+                        mode: this.sortMode(),
                         multiSortMeta: this.multiSortMeta
                     });
                 } else {
@@ -1623,14 +1600,14 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     multisortField(data1: any, data2: any, multiSortMeta: SortMeta[], index: number): any {
         const value1 = ObjectUtils.resolveFieldData(data1, multiSortMeta[index].field);
         const value2 = ObjectUtils.resolveFieldData(data2, multiSortMeta[index].field);
-        if (ObjectUtils.compare(value1, value2, this.filterLocale) === 0) {
+        if (ObjectUtils.compare(value1, value2, this.filterLocale()) === 0) {
             return multiSortMeta.length - 1 > index ? this.multisortField(data1, data2, multiSortMeta, index + 1) : 0;
         }
         return this.compareValuesOnSort(value1, value2, multiSortMeta[index].order);
     }
 
     compareValuesOnSort(value1: any, value2: any, order: any) {
-        return ObjectUtils.sort(value1, value2, order, this.filterLocale, this.sortOrder);
+        return ObjectUtils.sort(value1, value2, order, this.filterLocale(), this.sortOrder);
     }
 
     getSortMeta(field: string) {
@@ -1646,9 +1623,9 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     isSorted(field: string) {
-        if (this.sortMode === 'single') {
+        if (this.sortMode() === 'single') {
             return this.sortField && this.sortField === field;
-        } else if (this.sortMode === 'multiple') {
+        } else if (this.sortMode() === 'multiple') {
             let sorted = false;
             if (this.multiSortMeta) {
                 for (let i = 0; i < this.multiSortMeta.length; i++) {
@@ -1670,7 +1647,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             return;
         }
 
-        if (this.selectionMode) {
+        if (this.selectionMode()) {
             let rowData = event.rowData;
             let rowIndex = event.rowIndex;
 
@@ -1690,8 +1667,8 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                     return;
                 }
 
-                let metaSelection = this.rowTouched ? false : this.metaKeySelection;
-                let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey)) : null;
+                let metaSelection = this.rowTouched ? false : this.metaKeySelection();
+                let dataKeyValue = this.dataKey() ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey())) : null;
                 this.anchorRowIndex = rowIndex;
                 this.rangeRowIndex = rowIndex;
 
@@ -1748,7 +1725,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                         });
                     }
                 } else {
-                    if (this.selectionMode === 'single') {
+                    if (this.selectionMode() === 'single') {
                         if (selected) {
                             this._selection = null;
                             this.selectionKeys = {};
@@ -1773,7 +1750,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                                 this.selectionKeys[dataKeyValue] = 1;
                             }
                         }
-                    } else if (this.selectionMode === 'multiple') {
+                    } else if (this.selectionMode() === 'multiple') {
                         if (selected) {
                             let selectionIndex = this.findIndexInSelection(rowData);
                             this._selection = this.selection.filter((val: any, i: number) => i != selectionIndex);
@@ -1819,20 +1796,20 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     handleRowRightClick(event: any) {
-        if (this.contextMenu) {
+        if (this.contextMenu()) {
             const rowData = event.rowData;
             const rowIndex = event.rowIndex;
 
             const showContextMenu = () => {
-                this.contextMenu.show(event.originalEvent);
-                this.contextMenu.hideCallback = () => {
+                this.contextMenu()!.show(event.originalEvent);
+                this.contextMenu()!.hideCallback = () => {
                     this.contextMenuSelection = null;
                     this.contextMenuSelectionChange.emit(null);
                     this.tableService.onContextMenu(null);
                 };
             };
 
-            if (this.contextMenuSelectionMode === 'separate') {
+            if (this.contextMenuSelectionMode() === 'separate') {
                 this.contextMenuSelection = rowData;
                 this.contextMenuSelectionChange.emit(rowData);
                 this.tableService.onContextMenu(rowData);
@@ -1842,10 +1819,10 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                     data: rowData,
                     index: event.rowIndex
                 });
-            } else if (this.contextMenuSelectionMode === 'joint') {
+            } else if (this.contextMenuSelectionMode() === 'joint') {
                 this.preventSelectionSetterPropagation = true;
                 let selected = this.isSelected(rowData);
-                let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey)) : null;
+                let dataKeyValue = this.dataKey() ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey())) : null;
 
                 if (!selected) {
                     if (!this.isRowSelectable(rowData, rowIndex)) {
@@ -1900,7 +1877,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             rangeEnd = rowIndex;
         }
 
-        if (this.lazy && this.paginator) {
+        if (this.lazy() && this.paginator()) {
             (rangeStart as number) -= <number>this.first;
             (rangeEnd as number) -= <number>this.first;
         }
@@ -1915,7 +1892,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
                 rangeRowsData.push(rangeRowData);
                 this._selection = [...this.selection, rangeRowData];
-                let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
+                let dataKeyValue = this.dataKey() ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey())) : null;
                 if (dataKeyValue) {
                     this.selectionKeys[dataKeyValue] = 1;
                 }
@@ -1949,7 +1926,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             let rangeRowData = this.value[i];
             let selectionIndex = this.findIndexInSelection(rangeRowData);
             this._selection = this.selection.filter((val: any, i: number) => i != selectionIndex);
-            let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
+            let dataKeyValue = this.dataKey() ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey())) : null;
             if (dataKeyValue) {
                 delete this.selectionKeys[dataKeyValue];
             }
@@ -1963,8 +1940,8 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     isSelected(rowData: any) {
         if (rowData && this.selection) {
-            if (this.dataKey) {
-                return this.selectionKeys[ObjectUtils.resolveFieldData(rowData, this.dataKey)] !== undefined;
+            if (this.dataKey()) {
+                return this.selectionKeys[ObjectUtils.resolveFieldData(rowData, this.dataKey())] !== undefined;
             } else {
                 if (Array.isArray(this.selection)) return this.findIndexInSelection(rowData) > -1;
                 else return this.equals(rowData, this.selection);
@@ -1989,7 +1966,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     isRowSelectable(data: any, index: number) {
-        if (this.rowSelectable && !this.rowSelectable({ data, index })) {
+        if (this.rowSelectable() && !this.rowSelectable()!({ data, index })) {
             return false;
         }
 
@@ -2013,9 +1990,9 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 type: 'radiobutton'
             });
 
-            if (this.dataKey) {
+            if (this.dataKey()) {
                 this.selectionKeys = {};
-                this.selectionKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] = 1;
+                this.selectionKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey()))] = 1;
             }
         } else {
             this._selection = null;
@@ -2038,7 +2015,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     toggleRowWithCheckbox(event: { originalEvent: Event; rowIndex: number }, rowData: any) {
         this.selection = this.selection || [];
         let selected = this.isSelected(rowData);
-        let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey)) : null;
+        let dataKeyValue = this.dataKey() ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey())) : null;
         this.preventSelectionSetterPropagation = true;
 
         if (selected) {
@@ -2083,12 +2060,12 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         if (this._selectAll !== null) {
             this.selectAllChange.emit({ originalEvent: originalEvent!, checked: check });
         } else {
-            const data = this.selectionPageOnly ? this.dataToRender(this.processedData) : this.processedData;
-            let selection = this.selectionPageOnly && this._selection ? this._selection.filter((s: any) => !data.some((d: any) => this.equals(s, d))) : [];
+            const data = this.selectionPageOnly() ? this.dataToRender(this.processedData) : this.processedData;
+            let selection = this.selectionPageOnly() && this._selection ? this._selection.filter((s: any) => !data.some((d: any) => this.equals(s, d))) : [];
 
             if (check) {
-                selection = this.frozenValue ? [...selection, ...this.frozenValue, ...data] : [...selection, ...data];
-                selection = this.rowSelectable ? selection.filter((data: any, index: number) => this.rowSelectable({ data, index })) : selection;
+                selection = this.frozenValue() ? [...selection, ...this.frozenValue()!, ...data] : [...selection, ...data];
+                selection = this.rowSelectable() ? selection.filter((data: any, index: number) => this.rowSelectable()!({ data, index })) : selection;
             }
 
             this._selection = selection;
@@ -2108,7 +2085,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     equals(data1: any, data2: any) {
-        return this.compareSelectionBy === 'equals' ? data1 === data2 : ObjectUtils.equals(data1, data2, this.dataKey);
+        return this.compareSelectionBy() === 'equals' ? data1 === data2 : ObjectUtils.equals(data1, data2, this.dataKey());
     }
 
     /* Legacy Filtering for custom elements */
@@ -2125,7 +2102,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         this.filterTimeout = setTimeout(() => {
             this._filter();
             this.filterTimeout = null;
-        }, this.filterDelay);
+        }, this.filterDelay());
 
         this.anchorRowIndex = null;
     }
@@ -2148,7 +2125,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             this.firstChange.emit(this.first);
         }
 
-        if (this.lazy) {
+        if (this.lazy()) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         } else {
             if (!this.value) {
@@ -2156,14 +2133,14 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             }
             if (!this.hasFilter()) {
                 this.filteredValue = null;
-                if (this.paginator) {
+                if (this.paginator()) {
                     this.totalRecords = this._totalRecords === 0 && this.value ? this.value.length : this._totalRecords;
                 }
             } else {
                 let globalFilterFieldsArray;
                 if (this.filters['global']) {
-                    if (!this.columns && !this.globalFilterFields) throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
-                    else globalFilterFieldsArray = this.globalFilterFields || this.columns;
+                    if (!this.columns && !this.globalFilterFields()) throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
+                    else globalFilterFieldsArray = this.globalFilterFields() || this.columns;
                 }
 
                 this.filteredValue = [];
@@ -2200,7 +2177,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
                         for (let j = 0; j < globalFilterFieldsArray.length; j++) {
                             let globalFilterField = globalFilterFieldsArray[j].field || globalFilterFieldsArray[j];
-                            globalMatch = (<any>this.filterService).filters[(<any>this.filters['global']).matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), (<FilterMetadata>this.filters['global']).value, this.filterLocale);
+                            globalMatch = (<any>this.filterService).filters[(<any>this.filters['global']).matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), (<FilterMetadata>this.filters['global']).value, this.filterLocale());
 
                             if (globalMatch) {
                                 break;
@@ -2224,7 +2201,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                     this.filteredValue = null;
                 }
 
-                if (this.paginator) {
+                if (this.paginator()) {
                     this.totalRecords = this.filteredValue ? this.filteredValue.length : this._totalRecords === 0 && this.value ? this.value.length : (this._totalRecords ?? 0);
                 }
             }
@@ -2247,7 +2224,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
         this.cd.markForCheck();
 
-        if (this.scrollable) {
+        if (this.scrollable()) {
             this.resetScrollTop();
         }
     }
@@ -2258,7 +2235,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         let dataFieldValue = ObjectUtils.resolveFieldData(rowData, field);
         let filterConstraint = (<any>this.filterService).filters[filterMatchMode];
 
-        return filterConstraint(dataFieldValue, filterValue, this.filterLocale);
+        return filterConstraint(dataFieldValue, filterValue, this.filterLocale());
     }
 
     hasFilter() {
@@ -2288,7 +2265,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     public clear() {
         this._sortField = null;
-        this._sortOrder = this.defaultSortOrder;
+        this._sortOrder = this.defaultSortOrder();
         this._multiSortMeta = null;
         this.tableService.onSort(null);
 
@@ -2299,7 +2276,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         this.first = 0;
         this.firstChange.emit(this.first);
 
-        if (this.lazy) {
+        if (this.lazy()) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         } else {
             this.totalRecords = this._totalRecords === 0 && this._value ? this._value.length : (this._totalRecords ?? 0);
@@ -2323,7 +2300,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     getExportHeader(column: any) {
-        return column[<string>this.exportHeader] || column.header || column.field;
+        return column[<string>this.exportHeader()] || column.header || column.field;
     }
     /**
      * Data export method.
@@ -2342,15 +2319,15 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         } else {
             data = this.filteredValue || this.value;
 
-            if (this.frozenValue) {
-                data = data ? [...this.frozenValue, ...data] : this.frozenValue;
+            if (this.frozenValue()) {
+                data = data ? [...this.frozenValue()!, ...data] : this.frozenValue();
             }
         }
 
         const exportableColumns: any[] = (<any[]>columns).filter((column) => column.exportable !== false && column.field);
 
         //headers
-        csv += exportableColumns.map((column) => '"' + this.getExportHeader(column) + '"').join(this.csvSeparator);
+        csv += exportableColumns.map((column) => '"' + this.getExportHeader(column) + '"').join(this.csvSeparator());
 
         //body
         const body = data
@@ -2360,8 +2337,8 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                         let cellData = ObjectUtils.resolveFieldData(record, column.field);
 
                         if (cellData != null) {
-                            if (this.exportFunction) {
-                                cellData = this.exportFunction({
+                            if (this.exportFunction()) {
+                                cellData = this.exportFunction()!({
                                     data: cellData,
                                     field: column.field
                                 });
@@ -2370,7 +2347,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
                         return '"' + cellData + '"';
                     })
-                    .join(this.csvSeparator)
+                    .join(this.csvSeparator())
             )
             .join('\n');
 
@@ -2387,7 +2364,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         this.renderer.appendChild(this.document.body, link);
         if (link.download !== undefined) {
             link.setAttribute('href', URL.createObjectURL(blob));
-            link.setAttribute('download', this.exportFilename + '.csv');
+            link.setAttribute('download', this.exportFilename() + '.csv');
             link.click();
         } else {
             csv = 'data:text/csv;charset=utf-8,' + csv;
@@ -2408,7 +2385,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * @group Method
      */
     public resetScrollTop() {
-        if (this.virtualScroll) this.scrollToVirtualIndex(0);
+        if (this.virtualScroll()) this.scrollToVirtualIndex(0);
         else this.scrollTo({ top: 0 });
     }
     /**
@@ -2417,7 +2394,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * @group Method
      */
     public scrollToVirtualIndex(index: number) {
-        this.scroller && this.scroller.scrollToIndex(index);
+        this.scroller()?.scrollToIndex(index);
     }
     /**
      * Scrolls to given index.
@@ -2425,14 +2402,14 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * @group Method
      */
     public scrollTo(options: any) {
-        if (this.virtualScroll) {
-            this.scroller?.scrollTo(options);
-        } else if (this.wrapperViewChild && this.wrapperViewChild.nativeElement) {
-            if (this.wrapperViewChild.nativeElement.scrollTo) {
-                this.wrapperViewChild.nativeElement.scrollTo(options);
+        if (this.virtualScroll()) {
+            this.scroller()?.scrollTo(options);
+        } else if (this.wrapperViewChild()?.nativeElement) {
+            if (this.wrapperViewChild()!.nativeElement.scrollTo) {
+                this.wrapperViewChild()!.nativeElement.scrollTo(options);
             } else {
-                this.wrapperViewChild.nativeElement.scrollLeft = options.left;
-                this.wrapperViewChild.nativeElement.scrollTop = options.top;
+                this.wrapperViewChild()!.nativeElement.scrollLeft = options.left;
+                this.wrapperViewChild()!.nativeElement.scrollTop = options.top;
             }
         }
     }
@@ -2486,28 +2463,28 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     initRowEdit(rowData: any) {
-        let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
+        let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey()));
         this.editingRowKeys[dataKeyValue] = true;
     }
 
     saveRowEdit(rowData: any, rowElement: HTMLTableRowElement) {
         if (DomHandler.find(rowElement, '.ng-invalid.ng-dirty').length === 0) {
-            let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
+            let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey()));
             delete this.editingRowKeys[dataKeyValue];
         }
     }
 
     cancelRowEdit(rowData: any) {
-        let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
+        let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey()));
         delete this.editingRowKeys[dataKeyValue];
     }
 
     toggleRow(rowData: any, event?: Event) {
-        if (!this.dataKey && !this.groupRowsBy) {
+        if (!this.dataKey() && !this.groupRowsBy()) {
             throw new Error('dataKey or groupRowsBy must be defined to use row expansion');
         }
 
-        let dataKeyValue = this.groupRowsBy ? String(ObjectUtils.resolveFieldData(rowData, this.groupRowsBy)) : String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
+        let dataKeyValue = this.groupRowsBy() ? String(ObjectUtils.resolveFieldData(rowData, this.groupRowsBy())) : String(ObjectUtils.resolveFieldData(rowData, this.dataKey()));
 
         if (this.expandedRowKeys[dataKeyValue] != null) {
             delete this.expandedRowKeys[dataKeyValue];
@@ -2516,7 +2493,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 data: rowData
             });
         } else {
-            if (this.rowExpandMode === 'single') {
+            if (this.rowExpandMode() === 'single') {
                 this.expandedRowKeys = {};
             }
 
@@ -2537,19 +2514,19 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     isRowExpanded(rowData: any): boolean {
-        return this.groupRowsBy ? this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.groupRowsBy))] === true : this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
+        return this.groupRowsBy() ? this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.groupRowsBy()))] === true : this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey()))] === true;
     }
 
     isRowEditing(rowData: any): boolean {
-        return this.editingRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
+        return this.editingRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey()))] === true;
     }
 
     isSingleSelectionMode() {
-        return this.selectionMode === 'single';
+        return this.selectionMode() === 'single';
     }
 
     isMultipleSelectionMode() {
-        return this.selectionMode === 'multiple';
+        return this.selectionMode() === 'multiple';
     }
 
     onColumnResizeBegin(event: any) {
@@ -2568,19 +2545,19 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     onColumnResize(event: any) {
         let containerLeft = DomHandler.getOffset(this.el?.nativeElement).left;
         !this.$unstyled() && DomHandler.addClass(this.el?.nativeElement, 'p-unselectable-text');
-        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.el?.nativeElement.offsetHeight + 'px';
-        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
+        this.resizeHelperViewChild()!.nativeElement.style.height = this.el?.nativeElement.offsetHeight + 'px';
+        this.resizeHelperViewChild()!.nativeElement.style.top = 0 + 'px';
         if (event.type == 'touchmove') {
-            (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.changedTouches[0].clientX - containerLeft + this.el?.nativeElement.scrollLeft + 'px';
+            this.resizeHelperViewChild()!.nativeElement.style.left = event.changedTouches[0].clientX - containerLeft + this.el?.nativeElement.scrollLeft + 'px';
         } else {
-            (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.pageX - containerLeft + this.el?.nativeElement.scrollLeft + 'px';
+            this.resizeHelperViewChild()!.nativeElement.style.left = event.pageX - containerLeft + this.el?.nativeElement.scrollLeft + 'px';
         }
-        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.display = 'block';
+        this.resizeHelperViewChild()!.nativeElement.style.display = 'block';
     }
 
     onColumnResizeEnd() {
         const isRTL = getComputedStyle(this.el?.nativeElement ?? document.documentElement).direction === 'rtl';
-        const rawDelta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
+        const rawDelta = this.resizeHelperViewChild()?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
         const delta = isRTL ? -rawDelta : rawDelta;
         const columnWidth = this.resizeColumnElement.offsetWidth;
         const newColumnWidth = columnWidth + delta;
@@ -2588,16 +2565,16 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         const minWidth = elementMinWidth ? parseFloat(elementMinWidth) : 15;
 
         if (newColumnWidth >= minWidth) {
-            if (this.columnResizeMode === 'fit') {
+            if (this.columnResizeMode() === 'fit') {
                 const nextColumn = this.resizeColumnElement.nextElementSibling as HTMLElement;
                 const nextColumnWidth = nextColumn.offsetWidth - delta;
 
                 if (newColumnWidth > 15 && nextColumnWidth > 15) {
                     this.resizeTableCells(newColumnWidth, nextColumnWidth);
                 }
-            } else if (this.columnResizeMode === 'expand') {
+            } else if (this.columnResizeMode() === 'expand') {
                 this._initialColWidths = this._totalTableWidth();
-                const tableWidth = this.tableViewChild?.nativeElement.offsetWidth + delta;
+                const tableWidth = this.tableViewChild()?.nativeElement.offsetWidth + delta;
 
                 this.setResizeTableWidth(tableWidth + 'px');
                 this.resizeTableCells(newColumnWidth, null);
@@ -2613,7 +2590,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             }
         }
 
-        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.display = 'none';
+        this.resizeHelperViewChild()!.nativeElement.style.display = 'none';
         DomHandler.removeClass(this.el?.nativeElement, 'p-unselectable-text');
     }
 
@@ -2627,14 +2604,14 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     onColumnDragStart(event: any, columnElement: any) {
-        this.reorderIconWidth = DomHandler.getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild?.nativeElement);
-        this.reorderIconHeight = DomHandler.getHiddenElementOuterHeight(this.reorderIndicatorDownViewChild?.nativeElement);
+        this.reorderIconWidth = DomHandler.getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild()?.nativeElement);
+        this.reorderIconHeight = DomHandler.getHiddenElementOuterHeight(this.reorderIndicatorDownViewChild()?.nativeElement);
         this.draggedColumn = columnElement;
         event.dataTransfer.setData('text', 'b'); // For firefox
     }
 
     onColumnDragEnter(event: any, dropHeader: any) {
-        if (this.reorderableColumns && this.draggedColumn && dropHeader) {
+        if (this.reorderableColumns() && this.draggedColumn && dropHeader) {
             event.preventDefault();
             let containerOffset = DomHandler.getOffset(this.el?.nativeElement);
             let dropHeaderOffset = DomHandler.getOffset(dropHeader);
@@ -2646,20 +2623,20 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 let targetTop = containerOffset.top - dropHeaderOffset.top;
                 let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
 
-                (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (<number>this.reorderIconHeight - 1) + 'px';
-                (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top + dropHeader.offsetHeight + 'px';
+                this.reorderIndicatorUpViewChild()!.nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (<number>this.reorderIconHeight - 1) + 'px';
+                this.reorderIndicatorDownViewChild()!.nativeElement.style.top = dropHeaderOffset.top - containerOffset.top + dropHeader.offsetHeight + 'px';
 
                 if (event.pageX > columnCenter) {
-                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.left = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
-                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.left = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    this.reorderIndicatorUpViewChild()!.nativeElement.style.left = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    this.reorderIndicatorDownViewChild()!.nativeElement.style.left = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
                     this.dropPosition = 1;
                 } else {
-                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.left = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
-                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.left = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    this.reorderIndicatorUpViewChild()!.nativeElement.style.left = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    this.reorderIndicatorDownViewChild()!.nativeElement.style.left = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
                     this.dropPosition = -1;
                 }
-                (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.display = 'block';
-                (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.display = 'block';
+                this.reorderIndicatorUpViewChild()!.nativeElement.style.display = 'block';
+                this.reorderIndicatorDownViewChild()!.nativeElement.style.display = 'block';
             } else {
                 event.dataTransfer.dropEffect = 'none';
             }
@@ -2667,7 +2644,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     onColumnDragLeave(event: Event) {
-        if (this.reorderableColumns && this.draggedColumn) {
+        if (this.reorderableColumns() && this.draggedColumn) {
             event.preventDefault();
         }
     }
@@ -2700,22 +2677,20 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 });
 
                 if (this.isStateful()) {
-                    this.zone.runOutsideAngular(() => {
-                        setTimeout(() => {
-                            this.saveState();
-                        });
+                    setTimeout(() => {
+                        this.saveState();
                     });
                 }
             }
 
-            if (this.resizableColumns && this.resizeColumnElement) {
-                let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
+            if (this.resizableColumns() && this.resizeColumnElement) {
+                let width = this.columnResizeMode() === 'expand' ? this._initialColWidths : this._totalTableWidth();
                 ObjectUtils.reorderArray(width, dragIndex + 1, dropIndex + 1);
                 this.updateStyleElement(width, dragIndex, 0, 0);
             }
 
-            (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.display = 'none';
-            (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.display = 'none';
+            this.reorderIndicatorUpViewChild()!.nativeElement.style.display = 'none';
+            this.reorderIndicatorDownViewChild()!.nativeElement.style.display = 'none';
             this.draggedColumn.draggable = false;
             this.draggedColumn = null;
             this.dropPosition = null;
@@ -2724,7 +2699,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     resizeTableCells(newColumnWidth: number, nextColumnWidth: number | null) {
         let colIndex = DomHandler.index(this.resizeColumnElement);
-        let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
+        let width = this.columnResizeMode() === 'expand' ? this._initialColWidths : this._totalTableWidth();
         this.updateStyleElement(width, colIndex, newColumnWidth, nextColumnWidth);
     }
 
@@ -2797,7 +2772,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             let dropIndex = <number>this.draggedRowIndex > this.droppedRowIndex ? this.droppedRowIndex : this.droppedRowIndex === 0 ? 0 : this.droppedRowIndex - 1;
             ObjectUtils.reorderArray(this.value, <number>this.draggedRowIndex, dropIndex);
 
-            if (this.virtualScroll) {
+            if (this.virtualScroll()) {
                 // TODO: Check
                 this._value = [...this._value];
             }
@@ -2817,13 +2792,17 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         return data == null || data.length == 0;
     }
 
+    getVirtualScrollerSpacerStyle(scrollerOptions: any) {
+        return `height: calc(${scrollerOptions.spacerStyle.height} - ${scrollerOptions.rows.length * scrollerOptions.itemSize}px)`;
+    }
+
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
 
     getStorage() {
         if (isPlatformBrowser(this.platformId)) {
-            switch (this.stateStorage) {
+            switch (this.stateStorage()) {
                 case 'local':
                     return window.localStorage;
 
@@ -2831,7 +2810,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                     return window.sessionStorage;
 
                 default:
-                    throw new Error(this.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".');
+                    throw new Error(this.stateStorage() + ' is not a valid value for the state storage, supported values are "local" and "session".');
             }
         } else {
             throw new Error('Browser storage is not available in the server side.');
@@ -2839,14 +2818,14 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     isStateful() {
-        return this.stateKey != null;
+        return this.stateKey() != null;
     }
 
     saveState() {
         const storage = this.getStorage();
         let state: TableState = {};
 
-        if (this.paginator) {
+        if (this.paginator()) {
             state.first = <number>this.first;
             state.rows = this.rows;
         }
@@ -2864,11 +2843,11 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             state.filters = this.filters;
         }
 
-        if (this.resizableColumns) {
+        if (this.resizableColumns()) {
             this.saveColumnWidths(state);
         }
 
-        if (this.reorderableColumns) {
+        if (this.reorderableColumns()) {
             this.saveColumnOrder(state);
         }
 
@@ -2880,21 +2859,21 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             state.expandedRowKeys = this.expandedRowKeys;
         }
 
-        storage.setItem(<string>this.stateKey, JSON.stringify(state));
+        storage.setItem(<string>this.stateKey(), JSON.stringify(state));
         this.onStateSave.emit(state);
     }
 
     clearState() {
         const storage = this.getStorage();
 
-        if (this.stateKey) {
-            storage.removeItem(this.stateKey);
+        if (this.stateKey()) {
+            storage.removeItem(<string>this.stateKey());
         }
     }
 
     restoreState() {
         const storage = this.getStorage();
-        const stateString = storage.getItem(<string>this.stateKey);
+        const stateString = storage.getItem(<string>this.stateKey());
         const dateFormat = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/;
         const reviver = function (key: any, value: any) {
             if (typeof value === 'string' && dateFormat.test(value)) {
@@ -2907,15 +2886,15 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         if (stateString) {
             let state: TableState = JSON.parse(stateString, reviver);
 
-            if (this.paginator) {
+            if (this.paginator()) {
                 if (this.first !== undefined) {
                     this.first = state.first;
-                    this.firstChange.emit(this.first);
+                    this.firstChange.emit(this.first as number);
                 }
 
                 if (this.rows !== undefined) {
                     this.rows = state.rows;
-                    this.rowsChange.emit(this.rows);
+                    this.rowsChange.emit(this.rows as number);
                 }
             }
 
@@ -2935,7 +2914,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 this.filters = state.filters;
             }
 
-            if (this.resizableColumns) {
+            if (this.resizableColumns()) {
                 this.columnWidthsState = state.columnWidths;
                 this.tableWidthState = state.tableWidth;
             }
@@ -2971,21 +2950,21 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         headers.forEach((header) => (widths as any[]).push(DomHandler.getOuterWidth(header)));
         state.columnWidths = widths.join(',');
 
-        if (this.columnResizeMode === 'expand' && this.tableViewChild) {
-            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement);
+        if (this.columnResizeMode() === 'expand' && this.tableViewChild()) {
+            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild()!.nativeElement);
         }
     }
 
     setResizeTableWidth(width: string) {
-        (<ElementRef>this.tableViewChild).nativeElement.style.width = width;
-        (<ElementRef>this.tableViewChild).nativeElement.style.minWidth = width;
+        this.tableViewChild()!.nativeElement.style.width = width;
+        this.tableViewChild()!.nativeElement.style.minWidth = width;
     }
 
     restoreColumnWidths() {
         if (this.columnWidthsState) {
             let widths = this.columnWidthsState.split(',');
 
-            if (this.columnResizeMode === 'expand' && this.tableWidthState) {
+            if (this.columnResizeMode() === 'expand' && this.tableWidthState) {
                 this.setResizeTableWidth(this.tableWidthState + 'px');
             }
 
@@ -3023,7 +3002,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     restoreColumnOrder() {
         const storage = this.getStorage();
-        const stateString = storage.getItem(<string>this.stateKey);
+        const stateString = storage.getItem(<string>this.stateKey());
         if (stateString) {
             let state: TableState = JSON.parse(stateString);
             let columnOrder = state.columnOrder;
@@ -3063,7 +3042,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     }
 
     getGroupRowsMeta() {
-        return { field: this.groupRowsBy, order: this.groupRowsByOrder };
+        return { field: this.groupRowsBy(), order: this.groupRowsByOrder() };
     }
 
     createResponsiveStyle() {
@@ -3075,7 +3054,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 this.renderer.appendChild(this.document.head, this.responsiveStyleElement);
 
                 let innerHTML = `
-    @media screen and (max-width: ${this.breakpoint}) {
+    @media screen and (max-width: ${this.breakpoint()}) {
         #${this.id}-table > .p-datatable-thead > tr > th,
         #${this.id}-table > .p-datatable-tfoot > tr > td {
             display: none !important;
@@ -3138,10 +3117,10 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     get dataP() {
         return this.cn({
-            scrollable: this.scrollable,
-            'flex-scrollable': this.scrollable && this.scrollHeight === 'flex',
-            [this.size as string]: this.size,
-            loading: this.loading,
+            scrollable: this.scrollable(),
+            'flex-scrollable': this.scrollable() && this.scrollHeight() === 'flex',
+            [this.size() as string]: this.size(),
+            loading: this.loading(),
             empty: this.isEmpty()
         });
     }

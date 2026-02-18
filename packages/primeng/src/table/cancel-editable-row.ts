@@ -2,7 +2,7 @@ import { Directive, HostListener, inject } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { EditableRow } from './editable-row';
 import { TableStyle } from './style/tablestyle';
-import { TABLE_INSTANCE } from './table-token';
+import { TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
 
 @Directive({
@@ -22,7 +22,7 @@ export class CancelEditableRow extends BaseComponent {
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
-        this.dataTable.cancelRowEdit(this.editableRow.data);
+        this.dataTable.cancelRowEdit(this.editableRow.data());
         event.preventDefault();
     }
 }

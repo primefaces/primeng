@@ -10,6 +10,16 @@ import type { InputNumberPassThrough } from 'primeng/types/inputnumber';
 import type { DatePickerPassThrough } from 'primeng/types/datepicker';
 import type { MotionOptions } from '@primeuix/motion';
 
+export type TablePaginatorPosition = 'top' | 'bottom' | 'both';
+export type TableSelectionMode = 'single' | 'multiple';
+export type TableSortMode = 'single' | 'multiple';
+export type TableColumnResizeMode = 'fit' | 'expand';
+export type TableStateStorage = 'session' | 'local';
+export type TableEditMode = 'cell' | 'row';
+export type TableSize = 'small' | 'large';
+export type TableRowExpandMode = 'multiple' | 'single';
+export type TableRowGroupMode = 'subheader' | 'rowspan';
+
 /**
  * Custom pass-through(pt) options for ColumnFilter.
  * @template I Type of instance.

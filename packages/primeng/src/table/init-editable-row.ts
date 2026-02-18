@@ -1,7 +1,7 @@
 import { Directive, HostListener, inject } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { EditableRow } from './editable-row';
-import { TABLE_INSTANCE } from './table-token';
+import { TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
 
 @Directive({
@@ -18,7 +18,7 @@ export class InitEditableRow extends BaseComponent {
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
-        this.dataTable.initRowEdit(this.editableRow.data);
+        this.dataTable.initRowEdit(this.editableRow.data());
         event.preventDefault();
     }
 }

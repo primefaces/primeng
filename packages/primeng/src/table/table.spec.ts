@@ -8,7 +8,7 @@ import { SharedModule } from 'primeng/api';
 import { Select } from 'primeng/select';
 import { Table } from './table';
 import { TableModule } from './table.module';
-import { TableService } from './table-token';
+import { TableService } from './table-service';
 
 describe('Table', () => {
     let component: Table;

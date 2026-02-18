@@ -1,251 +1,245 @@
-import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, inject, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, effect, inject, input, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
-import { Subscription } from 'rxjs';
-import { TableStyle } from './style/tablestyle';
-import { TABLE_INSTANCE, TableService } from './table-token';
+import { TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
 
 @Component({
     selector: '[pTableBody]',
     standalone: true,
-    imports: [CommonModule],
+    imports: [NgTemplateOutlet],
     template: `
-        <ng-container *ngIf="!dataTable.expandedRowTemplate && !dataTable._expandedRowTemplate">
-            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="dataTable.rowTrackBy">
-                <ng-container
-                    *ngIf="(dataTable.groupHeaderTemplate || dataTable._groupHeaderTemplate) && !dataTable.virtualScroll && dataTable.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, getRowIndex(rowIndex))"
-                    role="row"
-                >
-                    <ng-container
-                        *ngTemplateOutlet="
-                            dataTable.groupHeaderTemplate || dataTable._groupHeaderTemplate;
-                            context: {
-                                $implicit: rowData,
-                                rowIndex: getRowIndex(rowIndex),
-                                columns: columns,
-                                editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                                frozen: frozen
-                            }
-                        "
-                    ></ng-container>
-                </ng-container>
-                <ng-container *ngIf="dataTable.rowGroupMode !== 'rowspan'">
-                    <ng-container
-                        *ngTemplateOutlet="
-                            rowData ? template : dataTable.loadingBodyTemplate || dataTable._loadingBodyTemplate;
-                            context: {
-                                $implicit: rowData,
-                                rowIndex: getRowIndex(rowIndex),
-                                columns: columns,
-                                editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                                frozen: frozen
-                            }
-                        "
-                    ></ng-container>
-                </ng-container>
-                <ng-container *ngIf="dataTable.rowGroupMode === 'rowspan'">
-                    <ng-container
-                        *ngTemplateOutlet="
-                            rowData ? template : dataTable.loadingBodyTemplate || dataTable._loadingBodyTemplate;
-                            context: {
-                                $implicit: rowData,
-                                rowIndex: getRowIndex(rowIndex),
-                                columns: columns,
-                                editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                                frozen: frozen,
-                                rowgroup: shouldRenderRowspan(value, rowData, rowIndex),
-                                rowspan: calculateRowGroupSize(value, rowData, rowIndex)
-                            }
-                        "
-                    ></ng-container>
-                </ng-container>
-                <ng-container
-                    *ngIf="(dataTable.groupFooterTemplate || dataTable._groupFooterTemplate) && !dataTable.virtualScroll && dataTable.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, getRowIndex(rowIndex))"
-                    role="row"
-                >
-                    <ng-container
-                        *ngTemplateOutlet="
-                            dataTable.groupFooterTemplate || dataTable._groupFooterTemplate;
-                            context: {
-                                $implicit: rowData,
-                                rowIndex: getRowIndex(rowIndex),
-                                columns: columns,
-                                editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                                frozen: frozen
-                            }
-                        "
-                    ></ng-container>
-                </ng-container>
-            </ng-template>
-        </ng-container>
-        <ng-container *ngIf="(dataTable.expandedRowTemplate || dataTable._expandedRowTemplate) && !(frozen && (dataTable.frozenExpandedRowTemplate || dataTable._frozenExpandedRowTemplate))">
-            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="dataTable.rowTrackBy">
-                <ng-container *ngIf="!(dataTable.groupHeaderTemplate && dataTable._groupHeaderTemplate)">
-                    <ng-container
-                        *ngTemplateOutlet="
-                            template;
-                            context: {
-                                $implicit: rowData,
-                                rowIndex: getRowIndex(rowIndex),
-                                columns: columns,
-                                expanded: dataTable.isRowExpanded(rowData),
-                                editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                                frozen: frozen
-                            }
-                        "
-                    ></ng-container>
-                </ng-container>
-                <ng-container *ngIf="(dataTable.groupHeaderTemplate || dataTable._groupHeaderTemplate) && dataTable.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, getRowIndex(rowIndex))" role="row">
-                    <ng-container
-                        *ngTemplateOutlet="
-                            dataTable.groupHeaderTemplate || dataTable._groupHeaderTemplate;
-                            context: {
-                                $implicit: rowData,
-                                rowIndex: getRowIndex(rowIndex),
-                                columns: columns,
-                                expanded: dataTable.isRowExpanded(rowData),
-                                editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                                frozen: frozen
-                            }
-                        "
-                    ></ng-container>
-                </ng-container>
-                <ng-container *ngIf="dataTable.isRowExpanded(rowData)">
-                    <ng-container
-                        *ngTemplateOutlet="
-                            dataTable.expandedRowTemplate || dataTable._expandedRowTemplate;
-                            context: {
-                                $implicit: rowData,
-                                rowIndex: getRowIndex(rowIndex),
-                                columns: columns,
-                                frozen: frozen
-                            }
-                        "
-                    ></ng-container>
-                    <ng-container *ngIf="(dataTable.groupFooterTemplate || dataTable._groupFooterTemplate) && dataTable.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, getRowIndex(rowIndex))" role="row">
+        @if (!dataTable.expandedRowTemplate()) {
+            @for (rowData of value(); track dataTable.rowTrackBy()($index, rowData); let rowIndex = $index) {
+                @if (dataTable.groupHeaderTemplate() && !dataTable.virtualScroll() && dataTable.rowGroupMode() === 'subheader' && shouldRenderRowGroupHeader(value(), rowData, getRowIndex(rowIndex))) {
+                    <ng-container role="row">
                         <ng-container
                             *ngTemplateOutlet="
-                                dataTable.groupFooterTemplate || dataTable._groupFooterTemplate;
+                                dataTable.groupHeaderTemplate();
                                 context: {
                                     $implicit: rowData,
                                     rowIndex: getRowIndex(rowIndex),
-                                    columns: columns,
-                                    expanded: dataTable.isRowExpanded(rowData),
-                                    editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                                    frozen: frozen
+                                    columns: columns(),
+                                    editing: dataTable.editMode() === 'row' && dataTable.isRowEditing(rowData),
+                                    frozen: frozen()
                                 }
                             "
                         ></ng-container>
                     </ng-container>
-                </ng-container>
-            </ng-template>
-        </ng-container>
-        <ng-container *ngIf="(dataTable.frozenExpandedRowTemplate || dataTable._frozenExpandedRowTemplate) && frozen">
-            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="dataTable.rowTrackBy">
-                <ng-container
-                    *ngTemplateOutlet="
-                        template;
-                        context: {
-                            $implicit: rowData,
-                            rowIndex: getRowIndex(rowIndex),
-                            columns: columns,
-                            expanded: dataTable.isRowExpanded(rowData),
-                            editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                            frozen: frozen
-                        }
-                    "
-                ></ng-container>
-                <ng-container *ngIf="dataTable.isRowExpanded(rowData)">
+                }
+                @if (dataTable.rowGroupMode() !== 'rowspan') {
                     <ng-container
                         *ngTemplateOutlet="
-                            dataTable.frozenExpandedRowTemplate || dataTable._frozenExpandedRowTemplate;
+                            rowData ? template() : dataTable.loadingBodyTemplate();
                             context: {
                                 $implicit: rowData,
                                 rowIndex: getRowIndex(rowIndex),
-                                columns: columns,
-                                frozen: frozen
+                                columns: columns(),
+                                editing: dataTable.editMode() === 'row' && dataTable.isRowEditing(rowData),
+                                frozen: frozen()
                             }
                         "
                     ></ng-container>
-                </ng-container>
-            </ng-template>
-        </ng-container>
-        <ng-container *ngIf="dataTable.loading">
-            <ng-container *ngTemplateOutlet="dataTable.loadingBodyTemplate || dataTable._loadingBodyTemplate; context: { $implicit: columns, frozen: frozen }"></ng-container>
-        </ng-container>
-        <ng-container *ngIf="dataTable.isEmpty() && !dataTable.loading">
-            <ng-container *ngTemplateOutlet="dataTable.emptyMessageTemplate || dataTable._emptyMessageTemplate; context: { $implicit: columns, frozen: frozen }"></ng-container>
-        </ng-container>
+                }
+                @if (dataTable.rowGroupMode() === 'rowspan') {
+                    <ng-container
+                        *ngTemplateOutlet="
+                            rowData ? template() : dataTable.loadingBodyTemplate();
+                            context: {
+                                $implicit: rowData,
+                                rowIndex: getRowIndex(rowIndex),
+                                columns: columns(),
+                                editing: dataTable.editMode() === 'row' && dataTable.isRowEditing(rowData),
+                                frozen: frozen(),
+                                rowgroup: shouldRenderRowspan(value(), rowData, rowIndex),
+                                rowspan: calculateRowGroupSize(value(), rowData, rowIndex)
+                            }
+                        "
+                    ></ng-container>
+                }
+                @if (dataTable.groupFooterTemplate() && !dataTable.virtualScroll() && dataTable.rowGroupMode() === 'subheader' && shouldRenderRowGroupFooter(value(), rowData, getRowIndex(rowIndex))) {
+                    <ng-container role="row">
+                        <ng-container
+                            *ngTemplateOutlet="
+                                dataTable.groupFooterTemplate();
+                                context: {
+                                    $implicit: rowData,
+                                    rowIndex: getRowIndex(rowIndex),
+                                    columns: columns(),
+                                    editing: dataTable.editMode() === 'row' && dataTable.isRowEditing(rowData),
+                                    frozen: frozen()
+                                }
+                            "
+                        ></ng-container>
+                    </ng-container>
+                }
+            }
+        }
+        @if (dataTable.expandedRowTemplate() && !(frozen() && dataTable.frozenExpandedRowTemplate())) {
+            @for (rowData of value(); track dataTable.rowTrackBy()($index, rowData); let rowIndex = $index) {
+                @if (!dataTable.groupHeaderTemplate()) {
+                    <ng-container
+                        *ngTemplateOutlet="
+                            template();
+                            context: {
+                                $implicit: rowData,
+                                rowIndex: getRowIndex(rowIndex),
+                                columns: columns(),
+                                expanded: dataTable.isRowExpanded(rowData),
+                                editing: dataTable.editMode() === 'row' && dataTable.isRowEditing(rowData),
+                                frozen: frozen()
+                            }
+                        "
+                    ></ng-container>
+                }
+                @if (dataTable.groupHeaderTemplate() && dataTable.rowGroupMode() === 'subheader' && shouldRenderRowGroupHeader(value(), rowData, getRowIndex(rowIndex))) {
+                    <ng-container role="row">
+                        <ng-container
+                            *ngTemplateOutlet="
+                                dataTable.groupHeaderTemplate();
+                                context: {
+                                    $implicit: rowData,
+                                    rowIndex: getRowIndex(rowIndex),
+                                    columns: columns(),
+                                    expanded: dataTable.isRowExpanded(rowData),
+                                    editing: dataTable.editMode() === 'row' && dataTable.isRowEditing(rowData),
+                                    frozen: frozen()
+                                }
+                            "
+                        ></ng-container>
+                    </ng-container>
+                }
+                @if (dataTable.isRowExpanded(rowData)) {
+                    <ng-container
+                        *ngTemplateOutlet="
+                            dataTable.expandedRowTemplate();
+                            context: {
+                                $implicit: rowData,
+                                rowIndex: getRowIndex(rowIndex),
+                                columns: columns(),
+                                frozen: frozen()
+                            }
+                        "
+                    ></ng-container>
+                    @if (dataTable.groupFooterTemplate() && dataTable.rowGroupMode() === 'subheader' && shouldRenderRowGroupFooter(value(), rowData, getRowIndex(rowIndex))) {
+                        <ng-container role="row">
+                            <ng-container
+                                *ngTemplateOutlet="
+                                    dataTable.groupFooterTemplate();
+                                    context: {
+                                        $implicit: rowData,
+                                        rowIndex: getRowIndex(rowIndex),
+                                        columns: columns(),
+                                        expanded: dataTable.isRowExpanded(rowData),
+                                        editing: dataTable.editMode() === 'row' && dataTable.isRowEditing(rowData),
+                                        frozen: frozen()
+                                    }
+                                "
+                            ></ng-container>
+                        </ng-container>
+                    }
+                }
+            }
+        }
+        @if (dataTable.frozenExpandedRowTemplate() && frozen()) {
+            @for (rowData of value(); track dataTable.rowTrackBy()($index, rowData); let rowIndex = $index) {
+                <ng-container
+                    *ngTemplateOutlet="
+                        template();
+                        context: {
+                            $implicit: rowData,
+                            rowIndex: getRowIndex(rowIndex),
+                            columns: columns(),
+                            expanded: dataTable.isRowExpanded(rowData),
+                            editing: dataTable.editMode() === 'row' && dataTable.isRowEditing(rowData),
+                            frozen: frozen()
+                        }
+                    "
+                ></ng-container>
+                @if (dataTable.isRowExpanded(rowData)) {
+                    <ng-container
+                        *ngTemplateOutlet="
+                            dataTable.frozenExpandedRowTemplate();
+                            context: {
+                                $implicit: rowData,
+                                rowIndex: getRowIndex(rowIndex),
+                                columns: columns(),
+                                frozen: frozen()
+                            }
+                        "
+                    ></ng-container>
+                }
+            }
+        }
+        @if (dataTable.loading()) {
+            <ng-container *ngTemplateOutlet="dataTable.loadingBodyTemplate(); context: bodyContext()"></ng-container>
+        }
+        @if (dataTable.isEmpty() && !dataTable.loading()) {
+            <ng-container *ngTemplateOutlet="dataTable.emptyMessageTemplate(); context: bodyContext()"></ng-container>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[attr.data-p]': 'dataP'
+        '[attr.data-p]': 'dataP()'
     }
 })
 export class TableBody extends BaseComponent {
     hostName = 'Table';
 
-    @Input('pTableBody') columns: any[] | undefined;
+    columns = input<any[] | undefined>(undefined, { alias: 'pTableBody' });
 
-    @Input('pTableBodyTemplate') template: Nullable<TemplateRef<any>>;
+    template = input<Nullable<TemplateRef<any>>>(undefined, { alias: 'pTableBodyTemplate' });
 
-    @Input() get value(): any[] | undefined {
-        return this._value;
-    }
-    set value(val: any[] | undefined) {
-        this._value = val;
-        if (this.frozenRows) {
-            this.updateFrozenRowStickyPosition();
-        }
+    value = input<any[] | undefined>();
 
-        if (this.dataTable.scrollable && this.dataTable.rowGroupMode === 'subheader') {
-            this.updateFrozenRowGroupHeaderStickyPosition();
-        }
-    }
+    frozen = input(undefined, { transform: booleanAttribute });
 
-    @Input({ transform: booleanAttribute }) frozen: boolean | undefined;
+    frozenRows = input(undefined, { transform: booleanAttribute });
 
-    @Input({ transform: booleanAttribute }) frozenRows: boolean | undefined;
-
-    @Input() scrollerOptions: any;
-
-    subscription: Subscription;
-
-    _value: any[] | undefined;
+    scrollerOptions = input<any>();
 
     public dataTable = inject<Table>(TABLE_INSTANCE);
 
-    public tableService = inject(TableService);
+    bodyContext = computed(() => ({
+        $implicit: this.columns(),
+        frozen: this.frozen()
+    }));
 
     constructor() {
         super();
-        this.subscription = this.dataTable.tableService.valueSource$.subscribe(() => {
-            if (this.dataTable.virtualScroll) {
-                this.cd.detectChanges();
+        effect(() => {
+            const val = this.value();
+            if (val !== undefined) {
+                if (this.frozenRows()) {
+                    this.updateFrozenRowStickyPosition();
+                }
+
+                if (this.dataTable.scrollable() && this.dataTable.rowGroupMode() === 'subheader') {
+                    this.updateFrozenRowGroupHeaderStickyPosition();
+                }
             }
         });
     }
 
     onAfterViewInit() {
-        if (this.frozenRows) {
+        if (this.frozenRows()) {
             this.updateFrozenRowStickyPosition();
         }
 
-        if (this.dataTable.scrollable && this.dataTable.rowGroupMode === 'subheader') {
+        if (this.dataTable.scrollable() && this.dataTable.rowGroupMode() === 'subheader') {
             this.updateFrozenRowGroupHeaderStickyPosition();
         }
     }
 
     shouldRenderRowGroupHeader(value: any, rowData: any, i: number) {
-        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dataTable?.groupRowsBy || '');
+        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dataTable?.groupRowsBy() || '');
         let prevRowData = value[i - (this.dataTable?._first || 0) - 1];
         if (prevRowData) {
-            let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dataTable?.groupRowsBy || '');
+            let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dataTable?.groupRowsBy() || '');
             return currentRowFieldData !== previousRowFieldData;
         } else {
             return true;
@@ -253,10 +247,10 @@ export class TableBody extends BaseComponent {
     }
 
     shouldRenderRowGroupFooter(value: any, rowData: any, i: number) {
-        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dataTable?.groupRowsBy || '');
+        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dataTable?.groupRowsBy() || '');
         let nextRowData = value[i - (this.dataTable?._first || 0) + 1];
         if (nextRowData) {
-            let nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dataTable?.groupRowsBy || '');
+            let nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dataTable?.groupRowsBy() || '');
             return currentRowFieldData !== nextRowFieldData;
         } else {
             return true;
@@ -264,10 +258,10 @@ export class TableBody extends BaseComponent {
     }
 
     shouldRenderRowspan(value: any, rowData: any, i: number) {
-        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dataTable?.groupRowsBy!);
+        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dataTable?.groupRowsBy());
         let prevRowData = value[i - 1];
         if (prevRowData) {
-            let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dataTable?.groupRowsBy || '');
+            let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dataTable?.groupRowsBy() || '');
             return currentRowFieldData !== previousRowFieldData;
         } else {
             return true;
@@ -275,7 +269,7 @@ export class TableBody extends BaseComponent {
     }
 
     calculateRowGroupSize(value: any, rowData: any, index: number) {
-        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dataTable?.groupRowsBy!);
+        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dataTable?.groupRowsBy());
         let nextRowFieldData = currentRowFieldData;
         let groupRowSpan = 0;
 
@@ -283,19 +277,13 @@ export class TableBody extends BaseComponent {
             groupRowSpan++;
             let nextRowData = value[++index];
             if (nextRowData) {
-                nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dataTable?.groupRowsBy || '');
+                nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dataTable?.groupRowsBy() || '');
             } else {
                 break;
             }
         }
 
         return groupRowSpan === 1 ? null : groupRowSpan;
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 
     updateFrozenRowStickyPosition() {
@@ -310,8 +298,8 @@ export class TableBody extends BaseComponent {
     }
 
     getScrollerOption(option: any, options?: any) {
-        if (this.dataTable.virtualScroll) {
-            options = options || this.scrollerOptions;
+        if (this.dataTable.virtualScroll()) {
+            options = options || this.scrollerOptions();
             return options ? options[option] : null;
         }
 
@@ -319,15 +307,15 @@ export class TableBody extends BaseComponent {
     }
 
     getRowIndex(rowIndex: number) {
-        const index = this.dataTable.paginator ? <number>this.dataTable.first + rowIndex : rowIndex;
+        const index = this.dataTable.paginator() ? <number>this.dataTable.first + rowIndex : rowIndex;
         const getItemOptions = this.getScrollerOption('getItemOptions');
         return getItemOptions ? getItemOptions(index).index : index;
     }
 
-    get dataP() {
+    dataP = computed(() => {
         return this.cn({
-            hoverable: this.dataTable.rowHover || this.dataTable.selectionMode,
-            frozen: this.frozen
+            hoverable: this.dataTable.rowHover() || this.dataTable.selectionMode(),
+            frozen: this.frozen()
         });
-    }
+    });
 }

@@ -1,4 +1,4 @@
-import { booleanAttribute, Directive, Input } from '@angular/core';
+import { booleanAttribute, Directive, input } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 
 @Directive({
@@ -6,11 +6,11 @@ import { BaseComponent } from 'primeng/basecomponent';
     standalone: true
 })
 export class EditableRow extends BaseComponent {
-    @Input('pEditableRow') data: any;
+    data = input<any>(undefined, { alias: 'pEditableRow' });
 
-    @Input({ transform: booleanAttribute }) pEditableRowDisabled: boolean | undefined;
+    pEditableRowDisabled = input(undefined, { transform: booleanAttribute });
 
     isEnabled() {
-        return this.pEditableRowDisabled !== true;
+        return this.pEditableRowDisabled() !== true;
     }
 }

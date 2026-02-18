@@ -1,8 +1,8 @@
-import { booleanAttribute, Directive, HostListener, inject, Input, NgZone, SimpleChanges } from '@angular/core';
+import { booleanAttribute, Directive, effect, HostListener, inject, input } from '@angular/core';
 import { findSingle, setAttribute } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
-import { TABLE_INSTANCE } from './table-token';
+import { TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
 
 @Directive({
@@ -13,26 +13,28 @@ import type { Table } from './table';
     }
 })
 export class EditableColumn extends BaseComponent {
-    @Input('pEditableColumn') data: any;
+    data = input<any>(undefined, { alias: 'pEditableColumn' });
 
-    @Input('pEditableColumnField') field: any;
+    field = input<any>(undefined, { alias: 'pEditableColumnField' });
 
-    @Input('pEditableColumnRowIndex') rowIndex: number | undefined;
+    rowIndex = input<number | undefined>(undefined, { alias: 'pEditableColumnRowIndex' });
 
-    @Input({ transform: booleanAttribute }) pEditableColumnDisabled: boolean | undefined;
+    pEditableColumnDisabled = input(undefined, { transform: booleanAttribute });
 
-    @Input() pFocusCellSelector: string | undefined;
+    pFocusCellSelector = input<string | undefined>();
 
     overlayEventListener: any;
 
     public dataTable = inject<Table>(TABLE_INSTANCE);
 
-    public zone = inject(NgZone);
-
-    public onChanges(changes: SimpleChanges): void {
-        if (this.el.nativeElement && !changes.data?.firstChange) {
-            this.dataTable.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
-        }
+    constructor() {
+        super();
+        effect(() => {
+            const data = this.data();
+            if (this.el.nativeElement && data !== undefined) {
+                this.dataTable.updateEditingCell(this.el.nativeElement, data, this.field(), <number>this.rowIndex());
+            }
+        });
     }
 
     onAfterViewInit() {
@@ -62,25 +64,23 @@ export class EditableColumn extends BaseComponent {
     }
 
     openCell() {
-        this.dataTable.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
+        this.dataTable.updateEditingCell(this.el.nativeElement, this.data(), this.field(), <number>this.rowIndex());
         !this.$unstyled() && DomHandler.addClass(this.el.nativeElement, 'p-cell-editing');
         setAttribute(this.el.nativeElement, 'data-p-cell-editing', 'true');
 
         this.dataTable.onEditInit.emit({
-            field: this.field,
-            data: this.data,
-            index: <number>this.rowIndex
+            field: this.field(),
+            data: this.data(),
+            index: <number>this.rowIndex()
         });
-        this.zone.runOutsideAngular(() => {
-            setTimeout(() => {
-                let focusCellSelector = this.pFocusCellSelector || 'input, textarea, select';
-                let focusableElement = DomHandler.findSingle(this.el.nativeElement, focusCellSelector);
+        setTimeout(() => {
+            let focusCellSelector = this.pFocusCellSelector() || 'input, textarea, select';
+            let focusableElement = DomHandler.findSingle(this.el.nativeElement, focusCellSelector);
 
-                if (focusableElement) {
-                    focusableElement.focus();
-                }
-            }, 50);
-        });
+            if (focusableElement) {
+                focusableElement.focus();
+            }
+        }, 50);
 
         this.overlayEventListener = (e: any) => {
             if (this.el && this.el.nativeElement.contains(e.target)) {
@@ -105,7 +105,7 @@ export class EditableColumn extends BaseComponent {
             this.dataTable.onEditCancel.emit(eventData);
 
             this.dataTable.value.forEach((element) => {
-                if (element[this.dataTable.editingCellField] === this.data) {
+                if (element[this.dataTable.editingCellField] === this.data()) {
                     element[this.dataTable.editingCellField] = this.dataTable.editingCellData;
                 }
             });
@@ -345,7 +345,7 @@ export class EditableColumn extends BaseComponent {
     }
 
     isEnabled() {
-        return this.pEditableColumnDisabled !== true;
+        return this.pEditableColumnDisabled() !== true;
     }
 
     onDestroy() {

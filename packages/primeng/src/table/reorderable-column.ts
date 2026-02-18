@@ -1,10 +1,10 @@
 import { isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, Directive, ElementRef, HostListener, inject, Input, NgZone } from '@angular/core';
+import { booleanAttribute, Directive, HostListener, inject, input } from '@angular/core';
 import { findSingle } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { VoidListener } from 'primeng/ts-helpers';
 import { TableStyle } from './style/tablestyle';
-import { TABLE_INSTANCE } from './table-token';
+import { TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
 
 @Directive({
@@ -16,7 +16,7 @@ import type { Table } from './table';
     providers: [TableStyle]
 })
 export class ReorderableColumn extends BaseComponent {
-    @Input({ transform: booleanAttribute }) pReorderableColumnDisabled: boolean | undefined;
+    pReorderableColumnDisabled = input(undefined, { transform: booleanAttribute });
 
     dragStartListener: VoidListener;
 
@@ -32,10 +32,6 @@ export class ReorderableColumn extends BaseComponent {
 
     public dataTable = inject<Table>(TABLE_INSTANCE);
 
-    public el = inject(ElementRef);
-
-    public zone = inject(NgZone);
-
     onAfterViewInit() {
         if (this.isEnabled()) {
             this.bindEvents();
@@ -44,17 +40,15 @@ export class ReorderableColumn extends BaseComponent {
 
     bindEvents() {
         if (isPlatformBrowser(this.platformId)) {
-            this.zone.runOutsideAngular(() => {
-                this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
+            this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
 
-                this.dragStartListener = this.renderer.listen(this.el.nativeElement, 'dragstart', this.onDragStart.bind(this));
+            this.dragStartListener = this.renderer.listen(this.el.nativeElement, 'dragstart', this.onDragStart.bind(this));
 
-                this.dragOverListener = this.renderer.listen(this.el.nativeElement, 'dragover', this.onDragOver.bind(this));
+            this.dragOverListener = this.renderer.listen(this.el.nativeElement, 'dragover', this.onDragOver.bind(this));
 
-                this.dragEnterListener = this.renderer.listen(this.el.nativeElement, 'dragenter', this.onDragEnter.bind(this));
+            this.dragEnterListener = this.renderer.listen(this.el.nativeElement, 'dragenter', this.onDragEnter.bind(this));
 
-                this.dragLeaveListener = this.renderer.listen(this.el.nativeElement, 'dragleave', this.onDragLeave.bind(this));
-            });
+            this.dragLeaveListener = this.renderer.listen(this.el.nativeElement, 'dragleave', this.onDragLeave.bind(this));
         }
     }
 
@@ -114,7 +108,7 @@ export class ReorderableColumn extends BaseComponent {
     }
 
     isEnabled() {
-        return this.pReorderableColumnDisabled !== true;
+        return this.pReorderableColumnDisabled() !== true;
     }
 
     onDestroy() {

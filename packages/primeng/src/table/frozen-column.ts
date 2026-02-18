@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Directive, inject, Input } from '@angular/core';
+import { Directive, effect, inject, input } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -14,22 +14,25 @@ import { TableStyle } from './style/tablestyle';
     providers: [TableStyle]
 })
 export class FrozenColumn extends BaseComponent {
-    @Input() get frozen(): boolean {
-        return this._frozen;
-    }
+    frozen = input<boolean>(true);
 
-    set frozen(val: boolean) {
-        this._frozen = val;
-        Promise.resolve(null).then(() => this.updateStickyPosition());
-    }
-
-    @Input() alignFrozen: string = 'left';
+    alignFrozen = input<string>('left');
 
     resizeListener: VoidListener;
 
     private resizeObserver?: ResizeObserver;
 
     _componentStyle = inject(TableStyle);
+
+    constructor() {
+        super();
+        effect(() => {
+            const frozen = this.frozen();
+            if (frozen !== undefined) {
+                Promise.resolve(null).then(() => this.updateStickyPosition());
+            }
+        });
+    }
 
     onAfterViewInit() {
         this.bindResizeListener();
@@ -74,11 +77,9 @@ export class FrozenColumn extends BaseComponent {
         }, time);
     }
 
-    _frozen: boolean = true;
-
     updateStickyPosition() {
-        if (this._frozen) {
-            if (this.alignFrozen === 'right') {
+        if (this.frozen()) {
+            if (this.alignFrozen() === 'right') {
                 let right = 0;
                 let sibling = this.el.nativeElement.nextElementSibling;
                 while (sibling) {

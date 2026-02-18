@@ -1,6 +1,6 @@
 export * from 'primeng/types/table';
 export * from './style/tablestyle';
-export * from './table-token';
+export * from './table-service';
 export * from './table';
 export * from './table-body';
 export * from './frozen-column';
@@ -25,4 +25,5 @@ export * from './table-radio-button';
 export * from './table-checkbox';
 export * from './table-header-checkbox';
 export * from './column-filter';
+export * from './column-filter-form-element';
 export * from './table.module';

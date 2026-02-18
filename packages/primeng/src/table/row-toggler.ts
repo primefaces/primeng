@@ -1,6 +1,6 @@
-import { booleanAttribute, Directive, HostListener, inject, Input } from '@angular/core';
+import { booleanAttribute, Directive, HostListener, inject, input } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
-import { TABLE_INSTANCE } from './table-token';
+import { TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
 
 @Directive({
@@ -8,21 +8,21 @@ import type { Table } from './table';
     standalone: true
 })
 export class RowToggler extends BaseComponent {
-    @Input('pRowToggler') data: any;
+    data = input<any>(undefined, { alias: 'pRowToggler' });
 
-    @Input({ transform: booleanAttribute }) pRowTogglerDisabled: boolean | undefined;
+    pRowTogglerDisabled = input(undefined, { transform: booleanAttribute });
 
     public dataTable = inject<Table>(TABLE_INSTANCE);
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
         if (this.isEnabled()) {
-            this.dataTable.toggleRow(this.data, event);
+            this.dataTable.toggleRow(this.data(), event);
             event.preventDefault();
         }
     }
 
     isEnabled() {
-        return this.pRowTogglerDisabled !== true;
+        return this.pRowTogglerDisabled() !== true;
     }
 }

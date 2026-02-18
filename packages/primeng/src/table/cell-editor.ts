@@ -1,37 +1,29 @@
-import { CommonModule } from '@angular/common';
-import { Component, ContentChild, ContentChildren, inject, Optional, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
+import { NgTemplateOutlet } from '@angular/common';
+import { Component, contentChild, inject, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Nullable } from 'primeng/ts-helpers';
 import { EditableColumn } from './editable-column';
 import { EditableRow } from './editable-row';
-import { TABLE_INSTANCE } from './table-token';
+import { TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
 
 @Component({
     selector: 'p-cellEditor',
     standalone: true,
-    imports: [CommonModule],
+    imports: [NgTemplateOutlet],
     template: `
-        <ng-container *ngIf="editing">
-            <ng-container *ngTemplateOutlet="inputTemplate || _inputTemplate"></ng-container>
-        </ng-container>
-        <ng-container *ngIf="!editing">
-            <ng-container *ngTemplateOutlet="outputTemplate || _outputTemplate"></ng-container>
-        </ng-container>
+        @if (editing) {
+            <ng-container *ngTemplateOutlet="_inputTemplate()"></ng-container>
+        }
+        @if (!editing) {
+            <ng-container *ngTemplateOutlet="_outputTemplate()"></ng-container>
+        }
     `,
     encapsulation: ViewEncapsulation.None
 })
 export class CellEditor extends BaseComponent {
-    @ContentChildren(PrimeTemplate) _templates: Nullable<QueryList<PrimeTemplate>>;
+    _inputTemplate = contentChild<TemplateRef<any>>('input');
 
-    @ContentChild('input') _inputTemplate: TemplateRef<any>;
-
-    @ContentChild('output') _outputTemplate: TemplateRef<any>;
-
-    inputTemplate: Nullable<TemplateRef<any>>;
-
-    outputTemplate: Nullable<TemplateRef<any>>;
+    _outputTemplate = contentChild<TemplateRef<any>>('output');
 
     public dataTable = inject<Table>(TABLE_INSTANCE);
 
@@ -39,24 +31,10 @@ export class CellEditor extends BaseComponent {
 
     public editableRow = inject(EditableRow, { optional: true });
 
-    onAfterContentInit() {
-        (this._templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'input':
-                    this.inputTemplate = item.template;
-                    break;
-
-                case 'output':
-                    this.outputTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
-    get editing(): boolean {
+    get editing() {
         return !!(
             (this.dataTable.editingCell && this.editableColumn && this.dataTable.editingCell === this.editableColumn.el.nativeElement) ||
-            (this.editableRow && this.dataTable.editMode === 'row' && this.dataTable.isRowEditing(this.editableRow.data))
+            (this.editableRow && this.dataTable.editMode() === 'row' && this.dataTable.isRowEditing(this.editableRow.data()))
         );
     }
 }

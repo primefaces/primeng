@@ -1,11 +1,11 @@
-import { booleanAttribute, Directive, HostListener, inject, Input } from '@angular/core';
+import { booleanAttribute, Directive, HostListener, inject, input } from '@angular/core';
 import { find } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
-import { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableStyle } from './style/tablestyle';
-import { TABLE_INSTANCE, TableService } from './table-token';
+import { TABLE_INSTANCE, TableService } from './table-service';
 import type { Table } from './table';
 
 @Directive({
@@ -19,15 +19,13 @@ import type { Table } from './table';
     providers: [TableStyle]
 })
 export class SelectableRow extends BaseComponent {
-    @Input('pSelectableRow') data: any;
+    data = input<any>(undefined, { alias: 'pSelectableRow' });
 
-    @Input('pSelectableRowIndex') index: number | undefined;
+    index = input<number | undefined>(undefined, { alias: 'pSelectableRowIndex' });
 
-    @Input({ transform: booleanAttribute }) pSelectableRowDisabled: boolean | undefined;
+    pSelectableRowDisabled = input(undefined, { transform: booleanAttribute });
 
     selected: boolean | undefined;
-
-    subscription: Subscription | undefined;
 
     _componentStyle = inject(TableStyle);
 
@@ -38,21 +36,21 @@ export class SelectableRow extends BaseComponent {
     constructor() {
         super();
         if (this.isEnabled()) {
-            this.subscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
-                this.selected = this.dataTable.isSelected(this.data);
+            this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
+                this.selected = this.dataTable.isSelected(this.data());
             });
         }
     }
 
     setRowTabIndex() {
-        if (this.dataTable.selectionMode === 'single' || this.dataTable.selectionMode === 'multiple') {
-            return !this.dataTable.selection ? 0 : this.dataTable.anchorRowIndex === this.index ? 0 : -1;
+        if (this.dataTable.selectionMode() === 'single' || this.dataTable.selectionMode() === 'multiple') {
+            return !this.dataTable.selection ? 0 : this.dataTable.anchorRowIndex === this.index() ? 0 : -1;
         }
     }
 
     onInit() {
         if (this.isEnabled()) {
-            this.selected = this.dataTable.isSelected(this.data);
+            this.selected = this.dataTable.isSelected(this.data());
         }
     }
 
@@ -61,8 +59,8 @@ export class SelectableRow extends BaseComponent {
         if (this.isEnabled()) {
             this.dataTable.handleRowClick({
                 originalEvent: event,
-                rowData: this.data,
-                rowIndex: this.index
+                rowData: this.data(),
+                rowIndex: this.index()
             });
         }
     }
@@ -102,7 +100,7 @@ export class SelectableRow extends BaseComponent {
                 break;
 
             default:
-                if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey) && this.dataTable.selectionMode === 'multiple') {
+                if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey) && this.dataTable.selectionMode() === 'multiple') {
                     const data = this.dataTable.dataToRender(this.dataTable.processedData);
                     this.dataTable.selection = [...data];
                     this.dataTable.selectRange(event, data.length - 1, true);
@@ -150,8 +148,8 @@ export class SelectableRow extends BaseComponent {
 
         this.dataTable.handleRowClick({
             originalEvent: event,
-            rowData: this.data,
-            rowIndex: this.index
+            rowData: this.data(),
+            rowIndex: this.index()
         });
     }
 
@@ -164,8 +162,8 @@ export class SelectableRow extends BaseComponent {
             const lastSelectableRowIndex = DomHandler.getAttribute(lastRow, 'index');
 
             this.dataTable.anchorRowIndex = lastSelectableRowIndex;
-            this.dataTable.selection = data.slice(this.index || 0, data.length);
-            this.dataTable.selectRange(event, this.index || 0);
+            this.dataTable.selection = data.slice(this.index() || 0, data.length);
+            this.dataTable.selectRange(event, this.index() || 0);
         }
         event.preventDefault();
     }
@@ -180,8 +178,8 @@ export class SelectableRow extends BaseComponent {
             const firstSelectableRowIndex = DomHandler.getAttribute(firstRow, 'index');
 
             this.dataTable.anchorRowIndex = this.dataTable.anchorRowIndex || firstSelectableRowIndex || 0;
-            this.dataTable.selection = data.slice(0, (this.index || 0) + 1);
-            this.dataTable.selectRange(event, this.index || 0);
+            this.dataTable.selection = data.slice(0, (this.index() || 0) + 1);
+            this.dataTable.selectRange(event, this.index() || 0);
         }
         event.preventDefault();
     }
@@ -202,14 +200,14 @@ export class SelectableRow extends BaseComponent {
                     firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dataTable.selection[0], data);
                     lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dataTable.selection[this.dataTable.selection.length - 1], data);
 
-                    index = (this.index || 0) <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
+                    index = (this.index() || 0) <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
                 } else {
                     index = ObjectUtils.findIndexInList(this.dataTable.selection, data);
                 }
 
                 this.dataTable.anchorRowIndex = index || 0;
-                this.dataTable.selection = index !== this.index ? data.slice(Math.min(index || 0, this.index || 0), Math.max(index || 0, this.index || 0) + 1) : [this.data];
-                this.dataTable.selectRange(event, this.index || 0);
+                this.dataTable.selection = index !== this.index() ? data.slice(Math.min(index || 0, this.index() || 0), Math.max(index || 0, this.index() || 0) + 1) : [this.data()];
+                this.dataTable.selectRange(event, this.index() || 0);
             }
 
             event.preventDefault();
@@ -256,12 +254,6 @@ export class SelectableRow extends BaseComponent {
     }
 
     isEnabled() {
-        return this.pSelectableRowDisabled !== true;
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+        return this.pSelectableRowDisabled() !== true;
     }
 }

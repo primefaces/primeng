@@ -1,7 +1,7 @@
 import { Directive, inject } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TableStyle } from './style/tablestyle';
-import { TABLE_INSTANCE } from './table-token';
+import { TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
 
 @Directive({

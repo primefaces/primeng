@@ -1,54 +1,69 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Input, input, ViewChild, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, inject, input, numberAttribute, signal, viewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
 import { RadioButton, RadioButtonClickEvent, RadioButtonModule } from 'primeng/radiobutton';
-import { Nullable } from 'primeng/ts-helpers';
-import { Subscription } from 'rxjs';
-import { TABLE_INSTANCE } from './table-token';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
-import { booleanAttribute, numberAttribute } from '@angular/core';
 
 @Component({
     selector: 'p-tableRadioButton',
     standalone: true,
     imports: [RadioButtonModule, FormsModule],
-    template: `<p-radiobutton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [binary]="true" [value]="value" (onClick)="onClick($event)" [unstyled]="unstyled()" /> `,
+    template: `<p-radiobutton
+        #rb
+        [ngModel]="checked()"
+        (ngModelChange)="checked.set($event)"
+        [disabled]="disabled()"
+        [inputId]="inputId()"
+        [name]="name()"
+        [ariaLabel]="resolvedAriaLabel()"
+        [binary]="true"
+        [value]="value()"
+        (onClick)="onClick($event)"
+        [unstyled]="unstyled()"
+    /> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class TableRadioButton extends BaseComponent {
-    @Input() value: any;
+    value = input<any>();
 
-    readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
-    readonly index = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
-    readonly inputId = input<string | undefined>();
-    readonly name = input<string | undefined>();
+    disabled = input(undefined, { transform: booleanAttribute });
 
-    @Input() ariaLabel: string | undefined;
+    index = input(undefined, { transform: numberAttribute });
 
-    @ViewChild('rb') inputViewChild: Nullable<RadioButton>;
+    inputId = input<string>();
 
-    checked: boolean | undefined;
+    name = input<string>();
 
-    subscription: Subscription;
+    ariaLabel = input<string | undefined>();
+
+    inputViewChild = viewChild<RadioButton>('rb');
+
+    checked = signal(false);
 
     public dataTable = inject<Table>(TABLE_INSTANCE);
 
-    public cd = inject(ChangeDetectorRef);
+    private get aria() {
+        return this.dataTable.config.translation.aria;
+    }
+
+    resolvedAriaLabel = computed(() => {
+        const checked = this.checked();
+        return this.ariaLabel() || (this.aria ? (checked ? this.aria.selectRow : this.aria.unselectRow) : undefined);
+    });
 
     constructor() {
         super();
-        this.subscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
-            this.checked = this.dataTable.isSelected(this.value);
-
-            this.ariaLabel = this.ariaLabel || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectRow : this.dataTable.config.translation.aria.unselectRow) : undefined);
-            this.cd.markForCheck();
+        this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
+            this.checked.set(this.dataTable.isSelected(this.value()));
         });
     }
 
     onInit() {
-        this.checked = this.dataTable.isSelected(this.value);
+        this.checked.set(this.dataTable.isSelected(this.value()));
     }
 
     onClick(event: RadioButtonClickEvent) {
@@ -58,17 +73,11 @@ export class TableRadioButton extends BaseComponent {
                     originalEvent: event.originalEvent,
                     rowIndex: this.index()
                 },
-                this.value
+                this.value()
             );
 
-            this.inputViewChild?.inputViewChild().nativeElement?.focus();
+            this.inputViewChild()?.inputViewChild().nativeElement?.focus();
         }
         DomHandler.clearSelection();
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 }

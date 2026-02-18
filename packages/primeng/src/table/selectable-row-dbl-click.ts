@@ -1,8 +1,8 @@
-import { booleanAttribute, Directive, HostListener, inject, Input } from '@angular/core';
+import { booleanAttribute, Directive, HostListener, inject, input } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableStyle } from './style/tablestyle';
-import { TABLE_INSTANCE, TableService } from './table-token';
+import { TABLE_INSTANCE, TableService } from './table-service';
 import type { Table } from './table';
 
 @Directive({
@@ -14,15 +14,13 @@ import type { Table } from './table';
     providers: [TableStyle]
 })
 export class SelectableRowDblClick extends BaseComponent {
-    @Input('pSelectableRowDblClick') data: any;
+    data = input<any>(undefined, { alias: 'pSelectableRowDblClick' });
 
-    @Input('pSelectableRowIndex') index: number | undefined;
+    index = input<number | undefined>(undefined, { alias: 'pSelectableRowIndex' });
 
-    @Input({ transform: booleanAttribute }) pSelectableRowDisabled: boolean | undefined;
+    pSelectableRowDisabled = input(undefined, { transform: booleanAttribute });
 
     selected: boolean | undefined;
-
-    subscription: Subscription | undefined;
 
     _componentStyle = inject(TableStyle);
 
@@ -33,15 +31,15 @@ export class SelectableRowDblClick extends BaseComponent {
     constructor() {
         super();
         if (this.isEnabled()) {
-            this.subscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
-                this.selected = this.dataTable.isSelected(this.data);
+            this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
+                this.selected = this.dataTable.isSelected(this.data());
             });
         }
     }
 
     onInit() {
         if (this.isEnabled()) {
-            this.selected = this.dataTable.isSelected(this.data);
+            this.selected = this.dataTable.isSelected(this.data());
         }
     }
 
@@ -50,19 +48,13 @@ export class SelectableRowDblClick extends BaseComponent {
         if (this.isEnabled()) {
             this.dataTable.handleRowClick({
                 originalEvent: event,
-                rowData: this.data,
-                rowIndex: this.index
+                rowData: this.data(),
+                rowIndex: this.index()
             });
         }
     }
 
     isEnabled() {
-        return this.pSelectableRowDisabled !== true;
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+        return this.pSelectableRowDisabled() !== true;
     }
 }

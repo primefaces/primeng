@@ -1,8 +1,8 @@
-import { booleanAttribute, Directive, HostListener, inject, Input } from '@angular/core';
+import { booleanAttribute, Directive, HostListener, inject, input } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableStyle } from './style/tablestyle';
-import { TABLE_INSTANCE, TableService } from './table-token';
+import { TABLE_INSTANCE, TableService } from './table-service';
 import type { Table } from './table';
 
 @Directive({
@@ -15,15 +15,13 @@ import type { Table } from './table';
     providers: [TableStyle]
 })
 export class ContextMenuRow extends BaseComponent {
-    @Input('pContextMenuRow') data: any;
+    data = input<any>(undefined, { alias: 'pContextMenuRow' });
 
-    @Input('pContextMenuRowIndex') index: number | undefined;
+    index = input<number | undefined>(undefined, { alias: 'pContextMenuRowIndex' });
 
-    @Input({ transform: booleanAttribute }) pContextMenuRowDisabled: boolean | undefined;
+    pContextMenuRowDisabled = input(undefined, { transform: booleanAttribute });
 
     selected: boolean | undefined;
-
-    subscription: Subscription | undefined;
 
     _componentStyle = inject(TableStyle);
 
@@ -34,8 +32,8 @@ export class ContextMenuRow extends BaseComponent {
     constructor() {
         super();
         if (this.isEnabled()) {
-            this.subscription = this.dataTable.tableService.contextMenuSource$.subscribe((data) => {
-                this.selected = data ? this.dataTable.equals(this.data, data) : false;
+            this.dataTable.tableService.contextMenuSource$.pipe(takeUntilDestroyed()).subscribe((data) => {
+                this.selected = data ? this.dataTable.equals(this.data(), data) : false;
             });
         }
     }
@@ -45,8 +43,8 @@ export class ContextMenuRow extends BaseComponent {
         if (this.isEnabled()) {
             this.dataTable.handleRowRightClick({
                 originalEvent: event,
-                rowData: this.data,
-                rowIndex: this.index
+                rowData: this.data(),
+                rowIndex: this.index()
             });
 
             this.el.nativeElement.focus();
@@ -55,12 +53,6 @@ export class ContextMenuRow extends BaseComponent {
     }
 
     isEnabled() {
-        return this.pContextMenuRowDisabled !== true;
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+        return this.pContextMenuRowDisabled() !== true;
     }
 }

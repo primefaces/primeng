@@ -1,32 +1,13 @@
-import { CommonModule } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    inject,
-    Input,
-    input,
-    numberAttribute,
-    Output,
-    QueryList,
-    signal,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, ElementRef, inject, input, model, numberAttribute, output, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addStyle, appendChild, find, findSingle } from '@primeuix/utils';
-import { FilterMatchMode, FilterMetadata, FilterOperator, OverlayService, PrimeTemplate, SelectItem, SharedModule, TranslationKeys } from 'primeng/api';
+import { FilterMatchMode, FilterMetadata, FilterOperator, OverlayService, SelectItem, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { Button, ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
@@ -38,12 +19,12 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { MotionModule } from 'primeng/motion';
 import { SelectModule } from 'primeng/select';
-import { Nullable } from 'primeng/ts-helpers';
-import { ColumnFilterPassThrough, TableFilterButtonPropsOptions } from 'primeng/types/table';
+import { TableFilterButtonPropsOptions } from 'primeng/types/table';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
+import { ColumnFilterFormElement } from './column-filter-form-element';
 import { TableStyle } from './style/tablestyle';
-import { TABLE_INSTANCE } from './table-token';
+import { TABLE_INSTANCE } from './table-service';
 import type { Table } from './table';
 
 /**
@@ -53,76 +34,64 @@ import type { Table } from './table';
 @Component({
     selector: 'p-columnFilter, p-column-filter, p-columnfilter',
     standalone: true,
-    imports: [
-        CommonModule,
-        FormsModule,
-        ButtonModule,
-        SelectModule,
-        InputTextModule,
-        InputNumberModule,
-        CheckboxModule,
-        DatePickerModule,
-        BindModule,
-        MotionModule,
-        SharedModule,
-        FilterIcon,
-        FilterFillIcon,
-        TrashIcon,
-        PlusIcon,
-        forwardRef(() => ColumnFilterFormElement)
-    ],
+    imports: [NgTemplateOutlet, FormsModule, ButtonModule, SelectModule, InputTextModule, InputNumberModule, CheckboxModule, DatePickerModule, BindModule, MotionModule, FilterIcon, FilterFillIcon, TrashIcon, PlusIcon, ColumnFilterFormElement],
     template: `
         <div [class]="cx('filter')">
-            <p-columnFilterFormElement
-                *ngIf="display === 'row'"
-                class="p-fluid"
-                [type]="type"
-                [field]="field"
-                [ariaLabel]="ariaLabel"
-                [filterConstraint]="dataTable.filters[field]"
-                [filterTemplate]="filterTemplate || _filterTemplate"
-                [placeholder]="placeholder"
-                [minFractionDigits]="minFractionDigits"
-                [maxFractionDigits]="maxFractionDigits"
-                [prefix]="prefix"
-                [suffix]="suffix"
-                [locale]="locale"
-                [localeMatcher]="localeMatcher"
-                [currency]="currency"
-                [currencyDisplay]="currencyDisplay"
-                [useGrouping]="useGrouping"
-                [showButtons]="showButtons"
-                [filterOn]="filterOn"
-                [pt]="pt()"
-                [unstyled]="unstyled()"
-            ></p-columnFilterFormElement>
-            <p-button
-                *ngIf="showMenuButton"
-                [styleClass]="cx('pcColumnFilterButton')"
-                [pt]="ptm('pcColumnFilterButton')"
-                [attr.aria-haspopup]="true"
-                [ariaLabel]="filterMenuButtonAriaLabel"
-                [attr.aria-controls]="overlayVisible ? overlayId : null"
-                [attr.aria-expanded]="overlayVisible ?? false"
-                (click)="toggleMenu($event)"
-                (keydown)="onToggleButtonKeyDown($event)"
-                [buttonProps]="filterButtonProps?.filter"
-                #menuButton
-                [unstyled]="unstyled()"
-            >
-                <ng-template #icon>
-                    <ng-container>
-                        <svg data-p-icon="filter" *ngIf="!filterIconTemplate && !_filterIconTemplate && !hasFilter" [pBind]="ptm('pcColumnFilterButton')['icon']" />
-                        <svg data-p-icon="filter-fill" *ngIf="!filterIconTemplate && !_filterIconTemplate && hasFilter" [pBind]="ptm('pcColumnFilterButton')['icon']" />
-                        <span *ngIf="filterIconTemplate || _filterIconTemplate" [pBind]="ptm('pcColumnFilterButton')['icon']" [attr.data-pc-section]="'columnfilterbuttonicon'">
-                            <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate; context: { hasFilter: hasFilter }"></ng-template>
-                        </span>
-                    </ng-container>
-                </ng-template>
-            </p-button>
+            @if (display() === 'row') {
+                <p-columnFilterFormElement
+                    class="p-fluid"
+                    [type]="type()"
+                    [field]="field()"
+                    [ariaLabel]="ariaLabel()"
+                    [filterConstraint]="dataTable.filters[field()!]"
+                    [filterTemplate]="filterTemplate()"
+                    [placeholder]="placeholder()"
+                    [minFractionDigits]="minFractionDigits()"
+                    [maxFractionDigits]="maxFractionDigits()"
+                    [prefix]="prefix()"
+                    [suffix]="suffix()"
+                    [locale]="locale()"
+                    [localeMatcher]="localeMatcher()"
+                    [currency]="currency()"
+                    [currencyDisplay]="currencyDisplay()"
+                    [useGrouping]="useGrouping()"
+                    [filterOn]="filterOn()"
+                    [pt]="pt()"
+                    [unstyled]="unstyled()"
+                />
+            }
+            @if (showMenuButton) {
+                <p-button
+                    [styleClass]="cx('pcColumnFilterButton')"
+                    [pt]="ptm('pcColumnFilterButton')"
+                    [attr.aria-haspopup]="true"
+                    [ariaLabel]="filterMenuButtonAriaLabel"
+                    [attr.aria-controls]="overlayVisible ? overlayId : null"
+                    [attr.aria-expanded]="overlayVisible ?? false"
+                    (click)="toggleMenu($event)"
+                    (keydown)="onToggleButtonKeyDown($event)"
+                    [buttonProps]="filterButtonProps()?.filter"
+                    #menuButton
+                    [unstyled]="unstyled()"
+                >
+                    <ng-template #icon>
+                        <ng-container>
+                            @if (filterIconTemplate()) {
+                                <span [pBind]="ptm('pcColumnFilterButton')['icon']" [attr.data-pc-section]="'columnfilterbuttonicon'">
+                                    <ng-template *ngTemplateOutlet="filterIconTemplate(); context: { hasFilter: hasFilter }" />
+                                </span>
+                            } @else if (hasFilter) {
+                                <svg data-p-icon="filter-fill" [pBind]="ptm('pcColumnFilterButton')['icon']" />
+                            } @else {
+                                <svg data-p-icon="filter" [pBind]="ptm('pcColumnFilterButton')['icon']" />
+                            }
+                        </ng-container>
+                    </ng-template>
+                </p-button>
+            }
             @if (renderOverlay()) {
                 <div
-                    [pMotion]="showMenu && overlayVisible"
+                    [pMotion]="showMenu() && overlayVisible"
                     [pMotionAppear]="true"
                     pMotionName="p-anchored-overlay"
                     (pMotionOnBeforeEnter)="onOverlayBeforeEnter($event)"
@@ -136,80 +105,90 @@ import type { Table } from './table';
                     (click)="onContentClick()"
                     (keydown.escape)="onEscape()"
                 >
-                    <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: field }"></ng-container>
-                    <ul *ngIf="display === 'row'; else menu" [class]="cx('filterConstraintList')" [pBind]="ptm('filterConstraintList')">
-                        <li
-                            *ngFor="let matchMode of matchModes; let i = index"
-                            (click)="onRowMatchModeChange(matchMode.value)"
-                            (keydown)="onRowMatchModeKeyDown($event)"
-                            (keydown.enter)="onRowMatchModeChange(matchMode.value)"
-                            [class]="cx('filterConstraint')"
-                            [pBind]="ptm('filterConstraint', ptmFilterConstraintOptions(matchMode))"
-                            [class.p-datatable-filter-constraint-selected]="isRowMatchModeSelected(matchMode.value)"
-                            [attr.tabindex]="i === 0 ? '0' : null"
-                        >
-                            {{ matchMode.label }}
-                        </li>
-                        <li [class]="cx('filterConstraintSeparator')" [pBind]="ptm('filterConstraintSeparator', { context: { index: i } })"></li>
-                        <li [class]="cx('filterConstraint')" [pBind]="ptm('emtpyFilterLabel')" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">
-                            {{ noFilterLabel }}
-                        </li>
-                    </ul>
-                    <ng-template #menu>
-                        <div [class]="cx('filterOperator')" [pBind]="ptm('filterOperator')" *ngIf="isShowOperator">
-                            <p-select [options]="operatorOptions" [pt]="ptm('pcFilterOperatorDropdown')" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" [styleClass]="cx('pcFilterOperatorDropdown')" [unstyled]="unstyled()"></p-select>
-                        </div>
-                        <div [class]="cx('filterRuleList')" [pBind]="ptm('filterRuleList')">
-                            <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" [ngClass]="cx('filterRule')" [pBind]="ptm('filterRule')">
-                                <p-select
-                                    *ngIf="showMatchModes && matchModes"
-                                    [options]="matchModes"
-                                    [ngModel]="fieldConstraint.matchMode"
-                                    (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)"
-                                    [styleClass]="cx('pcFilterConstraintDropdown')"
-                                    [pt]="ptm('pcFilterConstraintDropdown')"
-                                    [unstyled]="unstyled()"
-                                ></p-select>
-                                <p-columnFilterFormElement
-                                    [type]="type"
-                                    [field]="field"
-                                    [filterConstraint]="fieldConstraint"
-                                    [filterTemplate]="filterTemplate || _filterTemplate"
-                                    [placeholder]="placeholder"
-                                    [minFractionDigits]="minFractionDigits"
-                                    [maxFractionDigits]="maxFractionDigits"
-                                    [prefix]="prefix"
-                                    [suffix]="suffix"
-                                    [locale]="locale"
-                                    [localeMatcher]="localeMatcher"
-                                    [currency]="currency"
-                                    [currencyDisplay]="currencyDisplay"
-                                    [useGrouping]="useGrouping"
-                                    [filterOn]="filterOn"
-                                    [pt]="pt()"
-                                    [unstyled]="unstyled()"
-                                ></p-columnFilterFormElement>
-                                <div>
-                                    <p-button
-                                        *ngIf="showRemoveIcon"
-                                        [styleClass]="cx('pcFilterRemoveRuleButton')"
-                                        [pt]="ptm('pcFilterRemoveRuleButton')"
-                                        [text]="true"
-                                        severity="danger"
-                                        size="small"
-                                        (onClick)="removeConstraint(fieldConstraint)"
-                                        [ariaLabel]="removeRuleButtonLabel"
-                                        [label]="removeRuleButtonLabel"
-                                        [buttonProps]="filterButtonProps?.popover?.removeRule"
-                                        [unstyled]="unstyled()"
-                                    >
-                                        <ng-template #icon>
-                                            <svg data-p-icon="trash" *ngIf="!removeRuleIconTemplate && !_removeRuleIconTemplate" [pBind]="ptm('pcFilterRemoveRuleButton')['icon']" />
-                                            <ng-template *ngTemplateOutlet="removeRuleIconTemplate || _removeRuleIconTemplate"></ng-template>
-                                        </ng-template>
-                                    </p-button>
-                                </div>
+                    <ng-container *ngTemplateOutlet="headerTemplate(); context: { $implicit: field() }" />
+                    @if (display() === 'row') {
+                        <ul [class]="cx('filterConstraintList')" [pBind]="ptm('filterConstraintList')">
+                            @for (matchMode of matchModes; track matchMode.value; let i = $index) {
+                                <li
+                                    (click)="onRowMatchModeChange(matchMode.value)"
+                                    (keydown)="onRowMatchModeKeyDown($event)"
+                                    (keydown.enter)="onRowMatchModeChange(matchMode.value)"
+                                    [class]="cx('filterConstraint')"
+                                    [pBind]="ptm('filterConstraint', ptmFilterConstraintOptions(matchMode))"
+                                    [class.p-datatable-filter-constraint-selected]="isRowMatchModeSelected(matchMode.value)"
+                                    [attr.tabindex]="i === 0 ? '0' : null"
+                                >
+                                    {{ matchMode.label }}
+                                </li>
+                            }
+                            <li [class]="cx('filterConstraintSeparator')" [pBind]="ptm('filterConstraintSeparator')"></li>
+                            <li [class]="cx('filterConstraint')" [pBind]="ptm('emtpyFilterLabel')" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">
+                                {{ noFilterLabel }}
+                            </li>
+                        </ul>
+                    } @else {
+                        @if (isShowOperator) {
+                            <div [class]="cx('filterOperator')" [pBind]="ptm('filterOperator')">
+                                <p-select [options]="operatorOptions" [pt]="ptm('pcFilterOperatorDropdown')" [ngModel]="operator()" (ngModelChange)="onOperatorChange($event)" [class]="cx('pcFilterOperatorDropdown')" [unstyled]="unstyled()" />
                             </div>
+                        }
+                        <div [class]="cx('filterRuleList')" [pBind]="ptm('filterRuleList')">
+                            @for (fieldConstraint of fieldConstraints; track $index; let i = $index) {
+                                <div [class]="cx('filterRule')" [pBind]="ptm('filterRule')">
+                                    @if (showMatchModes() && matchModes) {
+                                        <p-select
+                                            [options]="matchModes"
+                                            [ngModel]="fieldConstraint.matchMode"
+                                            (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)"
+                                            [styleClass]="cx('pcFilterConstraintDropdown')"
+                                            [pt]="ptm('pcFilterConstraintDropdown')"
+                                            [unstyled]="unstyled()"
+                                        />
+                                    }
+                                    <p-columnFilterFormElement
+                                        [type]="type()"
+                                        [field]="field()"
+                                        [filterConstraint]="fieldConstraint"
+                                        [filterTemplate]="filterTemplate()"
+                                        [placeholder]="placeholder()"
+                                        [minFractionDigits]="minFractionDigits()"
+                                        [maxFractionDigits]="maxFractionDigits()"
+                                        [prefix]="prefix()"
+                                        [suffix]="suffix()"
+                                        [locale]="locale()"
+                                        [localeMatcher]="localeMatcher()"
+                                        [currency]="currency()"
+                                        [currencyDisplay]="currencyDisplay()"
+                                        [useGrouping]="useGrouping()"
+                                        [filterOn]="filterOn()"
+                                        [pt]="pt()"
+                                        [unstyled]="unstyled()"
+                                    />
+                                    <div>
+                                        @if (showRemoveIcon) {
+                                            <p-button
+                                                [styleClass]="cx('pcFilterRemoveRuleButton')"
+                                                [pt]="ptm('pcFilterRemoveRuleButton')"
+                                                [text]="true"
+                                                severity="danger"
+                                                size="small"
+                                                (onClick)="removeConstraint(fieldConstraint)"
+                                                [ariaLabel]="removeRuleButtonLabel"
+                                                [label]="removeRuleButtonLabel"
+                                                [buttonProps]="filterButtonProps()?.popover?.removeRule"
+                                                [unstyled]="unstyled()"
+                                            >
+                                                <ng-template #icon>
+                                                    @if (!removeRuleIconTemplate()) {
+                                                        <svg data-p-icon="trash" [pBind]="ptm('pcFilterRemoveRuleButton')['icon']" />
+                                                    }
+                                                    <ng-template *ngTemplateOutlet="removeRuleIconTemplate()" />
+                                                </ng-template>
+                                            </p-button>
+                                        }
+                                    </div>
+                                </div>
+                            }
                         </div>
                         @if (isShowAddConstraint) {
                             <p-button
@@ -221,40 +200,44 @@ import type { Table } from './table';
                                 [text]="true"
                                 size="small"
                                 (onClick)="addConstraint()"
-                                [buttonProps]="filterButtonProps?.popover?.addRule"
+                                [buttonProps]="filterButtonProps()?.popover?.addRule"
                                 [unstyled]="unstyled()"
                             >
                                 <ng-template #icon>
-                                    <svg data-p-icon="plus" *ngIf="!addRuleIconTemplate && !_addRuleIconTemplate" [pBind]="ptm('pcAddRuleButtonLabel')['icon']" />
-                                    <ng-template *ngTemplateOutlet="addRuleIconTemplate || _addRuleIconTemplate"></ng-template>
+                                    @if (!addRuleIconTemplate()) {
+                                        <svg data-p-icon="plus" [pBind]="ptm('pcAddRuleButtonLabel')['icon']" />
+                                    }
+                                    <ng-template *ngTemplateOutlet="addRuleIconTemplate()" />
                                 </ng-template>
                             </p-button>
                         }
                         <div [class]="cx('filterButtonbar')" [pBind]="ptm('filterButtonBar')">
-                            <p-button
-                                #clearBtn
-                                *ngIf="showClearButton"
-                                [outlined]="true"
-                                (onClick)="clearFilter()"
-                                [attr.aria-label]="clearButtonLabel"
-                                [label]="clearButtonLabel"
-                                [buttonProps]="filterButtonProps?.popover?.clear"
-                                [pt]="ptm('pcFilterClearButton')"
-                                [unstyled]="unstyled()"
-                            />
-                            <p-button
-                                *ngIf="showApplyButton"
-                                (onClick)="applyFilter()"
-                                size="small"
-                                [label]="applyButtonLabel"
-                                [attr.aria-label]="applyButtonLabel"
-                                [buttonProps]="filterButtonProps?.popover?.apply"
-                                [pt]="ptm('pcFilterApplyButton')"
-                                [unstyled]="unstyled()"
-                            />
+                            @if (showClearButton()) {
+                                <p-button
+                                    #clearBtn
+                                    [outlined]="true"
+                                    (onClick)="clearFilter()"
+                                    [attr.aria-label]="clearButtonLabel"
+                                    [label]="clearButtonLabel"
+                                    [buttonProps]="filterButtonProps()?.popover?.clear"
+                                    [pt]="ptm('pcFilterClearButton')"
+                                    [unstyled]="unstyled()"
+                                />
+                            }
+                            @if (showApplyButton()) {
+                                <p-button
+                                    (onClick)="applyFilter()"
+                                    size="small"
+                                    [label]="applyButtonLabel"
+                                    [attr.aria-label]="applyButtonLabel"
+                                    [buttonProps]="filterButtonProps()?.popover?.apply"
+                                    [pt]="ptm('pcFilterApplyButton')"
+                                    [unstyled]="unstyled()"
+                                />
+                            }
                         </div>
-                    </ng-template>
-                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate; context: { $implicit: field }"></ng-container>
+                    }
+                    <ng-container *ngTemplateOutlet="footerTemplate(); context: { $implicit: field() }" />
                 </div>
             }
         </div>
@@ -270,11 +253,11 @@ export class ColumnFilter extends BaseComponent {
 
     _componentStyle = inject(TableStyle);
 
-    onAfterViewChecked(): void {
+    onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptm('columnFilter'));
     }
 
-    ptmFilterConstraintOptions(matchMode) {
+    ptmFilterConstraintOptions(matchMode: any) {
         return {
             context: {
                 highlighted: matchMode && this.isRowMatchModeSelected(matchMode.value)
@@ -285,142 +268,140 @@ export class ColumnFilter extends BaseComponent {
      * Property represented by the column.
      * @group Props
      */
-    @Input() field: string | undefined;
+    field = input<string>();
     /**
      * Type of the input.
      * @group Props
      */
-    @Input() type: string = 'text';
+    type = input('text');
     /**
      * Filter display.
      * @group Props
      */
-    @Input() display: string = 'row';
+    display = input('row');
     /**
      * Decides whether to display filter menu popup.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showMenu: boolean = true;
+    showMenu = input(true, { transform: booleanAttribute });
     /**
      * Filter match mode.
      * @group Props
      */
-    @Input() matchMode: string | undefined;
+    matchMode = input<string>();
     /**
      * Filter operator.
      * @defaultValue 'AND'
      * @group Props
      */
-    @Input() operator: string = FilterOperator.AND;
+    operator = model(FilterOperator.AND);
     /**
      * Decides whether to display filter operator.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showOperator: boolean = true;
+    showOperator = input(true, { transform: booleanAttribute });
     /**
      * Decides whether to display clear filter button when display is menu.
      * @defaultValue true
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showClearButton: boolean = true;
+    showClearButton = input(true, { transform: booleanAttribute });
     /**
      * Decides whether to display apply filter button when display is menu.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showApplyButton: boolean = true;
+    showApplyButton = input(true, { transform: booleanAttribute });
     /**
      * Decides whether to display filter match modes when display is menu.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showMatchModes: boolean = true;
+    showMatchModes = input(true, { transform: booleanAttribute });
     /**
      * Decides whether to display add filter button when display is menu.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showAddButton: boolean = true;
+    showAddButton = input(true, { transform: booleanAttribute });
     /**
      * Decides whether to close popup on clear button click.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) hideOnClear: boolean = true;
+    hideOnClear = input(true, { transform: booleanAttribute });
     /**
      * Filter placeholder.
      * @group Props
      */
-    @Input() placeholder: string | undefined;
+    placeholder = input<string>();
     /**
      * Filter match mode options.
      * @group Props
      */
-    @Input() matchModeOptions: SelectItem[] | undefined;
+    matchModeOptions = input<SelectItem[]>();
     /**
      * Defines maximum amount of constraints.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) maxConstraints: number = 2;
+    maxConstraints = input(2, { transform: numberAttribute });
     /**
      * Defines minimum fraction of digits.
      * @group Props
      */
-    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) })
-    minFractionDigits: number | undefined;
+    minFractionDigits = input(undefined, { transform: (v: unknown) => numberAttribute(v, undefined) });
     /**
      * Defines maximum fraction of digits.
      * @group Props
      */
-    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) })
-    maxFractionDigits: number | undefined;
+    maxFractionDigits = input(undefined, { transform: (v: unknown) => numberAttribute(v, undefined) });
     /**
      * Defines prefix of the filter.
      * @group Props
      */
-    @Input() prefix: string | undefined;
+    prefix = input<string>();
     /**
      * Defines suffix of the filter.
      * @group Props
      */
-    @Input() suffix: string | undefined;
+    suffix = input<string>();
     /**
      * Defines filter locale.
      * @group Props
      */
-    @Input() locale: string | undefined;
+    locale = input<string>();
     /**
      * Defines filter locale matcher.
      * @group Props
      */
-    @Input() localeMatcher: string | undefined;
+    localeMatcher = input<string>();
     /**
      * Enables currency input.
      * @group Props
      */
-    @Input() currency: string | undefined;
+    currency = input<string>();
     /**
      * Defines the display of the currency input.
      * @group Props
      */
-    @Input() currencyDisplay: string | undefined;
+    currencyDisplay = input<string>();
     /**
      * Default trigger to run filtering on built-in text and numeric filters, valid values are 'enter' and 'input'.
      * @defaultValue enter
      * @group Props
      */
-    @Input() filterOn: string | undefined = 'enter';
+    filterOn = input<string | undefined>('enter');
     /**
      * Defines if filter grouping will be enabled.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) useGrouping: boolean = true;
+    useGrouping = input(true, { transform: booleanAttribute });
     /**
      * Defines the visibility of buttons.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showButtons: boolean = true;
+    showButtons = input(true, { transform: booleanAttribute });
     /**
      * Defines the aria-label of the form element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string>();
     /**
      * Used to pass all filter button property object
      * @defaultValue {
@@ -437,7 +418,7 @@ export class ColumnFilter extends BaseComponent {
      }
      @group Props
      */
-    @Input() filterButtonProps: TableFilterButtonPropsOptions = {
+    filterButtonProps = input<TableFilterButtonPropsOptions>({
         filter: { severity: 'secondary', text: true, rounded: true },
         inline: {
             clear: { severity: 'secondary', text: true, rounded: true }
@@ -448,7 +429,7 @@ export class ColumnFilter extends BaseComponent {
             apply: { size: 'small' },
             clear: { outlined: true, size: 'small' }
         }
-    };
+    });
     motionOptions = input<MotionOptions | undefined>(undefined);
 
     computedMotionOptions = computed<MotionOptions>(() => {
@@ -462,23 +443,17 @@ export class ColumnFilter extends BaseComponent {
      * @param {AnimationEvent} originalEvent - animation event.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<{ originalEvent: AnimationEvent }> = new EventEmitter<{
-        originalEvent: AnimationEvent;
-    }>();
+    onShow = output<{ originalEvent: AnimationEvent }>();
     /**
      * Callback to invoke on overlay is hidden.
      * @param {AnimationEvent} originalEvent - animation event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<{ originalEvent: AnimationEvent }> = new EventEmitter<{
-        originalEvent: AnimationEvent;
-    }>();
+    onHide = output<{ originalEvent: AnimationEvent }>();
 
-    @ViewChild(Button, { static: false, read: ElementRef }) icon: ElementRef | undefined;
+    icon = viewChild('menuButton', { read: ElementRef });
 
-    @ViewChild('clearBtn') clearButtonViewChild: Nullable<ElementRef>;
-
-    @ContentChildren(PrimeTemplate) _templates: Nullable<QueryList<any>>;
+    clearButtonViewChild = viewChild<ElementRef>('clearBtn');
 
     overlaySubscription: Subscription | undefined;
 
@@ -488,45 +463,38 @@ export class ColumnFilter extends BaseComponent {
      * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any>;
-    _headerTemplate: Nullable<TemplateRef<any>>;
+    headerTemplate = contentChild<TemplateRef<any>>('header', { descendants: false });
 
     /**
      * Custom filter template.
      * @group Templates
      */
-    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<any>;
-    _filterTemplate: Nullable<TemplateRef<any>>;
+    filterTemplate = contentChild<TemplateRef<any>>('filter', { descendants: false });
 
     /**
      * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any>;
-    _footerTemplate: Nullable<TemplateRef<any>>;
+    footerTemplate = contentChild<TemplateRef<any>>('footer', { descendants: false });
     /**
      * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<any>;
-    _filterIconTemplate: Nullable<TemplateRef<any>>;
+    filterIconTemplate = contentChild<TemplateRef<any>>('filtericon', { descendants: false });
 
     /**
      * Custom remove rule button icon template.
      * @group Templates
      */
-    @ContentChild('removeruleicon', { descendants: false }) removeRuleIconTemplate: TemplateRef<any>;
-    _removeRuleIconTemplate: Nullable<TemplateRef<any>>;
+    removeRuleIconTemplate = contentChild<TemplateRef<any>>('removeruleicon', { descendants: false });
 
     /**
      * Custom add rule button icon template.
      * @group Templates
      */
-    @ContentChild('addruleicon', { descendants: false }) addRuleIconTemplate: TemplateRef<any>;
-    _addRuleIconTemplate: Nullable<TemplateRef<any>>;
+    addRuleIconTemplate = contentChild<TemplateRef<any>>('addruleicon', { descendants: false });
 
-    @ContentChild('clearfiltericon', { descendants: false }) clearFilterIconTemplate: TemplateRef<any>;
-    _clearFilterIconTemplate: Nullable<TemplateRef<any>>;
+    clearFilterIconTemplate = contentChild<TemplateRef<any>>('clearfiltericon', { descendants: false });
 
     operatorOptions: any[] | undefined;
 
@@ -542,10 +510,6 @@ export class ColumnFilter extends BaseComponent {
 
     matchModes: SelectItem[] | undefined;
 
-    translationSubscription: Subscription | undefined;
-
-    resetSubscription: Subscription | undefined;
-
     selfClick: boolean | undefined;
 
     overlayEventListener: any;
@@ -553,7 +517,7 @@ export class ColumnFilter extends BaseComponent {
     overlayId: any;
 
     get fieldConstraints(): FilterMetadata[] | undefined | null {
-        return this.dataTable.filters ? <FilterMetadata[]>this.dataTable.filters[<string>this.field] : null;
+        return this.dataTable.filters ? <FilterMetadata[]>this.dataTable.filters[<string>this.field()] : null;
     }
 
     get showRemoveIcon(): boolean {
@@ -561,15 +525,15 @@ export class ColumnFilter extends BaseComponent {
     }
 
     get showMenuButton(): boolean {
-        return this.showMenu && (this.display === 'row' ? this.type !== 'boolean' : true);
+        return this.showMenu() && (this.display() === 'row' ? this.type() !== 'boolean' : true);
     }
 
     get isShowOperator(): boolean {
-        return this.showOperator && this.type !== 'boolean';
+        return this.showOperator() && this.type() !== 'boolean';
     }
 
     get isShowAddConstraint(): boolean | undefined | null {
-        return this.showAddButton && this.type !== 'boolean' && this.fieldConstraints && this.fieldConstraints.length < this.maxConstraints;
+        return this.showAddButton() && this.type() !== 'boolean' && this.fieldConstraints && this.fieldConstraints.length < this.maxConstraints();
     }
 
     get showMenuButtonLabel() {
@@ -616,16 +580,19 @@ export class ColumnFilter extends BaseComponent {
 
     overlayService = inject(OverlayService);
 
-    onInit() {
-        this.overlayId = UniqueComponentId();
-        if (!this.dataTable.filters[<string>this.field]) {
-            this.initFieldFilterConstraint();
-        }
-
-        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+    constructor() {
+        super();
+        this.config.translationObserver.pipe(takeUntilDestroyed()).subscribe(() => {
             this.generateMatchModeOptions();
             this.generateOperatorOptions();
         });
+    }
+
+    onInit() {
+        this.overlayId = UniqueComponentId();
+        if (!this.dataTable.filters[<string>this.field()]) {
+            this.initFieldFilterConstraint();
+        }
 
         this.generateMatchModeOptions();
         this.generateOperatorOptions();
@@ -633,8 +600,8 @@ export class ColumnFilter extends BaseComponent {
 
     generateMatchModeOptions() {
         this.matchModes =
-            this.matchModeOptions ||
-            (this.config as any).filterMatchModeOptions[this.type]?.map((key: any) => {
+            this.matchModeOptions() ||
+            (this.config as any).filterMatchModeOptions[this.type()]?.map((key: any) => {
                 return {
                     label: this.translate(key),
                     value: key
@@ -655,54 +622,16 @@ export class ColumnFilter extends BaseComponent {
         ];
     }
 
-    onAfterContentInit() {
-        (this._templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'header':
-                    this._headerTemplate = item.template;
-                    break;
-
-                case 'filter':
-                    this._filterTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this._footerTemplate = item.template;
-                    break;
-
-                case 'filtericon':
-                    this._filterIconTemplate = item.template;
-                    break;
-
-                case 'clearfiltericon':
-                    this._clearFilterIconTemplate = item.template;
-                    break;
-
-                case 'removeruleicon':
-                    this._removeRuleIconTemplate = item.template;
-                    break;
-
-                case 'addruleicon':
-                    this._addRuleIconTemplate = item.template;
-                    break;
-
-                default:
-                    this._filterTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
     initFieldFilterConstraint() {
         let defaultMatchMode = this.getDefaultMatchMode();
-        this.dataTable.filters[<string>this.field] =
-            this.display == 'row'
+        this.dataTable.filters[<string>this.field()] =
+            this.display() == 'row'
                 ? { value: null, matchMode: defaultMatchMode }
                 : [
                       {
                           value: null,
                           matchMode: defaultMatchMode,
-                          operator: this.operator
+                          operator: this.operator()
                       }
                   ];
     }
@@ -710,13 +639,13 @@ export class ColumnFilter extends BaseComponent {
     onMenuMatchModeChange(value: any, filterMeta: FilterMetadata) {
         filterMeta.matchMode = value;
 
-        if (!this.showApplyButton) {
+        if (!this.showApplyButton()) {
             this.dataTable._filter();
         }
     }
 
     onRowMatchModeChange(matchMode: string) {
-        const fieldFilter = <FilterMetadata>this.dataTable.filters[<string>this.field];
+        const fieldFilter = <FilterMetadata>this.dataTable.filters[<string>this.field()];
         fieldFilter.matchMode = matchMode;
 
         if (fieldFilter.value) {
@@ -760,33 +689,33 @@ export class ColumnFilter extends BaseComponent {
     }
 
     isRowMatchModeSelected(matchMode: string) {
-        return (<FilterMetadata>this.dataTable.filters[<string>this.field]).matchMode === matchMode;
+        return (<FilterMetadata>this.dataTable.filters[<string>this.field()]).matchMode === matchMode;
     }
 
     addConstraint() {
-        (<FilterMetadata[]>this.dataTable.filters[<string>this.field]).push({
+        (<FilterMetadata[]>this.dataTable.filters[<string>this.field()]).push({
             value: null,
             matchMode: this.getDefaultMatchMode(),
             operator: this.getDefaultOperator()
         });
-        DomHandler.focus(this.clearButtonViewChild?.nativeElement);
+        DomHandler.focus(this.clearButtonViewChild()?.nativeElement);
     }
 
     removeConstraint(filterMeta: FilterMetadata) {
-        this.dataTable.filters[<string>this.field] = (<FilterMetadata[]>this.dataTable.filters[<string>this.field]).filter((meta) => meta !== filterMeta);
-        if (!this.showApplyButton) {
+        this.dataTable.filters[<string>this.field()] = (<FilterMetadata[]>this.dataTable.filters[<string>this.field()]).filter((meta) => meta !== filterMeta);
+        if (!this.showApplyButton()) {
             this.dataTable._filter();
         }
-        DomHandler.focus(this.clearButtonViewChild?.nativeElement);
+        DomHandler.focus(this.clearButtonViewChild()?.nativeElement);
     }
 
     onOperatorChange(value: any) {
-        (<FilterMetadata[]>this.dataTable.filters[<string>this.field]).forEach((filterMeta) => {
+        (<FilterMetadata[]>this.dataTable.filters[<string>this.field()]).forEach((filterMeta) => {
             filterMeta.operator = value;
-            this.operator = value;
+            this.operator.set(value);
         });
 
-        if (!this.showApplyButton) {
+        if (!this.showApplyButton()) {
             this.dataTable._filter();
         }
     }
@@ -825,7 +754,7 @@ export class ColumnFilter extends BaseComponent {
 
     onEscape() {
         this.overlayVisible = false;
-        this.icon?.nativeElement.focus();
+        this.icon()?.nativeElement.focus();
     }
 
     findNextItem(item: HTMLLIElement): any {
@@ -897,26 +826,26 @@ export class ColumnFilter extends BaseComponent {
     }
 
     getDefaultMatchMode(): string {
-        if (this.matchMode) {
-            return this.matchMode;
+        if (this.matchMode()) {
+            return this.matchMode()!;
         } else {
-            if (this.type === 'text') return FilterMatchMode.STARTS_WITH;
-            else if (this.type === 'numeric') return FilterMatchMode.EQUALS;
-            else if (this.type === 'date') return FilterMatchMode.DATE_IS;
+            if (this.type() === 'text') return FilterMatchMode.STARTS_WITH;
+            else if (this.type() === 'numeric') return FilterMatchMode.EQUALS;
+            else if (this.type() === 'date') return FilterMatchMode.DATE_IS;
             else return FilterMatchMode.CONTAINS;
         }
     }
 
     getDefaultOperator(): string | undefined {
-        return this.dataTable.filters ? (<FilterMetadata[]>this.dataTable.filters[<string>(<string>this.field)])[0].operator : this.operator;
+        return this.dataTable.filters ? (<FilterMetadata[]>this.dataTable.filters[<string>this.field()])[0].operator : this.operator();
     }
 
     hasRowFilter() {
-        return this.dataTable.filters[<string>this.field] && !this.dataTable.isFilterBlank((<FilterMetadata>this.dataTable.filters[<string>this.field]).value);
+        return this.dataTable.filters[<string>this.field()] && !this.dataTable.isFilterBlank((<FilterMetadata>this.dataTable.filters[<string>this.field()]).value);
     }
 
     get hasFilter(): boolean {
-        let fieldFilter = this.dataTable.filters[<string>this.field];
+        let fieldFilter = this.dataTable.filters[<string>this.field()];
         if (fieldFilter) {
             if (Array.isArray(fieldFilter)) return !this.dataTable.isFilterBlank((<FilterMetadata[]>fieldFilter)[0].value);
             else return !this.dataTable.isFilterBlank(fieldFilter.value);
@@ -931,8 +860,8 @@ export class ColumnFilter extends BaseComponent {
             findSingle((this.overlay as HTMLElement).nextElementSibling!, '[data-pc-name="popover"]') ||
             this.overlay?.isSameNode(event.target) ||
             this.overlay?.contains(event.target) ||
-            this.icon?.nativeElement.isSameNode(event.target) ||
-            this.icon?.nativeElement.contains(event.target) ||
+            this.icon()?.nativeElement.isSameNode(event.target) ||
+            this.icon()?.nativeElement.contains(event.target) ||
             findSingle(event.target, '[data-pc-name="pcaddrulebuttonlabel"]') ||
             findSingle(event.target.parentElement, '[data-pc-name="pcaddrulebuttonlabel"]') ||
             findSingle(event.target, '[data-pc-name="pcfilterremoverulebutton"]') ||
@@ -983,7 +912,7 @@ export class ColumnFilter extends BaseComponent {
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.icon?.nativeElement, () => {
+            this.scrollHandler = new ConnectedOverlayScrollHandler(this.icon()?.nativeElement, () => {
                 if (this.overlayVisible) {
                     this.hide();
                 }
@@ -1014,7 +943,7 @@ export class ColumnFilter extends BaseComponent {
     clearFilter() {
         this.initFieldFilterConstraint();
         this.dataTable._filter();
-        if (this.hideOnClear) this.hide();
+        if (this.hideOnClear()) this.hide();
     }
 
     applyFilter() {
@@ -1029,191 +958,8 @@ export class ColumnFilter extends BaseComponent {
             this.onOverlayHide();
         }
 
-        if (this.translationSubscription) {
-            this.translationSubscription.unsubscribe();
-        }
-
-        if (this.resetSubscription) {
-            this.resetSubscription.unsubscribe();
-        }
-
         if (this.overlaySubscription) {
             this.overlaySubscription.unsubscribe();
-        }
-    }
-}
-
-@Component({
-    selector: 'p-columnFilterFormElement',
-    standalone: true,
-    imports: [CommonModule, FormsModule, InputTextModule, InputNumberModule, CheckboxModule, DatePickerModule, BindModule],
-    template: `
-        <ng-container *ngIf="filterTemplate; else builtInElement">
-            <ng-container
-                *ngTemplateOutlet="
-                    filterTemplate;
-                    context: {
-                        $implicit: filterConstraint.value,
-                        filterCallback: filterCallback,
-                        type: type,
-                        field: field,
-                        filterConstraint: filterConstraint,
-                        placeholder: placeholder,
-                        minFractionDigits: minFractionDigits,
-                        maxFractionDigits: maxFractionDigits,
-                        prefix: prefix,
-                        suffix: suffix,
-                        locale: locale,
-                        localeMatcher: localeMatcher,
-                        currency: currency,
-                        currencyDisplay: currencyDisplay,
-                        useGrouping: useGrouping,
-                        showButtons: showButtons
-                    }
-                "
-            ></ng-container>
-        </ng-container>
-        <ng-template #builtInElement>
-            <ng-container [ngSwitch]="type">
-                <input
-                    *ngSwitchCase="'text'"
-                    type="text"
-                    [ariaLabel]="ariaLabel"
-                    pInputText
-                    [pt]="ptm('pcFilterInputText')"
-                    [value]="filterConstraint?.value"
-                    (input)="onModelChange($event.target.value)"
-                    (keydown.enter)="onTextInputEnterKeyDown($event)"
-                    [attr.placeholder]="placeholder"
-                    [unstyled]="unstyled()"
-                />
-                <p-inputNumber
-                    *ngSwitchCase="'numeric'"
-                    [ngModel]="filterConstraint?.value"
-                    (ngModelChange)="onModelChange($event)"
-                    (onKeyDown)="onNumericInputKeyDown($event)"
-                    [showButtons]="showButtons"
-                    [minFractionDigits]="minFractionDigits"
-                    [maxFractionDigits]="maxFractionDigits"
-                    [ariaLabel]="ariaLabel"
-                    [prefix]="prefix"
-                    [suffix]="suffix"
-                    [placeholder]="placeholder"
-                    [mode]="currency ? 'currency' : 'decimal'"
-                    [locale]="locale"
-                    [localeMatcher]="localeMatcher"
-                    [currency]="currency"
-                    [currencyDisplay]="currencyDisplay"
-                    [useGrouping]="useGrouping"
-                    [pt]="ptm('pcFilterInputNumber')"
-                    [unstyled]="unstyled()"
-                ></p-inputNumber>
-                <p-checkbox
-                    [pt]="ptm('pcFilterCheckbox')"
-                    [indeterminate]="filterConstraint?.value === null"
-                    [binary]="true"
-                    *ngSwitchCase="'boolean'"
-                    [ngModel]="filterConstraint?.value"
-                    (ngModelChange)="onModelChange($event)"
-                    [unstyled]="unstyled()"
-                />
-
-                <p-datepicker
-                    [pt]="ptm('pcFilterDatePicker')"
-                    [ariaLabel]="ariaLabel"
-                    *ngSwitchCase="'date'"
-                    [placeholder]="placeholder"
-                    [ngModel]="filterConstraint?.value"
-                    (ngModelChange)="onModelChange($event)"
-                    appendTo="body"
-                    [unstyled]="unstyled()"
-                ></p-datepicker>
-            </ng-container>
-        </ng-template>
-    `,
-    providers: [TableStyle],
-    encapsulation: ViewEncapsulation.None,
-    hostDirectives: [Bind]
-})
-export class ColumnFilterFormElement extends BaseComponent<ColumnFilterPassThrough> {
-    hostName = 'Table';
-
-    bindDirectiveInstance = inject(Bind, { self: true });
-
-    _componentStyle = inject(TableStyle);
-
-    onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptm('columnFilterFormElement'));
-    }
-
-    @Input() field: string | undefined;
-
-    @Input() type: string | undefined;
-
-    @Input() filterConstraint: FilterMetadata | undefined;
-
-    @Input() filterTemplate: Nullable<TemplateRef<any>>;
-
-    @Input() placeholder: string | undefined;
-
-    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) })
-    minFractionDigits: number | undefined;
-
-    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) })
-    maxFractionDigits: number | undefined;
-
-    @Input() prefix: string | undefined;
-
-    @Input() suffix: string | undefined;
-
-    @Input() locale: string | undefined;
-
-    @Input() localeMatcher: string | undefined;
-
-    @Input() currency: string | undefined;
-
-    @Input() currencyDisplay: string | undefined;
-
-    @Input({ transform: booleanAttribute }) useGrouping: boolean = true;
-
-    @Input() ariaLabel: string | undefined;
-
-    @Input() filterOn: string | undefined;
-
-    get showButtons(): boolean {
-        return this.colFilter.showButtons;
-    }
-
-    filterCallback: any;
-
-    public dataTable = inject<Table>(TABLE_INSTANCE);
-
-    private colFilter = inject(ColumnFilter);
-
-    onInit() {
-        this.filterCallback = (value: any) => {
-            (<any>this.filterConstraint).value = value;
-            this.dataTable._filter();
-        };
-    }
-
-    onModelChange(value: any) {
-        (<any>this.filterConstraint).value = value;
-
-        if (this.type === 'date' || this.type === 'boolean' || ((this.type === 'text' || this.type === 'numeric') && this.filterOn === 'input') || !value) {
-            this.dataTable._filter();
-        }
-    }
-
-    onTextInputEnterKeyDown(event: KeyboardEvent) {
-        this.dataTable._filter();
-        event.preventDefault();
-    }
-
-    onNumericInputKeyDown(event: KeyboardEvent) {
-        if (event.key === 'Enter') {
-            this.dataTable._filter();
-            event.preventDefault();
         }
     }
 }
