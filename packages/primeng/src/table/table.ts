@@ -1157,18 +1157,12 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    private totalRecordsFirstSync = true;
-
     constructor() {
         super();
 
-        // Sync totalRecords (only first change to match original firstChange behavior)
+        // Sync totalRecords
         effect(() => {
-            const val = this.totalRecordsInput();
-            if (this.totalRecordsFirstSync) {
-                this._totalRecords = val;
-                this.totalRecordsFirstSync = false;
-            }
+            this._totalRecords = this.totalRecordsInput();
         });
 
         // Sync value + side effects
@@ -1304,7 +1298,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             });
         });
 
-        // Sync selectAll + side effects (BUG FIX: now correctly uses _selectAll)
+        // Sync selectAll + side effects
         effect(() => {
             const val = this.selectAllInput();
             untracked(() => {
