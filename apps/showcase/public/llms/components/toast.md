@@ -360,6 +360,15 @@ import { MessageService } from 'primeng/api';
 export class ToastStickyDemo {
     private messageService = inject(MessageService);
 
+    show() {
+        this.messageService.add({
+            severity: 'info',
+            summary: 'Sticky',
+            detail: 'Message Content',
+            sticky: true
+        });
+    }
+
     clear() {
         this.messageService.clear();
     }
