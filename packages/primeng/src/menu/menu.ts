@@ -15,8 +15,6 @@ import { ZIndexUtils } from 'primeng/utils';
 import { MENU_INSTANCE, MenuItemContent, SafeHtmlPipe } from './menu-item-content';
 import { MenuStyle } from './style/menustyle';
 
-export { MENU_INSTANCE, MenuItemContent, SafeHtmlPipe } from './menu-item-content';
-
 /**
  * Menu is a navigation / command component that supports dynamic and static positioning.
  * @group Components

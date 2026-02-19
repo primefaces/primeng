@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, Component, computed, inject, Injectable, input, numberAttribute, output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, Component, computed, inject, input, numberAttribute, output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { isNotEmpty, resolve } from '@primeuix/utils';
 import { MenuItem, SharedModule } from 'primeng/api';
@@ -11,23 +11,9 @@ import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { MenubarItemClickEvent, MenubarItemMouseEnterEvent, MenubarItemTemplateContext, MenubarPassThrough, ProcessedMenuItem } from 'primeng/types/menubar';
 import type { CSSProperties } from 'primeng/types/shared';
-import { interval, Subject, Subscription } from 'rxjs';
-import { debounce, filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { MenubarService } from './menubar.service';
 import { MenuBarStyle } from './style/menubarstyle';
-
-@Injectable()
-export class MenubarService {
-    autoHide: boolean | undefined;
-
-    autoHideDelay: number | undefined;
-
-    readonly mouseLeaves = new Subject<boolean>();
-
-    readonly mouseLeft$ = this.mouseLeaves.pipe(
-        debounce(() => interval(this.autoHideDelay)),
-        filter((mouseLeft) => (this.autoHide as boolean) && mouseLeft)
-    );
-}
 
 @Component({
     selector: 'p-menubarsub, [pMenubarSub]',

@@ -1,11 +1,10 @@
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem, SharedModule } from 'primeng/api';
 import { ProcessedMenuItem } from 'primeng/types/menubar';
-import { Menubar, MenubarSub } from './menubar';
+import { Menubar } from './menubar';
 
 function createProcessedItem(item: MenuItem, key: string, index: number, level: number = 0, parentKey: string = ''): ProcessedMenuItem {
     return { item, key, index, level, parent: {}, parentKey };

@@ -9,10 +9,9 @@ import { VoidListener } from 'primeng/ts-helpers';
 import { FocusedItemInfo, MenubarItemClickEvent, MenubarItemMouseEnterEvent, MenubarItemTemplateContext, MenubarPassThrough, ProcessedMenuItem } from 'primeng/types/menubar';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { MenubarService, MenubarSub } from './menubar-sub';
+import { MenubarSub } from './menubar-sub';
+import { MenubarService } from './menubar.service';
 import { MenuBarStyle } from './style/menubarstyle';
-
-export { MenubarService, MenubarSub } from './menubar-sub';
 
 const MENUBAR_INSTANCE = new InjectionToken<Menubar>('MENUBAR_INSTANCE');
 
