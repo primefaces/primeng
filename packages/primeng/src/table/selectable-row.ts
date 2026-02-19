@@ -44,7 +44,7 @@ export class SelectableRow extends BaseComponent {
 
     setRowTabIndex() {
         if (this.dataTable.selectionMode() === 'single' || this.dataTable.selectionMode() === 'multiple') {
-            return !this.dataTable.selection ? 0 : this.dataTable.anchorRowIndex === this.index() ? 0 : -1;
+            return !this.dataTable.selection() ? 0 : this.dataTable.anchorRowIndex === this.index() ? 0 : -1;
         }
     }
 
@@ -102,7 +102,7 @@ export class SelectableRow extends BaseComponent {
             default:
                 if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey) && this.dataTable.selectionMode() === 'multiple') {
                     const data = this.dataTable.dataToRender(this.dataTable.processedData);
-                    this.dataTable.selection = [...data];
+                    this.dataTable.selection.set([...data]);
                     this.dataTable.selectRange(event, data.length - 1, true);
 
                     event.preventDefault();
@@ -158,11 +158,11 @@ export class SelectableRow extends BaseComponent {
         lastRow && this.focusRowChange(this.el.nativeElement, lastRow);
 
         if (event.ctrlKey && event.shiftKey) {
-            const data = this.dataTable.dataToRender(this.dataTable.rows);
+            const data = this.dataTable.dataToRender(this.dataTable.rows());
             const lastSelectableRowIndex = DomHandler.getAttribute(lastRow, 'index');
 
             this.dataTable.anchorRowIndex = lastSelectableRowIndex;
-            this.dataTable.selection = data.slice(this.index() || 0, data.length);
+            this.dataTable.selection.set(data.slice(this.index() || 0, data.length));
             this.dataTable.selectRange(event, this.index() || 0);
         }
         event.preventDefault();
@@ -174,11 +174,11 @@ export class SelectableRow extends BaseComponent {
         firstRow && this.focusRowChange(this.el.nativeElement, firstRow);
 
         if (event.ctrlKey && event.shiftKey) {
-            const data = this.dataTable.dataToRender(this.dataTable.rows);
+            const data = this.dataTable.dataToRender(this.dataTable.rows());
             const firstSelectableRowIndex = DomHandler.getAttribute(firstRow, 'index');
 
             this.dataTable.anchorRowIndex = this.dataTable.anchorRowIndex || firstSelectableRowIndex || 0;
-            this.dataTable.selection = data.slice(0, (this.index() || 0) + 1);
+            this.dataTable.selection.set(data.slice(0, (this.index() || 0) + 1));
             this.dataTable.selectRange(event, this.index() || 0);
         }
         event.preventDefault();
@@ -191,22 +191,23 @@ export class SelectableRow extends BaseComponent {
         } else {
             this.onEnterKey(event);
 
-            if (event.shiftKey && this.dataTable.selection !== null) {
-                const data = this.dataTable.dataToRender(this.dataTable.rows);
+            if (event.shiftKey && this.dataTable.selection() !== null) {
+                const data = this.dataTable.dataToRender(this.dataTable.rows());
                 let index;
+                const sel = this.dataTable.selection();
 
-                if (ObjectUtils.isNotEmpty(this.dataTable.selection) && this.dataTable.selection.length > 0) {
+                if (ObjectUtils.isNotEmpty(sel) && sel.length > 0) {
                     let firstSelectedRowIndex, lastSelectedRowIndex;
-                    firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dataTable.selection[0], data);
-                    lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dataTable.selection[this.dataTable.selection.length - 1], data);
+                    firstSelectedRowIndex = ObjectUtils.findIndexInList(sel[0], data);
+                    lastSelectedRowIndex = ObjectUtils.findIndexInList(sel[sel.length - 1], data);
 
                     index = (this.index() || 0) <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
                 } else {
-                    index = ObjectUtils.findIndexInList(this.dataTable.selection, data);
+                    index = ObjectUtils.findIndexInList(sel, data);
                 }
 
                 this.dataTable.anchorRowIndex = index || 0;
-                this.dataTable.selection = index !== this.index() ? data.slice(Math.min(index || 0, this.index() || 0), Math.max(index || 0, this.index() || 0) + 1) : [this.data()];
+                this.dataTable.selection.set(index !== this.index() ? data.slice(Math.min(index || 0, this.index() || 0), Math.max(index || 0, this.index() || 0) + 1) : [this.data()]);
                 this.dataTable.selectRange(event, this.index() || 0);
             }
 

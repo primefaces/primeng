@@ -96,7 +96,7 @@ export class TableHeaderCheckbox extends BaseComponent {
             const val = this.dataTable.frozenValue() ? [...this.dataTable.frozenValue()!, ...data] : data;
             const selectableVal = this.dataTable.rowSelectable() ? val.filter((data: any, index: number) => this.dataTable.rowSelectable()!({ data, index })) : val;
 
-            return ObjectUtils.isNotEmpty(selectableVal) && ObjectUtils.isNotEmpty(this.dataTable.selection) && selectableVal.every((v: any) => this.dataTable.selection.some((s: any) => this.dataTable.equals(v, s)));
+            return ObjectUtils.isNotEmpty(selectableVal) && ObjectUtils.isNotEmpty(this.dataTable.selection()) && selectableVal.every((v: any) => this.dataTable.selection().some((s: any) => this.dataTable.equals(v, s)));
         }
     }
 }

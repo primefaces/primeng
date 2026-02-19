@@ -237,7 +237,7 @@ export class TableBody extends BaseComponent {
 
     shouldRenderRowGroupHeader(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dataTable?.groupRowsBy() || '');
-        let prevRowData = value[i - (this.dataTable?._first || 0) - 1];
+        let prevRowData = value[i - (this.dataTable?.first() || 0) - 1];
         if (prevRowData) {
             let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dataTable?.groupRowsBy() || '');
             return currentRowFieldData !== previousRowFieldData;
@@ -248,7 +248,7 @@ export class TableBody extends BaseComponent {
 
     shouldRenderRowGroupFooter(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dataTable?.groupRowsBy() || '');
-        let nextRowData = value[i - (this.dataTable?._first || 0) + 1];
+        let nextRowData = value[i - (this.dataTable?.first() || 0) + 1];
         if (nextRowData) {
             let nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dataTable?.groupRowsBy() || '');
             return currentRowFieldData !== nextRowFieldData;
@@ -307,7 +307,7 @@ export class TableBody extends BaseComponent {
     }
 
     getRowIndex(rowIndex: number) {
-        const index = this.dataTable.paginator() ? <number>this.dataTable.first + rowIndex : rowIndex;
+        const index = this.dataTable.paginator() ? <number>this.dataTable.first() + rowIndex : rowIndex;
         const getItemOptions = this.getScrollerOption('getItemOptions');
         return getItemOptions ? getItemOptions(index).index : index;
     }

@@ -73,7 +73,7 @@ export class SortIcon extends BaseComponent {
     }
 
     getMultiSortMetaIndex() {
-        let multiSortMeta = this.dataTable._multiSortMeta;
+        let multiSortMeta = this.dataTable.multiSortMeta;
         let index = -1;
 
         if (multiSortMeta && this.dataTable.sortMode() === 'multiple' && this.dataTable.showInitialSortBadge() && multiSortMeta.length > 1) {

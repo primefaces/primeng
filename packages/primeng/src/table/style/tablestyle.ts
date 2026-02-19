@@ -72,6 +72,7 @@ ${datatable_style}
         box-shadow dt('datatable.transition.duration');
 }
 
+.p-datatable-thead > tr > th p-column-filter,
 .p-datatable-thead > tr > th p-columnfilter {
     font-weight: normal;
 }
@@ -110,6 +111,7 @@ p-sort-icon, p-sorticon {
     padding: 0;
 }
 
+.p-datatable .p-editable-column.p-cell-editing p-cell-editor,
 .p-datatable .p-editable-column.p-cell-editing p-celleditor {
     display: block;
     width: 100%;
