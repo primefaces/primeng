@@ -488,15 +488,17 @@ const style = /*css*/ `
     padding: 0.9375rem 1.25rem;
 }
 
-p-treetabletoggler + p-treetablecheckbox .p-checkbox,
+p-treetabletoggler + p-treetable-checkbox .p-checkbox,
 p-treetable-toggler + p-treetable-checkbox .p-checkbox,
-p-tree-table-toggler + p-tree-table-checkbox .p-checkbox {
+p-treetable-toggler + p-tree-table-checkbox .p-checkbox,
+p-treetabletoggler + p-tree-table-checkbox .p-checkbox {
     vertical-align: middle;
 }
 
-p-treetabletoggler + p-treetablecheckbox + span,
+p-treetabletoggler + p-treetable-checkbox + span,
 p-treetable-toggler + p-treetable-checkbox + span,
-p-tree-table-toggler + p-tree-table-checkbox + span {
+p-treetable-toggler + p-tree-table-checkbox + span,
+p-treetabletoggler + p-tree-table-checkbox + span {
     vertical-align: middle;
 }
 
