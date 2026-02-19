@@ -508,33 +508,48 @@ p-treetable-sort-icon {
 `;
 
 const classes = {
-    root: ({ instance }) => [
-        'p-treetable p-component',
-        {
-            'p-treetable-gridlines': instance.showGridlines,
-            'p-treetable-hoverable-rows': instance.rowHover || instance.selectionMode === 'single' || instance.selectionMode === 'multiple',
-            'p-treetable-auto-layout': instance.autoLayout,
-            'p-treetable-resizable': instance.resizableColumns,
-            'p-treetable-resizable-fit': instance.resizableColumns && instance.columnResizeMode === 'fit',
-            'p-treetable-flex-scrollable': instance.scrollable && instance.scrollHeight === 'flex'
-        }
-    ],
+    root: ({ instance }) => {
+        const showGridlines = instance.showGridlines();
+        const rowHover = instance.rowHover();
+        const selectionMode = instance.selectionMode();
+        const autoLayout = instance.autoLayout();
+        const resizableColumns = instance.resizableColumns();
+        const columnResizeMode = instance.columnResizeMode();
+        const scrollable = instance.scrollable();
+        const scrollHeight = instance.scrollHeight();
+        return [
+            'p-treetable p-component',
+            {
+                'p-treetable-gridlines': showGridlines,
+                'p-treetable-hoverable-rows': rowHover || selectionMode === 'single' || selectionMode === 'multiple',
+                'p-treetable-auto-layout': autoLayout,
+                'p-treetable-resizable': resizableColumns,
+                'p-treetable-resizable-fit': resizableColumns && columnResizeMode === 'fit',
+                'p-treetable-flex-scrollable': scrollable && scrollHeight === 'flex'
+            }
+        ];
+    },
     loading: 'p-treetable-loading',
     mask: 'p-treetable-mask p-overlay-mask',
     loadingIcon: 'p-treetable-loading-icon',
     header: 'p-treetable-header',
-    pcPaginator: ({ instance }) => ['p-treetable-paginator-' + instance.paginatorPosition, instance.paginatorStyleClass],
+    pcPaginator: ({ instance }) => ['p-treetable-paginator-' + instance.paginatorPosition(), instance.paginatorStyleClass()],
     tableContainer: 'p-treetable-table-container',
-    table: ({ instance }) => ({
-        'p-treetable-table': true,
-        'p-treetable-scrollable-table': instance.scrollable,
-        'p-treetable-resizable-table': instance.resizableColumns,
-        'p-treetable-resizable-table-fit': instance.resizableColumns && instance.columnResizeMode === 'fit'
-    }),
+    table: ({ instance }) => {
+        const scrollable = instance.scrollable();
+        const resizableColumns = instance.resizableColumns();
+        const columnResizeMode = instance.columnResizeMode();
+        return {
+            'p-treetable-table': true,
+            'p-treetable-scrollable-table': scrollable,
+            'p-treetable-resizable-table': resizableColumns,
+            'p-treetable-resizable-table-fit': resizableColumns && columnResizeMode === 'fit'
+        };
+    },
     thead: 'p-treetable-thead',
     sortableColumn: ({ instance }) => ({
         'p-sortable-column': instance.isEnabled(),
-        'p-treetable-column-sorted': instance.sorted
+        'p-treetable-column-sorted': instance.sorted()
     }),
     sortableColumnIcon: 'p-treetable-sort-icon',
     sortableColumnBadge: 'p-sortable-column-badge',
@@ -545,10 +560,10 @@ const classes = {
     pcSortBadge: 'p-treetable-sort-badge',
     tbody: 'p-treetable-tbody',
     row: ({ instance }) => ({
-        'p-treetable-row-selected': instance.selected
+        'p-treetable-row-selected': instance.selected()
     }),
     contextMenuRow: ({ instance }) => ({
-        'p-treetable-contextmenu-row-selected': instance.selected
+        'p-treetable-contextmenu-row-selected': instance.selected()
     }),
     toggler: 'p-treetable-toggler',
     nodeToggleButton: 'p-treetable-node-toggle-button',

@@ -35,13 +35,13 @@ interface Column {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index" ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
-                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                                <p-treetableCellEditor>
+                                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-treetable-cell-editor>
                                     <ng-template pTemplate="input">
                                         <input pInputText type="text" [(ngModel)]="rowData[col.field]" />
                                     </ng-template>
                                     <ng-template pTemplate="output">{{ rowData[col.field] }}</ng-template>
-                                </p-treetableCellEditor>
+                                </p-treetable-cell-editor>
                             </td>
                         </tr>
                     </ng-template>
