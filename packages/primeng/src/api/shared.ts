@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Directive, Input, NgModule, TemplateRef } from '@angular/core';
 
-// @todo: discuss pTemplate, p-header, p-footer deprecation
+/**
+ * @deprecated Use ng-template #header instead.
+ */
 @Component({
     selector: 'p-header',
     template: '<ng-content></ng-content>',
@@ -9,6 +11,9 @@ import { Component, Directive, Input, NgModule, TemplateRef } from '@angular/cor
 })
 export class Header {}
 
+/**
+ * @deprecated Use ng-template #footer instead.
+ */
 @Component({
     selector: 'p-footer',
     template: '<ng-content></ng-content>',
@@ -16,6 +21,9 @@ export class Header {}
 })
 export class Footer {}
 
+/**
+ * @deprecated Use ng-template #templateName instead.
+ */
 @Directive({
     selector: '[pTemplate]',
     standalone: true
