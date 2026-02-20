@@ -3,6 +3,8 @@ import type { ButtonPassThrough } from 'primeng/types/button';
 import { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@primeuix/motion';
 
+export type DrawerPosition = 'left' | 'right' | 'bottom' | 'top' | 'full';
+
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.

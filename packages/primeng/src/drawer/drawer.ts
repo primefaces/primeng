@@ -30,9 +30,9 @@ import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { TimesIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
-import type { AppendTo } from 'primeng/types/shared';
+import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { DrawerPassThrough } from 'primeng/types/drawer';
+import { DrawerPassThrough, DrawerPosition } from 'primeng/types/drawer';
 import { ZIndexUtils } from 'primeng/utils';
 import { DrawerStyle } from './style/drawerstyle';
 
@@ -204,12 +204,6 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
      */
     closeOnEscape = input(true, { transform: booleanAttribute });
     /**
-     * Transition options of the animation.
-     * @group Props
-     * @deprecated since v21.0.0. Use `motionOptions` instead.
-     */
-    transitionOptions = input<string>('150ms cubic-bezier(0, 0, 0.2, 1)');
-    /**
      * The visible property is an input that determines the visibility of the component.
      * @defaultValue false
      * @group Props
@@ -221,7 +215,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
      * @defaultValue 'left'
      * @group Props
      */
-    position = input<'left' | 'right' | 'bottom' | 'top' | 'full'>('left');
+    position = input<DrawerPosition>('left');
     /**
      * Adds a close icon to the header to hide the dialog.
      * @defaultValue false
@@ -242,7 +236,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
      * Style of the mask.
      * @group Props
      */
-    maskStyle = input<{ [klass: string]: any } | null>();
+    maskStyle = input<CSSProperties>();
     /**
      * Whether to display close button.
      * @group Props
