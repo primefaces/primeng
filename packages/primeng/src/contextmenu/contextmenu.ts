@@ -10,7 +10,8 @@ import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ContextMenuItemTemplateContext, ContextMenuPassThrough, ContextMenuProcessedItem, ContextMenuSubmenuIconTemplateContext } from 'primeng/types/contextmenu';
 import { ZIndexUtils } from 'primeng/utils';
-import { CONTEXTMENU_INSTANCE, ContextMenuSub } from './contextmenu-sub';
+import { ContextMenuSub } from './contextmenu-sub';
+import { CONTEXTMENU_INSTANCE } from './contextmenu-token';
 import { ContextMenuStyle } from './style/contextmenustyle';
 
 /**

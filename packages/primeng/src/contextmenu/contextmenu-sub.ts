@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, Component, effect, ElementRef, inject, input, numberAttribute, output, Renderer2, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, Component, computed, effect, ElementRef, inject, input, numberAttribute, output, Renderer2, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { calculateScrollbarWidth, getHiddenElementOuterWidth, getOffset, getOuterWidth, getViewport, isNotEmpty, resolve } from '@primeuix/utils';
@@ -12,12 +12,9 @@ import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { ContextMenuItemTemplateContext, ContextMenuPassThrough, ContextMenuProcessedItem } from 'primeng/types/contextmenu';
-import { InjectionToken } from '@angular/core';
 import type { ContextMenu } from './contextmenu';
+import { CONTEXTMENU_INSTANCE, CONTEXTMENUSUB_INSTANCE } from './contextmenu-token';
 import { ContextMenuStyle } from './style/contextmenustyle';
-
-export const CONTEXTMENU_INSTANCE = new InjectionToken<ContextMenu>('CONTEXTMENU_INSTANCE');
-export const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUSUB_INSTANCE');
 
 @Component({
     selector: 'p-contextmenu-sub',
@@ -28,9 +25,9 @@ export const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTE
             <ul
                 #sublist
                 role="menu"
-                [class]="root() ? cx('rootList') : cx('submenu')"
-                [pBind]="_ptm(root() ? 'rootList' : 'submenu')"
-                [attr.id]="menuId() + '_list'"
+                [class]="listClass()"
+                [pBind]="listPtm()"
+                [attr.id]="listId()"
                 [tabindex]="tabindex()"
                 [attr.aria-label]="ariaLabel()"
                 [attr.aria-labelledBy]="ariaLabelledBy()"
@@ -39,7 +36,7 @@ export const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTE
                 (keydown)="menuKeydown.emit($event)"
                 (focus)="menuFocus.emit($event)"
                 (blur)="menuBlur.emit($event)"
-                [pMotion]="root() ? true : visible()"
+                [pMotion]="motionState()"
                 [pMotionAppear]="true"
                 [pMotionName]="'p-anchored-overlay'"
                 [pMotionOptions]="motionOptions()"
@@ -247,6 +244,14 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> {
     sublistViewChild = viewChild<ElementRef>('sublist');
 
     render = signal<boolean>(false);
+
+    listClass = computed(() => (this.root() ? this.cx('rootList') : this.cx('submenu')));
+
+    listPtm = computed(() => this._ptm(this.root() ? 'rootList' : 'submenu'));
+
+    listId = computed(() => this.menuId() + '_list');
+
+    motionState = computed(() => (this.root() ? true : this.visible()));
 
     hostName = 'ContextMenu';
 
