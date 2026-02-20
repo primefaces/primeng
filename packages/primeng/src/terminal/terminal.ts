@@ -23,7 +23,7 @@ const TERMINAL_INSTANCE = new InjectionToken<Terminal>('TERMINAL_INSTANCE');
             <div [class]="cx('welcomeMessage')" [pBind]="ptm('welcomeMessage')">{{ welcomeMessage() }}</div>
         }
         <div [class]="cx('commandList')" [pBind]="ptm('commandList')">
-            @for (command of commands; track $index) {
+            @for (command of commands; track command) {
                 <div [class]="cx('command')" [pBind]="ptm('command')">
                     <span [class]="cx('promptLabel')" [pBind]="ptm('promptLabel')">{{ prompt() }}</span>
                     <span [class]="cx('commandValue')" [pBind]="ptm('commandValue')">{{ command.text }}</span>
@@ -46,6 +46,7 @@ const TERMINAL_INSTANCE = new InjectionToken<Terminal>('TERMINAL_INSTANCE');
 })
 export class Terminal extends BaseComponent<TerminalPassThrough> implements AfterViewInit, AfterViewChecked {
     componentName = 'Terminal';
+
     $pcTerminal: Terminal | undefined = inject(TERMINAL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
