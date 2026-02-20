@@ -154,6 +154,9 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
 
     startSlideShow() {
         if (isPlatformBrowser(this.galleria.platformId)) {
+            if (this.interval) {
+                clearInterval(this.interval);
+            }
             this.interval = setInterval(() => {
                 let activeIndex = this.galleria.circular() && this.value()!.length - 1 === this._activeIndex() ? 0 : this._activeIndex() + 1;
                 this.onActiveIndexChange(activeIndex);
@@ -192,6 +195,13 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
 
     closeAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;
+    }
+
+    onDestroy() {
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.interval = null;
+        }
     }
 
     getPTOptions(key: string) {
