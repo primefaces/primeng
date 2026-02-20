@@ -33,11 +33,11 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
         @if (!_disabled()) {
             <div #element [attr.id]="_id()" [attr.tabindex]="_tabindex()" [style]="_style()" [class]="cn(cx('root'), _styleClass())" (scroll)="onContainerScroll($event)" [pBind]="ptm('root')">
                 @if (contentTemplate()) {
-                    <ng-container *ngTemplateOutlet="contentTemplate(); context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate(); context: getContentTemplateContext()"></ng-container>
                 } @else {
                     <div #content [class]="cn(cx('content'), contentStyleClass())" [style]="contentStyle" [pBind]="ptm('content')">
                         @for (item of loadedItems; track _trackBy() ? _trackBy()($index, item) : $index; let index = $index) {
-                            <ng-container *ngTemplateOutlet="itemTemplate(); context: { $implicit: item, options: getOptions(index) }"></ng-container>
+                            <ng-container *ngTemplateOutlet="itemTemplate(); context: getItemTemplateContext(item, index)"></ng-container>
                         }
                     </div>
                 }
@@ -48,11 +48,11 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
                     <div [class]="cx('loader')" [pBind]="ptm('loader')">
                         @if (loaderTemplate()) {
                             @for (item of loaderArr; track $index; let index = $index) {
-                                <ng-container *ngTemplateOutlet="loaderTemplate(); context: { options: getLoaderOptions(index, both() && { numCols: numItemsInViewport.cols }) }"></ng-container>
+                                <ng-container *ngTemplateOutlet="loaderTemplate(); context: getLoaderTemplateContext(index)"></ng-container>
                             }
                         } @else {
                             @if (loaderIconTemplate()) {
-                                <ng-container *ngTemplateOutlet="loaderIconTemplate(); context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
+                                <ng-container *ngTemplateOutlet="loaderIconTemplate(); context: loaderIconContext"></ng-container>
                             } @else {
                                 <svg data-p-icon="spinner" [class]="cx('loadingIcon')" [spin]="true" [pBind]="ptm('loadingIcon')" />
                             }
@@ -63,7 +63,7 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
         } @else {
             <ng-content />
             @if (contentTemplate()) {
-                <ng-container *ngTemplateOutlet="contentTemplate(); context: { $implicit: items(), options: { rows: _items(), columns: loadedColumns } }"></ng-container>
+                <ng-container *ngTemplateOutlet="contentTemplate(); context: getDisabledContentTemplateContext()"></ng-container>
             }
         }
     `,
@@ -974,6 +974,35 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
     handleEvents(name: string, params: any) {
         const opts = this.options();
         return opts && (opts as any)[name] ? (opts as any)[name](params) : this[name].emit(params);
+    }
+
+    readonly loaderIconContext = { options: { styleClass: 'p-virtualscroller-loading-icon' } };
+
+    getContentTemplateContext() {
+        return {
+            $implicit: this.loadedItems,
+            options: this.getContentOptions()
+        };
+    }
+
+    getItemTemplateContext(item: any, index: number) {
+        return {
+            $implicit: item,
+            options: this.getOptions(index)
+        };
+    }
+
+    getLoaderTemplateContext(index: number) {
+        return {
+            options: this.getLoaderOptions(index, this.both() && { numCols: this.numItemsInViewport.cols })
+        };
+    }
+
+    getDisabledContentTemplateContext() {
+        return {
+            $implicit: this.items(),
+            options: { rows: this._items(), columns: this.loadedColumns }
+        };
     }
 
     getContentOptions() {
