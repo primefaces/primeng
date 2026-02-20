@@ -2,6 +2,8 @@ import { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
+export type ImageLoading = 'lazy' | 'eager';
+
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.

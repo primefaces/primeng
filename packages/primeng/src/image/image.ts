@@ -12,7 +12,7 @@ import { EyeIcon, RefreshIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, UndoI
 import { MotionModule } from 'primeng/motion';
 import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { Nullable } from 'primeng/ts-helpers';
-import { ImageImageTemplateContext, ImagePassThrough, ImagePreviewTemplateContext } from 'primeng/types/image';
+import type { ImageImageTemplateContext, ImageLoading, ImagePassThrough, ImagePreviewTemplateContext } from 'primeng/types/image';
 import { ZIndexUtils } from 'primeng/utils';
 import { ImageStyle } from './style/imagestyle';
 
@@ -58,13 +58,13 @@ const IMAGE_INSTANCE = new InjectionToken<Image>('IMAGE_INSTANCE');
             <div
                 #mask
                 [class]="cx('mask')"
-                [attr.aria-modal]="maskVisible"
+                [attr.aria-modal]="maskVisible()"
                 role="dialog"
                 (click)="onMaskClick()"
                 (keydown)="onMaskKeydown($event)"
                 pFocusTrap
                 [pBind]="ptm('mask')"
-                [pMotion]="maskVisible"
+                [pMotion]="maskVisible()"
                 [pMotionAppear]="true"
                 [pMotionEnterActiveClass]="'p-overlay-mask-enter-active'"
                 [pMotionLeaveActiveClass]="'p-overlay-mask-leave-active'"
@@ -207,7 +207,7 @@ export class Image extends BaseComponent<ImagePassThrough> {
      * Attribute of the image element.
      * @group Props
      */
-    loading = input<'lazy' | 'eager'>();
+    loading = input<ImageLoading>();
 
     /**
      * Controls the preview functionality.
@@ -339,7 +339,7 @@ export class Image extends BaseComponent<ImagePassThrough> {
 
     renderPreview = signal<boolean>(false);
 
-    maskVisible: boolean = false;
+    maskVisible = signal(false);
 
     previewVisible: boolean = false;
 
@@ -392,7 +392,7 @@ export class Image extends BaseComponent<ImagePassThrough> {
 
     onImageClick() {
         if (this.preview()) {
-            this.maskVisible = true;
+            this.maskVisible.set(true);
             this.previewVisible = true;
             this.renderMask.set(true);
             this.renderPreview.set(true);
@@ -461,7 +461,7 @@ export class Image extends BaseComponent<ImagePassThrough> {
     }
 
     onBeforeLeave() {
-        this.maskVisible = false;
+        this.maskVisible.set(false);
     }
 
     onAnimationEnd() {
@@ -538,6 +538,20 @@ export class Image extends BaseComponent<ImagePassThrough> {
     @HostListener('document:keydown.escape') onKeydownHandler() {
         if (this.previewVisible) {
             this.closePreview();
+        }
+    }
+
+    onDestroy() {
+        if (this.wrapper) {
+            ZIndexUtils.clear(this.wrapper);
+            this.wrapper.remove();
+            this.wrapper = null;
+        }
+
+        this.container = null;
+
+        if (this.maskVisible()) {
+            unblockBodyScroll();
         }
     }
 }
