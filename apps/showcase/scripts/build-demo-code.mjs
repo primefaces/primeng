@@ -529,20 +529,38 @@ function extractOtherMethods(content) {
 
     const searchContent = beforeCode + '\n' + betweenCodeAndExtFiles;
 
-    // Match method definitions
-    const methodRegex = /^\s{4}((?:async\s+)?[\w]+)\s*\(([^)]*)\)\s*(?::\s*([^\{]+))?\s*\{([\s\S]*?)\n\s{4}\}/gm;
+    // Find method signatures and extract bodies using balanced brace matching.
+    // This avoids the issue where the previous regex-only approach would let
+    // a single-line constructor like `constructor(...) {}` swallow the next
+    // method's body because `{}` on the same line didn't satisfy the old
+    // `\n\s{4}\}` end-pattern.
+    const signatureRegex = /^\s{4}((?:async\s+)?[\w]+)\s*\(([^)]*)\)\s*(?::\s*([^\{]+))?\s*\{/gm;
     let match;
 
     const skipMethods = ['ngOnInit', 'loadDemoData', 'constructor', 'ngAfterViewChecked', 'ngAfterViewInit'];
 
-    while ((match = methodRegex.exec(searchContent)) !== null) {
+    while ((match = signatureRegex.exec(searchContent)) !== null) {
         const methodName = match[1].replace('async ', '');
         if (skipMethods.includes(methodName)) continue;
         if (seenMethods.has(methodName)) continue;
         seenMethods.add(methodName);
 
+        // Use balanced brace matching to find the method body
+        const bodyStartIndex = match.index + match[0].length;
+        let braceCount = 1;
+        let bodyEndIndex = bodyStartIndex;
+        for (let i = bodyStartIndex; i < searchContent.length && braceCount > 0; i++) {
+            if (searchContent[i] === '{') braceCount++;
+            else if (searchContent[i] === '}') braceCount--;
+            bodyEndIndex = i;
+        }
+
+        const rawBody = searchContent.substring(bodyStartIndex, bodyEndIndex).trim();
+
+        // Skip methods with empty bodies
+        if (!rawBody) continue;
+
         // Normalize the method body indentation
-        const rawBody = match[4].trim();
         const normalizedBody = normalizeCodeIndent(rawBody);
 
         methods.push({
