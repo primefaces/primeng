@@ -24,9 +24,9 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
     imports: [NgTemplateOutlet, PlusIcon, MinusIcon, ButtonModule, SharedModule, BindModule, MotionModule],
     template: `
         @if (showHeader()) {
-            <div [pBind]="ptm('header')" [class]="cx('header')" (click)="onHeaderClick($event)" [attr.id]="id() + '-titlebar'" [attr.data-p]="dataP()">
+            <div [pBind]="ptm('header')" [class]="cx('header')" (click)="onHeaderClick($event)" [attr.id]="titlebarId()" [attr.data-p]="dataP()">
                 @if (header()) {
-                    <span [pBind]="ptm('title')" [class]="cx('title')" [attr.id]="id() + '_header'">{{ header() }}</span>
+                    <span [pBind]="ptm('title')" [class]="cx('title')" [attr.id]="headerId()">{{ header() }}</span>
                 }
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate()"></ng-container>
@@ -34,7 +34,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
                     <ng-container *ngTemplateOutlet="iconTemplate()"></ng-container>
                     @if (toggleable()) {
                         <p-button
-                            [attr.id]="id() + '_header'"
+                            [attr.id]="headerId()"
                             severity="secondary"
                             [text]="true"
                             [rounded]="true"
@@ -42,7 +42,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
                             role="button"
                             [styleClass]="cx('pcToggleButton')"
                             [attr.aria-label]="buttonAriaLabel()"
-                            [attr.aria-controls]="id() + '_content'"
+                            [attr.aria-controls]="contentId()"
                             [attr.aria-expanded]="!collapsed()"
                             (click)="onIconClick($event)"
                             (keydown)="onKeyDown($event)"
@@ -51,7 +51,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
                             [unstyled]="unstyled()"
                         >
                             <ng-template #icon>
-                                @if (!headerIconsTemplate() && !toggleButtonProps()?.icon) {
+                                @if (showDefaultIcon()) {
                                     @if (!collapsed()) {
                                         <svg data-p-icon="minus" [pBind]="ptm('pcToggleButton.icon')" />
                                     } @else {
@@ -71,9 +71,9 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
             pMotionName="p-collapsible"
             [pMotionOptions]="computedMotionOptions()"
             [class]="cx('contentContainer')"
-            [id]="id() + '_content'"
+            [id]="contentId()"
             role="region"
-            [attr.aria-labelledby]="id() + '_header'"
+            [attr.aria-labelledby]="headerId()"
             [attr.aria-hidden]="collapsed()"
             [attr.tabindex]="contentTabindex()"
             (pMotionOnAfterEnter)="onToggleDone($event)"
@@ -234,11 +234,19 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
 
     contentWrapperViewChild = viewChild<ElementRef>('contentWrapper');
 
+    titlebarId = computed(() => this.id() + '-titlebar');
+
+    headerId = computed(() => this.id() + '_header');
+
+    contentId = computed(() => this.id() + '_content');
+
     buttonAriaLabel = computed(() => this.header());
 
     dataP = computed(() => this.cn({ toggleable: this.toggleable() }));
 
     hasFooter = computed(() => !!(this.footerFacet() || this.footerTemplate()));
+
+    showDefaultIcon = computed(() => !this.headerIconsTemplate() && !this.toggleButtonProps()?.icon);
 
     contentTabindex = computed(() => (this.collapsed() ? '-1' : undefined));
 
