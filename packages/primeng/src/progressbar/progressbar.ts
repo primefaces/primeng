@@ -39,7 +39,7 @@ const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTAN
         '[attr.aria-valuemin]': '0',
         '[attr.aria-valuenow]': 'value()',
         '[attr.aria-valuemax]': '100',
-        '[attr.aria-level]': 'value() + unit()',
+        '[attr.aria-level]': 'ariaLevel()',
         '[class]': "cx('root')",
         '[attr.data-p]': 'dataP()'
     },
@@ -109,6 +109,8 @@ export class ProgressBar extends BaseComponent<ProgressBarPassThrough> {
             indeterminate: this.mode() === 'indeterminate'
         })
     );
+
+    ariaLevel = computed(() => this.value() + this.unit());
 
     contentTemplateContext = computed(() => ({ $implicit: this.value() }));
 
