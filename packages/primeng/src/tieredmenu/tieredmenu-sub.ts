@@ -1,5 +1,5 @@
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, Component, effect, ElementRef, inject, InjectionToken, input, numberAttribute, output, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, Component, effect, ElementRef, inject, input, numberAttribute, output, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { isNotEmpty, nestedPosition, resolve } from '@primeuix/utils';
@@ -14,9 +14,7 @@ import type { CSSProperties } from 'primeng/types/shared';
 import { TieredMenuItemClickEvent, TieredMenuItemMouseEnterEvent, TieredMenuItemTemplateContext, TieredMenuPassThrough, TieredMenuProcessedItem } from 'primeng/types/tieredmenu';
 import { TieredMenuStyle } from './style/tieredmenustyle';
 import type { TieredMenu } from './tieredmenu';
-
-export const TIEREDMENU_INSTANCE = new InjectionToken<TieredMenu>('TIEREDMENU_INSTANCE');
-export const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_INSTANCE');
+import { TIEREDMENU_INSTANCE, TIEREDMENUSUB_INSTANCE } from './tieredmenu-token';
 
 @Component({
     selector: 'p-tieredmenusub',

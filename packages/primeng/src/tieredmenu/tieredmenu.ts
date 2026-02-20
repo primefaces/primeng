@@ -12,7 +12,8 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { TieredMenuFocusedItemInfo, TieredMenuItemClickEvent, TieredMenuItemMouseEnterEvent, TieredMenuItemTemplateContext, TieredMenuPassThrough, TieredMenuProcessedItem, TieredMenuToggleEvent } from 'primeng/types/tieredmenu';
 import { ZIndexUtils } from 'primeng/utils';
 import { TieredMenuStyle } from './style/tieredmenustyle';
-import { TIEREDMENU_INSTANCE, TieredMenuSub } from './tieredmenu-sub';
+import { TieredMenuSub } from './tieredmenu-sub';
+import { TIEREDMENU_INSTANCE } from './tieredmenu-token';
 
 /**
  * TieredMenu displays submenus in nested overlays.
