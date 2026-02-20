@@ -429,7 +429,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
             });
         });
 
-        // items change (non-lazy only, lazy relies on signal reactivity)
+        // items change
         effect(() => {
             this._items();
             untracked(() => {
