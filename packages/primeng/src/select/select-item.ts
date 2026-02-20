@@ -10,7 +10,7 @@ import { SELECT_INSTANCE, SELECT_ITEM_INSTANCE } from './select-token';
 import { SelectStyle } from './style/selectstyle';
 
 @Component({
-    selector: 'p-selectItem',
+    selector: 'p-select-item',
     standalone: true,
     imports: [NgTemplateOutlet, SharedModule, Ripple, CheckIcon, BlankIcon, BindModule],
     template: `

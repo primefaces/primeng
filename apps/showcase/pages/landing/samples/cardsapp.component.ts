@@ -76,14 +76,14 @@ import { TooltipModule } from 'primeng/tooltip';
                     <p class="text-sm text-muted-color leading-5 mb-0">Meet Jacob Jones, the whimsical adventurer on a quest for life's quirks. From sock mysteries to subway adventures, join him for a laughter-filled journey!</p>
                     <div class="flex items-center justify-between gap-2">
                         <div class="text-sm leading-5 text-color font-medium">Mutual Friends</div>
-                        <p-avatarGroup>
+                        <p-avatar-group>
                             <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png" class="rounded-lg overflow-hidden" />
                             <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" class="rounded-lg overflow-hidden" />
                             <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" class="rounded-lg overflow-hidden" />
                             <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg" class="rounded-lg overflow-hidden" />
                             <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png" class="rounded-lg overflow-hidden" />
                             <p-avatar label="+99" class="rounded-lg overflow-hidden text-xs" />
-                        </p-avatarGroup>
+                        </p-avatar-group>
                     </div>
                     <p-selectbutton [(ngModel)]="selectedUserSelectButtonOption" [options]="userSelectButtonOptions" />
                     <div class="flex flex-col gap-4">

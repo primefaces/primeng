@@ -1921,7 +1921,7 @@ describe('ToastItem', () => {
     describe('PassThrough - Case 6: Inline test', () => {
         @Component({
             standalone: false,
-            template: ` <p-toastItem [message]="message" [pt]="{ message: 'INLINE_MESSAGE_CLASS' }"></p-toastItem> `
+            template: ` <p-toast-item [message]="message" [pt]="{ message: 'INLINE_MESSAGE_CLASS' }"></p-toast-item> `
         })
         class TestInlineStringPtComponent {
             message = { severity: 'info', summary: 'Test', detail: 'Inline test' };
@@ -1929,7 +1929,7 @@ describe('ToastItem', () => {
 
         @Component({
             standalone: false,
-            template: ` <p-toastItem [message]="message" [pt]="{ message: { class: 'INLINE_OBJECT_CLASS', style: { border: '1px solid green' } } }"></p-toastItem> `
+            template: ` <p-toast-item [message]="message" [pt]="{ message: { class: 'INLINE_OBJECT_CLASS', style: { border: '1px solid green' } } }"></p-toast-item> `
         })
         class TestInlineObjectPtComponent {
             message = { severity: 'success', summary: 'Test', detail: 'Inline object test' };

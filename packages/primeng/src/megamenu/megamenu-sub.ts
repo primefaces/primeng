@@ -15,7 +15,7 @@ import type { MegaMenu } from './megamenu';
 import { MEGAMENU_INSTANCE, MEGAMENU_SUB_INSTANCE } from './megamenu-token';
 
 @Component({
-    selector: 'p-megaMenuSub, p-megamenu-sub, ul[pMegaMenuSub]',
+    selector: 'p-megamenu-sub, ul[pMegaMenuSub]',
     standalone: true,
     imports: [NgTemplateOutlet, RouterModule, Ripple, TooltipModule, AngleDownIcon, AngleRightIcon, BadgeModule, SharedModule, Bind],
     template: `

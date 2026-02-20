@@ -22,7 +22,7 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
     imports: [ToastItem, SharedModule],
     template: `
         @for (msg of messages; track msg; let i = $index) {
-            <p-toastItem
+            <p-toast-item
                 [message]="msg"
                 [index]="i"
                 [life]="life()"
@@ -35,7 +35,7 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
                 [pt]="pt"
                 [unstyled]="unstyled()"
                 [motionOptions]="computedMotionOptions()"
-            ></p-toastItem>
+            ></p-toast-item>
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,

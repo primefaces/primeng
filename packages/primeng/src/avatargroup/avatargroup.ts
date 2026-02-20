@@ -5,6 +5,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { AvatarGroupPassThrough } from 'primeng/types/avatargroup';
 import { AvatarGroupStyle } from './style/avatargroupstyle';
+import { CSSProperties } from 'primeng/types/shared';
 
 const AVATARGROUP_INSTANCE = new InjectionToken<AvatarGroup>('AVATARGROUP_INSTANCE');
 
@@ -13,7 +14,7 @@ const AVATARGROUP_INSTANCE = new InjectionToken<AvatarGroup>('AVATARGROUP_INSTAN
  * @group Components
  */
 @Component({
-    selector: 'p-avatarGroup, p-avatar-group, p-avatargroup',
+    selector: 'p-avatar-group, p-avatargroup',
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: ` <ng-content></ng-content> `,
@@ -21,7 +22,7 @@ const AVATARGROUP_INSTANCE = new InjectionToken<AvatarGroup>('AVATARGROUP_INSTAN
     encapsulation: ViewEncapsulation.None,
     providers: [AvatarGroupStyle, { provide: AVATARGROUP_INSTANCE, useExisting: AvatarGroup }, { provide: PARENT_INSTANCE, useExisting: AvatarGroup }],
     host: {
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cx('root')"
     },
     hostDirectives: [Bind]
 })
@@ -37,15 +38,10 @@ export class AvatarGroup extends BaseComponent<AvatarGroupPassThrough> {
     }
 
     /**
-     * Style class of the component
-     * @group Props
-     */
-    @Input() styleClass: string | undefined;
-    /**
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    @Input() style: CSSProperties;
 
     @HostBinding('style') get hostStyle() {
         return this.style;

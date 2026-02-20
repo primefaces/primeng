@@ -10,7 +10,7 @@ import { ToastHeadlessTemplateContext, ToastItemCloseEvent, ToastMessageTemplate
 import { ToastStyle } from './style/toaststyle';
 
 @Component({
-    selector: 'p-toastItem',
+    selector: 'p-toast-item',
     standalone: true,
     imports: [NgTemplateOutlet, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, SharedModule, Bind, MotionModule],
     template: `

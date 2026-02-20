@@ -4,7 +4,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonGroupStyle } from './style/buttongroupstyle';
 
 @Component({
-    selector: 'p-buttonGroup, p-buttongroup, p-button-group',
+    selector: 'p-buttongroup, p-button-group',
     standalone: true,
     imports: [CommonModule],
     template: `

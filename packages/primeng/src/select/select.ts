@@ -283,7 +283,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
                                             <ng-container *ngTemplateOutlet="groupTemplate(); context: getGroupContext(option.optionGroup)"></ng-container>
                                         </li>
                                     } @else {
-                                        <p-selectItem
+                                        <p-select-item
                                             [id]="$id() + '_' + getOptionIndex(i, scrollerOptions)"
                                             [option]="option"
                                             [checkmark]="checkmark()"
@@ -299,7 +299,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
                                             [scrollerOptions]="scrollerOptions"
                                             (onClick)="onOptionSelect($event, option)"
                                             (onMouseEnter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
-                                        ></p-selectItem>
+                                        ></p-select-item>
                                     }
                                 }
                                 @if (showEmptyFilterMessage()) {
