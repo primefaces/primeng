@@ -1,24 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    contentChild,
-    effect,
-    ElementRef,
-    inject,
-    InjectionToken,
-    input,
-    model,
-    NgModule,
-    numberAttribute,
-    output,
-    signal,
-    TemplateRef,
-    untracked,
-    ViewEncapsulation
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, effect, inject, InjectionToken, input, model, NgModule, numberAttribute, output, signal, TemplateRef, untracked, ViewEncapsulation } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { resolveFieldData } from '@primeuix/utils';
 import { BlockableUI, FilterService, Footer, Header, TranslationKeys } from 'primeng/api';
@@ -41,6 +22,7 @@ import {
     DataViewPassThrough,
     DataViewSortEvent
 } from 'primeng/types/dataview';
+import type { AppendTo } from 'primeng/types/shared';
 import { DataViewStyle } from './style/dataviewstyle';
 
 const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
@@ -50,7 +32,7 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-dataView, p-dataview, p-data-view',
+    selector: 'p-dataview, p-data-view',
     standalone: true,
     imports: [NgTemplateOutlet, PaginatorModule, SpinnerIcon, Bind],
     template: `
@@ -223,7 +205,7 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
      * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    paginatorDropdownAppendTo = input<HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any>();
+    paginatorDropdownAppendTo = input<AppendTo>();
     /**
      * Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
      * @group Props
