@@ -8,7 +8,8 @@ import { BarsIcon } from 'primeng/icons';
 import { VoidListener } from 'primeng/ts-helpers';
 import { MegaMenuFocusedItemInfo, MegaMenuItemClickEvent, MegaMenuItemMouseEnterEvent, MegaMenuItemTemplateContext, MegaMenuOrientation, MegaMenuPassThrough, ProcessedMegaMenuItem } from 'primeng/types/megamenu';
 import { ZIndexUtils } from 'primeng/utils';
-import { MEGAMENU_INSTANCE, MegaMenuSub } from './megamenu-sub';
+import { MegaMenuSub } from './megamenu-sub';
+import { MEGAMENU_INSTANCE } from './megamenu-token';
 import { MegaMenuStyle } from './style/megamenustyle';
 
 /**

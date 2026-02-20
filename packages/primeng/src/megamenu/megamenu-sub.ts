@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, Component, computed, inject, InjectionToken, input, numberAttribute, output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, Component, computed, inject, input, numberAttribute, output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { isNotEmpty, resolve } from '@primeuix/utils';
 import { MegaMenuItem, SharedModule } from 'primeng/api';
@@ -12,9 +12,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { MegaMenuItemClickEvent, MegaMenuItemMouseEnterEvent, MegaMenuItemTemplateContext, MegaMenuOrientation, MegaMenuPassThrough, ProcessedMegaMenuItem } from 'primeng/types/megamenu';
 import { MegaMenuStyle } from './style/megamenustyle';
 import type { MegaMenu } from './megamenu';
-
-export const MEGAMENU_INSTANCE = new InjectionToken<MegaMenu>('MEGAMENU_INSTANCE');
-export const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INSTANCE');
+import { MEGAMENU_INSTANCE, MEGAMENU_SUB_INSTANCE } from './megamenu-token';
 
 @Component({
     selector: 'p-megaMenuSub, p-megamenu-sub, ul[pMegaMenuSub]',
