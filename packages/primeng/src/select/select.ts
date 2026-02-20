@@ -11,7 +11,6 @@ import {
     ElementRef,
     forwardRef,
     inject,
-    InjectionToken,
     input,
     NgModule,
     numberAttribute,
@@ -27,18 +26,17 @@ import { MotionOptions } from '@primeuix/motion';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@primeuix/utils';
 import { FilterMatchModeType, FilterService, OverlayOptions, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseInput } from 'primeng/baseinput';
 import { Bind, BindModule } from 'primeng/bind';
 import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import type { TooltipPosition } from 'primeng/types/tooltip';
 import { unblockBodyScroll } from 'primeng/dom';
 import { IconField } from 'primeng/iconfield';
-import { BlankIcon, CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
+import { ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
 import { InputIcon } from 'primeng/inputicon';
 import { InputText } from 'primeng/inputtext';
 import { Overlay } from 'primeng/overlay';
-import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
@@ -55,120 +53,15 @@ import {
     SelectPassThrough,
     SelectSelectedItemTemplateContext
 } from 'primeng/types/select';
+import { SelectItem } from './select-item';
+import { SELECT_INSTANCE } from './select-token';
 import { SelectStyle } from './style/selectstyle';
-
-const SELECT_INSTANCE = new InjectionToken<Select>('SELECT_INSTANCE');
-const SELECT_ITEM_INSTANCE = new InjectionToken<SelectItem>('SELECT_ITEM_INSTANCE');
 
 export const SELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Select),
     multi: true
 };
-
-@Component({
-    selector: 'p-selectItem',
-    standalone: true,
-    imports: [NgTemplateOutlet, SharedModule, Ripple, CheckIcon, BlankIcon, BindModule],
-    template: `
-        <li
-            [id]="id()"
-            [pBind]="getPTOptions()"
-            (click)="onOptionClick($event)"
-            (mouseenter)="onOptionMouseEnter($event)"
-            role="option"
-            pRipple
-            [attr.aria-label]="label()"
-            [attr.aria-setsize]="ariaSetSize()"
-            [attr.aria-posinset]="ariaPosInset()"
-            [attr.aria-selected]="selected()"
-            [attr.data-p-focused]="focused()"
-            [attr.data-p-highlight]="selected()"
-            [attr.data-p-selected]="selected()"
-            [attr.data-p-disabled]="disabled()"
-            [style]="{ height: scrollerOptions()?.itemSize + 'px' }"
-            [class]="cx('option')"
-        >
-            @if (checkmark()) {
-                @if (selected()) {
-                    <svg data-p-icon="check" [class]="cx('optionCheckIcon')" [pBind]="$pcSelect?.ptm('optionCheckIcon')" />
-                } @else {
-                    <svg data-p-icon="blank" [class]="cx('optionBlankIcon')" [pBind]="$pcSelect?.ptm('optionBlankIcon')" />
-                }
-            }
-            @if (!template()) {
-                <span [pBind]="$pcSelect?.ptm('optionLabel')">{{ label() ?? 'empty' }}</span>
-            }
-            <ng-container *ngTemplateOutlet="template(); context: templateContext()"></ng-container>
-        </li>
-    `,
-    providers: [SelectStyle, { provide: PARENT_INSTANCE, useExisting: SelectItem }]
-})
-export class SelectItem extends BaseComponent {
-    hostName = 'select';
-
-    $pcSelectItem: SelectItem | undefined = inject(SELECT_ITEM_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
-
-    $pcSelect: Select | undefined = inject(SELECT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
-
-    id = input<string>();
-
-    option = input<any>();
-
-    selected = input(undefined, { transform: booleanAttribute });
-
-    focused = input(undefined, { transform: booleanAttribute });
-
-    label = input<string>();
-
-    disabled = input(undefined, { transform: booleanAttribute });
-
-    visible = input(undefined, { transform: booleanAttribute });
-
-    itemSize = input(undefined, { transform: numberAttribute });
-
-    ariaPosInset = input<string>();
-
-    ariaSetSize = input<string>();
-
-    template = input<TemplateRef<any>>();
-
-    checkmark = input(false, { transform: booleanAttribute });
-
-    index = input<number>();
-
-    scrollerOptions = input<any>();
-
-    templateContext = computed(() => ({ $implicit: this.option() }));
-
-    onClick = output<any>();
-
-    onMouseEnter = output<any>();
-
-    _componentStyle = inject(SelectStyle);
-
-    onOptionClick(event: Event) {
-        this.onClick.emit(event);
-    }
-
-    onOptionMouseEnter(event: Event) {
-        this.onMouseEnter.emit(event);
-    }
-
-    getPTOptions() {
-        return (
-            this.$pcSelect?.getPTItemOptions?.(this.option(), this.scrollerOptions(), this.index() ?? 0, 'option') ??
-            this.$pcSelect?.ptm('option', {
-                context: {
-                    option: this.option(),
-                    selected: this.selected(),
-                    focused: this.focused(),
-                    disabled: this.disabled()
-                }
-            })
-        );
-    }
-}
 
 /**
  * Select is used to choose an item from a collection of options.
@@ -383,7 +276,7 @@ export class SelectItem extends BaseComponent {
                             <ul #items [attr.id]="$id() + '_list'" [attr.aria-label]="listLabel" [class]="cn(cx('list'), scrollerOptions.contentStyleClass)" [style]="scrollerOptions.contentStyle" role="listbox" [pBind]="ptm('list')">
                                 @for (option of items; track trackOption(option, i); let i = $index) {
                                     @if (isOptionGroup(option)) {
-                                        <li [class]="cx('optionGroup')" [attr.id]="$id() + '_' + getOptionIndex(i, scrollerOptions)" [style]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [pBind]="ptm('optionGroup')">
+                                        <li [class]="cx('optionGroup')" [attr.id]="$id() + '_' + getOptionIndex(i, scrollerOptions)" [style]="getItemSizeStyle(scrollerOptions)" role="option" [pBind]="ptm('optionGroup')">
                                             @if (!groupTemplate()) {
                                                 <span [class]="cx('optionGroupLabel')" [pBind]="ptm('optionGroupLabel')">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                             }
@@ -410,7 +303,7 @@ export class SelectItem extends BaseComponent {
                                     }
                                 }
                                 @if (showEmptyFilterMessage()) {
-                                    <li [class]="cx('emptyMessage')" [style]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [pBind]="ptm('emptyMessage')">
+                                    <li [class]="cx('emptyMessage')" [style]="getItemSizeStyle(scrollerOptions)" role="option" [pBind]="ptm('emptyMessage')">
                                         @if (!hasEmptyTemplate()) {
                                             {{ emptyFilterMessageLabel() }}
                                         } @else {
@@ -419,7 +312,7 @@ export class SelectItem extends BaseComponent {
                                     </li>
                                 }
                                 @if (showEmptyMessage()) {
-                                    <li [class]="cx('emptyMessage')" [style]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [pBind]="ptm('emptyMessage')">
+                                    <li [class]="cx('emptyMessage')" [style]="getItemSizeStyle(scrollerOptions)" role="option" [pBind]="ptm('emptyMessage')">
                                         @if (!emptyTemplate()) {
                                             {{ emptyMessageLabel() || emptyFilterMessageLabel() }}
                                         } @else {
@@ -1077,6 +970,10 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     getLoaderContext(scrollerOptions: any): SelectLoaderTemplateContext {
         return { options: scrollerOptions };
+    }
+
+    getItemSizeStyle(scrollerOptions: any) {
+        return { height: scrollerOptions.itemSize + 'px' };
     }
 
     getGroupContext(optionGroup: any): SelectGroupTemplateContext {
