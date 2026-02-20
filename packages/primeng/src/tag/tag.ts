@@ -3,7 +3,7 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, computed, content
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { TagPassThrough } from 'primeng/types/tag';
+import type { TagPassThrough, TagSeverity } from 'primeng/types/tag';
 import { TagStyle } from './style/tagstyle';
 
 const TAG_INSTANCE = new InjectionToken<Tag>('TAG_INSTANCE');
@@ -40,6 +40,7 @@ const TAG_INSTANCE = new InjectionToken<Tag>('TAG_INSTANCE');
 })
 export class Tag extends BaseComponent<TagPassThrough> {
     componentName = 'Tag';
+
     $pcTag: Tag | undefined = inject(TAG_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -48,7 +49,7 @@ export class Tag extends BaseComponent<TagPassThrough> {
      * Severity type of the tag.
      * @group Props
      */
-    severity = input<'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' | null>();
+    severity = input<TagSeverity | null>();
 
     /**
      * Value to display inside the tag.

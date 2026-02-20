@@ -1,6 +1,8 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
+export type TagSeverity = 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast';
+
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
