@@ -63,7 +63,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: Provider = {
  * @group Components
  */
 @Component({
-    selector: 'p-cascadeSelect, p-cascadeselect, p-cascade-select',
+    selector: 'p-cascadeselect, p-cascade-select',
     standalone: true,
     imports: [NgTemplateOutlet, Overlay, AutoFocus, CascadeSelectSub, ChevronDownIcon, TimesIcon, SharedModule, Bind],
     template: `
