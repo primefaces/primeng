@@ -26,10 +26,10 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
             <legend [class]="cx('legend')" [pBind]="ptm('legend')" [attr.data-p]="dataP()">
                 @if (toggleable()) {
                     <button
-                        [attr.id]="id + '_header'"
+                        [attr.id]="headerId"
                         tabindex="0"
                         role="button"
-                        [attr.aria-controls]="id + '_content'"
+                        [attr.aria-controls]="contentId"
                         [attr.aria-expanded]="!collapsed()"
                         [attr.aria-label]="buttonAriaLabel()"
                         (click)="toggle($event)"
@@ -71,9 +71,9 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
                 pMotionName="p-collapsible"
                 [pMotionOptions]="computedMotionOptions()"
                 [class]="cx('contentContainer')"
-                [id]="id + '_content'"
+                [id]="contentId"
                 role="region"
-                [attr.aria-labelledby]="id + '_header'"
+                [attr.aria-labelledby]="headerId"
                 [attr.aria-hidden]="collapsed()"
                 [attr.tabindex]="contentTabindex()"
                 (pMotionOnAfterEnter)="onToggleDone($event)"
@@ -183,6 +183,14 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
 
     get id() {
         return this._id;
+    }
+
+    get headerId() {
+        return this.id + '_header';
+    }
+
+    get contentId() {
+        return this.id + '_content';
     }
 
     buttonAriaLabel = computed(() => this.legend());
