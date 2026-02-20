@@ -15,7 +15,7 @@ const METERGROUP_INSTANCE = new InjectionToken<MeterGroup>('METERGROUP_INSTANCE'
     imports: [NgTemplateOutlet, SharedModule, Bind],
     template: `
         <ol [class]="cx('labelList')" [pBind]="ptm('labelList')" [attr.data-p]="dataP()">
-            @for (labelItem of value(); track $index) {
+            @for (labelItem of value(); track labelItem) {
                 <li [class]="cx('label')" [pBind]="ptm('label')">
                     @if (!iconTemplate()) {
                         @if (labelItem.icon) {
