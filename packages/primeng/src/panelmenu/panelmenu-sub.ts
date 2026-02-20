@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, Component, computed, ElementRef, inject, InjectionToken, input, numberAttribute, output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, Component, computed, ElementRef, inject, input, numberAttribute, output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MotionOptions } from '@primeuix/motion';
 import { isNotEmpty, resolve } from '@primeuix/utils';
@@ -12,9 +12,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { PanelMenuItemTemplateContext, ProcessedMenuItem } from 'primeng/types/panelmenu';
 import { PanelMenuStyle } from './style/panelmenustyle';
 import type { PanelMenu } from './panelmenu';
-
-export const PANELMENU_INSTANCE = new InjectionToken<PanelMenu>('PANELMENU_INSTANCE');
-export const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INSTANCE');
+import { PANELMENU_INSTANCE, PANELMENUSUB_INSTANCE } from './panelmenu-token';
 
 @Component({
     selector: 'ul[pPanelMenuSub]',

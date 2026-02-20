@@ -11,7 +11,7 @@ import { MotionModule } from 'primeng/motion';
 import { TooltipModule } from 'primeng/tooltip';
 import { PanelMenuItemTemplateContext, PanelMenuPassThrough } from 'primeng/types/panelmenu';
 import { PanelMenuList } from './panelmenu-list';
-import { PANELMENU_INSTANCE } from './panelmenu-sub';
+import { PANELMENU_INSTANCE } from './panelmenu-token';
 import { PanelMenuStyle } from './style/panelmenustyle';
 
 /**
