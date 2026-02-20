@@ -921,6 +921,10 @@ export class Carousel extends BaseComponent {
     }
 
     startAutoplay() {
+        if (this.interval) {
+            clearInterval(this.interval);
+        }
+
         this.interval = setInterval(() => {
             if (this.totalDots() > 0) {
                 if (this._page() === this.totalDots() - 1) {
@@ -1055,11 +1059,12 @@ export class Carousel extends BaseComponent {
     }
 
     onDestroy() {
-        if (this.responsiveOptions()) {
-            this.unbindDocumentListeners();
-        }
-        if (this.autoplayInterval()) {
-            this.stopAutoplay();
+        this.unbindDocumentListeners();
+        this.stopAutoplay();
+
+        if (this.carouselStyle) {
+            this.carouselStyle.remove();
+            this.carouselStyle = null;
         }
     }
 }
