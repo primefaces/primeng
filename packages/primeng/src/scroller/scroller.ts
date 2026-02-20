@@ -380,14 +380,14 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
     constructor() {
         super();
 
-        // Effect 1: hostHeight
+        // hostHeight
         effect(() => {
             if (this._scrollHeight() === '100%') {
                 this.hostHeight.set('100%');
             }
         });
 
-        // Effect 2: loading sync
+        // loading sync
         effect(() => {
             const loading = this._loading();
             untracked(() => {
@@ -397,7 +397,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
             });
         });
 
-        // Effect 3: orientation reset
+        // orientation reset
         effect(() => {
             this._orientation();
             untracked(() => {
@@ -405,7 +405,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
             });
         });
 
-        // Effect 4: numToleratedItems sync
+        // numToleratedItems sync
         effect(() => {
             const numT = this._numToleratedItems();
             untracked(() => {
@@ -415,9 +415,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
             });
         });
 
-        // Effect 5: reinit (items/itemSize/scrollHeight/scrollWidth)
+        // reinit on size/scroll changes
         effect(() => {
-            this._items();
             this._itemSize();
             this._scrollHeight();
             this._scrollWidth();
@@ -429,7 +428,18 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
             });
         });
 
-        // Effect: contentStyle sync from options
+        // items change (non-lazy only, lazy relies on signal reactivity)
+        effect(() => {
+            this._items();
+            untracked(() => {
+                if (this.initialized && !this._lazy()) {
+                    this.init();
+                    this.calculateAutoSize();
+                }
+            });
+        });
+
+        // contentStyle sync from options
         effect(() => {
             const opts = this.options();
             untracked(() => {
