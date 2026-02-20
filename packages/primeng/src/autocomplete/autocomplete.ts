@@ -66,7 +66,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR = {
  * @group Components
  */
 @Component({
-    selector: 'p-autoComplete, p-autocomplete, p-auto-complete',
+    selector: 'p-autocomplete, p-auto-complete',
     standalone: true,
     imports: [NgTemplateOutlet, Overlay, InputText, Ripple, Scroller, AutoFocus, TimesCircleIcon, SpinnerIcon, ChevronDownIcon, Chip, SharedModule, TimesIcon, BindModule],
     template: `
