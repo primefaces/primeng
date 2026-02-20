@@ -1,5 +1,5 @@
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
-import { Component, inject, InjectionToken, input, output, Pipe, PipeTransform, PLATFORM_ID, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, inject, input, output, Pipe, PipeTransform, PLATFORM_ID, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { MenuItem, SharedModule } from 'primeng/api';
@@ -11,8 +11,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { MenuItemTemplateContext } from 'primeng/types/menu';
 import { MenuStyle } from './style/menustyle';
 import type { Menu } from './menu';
-
-export const MENU_INSTANCE = new InjectionToken<Menu>('MENU_INSTANCE');
+import { MENU_INSTANCE } from './menu-token';
 
 @Pipe({
     name: 'safeHtml',

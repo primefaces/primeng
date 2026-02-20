@@ -12,7 +12,8 @@ import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { VoidListener } from 'primeng/ts-helpers';
 import { MenuItemTemplateContext, MenuPassThrough, MenuSubmenuHeaderTemplateContext } from 'primeng/types/menu';
 import { ZIndexUtils } from 'primeng/utils';
-import { MENU_INSTANCE, MenuItemContent, SafeHtmlPipe } from './menu-item-content';
+import { MenuItemContent, SafeHtmlPipe } from './menu-item-content';
+import { MENU_INSTANCE } from './menu-token';
 import { MenuStyle } from './style/menustyle';
 
 /**
