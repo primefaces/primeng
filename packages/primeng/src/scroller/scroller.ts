@@ -18,6 +18,7 @@ import {
     VirtualScrollerPassThrough
 } from 'primeng/types/scroller';
 import { ScrollerStyle } from './style/scrollerstyle';
+import { CSSProperties } from 'primeng/types/shared';
 
 const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
 
@@ -355,9 +356,9 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
     loaderArr: any[] = [];
 
-    spacerStyle: { [klass: string]: any } | null | undefined = {};
+    spacerStyle: CSSProperties;
 
-    contentStyle: { [klass: string]: any } | null | undefined = {};
+    contentStyle: CSSProperties;
 
     scrollTimeout: any;
 
@@ -544,8 +545,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
             const { numToleratedItems } = this.calculateNumItems();
             const contentPos = this.getContentPosition();
             const itemSize = this._itemSize();
-            const calculateFirst = (_index = 0, _numT) => (_index <= _numT ? 0 : _index);
-            const calculateCoord = (_first, _size, _cpos) => _first * _size + _cpos;
+            const calculateFirst = (_index = 0, _numT: number) => (_index <= _numT ? 0 : _index);
+            const calculateCoord = (_first: number, _size: number, _cpos: number) => _first * _size + _cpos;
             const scrollTo = (left = 0, top = 0) => this.scrollTo({ left, top, behavior });
             let newFirst = this.both() ? { rows: 0, cols: 0 } : 0;
             let isRangeChanged = false,
