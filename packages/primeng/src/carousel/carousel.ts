@@ -1,5 +1,5 @@
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, effect, ElementRef, inject, input, NgModule, numberAttribute, output, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, effect, ElementRef, inject, input, NgModule, numberAttribute, output, signal, TemplateRef, untracked, viewChild, ViewEncapsulation } from '@angular/core';
 import { addClass, find, findSingle, getAttribute, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { Footer, Header, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -394,18 +394,20 @@ export class Carousel extends BaseComponent {
         // Effect for page changes
         effect(() => {
             const pageVal = this.page();
-            if (this.isCreated && pageVal !== this._page()) {
-                if (this.autoplayInterval()) {
-                    this.stopAutoplay();
-                }
+            untracked(() => {
+                if (this.isCreated && pageVal !== this._page()) {
+                    if (this.autoplayInterval()) {
+                        this.stopAutoplay();
+                    }
 
-                if (pageVal > this._page() && pageVal <= this.totalDots() - 1) {
-                    this.step(-1, pageVal);
-                } else if (pageVal < this._page()) {
-                    this.step(1, pageVal);
+                    if (pageVal > this._page() && pageVal <= this.totalDots() - 1) {
+                        this.step(-1, pageVal);
+                    } else if (pageVal < this._page()) {
+                        this.step(1, pageVal);
+                    }
                 }
-            }
-            this._page.set(pageVal);
+                this._page.set(pageVal);
+            });
         });
 
         // Effect for value changes
@@ -424,22 +426,24 @@ export class Carousel extends BaseComponent {
             const numScrollVal = this.numScroll();
             const responsiveOpts = this.responsiveOptions();
 
-            if (this.isCreated) {
-                if (responsiveOpts) {
-                    this.defaultNumVisible = numVisibleVal;
-                    this.defaultNumScroll = numScrollVal;
+            untracked(() => {
+                if (this.isCreated) {
+                    if (responsiveOpts) {
+                        this.defaultNumVisible = numVisibleVal;
+                        this.defaultNumScroll = numScrollVal;
+                    }
+
+                    if (this.isCircular()) {
+                        this.setCloneItems();
+                    }
+
+                    this.createStyle();
+                    this.calculatePosition();
                 }
 
-                if (this.isCircular()) {
-                    this.setCloneItems();
-                }
-
-                this.createStyle();
-                this.calculatePosition();
-            }
-
-            this._numVisible = numVisibleVal;
-            this._numScroll = numScrollVal;
+                this._numVisible = numVisibleVal;
+                this._numScroll = numScrollVal;
+            });
         });
     }
 
