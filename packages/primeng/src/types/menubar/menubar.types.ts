@@ -6,7 +6,6 @@ import type { CSSProperties } from 'primeng/types/shared';
 
 /**
  * Processed menu item structure used internally.
- * @group Interface
  */
 export interface ProcessedMenuItem {
     item: MenuItem;
@@ -20,7 +19,6 @@ export interface ProcessedMenuItem {
 
 /**
  * Focused item info structure.
- * @group Interface
  */
 export interface FocusedItemInfo {
     index: number;
