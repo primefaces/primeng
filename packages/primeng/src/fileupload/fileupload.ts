@@ -1,10 +1,9 @@
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, effect, ElementRef, inject, InjectionToken, input, NgModule, numberAttribute, output, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, effect, ElementRef, inject, input, NgModule, numberAttribute, output, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { addClass, removeClass } from '@primeuix/utils';
 import { BlockableUI, SharedModule, TranslationKeys } from 'primeng/api';
-import { Badge } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
@@ -18,7 +17,6 @@ import {
     FileContentRemoveEvent,
     FileProgressEvent,
     FileRemoveEvent,
-    FileRemoveIconTemplateContext,
     FileSelectEvent,
     FileSendEvent,
     FileUploadContentTemplateContext,
@@ -33,78 +31,10 @@ import {
     RemoveUploadedFileEvent
 } from 'primeng/types/fileupload';
 import { Subscription } from 'rxjs';
+import { FileContent } from './file-content';
+import { FILEUPLOAD_INSTANCE } from './fileupload-token';
 import { FileUploadStyle } from './style/fileuploadstyle';
 
-const FILEUPLOAD_INSTANCE = new InjectionToken<FileUpload>('FILEUPLOAD_INSTANCE');
-
-@Component({
-    selector: '[pFileContent]',
-    standalone: true,
-    template: `@for (file of files(); track file?.name + '-' + $index; let index = $index) {
-        <div [class]="cx('file')" [pBind]="$pcFileUpload.ptm('file')">
-            <img role="presentation" [class]="cx('fileThumbnail')" [attr.alt]="file.name" [src]="file.objectURL" [width]="previewWidth()" [pBind]="$pcFileUpload.ptm('fileThumbnail')" />
-            <div [class]="cx('fileInfo')" [pBind]="$pcFileUpload.ptm('fileInfo')">
-                <div [class]="cx('fileName')" [pBind]="$pcFileUpload.ptm('fileName')">{{ file.name }}</div>
-                <span [class]="cx('fileSize')" [pBind]="$pcFileUpload.ptm('fileSize')">{{ formatSize(file.size) }}</span>
-            </div>
-            <p-badge [value]="badgeValue()" [severity]="badgeSeverity()" [class]="cx('pcFileBadge')" [pt]="$pcFileUpload.ptm('pcFileBadge')" [unstyled]="unstyled()" />
-            <div [class]="cx('fileActions')" [pBind]="$pcFileUpload.ptm('fileActions')">
-                <p-button (onClick)="onRemoveClick($event, index)" [styleClass]="cx('pcFileRemoveButton')" text rounded severity="danger" [pt]="$pcFileUpload.ptm('pcFileRemoveButton')" [unstyled]="unstyled()">
-                    <ng-template #icon let-iconClass="class">
-                        @if (fileRemoveIconTemplate()) {
-                            <ng-template *ngTemplateOutlet="fileRemoveIconTemplate(); context: getRemoveIconContext(iconClass, file, index)"></ng-template>
-                        } @else {
-                            <svg data-p-icon="times" [class]="iconClass" [attr.aria-hidden]="true" />
-                        }
-                    </ng-template>
-                </p-button>
-            </div>
-        </div>
-    }`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [FileUploadStyle],
-    imports: [NgTemplateOutlet, Badge, Button, TimesIcon, Bind]
-})
-export class FileContent extends BaseComponent {
-    _componentStyle = inject(FileUploadStyle);
-
-    $pcFileUpload = inject(FILEUPLOAD_INSTANCE);
-
-    onRemove = output<FileContentRemoveEvent>();
-
-    files = input<File[]>();
-
-    badgeSeverity = input<'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast'>('warn');
-
-    badgeValue = input<string>();
-
-    previewWidth = input<number>(50);
-
-    fileRemoveIconTemplate = input<TemplateRef<unknown>>();
-
-    onRemoveClick(event: Event, index: number) {
-        this.onRemove.emit({ event, index });
-    }
-
-    getRemoveIconContext(iconClass: string, file: File, index: number): FileRemoveIconTemplateContext {
-        return { class: iconClass, file, index };
-    }
-
-    formatSize(bytes: number) {
-        const k = 1024;
-        const dm = 3;
-        const sizes = this.translate(TranslationKeys.FILE_SIZE_TYPES);
-
-        if (bytes === 0) {
-            return `0 ${sizes[0]}`;
-        }
-
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        const formattedSize = (bytes / Math.pow(k, i)).toFixed(dm);
-
-        return `${formattedSize} ${sizes[i]}`;
-    }
-}
 /**
  * FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.
  * @group Components
@@ -254,7 +184,7 @@ export class FileContent extends BaseComponent {
                             </div>
                         }
                     }
-                    @if (emptyTemplate() && !hasFiles() && !hasUploadedFiles()) {
+                    @if (showEmpty()) {
                         <ng-container *ngTemplateOutlet="emptyTemplate()" [pBind]="ptm('empty')"></ng-container>
                     }
                 </div>
@@ -665,6 +595,8 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
     uploadButtonDisabled = computed(() => !this.hasFiles() || this.isFileLimitExceeded());
 
     cancelButtonDisabled = computed(() => !this.hasFiles() || this.uploading());
+
+    showEmpty = computed(() => !!this.emptyTemplate() && !this.hasFiles() && !this.hasUploadedFiles());
 
     get headerTemplateContext(): FileUploadHeaderTemplateContext {
         return {
