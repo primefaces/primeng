@@ -116,7 +116,7 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
                 [unstyled]="unstyled()"
                 [class]="cx('item')"
                 [item]="activeItem()"
-                [id]="id() + '_item_' + _activeIndex()"
+                [id]="activeItemId()"
                 role="group"
                 [attr.aria-label]="ariaSlideNumber(_activeIndex() + 1)"
                 [attr.aria-roledescription]="ariaSlideLabel()"
@@ -204,6 +204,8 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
         const val = this.value();
         return val && val[this._activeIndex()];
     });
+
+    activeItemId = computed(() => this.id() + '_item_' + this._activeIndex());
 
     leftButtonFocused = false;
 
@@ -1407,6 +1409,7 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
     visible = model(false);
 
     renderMask = signal<boolean>(false);
+
     renderContent = signal<boolean>(false);
 
     /**
