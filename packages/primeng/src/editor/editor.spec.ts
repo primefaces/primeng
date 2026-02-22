@@ -220,7 +220,7 @@ describe('Editor', () => {
             expect(editorInstance.placeholder).toBe('Enter text here...');
             expect(editorInstance.formats).toBeUndefined();
             expect(editorInstance.modules).toBeUndefined();
-            expect(editorInstance.customModules).toBe({});
+            expect(editorInstance.customModules).toBeUndefined();
         });
 
         it('should accept input values', async () => {

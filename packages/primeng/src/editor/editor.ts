@@ -123,7 +123,7 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
      * Keys must be full Quill registration paths (for example, `'modules/myModule'`), as they are passed directly to `Quill.register` and are not auto-prefixed by the component.
      * @group Props
      */
-    @Input() customModules: Record<string, QuillModule> = {};
+    @Input() customModules: Record<string, QuillModule> | undefined;
     /**
      * DOM Element or a CSS selector for a DOM Element, within which the editor’s p elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries.
      * @group Props
@@ -308,8 +308,10 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
     }
 
     private registerQuillModules(): void {
-        for (const [moduleName, moduleInstance] of Object.entries(this.customModules)) {
-            this.dynamicQuill.register(moduleName, moduleInstance);
+        if (this.customModules) {
+            for (const [moduleName, moduleInstance] of Object.entries(this.customModules)) {
+                this.dynamicQuill.register(moduleName, moduleInstance);
+            }
         }
     }
 
