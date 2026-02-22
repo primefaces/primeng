@@ -119,7 +119,8 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
      */
     @Input() modules: object | undefined;
     /**
-     * List of custom Quill modules that need to be registered before initialization, see [here](https://quilljs.com/docs/modules#extending).
+     * Map of custom Quill modules that need to be registered before initialization, see [here](https://quilljs.com/docs/modules#extending).
+     * Keys must be full Quill registration paths (for example, `'modules/myModule'`), as they are passed directly to `Quill.register` and are not auto-prefixed by the component.
      * @group Props
      */
     @Input() customModules: Record<string, QuillModule> = {};
@@ -308,7 +309,7 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
 
     private registerQuillModules(): void {
         for (const [moduleName, moduleInstance] of Object.entries(this.customModules)) {
-            this.dynamicQuill.registered(moduleName, moduleInstance);
+            this.dynamicQuill.register(moduleName, moduleInstance);
         }
     }
 

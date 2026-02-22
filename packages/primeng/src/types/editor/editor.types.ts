@@ -209,6 +209,6 @@ export interface EditorTemplates {
     header(): TemplateRef<any>;
 }
 /**
- * Defined valid custom module.
+ * Defines a valid custom module.
  */
 export type QuillModule = ((quill: any, options: any) => void) | (new (quill: any, options: any) => unknown);
