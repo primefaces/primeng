@@ -48,19 +48,70 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
     imports: [NgTemplateOutlet, ButtonModule, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, Listbox, FormsModule, Bind],
     template: `
         <div [pBind]="ptm('controls')" [class]="cx('controls')">
-            <button [pt]="ptm('pcMoveUpButton')" type="button" [disabled]="$moveDisabled()" pButton pRipple (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel()" [buttonProps]="upButtonProps()" hostName="orderlist" [unstyled]="unstyled()">
+            <button
+                [pt]="ptm('pcMoveUpButton')"
+                type="button"
+                [disabled]="$moveDisabled()"
+                pButton
+                pRipple
+                (click)="moveUp()"
+                [attr.aria-label]="moveUpAriaLabel()"
+                [severity]="upButtonProps()?.severity"
+                [text]="upButtonProps()?.text"
+                [outlined]="upButtonProps()?.outlined"
+                [rounded]="upButtonProps()?.rounded"
+                [raised]="upButtonProps()?.raised"
+                [size]="upButtonProps()?.size"
+                [plain]="upButtonProps()?.plain"
+                hostName="orderlist"
+                [unstyled]="unstyled()"
+            >
                 @if (!moveUpIconTemplate()) {
                     <svg data-p-icon="angle-up" pButtonIcon [pt]="ptm('pcMoveUpButton')['icon']" />
                 }
                 <ng-template *ngTemplateOutlet="moveUpIconTemplate()" />
             </button>
-            <button [pt]="ptm('pcMoveTopButton')" type="button" [disabled]="$moveDisabled()" pButton pRipple (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel()" [buttonProps]="topButtonProps()" hostName="orderlist" [unstyled]="unstyled()">
+            <button
+                [pt]="ptm('pcMoveTopButton')"
+                type="button"
+                [disabled]="$moveDisabled()"
+                pButton
+                pRipple
+                (click)="moveTop()"
+                [attr.aria-label]="moveTopAriaLabel()"
+                [severity]="topButtonProps()?.severity"
+                [text]="topButtonProps()?.text"
+                [outlined]="topButtonProps()?.outlined"
+                [rounded]="topButtonProps()?.rounded"
+                [raised]="topButtonProps()?.raised"
+                [size]="topButtonProps()?.size"
+                [plain]="topButtonProps()?.plain"
+                hostName="orderlist"
+                [unstyled]="unstyled()"
+            >
                 @if (!moveTopIconTemplate()) {
                     <svg data-p-icon="angle-double-up" pButtonIcon [pt]="ptm('pcMoveTopButton')['icon']" />
                 }
                 <ng-template *ngTemplateOutlet="moveTopIconTemplate()" />
             </button>
-            <button [pt]="ptm('pcMoveDownButton')" type="button" [disabled]="$moveDisabled()" pButton pRipple (click)="moveDown()" [attr.aria-label]="moveDownAriaLabel()" [buttonProps]="downButtonProps()" hostName="orderlist" [unstyled]="unstyled()">
+            <button
+                [pt]="ptm('pcMoveDownButton')"
+                type="button"
+                [disabled]="$moveDisabled()"
+                pButton
+                pRipple
+                (click)="moveDown()"
+                [attr.aria-label]="moveDownAriaLabel()"
+                [severity]="downButtonProps()?.severity"
+                [text]="downButtonProps()?.text"
+                [outlined]="downButtonProps()?.outlined"
+                [rounded]="downButtonProps()?.rounded"
+                [raised]="downButtonProps()?.raised"
+                [size]="downButtonProps()?.size"
+                [plain]="downButtonProps()?.plain"
+                hostName="orderlist"
+                [unstyled]="unstyled()"
+            >
                 @if (!moveDownIconTemplate()) {
                     <svg data-p-icon="angle-down" pButtonIcon [pt]="ptm('pcMoveDownButton')['icon']" />
                 }
@@ -74,7 +125,13 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
                 pRipple
                 (click)="moveBottom()"
                 [attr.aria-label]="moveBottomAriaLabel()"
-                [buttonProps]="bottomButtonProps()"
+                [severity]="bottomButtonProps()?.severity"
+                [text]="bottomButtonProps()?.text"
+                [outlined]="bottomButtonProps()?.outlined"
+                [rounded]="bottomButtonProps()?.rounded"
+                [raised]="bottomButtonProps()?.raised"
+                [size]="bottomButtonProps()?.size"
+                [plain]="bottomButtonProps()?.plain"
                 hostName="orderlist"
                 [unstyled]="unstyled()"
             >
