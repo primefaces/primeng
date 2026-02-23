@@ -33,7 +33,7 @@ import type { TreeTable } from './treetable';
                     <svg data-p-icon="chevron-right" [pBind]="ptm('nodetoggleicon')" [attr.aria-hidden]="true" />
                 }
             }
-            <ng-template *ngTemplateOutlet="tt.togglerIconTemplate(); context: { $implicit: rowNode().node.expanded }"></ng-template>
+            <ng-template *ngTemplateOutlet="tt.togglerIconTemplate(); context: togglerIconContext"></ng-template>
         </button>
     `,
     encapsulation: ViewEncapsulation.None,
@@ -54,6 +54,10 @@ export class TreeTableToggler extends BaseComponent {
     _componentStyle = inject(TreeTableStyle);
 
     tt = inject<TreeTable>(TREETABLE_INSTANCE);
+
+    get togglerIconContext() {
+        return { $implicit: this.rowNode()?.node?.expanded };
+    }
 
     get togglerVisibility() {
         const node = this.rowNode()?.node;

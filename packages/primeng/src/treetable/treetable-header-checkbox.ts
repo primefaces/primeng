@@ -14,7 +14,7 @@ import type { TreeTable } from './treetable';
     standalone: true,
     imports: [NgTemplateOutlet, FormsModule, Checkbox, SharedModule],
     template: `
-        <p-checkbox [ngModel]="checked()" [pt]="ptm('pcHeaderCheckbox')" (onChange)="onClick($event)" [binary]="true" [disabled]="!tt.value || tt.value.length === 0" [unstyled]="unstyled()">
+        <p-checkbox [ngModel]="checked()" [pt]="ptm('pcHeaderCheckbox')" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled" [unstyled]="unstyled()">
             @if (tt.headerCheckboxIconTemplate()) {
                 <ng-template #icon>
                     <ng-template *ngTemplateOutlet="tt.headerCheckboxIconTemplate(); context: { $implicit: checked() }"></ng-template>
@@ -29,6 +29,10 @@ export class TTHeaderCheckbox extends BaseComponent {
     checked = signal<boolean | undefined>(undefined);
 
     tt = inject<TreeTable>(TREETABLE_INSTANCE);
+
+    get isDisabled() {
+        return !this.tt.value || this.tt.value.length === 0;
+    }
 
     constructor() {
         super();

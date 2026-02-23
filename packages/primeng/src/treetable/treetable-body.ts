@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, Component, inject, input, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, Component, computed, inject, input, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable } from 'primeng/ts-helpers';
@@ -13,21 +13,11 @@ import type { TreeTable } from './treetable';
     template: `
         @for (serializedNode of serializedNodes() || tt.serializedValue; track tt.rowTrackBy()($index, serializedNode)) {
             @if (serializedNode.visible) {
-                <ng-container
-                    *ngTemplateOutlet="
-                        template();
-                        context: {
-                            $implicit: serializedNode,
-                            node: serializedNode.node,
-                            rowData: serializedNode.node.data,
-                            columns: columns()
-                        }
-                    "
-                ></ng-container>
+                <ng-container *ngTemplateOutlet="template(); context: getBodyTemplateContext(serializedNode)"></ng-container>
             }
         }
         @if (tt.isEmpty()) {
-            <ng-container *ngTemplateOutlet="tt.emptyMessageTemplate(); context: { $implicit: columns(), frozen: frozen() }"></ng-container>
+            <ng-container *ngTemplateOutlet="tt.emptyMessageTemplate(); context: emptyMessageContext()"></ng-container>
         }
     `,
     encapsulation: ViewEncapsulation.None,
@@ -48,6 +38,8 @@ export class TTBody extends BaseComponent {
 
     tt = inject<TreeTable>(TREETABLE_INSTANCE);
 
+    emptyMessageContext = computed(() => ({ $implicit: this.columns(), frozen: this.frozen() }));
+
     constructor() {
         super();
         this.tt.tableService.uiUpdateSource$.pipe(takeUntilDestroyed()).subscribe(() => {
@@ -55,6 +47,15 @@ export class TTBody extends BaseComponent {
                 this.cd.detectChanges();
             }
         });
+    }
+
+    getBodyTemplateContext(serializedNode: any) {
+        return {
+            $implicit: serializedNode,
+            node: serializedNode.node,
+            rowData: serializedNode.node.data,
+            columns: this.columns()
+        };
     }
 
     getScrollerOption(option: any, options?: any) {

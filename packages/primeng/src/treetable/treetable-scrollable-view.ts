@@ -1,5 +1,5 @@
-import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, Component, effect, ElementRef, inject, input, viewChild, ViewEncapsulation } from '@angular/core';
+import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
+import { booleanAttribute, Component, computed, effect, ElementRef, inject, input, viewChild, ViewEncapsulation } from '@angular/core';
 import { addClass, calculateScrollbarHeight, calculateScrollbarWidth, findSingle } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
@@ -13,14 +13,14 @@ import type { TreeTable } from './treetable';
 @Component({
     selector: '[ttScrollableView]',
     standalone: true,
-    imports: [NgTemplateOutlet, NgStyle, NgClass, Bind, Scroller, TTBody],
+    imports: [NgTemplateOutlet, Bind, Scroller, TTBody],
     template: `
         <div #scrollHeader [class]="cx('scrollableHeader')" [pBind]="ptm('scrollableHeader')">
             <div #scrollHeaderBox [class]="cx('scrollableHeaderBox')" [pBind]="ptm('scrollableHeaderBox')">
-                <table [class]="cn(cx('scrollableHeaderTable'), tt.tableStyleClass())" [pBind]="ptm('scrollableHeaderTable')" [ngStyle]="tt.tableStyle()">
-                    <ng-container *ngTemplateOutlet="frozen() ? tt.frozenColGroupTemplate() || tt.colGroupTemplate() : tt.colGroupTemplate(); context: { $implicit: columns() }"></ng-container>
+                <table [class]="cn(cx('scrollableHeaderTable'), tt.tableStyleClass())" [pBind]="ptm('scrollableHeaderTable')" [style]="tt.tableStyle()">
+                    <ng-container *ngTemplateOutlet="colGroupTemplate(); context: { $implicit: columns() }"></ng-container>
                     <thead role="rowgroup" [class]="cx('thead')" [pBind]="ptm('thead')">
-                        <ng-container *ngTemplateOutlet="frozen() ? tt.frozenHeaderTemplate() || tt.headerTemplate() : tt.headerTemplate(); context: { $implicit: columns() }"></ng-container>
+                        <ng-container *ngTemplateOutlet="$headerTemplate(); context: { $implicit: columns() }"></ng-container>
                     </thead>
                 </table>
             </div>
@@ -31,8 +31,8 @@ import type { TreeTable } from './treetable';
                 #scroller
                 [items]="tt.serializedValue"
                 [styleClass]="cx('scrollableBody')"
-                [style]="{ height: tt.scrollHeight() !== 'flex' ? tt.scrollHeight() : undefined }"
-                [scrollHeight]="scrollHeight() !== 'flex' ? undefined : '100%'"
+                [style]="scrollerStyle()"
+                [scrollHeight]="$scrollerScrollHeight()"
                 [itemSize]="tt.virtualScrollItemSize()"
                 [lazy]="tt.lazy()"
                 (onLazyLoad)="tt.onLazyItemLoad($event)"
@@ -50,33 +50,15 @@ import type { TreeTable } from './treetable';
             </p-scroller>
         }
         @if (!tt.virtualScroll()) {
-            <div
-                #scrollBody
-                [class]="cx('scrollableBody')"
-                [pBind]="ptm('scrollableBody')"
-                [ngStyle]="{
-                    'max-height': tt.scrollHeight() !== 'flex' ? scrollHeight() : undefined,
-                    'overflow-y': !frozen() && tt.scrollHeight() ? 'scroll' : undefined
-                }"
-            >
+            <div #scrollBody [class]="cx('scrollableBody')" [pBind]="ptm('scrollableBody')" [style]="scrollBodyStyle()">
                 <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: serializedValue, options: {} }"></ng-container>
             </div>
         }
 
         <ng-template #buildInItems let-items let-scrollerOptions="options">
-            <table role="treegrid" #scrollTable [pBind]="ptm('table')" [class]="tt.tableStyleClass()" [ngClass]="scrollerOptions.contentStyleClass" [ngStyle]="tt.tableStyle()" [style]="scrollerOptions.contentStyle">
-                <ng-container *ngTemplateOutlet="frozen() ? tt.frozenColGroupTemplate() || tt.colGroupTemplate() : tt.colGroupTemplate(); context: { $implicit: columns() }"></ng-container>
-                <tbody
-                    [pBind]="ptm('tbody')"
-                    role="rowgroup"
-                    [class]="cx('tbody')"
-                    [pBind]="ptm('tbody')"
-                    [pTreeTableBody]="columns()"
-                    [unstyled]="unstyled()"
-                    [pTreeTableBodyTemplate]="frozen() ? tt.frozenBodyTemplate() || tt.bodyTemplate() : tt.bodyTemplate()"
-                    [serializedNodes]="items"
-                    [frozen]="frozen()"
-                ></tbody>
+            <table role="treegrid" #scrollTable [pBind]="ptm('table')" [class]="cn(tt.tableStyleClass(), scrollerOptions.contentStyleClass)" [style]="getScrollableTableStyle(scrollerOptions.contentStyle)">
+                <ng-container *ngTemplateOutlet="colGroupTemplate(); context: { $implicit: columns() }"></ng-container>
+                <tbody [pBind]="ptm('tbody')" role="rowgroup" [class]="cx('tbody')" [pTreeTableBody]="columns()" [unstyled]="unstyled()" [pTreeTableBodyTemplate]="$bodyTemplate()" [serializedNodes]="items" [frozen]="frozen()"></tbody>
             </table>
             @if (frozen()) {
                 <div #scrollableAligner [style.background-color]="'transparent'"></div>
@@ -86,10 +68,10 @@ import type { TreeTable } from './treetable';
         @if (tt.footerTemplate()) {
             <div #scrollFooter [class]="cx('scrollableFooter')" [pBind]="ptm('scrollableFooter')">
                 <div #scrollFooterBox [class]="cx('scrollableFooterBox')" [pBind]="ptm('scrollableFooterBox')">
-                    <table [class]="cx('scrollableFooterTable')" [ngClass]="tt.tableStyleClass()" [ngStyle]="tt.tableStyle()" [pBind]="ptm('scrollableFooterTable')">
-                        <ng-container *ngTemplateOutlet="frozen() ? tt.frozenColGroupTemplate() || tt.colGroupTemplate() : tt.colGroupTemplate(); context: { $implicit: columns() }"></ng-container>
+                    <table [class]="cn(cx('scrollableFooterTable'), tt.tableStyleClass())" [style]="tt.tableStyle()" [pBind]="ptm('scrollableFooterTable')">
+                        <ng-container *ngTemplateOutlet="colGroupTemplate(); context: { $implicit: columns() }"></ng-container>
                         <tfoot role="rowgroup" [class]="cx('tfoot')" [pBind]="ptm('tfoot')">
-                            <ng-container *ngTemplateOutlet="frozen() ? tt.frozenFooterTemplate() || tt.footerTemplate() : tt.footerTemplate(); context: { $implicit: columns() }"></ng-container>
+                            <ng-container *ngTemplateOutlet="$footerTemplate(); context: { $implicit: columns() }"></ng-container>
                         </tfoot>
                     </table>
                 </div>
@@ -139,6 +121,23 @@ export class TTScrollableView extends BaseComponent {
     _componentStyle = inject(TreeTableStyle);
 
     tt = inject<TreeTable>(TREETABLE_INSTANCE);
+
+    colGroupTemplate = computed(() => (this.frozen() ? this.tt.frozenColGroupTemplate() || this.tt.colGroupTemplate() : this.tt.colGroupTemplate()));
+
+    $headerTemplate = computed(() => (this.frozen() ? this.tt.frozenHeaderTemplate() || this.tt.headerTemplate() : this.tt.headerTemplate()));
+
+    $footerTemplate = computed(() => (this.frozen() ? this.tt.frozenFooterTemplate() || this.tt.footerTemplate() : this.tt.footerTemplate()));
+
+    $bodyTemplate = computed(() => (this.frozen() ? this.tt.frozenBodyTemplate() || this.tt.bodyTemplate() : this.tt.bodyTemplate()));
+
+    scrollerStyle = computed(() => ({ height: this.tt.scrollHeight() !== 'flex' ? this.tt.scrollHeight() : undefined }));
+
+    $scrollerScrollHeight = computed(() => (this.scrollHeight() !== 'flex' ? undefined : '100%'));
+
+    scrollBodyStyle = computed(() => ({
+        'max-height': this.tt.scrollHeight() !== 'flex' ? this.scrollHeight() : undefined,
+        'overflow-y': !this.frozen() && this.tt.scrollHeight() ? 'scroll' : undefined
+    }));
 
     constructor() {
         super();
@@ -296,6 +295,10 @@ export class TTScrollableView extends BaseComponent {
                 this.scrollBodyViewChild()!.nativeElement.scrollTop = options.top;
             }
         }
+    }
+
+    getScrollableTableStyle(contentStyle: any) {
+        return { ...this.tt.tableStyle(), ...contentStyle };
     }
 
     onDestroy() {
