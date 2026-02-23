@@ -285,7 +285,8 @@ function extractClassProperties(content) {
     // Match property declarations at class level (4 spaces indentation)
     const lines = propertiesSection.split('\n');
 
-    for (const line of lines) {
+    for (let lineIdx = 0; lineIdx < lines.length; lineIdx++) {
+        const line = lines[lineIdx];
         // Match lines that start with exactly 4 spaces and a word character (property declaration)
         // Pattern 1: With type annotation - name: Type = value;
         let propMatch = line.match(/^    ([\w]+)([!?]?):\s*([A-Za-z][\w<>\[\]|, ]*(?:\s*\|\s*[\w\[\]]+)*)(?:\s*=\s*(.+))?;?\s*$/);
@@ -350,22 +351,47 @@ function extractClassProperties(content) {
             continue;
         }
 
-        // Clean up default value - handle multiline arrays/objects and trailing semicolons
+        // Handle multiline default values - collect subsequent lines until balanced
         if (defaultValue) {
             // Remove trailing semicolon from default value
             defaultValue = defaultValue.replace(/;$/, '');
-            // Handle multiline arrays (incomplete)
+
+            // Collect multiline arrays
             if (defaultValue.startsWith('[') && !defaultValue.endsWith(']')) {
-                defaultValue = undefined;
+                let bracketCount = (defaultValue.match(/\[/g) || []).length - (defaultValue.match(/\]/g) || []).length;
+                while (bracketCount > 0 && lineIdx + 1 < lines.length) {
+                    lineIdx++;
+                    defaultValue += '\n' + lines[lineIdx];
+                    bracketCount += (lines[lineIdx].match(/\[/g) || []).length;
+                    bracketCount -= (lines[lineIdx].match(/\]/g) || []).length;
+                }
+                defaultValue = defaultValue.replace(/;$/, '');
             }
-            // Handle multiline objects (incomplete - only has opening brace)
+
+            // Collect multiline objects
             if (defaultValue && (defaultValue === '{' || (defaultValue.startsWith('{') && !defaultValue.endsWith('}')))) {
-                defaultValue = undefined;
+                let braceCount = (defaultValue.match(/\{/g) || []).length - (defaultValue.match(/\}/g) || []).length;
+                while (braceCount > 0 && lineIdx + 1 < lines.length) {
+                    lineIdx++;
+                    defaultValue += '\n' + lines[lineIdx];
+                    braceCount += (lines[lineIdx].match(/\{/g) || []).length;
+                    braceCount -= (lines[lineIdx].match(/\}/g) || []).length;
+                }
+                defaultValue = defaultValue.replace(/;$/, '');
             }
+
             // Handle multiline function calls (incomplete - has unmatched parentheses)
             if (defaultValue) {
-                const openParens = (defaultValue.match(/\(/g) || []).length;
-                const closeParens = (defaultValue.match(/\)/g) || []).length;
+                let openParens = (defaultValue.match(/\(/g) || []).length;
+                let closeParens = (defaultValue.match(/\)/g) || []).length;
+                while (openParens !== closeParens && lineIdx + 1 < lines.length) {
+                    lineIdx++;
+                    defaultValue += '\n' + lines[lineIdx];
+                    openParens = (defaultValue.match(/\(/g) || []).length;
+                    closeParens = (defaultValue.match(/\)/g) || []).length;
+                }
+                defaultValue = defaultValue.replace(/;$/, '');
+                // If still unbalanced after exhausting lines, discard
                 if (openParens !== closeParens) {
                     defaultValue = undefined;
                 }
