@@ -1,4 +1,4 @@
-import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import {
     booleanAttribute,
@@ -644,19 +644,10 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
                 // Don't break - continue with other items even if one can't move
             }
 
-            if (this.dragdrop()) {
-                if (this.filterValue()) {
-                    this.filter();
-                } else if (this.visibleOptions()) {
-                    // Update visibleOptions to match value when no filtering
-                    this.visibleOptions.set([...val]);
-                }
-            }
-
+            this.value.set([...val]);
             this.movedUp = true;
             this.onReorder.emit(sel);
         }
-        this.listViewChild()?.cd?.markForCheck();
     }
 
     moveTop() {
@@ -675,21 +666,12 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
                 }
             }
 
-            if (this.dragdrop()) {
-                if (this.filterValue()) {
-                    this.filter();
-                } else if (this.visibleOptions()) {
-                    // Update visibleOptions to match value when no filtering
-                    this.visibleOptions.set([...(val || [])]);
-                }
-            }
-
+            this.value.set([...(val || [])]);
             this.onReorder.emit(sel);
             setTimeout(() => {
                 this.listViewChild().scrollInView(0);
             });
         }
-        this.listViewChild()?.cd?.markForCheck();
     }
 
     moveDown() {
@@ -708,19 +690,10 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
                 }
             }
 
-            if (this.dragdrop()) {
-                if (this.filterValue()) {
-                    this.filter();
-                } else if (this.visibleOptions()) {
-                    this.visibleOptions.set([...val]);
-                }
-            }
-
+            this.value.set([...val]);
             this.movedDown = true;
             this.onReorder.emit(sel);
         }
-
-        this.listViewChild()?.cd?.markForCheck();
     }
 
     moveBottom() {
@@ -739,49 +712,40 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
                 }
             }
 
-            if (this.dragdrop()) {
-                if (this.filterValue()) {
-                    this.filter();
-                } else if (this.visibleOptions()) {
-                    this.visibleOptions.set([...(val || [])]);
-                }
-            }
-
+            this.value.set([...(val || [])]);
             this.onReorder.emit(sel);
             this.listViewChild()?.scrollInView(val?.length ? val.length - 1 : 0);
         }
-        this.listViewChild()?.cd?.markForCheck();
     }
 
     onDrop(event: CdkDragDrop<string[]>) {
-        let previousIndex = event.previousIndex;
         let currentIndex = event.currentIndex;
 
         const val = this.value();
         const sel = this.selection();
 
-        // Store the original state before any modifications
+        // Store the original state before Listbox's automatic reordering
         const originalValue = [...(val || [])];
-        const originalVisibleOptions = this.visibleOptions() ? [...this.visibleOptions()!] : null;
 
-        if (previousIndex !== currentIndex) {
-            // Determine items to move
-            let itemsToMove: any[] = [];
-
+        if (event.previousIndex !== currentIndex) {
             // Check if dragged item is in selected items AND we have multiple selections
             if (sel && sel.length > 1 && findIndexInList(event.item.data, sel) !== -1) {
                 // Multi-selection: Move all selected items
-                itemsToMove = [...sel];
+                let itemsToMove = [...sel];
 
-                // For multi-selection, restore original state to undo Listbox's automatic reordering
+                // Restore original state to undo Listbox's automatic single-item reordering
                 if (val) {
                     val.length = 0;
                     val.push(...originalValue);
                 }
-                if (originalVisibleOptions && this.visibleOptions()) {
-                    const vo = this.visibleOptions()!;
-                    vo.length = 0;
-                    vo.push(...originalVisibleOptions);
+
+                // Map CDK index to real index when Listbox is filtering
+                const listboxFilterValue = this.listViewChild()._filterValue?.();
+                if (listboxFilterValue && this.filterBy()) {
+                    const filterFields = (this.filterBy() as string).split(',');
+                    const originalFiltered = this.filterService.filter(originalValue, filterFields, listboxFilterValue, this.filterMatchMode(), this.filterLocale());
+                    const targetItem = originalFiltered[currentIndex];
+                    currentIndex = findIndexInList(targetItem, originalValue);
                 }
 
                 // Sort items by their index in the array to maintain relative order
@@ -805,42 +769,17 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
                 }
 
                 // Calculate the final target index
-                // If we're dragging down, we need to subtract the number of items that were before the target
                 const targetIndex = Math.max(0, currentIndex - itemsBefore);
 
                 // Insert all selected items at the target position
                 for (let i = 0; i < itemsToMove.length; i++) {
                     val?.splice(targetIndex + i, 0, itemsToMove[i]);
                 }
-                // Update visibleOptions to match value
-                if (this.dragdrop()) {
-                    if (this.filterValue()) {
-                        this.filter();
-                    } else if (this.visibleOptions()) {
-                        this.visibleOptions.set([...(val || [])]);
-                    }
-                }
-
-                // Ensure change detection runs
-                this.cd?.markForCheck();
-
+                this.value.set([...(val || [])]);
                 this.onReorder.emit(itemsToMove);
             } else {
-                // Single item: Move only the dragged item (let Listbox handle it)
-                itemsToMove = [event.item.data];
-
-                if (this.filterValue()) {
-                    previousIndex = findIndexInList(event.item.data, val || []);
-                    currentIndex = findIndexInList(this.visibleOptions()?.[currentIndex], val || []);
-                }
-
-                moveItemInArray(val as any[], previousIndex, currentIndex);
-
-                // Sync visibleOptions for non-filtered case
-                if (this.dragdrop() && this.visibleOptions() && !this.filterValue()) {
-                    this.visibleOptions.set([...(val || [])]);
-                }
-
+                // Single item: Listbox already handled reorder correctly in _options
+                this.value.set([...this.listViewChild()._options()]);
                 this.onReorder.emit([event.item.data]);
             }
         }

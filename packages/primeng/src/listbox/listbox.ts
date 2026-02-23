@@ -1820,7 +1820,20 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
             // If dragdrop is enabled and same container (reordering), automatically handle reordering
             if (this.dragdrop() && event.previousContainer === event.container) {
                 const currentOptions = [...this._options()];
-                moveItemInArray(currentOptions, event.previousIndex, event.currentIndex);
+
+                if (this._filterValue()) {
+                    const visible = this.visibleOptions();
+                    const fromItem = visible[event.previousIndex];
+                    const toItem = visible[event.currentIndex];
+                    const realFrom = currentOptions.indexOf(fromItem);
+                    const realTo = currentOptions.indexOf(toItem);
+                    if (realFrom !== -1 && realTo !== -1) {
+                        moveItemInArray(currentOptions, realFrom, realTo);
+                    }
+                } else {
+                    moveItemInArray(currentOptions, event.previousIndex, event.currentIndex);
+                }
+
                 this._options.set(currentOptions);
                 this.changeFocusedOptionIndex(event, event.currentIndex);
 
