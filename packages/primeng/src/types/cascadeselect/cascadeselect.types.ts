@@ -3,7 +3,6 @@ import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
  * Processed option structure used internally.
- * @group Interface
  */
 export interface CascadeSelectProcessedOption {
     option: unknown;
@@ -18,7 +17,6 @@ export interface CascadeSelectProcessedOption {
 
 /**
  * Focused option info structure.
- * @group Interface
  */
 export interface CascadeSelectFocusedOptionInfo {
     index: number;
@@ -28,7 +26,6 @@ export interface CascadeSelectFocusedOptionInfo {
 
 /**
  * Internal option change event (used by CascadeSelectSub).
- * @group Interface
  */
 export interface CascadeSelectSubChangeEvent {
     originalEvent: Event;
@@ -38,7 +35,6 @@ export interface CascadeSelectSubChangeEvent {
 
 /**
  * Internal focus change event (used by CascadeSelectSub).
- * @group Interface
  */
 export interface CascadeSelectSubFocusChangeEvent {
     originalEvent: Event;
@@ -47,7 +43,6 @@ export interface CascadeSelectSubFocusChangeEvent {
 
 /**
  * Internal option change event.
- * @group Interface
  */
 export interface CascadeSelectOptionChangeEvent {
     originalEvent?: Event | null;
@@ -58,7 +53,6 @@ export interface CascadeSelectOptionChangeEvent {
 
 /**
  * Internal option click event.
- * @group Interface
  */
 export interface CascadeSelectOptionClickEvent {
     originalEvent: Event;
@@ -71,7 +65,6 @@ export interface CascadeSelectOptionClickEvent {
 
 /**
  * Internal option mouse event.
- * @group Interface
  */
 export interface CascadeSelectOptionMouseEvent {
     originalEvent: Event;

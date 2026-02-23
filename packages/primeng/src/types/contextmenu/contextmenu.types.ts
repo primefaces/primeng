@@ -66,7 +66,6 @@ export type ContextMenuPassThrough<I = unknown> = PassThrough<I, ContextMenuPass
 
 /**
  * Processed menu item used internally.
- * @group Interface
  */
 export interface ContextMenuProcessedItem {
     /**

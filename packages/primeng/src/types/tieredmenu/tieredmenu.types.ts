@@ -4,7 +4,6 @@ import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
  * Processed menu item used internally.
- * @group Interface
  */
 export interface TieredMenuProcessedItem {
     /**
@@ -39,7 +38,6 @@ export interface TieredMenuProcessedItem {
 
 /**
  * Focused item info used internally.
- * @group Interface
  */
 export interface TieredMenuFocusedItemInfo {
     /**

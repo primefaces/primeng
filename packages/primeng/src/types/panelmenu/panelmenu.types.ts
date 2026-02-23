@@ -4,7 +4,6 @@ import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
  * Processed menu item used internally by PanelMenu.
- * @group Interface
  */
 export interface ProcessedMenuItem {
     /**

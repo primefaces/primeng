@@ -9,7 +9,6 @@ export type MegaMenuOrientation = 'horizontal' | 'vertical';
 
 /**
  * Processed menu item structure used internally.
- * @group Interface
  */
 export interface ProcessedMegaMenuItem {
     item: MegaMenuItem;
@@ -24,7 +23,6 @@ export interface ProcessedMegaMenuItem {
 
 /**
  * Focused item info structure.
- * @group Interface
  */
 export interface MegaMenuFocusedItemInfo {
     index: number;
