@@ -768,6 +768,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
             }
         }
 
+        this.files = [...this.files];
         this.onSelect.emit({ originalEvent: event, files: files, currentFiles: this.files });
 
         // this will check the fileLimit with the uploaded files
@@ -962,6 +963,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
         this.clearInputElement();
         this.onRemove.emit({ originalEvent: event, file: this.files[index] });
         this.files.splice(index, 1);
+        this.files = [...this.files];
         this.checkFileLimit(this.files);
     }
     /**
