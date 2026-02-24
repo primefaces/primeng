@@ -4,7 +4,8 @@ import { By } from '@angular/platform-browser';
 
 import { FormsModule } from '@angular/forms';
 import { TreeDragDropService, TreeNode } from 'primeng/api';
-import { Tree, UITreeNode } from './tree';
+import { Tree } from './tree';
+import { UITreeNode } from './tree-node';
 
 // Test component for basic use cases
 @Component({

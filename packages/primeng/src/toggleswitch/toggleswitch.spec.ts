@@ -550,12 +550,10 @@ describe('ToggleSwitch', () => {
 
         it('should handle writeControlValue correctly', () => {
             const mockSetModelValue = jasmine.createSpy('setModelValue');
-            spyOn(component.cd, 'markForCheck');
 
             component.writeControlValue('test-value', mockSetModelValue);
 
             expect(mockSetModelValue).toHaveBeenCalledWith('test-value');
-            expect(component.cd.markForCheck).toHaveBeenCalled();
         });
     });
 

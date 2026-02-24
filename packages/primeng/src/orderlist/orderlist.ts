@@ -778,8 +778,15 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
                 this.value.set([...(val || [])]);
                 this.onReorder.emit(itemsToMove);
             } else {
-                // Single item: Listbox already handled reorder correctly in _options
-                this.value.set([...this.listViewChild()._options()]);
+                // Single item: perform manual reorder using original state
+                if (val) {
+                    val.length = 0;
+                    val.push(...originalValue);
+
+                    const [movedItem] = val.splice(event.previousIndex, 1);
+                    val.splice(currentIndex, 0, movedItem);
+                    this.value.set([...val]);
+                }
                 this.onReorder.emit([event.item.data]);
             }
         }

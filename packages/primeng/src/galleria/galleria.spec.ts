@@ -287,6 +287,7 @@ describe('Galleria', () => {
 
         it('should handle visible model signal', () => {
             galleriaInstance.visible.set(true);
+            TestBed.flushEffects();
             expect(galleriaInstance.visible()).toBe(true);
             expect(galleriaInstance.maskVisible).toBe(true);
         });
@@ -295,6 +296,7 @@ describe('Galleria', () => {
             expect(galleriaInstance.maskVisible).toBe(false);
 
             galleriaInstance.visible.set(true);
+            TestBed.flushEffects();
             expect(galleriaInstance.maskVisible).toBe(true);
         });
     });

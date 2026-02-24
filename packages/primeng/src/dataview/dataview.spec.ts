@@ -3,6 +3,7 @@ import { Component, ViewChild, signal, provideZonelessChangeDetection } from '@a
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { DataView } from './dataview';
+import { SharedModule } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
@@ -208,7 +209,7 @@ describe('DataView', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, DataView, PaginatorModule],
+            imports: [CommonModule, DataView, PaginatorModule, SharedModule],
             declarations: [TestBasicDataViewComponent, TestHeaderFooterDataViewComponent, TestTemplatesDataViewComponent, TestLayoutDataViewComponent, TestDynamicDataViewComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();

@@ -379,9 +379,9 @@ describe('SpeedDial', () => {
         });
 
         it('should process model items correctly', () => {
-            expect(speedDialInstance.model_()).toBeDefined();
-            expect(speedDialInstance.model_()?.length).toBe(5);
-            expect(speedDialInstance.model_()?.[0].label).toBe('Add');
+            expect(speedDialInstance.$model()).toBeDefined();
+            expect(speedDialInstance.$model()?.length).toBe(5);
+            expect(speedDialInstance.$model()?.[0].label).toBe('Add');
         });
     });
 
@@ -393,7 +393,7 @@ describe('SpeedDial', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(speedDialInstance.model_()).toEqual(newModel);
+            expect(speedDialInstance.$model()).toEqual(newModel);
         });
 
         it('should update visible property', async () => {
@@ -620,7 +620,7 @@ describe('SpeedDial', () => {
             await fixture.whenStable();
 
             // Execute first item command directly
-            const firstItem = speedDialInstance.model_()?.[0];
+            const firstItem = speedDialInstance.$model()?.[0];
             if (firstItem?.command) {
                 firstItem.command({ originalEvent: new Event('click'), item: firstItem });
             }
@@ -634,7 +634,7 @@ describe('SpeedDial', () => {
             await fixture.whenStable();
             expect(speedDialInstance.visible()).toBe(true);
 
-            const firstItem = speedDialInstance.model_()?.[0];
+            const firstItem = speedDialInstance.$model()?.[0];
             if (firstItem) {
                 speedDialInstance.onItemClick(new Event('click'), firstItem);
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1261,7 +1261,7 @@ describe('SpeedDial', () => {
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(speedDialInstance.model_()).toEqual([]);
+            expect(speedDialInstance.$model()).toEqual([]);
         });
 
         it('should handle null model', async () => {
@@ -1271,7 +1271,7 @@ describe('SpeedDial', () => {
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(speedDialInstance.model_()).toBeNull();
+            expect(speedDialInstance.$model()).toBeNull();
         });
 
         it('should handle disabled items', () => {
@@ -1279,7 +1279,7 @@ describe('SpeedDial', () => {
             disabledFixture.detectChanges();
 
             const disabledSpeedDial = disabledFixture.debugElement.queryAll(By.directive(SpeedDial))[1].componentInstance;
-            const disabledItem = disabledSpeedDial.model_()[1]; // Second item is disabled
+            const disabledItem = disabledSpeedDial.$model()[1]; // Second item is disabled
 
             expect(disabledItem.disabled).toBe(true);
         });
@@ -1370,7 +1370,7 @@ describe('SpeedDial', () => {
             await routerFixture.whenStable();
 
             const routerSpeedDial = routerFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
-            const routerItem = routerSpeedDial.model_()[0]; // Home link
+            const routerItem = routerSpeedDial.$model()[0]; // Home link
 
             expect(routerItem.routerLink).toBe('/home');
             expect(routerSpeedDial.isClickableRouterLink(routerItem)).toBe(true);
@@ -1400,7 +1400,7 @@ describe('SpeedDial', () => {
             const commandSpeedDial = commandFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
 
             // Execute first menu item command
-            const firstItem = commandSpeedDial.model_()[0];
+            const firstItem = commandSpeedDial.$model()[0];
             if (firstItem.command) {
                 firstItem.command({ originalEvent: new Event('click'), item: firstItem });
             }

@@ -179,16 +179,17 @@ describe('BlockUI', () => {
         });
 
         it('should apply base CSS classes', async () => {
-            fixture.componentRef.setInput('blocked', true);
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const blockedFixture = TestBed.createComponent(TestBlockedBlockUIComponent);
+            blockedFixture.componentInstance.blocked = true;
+            await blockedFixture.whenStable();
+            blockedFixture.detectChanges();
+            await blockedFixture.whenStable();
 
-            expect(element.classList.contains('p-blockui')).toBe(true);
-            expect(element.classList.contains('p-blockui-mask')).toBe(true);
-            expect(element.classList.contains('p-overlay-mask')).toBe(true);
-            expect(element.classList.contains('p-blockui-mask-document')).toBe(true);
+            const blockUIElement = blockedFixture.debugElement.query(By.directive(BlockUI)).nativeElement;
+            expect(blockUIElement.classList.contains('p-blockui')).toBe(true);
+            expect(blockUIElement.classList.contains('p-blockui-mask')).toBe(true);
+            expect(blockUIElement.classList.contains('p-overlay-mask')).toBe(true);
+            expect(blockUIElement.classList.contains('p-blockui-mask-document')).toBe(true);
         });
 
         it('should have correct data attributes', () => {

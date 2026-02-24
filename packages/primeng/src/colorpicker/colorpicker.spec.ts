@@ -1416,25 +1416,26 @@ describe('ColorPicker', () => {
                 ]
             });
 
-            const fixture = TestBed.createComponent(ColorPicker);
-            fixture.componentRef.setInput('inline', false);
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
+            // Test root and preview in overlay mode
+            const overlayFixture = TestBed.createComponent(ColorPicker);
+            overlayFixture.componentRef.setInput('inline', false);
+            overlayFixture.changeDetectorRef.markForCheck();
+            await overlayFixture.whenStable();
 
-            const rootEl = fixture.nativeElement;
+            const rootEl = overlayFixture.nativeElement;
             expect(rootEl.getAttribute('aria-label')).toBe('GLOBAL_COLORPICKER_ARIA');
             expect(rootEl.getAttribute('data-testid')).toBe('global-colorpicker-root');
 
-            const preview = fixture.nativeElement.querySelector('input[type="text"]');
+            const preview = overlayFixture.nativeElement.querySelector('input[type="text"]');
             expect(preview?.getAttribute('data-preview-global')).toBe('preview-value');
 
-            // Open panel to check panel PT
-            const colorPicker = fixture.componentInstance;
-            colorPicker.show();
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
+            // Test panel PT in inline mode (panel is directly rendered)
+            const inlineFixture = TestBed.createComponent(ColorPicker);
+            inlineFixture.componentRef.setInput('inline', true);
+            inlineFixture.changeDetectorRef.markForCheck();
+            await inlineFixture.whenStable();
 
-            const panel = fixture.nativeElement.querySelector('.p-colorpicker-panel');
+            const panel = inlineFixture.nativeElement.querySelector('.p-colorpicker-panel');
             expect(panel?.className).toContain('GLOBAL_PANEL_CLASS');
             expect(panel?.getAttribute('data-global-panel')).toBe('true');
         });

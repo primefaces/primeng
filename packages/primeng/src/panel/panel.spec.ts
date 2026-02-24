@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
+import { SharedModule } from 'primeng/api';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from 'primeng/types/panel';
 import { Panel } from './panel';
 
@@ -119,7 +120,7 @@ describe('Panel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [Panel, ButtonModule, PlusIcon, MinusIcon],
+            imports: [Panel, ButtonModule, PlusIcon, MinusIcon, SharedModule],
             providers: [provideNoopAnimations(), provideZonelessChangeDetection()],
             declarations: [TestBasicPanelComponent, TestTemplatesPanelComponent, TestFacetsPanelComponent, TestKeyboardNavigationComponent]
         });

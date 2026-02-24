@@ -51,6 +51,9 @@ export class FocusTrap extends BaseComponent {
         if (this.lastHiddenFocusableElement && this.lastHiddenFocusableElement.parentNode) {
             this.lastHiddenFocusableElement.parentNode.removeChild(this.lastHiddenFocusableElement);
         }
+
+        this.firstHiddenFocusableElement = null!;
+        this.lastHiddenFocusableElement = null!;
     }
 
     getComputedSelector(selector: string | null) {

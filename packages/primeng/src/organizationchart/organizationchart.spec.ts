@@ -4,7 +4,8 @@ import { By } from '@angular/platform-browser';
 
 import { TreeNode } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
-import { OrganizationChart, OrganizationChartNode } from './organizationchart';
+import { OrganizationChart } from './organizationchart';
+import { OrganizationChartNode } from './organizationchart-node';
 
 // Test component for basic use cases
 @Component({

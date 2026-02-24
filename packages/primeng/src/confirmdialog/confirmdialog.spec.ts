@@ -483,7 +483,7 @@ describe('ConfirmDialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            const acceptButton = fixture.debugElement.queryAll(By.css('p-button')).find((btn) => btn.nativeElement.textContent?.includes('Yes') || btn.componentInstance.ariaLabel?.includes('accept'));
+            const acceptButton = fixture.debugElement.queryAll(By.css('p-button')).find((btn) => btn.nativeElement.textContent?.includes('Yes') || btn.componentInstance.ariaLabel()?.includes('accept'));
 
             expect(acceptButton).toBeTruthy();
         });
@@ -496,7 +496,7 @@ describe('ConfirmDialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const buttons = fixture.debugElement.queryAll(By.css('p-button'));
-            const acceptButton = buttons.find((btn) => btn.componentInstance.ariaLabel?.includes('accept') || btn.nativeElement.textContent?.includes('Yes'));
+            const acceptButton = buttons.find((btn) => btn.componentInstance.ariaLabel()?.includes('accept') || btn.nativeElement.textContent?.includes('Yes'));
 
             expect(acceptButton).toBeFalsy();
         });
@@ -508,7 +508,7 @@ describe('ConfirmDialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            const rejectButton = fixture.debugElement.queryAll(By.css('p-button')).find((btn) => btn.nativeElement.textContent?.includes('No') || btn.componentInstance.ariaLabel?.includes('reject'));
+            const rejectButton = fixture.debugElement.queryAll(By.css('p-button')).find((btn) => btn.nativeElement.textContent?.includes('No') || btn.componentInstance.ariaLabel()?.includes('reject'));
 
             expect(rejectButton).toBeTruthy();
         });
@@ -521,7 +521,7 @@ describe('ConfirmDialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const buttons = fixture.debugElement.queryAll(By.css('p-button'));
-            const rejectButton = buttons.find((btn) => btn.componentInstance.ariaLabel?.includes('reject') || btn.nativeElement.textContent?.includes('No'));
+            const rejectButton = buttons.find((btn) => btn.componentInstance.ariaLabel()?.includes('reject') || btn.nativeElement.textContent?.includes('No'));
 
             expect(rejectButton).toBeFalsy();
         });

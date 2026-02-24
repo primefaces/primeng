@@ -1,7 +1,10 @@
 import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Accordion, AccordionContent, AccordionHeader, AccordionPanel } from './accordion';
+import { Accordion } from './accordion';
+import { AccordionContent } from './accordion-content';
+import { AccordionHeader } from './accordion-header';
+import { AccordionPanel } from './accordion-panel';
 import type { AccordionTabCloseEvent, AccordionTabOpenEvent } from 'primeng/types/accordion';
 
 @Component({

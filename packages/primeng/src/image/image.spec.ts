@@ -116,7 +116,7 @@ describe('Image', () => {
 
         it('should have default values', () => {
             expect(component.preview()).toBe(false);
-            expect(component.maskVisible).toBe(false);
+            expect(component.maskVisible()).toBe(false);
             expect(component.previewVisible).toBe(false);
             expect(component.rotate()).toBe(0);
             expect(component.scale()).toBe(1);
@@ -175,7 +175,7 @@ describe('Image', () => {
             previewButton.nativeElement.click();
             await testFixture.whenStable();
 
-            expect(imageInstance.maskVisible).toBe(true);
+            expect(imageInstance.maskVisible()).toBe(true);
             expect(imageInstance.previewVisible).toBe(true);
         });
 

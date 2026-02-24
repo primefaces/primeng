@@ -5,7 +5,8 @@ import { By } from '@angular/platform-browser';
 
 import { MessageService, SharedModule, ToastMessageOptions } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
-import { Toast, ToastItem } from './toast';
+import { Toast } from './toast';
+import { ToastItem } from './toast-item';
 
 // Test Components for different scenarios
 @Component({
@@ -519,6 +520,11 @@ describe('Toast', () => {
             const toastInstance = toastEl.componentInstance as Toast;
             spyOn(toastInstance, 'onMessageClose');
 
+            // Capture toast item reference BEFORE clicking close (it may be removed from DOM after)
+            const toastItemEl = fixture.debugElement.query(By.css('p-toast-item'));
+            expect(toastItemEl).toBeTruthy();
+            const toastItemInstance = toastItemEl.componentInstance;
+
             const closeButton = fixture.debugElement.query(By.css('.headless-close'));
             expect(closeButton).toBeTruthy();
 
@@ -529,9 +535,6 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            // Get ToastItem and trigger animation end via onAfterLeave
-            const toastItemEl = fixture.debugElement.query(By.css('p-toastitem'));
-            const toastItemInstance = toastItemEl.componentInstance;
             // Simulate motion animation ending by calling onAfterLeave
             toastItemInstance.onAfterLeave({ element: toastItemEl.nativeElement });
 

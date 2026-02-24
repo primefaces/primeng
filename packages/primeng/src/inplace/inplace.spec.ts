@@ -408,8 +408,8 @@ describe('Inplace', () => {
             fixture.detectChanges();
             await fixture.whenStable();
 
-            // Then deactivate
-            inplaceComponent.deactivate();
+            // Then deactivate (must pass event for onDeactivate to emit)
+            inplaceComponent.deactivate(new Event('click'));
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -554,8 +554,8 @@ describe('Inplace', () => {
 
             expect(inplaceComponent.active()).toBe(true);
 
-            // Click close button
-            const closeButton = element.querySelector('p-button') as HTMLElement;
+            // Click close button (click the inner button element)
+            const closeButton = element.querySelector('p-button button') as HTMLElement;
             closeButton.click();
             fixture.detectChanges();
             await fixture.whenStable();
@@ -589,7 +589,7 @@ describe('Inplace', () => {
             fixture.detectChanges();
             await fixture.whenStable();
 
-            const closeButton = element.querySelector('p-button') as HTMLElement;
+            const closeButton = element.querySelector('p-button button') as HTMLElement;
             expect(closeButton.getAttribute('aria-label')).toBe('Close Editor');
         });
     });

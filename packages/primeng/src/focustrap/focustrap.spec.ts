@@ -805,13 +805,17 @@ describe('FocusTrap', () => {
         });
 
         it('should remove hidden elements from DOM when removeHiddenFocusableElements is called', () => {
-            expect(directive.firstHiddenFocusableElement.parentNode).toBe(element);
-            expect(directive.lastHiddenFocusableElement.parentNode).toBe(element);
+            const firstEl = directive.firstHiddenFocusableElement;
+            const lastEl = directive.lastHiddenFocusableElement;
+            expect(firstEl.parentNode).toBe(element);
+            expect(lastEl.parentNode).toBe(element);
 
             directive.removeHiddenFocusableElements();
 
-            expect(directive.firstHiddenFocusableElement.parentNode).toBeNull();
-            expect(directive.lastHiddenFocusableElement.parentNode).toBeNull();
+            expect(firstEl.parentNode).toBeNull();
+            expect(lastEl.parentNode).toBeNull();
+            expect(directive.firstHiddenFocusableElement).toBeNull();
+            expect(directive.lastHiddenFocusableElement).toBeNull();
         });
 
         it('should handle removeHiddenFocusableElements when elements have no parent', () => {

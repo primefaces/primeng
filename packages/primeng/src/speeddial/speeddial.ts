@@ -59,7 +59,13 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                 [attr.aria-labelledby]="ariaLabelledBy()"
                 (click)="onButtonClick($event)"
                 (keydown)="onTogglerKeydown($event)"
-                [buttonProps]="buttonProps()"
+                [severity]="buttonProps()?.severity"
+                [text]="buttonProps()?.text"
+                [outlined]="buttonProps()?.outlined"
+                [rounded]="buttonProps()?.rounded"
+                [raised]="buttonProps()?.raised"
+                [size]="buttonProps()?.size"
+                [plain]="buttonProps()?.plain"
                 [pt]="ptm('pcButton')"
                 [unstyled]="unstyled()"
             >
@@ -89,7 +95,7 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
             [tabindex]="-1"
             [style]="sx('list')"
         >
-            @for (item of model_(); track item; let i = $index) {
+            @for (item of $model(); track item; let i = $index) {
                 <li
                     [pBind]="getPTOptions(getItemId(i), 'item')"
                     [style]="getItemStyle(i)"
@@ -163,7 +169,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
      * MenuModel instance to define the action items.
      * @group Props
      */
-    model_ = input<MenuItem[] | null>(null, { alias: 'model' });
+    $model = input<MenuItem[] | null>(null, { alias: 'model' });
     /**
      * Specifies the visibility of the overlay.
      * @defaultValue false
@@ -544,8 +550,8 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
         const items = find(this.el?.nativeElement, '[data-pc-section="item"]');
         const itemIndex = [...items].findIndex((item) => item.id === this.focusedOptionIndex());
 
-        if (itemIndex !== -1 && this.model_() && this.model_()![itemIndex]) {
-            this.onItemClick(event, this.model_()![itemIndex]);
+        if (itemIndex !== -1 && this.$model() && this.$model()![itemIndex]) {
+            this.onItemClick(event, this.$model()![itemIndex]);
         }
         this.onBlur(event);
 
@@ -658,7 +664,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
         const type = this.type();
 
         if (type !== 'linear') {
-            const length = (this.model_() as MenuItem[]).length;
+            const length = (this.$model() as MenuItem[]).length;
             const radius = this.radius() || length * 20;
 
             if (type === 'circle') {
@@ -703,7 +709,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
     }
 
     calculateTransitionDelay(index: number) {
-        const length = (this.model_() as MenuItem[]).length;
+        const length = (this.$model() as MenuItem[]).length;
 
         return (this.visible() ? index : length - index - 1) * this.transitionDelay();
     }

@@ -1,8 +1,12 @@
 import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { Step, StepItem, StepList, StepPanel, StepPanels, Stepper } from './stepper';
+import { Stepper } from './stepper';
+import { Step } from './step';
+import { StepItem } from './step-item';
+import { StepList } from './step-list';
+import { StepPanel } from './step-panel';
+import { StepPanels } from './step-panels';
 
 @Component({
     standalone: false,
