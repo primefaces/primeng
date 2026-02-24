@@ -379,12 +379,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                     <ng-template *ngTemplateOutlet="incrementIconTemplate()"></ng-template>
                                 </ng-template>
                             </p-button>
-                            <span [pBind]="ptm('hour')">
-                                @if (currentHour()! < 10) {
-                                    0
-                                }
-                                {{ currentHour() }}</span
-                            >
+                            <span [pBind]="ptm('hour')">{{ formattedHour() }}</span>
                             <p-button
                                 rounded
                                 variant="text"
@@ -438,12 +433,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                     <ng-template *ngTemplateOutlet="incrementIconTemplate()"></ng-template>
                                 </ng-template>
                             </p-button>
-                            <span [pBind]="ptm('minute')">
-                                @if (currentMinute()! < 10) {
-                                    0
-                                }
-                                {{ currentMinute() }}</span
-                            >
+                            <span [pBind]="ptm('minute')">{{ formattedMinute() }}</span>
                             <p-button
                                 rounded
                                 variant="text"
@@ -500,12 +490,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                         <ng-template *ngTemplateOutlet="incrementIconTemplate()"></ng-template>
                                     </ng-template>
                                 </p-button>
-                                <span [pBind]="ptm('second')">
-                                    @if (currentSecond()! < 10) {
-                                        0
-                                    }
-                                    {{ currentSecond() }}</span
-                                >
+                                <span [pBind]="ptm('second')">{{ formattedSecond() }}</span>
                                 <p-button
                                     rounded
                                     variant="text"
@@ -1026,6 +1011,12 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     currentMinute = signal<number | null>(null);
 
     currentSecond = signal<number | null>(null);
+
+    formattedHour = computed(() => String(this.currentHour() ?? 0).padStart(2, '0'));
+
+    formattedMinute = computed(() => String(this.currentMinute() ?? 0).padStart(2, '0'));
+
+    formattedSecond = computed(() => String(this.currentSecond() ?? 0).padStart(2, '0'));
 
     pm = signal<boolean | null>(null);
 
