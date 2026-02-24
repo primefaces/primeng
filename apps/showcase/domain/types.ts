@@ -161,7 +161,7 @@ import { ButtonModule } from 'primeng/button';
             <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
         </div>
         <p-table [value]="products" responsiveLayout="scroll" [rows]="5">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th pSortableColumn="code">Code</th>
                     <th pSortableColumn="name">Name</th>
@@ -171,7 +171,7 @@ import { ButtonModule } from 'primeng/button';
                     <th style="width:4em"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template #body let-product>
                 <tr>
                     <td>{{ product.code }}</td>
                     <td>{{ product.name }}</td>

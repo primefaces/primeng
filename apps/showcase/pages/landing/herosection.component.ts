@@ -67,7 +67,7 @@ import { OverviewApp } from './samples/overviewapp.component';
                 </div>
                 <div class="w-full flex lg:hidden items-center justify-center mt-16 mb-4">
                     <p-selectbutton [(ngModel)]="selectedSampleOption" [options]="sampleOptions" optionLabel="title" styleClass="dark:border dark:border-white/20">
-                        <ng-template let-item pTemplate="item">
+                        <ng-template #item let-item>
                             <i [class]="item.icon"></i>
                             <div class="hidden sm:flex flex-1 text-sm font-medium leading-5">{{ item.title }}</div>
                         </ng-template>
@@ -225,7 +225,7 @@ import { OverviewApp } from './samples/overviewapp.component';
                                 <p-button (onClick)="dashboardSidebarVisible = false" icon="pi pi-sign-out" text rounded severity="secondary" />
                             </div>
                             <p-selectbutton [(ngModel)]="selectedSidebarOption" [options]="sidebarOptions" class="w-full px-6 py-3" styleClass="flex-1 w-full py-2.5">
-                                <ng-template pTemplate="item" let-item>
+                                <ng-template #item let-item>
                                     <span class="text-sm">{{ item }}</span>
                                 </ng-template>
                             </p-selectbutton>

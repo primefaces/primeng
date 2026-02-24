@@ -129,7 +129,7 @@ import { TooltipModule } from 'primeng/tooltip';
                 </ng-template>
             </p-table>
             <p-popover #op>
-                <ng-template pTemplate="content">
+                <ng-template #content>
                     <div class="flex gap-2">
                         <p-button label="Details" size="small" outlined (onClick)="op.hide()"></p-button>
                         <p-button label="Delete" severity="danger" size="small" outlined (onClick)="op.hide()"></p-button>

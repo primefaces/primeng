@@ -38,7 +38,7 @@ import { TagModule } from 'primeng/tag';
             </div>
             <div class="col-span-12 md:col-span-6 drop-column" pDroppable="products" (onDrop)="drop()">
                 <p-table [value]="selectedProducts">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>ID</th>
                             <th>Category</th>
@@ -46,7 +46,7 @@ import { TagModule } from 'primeng/tag';
                             <th>Price</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr>
                             <td>{{ product.id }}</td>
                             <td>{{ product.category }}</td>

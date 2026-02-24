@@ -25,22 +25,22 @@ interface Column {
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header" let-columns>
+                    <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
                                 {{ col.header }}
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index" ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
                                 <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 <p-treetable-cell-editor>
-                                    <ng-template pTemplate="input">
+                                    <ng-template #input>
                                         <input pInputText type="text" [(ngModel)]="rowData[col.field]" />
                                     </ng-template>
-                                    <ng-template pTemplate="output">{{ rowData[col.field] }}</ng-template>
+                                    <ng-template #output>{{ rowData[col.field] }}</ng-template>
                                 </p-treetable-cell-editor>
                             </td>
                         </tr>

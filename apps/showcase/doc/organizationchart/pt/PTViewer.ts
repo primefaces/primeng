@@ -10,7 +10,7 @@ import { OrganizationChartModule } from 'primeng/organizationchart';
     template: `
         <app-docptviewer [docs]="docs">
             <p-organizationchart [value]="data" [collapsible]="true">
-                <ng-template let-node pTemplate="default">
+                <ng-template let-node #node>
                     <span>{{ node.label }}</span>
                 </ng-template>
             </p-organizationchart>
