@@ -96,7 +96,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                         <ng-template #notHeadless>
                             <div *ngIf="resizable" [class]="cx('resizeHandle')" [pBind]="ptm('resizeHandle')" [style.z-index]="90" (mousedown)="initResize($event)"></div>
                             <div #titlebar [class]="cx('header')" [pBind]="ptm('header')" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                                <span [id]="ariaLabelledBy" [class]="cx('title')" [pBind]="ptm('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
+                                <span [id]="ariaLabelledBy" [class]="cx('title')" [pBind]="ptm('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT" (mousedown)="selectableTitle ? $event.stopPropagation() : null">{{ header }}</span>
                                 <ng-container *ngTemplateOutlet="_headerTemplate || headerTemplate || headerT; context: { ariaLabelledBy: ariaLabelledBy }"></ng-container>
                                 <div [class]="cx('headerActions')" [pBind]="ptm('headerActions')">
                                     <p-button
@@ -301,6 +301,11 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
      * @group Props
      */
     @Input({ transform: booleanAttribute }) focusTrap: boolean = true;
+    /**
+     * When enabled, the title text is selectable and dragging only works on other parts of the header.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) selectableTitle: boolean = false;
     /**
      * Transition options of the animation.
      * @deprecated since v21.0.0. Use `motionOptions` instead.
@@ -842,6 +847,15 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         }
 
         if (this.draggable) {
+            if (this.selectableTitle) {
+                // Clear any selected title text when the user starts dragging from a non-title area.
+                // anchorNode is where the selection started and contains() ensures we only clear
+                // selections inside this dialog, leaving any selections outside untouched.
+                const selection = this.document.defaultView?.getSelection();
+                if (selection?.rangeCount && this.container()?.contains(selection.anchorNode)) {
+                    selection.removeAllRanges();
+                }
+            }
             this.dragging = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
