@@ -38,6 +38,7 @@ import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
     DatePickerButtonBarTemplateContext,
+    DatePickerDateMeta,
     DatePickerDateTemplateContext,
     DatePickerDecadeTemplateContext,
     DatePickerDisabledDateTemplateContext,
@@ -152,7 +153,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                     @if (!inputIconTemplate()) {
                         <svg data-p-icon="calendar" (click)="onButtonClick($event)" [class]="cx('inputIcon')" [pBind]="ptm('inputIcon')" />
                     }
-                    <ng-container *ngTemplateOutlet="inputIconTemplate(); context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
+                    <ng-container *ngTemplateOutlet="inputIconTemplate(); context: inputIconTemplateContext()"></ng-container>
                 </span>
             }
         }
@@ -234,7 +235,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                                 @if (!decadeTemplate()) {
                                                     {{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}
                                                 }
-                                                <ng-container *ngTemplateOutlet="decadeTemplate(); context: { $implicit: yearPickerValues }"></ng-container>
+                                                <ng-container *ngTemplateOutlet="decadeTemplate(); context: decadeTemplateContext()"></ng-container>
                                             </span>
                                         }
                                     </div>
@@ -301,10 +302,10 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                                                         {{ date.day }}
                                                                     }
                                                                     @if (date.selectable || !disabledDateTemplate()) {
-                                                                        <ng-container *ngTemplateOutlet="dateTemplate(); context: { $implicit: date }"></ng-container>
+                                                                        <ng-container *ngTemplateOutlet="dateTemplate(); context: getDateTemplateContext(date)"></ng-container>
                                                                     }
                                                                     @if (!date.selectable) {
-                                                                        <ng-container *ngTemplateOutlet="disabledDateTemplate(); context: { $implicit: date }"></ng-container>
+                                                                        <ng-container *ngTemplateOutlet="disabledDateTemplate(); context: getDateTemplateContext(date)"></ng-container>
                                                                     }
                                                                 </span>
                                                                 @if (isSelected(date)) {
@@ -570,7 +571,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 @if (showButtonBar()) {
                     <div [class]="cx('buttonbar')" [pBind]="ptm('buttonbar')">
                         @if (buttonBarTemplate()) {
-                            <ng-container *ngTemplateOutlet="buttonBarTemplate(); context: { todayCallback: onTodayButtonClick.bind(this), clearCallback: onClearButtonClick.bind(this) }"></ng-container>
+                            <ng-container *ngTemplateOutlet="buttonBarTemplate(); context: buttonBarTemplateContext()"></ng-container>
                         } @else {
                             <p-button
                                 size="small"
@@ -1017,6 +1018,22 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     formattedMinute = computed(() => String(this.currentMinute() ?? 0).padStart(2, '0'));
 
     formattedSecond = computed(() => String(this.currentSecond() ?? 0).padStart(2, '0'));
+
+    private onButtonClickCallback = this.onButtonClick.bind(this);
+
+    private onTodayButtonClickCallback = this.onTodayButtonClick.bind(this);
+
+    private onClearButtonClickCallback = this.onClearButtonClick.bind(this);
+
+    inputIconTemplateContext = computed<DatePickerInputIconTemplateContext>(() => ({ clickCallBack: this.onButtonClickCallback }));
+
+    decadeTemplateContext = computed<DatePickerDecadeTemplateContext>(() => ({ $implicit: this.yearPickerValues }));
+
+    buttonBarTemplateContext = computed<DatePickerButtonBarTemplateContext>(() => ({ todayCallback: this.onTodayButtonClickCallback, clearCallback: this.onClearButtonClickCallback }));
+
+    getDateTemplateContext(date: DatePickerDateMeta): DatePickerDateTemplateContext {
+        return { $implicit: date };
+    }
 
     pm = signal<boolean | null>(null);
 
