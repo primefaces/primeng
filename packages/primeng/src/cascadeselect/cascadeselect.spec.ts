@@ -285,15 +285,15 @@ class TestCascadeSelectComponent {
         >
             <!-- Value template with #value -->
             <ng-template #value let-value let-placeholder="placeholder">
-                <div class="ptemplate-value" [attr.data-testid]="'ptemplate-value'">
-                    <span class="value-text" *ngIf="value">{{ value.cname || value.name }} - pTemplate</span>
-                    <span class="placeholder-text" *ngIf="!value">{{ placeholder }} (pTemplate)</span>
+                <div class="template-value" [attr.data-testid]="'template-value'">
+                    <span class="value-text" *ngIf="value">{{ value.cname || value.name }} - #template</span>
+                    <span class="placeholder-text" *ngIf="!value">{{ placeholder }} (#template)</span>
                 </div>
             </ng-template>
 
             <!-- Option template with #option -->
             <ng-template #option let-option let-level="level">
-                <div class="ptemplate-option" [attr.data-testid]="'ptemplate-option'" [attr.data-level]="level">
+                <div class="template-option" [attr.data-testid]="'template-option'" [attr.data-level]="level">
                     <i class="pi pi-flag" *ngIf="level === 0"></i>
                     <i class="pi pi-map" *ngIf="level === 1"></i>
                     <i class="pi pi-building" *ngIf="level === 2"></i>
@@ -303,29 +303,29 @@ class TestCascadeSelectComponent {
 
             <!-- Header template with #header -->
             <ng-template #header>
-                <div class="ptemplate-header" [attr.data-testid]="'ptemplate-header'">
+                <div class="template-header" [attr.data-testid]="'template-header'">
                     <i class="pi pi-search"></i>
-                    <h4 class="header-title">Select Location (pTemplate)</h4>
+                    <h4 class="header-title">Select Location (#template)</h4>
                     <span class="header-subtitle">Available: {{ options.length }} countries</span>
                 </div>
             </ng-template>
 
             <!-- Footer template with #footer -->
             <ng-template #footer>
-                <div class="ptemplate-footer" [attr.data-testid]="'ptemplate-footer'">
-                    <small class="footer-text">Choose your location (pTemplate)</small>
+                <div class="template-footer" [attr.data-testid]="'template-footer'">
+                    <small class="footer-text">Choose your location (#template)</small>
                     <button class="footer-button" type="button">Help</button>
                 </div>
             </ng-template>
 
             <!-- Trigger icon template with #triggericon -->
             <ng-template #triggericon>
-                <i class="pi pi-angle-down ptemplate-triggericon" [attr.data-testid]="'ptemplate-triggericon'"></i>
+                <i class="pi pi-angle-down template-triggericon" [attr.data-testid]="'template-triggericon'"></i>
             </ng-template>
 
             <!-- Loading icon template with #loadingicon -->
             <ng-template #loadingicon>
-                <div class="ptemplate-loadingicon" [attr.data-testid]="'ptemplate-loadingicon'">
+                <div class="template-loadingicon" [attr.data-testid]="'template-loadingicon'">
                     <i class="pi pi-spin pi-spinner loading-icon"></i>
                     <span class="loading-text">Loading...</span>
                 </div>
@@ -333,12 +333,12 @@ class TestCascadeSelectComponent {
 
             <!-- Option group icon template with #optiongroupicon -->
             <ng-template #optiongroupicon>
-                <i class="pi pi-chevron-right ptemplate-optiongroupicon" [attr.data-testid]="'ptemplate-optiongroupicon'"></i>
+                <i class="pi pi-chevron-right template-optiongroupicon" [attr.data-testid]="'template-optiongroupicon'"></i>
             </ng-template>
 
             <!-- Clear icon template with #clearicon -->
             <ng-template #clearicon>
-                <div class="ptemplate-clearicon" [attr.data-testid]="'ptemplate-clearicon'">
+                <div class="template-clearicon" [attr.data-testid]="'template-clearicon'">
                     <i class="pi pi-times clear-icon"></i>
                     <span class="clear-text">Clear</span>
                 </div>
@@ -346,7 +346,7 @@ class TestCascadeSelectComponent {
         </p-cascadeselect>
     `
 })
-class TestPTemplateCascadeSelectComponent {
+class TestTemplateCascadeSelectComponent {
     selectedValue: any = null as any;
     options: any[] = mockCountries;
     placeholder: string = 'Select Location';
@@ -360,13 +360,13 @@ describe('CascadeSelect', () => {
     let fixture: ComponentFixture<CascadeSelect>;
     let testFixture: ComponentFixture<TestCascadeSelectComponent>;
     let testComponent: TestCascadeSelectComponent;
-    let pTemplateFixture: ComponentFixture<TestPTemplateCascadeSelectComponent>;
-    let pTemplateComponent: TestPTemplateCascadeSelectComponent;
+    let templateFixture: ComponentFixture<TestTemplateCascadeSelectComponent>;
+    let templateComponent: TestTemplateCascadeSelectComponent;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CascadeSelectModule, SharedModule, FormsModule, ReactiveFormsModule],
-            declarations: [TestCascadeSelectComponent, TestPTemplateCascadeSelectComponent],
+            declarations: [TestCascadeSelectComponent, TestTemplateCascadeSelectComponent],
             providers: [provideZonelessChangeDetection(), provideNoopAnimations()]
         }).compileComponents();
 
@@ -376,8 +376,8 @@ describe('CascadeSelect', () => {
         testFixture = TestBed.createComponent(TestCascadeSelectComponent);
         testComponent = testFixture.componentInstance;
 
-        pTemplateFixture = TestBed.createComponent(TestPTemplateCascadeSelectComponent);
-        pTemplateComponent = pTemplateFixture.componentInstance;
+        templateFixture = TestBed.createComponent(TestTemplateCascadeSelectComponent);
+        templateComponent = templateFixture.componentInstance;
     });
 
     describe('Component Initialization', () => {
@@ -740,7 +740,7 @@ describe('CascadeSelect', () => {
             expect(cascadeSelectInstance.ngAfterContentInit).toBeDefined();
         });
 
-        it('should handle PrimeTemplate with context parameters', async () => {
+        it('should handle #template with context parameters', async () => {
             testComponent.options = mockCountries;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -1041,63 +1041,63 @@ describe('CascadeSelect', () => {
         });
     });
 
-    describe('pTemplate Content Projections with Context Parameters', () => {
+    describe('#template Content Projections with Context Parameters', () => {
         beforeEach(async () => {
-            await pTemplateFixture.whenStable();
+            await templateFixture.whenStable();
         });
 
         describe('Value Template (valueTemplate)', () => {
-            it('should render pTemplate="value" with value and placeholder context', async () => {
+            it('should render #value with value and placeholder context', async () => {
                 // Test with no value (placeholder scenario)
-                pTemplateComponent.selectedValue = null as any;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                templateComponent.selectedValue = null as any;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const valueTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-value"]'));
+                const valueTemplate = templateFixture.debugElement.query(By.css('[data-testid="template-value"]'));
                 if (valueTemplate) {
-                    expect(valueTemplate.query(By.css('.placeholder-text')).nativeElement.textContent.trim()).toBe('Select Location (pTemplate)');
+                    expect(valueTemplate.query(By.css('.placeholder-text')).nativeElement.textContent.trim()).toBe('Select Location (#template)');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                    const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance.valueTemplate()).toBeTruthy();
                 }
             });
 
-            it('should render pTemplate="value" with selected value context', async () => {
+            it('should render #value with selected value context', async () => {
                 // Test with selected value
-                pTemplateComponent.selectedValue = mockCountries[0].states[0].cities[0];
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                templateComponent.selectedValue = mockCountries[0].states[0].cities[0];
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const valueTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-value"]'));
+                const valueTemplate = templateFixture.debugElement.query(By.css('[data-testid="template-value"]'));
                 if (valueTemplate) {
                     const valueText = valueTemplate.query(By.css('.value-text'));
                     if (valueText) {
-                        expect(valueText.nativeElement.textContent.trim()).toContain('Sydney - pTemplate');
+                        expect(valueText.nativeElement.textContent.trim()).toContain('Sydney - #template');
                     } else {
                         // Value template found but no value text, check for placeholder text instead
                         expect(valueTemplate).toBeTruthy();
                     }
                 } else {
                     // Verify template is loaded
-                    const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                    const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance.valueTemplate()).toBeTruthy();
                 }
             });
 
             it('should set valueTemplate in ngAfterContentInit', async () => {
-                const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance.valueTemplate()).toBeTruthy();
             });
         });
 
         describe('Option Template (optionTemplate)', () => {
-            it('should render pTemplate="option" with option and level context', async () => {
-                const trigger = pTemplateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
+            it('should render #option with option and level context', async () => {
+                const trigger = templateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 trigger.nativeElement.click();
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
-                const optionTemplates = pTemplateFixture.debugElement.queryAll(By.css('[data-testid="ptemplate-option"]'));
+                const optionTemplates = templateFixture.debugElement.queryAll(By.css('[data-testid="template-option"]'));
                 if (optionTemplates.length > 0) {
                     const firstOption = optionTemplates[0];
                     const dataLevel = firstOption.nativeElement.getAttribute('data-level');
@@ -1120,14 +1120,14 @@ describe('CascadeSelect', () => {
                     expect(firstOption).toBeTruthy();
                 } else {
                     // Verify template is loaded even if not rendered
-                    const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                    const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance.optionTemplate()).toBeTruthy();
                 }
             });
 
             it('should handle different levels in option template context', async () => {
                 // Manually navigate to test different levels
-                const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
 
                 // Simulate navigation to level 1 (states)
                 cascadeSelectInstance.onOptionClick({
@@ -1135,175 +1135,175 @@ describe('CascadeSelect', () => {
                     processedOption: { option: mockCountries[0], key: 'country-0', level: 0 },
                     isFocus: false
                 });
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
                 // Verify option template handles level context correctly
                 expect(cascadeSelectInstance.optionTemplate()).toBeTruthy();
             });
 
             it('should set optionTemplate in ngAfterContentInit', async () => {
-                const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance.optionTemplate()).toBeTruthy();
             });
         });
 
         describe('Header Template (headerTemplate)', () => {
-            it('should render pTemplate="header" with options context', async () => {
-                const trigger = pTemplateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
+            it('should render #header with options context', async () => {
+                const trigger = templateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 trigger.nativeElement.click();
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
-                const headerTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-header"]'));
+                const headerTemplate = templateFixture.debugElement.query(By.css('[data-testid="template-header"]'));
                 if (headerTemplate) {
-                    expect(headerTemplate.query(By.css('.header-title')).nativeElement.textContent.trim()).toBe('Select Location (pTemplate)');
+                    expect(headerTemplate.query(By.css('.header-title')).nativeElement.textContent.trim()).toBe('Select Location (#template)');
                     expect(headerTemplate.query(By.css('.header-subtitle')).nativeElement.textContent.trim()).toContain('2 countries');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                    const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance.headerTemplate()).toBeTruthy();
                 }
             });
 
             it('should set headerTemplate in ngAfterContentInit', async () => {
-                const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance.headerTemplate()).toBeTruthy();
             });
         });
 
         describe('Footer Template (footerTemplate)', () => {
-            it('should render pTemplate="footer" with custom content', async () => {
-                const trigger = pTemplateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
+            it('should render #footer with custom content', async () => {
+                const trigger = templateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 trigger.nativeElement.click();
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
-                const footerTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-footer"]'));
+                const footerTemplate = templateFixture.debugElement.query(By.css('[data-testid="template-footer"]'));
                 if (footerTemplate) {
-                    expect(footerTemplate.query(By.css('.footer-text')).nativeElement.textContent.trim()).toBe('Choose your location (pTemplate)');
+                    expect(footerTemplate.query(By.css('.footer-text')).nativeElement.textContent.trim()).toBe('Choose your location (#template)');
                     expect(footerTemplate.query(By.css('.footer-button')).nativeElement.textContent.trim()).toBe('Help');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                    const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance.footerTemplate()).toBeTruthy();
                 }
             });
 
             it('should set footerTemplate in ngAfterContentInit', async () => {
-                const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance.footerTemplate()).toBeTruthy();
             });
         });
 
         describe('Trigger Icon Template (triggerIconTemplate)', () => {
-            it('should render pTemplate="triggericon" as dropdown trigger', async () => {
-                const triggerIconTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-triggericon"]'));
+            it('should render #triggericon as dropdown trigger', async () => {
+                const triggerIconTemplate = templateFixture.debugElement.query(By.css('[data-testid="template-triggericon"]'));
                 if (triggerIconTemplate) {
-                    expect(triggerIconTemplate.nativeElement.classList.contains('ptemplate-triggericon')).toBe(true);
+                    expect(triggerIconTemplate.nativeElement.classList.contains('template-triggericon')).toBe(true);
                     expect(triggerIconTemplate.nativeElement.classList.contains('pi-angle-down')).toBe(true);
                 } else {
                     // Verify template is loaded even if not rendered
-                    const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                    const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance.triggerIconTemplate()).toBeTruthy();
                 }
             });
 
             it('should set triggerIconTemplate in ngAfterContentInit', async () => {
-                const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance.triggerIconTemplate()).toBeTruthy();
             });
         });
 
         describe('Loading Icon Template (loadingIconTemplate)', () => {
-            it('should render pTemplate="loadingicon" during loading state', async () => {
-                pTemplateComponent.loading = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render #loadingicon during loading state', async () => {
+                templateComponent.loading = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const loadingIconTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-loadingicon"]'));
+                const loadingIconTemplate = templateFixture.debugElement.query(By.css('[data-testid="template-loadingicon"]'));
                 if (loadingIconTemplate) {
                     expect(loadingIconTemplate.query(By.css('.loading-icon')).nativeElement.classList.contains('pi-spinner')).toBe(true);
                     expect(loadingIconTemplate.query(By.css('.loading-text')).nativeElement.textContent.trim()).toBe('Loading...');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                    const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance.loadingIconTemplate()).toBeTruthy();
                 }
             });
 
             it('should set loadingIconTemplate in ngAfterContentInit', async () => {
-                const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance.loadingIconTemplate()).toBeTruthy();
             });
         });
 
         describe('Option Group Icon Template (groupIconTemplate)', () => {
-            it('should render pTemplate="optiongroupicon" for hierarchical options', async () => {
-                const trigger = pTemplateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
+            it('should render #optiongroupicon for hierarchical options', async () => {
+                const trigger = templateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 trigger.nativeElement.click();
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
                 // Look for group icons in hierarchical navigation
-                const groupIconTemplates = pTemplateFixture.debugElement.queryAll(By.css('[data-testid="ptemplate-optiongroupicon"]'));
+                const groupIconTemplates = templateFixture.debugElement.queryAll(By.css('[data-testid="template-optiongroupicon"]'));
                 if (groupIconTemplates.length > 0) {
                     const groupIcon = groupIconTemplates[0];
-                    expect(groupIcon.nativeElement.classList.contains('ptemplate-optiongroupicon')).toBe(true);
+                    expect(groupIcon.nativeElement.classList.contains('template-optiongroupicon')).toBe(true);
                     expect(groupIcon.nativeElement.classList.contains('pi-chevron-right')).toBe(true);
                 } else {
                     // Verify template is loaded even if not rendered
-                    const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                    const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance.groupIconTemplate()).toBeTruthy();
                 }
             });
 
             it('should set groupIconTemplate in ngAfterContentInit', async () => {
-                const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance.groupIconTemplate()).toBeTruthy();
             });
         });
 
         describe('Clear Icon Template (clearIconTemplate)', () => {
-            it('should render pTemplate="clearicon" when showClear is enabled', async () => {
-                pTemplateComponent.selectedValue = mockCountries[0].states[0].cities[0];
-                pTemplateComponent.showClear = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render #clearicon when showClear is enabled', async () => {
+                templateComponent.selectedValue = mockCountries[0].states[0].cities[0];
+                templateComponent.showClear = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const clearIconTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-clearicon"]'));
+                const clearIconTemplate = templateFixture.debugElement.query(By.css('[data-testid="template-clearicon"]'));
                 if (clearIconTemplate) {
                     expect(clearIconTemplate.query(By.css('.clear-icon')).nativeElement.classList.contains('pi-times')).toBe(true);
                     expect(clearIconTemplate.query(By.css('.clear-text')).nativeElement.textContent.trim()).toBe('Clear');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                    const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance.clearIconTemplate()).toBeTruthy();
                 }
             });
 
             it('should handle clear icon click functionality', async () => {
-                pTemplateComponent.selectedValue = mockCountries[0].states[0].cities[0];
-                pTemplateComponent.showClear = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                templateComponent.selectedValue = mockCountries[0].states[0].cities[0];
+                templateComponent.showClear = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 cascadeSelectInstance.writeValue(mockCountries[0].states[0].cities[0]); // Set value via ControlValueAccessor
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
                 cascadeSelectInstance.clear(new MouseEvent('click'));
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
                 // Check the component's internal model value rather than the test component's selectedValue
                 expect(cascadeSelectInstance.modelValue()).toBeFalsy();
             });
 
             it('should set clearIconTemplate in ngAfterContentInit', async () => {
-                const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance.clearIconTemplate()).toBeTruthy();
             });
         });
 
         describe('Template Processing Integration', () => {
-            it('should process all pTemplate types in ngAfterContentInit', async () => {
-                const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+            it('should process all #template types in ngAfterContentInit', async () => {
+                const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
 
                 // Verify all templates are set
                 expect(cascadeSelectInstance.valueTemplate()).toBeTruthy();
@@ -1317,29 +1317,29 @@ describe('CascadeSelect', () => {
             });
 
             it('should handle context parameters correctly for all templates', async () => {
-                pTemplateComponent.selectedValue = mockCountries[0].states[0].cities[0];
-                pTemplateComponent.loading = true;
-                pTemplateComponent.showClear = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                templateComponent.selectedValue = mockCountries[0].states[0].cities[0];
+                templateComponent.loading = true;
+                templateComponent.showClear = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const trigger = pTemplateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
+                const trigger = templateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 trigger.nativeElement.click();
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
                 // Verify value template with selected value context
-                const valueTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-value"]'));
+                const valueTemplate = templateFixture.debugElement.query(By.css('[data-testid="template-value"]'));
                 if (valueTemplate) {
                     const valueText = valueTemplate.query(By.css('.value-text'));
                     if (valueText) {
-                        expect(valueText.nativeElement.textContent.trim()).toContain('Sydney - pTemplate');
+                        expect(valueText.nativeElement.textContent.trim()).toContain('Sydney - #template');
                     } else {
                         expect(valueTemplate).toBeTruthy(); // At least template rendered
                     }
                 }
 
                 // Verify header template with options context
-                const headerTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-header"]'));
+                const headerTemplate = templateFixture.debugElement.query(By.css('[data-testid="template-header"]'));
                 if (headerTemplate) {
                     const headerSubtitle = headerTemplate.query(By.css('.header-subtitle'));
                     if (headerSubtitle) {
@@ -1350,20 +1350,20 @@ describe('CascadeSelect', () => {
                 }
 
                 // Verify loading template
-                const loadingTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-loadingicon"]'));
+                const loadingTemplate = templateFixture.debugElement.query(By.css('[data-testid="template-loadingicon"]'));
                 if (loadingTemplate) {
                     expect(loadingTemplate.query(By.css('.loading-text')).nativeElement.textContent.trim()).toBe('Loading...');
                 }
 
                 // If templates not rendered, at least verify they are loaded
-                const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                 expect(cascadeSelectInstance.valueTemplate()).toBeTruthy();
                 expect(cascadeSelectInstance.headerTemplate()).toBeTruthy();
                 expect(cascadeSelectInstance.loadingIconTemplate()).toBeTruthy();
             });
 
             it('should handle template inheritance and composition', async () => {
-                const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
 
                 // Test that templates are properly composed and don't conflict
                 expect(cascadeSelectInstance.valueTemplate()).toBeTruthy();
@@ -1383,14 +1383,14 @@ describe('CascadeSelect', () => {
 
             it('should handle template lifecycle correctly', async () => {
                 // Test template loading during component lifecycle
-                const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
 
                 // Simulate ngAfterContentInit
                 if (cascadeSelectInstance.ngAfterContentInit) {
                     cascadeSelectInstance.ngAfterContentInit();
                 }
 
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
                 expect(cascadeSelectInstance.valueTemplate()).toBeTruthy();
                 expect(cascadeSelectInstance.optionTemplate()).toBeTruthy();
@@ -1398,7 +1398,7 @@ describe('CascadeSelect', () => {
 
             it('should handle template context data binding correctly', async () => {
                 // Test complex data binding scenarios in templates
-                pTemplateComponent.options = [
+                templateComponent.options = [
                     {
                         name: 'Test Country',
                         code: 'TC',
@@ -1410,20 +1410,20 @@ describe('CascadeSelect', () => {
                         ]
                     }
                 ];
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const trigger = pTemplateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
+                const trigger = templateFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
                 trigger.nativeElement.click();
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
                 // Test header template data binding
-                const headerTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-header"]'));
+                const headerTemplate = templateFixture.debugElement.query(By.css('[data-testid="template-header"]'));
                 if (headerTemplate) {
                     expect(headerTemplate.query(By.css('.header-subtitle')).nativeElement.textContent.trim()).toContain('1 countries');
                 } else {
                     // Even if not rendered, template should be loaded
-                    const cascadeSelectInstance = pTemplateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
+                    const cascadeSelectInstance = templateFixture.debugElement.query(By.directive(CascadeSelect)).componentInstance;
                     expect(cascadeSelectInstance.headerTemplate()).toBeTruthy();
                 }
             });

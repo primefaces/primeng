@@ -576,12 +576,12 @@ describe('Toolbar', () => {
 
             // ngAfterContentInit is already called during detectChanges
             // Verify that templates are processed correctly
-            expect(toolbarInstance._startTemplate || toolbarInstance.startTemplate).toBeTruthy();
-            expect(toolbarInstance._centerTemplate || toolbarInstance.centerTemplate).toBeTruthy();
-            expect(toolbarInstance._endTemplate || toolbarInstance.endTemplate).toBeTruthy();
+            expect(toolbarInstance.startTemplate()).toBeTruthy();
+            expect(toolbarInstance.centerTemplate()).toBeTruthy();
+            expect(toolbarInstance.endTemplate()).toBeTruthy();
         });
 
-        it('should handle pTemplate directives', () => {
+        it('should handle #template directives', () => {
             const templateFixture = TestBed.createComponent(TestTemplateToolbarComponent);
             templateFixture.detectChanges();
 
@@ -686,7 +686,6 @@ describe('Toolbar', () => {
     describe('PassThrough', () => {
         let ptFixture: ComponentFixture<TestPTToolbarComponent>;
         let ptComponent: TestPTToolbarComponent;
-        let ptToolbar: Toolbar;
 
         beforeEach(() => {
             ptFixture = TestBed.createComponent(TestPTToolbarComponent);
@@ -790,7 +789,7 @@ describe('Toolbar', () => {
             ptFixture.detectChanges();
 
             const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
-            ptToolbar = ptFixture.debugElement.query(By.directive(Toolbar)).componentInstance;
+            const ptToolbar = ptFixture.debugElement.query(By.directive(Toolbar)).componentInstance;
 
             expect(toolbarEl.nativeElement.className).toContain('NO_ARIA');
         });

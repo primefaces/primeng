@@ -86,7 +86,7 @@ class TestBasicConfirmDialogComponent {
     }
 }
 
-// ConfirmDialog with pTemplate Templates
+// ConfirmDialog with #template Templates
 @Component({
     standalone: false,
     template: `
@@ -528,8 +528,8 @@ describe('ConfirmDialog', () => {
     });
 
     describe('Templates', () => {
-        describe('pTemplate Approach Tests', () => {
-            it('should handle pTemplate content processing', async () => {
+        describe('#template Approach Tests', () => {
+            it('should handle #template content processing', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
@@ -537,7 +537,7 @@ describe('ConfirmDialog', () => {
 
                 const confirmDialogInstance = templateFixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
 
-                // Test that component handles pTemplate without errors
+                // Test that component handles #template without errors
                 expect(() => confirmDialogInstance.ngAfterContentInit()).not.toThrow();
 
                 // Test that headerTemplate signal exists and is processed
@@ -740,14 +740,14 @@ describe('ConfirmDialog', () => {
         describe('Template Integration Tests', () => {
             it('should render different template types correctly', async () => {
                 // Test #header template rendering
-                const pTemplateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
-                const pTemplateConfirmDialog = pTemplateFixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
+                const templateConfirmDialog = templateFixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
                 // Test that headerTemplate signal is defined
-                expect(pTemplateConfirmDialog.headerTemplate()).toBeDefined();
+                expect(templateConfirmDialog.headerTemplate()).toBeDefined();
 
                 // Test another #header template rendering
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateConfirmDialogComponent);

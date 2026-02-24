@@ -3,7 +3,7 @@ import { Component, ElementRef, provideZonelessChangeDetection, ViewChild } from
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { OverlayService, PrimeTemplate } from 'primeng/api';
+import { OverlayService } from 'primeng/api';
 import { Popover } from './popover';
 
 // function createMockAnimationEvent(toState: string, fromState: string = 'void'): AnimationEvent {
@@ -101,7 +101,7 @@ class TestTemplatePopoverComponent {
         </p-popover>
     `
 })
-class TestPTemplatePopoverComponent {
+class TestTemplatePopoverComponent2 {
     @ViewChild('popover') popover!: Popover;
     @ViewChild('targetButton', { read: ElementRef }) targetButton!: ElementRef;
 }
@@ -133,8 +133,8 @@ describe('Popover', () => {
         });
 
         await TestBed.configureTestingModule({
-            imports: [CommonModule, Popover, PrimeTemplate],
-            declarations: [TestBasicPopoverComponent, TestTemplatePopoverComponent, TestPTemplatePopoverComponent, TestKeyboardNavigationComponent],
+            imports: [CommonModule, Popover],
+            declarations: [TestBasicPopoverComponent, TestTemplatePopoverComponent, TestTemplatePopoverComponent2, TestKeyboardNavigationComponent],
             providers: [provideZonelessChangeDetection(), { provide: OverlayService, useValue: overlayServiceSpy }]
         }).compileComponents();
 
@@ -372,24 +372,24 @@ describe('Popover', () => {
             });
         });
 
-        describe('pTemplate approach', () => {
-            let fixture: ComponentFixture<TestPTemplatePopoverComponent>;
-            let component: TestPTemplatePopoverComponent;
+        describe('#template approach', () => {
+            let fixture: ComponentFixture<TestTemplatePopoverComponent2>;
+            let component: TestTemplatePopoverComponent2;
             let popoverInstance: Popover;
 
             beforeEach(() => {
-                fixture = TestBed.createComponent(TestPTemplatePopoverComponent);
+                fixture = TestBed.createComponent(TestTemplatePopoverComponent2);
                 component = fixture.componentInstance;
                 fixture.detectChanges();
                 popoverInstance = component.popover;
             });
 
-            it('should process pTemplate content in ngAfterContentInit', () => {
+            it('should process #template content in ngAfterContentInit', () => {
                 popoverInstance.ngAfterContentInit();
                 expect(popoverInstance.contentTemplate()).toBeTruthy();
             });
 
-            it('should render pTemplate content correctly', async () => {
+            it('should render #template content correctly', async () => {
                 const mockEvent = new MouseEvent('click');
                 const target = component.targetButton.nativeElement;
 

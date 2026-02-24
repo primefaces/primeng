@@ -133,7 +133,7 @@ class TestAdvancedRatingComponent {
         </p-rating>
     `
 })
-class TestRatingPTemplateComponent {
+class TestRatingTemplateComponent {
     value: number = 3;
     stars: number = 5;
 }
@@ -858,30 +858,30 @@ describe('Rating', () => {
     });
 
     describe('Template Reference Tests', () => {
-        let component: TestRatingPTemplateComponent;
-        let fixture: ComponentFixture<TestRatingPTemplateComponent>;
+        let component: TestRatingTemplateComponent;
+        let fixture: ComponentFixture<TestRatingTemplateComponent>;
         let ratingElement: DebugElement;
         let ratingInstance: Rating;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestRatingPTemplateComponent],
+                imports: [TestRatingTemplateComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
-            fixture = TestBed.createComponent(TestRatingPTemplateComponent);
+            fixture = TestBed.createComponent(TestRatingTemplateComponent);
             component = fixture.componentInstance;
             ratingElement = fixture.debugElement.query(By.css('p-rating'));
             ratingInstance = ratingElement.componentInstance;
             fixture.detectChanges();
         });
 
-        it('should have onicon pTemplate', () => {
+        it('should have onicon #template', () => {
             expect(ratingInstance).toBeTruthy();
             expect(() => ratingInstance.onIconTemplate()).not.toThrow();
         });
 
-        it('should have officon pTemplate', () => {
+        it('should have officon #template', () => {
             expect(ratingInstance).toBeTruthy();
             expect(() => ratingInstance.offIconTemplate()).not.toThrow();
         });
@@ -928,7 +928,7 @@ describe('Rating', () => {
             expect(ratingInstance.value()).toBe(1 as any);
         });
 
-        it('should process pTemplates after content init', async () => {
+        it('should process #templates after content init', async () => {
             if (ratingInstance.ngAfterContentInit) {
                 ratingInstance.ngAfterContentInit();
             }
@@ -939,7 +939,7 @@ describe('Rating', () => {
             expect(ratingInstance).toBeTruthy();
         });
 
-        it('should handle pTemplate changes after view init', async () => {
+        it('should handle #template changes after view init', async () => {
             if (ratingInstance.ngAfterViewInit) {
                 ratingInstance.ngAfterViewInit();
             }

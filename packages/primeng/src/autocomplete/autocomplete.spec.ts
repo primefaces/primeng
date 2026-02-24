@@ -364,7 +364,7 @@ class TestAutocompleteComponent {
         </p-autocomplete>
     `
 })
-class TestPTemplateAutocompleteComponent {
+class TestTemplateAutocompleteComponent {
     selectedValue: any;
     suggestions: any[] = [];
     multiple: boolean = false;
@@ -406,13 +406,13 @@ describe('AutoComplete', () => {
     let fixture: ComponentFixture<AutoComplete>;
     let testFixture: ComponentFixture<TestAutocompleteComponent>;
     let testComponent: TestAutocompleteComponent;
-    let pTemplateFixture: ComponentFixture<TestPTemplateAutocompleteComponent>;
-    let pTemplateComponent: TestPTemplateAutocompleteComponent;
+    let templateFixture: ComponentFixture<TestTemplateAutocompleteComponent>;
+    let templateComponent: TestTemplateAutocompleteComponent;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [AutoCompleteModule, SharedModule, FormsModule, ReactiveFormsModule],
-            declarations: [TestAutocompleteComponent, TestPTemplateAutocompleteComponent],
+            declarations: [TestAutocompleteComponent, TestTemplateAutocompleteComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -422,8 +422,8 @@ describe('AutoComplete', () => {
         testFixture = TestBed.createComponent(TestAutocompleteComponent);
         testComponent = testFixture.componentInstance;
 
-        pTemplateFixture = TestBed.createComponent(TestPTemplateAutocompleteComponent);
-        pTemplateComponent = pTemplateFixture.componentInstance;
+        templateFixture = TestBed.createComponent(TestTemplateAutocompleteComponent);
+        templateComponent = templateFixture.componentInstance;
     });
 
     describe('Component Initialization', () => {
@@ -892,7 +892,7 @@ describe('AutoComplete', () => {
             expect(autocompleteInstance.headerTemplate).toBeDefined();
         });
 
-        it('should handle PrimeTemplate with context parameters', async () => {
+        it('should handle #template with context parameters', async () => {
             testComponent.suggestions = mockCountries;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -925,24 +925,24 @@ describe('AutoComplete', () => {
         });
     });
 
-    describe('pTemplate Content Projections with Context Parameters', () => {
+    describe('#template Content Projections with Context Parameters', () => {
         beforeEach(async () => {
-            pTemplateFixture.changeDetectorRef.markForCheck();
-            await pTemplateFixture.whenStable();
+            templateFixture.changeDetectorRef.markForCheck();
+            await templateFixture.whenStable();
         });
 
         describe('Item Template (_itemTemplate)', () => {
-            it('should render pTemplate="item" with item and index context', async () => {
-                pTemplateComponent.suggestions = mockCountries;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render #item with item and index context', async () => {
+                templateComponent.suggestions = mockCountries;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+                const inputElement = templateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'Al';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
-                const itemTemplates = pTemplateFixture.debugElement.queryAll(By.css('.ptemplate-item'));
+                const itemTemplates = templateFixture.debugElement.queryAll(By.css('.ptemplate-item'));
                 if (itemTemplates.length > 0) {
                     const firstItem = itemTemplates[0];
                     expect(firstItem.nativeElement.getAttribute('data-index')).toBe('0');
@@ -950,267 +950,267 @@ describe('AutoComplete', () => {
                     expect(firstItem.query(By.css('.item-code')).nativeElement.textContent.trim()).toBe('AL');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance.itemTemplate()).toBeTruthy();
                 }
             });
 
             it('should process item template through contentChild', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
 
                 expect(autocompleteInstance.itemTemplate()).toBeTruthy();
             });
         });
 
         describe('Header Template (_headerTemplate)', () => {
-            it('should render pTemplate="header" with suggestions count', async () => {
-                pTemplateComponent.suggestions = mockCountries.slice(0, 3);
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render #header with suggestions count', async () => {
+                templateComponent.suggestions = mockCountries.slice(0, 3);
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+                const inputElement = templateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'A';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
-                const headerTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-header'));
+                const headerTemplate = templateFixture.debugElement.query(By.css('.ptemplate-header'));
                 if (headerTemplate) {
                     expect(headerTemplate.query(By.css('h4')).nativeElement.textContent.trim()).toBe('Countries List');
                     expect(headerTemplate.query(By.css('.header-count')).nativeElement.textContent.trim()).toContain('items');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance.headerTemplate()).toBeTruthy();
                 }
             });
 
             it('should have headerTemplate as contentChild signal', async () => {
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance.headerTemplate()).toBeTruthy();
             });
         });
 
         describe('Footer Template (_footerTemplate)', () => {
-            it('should render pTemplate="footer" with custom content', async () => {
-                pTemplateComponent.suggestions = mockCountries;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render #footer with custom content', async () => {
+                templateComponent.suggestions = mockCountries;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+                const inputElement = templateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'A';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
-                const footerTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-footer'));
+                const footerTemplate = templateFixture.debugElement.query(By.css('.ptemplate-footer'));
                 if (footerTemplate) {
                     expect(footerTemplate.query(By.css('.footer-button')).nativeElement.textContent.trim()).toBe('Load More');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance.footerTemplate()).toBeTruthy();
                 }
             });
 
             it('should have footerTemplate as contentChild signal', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance.footerTemplate()).toBeTruthy();
             });
         });
 
         describe('Empty Template (_emptyTemplate)', () => {
-            it('should render pTemplate="empty" when no results', async () => {
-                pTemplateComponent.suggestions = [];
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render #empty when no results', async () => {
+                templateComponent.suggestions = [];
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+                const inputElement = templateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'xyz';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
-                const emptyTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-empty'));
+                const emptyTemplate = templateFixture.debugElement.query(By.css('.ptemplate-empty'));
                 if (emptyTemplate) {
                     expect(emptyTemplate.query(By.css('.empty-icon')).nativeElement.textContent.trim()).toBe('🔍');
                     expect(emptyTemplate.query(By.css('.empty-message')).nativeElement.textContent.trim()).toBe('No countries found');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance.emptyTemplate()).toBeTruthy();
                 }
             });
 
             it('should have emptyTemplate as contentChild signal', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance.emptyTemplate()).toBeTruthy();
             });
         });
 
         describe('Selected Item Template (_selectedItemTemplate)', () => {
-            it('should render pTemplate="selecteditem" with item context in multiple mode', async () => {
-                pTemplateComponent.multiple = true;
-                pTemplateComponent.selectedValue = [mockCountries[0]];
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render #selecteditem with item context in multiple mode', async () => {
+                templateComponent.multiple = true;
+                templateComponent.selectedValue = [mockCountries[0]];
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const selectedItemTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-selecteditem'));
+                const selectedItemTemplate = templateFixture.debugElement.query(By.css('.ptemplate-selecteditem'));
                 if (selectedItemTemplate) {
                     expect(selectedItemTemplate.query(By.css('.selected-flag')).nativeElement.textContent.trim()).toBe('🏳️');
                     expect(selectedItemTemplate.query(By.css('.selected-name')).nativeElement.textContent.trim()).toBe('Afghanistan');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance.selectedItemTemplate()).toBeTruthy();
                 }
             });
 
             it('should have selectedItemTemplate as contentChild signal', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance.selectedItemTemplate()).toBeTruthy();
             });
         });
 
         describe('Group Template (_groupTemplate)', () => {
-            it('should render pTemplate="group" with group context', async () => {
-                const groupedData = pTemplateComponent.groupedSuggestions;
-                pTemplateComponent.suggestions = groupedData;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render #group with group context', async () => {
+                const groupedData = templateComponent.groupedSuggestions;
+                templateComponent.suggestions = groupedData;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
                 // Test group template setup
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance.groupTemplate()).toBeTruthy();
             });
 
             it('should have groupTemplate as contentChild signal', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance.groupTemplate()).toBeTruthy();
             });
         });
 
         describe('Loader Template (_loaderTemplate)', () => {
-            it('should render pTemplate="loader" with options context during loading', async () => {
-                pTemplateComponent.loading = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render #loader with options context during loading', async () => {
+                templateComponent.loading = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
                 // Test loader template setup
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance.loaderTemplate()).toBeTruthy();
             });
 
             it('should have loaderTemplate as contentChild signal', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance.loaderTemplate()).toBeTruthy();
             });
         });
 
         describe('Remove Icon Template (_removeIconTemplate)', () => {
-            it('should render pTemplate="removetokenicon" with removeCallback and index context', async () => {
-                pTemplateComponent.multiple = true;
-                pTemplateComponent.selectedValue = [mockCountries[0], mockCountries[1]];
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render #removeicon with removeCallback and index context', async () => {
+                templateComponent.multiple = true;
+                templateComponent.selectedValue = [mockCountries[0], mockCountries[1]];
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
                 // Test remove icon template setup
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance.removeIconTemplate()).toBeTruthy();
             });
 
             it('should handle remove callback functionality', async () => {
-                pTemplateComponent.multiple = true;
-                pTemplateComponent.selectedValue = [mockCountries[0]];
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                templateComponent.multiple = true;
+                templateComponent.selectedValue = [mockCountries[0]];
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const removeIcon = pTemplateFixture.debugElement.query(By.css('.ptemplate-removeicon'));
+                const removeIcon = templateFixture.debugElement.query(By.css('.ptemplate-removeicon'));
                 if (removeIcon) {
                     expect(removeIcon.query(By.css('.remove-icon')).nativeElement.textContent.trim()).toBe('❌');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance.removeIconTemplate()).toBeTruthy();
                 }
             });
 
             it('should have removeIconTemplate as contentChild signal', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance.removeIconTemplate()).toBeTruthy();
             });
         });
 
         describe('Loading Icon Template (_loadingIconTemplate)', () => {
-            it('should render pTemplate="loadingicon" during loading state', async () => {
-                pTemplateComponent.loading = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render #loadingicon during loading state', async () => {
+                templateComponent.loading = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const loadingIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-loadingicon'));
+                const loadingIconTemplate = templateFixture.debugElement.query(By.css('.ptemplate-loadingicon'));
                 if (loadingIconTemplate) {
                     expect(loadingIconTemplate.query(By.css('.loading-spinner')).nativeElement.textContent.trim()).toBe('🔄');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance.loadingIconTemplate()).toBeTruthy();
                 }
             });
 
             it('should have loadingIconTemplate as contentChild signal', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance.loadingIconTemplate()).toBeTruthy();
             });
         });
 
         describe('Clear Icon Template (_clearIconTemplate)', () => {
-            it('should render pTemplate="clearicon" when showClear is enabled', async () => {
-                pTemplateComponent.showClear = true;
-                pTemplateComponent.selectedValue = 'test';
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render #clearicon when showClear is enabled', async () => {
+                templateComponent.showClear = true;
+                templateComponent.selectedValue = 'test';
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const clearIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-clearicon'));
+                const clearIconTemplate = templateFixture.debugElement.query(By.css('.ptemplate-clearicon'));
                 if (clearIconTemplate) {
                     expect(clearIconTemplate.query(By.css('.clear-button')).nativeElement.textContent.trim()).toBe('🗑️');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance.clearIconTemplate()).toBeTruthy();
                 }
             });
 
             it('should have clearIconTemplate as contentChild signal', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance.clearIconTemplate()).toBeTruthy();
             });
         });
 
         describe('Dropdown Icon Template (_dropdownIconTemplate)', () => {
-            it('should render pTemplate="dropdownicon" when dropdown is enabled', async () => {
-                pTemplateComponent.dropdown = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render #dropdownicon when dropdown is enabled', async () => {
+                templateComponent.dropdown = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const dropdownIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-dropdownicon'));
+                const dropdownIconTemplate = templateFixture.debugElement.query(By.css('.ptemplate-dropdownicon'));
                 if (dropdownIconTemplate) {
                     expect(dropdownIconTemplate.query(By.css('.dropdown-arrow')).nativeElement.textContent.trim()).toBe('⬇️');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance.dropdownIconTemplate()).toBeTruthy();
                 }
             });
 
             it('should have dropdownIconTemplate as contentChild signal', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance.dropdownIconTemplate()).toBeTruthy();
             });
         });
 
         describe('Template Processing Integration', () => {
             it('should have all template contentChild signals defined', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
 
                 // Verify all templates are set as contentChild signals
                 expect(autocompleteInstance.itemTemplate()).toBeTruthy();
@@ -1227,32 +1227,32 @@ describe('AutoComplete', () => {
             });
 
             it('should handle context parameters correctly for all templates', async () => {
-                pTemplateComponent.multiple = true;
-                pTemplateComponent.selectedValue = [mockCountries[0]];
-                pTemplateComponent.suggestions = mockCountries.slice(0, 2);
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                templateComponent.multiple = true;
+                templateComponent.selectedValue = [mockCountries[0]];
+                templateComponent.suggestions = mockCountries.slice(0, 2);
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
 
-                const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+                const inputElement = templateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'Al';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
 
                 // Verify context parameters are passed correctly
-                const itemTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-item'));
+                const itemTemplate = templateFixture.debugElement.query(By.css('.ptemplate-item'));
                 if (itemTemplate) {
                     expect(itemTemplate.nativeElement.getAttribute('data-index')).toBe('0');
                 } else {
                     // If templates not rendered, at least verify they are loaded
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = templateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance.itemTemplate()).toBeTruthy();
                 }
 
-                const headerTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-header .header-count'));
+                const headerTemplate = templateFixture.debugElement.query(By.css('.ptemplate-header .header-count'));
                 if (headerTemplate) {
                     expect(headerTemplate.nativeElement.textContent).toContain('items');
                 } else {
-                    expect(pTemplateComponent.suggestions).toBeDefined();
+                    expect(templateComponent.suggestions).toBeDefined();
                 }
             });
         });

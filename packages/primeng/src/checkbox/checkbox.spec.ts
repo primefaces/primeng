@@ -184,14 +184,14 @@ class TestStyledCheckboxComponent {
     }
 }
 
-// Checkbox pTemplate component
+// Checkbox #template component
 @Component({
     standalone: false,
     template: `
         <p-checkbox [(ngModel)]="checked" [binary]="true" [value]="value">
-            <!-- Icon template with pTemplate directive -->
-            <ng-template pTemplate="icon" let-checked>
-                <span class="custom-checkbox-icon" data-testid="ptemplate-icon">
+            <!-- Icon template with #template reference -->
+            <ng-template #icon let-checked>
+                <span class="custom-checkbox-icon" data-testid="template-icon">
                     <i *ngIf="checked" class="pi pi-check custom-check-icon"></i>
                     <i *ngIf="!checked" class="pi pi-times custom-uncheck-icon"></i>
                 </span>
@@ -199,7 +199,7 @@ class TestStyledCheckboxComponent {
         </p-checkbox>
     `
 })
-class TestCheckboxPTemplateComponent {
+class TestCheckboxTemplateComponent {
     checked: boolean = false;
     value: any = 'test-value';
 }
@@ -235,7 +235,7 @@ describe('Checkbox', () => {
                 TestTemplateCheckboxComponent,
                 TestIndeterminateCheckboxComponent,
                 TestStyledCheckboxComponent,
-                TestCheckboxPTemplateComponent,
+                TestCheckboxTemplateComponent,
                 TestCheckboxRefTemplateComponent
             ],
             providers: [provideZonelessChangeDetection()]
@@ -982,19 +982,19 @@ describe('Checkbox', () => {
         });
     });
 
-    describe('pTemplate Tests', () => {
-        let templateFixture: ComponentFixture<TestCheckboxPTemplateComponent>;
-        let templateComponent: TestCheckboxPTemplateComponent;
+    describe('#template Tests', () => {
+        let templateFixture: ComponentFixture<TestCheckboxTemplateComponent>;
+        let templateComponent: TestCheckboxTemplateComponent;
         let checkboxElement: any;
 
         beforeEach(async () => {
-            templateFixture = TestBed.createComponent(TestCheckboxPTemplateComponent);
+            templateFixture = TestBed.createComponent(TestCheckboxTemplateComponent);
             templateComponent = templateFixture.componentInstance;
             checkboxElement = templateFixture.debugElement.query(By.css('p-checkbox'));
             await templateFixture.whenStable();
         });
 
-        it('should have icon pTemplate', async () => {
+        it('should have icon #template', async () => {
             const checkboxInstance = checkboxElement.componentInstance;
             expect(checkboxInstance).toBeTruthy();
             expect(() => checkboxInstance.iconTemplate()).not.toThrow();
@@ -1039,7 +1039,7 @@ describe('Checkbox', () => {
             expect(checkboxInstance).toBeTruthy();
         });
 
-        it('should process pTemplate after content init', async () => {
+        it('should process #template after content init', async () => {
             const checkboxInstance = checkboxElement.componentInstance;
 
             if (checkboxInstance.ngAfterContentInit) {
@@ -1050,7 +1050,7 @@ describe('Checkbox', () => {
             expect(checkboxInstance).toBeTruthy();
         });
 
-        it('should handle pTemplate changes after view init', async () => {
+        it('should handle #template changes after view init', async () => {
             const checkboxInstance = checkboxElement.componentInstance;
 
             if (checkboxInstance.ngAfterViewInit) {

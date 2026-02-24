@@ -508,7 +508,7 @@ describe('PanelMenu', () => {
     });
 
     describe('Template Tests', () => {
-        it('should handle pTemplate content processing', async () => {
+        it('should handle #template content processing', async () => {
             const templateFixture = TestBed.createComponent(TestTemplatePanelMenuComponent);
             templateFixture.componentInstance.model[0].expanded = true;
             templateFixture.detectChanges();
@@ -535,11 +535,11 @@ describe('PanelMenu', () => {
         });
 
         it('should render different template types correctly', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestTemplatePanelMenuComponent);
-            pTemplateFixture.componentInstance.model[0].expanded = true;
-            pTemplateFixture.detectChanges();
+            const templateFixture = TestBed.createComponent(TestTemplatePanelMenuComponent);
+            templateFixture.componentInstance.model[0].expanded = true;
+            templateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            await pTemplateFixture.whenStable();
+            await templateFixture.whenStable();
 
             const itemTemplateFixture = TestBed.createComponent(TestContentItemTemplatePanelMenuComponent);
             itemTemplateFixture.componentInstance.model[0].expanded = true;
@@ -551,7 +551,7 @@ describe('PanelMenu', () => {
             expect(itemTemplatePanelMenu.itemTemplate()).toBeDefined();
         });
 
-        it('should render custom item template with pTemplate', async () => {
+        it('should render custom item template with #template', async () => {
             const templateFixture = TestBed.createComponent(TestTemplatePanelMenuComponent);
             const templateComponent = templateFixture.componentInstance;
             templateComponent.model[0].expanded = true;

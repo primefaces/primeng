@@ -87,22 +87,22 @@ class TestFormPasswordComponent {
 }
 
 // Comprehensive template test component with all ContentChild projections
-// Password pTemplate component
+// Password #template component
 @Component({
     standalone: false,
     template: `
         <p-password [(ngModel)]="value" [feedback]="feedback" [toggleMask]="toggleMask" [showClear]="showClear" [placeholder]="placeholder">
-            <!-- Header template with pTemplate directive -->
-            <ng-template pTemplate="header">
-                <div class="custom-header" data-testid="ptemplate-header">
+            <!-- Header template with #template reference -->
+            <ng-template #header>
+                <div class="custom-header" data-testid="template-header">
                     <h6>Choose a password</h6>
                     <small>Security is our priority</small>
                 </div>
             </ng-template>
 
             <!-- Content template with strength indicators -->
-            <ng-template pTemplate="content">
-                <div class="custom-content" data-testid="ptemplate-content">
+            <ng-template #content>
+                <div class="custom-content" data-testid="template-content">
                     <div class="requirement">• At least one lowercase letter</div>
                     <div class="requirement">• At least one uppercase letter</div>
                     <div class="requirement">• At least one numeric character</div>
@@ -112,8 +112,8 @@ class TestFormPasswordComponent {
             </ng-template>
 
             <!-- Footer template -->
-            <ng-template pTemplate="footer">
-                <div class="custom-footer" data-testid="ptemplate-footer">
+            <ng-template #footer>
+                <div class="custom-footer" data-testid="template-footer">
                     <small>Strong passwords save lives 🔐</small>
                     <div class="tips">
                         <span>Tip: Use a mix of characters</span>
@@ -122,23 +122,23 @@ class TestFormPasswordComponent {
             </ng-template>
 
             <!-- Clear icon template -->
-            <ng-template pTemplate="clearicon">
-                <i class="pi pi-times custom-clear-icon" data-testid="ptemplate-clearicon"></i>
+            <ng-template #clearicon>
+                <i class="pi pi-times custom-clear-icon" data-testid="template-clearicon"></i>
             </ng-template>
 
             <!-- Hide password icon template -->
-            <ng-template pTemplate="hideicon">
-                <i class="pi pi-eye-slash custom-hide-icon" data-testid="ptemplate-hideicon"></i>
+            <ng-template #hideicon>
+                <i class="pi pi-eye-slash custom-hide-icon" data-testid="template-hideicon"></i>
             </ng-template>
 
             <!-- Show password icon template -->
-            <ng-template pTemplate="showicon">
-                <i class="pi pi-eye custom-show-icon" data-testid="ptemplate-showicon"></i>
+            <ng-template #showicon>
+                <i class="pi pi-eye custom-show-icon" data-testid="template-showicon"></i>
             </ng-template>
         </p-password>
     `
 })
-class TestPasswordPTemplateComponent {
+class TestPasswordTemplateComponent {
     value: string | null = null as any;
     feedback: boolean = true;
     toggleMask: boolean = true;
@@ -248,7 +248,7 @@ describe('Password', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule],
-            declarations: [TestBasicPasswordComponent, TestFormPasswordComponent, TestPasswordPTemplateComponent, TestPasswordRefTemplateComponent, TestPTPasswordComponent],
+            declarations: [TestBasicPasswordComponent, TestFormPasswordComponent, TestPasswordTemplateComponent, TestPasswordRefTemplateComponent, TestPTPasswordComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -777,19 +777,19 @@ describe('Password', () => {
         });
     });
 
-    describe('Password pTemplate Tests', () => {
-        let templatesFixture: ComponentFixture<TestPasswordPTemplateComponent>;
-        let templatesComponent: TestPasswordPTemplateComponent;
+    describe('Password #template Tests', () => {
+        let templatesFixture: ComponentFixture<TestPasswordTemplateComponent>;
+        let templatesComponent: TestPasswordTemplateComponent;
         let templatesPasswordElement: any;
 
         beforeEach(async () => {
-            templatesFixture = TestBed.createComponent(TestPasswordPTemplateComponent);
+            templatesFixture = TestBed.createComponent(TestPasswordTemplateComponent);
             templatesComponent = templatesFixture.componentInstance;
             templatesPasswordElement = templatesFixture.debugElement.query(By.css('p-password'));
             templatesFixture.detectChanges();
         });
 
-        it('should create component with pTemplate templates', () => {
+        it('should create component with #template templates', () => {
             expect(templatesComponent).toBeTruthy();
             expect(templatesPasswordElement).toBeTruthy();
         });
@@ -930,21 +930,16 @@ describe('Password', () => {
             }).not.toThrow();
         });
 
-        it('should support dual template approach (pTemplate + #template)', () => {
-            // Verify that using both pTemplate and #template doesn't cause conflicts
-            const templateElements = templatesFixture.debugElement.queryAll(By.css('ng-template'));
+        it('should support #template references', () => {
+            const passwordComponent = templatesPasswordElement.componentInstance;
 
-            templateElements.forEach((template) => {
-                const pTemplateValue = template.nativeElement.getAttribute('pTemplate');
-                if (pTemplateValue) {
-                    // Should have both pTemplate attribute and local reference
-                    expect(template.nativeElement.hasAttribute('pTemplate')).toBe(true);
-                    expect(pTemplateValue).toBeTruthy();
-                }
-            });
-
-            // Add explicit expectation to avoid "no expectations" warning
-            expect(templatesFixture.componentInstance).toBeTruthy();
+            // Verify that contentChild queries picked up the projected #template references
+            expect(passwordComponent.headerTemplate()).toBeTruthy();
+            expect(passwordComponent.contentTemplate()).toBeTruthy();
+            expect(passwordComponent.footerTemplate()).toBeTruthy();
+            expect(passwordComponent.clearIconTemplate()).toBeTruthy();
+            expect(passwordComponent.hideIconTemplate()).toBeTruthy();
+            expect(passwordComponent.showIconTemplate()).toBeTruthy();
         });
 
         it('should verify all template types with #template structure', () => {

@@ -1876,22 +1876,22 @@ describe('OrderList', () => {
             });
 
             it('should handle both template approaches without conflict', async () => {
-                const pTemplateFixture = TestBed.createComponent(TestComprehensiveTemplatesOrderListComponent);
+                const templateFixture = TestBed.createComponent(TestComprehensiveTemplatesOrderListComponent);
                 const contentChildFixture = TestBed.createComponent(TestContentChildTemplatesOrderListComponent);
 
-                pTemplateFixture.detectChanges();
+                templateFixture.detectChanges();
                 contentChildFixture.detectChanges();
-                await pTemplateFixture.whenStable();
+                await templateFixture.whenStable();
                 await contentChildFixture.whenStable();
 
                 // Both components should work independently
-                expect(pTemplateFixture.componentInstance).toBeTruthy();
+                expect(templateFixture.componentInstance).toBeTruthy();
                 expect(contentChildFixture.componentInstance).toBeTruthy();
 
-                const pTemplateOrderList = pTemplateFixture.debugElement.query(By.directive(OrderList)).componentInstance;
+                const templateOrderList = templateFixture.debugElement.query(By.directive(OrderList)).componentInstance;
                 const contentChildOrderList = contentChildFixture.debugElement.query(By.directive(OrderList)).componentInstance;
 
-                expect(pTemplateOrderList).toBeTruthy();
+                expect(templateOrderList).toBeTruthy();
                 expect(contentChildOrderList).toBeTruthy();
             });
         });

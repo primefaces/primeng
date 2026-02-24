@@ -44,7 +44,7 @@ class TestBasicConfirmPopupComponent {
     }
 }
 
-// ConfirmPopup with pTemplate Templates
+// ConfirmPopup with #template Templates
 @Component({
     standalone: false,
     template: `
@@ -75,7 +75,7 @@ class TestBasicConfirmPopupComponent {
         <button #triggerBtn (click)="confirm($event)" class="trigger-btn">Trigger</button>
     `
 })
-class TestTemplatePConfirmPopupComponent {
+class TestTemplateConfirmPopupComponent {
     constructor(private confirmationService: ConfirmationService) {}
 
     confirm(event: Event) {
@@ -273,7 +273,7 @@ describe('ConfirmPopup', () => {
         await TestBed.configureTestingModule({
             declarations: [
                 TestBasicConfirmPopupComponent,
-                TestTemplatePConfirmPopupComponent,
+                TestTemplateConfirmPopupComponent,
                 TestContentTemplateConfirmPopupComponent,
                 TestMultipleKeysComponent,
                 TestFocusConfirmPopupComponent,
@@ -535,15 +535,15 @@ describe('ConfirmPopup', () => {
     });
 
     describe('Templates', () => {
-        describe('pTemplate Approach Tests', () => {
-            it('should handle pTemplate content processing', async () => {
-                const templateFixture = TestBed.createComponent(TestTemplatePConfirmPopupComponent);
+        describe('#template Approach Tests', () => {
+            it('should handle #template content processing', async () => {
+                const templateFixture = TestBed.createComponent(TestTemplateConfirmPopupComponent);
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
                 const confirmPopupInstance = templateFixture.debugElement.query(By.directive(ConfirmPopup)).componentInstance;
 
-                // Test that component handles pTemplate without errors
+                // Test that component handles #template without errors
                 expect(() => confirmPopupInstance.ngAfterContentInit()).not.toThrow();
 
                 // Test that templates property exists and is processed
@@ -551,7 +551,7 @@ describe('ConfirmPopup', () => {
             });
 
             it('should process _contentTemplate from #content', async () => {
-                const templateFixture = TestBed.createComponent(TestTemplatePConfirmPopupComponent);
+                const templateFixture = TestBed.createComponent(TestTemplateConfirmPopupComponent);
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -562,7 +562,7 @@ describe('ConfirmPopup', () => {
             });
 
             it('should process _acceptIconTemplate from #accepticon', async () => {
-                const templateFixture = TestBed.createComponent(TestTemplatePConfirmPopupComponent);
+                const templateFixture = TestBed.createComponent(TestTemplateConfirmPopupComponent);
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -573,7 +573,7 @@ describe('ConfirmPopup', () => {
             });
 
             it('should process _rejectIconTemplate from #rejecticon', async () => {
-                const templateFixture = TestBed.createComponent(TestTemplatePConfirmPopupComponent);
+                const templateFixture = TestBed.createComponent(TestTemplateConfirmPopupComponent);
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -584,7 +584,7 @@ describe('ConfirmPopup', () => {
             });
 
             it('should process _headlessTemplate from #headless', async () => {
-                const templateFixture = TestBed.createComponent(TestTemplatePConfirmPopupComponent);
+                const templateFixture = TestBed.createComponent(TestTemplateConfirmPopupComponent);
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -662,13 +662,13 @@ describe('ConfirmPopup', () => {
         describe('Template Integration Tests', () => {
             it('should render different template types correctly', async () => {
                 // Test #content template rendering
-                const pTemplateFixture = TestBed.createComponent(TestTemplatePConfirmPopupComponent);
-                await pTemplateFixture.whenStable();
+                const templateFixture = TestBed.createComponent(TestTemplateConfirmPopupComponent);
+                await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
-                const pTemplateConfirmPopup = pTemplateFixture.debugElement.query(By.directive(ConfirmPopup)).componentInstance;
+                const templateConfirmPopup = templateFixture.debugElement.query(By.directive(ConfirmPopup)).componentInstance;
                 // Test that contentTemplate signal returns a template
-                expect(pTemplateConfirmPopup.contentTemplate()).toBeDefined();
+                expect(templateConfirmPopup.contentTemplate()).toBeDefined();
 
                 // Test another #content template rendering
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateConfirmPopupComponent);
@@ -688,7 +688,7 @@ describe('ConfirmPopup', () => {
             });
 
             it('should handle ngAfterContentInit template processing correctly', async () => {
-                const templateFixture = TestBed.createComponent(TestTemplatePConfirmPopupComponent);
+                const templateFixture = TestBed.createComponent(TestTemplateConfirmPopupComponent);
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 

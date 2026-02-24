@@ -134,19 +134,19 @@ class TestBasicDialogComponent {
     }
 }
 
-// Dialog with pTemplate Templates
+// Dialog with #template Templates
 @Component({
     standalone: false,
     template: `
         <p-dialog [(visible)]="visible" [modal]="true">
             <ng-template #header>
-                <div class="custom-header">Custom Header with pTemplate</div>
+                <div class="custom-header">Custom Header with #template</div>
             </ng-template>
             <ng-template #content>
-                <div class="custom-content">Custom content with pTemplate</div>
+                <div class="custom-content">Custom content with #template</div>
             </ng-template>
             <ng-template #footer>
-                <div class="custom-footer">Custom footer with pTemplate</div>
+                <div class="custom-footer">Custom footer with #template</div>
             </ng-template>
             <ng-template #closeicon>
                 <i class="pi pi-custom-close custom-close-icon"></i>
@@ -160,7 +160,7 @@ class TestBasicDialogComponent {
         </p-dialog>
     `
 })
-class TestPTemplateDialogComponent {
+class TestTemplateDialogComponent {
     visible = false;
 }
 
@@ -270,7 +270,7 @@ describe('Dialog', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicDialogComponent, TestPTemplateDialogComponent, TestHashTemplateDialogComponent, TestHeadlessDialogComponent, TestPositionDialogComponent, TestMaximizableDialogComponent, TestAccessibilityDialogComponent],
+            declarations: [TestBasicDialogComponent, TestTemplateDialogComponent, TestHashTemplateDialogComponent, TestHeadlessDialogComponent, TestPositionDialogComponent, TestMaximizableDialogComponent, TestAccessibilityDialogComponent],
             imports: [Dialog, ButtonModule, FocusTrap],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -874,70 +874,70 @@ describe('Dialog', () => {
     });
 
     describe('Templates', () => {
-        describe('pTemplate Approach Tests', () => {
-            let pTemplateFixture: ComponentFixture<TestPTemplateDialogComponent>;
-            let pTemplateComponent: TestPTemplateDialogComponent;
-            let pTemplateDialogInstance: Dialog;
+        describe('#template Approach Tests', () => {
+            let templateFixture: ComponentFixture<TestTemplateDialogComponent>;
+            let templateComponent: TestTemplateDialogComponent;
+            let templateDialogInstance: Dialog;
 
             beforeEach(async () => {
-                pTemplateFixture = TestBed.createComponent(TestPTemplateDialogComponent);
-                pTemplateComponent = pTemplateFixture.componentInstance;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateDialogInstance = pTemplateFixture.debugElement.query(By.directive(Dialog)).componentInstance;
+                templateFixture = TestBed.createComponent(TestTemplateDialogComponent);
+                templateComponent = templateFixture.componentInstance;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
+                templateDialogInstance = templateFixture.debugElement.query(By.directive(Dialog)).componentInstance;
             });
 
-            it('should render custom header with pTemplate', async () => {
-                pTemplateComponent.visible = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render custom header with #template', async () => {
+                templateComponent.visible = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
-                const customHeader = pTemplateFixture.debugElement.query(By.css('.custom-header'));
+                const customHeader = templateFixture.debugElement.query(By.css('.custom-header'));
                 expect(customHeader).toBeTruthy();
-                expect(customHeader.nativeElement.textContent.trim()).toBe('Custom Header with pTemplate');
+                expect(customHeader.nativeElement.textContent.trim()).toBe('Custom Header with #template');
             });
 
-            it('should render custom content with pTemplate', async () => {
-                pTemplateComponent.visible = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render custom content with #template', async () => {
+                templateComponent.visible = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
-                const customContent = pTemplateFixture.debugElement.query(By.css('.custom-content'));
+                const customContent = templateFixture.debugElement.query(By.css('.custom-content'));
                 expect(customContent).toBeTruthy();
-                expect(customContent.nativeElement.textContent.trim()).toBe('Custom content with pTemplate');
+                expect(customContent.nativeElement.textContent.trim()).toBe('Custom content with #template');
             });
 
-            it('should render custom footer with pTemplate', async () => {
-                pTemplateComponent.visible = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render custom footer with #template', async () => {
+                templateComponent.visible = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
-                const customFooter = pTemplateFixture.debugElement.query(By.css('.custom-footer'));
+                const customFooter = templateFixture.debugElement.query(By.css('.custom-footer'));
                 expect(customFooter).toBeTruthy();
-                expect(customFooter.nativeElement.textContent.trim()).toBe('Custom footer with pTemplate');
+                expect(customFooter.nativeElement.textContent.trim()).toBe('Custom footer with #template');
             });
 
-            it('should render custom close icon with pTemplate', async () => {
-                pTemplateComponent.visible = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render custom close icon with #template', async () => {
+                templateComponent.visible = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
-                const customCloseIcon = pTemplateFixture.debugElement.query(By.css('.custom-close-icon'));
+                const customCloseIcon = templateFixture.debugElement.query(By.css('.custom-close-icon'));
                 expect(customCloseIcon).toBeTruthy();
             });
 
-            it('should process pTemplate templates in ngAfterContentInit', () => {
-                expect(() => pTemplateDialogInstance.ngAfterContentInit()).not.toThrow();
+            it('should process #template templates in ngAfterContentInit', () => {
+                expect(() => templateDialogInstance.ngAfterContentInit()).not.toThrow();
 
                 // Check that templates are assigned
-                expect(pTemplateDialogInstance.headerTemplate).toBeDefined();
-                expect(pTemplateDialogInstance.contentTemplate).toBeDefined();
-                expect(pTemplateDialogInstance.footerTemplate).toBeDefined();
-                expect(pTemplateDialogInstance.closeIconTemplate).toBeDefined();
+                expect(templateDialogInstance.headerTemplate).toBeDefined();
+                expect(templateDialogInstance.contentTemplate).toBeDefined();
+                expect(templateDialogInstance.footerTemplate).toBeDefined();
+                expect(templateDialogInstance.closeIconTemplate).toBeDefined();
             });
         });
 

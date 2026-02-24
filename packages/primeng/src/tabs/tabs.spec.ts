@@ -43,10 +43,10 @@ class TestTabsComponent {
     template: `
         <p-tabs [(value)]="value" [scrollable]="true">
             <p-tablist>
-                <ng-template pTemplate="previcon">
+                <ng-template #previcon>
                     <i class="custom-prev-icon">‹</i>
                 </ng-template>
-                <ng-template pTemplate="nexticon">
+                <ng-template #nexticon>
                     <i class="custom-next-icon">›</i>
                 </ng-template>
                 <p-tab [value]="1">Very Long Tab Name 1</p-tab>
@@ -639,7 +639,7 @@ describe('Tabs', () => {
     });
 
     describe('Navigation Icon Templates', () => {
-        describe('pTemplate Navigation Icons', () => {
+        describe('#template Navigation Icons', () => {
             let scrollableFixture: ComponentFixture<TestScrollableTabsComponent>;
 
             beforeEach(() => {
@@ -647,7 +647,7 @@ describe('Tabs', () => {
                 scrollableFixture.detectChanges();
             });
 
-            it('should render custom prev icon with pTemplate', () => {
+            it('should render custom prev icon with #previcon template', () => {
                 const customPrevIcon = scrollableFixture.debugElement.query(By.css('.custom-prev-icon'));
 
                 // Icon may not be rendered if navigation buttons are not visible in test environment
@@ -660,7 +660,7 @@ describe('Tabs', () => {
                 }
             });
 
-            it('should render custom next icon with pTemplate', () => {
+            it('should render custom next icon with #nexticon template', () => {
                 const customNextIcon = scrollableFixture.debugElement.query(By.css('.custom-next-icon'));
 
                 // Icon may not be rendered if navigation buttons are not visible in test environment
@@ -673,7 +673,7 @@ describe('Tabs', () => {
                 }
             });
 
-            it('should process pTemplate="previcon" correctly', () => {
+            it('should process #previcon template correctly', () => {
                 const tabList = scrollableFixture.debugElement.query(By.directive(TabList));
                 const tabListComponent = tabList.componentInstance;
 
@@ -684,7 +684,7 @@ describe('Tabs', () => {
                 expect(() => tabListComponent.ngAfterContentInit()).not.toThrow();
             });
 
-            it('should process pTemplate="nexticon" correctly', () => {
+            it('should process #nexticon template correctly', () => {
                 const tabList = scrollableFixture.debugElement.query(By.directive(TabList));
                 const tabListComponent = tabList.componentInstance;
 
@@ -741,12 +741,12 @@ describe('Tabs', () => {
                 expect(tabListComponent.scrollable()).toBe(true);
             });
 
-            it('should support both ContentChild and pTemplate approaches', () => {
+            it('should support both #template approaches', () => {
                 // Both test components should work without errors
                 expect(() => {
-                    const pTemplateFixture = TestBed.createComponent(TestScrollableTabsComponent);
-                    pTemplateFixture.detectChanges();
-                    pTemplateFixture.destroy();
+                    const templateFixture = TestBed.createComponent(TestScrollableTabsComponent);
+                    templateFixture.detectChanges();
+                    templateFixture.destroy();
                 }).not.toThrow();
 
                 expect(() => {

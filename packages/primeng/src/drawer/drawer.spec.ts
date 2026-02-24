@@ -2,7 +2,6 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate } from 'primeng/api';
 import { Drawer } from './drawer';
 
 @Component({
@@ -210,7 +209,7 @@ describe('Drawer', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [Drawer, PrimeTemplate],
+            imports: [Drawer],
             declarations: [
                 TestDrawerBasicComponent,
                 TestDrawerTemplatesComponent,
@@ -575,7 +574,7 @@ describe('Drawer', () => {
     });
 
     describe('Template Support', () => {
-        it('should support pTemplate header template', async () => {
+        it('should support #template header template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
             testFixture.changeDetectorRef.markForCheck();
@@ -598,7 +597,7 @@ describe('Drawer', () => {
             expect(true).toBe(true);
         });
 
-        it('should support pTemplate content template', async () => {
+        it('should support #template content template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
             testFixture.changeDetectorRef.markForCheck();
@@ -620,7 +619,7 @@ describe('Drawer', () => {
             expect(true).toBe(true);
         });
 
-        it('should support pTemplate footer template', async () => {
+        it('should support #template footer template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
             testFixture.changeDetectorRef.markForCheck();
@@ -642,7 +641,7 @@ describe('Drawer', () => {
             expect(true).toBe(true);
         });
 
-        it('should support pTemplate closeicon template', async () => {
+        it('should support #template closeicon template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
             testFixture.changeDetectorRef.markForCheck();

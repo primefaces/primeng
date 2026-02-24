@@ -143,22 +143,22 @@ class TestReactiveFormDatePickerComponent {
     });
 }
 
-// pTemplate only - Comprehensive template test component with all 12 ContentChild projections
+// #template - Comprehensive template test component with all 12 ContentChild projections
 @Component({
     standalone: false,
     template: `
         <p-datepicker [(ngModel)]="selectedDate" [showTime]="showTime" [showIcon]="showIcon" [showClear]="showClear" [view]="view" [dateFormat]="dateFormat" [touchUI]="touchUI">
             <!-- Date template with context parameters -->
-            <ng-template pTemplate="date" let-date="date">
+            <ng-template #date let-date>
                 <div class="custom-date" data-testid="date-template">
-                    <span class="day">{{ date.day }}</span>
-                    <span class="month" *ngIf="date.month">{{ date.month }}</span>
-                    <span class="year" *ngIf="date.year">{{ date.year }}</span>
+                    <span class="day">{{ date?.day }}</span>
+                    <span class="month" *ngIf="date?.month">{{ date?.month }}</span>
+                    <span class="year" *ngIf="date?.year">{{ date?.year }}</span>
                 </div>
             </ng-template>
 
             <!-- Header template -->
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <div class="custom-header" data-testid="header-template">
                     <h4>Select Date</h4>
                     <small>Choose your preferred date</small>
@@ -166,7 +166,7 @@ class TestReactiveFormDatePickerComponent {
             </ng-template>
 
             <!-- Footer template -->
-            <ng-template pTemplate="footer">
+            <ng-template #footer>
                 <div class="custom-footer" data-testid="footer-template">
                     <button type="button" class="today-btn">Today</button>
                     <button type="button" class="clear-btn">Clear</button>
@@ -174,57 +174,57 @@ class TestReactiveFormDatePickerComponent {
             </ng-template>
 
             <!-- Disabled date template with context -->
-            <ng-template pTemplate="disabledDate" let-date="date">
+            <ng-template #disabledDate let-date>
                 <div class="disabled-date" data-testid="disabled-date-template">
-                    <span class="crossed-out">{{ date.day }}</span>
+                    <span class="crossed-out">{{ date?.day }}</span>
                 </div>
             </ng-template>
 
             <!-- Decade template with context -->
-            <ng-template pTemplate="decade" let-decade="decade">
+            <ng-template #decade let-decade>
                 <div class="custom-decade" data-testid="decade-template">
-                    <span class="decade-range">{{ decade.year }}-{{ decade.year + 9 }}</span>
+                    <span class="decade-range">{{ decade?.year }}-{{ decade?.year ? decade.year + 9 : '' }}</span>
                 </div>
             </ng-template>
 
             <!-- Previous icon template -->
-            <ng-template pTemplate="previousicon">
+            <ng-template #previousicon>
                 <i class="pi pi-chevron-left custom-prev" data-testid="previous-icon-template"></i>
             </ng-template>
 
             <!-- Next icon template -->
-            <ng-template pTemplate="nexticon">
+            <ng-template #nexticon>
                 <i class="pi pi-chevron-right custom-next" data-testid="next-icon-template"></i>
             </ng-template>
 
             <!-- Trigger icon template -->
-            <ng-template pTemplate="triggericon">
+            <ng-template #triggericon>
                 <i class="pi pi-calendar custom-trigger" data-testid="trigger-icon-template"></i>
             </ng-template>
 
             <!-- Clear icon template -->
-            <ng-template pTemplate="clearicon">
+            <ng-template #clearicon>
                 <i class="pi pi-times custom-clear" data-testid="clear-icon-template"></i>
             </ng-template>
 
             <!-- Decrement icon template -->
-            <ng-template pTemplate="decrementicon">
+            <ng-template #decrementicon>
                 <i class="pi pi-minus custom-decrement" data-testid="decrement-icon-template"></i>
             </ng-template>
 
             <!-- Increment icon template -->
-            <ng-template pTemplate="incrementicon">
+            <ng-template #incrementicon>
                 <i class="pi pi-plus custom-increment" data-testid="increment-icon-template"></i>
             </ng-template>
 
             <!-- Input icon template -->
-            <ng-template pTemplate="inputicon">
+            <ng-template #inputicon>
                 <i class="pi pi-clock custom-input-icon" data-testid="input-icon-template"></i>
             </ng-template>
         </p-datepicker>
     `
 })
-class TestPTemplatesDatePickerComponent {
+class TestAllTemplatesDatePickerComponent {
     selectedDate: Date | null = null as any;
     showTime: boolean = false;
     showIcon: boolean = false;
@@ -240,7 +240,7 @@ class TestPTemplatesDatePickerComponent {
     template: `
         <p-datepicker [(ngModel)]="selectedDate" [showTime]="showTime" [showIcon]="showIcon" [showClear]="showClear" [view]="view" [dateFormat]="dateFormat" [touchUI]="touchUI">
             <!-- Date template with context parameters -->
-            <ng-template #date let-date="date">
+            <ng-template #date let-date>
                 <div class="custom-date-ref" data-testid="date-ref-template">
                     <span class="day">{{ date?.day }}</span>
                     <span class="month" *ngIf="date?.month">{{ date?.month }}</span>
@@ -265,14 +265,14 @@ class TestPTemplatesDatePickerComponent {
             </ng-template>
 
             <!-- Disabled date template with context -->
-            <ng-template #disabledDate let-date="date">
+            <ng-template #disabledDate let-date>
                 <div class="disabled-date-ref" data-testid="disabled-date-ref-template">
                     <span class="crossed-out-ref">{{ date?.day }}</span>
                 </div>
             </ng-template>
 
             <!-- Decade template with context -->
-            <ng-template #decade let-decade="decade">
+            <ng-template #decade let-decade>
                 <div class="custom-decade-ref" data-testid="decade-ref-template">
                     <span class="decade-range-ref">{{ decade?.year }}-{{ decade?.year ? decade.year + 9 : '' }}</span>
                 </div>
@@ -330,9 +330,9 @@ class TestRefTemplatesDatePickerComponent {
     standalone: false,
     template: `
         <p-datepicker [(ngModel)]="selectedDate" [showTime]="showTime" [showIcon]="showIcon" [showClear]="showClear" [view]="view" [dateFormat]="dateFormat" [touchUI]="touchUI">
-            <ng-template pTemplate="date" let-date="date">
+            <ng-template #date let-date>
                 <div class="custom-date" data-testid="date-template">
-                    <span class="day">{{ date.day }}</span>
+                    <span class="day">{{ date?.day }}</span>
                 </div>
             </ng-template>
         </p-datepicker>
@@ -357,7 +357,7 @@ describe('DatePicker', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [DatePicker, FormsModule, ReactiveFormsModule, CommonModule],
-            declarations: [TestDatePickerComponent, TestReactiveFormDatePickerComponent, TestTemplatesDatePickerComponent, TestPTemplatesDatePickerComponent, TestRefTemplatesDatePickerComponent],
+            declarations: [TestDatePickerComponent, TestReactiveFormDatePickerComponent, TestTemplatesDatePickerComponent, TestAllTemplatesDatePickerComponent, TestRefTemplatesDatePickerComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1157,51 +1157,51 @@ describe('DatePicker', () => {
         });
     });
 
-    describe('pTemplate Content Projection', () => {
-        let pTemplatesFixture: ComponentFixture<TestPTemplatesDatePickerComponent>;
-        let pTemplatesDatePickerElement: any;
+    describe('#template Content Projection', () => {
+        let templatesFixture: ComponentFixture<TestAllTemplatesDatePickerComponent>;
+        let templatesDatePickerElement: any;
 
         beforeEach(async () => {
-            pTemplatesFixture = TestBed.createComponent(TestPTemplatesDatePickerComponent);
-            pTemplatesDatePickerElement = pTemplatesFixture.debugElement.query(By.css('p-datepicker'));
-            pTemplatesFixture.changeDetectorRef.markForCheck();
-            await pTemplatesFixture.whenStable();
+            templatesFixture = TestBed.createComponent(TestAllTemplatesDatePickerComponent);
+            templatesDatePickerElement = templatesFixture.debugElement.query(By.css('p-datepicker'));
+            templatesFixture.changeDetectorRef.markForCheck();
+            await templatesFixture.whenStable();
         });
 
-        it('should initialize pTemplates and make them available', async () => {
-            const datePickerComponent = pTemplatesDatePickerElement.componentInstance;
+        it('should initialize #templates and make them available', async () => {
+            const datePickerComponent = templatesDatePickerElement.componentInstance;
 
             // Trigger content initialization
-            pTemplatesFixture.changeDetectorRef.markForCheck();
-            await pTemplatesFixture.whenStable();
+            templatesFixture.changeDetectorRef.markForCheck();
+            await templatesFixture.whenStable();
 
             // Verify that templates collection exists
             expect(datePickerComponent).toBeTruthy();
         });
 
-        it('should support date pTemplate property access', () => {
-            const datePickerComponent = pTemplatesDatePickerElement.componentInstance;
+        it('should support date #template property access', () => {
+            const datePickerComponent = templatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
             expect(() => datePickerComponent.dateTemplate).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
 
-        it('should support header pTemplate property access', () => {
-            const datePickerComponent = pTemplatesDatePickerElement.componentInstance;
+        it('should support header #template property access', () => {
+            const datePickerComponent = templatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
             expect(() => datePickerComponent.headerTemplate).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
 
-        it('should support footer pTemplate property access', () => {
-            const datePickerComponent = pTemplatesDatePickerElement.componentInstance;
+        it('should support footer #template property access', () => {
+            const datePickerComponent = templatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
             expect(() => datePickerComponent.footerTemplate).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
 
-        it('should support disabled date pTemplate property access', () => {
-            const datePickerComponent = pTemplatesDatePickerElement.componentInstance;
+        it('should support disabled date #template property access', () => {
+            const datePickerComponent = templatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
             expect(() => datePickerComponent.disabledDateTemplate).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
@@ -1392,7 +1392,7 @@ describe('DatePicker', () => {
             }).not.toThrow();
         });
 
-        it('should process templates through PrimeTemplate system', async () => {
+        it('should process templates through #template system', async () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
 
             // Verify that templates can be processed
@@ -1404,8 +1404,8 @@ describe('DatePicker', () => {
             }).not.toThrow();
         });
 
-        it('should recognize both pTemplate and #template structures', async () => {
-            // Test that component can handle both pTemplate directive and #template references
+        it('should recognize #template structures', async () => {
+            // Test that component can handle #template references
             const datePickerComponent = templatesDatePickerElement.componentInstance;
 
             // Verify component can work with templates without errors
@@ -1449,11 +1449,11 @@ describe('DatePicker', () => {
             }).not.toThrow();
         });
 
-        it('should support dual template approach (pTemplate + #template)', async () => {
-            // Verify that using both pTemplate and #template doesn't cause conflicts
+        it('should support #template approach', async () => {
+            // Verify that using #template works correctly
             const datePickerComponent = templatesDatePickerElement.componentInstance;
 
-            // Component should handle dual template approach
+            // Component should handle #template approach
             expect(() => {
                 templatesFixture.changeDetectorRef.markForCheck();
 

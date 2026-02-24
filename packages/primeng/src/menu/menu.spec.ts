@@ -181,7 +181,7 @@ class TestItemTemplateMenuComponent {
         </p-menu>
     `
 })
-class TestPTemplateMenuComponent {
+class TestTemplateMenuComponent {
     model: MenuItem[] = [{ label: 'PTemplate Item 1' }, { label: 'PTemplate Item 2' }];
 }
 
@@ -273,7 +273,7 @@ describe('Menu', () => {
                 TestRouterMenuComponent,
                 TestSubmenuMenuComponent,
                 TestItemTemplateMenuComponent,
-                TestPTemplateMenuComponent,
+                TestTemplateMenuComponent,
                 TestDisabledItemsMenuComponent,
                 TestStyledMenuComponent,
                 TestMinimalMenuComponent,
@@ -591,38 +591,38 @@ describe('Menu', () => {
         });
 
         it('should handle template processing', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
-            pTemplateFixture.detectChanges();
-            await pTemplateFixture.whenStable();
+            const templateFixture = TestBed.createComponent(TestTemplateMenuComponent);
+            templateFixture.detectChanges();
+            await templateFixture.whenStable();
 
-            const pTemplateMenu = pTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
+            const templateMenu = templateFixture.debugElement.query(By.directive(Menu)).componentInstance;
 
-            expect(() => pTemplateMenu.ngAfterContentInit()).not.toThrow();
-            expect(pTemplateMenu.startTemplate).toBeDefined();
-            expect(pTemplateMenu.endTemplate).toBeDefined();
+            expect(() => templateMenu.ngAfterContentInit()).not.toThrow();
+            expect(templateMenu.startTemplate).toBeDefined();
+            expect(templateMenu.endTemplate).toBeDefined();
         });
 
         it('should process template types correctly', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
-            pTemplateFixture.changeDetectorRef.markForCheck();
-            await pTemplateFixture.whenStable();
+            const templateFixture = TestBed.createComponent(TestTemplateMenuComponent);
+            templateFixture.changeDetectorRef.markForCheck();
+            await templateFixture.whenStable();
 
-            const pTemplateMenu = pTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
+            const templateMenu = templateFixture.debugElement.query(By.directive(Menu)).componentInstance;
 
-            pTemplateMenu.ngAfterContentInit();
+            templateMenu.ngAfterContentInit();
 
-            expect(pTemplateMenu.startTemplate()).toBeDefined();
-            expect(pTemplateMenu.endTemplate()).toBeDefined();
-            expect(pTemplateMenu.itemTemplate()).toBeDefined();
+            expect(templateMenu.startTemplate()).toBeDefined();
+            expect(templateMenu.endTemplate()).toBeDefined();
+            expect(templateMenu.itemTemplate()).toBeDefined();
         });
 
         it('should render start and end templates', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
-            pTemplateFixture.detectChanges();
-            await pTemplateFixture.whenStable();
+            const templateFixture = TestBed.createComponent(TestTemplateMenuComponent);
+            templateFixture.detectChanges();
+            await templateFixture.whenStable();
 
-            const startContent = pTemplateFixture.debugElement.query(By.css('.menu-start'));
-            const endContent = pTemplateFixture.debugElement.query(By.css('.menu-end'));
+            const startContent = templateFixture.debugElement.query(By.css('.menu-start'));
+            const endContent = templateFixture.debugElement.query(By.css('.menu-end'));
 
             expect(startContent).toBeTruthy();
             expect(endContent).toBeTruthy();
@@ -644,14 +644,14 @@ describe('Menu', () => {
 
         it('should render different template types correctly', async () => {
             // Test template rendering with #start, #end, #item
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
-            pTemplateFixture.changeDetectorRef.markForCheck();
-            await pTemplateFixture.whenStable();
+            const templateFixture = TestBed.createComponent(TestTemplateMenuComponent);
+            templateFixture.changeDetectorRef.markForCheck();
+            await templateFixture.whenStable();
 
-            const pTemplateMenu = pTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
-            expect(pTemplateMenu.startTemplate()).toBeDefined();
-            expect(pTemplateMenu.endTemplate()).toBeDefined();
-            expect(() => pTemplateMenu.ngAfterContentInit()).not.toThrow();
+            const templateMenu = templateFixture.debugElement.query(By.directive(Menu)).componentInstance;
+            expect(templateMenu.startTemplate()).toBeDefined();
+            expect(templateMenu.endTemplate()).toBeDefined();
+            expect(() => templateMenu.ngAfterContentInit()).not.toThrow();
 
             // Test #item template rendering
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateMenuComponent);

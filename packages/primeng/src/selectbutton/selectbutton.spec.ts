@@ -14,8 +14,8 @@ describe('SelectButton', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [SelectButton, SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, TestSelectButtonPTemplateComponent, TestSelectButtonRefTemplateComponent],
-            declarations: [TestFormSelectButtonComponent, TestPrimeTemplateSelectButtonComponent],
+            imports: [SelectButton, SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, TestSelectButtonTemplateComponent, TestSelectButtonRefTemplateComponent],
+            declarations: [TestFormSelectButtonComponent, TestItemTemplateSelectButtonComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -456,7 +456,7 @@ class TestFormSelectButtonComponent {
         </p-selectbutton>
     `
 })
-class TestPrimeTemplateSelectButtonComponent {
+class TestItemTemplateSelectButtonComponent {
     options = [
         { label: 'Option A', value: 'optionA' },
         { label: 'Option B', value: 'optionB' }
@@ -479,7 +479,7 @@ class TestPrimeTemplateSelectButtonComponent {
         </p-selectbutton>
     `
 })
-class TestSelectButtonPTemplateComponent {
+class TestSelectButtonTemplateComponent {
     selectedValue: string | undefined;
     options = [
         { label: 'Option One', value: 'opt1' },
@@ -514,17 +514,17 @@ class TestSelectButtonRefTemplateComponent {
 }
 
 describe('SelectButton Template Reference Tests', () => {
-    let component: TestSelectButtonPTemplateComponent;
-    let fixture: ComponentFixture<TestSelectButtonPTemplateComponent>;
+    let component: TestSelectButtonTemplateComponent;
+    let fixture: ComponentFixture<TestSelectButtonTemplateComponent>;
     let selectButtonInstance: SelectButton;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestSelectButtonPTemplateComponent],
+            imports: [TestSelectButtonTemplateComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(TestSelectButtonPTemplateComponent);
+        fixture = TestBed.createComponent(TestSelectButtonTemplateComponent);
         component = fixture.componentInstance;
         selectButtonInstance = fixture.debugElement.query(By.directive(SelectButton)).componentInstance;
         fixture.detectChanges();

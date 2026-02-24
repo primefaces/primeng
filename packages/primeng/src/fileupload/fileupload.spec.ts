@@ -745,7 +745,7 @@ describe('FileUpload', () => {
     standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
+            <ng-template #header let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
                 <div class="custom-header">
                     <button type="button" (click)="chooseCallback()" class="choose-btn">Choose</button>
                     <button type="button" (click)="uploadCallback()" class="upload-btn">Upload</button>
@@ -755,7 +755,7 @@ describe('FileUpload', () => {
         </p-fileupload>
     `
 })
-class TestPTemplateHeaderComponent {}
+class TestTemplateHeaderComponent {}
 
 @Component({
     standalone: false,
@@ -777,7 +777,7 @@ class TestHashHeaderComponent {}
     standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback">
+            <ng-template #content let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback">
                 <div class="custom-content">
                     <div *ngFor="let file of files; let i = index" class="file-item">
                         <span>{{ file.name }}</span>
@@ -788,7 +788,7 @@ class TestHashHeaderComponent {}
         </p-fileupload>
     `
 })
-class TestPTemplateContentComponent {}
+class TestTemplateContentComponent {}
 
 @Component({
     standalone: false,
@@ -811,7 +811,7 @@ class TestHashContentComponent {}
     standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="file" let-file let-index="index">
+            <ng-template #file let-file let-index="index">
                 <div class="custom-file">
                     <span>Custom: {{ file.name }} ({{ index }})</span>
                 </div>
@@ -819,25 +819,25 @@ class TestHashContentComponent {}
         </p-fileupload>
     `
 })
-class TestPTemplateFileComponent {}
+class TestTemplateFileComponent {}
 
 @Component({
     standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="empty">
+            <ng-template #empty>
                 <div class="custom-empty">No files selected</div>
             </ng-template>
         </p-fileupload>
     `
 })
-class TestPTemplateEmptyComponent {}
+class TestTemplateEmptyComponent {}
 
 @Component({
     standalone: false,
     template: `
         <p-fileupload mode="basic" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="filelabel" let-files>
+            <ng-template #filelabel let-files>
                 <div class="custom-file-label">
                     {{ files?.length ? files.length + ' files selected' : 'No files' }}
                 </div>
@@ -845,31 +845,31 @@ class TestPTemplateEmptyComponent {}
         </p-fileupload>
     `
 })
-class TestPTemplateFileLabelComponent {}
+class TestTemplateFileLabelComponent {}
 
 @Component({
     standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="chooseicon">
+            <ng-template #chooseicon>
                 <i class="custom-choose-icon pi pi-plus"></i>
             </ng-template>
-            <ng-template pTemplate="uploadicon">
+            <ng-template #uploadicon>
                 <i class="custom-upload-icon pi pi-upload"></i>
             </ng-template>
-            <ng-template pTemplate="cancelicon">
+            <ng-template #cancelicon>
                 <i class="custom-cancel-icon pi pi-times"></i>
             </ng-template>
         </p-fileupload>
     `
 })
-class TestPTemplateIconsComponent {}
+class TestTemplateIconsComponent {}
 
 @Component({
     standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="toolbar">
+            <ng-template #toolbar>
                 <div class="custom-toolbar">
                     <span class="toolbar-info">Custom Toolbar Content</span>
                     <button class="toolbar-action">Action</button>
@@ -878,13 +878,13 @@ class TestPTemplateIconsComponent {}
         </p-fileupload>
     `
 })
-class TestPTemplateToolbarComponent {}
+class TestTemplateToolbarComponent {}
 
 @Component({
     standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload" [files]="files">
-            <ng-template pTemplate="file" let-file let-index="index">
+            <ng-template #file let-file let-index="index">
                 <div class="file-item">
                     <span>{{ file.name }}</span>
                     <ng-container [ngTemplateOutlet]="removeIconTemplate" [ngTemplateOutletContext]="{ class: 'p-button-icon-only p-button-danger', file: file, index: index }"></ng-container>
@@ -908,7 +908,7 @@ class TestFileRemoveIconComponent {
     standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
+            <ng-template #header let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
                 <div class="context-test-header">
                     <span [attr.data-files-count]="files?.length || 0">Files: {{ files?.length || 0 }}</span>
                     <button type="button" (click)="testChoose(chooseCallback)" class="ctx-choose">Choose</button>
@@ -937,7 +937,7 @@ class TestContextObjectsComponent {
     standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback" let-removeUploadedFileCallback="removeUploadedFileCallback" let-progress="progress" let-messages="messages">
+            <ng-template #content let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback" let-removeUploadedFileCallback="removeUploadedFileCallback" let-progress="progress" let-messages="messages">
                 <div class="context-content-test">
                     <div class="files-info">
                         <span [attr.data-pending-count]="files?.length || 0">Pending: {{ files?.length || 0 }}</span>
@@ -968,7 +968,7 @@ class TestContentContextComponent {
     standalone: false,
     template: `
         <p-fileupload mode="basic" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="filelabel" let-files>
+            <ng-template #filelabel let-files>
                 <div class="context-file-label">
                     <span [attr.data-files-array-length]="files?.length || 0">Files Array Length: {{ files?.length || 0 }}</span>
                     <span [attr.data-first-file-name]="files?.[0]?.name || 'none'">First File: {{ files?.[0]?.name || 'none' }}</span>
@@ -987,15 +987,15 @@ describe('FileUpload Template Tests', () => {
         TestBed.resetTestingModule();
     });
 
-    describe('pTemplate Tests', () => {
-        it('should render pTemplate="header" with correct context', async () => {
+    describe('#template Tests', () => {
+        it('should render #header template with correct context', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateHeaderComponent],
+                declarations: [TestTemplateHeaderComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
-            const fixture = TestBed.createComponent(TestPTemplateHeaderComponent);
+            const fixture = TestBed.createComponent(TestTemplateHeaderComponent);
             fixture.detectChanges();
 
             const customHeader = fixture.debugElement.query(By.css('.custom-header'));
@@ -1016,14 +1016,14 @@ describe('FileUpload Template Tests', () => {
             }
         });
 
-        it('should render pTemplate="content" with correct context', async () => {
+        it('should render #content template with correct context', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateContentComponent],
+                declarations: [TestTemplateContentComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
-            const fixture = TestBed.createComponent(TestPTemplateContentComponent);
+            const fixture = TestBed.createComponent(TestTemplateContentComponent);
             fixture.detectChanges();
 
             const fileUpload = fixture.debugElement.query(By.directive(FileUpload)).componentInstance;
@@ -1042,14 +1042,14 @@ describe('FileUpload Template Tests', () => {
             }
         });
 
-        it('should render pTemplate="file" with correct context', async () => {
+        it('should render #file template with correct context', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateFileComponent],
+                declarations: [TestTemplateFileComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
-            const fixture = TestBed.createComponent(TestPTemplateFileComponent);
+            const fixture = TestBed.createComponent(TestTemplateFileComponent);
             fixture.detectChanges();
 
             const fileUpload = fixture.debugElement.query(By.directive(FileUpload)).componentInstance;
@@ -1063,14 +1063,14 @@ describe('FileUpload Template Tests', () => {
             }
         });
 
-        it('should render pTemplate="empty" when no files', async () => {
+        it('should render #empty template when no files', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateEmptyComponent],
+                declarations: [TestTemplateEmptyComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
-            const fixture = TestBed.createComponent(TestPTemplateEmptyComponent);
+            const fixture = TestBed.createComponent(TestTemplateEmptyComponent);
             fixture.detectChanges();
 
             const customEmpty = fixture.debugElement.query(By.css('.custom-empty'));
@@ -1083,14 +1083,14 @@ describe('FileUpload Template Tests', () => {
             }
         });
 
-        it('should render pTemplate="filelabel" in basic mode', async () => {
+        it('should render #filelabel template in basic mode', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateFileLabelComponent],
+                declarations: [TestTemplateFileLabelComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
-            const fixture = TestBed.createComponent(TestPTemplateFileLabelComponent);
+            const fixture = TestBed.createComponent(TestTemplateFileLabelComponent);
             fixture.detectChanges();
 
             const customFileLabel = fixture.debugElement.query(By.css('.custom-file-label'));
@@ -1102,14 +1102,14 @@ describe('FileUpload Template Tests', () => {
             }
         });
 
-        it('should render pTemplate icons', async () => {
+        it('should render #template icons', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateIconsComponent],
+                declarations: [TestTemplateIconsComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
-            const fixture = TestBed.createComponent(TestPTemplateIconsComponent);
+            const fixture = TestBed.createComponent(TestTemplateIconsComponent);
             fixture.detectChanges();
 
             const chooseIcon = fixture.debugElement.query(By.css('.custom-choose-icon'));
@@ -1121,14 +1121,14 @@ describe('FileUpload Template Tests', () => {
             }
         });
 
-        it('should render pTemplate="toolbar"', async () => {
+        it('should render #toolbar template', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateToolbarComponent],
+                declarations: [TestTemplateToolbarComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
-            const fixture = TestBed.createComponent(TestPTemplateToolbarComponent);
+            const fixture = TestBed.createComponent(TestTemplateToolbarComponent);
             fixture.detectChanges();
 
             const customToolbar = fixture.debugElement.query(By.css('.custom-toolbar'));
@@ -1338,73 +1338,55 @@ describe('FileUpload Template Tests', () => {
     });
 
     describe('Template Context Callback Testing', () => {
-        let testFixture: ComponentFixture<TestPTemplateHeaderComponent>;
+        let testFixture: ComponentFixture<TestTemplateHeaderComponent>;
         let fileUploadComponent: FileUpload;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateHeaderComponent],
+                declarations: [TestTemplateHeaderComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
-            testFixture = TestBed.createComponent(TestPTemplateHeaderComponent);
+            testFixture = TestBed.createComponent(TestTemplateHeaderComponent);
             testFixture.detectChanges();
             fileUploadComponent = testFixture.debugElement.query(By.directive(FileUpload))?.componentInstance;
         });
 
         it('should execute chooseCallback from template context', () => {
-            if (fileUploadComponent) {
-                spyOn(fileUploadComponent, 'choose');
+            expect(fileUploadComponent).toBeTruthy();
 
-                const chooseBtn = testFixture.debugElement.query(By.css('.choose-btn'));
-                if (chooseBtn) {
-                    chooseBtn.nativeElement.click();
-                    expect(fileUploadComponent.choose).toHaveBeenCalled();
-                } else {
-                    // If button not found, test the component method directly
-                    fileUploadComponent.choose();
-                    expect(fileUploadComponent.choose).toHaveBeenCalled();
-                }
-            } else {
-                expect(testFixture.componentInstance).toBeTruthy();
-            }
+            const chooseSpy = spyOn(fileUploadComponent, 'choose');
+            fileUploadComponent.cd.detectChanges();
+
+            const chooseBtn = testFixture.debugElement.query(By.css('.choose-btn'));
+            expect(chooseBtn).toBeTruthy();
+            chooseBtn.nativeElement.click();
+            expect(chooseSpy).toHaveBeenCalled();
         });
 
         it('should execute clearCallback from template context', () => {
-            if (fileUploadComponent) {
-                spyOn(fileUploadComponent, 'clear');
+            expect(fileUploadComponent).toBeTruthy();
 
-                const clearBtn = testFixture.debugElement.query(By.css('.clear-btn'));
-                if (clearBtn) {
-                    clearBtn.nativeElement.click();
-                    expect(fileUploadComponent.clear).toHaveBeenCalled();
-                } else {
-                    // If button not found, test the component method directly
-                    fileUploadComponent.clear();
-                    expect(fileUploadComponent.clear).toHaveBeenCalled();
-                }
-            } else {
-                expect(testFixture.componentInstance).toBeTruthy();
-            }
+            const clearSpy = spyOn(fileUploadComponent, 'clear');
+            fileUploadComponent.cd.detectChanges();
+
+            const clearBtn = testFixture.debugElement.query(By.css('.clear-btn'));
+            expect(clearBtn).toBeTruthy();
+            clearBtn.nativeElement.click();
+            expect(clearSpy).toHaveBeenCalled();
         });
 
         it('should execute uploadCallback from template context', () => {
-            if (fileUploadComponent) {
-                spyOn(fileUploadComponent, 'upload');
+            expect(fileUploadComponent).toBeTruthy();
 
-                const uploadBtn = testFixture.debugElement.query(By.css('.upload-btn'));
-                if (uploadBtn) {
-                    uploadBtn.nativeElement.click();
-                    expect(fileUploadComponent.upload).toHaveBeenCalled();
-                } else {
-                    // If button not found, test the component method directly
-                    fileUploadComponent.upload();
-                    expect(fileUploadComponent.upload).toHaveBeenCalled();
-                }
-            } else {
-                expect(testFixture.componentInstance).toBeTruthy();
-            }
+            const uploadSpy = spyOn(fileUploadComponent, 'upload');
+            fileUploadComponent.cd.detectChanges();
+
+            const uploadBtn = testFixture.debugElement.query(By.css('.upload-btn'));
+            expect(uploadBtn).toBeTruthy();
+            uploadBtn.nativeElement.click();
+            expect(uploadSpy).toHaveBeenCalled();
         });
     });
 });
@@ -1638,7 +1620,7 @@ describe('FileUpload Advanced Template Combinations', () => {
             standalone: false,
             template: `
                 <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-                    <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
+                    <ng-template #header let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
                         <div class="mixed-header">
                             <span class="file-count">{{ files?.length || 0 }} files</span>
                             <div class="header-actions">
@@ -1649,7 +1631,7 @@ describe('FileUpload Advanced Template Combinations', () => {
                         </div>
                     </ng-template>
 
-                    <ng-template pTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-progress="progress">
+                    <ng-template #content let-files let-uploadedFiles="uploadedFiles" let-progress="progress">
                         <div class="mixed-content">
                             <div class="upload-section" *ngIf="files?.length">
                                 <h4>Ready to Upload ({{ files.length }})</h4>
@@ -1674,7 +1656,7 @@ describe('FileUpload Advanced Template Combinations', () => {
                         </div>
                     </ng-template>
 
-                    <ng-template pTemplate="toolbar">
+                    <ng-template #toolbar>
                         <div class="mixed-toolbar">
                             <span class="toolbar-title">Advanced File Upload</span>
                             <div class="toolbar-stats">
@@ -1684,7 +1666,7 @@ describe('FileUpload Advanced Template Combinations', () => {
                         </div>
                     </ng-template>
 
-                    <ng-template pTemplate="empty">
+                    <ng-template #empty>
                         <div class="mixed-empty">
                             <div class="empty-icon">📁</div>
                             <div class="empty-text">Drag and drop files here or click Choose</div>
@@ -1692,11 +1674,11 @@ describe('FileUpload Advanced Template Combinations', () => {
                         </div>
                     </ng-template>
 
-                    <ng-template pTemplate="chooseicon">
+                    <ng-template #chooseicon>
                         <i class="pi pi-cloud-upload mixed-choose-icon"></i>
                     </ng-template>
 
-                    <ng-template pTemplate="uploadicon">
+                    <ng-template #uploadicon>
                         <i class="pi pi-send mixed-upload-icon"></i>
                     </ng-template>
                 </p-fileupload>
@@ -1803,7 +1785,7 @@ describe('FileUpload Advanced Template Combinations', () => {
             template: `
                 <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
                     <ng-template
-                        pTemplate="content"
+                        #content
                         let-files
                         let-uploadedFiles="uploadedFiles"
                         let-removeFileCallback="removeFileCallback"

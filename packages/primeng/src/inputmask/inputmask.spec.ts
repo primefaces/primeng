@@ -901,7 +901,7 @@ describe('InputMask', () => {
             }).not.toThrow();
         });
 
-        it('should process templates through PrimeTemplate system', () => {
+        it('should process templates through #template system', () => {
             const inputMaskComponent = templatesInputMaskElement.componentInstance;
 
             // Verify that component can handle template processing
@@ -913,8 +913,8 @@ describe('InputMask', () => {
             }).not.toThrow();
         });
 
-        it('should recognize both pTemplate and #template structures for clearicon', () => {
-            // Test that component can handle both pTemplate directive and #template references
+        it('should recognize #template structures for clearicon', () => {
+            // Test that component can handle #template references
             const inputMaskComponent = templatesInputMaskElement.componentInstance;
 
             // Verify component can work with templates without errors
@@ -960,8 +960,8 @@ describe('InputMask', () => {
             }).not.toThrow();
         });
 
-        it('should support dual template approach (pTemplate + #template) for clearicon', () => {
-            // Verify that using both pTemplate and #template doesn't cause conflicts
+        it('should support #template approach for clearicon', () => {
+            // Verify that using #template doesn't cause conflicts
             const inputMaskComponent = templatesInputMaskElement.componentInstance;
 
             // Component should handle dual template approach

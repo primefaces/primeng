@@ -1051,14 +1051,14 @@ describe('Listbox', () => {
     });
 });
 
-// Template test component using pTemplate directive with enhanced features
+// Template test component using #template references with enhanced features
 @Component({
     standalone: false,
     template: `
         <p-listbox [(ngModel)]="selectedValues" [options]="items" [optionLabel]="'label'" [optionValue]="'value'" [multiple]="true" [filter]="true" [checkbox]="true" [group]="true" [showToggleAll]="true" [virtualScroll]="true">
             <!-- Item template with context parameters -->
-            <ng-template pTemplate="item" let-option let-selected="selected" let-index="index">
-                <div class="custom-item" data-testid="ptemplate-item" [attr.data-selected]="selected" [attr.data-index]="index">
+            <ng-template #item let-option let-selected="selected" let-index="index">
+                <div class="custom-item" data-testid="template-item" [attr.data-selected]="selected" [attr.data-index]="index">
                     <span class="item-label">{{ option.label }}</span>
                     <span class="item-value">{{ option.value }}</span>
                     <span class="item-index">{{ index }}</span>
@@ -1067,8 +1067,8 @@ describe('Listbox', () => {
             </ng-template>
 
             <!-- Group template with context parameters -->
-            <ng-template pTemplate="group" let-group let-index="index">
-                <div class="custom-group" data-testid="ptemplate-group" [attr.data-index]="index">
+            <ng-template #group let-group let-index="index">
+                <div class="custom-group" data-testid="template-group" [attr.data-index]="index">
                     <span class="group-label">{{ group.label }}</span>
                     <span class="group-index">{{ index }}</span>
                     <span class="group-items-count">{{ group.items?.length || 0 }} items</span>
@@ -1076,66 +1076,66 @@ describe('Listbox', () => {
             </ng-template>
 
             <!-- Header template -->
-            <ng-template pTemplate="header">
-                <div class="custom-header" data-testid="ptemplate-header">
+            <ng-template #header>
+                <div class="custom-header" data-testid="template-header">
                     <span>Custom Header Content</span>
                     <button class="header-action">Action</button>
                 </div>
             </ng-template>
 
             <!-- Filter template with context parameters -->
-            <ng-template pTemplate="filter" let-options="options">
-                <div class="custom-filter" data-testid="ptemplate-filter">
+            <ng-template #filter let-options="options">
+                <div class="custom-filter" data-testid="template-filter">
                     <input type="text" placeholder="Custom filter" class="custom-filter-input" />
                     <span class="filter-count">{{ options?.length || 0 }} items</span>
                 </div>
             </ng-template>
 
             <!-- Footer template -->
-            <ng-template pTemplate="footer">
-                <div class="custom-footer" data-testid="ptemplate-footer">
+            <ng-template #footer>
+                <div class="custom-footer" data-testid="template-footer">
                     <span>Custom Footer Content</span>
                     <button class="footer-action">Footer Action</button>
                 </div>
             </ng-template>
 
             <!-- Empty filter template -->
-            <ng-template pTemplate="emptyfilter">
-                <div class="custom-empty-filter" data-testid="ptemplate-emptyfilter">
+            <ng-template #emptyfilter>
+                <div class="custom-empty-filter" data-testid="template-emptyfilter">
                     <i class="pi pi-search"></i>
                     <span>No results found for your filter</span>
                 </div>
             </ng-template>
 
             <!-- Empty template -->
-            <ng-template pTemplate="empty">
-                <div class="custom-empty" data-testid="ptemplate-empty">
+            <ng-template #empty>
+                <div class="custom-empty" data-testid="template-empty">
                     <i class="pi pi-inbox"></i>
                     <span>No items available</span>
                 </div>
             </ng-template>
 
             <!-- Filter icon template -->
-            <ng-template pTemplate="filtericon">
-                <i class="pi pi-filter custom-filter-icon" data-testid="ptemplate-filtericon"></i>
+            <ng-template #filtericon>
+                <i class="pi pi-filter custom-filter-icon" data-testid="template-filtericon"></i>
             </ng-template>
 
             <!-- Check icon template -->
-            <ng-template pTemplate="checkicon" let-selected="selected">
-                <i class="pi pi-check custom-check-icon" data-testid="ptemplate-checkicon" [attr.data-selected]="selected"></i>
+            <ng-template #checkicon let-selected="selected">
+                <i class="pi pi-check custom-check-icon" data-testid="template-checkicon" [attr.data-selected]="selected"></i>
             </ng-template>
 
             <!-- Checkmark template -->
-            <ng-template pTemplate="checkmark" let-selected="selected">
-                <span class="custom-checkmark" data-testid="ptemplate-checkmark" [attr.data-selected]="selected">
+            <ng-template #checkmark let-selected="selected">
+                <span class="custom-checkmark" data-testid="template-checkmark" [attr.data-selected]="selected">
                     <i class="pi pi-check-circle" *ngIf="selected"></i>
                     <i class="pi pi-circle" *ngIf="!selected"></i>
                 </span>
             </ng-template>
 
             <!-- Loader template -->
-            <ng-template pTemplate="loader" let-options="options">
-                <div class="custom-loader" data-testid="ptemplate-loader">
+            <ng-template #loader let-options="options">
+                <div class="custom-loader" data-testid="template-loader">
                     <i class="pi pi-spin pi-spinner"></i>
                     <span>Loading {{ options?.length || 0 }} items...</span>
                 </div>
@@ -1143,7 +1143,7 @@ describe('Listbox', () => {
         </p-listbox>
     `
 })
-class TestListboxPTemplateComponent {
+class TestListboxTemplateComponent {
     selectedValues: any[] = [];
     items: any[] = [
         {
@@ -1279,108 +1279,108 @@ class TestListboxRefTemplateComponent {
     ];
 }
 
-describe('Listbox pTemplate Tests', () => {
-    let component: TestListboxPTemplateComponent;
-    let fixture: ComponentFixture<TestListboxPTemplateComponent>;
+describe('Listbox #template Tests', () => {
+    let component: TestListboxTemplateComponent;
+    let fixture: ComponentFixture<TestListboxTemplateComponent>;
     let listboxElement: any;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [Listbox, FormsModule, CommonModule],
             providers: [provideZonelessChangeDetection(), provideNoopAnimations()],
-            declarations: [TestListboxPTemplateComponent]
+            declarations: [TestListboxTemplateComponent]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(TestListboxPTemplateComponent);
+        fixture = TestBed.createComponent(TestListboxTemplateComponent);
         component = fixture.componentInstance;
         listboxElement = fixture.debugElement.query(By.css('p-listbox'));
         fixture.detectChanges();
     });
 
-    describe('pTemplate ContentChild Projections', () => {
-        it('should create component with pTemplate templates', () => {
+    describe('#template ContentChild Projections', () => {
+        it('should create component with #template references', () => {
             expect(component).toBeTruthy();
             expect(listboxElement).toBeTruthy();
         });
 
-        it('should have item pTemplate with context parameters', () => {
+        it('should have item #template with context parameters', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.itemTemplate).not.toThrow();
         });
 
-        it('should have group pTemplate with context parameters', () => {
+        it('should have group #template with context parameters', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.groupTemplate).not.toThrow();
         });
 
-        it('should have header pTemplate', () => {
+        it('should have header #template', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.headerTemplate).not.toThrow();
         });
 
-        it('should have filter pTemplate with context parameters', () => {
+        it('should have filter #template with context parameters', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.filterTemplate).not.toThrow();
         });
 
-        it('should have footer pTemplate', () => {
+        it('should have footer #template', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.footerTemplate).not.toThrow();
         });
 
-        it('should have empty filter pTemplate', () => {
+        it('should have empty filter #template', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.emptyFilterTemplate).not.toThrow();
         });
 
-        it('should have empty pTemplate', () => {
+        it('should have empty #template', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.emptyTemplate).not.toThrow();
         });
 
-        it('should have filter icon pTemplate', () => {
+        it('should have filter icon #template', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.filterIconTemplate).not.toThrow();
         });
 
-        it('should have check icon pTemplate with selected context', () => {
+        it('should have check icon #template with selected context', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.checkIconTemplate).not.toThrow();
         });
 
-        it('should have checkmark pTemplate with selected context', () => {
+        it('should have checkmark #template with selected context', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.checkmarkTemplate).not.toThrow();
         });
 
-        it('should have loader pTemplate with options context', () => {
+        it('should have loader #template with options context', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.loaderTemplate).not.toThrow();
         });
 
-        it('should process all pTemplates after content init', async () => {
+        it('should process all #templates after content init', async () => {
             const listboxComponent = listboxElement.componentInstance;
 
             // Trigger ngAfterContentInit
@@ -1393,7 +1393,7 @@ describe('Listbox pTemplate Tests', () => {
             expect(listboxComponent).toBeTruthy();
         });
 
-        it('should handle pTemplate changes after view init', async () => {
+        it('should handle #template changes after view init', async () => {
             const listboxComponent = listboxElement.componentInstance;
 
             // Trigger ngAfterViewInit
@@ -1406,53 +1406,53 @@ describe('Listbox pTemplate Tests', () => {
             expect(listboxComponent).toBeTruthy();
         });
 
-        it('should apply custom item pTemplate rendering', () => {
+        it('should apply custom item #template rendering', () => {
             fixture.detectChanges();
-            const customItem = fixture.debugElement.query(By.css('[data-testid="ptemplate-item"]'));
+            const customItem = fixture.debugElement.query(By.css('[data-testid="template-item"]'));
             // Template may or may not be rendered depending on data
             expect(customItem || true).toBeTruthy();
         });
 
-        it('should apply custom header pTemplate', () => {
+        it('should apply custom header #template', () => {
             fixture.detectChanges();
-            const customHeader = fixture.debugElement.query(By.css('[data-testid="ptemplate-header"]'));
+            const customHeader = fixture.debugElement.query(By.css('[data-testid="template-header"]'));
             // Header template may or may not be rendered
             expect(customHeader || true).toBeTruthy();
         });
 
-        it('should apply custom footer pTemplate', () => {
+        it('should apply custom footer #template', () => {
             fixture.detectChanges();
-            const customFooter = fixture.debugElement.query(By.css('[data-testid="ptemplate-footer"]'));
+            const customFooter = fixture.debugElement.query(By.css('[data-testid="template-footer"]'));
             // Footer template may or may not be rendered
             expect(customFooter || true).toBeTruthy();
         });
 
-        it('should handle empty state with empty pTemplate', () => {
+        it('should handle empty state with empty #template', () => {
             component.items = [];
             fixture.detectChanges();
 
-            const emptyTemplate = fixture.debugElement.query(By.css('[data-testid="ptemplate-empty"]'));
+            const emptyTemplate = fixture.debugElement.query(By.css('[data-testid="template-empty"]'));
             // Empty template may be rendered when no items
             expect(emptyTemplate || true).toBeTruthy();
         });
 
-        it('should handle filter icon pTemplate when filter is enabled', () => {
+        it('should handle filter icon #template when filter is enabled', () => {
             fixture.detectChanges();
-            const filterIcon = fixture.debugElement.query(By.css('[data-testid="ptemplate-filtericon"]'));
+            const filterIcon = fixture.debugElement.query(By.css('[data-testid="template-filtericon"]'));
             // Filter icon may be rendered when filter is enabled
             expect(filterIcon || true).toBeTruthy();
         });
 
-        it('should handle checkmark pTemplates with checkbox mode', () => {
+        it('should handle checkmark #templates with checkbox mode', () => {
             fixture.detectChanges();
-            const checkmark = fixture.debugElement.query(By.css('[data-testid="ptemplate-checkmark"]'));
+            const checkmark = fixture.debugElement.query(By.css('[data-testid="template-checkmark"]'));
             // Checkmark may be rendered in checkbox mode
             expect(checkmark || true).toBeTruthy();
         });
 
-        it('should handle loader pTemplate during virtual scroll', () => {
+        it('should handle loader #template during virtual scroll', () => {
             fixture.detectChanges();
-            const loader = fixture.debugElement.query(By.css('[data-testid="ptemplate-loader"]'));
+            const loader = fixture.debugElement.query(By.css('[data-testid="template-loader"]'));
             // Loader may be rendered during virtual scroll
             expect(loader || true).toBeTruthy();
         });

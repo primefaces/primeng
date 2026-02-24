@@ -15,8 +15,8 @@ describe('ToggleSwitch', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent],
-            declarations: [TestBasicToggleSwitchComponent, TestFormToggleSwitchComponent, TestTemplateToggleSwitchComponent, TestPrimeTemplateToggleSwitchComponent, TestRequiredToggleSwitchComponent, TestNamedToggleSwitchComponent],
+            imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, AutoFocus, TestToggleSwitchTemplateComponent, TestToggleSwitchRefTemplateComponent],
+            declarations: [TestBasicToggleSwitchComponent, TestFormToggleSwitchComponent, TestTemplateToggleSwitchComponent, TestHandleTemplateToggleSwitchComponent, TestRequiredToggleSwitchComponent, TestNamedToggleSwitchComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -254,16 +254,16 @@ describe('ToggleSwitch', () => {
             }
         });
 
-        it('should support custom handle template using PrimeTemplate', () => {
-            const primeTemplateFixture = TestBed.createComponent(TestPrimeTemplateToggleSwitchComponent);
-            primeTemplateFixture.detectChanges();
+        it('should support custom handle template using #template', () => {
+            const templateFixture = TestBed.createComponent(TestHandleTemplateToggleSwitchComponent);
+            templateFixture.detectChanges();
 
-            const customHandle = primeTemplateFixture.debugElement.query(By.css('.prime-template-handle'));
+            const customHandle = templateFixture.debugElement.query(By.css('.prime-template-handle'));
             if (customHandle) {
                 expect(customHandle).toBeTruthy();
                 expect(customHandle.nativeElement.textContent.trim()).toBe('Prime Handle');
             } else {
-                const toggleSwitch = primeTemplateFixture.debugElement.query(By.css('p-toggleswitch')).componentInstance;
+                const toggleSwitch = templateFixture.debugElement.query(By.css('p-toggleswitch')).componentInstance;
                 expect(toggleSwitch).toBeTruthy();
             }
         });
@@ -280,10 +280,10 @@ describe('ToggleSwitch', () => {
         });
 
         it('should handle template processing in ngAfterContentInit', () => {
-            const primeTemplateFixture = TestBed.createComponent(TestPrimeTemplateToggleSwitchComponent);
-            const toggleSwitchInstance = primeTemplateFixture.debugElement.query(By.css('p-toggleswitch')).componentInstance;
+            const templateFixture = TestBed.createComponent(TestHandleTemplateToggleSwitchComponent);
+            const toggleSwitchInstance = templateFixture.debugElement.query(By.css('p-toggleswitch')).componentInstance;
 
-            primeTemplateFixture.detectChanges();
+            templateFixture.detectChanges();
 
             expect(toggleSwitchInstance).toBeTruthy();
             expect(toggleSwitchInstance.handleTemplate).toBeDefined();
@@ -679,7 +679,7 @@ class TestTemplateToggleSwitchComponent {
         </p-toggleswitch>
     `
 })
-class TestPrimeTemplateToggleSwitchComponent {
+class TestHandleTemplateToggleSwitchComponent {
     checked: boolean = false;
 }
 
@@ -699,7 +699,7 @@ class TestNamedToggleSwitchComponent {
     name: string = '';
 }
 
-// ToggleSwitch #handle template component (legacy pTemplate test)
+// ToggleSwitch #handle template component
 @Component({
     standalone: true,
     imports: [ToggleSwitch, FormsModule, CommonModule],
@@ -715,7 +715,7 @@ class TestNamedToggleSwitchComponent {
         </p-toggleswitch>
     `
 })
-class TestToggleSwitchPTemplateComponent {
+class TestToggleSwitchTemplateComponent {
     checked: boolean = false;
 }
 
@@ -739,24 +739,24 @@ class TestToggleSwitchRefTemplateComponent {
     checked: boolean = false;
 }
 
-describe('ToggleSwitch pTemplate Tests', () => {
-    let component: TestToggleSwitchPTemplateComponent;
-    let fixture: ComponentFixture<TestToggleSwitchPTemplateComponent>;
+describe('ToggleSwitch #template Tests', () => {
+    let component: TestToggleSwitchTemplateComponent;
+    let fixture: ComponentFixture<TestToggleSwitchTemplateComponent>;
     let toggleSwitchInstance: ToggleSwitch;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestToggleSwitchPTemplateComponent],
+            imports: [TestToggleSwitchTemplateComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(TestToggleSwitchPTemplateComponent);
+        fixture = TestBed.createComponent(TestToggleSwitchTemplateComponent);
         component = fixture.componentInstance;
         toggleSwitchInstance = fixture.debugElement.query(By.directive(ToggleSwitch)).componentInstance;
         fixture.detectChanges();
     });
 
-    it('should create component with pTemplate templates', async () => {
+    it('should create component with #template templates', async () => {
         expect(component).toBeTruthy();
         expect(toggleSwitchInstance).toBeTruthy();
         expect(() => toggleSwitchInstance.handleTemplate).not.toThrow();
@@ -817,7 +817,7 @@ describe('ToggleSwitch pTemplate Tests', () => {
         expect(toggleSwitchInstance.focused).toBeDefined();
     });
 
-    it('should process pTemplates after content init', async () => {
+    it('should process #templates after content init', async () => {
         if (toggleSwitchInstance.ngAfterContentInit) {
             toggleSwitchInstance.ngAfterContentInit();
             fixture.changeDetectorRef.markForCheck();

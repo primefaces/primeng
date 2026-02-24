@@ -116,7 +116,7 @@ class TestBasicTreeComponent {
     }
 }
 
-// Test component for #template testing (pTemplate removed)
+// Test component for #template testing
 @Component({
     standalone: false,
     template: `
@@ -160,7 +160,7 @@ class TestBasicTreeComponent {
         </p-tree>
     `
 })
-class TestPTemplateTreeComponent {
+class TestTemplateTreeComponent {
     loading = false;
     nodes: TreeNode[] = [
         {
@@ -302,7 +302,7 @@ class TestContextTreeComponent {
         </p-tree>
     `
 })
-class TestPTemplateComponent {
+class TestTemplateComponent {
     loading = false;
     nodes: TreeNode[] = [
         {
@@ -366,7 +366,7 @@ describe('Tree', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicTreeComponent, TestPTemplateTreeComponent, TestTemplateRefTreeComponent, TestContextTreeComponent, TestPTemplateComponent, TestTemplateRefComponent, TestDynamicTreeComponent],
+            declarations: [TestBasicTreeComponent, TestTemplateTreeComponent, TestTemplateRefTreeComponent, TestContextTreeComponent, TestTemplateComponent, TestTemplateRefComponent, TestDynamicTreeComponent],
             imports: [Tree, UITreeNode, FormsModule],
             providers: [TreeDragDropService, provideZonelessChangeDetection()]
         }).compileComponents();
@@ -690,145 +690,145 @@ describe('Tree', () => {
     });
 
     describe('Template and Content Projection', () => {
-        describe('#template Approach (from pTemplate)', () => {
-            let pTemplateFixture: ComponentFixture<TestPTemplateTreeComponent>;
-            let pTemplateComponent: TestPTemplateTreeComponent;
+        describe('#template Approach', () => {
+            let templateFixture: ComponentFixture<TestTemplateTreeComponent>;
+            let templateComponent: TestTemplateTreeComponent;
 
             beforeEach(async () => {
-                pTemplateFixture = TestBed.createComponent(TestPTemplateTreeComponent);
-                pTemplateComponent = pTemplateFixture.componentInstance;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateFixture.detectChanges();
+                templateFixture = TestBed.createComponent(TestTemplateTreeComponent);
+                templateComponent = templateFixture.componentInstance;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
+                templateFixture.detectChanges();
             });
 
             it('should apply default node template with #template', async () => {
                 await fixture.whenStable();
 
-                const customNodeContent = pTemplateFixture.debugElement.query(By.css('.custom-node-content'));
+                const customNodeContent = templateFixture.debugElement.query(By.css('.custom-node-content'));
                 if (customNodeContent) {
                     expect(customNodeContent.nativeElement.textContent).toContain('Root - Custom Default');
                 } else {
                     // Template is configured but may not be visible initially
-                    expect(pTemplateComponent.nodes[0].type).toBe('default');
+                    expect(templateComponent.nodes[0].type).toBe('default');
                 }
             });
 
             it('should apply url node template with #template', async () => {
-                pTemplateComponent.nodes[0].expanded = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateFixture.detectChanges();
-                await pTemplateFixture.whenStable();
+                templateComponent.nodes[0].expanded = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
+                templateFixture.detectChanges();
+                await templateFixture.whenStable();
 
-                const customUrlNode = pTemplateFixture.debugElement.query(By.css('.custom-url-node'));
+                const customUrlNode = templateFixture.debugElement.query(By.css('.custom-url-node'));
                 if (customUrlNode) {
                     expect(customUrlNode.nativeElement.textContent).toContain('Google');
                     expect(customUrlNode.nativeElement.href).toContain('https://google.com');
                 } else {
                     // Add explicit expectation to avoid "no expectations" warning
-                    expect(pTemplateComponent.nodes[0].expanded).toBe(true);
+                    expect(templateComponent.nodes[0].expanded).toBe(true);
                 }
             });
 
             it('should apply header template with #template', async () => {
                 await fixture.whenStable();
 
-                const customHeader = pTemplateFixture.debugElement.query(By.css('.custom-header'));
+                const customHeader = templateFixture.debugElement.query(By.css('.custom-header'));
                 if (customHeader) {
                     expect(customHeader.nativeElement.textContent).toContain('Tree Header with #template');
                 } else {
                     // Add explicit expectation to avoid "no expectations" warning
-                    expect(pTemplateComponent).toBeTruthy();
+                    expect(templateComponent).toBeTruthy();
                 }
             });
 
             it('should apply footer template with #template', async () => {
                 await fixture.whenStable();
 
-                const customFooter = pTemplateFixture.debugElement.query(By.css('.custom-footer'));
+                const customFooter = templateFixture.debugElement.query(By.css('.custom-footer'));
                 if (customFooter) {
                     expect(customFooter.nativeElement.textContent).toContain('Tree Footer with #template');
                 } else {
                     // Add explicit expectation to avoid "no expectations" warning
-                    expect(pTemplateComponent).toBeTruthy();
+                    expect(templateComponent).toBeTruthy();
                 }
             });
 
             it('should apply empty message template with #template', async () => {
-                pTemplateComponent.nodes = [];
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateFixture.detectChanges();
-                await pTemplateFixture.whenStable();
+                templateComponent.nodes = [];
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
+                templateFixture.detectChanges();
+                await templateFixture.whenStable();
 
-                const customEmpty = pTemplateFixture.debugElement.query(By.css('.custom-empty-message'));
+                const customEmpty = templateFixture.debugElement.query(By.css('.custom-empty-message'));
                 if (customEmpty) {
                     expect(customEmpty.nativeElement.textContent).toContain('No data found with #template');
                 } else {
                     // Add explicit expectation to avoid "no expectations" warning
-                    expect(pTemplateComponent.nodes.length).toBe(0);
+                    expect(templateComponent.nodes.length).toBe(0);
                 }
             });
 
             it('should apply toggler icon template with #template and context', async () => {
-                pTemplateComponent.nodes[0].expanded = false;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateFixture.detectChanges();
-                await pTemplateFixture.whenStable();
+                templateComponent.nodes[0].expanded = false;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
+                templateFixture.detectChanges();
+                await templateFixture.whenStable();
 
-                const customToggler = pTemplateFixture.debugElement.query(By.css('.custom-toggler-icon'));
+                const customToggler = templateFixture.debugElement.query(By.css('.custom-toggler-icon'));
                 if (customToggler) {
                     expect(customToggler.nativeElement.textContent).toContain('COLLAPSED');
                 } else {
                     // Toggler template should be configured for collapsed state
-                    expect(pTemplateComponent.nodes[0].expanded).toBe(false);
+                    expect(templateComponent.nodes[0].expanded).toBe(false);
                 }
 
                 // Test expanded state - click the toggle button to trigger proper change detection
-                const toggleButton = pTemplateFixture.debugElement.query(By.css('.p-tree-node-toggle-button'));
+                const toggleButton = templateFixture.debugElement.query(By.css('.p-tree-node-toggle-button'));
                 if (toggleButton) {
                     toggleButton.nativeElement.click();
-                    pTemplateFixture.changeDetectorRef.markForCheck();
-                    await pTemplateFixture.whenStable();
-                    pTemplateFixture.detectChanges();
-                    await pTemplateFixture.whenStable();
+                    templateFixture.changeDetectorRef.markForCheck();
+                    await templateFixture.whenStable();
+                    templateFixture.detectChanges();
+                    await templateFixture.whenStable();
 
-                    const expandedToggler = pTemplateFixture.debugElement.query(By.css('.custom-toggler-icon'));
+                    const expandedToggler = templateFixture.debugElement.query(By.css('.custom-toggler-icon'));
                     if (expandedToggler) {
                         expect(expandedToggler.nativeElement.textContent).toContain('EXPANDED');
                     }
                 } else {
-                    expect(pTemplateComponent).toBeTruthy();
+                    expect(templateComponent).toBeTruthy();
                 }
             });
 
             it('should apply loading icon template with #template', async () => {
-                pTemplateComponent.loading = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateFixture.detectChanges();
-                await pTemplateFixture.whenStable();
+                templateComponent.loading = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
+                templateFixture.detectChanges();
+                await templateFixture.whenStable();
 
-                const customLoadingIcon = pTemplateFixture.debugElement.query(By.css('.custom-loading-icon'));
+                const customLoadingIcon = templateFixture.debugElement.query(By.css('.custom-loading-icon'));
                 if (customLoadingIcon) {
                     expect(customLoadingIcon.nativeElement.textContent).toContain('LOADING...');
                 } else {
                     // Loading icon template is configured
-                    expect(pTemplateComponent.loading).toBe(true);
+                    expect(templateComponent.loading).toBe(true);
                 }
             });
 
             it('should apply filter template with #template', async () => {
                 await fixture.whenStable();
 
-                const customFilter = pTemplateFixture.debugElement.query(By.css('.custom-filter-input'));
+                const customFilter = templateFixture.debugElement.query(By.css('.custom-filter-input'));
                 if (customFilter) {
                     expect(customFilter.nativeElement.placeholder).toContain('Custom Filter...');
                 } else {
                     // Add explicit expectation to avoid "no expectations" warning
-                    expect(pTemplateComponent).toBeTruthy();
+                    expect(templateComponent).toBeTruthy();
                 }
             });
 
@@ -836,14 +836,14 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 // Test that filter icon template is configured
-                expect(pTemplateComponent).toBeTruthy();
+                expect(templateComponent).toBeTruthy();
             });
 
             it('should apply loader template with #template', async () => {
                 await fixture.whenStable();
 
                 // Test that loader template is configured
-                expect(pTemplateComponent).toBeTruthy();
+                expect(templateComponent).toBeTruthy();
             });
         });
 
@@ -1090,15 +1090,15 @@ describe('Tree', () => {
 
             it('should handle both template approaches', async () => {
                 // Test that both approaches work and don't conflict
-                const pTemplateFixture = TestBed.createComponent(TestPTemplateTreeComponent);
+                const templateFixture = TestBed.createComponent(TestTemplateTreeComponent);
                 const templateRefFixture = TestBed.createComponent(TestTemplateRefTreeComponent);
 
-                pTemplateFixture.detectChanges();
+                templateFixture.detectChanges();
                 templateRefFixture.detectChanges();
                 await fixture.whenStable();
 
                 // Both should render without errors
-                expect(pTemplateFixture.componentInstance).toBeTruthy();
+                expect(templateFixture.componentInstance).toBeTruthy();
                 expect(templateRefFixture.componentInstance).toBeTruthy();
             });
         });
@@ -1406,57 +1406,57 @@ describe('Tree', () => {
     // Comprehensive Template and Content Projection Tests (originally in tree-templates.spec.ts)
     describe('Comprehensive Template and Content Projection', () => {
         describe('#template Approach', () => {
-            let pTemplateFixture: ComponentFixture<TestPTemplateComponent>;
-            let pTemplateComponent: TestPTemplateComponent;
+            let templateFixture: ComponentFixture<TestTemplateComponent>;
+            let templateComponent: TestTemplateComponent;
             let tree: Tree;
 
             beforeEach(async () => {
-                pTemplateFixture = TestBed.createComponent(TestPTemplateComponent);
-                pTemplateComponent = pTemplateFixture.componentInstance;
-                tree = pTemplateFixture.debugElement.query(By.directive(Tree)).componentInstance;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateFixture.detectChanges();
+                templateFixture = TestBed.createComponent(TestTemplateComponent);
+                templateComponent = templateFixture.componentInstance;
+                tree = templateFixture.debugElement.query(By.directive(Tree)).componentInstance;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
+                templateFixture.detectChanges();
             });
 
             it('should create component with #template', () => {
-                expect(pTemplateComponent).toBeTruthy();
+                expect(templateComponent).toBeTruthy();
                 expect(tree).toBeTruthy();
             });
 
             it('should apply default node template with #template', async () => {
                 await fixture.whenStable();
 
-                const customNodeContent = pTemplateFixture.debugElement.query(By.css('.custom-node-content'));
+                const customNodeContent = templateFixture.debugElement.query(By.css('.custom-node-content'));
                 if (customNodeContent) {
                     expect(customNodeContent.nativeElement.textContent).toContain('Root - Custom Default');
                 } else {
                     // Template is configured but may not be visible initially
-                    expect(pTemplateComponent.nodes[0].type).toBe('default');
+                    expect(templateComponent.nodes[0].type).toBe('default');
                 }
             });
 
             it('should apply url node template with #template when expanded', async () => {
-                pTemplateComponent.nodes[0].expanded = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateFixture.detectChanges();
-                await pTemplateFixture.whenStable();
+                templateComponent.nodes[0].expanded = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
+                templateFixture.detectChanges();
+                await templateFixture.whenStable();
 
-                const customUrlNode = pTemplateFixture.debugElement.query(By.css('.custom-url-node'));
+                const customUrlNode = templateFixture.debugElement.query(By.css('.custom-url-node'));
                 if (customUrlNode) {
                     expect(customUrlNode.nativeElement.textContent).toContain('Google');
                     expect(customUrlNode.nativeElement.href).toContain('https://google.com');
                 } else {
                     // Template is configured for url type
-                    expect(pTemplateComponent.nodes[0].children?.[0].type).toBe('url');
+                    expect(templateComponent.nodes[0].children?.[0].type).toBe('url');
                 }
             });
 
             it('should apply header template with #template', async () => {
                 await fixture.whenStable();
 
-                const customHeader = pTemplateFixture.debugElement.query(By.css('.custom-header'));
+                const customHeader = templateFixture.debugElement.query(By.css('.custom-header'));
                 if (customHeader) {
                     expect(customHeader.nativeElement.textContent).toContain('Tree Header with #template');
                 } else {
@@ -1468,7 +1468,7 @@ describe('Tree', () => {
             it('should apply footer template with #template', async () => {
                 await fixture.whenStable();
 
-                const customFooter = pTemplateFixture.debugElement.query(By.css('.custom-footer'));
+                const customFooter = templateFixture.debugElement.query(By.css('.custom-footer'));
                 if (customFooter) {
                     expect(customFooter.nativeElement.textContent).toContain('Tree Footer with #template');
                 } else {
@@ -1478,58 +1478,58 @@ describe('Tree', () => {
             });
 
             it('should apply empty message template with #template', async () => {
-                pTemplateComponent.nodes = [];
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateFixture.detectChanges();
-                await pTemplateFixture.whenStable();
+                templateComponent.nodes = [];
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
+                templateFixture.detectChanges();
+                await templateFixture.whenStable();
 
-                const customEmpty = pTemplateFixture.debugElement.query(By.css('.custom-empty-message'));
+                const customEmpty = templateFixture.debugElement.query(By.css('.custom-empty-message'));
                 if (customEmpty) {
                     expect(customEmpty.nativeElement.textContent).toContain('No data found with #template');
                 } else {
                     // Empty template is configured for empty state
-                    expect(pTemplateComponent.nodes.length).toBe(0);
+                    expect(templateComponent.nodes.length).toBe(0);
                 }
             });
 
             it('should apply toggler icon template with context', async () => {
-                pTemplateComponent.nodes[0].expanded = false;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateFixture.detectChanges();
-                await pTemplateFixture.whenStable();
+                templateComponent.nodes[0].expanded = false;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
+                templateFixture.detectChanges();
+                await templateFixture.whenStable();
 
-                const customToggler = pTemplateFixture.debugElement.query(By.css('.custom-toggler-icon'));
+                const customToggler = templateFixture.debugElement.query(By.css('.custom-toggler-icon'));
                 if (customToggler) {
                     expect(customToggler.nativeElement.textContent).toContain('COLLAPSED');
                 } else {
                     // Toggler template should be configured for collapsed state
-                    expect(pTemplateComponent.nodes[0].expanded).toBe(false);
+                    expect(templateComponent.nodes[0].expanded).toBe(false);
                 }
 
                 // Test expanded state - click the toggle button to trigger proper change detection
-                const toggleButton = pTemplateFixture.debugElement.query(By.css('.p-tree-node-toggle-button'));
+                const toggleButton = templateFixture.debugElement.query(By.css('.p-tree-node-toggle-button'));
                 if (toggleButton) {
                     toggleButton.nativeElement.click();
-                    pTemplateFixture.changeDetectorRef.markForCheck();
-                    await pTemplateFixture.whenStable();
-                    pTemplateFixture.detectChanges();
-                    await pTemplateFixture.whenStable();
+                    templateFixture.changeDetectorRef.markForCheck();
+                    await templateFixture.whenStable();
+                    templateFixture.detectChanges();
+                    await templateFixture.whenStable();
 
-                    const expandedToggler = pTemplateFixture.debugElement.query(By.css('.custom-toggler-icon'));
+                    const expandedToggler = templateFixture.debugElement.query(By.css('.custom-toggler-icon'));
                     if (expandedToggler) {
                         expect(expandedToggler.nativeElement.textContent).toContain('EXPANDED');
                     }
                 } else {
-                    expect(pTemplateComponent).toBeTruthy();
+                    expect(templateComponent).toBeTruthy();
                 }
             });
 
             it('should apply checkbox icon template with context', async () => {
                 await fixture.whenStable();
 
-                const checkboxes = pTemplateFixture.debugElement.queryAll(By.css('p-checkbox'));
+                const checkboxes = templateFixture.debugElement.queryAll(By.css('p-checkbox'));
                 expect(checkboxes.length).toBeGreaterThan(0);
 
                 // Checkbox icon template should be available for checkbox selection mode
@@ -1537,14 +1537,14 @@ describe('Tree', () => {
             });
 
             it('should handle template context parameters correctly', async () => {
-                pTemplateComponent.nodes[0].expanded = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateFixture.detectChanges();
-                await pTemplateFixture.whenStable();
+                templateComponent.nodes[0].expanded = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
+                templateFixture.detectChanges();
+                await templateFixture.whenStable();
 
                 // Test that templates receive context
-                const toggleButton = pTemplateFixture.debugElement.query(By.css('[data-pc-section="toggler"]'));
+                const toggleButton = templateFixture.debugElement.query(By.css('[data-pc-section="toggler"]'));
                 if (toggleButton) {
                     expect(toggleButton).toBeTruthy();
                 }
@@ -1662,10 +1662,10 @@ describe('Tree', () => {
 
         describe('Template Context Verification', () => {
             it('should pass correct context to #template', async () => {
-                const pTemplateFixture = TestBed.createComponent(TestPTemplateComponent);
-                const tree = pTemplateFixture.debugElement.query(By.directive(Tree)).componentInstance;
+                const templateFixture = TestBed.createComponent(TestTemplateComponent);
+                const tree = templateFixture.debugElement.query(By.directive(Tree)).componentInstance;
 
-                pTemplateFixture.detectChanges();
+                templateFixture.detectChanges();
                 await fixture.whenStable();
 
                 // Verify tree has template processing capability
@@ -1691,18 +1691,18 @@ describe('Tree', () => {
             });
 
             it('should handle both template approaches without conflict', async () => {
-                const pTemplateFixture = TestBed.createComponent(TestPTemplateComponent);
+                const templateFixture = TestBed.createComponent(TestTemplateComponent);
                 const templateRefFixture = TestBed.createComponent(TestTemplateRefComponent);
 
-                pTemplateFixture.detectChanges();
+                templateFixture.detectChanges();
                 templateRefFixture.detectChanges();
                 await fixture.whenStable();
 
                 // Both components should work independently
-                expect(pTemplateFixture.componentInstance).toBeTruthy();
+                expect(templateFixture.componentInstance).toBeTruthy();
                 expect(templateRefFixture.componentInstance).toBeTruthy();
 
-                const pTree = pTemplateFixture.debugElement.query(By.directive(Tree)).componentInstance;
+                const pTree = templateFixture.debugElement.query(By.directive(Tree)).componentInstance;
                 const refTree = templateRefFixture.debugElement.query(By.directive(Tree)).componentInstance;
 
                 expect(pTree).toBeTruthy();
@@ -1710,30 +1710,30 @@ describe('Tree', () => {
             });
 
             it('should update template context when component state changes', async () => {
-                const pTemplateFixture = TestBed.createComponent(TestPTemplateComponent);
-                const component = pTemplateFixture.componentInstance;
+                const templateFixture = TestBed.createComponent(TestTemplateComponent);
+                const component = templateFixture.componentInstance;
 
-                pTemplateFixture.detectChanges();
+                templateFixture.detectChanges();
                 await fixture.whenStable();
 
                 const initialExpanded = component.nodes[0].expanded;
 
                 // Change node expansion state
                 component.nodes[0].expanded = !initialExpanded;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateFixture.detectChanges();
-                await pTemplateFixture.whenStable();
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
+                templateFixture.detectChanges();
+                await templateFixture.whenStable();
 
                 // Verify state change
                 expect(component.nodes[0].expanded).toBe(!initialExpanded);
 
                 // Change loading state
                 component.loading = !component.loading;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateFixture.detectChanges();
-                await pTemplateFixture.whenStable();
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
+                templateFixture.detectChanges();
+                await templateFixture.whenStable();
 
                 // Verify loading state change
                 expect(component.loading).toBe(!false); // true

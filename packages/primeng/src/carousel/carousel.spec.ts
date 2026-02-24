@@ -166,19 +166,19 @@ class TestTemplateCarouselComponent {
     standalone: false,
     template: `
         <p-carousel [value]="products">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <div class="ptemplate-header">PTemplate Header</div>
             </ng-template>
-            <ng-template let-product pTemplate="item">
+            <ng-template let-product #item>
                 <div class="ptemplate-item">{{ product.name }}</div>
             </ng-template>
-            <ng-template pTemplate="footer">
+            <ng-template #footer>
                 <div class="ptemplate-footer">PTemplate Footer</div>
             </ng-template>
         </p-carousel>
     `
 })
-class TestPTemplateCarouselComponent {
+class TestTemplateCarouselComponent2 {
     products: any[] = mockProducts;
 }
 
@@ -193,7 +193,7 @@ describe('Carousel', () => {
 
         await TestBed.configureTestingModule({
             imports: [CommonModule, Carousel, SharedModule, ButtonModule],
-            declarations: [TestBasicCarouselComponent, TestCircularCarouselComponent, TestVerticalCarouselComponent, TestResponsiveCarouselComponent, TestAutoplayCarouselComponent, TestTemplateCarouselComponent, TestPTemplateCarouselComponent],
+            declarations: [TestBasicCarouselComponent, TestCircularCarouselComponent, TestVerticalCarouselComponent, TestResponsiveCarouselComponent, TestAutoplayCarouselComponent, TestTemplateCarouselComponent, TestTemplateCarouselComponent2],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
@@ -572,32 +572,32 @@ describe('Carousel', () => {
         });
     });
 
-    describe('Template Content Projection - pTemplate approach', () => {
-        let fixture: ComponentFixture<TestPTemplateCarouselComponent>;
-        let component: TestPTemplateCarouselComponent;
+    describe('Template Content Projection - #template approach (2)', () => {
+        let templateFixture: ComponentFixture<TestTemplateCarouselComponent2>;
+        let templateComponent: TestTemplateCarouselComponent2;
         let carouselInstance: Carousel;
 
         beforeEach(async () => {
-            fixture = TestBed.createComponent(TestPTemplateCarouselComponent);
-            component = fixture.componentInstance;
-            await fixture.whenStable();
+            templateFixture = TestBed.createComponent(TestTemplateCarouselComponent2);
+            templateComponent = templateFixture.componentInstance;
+            await templateFixture.whenStable();
 
-            const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+            const carouselEl = templateFixture.debugElement.query(By.css('p-carousel'));
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
-        it('should process pTemplate correctly', () => {
+        it('should process #template correctly', () => {
             carouselInstance.ngAfterContentInit();
 
             // Verify that template processing works
             expect(carouselInstance.ngAfterContentInit).toBeDefined();
         });
 
-        it('should render pTemplate content', () => {
-            const ptemplateHeader = fixture.debugElement.query(By.css('.ptemplate-header'));
-            const ptemplateFooter = fixture.debugElement.query(By.css('.ptemplate-footer'));
+        it('should render #template content', () => {
+            const ptemplateHeader = templateFixture.debugElement.query(By.css('.ptemplate-header'));
+            const ptemplateFooter = templateFixture.debugElement.query(By.css('.ptemplate-footer'));
 
-            // pTemplate content might not be rendered in test environment
+            // #template content might not be rendered in test environment
             if (ptemplateHeader) {
                 expect(ptemplateHeader.nativeElement.textContent).toContain('PTemplate Header');
             }

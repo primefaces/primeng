@@ -466,7 +466,7 @@ describe('ScrollPanel', () => {
     });
 
     describe('Templates', () => {
-        it('should handle pTemplate content processing', async () => {
+        it('should handle #template content processing', async () => {
             const templateFixture = TestBed.createComponent(TestTemplateScrollPanelComponent);
             templateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -506,7 +506,7 @@ describe('ScrollPanel', () => {
                 await fixture.whenStable();
             }).not.toThrow();
 
-            // Test pTemplate content
+            // Test #template content
             const templateFixture = TestBed.createComponent(TestTemplateScrollPanelComponent);
             await expect(async () => {
                 templateFixture.detectChanges();
@@ -525,14 +525,14 @@ describe('ScrollPanel', () => {
 
         it('should render different template types correctly', async () => {
             // Test #content template rendering
-            const pTemplateFixture = TestBed.createComponent(TestTemplateScrollPanelComponent);
-            pTemplateFixture.detectChanges();
+            const templateFixture = TestBed.createComponent(TestTemplateScrollPanelComponent);
+            templateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            await pTemplateFixture.whenStable();
+            await templateFixture.whenStable();
 
-            const pTemplateScrollPanel = pTemplateFixture.debugElement.query(By.directive(ScrollPanel)).componentInstance;
+            const templateScrollPanel = templateFixture.debugElement.query(By.directive(ScrollPanel)).componentInstance;
             // Test that contentTemplate signal returns template
-            expect(pTemplateScrollPanel.contentTemplate()).toBeDefined();
+            expect(templateScrollPanel.contentTemplate()).toBeDefined();
 
             // Test another #content template rendering
             const contentTemplateFixture = TestBed.createComponent(TestContentTemplateScrollPanelComponent);

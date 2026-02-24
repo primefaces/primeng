@@ -116,29 +116,29 @@ class TestFormInputNumberComponent {
     step: number = 10;
 }
 
-// InputNumber pTemplate component
+// InputNumber #template component
 @Component({
     standalone: false,
     template: `
         <p-inputnumber [(ngModel)]="value" [showButtons]="true" [showClear]="true" [mode]="'currency'" [currency]="'USD'" [locale]="'en-US'" [min]="min" [max]="max" [step]="step">
-            <!-- Clear icon template with pTemplate directive -->
-            <ng-template pTemplate="clearicon">
+            <!-- Clear icon template with #template reference -->
+            <ng-template #clearicon>
                 <i class="pi pi-times custom-clear-icon" data-testid="ptemplate-clearicon"></i>
             </ng-template>
 
             <!-- Increment button icon template -->
-            <ng-template pTemplate="incrementbuttonicon">
+            <ng-template #incrementbuttonicon>
                 <i class="pi pi-plus custom-increment-icon" data-testid="ptemplate-incrementicon"></i>
             </ng-template>
 
             <!-- Decrement button icon template -->
-            <ng-template pTemplate="decrementbuttonicon">
+            <ng-template #decrementbuttonicon>
                 <i class="pi pi-minus custom-decrement-icon" data-testid="ptemplate-decrementicon"></i>
             </ng-template>
         </p-inputnumber>
     `
 })
-class TestInputNumberPTemplateComponent {
+class TestInputNumberTemplateComponent {
     value: number = 1234.56;
     min: number = 0;
     max: number = 9999;
@@ -181,7 +181,7 @@ describe('InputNumber', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [InputNumberModule, FormsModule, ReactiveFormsModule, CommonModule],
-            declarations: [TestBasicInputNumberComponent, TestFormInputNumberComponent, TestInputNumberPTemplateComponent, TestInputNumberRefTemplateComponent],
+            declarations: [TestBasicInputNumberComponent, TestFormInputNumberComponent, TestInputNumberTemplateComponent, TestInputNumberRefTemplateComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -638,42 +638,42 @@ describe('InputNumber', () => {
         });
     });
 
-    describe('InputNumber pTemplate Tests', () => {
-        let templateComponent: TestInputNumberPTemplateComponent;
-        let templateFixture: ComponentFixture<TestInputNumberPTemplateComponent>;
+    describe('InputNumber #template Tests', () => {
+        let templateComponent: TestInputNumberTemplateComponent;
+        let templateFixture: ComponentFixture<TestInputNumberTemplateComponent>;
         let inputNumberElement: any;
 
         beforeEach(() => {
-            templateFixture = TestBed.createComponent(TestInputNumberPTemplateComponent);
+            templateFixture = TestBed.createComponent(TestInputNumberTemplateComponent);
             templateComponent = templateFixture.componentInstance;
             inputNumberElement = templateFixture.debugElement.query(By.css('p-inputnumber'));
             templateFixture.detectChanges();
         });
 
-        it('should create component with pTemplate templates', () => {
+        it('should create component with #template references', () => {
             expect(templateComponent).toBeTruthy();
             expect(inputNumberElement).toBeTruthy();
         });
 
-        it('should have clearicon pTemplate', () => {
+        it('should have clearicon #template', () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
             expect(inputNumberComponent).toBeTruthy();
             expect(() => inputNumberComponent.clearIconTemplate).not.toThrow();
         });
 
-        it('should have incrementbuttonicon pTemplate', () => {
+        it('should have incrementbuttonicon #template', () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
             expect(inputNumberComponent).toBeTruthy();
             expect(() => inputNumberComponent.incrementButtonIconTemplate).not.toThrow();
         });
 
-        it('should have decrementbuttonicon pTemplate', () => {
+        it('should have decrementbuttonicon #template', () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
             expect(inputNumberComponent).toBeTruthy();
             expect(() => inputNumberComponent.decrementButtonIconTemplate).not.toThrow();
         });
 
-        it('should process all pTemplates after content init', async () => {
+        it('should process all #templates after content init', async () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
 
             if (inputNumberComponent.ngAfterContentInit) {
@@ -685,7 +685,7 @@ describe('InputNumber', () => {
             expect(inputNumberComponent).toBeTruthy();
         });
 
-        it('should handle pTemplate changes after view init', async () => {
+        it('should handle #template changes after view init', async () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
 
             if (inputNumberComponent.ngAfterViewInit) {
@@ -697,25 +697,25 @@ describe('InputNumber', () => {
             expect(inputNumberComponent).toBeTruthy();
         });
 
-        it('should render custom clear icon pTemplate when showClear is enabled', () => {
+        it('should render custom clear icon #template when showClear is enabled', () => {
             templateFixture.detectChanges();
             const clearIcon = templateFixture.debugElement.query(By.css('[data-testid="ptemplate-clearicon"]'));
             expect(clearIcon || true).toBeTruthy();
         });
 
-        it('should render custom increment icon pTemplate when showButtons is enabled', () => {
+        it('should render custom increment icon #template when showButtons is enabled', () => {
             templateFixture.detectChanges();
             const incrementIcon = templateFixture.debugElement.query(By.css('[data-testid="ptemplate-incrementicon"]'));
             expect(incrementIcon || true).toBeTruthy();
         });
 
-        it('should render custom decrement icon pTemplate when showButtons is enabled', () => {
+        it('should render custom decrement icon #template when showButtons is enabled', () => {
             templateFixture.detectChanges();
             const decrementIcon = templateFixture.debugElement.query(By.css('[data-testid="ptemplate-decrementicon"]'));
             expect(decrementIcon || true).toBeTruthy();
         });
 
-        it('should handle currency formatting with pTemplates', () => {
+        it('should handle currency formatting with #templates', () => {
             const inputNumberInstance = inputNumberElement.componentInstance;
             expect(inputNumberInstance.mode()).toBe('currency');
             expect(inputNumberInstance.currency()).toBe('USD');

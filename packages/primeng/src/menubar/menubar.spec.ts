@@ -136,14 +136,14 @@ class TestItemTemplateMenubarComponent {
     standalone: false,
     template: `
         <p-menubar [model]="model">
-            <ng-template pTemplate="item" let-item>
+            <ng-template #item let-item>
                 <span class="p-template-item">{{ item.label }}</span>
             </ng-template>
         </p-menubar>
     `
 })
-class TestPTemplateMenubarComponent {
-    model: MenuItem[] = [{ label: 'PTemplate Item 1' }, { label: 'PTemplate Item 2' }];
+class TestTemplateMenubarItemComponent {
+    model: MenuItem[] = [{ label: 'Template Item 1' }, { label: 'Template Item 2' }];
 }
 
 @Component({
@@ -275,7 +275,7 @@ describe('Menubar', () => {
                 TestRouterMenubarComponent,
                 TestTemplateMenubarComponent,
                 TestItemTemplateMenubarComponent,
-                TestPTemplateMenubarComponent,
+                TestTemplateMenubarItemComponent,
                 TestSubmenuIconTemplateComponent,
                 TestMenuIconTemplateComponent,
                 TestDisabledItemsComponent,
@@ -556,16 +556,15 @@ describe('Menubar', () => {
             expect(itemTemplateMenubar.itemTemplate()).toBeDefined();
         });
 
-        it('should handle pTemplate processing', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateMenubarComponent);
-            pTemplateFixture.changeDetectorRef.markForCheck();
-            await pTemplateFixture.whenStable();
+        it('should handle #item template processing', async () => {
+            const templateFixture = TestBed.createComponent(TestTemplateMenubarItemComponent);
+            templateFixture.changeDetectorRef.markForCheck();
+            await templateFixture.whenStable();
 
-            const pTemplateMenubar = pTemplateFixture.debugElement.query(By.directive(Menubar)).componentInstance;
+            const templateMenubar = templateFixture.debugElement.query(By.directive(Menubar)).componentInstance;
 
-            expect(() => pTemplateMenubar.ngAfterContentInit()).not.toThrow();
-            // pTemplate is no longer supported, so itemTemplate should be undefined
-            expect(pTemplateMenubar.itemTemplate()).toBeUndefined();
+            expect(() => templateMenubar.ngAfterContentInit()).not.toThrow();
+            expect(templateMenubar.itemTemplate()).toBeDefined();
         });
 
         it('should handle submenuicon template', async () => {
