@@ -55,8 +55,8 @@ catalogs:
       specifier: ^21.0.0
       version: 21.1.0
     '@angular/ssr':
-      specifier: ^21.0.0
-      version: 21.1.0
+      specifier: ^21.1.5
+      version: 21.2.0
     ng-packagr:
       specifier: 21.0.0
       version: 21.0.0
@@ -95,7 +95,7 @@ importers:
     devDependencies:
       '@angular-devkit/build-angular':
         specifier: catalog:angular21
-        version: 21.1.0(kt6uu352paswrlalrpmxfm6e7u)
+        version: 21.1.0(ye7g574llmhucc4sdv4jqm7giq)
       '@angular-eslint/eslint-plugin':
         specifier: catalog:angular21
         version: 20.7.0(@typescript-eslint/utils@8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
@@ -225,7 +225,7 @@ importers:
         version: 21.1.0(@angular/common@21.1.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(@angular/platform-browser@21.1.0(@angular/animations@21.0.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2)))(@angular/common@21.1.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2)))(rxjs@7.8.2)
       '@angular/ssr':
         specifier: catalog:angular21
-        version: 21.1.0(c6fmriymbbge7bzfgzykqm2vj4)
+        version: 21.2.0(c6fmriymbbge7bzfgzykqm2vj4)
       '@docsearch/css':
         specifier: ^3.3.4
         version: 3.9.0
@@ -812,8 +812,8 @@ packages:
       '@angular/platform-browser': 21.1.0
       rxjs: ^6.5.3 || ^7.4.0
 
-  '@angular/ssr@21.1.0':
-    resolution: {integrity: sha512-ghDVijKzBeN7HMgczPqrrEfLimr0SUGPlg7sYpT2yHWDhOh1Ncn1RmegwSOl+/fIB8Wv9R8S9ViGKWyGlIMyIg==}
+  '@angular/ssr@21.2.0':
+    resolution: {integrity: sha512-NqtCNJETO1ocQ0F3pK4KxkoDkPxI2qN2YPEBLPAGTrLXxTb6vM06LwYa6tTwFm0sk26tfOGTuauJV1KhRnDcVQ==}
     peerDependencies:
       '@angular/common': ^21.0.0
       '@angular/core': ^21.0.0
@@ -4347,6 +4347,7 @@ packages:
 
   glob@10.5.0:
     resolution: {integrity: sha512-DfXN8DfhJ7NH3Oe7cFmu3NCu1wKbkReJ8TorzSAFbSKrlNaQSKfIzqYqVY8zlbs2NLBbWpRiU52GX2PbaBVNkg==}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   glob@13.0.0:
@@ -4355,11 +4356,11 @@ packages:
 
   glob@5.0.15:
     resolution: {integrity: sha512-c9IPMazfRITpmAAKi22dK1VKxGDX9ehhqfABDriL/lzO92xcUKEJPQHrVA/2YHSNFB4iFlykVmWvwo48nr3OxA==}
-    deprecated: Glob versions prior to v9 are no longer supported
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
-    deprecated: Glob versions prior to v9 are no longer supported
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -6448,6 +6449,7 @@ packages:
   tar@7.5.4:
     resolution: {integrity: sha512-AN04xbWGrSTDmVwlI4/GTlIIwMFk/XEv7uL8aa57zuvRy6s4hdBed+lVq2fAZ89XDa7Us3ANXcE3Tvqvja1kTA==}
     engines: {node: '>=18'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   terser-webpack-plugin@5.3.16:
     resolution: {integrity: sha512-h9oBFCWrq78NyWWVcSwZarJkZ01c2AyGrzs1crmHZO3QUg9D61Wu4NPjBy69n7JqylFF5y+CsUZYmYEIZ3mR+Q==}
@@ -7260,13 +7262,13 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@angular-devkit/build-angular@21.1.0(kt6uu352paswrlalrpmxfm6e7u)':
+  '@angular-devkit/build-angular@21.1.0(ye7g574llmhucc4sdv4jqm7giq)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2101.0
       '@angular-devkit/build-webpack': 0.2101.0(webpack-dev-server@5.2.2(tslib@2.8.1)(webpack@5.104.1))(webpack@5.104.1(esbuild@0.27.2))
       '@angular-devkit/core': 21.1.0
-      '@angular/build': 21.1.0(2kvom4jnvnzmhioaswqkswjzvq)
+      '@angular/build': 21.1.0(bh7t6ada4nrqfi4g4reci2trai)
       '@angular/compiler-cli': 21.1.0(@angular/compiler@21.1.0)(typescript@5.9.3)
       '@babel/core': 7.28.5
       '@babel/generator': 7.28.5
@@ -7322,7 +7324,7 @@ snapshots:
       '@angular/core': 21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2)
       '@angular/platform-browser': 21.1.0(@angular/animations@21.0.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2)))(@angular/common@21.1.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))
       '@angular/platform-server': 21.1.0(@angular/common@21.1.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/compiler@21.1.0)(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(@angular/platform-browser@21.1.0(@angular/animations@21.0.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2)))(@angular/common@21.1.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2)))(rxjs@7.8.2)
-      '@angular/ssr': 21.1.0(c6fmriymbbge7bzfgzykqm2vj4)
+      '@angular/ssr': 21.2.0(c6fmriymbbge7bzfgzykqm2vj4)
       esbuild: 0.27.2
       karma: 6.4.4
       ng-packagr: 21.0.0(@angular/compiler-cli@21.1.0(@angular/compiler@21.1.0)(typescript@5.9.3))(tailwindcss@3.4.19(yaml@2.8.2))(tslib@2.8.1)(typescript@5.9.3)
@@ -7456,7 +7458,7 @@ snapshots:
       '@angular/core': 21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2)
       tslib: 2.8.1
 
-  '@angular/build@21.1.0(2kvom4jnvnzmhioaswqkswjzvq)':
+  '@angular/build@21.1.0(bh7t6ada4nrqfi4g4reci2trai)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2101.0
@@ -7493,7 +7495,7 @@ snapshots:
       '@angular/core': 21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2)
       '@angular/platform-browser': 21.1.0(@angular/animations@21.0.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2)))(@angular/common@21.1.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))
       '@angular/platform-server': 21.1.0(@angular/common@21.1.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/compiler@21.1.0)(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(@angular/platform-browser@21.1.0(@angular/animations@21.0.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2)))(@angular/common@21.1.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2)))(rxjs@7.8.2)
-      '@angular/ssr': 21.1.0(c6fmriymbbge7bzfgzykqm2vj4)
+      '@angular/ssr': 21.2.0(c6fmriymbbge7bzfgzykqm2vj4)
       karma: 6.4.4
       less: 4.4.2
       lmdb: 3.4.4
@@ -7626,7 +7628,7 @@ snapshots:
       rxjs: 7.8.2
       tslib: 2.8.1
 
-  '@angular/ssr@21.1.0(c6fmriymbbge7bzfgzykqm2vj4)':
+  '@angular/ssr@21.2.0(c6fmriymbbge7bzfgzykqm2vj4)':
     dependencies:
       '@angular/common': 21.1.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(rxjs@7.8.2)
       '@angular/core': 21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2)
