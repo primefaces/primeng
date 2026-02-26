@@ -1529,6 +1529,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+            const clearSpy = spyOn(autocompleteInstance, 'clear').and.callThrough();
 
             // First, show the suggestions
             const inputElement = testFixture.debugElement.query(By.css('input'));
@@ -1543,6 +1544,65 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             expect(inputElement.nativeElement.value).toBe('' as any);
+            expect(autocompleteInstance.modelValue()).toBeNull();
+            expect(clearSpy).toHaveBeenCalled();
+        });
+
+        it('should handle forceSelection mode when input field is emptied', async () => {
+            testComponent.forceSelection = true;
+            testComponent.optionLabel = undefined as any; // Use string comparison for forceSelection
+            testComponent.suggestions = mockItems;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
+
+            const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+            const clearSpy = spyOn(autocompleteInstance, 'clear').and.callThrough();
+
+            // First, show the suggestions
+            const inputElement = testFixture.debugElement.query(By.css('input'));
+            inputElement.nativeElement.value = 'Item';
+            inputElement.nativeElement.dispatchEvent(new Event('input'));
+            await testFixture.whenStable();
+
+            // Now test invalid input
+            inputElement.nativeElement.value = '';
+            inputElement.nativeElement.defaultValue = 'Item';
+            const changeEvent = new Event('change');
+            inputElement.nativeElement.dispatchEvent(changeEvent);
+            await testFixture.whenStable();
+
+            expect(inputElement.nativeElement.value).toBe('' as any);
+            expect(autocompleteInstance.modelValue()).toBeNull();
+            expect(clearSpy).toHaveBeenCalled();
+        });
+
+        it('should empty input field but not clear inner form value when forceSelection and multiple are true and when input value does not match any suggestion', async () => {
+            testComponent.multiple = true;
+            testComponent.forceSelection = true;
+            testComponent.optionLabel = undefined as any; // Use string comparison for forceSelection
+            testComponent.suggestions = mockItems;
+            testComponent.selectedValue = [mockItems[0]];
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
+
+            const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+            const clearSpy = spyOn(autocompleteInstance, 'clear').and.callThrough();
+
+            // First, show the suggestions
+            const inputElement = testFixture.debugElement.query(By.css('input'));
+            inputElement.nativeElement.value = 'nonexistent';
+            inputElement.nativeElement.dispatchEvent(new Event('input'));
+            await testFixture.whenStable();
+
+            // Now dispatch change
+            const changeEvent = new Event('change');
+            inputElement.nativeElement.dispatchEvent(changeEvent);
+            await testFixture.whenStable();
+
+            expect(inputElement.nativeElement.value).toBe('' as any);
+            expect(autocompleteInstance.modelValue()).not.toBeNull();
+            expect(autocompleteInstance.modelValue()).toEqual([mockItems[0]]);
+            expect(clearSpy).not.toHaveBeenCalled();
         });
 
         it('should handle autoHighlight feature', async () => {
