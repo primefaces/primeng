@@ -5,28 +5,14 @@ import { BaseStyle } from 'primeng/base';
 
 const style = /*css*/ `
     ${badge_style}
-
-    /* For PrimeNG (directive)*/
-    .p-overlay-badge {
-        position: relative;
-    }
-
-    .p-overlay-badge > .p-badge {
-        position: absolute;
-        top: 0;
-        inset-inline-end: 0;
-        transform: translate(50%, -50%);
-        transform-origin: 100% 0;
-        margin: 0;
-    }
 `;
 
 const classes = {
     root: ({ instance }) => {
-        const value = typeof instance.value === 'function' ? instance.value() : instance.value;
-        const size = typeof instance.size === 'function' ? instance.size() : instance.size;
-        const badgeSize = typeof instance.badgeSize === 'function' ? instance.badgeSize() : instance.badgeSize;
-        const severity = typeof instance.severity === 'function' ? instance.severity() : instance.severity;
+        const value = instance.value();
+        const size = instance.size();
+        const badgeSize = instance.badgeSize();
+        const severity = instance.severity();
 
         return [
             'p-badge p-component',

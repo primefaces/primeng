@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular Badge Component" header="Badge" description="Badge is a small status indicator for another element." [docs]="docs" [apiDocs]="['Badge', 'BadgeDirective']" [ptDocs]="ptComponent" themeDocs="Badge"></app-doc>`
+    template: ` <app-doc docTitle="Angular Badge Component" header="Badge" description="Badge is a small status indicator for another element." [docs]="docs" [apiDocs]="['Badge']" [ptDocs]="ptComponent" themeDocs="Badge"></app-doc>`
 })
 export class BadgeDemo {
     ptComponent = PTComponent;
