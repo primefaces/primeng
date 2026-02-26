@@ -494,8 +494,6 @@ export class ColumnFilter extends BaseComponent {
      */
     addRuleIconTemplate = contentChild<TemplateRef<any>>('addruleicon', { descendants: false });
 
-    clearFilterIconTemplate = contentChild<TemplateRef<any>>('clearfiltericon', { descendants: false });
-
     operatorOptions: any[] | undefined;
 
     overlayVisible: boolean | undefined;
