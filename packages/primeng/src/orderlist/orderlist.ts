@@ -49,32 +49,40 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
     template: `
         <div [pBind]="ptm('controls')" [class]="cx('controls')">
             <p-button [pt]="ptm('pcMoveUpButton')" [disabled]="$moveDisabled()" [ariaLabel]="moveUpAriaLabel()" [buttonProps]="upButtonProps()" (onClick)="moveUp()" [unstyled]="unstyled()" hostName="orderlist">
-                @if (!moveUpIconTemplate()) {
-                    <svg data-p-icon="angle-up" [pBind]="ptm('pcMoveUpButton')['icon']" />
-                } @else {
-                    <ng-container *ngTemplateOutlet="moveUpIconTemplate()" />
-                }
+                <ng-template #icon>
+                    @if (!moveUpIconTemplate()) {
+                        <svg data-p-icon="angle-up" [pBind]="ptm('pcMoveUpButton')['icon']" />
+                    } @else {
+                        <ng-container *ngTemplateOutlet="moveUpIconTemplate()" />
+                    }
+                </ng-template>
             </p-button>
             <p-button [pt]="ptm('pcMoveTopButton')" [disabled]="$moveDisabled()" [ariaLabel]="moveTopAriaLabel()" [buttonProps]="topButtonProps()" (onClick)="moveTop()" [unstyled]="unstyled()" hostName="orderlist">
-                @if (!moveTopIconTemplate()) {
-                    <svg data-p-icon="angle-double-up" [pBind]="ptm('pcMoveTopButton')['icon']" />
-                } @else {
-                    <ng-container *ngTemplateOutlet="moveTopIconTemplate()" />
-                }
+                <ng-template #icon>
+                    @if (!moveTopIconTemplate()) {
+                        <svg data-p-icon="angle-double-up" [pBind]="ptm('pcMoveTopButton')['icon']" />
+                    } @else {
+                        <ng-container *ngTemplateOutlet="moveTopIconTemplate()" />
+                    }
+                </ng-template>
             </p-button>
             <p-button [pt]="ptm('pcMoveDownButton')" [disabled]="$moveDisabled()" [ariaLabel]="moveDownAriaLabel()" [buttonProps]="downButtonProps()" (onClick)="moveDown()" [unstyled]="unstyled()" hostName="orderlist">
-                @if (!moveDownIconTemplate()) {
-                    <svg data-p-icon="angle-down" [pBind]="ptm('pcMoveDownButton')['icon']" />
-                } @else {
-                    <ng-container *ngTemplateOutlet="moveDownIconTemplate()" />
-                }
+                <ng-template #icon>
+                    @if (!moveDownIconTemplate()) {
+                        <svg data-p-icon="angle-down" [pBind]="ptm('pcMoveDownButton')['icon']" />
+                    } @else {
+                        <ng-container *ngTemplateOutlet="moveDownIconTemplate()" />
+                    }
+                </ng-template>
             </p-button>
             <p-button [pt]="ptm('pcMoveBottomButton')" [disabled]="$moveDisabled()" [ariaLabel]="moveBottomAriaLabel()" [buttonProps]="bottomButtonProps()" (onClick)="moveBottom()" [unstyled]="unstyled()" hostName="orderlist">
-                @if (!moveBottomIconTemplate()) {
-                    <svg data-p-icon="angle-double-down" [pBind]="ptm('pcMoveBottomButton')['icon']" />
-                } @else {
-                    <ng-container *ngTemplateOutlet="moveBottomIconTemplate()" />
-                }
+                <ng-template #icon>
+                    @if (!moveBottomIconTemplate()) {
+                        <svg data-p-icon="angle-double-down" [pBind]="ptm('pcMoveBottomButton')['icon']" />
+                    } @else {
+                        <ng-container *ngTemplateOutlet="moveBottomIconTemplate()" />
+                    }
+                </ng-template>
             </p-button>
         </div>
         <p-listbox

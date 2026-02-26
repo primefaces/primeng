@@ -73,11 +73,13 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                         [unstyled]="unstyled()"
                         hostName="picklist"
                     >
-                        @if (moveUpIconTemplate()) {
-                            <ng-container *ngTemplateOutlet="moveUpIconTemplate()!" />
-                        } @else {
-                            <svg data-p-icon="angle-up" [pBind]="ptm('pcSourceMoveUpButton')['icon']" />
-                        }
+                        <ng-template #icon>
+                            @if (moveUpIconTemplate()) {
+                                <ng-container *ngTemplateOutlet="moveUpIconTemplate()!" />
+                            } @else {
+                                <svg data-p-icon="angle-up" [pBind]="ptm('pcSourceMoveUpButton')['icon']" />
+                            }
+                        </ng-template>
                     </p-button>
                     <p-button
                         [ariaLabel]="moveTopAriaLabel()"
@@ -88,11 +90,13 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                         [unstyled]="unstyled()"
                         hostName="picklist"
                     >
-                        @if (moveTopIconTemplate()) {
-                            <ng-container *ngTemplateOutlet="moveTopIconTemplate()!" />
-                        } @else {
-                            <svg data-p-icon="angle-double-up" [pBind]="ptm('pcSourceMoveTopButton')['icon']" />
-                        }
+                        <ng-template #icon>
+                            @if (moveTopIconTemplate()) {
+                                <ng-container *ngTemplateOutlet="moveTopIconTemplate()!" />
+                            } @else {
+                                <svg data-p-icon="angle-double-up" [pBind]="ptm('pcSourceMoveTopButton')['icon']" />
+                            }
+                        </ng-template>
                     </p-button>
                     <p-button
                         [ariaLabel]="moveDownAriaLabel()"
@@ -103,11 +107,13 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                         [unstyled]="unstyled()"
                         hostName="picklist"
                     >
-                        @if (moveDownIconTemplate()) {
-                            <ng-container *ngTemplateOutlet="moveDownIconTemplate()!" />
-                        } @else {
-                            <svg data-p-icon="angle-down" [pBind]="ptm('pcSourceMoveDownButton')['icon']" />
-                        }
+                        <ng-template #icon>
+                            @if (moveDownIconTemplate()) {
+                                <ng-container *ngTemplateOutlet="moveDownIconTemplate()!" />
+                            } @else {
+                                <svg data-p-icon="angle-down" [pBind]="ptm('pcSourceMoveDownButton')['icon']" />
+                            }
+                        </ng-template>
                     </p-button>
                     <p-button
                         [ariaLabel]="moveBottomAriaLabel()"
@@ -118,11 +124,13 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                         [unstyled]="unstyled()"
                         hostName="picklist"
                     >
-                        @if (moveBottomIconTemplate()) {
-                            <ng-container *ngTemplateOutlet="moveBottomIconTemplate()!" />
-                        } @else {
-                            <svg data-p-icon="angle-double-down" [pBind]="ptm('pcSourceMoveBottomButton')['icon']" />
-                        }
+                        <ng-template #icon>
+                            @if (moveBottomIconTemplate()) {
+                                <ng-container *ngTemplateOutlet="moveBottomIconTemplate()!" />
+                            } @else {
+                                <svg data-p-icon="angle-double-down" [pBind]="ptm('pcSourceMoveBottomButton')['icon']" />
+                            }
+                        </ng-template>
                     </p-button>
                 </div>
             }
@@ -197,15 +205,17 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
             </div>
             <div [class]="cx('transferControls')" [attr.data-pc-group-section]="'controls'" [pBind]="ptm('transferControls')">
                 <p-button [ariaLabel]="moveToTargetAriaLabel()" [buttonProps]="moveToTargetBtnProps()" [disabled]="moveRightDisabled()" (onClick)="moveRight()" [pt]="ptm('pcMoveToTargetButton')" [unstyled]="unstyled()" hostName="picklist">
-                    @if (moveToTargetIconTemplate()) {
-                        <ng-container *ngTemplateOutlet="moveToTargetIconTemplate()!; context: { $implicit: viewChanged() }" />
-                    } @else {
-                        @if (!viewChanged()) {
-                            <svg data-p-icon="angle-right" [pBind]="ptm('pcMoveToTargetButton')['icon']" />
+                    <ng-template #icon>
+                        @if (moveToTargetIconTemplate()) {
+                            <ng-container *ngTemplateOutlet="moveToTargetIconTemplate()!; context: { $implicit: viewChanged() }" />
                         } @else {
-                            <svg data-p-icon="angle-down" [pBind]="ptm('pcMoveToTargetButton')['icon']" />
+                            @if (!viewChanged()) {
+                                <svg data-p-icon="angle-right" [pBind]="ptm('pcMoveToTargetButton')['icon']" />
+                            } @else {
+                                <svg data-p-icon="angle-down" [pBind]="ptm('pcMoveToTargetButton')['icon']" />
+                            }
                         }
-                    }
+                    </ng-template>
                 </p-button>
                 <p-button
                     [ariaLabel]="moveAllToTargetAriaLabel()"
@@ -216,26 +226,30 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     [unstyled]="unstyled()"
                     hostName="picklist"
                 >
-                    @if (moveAllToTargetIconTemplate()) {
-                        <ng-container *ngTemplateOutlet="moveAllToTargetIconTemplate()!; context: { $implicit: viewChanged() }" />
-                    } @else {
-                        @if (!viewChanged()) {
-                            <svg data-p-icon="angle-double-right" [pBind]="ptm('pcMoveAllToTargetButton')['icon']" />
+                    <ng-template #icon>
+                        @if (moveAllToTargetIconTemplate()) {
+                            <ng-container *ngTemplateOutlet="moveAllToTargetIconTemplate()!; context: { $implicit: viewChanged() }" />
                         } @else {
-                            <svg data-p-icon="angle-double-down" [pBind]="ptm('pcMoveAllToTargetButton')['icon']" />
+                            @if (!viewChanged()) {
+                                <svg data-p-icon="angle-double-right" [pBind]="ptm('pcMoveAllToTargetButton')['icon']" />
+                            } @else {
+                                <svg data-p-icon="angle-double-down" [pBind]="ptm('pcMoveAllToTargetButton')['icon']" />
+                            }
                         }
-                    }
+                    </ng-template>
                 </p-button>
                 <p-button [ariaLabel]="moveToSourceAriaLabel()" [buttonProps]="moveToSourceBtnProps()" [disabled]="moveLeftDisabled()" (onClick)="moveLeft()" [pt]="ptm('pcMoveToSourceButton')" [unstyled]="unstyled()" hostName="picklist">
-                    @if (moveToSourceIconTemplate()) {
-                        <ng-container *ngTemplateOutlet="moveToSourceIconTemplate()!; context: { $implicit: viewChanged() }" />
-                    } @else {
-                        @if (!viewChanged()) {
-                            <svg data-p-icon="angle-left" [pBind]="ptm('pcMoveToSourceButton')['icon']" />
+                    <ng-template #icon>
+                        @if (moveToSourceIconTemplate()) {
+                            <ng-container *ngTemplateOutlet="moveToSourceIconTemplate()!; context: { $implicit: viewChanged() }" />
                         } @else {
-                            <svg data-p-icon="angle-up" [pBind]="ptm('pcMoveToSourceButton')['icon']" />
+                            @if (!viewChanged()) {
+                                <svg data-p-icon="angle-left" [pBind]="ptm('pcMoveToSourceButton')['icon']" />
+                            } @else {
+                                <svg data-p-icon="angle-up" [pBind]="ptm('pcMoveToSourceButton')['icon']" />
+                            }
                         }
-                    }
+                    </ng-template>
                 </p-button>
                 <p-button
                     [ariaLabel]="moveAllToSourceAriaLabel()"
@@ -246,15 +260,17 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     [unstyled]="unstyled()"
                     hostName="picklist"
                 >
-                    @if (moveAllToSourceIconTemplate()) {
-                        <ng-container *ngTemplateOutlet="moveAllToSourceIconTemplate()!; context: { $implicit: viewChanged() }" />
-                    } @else {
-                        @if (!viewChanged()) {
-                            <svg data-p-icon="angle-double-left" [pBind]="ptm('pcMoveAllToSourceButton')['icon']" />
+                    <ng-template #icon>
+                        @if (moveAllToSourceIconTemplate()) {
+                            <ng-container *ngTemplateOutlet="moveAllToSourceIconTemplate()!; context: { $implicit: viewChanged() }" />
                         } @else {
-                            <svg data-p-icon="angle-double-up" [pBind]="ptm('pcMoveAllToSourceButton')['icon']" />
+                            @if (!viewChanged()) {
+                                <svg data-p-icon="angle-double-left" [pBind]="ptm('pcMoveAllToSourceButton')['icon']" />
+                            } @else {
+                                <svg data-p-icon="angle-double-up" [pBind]="ptm('pcMoveAllToSourceButton')['icon']" />
+                            }
                         }
-                    }
+                    </ng-template>
                 </p-button>
             </div>
             <div [class]="cx('targetListContainer')" [attr.data-pc-group-section]="'listcontainer'" [pBind]="ptm('targetListContainer')">
@@ -337,11 +353,13 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                         [unstyled]="unstyled()"
                         hostName="picklist"
                     >
-                        @if (moveUpIconTemplate()) {
-                            <ng-container *ngTemplateOutlet="moveUpIconTemplate()!" />
-                        } @else {
-                            <svg data-p-icon="angle-up" [pBind]="ptm('pcTargetMoveUpButton')['icon']" />
-                        }
+                        <ng-template #icon>
+                            @if (moveUpIconTemplate()) {
+                                <ng-container *ngTemplateOutlet="moveUpIconTemplate()!" />
+                            } @else {
+                                <svg data-p-icon="angle-up" [pBind]="ptm('pcTargetMoveUpButton')['icon']" />
+                            }
+                        </ng-template>
                     </p-button>
                     <p-button
                         [ariaLabel]="moveTopAriaLabel()"
@@ -352,11 +370,13 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                         [unstyled]="unstyled()"
                         hostName="picklist"
                     >
-                        @if (moveTopIconTemplate()) {
-                            <ng-container *ngTemplateOutlet="moveTopIconTemplate()!" />
-                        } @else {
-                            <svg data-p-icon="angle-double-up" [pBind]="ptm('pcTargetMoveTopButton')['icon']" />
-                        }
+                        <ng-template #icon>
+                            @if (moveTopIconTemplate()) {
+                                <ng-container *ngTemplateOutlet="moveTopIconTemplate()!" />
+                            } @else {
+                                <svg data-p-icon="angle-double-up" [pBind]="ptm('pcTargetMoveTopButton')['icon']" />
+                            }
+                        </ng-template>
                     </p-button>
                     <p-button
                         [ariaLabel]="moveDownAriaLabel()"
@@ -367,11 +387,13 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                         [unstyled]="unstyled()"
                         hostName="picklist"
                     >
-                        @if (moveDownIconTemplate()) {
-                            <ng-container *ngTemplateOutlet="moveDownIconTemplate()!" />
-                        } @else {
-                            <svg data-p-icon="angle-down" [pBind]="ptm('pcTargetMoveDownButton')['icon']" />
-                        }
+                        <ng-template #icon>
+                            @if (moveDownIconTemplate()) {
+                                <ng-container *ngTemplateOutlet="moveDownIconTemplate()!" />
+                            } @else {
+                                <svg data-p-icon="angle-down" [pBind]="ptm('pcTargetMoveDownButton')['icon']" />
+                            }
+                        </ng-template>
                     </p-button>
                     <p-button
                         [ariaLabel]="moveBottomAriaLabel()"
@@ -382,11 +404,13 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                         [unstyled]="unstyled()"
                         hostName="picklist"
                     >
-                        @if (moveBottomIconTemplate()) {
-                            <ng-container *ngTemplateOutlet="moveBottomIconTemplate()!" />
-                        } @else {
-                            <svg data-p-icon="angle-double-down" [pBind]="ptm('pcTargetMoveBottomButton')['icon']" />
-                        }
+                        <ng-template #icon>
+                            @if (moveBottomIconTemplate()) {
+                                <ng-container *ngTemplateOutlet="moveBottomIconTemplate()!" />
+                            } @else {
+                                <svg data-p-icon="angle-double-down" [pBind]="ptm('pcTargetMoveBottomButton')['icon']" />
+                            }
+                        </ng-template>
                     </p-button>
                 </div>
             }

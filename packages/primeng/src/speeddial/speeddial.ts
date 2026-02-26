@@ -60,15 +60,17 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                 [pt]="ptm('pcButton')"
                 [unstyled]="unstyled()"
             >
-                @if (buttonIconClass()) {
-                    <span [pBind]="ptm('pcButton')['icon']" [class]="buttonIconClass()"></span>
-                }
-                @if (showDefaultIcon()) {
-                    <svg data-p-icon="plus" [pBind]="ptm('pcButton')['icon']" />
-                }
-                @if (iconTemplate()) {
-                    <ng-container *ngTemplateOutlet="iconTemplate()" />
-                }
+                <ng-template #icon>
+                    @if (buttonIconClass()) {
+                        <span [pBind]="ptm('pcButton')['icon']" [class]="buttonIconClass()"></span>
+                    }
+                    @if (showDefaultIcon()) {
+                        <svg data-p-icon="plus" [pBind]="ptm('pcButton')['icon']" />
+                    }
+                    @if (iconTemplate()) {
+                        <ng-container *ngTemplateOutlet="iconTemplate()" />
+                    }
+                </ng-template>
             </p-button>
         } @else {
             <ng-container *ngTemplateOutlet="buttonTemplate(); context: buttonTemplateContext" />
@@ -116,9 +118,11 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                             [pt]="getPTOptions(getItemId(i), 'pcAction')"
                             [unstyled]="unstyled()"
                         >
-                            @if (item.icon) {
-                                <span [pBind]="getPTOptions(getItemId(i), 'actionIcon')" [class]="item.icon"></span>
-                            }
+                            <ng-template #icon>
+                                @if (item.icon) {
+                                    <span [pBind]="getPTOptions(getItemId(i), 'actionIcon')" [class]="item.icon"></span>
+                                }
+                            </ng-template>
                         </p-button>
                     }
                 </li>

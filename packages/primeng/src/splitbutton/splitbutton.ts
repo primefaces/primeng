@@ -84,11 +84,13 @@ const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTAN
             [unstyled]="unstyled()"
         >
             @if (!dropdownIcon()) {
-                @if (dropdownIconTemplate()) {
-                    <ng-container *ngTemplateOutlet="dropdownIconTemplate()" />
-                } @else {
-                    <svg data-p-icon="chevron-down" [pBind]="ptm('pcDropdown')['icon']" />
-                }
+                <ng-template #icon>
+                    @if (dropdownIconTemplate()) {
+                        <ng-container *ngTemplateOutlet="dropdownIconTemplate()" />
+                    } @else {
+                        <svg data-p-icon="chevron-down" [pBind]="ptm('pcDropdown')['icon']" />
+                    }
+                </ng-template>
             }
         </p-button>
         <p-tieredmenu
