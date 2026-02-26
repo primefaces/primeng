@@ -17,7 +17,7 @@ import { TreeModule } from 'primeng/tree';
         </app-docsectiontext>
         <div class="card">
             <p-toast [style]="{ marginTop: '80px' }" />
-            <p-tree [value]="files()" class="w-full md:w-80" selectionMode="single" [(selection)]="selectedNode" [(contextMenuSelection)]="contextMenuNode" [contextMenu]="cm" contextMenuSelectionMode="separate" />
+            <p-tree [value]="files()" class="w-full md:w-80" selectionMode="single" [(selection)]="selectedNode" [(contextMenuSelection)]="contextMenuNode" [contextMenu]="cm" />
             <p-contextmenu #cm [model]="items" />
         </div>
         <app-code></app-code>

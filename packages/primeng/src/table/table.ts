@@ -460,11 +460,6 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      */
     contextMenuSelectionChange = output<any>();
     /**
-     *  Defines the behavior of context menu selection, in "separate" mode context menu updates contextMenuSelection property whereas in joint mode selection property is used instead so that when row selection is enabled, both row selection and context menu selection use the same property.
-     * @group Props
-     */
-    contextMenuSelectionMode = input('separate');
-    /**
      * A property to uniquely identify a record in data.
      * @group Props
      */
@@ -1662,55 +1657,15 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 };
             };
 
-            if (this.contextMenuSelectionMode() === 'separate') {
-                this.contextMenuSelection = rowData;
-                this.contextMenuSelectionChange.emit(rowData);
-                this.tableService.onContextMenu(rowData);
-                showContextMenu();
-                this.onContextMenuSelect.emit({
-                    originalEvent: event.originalEvent,
-                    data: rowData,
-                    index: event.rowIndex
-                });
-            } else if (this.contextMenuSelectionMode() === 'joint') {
-                this.preventSelectionSetterPropagation = true;
-                let selected = this.isSelected(rowData);
-                let dataKeyValue = this.dataKey() ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey())) : null;
-
-                if (!selected) {
-                    if (!this.isRowSelectable(rowData, rowIndex)) {
-                        return;
-                    }
-
-                    if (this.isSingleSelectionMode()) {
-                        this.selection.set(rowData);
-
-                        if (dataKeyValue) {
-                            this.selectionKeys = {};
-                            this.selectionKeys[dataKeyValue] = 1;
-                        }
-                    } else if (this.isMultipleSelectionMode()) {
-                        this.selection.set(this.selection() ? [...this.selection(), rowData] : [rowData]);
-
-                        if (dataKeyValue) {
-                            this.selectionKeys[dataKeyValue] = 1;
-                        }
-                    }
-                }
-
-                // Also update contextMenuSelection in joint mode
-                this.contextMenuSelection = rowData;
-                this.contextMenuSelectionChange.emit(rowData);
-                this.tableService.onContextMenu(rowData);
-
-                this.tableService.onSelectionChange();
-                showContextMenu();
-                this.onContextMenuSelect.emit({
-                    originalEvent: event,
-                    data: rowData,
-                    index: event.rowIndex
-                });
-            }
+            this.contextMenuSelection = rowData;
+            this.contextMenuSelectionChange.emit(rowData);
+            this.tableService.onContextMenu(rowData);
+            showContextMenu();
+            this.onContextMenuSelect.emit({
+                originalEvent: event.originalEvent,
+                data: rowData,
+                index: event.rowIndex
+            });
         }
     }
 

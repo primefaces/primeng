@@ -381,11 +381,6 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
      */
     contextMenuSelection = input<any>();
     /**
-     * Mode of the contet menu selection.
-     * @group Props
-     */
-    contextMenuSelectionMode = input('separate');
-    /**
      * A property to uniquely identify a record in data.
      * @group Props
      */
@@ -1690,36 +1685,10 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
                 };
             };
 
-            if (this.contextMenuSelectionMode() === 'separate') {
-                this.contextMenuSelectionChange.emit(node);
-                this.tableService.onContextMenu(node);
-                showContextMenu();
-                this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, node: node });
-            } else if (this.contextMenuSelectionMode() === 'joint') {
-                this.preventSelectionSetterPropagation = true;
-                let selected = this.isSelected(node);
-                let dataKeyValue = this.dataKey() ? String(resolveFieldData(node.data, this.dataKey())) : null;
-
-                if (!selected) {
-                    if (this.isSingleSelectionMode()) {
-                        this._selection = node;
-                        this.selectionChange.emit(node);
-                    } else if (this.isMultipleSelectionMode()) {
-                        this._selection = [node];
-                        this.selectionChange.emit(this._selection);
-                    }
-
-                    if (dataKeyValue) {
-                        this.selectedKeys[dataKeyValue] = 1;
-                    }
-                }
-
-                this.contextMenuSelectionChange.emit(node);
-                this.tableService.onContextMenu(node);
-
-                showContextMenu();
-                this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, node: node });
-            }
+            this.contextMenuSelectionChange.emit(node);
+            this.tableService.onContextMenu(node);
+            showContextMenu();
+            this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, node: node });
         }
     }
 

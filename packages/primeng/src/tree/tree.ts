@@ -45,7 +45,6 @@ import {
     TreeNodeUnSelectEvent,
     TreePassThrough,
     TreeScrollEvent,
-    TreeContextMenuSelectionMode,
     TreeLoadingMode,
     TreeScrollIndexChangeEvent,
     TreeSelectionMode,
@@ -244,11 +243,6 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
      * @group Props
      */
     contextMenu = input<any>();
-    /**
-     * Defines the behavior of context menu selection, in "separate" mode context menu updates contextMenuSelection property whereas in joint mode selection property is used instead so that when row selection is enabled, both row selection and context menu selection use the same property.
-     * @group Props
-     */
-    contextMenuSelectionMode = input<TreeContextMenuSelectionMode>('joint');
     /**
      * Selected node with a context menu.
      * @group Props
@@ -764,23 +758,8 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
                 this.onNodeContextMenuSelect.emit({ originalEvent: event, node: node });
             };
 
-            if (this.contextMenuSelectionMode() === 'separate') {
-                // In 'separate' mode: Update contextMenuSelection with clicked node, don't modify selection
-                this.contextMenuSelection.set(node);
-                onContextMenuCallback();
-            } else if (this.contextMenuSelectionMode() === 'joint') {
-                // In 'joint' mode: Update only selection, don't touch contextMenuSelection
-                if (!isNodeSelected) {
-                    if (this.isSingleSelectionMode()) {
-                        this.selection.set(node);
-                    } else {
-                        this.selection.set([node]);
-                    }
-                }
-                // If already selected, keep current selection as is
-
-                onContextMenuCallback();
-            }
+            this.contextMenuSelection.set(node);
+            onContextMenuCallback();
         }
     }
 

@@ -60,7 +60,6 @@ describe('TreeTable', () => {
             expect(treetable.defaultSortOrder()).toBe(1);
             expect(treetable.sortMode()).toBe('single');
             expect(treetable.resetPageOnSort()).toBe(true);
-            expect(treetable.contextMenuSelectionMode()).toBe('separate');
             expect(treetable.metaKeySelection()).toBe(false);
             expect(treetable.compareSelectionBy()).toBe('deepEquals');
             expect(treetable.showLoader()).toBe(true);
@@ -1157,15 +1156,6 @@ describe('TreeTable', () => {
                 expect(treetable.contextMenuSelection()).toEqual(selection);
             });
 
-            it('should handle contextMenuSelectionMode property', async () => {
-                component.contextMenuSelectionMode = 'joint';
-                fixture.changeDetectorRef.markForCheck();
-                await fixture.whenStable();
-                fixture.detectChanges();
-
-                expect(treetable.contextMenuSelectionMode()).toBe('joint');
-            });
-
             it('should handle metaKeySelection property', async () => {
                 component.metaKeySelection = true;
                 fixture.changeDetectorRef.markForCheck();
@@ -1524,7 +1514,6 @@ describe('TreeTable', () => {
                     { prop: 'tableStyleClass', value: 'custom-table' },
                     { prop: 'paginatorStyleClass', value: 'custom-paginator' },
                     { prop: 'currentPageReportTemplate', value: 'Page {currentPage}' },
-                    { prop: 'contextMenuSelectionMode', value: 'joint' },
                     { prop: 'dataKey', value: 'uniqueId' },
                     { prop: 'compareSelectionBy', value: 'equals' },
                     { prop: 'loadingIcon', value: 'pi pi-spinner' },
@@ -2357,16 +2346,6 @@ describe('TreeTable', () => {
                         await dynamicFixture.whenStable();
                         expect(dynamicTreetable.columnResizeMode()).toBe(mode);
                     }
-
-                    // Test contextMenuSelectionMode
-                    for (const mode of ['separate', 'joint']) {
-                        dynamicComponent.contextMenuSelectionMode = mode;
-                        dynamicFixture.changeDetectorRef.markForCheck();
-                        await dynamicFixture.whenStable();
-                        dynamicFixture.detectChanges();
-                        await dynamicFixture.whenStable();
-                        expect(dynamicTreetable.contextMenuSelectionMode()).toBe(mode);
-                    }
                 }
             });
 
@@ -2890,7 +2869,6 @@ describe('TreeTable', () => {
             [selectionMode]="selectionMode"
             [selection]="selection"
             [contextMenuSelection]="contextMenuSelection"
-            [contextMenuSelectionMode]="contextMenuSelectionMode"
             [dataKey]="dataKey"
             [metaKeySelection]="metaKeySelection"
             [compareSelectionBy]="compareSelectionBy"
@@ -2982,7 +2960,6 @@ class TestBasicTreeTableComponent {
     selectionMode: string | undefined;
     selection: any;
     contextMenuSelection: any;
-    contextMenuSelectionMode: string = 'separate';
     dataKey: string | undefined;
     metaKeySelection: boolean = false;
     compareSelectionBy: string = 'deepEquals';
@@ -3102,7 +3079,6 @@ class TestTemplatesTreeTableComponent {
             [virtualScrollDelay]="virtualScrollDelay"
             [tableStyleClass]="tableStyleClass"
             [columnResizeMode]="columnResizeMode"
-            [contextMenuSelectionMode]="contextMenuSelectionMode"
             [tableStyle]="tableStyle"
             [rowsPerPageOptions]="rowsPerPageOptions"
             [globalFilterFields]="globalFilterFields"
@@ -3153,7 +3129,6 @@ class TestDynamicTreeTableComponent {
     virtualScrollDelay: number = 150;
     tableStyleClass: string | undefined;
     columnResizeMode: string = 'fit';
-    contextMenuSelectionMode: string = 'separate';
     tableStyle: any;
     rowsPerPageOptions: any[] | undefined;
     globalFilterFields: string[] | undefined;

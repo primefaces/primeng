@@ -18,11 +18,6 @@ export type TreeSelectionMode = 'single' | 'multiple' | 'checkbox' | null | unde
 export type TreeLoadingMode = 'mask' | 'icon';
 
 /**
- * Defines the context menu selection mode of the tree.
- */
-export type TreeContextMenuSelectionMode = 'separate' | 'joint';
-
-/**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
