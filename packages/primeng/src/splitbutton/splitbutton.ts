@@ -10,8 +10,8 @@ import { ChevronDownIcon } from 'primeng/icons';
 import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { TieredMenu } from 'primeng/tieredmenu';
 import { TooltipModule } from 'primeng/tooltip';
-import { ButtonSeverity, ButtonSize } from 'primeng/types/button';
-import { ButtonProps, MenuButtonProps, SplitButtonIconPosition, SplitButtonPassThrough } from 'primeng/types/splitbutton';
+import { ButtonProps, ButtonSeverity, ButtonSize } from 'primeng/types/button';
+import { SplitButtonIconPosition, SplitButtonPassThrough } from 'primeng/types/splitbutton';
 import { SplitButtonStyle } from './style/splitbuttonstyle';
 
 const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTANCE');
@@ -23,7 +23,7 @@ const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTAN
 @Component({
     selector: 'p-splitbutton, p-split-button',
     standalone: true,
-    imports: [NgTemplateOutlet, Button, TieredMenu, ChevronDownIcon, TooltipModule],
+    imports: [NgTemplateOutlet, Button, TieredMenu, ChevronDownIcon, TooltipModule, Bind],
     template: `
         @if (contentTemplate()) {
             <p-button
@@ -87,7 +87,7 @@ const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTAN
                 @if (dropdownIconTemplate()) {
                     <ng-container *ngTemplateOutlet="dropdownIconTemplate()" />
                 } @else {
-                    <svg data-p-icon="chevron-down" />
+                    <svg data-p-icon="chevron-down" [pBind]="ptm('pcDropdown')['icon']" />
                 }
             }
         </p-button>
@@ -240,7 +240,7 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
     /**
      * Menu Button Props
      */
-    menuButtonProps = input<MenuButtonProps>();
+    menuButtonProps = input<ButtonProps>();
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props

@@ -60,29 +60,3 @@ export interface SplitButtonTemplates {
      */
     dropdownicon(): TemplateRef<void>;
 }
-/**
- * Defines ButtonProps interface.
- */
-export interface ButtonProps {
-    ariaLabel?: string;
-}
-/**
- * Defines MenuButtonProps interface.
- */
-export interface MenuButtonProps {
-    ariaLabel?: string;
-    ariaHasPopup?: boolean;
-    ariaExpanded?: boolean;
-    ariaControls?: string;
-}
-
-/**
- * Defines valid properties in SplitButton component.
- * @group Properties
- */
-export interface SplitButtonProps {
-    /**
-     * Inline style of the overlay menu.
-     */
-    menuStyle?: CSSProperties;
-}

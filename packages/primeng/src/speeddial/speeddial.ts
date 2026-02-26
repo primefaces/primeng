@@ -24,9 +24,9 @@ import { find, findSingle, focus, hasClass, uuid } from '@primeuix/utils';
 import { MenuItem, TooltipOptions } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ButtonModule, ButtonProps } from 'primeng/button';
+import { Button } from 'primeng/button';
+import type { ButtonProps } from 'primeng/types/button';
 import { PlusIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import type { CSSProperties } from 'primeng/types/shared';
 import { SpeedDialButtonTemplateContext, SpeedDialDirection, SpeedDialItemTemplateContext, SpeedDialPassThrough, SpeedDialType } from 'primeng/types/speeddial';
@@ -42,43 +42,34 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
 @Component({
     selector: 'p-speeddial, p-speed-dial',
     standalone: true,
-    imports: [NgTemplateOutlet, ButtonModule, Ripple, TooltipModule, RouterModule, PlusIcon, Bind],
+    imports: [NgTemplateOutlet, Button, TooltipModule, RouterModule, PlusIcon, Bind],
     template: `
         @if (!buttonTemplate()) {
-            <button
-                type="button"
-                pButton
-                pRipple
+            <p-button
                 [style]="buttonStyle()"
-                [class]="buttonClass()"
+                [styleClass]="buttonClass()"
                 [disabled]="disabled()"
+                [ariaLabel]="ariaLabel()"
+                [buttonProps]="buttonProps()"
+                (onClick)="onButtonClick($event)"
+                (keydown)="onTogglerKeydown($event)"
                 [attr.aria-expanded]="visible()"
                 [attr.aria-haspopup]="true"
                 [attr.aria-controls]="listId()"
-                [attr.aria-label]="ariaLabel()"
                 [attr.aria-labelledby]="ariaLabelledBy()"
-                (click)="onButtonClick($event)"
-                (keydown)="onTogglerKeydown($event)"
-                [severity]="buttonProps()?.severity"
-                [text]="buttonProps()?.text"
-                [outlined]="buttonProps()?.outlined"
-                [rounded]="buttonProps()?.rounded"
-                [raised]="buttonProps()?.raised"
-                [size]="buttonProps()?.size"
-                [plain]="buttonProps()?.plain"
                 [pt]="ptm('pcButton')"
                 [unstyled]="unstyled()"
             >
                 @if (buttonIconClass()) {
-                    <span pButtonIcon [pt]="ptm('pcButton')['icon']" [class]="buttonIconClass()"></span>
+                    <span [pBind]="ptm('pcButton')['icon']" [class]="buttonIconClass()"></span>
                 }
                 @if (showDefaultIcon()) {
-                    <svg data-p-icon="plus" pButtonIcon [pt]="ptm('pcButton')['icon']" />
+                    <svg data-p-icon="plus" [pBind]="ptm('pcButton')['icon']" />
                 }
                 @if (iconTemplate()) {
                     <ng-container *ngTemplateOutlet="iconTemplate()" />
                 }
-            </button>
+            </p-button>
         } @else {
             <ng-container *ngTemplateOutlet="buttonTemplate(); context: buttonTemplateContext" />
         }
@@ -111,27 +102,24 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                     @if (itemTemplate()) {
                         <ng-container *ngTemplateOutlet="itemTemplate(); context: getItemTemplateContext(item, i)" />
                     } @else {
-                        <button
-                            type="button"
-                            pButton
-                            pRipple
-                            [class]="cx('pcAction')"
+                        <p-button
+                            [styleClass]="cx('pcAction')"
                             severity="secondary"
                             [rounded]="true"
                             size="small"
-                            role="menuitem"
-                            (click)="onItemClick($event, item)"
+                            [ariaLabel]="item.label"
+                            [tabindex]="getItemTabindex(item)"
                             [disabled]="item?.disabled"
+                            (onClick)="onItemClick($event, item)"
                             (keydown.enter)="onItemClick($event, item)"
-                            [attr.aria-label]="item.label"
-                            [attr.tabindex]="getItemTabindex(item)"
+                            [attr.role]="'menuitem'"
                             [pt]="getPTOptions(getItemId(i), 'pcAction')"
                             [unstyled]="unstyled()"
                         >
                             @if (item.icon) {
-                                <span pButtonIcon [pt]="getPTOptions(getItemId(i), 'actionIcon')" [class]="item.icon"></span>
+                                <span [pBind]="getPTOptions(getItemId(i), 'actionIcon')" [class]="item.icon"></span>
                             }
-                        </button>
+                        </p-button>
                     }
                 </li>
             }
