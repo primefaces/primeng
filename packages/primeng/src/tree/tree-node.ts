@@ -198,7 +198,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
 
     nodeTabindex = computed(() => (this.index() === 0 ? 0 : -1));
 
-    nodeContentPaddingLeft = computed(() => (this.level() ?? 0) * (this.indentation() ?? 0) + 'rem');
+    nodeContentPaddingLeft = computed(() => this.level()! * this.indentation()! + 'rem');
 
     get hasNodeIcon() {
         return !!(this.node()?.icon || this.node()?.expandedIcon || this.node()?.collapsedIcon);
@@ -212,7 +212,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         return this.loadingMode() === 'icon' && !!this.node()?.loading;
     }
 
-    checkboxVariant = computed(() => (this.tree?.config.inputVariant() === 'filled' ? 'filled' : 'outlined'));
+    checkboxVariant = computed(() => this.tree?.config.inputVariant() || 'outlined');
 
     get togglerIconContext() {
         return {
