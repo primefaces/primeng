@@ -13,7 +13,7 @@ import { MessageModule } from 'primeng/message';
             <p>The icon of a message is specified with the <i>icon</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center items-center gap-4">
-            <p-message severity="info" icon="pi pi-send" text="Info Message" styleClass="h-full" />
+            <p-message severity="info" icon="pi pi-send" class="h-full">Info Message</p-message>
             <p-message severity="success">
                 <ng-template #icon>
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />

@@ -7,7 +7,6 @@ import { Bind } from 'primeng/bind';
 import { TimesIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
-import type { CSSProperties } from 'primeng/types/shared';
 import { MessageCloseEvent, MessageContainerTemplateContext, MessagePassThrough, MessageSeverity, MessageSize, MessageVariant } from 'primeng/types/message';
 import { MessageStyle } from './style/messagestyle';
 
@@ -34,14 +33,8 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
                 @if (containerTemplate()) {
                     <ng-container *ngTemplateOutlet="containerTemplate(); context: containerContext"></ng-container>
                 } @else {
-                    @if (!escape()) {
-                        <span [pBind]="ptm('text')" [class]="cx('text')" [innerHTML]="text()" [attr.data-p]="dataP()"></span>
-                    } @else if (text()) {
-                        <span [pBind]="ptm('text')" [class]="cx('text')" [attr.data-p]="dataP()">{{ text() }}</span>
-                    }
-
                     <span [pBind]="ptm('text')" [class]="cx('text')" [attr.data-p]="dataP()">
-                        <ng-content></ng-content>
+                        <ng-content />
                     </span>
                 }
                 @if (closable()) {
@@ -66,7 +59,7 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
         '[attr.data-p]': 'dataP()',
         role: 'alert',
         'aria-live': 'polite',
-        '[class]': 'hostClass()',
+        '[class]': "cx('root')",
         '[animate.enter]': '"p-message-enter-active"',
         '[animate.leave]': '"p-message-leave-active"',
         '[class.p-message-leave-active]': '!visible()'
@@ -91,28 +84,6 @@ export class Message extends BaseComponent<MessagePassThrough> {
      * @group Props
      */
     severity = input<MessageSeverity>('info');
-    /**
-     * Text content.
-     * @deprecated since v20.0.0. Use content projection instead '<p-message>Content</p-message>'.
-     * @group Props
-     */
-    text = input<string>();
-    /**
-     * Whether displaying messages would be escaped or not.
-     * @deprecated since v20.0.0. Use content projection instead '<p-message>Content</p-message>'.
-     * @group Props
-     */
-    escape = input(true, { transform: booleanAttribute });
-    /**
-     * Inline style of the component.
-     * @group Props
-     */
-    style = input<CSSProperties>();
-    /**
-     * Style class of the component.
-     * @group Props
-     */
-    styleClass = input<string>();
     /**
      * Whether the message can be closed manually using the close icon.
      * @group Props
@@ -168,8 +139,6 @@ export class Message extends BaseComponent<MessagePassThrough> {
     get closeAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;
     }
-
-    hostClass = computed(() => this.cn(this.cx('root'), this.styleClass()));
 
     visible = signal<boolean>(true);
 

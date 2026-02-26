@@ -17,7 +17,7 @@ import { MessageModule } from 'primeng/message';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <div class="flex flex-col gap-4">
-                <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Validation Failed</p-message>
+                <p-message severity="error" icon="pi pi-times-circle" class="mb-2">Validation Failed</p-message>
                 <div class="flex flex-col gap-1">
                     <input pInputText placeholder="Username" [(ngModel)]="username" aria-label="username" [invalid]="!username" />
                     @if (!username) {
