@@ -20,7 +20,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <span>View Data</span>
                 </ng-template>
                 <ng-template #content>
-                    <p-table [value]="products" responsiveLayout="scroll">
+                    <p-table [value]="products">
                         <ng-template #header>
                             <tr>
                                 <th>Code</th>

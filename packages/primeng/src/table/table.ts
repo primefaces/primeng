@@ -483,7 +483,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    rowTrackBy = input<Function>((index: number, item: any) => item);
+    rowTrackBy = input<Function>((index: number, item: any) => item ?? index);
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
@@ -690,17 +690,6 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * @group Props
      */
     groupRowsByOrder = input(1, { transform: numberAttribute });
-    /**
-     * Defines the responsive mode, valid options are "stack" and "scroll".
-     * @deprecated since v20.0.0, always defaults to scroll, stack mode needs custom implementation
-     * @group Props
-     */
-    responsiveLayout = input('scroll');
-    /**
-     * The breakpoint to define the maximum width boundary when using stack responsive layout.
-     * @group Props
-     */
-    breakpoint = input('960px');
     /**
      * Locale to be used in paginator formatting.
      * @group Props
@@ -1056,8 +1045,6 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     styleElement: any;
 
-    responsiveStyleElement: any;
-
     overlayService = inject(OverlayService);
 
     filterService = inject(FilterService);
@@ -1245,10 +1232,6 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             if (this.restoringFilter) {
                 this.restoringFilter = false;
             }
-        }
-
-        if (this.responsiveLayout() === 'stack') {
-            this.createResponsiveStyle();
         }
 
         this.initialized = true;
@@ -2910,56 +2893,6 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         return { field: this.groupRowsBy(), order: this.groupRowsByOrder() };
     }
 
-    createResponsiveStyle() {
-        if (isPlatformBrowser(this.platformId)) {
-            if (!this.responsiveStyleElement) {
-                this.responsiveStyleElement = this.renderer.createElement('style');
-                this.responsiveStyleElement.type = 'text/css';
-                DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
-                this.renderer.appendChild(this.document.head, this.responsiveStyleElement);
-
-                let innerHTML = `
-    @media screen and (max-width: ${this.breakpoint()}) {
-        #${this.id}-table > .p-datatable-thead > tr > th,
-        #${this.id}-table > .p-datatable-tfoot > tr > td {
-            display: none !important;
-        }
-
-        #${this.id}-table > .p-datatable-tbody > tr > td {
-            display: flex;
-            width: 100% !important;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        #${this.id}-table > .p-datatable-tbody > tr > td:not(:last-child) {
-            border: 0 none;
-        }
-
-        #${this.id}.p-datatable-gridlines > .p-datatable-table-container > .p-datatable-table > .p-datatable-tbody > tr > td:last-child {
-            border-top: 0;
-            border-right: 0;
-            border-left: 0;
-        }
-
-        #${this.id}-table > .p-datatable-tbody > tr > td > .p-datatable-column-title {
-            display: block;
-        }
-    }
-    `;
-                this.renderer.setProperty(this.responsiveStyleElement, 'innerHTML', innerHTML);
-                DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
-            }
-        }
-    }
-
-    destroyResponsiveStyle() {
-        if (this.responsiveStyleElement) {
-            this.renderer.removeChild(this.document.head, this.responsiveStyleElement);
-            this.responsiveStyleElement = null;
-        }
-    }
-
     destroyStyleElement() {
         if (this.styleElement) {
             this.renderer.removeChild(this.document.head, this.styleElement);
@@ -2977,7 +2910,6 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         this.initialized = null;
 
         this.destroyStyleElement();
-        this.destroyResponsiveStyle();
     }
 
     get dataP() {

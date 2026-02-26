@@ -160,7 +160,7 @@ import { ButtonModule } from 'primeng/button';
     template: \`<div class="flex justify-end mt-1 mb-4">
             <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
         </div>
-        <p-table [value]="products" responsiveLayout="scroll" [rows]="5">
+        <p-table [value]="products" [rows]="5">
             <ng-template #header>
                 <tr>
                     <th pSortableColumn="code">Code</th>
