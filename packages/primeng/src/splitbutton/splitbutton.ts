@@ -3,12 +3,10 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, computed, content
 import { MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
 import { MenuItem, TooltipOptions } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ButtonDirective, ButtonIcon, ButtonLabel } from 'primeng/button';
+import { Button } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
 import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { TieredMenu } from 'primeng/tieredmenu';
 import { TooltipModule } from 'primeng/tooltip';
@@ -25,102 +23,74 @@ const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTAN
 @Component({
     selector: 'p-splitbutton, p-split-button',
     standalone: true,
-    imports: [NgTemplateOutlet, ButtonDirective, ButtonIcon, ButtonLabel, TieredMenu, AutoFocus, ChevronDownIcon, Ripple, TooltipModule],
+    imports: [NgTemplateOutlet, Button, TieredMenu, ChevronDownIcon, TooltipModule],
     template: `
         @if (contentTemplate()) {
-            <button
-                [class]="cx('pcButton')"
-                type="button"
-                pButton
-                pRipple
+            <p-button
+                [styleClass]="cx('pcButton')"
                 [severity]="severity()"
-                [text]="text()"
-                [outlined]="outlined()"
-                [size]="size()"
-                (click)="onDefaultButtonClick($event)"
+                [icon]="icon()"
+                [iconPos]="iconPos()"
                 [disabled]="disabled()"
-                [attr.tabindex]="tabindex()"
-                [attr.aria-label]="buttonAriaLabelWithLabel()"
-                [pAutoFocus]="autofocus()"
+                [tabindex]="tabindex()"
+                [ariaLabel]="label()"
+                [buttonProps]="buttonProps()"
+                (onClick)="onDefaultButtonClick($event)"
+                [autofocus]="autofocus()"
                 [pTooltip]="tooltip()"
                 [pTooltipUnstyled]="unstyled()"
                 [tooltipOptions]="tooltipOptions()"
                 [pt]="ptm('pcButton')"
                 [unstyled]="unstyled()"
             >
-                @if (icon() && iconPos() === 'left') {
-                    <span pButtonIcon [class]="icon()"></span>
-                }
-                <span pButtonLabel>
+                <ng-template #content>
                     <ng-container *ngTemplateOutlet="contentTemplate()" />
-                </span>
-                @if (icon() && iconPos() === 'right') {
-                    <span pButtonIcon [class]="icon()"></span>
-                }
-            </button>
+                </ng-template>
+            </p-button>
         } @else {
-            <button
+            <p-button
                 #defaultbtn
-                [class]="cx('pcButton')"
-                type="button"
-                pButton
-                pRipple
+                [styleClass]="cx('pcButton')"
                 [severity]="severity()"
-                [text]="text()"
-                [outlined]="outlined()"
-                [size]="size()"
-                (click)="onDefaultButtonClick($event)"
+                [icon]="icon()"
+                [iconPos]="iconPos()"
+                [label]="label()"
                 [disabled]="$buttonDisabled()"
-                [attr.tabindex]="tabindex()"
-                [attr.aria-label]="buttonAriaLabel()"
-                [pAutoFocus]="autofocus()"
+                [tabindex]="tabindex()"
+                [ariaLabel]="label()"
+                [buttonProps]="buttonProps()"
+                (onClick)="onDefaultButtonClick($event)"
+                [autofocus]="autofocus()"
                 [pTooltip]="tooltip()"
                 [pTooltipUnstyled]="unstyled()"
                 [tooltipOptions]="tooltipOptions()"
                 [pt]="ptm('pcButton')"
                 [unstyled]="unstyled()"
-            >
-                @if (icon() && iconPos() === 'left') {
-                    <span pButtonIcon [class]="icon()"></span>
-                }
-                @if (label()) {
-                    <span pButtonLabel>{{ label() }}</span>
-                }
-                @if (icon() && iconPos() === 'right') {
-                    <span pButtonIcon [class]="icon()"></span>
-                }
-            </button>
+            />
         }
-        <button
-            type="button"
-            pButton
-            pRipple
-            [size]="size()"
+        <p-button
+            [styleClass]="cx('pcDropdown')"
             [severity]="severity()"
-            [text]="text()"
-            [outlined]="outlined()"
-            [class]="cx('pcDropdown')"
-            (click)="onDropdownButtonClick($event)"
-            (keydown)="onDropdownButtonKeydown($event)"
+            [icon]="dropdownIcon()"
             [disabled]="$menuButtonDisabled()"
-            [attr.aria-label]="menuButtonAriaLabel()"
-            [attr.aria-haspopup]="menuButtonAriaHasPopup()"
-            [attr.aria-expanded]="menuButtonAriaExpanded()"
-            [attr.aria-controls]="menuButtonAriaControls()"
+            [ariaLabel]="expandAriaLabel()"
+            [buttonProps]="menuButtonProps()"
+            (onClick)="onDropdownButtonClick($event)"
+            (keydown)="onDropdownButtonKeydown($event)"
+            [attr.aria-haspopup]="true"
+            [attr.aria-expanded]="isExpanded()"
+            [attr.aria-controls]="ariaId"
             [pt]="ptm('pcDropdown')"
             [unstyled]="unstyled()"
         >
-            @if (dropdownIcon()) {
-                <span pButtonIcon [class]="dropdownIcon()"></span>
-            } @else {
-                @if (!dropdownIconTemplate()) {
-                    <svg data-p-icon="chevron-down" pButtonIcon />
-                }
+            @if (!dropdownIcon()) {
                 @if (dropdownIconTemplate()) {
                     <ng-container *ngTemplateOutlet="dropdownIconTemplate()" />
+                } @else {
+                    <svg data-p-icon="chevron-down" />
                 }
             }
-        </button>
+        </p-button>
         <p-tieredmenu
             [id]="ariaId"
             #menu
@@ -319,7 +289,7 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
      */
     onDropdownClick = output<MouseEvent>();
 
-    buttonViewChild = viewChild<ElementRef>('defaultbtn');
+    buttonViewChild = viewChild('defaultbtn', { read: ElementRef });
 
     menu = viewChild<TieredMenu>('menu');
     /**
@@ -344,18 +314,6 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
     $buttonDisabled = computed(() => this.disabled() || this.buttonDisabled());
 
     $menuButtonDisabled = computed(() => this.disabled() || this.menuButtonDisabled());
-
-    buttonAriaLabel = computed(() => this.buttonProps()?.['ariaLabel']);
-
-    buttonAriaLabelWithLabel = computed(() => this.buttonProps()?.['ariaLabel'] || this.label());
-
-    menuButtonAriaLabel = computed(() => this.menuButtonProps()?.['ariaLabel'] || this.expandAriaLabel());
-
-    menuButtonAriaHasPopup = computed(() => this.menuButtonProps()?.['ariaHasPopup'] || true);
-
-    menuButtonAriaExpanded = computed(() => this.menuButtonProps()?.['ariaExpanded'] || this.isExpanded());
-
-    menuButtonAriaControls = computed(() => this.menuButtonProps()?.['ariaControls'] || this.ariaId);
 
     onDefaultButtonClick(event: MouseEvent) {
         this.onClick.emit(event);
