@@ -3,8 +3,6 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, contentChild, inj
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ButtonModule } from 'primeng/button';
-import { Ripple } from 'primeng/ripple';
 import type { InplaceContentTemplateContext, InplacePassThrough } from 'primeng/types/inplace';
 import { InplaceStyle } from './style/inplacestyle';
 
@@ -31,7 +29,7 @@ export class InplaceContent extends BaseComponent {}
 @Component({
     selector: 'p-inplace',
     standalone: true,
-    imports: [NgTemplateOutlet, ButtonModule, SharedModule, Bind],
+    imports: [NgTemplateOutlet, SharedModule, Bind],
     template: `
         @if (!active()) {
             <div [class]="cx('display')" [pBind]="ptm('display')" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [attr.data-p-disabled]="disabled()">
@@ -46,15 +44,6 @@ export class InplaceContent extends BaseComponent {}
                 <ng-content select="[pInplaceContent]"></ng-content>
                 @if (contentTemplate()) {
                     <ng-container [ngTemplateOutlet]="contentTemplate()!" [ngTemplateOutletContext]="{ closeCallback: onDeactivateClick.bind(this) }"></ng-container>
-                }
-                @if (closable()) {
-                    <p-button [icon]="closeIcon()" [ariaLabel]="closeAriaLabel()" (onClick)="onDeactivateClick($event)" [pt]="ptm('pcButton')">
-                        @if (closeiconTemplate()) {
-                            <ng-template #icon>
-                                <ng-container [ngTemplateOutlet]="closeiconTemplate()!"></ng-container>
-                            </ng-template>
-                        }
-                    </p-button>
                 }
             </div>
         }
@@ -94,24 +83,6 @@ export class Inplace extends BaseComponent<InplacePassThrough> {
     preventClick = input(false, { transform: booleanAttribute });
 
     /**
-     * Displays a button to switch back to display mode.
-     * @group Props
-     */
-    closable = input(false, { transform: booleanAttribute });
-
-    /**
-     * Icon to display in the close button.
-     * @group Props
-     */
-    closeIcon = input<string>();
-
-    /**
-     * Establishes a string value that labels the close button.
-     * @group Props
-     */
-    closeAriaLabel = input<string>();
-
-    /**
      * Callback to invoke when inplace is opened.
      * @param {Event} event - Browser event.
      * @group Emits
@@ -136,12 +107,6 @@ export class Inplace extends BaseComponent<InplacePassThrough> {
      * @group Templates
      */
     contentTemplate = contentChild<TemplateRef<InplaceContentTemplateContext>>('content', { descendants: false });
-
-    /**
-     * Custom close icon template.
-     * @group Templates
-     */
-    closeiconTemplate = contentChild<TemplateRef<void>>('closeicon', { descendants: false });
 
     _componentStyle = inject(InplaceStyle);
 

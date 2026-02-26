@@ -88,26 +88,6 @@ class TestInplacePreventClickComponent {
 
 @Component({
     standalone: false,
-    selector: 'test-inplace-closable',
-    template: `
-        <p-inplace [closable]="closable" [closeIcon]="closeIcon" [closeAriaLabel]="closeAriaLabel">
-            <p-inplacedisplay pInplaceDisplay>
-                <span class="closable-display">Closable inplace</span>
-            </p-inplacedisplay>
-            <p-inplacecontent pInplaceContent>
-                <input type="text" class="closable-input" value="Closable content" />
-            </p-inplacecontent>
-        </p-inplace>
-    `
-})
-class TestInplaceClosableComponent {
-    closable = true;
-    closeIcon = 'pi pi-times';
-    closeAriaLabel = 'Close';
-}
-
-@Component({
-    standalone: false,
     selector: 'test-inplace-active-state',
     template: `
         <p-inplace>
@@ -126,7 +106,7 @@ class TestInplaceActiveStateComponent {}
     standalone: false,
     selector: 'test-inplace-templates',
     template: `
-        <p-inplace [closable]="true">
+        <p-inplace>
             <ng-template #display>
                 <div class="template-display">Custom Display Template</div>
             </ng-template>
@@ -135,9 +115,6 @@ class TestInplaceActiveStateComponent {}
                     <input type="text" class="template-input" />
                     <button type="button" class="template-close-btn" (click)="closeCallback()">Close</button>
                 </div>
-            </ng-template>
-            <ng-template #closeicon>
-                <i class="custom-close-icon pi pi-trash"></i>
             </ng-template>
         </p-inplace>
     `
@@ -228,7 +205,6 @@ describe('Inplace', () => {
                 TestInplaceWithEventsComponent,
                 TestInplaceDisabledComponent,
                 TestInplacePreventClickComponent,
-                TestInplaceClosableComponent,
                 TestInplaceActiveStateComponent,
                 TestInplaceTemplatesComponent,
                 TestInplaceKeyboardComponent,
@@ -261,9 +237,6 @@ describe('Inplace', () => {
             expect(component.active()).toBe(false);
             expect(component.disabled()).toBe(false);
             expect(component.preventClick()).toBe(false);
-            expect(component.closable()).toBe(false);
-            expect(component.closeIcon()).toBeUndefined();
-            expect(component.closeAriaLabel()).toBeUndefined();
         });
 
         it('should extend BaseComponent', () => {
@@ -503,97 +476,6 @@ describe('Inplace', () => {
         });
     });
 
-    describe('Closable Functionality', () => {
-        let fixture: ComponentFixture<TestInplaceClosableComponent>;
-        let component: TestInplaceClosableComponent;
-        let inplaceComponent: Inplace;
-        let element: HTMLElement;
-
-        beforeEach(() => {
-            fixture = TestBed.createComponent(TestInplaceClosableComponent);
-            component = fixture.componentInstance;
-            fixture.detectChanges();
-
-            const inplaceDebugElement = fixture.debugElement.query(By.directive(Inplace));
-            inplaceComponent = inplaceDebugElement.componentInstance;
-            element = inplaceDebugElement.nativeElement;
-        });
-
-        it('should show close button when active and closable', async () => {
-            // Activate inplace
-            const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
-            displayDiv.click();
-            fixture.detectChanges();
-            await fixture.whenStable();
-
-            const closeButton = element.querySelector('p-button');
-            expect(closeButton).toBeTruthy();
-        });
-
-        it('should not show close button when not closable', async () => {
-            component.closable = false;
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            // Activate inplace
-            const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
-            displayDiv.click();
-            fixture.detectChanges();
-            await fixture.whenStable();
-
-            const closeButton = element.querySelector('p-button');
-            expect(closeButton).toBeFalsy();
-        });
-
-        it('should close when close button is clicked', async () => {
-            // Activate inplace
-            const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
-            displayDiv.click();
-            fixture.detectChanges();
-            await fixture.whenStable();
-
-            expect(inplaceComponent.active()).toBe(true);
-
-            // Click close button (click the inner button element)
-            const closeButton = element.querySelector('p-button button') as HTMLElement;
-            closeButton.click();
-            fixture.detectChanges();
-            await fixture.whenStable();
-
-            expect(inplaceComponent.active()).toBe(false);
-        });
-
-        it('should display custom close icon', async () => {
-            component.closeIcon = 'pi pi-check';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            // Activate inplace
-            const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
-            displayDiv.click();
-            fixture.detectChanges();
-            await fixture.whenStable();
-
-            const iconElement = element.querySelector('.pi-check');
-            expect(iconElement).toBeTruthy();
-        });
-
-        it('should set aria-label on close button', async () => {
-            component.closeAriaLabel = 'Close Editor';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            // Activate inplace
-            const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
-            displayDiv.click();
-            fixture.detectChanges();
-            await fixture.whenStable();
-
-            const closeButton = element.querySelector('p-button button') as HTMLElement;
-            expect(closeButton.getAttribute('aria-label')).toBe('Close Editor');
-        });
-    });
-
     describe('Prevent Click', () => {
         let fixture: ComponentFixture<TestInplacePreventClickComponent>;
         let component: TestInplacePreventClickComponent;
@@ -748,18 +630,6 @@ describe('Inplace', () => {
             await fixture.whenStable();
 
             expect(inplaceComponent.active()).toBe(false);
-        });
-
-        it('should render custom close icon template', async () => {
-            // Activate inplace to show close button
-            const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
-            displayDiv.click();
-            fixture.detectChanges();
-            await fixture.whenStable();
-
-            const customCloseIcon = element.querySelector('.custom-close-icon');
-            expect(customCloseIcon).toBeTruthy();
-            expect(customCloseIcon?.classList.contains('pi-trash')).toBe(true);
         });
     });
 
@@ -1079,7 +949,7 @@ describe('Inplace', () => {
         @Component({
             standalone: true,
             imports: [Inplace, InplaceDisplay, InplaceContent],
-            template: `<p-inplace [closable]="closable()" [disabled]="disabled()" [closeIcon]="closeIcon()" [pt]="pt()">
+            template: `<p-inplace [disabled]="disabled()" [pt]="pt()">
                 <p-inplacedisplay>
                     <span class="test-display">Display Content</span>
                 </p-inplacedisplay>
@@ -1089,9 +959,7 @@ describe('Inplace', () => {
             </p-inplace>`
         })
         class TestPTInplaceComponent {
-            closable = input<boolean>(false);
             disabled = input<boolean>(false);
-            closeIcon = input<string | undefined>();
             pt = input<any>();
         }
 
@@ -1288,21 +1156,6 @@ describe('Inplace', () => {
                 fixture.detectChanges();
 
                 expect(inplaceElement.nativeElement.classList.contains('DISABLED_CLASS')).toBe(true);
-            });
-
-            it('should access closable property from instance in pt', () => {
-                fixture.componentRef.setInput('closable', true);
-                fixture.detectChanges();
-
-                fixture.componentRef.setInput('pt', {
-                    display: ({ instance }: any) => ({
-                        class: instance?.closable() ? 'CLOSABLE_CLASS' : 'NOT_CLOSABLE_CLASS'
-                    })
-                });
-                fixture.detectChanges();
-
-                const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
-                expect(displayElement?.classList.contains('CLOSABLE_CLASS')).toBe(true);
             });
         });
 
