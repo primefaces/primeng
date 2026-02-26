@@ -74,10 +74,12 @@ import { TooltipModule } from 'primeng/tooltip';
                     <div class="flex items-center gap-6 mb-6">
                         <div class="flex-1 text-color font-semibold leading-6">Crypto Analytics</div>
                         <div class="flex items-center gap-5">
-                            <div *ngFor="let item of chartData?.datasets" class="flex items-center gap-2">
-                                <div class="w-3 h-3 rounded-full" [style.backgroundColor]="item.backgroundColor"></div>
-                                <span class="font-medium text-color leading-6">{{ item.label }}</span>
-                            </div>
+                            @for (item of chartData?.datasets; track $index) {
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 rounded-full" [style.backgroundColor]="item.backgroundColor"></div>
+                                    <span class="font-medium text-color leading-6">{{ item.label }}</span>
+                                </div>
+                            }
                         </div>
                     </div>
                     <p-chart type="bar" [data]="chartData" [options]="chartOptions" [height]="'20rem'" />
@@ -157,16 +159,16 @@ import { TooltipModule } from 'primeng/tooltip';
                             <p-metergroup [value]="metersData" labelPosition="end">
                                 <ng-template #label>
                                     <div class="flex flex-col gap-6 mt-4">
-                                        <ng-container *ngFor="let val of metersData; let index = index">
+                                        @for (val of metersData; track $index) {
                                             <div class="flex items-center gap-2">
-                                                <div class="w-2 h-2 rounded-full" [ngStyle]="{ backgroundColor: val.color }"></div>
+                                                <div class="w-2 h-2 rounded-full" [style]="{ backgroundColor: val.color }"></div>
                                                 <div class="text-color uppercase font-medium leading-6 flex-1">
                                                     {{ val.label }}
                                                     <span class="text-muted-color">({{ val.value }}%)</span>
                                                 </div>
                                                 <div class="leading-6 font-medium text-color">{{ val.text }}</div>
                                             </div>
-                                        </ng-container>
+                                        }
                                     </div>
                                 </ng-template>
                             </p-metergroup>

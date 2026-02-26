@@ -27,23 +27,26 @@ import { Tag } from 'primeng/tag';
             </div>
             <div class="flex-1 flex flex-col overflow-auto justify-between gap-4 pt-4 pb-4 px-4">
                 <div class="flex-1 overflow-auto flex flex-col gap-2">
-                    <div *ngFor="let navData of inboxNavs" class="flex flex-col gap-2">
-                        <div class="text-sm font-medium leading-5 text-surface-400 dark:text-surface-500">
-                            {{ navData.title }}
+                    @for (navData of inboxNavs; track navData.title) {
+                        <div class="flex flex-col gap-2">
+                            <div class="text-sm font-medium leading-5 text-surface-400 dark:text-surface-500">
+                                {{ navData.title }}
+                            </div>
+                            @for (nav of navData.navs; track nav.name) {
+                                <button
+                                    (click)="activeInboxNav = nav.name"
+                                    [ngClass]="{
+                                        'text-color bg-emphasis': activeInboxNav === nav.name,
+                                        'text-muted-color bg-transparent': activeInboxNav !== nav.name
+                                    }"
+                                    class="px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-emphasis transition-all"
+                                >
+                                    <i [class]="nav.icon"></i>
+                                    <span class="font-medium">{{ nav.name }}</span>
+                                </button>
+                            }
                         </div>
-                        <button
-                            *ngFor="let nav of navData.navs"
-                            (click)="activeInboxNav = nav.name"
-                            [ngClass]="{
-                                'text-color bg-emphasis': activeInboxNav === nav.name,
-                                'text-muted-color bg-transparent': activeInboxNav !== nav.name
-                            }"
-                            class="px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-emphasis transition-all"
-                        >
-                            <i [class]="nav.icon"></i>
-                            <span class="font-medium">{{ nav.name }}</span>
-                        </button>
-                    </div>
+                    }
                 </div>
                 <div>
                     <div class="border border-surface rounded-border px-4 pb-4 pt-3 mb-4">
@@ -120,7 +123,9 @@ import { Tag } from 'primeng/tag';
                         </td>
 
                         <td style="width: 4rem">
-                            <p-tag *ngIf="data.type" severity="secondary" [value]="data.type" class="font-medium"></p-tag>
+                            @if (data.type) {
+                                <p-tag severity="secondary" [value]="data.type" class="font-medium"></p-tag>
+                            }
                         </td>
 
                         <td style="width: 4rem">

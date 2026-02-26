@@ -1,5 +1,4 @@
 import { DesignerService } from '@/service/designerservice';
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { usePreset } from '@primeuix/styled';
@@ -9,39 +8,50 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'design-custom-tokens',
     standalone: true,
-    imports: [CommonModule, FormsModule, ToastModule],
+    imports: [FormsModule, ToastModule],
     template: ` <div class="leading-6 text-muted-color mb-4">
             Extend the theming system with your own design tokens e.g. <span class="font-medium">accent.color</span>. Do not use curly braces in the name field, and ensure that the name does not match any built-in tokens.
         </div>
-        <ul *ngIf="tokens?.length" class="flex flex-col gap-4 list-none p-0 mx-0 mb-4">
-            <li *ngFor="let token of tokens; let idx = $index" class="first:border-t border-b border-surface-200 dark:border-surface-700 py-2">
-                <div class="flex items-center gap-4">
-                    <label class="flex items-center gap-2 flex-auto">
-                        <span class="text-sm">Name</span>
-                        <input
-                            [(ngModel)]="token['name']"
-                            type="text"
-                            class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full"
-                            placeholder="custom.token.name"
-                            maxlength="100"
-                            [disabled]="designerService.isThemeViewOnly()"
-                        />
-                    </label>
-                    <label class="flex items-center gap-2 flex-auto">
-                        <span class="text-sm">Value</span>
-                        <input [(ngModel)]="token['value']" type="text" class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full" placeholder="token value" maxlength="100" [disabled]="designerService.isThemeViewOnly()" />
-                    </label>
-                    <button
-                        type="button"
-                        [disabled]="designerService.isThemeViewOnly()"
-                        (click)="removeToken(idx)"
-                        class="cursor-pointer inline-flex items-center justify-center ms-auto w-8 h-8 rounded-full bg-red-50 hover:bg-red-100 text-red-600 dark:bg-red-400/10 dark:hover:bg-red-400/20 dark:text-red-400 transition-colors duration-200 focus:outline focus:outline-offset-2 focus:outline-red-600 focus:dark:outline-red-400"
-                    >
-                        <i class="pi pi-times"></i>
-                    </button>
-                </div>
-            </li>
-        </ul>
+        @if (tokens?.length) {
+            <ul class="flex flex-col gap-4 list-none p-0 mx-0 mb-4">
+                @for (token of tokens; track $index; let idx = $index) {
+                    <li class="first:border-t border-b border-surface-200 dark:border-surface-700 py-2">
+                        <div class="flex items-center gap-4">
+                            <label class="flex items-center gap-2 flex-auto">
+                                <span class="text-sm">Name</span>
+                                <input
+                                    [(ngModel)]="token['name']"
+                                    type="text"
+                                    class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full"
+                                    placeholder="custom.token.name"
+                                    maxlength="100"
+                                    [disabled]="designerService.isThemeViewOnly()"
+                                />
+                            </label>
+                            <label class="flex items-center gap-2 flex-auto">
+                                <span class="text-sm">Value</span>
+                                <input
+                                    [(ngModel)]="token['value']"
+                                    type="text"
+                                    class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full"
+                                    placeholder="token value"
+                                    maxlength="100"
+                                    [disabled]="designerService.isThemeViewOnly()"
+                                />
+                            </label>
+                            <button
+                                type="button"
+                                [disabled]="designerService.isThemeViewOnly()"
+                                (click)="removeToken(idx)"
+                                class="cursor-pointer inline-flex items-center justify-center ms-auto w-8 h-8 rounded-full bg-red-50 hover:bg-red-100 text-red-600 dark:bg-red-400/10 dark:hover:bg-red-400/20 dark:text-red-400 transition-colors duration-200 focus:outline focus:outline-offset-2 focus:outline-red-600 focus:dark:outline-red-400"
+                            >
+                                <i class="pi pi-times"></i>
+                            </button>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
         <div class="flex justify-between">
             <button type="button" (click)="addToken()" class="btn-design-outlined" [disabled]="designerService.isThemeViewOnly()">Add New</button>
             <button type="button" (click)="save()" class="btn-design" [disabled]="designerService.isThemeViewOnly()">Save</button>

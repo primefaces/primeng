@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ButtonModule } from 'primeng/button';
@@ -17,7 +16,7 @@ interface EventItem {
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, TimelineModule, CardModule, ButtonModule, AppCode],
+    imports: [AppDocSectionText, TimelineModule, CardModule, ButtonModule, AppCode],
     template: `
         <app-docsectiontext>
             <p>Sample implementation with custom content and styled markers.</p>
@@ -31,7 +30,9 @@ interface EventItem {
                 </ng-template>
                 <ng-template #content let-event>
                     <p-card [header]="event.status" [subheader]="event.date">
-                        <img *ngIf="event.image" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
+                        @if (event.image) {
+                            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
+                        }
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
                             neque quas!

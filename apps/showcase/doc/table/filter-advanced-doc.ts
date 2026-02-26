@@ -102,8 +102,11 @@ import { TagModule } from 'primeng/tag';
                                         <ng-template #filter let-value let-filter="filterCallback">
                                             <p-slider [(ngModel)]="value" [range]="true" class="m-4" (onSlideEnd)="filter($event.values)" />
                                             <div class="flex items-center px-2">
-                                                <span *ngIf="!value">0</span>
-                                                <span *ngIf="value">{{ value[0] }} - {{ value[1] }}</span>
+                                                @if (!value) {
+                                                    <span>0</span>
+                                                } @else {
+                                                    <span>{{ value[0] }} - {{ value[1] }}</span>
+                                                }
                                             </div>
                                         </ng-template>
                                     </p-column-filter>

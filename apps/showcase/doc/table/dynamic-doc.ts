@@ -3,7 +3,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
@@ -15,9 +15,9 @@ interface Column {
 @Component({
     selector: 'dynamic-doc',
     standalone: true,
-    imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
-            <p>Columns can be defined dynamically using the <i>*ngFor</i> directive.</p>
+            <p>Columns can be defined dynamically using the <i>&#64;for</i> block.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">

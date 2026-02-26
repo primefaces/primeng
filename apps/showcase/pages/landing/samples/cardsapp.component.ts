@@ -213,54 +213,65 @@ import { TooltipModule } from 'primeng/tooltip';
                         <label class="text-color font-medium leading-6">Upload Files</label>
                         <p-fileupload name="demo[]" url="/api/upload" (onUpload)="onTemplatedUpload($event)" accept="image/*" [maxFileSize]="1000000" styleClass="mt-2" (onSelect)="onSelectedFiles($event)">
                             <ng-template #header let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
-                                <div *ngIf="files.length > 0 || uploadedFiles.length > 0" class="flex w-full flex-wrap justify-between items-center flex-1 gap-4 border-b border-surface pb-4">
-                                    <div class="flex gap-2">
-                                        <p-button (click)="chooseCallback()" icon="pi pi-images" rounded outlined severity="secondary"></p-button>
-                                        <p-button (click)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" rounded outlined severity="success" [disabled]="!files || files.length === 0"></p-button>
-                                        <p-button (click)="clearCallback()" icon="pi pi-times" rounded outlined severity="danger" [disabled]="!files || files.length === 0"></p-button>
+                                @if (files.length > 0 || uploadedFiles.length > 0) {
+                                    <div class="flex w-full flex-wrap justify-between items-center flex-1 gap-4 border-b border-surface pb-4">
+                                        <div class="flex gap-2">
+                                            <p-button (click)="chooseCallback()" icon="pi pi-images" rounded outlined severity="secondary"></p-button>
+                                            <p-button (click)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" rounded outlined severity="success" [disabled]="!files || files.length === 0"></p-button>
+                                            <p-button (click)="clearCallback()" icon="pi pi-times" rounded outlined severity="danger" [disabled]="!files || files.length === 0"></p-button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div *ngIf="files.length <= 0 && uploadedFiles.length <= 0" class="flex flex-col items-center justify-center p-6 cursor-pointer" (click)="chooseCallback()">
-                                    <i class="pi pi-cloud-upload text-4xl text-color"></i>
-                                    <div class="text-sm text-color font-medium mt-2">Click to upload <span class="text-muted-color">or and drop</span></div>
-                                    <p class="mt-2 mb-0 text-sm text-muted-color text-center">PDF, JPG, PNG, JPEG, DOC, CSV, XML, XMLX, XLS, XLSX (max 10MB)</p>
-                                </div>
+                                } @else {
+                                    <div class="flex flex-col items-center justify-center p-6 cursor-pointer" (click)="chooseCallback()">
+                                        <i class="pi pi-cloud-upload text-4xl text-color"></i>
+                                        <div class="text-sm text-color font-medium mt-2">Click to upload <span class="text-muted-color">or and drop</span></div>
+                                        <p class="mt-2 mb-0 text-sm text-muted-color text-center">PDF, JPG, PNG, JPEG, DOC, CSV, XML, XMLX, XLS, XLSX (max 10MB)</p>
+                                    </div>
+                                }
                             </ng-template>
 
                             <ng-template #content let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback" let-removeCallback="removeCallback">
-                                <div *ngIf="files.length > 0" class="px-4 py-0">
-                                    <h5 class="m-0 mb-2">Pending</h5>
-                                    <div class="flex flex-wrap gap-2 grow overflow-auto max-h-[210px]">
-                                        <div *ngFor="let file of files; let i = index" class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center">
-                                            <div>
-                                                <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
-                                            </div>
-                                            <span class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden">{{ file.name }}</span>
-                                            <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
-                                            <div class="grow flex flex-col gap-2 justify-end">
-                                                <p-badge value="Pending" severity="warn" />
-                                                <p-button icon="pi pi-times text-sm leading-none" (click)="onRemoveTemplatingFile(file, removeCallback, i)" class="!text-sm !leading-none" label="Cancel" text severity="danger" />
-                                            </div>
+                                @if (files.length > 0) {
+                                    <div class="px-4 py-0">
+                                        <h5 class="m-0 mb-2">Pending</h5>
+                                        <div class="flex flex-wrap gap-2 grow overflow-auto max-h-[210px]">
+                                            @for (file of files; track $index; let i = $index) {
+                                                <div class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center">
+                                                    <div>
+                                                        <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
+                                                    </div>
+                                                    <span class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden">{{ file.name }}</span>
+                                                    <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
+                                                    <div class="grow flex flex-col gap-2 justify-end">
+                                                        <p-badge value="Pending" severity="warn" />
+                                                        <p-button icon="pi pi-times text-sm leading-none" (click)="onRemoveTemplatingFile(file, removeCallback, i)" class="!text-sm !leading-none" label="Cancel" text severity="danger" />
+                                                    </div>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
-                                </div>
+                                }
 
-                                <div *ngIf="uploadedFiles.length > 0" class="px-4 py-0">
-                                    <h5 class="m-0 mb-2">Completed</h5>
-                                    <div class="flex flex-wrap gap-2">
-                                        <div *ngFor="let file of uploadedFiles" :key="file.name + file.type + file.size" class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center">
-                                            <div>
-                                                <img role="presentation" [alt]="file.name" :src="file.objectURL" width="100" height="50" />
-                                            </div>
-                                            <span class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden">{{ file.name }}</span>
-                                            <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
-                                            <div class="grow flex flex-col gap-2 justify-end">
-                                                <p-badge value="Completed" class="mt-3" severity="success" />
-                                                <p-button icon="pi pi-times text-sm leading-none" class="!text-sm !leading-none" label="Cancel" text severity="danger" />
-                                            </div>
+                                @if (uploadedFiles.length > 0) {
+                                    <div class="px-4 py-0">
+                                        <h5 class="m-0 mb-2">Completed</h5>
+                                        <div class="flex flex-wrap gap-2">
+                                            @for (file of uploadedFiles; track $index) {
+                                                <div class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center">
+                                                    <div>
+                                                        <img role="presentation" [alt]="file.name" :src="file.objectURL" width="100" height="50" />
+                                                    </div>
+                                                    <span class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden">{{ file.name }}</span>
+                                                    <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
+                                                    <div class="grow flex flex-col gap-2 justify-end">
+                                                        <p-badge value="Completed" class="mt-3" severity="success" />
+                                                        <p-button icon="pi pi-times text-sm leading-none" class="!text-sm !leading-none" label="Cancel" text severity="danger" />
+                                                    </div>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
-                                </div>
+                                }
                             </ng-template>
                         </p-fileupload>
                     </div>
@@ -269,16 +280,13 @@ import { TooltipModule } from 'primeng/tooltip';
                         <p-autocomplete [(ngModel)]="filesTag" styleClass="w-full mt-2" inputId="multiple-ac-2" multiple (completeMethod)="search($event)" [typeahead]="false" />
                     </div>
                     <div class="flex items-center gap-2">
-                        <label
-                            *ngFor="let permission of permissions"
-                            [key]="permission.key"
-                            [for]="permission.key"
-                            class="cursor-pointer flex-1 flex items-center gap-1 p-2 rounded-border border border-surface hover:bg-emphasis transition-all select-none"
-                        >
-                            <i class="text-color" :class="permission.icon"></i>
-                            <div class="flex-1 text-sm leading-5 text-color">{{ permission.name }}</div>
-                            <p-radiobutton [(ngModel)]="selectedPermission" [inputId]="permission.key" variant="filled" name="dynamic" [value]="permission.name" />
-                        </label>
+                        @for (permission of permissions; track permission.key) {
+                            <label [for]="permission.key" class="cursor-pointer flex-1 flex items-center gap-1 p-2 rounded-border border border-surface hover:bg-emphasis transition-all select-none">
+                                <i class="text-color" :class="permission.icon"></i>
+                                <div class="flex-1 text-sm leading-5 text-color">{{ permission.name }}</div>
+                                <p-radiobutton [(ngModel)]="selectedPermission" [inputId]="permission.key" variant="filled" name="dynamic" [value]="permission.name" />
+                            </label>
+                        }
                     </div>
                     <div class="flex items-center gap-2">
                         <button pButton outlined class="flex-1"><span pButtonLabel>Cancel</span></button>
@@ -427,10 +435,12 @@ import { TooltipModule } from 'primeng/tooltip';
                     <div class="mt-4">
                         <div class="text-color font-medium leading-6 mb-6">Popular specs</div>
                         <div class="flex items-center gap-4 flex-wrap">
-                            <div *ngFor="let data of priceRangePopularSpecs" class="flex align-items-center">
-                                <p-checkbox [(ngModel)]="priceRangePopularSpecsChecked" [inputId]="data.value" [name]="data.value" [value]="data.value" />
-                                <label [for]="data.value" class="ml-2">{{ data.value }}</label>
-                            </div>
+                            @for (data of priceRangePopularSpecs; track data.value) {
+                                <div class="flex align-items-center">
+                                    <p-checkbox [(ngModel)]="priceRangePopularSpecsChecked" [inputId]="data.value" [name]="data.value" [value]="data.value" />
+                                    <label [for]="data.value" class="ml-2">{{ data.value }}</label>
+                                </div>
+                            }
                         </div>
                     </div>
                     <div class="flex items-center gap-3 flex-wrap [&>*]:flex-1 mt-6">

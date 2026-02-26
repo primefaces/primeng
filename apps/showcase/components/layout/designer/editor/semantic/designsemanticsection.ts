@@ -1,23 +1,28 @@
 import { ChangeDetectionStrategy, Component, computed, inject, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
 import { DesignerService } from '@/service/designerservice';
 
 @Component({
     selector: 'design-semantic-section',
     standalone: true,
-    imports: [CommonModule, DesignTokenField],
+    imports: [DesignTokenField],
     template: `
         <section>
-            <div *ngIf="!root" class="text-sm mb-1 font-semibold text-surface-950 dark:text-surface-0 capitalize">{{ sectionName() }}</div>
-            <div *ngIf="hasPrimitiveTokens()" class="grid grid-cols-4 gap-x-2 gap-y-3">
-                <ng-container *ngFor="let item of primitiveTokensArray()">
-                    <design-token-field [(modelValue)]="tokens()[item.key]" [label]="camelCaseToSpaces(item.key)" [path]="path + '.' + item.key" [switchable]="switchable" />
-                </ng-container>
-            </div>
-            <ng-container *ngIf="hasNestedTokens()">
-                <design-semantic-section *ngFor="let item of nestedTokensArray()" [path]="path + '.' + item.key" [switchable]="switchable" class="block mt-3" />
-            </ng-container>
+            @if (!root) {
+                <div class="text-sm mb-1 font-semibold text-surface-950 dark:text-surface-0 capitalize">{{ sectionName() }}</div>
+            }
+            @if (hasPrimitiveTokens()) {
+                <div class="grid grid-cols-4 gap-x-2 gap-y-3">
+                    @for (item of primitiveTokensArray(); track item.key) {
+                        <design-token-field [(modelValue)]="tokens()[item.key]" [label]="camelCaseToSpaces(item.key)" [path]="path + '.' + item.key" [switchable]="switchable" />
+                    }
+                </div>
+            }
+            @if (hasNestedTokens()) {
+                @for (item of nestedTokensArray(); track item.key) {
+                    <design-semantic-section [path]="path + '.' + item.key" [switchable]="switchable" class="block mt-3" />
+                }
+            }
         </section>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush

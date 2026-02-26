@@ -2,7 +2,6 @@ import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { SortEvent, TreeNode } from 'primeng/api';
 import { TreeTable, TreeTableModule } from 'primeng/treetable';
-import { CommonModule } from '@angular/common';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -15,7 +14,7 @@ interface Column {
 @Component({
     selector: 'sortremovable-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The removable sort can be implemented using the <i>customSort</i> property.</p>
@@ -37,18 +36,24 @@ interface Column {
                 >
                     <ng-template #header let-columns>
                         <tr>
-                            <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                                {{ col.header }}
-                                <p-treetableSortIcon [field]="col.field" />
-                            </th>
+                            @for (col of columns; track col.field) {
+                                <th [ttSortableColumn]="col.field">
+                                    {{ col.header }}
+                                    <p-treetableSortIcon [field]="col.field" />
+                                </th>
+                            }
                         </tr>
                     </ng-template>
                     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                            <td *ngFor="let col of columns; let i = index">
-                                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                                {{ rowData[col.field] }}
-                            </td>
+                            @for (col of columns; track col.field; let i = $index) {
+                                <td>
+                                    @if (i === 0) {
+                                        <p-treetable-toggler [rowNode]="rowNode" />
+                                    }
+                                    {{ rowData[col.field] }}
+                                </td>
+                            }
                         </tr>
                     </ng-template>
                 </p-treetable>

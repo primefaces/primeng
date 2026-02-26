@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
@@ -10,7 +9,7 @@ import { Ripple } from 'primeng/ripple';
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [CommonModule, PanelMenu, BadgeModule, Ripple, AppCode, AppDocSectionText],
+    imports: [PanelMenu, BadgeModule, Ripple, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>PanelMenu requires a collection of menuitems as its <i>model</i>.</p>
@@ -21,8 +20,12 @@ import { Ripple } from 'primeng/ripple';
                     <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
                         <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
                         <span class="ms-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        @if (item.badge) {
+                            <p-badge class="ms-auto" [value]="item.badge" />
+                        }
+                        @if (item.shortcut) {
+                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        }
                     </a>
                 </ng-template>
             </p-panelmenu>

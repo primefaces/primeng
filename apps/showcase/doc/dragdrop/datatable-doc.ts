@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { DragDropModule } from 'primeng/dragdrop';
 import { TableModule } from 'primeng/table';
@@ -11,7 +11,7 @@ import { TagModule } from 'primeng/tag';
 @Component({
     selector: 'datatable-doc',
     standalone: true,
-    imports: [CommonModule, DragDropModule, TableModule, TagModule, AppCode, AppDocSectionText],
+    imports: [DragDropModule, TableModule, TagModule, AppCode, AppDocSectionText],
     providers: [ProductService],
     template: `
         <app-docsectiontext>
@@ -19,22 +19,24 @@ import { TagModule } from 'primeng/tag';
         </app-docsectiontext>
         <div class="card grid grid-cols-12 gap-4 grid-nogutter">
             <div class="col-span-12 md:col-span-6 drag-column">
-                <div *ngFor="let product of availableProducts">
-                    <div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
-                        <div class="image-container">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="product-image" />
-                        </div>
-                        <div class="product-list-detail">
-                            <h5 class="mb-2">{{ product.name }}</h5>
-                            <i class="pi pi-tag product-category-icon"></i>
-                            <span class="product-category">{{ product.category }}</span>
-                        </div>
-                        <div class="product-list-action">
-                            <h6 class="mb-2">{{ product.price }}</h6>
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                @for (product of availableProducts; track product.id) {
+                    <div>
+                        <div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
+                            <div class="image-container">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="product-image" />
+                            </div>
+                            <div class="product-list-detail">
+                                <h5 class="mb-2">{{ product.name }}</h5>
+                                <i class="pi pi-tag product-category-icon"></i>
+                                <span class="product-category">{{ product.category }}</span>
+                            </div>
+                            <div class="product-list-action">
+                                <h6 class="mb-2">{{ product.price }}</h6>
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
             <div class="col-span-12 md:col-span-6 drop-column" pDroppable="products" (onDrop)="drop()">
                 <p-table [value]="selectedProducts">

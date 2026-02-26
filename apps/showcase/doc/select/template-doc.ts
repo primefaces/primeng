@@ -4,12 +4,11 @@ import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
-import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, FormsModule, SelectModule, ButtonModule],
+    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -21,10 +20,12 @@ import { CommonModule } from '@angular/common';
         <div class="card flex justify-center">
             <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" placeholder="Select a country" class="w-full md:w-56">
                 <ng-template #selectedItem let-selectedOption>
-                    <div class="flex items-center gap-2" *ngIf="selectedOption">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ selectedOption.name }}</div>
-                    </div>
+                    @if (selectedOption) {
+                        <div class="flex items-center gap-2">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
+                            <div>{{ selectedOption.name }}</div>
+                        </div>
+                    }
                 </ng-template>
                 <ng-template let-country #item>
                     <div class="flex items-center gap-2">

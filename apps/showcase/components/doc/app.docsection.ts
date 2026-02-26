@@ -9,40 +9,44 @@ import { AppDocSectionText } from './app.docsectiontext';
     standalone: true,
     imports: [CommonModule, AppDocSectionText, AppDocApiTable],
     template: `
-        <ng-container *ngIf="docs && docs.length">
-            <section class="py-6" *ngFor="let doc of docs; trackBy: trackById">
-                <ng-container *ngIf="!doc.component && doc.children">
-                    <app-docsectiontext [title]="doc.label" [id]="doc.id" [level]="2" [description]="doc?.description" />
+        @if (docs && docs.length) {
+            @for (doc of docs; track trackById($index, doc)) {
+                <section class="py-6">
+                    @if (!doc.component && doc.children) {
+                        <app-docsectiontext [title]="doc.label" [id]="doc.id" [level]="2" [description]="doc?.description" />
 
-                    <ng-template ngFor [ngForOf]="doc.children" let-child>
-                        <app-docsectiontext [title]="child.label" [id]="child.id" [level]="3" [description]="child?.description" />
-                        <ng-container *ngComponentOutlet="child.component"></ng-container>
-                    </ng-template>
-                </ng-container>
+                        @for (child of doc.children; track $index) {
+                            <app-docsectiontext [title]="child.label" [id]="child.id" [level]="3" [description]="child?.description" />
+                            <ng-container *ngComponentOutlet="child.component"></ng-container>
+                        }
+                    }
 
-                <ng-container *ngIf="doc.component && !doc.children">
-                    <app-docsectiontext [title]="doc.label" [id]="doc.id" [level]="2" [description]="doc?.description" />
-                    <ng-container *ngIf="doc.data">
-                        <app-docapitable [id]="doc.id" [data]="doc.data"></app-docapitable>
-                    </ng-container>
-                    <ng-container *ngIf="!doc.data">
-                        <ng-container *ngComponentOutlet="doc.component"></ng-container>
-                    </ng-container>
-                </ng-container>
-            </section>
-        </ng-container>
+                    @if (doc.component && !doc.children) {
+                        <app-docsectiontext [title]="doc.label" [id]="doc.id" [level]="2" [description]="doc?.description" />
+                        @if (doc.data) {
+                            <app-docapitable [id]="doc.id" [data]="doc.data"></app-docapitable>
+                        }
+                        @if (!doc.data) {
+                            <ng-container *ngComponentOutlet="doc.component"></ng-container>
+                        }
+                    }
+                </section>
+            }
+        }
 
-        <ng-container *ngIf="apiDocs && apiDocs.length">
-            <section class="py-6" *ngFor="let doc of apiDocs; trackBy: trackById">
-                <ng-container *ngIf="doc.children">
-                    <app-docsectiontext [title]="doc.label" [id]="doc.id" [description]="doc.description" [level]="2" />
+        @if (apiDocs && apiDocs.length) {
+            @for (doc of apiDocs; track trackById($index, doc)) {
+                <section class="py-6">
+                    @if (doc.children) {
+                        <app-docsectiontext [title]="doc.label" [id]="doc.id" [description]="doc.description" [level]="2" />
 
-                    <ng-template ngFor [ngForOf]="doc.children" let-child>
-                        <app-docapitable [id]="child.id" [label]="child.label" [data]="child.data" [description]="child.description" [relatedProp]="child.relatedProp" [level]="3" [isInterface]="child.isInterface" />
-                    </ng-template>
-                </ng-container>
-            </section>
-        </ng-container>
+                        @for (child of doc.children; track $index) {
+                            <app-docapitable [id]="child.id" [label]="child.label" [data]="child.data" [description]="child.description" [relatedProp]="child.relatedProp" [level]="3" [isInterface]="child.isInterface" />
+                        }
+                    }
+                </section>
+            }
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -51,7 +55,7 @@ export class AppDocSection {
 
     @Input() apiDocs!: any[];
 
-    trackById(doc) {
+    trackById(index: number, doc: any) {
         return doc.id || undefined;
     }
 }

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { DialogModule } from 'primeng/dialog';
@@ -6,12 +5,14 @@ import { DialogModule } from 'primeng/dialog';
 @Component({
     selector: 'template-youtube',
     standalone: true,
-    imports: [CommonModule, DialogModule],
+    imports: [DialogModule],
     template: `
         <div class="template-youtube-wrapper">
             <div class="template-youtube">
                 <div class="template-youtube-title">
-                    <h2 *ngFor="let data of title; let i = index" [key]="i">{{ data }}</h2>
+                    @for (data of title; track $index) {
+                        <h2 [key]="$index">{{ data }}</h2>
+                    }
                 </div>
                 <div class="template-youtube-description">{{ description }}</div>
                 <div class="template-youtube-screen" (click)="setYoutubeVideoVisible(true)">

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -17,7 +16,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 @Component({
     selector: 'movies-app',
     standalone: true,
-    imports: [CommonModule, RouterModule, SelectButton, FormsModule, AvatarModule, TooltipModule, IconField, InputIcon, ButtonModule, InputTextModule, ProgressBar, Carousel, OverlayBadgeModule],
+    imports: [RouterModule, SelectButton, FormsModule, AvatarModule, TooltipModule, IconField, InputIcon, ButtonModule, InputTextModule, ProgressBar, Carousel, OverlayBadgeModule],
     template: `
         <div class="flex flex-wrap gap-4 items-center justify-between">
             <p-selectbutton [(ngModel)]="value" [options]="options" aria-labelledby="basic" />
@@ -70,7 +69,9 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                     {{ item.categories.join(', ') }}
                                 </div>
                             </div>
-                            <p-button *ngIf="item.bookmarked" icon="pi pi-bookmark-fill" severity="contrast" text rounded />
+                            @if (item.bookmarked) {
+                                <p-button icon="pi pi-bookmark-fill" severity="contrast" text rounded />
+                            }
                         </div>
                     </div>
                 </ng-template>
@@ -87,23 +88,27 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                 <p-button label="Show All" severity="secondary" outlined />
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-6">
-                <div *ngFor="let movie of popularMovies" class="cursor-pointer">
-                    <div class="relative aspect-[259/174.5] rounded-lg overflow-hidden">
-                        <img class="w-full h-full object-cover" [src]="movie.image" alt="Popular Movie Cover" />
-                        <div class="absolute z-10 top-2 right-2 px-2 py-1 text-sm font-medium leading-tight bg-surface-0 dark:bg-surface-950 border border-surface rounded-md">
-                            {{ movie.point }}
-                        </div>
-                    </div>
-                    <div class="mt-2 flex items-start justify-between gap-1">
-                        <div class="px-2 flex-1">
-                            <div class="font-medium text-color leading-6 line-clamp-1">{{ movie.name }}</div>
-                            <div class="mt-1 text-muted-color text-sm leading-5">
-                                {{ movie.categories.join(', ') }}
+                @for (movie of popularMovies; track movie.name) {
+                    <div class="cursor-pointer">
+                        <div class="relative aspect-[259/174.5] rounded-lg overflow-hidden">
+                            <img class="w-full h-full object-cover" [src]="movie.image" alt="Popular Movie Cover" />
+                            <div class="absolute z-10 top-2 right-2 px-2 py-1 text-sm font-medium leading-tight bg-surface-0 dark:bg-surface-950 border border-surface rounded-md">
+                                {{ movie.point }}
                             </div>
                         </div>
-                        <p-button *ngIf="movie.bookmarked" icon="pi pi-bookmark-fill" severity="contrast" text rounded />
+                        <div class="mt-2 flex items-start justify-between gap-1">
+                            <div class="px-2 flex-1">
+                                <div class="font-medium text-color leading-6 line-clamp-1">{{ movie.name }}</div>
+                                <div class="mt-1 text-muted-color text-sm leading-5">
+                                    {{ movie.categories.join(', ') }}
+                                </div>
+                            </div>
+                            @if (movie.bookmarked) {
+                                <p-button icon="pi pi-bookmark-fill" severity="contrast" text rounded />
+                            }
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
     `,

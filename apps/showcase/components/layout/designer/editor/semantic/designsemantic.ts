@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AccordionModule } from 'primeng/accordion';
 import { TabsModule } from 'primeng/tabs';
@@ -14,7 +13,7 @@ const SEMANTIC_ORDER = ['primary', 'surface', 'focusRing', 'formField', 'list', 
 @Component({
     selector: 'design-semantic',
     standalone: true,
-    imports: [CommonModule, FormsModule, AccordionModule, TabsModule, FieldsetModule, DesignTokenField, DesignSemanticSection],
+    imports: [FormsModule, AccordionModule, TabsModule, FieldsetModule, DesignTokenField, DesignSemanticSection],
     template: `
         <section>
             <p-accordion [value]="['0', '1']" [multiple]="true">
@@ -23,16 +22,20 @@ const SEMANTIC_ORDER = ['primary', 'surface', 'focusRing', 'formField', 'list', 
                     <p-accordion-content>
                         <div>
                             <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
-                                <p-fieldset *ngIf="hasCommonPrimitives()" legend="General" [toggleable]="true">
-                                    <div class="grid grid-cols-4 gap-x-2 gap-y-3">
-                                        <ng-container *ngFor="let item of commonPrimitivesArray()">
-                                            <design-token-field [(modelValue)]="tokens()[item.key]" [label]="camelCaseToSpaces(item.key)" />
-                                        </ng-container>
-                                    </div>
-                                </p-fieldset>
-                                <p-fieldset *ngFor="let item of commonObjectsArray()" [legend]="capitalize(camelCaseToSpaces(item.key))" [toggleable]="true">
-                                    <design-semantic-section [path]="item.key" [root]="true" />
-                                </p-fieldset>
+                                @if (hasCommonPrimitives()) {
+                                    <p-fieldset legend="General" [toggleable]="true">
+                                        <div class="grid grid-cols-4 gap-x-2 gap-y-3">
+                                            @for (item of commonPrimitivesArray(); track item.key) {
+                                                <design-token-field [(modelValue)]="tokens()[item.key]" [label]="camelCaseToSpaces(item.key)" />
+                                            }
+                                        </div>
+                                    </p-fieldset>
+                                }
+                                @for (item of commonObjectsArray(); track item.key) {
+                                    <p-fieldset [legend]="capitalize(camelCaseToSpaces(item.key))" [toggleable]="true">
+                                        <design-semantic-section [path]="item.key" [root]="true" />
+                                    </p-fieldset>
+                                }
                             </form>
                         </div>
                     </p-accordion-content>
@@ -49,30 +52,38 @@ const SEMANTIC_ORDER = ['primary', 'surface', 'focusRing', 'formField', 'list', 
                             <p-tabpanels class="!px-0">
                                 <p-tabpanel value="cs-0">
                                     <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
-                                        <p-fieldset *ngIf="hasLightPrimitives()" legend="General" [toggleable]="true">
-                                            <div class="grid grid-cols-4 gap-x-2 gap-y-3">
-                                                <ng-container *ngFor="let item of lightPrimitivesArray()">
-                                                    <design-token-field [(modelValue)]="lightTokens()[item.key]" [label]="camelCaseToSpaces(item.key)" />
-                                                </ng-container>
-                                            </div>
-                                        </p-fieldset>
-                                        <p-fieldset *ngFor="let item of lightObjectsArray()" [legend]="capitalize(camelCaseToSpaces(item.key))" [toggleable]="true">
-                                            <design-semantic-section [path]="'colorScheme.light.' + item.key" [root]="true" [switchable]="true" />
-                                        </p-fieldset>
+                                        @if (hasLightPrimitives()) {
+                                            <p-fieldset legend="General" [toggleable]="true">
+                                                <div class="grid grid-cols-4 gap-x-2 gap-y-3">
+                                                    @for (item of lightPrimitivesArray(); track item.key) {
+                                                        <design-token-field [(modelValue)]="lightTokens()[item.key]" [label]="camelCaseToSpaces(item.key)" />
+                                                    }
+                                                </div>
+                                            </p-fieldset>
+                                        }
+                                        @for (item of lightObjectsArray(); track item.key) {
+                                            <p-fieldset [legend]="capitalize(camelCaseToSpaces(item.key))" [toggleable]="true">
+                                                <design-semantic-section [path]="'colorScheme.light.' + item.key" [root]="true" [switchable]="true" />
+                                            </p-fieldset>
+                                        }
                                     </form>
                                 </p-tabpanel>
                                 <p-tabpanel value="cs-1">
                                     <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
-                                        <p-fieldset *ngIf="hasDarkPrimitives()" legend="General" [toggleable]="true">
-                                            <div class="grid grid-cols-4 gap-x-2 gap-y-3">
-                                                <ng-container *ngFor="let item of darkPrimitivesArray()">
-                                                    <design-token-field [(modelValue)]="darkTokens()[item.key]" [label]="camelCaseToSpaces(item.key)" />
-                                                </ng-container>
-                                            </div>
-                                        </p-fieldset>
-                                        <p-fieldset *ngFor="let item of darkObjectsArray()" [legend]="capitalize(camelCaseToSpaces(item.key))" [toggleable]="true">
-                                            <design-semantic-section [path]="'colorScheme.dark.' + item.key" [root]="true" [switchable]="true" />
-                                        </p-fieldset>
+                                        @if (hasDarkPrimitives()) {
+                                            <p-fieldset legend="General" [toggleable]="true">
+                                                <div class="grid grid-cols-4 gap-x-2 gap-y-3">
+                                                    @for (item of darkPrimitivesArray(); track item.key) {
+                                                        <design-token-field [(modelValue)]="darkTokens()[item.key]" [label]="camelCaseToSpaces(item.key)" />
+                                                    }
+                                                </div>
+                                            </p-fieldset>
+                                        }
+                                        @for (item of darkObjectsArray(); track item.key) {
+                                            <p-fieldset [legend]="capitalize(camelCaseToSpaces(item.key))" [toggleable]="true">
+                                                <design-semantic-section [path]="'colorScheme.dark.' + item.key" [root]="true" [switchable]="true" />
+                                            </p-fieldset>
+                                        }
                                     </form>
                                 </p-tabpanel>
                             </p-tabpanels>

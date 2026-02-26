@@ -1,7 +1,7 @@
 import Versions from '@/assets/data/versions.json';
 import { AppConfiguratorComponent } from '@/components/layout/configurator/app.configurator.component';
 import { AppConfigService } from '@/service/appconfigservice';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { NgClass, DOCUMENT } from '@angular/common';
 import { afterNextRender, booleanAttribute, Component, computed, ElementRef, Inject, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -12,7 +12,7 @@ import { StyleClass } from 'primeng/styleclass';
 @Component({
     selector: 'app-topbar',
     standalone: true,
-    imports: [CommonModule, FormsModule, StyleClass, RouterModule, AppConfiguratorComponent],
+    imports: [NgClass, FormsModule, StyleClass, RouterModule, AppConfiguratorComponent],
     template: `<div class="layout-topbar">
         <div class="layout-topbar-inner">
             <div class="layout-topbar-logo-container">
@@ -116,21 +116,23 @@ import { StyleClass } from 'primeng/styleclass';
                         <i class="pi" [ngClass]="{ 'pi-moon': isDarkMode(), 'pi-sun': !isDarkMode() }"></i>
                     </button>
                 </li>
-                <li *ngIf="showConfigurator" class="relative">
-                    <button
-                        type="button"
-                        class="topbar-item config-item"
-                        enterActiveClass="px-overlay-enter-active"
-                        enterFromClass="hidden"
-                        leaveActiveClass="px-overlay-leave-active"
-                        leaveToClass="hidden"
-                        pStyleClass="@next"
-                        [hideOnOutsideClick]="true"
-                    >
-                        <i class="pi pi-palette"></i>
-                    </button>
-                    <app-configurator />
-                </li>
+                @if (showConfigurator) {
+                    <li class="relative">
+                        <button
+                            type="button"
+                            class="topbar-item config-item"
+                            enterActiveClass="px-overlay-enter-active"
+                            enterFromClass="hidden"
+                            leaveActiveClass="px-overlay-leave-active"
+                            leaveToClass="hidden"
+                            pStyleClass="@next"
+                            [hideOnOutsideClick]="true"
+                        >
+                            <i class="pi pi-palette"></i>
+                        </button>
+                        <app-configurator />
+                    </li>
+                }
                 <li>
                     <button type="button" class="topbar-item relative group overflow-hidden !border-transparent" (click)="toggleDesigner()">
                         <span
@@ -157,19 +159,23 @@ import { StyleClass } from 'primeng/styleclass';
                     </button>
                     <div class="versions-panel hidden">
                         <ul>
-                            <li role="none" *ngFor="let v of versions">
-                                <a [href]="v.url">
-                                    <span>{{ v.version }}</span>
-                                </a>
-                            </li>
+                            @for (v of versions; track $index) {
+                                <li role="none">
+                                    <a [href]="v.url">
+                                        <span>{{ v.version }}</span>
+                                    </a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </li>
-                <li *ngIf="showMenuButton" class="menu-button">
-                    <button type="button" class="topbar-item menu-button" (click)="toggleMenu()" aria-label="Menu">
-                        <i class="pi pi-bars"></i>
-                    </button>
-                </li>
+                @if (showMenuButton) {
+                    <li class="menu-button">
+                        <button type="button" class="topbar-item menu-button" (click)="toggleMenu()" aria-label="Menu">
+                            <i class="pi pi-bars"></i>
+                        </button>
+                    </li>
+                }
             </ul>
         </div>
     </div>`

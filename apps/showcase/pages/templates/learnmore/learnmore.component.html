@@ -2,39 +2,39 @@
     <template-hero [selectedTemplate]="selectedTemplate?.templateHeroData"></template-hero>
     <template-separator></template-separator>
 
-    <ng-container *ngIf="selectedTemplate?.youtubeImgSrc">
+    @if (selectedTemplate?.youtubeImgSrc) {
         <template-youtube [imgSrc]="selectedTemplate?.youtubeImgSrc"></template-youtube>
-    </ng-container>
+    }
 
-    <ng-container *ngIf="selectedTemplate?.license">
+    @if (selectedTemplate?.license) {
         <template-license [license]="selectedTemplate?.license"></template-license>
         <template-separator></template-separator>
-    </ng-container>
+    }
 
-    <ng-container *ngIf="selectedTemplate?.animationFeaturesData2">
+    @if (selectedTemplate?.animationFeaturesData2) {
         <template-features-animation [featuresData]="selectedTemplate?.animationFeaturesData2" title="Features"></template-features-animation>
         <template-separator></template-separator>
-    </ng-container>
+    }
 
-    <ng-container *ngIf="selectedTemplate?.features1Data">
+    @if (selectedTemplate?.features1Data) {
         <template-features [featuresData]="selectedTemplate?.features1Data" displayType="horizontal"></template-features>
         <template-separator></template-separator>
-    </ng-container>
+    }
 
     <template-configuration [configurationData]="selectedTemplate?.templateConfigurationData"></template-configuration>
     <template-separator></template-separator>
 
-    <ng-container *ngIf="selectedTemplate?.animationFeaturesData1">
+    @if (selectedTemplate?.animationFeaturesData1) {
         <template-features-animation [featuresData]="selectedTemplate?.animationFeaturesData1"></template-features-animation>
         <template-separator></template-separator>
-    </ng-container>
+    }
 
-    <ng-container *ngIf="selectedTemplate?.features2Data">
+    @if (selectedTemplate?.features2Data) {
         <template-features [featuresData]="selectedTemplate?.features2Data" displayType="vertical"></template-features>
-    </ng-container>
+    }
 
-    <ng-container *ngIf="selectedTemplate?.relatedData">
+    @if (selectedTemplate?.relatedData) {
         <template-separator></template-separator>
         <template-related [relatedData]="selectedTemplate?.relatedData"></template-related>
-    </ng-container>
+    }
 </div>

@@ -1,5 +1,4 @@
 import { default as IconData } from '@/assets/data/icons.json';
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { InputTextModule } from 'primeng/inputtext';
@@ -7,7 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 @Component({
     selector: 'list-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, InputTextModule],
+    imports: [AppDocSectionText, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -20,10 +19,12 @@ import { InputTextModule } from 'primeng/inputtext';
         </div>
         <div class="card">
             <div class="grid grid-cols-12 gap-4 text-center">
-                <div class="col-span-12 md:col-span-2 mb-8" *ngFor="let icon of filteredIcons">
-                    <i class="pi pi-{{ icon.properties.name }} text-2xl mb-4 text-muted-color"></i>
-                    <div>pi-{{ icon.properties.name }}</div>
-                </div>
+                @for (icon of filteredIcons; track $index) {
+                    <div class="col-span-12 md:col-span-2 mb-8">
+                        <i class="pi pi-{{ icon.properties.name }} text-2xl mb-4 text-muted-color"></i>
+                        <div>pi-{{ icon.properties.name }}</div>
+                    </div>
+                }
             </div>
         </div>
     `

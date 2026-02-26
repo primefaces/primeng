@@ -1,25 +1,29 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'colorpalette-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText],
+    imports: [NgClass, NgStyle, AppDocSectionText],
     template: `
         <app-docsectiontext> <p>PrimeNG color palette as utility classes.</p></app-docsectiontext>
         <div class="card">
             <div class="flex flex-col gap-12">
                 <ul class="p-0 m-0 list-none flex sm:flex-col gap-4 flex-wrap sm:flex-nowrap">
-                    <li *ngFor="let color of colors; let i = index" [ngStyle]="{ 'min-width': '6rem' }" class="flex-auto">
-                        <span class="font-medium capitalize block mb-2 text-center sm:text-left">{{ color }}</span>
-                        <div class="flex gap-4 flex-auto flex-col sm:flex-row">
-                            <div *ngFor="let shade of shades" [ngClass]="{ invisible: color === 'primary' && shade === 0 }" class="flex flex-col items-center gap-1 flex-1">
-                                <div class="rounded h-8 w-full" [ngStyle]="{ 'background-color': 'var(--p-' + color + '-' + shade + ')' }"></div>
-                                <span class="text-sm text-surface-500 dark:text-surface-400 font-medium">{{ shade }}</span>
+                    @for (color of colors; track color) {
+                        <li [ngStyle]="{ 'min-width': '6rem' }" class="flex-auto">
+                            <span class="font-medium capitalize block mb-2 text-center sm:text-left">{{ color }}</span>
+                            <div class="flex gap-4 flex-auto flex-col sm:flex-row">
+                                @for (shade of shades; track shade) {
+                                    <div [ngClass]="{ invisible: color === 'primary' && shade === 0 }" class="flex flex-col items-center gap-1 flex-1">
+                                        <div class="rounded h-8 w-full" [ngStyle]="{ 'background-color': 'var(--p-' + color + '-' + shade + ')' }"></div>
+                                        <span class="text-sm text-surface-500 dark:text-surface-400 font-medium">{{ shade }}</span>
+                                    </div>
+                                }
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                    }
                 </ul>
 
                 <div class="flex gap-6 flex-wrap">

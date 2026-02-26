@@ -1,25 +1,18 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
 import { DesignTokenField } from '../designtokenfield';
 
 @Component({
     selector: 'design-component-section',
     standalone: true,
-    imports: [CommonModule, DesignTokenField],
+    imports: [DesignTokenField],
     template: `<section>
         <div class="text-sm mb-1 font-semibold text-surface-950 dark:text-surface-0 capitalize">{{ sectionName() }}</div>
         <div class="grid grid-cols-4 gap-x-2 gap-y-3">
             @for (entry of objectKeys(tokens()); track entry) {
-                <design-token-field
-                    *ngIf="!isObject(tokens()[entry])"
-                    [(modelValue)]="tokens()[entry]"
-                    [label]="camelCaseToSpaces(entry)"
-                    [componentKey]="componentKey()"
-                    [path]="path() + '.' + entry"
-                    [type]="isColor(entry) ? 'color' : null"
-                    [switchable]="true"
-                />
+                @if (!isObject(tokens()[entry])) {
+                    <design-token-field [(modelValue)]="tokens()[entry]" [label]="camelCaseToSpaces(entry)" [componentKey]="componentKey()" [path]="path() + '.' + entry" [type]="isColor(entry) ? 'color' : null" [switchable]="true" />
+                }
             }
         </div>
         @if (hasNestedTokens()) {

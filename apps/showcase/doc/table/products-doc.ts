@@ -171,11 +171,15 @@ interface ExportColumn {
                 <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
                     <ng-template #content>
                         <div class="flex flex-col gap-6">
-                            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" *ngIf="product.image" />
+                            @if (product.image) {
+                                <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" />
+                            }
                             <div>
                                 <label for="name" class="block font-bold mb-3">Name</label>
                                 <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus fluid />
-                                <small class="text-red-500" *ngIf="submitted && !product.name">Name is required.</small>
+                                @if (submitted && !product.name) {
+                                    <small class="text-red-500">Name is required.</small>
+                                }
                             </div>
                             <div>
                                 <label for="description" class="block font-bold mb-3">Description</label>

@@ -3,7 +3,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
@@ -15,7 +15,7 @@ interface Column {
 @Component({
     selector: 'virtualscroll-doc',
     standalone: true,
-    imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>
                 Virtual Scrolling is an efficient way to render large amount data. Usage is similar to regular scrolling with the addition of <i>virtualScrollerOptions</i> property to define a fixed <i>itemSize</i>. Internally, VirtualScroller
@@ -28,16 +28,20 @@ interface Column {
                 <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="400px" [virtualScroll]="true" [virtualScrollItemSize]="46">
                     <ng-template #header let-columns>
                         <tr>
-                            <th *ngFor="let col of columns" style="width: 20%;">
-                                {{ col.header }}
-                            </th>
+                            @for (col of columns; track col) {
+                                <th style="width: 20%;">
+                                    {{ col.header }}
+                                </th>
+                            }
                         </tr>
                     </ng-template>
                     <ng-template #body let-rowData let-rowIndex="rowIndex" let-columns="columns">
                         <tr style="height:46px">
-                            <td *ngFor="let col of columns">
-                                {{ rowData[col.field] }}
-                            </td>
+                            @for (col of columns; track col) {
+                                <td>
+                                    {{ rowData[col.field] }}
+                                </td>
+                            }
                         </tr>
                     </ng-template>
                 </p-table>

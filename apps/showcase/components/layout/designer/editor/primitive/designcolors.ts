@@ -1,6 +1,5 @@
 import { DesignColorPalette } from '@/components/layout/designer/editor/designcolorpalette';
 import { DesignerService } from '@/service/designerservice';
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { palette } from '@primeuix/themes';
@@ -9,24 +8,26 @@ import { FieldsetModule } from 'primeng/fieldset';
 @Component({
     selector: 'design-colors',
     standalone: true,
-    imports: [CommonModule, FieldsetModule, FormsModule, DesignColorPalette],
+    imports: [FieldsetModule, FormsModule, DesignColorPalette],
     template: ` <p-fieldset legend="Colors" [toggleable]="true">
-        <ng-container *ngFor="let key of objectKeys(designerService.designer().theme?.preset?.primitive)">
-            <section *ngIf="key !== 'borderRadius'" class="flex justify-between items-center mb-4 gap-8">
-                <div class="flex gap-2 items-center">
-                    <span class="text-sm capitalize block w-20">{{ key }}</span>
-                    <input
-                        [value]="designerService.resolveColor(designerService.designer().theme.preset.primitive[key]['500'])"
-                        (change)="onColorChange($event, key)"
-                        (blur)="onBlur()"
-                        type="color"
-                        [disabled]="designerService.isThemeViewOnly()"
-                        [class]="{ '!cursor-not-allowed': designerService.isThemeViewOnly() }"
-                    />
-                </div>
-                <design-color-palette [value]="designerService.designer().theme?.preset?.primitive[key]" />
-            </section>
-        </ng-container>
+        @for (key of objectKeys(designerService.designer().theme?.preset?.primitive); track key) {
+            @if (key !== 'borderRadius') {
+                <section class="flex justify-between items-center mb-4 gap-8">
+                    <div class="flex gap-2 items-center">
+                        <span class="text-sm capitalize block w-20">{{ key }}</span>
+                        <input
+                            [value]="designerService.resolveColor(designerService.designer().theme.preset.primitive[key]['500'])"
+                            (change)="onColorChange($event, key)"
+                            (blur)="onBlur()"
+                            type="color"
+                            [disabled]="designerService.isThemeViewOnly()"
+                            [class]="{ '!cursor-not-allowed': designerService.isThemeViewOnly() }"
+                        />
+                    </div>
+                    <design-color-palette [value]="designerService.designer().theme?.preset?.primitive[key]" />
+                </section>
+            }
+        }
     </p-fieldset>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -20,9 +20,11 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
             <ng-template #headless>
                 <div class="flex items-center justify-between p-5">
                     <div class="flex items-center gap-2">
-                        <button *ngIf="activeView() !== 'dashboard'" type="button" (click)="openDashboard()" class="icon-btn">
-                            <i class="pi pi-chevron-left"></i>
-                        </button>
+                        @if (activeView() !== 'dashboard') {
+                            <button type="button" (click)="openDashboard()" class="icon-btn">
+                                <i class="pi pi-chevron-left"></i>
+                            </button>
+                        }
                         <span class="font-bold text-xl">{{ viewTitle() }}</span>
                     </div>
                     <div class="flex items-center gap-2">
@@ -36,13 +38,21 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
                 </div>
 
                 <div class="flex-auto overflow-auto overflow-x-hidden pb-5 px-5">
-                    <design-dashboard *ngIf="activeView() === 'dashboard'" />
-                    <design-create-theme *ngIf="activeView() === 'create_theme'" />
-                    <design-editor *ngIf="activeView() === 'editor'" />
+                    @if (activeView() === 'dashboard') {
+                        <design-dashboard />
+                    }
+                    @if (activeView() === 'create_theme') {
+                        <design-create-theme />
+                    }
+                    @if (activeView() === 'editor') {
+                        <design-editor />
+                    }
                 </div>
 
                 <div class="p-5">
-                    <design-editor-footer *ngIf="activeView() === 'editor'" />
+                    @if (activeView() === 'editor') {
+                        <design-editor-footer />
+                    }
                 </div>
             </ng-template>
         </p-drawer>

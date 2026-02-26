@@ -16,19 +16,23 @@ import { Component } from '@angular/core';
             <div class="flex justify-center items-center mt-6">
                 <span class="ml-2"> </span>
             </div>
-            <div *ngFor="let x of users; let i = index" class="logo-section relative w-full md:w-8/12 mt-12 users-container">
-                <div class="fade-left h-24 w-24 block absolute top-0 left-0 z-20"></div>
-                <div class="marquee-wrapper overflow-hidden flex">
-                    <div *ngFor="let _ of [1, 2, 3]" [ngClass]="getMarqueeClass(x.reverse)">
-                        <ng-container *ngFor="let user of x.slicedUsers">
-                            <div class="w-full">
-                                <img [src]="imgSrc(user)" [alt]="user + '-' + colorScheme" />
+            @for (x of users; track $index) {
+                <div class="logo-section relative w-full md:w-8/12 mt-12 users-container">
+                    <div class="fade-left h-24 w-24 block absolute top-0 left-0 z-20"></div>
+                    <div class="marquee-wrapper overflow-hidden flex">
+                        @for (_ of [1, 2, 3]; track $index) {
+                            <div [ngClass]="getMarqueeClass(x.reverse)">
+                                @for (user of x.slicedUsers; track $index) {
+                                    <div class="w-full">
+                                        <img [src]="imgSrc(user)" [alt]="user + '-' + colorScheme" />
+                                    </div>
+                                }
                             </div>
-                        </ng-container>
+                        }
                     </div>
+                    <div class="fade-right h-24 w-24 block absolute top-0 right-0 z-20"></div>
                 </div>
-                <div class="fade-right h-24 w-24 block absolute top-0 right-0 z-20"></div>
-            </div>
+            }
         </section>
     `
 })

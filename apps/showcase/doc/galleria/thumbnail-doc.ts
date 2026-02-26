@@ -1,6 +1,5 @@
 import { PhotoService } from '@/service/photoservice';
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GalleriaModule } from 'primeng/galleria';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -10,17 +9,19 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 @Component({
     selector: 'thumbnail-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, GalleriaModule, RadioButtonModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, GalleriaModule, RadioButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>
         </app-docsectiontext>
         <div class="card">
             <div class="flex flex-wrap gap-4 mb-8">
-                <div *ngFor="let option of positionOptions" class="flex items-center">
-                    <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
-                    <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
-                </div>
+                @for (option of positionOptions; track $index) {
+                    <div class="flex items-center">
+                        <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
+                        <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
+                    </div>
+                }
             </div>
             <p-galleria [value]="images()" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template #item let-item>

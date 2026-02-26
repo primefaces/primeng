@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputOtpModule } from 'primeng/inputotp';
 import { ButtonModule } from 'primeng/button';
@@ -9,7 +8,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 @Component({
     selector: 'sample-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, InputOtpModule, ButtonModule, AppCodeModule, AppDocSectionText],
+    imports: [FormsModule, InputOtpModule, ButtonModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>A sample UI implementation with templating and additional elements.</p>
@@ -21,9 +20,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <p-inputotp [(ngModel)]="value" [length]="6">
                     <ng-template #input let-token let-events="events" let-index="index">
                         <input type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
-                        <div *ngIf="index === 3" class="px-4">
-                            <i class="pi pi-minus"></i>
-                        </div>
+                        @if (index === 3) {
+                            <div class="px-4">
+                                <i class="pi pi-minus"></i>
+                            </div>
+                        }
                     </ng-template>
                 </p-inputotp>
                 <div class="flex justify-between mt-8 self-stretch">

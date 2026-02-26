@@ -91,15 +91,19 @@ import { ToastModule } from 'primeng/toast';
                             </td>
                             <td>
                                 <div class="flex items-center justify-center gap-2">
-                                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow (click)="onRowEditInit(product)" text rounded severity="secondary">
-                                        <span pButtonIcon class="pi pi-pencil"></span>
-                                    </button>
-                                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow (click)="onRowEditSave(product)" text rounded severity="secondary">
-                                        <span pButtonIcon class="pi pi-check"></span>
-                                    </button>
-                                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow (click)="onRowEditCancel(product, ri)" text rounded severity="secondary">
-                                        <span pButtonIcon class="pi pi-times"></span>
-                                    </button>
+                                    @if (!editing) {
+                                        <button pButton pRipple type="button" pInitEditableRow (click)="onRowEditInit(product)" text rounded severity="secondary">
+                                            <span pButtonIcon class="pi pi-pencil"></span>
+                                        </button>
+                                    }
+                                    @if (editing) {
+                                        <button pButton pRipple type="button" pSaveEditableRow (click)="onRowEditSave(product)" text rounded severity="secondary">
+                                            <span pButtonIcon class="pi pi-check"></span>
+                                        </button>
+                                        <button pButton pRipple type="button" pCancelEditableRow (click)="onRowEditCancel(product, ri)" text rounded severity="secondary">
+                                            <span pButtonIcon class="pi pi-times"></span>
+                                        </button>
+                                    }
                                 </div>
                             </td>
                         </tr>

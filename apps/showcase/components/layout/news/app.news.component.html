@@ -1,12 +1,18 @@
-<div *ngIf="isNewsActive" class="layout-news">
-    <div class="layout-news-container">
-        <div class="layout-news-content">
-            <span class="layout-news-text">{{ announcement?.content }}</span>
-            <a *ngIf="announcement?.linkHref" class="layout-news-link" [href]="announcement?.linkHref" target="_blank" rel="noopener noreferrer">{{ announcement.linkText }}</a>
-            <a *ngIf="announcement?.routerLink" class="layout-news-link" [routerLink]="announcement?.routerLink">{{ announcement.linkText }}</a>
+@if (isNewsActive) {
+    <div class="layout-news">
+        <div class="layout-news-container">
+            <div class="layout-news-content">
+                <span class="layout-news-text">{{ announcement?.content }}</span>
+                @if (announcement?.linkHref) {
+                    <a class="layout-news-link" [href]="announcement?.linkHref" target="_blank" rel="noopener noreferrer">{{ announcement.linkText }}</a>
+                }
+                @if (announcement?.routerLink) {
+                    <a class="layout-news-link" [routerLink]="announcement?.routerLink">{{ announcement.linkText }}</a>
+                }
+            </div>
+            <a tabindex="0" class="layout-news-close" (click)="hideNews()">
+                <span class="pi pi-times"></span>
+            </a>
         </div>
-        <a tabindex="0" class="layout-news-close" (click)="hideNews()">
-            <span class="pi pi-times"></span>
-        </a>
     </div>
-</div>
+}

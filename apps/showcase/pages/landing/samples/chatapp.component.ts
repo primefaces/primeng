@@ -37,40 +37,45 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 <p-selectbutton [(ngModel)]="value" [options]="options" aria-labelledby="basic" class="w-full" styleClass="w-full" />
             </div>
             <div class="flex-1 flex flex-col">
-                <div
-                    *ngFor="let chat of chats"
-                    class="flex items-center gap-2 p-4 cursor-pointer hover:bg-emphasis transition-all"
-                    [ngClass]="{
-                        'bg-emphasis': chat.name === activeChat
-                    }"
-                >
-                    <div class="relative">
-                        <p-badge *ngIf="chat.active !== undefined" [severity]="chat.active ? 'success' : 'danger'" class="absolute top-0 right-0 p-[1px] bg-surface-0 dark:bg-surface-950 rounded-full flex items-center justify-center" />
+                @for (chat of chats; track chat.name) {
+                    <div
+                        class="flex items-center gap-2 p-4 cursor-pointer hover:bg-emphasis transition-all"
+                        [ngClass]="{
+                            'bg-emphasis': chat.name === activeChat
+                        }"
+                    >
+                        <div class="relative">
+                            @if (chat.active !== undefined) {
+                                <p-badge [severity]="chat.active ? 'success' : 'danger'" class="absolute top-0 right-0 p-[1px] bg-surface-0 dark:bg-surface-950 rounded-full flex items-center justify-center" />
+                            }
 
-                        <p-avatar
-                            [image]="chat.image"
-                            [label]="!chat.image ? chat.capName : ''"
-                            [ngClass]="{
-                                '!bg-primary-100 !text-primary-950': !chat.image
-                            }"
-                            styleClass="text-base font-medium flex"
-                            size="large"
-                            shape="circle"
-                        />
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex items-start gap-1 justify-between">
-                            <div class="text-color font-medium leading-6">{{ chat.name }}</div>
-                            <div class="text-sm text-muted-color leading-5">{{ chat.time }}</div>
+                            <p-avatar
+                                [image]="chat.image"
+                                [label]="!chat.image ? chat.capName : ''"
+                                [ngClass]="{
+                                    '!bg-primary-100 !text-primary-950': !chat.image
+                                }"
+                                styleClass="text-base font-medium flex"
+                                size="large"
+                                shape="circle"
+                            />
                         </div>
-                        <div class="flex items-center gap-5 justify-between mt-1">
-                            <div class="text-muted-color text-sm leading-5 line-clamp-1">
-                                {{ chat.lastMessage }}
+                        <div class="flex-1">
+                            <div class="flex items-start gap-1 justify-between">
+                                <div class="text-color font-medium leading-6">{{ chat.name }}</div>
+                                <div class="text-sm text-muted-color leading-5">{{ chat.time }}</div>
                             </div>
-                            <p-badge *ngIf="chat.unreadMessageCount > 0" [value]="chat.unreadMessageCount" severity="contrast" />
+                            <div class="flex items-center gap-5 justify-between mt-1">
+                                <div class="text-muted-color text-sm leading-5 line-clamp-1">
+                                    {{ chat.lastMessage }}
+                                </div>
+                                @if (chat.unreadMessageCount > 0) {
+                                    <p-badge [value]="chat.unreadMessageCount" severity="contrast" />
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
         <div class="w-8/12 xl:w-6/12 border-x border-surface flex flex-col">
@@ -90,48 +95,52 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 </div>
             </div>
             <div class="flex-1 overflow-y-auto flex flex-col gap-8 py-8 px-6">
-                <div *ngFor="let message of chatMessages" class="flex items-start min-w-64 w-fit max-w-[60%]" [ngClass]="{ 'ml-auto mr-0 flex-row-reverse': message.type === 'sent' }">
-                    <div
-                        class="flex items-center gap-2 sticky top-0 transition-all"
-                        [ngClass]="{
-                            'flex-row-reverse': message.type === 'sent'
-                        }"
-                    >
-                        <p-avatar
-                            [image]="message.image"
-                            [label]="!message.image ? message.capName : ''"
+                @for (message of chatMessages; track message.id) {
+                    <div class="flex items-start min-w-64 w-fit max-w-[60%]" [ngClass]="{ 'ml-auto mr-0 flex-row-reverse': message.type === 'sent' }">
+                        <div
+                            class="flex items-center gap-2 sticky top-0 transition-all"
                             [ngClass]="{
-                                'bg-primary-100 text-primary-950': !message.image
+                                'flex-row-reverse': message.type === 'sent'
                             }"
-                            styleClass="w-10 h-10 text-sm font-medium"
-                            shape="circle"
-                        />
-                        <div>
-                            <svg
+                        >
+                            <p-avatar
+                                [image]="message.image"
+                                [label]="!message.image ? message.capName : ''"
                                 [ngClass]="{
-                                    'fill-surface-100 dark:fill-surface-800': message.type === 'received',
-                                    'fill-primary rotate-180': message.type !== 'received'
+                                    'bg-primary-100 text-primary-950': !message.image
                                 }"
-                                class=""
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="7"
-                                height="11"
-                                viewBox="0 0 7 11"
-                                fill="none"
-                            >
-                                <path d="M1.79256 7.09551C0.516424 6.31565 0.516426 4.46224 1.79256 3.68238L7 0.500055L7 10.2778L1.79256 7.09551Z" />
-                            </svg>
+                                styleClass="w-10 h-10 text-sm font-medium"
+                                shape="circle"
+                            />
+                            <div>
+                                <svg
+                                    [ngClass]="{
+                                        'fill-surface-100 dark:fill-surface-800': message.type === 'received',
+                                        'fill-primary rotate-180': message.type !== 'received'
+                                    }"
+                                    class=""
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="7"
+                                    height="11"
+                                    viewBox="0 0 7 11"
+                                    fill="none"
+                                >
+                                    <path d="M1.79256 7.09551C0.516424 6.31565 0.516426 4.46224 1.79256 3.68238L7 0.500055L7 10.2778L1.79256 7.09551Z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div [ngClass]="message.type === 'received' ? 'flex-1 bg-surface-100 dark:bg-surface-800 px-2 py-1 rounded-lg' : 'flex-1 bg-primary px-2 py-1 rounded-lg'">
+                            <p [ngClass]="message.type === 'received' ? 'text-color leading-6 mb-0' : 'text-primary-contrast leading-6 mb-0'">
+                                {{ message.message }}
+                            </p>
+                            @if (message.attachment) {
+                                <div :class="message.type === 'received' ? 'bg-surface-200 dark:bg-surface-700' : 'bg-primary-emphasis'" class="mt-2 w-full rounded-lg mb-0.5 hover:opacity-75 transition-all">
+                                    <img class="w-full h-auto block cursor-pointer" [src]="message.attachment" alt="Message Image" />
+                                </div>
+                            }
                         </div>
                     </div>
-                    <div [ngClass]="message.type === 'received' ? 'flex-1 bg-surface-100 dark:bg-surface-800 px-2 py-1 rounded-lg' : 'flex-1 bg-primary px-2 py-1 rounded-lg'">
-                        <p [ngClass]="message.type === 'received' ? 'text-color leading-6 mb-0' : 'text-primary-contrast leading-6 mb-0'">
-                            {{ message.message }}
-                        </p>
-                        <div *ngIf="message.attachment" :class="message.type === 'received' ? 'bg-surface-200 dark:bg-surface-700' : 'bg-primary-emphasis'" class="mt-2 w-full rounded-lg mb-0.5 hover:opacity-75 transition-all">
-                            <img class="w-full h-auto block cursor-pointer" [src]="message.attachment" alt="Message Image" />
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
             <div class="p-4 border-t border-surface flex items-end justify-between gap-2">
                 <div class="flex items-end gap-1 flex-1">
@@ -179,31 +188,35 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     <p-button label="See All" styleClass="text-sm py-0.5 px-2 text-muted-color" text />
                 </div>
                 <div class="mt-4 flex flex-col gap-2">
-                    <div *ngFor="let member of members" class="flex items-center gap-2 cursor-pointer">
-                        <p-avatar
-                            [image]="member.image"
-                            [label]="!member.image ? member.capName : ''"
-                            [ngClass]="{
-                                'bg-orange-100 text-orange-950': !member.image
-                            }"
-                            styleClass="font-medium text-xs"
-                            shape="circle"
-                        />
+                    @for (member of members; track member.name) {
+                        <div class="flex items-center gap-2 cursor-pointer">
+                            <p-avatar
+                                [image]="member.image"
+                                [label]="!member.image ? member.capName : ''"
+                                [ngClass]="{
+                                    'bg-orange-100 text-orange-950': !member.image
+                                }"
+                                styleClass="font-medium text-xs"
+                                shape="circle"
+                            />
 
-                        <div class="text-sm text-color hover:text-muted-color-emphasis transition-colors font-medium leading-5 flex-1">
-                            {{ member.name }}
+                            <div class="text-sm text-color hover:text-muted-color-emphasis transition-colors font-medium leading-5 flex-1">
+                                {{ member.name }}
+                            </div>
+                            <i class="pi pi-chevron-right text-xs text-muted-color"></i>
                         </div>
-                        <i class="pi pi-chevron-right text-xs text-muted-color"></i>
-                    </div>
+                    }
                 </div>
             </div>
             <div class="mt-5">
                 <p-selectbutton [(ngModel)]="media" [options]="mediaOptions" class="w-full" styleClass="flex-1 w-full" />
 
                 <div class="mt-3 mb-5 grid grid-cols-3 gap-2">
-                    <div *ngFor="let media of chatMedia" class="bg-emphasis hover:opacity-70 transition-all flex-1 aspect-square rounded-lg border border-surface cursor-pointer">
-                        <img class="w-full h-full object-cover block" [src]="media" alt="Media Image" />
-                    </div>
+                    @for (media of chatMedia; track $index) {
+                        <div class="bg-emphasis hover:opacity-70 transition-all flex-1 aspect-square rounded-lg border border-surface cursor-pointer">
+                            <img class="w-full h-full object-cover block" [src]="media" alt="Media Image" />
+                        </div>
+                    }
                     <div class="bg-emphasis hover:opacity-70 transition-all flex-1 aspect-square rounded-lg border border-surface cursor-pointer flex items-center justify-center">
                         <span class="text-muted-color font-medium">99+</span>
                     </div>
