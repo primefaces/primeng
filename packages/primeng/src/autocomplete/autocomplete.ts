@@ -1067,7 +1067,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             return;
         }
 
-        if (!this.overlayViewChild() || !this.overlayViewChild()!.overlayViewChild?.nativeElement.contains(event.target)) {
+        if (!this.overlayViewChild() || !this.overlayViewChild()!.overlayViewChild()?.nativeElement.contains(event.target)) {
             focus(this.inputEL()?.nativeElement);
         }
     }
@@ -1809,7 +1809,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     }
 
     onOverlayBeforeEnter() {
-        this.itemsWrapper = <any>findSingle(this.overlayViewChild()?.overlayViewChild?.nativeElement, this.virtualScroll() ? '[data-pc-name="virtualscroller"]' : '[data-pc-name="pcoverlay"]');
+        this.itemsWrapper = <any>findSingle(this.overlayViewChild()?.overlayViewChild()?.nativeElement, this.virtualScroll() ? '[data-pc-name="virtualscroller"]' : '[data-pc-name="pcoverlay"]');
 
         if (this.virtualScroll()) {
             this.scroller()?.setContentEl(this.itemsViewChild()?.nativeElement);

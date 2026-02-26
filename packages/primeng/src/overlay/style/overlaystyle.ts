@@ -2,7 +2,24 @@ import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
 const inlineStyles = {
-    root: () => ({ position: 'absolute', top: '0' })
+    root: ({ instance }: { instance: any }) => {
+        const modal = instance.modal();
+        const responsiveStyle = modal ? instance.$overlayResponsiveOptions()?.style : instance.$overlayOptions()?.style;
+        return {
+            position: 'absolute',
+            top: '0',
+            ...responsiveStyle,
+            ...instance.style()
+        };
+    },
+    content: ({ instance }: { instance: any }) => {
+        const modal = instance.modal();
+        const responsiveContentStyle = modal ? instance.$overlayResponsiveOptions()?.contentStyle : instance.$overlayOptions()?.contentStyle;
+        return {
+            ...responsiveContentStyle,
+            ...instance.contentStyle()
+        };
+    }
 };
 
 const style = /*css*/ `
@@ -92,25 +109,29 @@ const style = /*css*/ `
 
 const classes = {
     host: 'p-overlay-host',
-    root: ({ instance }: { instance: any }) => [
-        'p-overlay p-component',
-        {
-            'p-overlay-modal p-overlay-mask p-overlay-mask-enter-active': instance.modal,
-            'p-overlay-center': instance.modal && instance.overlayResponsiveDirection === 'center',
-            'p-overlay-top': instance.modal && instance.overlayResponsiveDirection === 'top',
-            'p-overlay-top-start': instance.modal && instance.overlayResponsiveDirection === 'top-start',
-            'p-overlay-top-end': instance.modal && instance.overlayResponsiveDirection === 'top-end',
-            'p-overlay-bottom': instance.modal && instance.overlayResponsiveDirection === 'bottom',
-            'p-overlay-bottom-start': instance.modal && instance.overlayResponsiveDirection === 'bottom-start',
-            'p-overlay-bottom-end': instance.modal && instance.overlayResponsiveDirection === 'bottom-end',
-            'p-overlay-left': instance.modal && instance.overlayResponsiveDirection === 'left',
-            'p-overlay-left-start': instance.modal && instance.overlayResponsiveDirection === 'left-start',
-            'p-overlay-left-end': instance.modal && instance.overlayResponsiveDirection === 'left-end',
-            'p-overlay-right': instance.modal && instance.overlayResponsiveDirection === 'right',
-            'p-overlay-right-start': instance.modal && instance.overlayResponsiveDirection === 'right-start',
-            'p-overlay-right-end': instance.modal && instance.overlayResponsiveDirection === 'right-end'
-        }
-    ],
+    root: ({ instance }: { instance: any }) => {
+        const modal = instance.modal();
+        const dir = instance.overlayResponsiveDirection();
+        return [
+            'p-overlay p-component',
+            {
+                'p-overlay-modal p-overlay-mask p-overlay-mask-enter-active': modal,
+                'p-overlay-center': modal && dir === 'center',
+                'p-overlay-top': modal && dir === 'top',
+                'p-overlay-top-start': modal && dir === 'top-start',
+                'p-overlay-top-end': modal && dir === 'top-end',
+                'p-overlay-bottom': modal && dir === 'bottom',
+                'p-overlay-bottom-start': modal && dir === 'bottom-start',
+                'p-overlay-bottom-end': modal && dir === 'bottom-end',
+                'p-overlay-left': modal && dir === 'left',
+                'p-overlay-left-start': modal && dir === 'left-start',
+                'p-overlay-left-end': modal && dir === 'left-end',
+                'p-overlay-right': modal && dir === 'right',
+                'p-overlay-right-start': modal && dir === 'right-start',
+                'p-overlay-right-end': modal && dir === 'right-end'
+            }
+        ];
+    },
     content: 'p-overlay-content'
 };
 

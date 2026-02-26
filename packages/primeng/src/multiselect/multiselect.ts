@@ -1689,7 +1689,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     onFirstHiddenFocus(event) {
         const focusInputViewChild = this.focusInputViewChild();
         const overlayViewChild = this.overlayViewChild();
-        const focusableEl = event.relatedTarget === focusInputViewChild?.nativeElement ? getFirstFocusableElement(overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : focusInputViewChild?.nativeElement;
+        const focusableEl = event.relatedTarget === focusInputViewChild?.nativeElement ? getFirstFocusableElement(overlayViewChild?.overlayViewChild()?.nativeElement, ':not([data-p-hidden-focusable="true"])') : focusInputViewChild?.nativeElement;
 
         focus(focusableEl);
     }
@@ -1727,7 +1727,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     onLastHiddenFocus(event) {
         const focusInputViewChild = this.focusInputViewChild();
         const overlayViewChild = this.overlayViewChild();
-        const focusableEl = event.relatedTarget === focusInputViewChild?.nativeElement ? getLastFocusableElement(overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : focusInputViewChild?.nativeElement;
+        const focusableEl = event.relatedTarget === focusInputViewChild?.nativeElement ? getLastFocusableElement(overlayViewChild?.overlayViewChild()?.nativeElement, ':not([data-p-hidden-focusable="true"])') : focusInputViewChild?.nativeElement;
 
         focus(focusableEl);
     }
@@ -1871,7 +1871,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         const virtualScroll = this.virtualScroll();
         const opts = this.options();
 
-        this.itemsWrapper = findSingle(overlayViewChild?.overlayViewChild?.nativeElement, virtualScroll ? '[data-pc-name="virtualscroller"]' : '[data-pc-section="listcontainer"]') as HTMLElement | null;
+        this.itemsWrapper = findSingle(overlayViewChild?.overlayViewChild()?.nativeElement, virtualScroll ? '[data-pc-name="virtualscroller"]' : '[data-pc-section="listcontainer"]') as HTMLElement | null;
         virtualScroll && scroller?.setContentEl(itemsViewChild?.nativeElement);
 
         if (opts && opts.length) {
@@ -2038,7 +2038,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     hasFocusableElements() {
-        return getFocusableElements(this.overlayViewChild()?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return getFocusableElements(this.overlayViewChild()?.overlayViewChild()?.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
     }
 
     hasFilter() {
