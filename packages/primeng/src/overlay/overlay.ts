@@ -187,32 +187,6 @@ export class Overlay extends BaseComponent {
         this._baseZIndex = value;
     }
     /**
-     * Transition options of the show or hide animation.
-     * @defaultValue .12s cubic-bezier(0, 0, 0.2, 1)
-     * @group Props
-     * @deprecated since v21.0.0. Use `motionOptions` instead.
-     */
-    @Input() get showTransitionOptions(): string {
-        const value = this._showTransitionOptions || this.overlayOptions?.showTransitionOptions;
-        return value === undefined ? '.12s cubic-bezier(0, 0, 0.2, 1)' : value;
-    }
-    set showTransitionOptions(value: string) {
-        this._showTransitionOptions = value;
-    }
-    /**
-     * The hideTransitionOptions property is an input that determines the CSS transition options for hiding the component.
-     * @defaultValue .1s linear
-     * @group Props
-     * @deprecated since v21.0.0. Use `motionOptions` instead.
-     */
-    @Input() get hideTransitionOptions(): string {
-        const value = this._hideTransitionOptions || this.overlayOptions?.hideTransitionOptions;
-        return value === undefined ? '.1s linear' : value;
-    }
-    set hideTransitionOptions(value: string) {
-        this._hideTransitionOptions = value;
-    }
-    /**
      * The listener property is an input that specifies the listener object for the component.
      * @defaultValue null
      * @group Props
@@ -386,10 +360,6 @@ export class Overlay extends BaseComponent {
     _autoZIndex: boolean | undefined;
 
     _baseZIndex: number | undefined;
-
-    _showTransitionOptions: string | undefined;
-
-    _hideTransitionOptions: string | undefined;
 
     _listener: any;
 

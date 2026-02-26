@@ -12,7 +12,6 @@ import { PTComponent } from '@/doc/overlay/pt/PTComponent';
 import { ResponsiveDoc } from '@/doc/overlay/responsive-doc';
 import { TargetDoc } from '@/doc/overlay/target-doc';
 import { OverlayTemplateDemo } from '@/doc/overlay/template-doc';
-import { TransitionOptionsDoc } from '@/doc/overlay/transitionoptions-doc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -84,11 +83,6 @@ export class OverlayDemo {
                     id: 'hide-on-escape',
                     label: 'HideOnEscape',
                     component: HideOnEscapeDoc
-                },
-                {
-                    id: 'transition-options',
-                    label: 'ShowTransitionOptions and HideTransitionOptions',
-                    component: TransitionOptionsDoc
                 },
                 {
                     id: 'events',

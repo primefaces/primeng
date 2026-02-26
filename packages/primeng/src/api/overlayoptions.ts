@@ -145,16 +145,6 @@ export interface OverlayOptions {
      */
     baseZIndex?: number;
     /**
-     * The transition options for showing the overlay.
-     * @deprecated since v21.0.0. Use `motionOptions` instead.
-     */
-    showTransitionOptions?: string;
-    /**
-     * The transition options for hiding the overlay.
-     * @deprecated since v21.0.0. Use `motionOptions` instead.
-     */
-    hideTransitionOptions?: string;
-    /**
      * The motion options for the overlay.
      */
     motionOptions?: MotionOptions;

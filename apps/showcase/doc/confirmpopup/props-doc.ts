@@ -23,18 +23,6 @@ import { Component } from '@angular/core';
                         <td>Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.</td>
                     </tr>
                     <tr>
-                        <td>showTransitionOptions</td>
-                        <td>string</td>
-                        <td>.12s cubic-bezier(0, 0, 0.2, 1)</td>
-                        <td>Transition options of the show animation.</td>
-                    </tr>
-                    <tr>
-                        <td>hideTransitionOptions</td>
-                        <td>string</td>
-                        <td>.1s linear</td>
-                        <td>Transition options of the hide animation.</td>
-                    </tr>
-                    <tr>
                         <td>autoZIndex</td>
                         <td>boolean</td>
                         <td>true</td>
