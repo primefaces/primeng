@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
+import { Tooltip } from 'primeng/tooltip';
 import { TieredMenu } from './tieredmenu';
 
 @Component({
@@ -895,6 +896,46 @@ describe('TieredMenu', () => {
             await popupFixture.whenStable();
 
             expect(hideSpy).toHaveBeenCalled();
+        });
+    });
+
+    describe('Tooltip', () => {
+        it('should spawn a tooltip if an option has one provided', async () => {
+            // Items are placed at the root level so they are visible without expanding
+            // any sub-menu. The nested p-tieredmenusub for group children only renders
+            // once the parent item is activated.
+            component.model = [
+                { label: 'Save', tooltip: 'Save the file' },
+                { label: 'Delete', tooltipOptions: { tooltipLabel: 'Delete the file' } }
+            ];
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // All <li> elements that have the pTooltip directive attached
+            const tooltipDebugElements = fixture.debugElement.queryAll(By.directive(Tooltip));
+            expect(tooltipDebugElements.length).toBeGreaterThan(0);
+
+            const tooltipDirectives = tooltipDebugElements.map((el) => el.injector.get(Tooltip));
+
+            // Find the directive bound via the `tooltip` property on the MenuItem:
+            // `content` is the @Input('pTooltip') property set directly by Angular
+            const directiveViaTooltipProp = tooltipDirectives.find((d) => d.content === 'Save the file');
+            expect(directiveViaTooltipProp).withContext('Tooltip directive not found for item with tooltip property').toBeTruthy();
+
+            // Find the directive bound via `tooltipOptions.tooltipLabel`:
+            // `tooltipOptions` is the @Input() property set directly by Angular
+            const directiveViaTooltipOptions = tooltipDirectives.find((d) => (d.tooltipOptions as any)?.tooltipLabel === 'Delete the file');
+            expect(directiveViaTooltipOptions).withContext('Tooltip directive not found for item with tooltipOptions.tooltipLabel').toBeTruthy();
+
+            // Activate each directive and verify the tooltip container (DOM element) is spawned
+            directiveViaTooltipProp!.activate();
+            await fixture.whenStable();
+            expect(directiveViaTooltipProp!.container).withContext('Tooltip container was not created for item with tooltip property').toBeTruthy();
+
+            directiveViaTooltipOptions!.activate();
+            await fixture.whenStable();
+            expect(directiveViaTooltipOptions!.container).withContext('Tooltip container was not created for item with tooltipOptions.tooltipLabel').toBeTruthy();
         });
     });
 
