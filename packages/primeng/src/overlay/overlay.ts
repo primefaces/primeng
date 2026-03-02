@@ -416,7 +416,7 @@ export class Overlay extends BaseComponent {
 
     private documentKeyboardListener: VoidListener;
 
-    private realignSubscription: Subscription | null = null;
+    private parentDragSubscription: Subscription | null = null;
 
     private window: Window | null;
 
@@ -542,7 +542,7 @@ export class Overlay extends BaseComponent {
         this.hostAttrSelector() && this.overlayEl && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
         this.appendOverlay();
         this.alignOverlay();
-        this.bindRealignListener();
+        this.bindParentDragListener();
         this.setZIndex();
 
         this.handleEvents('onBeforeEnter', event);
@@ -624,23 +624,23 @@ export class Overlay extends BaseComponent {
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.unbindDocumentKeyboardListener();
-        this.unbindRealignListener();
+        this.unbindParentDragListener();
     }
 
-    bindRealignListener() {
-        if (!this.realignSubscription && this.$appendTo() !== 'self' && this.targetEl) {
-            this.realignSubscription = this.overlayService.realignObservable.subscribe((container: Element) => {
+    bindParentDragListener() {
+        if (!this.parentDragSubscription && this.$appendTo() !== 'self' && this.targetEl) {
+            this.parentDragSubscription = this.overlayService.parentDragObservable.subscribe((container: Element) => {
                 if (container.contains(this.targetEl)) {
-                    this.alignOverlay();
+                    this.hide(this.overlayEl, true);
                 }
             });
         }
     }
 
-    unbindRealignListener() {
-        if (this.realignSubscription) {
-            this.realignSubscription.unsubscribe();
-            this.realignSubscription = null;
+    unbindParentDragListener() {
+        if (this.parentDragSubscription) {
+            this.parentDragSubscription.unsubscribe();
+            this.parentDragSubscription = null;
         }
     }
 

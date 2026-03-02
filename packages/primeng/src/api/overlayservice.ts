@@ -5,11 +5,11 @@ import { Subject } from 'rxjs';
 export class OverlayService {
     private clickSource = new Subject<any>();
 
-    private realignSource = new Subject<Element>();
+    private parentDragSource = new Subject<Element>();
 
     clickObservable = this.clickSource.asObservable();
 
-    realignObservable = this.realignSource.asObservable();
+    parentDragObservable = this.parentDragSource.asObservable();
 
     add(event: any) {
         if (event) {
@@ -17,7 +17,7 @@ export class OverlayService {
         }
     }
 
-    emitRealign(container: Element) {
-        this.realignSource.next(container);
+    emitParentDrag(container: Element) {
+        this.parentDragSource.next(container);
     }
 }
