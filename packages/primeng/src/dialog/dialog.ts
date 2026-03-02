@@ -892,7 +892,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
                 this.container()!.style.top = `${topPos}px`;
             }
 
-            this.overlayService.emitRealign(this.container()!);
+            this.overlayService.emitParentDrag(this.container()!);
         }
     }
 
