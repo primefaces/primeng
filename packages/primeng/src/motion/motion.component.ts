@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { afterRenderEffect, Component, computed, effect, inject, InjectionToken, input, output, signal } from '@angular/core';
+import { afterRenderEffect, Component, computed, effect, inject, InjectionToken, input, output, signal, untracked } from '@angular/core';
 import { type ClassNameOptions, createMotion, resolveDuration, type MotionEvent, type MotionInstance, type MotionOptions, type MotionPhase } from '@primeuix/motion';
 import { nextFrame } from '@primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -320,7 +320,7 @@ export class Motion extends BaseComponent<MotionPassThrough> {
     }
 
     private applyMotionDuration(phase: MotionPhase): void {
-        const options = this.motionOptions();
+        const options = untracked(this.motionOptions);
         const ms = resolveDuration(options.duration, phase);
 
         if (ms == null || !this.$el) return;
