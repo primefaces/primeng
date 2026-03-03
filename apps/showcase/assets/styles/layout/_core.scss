@@ -1,8 +1,6 @@
 html {
-    font-size: 14px;
     font-family: "Inter var", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-feature-settings: "cv02","cv03","cv04","cv11";
-    line-height: normal;
 }
 
 .material {
@@ -35,7 +33,7 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin: 1.5rem 0 1rem 0;
+    margin: 1.313rem 0 0.875rem 0;
     font-family: inherit;
     font-weight: 600;
     line-height: 1.2;
@@ -47,37 +45,37 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: 1.75rem;
+    font-size: 1.531rem;
 }
 
 h2 {
-    font-size: 1.5rem;
+    font-size: 1.313rem;
 }
 
 h3 {
-    font-size: 1.25rem;
+    font-size: 1.094rem;
 }
 
 h4 {
-    font-size: 1.125rem;
+    font-size: 0.984rem;
 }
 
 h5 {
-    font-size: 1rem;
+    font-size: 0.875rem;
 }
 
 h6 {
-    font-size: .875rem;
+    font-size: 0.766rem;
 }
 
 p {
     line-height: 1.625;
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.875rem 0;
 }
 
 .p-toast.p-toast-top-right,
 .p-toast.p-toast-top-left {
-    top: 7rem;
+    top: 6.125rem;
 }
 
 button {

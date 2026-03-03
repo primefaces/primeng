@@ -17,7 +17,7 @@
 
         .marquee-wrapper {
             user-select: none;
-            gap: 3rem;
+            gap: 2.625rem;
             justify-content: center;
             align-items: center;
             flex-shrink: 0;
@@ -27,17 +27,17 @@
             display: flex;
             align-items: center;
             justify-content: space-around;
-            gap: 3rem;
+            gap: 2.625rem;
             min-width: 100%;
             animation: scroll 30s linear infinite;
 
             > div {
-                max-width: clamp(10rem, 1rem + 28vmin, 20rem);
+                max-width: clamp(8.75rem, 0.875rem + 28vmin, 17.5rem);
                 aspect-ratio: 1;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 8rem;
+                height: 7rem;
             }
 
             &.marquee-reverse{

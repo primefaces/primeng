@@ -13,8 +13,8 @@
 
 @media screen and (max-width: 1199px) {
     .layout-topbar-inner {
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding-left: 1.75rem;
+        padding-right: 1.75rem;
 
         .menu-button {
             display: block;
@@ -26,16 +26,16 @@
         }
 
         .DocSearch-Button {
-            width: 2rem;
-            height: 2rem;
+            width: 1.75rem;
+            height: 1.75rem;
             overflow: hidden;
             padding: 0;
             justify-content: center;
             align-items: center;
 
             .DocSearch-Search-Icon {
-                width: 1rem;
-                height: 1rem;
+                width: 0.875rem;
+                height: 0.875rem;
             }
 
             .DocSearch-Button-Placeholder,
@@ -61,7 +61,7 @@
         }
 
         nav {
-            padding: 1rem 1rem;
+            padding: 0.875rem 0.875rem;
         }
 
         &.active {
@@ -109,13 +109,13 @@
     }
 
     .layout-content {
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding-left: 1.75rem;
+        padding-right: 1.75rem;
     }
 
     .layout-footer {
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding-left: 1.75rem;
+        padding-right: 1.75rem;
     }
 
     .blocked-scroll {
@@ -138,15 +138,15 @@
 
         .doc-ptoptions {
             width: 100%;
-            padding: 1rem;
+            padding: 0.875rem;
         }
     }
 }
 
 @media screen and (max-width: 575px) {
     .layout-topbar-inner {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 0.875rem;
+        padding-right: 0.875rem;
 
         .layout-topbar-logo {
             display: none;
@@ -158,13 +158,13 @@
     }
 
     .layout-content {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 0.875rem;
+        padding-right: 0.875rem;
     }
 
     .layout-footer {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 0.875rem;
+        padding-right: 0.875rem;
     }
 
     .doc-tabmenu {
@@ -179,8 +179,8 @@
     }
 
     .layout-news {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 0.875rem;
+        padding-right: 0.875rem;
         font-size: 12px;
 
         > i {

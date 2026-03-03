@@ -5,7 +5,7 @@
 
     .prime-blocks {
         transform: rotateX(55deg) rotateY(0deg) rotateZ(-45deg);
-        margin: -12rem 0;
+        margin: -10.5rem 0;
 
         &.blocks-animation {
             .prime-block {
@@ -76,7 +76,7 @@
         .block-item {
             background: var(--home-blocks-item-bg);
             border-radius: 6px;
-            padding: 1rem;
+            padding: 0.875rem;
             transition: transform 1s, box-shadow 1s;
             overflow: hidden;
             transform: translateY(0);
@@ -207,7 +207,7 @@
 
 @media screen and (max-width: $landingBreakpointXL) {
     .landing-blocks .prime-blocks {
-        margin: -24rem 0;
+        margin: -21rem 0;
         transform: rotateX(55deg) rotateY(0deg) rotateZ(-45deg) scale(0.6);
     }
 }

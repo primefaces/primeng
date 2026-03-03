@@ -1,6 +1,6 @@
 .landing {
     scroll-behavior: smooth;
-    padding-top: 4rem;
+    padding-top: 3.5rem;
     background-color: var(--ground-background);
 
     .box {
@@ -47,7 +47,7 @@
         background-color: var(--card-background);
         border-radius: 10px;
         font-weight: 600;
-        padding: 1rem 1.5rem;
+        padding: 0.875rem 1.313rem;
 
         cursor: pointer;
         @include focus-visible();
@@ -66,27 +66,27 @@
         }
 
         &.linkbox-icon {
-            width: 3rem;
-            height: 3rem;
+            width: 2.625rem;
+            height: 2.625rem;
             justify-content: center;
         }
     }
 
     .section-header {
-        font-size: 2rem;
+        font-size: 1.75rem;
         color: var(--text-color);
         font-weight: 700;
         text-align: center;
-        padding: 0 2rem;
+        padding: 0 1.75rem;
     }
 
     .section-detail {
         text-align: center;
         color: var(--text-secondary-color);
         font-weight: 500;
-        font-size: 1.25rem;
-        margin: 1.5rem 0 0 0;
-        padding: 0 2rem;
+        font-size: 1.094rem;
+        margin: 1.313rem 0 0 0;
+        padding: 0 1.75rem;
     }
 
     .section-divider {
@@ -94,11 +94,11 @@
         height: 1px;
         border-bottom: 0 none;
         overflow: hidden;
-        margin-top: 5rem;
+        margin-top: 4.375rem;
     }
 
     &.layout-news-active {
-        padding-top: 6rem;
+        padding-top: 5.25rem;
     }
 }
 
@@ -111,10 +111,10 @@
 
 .animated-text {
     position: relative;
-    padding: 0.25rem 0.5rem;
+    padding: 0.219rem 0.438rem;
     border-radius: var(--rounded-base);
     display: inline-block;
-    width: 14.45rem;
+    width: 12.644rem;
 
     &::before {
         border-radius: var(--rounded-base);
@@ -123,8 +123,8 @@
         background-clip: border-box;
         background-size: 200% auto;
         content: "";
-        width: 14.45rem;
-        height: 1.5rem;
+        width: 12.644rem;
+        height: 1.313rem;
         position: absolute;
         z-index: 0;
         background-image: linear-gradient(-225deg, var(--p-blue-400) 30%, var(--p-cyan-400) 60%, var(--p-purple-400) 80%);
@@ -159,7 +159,7 @@
     }
 
     100% {
-        transform: translateX(calc(-100% - 3rem));
+        transform: translateX(calc(-100% - 2.625rem));
     }
 }
 

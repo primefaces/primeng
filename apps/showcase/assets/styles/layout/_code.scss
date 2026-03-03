@@ -27,7 +27,7 @@ pre[class*="language-"] {
     background: transparent;
     margin: 0;
     padding: 0;
-    max-height: 40rem;
+    max-height: 35rem;
     overflow: auto;
     color-scheme: dark;
 
@@ -36,7 +36,7 @@ pre[class*="language-"] {
     }
 
     code {
-        border-left: 1rem solid transparent;
+        border-left: 0.875rem solid transparent;
         box-shadow: none;
         margin: 0;
         font-size: 14px;
@@ -44,7 +44,7 @@ pre[class*="language-"] {
         color: #ffffff;
         max-height: inherit;
         height: inherit;
-        padding: 1.5rem;
+        padding: 1.313rem;
         display: block;
         overflow: auto;
         

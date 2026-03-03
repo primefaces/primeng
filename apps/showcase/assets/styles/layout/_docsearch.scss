@@ -1,12 +1,12 @@
 .DocSearch-Button {
     border-radius: 6px;
     border: 1px solid var(--border-color);
-    height: 2rem;
+    height: 1.75rem;
     background-color: var(--card-background);
     margin: 0;
     transition: outline-color .2s, border-color .2s;
     outline-color: transparent;
-    padding: 0 .5rem;
+    padding: 0 0.438rem;
     @include focus-visible();
 
     &:hover {
@@ -15,8 +15,8 @@
     }
 
     .DocSearch-Search-Icon {
-        width: 1rem;
-        height: 1rem;
+        width: 0.875rem;
+        height: 0.875rem;
     }
 
     .DocSearch-Button-Keys {
@@ -44,14 +44,14 @@
             box-shadow: none;
 
             &:first-child {
-                font-size: 0.75rem;
+                font-size: 0.656rem;
                 line-height: normal;
             }
 
             &:last-child {
                 justify-content: start;
                 align-items: center;
-                font-size: 0.75rem;
+                font-size: 0.656rem;
                 position: relative;
 
                 &::before {
@@ -59,7 +59,7 @@
                     display: flex;
                     color: var(--text-color);
                     font-family: "primeicons";
-                    font-size: .4rem;
+                    font-size: 0.35rem;
                     opacity: .7;
                     margin-right: 2px;
                     height: 13.5px;
@@ -106,7 +106,7 @@
 .DocSearch-Hit {
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 0;
-    margin-bottom: .25rem;
+    margin-bottom: 0.219rem;
 }
 
 .DocSearch-Hit-source {
@@ -124,7 +124,7 @@
 .DocSearch-Button-Placeholder {
     text-align: center;
     display: inline-block;
-    font-size: .875rem;
+    font-size: 0.766rem;
 }
 
 :root {
@@ -139,7 +139,7 @@
     --docsearch-container-background: var(--docsearch-mask-background);
     --docsearch-hit-background: var(--overlay-background);
     --docsearch-hit-shadow: none;
-    --docsearch-spacing: 1rem;
+    --docsearch-spacing: 0.875rem;
     --docsearch-hit-color: var(--text-color);
     --docsearch-highlight-color: var(--primary-color);
     --docsearch-hit-active-color: var(--primary-contrast-color);
