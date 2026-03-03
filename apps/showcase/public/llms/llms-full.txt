@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2026-02-03
+Generated: 2026-03-03
 
 ---
 
