@@ -1593,14 +1593,15 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     updateInputWithForceSelection(event: Event | null) {
         const input = this.inputEL()?.nativeElement;
+        const inputCleared = !input?.value && isNotEmpty(this.modelValue());
 
-        if (!this.forceSelection() || this.overlayVisible() || !input?.value) {
+        if (!this.forceSelection() || this.overlayVisible() || (!input?.value && !inputCleared)) {
             return;
         }
 
         const _minLength = this.minQueryLength();
 
-        if (_minLength != null && input.value.length < _minLength) {
+        if (!inputCleared && _minLength != null && input.value.length < _minLength) {
             return;
         }
 

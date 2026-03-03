@@ -29,6 +29,7 @@ import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
 import { blockBodyScroll, DomHandler, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
+import { OverlayService } from 'primeng/api';
 import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
 import type { AppendTo, CSSProperties } from 'primeng/types/shared';
@@ -555,6 +556,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
 
     _componentStyle = inject(DialogStyle);
 
+    overlayService = inject(OverlayService);
+
     private zIndexForLayering?: number;
 
     get maximizeLabel(): string {
@@ -784,6 +787,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> {
                 this.lastPageY = event.pageY;
                 this.container()!.style.top = `${topPos}px`;
             }
+
+            this.overlayService.emitParentDrag(this.container()!);
         }
     }
 

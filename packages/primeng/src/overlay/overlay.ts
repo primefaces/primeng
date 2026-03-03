@@ -9,6 +9,7 @@ import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { MotionModule } from 'primeng/motion';
 import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { VoidListener } from 'primeng/ts-helpers';
+import { Subscription } from 'rxjs';
 import { ZIndexUtils } from 'primeng/utils';
 import { OverlayContentTemplateContext } from 'primeng/types/overlay';
 import { OverlayStyle } from './style/overlaystyle';
@@ -319,6 +320,8 @@ export class Overlay extends BaseComponent {
 
     private documentKeyboardListener: VoidListener;
 
+    private parentDragSubscription: Subscription | null = null;
+
     protected transformOptions: any = {
         default: 'scaleY(0.8)',
         center: 'scale(0.7)',
@@ -398,6 +401,7 @@ export class Overlay extends BaseComponent {
         this.hostAttrSelector() && this.overlayEl() && this.overlayEl().setAttribute(this.hostAttrSelector(), '');
         this.appendOverlay();
         this.alignOverlay();
+        this.bindParentDragListener();
         this.setZIndex();
 
         this.handleEvents('onBeforeEnter', event);
@@ -480,6 +484,24 @@ export class Overlay extends BaseComponent {
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.unbindDocumentKeyboardListener();
+        this.unbindParentDragListener();
+    }
+
+    bindParentDragListener() {
+        if (!this.parentDragSubscription && this.$appendTo() !== 'self' && this.targetEl) {
+            this.parentDragSubscription = this.overlayService.parentDragObservable.subscribe((container: Element) => {
+                if (container.contains(this.targetEl())) {
+                    this.hide(this.overlayEl(), true);
+                }
+            });
+        }
+    }
+
+    unbindParentDragListener() {
+        if (this.parentDragSubscription) {
+            this.parentDragSubscription.unsubscribe();
+            this.parentDragSubscription = null;
+        }
     }
 
     bindScrollListener() {

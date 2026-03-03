@@ -71,7 +71,7 @@ import { TIEREDMENU_INSTANCE, TIEREDMENUSUB_INSTANCE } from './tieredmenu-token'
                             [style]="getItemProp(processedItem, 'style')"
                             [class]="cn(cx('item', { processedItem }), getItemProp(processedItem, 'styleClass'))"
                             [pBind]="getPTOptions(processedItem, index, 'item')"
-                            pTooltip
+                            [pTooltip]="getItemProp(processedItem, 'tooltip')"
                             [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                             [pTooltipUnstyled]="unstyled()"
                         >
