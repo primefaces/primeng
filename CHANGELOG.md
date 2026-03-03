@@ -2,6 +2,17 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.1.2](https://github.com/primefaces/primeng/tree/21.1.2) (2026-03-03)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.1...21.1.2)
+
+**Fixed bugs:**
+- Overlay | Consider mousedown to hide overlays [#17674](https://github.com/primefaces/primeng/issues/17674)
+- Menu | Problems with overlay positioning [#19362](https://github.com/primefaces/primeng/issues/19362)
+- SplitButton | MenuItems Tooltip not showing [#19443](https://github.com/primefaces/primeng/issues/19443)
+- AutoComplete | Selected option is not cleared when forceSelection is set to true [#19438](https://github.com/primefaces/primeng/issues/19438)
+- Drawer | Regression; Flicker when clicking the close button inside the drawer [#19367](https://github.com/primefaces/primeng/issues/19367)
+- Select | With virtual scroll and filter, option list gets hidden after clearing filter one by one [#19442](https://github.com/primefaces/primeng/issues/19442)
+
 ## [21.1.1](https://github.com/primefaces/primeng/tree/21.1.1) (2026-01-28)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.1.0...21.1.1)
 
