@@ -308,6 +308,7 @@ describe('Dialog', () => {
             expect(dialogInstance.keepInViewport).toBe(true);
             expect(dialogInstance.rtl).toBe(false);
             expect(dialogInstance.role).toBe('dialog');
+            expect(dialogInstance.selectableTitle).toBe(false);
         });
 
         it('should accept custom input values', async () => {
@@ -1273,6 +1274,34 @@ describe('Dialog', () => {
                 titleBar.nativeElement.dispatchEvent(mouseEvent);
                 expect(dialogInstance.initDrag).toHaveBeenCalled();
             }
+        });
+
+        it('should not initiate drag when mousedown is on title with selectableTitle enabled', async () => {
+            component.visible = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
+
+            dialogInstance.selectableTitle = true;
+            spyOn(dialogInstance, 'initDrag');
+
+            const titleEl = fixture.debugElement.query(By.css('.p-dialog-title'));
+            titleEl?.nativeElement.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+            expect(dialogInstance.initDrag).not.toHaveBeenCalled();
+        });
+
+        it('should still initiate drag from non-title header area with selectableTitle enabled', async () => {
+            component.visible = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
+
+            dialogInstance.selectableTitle = true;
+            spyOn(dialogInstance, 'initDrag');
+
+            const header = fixture.debugElement.query(By.css('.p-dialog-header'));
+            header?.nativeElement.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+            expect(dialogInstance.initDrag).toHaveBeenCalled();
         });
 
         it('should handle resize initialization', async () => {

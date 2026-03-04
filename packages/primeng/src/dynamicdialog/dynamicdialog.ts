@@ -41,6 +41,7 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
             [maximizable]="maximizable"
             [keepInViewport]="keepInViewport"
             [focusTrap]="ddconfig?.focusTrap !== false"
+            [selectableTitle]="ddconfig?.selectableTitle"
             [transitionOptions]="ddconfig?.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'"
             [closeAriaLabel]="ddconfig?.closeAriaLabel || defaultCloseAriaLabel"
             [minimizeIcon]="minimizeIcon"
