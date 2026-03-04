@@ -731,6 +731,9 @@ Tree is used to display hierarchical data.
 | tree.node.icon.color | --p-tree-node-icon-color | Color of node icon |
 | tree.node.icon.hover.color | --p-tree-node-icon-hover-color | Hover color of node icon |
 | tree.node.icon.selected.color | --p-tree-node-icon-selected-color | Selected color of node icon |
+| tree.node.label.font.weight | --p-tree-node-label-font-weight | Font weight of node label |
+| tree.node.label.font.size | --p-tree-node-label-font-size | Font size of node label |
+| tree.node.label.selected.font.weight | --p-tree-node-label-selected-font-weight | Font weight of a selected node label |
 | tree.node.toggle.button.border.radius | --p-tree-node-toggle-button-border-radius | Border radius of node toggle button |
 | tree.node.toggle.button.size | --p-tree-node-toggle-button-size | Size of node toggle button |
 | tree.node.toggle.button.hover.background | --p-tree-node-toggle-button-hover-background | Hover background of node toggle button |

@@ -291,4 +291,7 @@ ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
 | confirmdialog.icon.size | --p-confirmdialog-icon-size | Size of icon |
 | confirmdialog.icon.color | --p-confirmdialog-icon-color | Color of icon |
 | confirmdialog.content.gap | --p-confirmdialog-content-gap | Gap of content |
+| confirmdialog.message.color | --p-confirmdialog-message-color | Color of message |
+| confirmdialog.message.font.weight | --p-confirmdialog-message-font-weight | Font weight of message |
+| confirmdialog.message.font.size | --p-confirmdialog-message-font-size | Font size of message |
 

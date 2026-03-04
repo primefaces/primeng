@@ -440,6 +440,9 @@ Menubar is a horizontal menu component.
 | menubar.item.icon.color | --p-menubar-item-icon-color | Icon color of item |
 | menubar.item.icon.focus.color | --p-menubar-item-icon-focus-color | Icon focus color of item |
 | menubar.item.icon.active.color | --p-menubar-item-icon-active-color | Icon active color of item |
+| menubar.item.icon.size | --p-menubar-item-icon-size | Icon size of item |
+| menubar.item.label.font.weight | --p-menubar-item-label-font-weight | Font weight of item label |
+| menubar.item.label.font.size | --p-menubar-item-label-font-size | Font size of item label |
 | menubar.submenu.padding | --p-menubar-submenu-padding | Padding of submenu |
 | menubar.submenu.gap | --p-menubar-submenu-gap | Gap of submenu |
 | menubar.submenu.background | --p-menubar-submenu-background | Background of submenu |

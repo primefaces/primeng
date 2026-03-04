@@ -6,13 +6,6 @@ MultiSelect is used to select multiple items from a collection.
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The multiselect component has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls attribute that refers to the id of the popup listbox. The popup listbox uses listbox as the role with aria-multiselectable enabled. Each list item has an option role along with aria-label , aria-selected and aria-disabled attributes. Checkbox component at the header uses a hidden native checkbox element internally that is only visible to screen readers. Value to read is defined with the selectAll and unselectAll keys of the aria property from the locale API. If filtering is enabled, filterInputProps can be defined to give aria-* props to the input element. Close button uses close key of the aria property from the locale API as the aria-label by default, this can be overriden with the closeButtonProps .
 
-```typescript
-<span id="dd1">Options</span>
-<p-multiselect ariaLabelledBy="dd1"/>
-
-<p-multiselect ariaLabel="Options"/>
-```
-
 ## Basic
 
 MultiSelect is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Default property name for the optionLabel is label and value for the optionValue . If optionValue is omitted and the object has no value property, the object itself becomes the value of an option. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
@@ -1026,6 +1019,8 @@ MultiSelect is used to select multiple items from a collection.
 | multiselect.lg.font.size | --p-multiselect-lg-font-size | Lg font size of root |
 | multiselect.lg.padding.x | --p-multiselect-lg-padding-x | Lg padding x of root |
 | multiselect.lg.padding.y | --p-multiselect-lg-padding-y | Lg padding y of root |
+| multiselect.font.weight | --p-multiselect-font-weight | Font weight of root |
+| multiselect.font.size | --p-multiselect-font-size | Font size of root |
 | multiselect.dropdown.width | --p-multiselect-dropdown-width | Width of dropdown |
 | multiselect.dropdown.color | --p-multiselect-dropdown-color | Color of dropdown |
 | multiselect.overlay.background | --p-multiselect-overlay-background | Background of overlay |
@@ -1043,12 +1038,16 @@ MultiSelect is used to select multiple items from a collection.
 | multiselect.option.focus.color | --p-multiselect-option-focus-color | Focus color of option |
 | multiselect.option.selected.color | --p-multiselect-option-selected-color | Selected color of option |
 | multiselect.option.selected.focus.color | --p-multiselect-option-selected-focus-color | Selected focus color of option |
+| multiselect.option.selected.font.weight | --p-multiselect-option-selected-font-weight | Font weight of a selected option |
 | multiselect.option.padding | --p-multiselect-option-padding | Padding of option |
 | multiselect.option.border.radius | --p-multiselect-option-border-radius | Border radius of option |
 | multiselect.option.gap | --p-multiselect-option-gap | Gap of option |
+| multiselect.option.font.weight | --p-multiselect-option-font-weight | Font weight of option |
+| multiselect.option.font.size | --p-multiselect-option-font-size | Font size of option |
 | multiselect.option.group.background | --p-multiselect-option-group-background | Background of option group |
 | multiselect.option.group.color | --p-multiselect-option-group-color | Color of option group |
 | multiselect.option.group.font.weight | --p-multiselect-option-group-font-weight | Font weight of option group |
+| multiselect.option.group.font.size | --p-multiselect-option-group-font-size | Font size of option group |
 | multiselect.option.group.padding | --p-multiselect-option-group-padding | Padding of option group |
 | multiselect.clear.icon.color | --p-multiselect-clear-icon-color | Color of clear icon |
 | multiselect.chip.border.radius | --p-multiselect-chip-border-radius | Border radius of chip |

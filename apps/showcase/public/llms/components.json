@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-03",
+  "generatedAt": "2026-03-04",
   "components": [
     {
       "name": "accordion",
@@ -258,6 +258,11 @@
             "description": "Font weight of header"
           },
           {
+            "token": "accordion.header.font.size",
+            "variable": "--p-accordion-header-font-size",
+            "description": "Font size of header"
+          },
+          {
             "token": "accordion.header.border.radius",
             "variable": "--p-accordion-header-border-radius",
             "description": "Border radius of header"
@@ -495,9 +500,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props. The input element has combobox role in addition to aria-autocomplete , aria-haspopup and aria-expanded attributes. The relation between the input and the popup is created with aria-controls and aria-activedescendant attribute is used to instruct screen reader which option to read during keyboard navigation within the popup list. In multiple mode, chip list uses listbox role whereas each chip has the option role with aria-label set to the label of the chip. The popup list has an id that refers to the aria-controls attribute of the input element and uses listbox as the role. Each list item has option role and an id to match the aria-activedescendant of the input element.",
-          "examples": {
-            "typescript": "<label for=\"ac1\">Username</label>\n<p-autocomplete inputId=\"ac1\"/>\n\n<span id=\"ac2\">Email</span>\n<p-autocomplete ariaLabelledBy=\"ac2\" />\n\n<p-autocomplete ariaLabel=\"City\" />"
-          }
+          "examples": null
         },
         {
           "id": "advanced-chips",
@@ -1762,6 +1765,16 @@
             "description": "Border radius of option"
           },
           {
+            "token": "autocomplete.option.font.weight",
+            "variable": "--p-autocomplete-option-font-weight",
+            "description": "Font weight of option"
+          },
+          {
+            "token": "autocomplete.option.font.size",
+            "variable": "--p-autocomplete-option-font-size",
+            "description": "Font size of option"
+          },
+          {
             "token": "autocomplete.option.group.background",
             "variable": "--p-autocomplete-option-group-background",
             "description": "Background of option group"
@@ -1775,6 +1788,11 @@
             "token": "autocomplete.option.group.font.weight",
             "variable": "--p-autocomplete-option-group-font-weight",
             "description": "Font weight of option group"
+          },
+          {
+            "token": "autocomplete.option.group.font.size",
+            "variable": "--p-autocomplete-option-group-font-size",
+            "description": "Font size of option group"
           },
           {
             "token": "autocomplete.option.group.padding",
@@ -2214,6 +2232,11 @@
             "token": "avatar.height",
             "variable": "--p-avatar-height",
             "description": "Height of root"
+          },
+          {
+            "token": "avatar.font.weight",
+            "variable": "--p-avatar-font-weight",
+            "description": "Font weight of root"
           },
           {
             "token": "avatar.font.size",
@@ -3009,6 +3032,21 @@
             "description": "Icon hover color of item"
           },
           {
+            "token": "breadcrumb.item.icon.size",
+            "variable": "--p-breadcrumb-item-icon-size",
+            "description": "Icon size of item icon"
+          },
+          {
+            "token": "breadcrumb.item.label.font.weight",
+            "variable": "--p-breadcrumb-item-label-font-weight",
+            "description": "Font weight of item label"
+          },
+          {
+            "token": "breadcrumb.item.label.font.size",
+            "variable": "--p-breadcrumb-item-label-font-size",
+            "description": "Font size of item label"
+          },
+          {
             "token": "breadcrumb.item.focus.ring.width",
             "variable": "--p-breadcrumb-item-focus-ring-width",
             "description": "Focus ring width of item"
@@ -3050,9 +3088,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Button component renders a native button element that implicitly includes any passed prop. Text to describe the button is defined with the aria-label prop, if not present label prop is used as the value. If the button is icon only or custom templating is used, it is recommended to use aria-label so that screen readers would be able to read the element properly.",
-          "examples": {
-            "typescript": "<p-button icon=\"pi pi-check\" aria-label=\"Submit\" />\n<p-button icon=\"pi pi-check\" label=\"Submit\" />\n\n<p-button class=\"youtube p-0\" aria-label=\"Youtube\">\n    <i class=\"pi pi-youtube px-2\"></i>\n    <span class=\"px-4\">Youtube</span>\n</p-button>"
-          }
+          "examples": null
         },
         {
           "id": "badge",
@@ -3542,6 +3578,11 @@
             "token": "button.icon.only.width",
             "variable": "--p-button-icon-only-width",
             "description": "Icon only width of root"
+          },
+          {
+            "token": "button.icon.only.width",
+            "variable": "--p-button-icon-only-width",
+            "description": "Font size of root"
           },
           {
             "token": "button.sm.font.size",
@@ -4628,6 +4669,16 @@
             "token": "card.subtitle.color",
             "variable": "--p-card-subtitle-color",
             "description": "Color of subtitle"
+          },
+          {
+            "token": "card.subtitle.font.size",
+            "variable": "--p-card-subtitle-font-size",
+            "description": "Font size of subtitle"
+          },
+          {
+            "token": "card.subtitle.font.weight",
+            "variable": "--p-card-subtitle-font-weight",
+            "description": "Font weight of subtitle"
           }
         ]
       }
@@ -5098,9 +5149,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The cascadeselect element has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls that refers to the id of the popup. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses tree as the role. Each list item has a treeitem role along with aria-label , aria-selected and aria-expanded attributes. The container element of a treenode has the group role. The aria-setsize , aria-posinset and aria-level attributes are calculated implicitly and added to each treeitem.",
-          "examples": {
-            "typescript": "<span id=\"dd1\">Options</span>\n<p-cascadeselect ariaLabelledBy=\"dd1\"/>\n\n<p-cascadeselect ariaLabel=\"Options\"/>"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -5954,6 +6003,16 @@
             "description": "Lg padding y of root"
           },
           {
+            "token": "cascadeselect.font.weight",
+            "variable": "--p-cascadeselect-font-weight",
+            "description": "Font weight of current value"
+          },
+          {
+            "token": "cascadeselect.font.size",
+            "variable": "--p-cascadeselect-font-size",
+            "description": "Font size of current value"
+          },
+          {
             "token": "cascadeselect.dropdown.width",
             "variable": "--p-cascadeselect-dropdown-width",
             "description": "Width of dropdown"
@@ -6039,6 +6098,11 @@
             "description": "Selected focus color of option"
           },
           {
+            "token": "cascadeselect.option.selected.font.weight",
+            "variable": "--p-cascadeselect-option-selected-font-weight",
+            "description": "Font weight of a selected option"
+          },
+          {
             "token": "cascadeselect.option.padding",
             "variable": "--p-cascadeselect-option-padding",
             "description": "Padding of option"
@@ -6062,6 +6126,16 @@
             "token": "cascadeselect.option.icon.size",
             "variable": "--p-cascadeselect-option-icon-size",
             "description": "Icon size of option"
+          },
+          {
+            "token": "cascadeselect.option.font.weight",
+            "variable": "--p-cascadeselect-option-font-weight",
+            "description": "Font weight of option"
+          },
+          {
+            "token": "cascadeselect.option.font.size",
+            "variable": "--p-cascadeselect-option-font-size",
+            "description": "Font size of option"
           },
           {
             "token": "cascadeselect.clear.icon.color",
@@ -7153,6 +7227,16 @@
             "description": "Color of icon"
           },
           {
+            "token": "chip.label.font.weight",
+            "variable": "--p-chip-label-font-weight",
+            "description": "Font weight of label"
+          },
+          {
+            "token": "chip.label.font.size",
+            "variable": "--p-chip-label-font-size",
+            "description": "Font size of label"
+          },
+          {
             "token": "chip.remove.icon.size",
             "variable": "--p-chip-remove-icon-size",
             "description": "Size of remove icon"
@@ -8071,6 +8155,21 @@
             "token": "confirmdialog.content.gap",
             "variable": "--p-confirmdialog-content-gap",
             "description": "Gap of content"
+          },
+          {
+            "token": "confirmdialog.message.color",
+            "variable": "--p-confirmdialog-message-color",
+            "description": "Color of message"
+          },
+          {
+            "token": "confirmdialog.message.font.weight",
+            "variable": "--p-confirmdialog-message-font-weight",
+            "description": "Font weight of message"
+          },
+          {
+            "token": "confirmdialog.message.font.size",
+            "variable": "--p-confirmdialog-message-font-size",
+            "description": "Font size of message"
           }
         ]
       }
@@ -8399,6 +8498,21 @@
             "token": "confirmpopup.icon.color",
             "variable": "--p-confirmpopup-icon-color",
             "description": "Color of icon"
+          },
+          {
+            "token": "confirmpopup.message.color",
+            "variable": "--p-confirmpopup-message-color",
+            "description": "Color of message"
+          },
+          {
+            "token": "confirmpopup.message.font.weight",
+            "variable": "--p-confirmpopup-message-font-weight",
+            "description": "Font weight of message"
+          },
+          {
+            "token": "confirmpopup.message.font.size",
+            "variable": "--p-confirmpopup-message-font-size",
+            "description": "Font size of message"
           },
           {
             "token": "confirmpopup.footer.gap",
@@ -8836,6 +8950,21 @@
             "token": "contextmenu.item.icon.active.color",
             "variable": "--p-contextmenu-item-icon-active-color",
             "description": "Icon active color of item"
+          },
+          {
+            "token": "contextmenu.item.icon.size",
+            "variable": "--p-contextmenu-item-icon-size",
+            "description": "Icon size of item"
+          },
+          {
+            "token": "contextmenu.item.label.font.weight",
+            "variable": "--p-contextmenu-item-label-font-weight",
+            "description": "Font weight of item label"
+          },
+          {
+            "token": "contextmenu.item.label.font.size",
+            "variable": "--p-contextmenu-item-label-font-size",
+            "description": "Font size of item label"
           },
           {
             "token": "contextmenu.submenu.mobile.indent",
@@ -9496,9 +9625,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using aria-labelledby , aria-label props. The input element has combobox role in addition to aria-autocomplete as \"none\", aria-haspopup as \"dialog\" and aria-expanded attributes. The relation between the input and the popup is created with aria-controls attribute that refers to the id of the popup. The optional DatePicker button requires includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The value to read is retrieved from the chooseDate key of the aria property from the locale API. This label is also used for the aria-label of the popup as well. When there is a value selected, it is formatted and appended to the label to be able to notify users about the current value. Popup has a dialog role along with aria-modal and aria-label . The navigation buttons at the header has an aria-label retrieved from the prevYear , nextYear , prevMonth , nextMonth , prevDecade and nextDecade keys of the locale aria API. Similarly month picker button uses the chooseMonth and year picker button uses the chooseYear keys. Main date table uses grid role that contains th elements with col as the scope along with abbr tag resolving to the full name of the month. Each date cell has an aria-label referring to the full date value. Buttons at the footer utilize their readable labels as aria-label as well. Selected date also receives the aria-selected attribute. Timepicker spinner buttons get their labels for aria-label from the aria locale API using the prevHour , nextHour , prevMinute , nextMinute , prevSecond , nextSecond , am and pm keys. DatePicker also includes a hidden section that is only available to screen readers with aria-live as \"polite\". This element is updated when the selected date changes to instruct the user about the current date selected.",
-          "examples": {
-            "typescript": "<label for=\"date1\">Date</label>\n<p-datepicker inputId=\"date1\"/>\n\n<span id=\"date2\">Date</span>\n<p-datepicker ariaLabelledBy=\"date2\"/>\n\n<p-datepicker ariaLabel=\"Date\"/>"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -10973,6 +11100,11 @@
             "description": "Font weight of title"
           },
           {
+            "token": "datepicker.title.font.size",
+            "variable": "--p-datepicker-title-font-size",
+            "description": "Font size of title"
+          },
+          {
             "token": "datepicker.dropdown.width",
             "variable": "--p-datepicker-dropdown-width",
             "description": "Width of dropdown"
@@ -11093,6 +11225,16 @@
             "description": "Border radius of select month"
           },
           {
+            "token": "datepicker.select.month.font.weight",
+            "variable": "--p-datepicker-select-month-font-weight",
+            "description": "Font weight of select month"
+          },
+          {
+            "token": "datepicker.select.month.font.size",
+            "variable": "--p-datepicker-select-month-font-size",
+            "description": "Font size of select month"
+          },
+          {
             "token": "datepicker.select.year.hover.background",
             "variable": "--p-datepicker-select-year-hover-background",
             "description": "Hover background of select year"
@@ -11118,6 +11260,16 @@
             "description": "Border radius of select year"
           },
           {
+            "token": "datepicker.select.year.font.weight",
+            "variable": "--p-datepicker-select-year-font-weight",
+            "description": "Font weight of select year"
+          },
+          {
+            "token": "datepicker.select.year.font.size",
+            "variable": "--p-datepicker-select-year-font-size",
+            "description": "Font size of select year"
+          },
+          {
             "token": "datepicker.group.border.color",
             "variable": "--p-datepicker-group-border-color",
             "description": "Border color of group"
@@ -11141,6 +11293,11 @@
             "token": "datepicker.week.day.font.weight",
             "variable": "--p-datepicker-week-day-font-weight",
             "description": "Font weight of week day"
+          },
+          {
+            "token": "datepicker.week.day.font.size",
+            "variable": "--p-datepicker-week-day-font-size",
+            "description": "Font size of week day"
           },
           {
             "token": "datepicker.week.day.color",
@@ -11228,6 +11385,16 @@
             "description": "Focus ring shadow of date"
           },
           {
+            "token": "datepicker.date.font.weight",
+            "variable": "--p-datepicker-date-font-weight",
+            "description": "Font weight of date"
+          },
+          {
+            "token": "datepicker.date.font.size",
+            "variable": "--p-datepicker-date-font-size",
+            "description": "Font size of date"
+          },
+          {
             "token": "datepicker.month.view.margin",
             "variable": "--p-datepicker-month-view-margin",
             "description": "Margin of month view"
@@ -11288,6 +11455,21 @@
             "description": "Button gap of time picker"
           },
           {
+            "token": "datepicker.time.picker.color",
+            "variable": "--p-datepicker-time-picker-color",
+            "description": "Color of time picker label"
+          },
+          {
+            "token": "datepicker.time.picker.font.weight",
+            "variable": "--p-datepicker-time-picker-font-weight",
+            "description": "Font weight of time picker label"
+          },
+          {
+            "token": "datepicker.time.picker.font.size",
+            "variable": "--p-datepicker-time-picker-font-size",
+            "description": "Font size of time picker label"
+          },
+          {
             "token": "datepicker.today.background",
             "variable": "--p-datepicker-today-background",
             "description": "Background of today"
@@ -11309,9 +11491,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Dialog component uses dialog role along with aria-labelledby referring to the header element however any attribute is passed to the root element so you may use aria-labelledby to override this default behavior. In addition aria-modal is added since focus is kept within the popup. It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding tabIndex would be necessary. Trigger element also requires aria-expanded and aria-controls to be handled explicitly. Close element is a button with an aria-label that refers to the aria.close property of the locale API by default, you may use closeButtonProps to customize the element and override the default aria-label . Maximize element is a button with an aria-label that refers to the aria.maximizeLabel and aria.minimizeLabel property of the locale API. It cannot be customized using the maximizeButtonProps . Overlay Keyboard Support Key Function tab Moves focus to the next the focusable element within the dialog. shift + tab Moves focus to the previous the focusable element within the dialog. escape Closes the dialog if closeOnEscape is true. Close Button Keyboard Support Key Function enter Closes the dialog. space Closes the dialog.",
-          "examples": {
-            "typescript": "<p-button icon=\"pi pi-external-link\" (click)=\"visible = true\" aria-controls=\"{{visible ? 'dialog' : null}}\" aria-expanded=\"{{visible ? true : false}}\" />\n\n<p-dialog id=\"dialog\" header=\"Header\" [(visible)]=\"visible\" [style]=\"{ width: '50vw' }\" (onHide)=\"visible = false\">\n    <p>Content</p>\n</p-dialog>"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -12566,9 +12746,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Drawer component uses complementary role by default, since any attribute is passed to the root element aria role can be changed depending on your use case and additional attributes like aria-labelledby can be added. In addition aria-modal is added since focus is kept within the drawer when opened. It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding tabIndex would be necessary. Trigger element also requires aria-expanded and aria-controls to be handled explicitly. Overlay Keyboard Support Key Function tab Moves focus to the next the focusable element within the drawer. shift + tab Moves focus to the previous the focusable element within the drawer. escape Closes the dialog if closeOnEscape is true. Close Button Keyboard Support Key Function enter Closes the drawer. space Closes the drawer.",
-          "examples": {
-            "typescript": "<p-button\n    icon=\"pi pi-arrow-right\"\n    (click)=\"visible = true\"\n    aria-controls=\"{{visible ? 'drawer' : null}}\"\n    aria-expanded=\"{{visible ? true : false}}\"\n></p-button>\n<p-drawer\n    [(visible)]=\"visible\"\n    id=\"drawer\"\n    (onHide)=\"visible = false\"\n    role=\"region\"\n>\n    content\n</p-drawer>"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -13859,6 +14037,11 @@
             "description": "Font weight of legend"
           },
           {
+            "token": "fieldset.legend.font.size",
+            "variable": "--p-fieldset-legend-font-size",
+            "description": "Font size of legend"
+          },
+          {
             "token": "fieldset.legend.focus.ring.width",
             "variable": "--p-fieldset-legend-focus-ring-width",
             "description": "Focus ring width of legend"
@@ -14715,6 +14898,36 @@
             "description": "Info gap of file"
           },
           {
+            "token": "fileupload.file.name.color",
+            "variable": "--p-fileupload-file-name-color",
+            "description": "Color of file name"
+          },
+          {
+            "token": "fileupload.file.name.font.weight",
+            "variable": "--p-fileupload-file-name-font-weight",
+            "description": "Font weight of file name"
+          },
+          {
+            "token": "fileupload.file.name.font.size",
+            "variable": "--p-fileupload-file-name-font-size",
+            "description": "Font size of file name"
+          },
+          {
+            "token": "fileupload.file.size.color",
+            "variable": "--p-fileupload-file-size-color",
+            "description": "Color of file size"
+          },
+          {
+            "token": "fileupload.file.size.font.weight",
+            "variable": "--p-fileupload-file-size-font-weight",
+            "description": "Font weight of file size"
+          },
+          {
+            "token": "fileupload.file.size.font.size",
+            "variable": "--p-fileupload-file-size-font-size",
+            "description": "Font size of file size"
+          },
+          {
             "token": "fileupload.file.list.gap",
             "variable": "--p-fileupload-file-list-gap",
             "description": "Gap of file list"
@@ -14862,6 +15075,11 @@
             "token": "floatlabel.position.y",
             "variable": "--p-floatlabel-position-y",
             "description": "Position y of root"
+          },
+          {
+            "token": "floatlabel.font.size",
+            "variable": "--p-floatlabel-font-size",
+            "description": "Font size of root"
           },
           {
             "token": "floatlabel.font.weight",
@@ -16298,9 +16516,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader ImageComponent component uses a native range slider internally. Value to describe the component can be defined using aria-labelledby and aria-label props. Keyboard Support Key Function tab Moves focus to the component. left arrow up arrow Decrements the value. right arrow down arrow Increments the value. home Set the minimum value. end Set the maximum value. page up Increments the value by 10 steps. page down Decrements the value by 10 steps.",
-          "examples": {
-            "typescript": "<span id=\"image_label\">Compare Images</span>\n<p-imagecompare class=\"shadow-lg rounded-2xl\" aria-labelledby=\"image-label\">\n    ...\n</p-imagecompare>\n\n<p-imagecompare class=\"shadow-lg rounded-2xl\" aria-label=\"Compare Images\">\n    ...\n</p-imagecompare>"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -16914,6 +17130,16 @@
             "token": "inputgroup.addon.min.width",
             "variable": "--p-inputgroup-addon-min-width",
             "description": "Min width of addon"
+          },
+          {
+            "token": "inputgroup.addon.font.weight",
+            "variable": "--p-inputgroup-addon-font-weight",
+            "description": "Font weight of addon"
+          },
+          {
+            "token": "inputgroup.addon.font.size",
+            "variable": "--p-inputgroup-addon-font-size",
+            "description": "Font size of addon"
           }
         ]
       }
@@ -16927,9 +17153,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader InputMask directive is used with a native input element that implicitly includes any passed attribute. Value to describe the component can either be provided via label tag combined with id attribute or using aria-labelledby , aria-label attributes.",
-          "examples": {
-            "typescript": "<label for=\"date\">Date</label>\n<input pInputText id=\"date\" pInputMask=\"99/99/9999\" />\n\n<span id=\"phone\">Phone</span>\n<input pInputText pInputMask=\"(999) 999-9999\" aria-labelledby=\"phone\" />\n\n<input pInputText pInputMask=\"99\" aria-label=\"Age\" />"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -17427,9 +17651,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel , ariaDescribedBy props. The input element uses spinbutton role in addition to the aria-valuemin , aria-valuemax and aria-valuenow attributes.",
-          "examples": {
-            "typescript": "<label for=\"price\">Price</label>\n<p-inputnumber inputId=\"price\" />\n\n<span id=\"label_number\">Number</span>\n<p-inputnumber ariaLabelledBy=\"label_number\" />\n\n<p-inputnumber ariaLabel=\"Number\" />\n\n<p-inputnumber ariaDescribedBy=\"describe\" />\n<small id=\"describe\">Information</small>"
-          }
+          "examples": null
         },
         {
           "id": "buttons",
@@ -18430,9 +18652,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader InputText component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.",
-          "examples": {
-            "typescript": "<label for=\"firstname\">Firstname</label>\n<input pInputText id=\"firstname\" />\n\n<span id=\"lastname\">Lastname</span>\n<input pInputText aria-labelledby=\"lastname\" />\n\n<input pInputText aria-label=\"Age\" />"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -18780,6 +19000,16 @@
             "token": "inputtext.lg.padding.y",
             "variable": "--p-inputtext-lg-padding-y",
             "description": "Lg padding y of root"
+          },
+          {
+            "token": "inputtext.font.weight",
+            "variable": "--p-inputtext-font-weight",
+            "description": "Font weight of root"
+          },
+          {
+            "token": "inputtext.font.size",
+            "variable": "--p-inputtext-font-size",
+            "description": "Font size of root"
           }
         ]
       }
@@ -18857,9 +19087,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Knob element component uses slider role in addition to the aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using ariaLabelledBy and ariaLabel props.",
-          "examples": {
-            "typescript": "<span id=\"label_number\">Number</span>\n<p-knob ariaLabelledBy=\"label_number\"/>\n\n<p-knob ariaLabel=\"Number\"/>"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -19226,6 +19454,16 @@
             "token": "knob.text.color",
             "variable": "--p-knob-text-color",
             "description": "Color of text"
+          },
+          {
+            "token": "knob.text.font.size",
+            "variable": "--p-knob-text-font-size",
+            "description": "Font size of text"
+          },
+          {
+            "token": "knob.text.font.weight",
+            "variable": "--p-knob-text-font-weight",
+            "description": "Font weight of text"
           }
         ]
       }
@@ -19239,9 +19477,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can be provided ariaLabelledBy or ariaLabel props. The list element has a listbox role with the aria-multiselectable attribute that sets to true when multiple selection is enabled. Each list item has an option role with aria-selected and aria-disabled as their attributes.",
-          "examples": {
-            "typescript": "<span id=\"lb\">Options</span>\n<p-listbox ariaLabelledBy=\"lb\"/>\n\n<p-listbox ariaLabel=\"City\"/>"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -20157,6 +20393,11 @@
             "description": "Selected focus color of option"
           },
           {
+            "token": "listbox.option.selected.font.weight",
+            "variable": "--p-listbox-option-selected-font-weight",
+            "description": "Font weight of a selected option"
+          },
+          {
             "token": "listbox.option.padding",
             "variable": "--p-listbox-option-padding",
             "description": "Padding of option"
@@ -20172,6 +20413,16 @@
             "description": "Striped background of option"
           },
           {
+            "token": "listbox.option.font.weight",
+            "variable": "--p-listbox-option-font-weight",
+            "description": "Font weight of option"
+          },
+          {
+            "token": "listbox.option.font.size",
+            "variable": "--p-listbox-option-font-size",
+            "description": "Font size of option"
+          },
+          {
             "token": "listbox.option.group.background",
             "variable": "--p-listbox-option-group-background",
             "description": "Background of option group"
@@ -20185,6 +20436,11 @@
             "token": "listbox.option.group.font.weight",
             "variable": "--p-listbox-option-group-font-weight",
             "description": "Font weight of option group"
+          },
+          {
+            "token": "listbox.option.group.font.size",
+            "variable": "--p-listbox-option-group-font-size",
+            "description": "Font size of option group"
           },
           {
             "token": "listbox.option.group.padding",
@@ -20787,6 +21043,21 @@
             "description": "Icon active color of item"
           },
           {
+            "token": "megamenu.item.icon.size",
+            "variable": "--p-megamenu-item-icon-size",
+            "description": "Icon size of item"
+          },
+          {
+            "token": "megamenu.item.label.font.weight",
+            "variable": "--p-megamenu-item-label-font-weight",
+            "description": "Font weight of item label"
+          },
+          {
+            "token": "megamenu.item.label.font.size",
+            "variable": "--p-megamenu-item-label-font-size",
+            "description": "Font size of item label"
+          },
+          {
             "token": "megamenu.overlay.padding",
             "variable": "--p-megamenu-overlay-padding",
             "description": "Padding of overlay"
@@ -20840,6 +21111,11 @@
             "token": "megamenu.submenu.label.font.weight",
             "variable": "--p-megamenu-submenu-label-font-weight",
             "description": "Font weight of submenu label"
+          },
+          {
+            "token": "megamenu.submenu.label.font.size",
+            "variable": "--p-megamenu-submenu-label-font-size",
+            "description": "Font size of submenu label"
           },
           {
             "token": "megamenu.submenu.label.background",
@@ -21409,6 +21685,21 @@
             "description": "Icon focus color of item"
           },
           {
+            "token": "menu.item.icon.size",
+            "variable": "--p-menu-item-icon-size",
+            "description": "Icon size of item"
+          },
+          {
+            "token": "menu.item.label.font.weight",
+            "variable": "--p-menu-item-label-font-weight",
+            "description": "Font weight of item label"
+          },
+          {
+            "token": "menu.item.label.font.size",
+            "variable": "--p-menu-item-label-font-size",
+            "description": "Font size of item label"
+          },
+          {
             "token": "menu.submenu.label.padding",
             "variable": "--p-menu-submenu-label-padding",
             "description": "Padding of submenu label"
@@ -21417,6 +21708,11 @@
             "token": "menu.submenu.label.font.weight",
             "variable": "--p-menu-submenu-label-font-weight",
             "description": "Font weight of submenu label"
+          },
+          {
+            "token": "menu.submenu.label.font.size",
+            "variable": "--p-menu-submenu-label-font-size",
+            "description": "Font size of submenu label"
           },
           {
             "token": "menu.submenu.label.background",
@@ -21869,6 +22165,21 @@
             "token": "menubar.item.icon.active.color",
             "variable": "--p-menubar-item-icon-active-color",
             "description": "Icon active color of item"
+          },
+          {
+            "token": "menubar.item.icon.size",
+            "variable": "--p-menubar-item-icon-size",
+            "description": "Icon size of item"
+          },
+          {
+            "token": "menubar.item.label.font.weight",
+            "variable": "--p-menubar-item-label-font-weight",
+            "description": "Font weight of item label"
+          },
+          {
+            "token": "menubar.item.label.font.size",
+            "variable": "--p-menubar-item-label-font-size",
+            "description": "Font size of item label"
           },
           {
             "token": "menubar.submenu.padding",
@@ -23032,6 +23343,16 @@
             "description": "Size of label marker"
           },
           {
+            "token": "metergroup.label.text.font.weight",
+            "variable": "--p-metergroup-label-text-font-weight",
+            "description": "Font weight of label text"
+          },
+          {
+            "token": "metergroup.label.text.font.size",
+            "variable": "--p-metergroup-label-text-font-size",
+            "description": "Font size of label text"
+          },
+          {
             "token": "metergroup.label.icon.size",
             "variable": "--p-metergroup-label-icon-size",
             "description": "Size of label icon"
@@ -23058,9 +23379,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The multiselect component has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls attribute that refers to the id of the popup listbox. The popup listbox uses listbox as the role with aria-multiselectable enabled. Each list item has an option role along with aria-label , aria-selected and aria-disabled attributes. Checkbox component at the header uses a hidden native checkbox element internally that is only visible to screen readers. Value to read is defined with the selectAll and unselectAll keys of the aria property from the locale API. If filtering is enabled, filterInputProps can be defined to give aria-* props to the input element. Close button uses close key of the aria property from the locale API as the aria-label by default, this can be overriden with the closeButtonProps .",
-          "examples": {
-            "typescript": "<span id=\"dd1\">Options</span>\n<p-multiselect ariaLabelledBy=\"dd1\"/>\n\n<p-multiselect ariaLabel=\"Options\"/>"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -24288,6 +24607,16 @@
             "description": "Lg padding y of root"
           },
           {
+            "token": "multiselect.font.weight",
+            "variable": "--p-multiselect-font-weight",
+            "description": "Font weight of root"
+          },
+          {
+            "token": "multiselect.font.size",
+            "variable": "--p-multiselect-font-size",
+            "description": "Font size of root"
+          },
+          {
             "token": "multiselect.dropdown.width",
             "variable": "--p-multiselect-dropdown-width",
             "description": "Width of dropdown"
@@ -24373,6 +24702,11 @@
             "description": "Selected focus color of option"
           },
           {
+            "token": "multiselect.option.selected.font.weight",
+            "variable": "--p-multiselect-option-selected-font-weight",
+            "description": "Font weight of a selected option"
+          },
+          {
             "token": "multiselect.option.padding",
             "variable": "--p-multiselect-option-padding",
             "description": "Padding of option"
@@ -24388,6 +24722,16 @@
             "description": "Gap of option"
           },
           {
+            "token": "multiselect.option.font.weight",
+            "variable": "--p-multiselect-option-font-weight",
+            "description": "Font weight of option"
+          },
+          {
+            "token": "multiselect.option.font.size",
+            "variable": "--p-multiselect-option-font-size",
+            "description": "Font size of option"
+          },
+          {
             "token": "multiselect.option.group.background",
             "variable": "--p-multiselect-option-group-background",
             "description": "Background of option group"
@@ -24401,6 +24745,11 @@
             "token": "multiselect.option.group.font.weight",
             "variable": "--p-multiselect-option-group-font-weight",
             "description": "Font weight of option group"
+          },
+          {
+            "token": "multiselect.option.group.font.size",
+            "variable": "--p-multiselect-option-group-font-size",
+            "description": "Font size of option group"
           },
           {
             "token": "multiselect.option.group.padding",
@@ -24434,9 +24783,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the source listbox and target listbox can be provided with sourceListProps and targetListProps by passing aria-labelledby or aria-label props. The list elements has a listbox role with the aria-multiselectable attribute. Each list item has an option role with aria-selected and aria-disabled as their attributes. Controls buttons are button elements with an aria-label that refers to the aria.moveTop , aria.moveUp , aria.moveDown , aria.moveBottom , aria.moveTo , aria.moveAllTo , aria.moveFrom and aria.moveAllFrom properties of the locale API by default, alternatively you may use moveTopButtonProps , moveUpButtonProps , moveDownButtonProps , moveToButtonProps , moveAllToButtonProps , moveFromButtonProps , moveFromButtonProps and moveAllFromButtonProps to customize the buttons like overriding the default aria-label attributes. OrderList Keyboard Support Key Function tab Moves focus to the first selected option, if there is none then first option receives the focus. up arrow Moves focus to the previous option. down arrow Moves focus to the next option. enter Toggles the selected state of the focused option. space Toggles the selected state of the focused option. home Moves focus to the first option. end Moves focus to the last option. shift + down arrow Moves focus to the next option and toggles the selection state. shift + up arrow Moves focus to the previous option and toggles the selection state. shift + space Selects the items between the most recently selected option and the focused option. control + shift + home Selects the focused options and all the options up to the first one. control + shift + end Selects the focused options and all the options down to the first one. control + a Selects all options. Buttons Keyboard Support Key Function enter Executes button action. space Executes button action.",
-          "examples": {
-            "typescript": "<span id=\"lb\">Options</span>\n<p-orderlist ariaLabelledBy=\"lb\" />\n\n<p-orderlist ariaLabel=\"City\" />"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -26222,6 +26569,16 @@
             "description": "Border radius of nav button"
           },
           {
+            "token": "paginator.nav.button.font.weight",
+            "variable": "--p-paginator-nav-button-font-weight",
+            "description": "Font weight of nav button"
+          },
+          {
+            "token": "paginator.nav.button.font.size",
+            "variable": "--p-paginator-nav-button-font-size",
+            "description": "Font size of nav button"
+          },
+          {
             "token": "paginator.nav.button.focus.ring.width",
             "variable": "--p-paginator-nav-button-focus-ring-width",
             "description": "Focus ring width of nav button"
@@ -26250,6 +26607,16 @@
             "token": "paginator.current.page.report.color",
             "variable": "--p-paginator-current-page-report-color",
             "description": "Color of current page report"
+          },
+          {
+            "token": "paginator.current.page.report.font.weight",
+            "variable": "--p-paginator-current-page-report-font-weight",
+            "description": "Font weight of current page report"
+          },
+          {
+            "token": "paginator.current.page.report.font.size",
+            "variable": "--p-paginator-current-page-report-font-size",
+            "description": "Font size of current page report"
           },
           {
             "token": "paginator.jump.to.page.input.max.width",
@@ -26611,6 +26978,11 @@
             "token": "panel.title.font.weight",
             "variable": "--p-panel-title-font-weight",
             "description": "Font weight of title"
+          },
+          {
+            "token": "panel.title.font.size",
+            "variable": "--p-panel-title-font-size",
+            "description": "Font size of title"
           },
           {
             "token": "panel.content.padding",
@@ -27069,6 +27441,21 @@
             "description": "Icon focus color of item"
           },
           {
+            "token": "panelmenu.item.icon.size",
+            "variable": "--p-panelmenu-item-icon-size",
+            "description": "Icon size of item"
+          },
+          {
+            "token": "panelmenu.item.label.font.weight",
+            "variable": "--p-panelmenu-item-label-font-weight",
+            "description": "Font weight of item label"
+          },
+          {
+            "token": "panelmenu.item.label.font.size",
+            "variable": "--p-panelmenu-item-label-font-size",
+            "description": "Font size of item label"
+          },
+          {
             "token": "panelmenu.submenu.indent",
             "variable": "--p-panelmenu-submenu-indent",
             "description": "Indent of submenu"
@@ -27095,9 +27482,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props. Screen reader is notified about the changes to the strength of the password using a section that has aria-live while typing.",
-          "examples": {
-            "typescript": "<label for=\"pwd1\">Password</label>\n<p-password inputId=\"pwd1\" />\n\n<span id=\"pwd2\">Password</span>\n<p-password ariaLabelledBy=\"pwd2\" />\n\n<p-password ariaLabel=\"Password\" />"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -27758,6 +28143,16 @@
             "description": "Gap of content"
           },
           {
+            "token": "password.meter.text.font.weight",
+            "variable": "--p-password-meter-text-font-weight",
+            "description": "Font weight of meter text"
+          },
+          {
+            "token": "password.meter.text.font.size",
+            "variable": "--p-password-meter-text-font-size",
+            "description": "Font size of meter text"
+          },
+          {
             "token": "password.strength.weak.background",
             "variable": "--p-password-strength-weak-background",
             "description": "Weak background of strength"
@@ -27784,9 +28179,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the source listbox and target listbox can be provided with ariaLabelledBy or ariaLabel props. The list elements has a listbox role with the aria-multiselectable attribute. Each list item has an option role with aria-selected and aria-disabled as their attributes. Controls buttons are button elements with an aria-label that refers to the aria.moveTop , aria.moveUp , aria.moveDown , aria.moveBottom , aria.moveTo , aria.moveAllTo , aria.moveFrom and aria.moveAllFrom properties of the locale API by default, alternatively you may use moveTopButtonProps , moveUpButtonProps , moveDownButtonProps , moveToButtonProps , moveAllToButtonProps , moveFromButtonProps , moveFromButtonProps and moveAllFromButtonProps to customize the buttons like overriding the default aria-label attributes. PickList Keyboard Support Key Function tab Moves focus to the first selected option, if there is none then first option receives the focus. up arrow Moves focus to the previous option. down arrow Moves focus to the next option. enter Toggles the selected state of the focused option. space Toggles the selected state of the focused option. home Moves focus to the first option. end Moves focus to the last option. shift + down arrow Moves focus to the next option and toggles the selection state. shift + up arrow Moves focus to the previous option and toggles the selection state. shift + space Selects the items between the most recently selected option and the focused option. control + shift + home Selects the focused options and all the options up to the first one. control + shift + end Selects the focused options and all the options down to the first one. control + a Selects all options. Buttons Keyboard Support Key Function enter Executes button action. space Executes button action.",
-          "examples": {
-            "typescript": "<span id=\"lb\">Options</span>\n<p-picklist ariaLabelledBy=\"lb\" />\n\n<p-picklist ariaLabel=\"City\" />"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -28908,9 +29301,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader ProgressBar components uses progressbar role along with aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using aria-labelledby and aria-label props.",
-          "examples": {
-            "typescript": "<span id=\"label_status\">Status</span>\n<p-progressbar aria-labelledby=\"label_status\" />\n\n<p-progressbar aria-label=\"Status\" />"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -29118,9 +29509,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader ProgressSpinner components uses progressbar role. Value to describe the component can be defined using aria-labelledby and aria-label props.",
-          "examples": {
-            "typescript": "<p-progress-spinner aria-label=\"Loading\"></p-progress-spinner>"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -29277,9 +29666,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader RadioButton component uses a hidden native radio button element internally that is only visible to screen readers. Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props.",
-          "examples": {
-            "typescript": "<label for=\"rb1\">One</label>\n<p-radiobutton inputId=\"rb1\" />\n\n<span id=\"rb2\">Two</span>\n<p-radiobutton ariaLabelledBy=\"rb2\" />\n\n<p-radiobutton ariaLabel=\"Three\" />"
-          }
+          "examples": null
         },
         {
           "id": "disabled",
@@ -30156,57 +30543,43 @@
           "id": "basic",
           "label": "Basic",
           "description": "VirtualScroller requires items as the data to display, itemSize for the dimensions of an item and item template are required on component. In addition, an initial array is required based on the total number of items to display. Size of the viewport is configured using scrollWidth , scrollHeight properties directly or with CSS width and height styles.",
-          "examples": {
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { VirtualScrollerModule } from 'primeng/virtualscroller';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-virtualscroller [items]=\"items\" [itemSize]=\"50\" scrollHeight=\"200px\" styleClass=\"border border-surface\" [style]=\"{ width: '200px', height: '200px' }\">\n                <ng-template #item let-item let-options=\"options\">\n                    <div class=\"flex items-center p-2\" [ngClass]=\"{ 'bg-surface-100 dark:bg-surface-700': options.odd }\" style=\"height: 50px;\">\n                        {{ item }}\n                    </div>\n                </ng-template>\n            </p-virtualscroller>\n        </div>\n    `,\n    standalone: true,\n    imports: [VirtualScrollerModule]\n})\nexport class ScrollerBasicDemo implements OnInit {\n    items!: string[];\n\n    ngOnInit() {\n        this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);\n    }\n}"
-          }
+          "examples": null
         },
         {
           "id": "delay",
           "label": "Delay",
           "description": "Scroll delay is adjusted by using delay property.",
-          "examples": {
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { VirtualScrollerModule } from 'primeng/virtualscroller';\n\n@Component({\n    template: `\n        <div class=\"card flex flex-wrap justify-center gap-4\">\n            <div>\n                <span class=\"font-bold block mb-2\">No Delay</span>\n                <p-virtualscroller [items]=\"items\" [itemSize]=\"50\" styleClass=\"border border-surface\" [style]=\"{ width: '200px', height: '200px' }\">\n                    <ng-template #item let-item let-options=\"options\">\n                        <div class=\"flex items-center p-2\" [ngClass]=\"{ 'bg-surface-100 dark:bg-surface-700': options.odd }\" style=\"height: 50px;\">\n                            {{ item }}\n                        </div>\n                    </ng-template>\n                </p-virtualscroller>\n            </div>\n            <div>\n                <span class=\"font-bold block mb-2\">150ms</span>\n                <p-virtualscroller [items]=\"items\" [itemSize]=\"50\" [delay]=\"150\" styleClass=\"border border-surface\" [style]=\"{ width: '200px', height: '200px' }\">\n                    <ng-template #item let-item let-options=\"options\">\n                        <div class=\"flex items-center p-2\" [ngClass]=\"{ 'bg-surface-100 dark:bg-surface-700': options.odd }\" style=\"height: 50px;\">\n                            {{ item }}\n                        </div>\n                    </ng-template>\n                </p-virtualscroller>\n            </div>\n            <div>\n                <span class=\"font-bold block mb-2\">500ms</span>\n                <p-virtualscroller [items]=\"items\" [itemSize]=\"50\" [delay]=\"500\" styleClass=\"border border-surface\" [style]=\"{ width: '200px', height: '200px' }\">\n                    <ng-template #item let-item let-options=\"options\">\n                        <div class=\"flex items-center p-2\" [ngClass]=\"{ 'bg-surface-100 dark:bg-surface-700': options.odd }\" style=\"height: 50px;\">\n                            {{ item }}\n                        </div>\n                    </ng-template>\n                </p-virtualscroller>\n            </div>\n        </div>\n    `,\n    standalone: true,\n    imports: [VirtualScrollerModule]\n})\nexport class ScrollerDelayDemo implements OnInit {\n    items!: string[];\n\n    ngOnInit() {\n        this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);\n    }\n}"
-          }
+          "examples": null
         },
         {
           "id": "grid",
           "label": "Grid",
           "description": "Scrolling can be enabled vertically and horizontally when orientation is set as both . In this mode, itemSize should be an array where first value is the height of an item and second is the width.",
-          "examples": {
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { VirtualScrollerModule } from 'primeng/virtualscroller';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-virtualscroller [items]=\"items\" [itemSize]=\"[50, 100]\" orientation=\"both\" styleClass=\"border border-surface\" [style]=\"{ width: '200px', height: '200px' }\">\n                <ng-template #item let-item let-options=\"options\">\n                    <div class=\"flex items-center p-2\" [ngClass]=\"{ 'bg-surface-100 dark:bg-surface-700': options.odd }\" style=\"height: 50px;\">\n                        <div *ngFor=\"let el of item\" style=\"width: 100px\">{{ el }}</div>\n                    </div>\n                </ng-template>\n            </p-virtualscroller>\n        </div>\n    `,\n    standalone: true,\n    imports: [VirtualScrollerModule]\n})\nexport class ScrollerGridDemo implements OnInit {\n    items!: string[][];\n\n    ngOnInit() {\n        this.items = Array.from({ length: 1000 }).map((_, i) => Array.from({ length: 1000 }).map((_j, j) => `Item #${i}_${j}`));\n    }\n}"
-          }
+          "examples": null
         },
         {
           "id": "horizontal",
           "label": "Horizontal",
           "description": "Setting orientation to horizontal enables scrolling horizontally. In this case, the itemSize should refer to the width of an item.",
-          "examples": {
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { VirtualScrollerModule } from 'primeng/virtualscroller';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-virtualscroller [items]=\"items\" [itemSize]=\"50\" scrollHeight=\"200px\" orientation=\"horizontal\" styleClass=\"border border-surface\" [style]=\"{ width: '200px', height: '200px' }\">\n                <ng-template #item let-item let-options=\"options\">\n                    <div class=\"flex items-center p-2\" style=\"writing-mode: vertical-lr; width: 50px;\" [ngClass]=\"{ 'bg-surface-100 dark:bg-surface-700': options.odd }\">\n                        {{ item }}\n                    </div>\n                </ng-template>\n            </p-virtualscroller>\n        </div>\n    `,\n    standalone: true,\n    imports: [VirtualScrollerModule]\n})\nexport class ScrollerHorizontalDemo implements OnInit {\n    items!: string[];\n\n    ngOnInit() {\n        this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);\n    }\n}"
-          }
+          "examples": null
         },
         {
           "id": "lazyload",
           "label": "lazyload-doc",
           "description": "Lazy mode is handy to deal with large datasets where instead of loading the entire data, small chunks of data are loaded on demand by invoking onLazyLoad callback everytime scrolling requires a new chunk. To implement lazy loading, enable lazy attribute, initialize your data as a placeholder with a length and finally implement a method callback using onLazyLoad that actually loads a chunk from a datasource. onLazyLoad gets an event object that contains information about the chunk of data to load such as the index and number of items to load. Notice that a new template called loadingItem is also required to display as a placeholder while the new items are being loaded.",
-          "examples": {
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { VirtualScrollerModule } from 'primeng/virtualscroller';\n\ninterface LazyEvent {\n    first: number;\n    last: number;\n}\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-virtualscroller [items]=\"items\" [itemSize]=\"50\" [showLoader]=\"true\" [delay]=\"250\" [loading]=\"lazyLoading\" [lazy]=\"true\" (onLazyLoad)=\"onLazyLoad($event)\" styleClass=\"border border-surface\" [style]=\"{ width: '200px', height: '200px' }\">\n                <ng-template #item let-item let-options=\"options\">\n                    <div class=\"flex items-center p-2\" [ngClass]=\"{ 'bg-surface-100 dark:bg-surface-700': options.odd }\" style=\"height: 50px;\">\n                        {{ item }}\n                    </div>\n                </ng-template>\n            </p-virtualscroller>\n        </div>\n    `,\n    standalone: true,\n    imports: [VirtualScrollerModule]\n})\nexport class ScrollerLazyloadDemo implements OnInit {\n    items!: string[];\n    lazyLoading: boolean = true;\n    loadLazyTimeout: any;\n\n    ngOnInit() {\n        this.items = Array.from({ length: 1000 });\n    }\n\n    onLazyLoad(event: LazyEvent) {\n        this.lazyLoading = true;\n        \n        if (this.loadLazyTimeout) {\n            clearTimeout(this.loadLazyTimeout);\n        }\n        \n        //imitate delay of a backend call\n        this.loadLazyTimeout = setTimeout(\n            () => {\n                const { first, last } = event;\n                const lazyItems = [...this.items];\n        \n                for (let i = first; i < last; i++) {\n                    lazyItems[i] = `Item #${i}`;\n                }\n        \n                this.items = lazyItems;\n                this.lazyLoading = false;\n                this.cd.markForCheck();\n            },\n            Math.random() * 1000 + 250\n        );\n    }\n}"
-          }
+          "examples": null
         },
         {
           "id": "loader",
           "label": "loader-doc",
           "description": "Busy state is enabled by adding showLoader property which blocks the UI with a modal by default. Alternatively, loader template can be used to customize items e.g. with Skeleton .",
-          "examples": {
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { SkeletonModule } from 'primeng/skeleton';\nimport { VirtualScrollerModule } from 'primeng/virtualscroller';\n\n@Component({\n    template: `\n        <div class=\"card flex flex-wrap justify-center gap-4\">\n            <div>\n                <p-virtualscroller [items]=\"items\" [itemSize]=\"50\" [showLoader]=\"true\" [delay]=\"250\" styleClass=\"border border-surface\" [style]=\"{ width: '200px', height: '200px' }\">\n                    <ng-template #item let-item let-options=\"options\">\n                        <div class=\"flex items-center p-2\" [ngClass]=\"{ 'bg-surface-100 dark:bg-surface-700': options.odd }\" style=\"height: 50px;\">\n                            {{ item }}\n                        </div>\n                    </ng-template>\n                </p-virtualscroller>\n            </div>\n            <div>\n                <p-virtualscroller [items]=\"items\" [itemSize]=\"50\" [showLoader]=\"true\" [delay]=\"250\" styleClass=\"border border-surface\" [style]=\"{ width: '200px', height: '200px' }\">\n                    <ng-template #item let-item let-options=\"options\">\n                        <div class=\"flex items-center p-2\" [ngClass]=\"{ 'bg-surface-100 dark:bg-surface-700': options.odd }\" style=\"height: 50px;\">\n                            {{ item }}\n                        </div>\n                    </ng-template>\n                    <ng-template pTemplate=\"loader\" let-options=\"options\">\n                        <div class=\"flex items-center p-2\" [ngClass]=\"{ 'bg-surface-100 dark:bg-surface-700': options.odd }\" style=\"height: 50px;\">\n                            <p-skeleton [width]=\"options.even ? '60%' : '50%'\" height=\"1.3rem\"></p-skeleton>\n                        </div>\n                    </ng-template>\n                </p-virtualscroller>\n            </div>\n        </div>\n    `,\n    standalone: true,\n    imports: [SkeletonModule, VirtualScrollerModule]\n})\nexport class ScrollerLoaderDemo implements OnInit {\n    items!: string[];\n\n    ngOnInit() {\n        this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);\n    }\n}"
-          }
+          "examples": null
         },
         {
           "id": "programmatic",
           "label": "Programmatic",
           "description": "Scrolling to a specific index can be done with the scrollToIndex function.",
-          "examples": {
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { ButtonModule } from 'primeng/button';\nimport { VirtualScrollerModule } from 'primeng/virtualscroller';\n\n@Component({\n    template: `\n        <div class=\"card flex flex-col items-center gap-4\">\n            <p-button label=\"Reset\" (click)=\"reset()\" />\n            <p-virtualscroller #sc [items]=\"items\" [itemSize]=\"50\" scrollHeight=\"200px\" styleClass=\"border border-surface\" [style]=\"{ width: '200px', height: '200px' }\">\n                <ng-template #item let-item let-options=\"options\">\n                    <div class=\"flex items-center p-2\" [ngClass]=\"{ 'bg-surface-100 dark:bg-surface-700': options.odd }\" style=\"height: 50px;\">\n                        {{ item }}\n                    </div>\n                </ng-template>\n            </p-virtualscroller>\n        </div>\n    `,\n    standalone: true,\n    imports: [ButtonModule, VirtualScrollerModule]\n})\nexport class ScrollerProgrammaticDemo implements OnInit {\n    items: string[] = [];\n\n    ngOnInit() {\n        this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);\n    }\n\n    reset() {\n        this.sc.scrollToIndex(0, 'smooth');\n    }\n}"
-          }
+          "examples": null
         },
         {
           "id": "scrolloptions",
@@ -30218,9 +30591,7 @@
           "id": "template",
           "label": "Template",
           "description": "Scroller content is customizable by using ng-template . Valid values are content , item , loader and loadericon",
-          "examples": {
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { SkeletonModule } from 'primeng/skeleton';\nimport { VirtualScrollerModule } from 'primeng/virtualscroller';\n\n@Component({\n    template: `\n        <div class=\"card flex justify-center\">\n            <p-virtualscroller [items]=\"items\" [itemSize]=\"25 * 7\" [showLoader]=\"true\" [delay]=\"250\" [numToleratedItems]=\"20\" styleClass=\"border border-surface\" [style]=\"{ width: '200px', height: '200px' }\">\n                <ng-template #item let-item let-options=\"options\">\n                    <div class=\"flex flex-col align-items-strech\" [ngClass]=\"{ 'bg-surface-100 dark:bg-surface-700': options.odd }\">\n                        <div class=\"flex items-center px-2\" style=\"height: 25px\">Item: {{ item }}</div>\n                        <div class=\"flex items-center px-2\" style=\"height: 25px\">Index: {{ options.index }}</div>\n                        <div class=\"flex items-center px-2\" style=\"height: 25px\">Count: {{ options.count }}</div>\n                        <div class=\"flex items-center px-2\" style=\"height: 25px\">First: {{ options.first }}</div>\n                        <div class=\"flex items-center px-2\" style=\"height: 25px\">Last: {{ options.last }}</div>\n                        <div class=\"flex items-center px-2\" style=\"height: 25px\">Even: {{ options.even }}</div>\n                        <div class=\"flex items-center px-2\" style=\"height: 25px\">Odd: {{ options.odd }}</div>\n                    </div>\n                </ng-template>\n                <ng-template #loader let-options=\"options\">\n                    <div class=\"flex flex-col items-stretch\" [ngClass]=\"{ 'bg-surface-100 dark:bg-surface-700': options.odd }\">\n                        <div class=\"flex items-center px-2\" style=\"height: 25px\"><p-skeleton width=\"60%\" height=\"1.2rem\"></p-skeleton></div>\n                        <div class=\"flex items-center px-2\" style=\"height: 25px\"><p-skeleton width=\"50%\" height=\"1.2rem\"></p-skeleton></div>\n                        <div class=\"flex items-center px-2\" style=\"height: 25px\"><p-skeleton width=\"60%\" height=\"1.2rem\"></p-skeleton></div>\n                        <div class=\"flex items-center px-2\" style=\"height: 25px\"><p-skeleton width=\"50%\" height=\"1.2rem\"></p-skeleton></div>\n                        <div class=\"flex items-center px-2\" style=\"height: 25px\"><p-skeleton width=\"60%\" height=\"1.2rem\"></p-skeleton></div>\n                        <div class=\"flex items-center px-2\" style=\"height: 25px\"><p-skeleton width=\"50%\" height=\"1.2rem\"></p-skeleton></div>\n                        <div class=\"flex items-center px-2\" style=\"height: 25px\"><p-skeleton width=\"60%\" height=\"1.2rem\"></p-skeleton></div>\n                    </div>\n                </ng-template>\n            </p-virtualscroller>\n        </div>\n    `,\n    standalone: true,\n    imports: [SkeletonModule, VirtualScrollerModule]\n})\nexport class ScrollerTemplateDemo implements OnInit {\n    items!: string[];\n\n    ngOnInit() {\n        this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);\n    }\n}"
-          }
+          "examples": null
         }
       ],
       "api": {
@@ -30929,9 +31300,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The select element has a combobox role in addition to aria-haspopup and aria-expanded attributes. If the editable option is enabled aria-autocomplete is also added. The relation between the combobox and the popup is created with aria-controls and aria-activedescendant attribute is used to instruct screen reader which option to read during keyboard navigation within the popup list. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses listbox as the role. Each list item has an option role, an id to match the aria-activedescendant of the input element along with aria-label , aria-selected and aria-disabled attributes. If filtering is enabled, filterInputProps can be defined to give aria-* props to the filter input element.",
-          "examples": {
-            "typescript": "<span id=\"dd1\">Options</span>\n<p-select ariaLabelledBy=\"dd1\"/>\n\n<p-select ariaLabel=\"Options\"/>"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -32166,6 +32535,16 @@
             "description": "Lg padding y of root"
           },
           {
+            "token": "select.font.weight",
+            "variable": "--p-select-font-weight",
+            "description": "Font weight of root"
+          },
+          {
+            "token": "select.font.size",
+            "variable": "--p-select-font-size",
+            "description": "Font size of root"
+          },
+          {
             "token": "select.dropdown.width",
             "variable": "--p-select-dropdown-width",
             "description": "Width of dropdown"
@@ -32251,6 +32630,11 @@
             "description": "Selected focus color of option"
           },
           {
+            "token": "select.option.selected.font.weight",
+            "variable": "--p-select-option-selected-font-weight",
+            "description": "Font weight of a selected option"
+          },
+          {
             "token": "select.option.padding",
             "variable": "--p-select-option-padding",
             "description": "Padding of option"
@@ -32259,6 +32643,16 @@
             "token": "select.option.border.radius",
             "variable": "--p-select-option-border-radius",
             "description": "Border radius of option"
+          },
+          {
+            "token": "select.option.font.weight",
+            "variable": "--p-select-option-font-weight",
+            "description": "Font weight of option"
+          },
+          {
+            "token": "select.option.font.size",
+            "variable": "--p-select-option-font-size",
+            "description": "Font size of option"
           },
           {
             "token": "select.option.group.background",
@@ -32274,6 +32668,11 @@
             "token": "select.option.group.font.weight",
             "variable": "--p-select-option-group-font-weight",
             "description": "Font weight of option group"
+          },
+          {
+            "token": "select.option.group.font.size",
+            "variable": "--p-select-option-group-font-size",
+            "description": "Font size of option group"
           },
           {
             "token": "select.option.group.padding",
@@ -32782,9 +33181,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Slider element component uses slider role on the handle in addition to the aria-orientation , aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using ariaLabelledBy and ariaLabel props.",
-          "examples": {
-            "typescript": "<span id=\"label_number\">Number</span>\n<p-slider ariaLabelledBy=\"label_number\" />\n\n<p-slider ariaLabel=\"Number\" />"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -33170,9 +33567,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader SpeedDial component renders a native button element that implicitly includes any passed prop. Text to describe the button can be defined with the aria-labelledby or aria-label props. Addititonally the button includes includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The popup overlay uses menu role on the list and each action item has a menuitem role with an aria-label as the menuitem label. The id of the menu refers to the aria-controls of the button.",
-          "examples": {
-            "typescript": "<p-speeddial aria-label=\"Options\" />"
-          }
+          "examples": null
         },
         {
           "id": "circle",
@@ -33576,9 +33971,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader SplitButton component renders two native button elements, main button uses the label property to define aria-label by default which can be customized with buttonProps . Dropdown button requires an explicit definition to describe it using menuButtonProps option and also includes aria-haspopup , aria-expanded for states along with aria-controls to define the relation between the popup and the button. The popup overlay uses menu role on the list and each action item has a menuitem role with an aria-label as the menuitem label. The id of the menu refers to the aria-controls of the dropdown button.",
-          "examples": {
-            "typescript": "<p-splitbutton [buttonProps]=\"{'aria-label': 'Default Action'}\" [menuButtonProps]=\"{'aria-label': 'More Options'}\" />"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -34518,6 +34911,11 @@
             "token": "stepper.step.title.font.weight",
             "variable": "--p-stepper-step-title-font-weight",
             "description": "Font weight of step title"
+          },
+          {
+            "token": "stepper.step.title.font.size",
+            "variable": "--p-stepper-step-title-font-size",
+            "description": "Font size of step title"
           },
           {
             "token": "stepper.step.number.background",
@@ -36554,6 +36952,11 @@
             "description": "Font weight of tab"
           },
           {
+            "token": "tabs.tab.font.size",
+            "variable": "--p-tabs-tab-font-size",
+            "description": "Font size of tab"
+          },
+          {
             "token": "tabs.tab.margin",
             "variable": "--p-tabs-tab-margin",
             "description": "Margin of tab"
@@ -37165,6 +37568,16 @@
             "description": "Border radius of root"
           },
           {
+            "token": "terminal.font.weight",
+            "variable": "--p-terminal-font-weight",
+            "description": "Font weight of root"
+          },
+          {
+            "token": "terminal.font.size",
+            "variable": "--p-terminal-font-size",
+            "description": "Font size of root"
+          },
+          {
             "token": "terminal.prompt.gap",
             "variable": "--p-terminal-prompt-gap",
             "description": "Gap of prompt"
@@ -37186,9 +37599,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Textarea component renders a native textarea element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.",
-          "examples": {
-            "typescript": "<label for=\"address1\">Address 1</label>\n<textarea pTextarea id=\"address1\"></textarea>\n\n<span id=\"address2\">Address 2</span>\n<textarea pTextarea aria-labelledby=\"address2\"></textarea>\n\n<textarea pTextarea aria-label=\"Address Details\"></textarea>"
-          }
+          "examples": null
         },
         {
           "id": "autoresize",
@@ -37544,6 +37955,16 @@
             "token": "textarea.lg.padding.y",
             "variable": "--p-textarea-lg-padding-y",
             "description": "Lg padding y of root"
+          },
+          {
+            "token": "textarea.font.weight",
+            "variable": "--p-textarea-font-weight",
+            "description": "Font weight of root"
+          },
+          {
+            "token": "textarea.font.size",
+            "variable": "--p-textarea-font-size",
+            "description": "Font size of root"
           }
         ]
       }
@@ -38030,6 +38451,21 @@
             "token": "tieredmenu.item.icon.active.color",
             "variable": "--p-tieredmenu-item-icon-active-color",
             "description": "Icon active color of item"
+          },
+          {
+            "token": "tieredmenu.item.icon.size",
+            "variable": "--p-tieredmenu-item-icon-size",
+            "description": "Icon size of item"
+          },
+          {
+            "token": "tieredmenu.item.label.font.weight",
+            "variable": "--p-tieredmenu-item-label-font-weight",
+            "description": "Font weight of item label"
+          },
+          {
+            "token": "tieredmenu.item.label.font.size",
+            "variable": "--p-tieredmenu-item-label-font-size",
+            "description": "Font size of item label"
           },
           {
             "token": "tieredmenu.submenu.mobile.indent",
@@ -39042,9 +39478,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader ToggleButton component uses an element with button role and updates aria-pressed state for screen readers. Value to describe the component can be defined with ariaLabelledBy or ariaLabel props, it is highly suggested to use either of these props as the component changes the label displayed which will result in screen readers to read different labels when the component receives focus. To prevent this, always provide an aria label that does not change related to state.",
-          "examples": {
-            "typescript": "<span id=\"rememberme\">Remember Me</span>\n<p-togglebutton ariaLabelledBy=\"rememberme\" />\n\n<p-togglebutton ariaLabel=\"Remember Me\" />"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -39354,6 +39788,11 @@
             "description": "Gap of root"
           },
           {
+            "token": "togglebutton.font.size",
+            "variable": "--p-togglebutton-font-size",
+            "description": "Font size of root"
+          },
+          {
             "token": "togglebutton.font.weight",
             "variable": "--p-togglebutton-font-weight",
             "description": "Font weight of root"
@@ -39530,9 +39969,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader InputSwitch component uses a hidden native checkbox element with switch role internally that is only visible to screen readers. Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props.",
-          "examples": {
-            "typescript": "<label for=\"switch1\">Remember Me</label>\n<p-toggleswitch inputId=\"switch1\" />\n\n<span id=\"switch2\">Remember Me</span>\n<p-toggleswitch ariaLabelledBy=\"switch2\" />\n\n<p-toggleswitch ariaLabel=\"Remember Me\" />"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -39959,9 +40396,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Toolbar uses toolbar role for the root element, aria-orientation is not included as it defaults to horizontal . Any valid attribute is passed to the root element so you may add additional properties like aria-labelledby and aria-labelled to define the element if required. Keyboard Support Component does not include any interactive elements. Arbitrary content can be placed with templating and elements like buttons inside should follow the page tab sequence.",
-          "examples": {
-            "typescript": "<p-toolbar aria-label=\"Actions\">\n    Content\n</p-toolbar>"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -40432,6 +40867,16 @@
             "token": "tooltip.color",
             "variable": "--p-tooltip-color",
             "description": "Color of root"
+          },
+          {
+            "token": "tooltip.font.weight",
+            "variable": "--p-tooltip-font-weight",
+            "description": "Font weight of root"
+          },
+          {
+            "token": "tooltip.font.size",
+            "variable": "--p-tooltip-font-size",
+            "description": "Font size of root"
           }
         ]
       }
@@ -41328,6 +41773,21 @@
             "description": "Selected color of node icon"
           },
           {
+            "token": "tree.node.label.font.weight",
+            "variable": "--p-tree-node-label-font-weight",
+            "description": "Font weight of node label"
+          },
+          {
+            "token": "tree.node.label.font.size",
+            "variable": "--p-tree-node-label-font-size",
+            "description": "Font size of node label"
+          },
+          {
+            "token": "tree.node.label.selected.font.weight",
+            "variable": "--p-tree-node-label-selected-font-weight",
+            "description": "Font weight of a selected node label"
+          },
+          {
             "token": "tree.node.toggle.button.border.radius",
             "variable": "--p-tree-node-toggle-button-border-radius",
             "description": "Border radius of node toggle button"
@@ -41409,9 +41869,7 @@
           "id": "accessibility",
           "label": "Accessibility",
           "description": "Screen Reader Value to describe the component can either be provided with ariaLabelledby or ariaLabel props. The treeselect element has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls that refers to the id of the popup. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses tree as the role. Each list item has a treeitem role along with aria-label , aria-selected and aria-expanded attributes. In checkbox selection, aria-checked is used instead of aria-selected . Checkbox and toggle icons are hidden from screen readers as their parent element with treeitem role and attributes are used instead for readers and keyboard support. The container element of a treenode has the group role. The aria-setsize , aria-posinset and aria-level attributes are calculated implicitly and added to each treeitem. If filtering is enabled, filterInputProps can be defined to give aria-* props to the filter input element.",
-          "examples": {
-            "typescript": "<span id=\"dd1\">Options</span>\n<p-treeselect ariaLabelledBy=\"dd1\" />\n\n<p-treeselect ariaLabel=\"Options\" />"
-          }
+          "examples": null
         },
         {
           "id": "basic",
@@ -42332,6 +42790,16 @@
             "token": "treeselect.lg.padding.y",
             "variable": "--p-treeselect-lg-padding-y",
             "description": "Lg padding y of root"
+          },
+          {
+            "token": "treeselect.font.weight",
+            "variable": "--p-treeselect-font-weight",
+            "description": "Font weight of root"
+          },
+          {
+            "token": "treeselect.font.size",
+            "variable": "--p-treeselect-font-size",
+            "description": "Font size of root"
           },
           {
             "token": "treeselect.dropdown.width",
@@ -43797,6 +44265,11 @@
             "description": "Font weight of column title"
           },
           {
+            "token": "treetable.column.title.font.size",
+            "variable": "--p-treetable-column-title-font-size",
+            "description": "Font size of column title"
+          },
+          {
             "token": "treetable.row.background",
             "variable": "--p-treetable-row-background",
             "description": "Background of row"
@@ -43872,6 +44345,16 @@
             "description": "Selected border color of body cell"
           },
           {
+            "token": "treetable.body.cell.font.weight",
+            "variable": "--p-treetable-body-cell-font-weight",
+            "description": "Font weight of body cell"
+          },
+          {
+            "token": "treetable.body.cell.font.size",
+            "variable": "--p-treetable-body-cell-font-size",
+            "description": "Font size of body cell"
+          },
+          {
             "token": "treetable.footer.cell.background",
             "variable": "--p-treetable-footer-cell-background",
             "description": "Background of footer cell"
@@ -43895,6 +44378,11 @@
             "token": "treetable.column.footer.font.weight",
             "variable": "--p-treetable-column-footer-font-weight",
             "description": "Font weight of column footer"
+          },
+          {
+            "token": "treetable.column.footer.font.size",
+            "variable": "--p-treetable-column-footer-font-size",
+            "description": "Font size of column footer"
           },
           {
             "token": "treetable.footer.background",
@@ -44395,9 +44883,7 @@
           "id": "example-",
           "label": "Example-",
           "description": "Unstyled components require styling using your preferred approach. We recommend using Tailwind CSS with PassThrough attributes, a combination that works seamlessly together. The tailwindcss-primeui even provides special variants such as p-outlined: , p-vertical for the PrimeNG components. The example below demonstrates how to style a button component with Tailwind CSS using PassThrough attributes. Before you begin, refer to the pass through section in the button documentation to familiarize yourself with the component's internal structure and PassThrough attributes. In this example, we'll target the root , label and icon elements to apply custom styles.",
-          "examples": {
-            "typescript": "<p-button\n    label=\"Search\"\n    icon=\"pi pi-search\"\n    [unstyled]=\"true\"\n    [pt]=\"{ \n        root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2', \n        label: 'text-white font-bold text-lg', \n        icon: 'text-white !text-xl' \n    }\"\n/>"
-          }
+          "examples": null
         },
         {
           "id": "global-",
@@ -44431,17 +44917,13 @@
           "id": "basic-",
           "label": "Basic-",
           "description": "PrimeIcons use the pi pi-&#123;icon&#125; syntax such as pi pi-check . A standalone icon can be displayed using an element such as i or span",
-          "examples": {
-            "typescript": "<i class=\"pi pi-check\"></i>\n<i class=\"pi pi-times\"></i>\n<span class=\"pi pi-search\"></span>\n<span class=\"pi pi-user\"></span>"
-          }
+          "examples": null
         },
         {
           "id": "color-",
           "label": "Color-",
           "description": "Icon color is defined with the color property which is inherited from parent by default.",
-          "examples": {
-            "typescript": "<i class=\"pi pi-check\" style=\"color: slateblue\"></i>\n<i class=\"pi pi-times\" style=\"color: green\"></i>\n<i class=\"pi pi-search\" style=\"color: var(--primary-color)\"></i>\n<i class=\"pi pi-user\" style=\"color: #708090\"></i>"
-          }
+          "examples": null
         },
         {
           "id": "constants-",
@@ -44483,17 +44965,13 @@
           "id": "size-",
           "label": "Size-",
           "description": "Size of an icon is controlled with the font-size property of the element.",
-          "examples": {
-            "typescript": "<i class=\"pi pi-check\" style=\"font-size: 1rem\"></i>\n<i class=\"pi pi-times\" style=\"font-size: 1.5rem\"></i>\n<i class=\"pi pi-search\" style=\"font-size: 2rem\"></i>\n<i class=\"pi pi-user\" style=\"font-size: 2.5rem\"></i>"
-          }
+          "examples": null
         },
         {
           "id": "spin-",
           "label": "Spin-",
           "description": "Special pi-spin class applies infinite rotation to an icon.",
-          "examples": {
-            "typescript": "<i class=\"pi pi-spin pi-spinner\" style=\"font-size: 2rem\"></i>\n<i class=\"pi pi-spin pi-cog\" style=\"font-size: 2rem\"></i>"
-          }
+          "examples": null
         }
       ]
     },
@@ -44507,33 +44985,25 @@
           "id": "fontawesome-",
           "label": "Fontawesome-",
           "description": "Font Awesome is a popular icon library with a wide range of icons.",
-          "examples": {
-            "typescript": "<p-dropdown>\n    <ng-template #dropdownicon>\n        <i class=\"fa-light fa-chevron-down\"></i>\n    </ng-template>\n</p-dropdown>"
-          }
+          "examples": null
         },
         {
           "id": "image-",
           "label": "Image-",
           "description": "Any type of image can be used as an icon.",
-          "examples": {
-            "typescript": "<p-dropdown>\n    <ng-template #dropdownicon>\n        <img alt=\"dropdown icon\" src=\"/assets/icons/arrow_down.png\">\n    </ng-template>\n</p-dropdown>"
-          }
+          "examples": null
         },
         {
           "id": "material-",
           "label": "Material-",
           "description": "Material icons is the official icon library based on Google Material Design.",
-          "examples": {
-            "typescript": "<p-dropdown>\n    <ng-template #dropdownicon>\n        <span class=\"material-icons\">arrow_drop_down</span>\n    </ng-template>\n</p-dropdown>"
-          }
+          "examples": null
         },
         {
           "id": "svg-",
           "label": "Svg-",
           "description": "Inline SVGs are embedded inside the dom.",
-          "examples": {
-            "typescript": "<p-dropdown>\n    <ng-template #dropdownicon>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\">\n            <g id=\"chevron-down\">\n                <path d=\"M12,15.25a.74.74,0,0,1-.53-.22l-5-5A.75.75,0,0,1,7.53,9L12,13.44,16.47,9A.75.75,0,0,1,17.53,10l-5,5A.74.74,0,0,1,12,15.25Z\"/>\n            </g>\n        </svg>\n    </ng-template>\n</p-dropdown>"
-          }
+          "examples": null
         }
       ]
     },
@@ -44597,9 +45067,7 @@
           "id": "animations-",
           "label": "Animations-",
           "description": "The plugin also adds extended animation utilities that can be used with the styleclass and animateonscroll directives.",
-          "examples": {
-            "typescript": "<p-select [(ngModel)]=\"animation\" [options]=\"animations\" placeholder=\"Select One\" class=\"w-full sm:w-44\" />\n<div class=\"py-8 overflow-hidden\">\n   <div [ngClass]=\"dynamicAnimationClasses\"></div>\n</div>"
-          }
+          "examples": null
         },
         {
           "id": "colorpalette-",

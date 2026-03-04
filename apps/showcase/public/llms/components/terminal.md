@@ -114,6 +114,8 @@ Terminal is a text based user interface.
 | terminal.height | --p-terminal-height | Height of root |
 | terminal.padding | --p-terminal-padding | Padding of root |
 | terminal.border.radius | --p-terminal-border-radius | Border radius of root |
+| terminal.font.weight | --p-terminal-font-weight | Font weight of root |
+| terminal.font.size | --p-terminal-font-size | Font size of root |
 | terminal.prompt.gap | --p-terminal-prompt-gap | Gap of prompt |
 | terminal.command.response.margin | --p-terminal-command-response-margin | Margin of command response |
 

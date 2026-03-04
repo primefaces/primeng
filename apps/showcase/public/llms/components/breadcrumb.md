@@ -169,6 +169,9 @@ Breadcrumb provides contextual information about page hierarchy.
 | breadcrumb.item.gap | --p-breadcrumb-item-gap | Gap of item |
 | breadcrumb.item.icon.color | --p-breadcrumb-item-icon-color | Icon color of item |
 | breadcrumb.item.icon.hover.color | --p-breadcrumb-item-icon-hover-color | Icon hover color of item |
+| breadcrumb.item.icon.size | --p-breadcrumb-item-icon-size | Icon size of item icon |
+| breadcrumb.item.label.font.weight | --p-breadcrumb-item-label-font-weight | Font weight of item label |
+| breadcrumb.item.label.font.size | --p-breadcrumb-item-label-font-size | Font size of item label |
 | breadcrumb.item.focus.ring.width | --p-breadcrumb-item-focus-ring-width | Focus ring width of item |
 | breadcrumb.item.focus.ring.style | --p-breadcrumb-item-focus-ring-style | Focus ring style of item |
 | breadcrumb.item.focus.ring.color | --p-breadcrumb-item-focus-ring-color | Focus ring color of item |

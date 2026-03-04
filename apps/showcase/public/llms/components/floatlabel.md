@@ -142,6 +142,7 @@ FloatLabel appears on top of the input field when focused.
 | floatlabel.transition.duration | --p-floatlabel-transition-duration | Transition duration of root |
 | floatlabel.position.x | --p-floatlabel-position-x | Position x of root |
 | floatlabel.position.y | --p-floatlabel-position-y | Position y of root |
+| floatlabel.font.size | --p-floatlabel-font-size | Font size of root |
 | floatlabel.font.weight | --p-floatlabel-font-weight | Font weight of root |
 | floatlabel.active.font.size | --p-floatlabel-active-font-size | Active font size of root |
 | floatlabel.active.font.weight | --p-floatlabel-active-font-weight | Active font weight of root |

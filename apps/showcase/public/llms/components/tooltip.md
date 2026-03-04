@@ -236,4 +236,6 @@ Tooltip directive provides advisory information for a component.
 | tooltip.border.radius | --p-tooltip-border-radius | Border radius of root |
 | tooltip.background | --p-tooltip-background | Background of root |
 | tooltip.color | --p-tooltip-color | Color of root |
+| tooltip.font.weight | --p-tooltip-font-weight | Font weight of root |
+| tooltip.font.size | --p-tooltip-font-size | Font size of root |
 

@@ -6,13 +6,6 @@ Select is used to choose an item from a collection of options.
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The select element has a combobox role in addition to aria-haspopup and aria-expanded attributes. If the editable option is enabled aria-autocomplete is also added. The relation between the combobox and the popup is created with aria-controls and aria-activedescendant attribute is used to instruct screen reader which option to read during keyboard navigation within the popup list. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses listbox as the role. Each list item has an option role, an id to match the aria-activedescendant of the input element along with aria-label , aria-selected and aria-disabled attributes. If filtering is enabled, filterInputProps can be defined to give aria-* props to the filter input element.
 
-```typescript
-<span id="dd1">Options</span>
-<p-select ariaLabelledBy="dd1"/>
-
-<p-select ariaLabel="Options"/>
-```
-
 ## Basic
 
 Select is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
@@ -1186,6 +1179,8 @@ Select is used to choose an item from a collection of options.
 | select.lg.font.size | --p-select-lg-font-size | Lg font size of root |
 | select.lg.padding.x | --p-select-lg-padding-x | Lg padding x of root |
 | select.lg.padding.y | --p-select-lg-padding-y | Lg padding y of root |
+| select.font.weight | --p-select-font-weight | Font weight of root |
+| select.font.size | --p-select-font-size | Font size of root |
 | select.dropdown.width | --p-select-dropdown-width | Width of dropdown |
 | select.dropdown.color | --p-select-dropdown-color | Color of dropdown |
 | select.overlay.background | --p-select-overlay-background | Background of overlay |
@@ -1203,11 +1198,15 @@ Select is used to choose an item from a collection of options.
 | select.option.focus.color | --p-select-option-focus-color | Focus color of option |
 | select.option.selected.color | --p-select-option-selected-color | Selected color of option |
 | select.option.selected.focus.color | --p-select-option-selected-focus-color | Selected focus color of option |
+| select.option.selected.font.weight | --p-select-option-selected-font-weight | Font weight of a selected option |
 | select.option.padding | --p-select-option-padding | Padding of option |
 | select.option.border.radius | --p-select-option-border-radius | Border radius of option |
+| select.option.font.weight | --p-select-option-font-weight | Font weight of option |
+| select.option.font.size | --p-select-option-font-size | Font size of option |
 | select.option.group.background | --p-select-option-group-background | Background of option group |
 | select.option.group.color | --p-select-option-group-color | Color of option group |
 | select.option.group.font.weight | --p-select-option-group-font-weight | Font weight of option group |
+| select.option.group.font.size | --p-select-option-group-font-size | Font size of option group |
 | select.option.group.padding | --p-select-option-group-padding | Padding of option group |
 | select.clear.icon.color | --p-select-clear-icon-color | Color of clear icon |
 | select.checkmark.color | --p-select-checkmark-color | Color of checkmark |

@@ -575,6 +575,9 @@ TieredMenu displays submenus in nested overlays.
 | tieredmenu.item.icon.color | --p-tieredmenu-item-icon-color | Icon color of item |
 | tieredmenu.item.icon.focus.color | --p-tieredmenu-item-icon-focus-color | Icon focus color of item |
 | tieredmenu.item.icon.active.color | --p-tieredmenu-item-icon-active-color | Icon active color of item |
+| tieredmenu.item.icon.size | --p-tieredmenu-item-icon-size | Icon size of item |
+| tieredmenu.item.label.font.weight | --p-tieredmenu-item-label-font-weight | Font weight of item label |
+| tieredmenu.item.label.font.size | --p-tieredmenu-item-label-font-size | Font size of item label |
 | tieredmenu.submenu.mobile.indent | --p-tieredmenu-submenu-mobile-indent | Mobile indent of submenu |
 | tieredmenu.submenu.icon.size | --p-tieredmenu-submenu-icon-size | Size of submenu icon |
 | tieredmenu.submenu.icon.color | --p-tieredmenu-submenu-icon-color | Color of submenu icon |

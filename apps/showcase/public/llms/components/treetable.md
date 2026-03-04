@@ -2767,6 +2767,7 @@ TreeTable is used to display hierarchical data in tabular format.
 | treetable.header.cell.focus.ring.offset | --p-treetable-header-cell-focus-ring-offset | Focus ring offset of header cell |
 | treetable.header.cell.focus.ring.shadow | --p-treetable-header-cell-focus-ring-shadow | Focus ring shadow of header cell |
 | treetable.column.title.font.weight | --p-treetable-column-title-font-weight | Font weight of column title |
+| treetable.column.title.font.size | --p-treetable-column-title-font-size | Font size of column title |
 | treetable.row.background | --p-treetable-row-background | Background of row |
 | treetable.row.hover.background | --p-treetable-row-hover-background | Hover background of row |
 | treetable.row.selected.background | --p-treetable-row-selected-background | Selected background of row |
@@ -2782,11 +2783,14 @@ TreeTable is used to display hierarchical data in tabular format.
 | treetable.body.cell.padding | --p-treetable-body-cell-padding | Padding of body cell |
 | treetable.body.cell.gap | --p-treetable-body-cell-gap | Gap of body cell |
 | treetable.body.cell.selected.border.color | --p-treetable-body-cell-selected-border-color | Selected border color of body cell |
+| treetable.body.cell.font.weight | --p-treetable-body-cell-font-weight | Font weight of body cell |
+| treetable.body.cell.font.size | --p-treetable-body-cell-font-size | Font size of body cell |
 | treetable.footer.cell.background | --p-treetable-footer-cell-background | Background of footer cell |
 | treetable.footer.cell.border.color | --p-treetable-footer-cell-border-color | Border color of footer cell |
 | treetable.footer.cell.color | --p-treetable-footer-cell-color | Color of footer cell |
 | treetable.footer.cell.padding | --p-treetable-footer-cell-padding | Padding of footer cell |
 | treetable.column.footer.font.weight | --p-treetable-column-footer-font-weight | Font weight of column footer |
+| treetable.column.footer.font.size | --p-treetable-column-footer-font-size | Font size of column footer |
 | treetable.footer.background | --p-treetable-footer-background | Background of footer |
 | treetable.footer.border.color | --p-treetable-footer-border-color | Border color of footer |
 | treetable.footer.color | --p-treetable-footer-color | Color of footer |

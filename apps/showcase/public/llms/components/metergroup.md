@@ -235,6 +235,8 @@ export class MetergroupVerticalDemo {
 | metergroup.meters.size | --p-metergroup-meters-size | Size of meters |
 | metergroup.label.gap | --p-metergroup-label-gap | Gap of label |
 | metergroup.label.marker.size | --p-metergroup-label-marker-size | Size of label marker |
+| metergroup.label.text.font.weight | --p-metergroup-label-text-font-weight | Font weight of label text |
+| metergroup.label.text.font.size | --p-metergroup-label-text-font-size | Font size of label text |
 | metergroup.label.icon.size | --p-metergroup-label-icon-size | Size of label icon |
 | metergroup.label.list.vertical.gap | --p-metergroup-label-list-vertical-gap | Vertical gap of label list |
 | metergroup.label.list.horizontal.gap | --p-metergroup-label-list-horizontal-gap | Horizontal gap of label list |

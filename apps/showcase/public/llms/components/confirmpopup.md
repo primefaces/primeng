@@ -426,6 +426,9 @@ ConfirmPopup displays a confirmation overlay displayed relatively to its target.
 | confirmpopup.content.gap | --p-confirmpopup-content-gap | Gap of content |
 | confirmpopup.icon.size | --p-confirmpopup-icon-size | Size of icon |
 | confirmpopup.icon.color | --p-confirmpopup-icon-color | Color of icon |
+| confirmpopup.message.color | --p-confirmpopup-message-color | Color of message |
+| confirmpopup.message.font.weight | --p-confirmpopup-message-font-weight | Font weight of message |
+| confirmpopup.message.font.size | --p-confirmpopup-message-font-size | Font size of message |
 | confirmpopup.footer.gap | --p-confirmpopup-footer-gap | Gap of footer |
 | confirmpopup.footer.padding | --p-confirmpopup-footer-padding | Padding of footer |
 

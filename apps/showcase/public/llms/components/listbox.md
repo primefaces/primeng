@@ -6,13 +6,6 @@ Listbox is used to select one or more values from a list of items.
 
 Screen Reader Value to describe the component can be provided ariaLabelledBy or ariaLabel props. The list element has a listbox role with the aria-multiselectable attribute that sets to true when multiple selection is enabled. Each list item has an option role with aria-selected and aria-disabled as their attributes.
 
-```typescript
-<span id="lb">Options</span>
-<p-listbox ariaLabelledBy="lb"/>
-
-<p-listbox ariaLabel="City"/>
-```
-
 ## Basic
 
 Listbox is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Default property name for the optionLabel is label and value for the optionValue . If optionValue is omitted and the object has no value property, the object itself becomes the value of an option. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
@@ -792,12 +785,16 @@ ListBox is used to select one or more values from a list of items.
 | listbox.option.focus.color | --p-listbox-option-focus-color | Focus color of option |
 | listbox.option.selected.color | --p-listbox-option-selected-color | Selected color of option |
 | listbox.option.selected.focus.color | --p-listbox-option-selected-focus-color | Selected focus color of option |
+| listbox.option.selected.font.weight | --p-listbox-option-selected-font-weight | Font weight of a selected option |
 | listbox.option.padding | --p-listbox-option-padding | Padding of option |
 | listbox.option.border.radius | --p-listbox-option-border-radius | Border radius of option |
 | listbox.option.striped.background | --p-listbox-option-striped-background | Striped background of option |
+| listbox.option.font.weight | --p-listbox-option-font-weight | Font weight of option |
+| listbox.option.font.size | --p-listbox-option-font-size | Font size of option |
 | listbox.option.group.background | --p-listbox-option-group-background | Background of option group |
 | listbox.option.group.color | --p-listbox-option-group-color | Color of option group |
 | listbox.option.group.font.weight | --p-listbox-option-group-font-weight | Font weight of option group |
+| listbox.option.group.font.size | --p-listbox-option-group-font-size | Font size of option group |
 | listbox.option.group.padding | --p-listbox-option-group-padding | Padding of option group |
 | listbox.checkmark.color | --p-listbox-checkmark-color | Color of checkmark |
 | listbox.checkmark.gutter.start | --p-listbox-checkmark-gutter-start | Gutter start of checkmark |

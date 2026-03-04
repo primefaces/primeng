@@ -6,13 +6,6 @@ CascadeSelect displays a nested structure of options.
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The cascadeselect element has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls that refers to the id of the popup. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses tree as the role. Each list item has a treeitem role along with aria-label , aria-selected and aria-expanded attributes. The container element of a treenode has the group role. The aria-setsize , aria-posinset and aria-level attributes are calculated implicitly and added to each treeitem.
 
-```typescript
-<span id="dd1">Options</span>
-<p-cascadeselect ariaLabelledBy="dd1"/>
-
-<p-cascadeselect ariaLabel="Options"/>
-```
-
 ## Basic
 
 CascadeSelect requires a value to bind and a collection of arbitrary objects with a nested hierarchy. optionGroupLabel is used for the text of a category and optionGroupChildren is to define the children of the category. Note that order of the optionGroupChildren matters and it should correspond to the data hierarchy.
@@ -1368,6 +1361,8 @@ export class CascadeselectTemplatedrivenformsDemo {
 | cascadeselect.lg.font.size | --p-cascadeselect-lg-font-size | Lg font size of root |
 | cascadeselect.lg.padding.x | --p-cascadeselect-lg-padding-x | Lg padding x of root |
 | cascadeselect.lg.padding.y | --p-cascadeselect-lg-padding-y | Lg padding y of root |
+| cascadeselect.font.weight | --p-cascadeselect-font-weight | Font weight of current value |
+| cascadeselect.font.size | --p-cascadeselect-font-size | Font size of current value |
 | cascadeselect.dropdown.width | --p-cascadeselect-dropdown-width | Width of dropdown |
 | cascadeselect.dropdown.color | --p-cascadeselect-dropdown-color | Color of dropdown |
 | cascadeselect.overlay.background | --p-cascadeselect-overlay-background | Background of overlay |
@@ -1385,10 +1380,13 @@ export class CascadeselectTemplatedrivenformsDemo {
 | cascadeselect.option.focus.color | --p-cascadeselect-option-focus-color | Focus color of option |
 | cascadeselect.option.selected.color | --p-cascadeselect-option-selected-color | Selected color of option |
 | cascadeselect.option.selected.focus.color | --p-cascadeselect-option-selected-focus-color | Selected focus color of option |
+| cascadeselect.option.selected.font.weight | --p-cascadeselect-option-selected-font-weight | Font weight of a selected option |
 | cascadeselect.option.padding | --p-cascadeselect-option-padding | Padding of option |
 | cascadeselect.option.border.radius | --p-cascadeselect-option-border-radius | Border radius of option |
 | cascadeselect.option.icon.color | --p-cascadeselect-option-icon-color | Icon color of option |
 | cascadeselect.option.icon.focus.color | --p-cascadeselect-option-icon-focus-color | Icon focus color of option |
 | cascadeselect.option.icon.size | --p-cascadeselect-option-icon-size | Icon size of option |
+| cascadeselect.option.font.weight | --p-cascadeselect-option-font-weight | Font weight of option |
+| cascadeselect.option.font.size | --p-cascadeselect-option-font-size | Font size of option |
 | cascadeselect.clear.icon.color | --p-cascadeselect-clear-icon-color | Color of clear icon |
 

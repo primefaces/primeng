@@ -6,13 +6,6 @@ Integration between PrimeNG and Tailwind CSS.
 
 The plugin also adds extended animation utilities that can be used with the styleclass and animateonscroll directives.
 
-```typescript
-<p-select [(ngModel)]="animation" [options]="animations" placeholder="Select One" class="w-full sm:w-44" />
-<div class="py-8 overflow-hidden">
-   <div [ngClass]="dynamicAnimationClasses"></div>
-</div>
-```
-
 ## Colorpalette-
 
 PrimeNG color palette as utility classes.

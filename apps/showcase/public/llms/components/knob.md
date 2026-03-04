@@ -6,13 +6,6 @@ Knob is a form component to define number inputs with a dial.
 
 Screen Reader Knob element component uses slider role in addition to the aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using ariaLabelledBy and ariaLabel props.
 
-```typescript
-<span id="label_number">Number</span>
-<p-knob ariaLabelledBy="label_number"/>
-
-<p-knob ariaLabel="Number"/>
-```
-
 ## Basic
 
 Knob is an input component and used with the standard ngModel directive.
@@ -467,4 +460,6 @@ Knob is a form component to define number inputs with a dial.
 | knob.value.background | --p-knob-value-background | Background of value |
 | knob.range.background | --p-knob-range-background | Background of range |
 | knob.text.color | --p-knob-text-color | Color of text |
+| knob.text.font.size | --p-knob-text-font-size | Font size of text |
+| knob.text.font.weight | --p-knob-text-font-weight | Font weight of text |
 

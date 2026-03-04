@@ -6,16 +6,6 @@ Password displays strength indicator for password fields.
 
 Screen Reader Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props. Screen reader is notified about the changes to the strength of the password using a section that has aria-live while typing.
 
-```typescript
-<label for="pwd1">Password</label>
-<p-password inputId="pwd1" />
-
-<span id="pwd2">Password</span>
-<p-password ariaLabelledBy="pwd2" />
-
-<p-password ariaLabel="Password" />
-```
-
 ## Basic
 
 Two-way value binding is defined using ngModel .
@@ -578,6 +568,8 @@ Password displays strength indicator for password fields.
 | password.overlay.padding | --p-password-overlay-padding | Padding of overlay |
 | password.overlay.shadow | --p-password-overlay-shadow | Shadow of overlay |
 | password.content.gap | --p-password-content-gap | Gap of content |
+| password.meter.text.font.weight | --p-password-meter-text-font-weight | Font weight of meter text |
+| password.meter.text.font.size | --p-password-meter-text-font-size | Font size of meter text |
 | password.strength.weak.background | --p-password-strength-weak-background | Weak background of strength |
 | password.strength.medium.background | --p-password-strength-medium-background | Medium background of strength |
 | password.strength.strong.background | --p-password-strength-strong-background | Strong background of strength |

@@ -436,6 +436,7 @@ Tabs facilitates seamless switching between different views.
 | tabs.tab.active.color | --p-tabs-tab-active-color | Active color of tab |
 | tabs.tab.padding | --p-tabs-tab-padding | Padding of tab |
 | tabs.tab.font.weight | --p-tabs-tab-font-weight | Font weight of tab |
+| tabs.tab.font.size | --p-tabs-tab-font-size | Font size of tab |
 | tabs.tab.margin | --p-tabs-tab-margin | Margin of tab |
 | tabs.tab.gap | --p-tabs-tab-gap | Gap of tab |
 | tabs.tab.focus.ring.width | --p-tabs-tab-focus-ring-width | Focus ring width of tab |

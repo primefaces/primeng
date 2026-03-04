@@ -16,10 +16,10 @@ import { Component } from '@angular/core';
 })
 export class ImageDoc {
     code: Code = {
-        typescript: `<p-dropdown>
+        html: `<p-select>
     <ng-template #dropdownicon>
         <img alt="dropdown icon" src="/assets/icons/arrow_down.png">
     </ng-template>
-</p-dropdown>`
+</p-select>`
     };
 }

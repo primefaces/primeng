@@ -6,16 +6,6 @@ AutoComplete is an input component that provides real-time suggestions when bein
 
 Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props. The input element has combobox role in addition to aria-autocomplete , aria-haspopup and aria-expanded attributes. The relation between the input and the popup is created with aria-controls and aria-activedescendant attribute is used to instruct screen reader which option to read during keyboard navigation within the popup list. In multiple mode, chip list uses listbox role whereas each chip has the option role with aria-label set to the label of the chip. The popup list has an id that refers to the aria-controls attribute of the input element and uses listbox as the role. Each list item has option role and an id to match the aria-activedescendant of the input element.
 
-```typescript
-<label for="ac1">Username</label>
-<p-autocomplete inputId="ac1"/>
-
-<span id="ac2">Email</span>
-<p-autocomplete ariaLabelledBy="ac2" />
-
-<p-autocomplete ariaLabel="City" />
-```
-
 ## advanced-chips-doc
 
 This example demonstrates an advanced use case with templating, object handling, dropdown, and multiple mode.
@@ -1058,9 +1048,12 @@ export class AutocompleteVirtualScrollDemo implements OnInit {
 | autocomplete.option.selected.focus.color | --p-autocomplete-option-selected-focus-color | Selected focus color of option |
 | autocomplete.option.padding | --p-autocomplete-option-padding | Padding of option |
 | autocomplete.option.border.radius | --p-autocomplete-option-border-radius | Border radius of option |
+| autocomplete.option.font.weight | --p-autocomplete-option-font-weight | Font weight of option |
+| autocomplete.option.font.size | --p-autocomplete-option-font-size | Font size of option |
 | autocomplete.option.group.background | --p-autocomplete-option-group-background | Background of option group |
 | autocomplete.option.group.color | --p-autocomplete-option-group-color | Color of option group |
 | autocomplete.option.group.font.weight | --p-autocomplete-option-group-font-weight | Font weight of option group |
+| autocomplete.option.group.font.size | --p-autocomplete-option-group-font-size | Font size of option group |
 | autocomplete.option.group.padding | --p-autocomplete-option-group-padding | Padding of option group |
 | autocomplete.dropdown.width | --p-autocomplete-dropdown-width | Width of dropdown |
 | autocomplete.dropdown.sm.width | --p-autocomplete-dropdown-sm-width | Sm width of dropdown |
