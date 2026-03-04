@@ -107,7 +107,7 @@ export class FreyaPage {
             id: 4,
             title: 'Figma File',
             description: `Freya uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
-                <a href="https://www.figma.com/file/eYBoRNff6GPTlrgYZaMStp/Preview-%7C-Freya-2022?node-id=0%3A1&t=MGAABDlOnz4QBcEk-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the Freya Figma
+                <a href="https://www.figma.com/design/Mv0xRaU4gDrWAY6uW2vhim/Preview-%7C-Freya-%7C%C2%A03.0.0?node-id=1303-749&t=7vBqlx6EvhdjJgec-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the Freya Figma
                 file as they are available in <a hrefo="/uikit">PrimeOne for Figma</a> only.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/freya/features-animation-figma.png'
         }
