@@ -22,8 +22,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <img [src]="item.thumbnailImageSrc" style="display: block;" />
                 </ng-template>
                 <ng-template #caption let-item>
-                    <div class="text-xl mb-2 font-bold">{{ item.title }}</div>
-                    <p class="text-white">{{ item.alt }}</p>
+                    <div class="text-lg mb-2 font-bold">{{ item.title }}</div>
+                    <p class="text-white text-sm">{{ item.alt }}</p>
                 </ng-template>
             </p-galleria>
         </div>

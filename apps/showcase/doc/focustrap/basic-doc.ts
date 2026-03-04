@@ -19,7 +19,7 @@ import { InputTextModule } from 'primeng/inputtext';
             <p>FocusTrap is applied to a container element with the <i>pFocusTrap</i> directive.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <div pFocusTrap class="w-full sm:w-80 flex flex-col gap-6">
+            <div pFocusTrap class="w-full sm:w-80 flex flex-col gap-5">
                 <p-iconfield>
                     <p-inputicon>
                         <i class="pi pi-user"></i>
@@ -36,7 +36,7 @@ import { InputTextModule } from 'primeng/inputtext';
 
                 <div class="flex items-center gap-2">
                     <p-checkbox id="accept" [(ngModel)]="accept" name="accept" value="Accept" />
-                    <label for="accept">I agree to the terms and conditions.</label>
+                    <label for="accept" class="text-sm">I agree to the terms and conditions.</label>
                 </div>
 
                 <p-button type="submit" label="Submit" class="mt-2" styleClass="w-full" />

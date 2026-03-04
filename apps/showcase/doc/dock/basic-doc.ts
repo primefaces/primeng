@@ -20,11 +20,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex flex-wrap gap-4 mb-8">
+            <div class="flex flex-wrap gap-4 mb-7">
                 @for (pos of positionOptions; track pos.value) {
                     <div class="flex items-center">
                         <p-radiobutton name="dock" [value]="pos.value" [label]="pos.label" [(ngModel)]="position" [inputId]="pos.label" />
-                        <label [for]="pos.label" class="ml-2"> {{ pos.label }} </label>
+                        <label [for]="pos.label" class="ml-2 text-sm"> {{ pos.label }} </label>
                     </div>
                 }
             </div>

@@ -51,8 +51,8 @@ import { Ripple } from 'primeng/ripple';
                     </svg>
                 </ng-template>
                 <ng-template #item let-item let-root="root">
-                    <a pRipple class="flex items-center px-4 py-3 cursor-pointer gap-2">
-                        <span>{{ item.label }}</span>
+                    <a pRipple class="flex items-center px-3 py-2 cursor-pointer gap-2">
+                        <span class="text-sm">{{ item.label }}</span>
                         @if (item.badge) {
                             <p-badge [ngClass]="{ 'ms-auto': !root }" [value]="item.badge" />
                         }

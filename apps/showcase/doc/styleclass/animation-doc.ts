@@ -15,7 +15,7 @@ import { ButtonModule } from 'primeng/button';
                 in case the target is an overlay, <i>hideOnOutsideClick</i> would be handy to hide the target if outside of the popup is clicked, or enable <i>hideOnEscape</i> to close the popup by listening <i>escape</i> key.
             </p>
         </app-docsectiontext>
-        <div class="card flex items-center justify-center gap-8">
+        <div class="card flex items-center justify-center gap-7">
             <div class="flex flex-col items-center">
                 <div>
                     <p-button pStyleClass=".box1" enterFromClass="my-hidden" enterActiveClass="my-fadein" label="FadeIn" class="mr-2" />
@@ -23,7 +23,7 @@ import { ButtonModule } from 'primeng/button';
                 </div>
                 <div class="h-32">
                     <div class="my-hidden animate-duration-500 box1">
-                        <div class="flex bg-primary text-primary-contrast items-center justify-center py-4 rounded-md mt-4 font-bold w-32 h-32">Custom</div>
+                        <div class="flex bg-primary text-primary-contrast items-center justify-center py-3 rounded-md mt-4 font-bold text-sm w-28 h-28">Custom</div>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@ import { ButtonModule } from 'primeng/button';
                 </div>
                 <div class="h-32">
                     <div class="hidden animate-duration-500 box2 overflow-hidden">
-                        <div class="flex bg-primary text-primary-contrast items-center justify-center py-4 rounded-md mt-4 font-bold w-32 h-32">Content</div>
+                        <div class="flex bg-primary text-primary-contrast items-center justify-center py-3 rounded-md mt-4 font-bold text-sm w-28 h-28">Content</div>
                     </div>
                 </div>
             </div>

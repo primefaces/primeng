@@ -15,11 +15,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex flex-wrap gap-4 mb-8">
+            <div class="flex flex-wrap gap-4 mb-7">
                 @for (option of positionOptions; track $index) {
                     <div class="flex items-center">
                         <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
-                        <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
+                        <label [for]="option.label" class="ml-2 text-sm"> {{ option.label }} </label>
                     </div>
                 }
             </div>

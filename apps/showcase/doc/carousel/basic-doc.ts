@@ -26,9 +26,9 @@ import { TagModule } from 'primeng/tag';
                                 <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                             </div>
                         </div>
-                        <div class="mb-4 font-medium">{{ product.name }}</div>
+                        <div class="mb-4 font-medium text-sm">{{ product.name }}</div>
                         <div class="flex justify-between items-center">
-                            <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+                            <div class="mt-0 font-semibold text-lg">{{ '$' + product.price }}</div>
                             <span>
                                 <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
                                 <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />

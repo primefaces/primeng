@@ -19,10 +19,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <div class="flex flex-wrap gap-4">
                         @for (meterItem of value; track $index; let index = $index) {
                             <p-card class="flex-1" styleClass="border border-surface shadow-none">
-                                <div class="flex justify-between gap-8">
+                                <div class="flex justify-between gap-7">
                                     <div class="flex flex-col gap-1">
                                         <span class="text-surface-500 dark:text-surface-400 text-sm">{{ meterItem.label }}</span>
-                                        <span class="font-bold text-lg">{{ meterItem.value }}%</span>
+                                        <span class="font-bold">{{ meterItem.value }}%</span>
                                     </div>
                                     <span class="w-8 h-8 rounded-full inline-flex justify-center items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
                                         <i [class]="meterItem.icon"></i>
@@ -37,9 +37,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
                 <ng-template #start let-totalPercent="totalPercent">
                     <div class="flex justify-between mt-4 mb-2 relative">
-                        <span>Storage</span>
-                        <span [style]="{ width: totalPercent + '%' }" class="absolute text-right">{{ totalPercent }}%</span>
-                        <span class="font-medium">1TB</span>
+                        <span class="text-sm">Storage</span>
+                        <span [style]="{ width: totalPercent + '%' }" class="absolute text-right text-sm">{{ totalPercent }}%</span>
+                        <span class="font-medium text-sm">1TB</span>
                     </div>
                 </ng-template>
                 <ng-template #end>

@@ -17,9 +17,9 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
         <div class="card flex justify-center">
             <p-tieredmenu [model]="items">
                 <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-                    <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
+                    <a pRipple class="flex items-center px-3 py-2 cursor-pointer">
                         <span [class]="item.icon"></span>
-                        <span class="ms-2">{{ item.label }}</span>
+                        <span class="ms-2 text-sm">{{ item.label }}</span>
                         @if (item.badge) {
                             <p-badge class="ml-auto" [value]="item.badge" />
                         }

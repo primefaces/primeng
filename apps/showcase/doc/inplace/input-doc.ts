@@ -17,7 +17,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card">
             <p-inplace>
                 <ng-template #display>
-                    <span>Click to Edit</span>
+                    <span class="text-sm">Click to Edit</span>
                 </ng-template>
                 <ng-template #content let-closeCallback="closeCallback">
                     <span class="inline-flex gap-2">

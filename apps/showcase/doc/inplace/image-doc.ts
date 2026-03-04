@@ -16,7 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <ng-template #display>
                     <span class="inline-flex items-center gap-2">
                         <span class="pi pi-image" style="vertical-align: middle"></span>
-                        <span class="ml-2">View Photo</span>
+                        <span class="ml-2 text-sm">View Photo</span>
                     </span>
                 </ng-template>
                 <ng-template #content>

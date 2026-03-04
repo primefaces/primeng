@@ -17,7 +17,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card">
             <p-inplace (onActivate)="loadData()">
                 <ng-template #display>
-                    <span>View Data</span>
+                    <span class="text-sm">View Data</span>
                 </ng-template>
                 <ng-template #content>
                     <p-table [value]="products">

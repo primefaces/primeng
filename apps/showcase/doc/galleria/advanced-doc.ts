@@ -47,9 +47,9 @@ import { Galleria, GalleriaModule } from 'primeng/galleria';
                         </button>
                         @if (images()) {
                             <span class="flex items-center gap-4 ml-3">
-                                <span class="text-sm">{{ activeIndex + 1 }}/{{ images().length }}</span>
-                                <span class="font-bold text-sm">{{ images()[activeIndex].title }}</span>
-                                <span class="text-sm">{{ images()[activeIndex].alt }}</span>
+                                <span class="text-xs">{{ activeIndex + 1 }}/{{ images().length }}</span>
+                                <span class="font-bold text-xs">{{ images()[activeIndex].title }}</span>
+                                <span class="text-xs">{{ images()[activeIndex].alt }}</span>
                             </span>
                         }
                         <button type="button" pButton (click)="toggleFullScreen()" class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3 ml-auto">

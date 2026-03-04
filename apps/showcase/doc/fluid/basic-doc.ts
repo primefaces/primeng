@@ -16,17 +16,17 @@ import { InputTextModule } from 'primeng/inputtext';
             </p>
             <p>Any component that has the <i>fluid</i> property can be nested inside the <i>Fluid</i> component. The <i>fluid</i> property of a child component has higher precedence than the fluid container as shown in the last sample.</p>
         </app-docsectiontext>
-        <div class="card flex flex-col gap-6">
+        <div class="card flex flex-col gap-5">
             <div>
-                <label for="non-fluid" class="font-bold mb-2 block">Non-Fluid</label>
+                <label for="non-fluid" class="font-bold mb-2 block text-sm">Non-Fluid</label>
                 <input type="text" pInputText id="non-fluid" />
             </div>
             <div>
-                <label for="fluid" class="font-bold mb-2 block">Fluid Prop</label>
+                <label for="fluid" class="font-bold mb-2 block text-sm">Fluid Prop</label>
                 <input type="text" pInputText id="fluid" fluid />
             </div>
             <p-fluid>
-                <span class="font-bold mb-2 block">Fluid Container</span>
+                <span class="font-bold mb-2 block text-sm">Fluid Container</span>
                 <div class="grid grid-cols-2 gap-4">
                     <div><input type="text" pInputText /></div>
                     <div><input type="text" pInputText /></div>

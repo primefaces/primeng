@@ -31,7 +31,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <i class="pi pi-video px-2"></i>
                     <i class="pi pi-wifi px-2"></i>
                     <i class="pi pi-volume-up px-2"></i>
-                    <span class="px-2">Fri 13:07</span>
+                    <span class="px-2 text-sm">Fri 13:07</span>
                     <i class="pi pi-search px-2"></i>
                     <i class="pi pi-bars px-2"></i>
                 </ng-template>

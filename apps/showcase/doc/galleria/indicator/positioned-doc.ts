@@ -23,13 +23,13 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 @for (option of positionOptions; track $index) {
                     <div class="flex items-center">
                         <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
-                        <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
+                        <label [for]="option.label" class="ml-2 text-sm"> {{ option.label }} </label>
                     </div>
                 }
             </div>
             <div class="flex items-center mb-8">
                 <p-checkbox [(ngModel)]="showIndicatorsOnItem" [binary]="true" inputId="inside_cbox" />
-                <label for="inside_cbox" class="ml-2"> Inside </label>
+                <label for="inside_cbox" class="ml-2 text-sm"> Inside </label>
             </div>
             <p-galleria [(value)]="images" [indicatorsPosition]="position" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="showIndicatorsOnItem" [containerStyle]="{ 'max-width': '640px', 'margin-top': '2em' }">
                 <ng-template #item let-item>

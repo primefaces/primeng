@@ -12,7 +12,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Styling Demo Content.</p>
         </app-docsectiontext>
         <div class="card flex flex-col gap-4 items-center">
-            <span
+            <span class="text-sm"
                 >Ripple option at the
                 <span class="mx-1 h-8 w-8 rounded-border inline-flex items-center justify-center bg-primary text-primary-contrast"><i class="pi pi-palette"></i></span>
                 configurator needs to be turned on for the demo.</span
@@ -29,8 +29,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         `
             :host {
                 .box {
-                    padding: 2rem;
+                    padding: 1.75rem;
                     border-radius: 10px;
+                    font-size: 0.875rem;
                     width: 110px;
                     text-align: center;
                 }

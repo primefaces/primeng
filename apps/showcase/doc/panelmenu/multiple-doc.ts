@@ -13,7 +13,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Only one single root menuitem can be active by default, enable <i>multiple</i> property to be able to open more than one items.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-panelmenu [model]="items" styleClass="w-full md:w-80" [multiple]="true" />
+            <p-panelmenu [model]="items" class="w-full md:w-80" [multiple]="true" />
         </div>
         <app-code></app-code>
     `

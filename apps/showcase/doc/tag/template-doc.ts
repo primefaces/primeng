@@ -15,7 +15,7 @@ import { TagModule } from 'primeng/tag';
             <p-tag [style]="{ border: '2px solid var(--border-color)', background: 'transparent', color: 'var(--text-color)' }">
                 <div class="flex items-center gap-2 px-1">
                     <img alt="Country" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" class="flag flag-it" style="width: 18px" />
-                    <span class="text-base">Italy</span>
+                    <span class="text-sm">Italy</span>
                 </div>
             </p-tag>
         </div>
