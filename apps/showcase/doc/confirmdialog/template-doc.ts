@@ -29,7 +29,7 @@ import { ToastModule } from 'primeng/toast';
                     @if (message) {
                         <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
                             <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
-                            <p>{{ message.message }}</p>
+                            <p class="text-sm">{{ message.message }}</p>
                         </div>
                     }
                 </ng-template>

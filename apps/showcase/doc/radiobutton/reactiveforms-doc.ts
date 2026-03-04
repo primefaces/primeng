@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
                     @for (category of categories; track category.key) {
                         <div class="flex items-center gap-2">
                             <p-radiobutton formControlName="selectedCategory" name="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
-                            <label [for]="category.key"> {{ category.name }} </label>
+                            <label [for]="category.key" class="text-sm"> {{ category.name }} </label>
                         </div>
                     }
                 </div>

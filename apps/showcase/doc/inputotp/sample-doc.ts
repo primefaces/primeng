@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { InputOtpModule } from 'primeng/inputotp';
-import { ButtonModule } from 'primeng/button';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { InputOtpModule } from 'primeng/inputotp';
 
 @Component({
     selector: 'sample-doc',
@@ -16,7 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <div class="flex flex-col items-center">
                 <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
-                <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
+                <p class="text-sm text-muted-color block mb-8">Please enter the code sent to your phone.</p>
                 <p-inputotp [(ngModel)]="value" [length]="6">
                     <ng-template #input let-token let-events="events" let-index="index">
                         <input type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />

@@ -20,8 +20,8 @@ const classes = {
         'p-inputtext p-component',
         {
             'p-filled': instance.$filled(),
-            'p-inputtext-sm': instance.pSize === 'small',
-            'p-inputtext-lg': instance.pSize === 'large',
+            'p-inputtext-sm': instance.pSize() === 'small',
+            'p-inputtext-lg': instance.pSize() === 'large',
             'p-invalid': instance.invalid(),
             'p-variant-filled': instance.$variant() === 'filled',
             'p-inputtext-fluid': instance.hasFluid

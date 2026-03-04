@@ -32,7 +32,7 @@ interface Users {
                     >
                         <div class="flex flex-1 items-center gap-2">
                             <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" />
-                            <span class="font-bold">{{ user.name }}</span>
+                            <span class="font-bold text-sm">{{ user.name }}</span>
                         </div>
                         <p-tag [value]="user.role" [severity]="getBadge(user)" />
                     </li>

@@ -26,7 +26,7 @@ interface Column {
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template #caption>
                         <div class="flex items-center justify-between">
-                            <span class="text-xl font-bold">Products</span>
+                            <span class="text-lg font-bold">Products</span>
                             <p-button icon="pi pi-refresh" rounded raised />
                         </div>
                     </ng-template>
@@ -56,7 +56,7 @@ interface Column {
                     </ng-template>
                     <ng-template #footer>
                         <tr>
-                            <td colspan="6">In total there are {{ products ? products.length : 0 }} products.</td>
+                            <td colspan="6" class="text-sm">In total there are {{ products ? products.length : 0 }} products.</td>
                         </tr>
                     </ng-template>
                 </p-table>

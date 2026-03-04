@@ -21,7 +21,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p-popover #op>
                 <div class="flex flex-col gap-4 w-[25rem]">
                     <div>
-                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Share this document</span>
+                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2 text-sm">Share this document</span>
                         <p-inputgroup>
                             <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
                             <p-inputgroup-addon>
@@ -30,7 +30,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         </p-inputgroup>
                     </div>
                     <div>
-                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Invite Member</span>
+                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2 text-sm">Invite Member</span>
                         <div class="flex">
                             <p-inputgroup>
                                 <input pInputText disabled />
@@ -42,14 +42,14 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         </div>
                     </div>
                     <div>
-                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Team Members</span>
+                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2 text-sm">Team Members</span>
                         <ul class="list-none p-0 m-0 flex flex-col gap-4">
                             @for (member of members; track member) {
                                 <li class="flex items-center gap-2">
                                     <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
                                     <div>
-                                        <span class="font-medium">{{ member.name }}</span>
-                                        <div class="text-sm text-muted-color">{{ member.email }}</div>
+                                        <span class="font-medium text-sm">{{ member.name }}</span>
+                                        <div class="text-xs text-muted-color">{{ member.email }}</div>
                                     </div>
                                     <div class="flex items-center gap-2 text-muted-color ml-auto text-sm">
                                         <span>{{ member.role }}</span>

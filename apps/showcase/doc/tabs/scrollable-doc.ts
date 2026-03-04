@@ -24,7 +24,7 @@ import { TabsModule } from 'primeng/tabs';
                 <p-tabpanels>
                     @for (tab of scrollableTabs; track tab.value) {
                         <p-tabpanel [value]="tab.value">
-                            <p class="m-0">{{ tab.content }}</p>
+                            <p class="m-0 text-sm">{{ tab.content }}</p>
                         </p-tabpanel>
                     }
                 </p-tabpanels>

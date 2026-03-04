@@ -59,7 +59,7 @@ import { CommonModule } from '@angular/common';
                     <ng-template #item let-item let-toggleCallback="toggleCallback">
                         <div class="flex flex-col items-center justify-between gap-2 p-2 border rounded border-surface-200 dark:border-surface-700 w-20 cursor-pointer" (click)="toggleCallback($event, item)">
                             <span [class]="item.icon"></span>
-                            <span>
+                            <span class="text-sm">
                                 {{ item.label }}
                             </span>
                         </div>

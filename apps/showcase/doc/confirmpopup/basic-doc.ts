@@ -12,7 +12,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     imports: [ConfirmPopupModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>ConfirmPopup is defined using <i>p-confirmPopup</i> tag and an instance of <i>ConfirmationService</i> is required to display it bycalling confirm method.</p>
+            <p>ConfirmPopup is defined using <i>p-confirmpopup</i> tag and an instance of <i>ConfirmationService</i> is required to display it bycalling confirm method.</p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
             <p-toast />

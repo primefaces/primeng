@@ -17,7 +17,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <ng-template #node let-node>
                     <div class="flex flex-col items-center">
                         <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
-                        <div class="mt-4 font-medium text-lg">{{ node.label }}</div>
+                        <div class="mt-4 font-medium">{{ node.label }}</div>
                     </div>
                 </ng-template>
             </p-organization-chart>

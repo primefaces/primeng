@@ -15,29 +15,29 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card">
             <div class="flex flex-wrap gap-4 mb-6">
                 <div class="flex-auto">
-                    <label for="integer" class="font-bold block mb-2"> Integer </label>
+                    <label for="integer" class="text-sm font-bold block mb-2"> Integer </label>
                     <input pInputText id="integer" pKeyFilter="int" class="w-full" />
                 </div>
                 <div class="flex-auto">
-                    <label for="number" class="font-bold block mb-2"> Number </label>
+                    <label for="number" class="text-sm font-bold block mb-2"> Number </label>
                     <input pInputText id="number" pKeyFilter="num" class="w-full" />
                 </div>
                 <div class="flex-auto">
-                    <label for="money" class="font-bold block mb-2"> Money </label>
+                    <label for="money" class="text-sm font-bold block mb-2"> Money </label>
                     <input pInputText id="money" pKeyFilter="money" class="w-full" />
                 </div>
             </div>
             <div class="flex flex-wrap gap-4">
                 <div class="flex-auto">
-                    <label for="hex" class="font-bold block mb-2"> Hex </label>
+                    <label for="hex" class="text-sm font-bold block mb-2"> Hex </label>
                     <input pInputText id="hex" pKeyFilter="hex" class="w-full" />
                 </div>
                 <div class="flex-auto">
-                    <label for="alphabetic" class="font-bold block mb-2"> Alphabetic </label>
+                    <label for="alphabetic" class="text-sm font-bold block mb-2"> Alphabetic </label>
                     <input pInputText id="alphabetic" pKeyFilter="alpha" class="w-full" />
                 </div>
                 <div class="flex-auto">
-                    <label for="alphanumeric" class="font-bold block mb-2"> Alphanumeric </label>
+                    <label for="alphanumeric" class="text-sm font-bold block mb-2"> Alphanumeric </label>
                     <input pInputText id="alphanumeric" pKeyFilter="alphanum" class="w-full" />
                 </div>
             </div>

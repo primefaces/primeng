@@ -18,7 +18,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 @for (category of categories; track category.key) {
                     <div class="flex items-center">
                         <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
-                        <label [for]="category.key" class="ml-2"> {{ category.name }} </label>
+                        <label [for]="category.key" class="text-sm ml-2"> {{ category.name }} </label>
                     </div>
                 }
             </div>

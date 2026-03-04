@@ -18,7 +18,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex flex-col items-center gap-4">
             <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
             <div #targetEl class="mt-8 w-40 h-20 border border-surface rounded-border flex items-center justify-center">
-                <span>Target Element</span>
+                <span class="text-sm">Target Element</span>
             </div>
             <p-popover #op>
                 <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />

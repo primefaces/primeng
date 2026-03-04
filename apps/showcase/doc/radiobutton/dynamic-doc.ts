@@ -17,7 +17,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 @for (category of categories; track category.key) {
                     <div class="field-checkbox">
                         <p-radiobutton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" />
-                        <label [for]="category.key" class="ml-2">{{ category.name }}</label>
+                        <label [for]="category.key" class="text-sm ml-2">{{ category.name }}</label>
                     </div>
                 }
             </div>

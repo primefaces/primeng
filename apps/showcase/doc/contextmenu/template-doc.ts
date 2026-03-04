@@ -15,7 +15,7 @@ import { Ripple } from 'primeng/ripple';
             <p>ContextMenu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter.</p>
         </app-docsectiontext>
         <div class="card flex md:justify-center">
-            <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded p-4 flex flex-col gap-2 w-full md:w-[30rem]">
+            <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded p-3 flex flex-col gap-2 w-full md:w-[30rem]">
                 @for (product of data; track product.id) {
                     <li
                         class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
@@ -25,13 +25,13 @@ import { Ripple } from 'primeng/ripple';
                         <div class="flex flex-wrap p-2 items-center gap-4">
                             <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
                             <div class="flex-1 flex flex-col gap-1">
-                                <span class="font-bold">{{ product.name }}</span>
+                                <span class="font-bold text-sm">{{ product.name }}</span>
                                 <div class="flex items-center gap-2">
                                     <i class="pi pi-tag text-sm"></i>
-                                    <span>{{ product.category }}</span>
+                                    <span class="text-sm">{{ product.category }}</span>
                                 </div>
                             </div>
-                            <span class="font-bold ml-8">&#36;{{ product.price }}</span>
+                            <span class="font-bold ml-8 text-sm">&#36;{{ product.price }}</span>
                         </div>
                     </li>
                 }
@@ -39,7 +39,7 @@ import { Ripple } from 'primeng/ripple';
 
             <p-contextmenu #cm [model]="items" (onHide)="onHide()">
                 <ng-template #item let-item>
-                    <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
+                    <a pRipple class="flex items-center px-3 py-2 cursor-pointer">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
                         @if (item.badge) {

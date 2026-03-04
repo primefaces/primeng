@@ -7,7 +7,7 @@ import { DialogService, DynamicDialog, DynamicDialogRef } from 'primeng/dynamicd
     imports: [ButtonModule],
     template: `
         <div>
-            <p>
+            <p class="text-sm">
                 There are <strong>{{ totalProducts }}</strong> products in total in this list.
             </p>
             <div class="flex justify-end">

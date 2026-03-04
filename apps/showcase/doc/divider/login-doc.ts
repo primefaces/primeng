@@ -17,11 +17,11 @@ import { InputTextModule } from 'primeng/inputtext';
             <div class="flex flex-col md:flex-row">
                 <div class="w-full md:w-5/12 flex flex-col items-center justify-center gap-3 py-5">
                     <div class="flex flex-col gap-2">
-                        <label for="username">Username</label>
+                        <label for="username" class="text-sm">Username</label>
                         <input pInputText id="username" type="text" />
                     </div>
                     <div class="flex flex-col gap-2">
-                        <label for="password">Password</label>
+                        <label for="password" class="text-sm">Password</label>
                         <input pInputText id="password" type="password" />
                     </div>
                     <div class="flex">

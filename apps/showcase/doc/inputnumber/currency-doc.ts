@@ -18,19 +18,19 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
-                <label class="block font-bold mb-2" for="currency-us">United States</label>
+                <label class="text-sm block font-bold mb-2" for="currency-us">United States</label>
                 <p-inputnumber [(ngModel)]="value1" inputId="currency-us" mode="currency" currency="USD" locale="en-US" />
             </div>
             <div class="flex-auto">
-                <label class="block font-bold mb-2" for="currency-germany">Germany</label>
+                <label class="text-sm block font-bold mb-2" for="currency-germany">Germany</label>
                 <p-inputnumber [(ngModel)]="value2" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE" />
             </div>
             <div class="flex-auto">
-                <label class="block font-bold mb-2" for="currency-india">India</label>
+                <label class="text-sm block font-bold mb-2" for="currency-india">India</label>
                 <p-inputnumber [(ngModel)]="value3" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN" />
             </div>
             <div class="flex-auto">
-                <label class="block font-bold mb-2" for="currency-japan">Japan</label>
+                <label class="text-sm block font-bold mb-2" for="currency-japan">Japan</label>
                 <p-inputnumber [(ngModel)]="value4" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP" />
             </div>
         </p-fluid>

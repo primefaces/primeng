@@ -15,19 +15,19 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-4">
             <div class="flex-1 flex flex-col items-center">
-                <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
+                <label for="cp-hex" class="text-sm font-bold block mb-2"> HEX </label>
                 <p-colorpicker [(ngModel)]="color" inputId="cp-hex" class="mb-4" />
-                <span>{{ color }}</span>
+                <span class="text-sm">{{ color }}</span>
             </div>
             <div class="flex-1 flex flex-col items-center">
-                <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
+                <label for="cp-rgb" class="text-sm font-bold block mb-2"> RGB </label>
                 <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" class="mb-4" />
-                <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
+                <span class="text-sm">{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
             </div>
             <div class="flex-1 flex flex-col items-center">
-                <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
+                <label for="cp-hsb" class="text-sm font-bold block mb-2"> HSB </label>
                 <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" class="mb-4" />
-                <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
+                <span class="text-sm">{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
             </div>
         </div>
         <app-code></app-code>

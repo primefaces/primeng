@@ -17,7 +17,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <p-accordion-panel [value]="tab.value">
                         <p-accordion-header>{{ tab.title }}</p-accordion-header>
                         <p-accordion-content>
-                            <p class="m-0">{{ tab.content }}</p>
+                            <p class="m-0 text-sm">{{ tab.content }}</p>
                         </p-accordion-content>
                     </p-accordion-panel>
                 }

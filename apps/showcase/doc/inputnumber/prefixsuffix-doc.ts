@@ -15,19 +15,19 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
-                <label class="font-bold block mb-2" for="mile">Mile</label>
+                <label class="text-sm font-bold block mb-2" for="mile">Mile</label>
                 <p-inputnumber [(ngModel)]="value1" inputId="mile" suffix=" mi" />
             </div>
             <div class="flex-auto">
-                <label class="font-bold block mb-2" for="percent">Percent</label>
+                <label class="text-sm font-bold block mb-2" for="percent">Percent</label>
                 <p-inputnumber [(ngModel)]="value2" inputId="percent" prefix="%" />
             </div>
             <div class="flex-auto">
-                <label class="font-bold block mb-2" for="expiry">Expiry</label>
+                <label class="text-sm font-bold block mb-2" for="expiry">Expiry</label>
                 <p-inputnumber [(ngModel)]="value3" inputId="expiry" prefix="Expires in " suffix=" days" />
             </div>
             <div class="flex-auto">
-                <label class="font-bold block mb-2" for="temperature">Temperature</label>
+                <label class="text-sm font-bold block mb-2" for="temperature">Temperature</label>
                 <p-inputnumber [(ngModel)]="value4" prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40" />
             </div>
         </p-fluid>

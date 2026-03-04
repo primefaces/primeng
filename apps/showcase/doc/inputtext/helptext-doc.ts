@@ -14,9 +14,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <div class="flex flex-col gap-2">
-                <label for="username">Username</label>
+                <label for="username" class="text-sm">Username</label>
                 <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
-                <small id="username-help">Enter your username to reset your password.</small>
+                <small id="username-help" class="text-sm">Enter your username to reset your password.</small>
             </div>
         </div>
         <app-code></app-code>

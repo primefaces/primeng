@@ -14,10 +14,10 @@ import { SplitterModule } from 'primeng/splitter';
         <div class="card">
             <p-splitter [style]="{ height: '300px' }" class="mb-8" [panelSizes]="[50, 50]" layout="vertical">
                 <ng-template #panel>
-                    <div class="flex items-center justify-center h-full">Panel 1</div>
+                    <div class="flex items-center justify-center h-full text-sm">Panel 1</div>
                 </ng-template>
                 <ng-template #panel>
-                    <div class="flex items-center justify-center h-full">Panel 2</div>
+                    <div class="flex items-center justify-center h-full text-sm">Panel 2</div>
                 </ng-template>
             </p-splitter>
         </div>

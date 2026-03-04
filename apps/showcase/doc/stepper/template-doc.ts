@@ -73,7 +73,7 @@ import { InputTextModule } from 'primeng/inputtext';
                     <p-step-panel [value]="1">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
-                                <div class="text-center mt-4 mb-4 text-xl font-semibold">Create your account</div>
+                                <div class="text-center mt-4 mb-4 text-lg font-semibold">Create your account</div>
                                 <div class="field">
                                     <input [(ngModel)]="name" pInputText id="input" type="text" placeholder="Name" fluid />
                                 </div>
@@ -84,7 +84,7 @@ import { InputTextModule } from 'primeng/inputtext';
                                     <p-password [(ngModel)]="password" placeholder="Password" fluid />
                                 </div>
                             </div>
-                            <div class="flex pt-6 justify-end">
+                            <div class="flex pt-5 justify-end">
                                 <p-button (onClick)="activateCallback(2)" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                             </div>
                         </ng-template>
@@ -93,7 +93,7 @@ import { InputTextModule } from 'primeng/inputtext';
                     <p-step-panel [value]="2">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
-                                <div class="text-center mt-4 mb-4 text-xl font-semibold">Choose your interests</div>
+                                <div class="text-center mt-4 mb-4 text-lg font-semibold">Choose your interests</div>
                                 <div class="flex flex-wrap justify-center gap-4">
                                     <p-togglebutton [(ngModel)]="option1" onLabel="Nature" offLabel="Nature" />
                                     <p-togglebutton [(ngModel)]="option2" onLabel="Art" offLabel="Art" />
@@ -107,7 +107,7 @@ import { InputTextModule } from 'primeng/inputtext';
                                     <p-togglebutton [(ngModel)]="option10" onLabel="Dancing" offLabel="Dancing" />
                                 </div>
                             </div>
-                            <div class="flex pt-6 justify-between">
+                            <div class="flex pt-5 justify-between">
                                 <p-button (onClick)="activateCallback(1)" label="Back" severity="secondary" icon="pi pi-arrow-left" />
                                 <p-button (onClick)="activateCallback(3)" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                             </div>
@@ -117,12 +117,12 @@ import { InputTextModule } from 'primeng/inputtext';
                     <p-step-panel [value]="3">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col items-center gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
-                                <div class="text-center mt-4 mb-4 text-xl font-semibold">Account created successfully</div>
+                                <div class="text-center mt-4 mb-4 text-lg font-semibold">Account created successfully</div>
                                 <div class="text-center">
                                     <img alt="logo" src="https://primefaces.org/cdn/primeng/images/stepper/content.svg" />
                                 </div>
                             </div>
-                            <div class="flex pt-6 justify-start">
+                            <div class="flex pt-5 justify-start">
                                 <p-button (onClick)="activateCallback(2)" label="Back" severity="secondary" icon="pi pi-arrow-left" />
                             </div>
                         </ng-template>

@@ -22,7 +22,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     @for (item of formKeys; track item) {
                         <div class="flex items-center gap-2">
                             <p-checkbox [inputId]="item" [name]="item" [(ngModel)]="formModel[item]" [binary]="true" [invalid]="isInvalid()"></p-checkbox>
-                            <label [for]="item">{{ item | titlecase }}</label>
+                            <label [for]="item" class="text-sm">{{ item | titlecase }}</label>
                         </div>
                     }
                 </div>

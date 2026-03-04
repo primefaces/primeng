@@ -14,11 +14,11 @@ import { KeyFilterModule } from 'primeng/keyfilter';
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-4">
             <div class="flex-auto">
-                <label for="blockspace" class="font-bold block mb-2"> Block Space </label>
+                <label for="blockspace" class="text-sm font-bold block mb-2"> Block Space </label>
                 <input pInputText id="blockspace" [pKeyFilter]="blockSpace" class="w-full" />
             </div>
             <div class="flex-auto">
-                <label for="block" class="font-bold block mb-2"> Block < > * ! </label>
+                <label for="block" class="text-sm font-bold block mb-2"> Block < > * ! </label>
                 <input pInputText id="block" [pKeyFilter]="blockChars" class="w-full" />
             </div>
         </div>

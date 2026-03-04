@@ -14,20 +14,20 @@ import { SplitterModule } from 'primeng/splitter';
         <div class="card">
             <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" class="mb-8">
                 <ng-template #panel>
-                    <div class="col flex w-full items-center justify-center">Panel 1</div>
+                    <div class="col flex w-full items-center justify-center text-sm">Panel 1</div>
                 </ng-template>
                 <ng-template #panel>
                     <p-splitter layout="vertical" [panelSizes]="[50, 50]">
                         <ng-template #panel>
-                            <div style="flex-grow: 1;" class="flex items-center justify-center">Panel 2</div>
+                            <div style="flex-grow: 1;" class="flex items-center justify-center text-sm">Panel 2</div>
                         </ng-template>
                         <ng-template #panel>
                             <p-splitter [panelSizes]="[20, 80]">
                                 <ng-template #panel>
-                                    <div class="col h-full flex items-center justify-center">Panel 3</div>
+                                    <div class="col h-full flex items-center justify-center text-sm">Panel 3</div>
                                 </ng-template>
                                 <ng-template #panel>
-                                    <div class="col h-full flex items-center justify-center">Panel 4</div>
+                                    <div class="col h-full flex items-center justify-center text-sm">Panel 4</div>
                                 </ng-template>
                             </p-splitter>
                         </ng-template>

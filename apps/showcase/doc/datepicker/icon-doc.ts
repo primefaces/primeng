@@ -15,17 +15,17 @@ import { FluidModule } from 'primeng/fluid';
         </app-docsectiontext>
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
-                <label for="buttondisplay" class="font-bold block mb-2"> Button </label>
+                <label for="buttondisplay" class="text-sm font-bold block mb-2"> Button </label>
                 <p-datepicker [(ngModel)]="date1" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
             </div>
 
             <div class="flex-auto">
-                <label for="icondisplay" class="font-bold block mb-2"> Default Icon </label>
+                <label for="icondisplay" class="text-sm font-bold block mb-2"> Default Icon </label>
                 <p-datepicker [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
             </div>
 
             <div class="flex-auto">
-                <label for="templatedisplay" class="font-bold block mb-2"> Custom Icon </label>
+                <label for="templatedisplay" class="text-sm font-bold block mb-2"> Custom Icon </label>
                 <p-datepicker [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
                     <ng-template #inputicon let-clickCallBack="clickCallBack">
                         <i class="pi pi-clock" (click)="clickCallBack($event)"></i>

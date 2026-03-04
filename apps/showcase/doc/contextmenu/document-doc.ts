@@ -13,7 +13,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Setting <i>global</i> property to <i>true</i> attaches the context menu to the document.</p>
         </app-docsectiontext>
         <div class="card text-center">
-            <p class="mb-0">Right-Click anywhere on this page to view the global ContextMenu.</p>
+            <p class="mb-0 text-sm">Right-Click anywhere on this page to view the global ContextMenu.</p>
             <p-contextmenu [model]="items" [global]="true" />
         </div>
         <app-code></app-code>

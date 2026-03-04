@@ -16,19 +16,19 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <div class="flex flex-wrap gap-4">
                 <div class="flex items-center">
                     <p-radiobutton name="pizza" value="Cheese" [(ngModel)]="ingredient" inputId="ingredient1" />
-                    <label for="ingredient1" class="ml-2">Cheese</label>
+                    <label for="ingredient1" class="text-sm ml-2">Cheese</label>
                 </div>
                 <div class="flex items-center">
                     <p-radiobutton name="pizza" value="Mushroom" [(ngModel)]="ingredient" inputId="ingredient2" />
-                    <label for="ingredient2" class="ml-2">Mushroom</label>
+                    <label for="ingredient2" class="text-sm ml-2">Mushroom</label>
                 </div>
                 <div class="flex items-center">
                     <p-radiobutton name="pizza" value="Pepper" [(ngModel)]="ingredient" inputId="ingredient3" />
-                    <label for="ingredient3" class="ml-2">Pepper</label>
+                    <label for="ingredient3" class="text-sm ml-2">Pepper</label>
                 </div>
                 <div class="flex items-center">
                     <p-radiobutton name="pizza" value="Onion" [(ngModel)]="ingredient" inputId="ingredient4" />
-                    <label for="ingredient4" class="ml-2">Onion</label>
+                    <label for="ingredient4" class="text-sm ml-2">Onion</label>
                 </div>
             </div>
         </div>

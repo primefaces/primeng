@@ -24,9 +24,9 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <div class="flex justify-center items-center mb-6 gap-2">
+                <div class="flex justify-center items-center mb-5 gap-2">
                     <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
-                    <label for="input-metakey">MetaKey</label>
+                    <label for="input-metakey" class="text-sm">MetaKey</label>
                 </div>
                 <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" [metaKeySelection]="metaKey" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>

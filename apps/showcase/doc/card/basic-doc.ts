@@ -13,7 +13,7 @@ import { CardModule } from 'primeng/card';
         </app-docsectiontext>
         <div class="mb-4 p-8">
             <p-card header="Simple Card">
-                <p class="m-0">
+                <p class="m-0 text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
                     quas!
                 </p>
