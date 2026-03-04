@@ -7,24 +7,24 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
     standalone: true,
     imports: [CommonModule, AnimateOnScrollModule],
     template: `
-        <div class="px-6 py-6 sm:px-10 sm:py-5 lg:py-20 lg:px-8 rounded-3xl bg-surface-0 dark:bg-surface-900">
-            <div pAnimateOnScroll enterClass="animate-fadein" class="p-6 md:p-8 rounded-2xl lg:rounded-3xl border border-surface max-w-3xl w-full mx-auto animate-duration-500">
+        <div class="px-5 py-5 sm:px-9 sm:py-5 lg:py-18 lg:px-7 rounded-3xl bg-surface-0 dark:bg-surface-900">
+            <div pAnimateOnScroll enterClass="animate-fadein" class="p-5 md:p-7 rounded-2xl lg:rounded-3xl border border-surface max-w-2xl w-full mx-auto animate-duration-500">
                 <div class="rounded-lg lg:rounded-xl border border-surface overflow-hidden">
-                    <div class="py-1 px-6 h-14 flex items-center gap-2">
+                    <div class="py-1 px-5 h-12 flex items-center gap-2">
                         <div class="w-3 h-3 rounded-full" [style.backgroundColor]="'#ED6B5D'"></div>
                         <div class="w-3 h-3 rounded-full" [style.backgroundColor]="'#F4BE50'"></div>
                         <div class="w-3 h-3 rounded-full" [style.backgroundColor]="'#61C554'"></div>
                     </div>
-                    <div class="p-6 bg-surface-900 dark:bg-surface-800 flex flex-col gap-4 relative">
+                    <div class="p-5 bg-surface-900 dark:bg-surface-800 flex flex-col gap-4 relative">
                         <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; npm install -g angular-cli</p>
                         <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; cd {{ appName }}-ng</p>
                         <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; npm install</p>
                         <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; ng serve</p>
-                        <img class="w-28 lg:w-32 h-28 lg:h-32 absolute right-6 bottom-4" src="https://primefaces.org/cdn/primeng/images/templates/angular-3d-logo.png" alt="Angular 3D Logo" />
+                        <img class="w-24 lg:w-28 h-24 lg:h-28 absolute right-6 bottom-4" src="https://primefaces.org/cdn/primeng/images/templates/angular-3d-logo.png" alt="Angular 3D Logo" />
                     </div>
                 </div>
-                <h3 class="text-lg lg:text-2xl text-surface-900 dark:text-surface-0 font-bold">{{ title }}</h3>
-                <p class="text-sm lg:text-base text-surface-600 dark:text-surface-400 mt-3 mb-0">{{ description }}</p>
+                <h3 class="lg:text-xl text-surface-900 dark:text-surface-0 font-bold">{{ title }}</h3>
+                <p class="text-xs lg:text-sm text-surface-600 dark:text-surface-400 mt-3 mb-0">{{ description }}</p>
             </div>
         </div>
     `,

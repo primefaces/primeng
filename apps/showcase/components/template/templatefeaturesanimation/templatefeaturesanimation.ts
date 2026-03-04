@@ -8,13 +8,13 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
     standalone: true,
     imports: [NgClass, AnimateOnScrollModule, TemplateFeaturesAnimationInline],
     template: `
-        <div class="template-features px-6 py-6 sm:px-10 sm:py-5 lg:py-20 lg:px-8 rounded-2xl lg:rounded-3xl bg-surface-0 dark:bg-surface-900">
+        <div class="template-features px-5 py-5 sm:px-9 sm:py-5 lg:py-18 lg:px-7 rounded-2xl lg:rounded-3xl bg-surface-0 dark:bg-surface-900">
             @if (!!title) {
-                <h2 class="text-center text-surface-900 dark:text-surface-0 text-3xl lg:text-5xl font-semibold lg:pt-0 pt-6 mb-12">
+                <h2 class="text-center text-surface-900 dark:text-surface-0 text-2xl lg:text-4xl font-semibold lg:pt-0 pt-5 mb-11">
                     {{ title }}
                 </h2>
             }
-            <div pAnimateOnScroll enterClass="animate-fadein" class="flex flex-col-reverse lg:flex-row items-start gap-10 w-full max-w-2xl lg:max-w-6xl mx-auto p-4 lg:p-7 rounded-3xl border border-surface animate-duration-500">
+            <div pAnimateOnScroll enterClass="animate-fadein" class="flex flex-col-reverse lg:flex-row items-start gap-9 w-full max-w-xl lg:max-w-5xl mx-auto p-3 lg:p-6 rounded-3xl border border-surface animate-duration-500">
                 <div class="flex flex-col gap-4 flex-1">
                     @for (data of featuresData; track $index; let i = $index) {
                         <div
@@ -27,27 +27,27 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
                             (click)="handleClick(data.id)"
                         >
                             <div class="template-features-animation-card-order w-14 h-full -mt-1 relative transition-all">
-                                <div class="text-[2.5rem] font-bold absolute top-0 left-0 text-primary-400 [-webkit-text-stroke:1.2px_var(--p-primary-400)]">
+                                <div class="text-[2.188rem] font-bold absolute top-0 left-0 text-primary-400 [-webkit-text-stroke:1.2px_var(--p-primary-400)]">
                                     {{ (i + 1).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) }}
                                 </div>
                                 <div
-                                    class="text-[2.5rem] font-bold absolute top-0 left-0 transition-all dark:text-surface-900 group-hover:text-surface-50 dark:group-hover:text-surface-900"
+                                    class="text-[2.188rem] font-bold absolute top-0 left-0 transition-all dark:text-surface-900 group-hover:text-surface-50 dark:group-hover:text-surface-900"
                                     [ngClass]="selectedID === data.id ? 'text-surface-50' : 'text-surface-0'"
                                 >
                                     {{ (i + 1).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) }}
                                 </div>
-                                <div class="text-[2.5rem] font-bold absolute top-0 left-0 text-transparent">
+                                <div class="text-[2.188rem] font-bold absolute top-0 left-0 text-transparent">
                                     {{ (i + 1).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) }}
                                 </div>
                             </div>
                             <div class="flex-1">
-                                <h5 class="text-lg lg:text-xl font-semibold m-0">{{ data.title }}</h5>
-                                <p class="text-sm lg:text-base text-muted-color mt-1 mb-0 [&>a]:text-primary" [innerHTML]="getSanitizedDescription(data.description)"></p>
+                                <h5 class="lg:text-lg font-semibold m-0">{{ data.title }}</h5>
+                                <p class="text-xs lg:text-sm text-muted-color mt-1 mb-0 [&>a]:text-primary" [innerHTML]="getSanitizedDescription(data.description)"></p>
                             </div>
                         </div>
                     }
                 </div>
-                <div class="flex-1 w-full lg:w-fit rounded-2xl bg-surface-100 dark:bg-surface-800 overflow-hidden flex sm:min-w-[30rem]">
+                <div class="flex-1 w-full lg:w-fit rounded-2xl bg-surface-100 dark:bg-surface-800 overflow-hidden flex sm:min-w-[26.25rem]">
                     @if (featuresData[selectedID - 1]?.type === 'inline-animation') {
                         <template-features-animation-inline
                             [inlineFeaturesData]="featuresData[selectedID - 1]?.inlineFeaturesData"

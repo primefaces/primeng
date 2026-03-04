@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inje
     standalone: true,
     imports: [NgClass],
     template: `
-        <div class="w-full py-8 rounded-xl bg-surface-50 dark:bg-surface-800 relative flex flex-col items-center justify-center">
+        <div class="w-full py-7 rounded-xl bg-surface-50 dark:bg-surface-800 relative flex flex-col items-center justify-center">
             <div class="hidden sm:flex items-center gap-0.5 xl:gap-1 rounded-full border border-surface p-1 w-[90%] bg-surface-0 dark:bg-surface-900">
                 @for (data of inlineFeaturesData; track $index) {
                     <button

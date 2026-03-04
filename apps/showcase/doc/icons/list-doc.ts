@@ -22,7 +22,7 @@ import { InputTextModule } from 'primeng/inputtext';
                 @for (icon of filteredIcons; track $index) {
                     <div class="col-span-12 md:col-span-2 mb-8">
                         <i class="pi pi-{{ icon.properties.name }} text-2xl mb-4 text-muted-color"></i>
-                        <div>pi-{{ icon.properties.name }}</div>
+                        <div class="text-sm">pi-{{ icon.properties.name }}</div>
                     </div>
                 }
             </div>

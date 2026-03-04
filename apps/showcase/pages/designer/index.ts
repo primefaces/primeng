@@ -9,12 +9,12 @@ import { RippleModule } from 'primeng/ripple';
     standalone: true,
     imports: [AnimateOnScrollModule, RippleModule, ButtonModule, DialogModule],
     template: `<div>
-        <div style="border-radius: 50px; max-height: 500px" class="overflow-hidden mb-8 flex items-center">
+        <div style="border-radius: 50px; max-height: 500px" class="overflow-hidden mb-7 flex items-center">
             <img alt="PrimeNG Designer" [src]="coverImage()" class="w-full" />
         </div>
 
-        <div class="card !mb-8" style="border-radius: 50px">
-            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20 mb-20">
+        <div class="card !mb-7" style="border-radius: 50px">
+            <div class="flex flex-col md:flex-row items-center gap-5 md:gap-18 mb-18">
                 <div class="w-full md:w-6/12">
                     <img
                         pAnimateOnScroll
@@ -25,32 +25,32 @@ import { RippleModule } from 'primeng/ripple';
                     />
                 </div>
                 <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-r-4 animate-duration-1000" class="w-full md:w-6/12">
-                    <div class="text-primary font-bold mb-2">POWERFUL</div>
-                    <div class="text-5xl font-bold mb-4">Visual Editor</div>
-                    <p class="mb-4 text-lg">Transform your PrimeNG components with our advanced visual editor. Design, customize, and preview changes in real-time, all within an intuitive interface.</p>
+                    <div class="text-primary font-bold mb-2 text-sm">POWERFUL</div>
+                    <div class="text-4xl font-bold mb-4">Visual Editor</div>
+                    <p class="mb-4">Transform your PrimeNG components with our advanced visual editor. Design, customize, and preview changes in real-time, all within an intuitive interface.</p>
 
-                    <ul class="flex flex-wrap m-0 p-0 text-lg">
-                        <li class="flex items-center w-6/12 p-4">
+                    <ul class="flex flex-wrap m-0 p-0">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Intelligent Completion</span>
                         </li>
-                        <li class="flex items-center w-6/12 p-4">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Entire Collections</span>
                         </li>
-                        <li class="flex items-center w-6/12 p-4">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Custom Tokens</span>
                         </li>
-                        <li class="flex items-center w-6/12 p-4">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Light and Dark Modes</span>
                         </li>
-                        <li class="flex items-center w-6/12 p-4">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Real Time Preview</span>
                         </li>
-                        <li class="flex items-center w-6/12 p-4">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Starter Kits</span>
                         </li>
@@ -58,37 +58,37 @@ import { RippleModule } from 'primeng/ripple';
                 </div>
             </div>
 
-            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20 mb-20">
+            <div class="flex flex-col md:flex-row items-center gap-5 md:gap-18 mb-18">
                 <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-l-4 animate-duration-1000" class="w-full md:w-6/12">
-                    <div class="text-primary font-bold mb-2">AUTOMATED</div>
-                    <div class="text-5xl font-bold mb-4">Figma to Theme Code</div>
-                    <p class="mb-4 text-lg">
+                    <div class="text-primary font-bold mb-2 text-sm">AUTOMATED</div>
+                    <div class="text-4xl font-bold mb-4">Figma to Theme Code</div>
+                    <p class="mb-4">
                         Sync design tokens from Figma to theme code with ease. Export token.json to the Visual Editor or generate and sync themes directly to your repository via the Figma plugin, eliminating manual steps and speeding up your
                         workflow.
                     </p>
 
-                    <ul class="flex flex-wrap m-0 p-0 text-lg">
-                        <li class="flex items-center w-6/12 p-4">
+                    <ul class="flex flex-wrap m-0 p-0">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Automatic Mapping</span>
                         </li>
-                        <li class="flex items-center w-6/12 p-4">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Eliminate Handoff</span>
                         </li>
-                        <li class="flex items-center w-6/12 p-4">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">CI Pipeline</span>
                         </li>
-                        <li class="flex items-center w-6/12 p-4">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Live Preview</span>
                         </li>
-                        <li class="flex items-center w-6/12 p-4">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Maintain Perfect Fidelity</span>
                         </li>
-                        <li class="flex items-center w-6/12 p-4">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Verify Synchorization</span>
                         </li>
@@ -105,7 +105,7 @@ import { RippleModule } from 'primeng/ripple';
                 </div>
             </div>
 
-            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20 mb-20">
+            <div class="flex flex-col md:flex-row items-center gap-5 md:gap-18 mb-18">
                 <div class="w-full md:w-6/12">
                     <img
                         pAnimateOnScroll
@@ -116,16 +116,16 @@ import { RippleModule } from 'primeng/ripple';
                     />
                 </div>
                 <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-r-4 animate-duration-1000" class="w-full md:w-6/12">
-                    <div class="text-primary font-bold mb-2">INTELLIGENT</div>
-                    <div class="text-5xl font-bold mb-4">Migration Assistant</div>
-                    <p class="mb-4 text-lg">Update your existing themes and design tokens into the latest version effortlessly. Our intelligent migration assistant handles the heavy lifting, ensuring a smooth transition for your design system.</p>
+                    <div class="text-primary font-bold mb-2 text-sm">INTELLIGENT</div>
+                    <div class="text-4xl font-bold mb-4">Migration Assistant</div>
+                    <p class="mb-4">Update your existing themes and design tokens into the latest version effortlessly. Our intelligent migration assistant handles the heavy lifting, ensuring a smooth transition for your design system.</p>
 
-                    <ul class="flex flex-wrap m-0 p-0 text-lg">
-                        <li class="flex items-center w-6/12 p-4">
+                    <ul class="flex flex-wrap m-0 p-0">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Automatic Updates</span>
                         </li>
-                        <li class="flex items-center w-6/12 p-4">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Preview Changes</span>
                         </li>
@@ -133,18 +133,18 @@ import { RippleModule } from 'primeng/ripple';
                 </div>
             </div>
 
-            <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-l-4 animate-duration-1000" class="flex flex-col md:flex-row items-center gap-6 md:gap-20">
+            <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-l-4 animate-duration-1000" class="flex flex-col md:flex-row items-center gap-5 md:gap-18">
                 <div class="w-full md:w-6/12">
-                    <div class="text-primary font-bold mb-2">REMOTE</div>
-                    <div class="text-5xl font-bold mb-4">Cloud Storage</div>
-                    <p class="mb-4 text-lg">Store and manage your themes securely in the cloud. Access your design system from anywhere with enterprise-grade cloud storage.</p>
+                    <div class="text-primary font-bold mb-2 text-sm">REMOTE</div>
+                    <div class="text-4xl font-bold mb-4">Cloud Storage</div>
+                    <p class="mb-4">Store and manage your themes securely in the cloud. Access your design system from anywhere with enterprise-grade cloud storage.</p>
 
-                    <ul class="flex flex-wrap m-0 p-0 text-lg">
-                        <li class="flex items-center w-6/12 p-4">
+                    <ul class="flex flex-wrap m-0 p-0">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Access Anywhere</span>
                         </li>
-                        <li class="flex items-center w-6/12 p-4">
+                        <li class="flex items-center w-6/12 p-3">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Multiple Themes</span>
                         </li>
@@ -162,150 +162,150 @@ import { RippleModule } from 'primeng/ripple';
             </div>
         </div>
 
-        <div class="card !mb-8" style="border-radius: 50px">
-            <div class="font-bold text-5xl mb-6 text-center">Pricing</div>
-            <div class="mb-2 text-center leading-normal text-lg">Choose the right plan for your business. Whether you are an individual or a member of a team, Designer is available for affordable prices.</div>
-            <div class="text-center mb-8">
+        <div class="card !mb-7" style="border-radius: 50px">
+            <div class="font-bold text-4xl mb-5 text-center">Pricing</div>
+            <div class="mb-2 text-center leading-normal text-sm">Choose the right plan for your business. Whether you are an individual or a member of a team, Designer is available for affordable prices.</div>
+            <div class="text-center mb-7">
                 <p-button [link]="true" styleClass="doc-link" (onClick)="showLicense()" label="View Terms and Conditions" />
             </div>
 
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-12 lg:col-span-4">
-                    <div class="p-4 h-full">
-                        <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000" class="shadow p-8 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
-                            <div class="font-medium text-xl mb-2">Basic</div>
-                            <div class="text-surface-500 dark:text-surface-400 font-medium">For small teams</div>
+                    <div class="p-3 h-full">
+                        <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000" class="shadow p-7 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
+                            <div class="font-medium text-lg mb-2">Basic</div>
+                            <div class="text-surface-500 dark:text-surface-400 font-medium text-sm">For small teams</div>
                             <hr class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700" />
                             <div class="flex flex-wrap gap-1 items-center">
-                                <span class="text-2xl font-bold">$249</span>
+                                <span class="text-xl font-bold">$249</span>
                                 <span class="text-sm text-muted-color">/ year</span>
                             </div>
                             <hr class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700" />
-                            <ul class="list-none p-0 m-0 grow text-lg">
-                                <li class="flex items-center mb-4">
+                            <ul class="list-none p-0 m-0 grow">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-times-circle text-red-500 mr-2"></i>
                                     <span class="font-bold">Figma to Theme Code</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Up to 2 Themes</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>1 Year Service</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Visual Editor</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Migration Assistant</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Cloud Storage</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Use on Unlimited Projects</span>
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700 mt-auto" />
-                            <a pRipple href="https://primeui.store/designer" class="bg-blue-500 text-white hover:bg-blue-400 p-4 w-full rounded text-center transition-colors duration-300 font-bold p-ripple">Buy Now</a>
+                            <a pRipple href="https://primeui.store/designer" class="bg-blue-500 text-white hover:bg-blue-400 p-3 w-full rounded text-center transition-colors duration-300 font-bold p-ripple">Buy Now</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-span-12 lg:col-span-4">
-                    <div class="p-4 h-full">
-                        <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000" class="shadow p-8 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
-                            <div class="font-medium text-xl mb-2">Extended</div>
-                            <div class="text-surface-500 dark:text-surface-400 font-medium">For teams with UI/UX designers</div>
+                    <div class="p-3 h-full">
+                        <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000" class="shadow p-7 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
+                            <div class="font-medium text-lg mb-2">Extended</div>
+                            <div class="text-surface-500 dark:text-surface-400 font-medium text-sm">For teams with UI/UX designers</div>
                             <hr class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700" />
                             <div class="flex flex-wrap gap-1 items-center">
-                                <span class="text-2xl font-bold">$990</span>
+                                <span class="text-xl font-bold">$990</span>
                                 <span class="text-sm text-muted-color">/ year</span>
                             </div>
                             <hr class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700" />
-                            <ul class="list-none p-0 m-0 grow text-lg">
-                                <li class="flex items-center mb-4">
+                            <ul class="list-none p-0 m-0 grow">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span class="font-bold">Figma to Theme Code</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Up to 10 Themes</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>1 Year Service</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Visual Editor</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Migration Assistant</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Cloud Storage</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Use on Unlimited Projects</span>
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700" />
-                            <a pRipple href="https://primeui.store/designer" class="bg-purple-500 text-white hover:bg-purple-400 p-4 w-full rounded text-center transition-colors duration-300 font-bold p-ripple">Buy Now</a>
+                            <a pRipple href="https://primeui.store/designer" class="bg-purple-500 text-white hover:bg-purple-400 p-3 w-full rounded text-center transition-colors duration-300 font-bold p-ripple">Buy Now</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-span-12 lg:col-span-4">
-                    <div class="p-4 h-full">
-                        <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000" class="shadow p-8 flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
-                            <div class="font-medium text-xl mb-2">Enterprise</div>
-                            <div class="text-surface-500 dark:text-surface-400 font-medium">For custom requirements</div>
+                    <div class="p-3 h-full">
+                        <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000" class="shadow p-7 flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
+                            <div class="font-medium text-lg mb-2">Enterprise</div>
+                            <div class="text-surface-500 dark:text-surface-400 font-medium text-sm">For custom requirements</div>
                             <hr class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700" />
                             <div class="flex gap-4 flex-wrap">
-                                <span class="text-2xl font-bold">EXCLUSIVE DEALS</span>
+                                <span class="text-xl font-bold">EXCLUSIVE DEALS</span>
                             </div>
                             <hr class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700" />
-                            <ul class="list-none p-0 m-0 grow text-lg">
-                                <li class="flex items-center mb-4">
+                            <ul class="list-none p-0 m-0 grow">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span class="font-bold">Figma to Theme Code</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Custom Theme Limit</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Multi Year Service</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Visual Editor</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Migration Assistant</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Cloud Storage</span>
                                 </li>
-                                <li class="flex items-center mb-4">
+                                <li class="flex items-center mb-3">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Use on Unlimited Projects</span>
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700" />
-                            <a pRipple href="mailto:contact@primetek.com.tr" class="bg-gray-500 text-white hover:bg-gray-400 p-4 w-full rounded text-center transition-colors duration-300 font-bold p-ripple">Contact Us</a>
+                            <a pRipple href="mailto:contact@primetek.com.tr" class="bg-gray-500 text-white hover:bg-gray-400 p-3 w-full rounded text-center transition-colors duration-300 font-bold p-ripple">Contact Us</a>
                         </div>
                     </div>
                 </div>
@@ -313,50 +313,50 @@ import { RippleModule } from 'primeng/ripple';
         </div>
 
         <div class="card" style="border-radius: 50px">
-            <span class="block font-bold text-5xl mb-8 text-center">Frequently Asked Questions</span>
-            <div class="grid grid-cols-12 gap-4 text-lg">
-                <div class="col-span-12 lg:col-span-4 px-2 lg:px-8">
+            <span class="block font-bold text-4xl mb-7 text-center">Frequently Asked Questions</span>
+            <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-12 lg:col-span-4 px-2 lg:px-7">
                     <div class="leading-normal mb-2 font-bold">What do I get when I purchase a plan?</div>
-                    <p class="mt-0 mb-12 p-0 leading-normal">A license key to unlock the features based on your plan.</p>
+                    <p class="mt-0 mb-11 p-0 leading-normal">A license key to unlock the features based on your plan.</p>
 
                     <div class="leading-normal mb-2 font-bold">Is there a recurring fee or is the license perpetual?</div>
-                    <p class="mt-0 mb-12 p-0 leading-normal">Designer license key is valid for 1 year with no auto renewals.</p>
+                    <p class="mt-0 mb-11 p-0 leading-normal">Designer license key is valid for 1 year with no auto renewals.</p>
 
                     <div class="leading-normal mb-2 font-bold">What happens after the 1 year period is concluded?</div>
-                    <p class="mt-0 mb-12 p-0 leading-normal">License key will expire and a new license key needs to be renewed to continue using the tool. Downloaded themes can be used indefinitely and does not require a renewal.</p>
+                    <p class="mt-0 mb-11 p-0 leading-normal">License key will expire and a new license key needs to be renewed to continue using the tool. Downloaded themes can be used indefinitely and does not require a renewal.</p>
 
                     <div class="leading-normal mb-2 font-bold">Can I have trial access to the Designer?</div>
-                    <p class="mt-0 mb-12 p-0 leading-normal">Visual Editor is available for trial purposes, various features such as downloads, migration assistant and cloud storage are disabled.</p>
+                    <p class="mt-0 mb-11 p-0 leading-normal">Visual Editor is available for trial purposes, various features such as downloads, migration assistant and cloud storage are disabled.</p>
                 </div>
-                <div class="col-span-12 lg:col-span-4 px-2 lg:px-8">
+                <div class="col-span-12 lg:col-span-4 px-2 lg:px-7">
                     <div class="leading-normal mb-2 font-bold">Can I create multiple themes?</div>
-                    <p class="mt-0 mb-12 p-0 leading-normal">Yes, based on the theme limit of your plan.</p>
+                    <p class="mt-0 mb-11 p-0 leading-normal">Yes, based on the theme limit of your plan.</p>
 
                     <div class="leading-normal mb-2 font-bold">How can I update my theme?</div>
-                    <p class="mt-0 mb-12 p-0 leading-normal">Migration Assistant tool automatically scans your theme and adds missing tokens for the latest version.</p>
+                    <p class="mt-0 mb-11 p-0 leading-normal">Migration Assistant tool automatically scans your theme and adds missing tokens for the latest version.</p>
 
                     <div class="leading-normal mb-2 font-bold">I have purchased the Figma UI Kit, does Designer require a separate purchase?</div>
-                    <p class="mt-0 mb-12 p-0 leading-normal">Yes, Figma UI Kit and Designer are different products. The Designer offers Figma to Theme Code generation feature so it is recommended to purchase both for an efficient workflow.</p>
+                    <p class="mt-0 mb-11 p-0 leading-normal">Yes, Figma UI Kit and Designer are different products. The Designer offers Figma to Theme Code generation feature so it is recommended to purchase both for an efficient workflow.</p>
 
                     <div class="leading-normal mb-2 font-bold">How can I get support?</div>
-                    <p class="mt-0 mb-12 p-0 leading-normal">
+                    <p class="mt-0 mb-11 p-0 leading-normal">
                         PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users can
                         seek assistance in our community via our public <a href="https://discord.com/invite/gzKFYnpmCY" class="doc-link">Discord</a> and
                         <a href="https://github.com/orgs/primefaces/discussions/categories/theme-designer" class="doc-link">Forum</a>.
                     </p>
                 </div>
-                <div class="col-span-12 lg:col-span-4 px-2 lg:px-8">
+                <div class="col-span-12 lg:col-span-4 px-2 lg:px-7">
                     <div class="leading-normal mb-2 font-bold">Is there a limit on the team size within the organization?</div>
-                    <p class="mt-0 mb-12 p-0 leading-normal">No, any team member is able to utilize the tool and the generated themes.</p>
+                    <p class="mt-0 mb-11 p-0 leading-normal">No, any team member is able to utilize the tool and the generated themes.</p>
 
                     <div class="leading-normal mb-2 font-bold">Can subsidiary company of a larger organization share a plan?</div>
-                    <p class="mt-0 mb-12 p-0 leading-normal">No, plan is per organization so each subsidiary company needs to purchase a separate plan.</p>
+                    <p class="mt-0 mb-11 p-0 leading-normal">No, plan is per organization so each subsidiary company needs to purchase a separate plan.</p>
 
                     <div class="leading-normal mb-2 font-bold">Can I include generated theme in an open source project?</div>
-                    <p class="mt-0 mb-12 p-0 leading-normal">Yes, the generated theme is suitable for usage in an open source project.</p>
+                    <p class="mt-0 mb-11 p-0 leading-normal">Yes, the generated theme is suitable for usage in an open source project.</p>
 
                     <div class="leading-normal mb-2 font-bold">We're a reseller, are we able to purchase a license on behalf of our client?</div>
-                    <p class="mt-0 mb-12 p-0 leading-normal">Yes, please <a href="mailto:contact@primetek.com.tr" class="doc-link">contact us</a> to initiate the procurement process.</p>
+                    <p class="mt-0 mb-11 p-0 leading-normal">Yes, please <a href="mailto:contact@primetek.com.tr" class="doc-link">contact us</a> to initiate the procurement process.</p>
                 </div>
             </div>
         </div>

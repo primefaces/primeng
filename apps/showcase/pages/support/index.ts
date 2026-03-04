@@ -6,11 +6,11 @@ import { Component } from '@angular/core';
     imports: [CommonModule],
     template: `
         <div>
-            <div class="flex flex-col md:flex-row mb-8 gap-8">
+            <div class="flex flex-col md:flex-row mb-7 gap-7">
                 <div class="card flex-1 !m-0 relative overflow-hidden">
                     <i class="pi pi-github absolute opacity-20" style="bottom: -50px; right: -50px; font-size: 200px; transform: rotateX(45deg) rotateY(0deg) rotateZ(-45deg)"></i>
-                    <div class="text-2xl font-semibold mb-4 relative">Community Support</div>
-                    <p class="m-0 leading-normal relative text-lg">
+                    <div class="text-xl font-semibold mb-3 relative">Community Support</div>
+                    <p class="m-0 leading-normal relative">
                         <a href="https://github.com/orgs/primefaces/discussions" class="doc-link" target="_blank" rel="noopener noreferrer">Forum</a>
                         and
                         <a href="https://discord.gg/gzKFYnpmCY" class="doc-link" target="_blank" rel="noopener noreferrer">Discord</a> are where the community users gather to seek support, post topics and discuss the technology. GitHub issue is the
@@ -19,75 +19,75 @@ import { Component } from '@angular/core';
                     </p>
                 </div>
                 <div class="card !m-0 flex-1 !bg-primary !text-primary-contrast font-medium">
-                    <div class="text-2xl font-semibold mb-4">Professional Support</div>
-                    <p class="m-0 leading-normal text-lg">
+                    <div class="text-xl font-semibold mb-3">Professional Support</div>
+                    <p class="m-0 leading-normal">
                         With PRO support, it's easy to support, tune, and add features to PrimeNG as an in-house library. With the exclusive services of a PRO account, you no longer need to post questions in the community forum and the community
                         issue tracker at GitHub. Service is delivered via a private issue tracker based on a one-business-day response time.
                     </p>
                 </div>
             </div>
 
-            <div class="grid grid-cols-3 gap-8 mb-8">
+            <div class="grid grid-cols-3 gap-7 mb-7">
                 <div class="card !m-0 col-span-full lg:col-span-1">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="text-2xl font-semibold">Service Features</div>
-                        <span class="font-bold text-lg">$200/h</span>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xl font-semibold">Service Features</div>
+                        <span class="font-bold">$200/h</span>
                     </div>
-                    <div class="gap-8 px-4">
-                        <ul class="flex-auto list-none m-0 p-0 text-lg">
-                            <li class="flex items-center mb-4">
-                                <i class="pi pi-check-circle mr-4 text-green-500"></i>
+                    <div class="gap-7 px-3">
+                        <ul class="flex-auto list-none m-0 p-0">
+                            <li class="flex items-center mb-3">
+                                <i class="pi pi-check-circle mr-3 text-green-500"></i>
                                 <span class="leading-normal">Private Issue Tracker</span>
                             </li>
-                            <li class="flex items-center mb-4">
-                                <i class="pi pi-check-circle mr-4 text-green-500"></i>
+                            <li class="flex items-center mb-3">
+                                <i class="pi pi-check-circle mr-3 text-green-500"></i>
                                 <span class="leading-normal">Response within 1 business day</span>
                             </li>
-                            <li class="flex items-center mb-4">
-                                <i class="pi pi-check-circle mr-4 text-green-500"></i>
+                            <li class="flex items-center mb-3">
+                                <i class="pi pi-check-circle mr-3 text-green-500"></i>
                                 <span class="leading-normal">Unlimited Number of Tickets</span>
                             </li>
-                            <li class="flex items-center mb-4">
-                                <i class="pi pi-check-circle mr-4 text-green-500"></i>
+                            <li class="flex items-center mb-3">
+                                <i class="pi pi-check-circle mr-3 text-green-500"></i>
                                 <span class="leading-normal">Hourly Support Model</span>
                             </li>
-                            <li class="flex items-center mb-4">
-                                <i class="pi pi-check-circle mr-4 text-green-500"></i>
+                            <li class="flex items-center mb-3">
+                                <i class="pi pi-check-circle mr-3 text-green-500"></i>
                                 <span class="leading-normal">1 year term</span>
                             </li>
-                            <li class="flex items-center mb-4">
-                                <i class="pi pi-check-circle mr-4 text-green-500"></i>
+                            <li class="flex items-center mb-3">
+                                <i class="pi pi-check-circle mr-3 text-green-500"></i>
                                 <span class="leading-normal">Minimum 25 Hours for initiation</span>
                             </li>
-                            <li class="flex items-center mb-4">
-                                <i class="pi pi-check-circle mr-4 text-green-500"></i>
+                            <li class="flex items-center mb-3">
+                                <i class="pi pi-check-circle mr-3 text-green-500"></i>
                                 <span class="leading-normal">Up to 5 accounts</span>
                             </li>
-                            <li class="flex items-center mb-4">
-                                <i class="pi pi-check-circle mr-4 text-green-500"></i>
+                            <li class="flex items-center mb-3">
+                                <i class="pi pi-check-circle mr-3 text-green-500"></i>
                                 <span class="leading-normal">Maintenance for Any Version</span>
                             </li>
-                            <li class="flex items-center mb-4">
-                                <i class="pi pi-check-circle mr-4 text-green-500"></i>
+                            <li class="flex items-center mb-3">
+                                <i class="pi pi-check-circle mr-3 text-green-500"></i>
                                 <span class="leading-normal">New Features</span>
                             </li>
                             <li class="flex align-items-center">
-                                <i class="pi pi-check-circle mr-4 text-green-500"></i>
+                                <i class="pi pi-check-circle mr-3 text-green-500"></i>
                                 <span class="leading-normal">POC implementations of a requirement</span>
                             </li>
                         </ul>
                     </div>
                     <a
                         href="mailto:contact@primetek.com.tr?subject=PrimeNG%20PRO%20Support"
-                        class="block mt-4 w-full bg-primary rounded-border py-3 px-4 hover:bg-primary-emphasis text-center transition-all duration-300 text-primary-contrast font-semibold text-lg leading-none"
+                        class="block mt-3 w-full bg-primary rounded-border py-3 px-3 hover:bg-primary-emphasis text-center transition-all duration-300 text-primary-contrast font-semibold leading-none"
                     >
                         Buy Now
                     </a>
                 </div>
 
                 <div class="card !m-0 col-span-full lg:col-span-2">
-                    <div class="text-2xl font-semibold mb-4">How It Works</div>
-                    <ul class="flex flex-col gap-4 list-none m-0 p-0 text-lg">
+                    <div class="text-xl font-semibold mb-3">How It Works</div>
+                    <ul class="flex flex-col gap-3 list-none m-0 p-0">
                         <li>
                             <div class="font-semibold mb-1">1. Purchase PRO Support</div>
                             <span class="leading-normal"
@@ -122,36 +122,36 @@ import { Component } from '@angular/core';
                 </div>
             </div>
 
-            <div class="card !mb-8">
-                <div class="text-2xl font-semibold mb-4">Consulting</div>
+            <div class="card !mb-7">
+                <div class="text-xl font-semibold mb-3">Consulting</div>
 
-                <p class="m-0 leading-normal mb-8 text-lg">
+                <p class="m-0 leading-normal mb-7">
                     Unlock the full potential of your software projects in addition to PRO Support with the premier consulting services of our partners. The team of seasoned consultants is available to provide tailored expertise and guidance,
                     ensuring your software development initiatives are successful, efficient, and innovative.
                 </p>
 
-                <div class="flex flex-col md:flex-row gap-8 mb-8">
+                <div class="flex flex-col md:flex-row gap-7 mb-7">
                     <div class="flex-1">
-                        <div class="font-semibold mb-2 text-xl">Deep Expertise</div>
-                        <p class="!m-0 leading-normal mb-4 text-lg">
+                        <div class="font-semibold mb-2 text-lg">Deep Expertise</div>
+                        <p class="!m-0 leading-normal mb-3">
                             Our consultants are experts with extensive experience in various aspects of software development, including design, architecture, coding, testing, and deployment. They bring a wealth of knowledge and best practices to your
                             project.
                         </p>
                     </div>
                     <div class="flex-1">
-                        <div class="font-semibold mb-2 text-xl">Customized Solutions</div>
-                        <p class="!m-0 leading-normal mb-4 text-lg">
+                        <div class="font-semibold mb-2 text-lg">Customized Solutions</div>
+                        <p class="!m-0 leading-normal mb-3">
                             We understand that every project is unique. Our consultants work closely with you to understand your specific requirements and challenges, delivering solutions that are perfectly aligned with your business goals..
                         </p>
                     </div>
                     <div class="flex-1">
-                        <div class="font-semibold mb-2 text-xl">Scalable Engagements</div>
-                        <p class="!m-0 leading-normal mb-4 text-lg">Whether you need short-term advice for a specific problem or long-term strategic guidance, our consulting services are flexible and scalable to meet your needs.</p>
+                        <div class="font-semibold mb-2 text-lg">Scalable Engagements</div>
+                        <p class="!m-0 leading-normal mb-3">Whether you need short-term advice for a specific problem or long-term strategic guidance, our consulting services are flexible and scalable to meet your needs.</p>
                     </div>
                 </div>
 
-                <div class="border-t border-surface pt-8 flex flex-col items-center">
-                    <p class="leading-normal mb-8 text-lg">
+                <div class="border-t border-surface pt-7 flex flex-col items-center">
+                    <p class="leading-normal mb-7">
                         We are proud to collaborate with
                         <a href="https://unvoid.com/" target="_blank" rel="noopener noreferrer" class="doc-link">Unvoid</a>,
                         <a href="https://virtua.tech" target="_blank" rel="noopener noreferrer" class="doc-link">Virtua</a>
@@ -176,7 +176,7 @@ import { Component } from '@angular/core';
                                     />
                                 </svg>
                             </a>
-                            <a href="https://calendly.com/unvoid/discovery-call" class="inline-block bg-primary rounded-border py-3 px-4 hover:bg-primary-emphasis transition-all duration-300 text-primary-contrast font-semibold text-lg leading-none">
+                            <a href="https://calendly.com/unvoid/discovery-call" class="inline-block bg-primary rounded-border py-3 px-3 hover:bg-primary-emphasis transition-all duration-300 text-primary-contrast font-semibold leading-none">
                                 Get a Quote
                             </a>
                         </div>
@@ -211,9 +211,7 @@ import { Component } from '@angular/core';
                                     />
                                 </svg>
                             </a>
-                            <a href="https://virtua.tech/contact" class="inline-block bg-primary rounded-border py-3 px-4 hover:bg-primary-emphasis transition-all duration-300 text-primary-contrast font-semibold text-lg leading-none">
-                                Get a Quote
-                            </a>
+                            <a href="https://virtua.tech/contact" class="inline-block bg-primary rounded-border py-3 px-3 hover:bg-primary-emphasis transition-all duration-300 text-primary-contrast font-semibold leading-none"> Get a Quote </a>
                         </div>
                         <div class="flex flex-col items-center gap-4">
                             <a href="https://www.t2.com.tr/" target="_blank" rel="noopener noreferrer">
@@ -247,18 +245,16 @@ import { Component } from '@angular/core';
                                     <g id="Layer_3" class="st12"></g>
                                 </svg>
                             </a>
-                            <a href="https://www.t2.com.tr/consulting" class="inline-block bg-primary rounded-border py-3 px-4 hover:bg-primary-emphasis transition-all duration-300 text-primary-contrast font-semibold text-lg leading-none">
-                                Get a Quote
-                            </a>
+                            <a href="https://www.t2.com.tr/consulting" class="inline-block bg-primary rounded-border py-3 px-3 hover:bg-primary-emphasis transition-all duration-300 text-primary-contrast font-semibold leading-none"> Get a Quote </a>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="card m-0">
-                <div class="text-2xl font-semibold mb-8">Frequently Asked Questions</div>
-                <div class="flex flex-col md:flex-row text-lg gap-8">
-                    <div class="flex-1 flex flex-col gap-8">
+                <div class="text-xl font-semibold mb-7">Frequently Asked Questions</div>
+                <div class="flex flex-col md:flex-row gap-7">
+                    <div class="flex-1 flex flex-col gap-7">
                         <div>
                             <div class="leading-normal mb-2 font-semibold">How many issue tracker accounts do we get?</div>
                             <p class="!m-0 leading-normal">We provide at most 5 accounts per organization.</p>
@@ -276,7 +272,7 @@ import { Component } from '@angular/core';
                             <p class="!m-0 leading-normal">Hours are utilized when creating tickets, filing defects, requesting enhancements, POC implementations of a use case and questions.</p>
                         </div>
                     </div>
-                    <div class="flex-1 flex flex-col gap-8">
+                    <div class="flex-1 flex flex-col gap-7">
                         <div>
                             <div class="leading-normal mb-2 font-semibold">Are the changes delivered with a custom build?</div>
                             <p class="!m-0 leading-normal">No, changes become part of the PrimeNG core and pushed to the public npm package on next update.</p>
@@ -294,7 +290,7 @@ import { Component } from '@angular/core';
                             <p class="!m-0 leading-normal">The confirmed estimate is still used even if it takes longer to resolve the issue.</p>
                         </div>
                     </div>
-                    <div class="flex-1 flex flex-col gap-8">
+                    <div class="flex-1 flex flex-col gap-7">
                         <div>
                             <div class="leading-normal mb-2 font-semibold">Can we request new features and enhancements?</div>
                             <p class="!m-0 leading-normal">Yes, initially the request needs to be approved by PrimeTek based on project roadmap fit. As a result, not all requests may be accepted.</p>

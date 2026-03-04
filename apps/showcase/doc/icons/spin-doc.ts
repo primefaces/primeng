@@ -12,15 +12,15 @@ import { Component } from '@angular/core';
             <p>Special <i>pi-spin</i> class applies infinite rotation to an icon.</p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-4">
-            <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-            <i class="pi pi-spin pi-cog" style="font-size: 2rem"></i>
+            <i class="pi pi-spin pi-spinner" style="font-size: 1.75rem"></i>
+            <i class="pi pi-spin pi-cog" style="font-size: 1.75rem"></i>
         </div>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `
 })
 export class SpinDoc {
     code: Code = {
-        typescript: `<i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-<i class="pi pi-spin pi-cog" style="font-size: 2rem"></i>`
+        typescript: `<i class="pi pi-spin pi-spinner" style="font-size: 1.75rem"></i>
+<i class="pi pi-spin pi-cog" style="font-size: 1.75rem"></i>`
     };
 }
