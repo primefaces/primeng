@@ -19,7 +19,7 @@ import { Ripple } from 'primeng/ripple';
                 <ng-template #item let-item>
                     <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
                         <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
-                        <span class="ms-2">{{ item.label }}</span>
+                        <span class="ms-2" [class.text-sm]="!item.items">{{ item.label }}</span>
                         @if (item.badge) {
                             <p-badge class="ms-auto" [value]="item.badge" />
                         }

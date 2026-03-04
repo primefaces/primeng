@@ -14,30 +14,30 @@ import { CommonModule } from '@angular/common';
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
             <div>
-                <span class="font-bold block mb-2">No Delay</span>
+                <span class="font-bold block mb-2 text-sm">No Delay</span>
                 <p-virtualscroller [items]="items" [itemSize]="50" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
                     <ng-template #item let-item let-options="options">
-                        <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                        <div class="flex items-center p-2 text-sm" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                             {{ item }}
                         </div>
                     </ng-template>
                 </p-virtualscroller>
             </div>
             <div>
-                <span class="font-bold block mb-2">150ms</span>
+                <span class="font-bold block mb-2 text-sm">150ms</span>
                 <p-virtualscroller [items]="items" [itemSize]="50" [delay]="150" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
                     <ng-template #item let-item let-options="options">
-                        <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                        <div class="flex items-center p-2 text-sm" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                             {{ item }}
                         </div>
                     </ng-template>
                 </p-virtualscroller>
             </div>
             <div>
-                <span class="font-bold block mb-2">500ms</span>
+                <span class="font-bold block mb-2 text-sm">500ms</span>
                 <p-virtualscroller [items]="items" [itemSize]="50" [delay]="500" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
                     <ng-template #item let-item let-options="options">
-                        <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                        <div class="flex items-center p-2 text-sm" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                             {{ item }}
                         </div>
                     </ng-template>
