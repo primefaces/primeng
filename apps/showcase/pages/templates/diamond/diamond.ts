@@ -108,7 +108,7 @@ export class DiamondPage {
             id: 4,
             title: 'Figma File',
             description: `Diamond uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
-                <a href="https://www.figma.com/design/3BgdXCQjva5nUEO8OidU1B/Preview-%7C-Diamond?node-id=0-1&t=KdfljgRtYLzFPfKL-1 target="_blank" rel="noopener noreferrer"">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the Diamond Figma file as they
+                <a href="https://www.figma.com/design/PUKCTdB0YbqY2NVRGRgdEB/Preview-%7C%C2%A0Diamond-%7C%C2%A03.0.0?node-id=0-1&t=4iPjWVN9cs4g6XTA-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the Diamond Figma file as they
                 are available in <a href="/uikit">PrimeOne for Figma</a> only.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-remastered-animation-figma.png'
         }
