@@ -25,7 +25,10 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     imports: [SelectButtonModule, FormsModule]
 })
 export class SelectbuttonBasicDemo {
-    stateOptions: any[];
+    stateOptions: any[] = [
+        { label: 'One-Way', value: 'one-way' },
+        { label: 'Return', value: 'return' }
+    ];
     value: string = 'one-way';
 }
 ```
@@ -50,8 +53,14 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     imports: [SelectButtonModule, FormsModule]
 })
 export class SelectbuttonDisabledDemo {
-    stateOptions: any[];
-    stateOptions2: any[];
+    stateOptions: any[] = [
+        { label: 'Off', value: 'off' },
+        { label: 'On', value: 'on' }
+    ];
+    stateOptions2: any[] = [
+        { label: 'Option 1', value: 'Option 1' },
+        { label: 'Option 2', value: 'Option 2', constant: true }
+    ];
     value1: string = 'off';
     value2: string = 'Option 1';
 }
@@ -76,7 +85,10 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     imports: [SelectButtonModule, FormsModule]
 })
 export class SelectbuttonFluidDemo {
-    stateOptions: any[];
+    stateOptions: any[] = [
+        { label: 'One-Way', value: 'one-way' },
+        { label: 'Return', value: 'return' }
+    ];
     value: string = 'one-way';
 }
 ```
@@ -100,7 +112,10 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     imports: [SelectButtonModule, FormsModule]
 })
 export class SelectbuttonInvalidDemo {
-    stateOptions: any[];
+    stateOptions: any[] = [
+        { label: 'One-Way', value: 'one-way' },
+        { label: 'Return', value: 'return' }
+    ];
     value: string | undefined;
 }
 ```
@@ -124,7 +139,11 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     imports: [SelectButtonModule, FormsModule]
 })
 export class SelectbuttonMultipleDemo {
-    paymentOptions: any[];
+    paymentOptions: any[] = [
+        { name: 'Option 1', value: 1 },
+        { name: 'Option 2', value: 2 },
+        { name: 'Option 3', value: 3 }
+    ];
     value!: number;
 }
 ```
@@ -164,7 +183,10 @@ export class SelectbuttonReactiveformsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
-    stateOptions: any[];
+    stateOptions: any[] = [
+        { label: 'One-Way', value: 'one-way' },
+        { label: 'Return', value: 'return' }
+    ];
 
     constructor() {
         this.exampleForm = this.fb.group({
@@ -212,7 +234,10 @@ export class SelectbuttonSizesDemo {
     value1!: string;
     value2: string = 'Beginner';
     value3: string = 'Expert';
-    options: any[];
+    options: any[] = [
+        { label: 'Beginner', value: 'Beginner' },
+        { label: 'Expert', value: 'Expert' }
+    ];
 }
 ```
 
@@ -240,7 +265,12 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 })
 export class SelectbuttonTemplateDemo {
     value: any;
-    justifyOptions: any[];
+    justifyOptions: any[] = [
+        { icon: 'pi pi-align-left', justify: 'Left' },
+        { icon: 'pi pi-align-right', justify: 'Right' },
+        { icon: 'pi pi-align-center', justify: 'Center' },
+        { icon: 'pi pi-align-justify', justify: 'Justify' }
+    ];
 }
 ```
 
@@ -276,7 +306,10 @@ import { MessageService } from 'primeng/api';
 export class SelectbuttonTemplatedrivenformsDemo {
     messageService = inject(MessageService);
     value: any;
-    stateOptions: any[];
+    stateOptions: any[] = [
+        { label: 'One-Way', value: 'one-way' },
+        { label: 'Return', value: 'return' }
+    ];
 
     onSubmit(form: any) {
         if (form.valid) {
@@ -303,19 +336,19 @@ SelectButton is used to choose single or multiple items from a list using button
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| options | any[] | - | An array of selectitems to display as the available options. |
-| optionLabel | string | - | Name of the label field of an option. |
-| optionValue | string | - | Name of the value field of an option. |
-| optionDisabled | string | - | Name of the disabled field of an option. |
-| unselectable | boolean | - | Whether selection can be cleared. |
-| tabindex | number | 0 | Index of the element in tabbing order. |
-| multiple | boolean | false | When specified, allows selecting multiple values. |
-| allowEmpty | boolean | true | Whether selection can not be cleared. |
-| styleClass | string | - | Style class of the component. |
-| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| dataKey | string | - | A property to uniquely identify a value in options. |
-| autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
-| size | InputSignal<"small" \| "large"> | undefined | Specifies the size of the component. |
+| options | InputSignal<any[]> | ... | An array of selectitems to display as the available options. |
+| optionLabel | InputSignal<string> | ... | Name of the label field of an option. |
+| optionValue | InputSignal<string> | ... | Name of the value field of an option. |
+| optionDisabled | InputSignal<string> | ... | Name of the disabled field of an option. |
+| unselectable | InputSignalWithTransform<boolean, unknown> | ... | Whether selection can be cleared. |
+| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
+| multiple | InputSignalWithTransform<boolean, unknown> | ... | When specified, allows selecting multiple values. |
+| allowEmpty | InputSignalWithTransform<boolean, unknown> | ... | Whether selection can not be cleared. |
+| styleClass | InputSignal<string> | ... | Style class of the component. |
+| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| dataKey | InputSignal<string> | ... | A property to uniquely identify a value in options. |
+| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
+| size | InputSignal<InputSize> | undefined | Specifies the size of the component. |
 | fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
 
 ### Emits
@@ -329,7 +362,7 @@ SelectButton is used to choose single or multiple items from a list using button
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<SelectButtonItemTemplateContext> | Custom item template. |
+| item | Signal<TemplateRef<SelectButtonItemTemplateContext>> | Custom item template. |
 
 ## Pass Through Options
 

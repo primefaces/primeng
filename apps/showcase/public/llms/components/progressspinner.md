@@ -60,11 +60,10 @@ ProgressSpinner is a process status indicator.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ProgressSpinnerPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| styleClass | string | - | Class of the element. **(Deprecated)** |
-| strokeWidth | string | 2 | Width of the circle stroke. |
-| fill | string | none | Color for the background of the circle. |
-| animationDuration | string | 2s | Duration of the rotate animation. |
-| ariaLabel | string | - | Used to define a aria label attribute the current element. |
+| strokeWidth | InputSignal<string> | ... | Width of the circle stroke. |
+| fill | InputSignal<string> | ... | Color for the background of the circle. |
+| animationDuration | InputSignal<string> | ... | Duration of the rotate animation. |
+| ariaLabel | InputSignal<string> | ... | Used to define a aria label attribute the current element. |
 
 ## Pass Through Options
 

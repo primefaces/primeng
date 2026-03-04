@@ -1258,12 +1258,18 @@ ${formattedTemplate}
 export class ${className}${implementsClause} {${classBody}}`;
 }
 
+// Directory name to route path mapping (when they differ)
+const DIR_TO_ROUTE = {
+    scroller: 'virtualscroller'
+};
+
 // Derive selector from filename
 // e.g., "table/filter-advanced-doc.ts" -> "table-filter-advanced-demo"
 function deriveSelectorFromFilename(fileName, componentDir) {
     // Remove doc suffix (handles both "basicdoc" and "basic-doc" patterns)
     let section = fileName.replace(/-?doc$/, '');
-    return `${componentDir}-${section}-demo`;
+    const routeName = DIR_TO_ROUTE[componentDir] || componentDir;
+    return `${routeName}-${section}-demo`;
 }
 
 // Parse a single doc file

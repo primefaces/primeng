@@ -107,11 +107,11 @@ Breadcrumb provides contextual information about page hierarchy.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<BreadcrumbPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| model | MenuItem[] | - | An array of menuitems. |
-| style | { [klass: string]: any } | - | Inline style of the component. |
-| styleClass | string | - | Style class of the component. |
-| home | MenuItem | - | MenuItem configuration for the home icon. |
-| homeAriaLabel | string | - | Defines a string that labels the home icon for accessibility. |
+| model | InputSignal<MenuItem[]> | ... | An array of menuitems. |
+| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component. |
+| styleClass | InputSignal<string> | ... | Style class of the component. |
+| home | InputSignal<MenuItem> | ... | MenuItem configuration for the home icon. |
+| homeAriaLabel | InputSignal<string> | ... | Defines a string that labels the home icon for accessibility. |
 
 ### Emits
 
@@ -123,8 +123,8 @@ Breadcrumb provides contextual information about page hierarchy.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<BreadcrumbItemTemplateContext> | Custom item template. |
-| separator | TemplateRef<void> | Custom separator template. |
+| item | Signal<TemplateRef<BreadcrumbItemTemplateContext>> | Custom item template. |
+| separator | Signal<TemplateRef<void>> | Custom separator template. |
 
 ## Pass Through Options
 
@@ -169,6 +169,9 @@ Breadcrumb provides contextual information about page hierarchy.
 | breadcrumb.item.gap | --p-breadcrumb-item-gap | Gap of item |
 | breadcrumb.item.icon.color | --p-breadcrumb-item-icon-color | Icon color of item |
 | breadcrumb.item.icon.hover.color | --p-breadcrumb-item-icon-hover-color | Icon hover color of item |
+| breadcrumb.item.icon.size | --p-breadcrumb-item-icon-size | Icon size of item icon |
+| breadcrumb.item.label.font.weight | --p-breadcrumb-item-label-font-weight | Font weight of item label |
+| breadcrumb.item.label.font.size | --p-breadcrumb-item-label-font-size | Font size of item label |
 | breadcrumb.item.focus.ring.width | --p-breadcrumb-item-focus-ring-width | Focus ring width of item |
 | breadcrumb.item.focus.ring.style | --p-breadcrumb-item-focus-ring-style | Focus ring style of item |
 | breadcrumb.item.focus.ring.color | --p-breadcrumb-item-focus-ring-color | Focus ring color of item |

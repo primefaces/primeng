@@ -17,7 +17,7 @@ import { RippleModule } from 'primeng/ripple';
 @Component({
     template: `
         <div class="card flex flex-col gap-4 items-center">
-            <span
+            <span class="text-sm"
                 >Ripple option at the
                 <span class="mx-1 h-8 w-8 rounded-border inline-flex items-center justify-center bg-primary text-primary-contrast"><i class="pi pi-palette"></i></span>
                 configurator needs to be turned on for the demo.</span
@@ -46,7 +46,7 @@ import { RippleModule } from 'primeng/ripple';
 @Component({
     template: `
         <div class="card flex flex-col items-center gap-4">
-            <span
+            <span class="text-sm"
                 >Ripple option at the
                 <span class="mx-1 h-8 w-8 rounded-border inline-flex items-center justify-center bg-primary text-primary-contrast"><i class="pi pi-palette"></i></span>
                 configurator needs to be turned on for the demo.</span

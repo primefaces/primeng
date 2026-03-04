@@ -158,9 +158,9 @@ import { InputTextModule } from 'primeng/inputtext';
     template: `
         <div class="card flex justify-center">
             <div class="flex flex-col gap-2">
-                <label for="username">Username</label>
+                <label for="username" class="text-sm">Username</label>
                 <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
-                <small id="username-help">Enter your username to reset your password.</small>
+                <small id="username-help" class="text-sm">Enter your username to reset your password.</small>
             </div>
         </div>
     `,
@@ -417,7 +417,10 @@ import { MessageService } from 'primeng/api';
 })
 export class InputtextTemplatedrivenformsDemo {
     messageService = inject(MessageService);
-    user: any;
+    user: any = {
+        username: '',
+        email: ''
+    };
 
     onSubmit(form: any) {
         if (form.valid) {
@@ -440,11 +443,10 @@ InputText directive is an extension to standard input element with theming.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| ptInputText | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the InputText component. **(Deprecated)** |
 | pInputTextPT | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the InputText component. |
 | pInputTextUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pSize | "small" \| "large" | - | Defines the size of the component. |
-| variant | InputSignal<"outlined" \| "filled"> | undefined | Specifies the input variant of the component. |
+| pSize | InputSignal<InputSize> | ... | Defines the size of the component. |
+| variant | InputSignal<InputVariant> | undefined | Specifies the input variant of the component. |
 | fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
 
@@ -495,4 +497,6 @@ InputText directive is an extension to standard input element with theming.
 | inputtext.lg.font.size | --p-inputtext-lg-font-size | Lg font size of root |
 | inputtext.lg.padding.x | --p-inputtext-lg-padding-x | Lg padding x of root |
 | inputtext.lg.padding.y | --p-inputtext-lg-padding-y | Lg padding y of root |
+| inputtext.font.weight | --p-inputtext-font-weight | Font weight of root |
+| inputtext.font.size | --p-inputtext-font-size | Font size of root |
 

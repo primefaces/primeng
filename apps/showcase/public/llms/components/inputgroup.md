@@ -57,7 +57,13 @@ export class InputgroupBasicDemo {
     text2: string | undefined;
     number: string | undefined;
     selectedCity: City | undefined;
-    cities: City[];
+    cities: City[] = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Paris', code: 'PRS' }
+    ];
 }
 ```
 
@@ -277,7 +283,6 @@ InputGroup displays text, icon, buttons and other content can be grouped next to
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<InputGroupPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| styleClass | string | - | Class of the element. **(Deprecated)** |
 
 ## Pass Through Options
 
@@ -304,4 +309,6 @@ InputGroup displays text, icon, buttons and other content can be grouped next to
 | inputgroup.addon.border.radius | --p-inputgroup-addon-border-radius | Border radius of addon |
 | inputgroup.addon.padding | --p-inputgroup-addon-padding | Padding of addon |
 | inputgroup.addon.min.width | --p-inputgroup-addon-min-width | Min width of addon |
+| inputgroup.addon.font.weight | --p-inputgroup-addon-font-weight | Font weight of addon |
+| inputgroup.addon.font.size | --p-inputgroup-addon-font-size | Font size of addon |
 

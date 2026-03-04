@@ -210,12 +210,12 @@ Skeleton is a placeholder to display instead of the actual content.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<SkeletonPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| styleClass | string | - | Class of the element. **(Deprecated)** |
-| shape | string | rectangle | Shape of the element. |
-| borderRadius | string | - | Border radius of the element, defaults to value from theme. |
-| size | string | - | Size of the skeleton. |
-| width | string | 100% | Width of the element. |
-| height | string | 1rem | Height of the element. |
+| shape | InputSignal<string> | ... | Shape of the element. |
+| animation | InputSignal<string> | ... | Type of the animation. |
+| borderRadius | InputSignal<string> | ... | Border radius of the element, defaults to value from theme. |
+| size | InputSignal<string> | ... | Size of the skeleton. |
+| width | InputSignal<string> | ... | Width of the element. |
+| height | InputSignal<string> | ... | Height of the element. |
 
 ## Pass Through Options
 

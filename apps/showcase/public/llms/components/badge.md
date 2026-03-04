@@ -47,25 +47,6 @@ import { ButtonModule } from 'primeng/button';
 export class BadgeButtonDemo {}
 ```
 
-## directive-doc
-
-Content of the badge is specified using the value property.
-
-```typescript
-import { Component } from '@angular/core';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <i class="pi pi-bell !text-3xl" pBadge value="2"></i>
-        </div>
-    `,
-    standalone: true,
-    imports: []
-})
-export class BadgeDirectiveDemo {}
-```
-
 ## Overlay
 
 A badge can be added to any element by encapsulating the content with the OverlayBadge component.
@@ -100,17 +81,24 @@ A Badge can be positioned at the top right corner of an element by adding p-over
 
 ```typescript
 import { Component } from '@angular/core';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <i class="pi pi-bell mr-6 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>
-            <i class="pi pi-calendar mr-6 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></i>
-            <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger"></i>
+            <p-overlaybadge value="2" class="mr-6">
+                <i class="pi pi-bell p-text-secondary" style="font-size: 2rem"></i>
+            </p-overlaybadge>
+            <p-overlaybadge value="10+" severity="danger" class="mr-6">
+                <i class="pi pi-calendar p-text-secondary" style="font-size: 2rem"></i>
+            </p-overlaybadge>
+            <p-overlaybadge severity="danger">
+                <i class="pi pi-envelope p-text-secondary" style="font-size: 2rem"></i>
+            </p-overlaybadge>
         </div>
     `,
     standalone: true,
-    imports: []
+    imports: [OverlayBadgeModule]
 })
 export class BadgePositionDemo {}
 ```
@@ -172,12 +160,11 @@ Badge is a small status indicator for another element.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| styleClass | InputSignal<string> | ... | Class of the element. **(Deprecated)** |
-| badgeSize | InputSignal<"small" \| "large" \| "xlarge"> | ... | Size of the badge, valid options are "large" and "xlarge". |
-| size | InputSignal<"small" \| "large" \| "xlarge"> | ... | Size of the badge, valid options are "large" and "xlarge". |
-| severity | InputSignal<"success" \| "info" \| "warn" \| "danger" \| "secondary" \| "contrast"> | ... | Severity type of the badge. |
+| badgeSize | InputSignal<BadgeSize> | ... | Size of the badge, valid options are "large" and "xlarge". |
+| size | InputSignal<BadgeSize> | ... | Size of the badge, valid options are "large" and "xlarge". |
+| severity | InputSignal<BadgeSeverity> | ... | Severity type of the badge. |
 | value | InputSignal<string \| number> | ... | Value to display inside the badge. |
-| badgeDisabled | InputSignalWithTransform<boolean, boolean> | ... | When specified, disables the component. |
+| badgeDisabled | InputSignalWithTransform<boolean, unknown> | ... | When specified, disables the component. |
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<BadgePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |

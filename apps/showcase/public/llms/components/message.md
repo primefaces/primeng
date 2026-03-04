@@ -64,7 +64,7 @@ import { MessageModule } from 'primeng/message';
             </div>
             <div class="flex flex-col">
                 @for (message of messages(); track message.severity; let first = $first) {
-                    <p-message [severity]="message.severity" [text]="message.content" [ngClass]="{ 'mt-4': !first }" [closable]="message?.closable" />
+                    <p-message [severity]="message.severity" [class]="{ 'mt-4': !first }" [closable]="message?.closable">{{ message.content }}</p-message>
                 }
             </div>
         </div>
@@ -104,7 +104,7 @@ import { InputTextModule } from 'primeng/inputtext';
     template: `
         <div class="card flex justify-center">
             <div class="flex flex-col gap-4">
-                <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Validation Failed</p-message>
+                <p-message severity="error" icon="pi pi-times-circle" class="mb-2">Validation Failed</p-message>
                 <div class="flex flex-col gap-1">
                     <input pInputText placeholder="Username" [(ngModel)]="username" aria-label="username" [invalid]="!username" />
                     @if (!username) {
@@ -141,7 +141,7 @@ import { MessageModule } from 'primeng/message';
 @Component({
     template: `
         <div class="card flex justify-center items-center gap-4">
-            <p-message severity="info" icon="pi pi-send" text="Info Message" styleClass="h-full" />
+            <p-message severity="info" icon="pi pi-send" class="h-full">Info Message</p-message>
             <p-message severity="success">
                 <ng-template #icon>
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
@@ -299,33 +299,27 @@ Message groups a collection of contents in tabs.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<MessagePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| severity | "success" \| "info" \| "warn" \| "secondary" \| "contrast" \| "error" | 'info' | Severity level of the message. |
-| text | string | - | Text content. **(Deprecated)** |
-| escape | boolean | true | Whether displaying messages would be escaped or not. **(Deprecated)** |
-| style | { [klass: string]: any } | - | Inline style of the component. |
-| styleClass | string | - | Style class of the component. |
-| closable | boolean | false | Whether the message can be closed manually using the close icon. |
-| icon | string | undefined | Icon to display in the message. |
-| closeIcon | string | undefined | Icon to display in the message close button. |
-| showTransitionOptions | string | '300ms ease-out' | Transition options of the show animation. **(Deprecated)** |
-| hideTransitionOptions | string | '200ms cubic-bezier(0.86, 0, 0.07, 1)' | Transition options of the hide animation. **(Deprecated)** |
-| size | "small" \| "large" | - | Defines the size of the component. |
-| variant | "text" \| "outlined" \| "simple" | - | Specifies the input variant of the component. |
+| severity | InputSignal<MessageSeverity> | 'info' | Severity level of the message. |
+| closable | InputSignalWithTransform<boolean, unknown> | false | Whether the message can be closed manually using the close icon. |
+| icon | InputSignal<string> | undefined | Icon to display in the message. |
+| closeIcon | InputSignal<string> | undefined | Icon to display in the message close button. |
+| size | InputSignal<MessageSize> | ... | Defines the size of the component. |
+| variant | InputSignal<MessageVariant> | ... | Specifies the input variant of the component. |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
 
 | Name | Parameters | Description |
 |------|------------|-------------|
-| onClose | event: { originalEvent: Event } | Emits when the message is closed. |
+| onClose | event: MessageCloseEvent | Emits when the message is closed. |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| container | TemplateRef<MessageContainerTemplateContext> | Custom template of the message container. |
-| icon | TemplateRef<void> | Custom template of the message icon. |
-| closeicon | TemplateRef<void> | Custom template of the close icon. |
+| container | Signal<TemplateRef<MessageContainerTemplateContext>> | Custom template of the message container. |
+| icon | Signal<TemplateRef<void>> | Custom template of the message icon. |
+| closeicon | Signal<TemplateRef<void>> | Custom template of the close icon. |
 
 ### Methods
 

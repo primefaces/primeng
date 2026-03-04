@@ -24,7 +24,7 @@ import { CardModule } from 'primeng/card';
                 </ng-template>
                 <ng-template #title> Advanced Card </ng-template>
                 <ng-template #subtitle> Card subtitle </ng-template>
-                <p>
+                <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
                     quas!
                 </p>
@@ -55,7 +55,7 @@ import { CardModule } from 'primeng/card';
     template: `
         <div class="mb-4 p-8">
             <p-card header="Simple Card">
-                <p class="m-0">
+                <p class="m-0 text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
                     quas!
                 </p>
@@ -80,20 +80,18 @@ Card is a flexible container component.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<CardPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| header | string | - | Header of the card. |
-| subheader | string | - | Subheader of the card. |
-| style | { [klass: string]: any } | - | Inline style of the element. |
-| styleClass | string | - | Class of the element. **(Deprecated)** |
+| header | InputSignal<string> | ... | Header of the card. |
+| subheader | InputSignal<string> | ... | Subheader of the card. |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | TemplateRef<void> | Custom header template. |
-| title | TemplateRef<void> | Custom title template. |
-| subtitle | TemplateRef<void> | Custom subtitle template. |
-| content | TemplateRef<void> | Custom content template. |
-| footer | TemplateRef<void> | Custom footer template. |
+| header | Signal<TemplateRef<void>> | Custom header template. |
+| title | Signal<TemplateRef<void>> | Custom title template. |
+| subtitle | Signal<TemplateRef<void>> | Custom subtitle template. |
+| content | Signal<TemplateRef<void>> | Custom content template. |
+| footer | Signal<TemplateRef<void>> | Custom footer template. |
 
 ## Pass Through Options
 
@@ -136,4 +134,6 @@ Card is a flexible container component.
 | card.title.font.size | --p-card-title-font-size | Font size of title |
 | card.title.font.weight | --p-card-title-font-weight | Font weight of title |
 | card.subtitle.color | --p-card-subtitle-color | Color of subtitle |
+| card.subtitle.font.size | --p-card-subtitle-font-size | Font size of subtitle |
+| card.subtitle.font.weight | --p-card-subtitle-font-weight | Font weight of subtitle |
 

@@ -57,7 +57,7 @@ export class TableBasicDemo implements OnInit {
 
 ## celledit-doc
 
-In-cell editing is enabled by adding pEditableColumn directive to an editable cell that has a p-cellEditor helper component to define the input-output templates for the edit and view modes respectively.
+In-cell editing is enabled by adding pEditableColumn directive to an editable cell that has a p-cell-editor helper component to define the input-output templates for the edit and view modes respectively.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -82,44 +82,44 @@ import { Product } from '@/domain/product';
                 <ng-template #body let-product let-editing="editing">
                     <tr>
                         <td [pEditableColumn]="product.code" pEditableColumnField="code">
-                            <p-cellEditor>
+                            <p-cell-editor>
                                 <ng-template #input>
                                     <input pInputText type="text" [(ngModel)]="product.code" fluid />
                                 </ng-template>
                                 <ng-template #output>
                                     {{ product.code }}
                                 </ng-template>
-                            </p-cellEditor>
+                            </p-cell-editor>
                         </td>
                         <td [pEditableColumn]="product.name" pEditableColumnField="name">
-                            <p-cellEditor>
+                            <p-cell-editor>
                                 <ng-template #input>
                                     <input pInputText type="text" [(ngModel)]="product.name" required fluid />
                                 </ng-template>
                                 <ng-template #output>
                                     {{ product.name }}
                                 </ng-template>
-                            </p-cellEditor>
+                            </p-cell-editor>
                         </td>
                         <td [pEditableColumn]="product.quantity" pEditableColumnField="quantity">
-                            <p-cellEditor>
+                            <p-cell-editor>
                                 <ng-template #input>
                                     <input pInputText [(ngModel)]="product.quantity" fluid />
                                 </ng-template>
                                 <ng-template #output>
                                     {{ product.quantity }}
                                 </ng-template>
-                            </p-cellEditor>
+                            </p-cell-editor>
                         </td>
                         <td [pEditableColumn]="product.price" pEditableColumnField="price">
-                            <p-cellEditor>
+                            <p-cell-editor>
                                 <ng-template #input>
                                     <input pInputText type="text" [(ngModel)]="product.price" fluid />
                                 </ng-template>
                                 <ng-template #output>
                                     {{ product.price | currency: 'USD' }}
                                 </ng-template>
-                            </p-cellEditor>
+                            </p-cell-editor>
                         </td>
                     </tr>
                 </ng-template>
@@ -159,7 +159,7 @@ import { Product } from '@/domain/product';
                 <ng-template #header>
                     <tr>
                         <th style="width: 4rem">
-                            <p-tableHeaderCheckbox />
+                            <p-table-header-checkbox />
                         </th>
                         <th>Code</th>
                         <th>Name</th>
@@ -170,7 +170,7 @@ import { Product } from '@/domain/product';
                 <ng-template #body let-product>
                     <tr>
                         <td>
-                            <p-tableCheckbox [value]="product" />
+                            <p-table-checkbox [value]="product" />
                         </td>
                         <td>{{ product.code }}</td>
                         <td>{{ product.name }}</td>
@@ -571,17 +571,21 @@ interface Column {
                 <ng-template #header let-columns>
                     <tr>
                         <th>Code</th>
-                        <th *ngFor="let col of columns">
-                            {{ col.header }}
-                        </th>
+                        @for (col of columns; track col) {
+                            <th>
+                                {{ col.header }}
+                            </th>
+                        }
                     </tr>
                 </ng-template>
                 <ng-template #body let-product let-columns="columns">
                     <tr>
                         <td>{{ product.code }}</td>
-                        <td *ngFor="let col of columns">
-                            {{ product[col.field] }}
-                        </td>
+                        @for (col of columns; track col) {
+                            <td>
+                                {{ product[col.field] }}
+                            </td>
+                        }
                     </tr>
                 </ng-template>
             </p-table>
@@ -734,27 +738,27 @@ import { Customer, Representative, Country } from '@/domain/customer';
                 <ng-template #header>
                     <tr>
                         <th style="width: 4rem">
-                            <p-tableHeaderCheckbox />
+                            <p-table-header-checkbox />
                         </th>
                         <th pSortableColumn="name" style="min-width: 14rem">
                             <div class="flex justify-between items-center gap-2">
                                 Name
-                                <p-sortIcon field="name" />
-                                <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
+                                <p-sort-icon field="name" />
+                                <p-column-filter type="text" field="name" display="menu" class="ml-auto" />
                             </div>
                         </th>
                         <th pSortableColumn="country.name" style="min-width: 14rem">
                             <div class="flex justify-between items-center gap-2">
                                 Country
-                                <p-sortIcon field="country.name" />
-                                <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
+                                <p-sort-icon field="country.name" />
+                                <p-column-filter type="text" field="country.name" display="menu" class="ml-auto" />
                             </div>
                         </th>
                         <th pSortableColumn="representative.name" style="min-width: 14rem">
                             <div class="flex justify-between items-center gap-2">
                                 Agent
-                                <p-sortIcon field="representative.name" />
-                                <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                                <p-sort-icon field="representative.name" />
+                                <p-column-filter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                                     <ng-template #filter let-value let-filter="filterCallback">
                                         <p-multiselect [filter]="false" [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" class="w-full">
                                             <ng-template let-option #item>
@@ -765,28 +769,28 @@ import { Customer, Representative, Country } from '@/domain/customer';
                                             </ng-template>
                                         </p-multiselect>
                                     </ng-template>
-                                </p-columnFilter>
+                                </p-column-filter>
                             </div>
                         </th>
                         <th pSortableColumn="date" style="min-width: 14rem">
                             <div class="flex justify-between items-center gap-2">
                                 Date
-                                <p-sortIcon field="date" />
-                                <p-columnFilter type="date" field="date" display="menu" class="ml-auto" />
+                                <p-sort-icon field="date" />
+                                <p-column-filter type="date" field="date" display="menu" class="ml-auto" />
                             </div>
                         </th>
                         <th pSortableColumn="balance" style="min-width: 14rem">
                             <div class="flex justify-between items-center gap-2">
                                 Balance
-                                <p-sortIcon field="balance" />
-                                <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
+                                <p-sort-icon field="balance" />
+                                <p-column-filter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
                             </div>
                         </th>
                         <th pSortableColumn="status" style="min-width: 14rem">
                             <div class="flex justify-between items-center gap-2">
                                 Status
-                                <p-sortIcon field="status" />
-                                <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
+                                <p-sort-icon field="status" />
+                                <p-column-filter field="status" matchMode="equals" display="menu" class="ml-auto">
                                     <ng-template #filter let-value let-filter="filterCallback">
                                         <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                             <ng-template let-option #item>
@@ -794,14 +798,14 @@ import { Customer, Representative, Country } from '@/domain/customer';
                                             </ng-template>
                                         </p-select>
                                     </ng-template>
-                                </p-columnFilter>
+                                </p-column-filter>
                             </div>
                         </th>
                         <th pSortableColumn="activity" style="min-width: 14rem">
                             <div class="flex justify-between items-center gap-2">
                                 Activity
-                                <p-sortIcon field="activity" />
-                                <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                                <p-sort-icon field="activity" />
+                                <p-column-filter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                                     <ng-template #filter let-filter="filterCallback">
                                         <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" class="m-4"></p-slider>
                                         <div class="flex items-center justify-between px-2">
@@ -809,7 +813,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                                             <span>{{ activityValues[1] }}</span>
                                         </div>
                                     </ng-template>
-                                </p-columnFilter>
+                                </p-column-filter>
                             </div>
                         </th>
                         <th style="width: 5rem"></th>
@@ -818,7 +822,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                 <ng-template #body let-customer>
                     <tr class="p-selectable-row">
                         <td>
-                            <p-tableCheckbox [value]="customer" />
+                            <p-table-checkbox [value]="customer" />
                         </td>
                         <td>
                             {{ customer.name }}
@@ -930,7 +934,7 @@ export class TableCustomersDemo implements OnInit {
 
 ## Dynamic Columns
 
-Columns can be defined dynamically using the *ngFor directive.
+Columns can be defined dynamically using the &#64;for block.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -1020,7 +1024,9 @@ import { Customer, Country } from '@/domain/customer';
                 <ng-template #groupheader let-customer let-rowIndex="rowIndex" let-expanded="expanded">
                     <tr>
                         <td colspan="5">
-                            <button type="button" pButton pRipple [pRowToggler]="customer" text rounded plain class="mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                            <button type="button" pButton pRipple [pRowToggler]="customer" text rounded plain class="mr-2">
+                                <span pButtonIcon [class]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></span>
+                            </button>
                             <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle; display: inline-block" />
                             <span class="font-bold ml-2">{{ customer.representative.name }}</span>
                         </td>
@@ -1139,16 +1145,20 @@ interface ExportColumn {
                 </ng-template>
                 <ng-template #header let-columns>
                     <tr>
-                        <th *ngFor="let col of columns">
-                            {{ col.header }}
-                        </th>
+                        @for (col of columns; track col) {
+                            <th>
+                                {{ col.header }}
+                            </th>
+                        }
                     </tr>
                 </ng-template>
                 <ng-template #body let-rowData let-columns="columns">
                     <tr>
-                        <td *ngFor="let col of columns">
-                            {{ rowData[col.field] }}
-                        </td>
+                        @for (col of columns; track col) {
+                            <td>
+                                {{ rowData[col.field] }}
+                            </td>
+                        }
                     </tr>
                 </ng-template>
             </p-table>
@@ -1218,19 +1228,19 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <th style="min-width:15rem">
                             <div class="flex items-center justify-between">
                                 Name
-                                <p-columnFilter type="text" field="name" display="menu" />
+                                <p-column-filter type="text" field="name" display="menu" />
                             </div>
                         </th>
                         <th style="min-width:15rem">
                             <div class="flex items-center justify-between">
                                 Country
-                                <p-columnFilter type="text" field="country.name" display="menu" />
+                                <p-column-filter type="text" field="country.name" display="menu" />
                             </div>
                         </th>
                         <th style="min-width:15rem">
                             <div class="flex items-center justify-between">
                                 Agent
-                                <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                <p-column-filter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                     <ng-template #filter let-value let-filter="filterCallback">
                                         <p-multiselect [(ngModel)]="value" [options]="representatives()" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                             <ng-template let-option #item>
@@ -1241,25 +1251,25 @@ import { Customer, Representative, Country } from '@/domain/customer';
                                             </ng-template>
                                         </p-multiselect>
                                     </ng-template>
-                                </p-columnFilter>
+                                </p-column-filter>
                             </div>
                         </th>
                         <th style="min-width:10rem">
                             <div class="flex items-center justify-between">
                                 Date
-                                <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+                                <p-column-filter type="date" field="date" display="menu"></p-column-filter>
                             </div>
                         </th>
                         <th style="min-width:10rem">
                             <div class="flex items-center justify-between">
                                 Balance
-                                <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
+                                <p-column-filter type="numeric" field="balance" display="menu" currency="USD" />
                             </div>
                         </th>
                         <th style="min-width:10rem">
                             <div class="flex items-center justify-between">
                                 Status
-                                <p-columnFilter field="status" matchMode="equals" display="menu">
+                                <p-column-filter field="status" matchMode="equals" display="menu">
                                     <ng-template #filter let-value let-filter="filterCallback">
                                         <p-select [(ngModel)]="value" [options]="statuses()" (onChange)="filter($event.value)" placeholder="Select One" class="w-full">
                                             <ng-template let-option #item>
@@ -1267,27 +1277,30 @@ import { Customer, Representative, Country } from '@/domain/customer';
                                             </ng-template>
                                         </p-select>
                                     </ng-template>
-                                </p-columnFilter>
+                                </p-column-filter>
                             </div>
                         </th>
                         <th style="min-width:10rem">
                             <div class="flex items-center justify-between">
                                 Activity
-                                <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                <p-column-filter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                     <ng-template #filter let-value let-filter="filterCallback">
                                         <p-slider [(ngModel)]="value" [range]="true" class="m-4" (onSlideEnd)="filter($event.values)" />
                                         <div class="flex items-center px-2">
-                                            <span *ngIf="!value">0</span>
-                                            <span *ngIf="value">{{ value[0] }} - {{ value[1] }}</span>
+                                            @if (!value) {
+                                                <span>0</span>
+                                            } @else {
+                                                <span>{{ value[0] }} - {{ value[1] }}</span>
+                                            }
                                         </div>
                                     </ng-template>
-                                </p-columnFilter>
+                                </p-column-filter>
                             </div>
                         </th>
                         <th style="width: 3rem">
                             <div class="flex items-center justify-between">
                                 Verified
-                                <p-columnFilter type="boolean" field="verified" display="menu" />
+                                <p-column-filter type="boolean" field="verified" display="menu" />
                             </div>
                         </th>
                     </tr>
@@ -1459,13 +1472,13 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     </tr>
                     <tr>
                         <th>
-                            <p-columnFilter type="text" field="name" placeholder="Type to search" ariaLabel="Filter Name" filterOn="input"></p-columnFilter>
+                            <p-column-filter type="text" field="name" placeholder="Type to search" ariaLabel="Filter Name" filterOn="input"></p-column-filter>
                         </th>
                         <th>
-                            <p-columnFilter type="text" field="country.name" placeholder="Enter key to search" ariaLabel="Filter Country"></p-columnFilter>
+                            <p-column-filter type="text" field="country.name" placeholder="Enter key to search" ariaLabel="Filter Country"></p-column-filter>
                         </th>
                         <th>
-                            <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
+                            <p-column-filter field="representative" matchMode="in" [showMenu]="false">
                                 <ng-template #filter let-value let-filter="filterCallback">
                                     <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                         <ng-template let-option #item>
@@ -1476,10 +1489,10 @@ import { Customer, Representative, Country } from '@/domain/customer';
                                         </ng-template>
                                     </p-multiselect>
                                 </ng-template>
-                            </p-columnFilter>
+                            </p-column-filter>
                         </th>
                         <th>
-                            <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
+                            <p-column-filter field="status" matchMode="equals" [showMenu]="false">
                                 <ng-template #filter let-value let-filter="filterCallback">
                                     <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" [showClear]="true" style="min-width: 12rem">
                                         <ng-template let-option #item>
@@ -1487,10 +1500,10 @@ import { Customer, Representative, Country } from '@/domain/customer';
                                         </ng-template>
                                     </p-select>
                                 </ng-template>
-                            </p-columnFilter>
+                            </p-column-filter>
                         </th>
                         <th>
-                            <p-columnFilter type="boolean" field="verified"></p-columnFilter>
+                            <p-column-filter type="boolean" field="verified"></p-column-filter>
                         </th>
                     </tr>
                 </ng-template>
@@ -1614,7 +1627,10 @@ import { Customer, Representative, Country } from '@/domain/customer';
     template: `
         <div class="card">
             <div class="flex justify-center">
-                <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="Show"></button>
+                <button type="button" (click)="showDialog()" pButton>
+                    <span pButtonIcon class="pi pi-external-link"></span>
+                    <span pButtonLabel>Show</span>
+                </button>
             </div>
             <p-dialog header="Header" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="{ width: '75vw' }" [contentStyle]="{ height: '300px' }">
                 <p-table [value]="customers" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
@@ -1763,7 +1779,9 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <td>{{ customer.company }}</td>
                         <td>{{ customer.representative.name }}</td>
                         <td>
-                            <button pButton pRipple type="button" [icon]="'pi pi-lock-open'" (click)="toggleLock(customer, true, index)" size="small" text></button>
+                            <button pButton pRipple type="button" (click)="toggleLock(customer, true, index)" size="small" text>
+                                <span pButtonIcon class="pi pi-lock-open"></span>
+                            </button>
                         </td>
                     </tr>
                 </ng-template>
@@ -1774,7 +1792,9 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <td>{{ customer.company }}</td>
                         <td>{{ customer.representative.name }}</td>
                         <td>
-                            <button pButton pRipple type="button" [icon]="'pi pi-lock'" [disabled]="lockedCustomers.length >= 2" (click)="toggleLock(customer, false, index)" size="small" text></button>
+                            <button pButton pRipple type="button" [disabled]="lockedCustomers.length >= 2" (click)="toggleLock(customer, false, index)" size="small" text>
+                                <span pButtonIcon class="pi pi-lock"></span>
+                            </button>
                         </td>
                     </tr>
                 </ng-template>
@@ -2068,25 +2088,25 @@ import { Product } from '@/domain/product';
                         <th pSortableColumn="code" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Code
-                                <p-sortIcon field="code" />
+                                <p-sort-icon field="code" />
                             </div>
                         </th>
                         <th pSortableColumn="name" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Name
-                                <p-sortIcon field="name" />
+                                <p-sort-icon field="name" />
                             </div>
                         </th>
                         <th pSortableColumn="category" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Category
-                                <p-sortIcon field="category" />
+                                <p-sort-icon field="category" />
                             </div>
                         </th>
                         <th pSortableColumn="quantity" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Quantity
-                                <p-sortIcon field="quantity" />
+                                <p-sort-icon field="quantity" />
                             </div>
                         </th>
                     </tr>
@@ -2133,9 +2153,9 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card">
-            <div class="flex justify-center items-center mb-6 gap-2">
+            <div class="flex justify-center items-center mb-5 gap-2">
                 <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
-                <label for="input-metakey">MetaKey</label>
+                <label for="input-metakey" class="text-sm">MetaKey</label>
             </div>
             <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [metaKeySelection]="metaKey" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
@@ -2335,31 +2355,31 @@ import { Product } from '@/domain/product';
                         <th pSortableColumn="code" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Code
-                                <p-sortIcon field="code" />
+                                <p-sort-icon field="code" />
                             </div>
                         </th>
                         <th pSortableColumn="name" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Name
-                                <p-sortIcon field="name" />
+                                <p-sort-icon field="name" />
                             </div>
                         </th>
                         <th pSortableColumn="price" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Price
-                                <p-sortIcon field="price" />
+                                <p-sort-icon field="price" />
                             </div>
                         </th>
                         <th pSortableColumn="category" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Category
-                                <p-sortIcon field="category" />
+                                <p-sort-icon field="category" />
                             </div>
                         </th>
                         <th pSortableColumn="quantity" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Quantity
-                                <p-sortIcon field="quantity" />
+                                <p-sort-icon field="quantity" />
                             </div>
                         </th>
                     </tr>
@@ -2433,13 +2453,13 @@ interface ExportColumn {
     template: `
         <div class="card">
             <p-toast />
-            <p-toolbar class="mb-6">
+            <p-toolbar class="mb-5">
                 <ng-template #start>
                     <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
                     <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
                 </ng-template>
                 <ng-template #end>
-                    <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" auto customUpload class="mr-2 inline-block" [chooseButtonProps]="{ severity: 'secondary' }" />
+                    <p-fileupload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" auto customUpload class="mr-2 inline-block" [chooseButtonProps]="{ severity: 'secondary' }" />
                     <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV($event)" />
                 </ng-template>
             </p-toolbar>
@@ -2469,38 +2489,38 @@ interface ExportColumn {
                 <ng-template #header>
                     <tr>
                         <th style="width: 3rem">
-                            <p-tableHeaderCheckbox />
+                            <p-table-header-checkbox />
                         </th>
                         <th style="min-width: 16rem">Code</th>
                         <th pSortableColumn="name" style="min-width:16rem">
                             <div class="flex items-center gap-2">
                                 Name
-                                <p-sortIcon field="name" />
+                                <p-sort-icon field="name" />
                             </div>
                         </th>
                         <th>Image</th>
                         <th pSortableColumn="price" style="min-width: 8rem">
                             <div class="flex items-center gap-2">
                                 Price
-                                <p-sortIcon field="price" />
+                                <p-sort-icon field="price" />
                             </div>
                         </th>
                         <th pSortableColumn="category" style="min-width:10rem">
                             <div class="flex items-center gap-2">
                                 Category
-                                <p-sortIcon field="category" />
+                                <p-sort-icon field="category" />
                             </div>
                         </th>
                         <th pSortableColumn="rating" style="min-width: 12rem">
                             <div class="flex items-center gap-2">
                                 Reviews
-                                <p-sortIcon field="rating" />
+                                <p-sort-icon field="rating" />
                             </div>
                         </th>
                         <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
                             <div class="flex items-center gap-2">
                                 Status
-                                <p-sortIcon field="inventoryStatus" />
+                                <p-sort-icon field="inventoryStatus" />
                             </div>
                         </th>
                         <th style="min-width: 12rem"></th>
@@ -2509,7 +2529,7 @@ interface ExportColumn {
                 <ng-template #body let-product>
                     <tr>
                         <td style="width: 3rem">
-                            <p-tableCheckbox [value]="product" />
+                            <p-table-checkbox [value]="product" />
                         </td>
                         <td style="min-width: 12rem">{{ product.code }}</td>
                         <td style="min-width: 16rem">{{ product.name }}</td>
@@ -2533,49 +2553,53 @@ interface ExportColumn {
             </p-table>
             <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
                 <ng-template #content>
-                    <div class="flex flex-col gap-6">
-                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" *ngIf="product.image" />
+                    <div class="flex flex-col gap-5">
+                        @if (product.image) {
+                            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" />
+                        }
                         <div>
-                            <label for="name" class="block font-bold mb-3">Name</label>
+                            <label for="name" class="text-sm block font-bold mb-3">Name</label>
                             <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus fluid />
-                            <small class="text-red-500" *ngIf="submitted && !product.name">Name is required.</small>
+                            @if (submitted && !product.name) {
+                                <small class="text-red-500">Name is required.</small>
+                            }
                         </div>
                         <div>
-                            <label for="description" class="block font-bold mb-3">Description</label>
+                            <label for="description" class="text-sm block font-bold mb-3">Description</label>
                             <textarea id="description" pTextarea [(ngModel)]="product.description" required rows="3" cols="20" fluid></textarea>
                         </div>
                         <div>
-                            <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
+                            <label for="inventoryStatus" class="text-sm block font-bold mb-3">Inventory Status</label>
                             <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="Select a Status" fluid />
                         </div>
                         <div>
-                            <span class="block font-bold mb-4">Category</span>
+                            <span class="text-sm block font-bold mb-4">Category</span>
                             <div class="grid grid-cols-12 gap-4">
                                 <div class="flex items-center gap-2 col-span-6">
                                     <p-radiobutton id="category1" name="category" value="Accessories" [(ngModel)]="product.category" />
-                                    <label for="category1">Accessories</label>
+                                    <label for="category1" class="text-sm">Accessories</label>
                                 </div>
                                 <div class="flex items-center gap-2 col-span-6">
                                     <p-radiobutton id="category2" name="category" value="Clothing" [(ngModel)]="product.category" />
-                                    <label for="category2">Clothing</label>
+                                    <label for="category2" class="text-sm">Clothing</label>
                                 </div>
                                 <div class="flex items-center gap-2 col-span-6">
                                     <p-radiobutton id="category3" name="category" value="Electronics" [(ngModel)]="product.category" />
-                                    <label for="category3">Electronics</label>
+                                    <label for="category3" class="text-sm">Electronics</label>
                                 </div>
                                 <div class="flex items-center gap-2 col-span-6">
                                     <p-radiobutton id="category4" name="category" value="Fitness" [(ngModel)]="product.category" />
-                                    <label for="category4">Fitness</label>
+                                    <label for="category4" class="text-sm">Fitness</label>
                                 </div>
                             </div>
                         </div>
                         <div class="grid grid-cols-12 gap-4">
                             <div class="col-span-6">
-                                <label for="price" class="block font-bold mb-3">Price</label>
+                                <label for="price" class="text-sm block font-bold mb-3">Price</label>
                                 <p-inputnumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US" fluid />
                             </div>
                             <div class="col-span-6">
-                                <label for="quantity" class="block font-bold mb-3">Quantity</label>
+                                <label for="quantity" class="text-sm block font-bold mb-3">Quantity</label>
                                 <p-inputnumber id="quantity" [(ngModel)]="product.quantity" fluid />
                             </div>
                         </div>
@@ -2786,7 +2810,7 @@ import { Product } from '@/domain/product';
                 <ng-template #body let-product>
                     <tr>
                         <td>
-                            <p-tableRadioButton [value]="product" />
+                            <p-table-radio-button [value]="product" />
                         </td>
                         <td>{{ product.code }}</td>
                         <td>{{ product.name }}</td>
@@ -2834,25 +2858,25 @@ import { Product } from '@/domain/product';
                         <th pSortableColumn="code">
                             <div class="flex items-center gap-2">
                                 Code
-                                <p-sortIcon field="code" />
+                                <p-sort-icon field="code" />
                             </div>
                         </th>
                         <th pSortableColumn="name">
                             <div class="flex items-center gap-2">
                                 Name
-                                <p-sortIcon field="name" />
+                                <p-sort-icon field="name" />
                             </div>
                         </th>
                         <th pSortableColumn="category">
                             <div class="flex items-center gap-2">
                                 Category
-                                <p-sortIcon field="category" />
+                                <p-sort-icon field="category" />
                             </div>
                         </th>
                         <th pSortableColumn="quantity">
                             <div class="flex items-center gap-2">
                                 Quantity
-                                <p-sortIcon field="quantity" />
+                                <p-sort-icon field="quantity" />
                             </div>
                         </th>
                     </tr>
@@ -2938,9 +2962,11 @@ interface Column {
                 <ng-template #header let-columns>
                     <tr>
                         <th style="width:3rem"></th>
-                        <th *ngFor="let col of columns" pReorderableColumn>
-                            {{ col.header }}
-                        </th>
+                        @for (col of columns; track col) {
+                            <th pReorderableColumn>
+                                {{ col.header }}
+                            </th>
+                        }
                     </tr>
                 </ng-template>
                 <ng-template #body let-rowData let-columns="columns" let-index="rowIndex">
@@ -2948,9 +2974,11 @@ interface Column {
                         <td>
                             <span class="pi pi-bars" pReorderableRowHandle></span>
                         </td>
-                        <td *ngFor="let col of columns">
-                            {{ rowData[col.field] }}
-                        </td>
+                        @for (col of columns; track col) {
+                            <td>
+                                {{ rowData[col.field] }}
+                            </td>
+                        }
                     </tr>
                 </ng-template>
             </p-table>
@@ -3014,50 +3042,60 @@ import { Product } from '@/domain/product';
                 <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
                     <tr [pEditableRow]="product">
                         <td>
-                            <p-cellEditor>
+                            <p-cell-editor>
                                 <ng-template #input>
                                     <input pInputText type="text" [(ngModel)]="product.code" />
                                 </ng-template>
                                 <ng-template #output>
                                     {{ product.code }}
                                 </ng-template>
-                            </p-cellEditor>
+                            </p-cell-editor>
                         </td>
                         <td>
-                            <p-cellEditor>
+                            <p-cell-editor>
                                 <ng-template #input>
                                     <input pInputText type="text" [(ngModel)]="product.name" required />
                                 </ng-template>
                                 <ng-template #output>
                                     {{ product.name }}
                                 </ng-template>
-                            </p-cellEditor>
+                            </p-cell-editor>
                         </td>
                         <td>
-                            <p-cellEditor>
+                            <p-cell-editor>
                                 <ng-template #input>
                                     <p-select [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="{ width: '100%' }" />
                                 </ng-template>
                                 <ng-template #output>
                                     <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                                 </ng-template>
-                            </p-cellEditor>
+                            </p-cell-editor>
                         </td>
                         <td>
-                            <p-cellEditor>
+                            <p-cell-editor>
                                 <ng-template #input>
                                     <input pInputText type="text" [(ngModel)]="product.price" />
                                 </ng-template>
                                 <ng-template #output>
                                     {{ product.price | currency: 'USD' }}
                                 </ng-template>
-                            </p-cellEditor>
+                            </p-cell-editor>
                         </td>
                         <td>
                             <div class="flex items-center justify-center gap-2">
-                                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" text rounded severity="secondary"></button>
-                                <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" text rounded severity="secondary"></button>
-                                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" text rounded severity="secondary"></button>
+                                @if (!editing) {
+                                    <button pButton pRipple type="button" pInitEditableRow (click)="onRowEditInit(product)" text rounded severity="secondary">
+                                        <span pButtonIcon class="pi pi-pencil"></span>
+                                    </button>
+                                }
+                                @if (editing) {
+                                    <button pButton pRipple type="button" pSaveEditableRow (click)="onRowEditSave(product)" text rounded severity="secondary">
+                                        <span pButtonIcon class="pi pi-check"></span>
+                                    </button>
+                                    <button pButton pRipple type="button" pCancelEditableRow (click)="onRowEditCancel(product, ri)" text rounded severity="secondary">
+                                        <span pButtonIcon class="pi pi-times"></span>
+                                    </button>
+                                }
                             </div>
                         </td>
                     </tr>
@@ -3187,31 +3225,31 @@ import { Customer } from '@/domain/customer';
                                             <th pSortableColumn="id">
                                                 <div class="flex items-center gap-2">
                                                     Id
-                                                    <p-sortIcon field="price" />
+                                                    <p-sort-icon field="price" />
                                                 </div>
                                             </th>
                                             <th pSortableColumn="customer">
                                                 <div class="flex items-center gap-2">
                                                     Customer
-                                                    <p-sortIcon field="customer" />
+                                                    <p-sort-icon field="customer" />
                                                 </div>
                                             </th>
                                             <th pSortableColumn="date">
                                                 <div class="flex items-center gap-2">
                                                     Date
-                                                    <p-sortIcon field="date" />
+                                                    <p-sort-icon field="date" />
                                                 </div>
                                             </th>
                                             <th pSortableColumn="amount">
                                                 <div class="flex items-center gap-2">
                                                     Amount
-                                                    <p-sortIcon field="amount" />
+                                                    <p-sort-icon field="amount" />
                                                 </div>
                                             </th>
                                             <th pSortableColumn="status">
                                                 <div class="flex items-center gap-2">
                                                     Status
-                                                    <p-sortIcon field="status" />
+                                                    <p-sort-icon field="status" />
                                                 </div>
                                             </th>
                                             <th style="width: 4rem"></th>
@@ -3333,12 +3371,14 @@ import { Customer, Representative, Country } from '@/domain/customer';
                 <ng-template #body let-customer let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">
                     <tr>
                         <td>{{ rowIndex }}</td>
-                        <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
-                            <div class="flex items-center gap-2">
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
-                                <span>{{ customer.representative.name }}</span>
-                            </div>
-                        </td>
+                        @if (rowgroup) {
+                            <td [attr.rowspan]="rowspan">
+                                <div class="flex items-center gap-2">
+                                    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
+                                    <span>{{ customer.representative.name }}</span>
+                                </div>
+                            </td>
+                        }
                         <td>
                             {{ customer.name }}
                         </td>
@@ -3472,7 +3512,7 @@ export class TableSelectioneventsDemo implements OnInit {
 
 ## singlecolumnsort-doc
 
-A column can be made sortable by adding the pSortableColumn directive whose value is the field to sort against and a sort indicator via p-sortIcon component. For dynamic columns, setting pSortableColumnDisabled property as true disables sorting for that particular column. Default sorting is executed on a single column, in order to enable multiple field sorting, set sortMode property to "multiple" and use metakey when clicking on another column.
+A column can be made sortable by adding the pSortableColumn directive whose value is the field to sort against and a sort indicator via p-sort-icon component. For dynamic columns, setting pSortableColumnDisabled property as true disables sorting for that particular column. Default sorting is executed on a single column, in order to enable multiple field sorting, set sortMode property to "multiple" and use metakey when clicking on another column.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -3489,25 +3529,25 @@ import { Product } from '@/domain/product';
                         <th pSortableColumn="code" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Code
-                                <p-sortIcon field="code" />
+                                <p-sort-icon field="code" />
                             </div>
                         </th>
                         <th pSortableColumn="name" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Name
-                                <p-sortIcon field="name" />
+                                <p-sort-icon field="name" />
                             </div>
                         </th>
                         <th pSortableColumn="category" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Category
-                                <p-sortIcon field="category" />
+                                <p-sort-icon field="category" />
                             </div>
                         </th>
                         <th pSortableColumn="quantity" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Quantity
-                                <p-sortIcon field="quantity" />
+                                <p-sort-icon field="quantity" />
                             </div>
                         </th>
                     </tr>
@@ -3554,9 +3594,9 @@ import { Product } from '@/domain/product';
 @Component({
     template: `
         <div class="card">
-            <div class="flex justify-center items-center mb-6 gap-2">
+            <div class="flex justify-center items-center mb-5 gap-2">
                 <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
-                <label for="input-metakey">MetaKey</label>
+                <label for="input-metakey" class="text-sm">MetaKey</label>
             </div>
             <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" [metaKeySelection]="metaKey" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
@@ -3700,25 +3740,25 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <th pSortableColumn="name" style="width:25%">
                             <div class="flex items-center gap-2">
                                 Name
-                                <p-sortIcon field="name" />
+                                <p-sort-icon field="name" />
                             </div>
                         </th>
                         <th pSortableColumn="country.name" style="width:25%">
                             <div class="flex items-center gap-2">
                                 Country
-                                <p-sortIcon field="country.name" />
+                                <p-sort-icon field="country.name" />
                             </div>
                         </th>
                         <th pSortableColumn="representative.name" style="width:25%">
                             <div class="flex items-center gap-2">
                                 Representative
-                                <p-sortIcon field="representative.name" />
+                                <p-sort-icon field="representative.name" />
                             </div>
                         </th>
                         <th pSortableColumn="status" style="width:25%">
                             <div class="flex items-center gap-2">
                                 Status
-                                <p-sortIcon field="status" />
+                                <p-sort-icon field="status" />
                             </div>
                         </th>
                     </tr>
@@ -4075,7 +4115,7 @@ interface Column {
             <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
                 <ng-template #caption>
                     <div class="flex items-center justify-between">
-                        <span class="text-xl font-bold">Products</span>
+                        <span class="text-lg font-bold">Products</span>
                         <p-button icon="pi pi-refresh" rounded raised />
                     </div>
                 </ng-template>
@@ -4105,7 +4145,7 @@ interface Column {
                 </ng-template>
                 <ng-template #footer>
                     <tr>
-                        <td colspan="6">In total there are {{ products ? products.length : 0 }} products.</td>
+                        <td colspan="6" class="text-sm">In total there are {{ products ? products.length : 0 }} products.</td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -4213,16 +4253,20 @@ interface Column {
             <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="400px" [virtualScroll]="true" [virtualScrollItemSize]="46">
                 <ng-template #header let-columns>
                     <tr>
-                        <th *ngFor="let col of columns" style="width: 20%;">
-                            {{ col.header }}
-                        </th>
+                        @for (col of columns; track col) {
+                            <th style="width: 20%;">
+                                {{ col.header }}
+                            </th>
+                        }
                     </tr>
                 </ng-template>
                 <ng-template #body let-rowData let-rowIndex="rowIndex" let-columns="columns">
                     <tr style="height:46px">
-                        <td *ngFor="let col of columns">
-                            {{ rowData[col.field] }}
-                        </td>
+                        @for (col of columns; track col) {
+                            <td>
+                                {{ rowData[col.field] }}
+                            </td>
+                        }
                     </tr>
                 </ng-template>
             </p-table>
@@ -4275,23 +4319,29 @@ interface Column {
             <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="400px" [rows]="100" [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
                 <ng-template #header let-columns>
                     <tr>
-                        <th *ngFor="let col of columns" style="width: 20%;">
-                            {{ col.header }}
-                        </th>
+                        @for (col of columns; track col) {
+                            <th style="width: 20%;">
+                                {{ col.header }}
+                            </th>
+                        }
                     </tr>
                 </ng-template>
                 <ng-template #body let-rowData let-columns="columns">
                     <tr style="height:46px">
-                        <td *ngFor="let col of columns">
-                            {{ rowData[col.field] }}
-                        </td>
+                        @for (col of columns; track col) {
+                            <td>
+                                {{ rowData[col.field] }}
+                            </td>
+                        }
                     </tr>
                 </ng-template>
                 <ng-template #loadingbody let-columns="columns">
                     <tr style="height:46px">
-                        <td *ngFor="let col of columns; let even = even">
-                            <p-skeleton [ngStyle]="{ width: even ? (col.field === 'year' ? '30%' : '40%') : '60%' }" />
-                        </td>
+                        @for (col of columns; track col; let even = $even) {
+                            <td>
+                                <p-skeleton [ngStyle]="{ width: even ? (col.field === 'year' ? '30%' : '40%') : '60%' }" />
+                            </td>
+                        }
                     </tr>
                 </ng-template>
             </p-table>
@@ -4350,89 +4400,85 @@ Table displays data in tabular format.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<TablePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| frozenColumns | any[] | - | An array of objects to represent dynamic columns that are frozen. |
-| frozenValue | any[] | - | An array of objects to display as frozen. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
-| tableStyle | { [klass: string]: any } | - | Inline style of the table. |
-| tableStyleClass | string | - | Style class of the table. |
-| paginator | boolean | false | When specified as true, enables the pagination. |
-| pageLinks | number | 5 | Number of page links to display in paginator. |
-| rowsPerPageOptions | any[] | - | Array of integer/object values to display inside rows per page dropdown of paginator |
-| alwaysShowPaginator | boolean | true | Whether to show it even there is only one page. |
-| paginatorPosition | "top" \| "bottom" \| "both" | bottom | Position of the paginator, options are "top", "bottom" or "both". |
-| paginatorStyleClass | string | - | Custom style class for paginator |
-| paginatorDropdownAppendTo | any | - | Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| paginatorDropdownScrollHeight | string | 200px | Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
-| currentPageReportTemplate | string | {currentPage} of {totalPages} | Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords} |
-| showCurrentPageReport | boolean | false | Whether to display current page report. |
-| showJumpToPageDropdown | boolean | false | Whether to display a dropdown to navigate to any page. |
-| showJumpToPageInput | boolean | false | Whether to display a input to navigate to any page. |
-| showFirstLastIcon | boolean | true | When enabled, icons are displayed on paginator to go first and last page. |
-| showPageLinks | boolean | true | Whether to show page links. |
-| defaultSortOrder | number | 1 | Sort order to use when an unsorted column gets sorted by user interaction. |
-| sortMode | "multiple" \| "single" | single | Defines whether sorting works on single column or on multiple columns. |
-| resetPageOnSort | boolean | true | When true, resets paginator to first page after sorting. Available only when sortMode is set to single. |
-| selectionMode | "multiple" \| "single" | - | Specifies the selection mode, valid values are "single" and "multiple". |
-| selectionPageOnly | boolean | false | When enabled with paginator and checkbox selection mode, the select all checkbox in the header will select all rows on the current page. |
-| contextMenuSelection | any | - | Selected row with a context menu. |
-| contextMenuSelectionMode | string | separate | Defines the behavior of context menu selection, in "separate" mode context menu updates contextMenuSelection property whereas in joint mode selection property is used instead so that when row selection is enabled, both row selection and context menu selection use the same property. |
-| dataKey | string | - | A property to uniquely identify a record in data. |
-| metaKeySelection | boolean | false | Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically. |
-| rowSelectable | (row: { data: any; index: number }) => boolean | - | Defines if the row is selectable. |
-| rowTrackBy | Function | ... | Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity. |
-| lazy | boolean | false | Defines if data is loaded and interacted with in lazy manner. |
-| lazyLoadOnInit | boolean | true | Whether to call lazy loading on initialization. |
-| compareSelectionBy | "equals" \| "deepEquals" | deepEquals | Algorithm to define if a row is selected, valid values are "equals" that compares by reference and "deepEquals" that compares all fields. |
-| csvSeparator | string | , | Character to use as the csv separator. |
-| exportFilename | string | download | Name of the exported file. |
-| filters | { [s: string]: FilterMetadata \| FilterMetadata[] } | {} | An array of FilterMetadata objects to provide external filters. |
-| globalFilterFields | string[] | - | An array of fields as string to use in global filtering. |
-| filterDelay | number | 300 | Delay in milliseconds before filtering the data. |
-| filterLocale | string | - | Locale to use in filtering. The default locale is the host environment's current locale. |
-| expandedRowKeys | { [s: string]: boolean } | {} | Map instance to keep the expanded rows where key of the map is the data key of the row. |
-| editingRowKeys | { [s: string]: boolean } | {} | Map instance to keep the rows being edited where key of the map is the data key of the row. |
-| rowExpandMode | "multiple" \| "single" | multiple | Whether multiple rows can be expanded at any time. Valid values are "multiple" and "single". |
-| scrollable | boolean | false | Enables scrollable tables. |
-| rowGroupMode | "subheader" \| "rowspan" | - | Type of the row grouping, valid values are "subheader" and "rowspan". |
-| scrollHeight | string | - | Height of the scroll viewport in fixed pixels or the "flex" keyword for a dynamic size. |
-| virtualScroll | boolean | false | Whether the data should be loaded on demand during scroll. |
-| virtualScrollItemSize | number | - | Height of a row to use in calculations of virtual scrolling. |
-| virtualScrollOptions | ScrollerOptions | - | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
-| virtualScrollDelay | number | 250 | Threshold in milliseconds to delay lazy loading during scrolling. |
-| frozenWidth | string | - | Width of the frozen columns container. |
-| contextMenu | any | - | Local ng-template varilable of a ContextMenu. |
-| resizableColumns | boolean | false | When enabled, columns can be resized using drag and drop. |
-| columnResizeMode | string | fit | Defines whether the overall table width should change on column resize, valid values are "fit" and "expand". |
-| reorderableColumns | boolean | false | When enabled, columns can be reordered using drag and drop. |
-| loading | boolean | false | Displays a loader to indicate data load is in progress. |
-| loadingIcon | string | - | The icon to show while indicating data load is in progress. |
-| showLoader | boolean | true | Whether to show the loading mask when loading property is true. |
-| rowHover | boolean | false | Adds hover effect to rows without the need for selectionMode. Note that tr elements that can be hovered need to have "p-selectable-row" class for rowHover to work. |
-| customSort | boolean | false | Whether to use the default sorting or a custom one using sortFunction. |
-| showInitialSortBadge | boolean | true | Whether to use the initial sort badge or not. |
-| exportFunction | Function | - | Export function. |
-| exportHeader | string | - | Custom export header of the column to be exported as CSV. |
-| stateKey | string | - | Unique identifier of a stateful table to use in state storage. |
-| stateStorage | "session" \| "local" | session | Defines where a stateful table keeps its state, valid values are "session" for sessionStorage and "local" for localStorage. |
-| editMode | "row" \| "cell" | cell | Defines the editing mode, valid values are "cell" and "row". |
-| groupRowsBy | any | - | Field name to use in row grouping. |
-| size | "small" \| "large" | - | Defines the size of the table. |
-| showGridlines | boolean | false | Whether to show grid lines between cells. |
-| stripedRows | boolean | false | Whether to display rows with alternating colors. |
-| groupRowsByOrder | number | 1 | Order to sort when default row grouping is enabled. |
-| responsiveLayout | string | scroll | Defines the responsive mode, valid options are "stack" and "scroll". **(Deprecated)** |
-| breakpoint | string | 960px | The breakpoint to define the maximum width boundary when using stack responsive layout. |
-| paginatorLocale | string | - | Locale to be used in paginator formatting. |
-| value | RowData[] | - | An array of objects to display. |
-| columns | any[] | - | An array of objects to represent dynamic columns. |
-| first | number | - | Index of the first row to be displayed. |
-| rows | number | - | Number of rows to display per page. |
-| totalRecords | number | 0 | Number of total records, defaults to length of value when not defined. |
-| sortField | string | - | Name of the field to sort data by default. |
-| sortOrder | number | - | Order to sort when default sorting is enabled. |
-| multiSortMeta | SortMeta[] | - | An array of SortMeta objects to sort the data by default in multiple sort mode. |
-| selection | any | - | Selected row in single mode or an array of values in multiple mode. |
-| selectAll | boolean | - | Whether all data is selected. |
+| frozenColumns | InputSignal<any[]> | ... | An array of objects to represent dynamic columns that are frozen. |
+| frozenValue | InputSignal<any[]> | ... | An array of objects to display as frozen. |
+| tableStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the table. |
+| tableStyleClass | InputSignal<string> | ... | Style class of the table. |
+| paginator | InputSignalWithTransform<boolean, unknown> | ... | When specified as true, enables the pagination. |
+| pageLinks | InputSignalWithTransform<number, unknown> | ... | Number of page links to display in paginator. |
+| rowsPerPageOptions | InputSignal<any[]> | ... | Array of integer/object values to display inside rows per page dropdown of paginator |
+| alwaysShowPaginator | InputSignalWithTransform<boolean, unknown> | ... | Whether to show it even there is only one page. |
+| paginatorPosition | InputSignal<TablePaginatorPosition> | ... | Position of the paginator, options are "top", "bottom" or "both". |
+| paginatorStyleClass | InputSignal<string> | ... | Custom style class for paginator |
+| paginatorDropdownAppendTo | InputSignal<any> | ... | Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| paginatorDropdownScrollHeight | InputSignal<string> | ... | Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
+| currentPageReportTemplate | InputSignal<string> | ... | Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords} |
+| showCurrentPageReport | InputSignalWithTransform<boolean, unknown> | ... | Whether to display current page report. |
+| showJumpToPageDropdown | InputSignalWithTransform<boolean, unknown> | ... | Whether to display a dropdown to navigate to any page. |
+| showJumpToPageInput | InputSignalWithTransform<boolean, unknown> | ... | Whether to display a input to navigate to any page. |
+| showFirstLastIcon | InputSignalWithTransform<boolean, unknown> | ... | When enabled, icons are displayed on paginator to go first and last page. |
+| showPageLinks | InputSignalWithTransform<boolean, unknown> | ... | Whether to show page links. |
+| defaultSortOrder | InputSignalWithTransform<number, unknown> | ... | Sort order to use when an unsorted column gets sorted by user interaction. |
+| sortMode | InputSignal<TableSortMode> | ... | Defines whether sorting works on single column or on multiple columns. |
+| resetPageOnSort | InputSignalWithTransform<boolean, unknown> | ... | When true, resets paginator to first page after sorting. Available only when sortMode is set to single. |
+| selectionMode | InputSignal<TableSelectionMode> | ... | Specifies the selection mode, valid values are "single" and "multiple". |
+| selectionPageOnly | InputSignalWithTransform<boolean, unknown> | ... | When enabled with paginator and checkbox selection mode, the select all checkbox in the header will select all rows on the current page. |
+| contextMenuSelectionInput | InputSignal<any> | ... | Selected row with a context menu. |
+| dataKey | InputSignal<string> | ... | A property to uniquely identify a record in data. |
+| metaKeySelection | InputSignalWithTransform<boolean, unknown> | ... | Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically. |
+| rowSelectable | InputSignal<(row: { data: any; index: number }) => boolean> | ... | Defines if the row is selectable. |
+| rowTrackBy | InputSignal<Function> | ... | Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity. |
+| lazy | InputSignalWithTransform<boolean, unknown> | ... | Defines if data is loaded and interacted with in lazy manner. |
+| lazyLoadOnInit | InputSignalWithTransform<boolean, unknown> | ... | Whether to call lazy loading on initialization. |
+| compareSelectionBy | InputSignal<"equals" \| "deepEquals"> | ... | Algorithm to define if a row is selected, valid values are "equals" that compares by reference and "deepEquals" that compares all fields. |
+| csvSeparator | InputSignal<string> | ... | Character to use as the csv separator. |
+| exportFilename | InputSignal<string> | ... | Name of the exported file. |
+| filtersInput | InputSignal<{ [s: string]: FilterMetadata \| FilterMetadata[] }> | ... | An array of FilterMetadata objects to provide external filters. |
+| globalFilterFields | InputSignal<string[]> | ... | An array of fields as string to use in global filtering. |
+| filterDelay | InputSignalWithTransform<number, unknown> | ... | Delay in milliseconds before filtering the data. |
+| filterLocale | InputSignal<string> | ... | Locale to use in filtering. The default locale is the host environment's current locale. |
+| expandedRowKeysInput | InputSignal<{ [s: string]: boolean }> | ... | Map instance to keep the expanded rows where key of the map is the data key of the row. |
+| editingRowKeysInput | InputSignal<{ [s: string]: boolean }> | ... | Map instance to keep the rows being edited where key of the map is the data key of the row. |
+| rowExpandMode | InputSignal<TableRowExpandMode> | ... | Whether multiple rows can be expanded at any time. Valid values are "multiple" and "single". |
+| scrollable | InputSignalWithTransform<boolean, unknown> | ... | Enables scrollable tables. |
+| rowGroupMode | InputSignal<TableRowGroupMode> | ... | Type of the row grouping, valid values are "subheader" and "rowspan". |
+| scrollHeight | InputSignal<string> | ... | Height of the scroll viewport in fixed pixels or the "flex" keyword for a dynamic size. |
+| virtualScroll | InputSignalWithTransform<boolean, unknown> | ... | Whether the data should be loaded on demand during scroll. |
+| virtualScrollItemSize | InputSignalWithTransform<number, unknown> | ... | Height of a row to use in calculations of virtual scrolling. |
+| virtualScrollOptions | InputSignal<ScrollerOptions> | ... | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
+| virtualScrollDelay | InputSignalWithTransform<number, unknown> | ... | Threshold in milliseconds to delay lazy loading during scrolling. |
+| frozenWidth | InputSignal<string> | ... | Width of the frozen columns container. |
+| contextMenu | InputSignal<any> | ... | Local ng-template varilable of a ContextMenu. |
+| resizableColumns | InputSignalWithTransform<boolean, unknown> | ... | When enabled, columns can be resized using drag and drop. |
+| columnResizeMode | InputSignal<TableColumnResizeMode> | ... | Defines whether the overall table width should change on column resize, valid values are "fit" and "expand". |
+| reorderableColumns | InputSignalWithTransform<boolean, unknown> | ... | When enabled, columns can be reordered using drag and drop. |
+| loading | InputSignalWithTransform<boolean, unknown> | ... | Displays a loader to indicate data load is in progress. |
+| loadingIcon | InputSignal<string> | ... | The icon to show while indicating data load is in progress. |
+| showLoader | InputSignalWithTransform<boolean, unknown> | ... | Whether to show the loading mask when loading property is true. |
+| rowHover | InputSignalWithTransform<boolean, unknown> | ... | Adds hover effect to rows without the need for selectionMode. Note that tr elements that can be hovered need to have "p-selectable-row" class for rowHover to work. |
+| customSort | InputSignalWithTransform<boolean, unknown> | ... | Whether to use the default sorting or a custom one using sortFunction. |
+| showInitialSortBadge | InputSignalWithTransform<boolean, unknown> | ... | Whether to use the initial sort badge or not. |
+| exportFunction | InputSignal<Function> | ... | Export function. |
+| exportHeader | InputSignal<string> | ... | Custom export header of the column to be exported as CSV. |
+| stateKey | InputSignal<string> | ... | Unique identifier of a stateful table to use in state storage. |
+| stateStorage | InputSignal<TableStateStorage> | ... | Defines where a stateful table keeps its state, valid values are "session" for sessionStorage and "local" for localStorage. |
+| editMode | InputSignal<TableEditMode> | ... | Defines the editing mode, valid values are "cell" and "row". |
+| groupRowsBy | InputSignal<any> | ... | Field name to use in row grouping. |
+| size | InputSignal<TableSize> | ... | Defines the size of the table. |
+| showGridlines | InputSignalWithTransform<boolean, unknown> | ... | Whether to show grid lines between cells. |
+| stripedRows | InputSignalWithTransform<boolean, unknown> | ... | Whether to display rows with alternating colors. |
+| groupRowsByOrder | InputSignalWithTransform<number, unknown> | ... | Order to sort when default row grouping is enabled. |
+| paginatorLocale | InputSignal<string> | ... | Locale to be used in paginator formatting. |
+| valueInput | InputSignal<RowData[]> | ... | An array of objects to display. |
+| columnsInput | InputSignal<any[]> | ... | An array of objects to represent dynamic columns. |
+| first | ModelSignal<number> | ... | Index of the first row to be displayed. |
+| rows | ModelSignal<number> | ... | Number of rows to display per page. |
+| totalRecords | ModelSignal<number> | ... | Number of total records, defaults to length of value when not defined. |
+| sortFieldInput | InputSignal<string> | ... | Name of the field to sort data by default. |
+| sortOrderInput | InputSignal<number> | ... | Order to sort when default sorting is enabled. |
+| multiSortMetaInput | InputSignal<SortMeta[]> | ... | An array of SortMeta objects to sort the data by default in multiple sort mode. |
+| selection | ModelSignal<any> | ... | Selected row in single mode or an array of values in multiple mode. |
+| selectAllInput | InputSignal<boolean> | ... | Whether all data is selected. |
 
 ### Emits
 
@@ -4440,7 +4486,6 @@ Table displays data in tabular format.
 |------|------------|-------------|
 | contextMenuSelectionChange | value: any | Callback to invoke on context menu selection change. |
 | selectAllChange | event: TableSelectAllChangeEvent | Emits when the all of the items selected or unselected. |
-| selectionChange | value: any | Callback to invoke on selection changed. |
 | onRowSelect | event: TableRowSelectEvent<RowData | Callback to invoke when a row is selected. |
 | onRowUnselect | event: TableRowUnSelectEvent<RowData | Callback to invoke when a row is unselected. |
 | onPage | event: TablePageEvent | Callback to invoke when pagination occurs. |
@@ -4458,8 +4503,6 @@ Table displays data in tabular format.
 | onEditCancel | event: TableEditCancelEvent | Callback to invoke when cell edit is cancelled with escape key. |
 | onHeaderCheckboxToggle | event: TableHeaderCheckboxToggleEvent | Callback to invoke when state of header checkbox changes. |
 | sortFunction | value: any | A function to implement custom sorting, refer to sorting section for details. |
-| firstChange | value: number | Callback to invoke on pagination. |
-| rowsChange | value: number | Callback to invoke on rows change. |
 | onStateSave | value: TableState | Callback to invoke table state is saved. |
 | onStateRestore | value: TableState | Callback to invoke table state is restored. |
 

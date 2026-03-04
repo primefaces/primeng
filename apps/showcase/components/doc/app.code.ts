@@ -37,6 +37,12 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
                     @if (lang() === 'typescript') {
                         <pre [style]="{ 'max-height': codeHeight() }" class="language-typescript"><code #codeElement>{{ resolvedCode()!.typescript }}</code></pre>
                     }
+                    @if (lang() === 'html') {
+                        <pre [style]="{ 'max-height': codeHeight() }" class="language-markup"><code #codeElement>{{ resolvedCode()!.html }}</code></pre>
+                    }
+                    @if (lang() === 'scss') {
+                        <pre [style]="{ 'max-height': codeHeight() }" class="language-scss"><code #codeElement>{{ resolvedCode()!.scss }}</code></pre>
+                    }
                     @if (lang() === 'command') {
                         <pre class="language-shell"><code #codeElement>{{ resolvedCode()!.command }}</code></pre>
                     }
@@ -154,9 +160,16 @@ export class AppCode {
             }
         });
 
-        // Prism highlighting after render
+        // Prism highlighting - afterNextRender ensures browser-only execution
         afterNextRender(() => {
             this.highlightCode();
+
+            // Watch for code/lang changes after initial render
+            effect(() => {
+                this.resolvedCode();
+                this.lang();
+                setTimeout(() => this.highlightCode(), 0);
+            });
         });
     }
 

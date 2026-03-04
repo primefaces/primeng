@@ -62,7 +62,11 @@ import { SliderModule } from 'primeng/slider';
 export class SliderFilterDemo {
     filter: number = 0;
     filterValues: number[] = [100, 100, 0];
-    filterOptions: any;
+    filterOptions: any = [
+        { label: 'Contrast', value: 0 },
+        { label: 'Brightness', value: 1 },
+        { label: 'Sepia', value: 2 }
+    ];
 }
 ```
 
@@ -135,7 +139,7 @@ import { MessageService } from 'primeng/api';
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-4">
-                    <p-slider formControlName="value" styleClass="w-56" />
+                    <p-slider formControlName="value" class="w-56" />
                     @if (isInvalid('value')) {
                         <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
                     }
@@ -278,17 +282,16 @@ Slider is a component to provide input with a drag handle.
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| animate | boolean | false | When enabled, displays an animation on click of the slider bar. |
-| min | number | 0 | Mininum boundary value. |
-| max | number | 100 | Maximum boundary value. |
-| orientation | "vertical" \| "horizontal" | horizontal | Orientation of the slider. |
-| step | number | - | Step factor to increment/decrement the value. |
-| range | boolean | false | When specified, allows two boundary values to be picked. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
-| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
-| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| tabindex | number | 0 | Index of the element in tabbing order. |
-| autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
+| animate | InputSignalWithTransform<boolean, unknown> | ... | When enabled, displays an animation on click of the slider bar. |
+| min | InputSignalWithTransform<number, unknown> | ... | Mininum boundary value. |
+| max | InputSignalWithTransform<number, unknown> | ... | Maximum boundary value. |
+| orientation | InputSignal<SliderOrientation> | ... | Orientation of the slider. |
+| step | InputSignalWithTransform<number, unknown> | ... | Step factor to increment/decrement the value. |
+| range | InputSignalWithTransform<boolean, unknown> | ... | When specified, allows two boundary values to be picked. |
+| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
+| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
+| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
 
 ### Emits
 

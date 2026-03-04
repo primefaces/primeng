@@ -18,7 +18,7 @@ import { FieldsetModule } from 'primeng/fieldset';
     template: `
         <div class="card">
             <p-fieldset legend="Header">
-                <p class="m-0">
+                <p class="m-0 text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
@@ -50,7 +50,7 @@ import { FieldsetModule } from 'primeng/fieldset';
                         <span class="font-bold">Amy Elsner</span>
                     </div>
                 </ng-template>
-                <p class="m-0">
+                <p class="m-0 text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
@@ -75,7 +75,7 @@ import { FieldsetModule } from 'primeng/fieldset';
     template: `
         <div class="card">
             <p-fieldset legend="Header" [toggleable]="true">
-                <p style="margin:0">
+                <p class="text-sm" style="margin:0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
@@ -100,19 +100,17 @@ Fieldset is a grouping component with the optional content toggle feature.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<FieldsetPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| legend | string | - | Header text of the fieldset. |
-| toggleable | boolean | false | When specified, content can toggled by clicking the legend. |
-| style | { [klass: string]: any } | - | Inline style of the component. |
-| styleClass | string | - | Style class of the component. |
-| transitionOptions | string | 400ms cubic-bezier(0.86, 0, 0.07, 1) | Transition options of the panel animation. **(Deprecated)** |
+| legend | InputSignal<string> | ... | Header text of the fieldset. |
+| toggleable | InputSignalWithTransform<boolean, unknown> | false | When specified, content can toggled by clicking the legend. |
+| collapsed | ModelSignal<boolean> | ... | Defines the initial state of content, supports one or two-way binding as well. |
+| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component. |
+| styleClass | InputSignal<string> | ... | Style class of the component. |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| collapsed | boolean | - | Defines the initial state of content, supports one or two-way binding as well. |
 
 ### Emits
 
 | Name | Parameters | Description |
 |------|------------|-------------|
-| collapsedChange | value: boolean | Emits when the collapsed state changes. |
 | onBeforeToggle | event: FieldsetBeforeToggleEvent | Callback to invoke before panel toggle. |
 | onAfterToggle | event: FieldsetAfterToggleEvent | Callback to invoke after panel toggle. |
 
@@ -120,10 +118,10 @@ Fieldset is a grouping component with the optional content toggle feature.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | TemplateRef<void> | Custom header template. |
-| expandicon | TemplateRef<void> | Custom expand icon template. |
-| collapseicon | TemplateRef<void> | Custom collapse icon template. |
-| content | TemplateRef<void> | Custom content template. |
+| header | Signal<TemplateRef<void>> | Custom header template. |
+| expandicon | Signal<TemplateRef<void>> | Custom expand icon template. |
+| collapseicon | Signal<TemplateRef<void>> | Custom collapse icon template. |
+| content | Signal<TemplateRef<void>> | Custom content template. |
 
 ## Pass Through Options
 
@@ -173,6 +171,7 @@ Fieldset is a grouping component with the optional content toggle feature.
 | fieldset.legend.padding | --p-fieldset-legend-padding | Padding of legend |
 | fieldset.legend.gap | --p-fieldset-legend-gap | Gap of legend |
 | fieldset.legend.font.weight | --p-fieldset-legend-font-weight | Font weight of legend |
+| fieldset.legend.font.size | --p-fieldset-legend-font-size | Font size of legend |
 | fieldset.legend.focus.ring.width | --p-fieldset-legend-focus-ring-width | Focus ring width of legend |
 | fieldset.legend.focus.ring.style | --p-fieldset-legend-focus-ring-style | Focus ring style of legend |
 | fieldset.legend.focus.ring.color | --p-fieldset-legend-focus-ring-color | Focus ring color of legend |

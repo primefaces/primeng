@@ -363,9 +363,9 @@ Textarea adds styling and autoResize functionality to standard textarea element.
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | pTextareaPT | InputSignal<TextareaPassThrough> | undefined | Used to pass attributes to DOM elements inside the Textarea component. |
 | pTextareaUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| autoResize | boolean | false | When present, textarea size changes as being typed. |
-| pSize | "small" \| "large" | - | Defines the size of the component. |
-| variant | InputSignal<"outlined" \| "filled"> | undefined | Specifies the input variant of the component. |
+| autoResize | InputSignalWithTransform<boolean, unknown> | ... | When present, textarea size changes as being typed. |
+| pSize | InputSignal<InputSize> | ... | Defines the size of the component. |
+| variant | InputSignal<InputVariant> | undefined | Specifies the input variant of the component. |
 | fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
 
@@ -423,4 +423,6 @@ Textarea adds styling and autoResize functionality to standard textarea element.
 | textarea.lg.font.size | --p-textarea-lg-font-size | Lg font size of root |
 | textarea.lg.padding.x | --p-textarea-lg-padding-x | Lg padding x of root |
 | textarea.lg.padding.y | --p-textarea-lg-padding-y | Lg padding y of root |
+| textarea.font.weight | --p-textarea-font-weight | Font weight of root |
+| textarea.font.size | --p-textarea-font-size | Font size of root |
 

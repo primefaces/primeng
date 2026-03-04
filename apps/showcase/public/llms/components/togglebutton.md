@@ -273,19 +273,18 @@ ToggleButton is used to select a boolean value using a button.
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| onLabel | string | Yes | Label for the on state. |
-| offLabel | string | No | Label for the off state. |
-| onIcon | string | - | Icon for the on state. |
-| offIcon | string | - | Icon for the off state. |
-| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
-| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| styleClass | string | - | Style class of the element. **(Deprecated)** |
-| inputId | string | - | Identifier of the focus input to match a label defined for the component. |
-| tabindex | number | 0 | Index of the element in tabbing order. |
-| iconPos | "right" \| "left" | left | Position of the icon. |
-| autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
-| size | "small" \| "large" | - | Defines the size of the component. |
-| allowEmpty | boolean | false | Whether selection can not be cleared. |
+| onLabel | InputSignal<string> | ... | Label for the on state. |
+| offLabel | InputSignal<string> | ... | Label for the off state. |
+| onIcon | InputSignal<string> | ... | Icon for the on state. |
+| offIcon | InputSignal<string> | ... | Icon for the off state. |
+| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
+| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| inputId | InputSignal<string> | ... | Identifier of the focus input to match a label defined for the component. |
+| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
+| iconPos | InputSignal<ToggleButtonIconPos> | ... | Position of the icon. |
+| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
+| size | InputSignal<InputSize> | ... | Defines the size of the component. |
+| allowEmpty | InputSignal<boolean> | ... | Whether selection can not be cleared. |
 | fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
 
 ### Emits
@@ -298,8 +297,8 @@ ToggleButton is used to select a boolean value using a button.
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | TemplateRef<ToggleButtonIconTemplateContext> | Custom icon template. |
-| content | TemplateRef<ToggleButtonContentTemplateContext> | Custom content template. |
+| icon | Signal<TemplateRef<ToggleButtonIconTemplateContext>> | Custom icon template. |
+| content | Signal<TemplateRef<ToggleButtonContentTemplateContext>> | Custom content template. |
 
 ## Pass Through Options
 
@@ -329,6 +328,7 @@ ToggleButton is used to select a boolean value using a button.
 | togglebutton.padding | --p-togglebutton-padding | Padding of root |
 | togglebutton.border.radius | --p-togglebutton-border-radius | Border radius of root |
 | togglebutton.gap | --p-togglebutton-gap | Gap of root |
+| togglebutton.font.size | --p-togglebutton-font-size | Font size of root |
 | togglebutton.font.weight | --p-togglebutton-font-weight | Font weight of root |
 | togglebutton.disabled.background | --p-togglebutton-disabled-background | Disabled background of root |
 | togglebutton.disabled.border.color | --p-togglebutton-disabled-border-color | Disabled border color of root |

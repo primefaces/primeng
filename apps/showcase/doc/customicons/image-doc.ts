@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
 })
 export class ImageDoc {
     code: Code = {
-        typescript: `<p-dropdown>
+        html: `<p-dropdown>
     <ng-template #dropdownicon>
         <img alt="dropdown icon" src="/assets/icons/arrow_down.png">
     </ng-template>

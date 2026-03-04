@@ -17,8 +17,8 @@ import { ScrollTopModule } from 'primeng/scrolltop';
 @Component({
     template: `
         <div class="card flex flex-col items-center">
-            <p>Scroll down the page to display the ScrollTo component.</p>
-            <i class="pi pi-angle-down animate-fadeout animate-duration-1000 animate-infinite" style="fontsize: 2rem; margin-bottom: 30rem"></i>
+            <p class="text-sm">Scroll down the page to display the ScrollTo component.</p>
+            <i class="pi pi-angle-down animate-fadeout animate-duration-1000 animate-infinite" style="fontsize: 1.75rem; margin-bottom: 26.25rem"></i>
             <p-scrolltop />
         </div>
     `,
@@ -40,7 +40,7 @@ import { ScrollTopModule } from 'primeng/scrolltop';
     template: `
         <div class="card flex justify-center">
             <div style="width: 250px; height: 200px; overflow: auto">
-                <p>
+                <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae et leo duis ut diam. Ultricies mi quis hendrerit dolor magna eget est lorem. Amet consectetur
                     adipiscing elit ut. Nam libero justo laoreet sit amet. Pharetra massa massa ultricies mi quis hendrerit dolor magna. Est ultricies integer quis auctor elit sed vulputate. Consequat ac felis donec et. Tellus orci ac auctor augue
                     mauris. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Tincidunt arcu non sodales neque sodales. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices. Sodales ut etiam sit amet nisl purus.
@@ -69,23 +69,21 @@ ScrollTop gets displayed after a certain scroll position and used to navigates t
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ScrollTopPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| styleClass | string | - | Class of the element. |
-| style | { [klass: string]: any } | - | Inline style of the element. |
-| target | "window" \| "parent" | window | Target of the ScrollTop. |
-| threshold | number | 400 | Defines the threshold value of the vertical scroll position of the target to toggle the visibility. |
-| icon | string | - | Name of the icon or JSX.Element for icon. |
-| behavior | "auto" \| "smooth" | smooth | Defines the scrolling behavior, "smooth" adds an animation and "auto" scrolls with a jump. |
-| showTransitionOptions | string | .15s | A string value used to determine the display transition options. **(Deprecated)** |
-| hideTransitionOptions | string | .15s | A string value used to determine the hiding transition options. **(Deprecated)** |
+| styleClass | InputSignal<string> | ... | Class of the element. |
+| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the element. |
+| target | InputSignal<ScrollTopTarget> | ... | Target of the ScrollTop. |
+| threshold | InputSignalWithTransform<number, unknown> | ... | Defines the threshold value of the vertical scroll position of the target to toggle the visibility. |
+| _icon | InputSignal<string> | ... | Name of the icon or JSX.Element for icon. |
+| behavior | InputSignal<ScrollTopBehavior> | ... | Defines the scrolling behavior, "smooth" adds an animation and "auto" scrolls with a jump. |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| buttonAriaLabel | string | - | Establishes a string value that labels the scroll-top button. |
-| buttonProps | ButtonProps | ... | Used to pass all properties of the ButtonProps to the Button component. |
+| buttonAriaLabel | InputSignal<string> | ... | Establishes a string value that labels the scroll-top button. |
+| buttonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the Button component. |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | TemplateRef<ScrollTopIconTemplateContext> | Custom icon template. |
+| icon | Signal<TemplateRef<ScrollTopIconTemplateContext>> | Custom icon template. |
 
 ## Pass Through Options
 

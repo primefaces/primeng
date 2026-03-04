@@ -74,7 +74,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        typescript: `<p-button
+        html: `<p-button
     icon="pi pi-arrow-right"
     (click)="visible = true"
     aria-controls="{{visible ? 'drawer' : null}}"

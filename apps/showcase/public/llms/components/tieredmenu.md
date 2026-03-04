@@ -364,12 +364,18 @@ import { MenuItem } from 'primeng/api';
         <div class="card flex justify-center">
             <p-tieredmenu [model]="items">
                 <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-                    <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
+                    <a pRipple class="flex items-center px-3 py-2 cursor-pointer">
                         <span [class]="item.icon"></span>
-                        <span class="ms-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-                        <i *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
+                        <span class="ms-2 text-sm">{{ item.label }}</span>
+                        @if (item.badge) {
+                            <p-badge class="ml-auto" [value]="item.badge" />
+                        }
+                        @if (item.shortcut) {
+                            <span class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        }
+                        @if (hasSubmenu) {
+                            <i class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
+                        }
                     </a>
                 </ng-template>
             </p-tieredmenu>
@@ -477,45 +483,43 @@ TieredMenu displays submenus in nested overlays.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<TieredMenuPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| model | MenuItem[] | - | An array of menuitems. |
-| popup | boolean | false | Defines if menu would displayed as a popup. |
-| style | { [klass: string]: any } | - | Inline style of the component. |
-| styleClass | string | - | Style class of the component. |
-| breakpoint | string | 960px | The breakpoint to define the maximum width boundary. |
-| autoZIndex | boolean | true | Whether to automatically manage layering. |
-| baseZIndex | number | 0 | Base zIndex value to use in layering. |
-| autoDisplay | boolean | true | Whether to show a root submenu on mouse over. |
-| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
-| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. **(Deprecated)** |
-| id | string | - | Current id state as a string. |
-| ariaLabel | string | - | Defines a string value that labels an interactive element. |
-| ariaLabelledBy | string | - | Identifier of the underlying input element. |
-| disabled | boolean | false | When present, it specifies that the component should be disabled. |
-| tabindex | number | 0 | Index of the element in tabbing order. |
-| appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| model | InputSignal<MenuItem[]> | ... | An array of menuitems. |
+| popup | InputSignalWithTransform<boolean, unknown> | ... | Defines if menu would displayed as a popup. |
+| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component. |
+| styleClass | InputSignal<string> | ... | Style class of the component. |
+| breakpoint | InputSignal<string> | ... | The breakpoint to define the maximum width boundary. |
+| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
+| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
+| autoDisplay | InputSignalWithTransform<boolean, unknown> | true | Whether to show a root submenu on mouse over. |
+| id | InputSignal<string> | ... | Current id state as a string. |
+| ariaLabel | InputSignal<string> | ... | Defines a string value that labels an interactive element. |
+| ariaLabelledBy | InputSignal<string> | ... | Identifier of the underlying input element. |
+| disabled | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should be disabled. |
+| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
+| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
 
 | Name | Parameters | Description |
 |------|------------|-------------|
-| onShow | value: any | Callback to invoke when overlay menu is shown. |
-| onHide | value: any | Callback to invoke when overlay menu is hidden. |
+| onShow | value: Record<string, never | Callback to invoke when overlay menu is shown. |
+| onHide | value: Record<string, never | Callback to invoke when overlay menu is hidden. |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| submenuicon | TemplateRef<void> | Custom submenu icon template. |
-| item | TemplateRef<TieredMenuItemTemplateContext> | Custom item template. |
+| submenuicon | Signal<TemplateRef<void>> | Custom submenu icon template. |
+| item | Signal<TemplateRef<TieredMenuItemTemplateContext>> | Custom item template. |
 
 ### Methods
 
 | Name | Parameters | Return Type | Description |
 |------|------------|-------------|-------------|
-| hide | event: any, isFocus: boolean | void | Hides the popup menu. |
-| toggle | event: any | void | Toggles the visibility of the popup menu. |
-| show | event: any, isFocus: any | void | Displays the popup menu. |
+| hide | _event: Event, isFocus: boolean | void | Hides the popup menu. |
+| toggle | event: TieredMenuToggleEvent | void | Toggles the visibility of the popup menu. |
+| show | event: TieredMenuToggleEvent, isFocus: boolean | void | Displays the popup menu. |
 
 ## Pass Through Options
 
@@ -575,6 +579,9 @@ TieredMenu displays submenus in nested overlays.
 | tieredmenu.item.icon.color | --p-tieredmenu-item-icon-color | Icon color of item |
 | tieredmenu.item.icon.focus.color | --p-tieredmenu-item-icon-focus-color | Icon focus color of item |
 | tieredmenu.item.icon.active.color | --p-tieredmenu-item-icon-active-color | Icon active color of item |
+| tieredmenu.item.icon.size | --p-tieredmenu-item-icon-size | Icon size of item |
+| tieredmenu.item.label.font.weight | --p-tieredmenu-item-label-font-weight | Font weight of item label |
+| tieredmenu.item.label.font.size | --p-tieredmenu-item-label-font-size | Font size of item label |
 | tieredmenu.submenu.mobile.indent | --p-tieredmenu-submenu-mobile-indent | Mobile indent of submenu |
 | tieredmenu.submenu.icon.size | --p-tieredmenu-submenu-icon-size | Size of submenu icon |
 | tieredmenu.submenu.icon.color | --p-tieredmenu-submenu-icon-color | Color of submenu icon |

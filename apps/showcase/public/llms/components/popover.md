@@ -24,7 +24,7 @@ import { InputTextModule } from 'primeng/inputtext';
             <p-popover #op>
                 <div class="flex flex-col gap-4 w-[25rem]">
                     <div>
-                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Share this document</span>
+                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2 text-sm">Share this document</span>
                         <p-inputgroup>
                             <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
                             <p-inputgroup-addon>
@@ -33,23 +33,26 @@ import { InputTextModule } from 'primeng/inputtext';
                         </p-inputgroup>
                     </div>
                     <div>
-                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Invite Member</span>
+                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2 text-sm">Invite Member</span>
                         <div class="flex">
                             <p-inputgroup>
                                 <input pInputText disabled />
-                                <button pButton label="Invite" icon="pi pi-users"></button>
+                                <button pButton>
+                                    <span pButtonIcon class="pi pi-users"></span>
+                                    <span pButtonLabel>Invite</span>
+                                </button>
                             </p-inputgroup>
                         </div>
                     </div>
                     <div>
-                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Team Members</span>
+                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2 text-sm">Team Members</span>
                         <ul class="list-none p-0 m-0 flex flex-col gap-4">
                             @for (member of members; track member) {
                                 <li class="flex items-center gap-2">
                                     <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
                                     <div>
-                                        <span class="font-medium">{{ member.name }}</span>
-                                        <div class="text-sm text-muted-color">{{ member.email }}</div>
+                                        <span class="font-medium text-sm">{{ member.name }}</span>
+                                        <div class="text-xs text-muted-color">{{ member.email }}</div>
                                     </div>
                                     <div class="flex items-center gap-2 text-muted-color ml-auto text-sm">
                                         <span>{{ member.role }}</span>
@@ -67,7 +70,11 @@ import { InputTextModule } from 'primeng/inputtext';
     imports: [ButtonModule, InputGroupModule, PopoverModule, InputTextModule]
 })
 export class PopoverBasicDemo {
-    members: any[];
+    members: any[] = [
+        { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
+        { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
+        { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' }
+    ];
 }
 ```
 
@@ -116,39 +123,41 @@ import { Product } from '@/domain/product';
             </p-table>
             <p-popover #op (onHide)="selectedProduct.set(null)">
                 <ng-template #content>
-                    <div *ngIf="selectedProduct()" class="rounded flex flex-col">
-                        <div class="flex justify-center rounded">
-                            <div class="relative mx-auto">
-                                <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
-                                <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
-                            </div>
-                        </div>
-                        <div class="pt-4">
-                            <div class="flex flex-row justify-between items-start gap-2 mb-4">
-                                <div>
-                                    <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ selectedProduct().category }}</span>
-                                    <div class="text-lg font-medium mt-1">{{ selectedProduct().name }}</div>
+                    @if (selectedProduct()) {
+                        <div class="rounded flex flex-col">
+                            <div class="flex justify-center rounded">
+                                <div class="relative mx-auto">
+                                    <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
+                                    <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                                 </div>
-                                <div class="bg-surface-100 p-1" style="border-radius: 30px">
-                                    <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
-                                        <span class="text-surface-900 font-medium text-sm">{{ selectedProduct().rating }}</span>
-                                        <i class="pi pi-star-fill text-yellow-500"></i>
+                            </div>
+                            <div class="pt-4">
+                                <div class="flex flex-row justify-between items-start gap-2 mb-4">
+                                    <div>
+                                        <span class="font-medium text-surface-500 dark:text-surface-400 text-xs">{{ selectedProduct().category }}</span>
+                                        <div class="font-medium">{{ selectedProduct().name }}</div>
+                                    </div>
+                                    <div class="bg-surface-100 p-1" style="border-radius: 30px">
+                                        <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
+                                            <span class="text-surface-900 font-medium text-xs">{{ selectedProduct().rating }}</span>
+                                            <i class="pi pi-star-fill text-yellow-500"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="flex gap-2">
-                                <p-button
-                                    icon="pi pi-shopping-cart"
-                                    [label]="'Buy Now | $' + selectedProduct().price"
-                                    [disabled]="selectedProduct().inventoryStatus === 'OUTOFSTOCK'"
-                                    class="flex-auto"
-                                    styleClass="w-full whitespace-nowrap"
-                                    (onClick)="hidePopover()"
-                                />
-                                <p-button icon="pi pi-heart" outlined (onClick)="hidePopover()" />
+                                <div class="flex gap-2">
+                                    <p-button
+                                        icon="pi pi-shopping-cart"
+                                        [label]="'Buy Now | $' + selectedProduct().price"
+                                        [disabled]="selectedProduct().inventoryStatus === 'OUTOFSTOCK'"
+                                        class="flex-auto"
+                                        styleClass="w-full whitespace-nowrap"
+                                        (onClick)="hidePopover()"
+                                    />
+                                    <p-button icon="pi pi-heart" outlined (onClick)="hidePopover()" />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </ng-template>
             </p-popover>
         </div>
@@ -221,15 +230,17 @@ import { Popover, PopoverModule } from 'primeng/popover';
             <p-popover #op>
                 <div class="flex flex-col gap-4">
                     <div>
-                        <span class="font-medium block mb-2">Team Members</span>
+                        <span class="font-medium block mb-2 text-sm">Team Members</span>
                         <ul class="list-none p-0 m-0 flex flex-col">
-                            <li *ngFor="let member of members" class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
-                                <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
-                                <div>
-                                    <span class="font-medium">{{ member.name }}</span>
-                                    <div class="text-sm text-surface-500 dark:text-surface-400">{{ member.email }}</div>
-                                </div>
-                            </li>
+                            @for (member of members; track member.name) {
+                                <li class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
+                                    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
+                                    <div>
+                                        <span class="font-medium text-sm">{{ member.name }}</span>
+                                        <div class="text-xs text-surface-500 dark:text-surface-400">{{ member.email }}</div>
+                                    </div>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -241,7 +252,11 @@ import { Popover, PopoverModule } from 'primeng/popover';
 })
 export class PopoverSelectdataDemo {
     selectedMember: any = null;
-    members: any[];
+    members: any[] = [
+        { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
+        { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
+        { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' }
+    ];
 
     toggle(event) {
         this.op.toggle(event);
@@ -268,7 +283,7 @@ import { PopoverModule } from 'primeng/popover';
         <div class="card flex flex-col items-center gap-4">
             <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
             <div #targetEl class="mt-8 w-40 h-20 border border-surface rounded-border flex items-center justify-center">
-                <span>Target Element</span>
+                <span class="text-sm">Target Element</span>
             </div>
             <p-popover #op>
                 <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
@@ -320,18 +335,16 @@ Popover is a container component that can overlay other components on page.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<PopoverPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
-| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| dismissable | boolean | true | Enables to hide the overlay when outside is clicked. |
-| style | { [klass: string]: any } | - | Inline style of the component. |
-| styleClass | string | - | Style class of the component. |
-| appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| autoZIndex | boolean | true | Whether to automatically manage layering. |
-| ariaCloseLabel | string | - | Aria label of the close icon. |
-| baseZIndex | number | 0 | Base zIndex value to use in layering. |
-| focusOnShow | boolean | true | When enabled, first button receives focus on show. |
-| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
-| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. **(Deprecated)** |
+| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
+| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| dismissable | InputSignalWithTransform<boolean, unknown> | ... | Enables to hide the overlay when outside is clicked. |
+| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component. |
+| styleClass | InputSignal<string> | ... | Style class of the component. |
+| appendTo | InputSignal<AppendTo> | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
+| ariaCloseLabel | InputSignal<string> | ... | Aria label of the close icon. |
+| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
+| focusOnShow | InputSignalWithTransform<boolean, unknown> | ... | When enabled, first button receives focus on show. |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
@@ -345,7 +358,7 @@ Popover is a container component that can overlay other components on page.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<PopoverContentTemplateContext> | Custom content template. |
+| content | Signal<TemplateRef<PopoverContentTemplateContext>> | Custom content template. |
 
 ### Methods
 

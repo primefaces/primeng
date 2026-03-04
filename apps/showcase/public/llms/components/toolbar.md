@@ -145,16 +145,15 @@ Toolbar is a grouping component for buttons and other content.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ToolbarPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
-| ariaLabelledBy | string | - | Defines a string value that labels an interactive element. |
+| ariaLabelledBy | InputSignal<string> | ... | Defines a string value that labels an interactive element. |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<void> | Custom start template. |
-| end | TemplateRef<void> | Custom end template. |
-| center | TemplateRef<void> | Custom center template. |
+| start | Signal<TemplateRef<void>> | Custom start template. |
+| end | Signal<TemplateRef<void>> | Custom end template. |
+| center | Signal<TemplateRef<void>> | Custom center template. |
 
 ## Pass Through Options
 

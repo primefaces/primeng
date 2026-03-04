@@ -79,10 +79,10 @@ Here is the full list of PrimeIcons. More icons will be added periodically and y
 Size of an icon is controlled with the font-size property of the element.
 
 ```typescript
-<i class="pi pi-check" style="font-size: 1rem"></i>
-<i class="pi pi-times" style="font-size: 1.5rem"></i>
-<i class="pi pi-search" style="font-size: 2rem"></i>
-<i class="pi pi-user" style="font-size: 2.5rem"></i>
+<i class="pi pi-check" style="font-size: 0.875rem"></i>
+<i class="pi pi-times" style="font-size: 1.313rem"></i>
+<i class="pi pi-search" style="font-size: 1.75rem"></i>
+<i class="pi pi-user" style="font-size: 2.188rem"></i>
 ```
 
 ## Spin-
@@ -90,7 +90,7 @@ Size of an icon is controlled with the font-size property of the element.
 Special pi-spin class applies infinite rotation to an icon.
 
 ```typescript
-<i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-<i class="pi pi-spin pi-cog" style="font-size: 2rem"></i>
+<i class="pi pi-spin pi-spinner" style="font-size: 1.75rem"></i>
+<i class="pi pi-spin pi-cog" style="font-size: 1.75rem"></i>
 ```
 

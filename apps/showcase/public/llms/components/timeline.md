@@ -210,7 +210,9 @@ interface EventItem {
                 </ng-template>
                 <ng-template #content let-event>
                     <p-card [header]="event.status" [subheader]="event.date">
-                        <img *ngIf="event.image" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
+                        @if (event.image) {
+                            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
+                        }
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
                             neque quas!
@@ -250,18 +252,17 @@ Timeline visualizes a series of chained events.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<TimelinePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| value | any[] | - | An array of events to display. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
-| align | string | left | Position of the timeline bar relative to the content. Valid values are "left", "right" for vertical layout and "top", "bottom" for horizontal layout. |
-| layout | "vertical" \| "horizontal" | vertical | Orientation of the timeline. |
+| value | InputSignal<any[]> | ... | An array of events to display. |
+| align | InputSignal<TimelineAlign> | ... | Position of the timeline bar relative to the content. Valid values are "left", "right" for vertical layout and "top", "bottom" for horizontal layout. |
+| layout | InputSignal<TimelineLayout> | ... | Orientation of the timeline. |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<TimelineItemTemplateContext<any>> | Custom content template. |
-| opposite | TemplateRef<TimelineItemTemplateContext<any>> | Custom opposite item template. |
-| marker | TemplateRef<TimelineItemTemplateContext<any>> | Custom marker template. |
+| content | Signal<TemplateRef<TimelineItemTemplateContext<any>>> | Custom content template. |
+| opposite | Signal<TemplateRef<TimelineItemTemplateContext<any>>> | Custom opposite item template. |
+| marker | Signal<TemplateRef<TimelineItemTemplateContext<any>>> | Custom marker template. |
 
 ## Pass Through Options
 

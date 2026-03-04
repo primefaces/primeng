@@ -22,7 +22,7 @@ import { Component } from '@angular/core';
 })
 export class SizeDoc {
     code: Code = {
-        typescript: `<i class="pi pi-check" style="font-size: 0.875rem"></i>
+        html: `<i class="pi pi-check" style="font-size: 0.875rem"></i>
 <i class="pi pi-times" style="font-size: 1.313rem"></i>
 <i class="pi pi-search" style="font-size: 1.75rem"></i>
 <i class="pi pi-user" style="font-size: 2.188rem"></i>`

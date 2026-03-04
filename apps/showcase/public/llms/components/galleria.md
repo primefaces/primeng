@@ -43,32 +43,22 @@ import { PhotoService } from '@/service/photoservice';
                 </ng-template>
                 <ng-template #footer let-item>
                     <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
-                        <button
-                            type="button"
-                            pButton
-                            icon="pi pi-th-large"
-                            (click)="onThumbnailButtonClick()"
-                            class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
-                        ></button>
-                        <button
-                            type="button"
-                            pButton
-                            [icon]="slideButtonIcon()"
-                            (click)="toggleAutoSlide()"
-                            class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
-                        ></button>
-                        <span *ngIf="images()" class="flex items-center gap-4 ml-3">
-                            <span class="text-sm">{{ activeIndex + 1 }}/{{ images().length }}</span>
-                            <span class="font-bold text-sm">{{ images()[activeIndex].title }}</span>
-                            <span class="text-sm">{{ images()[activeIndex].alt }}</span>
-                        </span>
-                        <button
-                            type="button"
-                            pButton
-                            [icon]="fullScreenIcon()"
-                            (click)="toggleFullScreen()"
-                            class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3 ml-auto"
-                        ></button>
+                        <button type="button" pButton (click)="onThumbnailButtonClick()" class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3">
+                            <span pButtonIcon class="pi pi-th-large"></span>
+                        </button>
+                        <button type="button" pButton (click)="toggleAutoSlide()" class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3">
+                            <span pButtonIcon [class]="slideButtonIcon()"></span>
+                        </button>
+                        @if (images()) {
+                            <span class="flex items-center gap-4 ml-3">
+                                <span class="text-xs">{{ activeIndex + 1 }}/{{ images().length }}</span>
+                                <span class="font-bold text-xs">{{ images()[activeIndex].title }}</span>
+                                <span class="text-xs">{{ images()[activeIndex].alt }}</span>
+                            </span>
+                        }
+                        <button type="button" pButton (click)="toggleFullScreen()" class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3 ml-auto">
+                            <span pButtonIcon [class]="fullScreenIcon()"></span>
+                        </button>
                     </div>
                 </ng-template>
             </p-galleria>
@@ -86,7 +76,16 @@ export class GalleriaAdvancedDemo implements OnInit {
     activeIndex: number = 0;
     isAutoPlay: boolean = true;
     onFullScreenListener: any;
-    responsiveOptions: any[];
+    responsiveOptions: any[] = [
+        {
+            breakpoint: '1300px',
+            numVisible: 4
+        },
+        {
+            breakpoint: '575px',
+            numVisible: 1
+        }
+    ];
 
     ngOnInit() {
         this.photoService.getImages().then((images) => {
@@ -208,7 +207,16 @@ import { PhotoService } from '@/service/photoservice';
 export class GalleriaAutoplayDemo implements OnInit {
     private photoService = inject(PhotoService);
     images: any = model([]);
-    responsiveOptions: any[];
+    responsiveOptions: any[] = [
+        {
+            breakpoint: '1300px',
+            numVisible: 4
+        },
+        {
+            breakpoint: '575px',
+            numVisible: 1
+        }
+    ];
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -245,7 +253,16 @@ import { PhotoService } from '@/service/photoservice';
 export class GalleriaBasicDemo implements OnInit {
     private photoService = inject(PhotoService);
     images: any = model([]);
-    responsiveOptions: any[];
+    responsiveOptions: any[] = [
+        {
+            breakpoint: '1300px',
+            numVisible: 4
+        },
+        {
+            breakpoint: '575px',
+            numVisible: 1
+        }
+    ];
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -273,8 +290,8 @@ import { PhotoService } from '@/service/photoservice';
                     <img [src]="item.thumbnailImageSrc" style="display: block;" />
                 </ng-template>
                 <ng-template #caption let-item>
-                    <div class="text-xl mb-2 font-bold">{{ item.title }}</div>
-                    <p class="text-white">{{ item.alt }}</p>
+                    <div class="text-lg mb-2 font-bold">{{ item.title }}</div>
+                    <p class="text-white text-sm">{{ item.alt }}</p>
                 </ng-template>
             </p-galleria>
         </div>
@@ -286,7 +303,16 @@ import { PhotoService } from '@/service/photoservice';
 export class GalleriaCaptionDemo implements OnInit {
     private photoService = inject(PhotoService);
     images: any = model([]);
-    responsiveOptions: any[];
+    responsiveOptions: any[] = [
+        {
+            breakpoint: '1300px',
+            numVisible: 4
+        },
+        {
+            breakpoint: '575px',
+            numVisible: 1
+        }
+    ];
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -329,7 +355,16 @@ export class GalleriaControlledDemo implements OnInit {
     private photoService = inject(PhotoService);
     images: any = model([]);
     _activeIndex: number = 2;
-    responsiveOptions: any[];
+    responsiveOptions: any[] = [
+        {
+            breakpoint: '1300px',
+            numVisible: 4
+        },
+        {
+            breakpoint: '575px',
+            numVisible: 1
+        }
+    ];
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -374,7 +409,16 @@ import { PhotoService } from '@/service/photoservice';
 export class GalleriaResponsiveDemo implements OnInit {
     private photoService = inject(PhotoService);
     images: any = model([]);
-    responsiveOptions: any[];
+    responsiveOptions: any[] = [
+        {
+            breakpoint: '1300px',
+            numVisible: 4
+        },
+        {
+            breakpoint: '575px',
+            numVisible: 1
+        }
+    ];
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -396,11 +440,13 @@ import { PhotoService } from '@/service/photoservice';
 @Component({
     template: `
         <div class="card">
-            <div class="flex flex-wrap gap-4 mb-8">
-                <div *ngFor="let option of positionOptions" class="flex items-center">
-                    <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
-                    <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
-                </div>
+            <div class="flex flex-wrap gap-4 mb-7">
+                @for (option of positionOptions; track $index) {
+                    <div class="flex items-center">
+                        <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
+                        <label [for]="option.label" class="ml-2 text-sm"> {{ option.label }} </label>
+                    </div>
+                }
             </div>
             <p-galleria [value]="images()" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template #item let-item>
@@ -421,8 +467,34 @@ import { PhotoService } from '@/service/photoservice';
 export class GalleriaThumbnailDemo implements OnInit {
     private photoService = inject(PhotoService);
     images = signal<any[]>([]);
-    positionOptions: any[];
-    responsiveOptions: any[];
+    positionOptions: any[] = [
+        {
+            label: 'Bottom',
+            value: 'bottom'
+        },
+        {
+            label: 'Top',
+            value: 'top'
+        },
+        {
+            label: 'Left',
+            value: 'left'
+        },
+        {
+            label: 'Right',
+            value: 'right'
+        }
+    ];
+    responsiveOptions: any[] = [
+        {
+            breakpoint: '1300px',
+            numVisible: 4
+        },
+        {
+            breakpoint: '575px',
+            numVisible: 1
+        }
+    ];
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));
@@ -442,58 +514,55 @@ Galleria is an advanced content gallery component.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<GalleriaPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| activeIndex | number | - | Index of the first item. |
-| fullScreen | boolean | false | Whether to display the component on fullscreen. |
-| id | string | - | Unique identifier of the element. |
-| value | any[] | - | An array of objects to display. |
-| numVisible | number | 3 | Number of items per page. |
-| responsiveOptions | GalleriaResponsiveOptions[] | - | An array of options for responsive design. |
-| showItemNavigators | boolean | false | Whether to display navigation buttons in item section. |
-| showThumbnailNavigators | boolean | true | Whether to display navigation buttons in thumbnail container. |
-| showItemNavigatorsOnHover | boolean | false | Whether to display navigation buttons on item hover. |
-| changeItemOnIndicatorHover | boolean | false | When enabled, item is changed on indicator hover. |
-| circular | boolean | false | Defines if scrolling would be infinite. |
-| autoPlay | boolean | false | Items are displayed with a slideshow in autoPlay mode. |
-| shouldStopAutoplayByClick | boolean | true | When enabled, autorun should stop by click. |
-| transitionInterval | number | 4000 | Time in milliseconds to scroll items. |
-| showThumbnails | boolean | true | Whether to display thumbnail container. |
-| thumbnailsPosition | "right" \| "left" \| "top" \| "bottom" | bottom | Position of thumbnails. |
-| verticalThumbnailViewPortHeight | string | 300px | Height of the viewport in vertical thumbnail. |
-| showIndicators | boolean | false | Whether to display indicator container. |
-| showIndicatorsOnItem | boolean | false | When enabled, indicator container is displayed on item container. |
-| indicatorsPosition | "right" \| "left" \| "top" \| "bottom" | bottom | Position of indicators. |
-| baseZIndex | number | 0 | Base zIndex value to use in layering. |
-| maskClass | string | - | Style class of the mask on fullscreen mode. |
-| containerClass | string | - | Style class of the component on fullscreen mode. Otherwise, the 'class' property can be used. |
-| containerStyle | { [klass: string]: any } | - | Inline style of the component on fullscreen mode. Otherwise, the 'style' property can be used. |
-| showTransitionOptions | string | 150ms cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
-| hideTransitionOptions | string | 150ms cubic-bezier(0, 0, 0.2, 1) | Transition options of the hide animation. **(Deprecated)** |
+| activeIndex | InputSignalWithTransform<number, unknown> | ... | Index of the first item. |
+| fullScreen | InputSignalWithTransform<boolean, unknown> | ... | Whether to display the component on fullscreen. |
+| id | InputSignal<string> | ... | Unique identifier of the element. |
+| value | InputSignal<any[]> | ... | An array of objects to display. |
+| numVisible | InputSignalWithTransform<number, unknown> | ... | Number of items per page. |
+| responsiveOptions | InputSignal<GalleriaResponsiveOptions[]> | ... | An array of options for responsive design. |
+| showItemNavigators | InputSignalWithTransform<boolean, unknown> | ... | Whether to display navigation buttons in item section. |
+| showThumbnailNavigators | InputSignalWithTransform<boolean, unknown> | ... | Whether to display navigation buttons in thumbnail container. |
+| showItemNavigatorsOnHover | InputSignalWithTransform<boolean, unknown> | ... | Whether to display navigation buttons on item hover. |
+| changeItemOnIndicatorHover | InputSignalWithTransform<boolean, unknown> | ... | When enabled, item is changed on indicator hover. |
+| circular | InputSignalWithTransform<boolean, unknown> | ... | Defines if scrolling would be infinite. |
+| autoPlay | InputSignalWithTransform<boolean, unknown> | ... | Items are displayed with a slideshow in autoPlay mode. |
+| shouldStopAutoplayByClick | InputSignalWithTransform<boolean, unknown> | ... | When enabled, autorun should stop by click. |
+| transitionInterval | InputSignalWithTransform<number, unknown> | ... | Time in milliseconds to scroll items. |
+| showThumbnails | InputSignalWithTransform<boolean, unknown> | ... | Whether to display thumbnail container. |
+| thumbnailsPosition | InputSignal<GalleriaPosition> | ... | Position of thumbnails. |
+| verticalThumbnailViewPortHeight | InputSignal<string> | ... | Height of the viewport in vertical thumbnail. |
+| showIndicators | InputSignalWithTransform<boolean, unknown> | ... | Whether to display indicator container. |
+| showIndicatorsOnItem | InputSignalWithTransform<boolean, unknown> | ... | When enabled, indicator container is displayed on item container. |
+| indicatorsPosition | InputSignal<GalleriaPosition> | ... | Position of indicators. |
+| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
+| maskClass | InputSignal<string> | ... | Style class of the mask on fullscreen mode. |
+| containerClass | InputSignal<string> | ... | Style class of the component on fullscreen mode. Otherwise, the 'class' property can be used. |
+| containerStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component on fullscreen mode. Otherwise, the 'style' property can be used. |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 | maskMotionOptions | InputSignal<MotionOptions> | ... | The mask motion options. |
-| visible | boolean | - | Specifies the visibility of the mask on fullscreen mode. |
+| visible | ModelSignal<boolean> | ... | Specifies the visibility of the mask on fullscreen mode. |
 
 ### Emits
 
 | Name | Parameters | Description |
 |------|------------|-------------|
 | activeIndexChange | value: number | Callback to invoke on active index change. |
-| visibleChange | value: boolean | Callback to invoke on visiblity change. |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | TemplateRef<void> | Custom header template. |
-| footer | TemplateRef<void> | Custom footer template. |
-| indicator | TemplateRef<GalleriaIndicatorTemplateContext> | Custom indicator template. |
-| caption | TemplateRef<GalleriaCaptionTemplateContext<any>> | Custom caption template. |
-| _closeicon | TemplateRef<void> | Custom close icon template. |
-| _previousthumbnailicon | TemplateRef<void> | Custom previous thumbnail icon template. |
-| _nextthumbnailicon | TemplateRef<void> | Custom next thumbnail icon template. |
-| _itempreviousicon | TemplateRef<void> | Custom item previous icon template. |
-| _itemnexticon | TemplateRef<void> | Custom item next icon template. |
-| _item | TemplateRef<GalleriaItemTemplateContext<any>> | Custom item template. |
-| _thumbnail | TemplateRef<GalleriaThumbnailTemplateContext<any>> | Custom thumbnail template. |
+| header | Signal<TemplateRef<void>> | Custom header template. |
+| footer | Signal<TemplateRef<void>> | Custom footer template. |
+| indicator | Signal<TemplateRef<GalleriaIndicatorTemplateContext>> | Custom indicator template. |
+| caption | Signal<TemplateRef<GalleriaCaptionTemplateContext<any>>> | Custom caption template. |
+| closeicon | Signal<TemplateRef<void>> | Custom close icon template. |
+| previousthumbnailicon | Signal<TemplateRef<void>> | Custom previous thumbnail icon template. |
+| nextthumbnailicon | Signal<TemplateRef<void>> | Custom next thumbnail icon template. |
+| itempreviousicon | Signal<TemplateRef<void>> | Custom item previous icon template. |
+| itemnexticon | Signal<TemplateRef<void>> | Custom item next icon template. |
+| item | Signal<TemplateRef<GalleriaItemTemplateContext<any>>> | Custom item template. |
+| thumbnail | Signal<TemplateRef<GalleriaThumbnailTemplateContext<any>>> | Custom thumbnail template. |
 
 ## Pass Through Options
 
@@ -529,6 +598,7 @@ Galleria is an advanced content gallery component.
 | thumbnailNextIcon | PassThroughOption<SVGElement, I> | Used to pass attributes to the thumbnail next icon's DOM element. |
 | footer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the footer's DOM element. |
 | motion | MotionOptions | Used to pass options to the motion component/directive. |
+| maskMotion | MotionOptions | Used to pass motion options for the mask animation. |
 
 ## Theming
 

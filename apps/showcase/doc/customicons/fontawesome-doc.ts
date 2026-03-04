@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
 })
 export class FontAwesomeDoc {
     code: Code = {
-        typescript: `<p-dropdown>
+        html: `<p-dropdown>
     <ng-template #dropdownicon>
         <i class="fa-light fa-chevron-down"></i>
     </ng-template>

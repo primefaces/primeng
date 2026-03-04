@@ -83,7 +83,7 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        typescript: `<span id="label_number">Number</span>
+        html: `<span id="label_number">Number</span>
 <p-knob ariaLabelledBy="label_number"/>
 
 <p-knob ariaLabel="Number"/>`

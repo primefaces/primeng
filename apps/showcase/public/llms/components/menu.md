@@ -298,8 +298,12 @@ import { MenuItem } from 'primeng/api';
                     <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class]="item.linkClass">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        @if (item.badge) {
+                            <p-badge class="ms-auto" [value]="item.badge" />
+                        }
+                        @if (item.shortcut) {
+                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        }
                     </a>
                 </ng-template>
                 <ng-template #end>
@@ -381,27 +385,25 @@ Menu is a navigation / command component that supports dynamic and static positi
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<MenuPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| model | MenuItem[] | - | An array of menuitems. |
-| popup | boolean | false | Defines if menu would displayed as a popup. |
-| style | { [klass: string]: any } | - | Inline style of the component. |
-| styleClass | string | - | Style class of the component. |
-| autoZIndex | boolean | true | Whether to automatically manage layering. |
-| baseZIndex | number | 0 | Base zIndex value to use in layering. |
-| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
-| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. **(Deprecated)** |
-| ariaLabel | string | - | Defines a string value that labels an interactive element. |
-| ariaLabelledBy | string | - | Identifier of the underlying input element. |
-| id | string | - | Current id state as a string. |
-| tabindex | number | 0 | Index of the element in tabbing order. |
-| appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| model | InputSignal<MenuItem[]> | ... | An array of menuitems. |
+| popup | InputSignalWithTransform<boolean, unknown> | ... | Defines if menu would displayed as a popup. |
+| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component. |
+| styleClass | InputSignal<string> | ... | Style class of the component. |
+| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
+| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
+| ariaLabel | InputSignal<string> | ... | Defines a string value that labels an interactive element. |
+| ariaLabelledBy | InputSignal<string> | ... | Identifier of the underlying input element. |
+| id | InputSignal<string> | ... | Current id state as a string. |
+| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
+| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
 
 | Name | Parameters | Description |
 |------|------------|-------------|
-| onShow | value: any | Callback to invoke when overlay menu is shown. |
-| onHide | value: any | Callback to invoke when overlay menu is hidden. |
+| onShow | value: object | Callback to invoke when overlay menu is shown. |
+| onHide | value: object | Callback to invoke when overlay menu is hidden. |
 | onBlur | event: Event | Callback to invoke when the list loses focus. |
 | onFocus | event: Event | Callback to invoke when the list receives focus. |
 
@@ -409,18 +411,17 @@ Menu is a navigation / command component that supports dynamic and static positi
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<void> | Defines template option for start. |
-| end | TemplateRef<void> | Defines template option for end. |
-| header | TemplateRef<void> | Defines template option for header. |
-| item | TemplateRef<MenuItemTemplateContext> | Custom item template. |
-| submenuheader | TemplateRef<MenuSubmenuHeaderTemplateContext> | Custom submenu header template. |
+| start | Signal<TemplateRef<void>> | Defines template option for start. |
+| end | Signal<TemplateRef<void>> | Defines template option for end. |
+| item | Signal<TemplateRef<MenuItemTemplateContext>> | Custom item template. |
+| submenuheader | Signal<TemplateRef<MenuSubmenuHeaderTemplateContext>> | Custom submenu header template. |
 
 ### Methods
 
 | Name | Parameters | Return Type | Description |
 |------|------------|-------------|-------------|
 | toggle | event: Event | void | Toggles the visibility of the popup menu. |
-| show | event: any | void | Displays the popup menu. |
+| show | event: Event | void | Displays the popup menu. |
 | hide |  | void | Hides the popup menu. |
 
 ## Pass Through Options
@@ -478,8 +479,12 @@ Menu is a navigation / command component that supports dynamic and static positi
 | menu.item.gap | --p-menu-item-gap | Gap of item |
 | menu.item.icon.color | --p-menu-item-icon-color | Icon color of item |
 | menu.item.icon.focus.color | --p-menu-item-icon-focus-color | Icon focus color of item |
+| menu.item.icon.size | --p-menu-item-icon-size | Icon size of item |
+| menu.item.label.font.weight | --p-menu-item-label-font-weight | Font weight of item label |
+| menu.item.label.font.size | --p-menu-item-label-font-size | Font size of item label |
 | menu.submenu.label.padding | --p-menu-submenu-label-padding | Padding of submenu label |
 | menu.submenu.label.font.weight | --p-menu-submenu-label-font-weight | Font weight of submenu label |
+| menu.submenu.label.font.size | --p-menu-submenu-label-font-size | Font size of submenu label |
 | menu.submenu.label.background | --p-menu-submenu-label-background | Background of submenu label |
 | menu.submenu.label.color | --p-menu-submenu-label-color | Color of submenu label |
 | menu.separator.border.color | --p-menu-separator-border-color | Border color of separator |

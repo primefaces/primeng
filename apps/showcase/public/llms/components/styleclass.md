@@ -12,7 +12,7 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
     template: `
-        <div class="card flex items-center justify-center gap-8">
+        <div class="card flex items-center justify-center gap-7">
             <div class="flex flex-col items-center">
                 <div>
                     <p-button pStyleClass=".box1" enterFromClass="my-hidden" enterActiveClass="my-fadein" label="FadeIn" class="mr-2" />
@@ -20,7 +20,7 @@ import { ButtonModule } from 'primeng/button';
                 </div>
                 <div class="h-32">
                     <div class="my-hidden animate-duration-500 box1">
-                        <div class="flex bg-primary text-primary-contrast items-center justify-center py-4 rounded-md mt-4 font-bold w-32 h-32">Custom</div>
+                        <div class="flex bg-primary text-primary-contrast items-center justify-center py-3 rounded-md mt-4 font-bold text-sm w-28 h-28">Custom</div>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@ import { ButtonModule } from 'primeng/button';
                 </div>
                 <div class="h-32">
                     <div class="hidden animate-duration-500 box2 overflow-hidden">
-                        <div class="flex bg-primary text-primary-contrast items-center justify-center py-4 rounded-md mt-4 font-bold w-32 h-32">Content</div>
+                        <div class="flex bg-primary text-primary-contrast items-center justify-center py-3 rounded-md mt-4 font-bold text-sm w-28 h-28">Content</div>
                     </div>
                 </div>
             </div>
@@ -67,8 +67,8 @@ import { ButtonModule } from 'primeng/button';
                         label="Show Window Responsive Content"
                     />
                     <div class="window-responsive-box hidden animate-duration-300 border border-lg border-surface">
-                        <div class="p-4 flex flex-col gap-2">
-                            <h3 class="text-xl font-bold">Window Responsive Panel</h3>
+                        <div class="p-3 flex flex-col gap-2">
+                            <h3 class="text-lg font-bold">Window Responsive Panel</h3>
                             <p class="text-sm">This panel will hide when you resize the browser window.</p>
                             <p class="text-sm">Try resizing your browser window to see the effect.</p>
                         </div>
@@ -87,7 +87,7 @@ import { ButtonModule } from 'primeng/button';
                     />
                     <div class="resizable-container hidden animate-duration-300 border border-lg border-surface w-[20rem] w-max-[25rem] w-min-[15rem] overflow-auto resize">
                         <div class="p-4 h-full flex flex-col gap-2">
-                            <h3 class="text-xl font-bold">Resizable Panel</h3>
+                            <h3 class="text-lg font-bold">Resizable Panel</h3>
                             <p class="text-sm">Drag the resize handle in the bottom-right corner to resize this panel.</p>
                             <p class="text-sm">The panel will hide when you resize it.</p>
                         </div>

@@ -411,21 +411,20 @@ Knob is a form component to define number inputs with a dial.
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
-| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
-| ariaLabelledBy | string | - | Specifies one or more IDs in the DOM that labels the input field. |
-| tabindex | number | 0 | Index of the element in tabbing order. |
-| valueColor | string | ... | Background of the value. |
-| rangeColor | string | ... | Background color of the range. |
-| textColor | string | ... | Color of the value text. |
-| valueTemplate | string | {value} | Template string of the value. |
-| size | number | 100 | Size of the component in pixels. |
-| min | number | 0 | Mininum boundary value. |
-| max | number | 100 | Maximum boundary value. |
-| step | number | 1 | Step factor to increment/decrement the value. |
-| strokeWidth | number | 14 | Width of the knob stroke. |
-| showValue | boolean | true | Whether the show the value inside the knob. |
-| readonly | boolean | false | When present, it specifies that the component value cannot be edited. |
+| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
+| ariaLabelledBy | InputSignal<string> | ... | Specifies one or more IDs in the DOM that labels the input field. |
+| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
+| valueColor | InputSignal<string> | ... | Background of the value. |
+| rangeColor | InputSignal<string> | ... | Background color of the range. |
+| textColor | InputSignal<string> | ... | Color of the value text. |
+| valueTemplate | InputSignal<string> | ... | Template string of the value. |
+| size | InputSignalWithTransform<number, unknown> | ... | Size of the component in pixels. |
+| min | InputSignalWithTransform<number, unknown> | ... | Mininum boundary value. |
+| max | InputSignalWithTransform<number, unknown> | ... | Maximum boundary value. |
+| step | InputSignalWithTransform<number, unknown> | ... | Step factor to increment/decrement the value. |
+| strokeWidth | InputSignalWithTransform<number, unknown> | ... | Width of the knob stroke. |
+| showValue | InputSignalWithTransform<boolean, unknown> | ... | Whether the show the value inside the knob. |
+| readonly | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component value cannot be edited. |
 
 ### Emits
 
@@ -467,4 +466,6 @@ Knob is a form component to define number inputs with a dial.
 | knob.value.background | --p-knob-value-background | Background of value |
 | knob.range.background | --p-knob-range-background | Background of range |
 | knob.text.color | --p-knob-text-color | Color of text |
+| knob.text.font.size | --p-knob-text-font-size | Font size of text |
+| knob.text.font.weight | --p-knob-text-font-weight | Font weight of text |
 

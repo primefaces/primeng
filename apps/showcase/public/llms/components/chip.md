@@ -110,15 +110,14 @@ Chip represents people using icons, labels and images.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ChipPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| label | string | - | Defines the text to display. |
-| icon | string | - | Defines the icon to display. |
-| image | string | - | Defines the image to display. |
-| alt | string | - | Alt attribute of the image. |
-| styleClass | string | - | Class of the element. **(Deprecated)** |
-| disabled | boolean | false | When present, it specifies that the element should be disabled. |
-| removable | boolean | false | Whether to display a remove icon. |
-| removeIcon | string | - | Icon of the remove element. |
-| chipProps | ChipProps | - | Used to pass all properties of the chipProps to the Chip component. |
+| label | InputSignal<string> | ... | Defines the text to display. |
+| icon | InputSignal<string> | ... | Defines the icon to display. |
+| image | InputSignal<string> | ... | Defines the image to display. |
+| alt | InputSignal<string> | ... | Alt attribute of the image. |
+| disabled | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the element should be disabled. |
+| removable | InputSignalWithTransform<boolean, unknown> | ... | Whether to display a remove icon. |
+| removeIcon | InputSignal<string> | ... | Icon of the remove element. |
+| chipProps | InputSignal<ChipProps> | ... | Used to pass all properties of the chipProps to the Chip component. |
 
 ### Emits
 
@@ -131,7 +130,7 @@ Chip represents people using icons, labels and images.
 
 | Name | Type | Description |
 |------|------|-------------|
-| removeicon | TemplateRef<void> | Custom remove icon template. |
+| removeicon | Signal<TemplateRef<void>> | Custom remove icon template. |
 
 ## Pass Through Options
 
@@ -171,6 +170,8 @@ Chip represents people using icons, labels and images.
 | chip.image.height | --p-chip-image-height | Height of image |
 | chip.icon.size | --p-chip-icon-size | Size of icon |
 | chip.icon.color | --p-chip-icon-color | Color of icon |
+| chip.label.font.weight | --p-chip-label-font-weight | Font weight of label |
+| chip.label.font.size | --p-chip-label-font-size | Font size of label |
 | chip.remove.icon.size | --p-chip-remove-icon-size | Size of remove icon |
 | chip.remove.icon.focus.ring.width | --p-chip-remove-icon-focus-ring-width | Focus ring width of remove icon |
 | chip.remove.icon.focus.ring.style | --p-chip-remove-icon-focus-ring-style | Focus ring style of remove icon |

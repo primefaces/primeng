@@ -216,7 +216,7 @@ import { MegaMenuItem } from 'primeng/api';
 @Component({
     template: `
         <div class="card">
-            <p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" class="p-4 bg-surface-0 dark:bg-surface-900">
+            <p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" class="p-3 bg-surface-0 dark:bg-surface-900">
                 <ng-template #start>
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
@@ -249,24 +249,28 @@ import { MegaMenuItem } from 'primeng/api';
                     </svg>
                 </ng-template>
                 <ng-template #item let-item>
-                    <a *ngIf="item.root" pRipple class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
-                        <i [ngClass]="item.icon"></i>
-                        <span class="ml-2">{{ item.label }}</span>
-                    </a>
-                    <a *ngIf="!item.root && !item.image" class="flex items-center p-4 cursor-pointer mb-2 gap-2">
-                        <span class="inline-flex items-center justify-center rounded-full bg-primary text-primary-contrast w-12 h-12">
-                            <i [ngClass]="item.icon + ' text-lg'"></i>
-                        </span>
-                        <span class="inline-flex flex-col gap-1">
-                            <span class="font-medium text-lg text-surface-900 dark:text-surface-0">{{ item.label }}</span>
-                            <span class="whitespace-nowrap">{{ item.subtext }}</span>
-                        </span>
-                    </a>
-                    <div *ngIf="item.image" class="flex flex-col items-start gap-4">
-                        <img [src]="item.image" alt="megamenu-demo" class="w-full" />
-                        <span>{{ item.subtext }}</span>
-                        <p-button [label]="item.label" [outlined]="true"></p-button>
-                    </div>
+                    @if (item.root) {
+                        <a pRipple class="flex items-center cursor-pointer px-3 py-2 overflow-hidden relative font-semibold uppercase" style="border-radius: 2rem">
+                            <i [ngClass]="item.icon"></i>
+                            <span class="ml-2">{{ item.label }}</span>
+                        </a>
+                    } @else if (!item.image) {
+                        <a class="flex items-center p-3 cursor-pointer mb-2 gap-2">
+                            <span class="inline-flex items-center justify-center rounded-full bg-primary text-primary-contrast w-12 h-12">
+                                <i [ngClass]="item.icon"></i>
+                            </span>
+                            <span class="inline-flex flex-col gap-1">
+                                <span class="font-medium text-surface-900 dark:text-surface-0">{{ item.label }}</span>
+                                <span class="whitespace-nowrap text-sm">{{ item.subtext }}</span>
+                            </span>
+                        </a>
+                    } @else {
+                        <div class="flex flex-col items-start gap-4">
+                            <img [src]="item.image" alt="megamenu-demo" class="w-full" />
+                            <span class="text-sm">{{ item.subtext }}</span>
+                            <p-button [label]="item.label" [outlined]="true"></p-button>
+                        </div>
+                    }
                 </ng-template>
                 <ng-template #end>
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
@@ -475,28 +479,27 @@ MegaMenu is navigation component that displays submenus together.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<MegaMenuPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| model | MegaMenuItem[] | - | An array of menuitems. |
-| styleClass | string | - | Class of the element. **(Deprecated)** |
-| orientation | string | horizontal | Defines the orientation. |
-| id | string | - | Current id state as a string. |
-| ariaLabel | string | - | Defines a string value that labels an interactive element. |
-| ariaLabelledBy | string | - | Identifier of the underlying input element. |
-| breakpoint | string | 960px | The breakpoint to define the maximum width boundary. |
-| scrollHeight | string | 20rem | Height of the viewport, a scrollbar is defined if height of list exceeds this value. |
-| disabled | boolean | false | When present, it specifies that the component should be disabled. |
-| tabindex | number | 0 | Index of the element in tabbing order. |
+| model | InputSignal<MegaMenuItem[]> | ... | An array of menuitems. |
+| orientation | InputSignal<MegaMenuOrientation> | ... | Defines the orientation. |
+| id | InputSignal<string> | ... | Current id state as a string. |
+| ariaLabel | InputSignal<string> | ... | Defines a string value that labels an interactive element. |
+| ariaLabelledBy | InputSignal<string> | ... | Identifier of the underlying input element. |
+| breakpoint | InputSignal<string> | ... | The breakpoint to define the maximum width boundary. |
+| scrollHeight | InputSignal<string> | ... | Height of the viewport, a scrollbar is defined if height of list exceeds this value. |
+| disabled | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should be disabled. |
+| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<void> | Defines template option for start. |
-| end | TemplateRef<void> | Defines template option for end. |
-| menuicon | TemplateRef<void> | Defines template option for menu icon. |
-| submenuicon | TemplateRef<void> | Defines template option for submenu icon. |
-| item | TemplateRef<MegaMenuItemTemplateContext> | Custom item template. |
-| button | TemplateRef<void> | Custom menu button template on responsive mode. |
-| buttonicon | TemplateRef<void> | Custom menu button icon template on responsive mode. |
+| start | Signal<TemplateRef<void>> | Defines template option for start. |
+| end | Signal<TemplateRef<void>> | Defines template option for end. |
+| menuicon | Signal<TemplateRef<void>> | Defines template option for menu icon. |
+| submenuicon | Signal<TemplateRef<void>> | Defines template option for submenu icon. |
+| item | Signal<TemplateRef<MegaMenuItemTemplateContext>> | Custom item template. |
+| button | Signal<TemplateRef<void>> | Custom menu button template on responsive mode. |
+| buttonicon | Signal<TemplateRef<void>> | Custom menu button icon template on responsive mode. |
 
 ## Pass Through Options
 
@@ -572,6 +575,9 @@ MegaMenu is navigation component that displays submenus together.
 | megamenu.item.icon.color | --p-megamenu-item-icon-color | Icon color of item |
 | megamenu.item.icon.focus.color | --p-megamenu-item-icon-focus-color | Icon focus color of item |
 | megamenu.item.icon.active.color | --p-megamenu-item-icon-active-color | Icon active color of item |
+| megamenu.item.icon.size | --p-megamenu-item-icon-size | Icon size of item |
+| megamenu.item.label.font.weight | --p-megamenu-item-label-font-weight | Font weight of item label |
+| megamenu.item.label.font.size | --p-megamenu-item-label-font-size | Font size of item label |
 | megamenu.overlay.padding | --p-megamenu-overlay-padding | Padding of overlay |
 | megamenu.overlay.background | --p-megamenu-overlay-background | Background of overlay |
 | megamenu.overlay.border.color | --p-megamenu-overlay-border-color | Border color of overlay |
@@ -583,6 +589,7 @@ MegaMenu is navigation component that displays submenus together.
 | megamenu.submenu.gap | --p-megamenu-submenu-gap | Gap of submenu |
 | megamenu.submenu.label.padding | --p-megamenu-submenu-label-padding | Padding of submenu label |
 | megamenu.submenu.label.font.weight | --p-megamenu-submenu-label-font-weight | Font weight of submenu label |
+| megamenu.submenu.label.font.size | --p-megamenu-submenu-label-font-size | Font size of submenu label |
 | megamenu.submenu.label.background | --p-megamenu-submenu-label-background | Background of submenu label |
 | megamenu.submenu.label.color | --p-megamenu-submenu-label-color | Color of submenu label |
 | megamenu.submenu.icon.size | --p-megamenu-submenu-icon-size | Size of submenu icon |

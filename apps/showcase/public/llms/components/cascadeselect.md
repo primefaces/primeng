@@ -1055,9 +1055,15 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
             <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City">
                 <ng-template #option let-option>
                     <div class="flex items-center">
-                        <img *ngIf="option.states" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + option.code.toLowerCase()" style="width: 18px" />
-                        <i class="pi pi-compass mr-2" *ngIf="option.cities"></i>
-                        <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
+                        @if (option.states) {
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + option.code.toLowerCase()" style="width: 18px" />
+                        }
+                        @if (option.cities) {
+                            <i class="pi pi-compass mr-2"></i>
+                        }
+                        @if (option.cname) {
+                            <i class="pi pi-map-marker mr-2"></i>
+                        }
                         <span>{{ option.cname || option.name }}</span>
                     </div>
                 </ng-template>
@@ -1368,6 +1374,8 @@ export class CascadeselectTemplatedrivenformsDemo {
 | cascadeselect.lg.font.size | --p-cascadeselect-lg-font-size | Lg font size of root |
 | cascadeselect.lg.padding.x | --p-cascadeselect-lg-padding-x | Lg padding x of root |
 | cascadeselect.lg.padding.y | --p-cascadeselect-lg-padding-y | Lg padding y of root |
+| cascadeselect.font.weight | --p-cascadeselect-font-weight | Font weight of current value |
+| cascadeselect.font.size | --p-cascadeselect-font-size | Font size of current value |
 | cascadeselect.dropdown.width | --p-cascadeselect-dropdown-width | Width of dropdown |
 | cascadeselect.dropdown.color | --p-cascadeselect-dropdown-color | Color of dropdown |
 | cascadeselect.overlay.background | --p-cascadeselect-overlay-background | Background of overlay |
@@ -1385,10 +1393,13 @@ export class CascadeselectTemplatedrivenformsDemo {
 | cascadeselect.option.focus.color | --p-cascadeselect-option-focus-color | Focus color of option |
 | cascadeselect.option.selected.color | --p-cascadeselect-option-selected-color | Selected color of option |
 | cascadeselect.option.selected.focus.color | --p-cascadeselect-option-selected-focus-color | Selected focus color of option |
+| cascadeselect.option.selected.font.weight | --p-cascadeselect-option-selected-font-weight | Font weight of a selected option |
 | cascadeselect.option.padding | --p-cascadeselect-option-padding | Padding of option |
 | cascadeselect.option.border.radius | --p-cascadeselect-option-border-radius | Border radius of option |
 | cascadeselect.option.icon.color | --p-cascadeselect-option-icon-color | Icon color of option |
 | cascadeselect.option.icon.focus.color | --p-cascadeselect-option-icon-focus-color | Icon focus color of option |
 | cascadeselect.option.icon.size | --p-cascadeselect-option-icon-size | Icon size of option |
+| cascadeselect.option.font.weight | --p-cascadeselect-option-font-weight | Font weight of option |
+| cascadeselect.option.font.size | --p-cascadeselect-option-font-size | Font size of option |
 | cascadeselect.clear.icon.color | --p-cascadeselect-clear-icon-color | Color of clear icon |
 

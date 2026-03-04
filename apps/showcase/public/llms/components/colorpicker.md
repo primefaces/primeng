@@ -65,19 +65,19 @@ import { ColorPickerModule } from 'primeng/colorpicker';
     template: `
         <div class="card flex flex-wrap gap-4">
             <div class="flex-1 flex flex-col items-center">
-                <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
+                <label for="cp-hex" class="text-sm font-bold block mb-2"> HEX </label>
                 <p-colorpicker [(ngModel)]="color" inputId="cp-hex" class="mb-4" />
-                <span>{{ color }}</span>
+                <span class="text-sm">{{ color }}</span>
             </div>
             <div class="flex-1 flex flex-col items-center">
-                <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
+                <label for="cp-rgb" class="text-sm font-bold block mb-2"> RGB </label>
                 <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" class="mb-4" />
-                <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
+                <span class="text-sm">{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
             </div>
             <div class="flex-1 flex flex-col items-center">
-                <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
+                <label for="cp-hsb" class="text-sm font-bold block mb-2"> HSB </label>
                 <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" class="mb-4" />
-                <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
+                <span class="text-sm">{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
             </div>
         </div>
     `,
@@ -230,17 +230,14 @@ ColorPicker groups a collection of contents in tabs.
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
-| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
-| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. **(Deprecated)** |
-| inline | boolean | false | Whether to display as an overlay or not. |
-| format | "rgb" \| "hex" \| "hsb" | hex | Format to use in value binding. |
-| tabindex | string | - | Index of the element in tabbing order. |
-| inputId | string | - | Identifier of the focus input to match a label defined for the dropdown. |
-| autoZIndex | boolean | true | Whether to automatically manage layering. |
-| autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
-| defaultColor | string | ff0000 | Default color to display initially when model value is not present. |
-| appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| inline | InputSignalWithTransform<boolean, unknown> | ... | Whether to display as an overlay or not. |
+| format | InputSignal<ColorPickerFormat> | ... | Format to use in value binding. |
+| tabindex | InputSignal<string> | ... | Index of the element in tabbing order. |
+| inputId | InputSignal<string> | ... | Identifier of the focus input to match a label defined for the dropdown. |
+| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
+| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
+| defaultColor | InputSignal<string> | ... | Default color to display initially when model value is not present. |
+| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 | overlayOptions | InputSignal<OverlayOptions> | ... | Whether to use overlay API feature. The properties of overlay API can be used like an object in it. |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 

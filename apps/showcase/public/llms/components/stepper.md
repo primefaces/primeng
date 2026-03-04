@@ -28,9 +28,9 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="1">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content I</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
                             </div>
-                            <div class="flex pt-6 justify-end">
+                            <div class="flex pt-5 justify-end">
                                 <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
                             </div>
                         </ng-template>
@@ -38,9 +38,9 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="2">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content II</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
                             </div>
-                            <div class="flex pt-6 justify-between">
+                            <div class="flex pt-5 justify-between">
                                 <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
                                 <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)" />
                             </div>
@@ -49,9 +49,9 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="3">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content III</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
                             </div>
-                            <div class="flex pt-6 justify-start">
+                            <div class="flex pt-5 justify-start">
                                 <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
                             </div>
                         </ng-template>
@@ -88,9 +88,9 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="1">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content I</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
                             </div>
-                            <div class="flex pt-6 justify-end">
+                            <div class="flex pt-5 justify-end">
                                 <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
                             </div>
                         </ng-template>
@@ -98,9 +98,9 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="2">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content II</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
                             </div>
-                            <div class="flex pt-6 justify-between">
+                            <div class="flex pt-5 justify-between">
                                 <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
                                 <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)" />
                             </div>
@@ -109,9 +109,9 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="3">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content III</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
                             </div>
-                            <div class="flex pt-6 justify-start">
+                            <div class="flex pt-5 justify-start">
                                 <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
                             </div>
                         </ng-template>
@@ -198,7 +198,7 @@ import { InputTextModule } from 'primeng/inputtext';
                     <p-step-panel [value]="1">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
-                                <div class="text-center mt-4 mb-4 text-xl font-semibold">Create your account</div>
+                                <div class="text-center mt-4 mb-4 text-lg font-semibold">Create your account</div>
                                 <div class="field">
                                     <input [(ngModel)]="name" pInputText id="input" type="text" placeholder="Name" fluid />
                                 </div>
@@ -209,7 +209,7 @@ import { InputTextModule } from 'primeng/inputtext';
                                     <p-password [(ngModel)]="password" placeholder="Password" fluid />
                                 </div>
                             </div>
-                            <div class="flex pt-6 justify-end">
+                            <div class="flex pt-5 justify-end">
                                 <p-button (onClick)="activateCallback(2)" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                             </div>
                         </ng-template>
@@ -217,7 +217,7 @@ import { InputTextModule } from 'primeng/inputtext';
                     <p-step-panel [value]="2">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
-                                <div class="text-center mt-4 mb-4 text-xl font-semibold">Choose your interests</div>
+                                <div class="text-center mt-4 mb-4 text-lg font-semibold">Choose your interests</div>
                                 <div class="flex flex-wrap justify-center gap-4">
                                     <p-togglebutton [(ngModel)]="option1" onLabel="Nature" offLabel="Nature" />
                                     <p-togglebutton [(ngModel)]="option2" onLabel="Art" offLabel="Art" />
@@ -231,7 +231,7 @@ import { InputTextModule } from 'primeng/inputtext';
                                     <p-togglebutton [(ngModel)]="option10" onLabel="Dancing" offLabel="Dancing" />
                                 </div>
                             </div>
-                            <div class="flex pt-6 justify-between">
+                            <div class="flex pt-5 justify-between">
                                 <p-button (onClick)="activateCallback(1)" label="Back" severity="secondary" icon="pi pi-arrow-left" />
                                 <p-button (onClick)="activateCallback(3)" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                             </div>
@@ -240,12 +240,12 @@ import { InputTextModule } from 'primeng/inputtext';
                     <p-step-panel [value]="3">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col items-center gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
-                                <div class="text-center mt-4 mb-4 text-xl font-semibold">Account created successfully</div>
+                                <div class="text-center mt-4 mb-4 text-lg font-semibold">Account created successfully</div>
                                 <div class="text-center">
                                     <img alt="logo" src="https://primefaces.org/cdn/primeng/images/stepper/content.svg" />
                                 </div>
                             </div>
-                            <div class="flex pt-6 justify-start">
+                            <div class="flex pt-5 justify-start">
                                 <p-button (onClick)="activateCallback(2)" label="Back" severity="secondary" icon="pi pi-arrow-left" />
                             </div>
                         </ng-template>
@@ -293,9 +293,9 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel>
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content I</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
                             </div>
-                            <div class="py-6">
+                            <div class="py-5">
                                 <p-button label="Next" (onClick)="activateCallback(2)" />
                             </div>
                         </ng-template>
@@ -306,9 +306,9 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel>
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content II</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
                             </div>
-                            <div class="flex py-6 gap-2">
+                            <div class="flex py-5 gap-2">
                                 <p-button label="Back" severity="secondary" (onClick)="activateCallback(1)" />
                                 <p-button label="Next" (onClick)="activateCallback(3)" />
                             </div>
@@ -320,9 +320,9 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel>
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content III</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
                             </div>
-                            <div class="py-6">
+                            <div class="py-5">
                                 <p-button label="Back" severity="secondary" (onClick)="activateCallback(2)" />
                             </div>
                         </ng-template>
@@ -350,8 +350,7 @@ Stepper is a component that streamlines a wizard-like workflow, organizing conte
 | pt | InputSignal<StepperPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | value | ModelSignal<number> | undefined | A model that can hold a numeric value or be undefined. |
-| linear | InputSignalWithTransform<any, boolean> | false | A boolean variable that captures user input. |
-| transitionOptions | InputSignal<string> | 400ms cubic-bezier(0.86, 0, 0.07, 1) | Transition options of the animation. **(Deprecated)** |
+| linear | InputSignalWithTransform<boolean, unknown> | false | A boolean variable that captures user input. |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ## Pass Through Options
@@ -392,6 +391,7 @@ Stepper is a component that streamlines a wizard-like workflow, organizing conte
 | stepper.step.title.color | --p-stepper-step-title-color | Color of step title |
 | stepper.step.title.active.color | --p-stepper-step-title-active-color | Active color of step title |
 | stepper.step.title.font.weight | --p-stepper-step-title-font-weight | Font weight of step title |
+| stepper.step.title.font.size | --p-stepper-step-title-font-size | Font size of step title |
 | stepper.step.number.background | --p-stepper-step-number-background | Background of step number |
 | stepper.step.number.active.background | --p-stepper-step-number-active-background | Active background of step number |
 | stepper.step.number.border.color | --p-stepper-step-number-border-color | Border color of step number |

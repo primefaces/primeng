@@ -148,13 +148,15 @@ import { InputOtpModule } from 'primeng/inputotp';
         <div class="card flex justify-center">
             <div class="flex flex-col items-center">
                 <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
-                <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
+                <p class="text-sm text-muted-color block mb-8">Please enter the code sent to your phone.</p>
                 <p-inputotp [(ngModel)]="value" [length]="6">
                     <ng-template #input let-token let-events="events" let-index="index">
                         <input type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
-                        <div *ngIf="index === 3" class="px-4">
-                            <i class="pi pi-minus"></i>
-                        </div>
+                        @if (index === 3) {
+                            <div class="px-4">
+                                <i class="pi pi-minus"></i>
+                            </div>
+                        }
                     </ng-template>
                 </p-inputotp>
                 <div class="flex justify-between mt-8 self-stretch">
@@ -284,15 +286,15 @@ Input Otp is used to enter one time passwords.
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| readonly | boolean | false | When present, it specifies that an input field is read-only. |
-| tabindex | number | null | Index of the element in tabbing order. |
-| length | number | 4 | Number of characters to initiate. |
-| styleClass | string | - | Style class of the input element. |
-| mask | boolean | false | Mask pattern. |
-| integerOnly | boolean | false | When present, it specifies that an input field is integer-only. |
-| autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
-| variant | InputSignal<"outlined" \| "filled"> | undefined | Specifies the input variant of the component. |
-| size | InputSignal<"small" \| "large"> | undefined | Specifies the size of the component. |
+| readonly | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that an input field is read-only. |
+| tabindex | InputSignal<number> | ... | Index of the element in tabbing order. |
+| length | InputSignal<number> | ... | Number of characters to initiate. |
+| styleClass | InputSignal<string> | ... | Style class of the input element. |
+| mask | InputSignalWithTransform<boolean, unknown> | ... | Mask pattern. |
+| integerOnly | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that an input field is integer-only. |
+| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
+| variant | InputSignal<InputVariant> | undefined | Specifies the input variant of the component. |
+| size | InputSignal<InputSize> | undefined | Specifies the size of the component. |
 
 ### Emits
 
@@ -306,7 +308,7 @@ Input Otp is used to enter one time passwords.
 
 | Name | Type | Description |
 |------|------|-------------|
-| input | TemplateRef<InputOtpInputTemplateContext> | Custom input template. |
+| input | Signal<TemplateRef<InputOtpInputTemplateContext>> | Custom input template. |
 
 ## Pass Through Options
 

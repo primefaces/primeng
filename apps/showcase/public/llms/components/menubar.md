@@ -277,11 +277,17 @@ import { MenuItem } from 'primeng/api';
                     </svg>
                 </ng-template>
                 <ng-template #item let-item let-root="root">
-                    <a pRipple class="flex items-center px-4 py-3 cursor-pointer gap-2">
-                        <span>{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" [ngClass]="{ 'ms-auto': !root }" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-                        <i *ngIf="item.items" [ngClass]="['ms-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
+                    <a pRipple class="flex items-center px-3 py-2 cursor-pointer gap-2">
+                        <span class="text-sm">{{ item.label }}</span>
+                        @if (item.badge) {
+                            <p-badge [ngClass]="{ 'ms-auto': !root }" [value]="item.badge" />
+                        }
+                        @if (item.shortcut) {
+                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        }
+                        @if (item.items) {
+                            <i [ngClass]="['ms-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
+                        }
                     </a>
                 </ng-template>
                 <ng-template #end>
@@ -347,17 +353,16 @@ Menubar is a horizontal menu component.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<MenubarPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| model | MenuItem[] | - | An array of menuitems. |
-| styleClass | string | - | Class of the element. **(Deprecated)** |
-| autoZIndex | boolean | true | Whether to automatically manage layering. |
-| baseZIndex | number | 0 | Base zIndex value to use in layering. |
-| autoDisplay | boolean | true | Whether to show a root submenu on mouse over. |
-| autoHide | boolean | false | Whether to hide a root submenu when mouse leaves. |
-| breakpoint | string | 960px | The breakpoint to define the maximum width boundary. |
-| autoHideDelay | number | 100 | Delay to hide the root submenu in milliseconds when mouse leaves. |
-| id | string | - | Current id state as a string. |
-| ariaLabel | string | - | Defines a string value that labels an interactive element. |
-| ariaLabelledBy | string | - | Identifier of the underlying input element. |
+| model | InputSignal<MenuItem[]> | ... | An array of menuitems. |
+| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
+| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
+| autoDisplay | InputSignalWithTransform<boolean, unknown> | true | Whether to show a root submenu on mouse over. |
+| autoHide | InputSignalWithTransform<boolean, unknown> | ... | Whether to hide a root submenu when mouse leaves. |
+| breakpoint | InputSignal<string> | ... | The breakpoint to define the maximum width boundary. |
+| autoHideDelay | InputSignalWithTransform<number, unknown> | ... | Delay to hide the root submenu in milliseconds when mouse leaves. |
+| id | InputSignal<string> | ... | Current id state as a string. |
+| ariaLabel | InputSignal<string> | ... | Defines a string value that labels an interactive element. |
+| ariaLabelledBy | InputSignal<string> | ... | Identifier of the underlying input element. |
 
 ### Emits
 
@@ -370,11 +375,11 @@ Menubar is a horizontal menu component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<void> | Defines template option for start. |
-| end | TemplateRef<void> | Defines template option for end. |
-| item | TemplateRef<MenubarItemTemplateContext> | Custom item template. |
-| menuicon | TemplateRef<void> | Defines template option for menu icon. |
-| submenuicon | TemplateRef<void> | Defines template option for submenu icon. |
+| start | Signal<TemplateRef<void>> | Defines template option for start. |
+| end | Signal<TemplateRef<void>> | Defines template option for end. |
+| item | Signal<TemplateRef<MenubarItemTemplateContext>> | Custom item template. |
+| menuicon | Signal<TemplateRef<void>> | Defines template option for menu icon. |
+| submenuicon | Signal<TemplateRef<void>> | Defines template option for submenu icon. |
 
 ## Pass Through Options
 
@@ -440,6 +445,9 @@ Menubar is a horizontal menu component.
 | menubar.item.icon.color | --p-menubar-item-icon-color | Icon color of item |
 | menubar.item.icon.focus.color | --p-menubar-item-icon-focus-color | Icon focus color of item |
 | menubar.item.icon.active.color | --p-menubar-item-icon-active-color | Icon active color of item |
+| menubar.item.icon.size | --p-menubar-item-icon-size | Icon size of item |
+| menubar.item.label.font.weight | --p-menubar-item-label-font-weight | Font weight of item label |
+| menubar.item.label.font.size | --p-menubar-item-label-font-size | Font size of item label |
 | menubar.submenu.padding | --p-menubar-submenu-padding | Padding of submenu |
 | menubar.submenu.gap | --p-menubar-submenu-gap | Gap of submenu |
 | menubar.submenu.background | --p-menubar-submenu-background | Background of submenu |

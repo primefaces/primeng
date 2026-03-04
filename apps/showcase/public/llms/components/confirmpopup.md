@@ -8,7 +8,7 @@ Screen Reader ConfirmPopup component uses alertdialog role and since any attribu
 
 ## Basic
 
-ConfirmPopup is defined using p-confirmPopup tag and an instance of ConfirmationService is required to display it bycalling confirm method.
+ConfirmPopup is defined using p-confirmpopup tag and an instance of ConfirmationService is required to display it bycalling confirm method.
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -189,7 +189,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
             <p-confirmpopup #cp>
                 <ng-template #headless let-message>
                     <div class="rounded p-4">
-                        <span>{{ message.message }}</span>
+                        <span class="text-sm">{{ message.message }}</span>
                         <div class="flex items-center gap-2 mt-4">
                             <p-button (onClick)="cp.onAccept()" label="Save" size="small" [autofocus]="true" />
                             <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
@@ -233,18 +233,6 @@ import { Component } from '@angular/core';
                         <td>string</td>
                         <td>null</td>
                         <td>Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.</td>
-                    </tr>
-                    <tr>
-                        <td>showTransitionOptions</td>
-                        <td>string</td>
-                        <td>.12s cubic-bezier(0, 0, 0.2, 1)</td>
-                        <td>Transition options of the show animation.</td>
-                    </tr>
-                    <tr>
-                        <td>hideTransitionOptions</td>
-                        <td>string</td>
-                        <td>.1s linear</td>
-                        <td>Transition options of the hide animation.</td>
                     </tr>
                     <tr>
                         <td>autoZIndex</td>
@@ -299,7 +287,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
                 <ng-template #content let-message>
                     <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700 p-4 mb-4 pb-0">
                         <i [class]="message.icon" class="!text-6xl text-primary-500"></i>
-                        <p>{{ message.message }}</p>
+                        <p class="text-sm">{{ message.message }}</p>
                     </div>
                 </ng-template>
             </p-confirmpopup>
@@ -362,26 +350,24 @@ ConfirmPopup displays a confirmation overlay displayed relatively to its target.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ConfirmPopupPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| key | string | - | Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs. |
-| defaultFocus | string | accept | Element to receive the focus when the popup gets visible, valid values are "accept", "reject", and "none". |
-| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
-| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. **(Deprecated)** |
-| autoZIndex | boolean | true | Whether to automatically manage layering. |
-| baseZIndex | number | 0 | Base zIndex value to use in layering. |
-| style | { [klass: string]: any } | - | Inline style of the component. |
-| styleClass | string | - | Style class of the component. |
+| key | InputSignal<string> | ... | Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs. |
+| defaultFocus | InputSignal<ConfirmPopupDefaultFocus> | ... | Element to receive the focus when the popup gets visible, valid values are "accept", "reject", and "none". |
+| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
+| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
+| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component. |
+| styleClass | InputSignal<string> | ... | Style class of the component. |
 | visible | InputSignal<boolean> | ... | Defines if the component is visible. |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| appendTo | InputSignal<any> | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| appendTo | InputSignal<AppendTo> | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<ConfirmPopupContentTemplateContext> | Custom content template. |
-| accepticon | TemplateRef<void> | Custom accept icon template. |
-| rejecticon | TemplateRef<void> | Custom reject icon template. |
-| headless | TemplateRef<ConfirmPopupHeadlessTemplateContext> | Custom headless template. |
+| content | Signal<TemplateRef<ConfirmPopupContentTemplateContext>> | Custom content template. |
+| accepticon | Signal<TemplateRef<void>> | Custom accept icon template. |
+| rejecticon | Signal<TemplateRef<void>> | Custom reject icon template. |
+| headless | Signal<TemplateRef<ConfirmPopupHeadlessTemplateContext>> | Custom headless template. |
 
 ## Pass Through Options
 
@@ -426,6 +412,9 @@ ConfirmPopup displays a confirmation overlay displayed relatively to its target.
 | confirmpopup.content.gap | --p-confirmpopup-content-gap | Gap of content |
 | confirmpopup.icon.size | --p-confirmpopup-icon-size | Size of icon |
 | confirmpopup.icon.color | --p-confirmpopup-icon-color | Color of icon |
+| confirmpopup.message.color | --p-confirmpopup-message-color | Color of message |
+| confirmpopup.message.font.weight | --p-confirmpopup-message-font-weight | Font weight of message |
+| confirmpopup.message.font.size | --p-confirmpopup-message-font-size | Font size of message |
 | confirmpopup.footer.gap | --p-confirmpopup-footer-gap | Gap of footer |
 | confirmpopup.footer.padding | --p-confirmpopup-footer-padding | Padding of footer |
 

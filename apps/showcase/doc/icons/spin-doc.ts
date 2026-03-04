@@ -20,7 +20,7 @@ import { Component } from '@angular/core';
 })
 export class SpinDoc {
     code: Code = {
-        typescript: `<i class="pi pi-spin pi-spinner" style="font-size: 1.75rem"></i>
+        html: `<i class="pi pi-spin pi-spinner" style="font-size: 1.75rem"></i>
 <i class="pi pi-spin pi-cog" style="font-size: 1.75rem"></i>`
     };
 }

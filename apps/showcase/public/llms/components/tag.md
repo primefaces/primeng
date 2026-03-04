@@ -119,7 +119,7 @@ import { Country } from '@/domain/customer';
             <p-tag [style]="{ border: '2px solid var(--border-color)', background: 'transparent', color: 'var(--text-color)' }">
                 <div class="flex items-center gap-2 px-1">
                     <img alt="Country" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" class="flag flag-it" style="width: 18px" />
-                    <span class="text-base">Italy</span>
+                    <span class="text-sm">Italy</span>
                 </div>
             </p-tag>
         </div>
@@ -142,17 +142,16 @@ Tag component is used to categorize content.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<TagPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
-| severity | "success" \| "info" \| "warn" \| "danger" \| "secondary" \| "contrast" | - | Severity type of the tag. |
-| value | string | - | Value to display inside the tag. |
-| icon | string | - | Icon of the tag to display next to the value. |
-| rounded | boolean | false | Whether the corners of the tag are rounded. |
+| severity | InputSignal<TagSeverity> | ... | Severity type of the tag. |
+| value | InputSignal<string> | ... | Value to display inside the tag. |
+| icon | InputSignal<string> | ... | Icon of the tag to display next to the value. |
+| rounded | InputSignalWithTransform<boolean, unknown> | ... | Whether the corners of the tag are rounded. |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | TemplateRef<void> | Custom icon template. |
+| icon | Signal<TemplateRef<void>> | Custom icon template. |
 
 ## Pass Through Options
 

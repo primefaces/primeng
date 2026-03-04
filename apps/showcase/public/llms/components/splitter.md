@@ -19,10 +19,10 @@ import { SplitterModule } from 'primeng/splitter';
         <div class="card">
             <p-splitter [style]="{ height: '300px' }" class="mb-8">
                 <ng-template #panel>
-                    <div class="flex items-center justify-center h-full">Panel 1</div>
+                    <div class="flex items-center justify-center h-full text-sm">Panel 1</div>
                 </ng-template>
                 <ng-template #panel>
-                    <div class="flex items-center justify-center h-full">Panel 2</div>
+                    <div class="flex items-center justify-center h-full text-sm">Panel 2</div>
                 </ng-template>
             </p-splitter>
         </div>
@@ -46,20 +46,20 @@ import { SplitterModule } from 'primeng/splitter';
         <div class="card">
             <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" class="mb-8">
                 <ng-template #panel>
-                    <div class="col flex w-full items-center justify-center">Panel 1</div>
+                    <div class="col flex w-full items-center justify-center text-sm">Panel 1</div>
                 </ng-template>
                 <ng-template #panel>
                     <p-splitter layout="vertical" [panelSizes]="[50, 50]">
                         <ng-template #panel>
-                            <div style="flex-grow: 1;" class="flex items-center justify-center">Panel 2</div>
+                            <div style="flex-grow: 1;" class="flex items-center justify-center text-sm">Panel 2</div>
                         </ng-template>
                         <ng-template #panel>
                             <p-splitter [panelSizes]="[20, 80]">
                                 <ng-template #panel>
-                                    <div class="col h-full flex items-center justify-center">Panel 3</div>
+                                    <div class="col h-full flex items-center justify-center text-sm">Panel 3</div>
                                 </ng-template>
                                 <ng-template #panel>
-                                    <div class="col h-full flex items-center justify-center">Panel 4</div>
+                                    <div class="col h-full flex items-center justify-center text-sm">Panel 4</div>
                                 </ng-template>
                             </p-splitter>
                         </ng-template>
@@ -87,10 +87,10 @@ import { SplitterModule } from 'primeng/splitter';
         <div class="card">
             <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" class="mb-8">
                 <ng-template #panel>
-                    <div class="flex items-center justify-center h-full">Panel 1</div>
+                    <div class="flex items-center justify-center h-full text-sm">Panel 1</div>
                 </ng-template>
                 <ng-template #panel>
-                    <div class="flex items-center justify-center h-full">Panel 2</div>
+                    <div class="flex items-center justify-center h-full text-sm">Panel 2</div>
                 </ng-template>
             </p-splitter>
         </div>
@@ -114,10 +114,10 @@ import { SplitterModule } from 'primeng/splitter';
         <div class="card">
             <p-splitter [style]="{ height: '300px' }" class="mb-8" [panelSizes]="[50, 50]" layout="vertical">
                 <ng-template #panel>
-                    <div class="flex items-center justify-center h-full">Panel 1</div>
+                    <div class="flex items-center justify-center h-full text-sm">Panel 1</div>
                 </ng-template>
                 <ng-template #panel>
-                    <div class="flex items-center justify-center h-full">Panel 2</div>
+                    <div class="flex items-center justify-center h-full text-sm">Panel 2</div>
                 </ng-template>
             </p-splitter>
         </div>
@@ -140,16 +140,15 @@ Splitter is utilized to separate and resize panels.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<SplitterPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
-| panelStyleClass | string | - | Style class of the panel. |
-| panelStyle | { [klass: string]: any } | - | Inline style of the panel. |
-| stateStorage | string | session | Defines where a stateful splitter keeps its state, valid values are 'session' for sessionStorage and 'local' for localStorage. |
-| stateKey | string | null | Storage identifier of a stateful Splitter. |
-| layout | string | horizontal | Orientation of the panels. Valid values are 'horizontal' and 'vertical'. |
-| gutterSize | number | 4 | Size of the divider in pixels. |
-| step | number | 5 | Step factor to increment/decrement the size of the panels while pressing the arrow keys. |
-| minSizes | number[] | [] | Minimum size of the elements relative to 100%. |
-| panelSizes | number[] | - | Size of the elements relative to 100%. |
+| panelStyleClass | InputSignal<string> | ... | Style class of the panel. |
+| panelStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the panel. |
+| stateStorage | InputSignal<SplitterStateStorage> | ... | Defines where a stateful splitter keeps its state, valid values are 'session' for sessionStorage and 'local' for localStorage. |
+| stateKey | InputSignal<string> | ... | Storage identifier of a stateful Splitter. |
+| layout | InputSignal<SplitterLayout> | ... | Orientation of the panels. Valid values are 'horizontal' and 'vertical'. |
+| gutterSize | InputSignalWithTransform<number, unknown> | ... | Size of the divider in pixels. |
+| step | InputSignalWithTransform<number, unknown> | ... | Step factor to increment/decrement the size of the panels while pressing the arrow keys. |
+| minSizes | InputSignal<number[]> | ... | Minimum size of the elements relative to 100%. |
+| panelSizes | InputSignal<number[]> | ... | Size of the elements relative to 100%. |
 
 ### Emits
 

@@ -161,7 +161,7 @@ import { MessageService } from 'primeng/api';
                         <div class="flex gap-2">
                             <p-button (onClick)="choose($event, chooseCallback)" icon="pi pi-images" [rounded]="true" [outlined]="true" />
                             <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
-                            <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
+                            <p-button (onClick)="onClearTemplatingUpload(clearCallback)" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
                         </div>
                         <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" class="md:w-20rem h-1 w-full md:ml-auto">
                             <span class="whitespace-nowrap">{{ totalSize }}B / 1Mb</span>
@@ -170,34 +170,42 @@ import { MessageService } from 'primeng/api';
                 </ng-template>
                 <ng-template #content let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback" let-removeUploadedFileCallback="removeUploadedFileCallback">
                     <div class="flex flex-col gap-8 pt-4">
-                        <div *ngIf="files?.length > 0">
-                            <h5>Pending</h5>
-                            <div class="flex flex-wrap gap-4">
-                                <div *ngFor="let file of files; let i = index" class="p-8 rounded-border flex flex-col border border-surface items-center gap-4">
-                                    <div>
-                                        <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
-                                    </div>
-                                    <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
-                                    <div>{{ formatSize(file.size) }}</div>
-                                    <p-badge value="Pending" severity="warn" />
-                                    <p-button icon="pi pi-times" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
+                        @if (files?.length > 0) {
+                            <div>
+                                <h5>Pending</h5>
+                                <div class="flex flex-wrap gap-4">
+                                    @for (file of files; track $index; let i = $index) {
+                                        <div class="p-8 rounded-border flex flex-col border border-surface items-center gap-4">
+                                            <div>
+                                                <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
+                                            </div>
+                                            <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
+                                            <div>{{ formatSize(file.size) }}</div>
+                                            <p-badge value="Pending" severity="warn" />
+                                            <p-button icon="pi pi-times" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
+                                        </div>
+                                    }
                                 </div>
                             </div>
-                        </div>
-                        <div *ngIf="uploadedFiles?.length > 0">
-                            <h5>Completed</h5>
-                            <div class="flex flex-wrap gap-4">
-                                <div *ngFor="let file of uploadedFiles; let i = index" class="card m-0 px-12 flex flex-col border border-surface items-center gap-4">
-                                    <div>
-                                        <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
-                                    </div>
-                                    <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
-                                    <div>{{ formatSize(file.size) }}</div>
-                                    <p-badge value="Completed" class="mt-4" severity="success" />
-                                    <p-button icon="pi pi-times" (onClick)="removeUploadedFileCallback(index)" [outlined]="true" [rounded]="true" severity="danger" />
+                        }
+                        @if (uploadedFiles?.length > 0) {
+                            <div>
+                                <h5>Completed</h5>
+                                <div class="flex flex-wrap gap-4">
+                                    @for (file of uploadedFiles; track $index; let i = $index) {
+                                        <div class="card m-0 px-12 flex flex-col border border-surface items-center gap-4">
+                                            <div>
+                                                <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
+                                            </div>
+                                            <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
+                                            <div>{{ formatSize(file.size) }}</div>
+                                            <p-badge value="Completed" class="mt-4" severity="success" />
+                                            <p-button icon="pi pi-times" (onClick)="removeUploadedFileCallback(index)" [outlined]="true" [rounded]="true" severity="danger" />
+                                        </div>
+                                    }
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </ng-template>
                 <ng-template #file></ng-template>
@@ -276,43 +284,44 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<FileUploadPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| name | string | - | Name of the request parameter to identify the files at backend. |
-| url | string | - | Remote url to upload the files. |
-| method | "post" \| "put" | post | HTTP method to send the files to the url such as "post" and "put". |
-| multiple | boolean | false | Used to select multiple files at once from file dialog. |
-| accept | string | - | Comma-separated list of pattern to restrict the allowed file types. Can be any combination of either the MIME types (such as "image/*") or the file extensions (such as ".jpg"). |
-| disabled | boolean | false | Disables the upload functionality. |
-| auto | boolean | false | When enabled, upload begins automatically after selection is completed. |
-| withCredentials | boolean | false | Cross-site Access-Control requests should be made using credentials such as cookies, authorization headers or TLS client certificates. |
-| maxFileSize | number | - | Maximum file size allowed in bytes. |
-| invalidFileSizeMessageSummary | string | {0}: Invalid file size,  | Summary message of the invalid file size. |
-| invalidFileSizeMessageDetail | string | maximum upload size is {0}. | Detail message of the invalid file size. |
-| invalidFileTypeMessageSummary | string | {0}: Invalid file type,  | Summary message of the invalid file type. |
-| invalidFileTypeMessageDetail | string | allowed file types: {0}. | Detail message of the invalid file type. |
-| invalidFileLimitMessageDetail | string | limit is {0} at most. | Detail message of the invalid file type. |
-| invalidFileLimitMessageSummary | string | Maximum number of files exceeded,  | Summary message of the invalid file type. |
-| style | { [klass: string]: any } | - | Inline style of the element. |
-| styleClass | string | - | Class of the element. |
-| previewWidth | number | 50 | Width of the image thumbnail in pixels. |
-| chooseLabel | string | - | Label of the choose button. Defaults to PrimeNG Locale configuration. |
-| uploadLabel | string | - | Label of the upload button. Defaults to PrimeNG Locale configuration. |
-| cancelLabel | string | - | Label of the cancel button. Defaults to PrimeNG Locale configuration. |
-| chooseIcon | string | - | Icon of the choose button. |
-| uploadIcon | string | - | Icon of the upload button. |
-| cancelIcon | string | - | Icon of the cancel button. |
-| showUploadButton | boolean | true | Whether to show the upload button. |
-| showCancelButton | boolean | true | Whether to show the cancel button. |
-| mode | "advanced" \| "basic" | advanced | Defines the UI of the component. |
-| headers | HttpHeaders | - | HttpHeaders class represents the header configuration options for an HTTP request. |
-| customUpload | boolean | false | Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to PrimeNG Locale configuration. |
-| fileLimit | number | - | Maximum number of files that can be uploaded. |
-| uploadStyleClass | string | - | Style class of the upload button. |
-| cancelStyleClass | string | - | Style class of the cancel button. |
-| removeStyleClass | string | - | Style class of the remove button. |
-| chooseStyleClass | string | - | Style class of the choose button. |
-| chooseButtonProps | ButtonProps | - | Used to pass all properties of the ButtonProps to the choose button inside the component. |
-| uploadButtonProps | ButtonProps | ... | Used to pass all properties of the ButtonProps to the upload button inside the component. |
-| cancelButtonProps | ButtonProps | ... | Used to pass all properties of the ButtonProps to the cancel button inside the component. |
+| name | InputSignal<string> | ... | Name of the request parameter to identify the files at backend. |
+| url | InputSignal<string> | ... | Remote url to upload the files. |
+| method | InputSignal<"post" \| "put"> | ... | HTTP method to send the files to the url such as "post" and "put". |
+| multiple | InputSignalWithTransform<boolean, unknown> | ... | Used to select multiple files at once from file dialog. |
+| accept | InputSignal<string> | ... | Comma-separated list of pattern to restrict the allowed file types. Can be any combination of either the MIME types (such as "image/*") or the file extensions (such as ".jpg"). |
+| disabled | InputSignalWithTransform<boolean, unknown> | ... | Disables the upload functionality. |
+| auto | InputSignalWithTransform<boolean, unknown> | ... | When enabled, upload begins automatically after selection is completed. |
+| withCredentials | InputSignalWithTransform<boolean, unknown> | ... | Cross-site Access-Control requests should be made using credentials such as cookies, authorization headers or TLS client certificates. |
+| maxFileSize | InputSignalWithTransform<number, unknown> | ... | Maximum file size allowed in bytes. |
+| invalidFileSizeMessageSummary | InputSignal<string> | ... | Summary message of the invalid file size. |
+| invalidFileSizeMessageDetail | InputSignal<string> | ... | Detail message of the invalid file size. |
+| invalidFileTypeMessageSummary | InputSignal<string> | ... | Summary message of the invalid file type. |
+| invalidFileTypeMessageDetail | InputSignal<string> | ... | Detail message of the invalid file type. |
+| invalidFileLimitMessageDetail | InputSignal<string> | ... | Detail message of the invalid file type. |
+| invalidFileLimitMessageSummary | InputSignal<string> | ... | Summary message of the invalid file type. |
+| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the element. |
+| styleClass | InputSignal<string> | ... | Class of the element. |
+| previewWidth | InputSignalWithTransform<number, unknown> | ... | Width of the image thumbnail in pixels. |
+| chooseLabel | InputSignal<string> | ... | Label of the choose button. Defaults to PrimeNG Locale configuration. |
+| uploadLabel | InputSignal<string> | ... | Label of the upload button. Defaults to PrimeNG Locale configuration. |
+| cancelLabel | InputSignal<string> | ... | Label of the cancel button. Defaults to PrimeNG Locale configuration. |
+| chooseIcon | InputSignal<string> | ... | Icon of the choose button. |
+| uploadIcon | InputSignal<string> | ... | Icon of the upload button. |
+| cancelIcon | InputSignal<string> | ... | Icon of the cancel button. |
+| showUploadButton | InputSignalWithTransform<boolean, unknown> | ... | Whether to show the upload button. |
+| showCancelButton | InputSignalWithTransform<boolean, unknown> | ... | Whether to show the cancel button. |
+| mode | InputSignal<"advanced" \| "basic"> | ... | Defines the UI of the component. |
+| headers | InputSignal<HttpHeaders> | ... | HttpHeaders class represents the header configuration options for an HTTP request. |
+| customUpload | InputSignalWithTransform<boolean, unknown> | ... | Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to PrimeNG Locale configuration. |
+| fileLimit | InputSignalWithTransform<number, unknown> | ... | Maximum number of files that can be uploaded. |
+| uploadStyleClass | InputSignal<string> | ... | Style class of the upload button. |
+| cancelStyleClass | InputSignal<string> | ... | Style class of the cancel button. |
+| removeStyleClass | InputSignal<string> | ... | Style class of the remove button. |
+| chooseStyleClass | InputSignal<string> | ... | Style class of the choose button. |
+| chooseButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the choose button inside the component. |
+| uploadButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the upload button inside the component. |
+| cancelButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the cancel button inside the component. |
+| filesInput | InputSignal<File[]> | ... | Files input. |
 
 ### Emits
 
@@ -322,7 +331,7 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 | onSend | event: FileSendEvent | An event indicating that the request was sent to the server. Useful when a request may be retried multiple times, to distinguish between retries on the final event stream. |
 | onUpload | event: FileUploadEvent | Callback to invoke when file upload is complete. |
 | onError | event: FileUploadErrorEvent | Callback to invoke if file upload fails. |
-| onClear | event: Event | Callback to invoke when files in queue are removed without uploading using clear all button. |
+| onClear | value: void | Callback to invoke when files in queue are removed without uploading using clear all button. |
 | onRemove | event: FileRemoveEvent | Callback to invoke when a file is removed without uploading using clear button of a file. |
 | onSelect | event: FileSelectEvent | Callback to invoke when files are selected. |
 | onProgress | event: FileProgressEvent | Callback to invoke when files are being uploaded. |
@@ -334,15 +343,15 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 
 | Name | Type | Description |
 |------|------|-------------|
-| file | TemplateRef<void> | Custom file template. |
-| header | TemplateRef<FileUploadHeaderTemplateContext> | Custom header template. |
-| content | TemplateRef<FileUploadContentTemplateContext> | Custom content template. |
-| toolbar | TemplateRef<void> | Custom toolbar template. |
-| chooseicon | TemplateRef<void> | Custom choose icon template. |
-| filelabel | TemplateRef<FileUploadFileLabelTemplateContext> | Custom file label template. |
-| uploadicon | TemplateRef<void> | Custom upload icon template. |
-| cancelicon | TemplateRef<void> | Custom cancel icon template. |
-| empty | TemplateRef<void> | Custom empty state template. |
+| file | Signal<TemplateRef<void>> | Custom file template. |
+| header | Signal<TemplateRef<FileUploadHeaderTemplateContext>> | Custom header template. |
+| content | Signal<TemplateRef<FileUploadContentTemplateContext>> | Custom content template. |
+| toolbar | Signal<TemplateRef<void>> | Custom toolbar template. |
+| chooseicon | Signal<TemplateRef<void>> | Custom choose icon template. |
+| filelabel | Signal<TemplateRef<FileUploadFileLabelTemplateContext>> | Custom file label template. |
+| uploadicon | Signal<TemplateRef<void>> | Custom upload icon template. |
+| cancelicon | Signal<TemplateRef<void>> | Custom cancel icon template. |
+| empty | Signal<TemplateRef<void>> | Custom empty state template. |
 
 ### Methods
 
@@ -425,6 +434,12 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 | fileupload.file.gap | --p-fileupload-file-gap | Gap of file |
 | fileupload.file.border.color | --p-fileupload-file-border-color | Border color of file |
 | fileupload.file.info.gap | --p-fileupload-file-info-gap | Info gap of file |
+| fileupload.file.name.color | --p-fileupload-file-name-color | Color of file name |
+| fileupload.file.name.font.weight | --p-fileupload-file-name-font-weight | Font weight of file name |
+| fileupload.file.name.font.size | --p-fileupload-file-name-font-size | Font size of file name |
+| fileupload.file.size.color | --p-fileupload-file-size-color | Color of file size |
+| fileupload.file.size.font.weight | --p-fileupload-file-size-font-weight | Font weight of file size |
+| fileupload.file.size.font.size | --p-fileupload-file-size-font-size | Font size of file size |
 | fileupload.file.list.gap | --p-fileupload-file-list-gap | Gap of file list |
 | fileupload.progressbar.height | --p-fileupload-progressbar-height | Height of progressbar |
 | fileupload.basic.gap | --p-fileupload-basic-gap | Gap of basic |

@@ -142,19 +142,18 @@ ProgressBar is a process status indicator.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ProgressBarPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| value | number | - | Current value of the progress. |
-| showValue | boolean | true | Whether to display the progress bar value. |
-| styleClass | string | - | Style class of the element. **(Deprecated)** |
-| valueStyleClass | string | - | Style class of the value element. |
-| unit | string | % | Unit sign appended to the value. |
-| mode | "indeterminate" \| "determinate" | 'determinate' | Defines the mode of the progress |
-| color | string | - | Color for the background of the progress. |
+| value | InputSignalWithTransform<number, unknown> | ... | Current value of the progress. |
+| showValue | InputSignalWithTransform<boolean, unknown> | ... | Whether to display the progress bar value. |
+| valueStyleClass | InputSignal<string> | ... | Style class of the value element. |
+| unit | InputSignal<string> | ... | Unit sign appended to the value. |
+| mode | InputSignal<ProgressBarMode> | 'determinate' | Defines the mode of the progress |
+| color | InputSignal<string> | ... | Color for the background of the progress. |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<ProgressBarContentTemplateContext> | Template of the content. |
+| content | Signal<TemplateRef<ProgressBarContentTemplateContext>> | Template of the content. |
 
 ## Pass Through Options
 

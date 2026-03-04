@@ -115,8 +115,11 @@ import { DatePickerModule } from 'primeng/datepicker';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date">
                 <ng-template #date let-date>
-                    <strong *ngIf="date.day > 10 && date.day < 15; else elseBlock" style="text-decoration: line-through">{{ date.day }}</strong>
-                    <ng-template #elseBlock>{{ date.day }}</ng-template>
+                    @if (date.day > 10 && date.day < 15) {
+                        <strong style="text-decoration: line-through">{{ date.day }}</strong>
+                    } @else {
+                        {{ date.day }}
+                    }
                 </ng-template>
             </p-datepicker>
         </div>
@@ -366,15 +369,15 @@ import { DatePickerModule } from 'primeng/datepicker';
     template: `
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
-                <label for="buttondisplay" class="font-bold block mb-2"> Button </label>
+                <label for="buttondisplay" class="text-sm font-bold block mb-2"> Button </label>
                 <p-datepicker [(ngModel)]="date1" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
             </div>
             <div class="flex-auto">
-                <label for="icondisplay" class="font-bold block mb-2"> Default Icon </label>
+                <label for="icondisplay" class="text-sm font-bold block mb-2"> Default Icon </label>
                 <p-datepicker [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
             </div>
             <div class="flex-auto">
-                <label for="templatedisplay" class="font-bold block mb-2"> Custom Icon </label>
+                <label for="templatedisplay" class="text-sm font-bold block mb-2"> Custom Icon </label>
                 <p-datepicker [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
                     <ng-template #inputicon let-clickCallBack="clickCallBack">
                         <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
@@ -894,15 +897,15 @@ import { DatePickerModule } from 'primeng/datepicker';
     template: `
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
-                <label for="calendar-12h" class="font-bold block mb-2"> 12h Format </label>
+                <label for="calendar-12h" class="text-sm font-bold block mb-2"> 12h Format </label>
                 <p-datepicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" [hourFormat]="12" />
             </div>
             <div class="flex-auto">
-                <label for="calendar-24h" class="font-bold block mb-2"> 24h Format </label>
+                <label for="calendar-24h" class="text-sm font-bold block mb-2"> 24h Format </label>
                 <p-datepicker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" [hourFormat]="24" />
             </div>
             <div class="flex-auto">
-                <label for="calendar-timeonly" class="font-bold block mb-2"> Time Only </label>
+                <label for="calendar-timeonly" class="text-sm font-bold block mb-2"> Time Only </label>
                 <p-datepicker inputId="calendar-timeonly" [(ngModel)]="time" [timeOnly]="true" />
             </div>
         </p-fluid>
@@ -980,7 +983,7 @@ DatePicker is a form component to work with dates.
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
 | fluid | InputSignalWithTransform<boolean, unknown> | false | Spans 100% width of the container when enabled. |
-| variant | InputSignal<"outlined" \| "filled"> | 'outlined' | Specifies the input variant of the component. |
+| variant | InputSignal<"filled" \| "outlined"> | 'outlined' | Specifies the input variant of the component. |
 | size | InputSignal<"small" \| "large"> | undefined | Specifies the size of the component. |
 | inputSize | InputSignal<number> | undefined | Specifies the visible width of the input element in characters. |
 | pattern | InputSignal<string> | undefined | Specifies the value must match the pattern. |
@@ -989,64 +992,62 @@ DatePicker is a form component to work with dates.
 | step | InputSignal<number> | undefined | Unless the step is set to the any literal, the value must be min + an integral multiple of the step. |
 | minlength | InputSignal<number> | undefined | The number of characters (code points) must not be less than the value of the attribute, if non-empty. |
 | maxlength | InputSignal<number> | undefined | The number of characters (code points) must not exceed the value of the attribute. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
-| inputStyle | { [klass: string]: any } | - | Inline style of the input field. |
-| inputId | string | - | Identifier of the focus input to match a label defined for the component. |
-| inputStyleClass | string | - | Style class of the input field. |
-| placeholder | string | - | Placeholder text for the input. |
-| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
-| iconAriaLabel | string | - | Defines a string that labels the icon button for accessibility. |
-| dateFormat | string | - | Format of the date which can also be defined at locale settings. |
-| multipleSeparator | string | , | Separator for multiple selection mode. |
-| rangeSeparator | string | - | Separator for joining start and end dates on range selection mode. |
-| inline | boolean | false | When enabled, displays the datepicker as inline. Default is false for popup mode. |
-| showOtherMonths | boolean | true | Whether to display dates in other months (non-selectable) at the start or end of the current month. To make these days selectable use the selectOtherMonths option. |
-| selectOtherMonths | boolean | false | Whether days in other months shown before or after the current month are selectable. This only applies if the showOtherMonths option is set to true. |
-| showIcon | boolean | false | When enabled, displays a button with icon next to input. |
-| icon | string | - | Icon of the datepicker button. |
-| readonlyInput | boolean | false | When specified, prevents entering the date manually with keyboard. |
-| shortYearCutoff | any | +10 | The cutoff year for determining the century for a date. |
-| hourFormat | string | - | Specifies 12 or 24 hour format. |
-| timeOnly | boolean | false | Whether to display timepicker only. |
-| stepHour | number | 1 | Hours to change per step. |
-| stepMinute | number | 1 | Minutes to change per step. |
-| stepSecond | number | 1 | Seconds to change per step. |
-| showSeconds | boolean | false | Whether to show the seconds in time picker. |
-| showOnFocus | boolean | true | When disabled, datepicker will not be visible with input focus. |
-| showWeek | boolean | false | When enabled, datepicker will show week numbers. |
-| startWeekFromFirstDayOfYear | boolean | false | When enabled, datepicker will start week numbers from first day of the year. |
-| showClear | boolean | false | When enabled, a clear icon is displayed to clear the value. |
-| dataType | string | date | Type of the value to write back to ngModel, default is date and alternative is string. |
-| selectionMode | "multiple" \| "single" \| "range" | single | Defines the quantity of the selection, valid values are "single", "multiple" and "range". |
-| maxDateCount | number | - | Maximum number of selectable dates in multiple mode. |
-| showButtonBar | boolean | false | Whether to display today and clear buttons at the footer |
-| todayButtonStyleClass | string | - | Style class of the today button. |
-| clearButtonStyleClass | string | - | Style class of the clear button. |
-| autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
-| autoZIndex | boolean | true | Whether to automatically manage layering. |
-| baseZIndex | number | 0 | Base zIndex value to use in layering. |
-| panelStyleClass | string | - | Style class of the datetimepicker container element. |
-| panelStyle | any | - | Inline style of the datetimepicker container element. |
-| keepInvalid | boolean | false | Keep invalid value when input blur. |
-| hideOnDateTimeSelect | boolean | true | Whether to hide the overlay on date selection. |
-| touchUI | boolean | false | When enabled, datepicker overlay is displayed as optimized for touch devices. |
-| timeSeparator | string | : | Separator of time selector. |
-| focusTrap | boolean | true | When enabled, can only focus on elements inside the datepicker. |
-| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
-| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. **(Deprecated)** |
-| tabindex | number | - | Index of the element in tabbing order. |
-| minDate | Date | - | The minimum selectable date. |
-| maxDate | Date | - | The maximum selectable date. |
-| disabledDates | Date[] | - | Array with dates that should be disabled (not selectable). |
-| disabledDays | number[] | - | Array with weekday numbers that should be disabled (not selectable). |
-| showTime | boolean | - | Whether to display timepicker. |
-| responsiveOptions | DatePickerResponsiveOptions[] | - | An array of options for responsive design. |
-| numberOfMonths | number | - | Number of months to display. |
-| firstDayOfWeek | number | - | Defines the first of the week for various date calculations. |
-| view | DatePickerTypeView | - | Type of view to display, valid values are "date" for datepicker and "month" for month picker. |
-| defaultDate | Date | - | Set the date to highlight on first opening if the field is blank. |
-| appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| iconDisplay | InputSignal<DatePickerIconDisplay> | ... | Icon display mode. |
+| inputStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the input field. |
+| inputId | InputSignal<string> | ... | Identifier of the focus input to match a label defined for the component. |
+| inputStyleClass | InputSignal<string> | ... | Style class of the input field. |
+| placeholder | InputSignal<string> | ... | Placeholder text for the input. |
+| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
+| iconAriaLabel | InputSignal<string> | ... | Defines a string that labels the icon button for accessibility. |
+| dateFormat | InputSignal<string> | ... | Format of the date which can also be defined at locale settings. |
+| multipleSeparator | InputSignal<string> | ... | Separator for multiple selection mode. |
+| rangeSeparator | InputSignal<string> | ... | Separator for joining start and end dates on range selection mode. |
+| inline | InputSignalWithTransform<boolean, unknown> | ... | When enabled, displays the datepicker as inline. Default is false for popup mode. |
+| showOtherMonths | InputSignalWithTransform<boolean, unknown> | ... | Whether to display dates in other months (non-selectable) at the start or end of the current month. To make these days selectable use the selectOtherMonths option. |
+| selectOtherMonths | InputSignalWithTransform<boolean, unknown> | ... | Whether days in other months shown before or after the current month are selectable. This only applies if the showOtherMonths option is set to true. |
+| showIcon | InputSignalWithTransform<boolean, unknown> | ... | When enabled, displays a button with icon next to input. |
+| icon | InputSignal<string> | ... | Icon of the datepicker button. |
+| readonlyInput | InputSignalWithTransform<boolean, unknown> | ... | When specified, prevents entering the date manually with keyboard. |
+| shortYearCutoff | InputSignal<any> | ... | The cutoff year for determining the century for a date. |
+| hourFormat | InputSignal<string> | ... | Specifies 12 or 24 hour format. |
+| timeOnly | InputSignalWithTransform<boolean, unknown> | ... | Whether to display timepicker only. |
+| stepHour | InputSignalWithTransform<number, unknown> | ... | Hours to change per step. |
+| stepMinute | InputSignalWithTransform<number, unknown> | ... | Minutes to change per step. |
+| stepSecond | InputSignalWithTransform<number, unknown> | ... | Seconds to change per step. |
+| showSeconds | InputSignalWithTransform<boolean, unknown> | ... | Whether to show the seconds in time picker. |
+| showOnFocus | InputSignalWithTransform<boolean, unknown> | ... | When disabled, datepicker will not be visible with input focus. |
+| showWeek | InputSignalWithTransform<boolean, unknown> | ... | When enabled, datepicker will show week numbers. |
+| startWeekFromFirstDayOfYear | InputSignalWithTransform<boolean, unknown> | ... | When enabled, datepicker will start week numbers from first day of the year. |
+| showClear | InputSignalWithTransform<boolean, unknown> | ... | When enabled, a clear icon is displayed to clear the value. |
+| dataType | InputSignal<string> | ... | Type of the value to write back to ngModel, default is date and alternative is string. |
+| selectionMode | InputSignal<DatePickerSelectionMode> | ... | Defines the quantity of the selection, valid values are "single", "multiple" and "range". |
+| maxDateCount | InputSignalWithTransform<number, unknown> | ... | Maximum number of selectable dates in multiple mode. |
+| showButtonBar | InputSignalWithTransform<boolean, unknown> | ... | Whether to display today and clear buttons at the footer |
+| todayButtonStyleClass | InputSignal<string> | ... | Style class of the today button. |
+| clearButtonStyleClass | InputSignal<string> | ... | Style class of the clear button. |
+| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
+| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
+| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
+| panelStyleClass | InputSignal<string> | ... | Style class of the datetimepicker container element. |
+| panelStyle | InputSignal<any> | ... | Inline style of the datetimepicker container element. |
+| keepInvalid | InputSignalWithTransform<boolean, unknown> | ... | Keep invalid value when input blur. |
+| hideOnDateTimeSelect | InputSignalWithTransform<boolean, unknown> | ... | Whether to hide the overlay on date selection. |
+| touchUI | InputSignalWithTransform<boolean, unknown> | ... | When enabled, datepicker overlay is displayed as optimized for touch devices. |
+| timeSeparator | InputSignal<string> | ... | Separator of time selector. |
+| focusTrap | InputSignalWithTransform<boolean, unknown> | ... | When enabled, can only focus on elements inside the datepicker. |
+| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
+| minDate | InputSignal<Date> | ... | The minimum selectable date. |
+| maxDate | InputSignal<Date> | ... | The maximum selectable date. |
+| disabledDates | InputSignal<Date[]> | ... | Array with dates that should be disabled (not selectable). |
+| disabledDays | InputSignal<number[]> | ... | Array with weekday numbers that should be disabled (not selectable). |
+| showTime | InputSignalWithTransform<boolean, unknown> | ... | Whether to display timepicker. |
+| responsiveOptions | InputSignal<DatePickerResponsiveOptions[]> | ... | An array of options for responsive design. |
+| numberOfMonths | InputSignalWithTransform<number, unknown> | ... | Number of months to display. |
+| firstDayOfWeek | InputSignalWithTransform<number, unknown> | ... | Defines the first of the week for various date calculations. |
+| view | InputSignal<DatePickerViewType> | ... | Type of view to display, valid values are "date" for datepicker and "month" for month picker. |
+| defaultDate | InputSignal<Date> | ... | Set the date to highlight on first opening if the field is blank. |
+| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
@@ -1070,19 +1071,19 @@ DatePicker is a form component to work with dates.
 
 | Name | Type | Description |
 |------|------|-------------|
-| date | TemplateRef<DatePickerDateTemplateContext> | Custom template for date cells. |
-| header | TemplateRef<void> | Custom template for header section. |
-| footer | TemplateRef<void> | Custom template for footer section. |
-| disableddate | TemplateRef<DatePickerDisabledDateTemplateContext> | Custom template for disabled date cells. |
-| decade | TemplateRef<DatePickerDecadeTemplateContext> | Custom template for decade view. |
-| previousicon | TemplateRef<void> | Custom template for previous month icon. |
-| nexticon | TemplateRef<void> | Custom template for next month icon. |
-| triggericon | TemplateRef<void> | Custom template for trigger icon. |
-| clearicon | TemplateRef<void> | Custom template for clear icon. |
-| decrementicon | TemplateRef<void> | Custom template for decrement icon. |
-| incrementicon | TemplateRef<void> | Custom template for increment icon. |
-| inputicon | TemplateRef<DatePickerInputIconTemplateContext> | Custom template for input icon. |
-| buttonbar | TemplateRef<DatePickerButtonBarTemplateContext> | Custom template for button bar. |
+| date | Signal<TemplateRef<DatePickerDateTemplateContext>> | Custom template for date cells. |
+| header | Signal<TemplateRef<void>> | Custom template for header section. |
+| footer | Signal<TemplateRef<void>> | Custom template for footer section. |
+| disableddate | Signal<TemplateRef<DatePickerDisabledDateTemplateContext>> | Custom template for disabled date cells. |
+| decade | Signal<TemplateRef<DatePickerDecadeTemplateContext>> | Custom template for decade view. |
+| previousicon | Signal<TemplateRef<void>> | Custom template for previous month icon. |
+| nexticon | Signal<TemplateRef<void>> | Custom template for next month icon. |
+| triggericon | Signal<TemplateRef<void>> | Custom template for trigger icon. |
+| clearicon | Signal<TemplateRef<void>> | Custom template for clear icon. |
+| decrementicon | Signal<TemplateRef<void>> | Custom template for decrement icon. |
+| incrementicon | Signal<TemplateRef<void>> | Custom template for increment icon. |
+| inputicon | Signal<TemplateRef<DatePickerInputIconTemplateContext>> | Custom template for input icon. |
+| buttonbar | Signal<TemplateRef<DatePickerButtonBarTemplateContext>> | Custom template for button bar. |
 
 ## Pass Through Options
 
@@ -1207,6 +1208,7 @@ DatePicker is a form component to work with dates.
 | datepicker.header.padding | --p-datepicker-header-padding | Padding of header |
 | datepicker.title.gap | --p-datepicker-title-gap | Gap of title |
 | datepicker.title.font.weight | --p-datepicker-title-font-weight | Font weight of title |
+| datepicker.title.font.size | --p-datepicker-title-font-size | Font size of title |
 | datepicker.dropdown.width | --p-datepicker-dropdown-width | Width of dropdown |
 | datepicker.dropdown.sm.width | --p-datepicker-dropdown-sm-width | Sm width of dropdown |
 | datepicker.dropdown.lg.width | --p-datepicker-dropdown-lg-width | Lg width of dropdown |
@@ -1231,16 +1233,21 @@ DatePicker is a form component to work with dates.
 | datepicker.select.month.hover.color | --p-datepicker-select-month-hover-color | Hover color of select month |
 | datepicker.select.month.padding | --p-datepicker-select-month-padding | Padding of select month |
 | datepicker.select.month.border.radius | --p-datepicker-select-month-border-radius | Border radius of select month |
+| datepicker.select.month.font.weight | --p-datepicker-select-month-font-weight | Font weight of select month |
+| datepicker.select.month.font.size | --p-datepicker-select-month-font-size | Font size of select month |
 | datepicker.select.year.hover.background | --p-datepicker-select-year-hover-background | Hover background of select year |
 | datepicker.select.year.color | --p-datepicker-select-year-color | Color of select year |
 | datepicker.select.year.hover.color | --p-datepicker-select-year-hover-color | Hover color of select year |
 | datepicker.select.year.padding | --p-datepicker-select-year-padding | Padding of select year |
 | datepicker.select.year.border.radius | --p-datepicker-select-year-border-radius | Border radius of select year |
+| datepicker.select.year.font.weight | --p-datepicker-select-year-font-weight | Font weight of select year |
+| datepicker.select.year.font.size | --p-datepicker-select-year-font-size | Font size of select year |
 | datepicker.group.border.color | --p-datepicker-group-border-color | Border color of group |
 | datepicker.group.gap | --p-datepicker-group-gap | Gap of group |
 | datepicker.day.view.margin | --p-datepicker-day-view-margin | Margin of day view |
 | datepicker.week.day.padding | --p-datepicker-week-day-padding | Padding of week day |
 | datepicker.week.day.font.weight | --p-datepicker-week-day-font-weight | Font weight of week day |
+| datepicker.week.day.font.size | --p-datepicker-week-day-font-size | Font size of week day |
 | datepicker.week.day.color | --p-datepicker-week-day-color | Color of week day |
 | datepicker.date.hover.background | --p-datepicker-date-hover-background | Hover background of date |
 | datepicker.date.selected.background | --p-datepicker-date-selected-background | Selected background of date |
@@ -1258,6 +1265,8 @@ DatePicker is a form component to work with dates.
 | datepicker.date.focus.ring.color | --p-datepicker-date-focus-ring-color | Focus ring color of date |
 | datepicker.date.focus.ring.offset | --p-datepicker-date-focus-ring-offset | Focus ring offset of date |
 | datepicker.date.focus.ring.shadow | --p-datepicker-date-focus-ring-shadow | Focus ring shadow of date |
+| datepicker.date.font.weight | --p-datepicker-date-font-weight | Font weight of date |
+| datepicker.date.font.size | --p-datepicker-date-font-size | Font size of date |
 | datepicker.month.view.margin | --p-datepicker-month-view-margin | Margin of month view |
 | datepicker.month.padding | --p-datepicker-month-padding | Padding of month |
 | datepicker.month.border.radius | --p-datepicker-month-border-radius | Border radius of month |
@@ -1270,6 +1279,9 @@ DatePicker is a form component to work with dates.
 | datepicker.time.picker.border.color | --p-datepicker-time-picker-border-color | Border color of time picker |
 | datepicker.time.picker.gap | --p-datepicker-time-picker-gap | Gap of time picker |
 | datepicker.time.picker.button.gap | --p-datepicker-time-picker-button-gap | Button gap of time picker |
+| datepicker.time.picker.color | --p-datepicker-time-picker-color | Color of time picker label |
+| datepicker.time.picker.font.weight | --p-datepicker-time-picker-font-weight | Font weight of time picker label |
+| datepicker.time.picker.font.size | --p-datepicker-time-picker-font-size | Font size of time picker label |
 | datepicker.today.background | --p-datepicker-today-background | Background of today |
 | datepicker.today.color | --p-datepicker-today-color | Color of today |
 

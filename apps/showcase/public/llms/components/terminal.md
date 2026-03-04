@@ -69,9 +69,9 @@ Terminal is a text based user interface.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<TerminalPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| welcomeMessage | string | - | Initial text to display on terminal. |
-| prompt | string | - | Prompt text for each command. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
+| welcomeMessage | InputSignal<string> | ... | Initial text to display on terminal. |
+| prompt | InputSignal<string> | ... | Prompt text for each command. |
+| response | InputSignal<string> | ... | Response to display after a command. |
 
 ## Pass Through Options
 
@@ -114,6 +114,8 @@ Terminal is a text based user interface.
 | terminal.height | --p-terminal-height | Height of root |
 | terminal.padding | --p-terminal-padding | Padding of root |
 | terminal.border.radius | --p-terminal-border-radius | Border radius of root |
+| terminal.font.weight | --p-terminal-font-weight | Font weight of root |
+| terminal.font.size | --p-terminal-font-size | Font size of root |
 | terminal.prompt.gap | --p-terminal-prompt-gap | Gap of prompt |
 | terminal.command.response.margin | --p-terminal-command-response-margin | Margin of command response |
 

@@ -67,10 +67,12 @@ import { CheckboxModule } from 'primeng/checkbox';
     template: `
         <div class="card flex justify-center">
             <div class="flex flex-col gap-4">
-                <div *ngFor="let category of categories" class="flex items-center">
-                    <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
-                    <label [for]="category.key" class="ml-2"> {{ category.name }} </label>
-                </div>
+                @for (category of categories; track category.key) {
+                    <div class="flex items-center">
+                        <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
+                        <label [for]="category.key" class="text-sm ml-2"> {{ category.name }} </label>
+                    </div>
+                }
             </div>
         </div>
     `,
@@ -79,7 +81,12 @@ import { CheckboxModule } from 'primeng/checkbox';
 })
 export class CheckboxDynamicDemo implements OnInit {
     selectedCategories: any[] = [];
-    categories: any[];
+    categories: any[] = [
+        { name: 'Accounting', key: 'A' },
+        { name: 'Marketing', key: 'M' },
+        { name: 'Production', key: 'P' },
+        { name: 'Research', key: 'R' }
+    ];
 
     ngOnInit() {
         this.selectedCategories = [this.categories[1]];
@@ -194,19 +201,19 @@ import { CheckboxModule } from 'primeng/checkbox';
         <div class="card flex flex-wrap justify-center gap-4">
             <div class="flex items-center">
                 <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" [(ngModel)]="pizza" />
-                <label for="ingredient1" class="ml-2"> Cheese </label>
+                <label for="ingredient1" class="text-sm ml-2"> Cheese </label>
             </div>
             <div class="flex items-center">
                 <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" [(ngModel)]="pizza" />
-                <label for="ingredient2" class="ml-2"> Mushroom </label>
+                <label for="ingredient2" class="text-sm ml-2"> Mushroom </label>
             </div>
             <div class="flex items-center">
                 <p-checkbox inputId="ingredient3" name="pizza" value="Pepper" [(ngModel)]="pizza" />
-                <label for="ingredient3" class="ml-2"> Pepper </label>
+                <label for="ingredient3" class="text-sm ml-2"> Pepper </label>
             </div>
             <div class="flex items-center">
                 <p-checkbox inputId="ingredient4" name="pizza" value="Onion" [(ngModel)]="pizza" />
-                <label for="ingredient4" class="ml-2"> Onion </label>
+                <label for="ingredient4" class="text-sm ml-2"> Onion </label>
             </div>
         </div>
     `,
@@ -240,7 +247,7 @@ import { MessageService } from 'primeng/api';
                     @for (item of formKeys; track item) {
                         <div class="flex items-center gap-2">
                             <p-checkbox [formControlName]="item" [binary]="true" [inputId]="item" [invalid]="isInvalid(item)" />
-                            <label [for]="item"> {{ item | titlecase }} </label>
+                            <label [for]="item" class="text-sm"> {{ item | titlecase }} </label>
                         </div>
                     }
                 </div>
@@ -366,7 +373,7 @@ import { MessageService } from 'primeng/api';
                     @for (item of formKeys; track item) {
                         <div class="flex items-center gap-2">
                             <p-checkbox [inputId]="item" [name]="item" [(ngModel)]="formModel[item]" [binary]="true" [invalid]="isInvalid()"></p-checkbox>
-                            <label [for]="item">{{ item | titlecase }}</label>
+                            <label [for]="item" class="text-sm">{{ item | titlecase }}</label>
                         </div>
                     }
                 </div>
@@ -385,7 +392,12 @@ import { MessageService } from 'primeng/api';
 export class CheckboxTemplatedrivenformsDemo {
     messageService = inject(MessageService);
     formSubmitted: boolean = false;
-    formModel: any;
+    formModel: any = {
+        cheese: false,
+        mushroom: false,
+        pepper: false,
+        onion: false
+    };
 
     isInvalid(): boolean {
         return this.formSubmitted && !this.isAtLeastOneSelected();
@@ -436,24 +448,23 @@ Checkbox is an extension to standard checkbox element with theming.
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| value | any | - | Value of the checkbox. |
-| binary | boolean | false | Allows to select a boolean value instead of multiple values. |
-| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| ariaLabel | string | - | Used to define a string that labels the input element. |
-| tabindex | number | - | Index of the element in tabbing order. |
-| inputId | string | - | Identifier of the focus input to match a label defined for the component. |
-| inputStyle | { [klass: string]: any } | - | Inline style of the input element. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
-| inputClass | string | - | Style class of the input element. |
-| indeterminate | boolean | false | When present, it specifies input state as indeterminate. |
-| formControl | FormControl<any> | - | Form control value. |
-| checkboxIcon | string | - | Icon class of the checkbox icon. |
-| readonly | boolean | false | When present, it specifies that the component cannot be edited. |
-| autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
-| trueValue | any | true | Value in checked state. |
-| falseValue | any | false | Value in unchecked state. |
-| variant | InputSignal<"outlined" \| "filled"> | undefined | Specifies the input variant of the component. |
-| size | InputSignal<"small" \| "large"> | undefined | Specifies the size of the component. |
+| value | InputSignal<any> | ... | Value of the checkbox. |
+| binary | InputSignalWithTransform<boolean, unknown> | ... | Allows to select a boolean value instead of multiple values. |
+| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| ariaLabel | InputSignal<string> | ... | Used to define a string that labels the input element. |
+| tabindex | InputSignal<number> | ... | Index of the element in tabbing order. |
+| inputId | InputSignal<string> | ... | Identifier of the focus input to match a label defined for the component. |
+| inputStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the input element. |
+| inputClass | InputSignal<string> | ... | Style class of the input element. |
+| indeterminate | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies input state as indeterminate. |
+| formControl | InputSignal<FormControl<any>> | ... | Form control value. |
+| checkboxIcon | InputSignal<string> | ... | Icon class of the checkbox icon. |
+| readonly | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component cannot be edited. |
+| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
+| trueValue | InputSignal<any> | ... | Value in checked state. |
+| falseValue | InputSignal<any> | ... | Value in unchecked state. |
+| variant | InputSignal<InputVariant> | undefined | Specifies the input variant of the component. |
+| size | InputSignal<InputSize> | undefined | Specifies the size of the component. |
 
 ### Emits
 
@@ -467,7 +478,7 @@ Checkbox is an extension to standard checkbox element with theming.
 
 | Name | Type | Description |
 |------|------|-------------|
-| checkboxicon | TemplateRef<CheckboxIconTemplateContext> | Custom checkbox icon template. |
+| icon | Signal<TemplateRef<CheckboxIconTemplateContext>> | Custom checkbox icon template. |
 
 ## Pass Through Options
 

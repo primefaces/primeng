@@ -204,15 +204,14 @@ Editor groups a collection of contents in tabs.
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| style | { [klass: string]: any } | - | Inline style of the container. |
-| styleClass | string | - | Style class of the container. **(Deprecated)** |
-| placeholder | string | - | Placeholder text to show when editor is empty. |
-| formats | string[] | - | Whitelist of formats to display, see [here](https://quilljs.com/docs/formats/) for available options. |
-| modules | object | - | Modules configuration of Editor, see [here](https://quilljs.com/docs/modules/) for available options. |
-| bounds | string \| HTMLElement | - | DOM Element or a CSS selector for a DOM Element, within which the editor’s p elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries. |
-| scrollingContainer | string \| HTMLElement | - | DOM Element or a CSS selector for a DOM Element, specifying which container has the scrollbars (i.e. overflow-y: auto), if is has been changed from the default ql-editor with custom CSS. Necessary to fix scroll jumping bugs when Quill is set to auto grow its height, and another ancestor container is responsible from the scrolling.. |
-| debug | string | - | Shortcut for debug. Note debug is a static method and will affect other instances of Quill editors on the page. Only warning and error messages are enabled by default. |
-| readonly | boolean | - | Whether to instantiate the editor to read-only mode. |
+| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the container. |
+| placeholder | InputSignal<string> | ... | Placeholder text to show when editor is empty. |
+| formats | InputSignal<string[]> | ... | Whitelist of formats to display, see [here](https://quilljs.com/docs/formats/) for available options. |
+| modules | InputSignal<object> | ... | Modules configuration of Editor, see [here](https://quilljs.com/docs/modules/) for available options. |
+| bounds | InputSignal<string \| HTMLElement> | ... | DOM Element or a CSS selector for a DOM Element, within which the editor's p elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries. |
+| scrollingContainer | InputSignal<string \| HTMLElement> | ... | DOM Element or a CSS selector for a DOM Element, specifying which container has the scrollbars (i.e. overflow-y: auto), if is has been changed from the default ql-editor with custom CSS. Necessary to fix scroll jumping bugs when Quill is set to auto grow its height, and another ancestor container is responsible from the scrolling.. |
+| debug | InputSignal<string> | ... | Shortcut for debug. Note debug is a static method and will affect other instances of Quill editors on the page. Only warning and error messages are enabled by default. |
+| readonly | InputSignal<boolean> | ... | Whether to instantiate the editor to read-only mode. |
 
 ### Emits
 
@@ -229,7 +228,7 @@ Editor groups a collection of contents in tabs.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | TemplateRef<any> | Custom item template. |
+| header | Signal<TemplateRef<any>> | Custom item template. |
 
 ## Pass Through Options
 

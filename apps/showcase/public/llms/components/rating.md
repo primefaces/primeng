@@ -271,13 +271,13 @@ Rating is an extension to standard radio button element with theming.
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| readonly | boolean | false | When present, changing the value is not possible. |
-| stars | number | 5 | Number of stars. |
-| iconOnClass | string | - | Style class of the on icon. |
-| iconOnStyle | { [klass: string]: any } | - | Inline style of the on icon. |
-| iconOffClass | string | - | Style class of the off icon. |
-| iconOffStyle | { [klass: string]: any } | - | Inline style of the off icon. |
-| autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
+| readonly | InputSignalWithTransform<boolean, unknown> | ... | When present, changing the value is not possible. |
+| stars | InputSignalWithTransform<number, unknown> | ... | Number of stars. |
+| iconOnClass | InputSignal<string> | ... | Style class of the on icon. |
+| iconOnStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the on icon. |
+| iconOffClass | InputSignal<string> | ... | Style class of the off icon. |
+| iconOffStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the off icon. |
+| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
 
 ### Emits
 
@@ -291,8 +291,8 @@ Rating is an extension to standard radio button element with theming.
 
 | Name | Type | Description |
 |------|------|-------------|
-| onicon | TemplateRef<RatingIconTemplateContext> | Custom on icon template. |
-| officon | TemplateRef<RatingIconTemplateContext> | Custom off icon template. |
+| onicon | Signal<TemplateRef<RatingIconTemplateContext>> | Custom on icon template. |
+| officon | Signal<TemplateRef<RatingIconTemplateContext>> | Custom off icon template. |
 
 ## Pass Through Options
 

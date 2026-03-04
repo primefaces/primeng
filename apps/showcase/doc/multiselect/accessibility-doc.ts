@@ -226,7 +226,7 @@ import { RouterModule } from '@angular/router';
 })
 export class AccessibilityDoc {
     code: Code = {
-        typescript: `<span id="dd1">Options</span>
+        html: `<span id="dd1">Options</span>
 <p-multiselect ariaLabelledBy="dd1"/>
 
 <p-multiselect ariaLabel="Options"/>`

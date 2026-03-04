@@ -125,13 +125,13 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 @Component({
     template: `
         <div class="card">
-            <label for="chips-blur" class="font-bold mb-2 block">With Add On Blur</label>
+            <label for="chips-blur" class="text-sm font-bold mb-2 block">With Add On Blur</label>
             <p-autocomplete [(ngModel)]="valueBlur" inputId="chips-blur" multiple fluid [typeahead]="false" [addOnBlur]="true" placeholder="Type and click outside to add..." />
-            <label for="chips-tab" class="font-bold mt-8 mb-2 block">With Add On Tab</label>
+            <label for="chips-tab" class="text-sm font-bold mt-8 mb-2 block">With Add On Tab</label>
             <p-autocomplete [(ngModel)]="valueTab" inputId="chips-tab" multiple fluid [typeahead]="false" [addOnTab]="true" placeholder="Type and press Tab to add..." />
-            <label for="chips-separator" class="font-bold mt-8 mb-2 block">With Separator (Comma)</label>
+            <label for="chips-separator" class="text-sm font-bold mt-8 mb-2 block">With Separator (Comma)</label>
             <p-autocomplete [(ngModel)]="valueSeparator" inputId="chips-separator" multiple fluid [typeahead]="false" separator="," placeholder="Type items separated by comma..." />
-            <label for="chips-combined" class="font-bold mt-8 mb-2 block">Combined Features</label>
+            <label for="chips-combined" class="text-sm font-bold mt-8 mb-2 block">Combined Features</label>
             <p-autocomplete [(ngModel)]="valueCombined" inputId="chips-combined" multiple fluid [typeahead]="false" [addOnBlur]="true" [addOnTab]="true" separator="," placeholder="Use Tab, Blur, or Comma to add items..." />
         </div>
     `,
@@ -628,9 +628,9 @@ interface AutoCompleteCompleteEvent {
 @Component({
     template: `
         <div class="card">
-            <label for="multiple-ac-1" class="font-bold mb-2 block">With Typeahead</label>
+            <label for="multiple-ac-1" class="text-sm font-bold mb-2 block">With Typeahead</label>
             <p-autocomplete [(ngModel)]="value1" inputId="multiple-ac-1" multiple fluid [suggestions]="items" (completeMethod)="search($event)" />
-            <label for="multiple-ac-2" class="font-bold mt-8 mb-2 block">Without Typeahead</label>
+            <label for="multiple-ac-2" class="text-sm font-bold mt-8 mb-2 block">Without Typeahead</label>
             <p-autocomplete [(ngModel)]="value2" inputId="multiple-ac-2" multiple fluid (completeMethod)="search($event)" [typeahead]="false" />
         </div>
     `,
@@ -1058,9 +1058,12 @@ export class AutocompleteVirtualScrollDemo implements OnInit {
 | autocomplete.option.selected.focus.color | --p-autocomplete-option-selected-focus-color | Selected focus color of option |
 | autocomplete.option.padding | --p-autocomplete-option-padding | Padding of option |
 | autocomplete.option.border.radius | --p-autocomplete-option-border-radius | Border radius of option |
+| autocomplete.option.font.weight | --p-autocomplete-option-font-weight | Font weight of option |
+| autocomplete.option.font.size | --p-autocomplete-option-font-size | Font size of option |
 | autocomplete.option.group.background | --p-autocomplete-option-group-background | Background of option group |
 | autocomplete.option.group.color | --p-autocomplete-option-group-color | Color of option group |
 | autocomplete.option.group.font.weight | --p-autocomplete-option-group-font-weight | Font weight of option group |
+| autocomplete.option.group.font.size | --p-autocomplete-option-group-font-size | Font size of option group |
 | autocomplete.option.group.padding | --p-autocomplete-option-group-padding | Padding of option group |
 | autocomplete.dropdown.width | --p-autocomplete-dropdown-width | Width of dropdown |
 | autocomplete.dropdown.sm.width | --p-autocomplete-dropdown-sm-width | Sm width of dropdown |

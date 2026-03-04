@@ -4,7 +4,7 @@ InputMask component is used to enter input in a certain format such as numeric, 
 
 ## Accessibility
 
-Screen Reader InputMask component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props.
+Screen Reader InputMask directive is used with a native input element that implicitly includes any passed attribute. Value to describe the component can either be provided via label tag combined with id attribute or using aria-labelledby , aria-label attributes.
 
 ```typescript
 <label for="date">Date</label>
@@ -461,7 +461,7 @@ InputMask component is used to enter input in a certain format such as numeric, 
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
 | fluid | InputSignalWithTransform<boolean, unknown> | false | Spans 100% width of the container when enabled. |
-| variant | InputSignal<"outlined" \| "filled"> | 'outlined' | Specifies the input variant of the component. |
+| variant | InputSignal<"filled" \| "outlined"> | 'outlined' | Specifies the input variant of the component. |
 | size | InputSignal<"small" \| "large"> | undefined | Specifies the size of the component. |
 | inputSize | InputSignal<number> | undefined | Specifies the visible width of the input element in characters. |
 | pattern | InputSignal<string> | undefined | Specifies the value must match the pattern. |
@@ -470,43 +470,43 @@ InputMask component is used to enter input in a certain format such as numeric, 
 | step | InputSignal<number> | undefined | Unless the step is set to the any literal, the value must be min + an integral multiple of the step. |
 | minlength | InputSignal<number> | undefined | The number of characters (code points) must not be less than the value of the attribute, if non-empty. |
 | maxlength | InputSignal<number> | undefined | The number of characters (code points) must not exceed the value of the attribute. |
-| type | string | text | HTML5 input type. |
-| slotChar | string | _ | Placeholder character in mask, default is underscore. |
-| autoClear | boolean | true | Clears the incomplete value on blur. |
-| showClear | boolean | false | When enabled, a clear icon is displayed to clear the value. |
-| style | { [klass: string]: any } | - | Inline style of the input field. |
-| inputId | string | - | Identifier of the focus input to match a label defined for the component. |
-| styleClass | string | - | Style class of the input field. |
-| placeholder | string | - | Advisory information to display on input. |
-| tabindex | string | - | Specifies tab order of the element. |
-| title | string | - | Title text of the input text. |
-| ariaLabel | string | - | Used to define a string that labels the input element. |
-| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| ariaRequired | boolean | false | Used to indicate that user input is required on an element before a form can be submitted. |
-| readonly | boolean | false | When present, it specifies that an input field is read-only. |
-| unmask | boolean | false | Defines if ngModel sets the raw unmasked value to bound value or the formatted mask value. |
-| characterPattern | string | [A-Za-z] | Regex pattern for alpha characters |
-| autofocus | boolean | false | When present, the input gets a focus automatically on load. |
-| autocomplete | string | - | Used to define a string that autocomplete attribute the current element. |
-| keepBuffer | boolean | false | When present, it specifies that whether to clean buffer value from model. |
-| mask | string | - | Mask pattern. |
+| type | InputSignal<string> | ... | HTML5 input type. |
+| slotChar | InputSignal<string> | ... | Placeholder character in mask, default is underscore. |
+| autoClear | InputSignalWithTransform<boolean, unknown> | ... | Clears the incomplete value on blur. |
+| showClear | InputSignalWithTransform<boolean, unknown> | ... | When enabled, a clear icon is displayed to clear the value. |
+| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the input field. |
+| inputId | InputSignal<string> | ... | Identifier of the focus input to match a label defined for the component. |
+| styleClass | InputSignal<string> | ... | Style class of the input field. |
+| placeholder | InputSignal<string> | ... | Advisory information to display on input. |
+| tabindex | InputSignal<string> | ... | Specifies tab order of the element. |
+| title | InputSignal<string> | ... | Title text of the input text. |
+| ariaLabel | InputSignal<string> | ... | Used to define a string that labels the input element. |
+| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| ariaRequired | InputSignalWithTransform<boolean, unknown> | ... | Used to indicate that user input is required on an element before a form can be submitted. |
+| readonly | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that an input field is read-only. |
+| unmask | InputSignalWithTransform<boolean, unknown> | ... | Defines if ngModel sets the raw unmasked value to bound value or the formatted mask value. |
+| characterPattern | InputSignal<string> | ... | Regex pattern for alpha characters |
+| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, the input gets a focus automatically on load. |
+| autocomplete | InputSignal<string> | ... | Used to define a string that autocomplete attribute the current element. |
+| keepBuffer | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that whether to clean buffer value from model. |
+| mask | InputSignal<string> | ... | Mask pattern. |
 
 ### Emits
 
 | Name | Parameters | Description |
 |------|------------|-------------|
-| onComplete | value: any | Callback to invoke when the mask is completed. |
+| onComplete | value: void | Callback to invoke when the mask is completed. |
 | onFocus | event: Event | Callback to invoke when the component receives focus. |
 | onBlur | event: Event | Callback to invoke when the component loses focus. |
 | onInput | event: Event | Callback to invoke on input. |
 | onKeydown | event: Event | Callback to invoke on input key press. |
-| onClear | value: any | Callback to invoke when input field is cleared. |
+| onClear | value: void | Callback to invoke when input field is cleared. |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| clearicon | TemplateRef<void> | Custom clear icon template. |
+| clearicon | Signal<TemplateRef<void>> | Custom clear icon template. |
 
 ## Pass Through Options
 

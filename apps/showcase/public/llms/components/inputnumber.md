@@ -32,15 +32,15 @@ import { InputNumberModule } from 'primeng/inputnumber';
     template: `
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
-                <label class="mb-2 block font-bold" for="stacked">Stacked</label>
+                <label class="text-sm mb-2 block font-bold" for="stacked">Stacked</label>
                 <p-inputnumber [(ngModel)]="value1" [showButtons]="true" inputId="stacked" mode="currency" currency="USD" />
             </div>
             <div class="flex-auto">
-                <label class="mb-2 block font-bold" for="minmax-buttons">Min-Max Boundaries</label>
+                <label class="text-sm mb-2 block font-bold" for="minmax-buttons">Min-Max Boundaries</label>
                 <p-inputnumber [(ngModel)]="value2" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100" />
             </div>
             <div class="flex-auto">
-                <label class="mb-2 block font-bold" for="horizontal">Horizontal with Step</label>
+                <label class="text-sm mb-2 block font-bold" for="horizontal">Horizontal with Step</label>
                 <p-inputnumber [(ngModel)]="value3" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25" mode="currency" currency="EUR">
                     <ng-template #incrementbuttonicon>
                         <span class="pi pi-plus"></span>
@@ -98,19 +98,19 @@ import { InputNumberModule } from 'primeng/inputnumber';
     template: `
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
-                <label class="block font-bold mb-2" for="currency-us">United States</label>
+                <label class="text-sm block font-bold mb-2" for="currency-us">United States</label>
                 <p-inputnumber [(ngModel)]="value1" inputId="currency-us" mode="currency" currency="USD" locale="en-US" />
             </div>
             <div class="flex-auto">
-                <label class="block font-bold mb-2" for="currency-germany">Germany</label>
+                <label class="text-sm block font-bold mb-2" for="currency-germany">Germany</label>
                 <p-inputnumber [(ngModel)]="value2" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE" />
             </div>
             <div class="flex-auto">
-                <label class="block font-bold mb-2" for="currency-india">India</label>
+                <label class="text-sm block font-bold mb-2" for="currency-india">India</label>
                 <p-inputnumber [(ngModel)]="value3" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN" />
             </div>
             <div class="flex-auto">
-                <label class="block font-bold mb-2" for="currency-japan">Japan</label>
+                <label class="text-sm block font-bold mb-2" for="currency-japan">Japan</label>
                 <p-inputnumber [(ngModel)]="value4" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP" />
             </div>
         </p-fluid>
@@ -297,19 +297,19 @@ import { InputNumberModule } from 'primeng/inputnumber';
     template: `
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
-                <label class="block font-bold mb-2" for="locale-user">User Locale</label>
+                <label class="text-sm block font-bold mb-2" for="locale-user">User Locale</label>
                 <p-inputnumber [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
-                <label class="block font-bold mb-2" for="locale-us">United States Locale</label>
+                <label class="text-sm block font-bold mb-2" for="locale-us">United States Locale</label>
                 <p-inputnumber [(ngModel)]="value2" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
-                <label class="block font-bold mb-2" for="locale-german">German Locale</label>
+                <label class="text-sm block font-bold mb-2" for="locale-german">German Locale</label>
                 <p-inputnumber [(ngModel)]="value3" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
-                <label class="block font-bold mb-2" for="locale-indian">Indian Locale</label>
+                <label class="text-sm block font-bold mb-2" for="locale-indian">Indian Locale</label>
                 <p-inputnumber [(ngModel)]="value4" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2" />
             </div>
         </p-fluid>
@@ -338,19 +338,19 @@ import { InputNumberModule } from 'primeng/inputnumber';
     template: `
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
-                <label class="mb-2 font-bold block" for="integeronly">Integer Only</label>
+                <label class="text-sm mb-2 font-bold block" for="integeronly">Integer Only</label>
                 <p-inputnumber inputId="integeronly" [(ngModel)]="value1" />
             </div>
             <div class="flex-auto">
-                <label class="mb-2 font-bold block" for="withoutgrouping">Without Grouping</label>
+                <label class="text-sm mb-2 font-bold block" for="withoutgrouping">Without Grouping</label>
                 <p-inputnumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" />
             </div>
             <div class="flex-auto">
-                <label class="mb-2 font-bold block" for="minmaxfraction">Min-Max Fraction Digits</label>
+                <label class="text-sm mb-2 font-bold block" for="minmaxfraction">Min-Max Fraction Digits</label>
                 <p-inputnumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5" />
             </div>
             <div class="flex-auto">
-                <label class="mb-2 font-bold block" for="minmax">Min-Max Boundaries</label>
+                <label class="text-sm mb-2 font-bold block" for="minmax">Min-Max Boundaries</label>
                 <p-inputnumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100" />
             </div>
         </p-fluid>
@@ -379,19 +379,19 @@ import { InputNumberModule } from 'primeng/inputnumber';
     template: `
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
-                <label class="font-bold block mb-2" for="mile">Mile</label>
+                <label class="text-sm font-bold block mb-2" for="mile">Mile</label>
                 <p-inputnumber [(ngModel)]="value1" inputId="mile" suffix=" mi" />
             </div>
             <div class="flex-auto">
-                <label class="font-bold block mb-2" for="percent">Percent</label>
+                <label class="text-sm font-bold block mb-2" for="percent">Percent</label>
                 <p-inputnumber [(ngModel)]="value2" inputId="percent" prefix="%" />
             </div>
             <div class="flex-auto">
-                <label class="font-bold block mb-2" for="expiry">Expiry</label>
+                <label class="text-sm font-bold block mb-2" for="expiry">Expiry</label>
                 <p-inputnumber [(ngModel)]="value3" inputId="expiry" prefix="Expires in " suffix=" days" />
             </div>
             <div class="flex-auto">
-                <label class="font-bold block mb-2" for="temperature">Temperature</label>
+                <label class="text-sm font-bold block mb-2" for="temperature">Temperature</label>
                 <p-inputnumber [(ngModel)]="value4" prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40" />
             </div>
         </p-fluid>
@@ -581,7 +581,7 @@ InputNumber is an input component to provide numerical input.
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
 | fluid | InputSignalWithTransform<boolean, unknown> | false | Spans 100% width of the container when enabled. |
-| variant | InputSignal<"outlined" \| "filled"> | 'outlined' | Specifies the input variant of the component. |
+| variant | InputSignal<"filled" \| "outlined"> | 'outlined' | Specifies the input variant of the component. |
 | size | InputSignal<"small" \| "large"> | undefined | Specifies the size of the component. |
 | inputSize | InputSignal<number> | undefined | Specifies the visible width of the input element in characters. |
 | pattern | InputSignal<string> | undefined | Specifies the value must match the pattern. |
@@ -590,39 +590,38 @@ InputNumber is an input component to provide numerical input.
 | step | InputSignal<number> | undefined | Unless the step is set to the any literal, the value must be min + an integral multiple of the step. |
 | minlength | InputSignal<number> | undefined | The number of characters (code points) must not be less than the value of the attribute, if non-empty. |
 | maxlength | InputSignal<number> | undefined | The number of characters (code points) must not exceed the value of the attribute. |
-| showButtons | boolean | false | Displays spinner buttons. |
-| format | boolean | true | Whether to format the value. |
-| buttonLayout | string | stacked | Layout of the buttons, valid values are "stacked" (default), "horizontal" and "vertical". |
-| inputId | string | - | Identifier of the focus input to match a label defined for the component. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
-| placeholder | string | - | Advisory information to display on input. |
-| tabindex | number | - | Specifies tab order of the element. |
-| title | string | - | Title text of the input text. |
-| ariaLabelledBy | string | - | Specifies one or more IDs in the DOM that labels the input field. |
-| ariaDescribedBy | string | - | Specifies one or more IDs in the DOM that describes the input field. |
-| ariaLabel | string | - | Used to define a string that labels the input element. |
-| ariaRequired | boolean | false | Used to indicate that user input is required on an element before a form can be submitted. |
-| autocomplete | string | - | Used to define a string that autocomplete attribute the current element. |
-| incrementButtonClass | string | - | Style class of the increment button. |
-| decrementButtonClass | string | - | Style class of the decrement button. |
-| incrementButtonIcon | string | - | Style class of the increment button. |
-| decrementButtonIcon | string | - | Style class of the decrement button. |
-| readonly | boolean | false | When present, it specifies that an input field is read-only. |
-| allowEmpty | boolean | true | Determines whether the input field is empty. |
-| locale | string | - | Locale to be used in formatting. |
-| localeMatcher | any | - | The locale matching algorithm to use. Possible values are "lookup" and "best fit"; the default is "best fit". See Locale Negotiation for details. |
-| mode | any | decimal | Defines the behavior of the component, valid values are "decimal" and "currency". |
-| currency | string | - | The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as "USD" for the US dollar, "EUR" for the euro, or "CNY" for the Chinese RMB. There is no default value; if the style is "currency", the currency property must be provided. |
-| currencyDisplay | any | - | How to display the currency in currency formatting. Possible values are "symbol" to use a localized currency symbol such as €, ü"code" to use the ISO currency code, "name" to use a localized currency name such as "dollar"; the default is "symbol". |
-| useGrouping | boolean | true | Whether to use grouping separators, such as thousands separators or thousand/lakh/crore separators. |
-| minFractionDigits | number | - | The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information). |
-| maxFractionDigits | number | - | The maximum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number formatting is the larger of minimumFractionDigits and 3; the default for currency formatting is the larger of minimumFractionDigits and the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information). |
-| prefix | string | - | Text to display before the value. |
-| suffix | string | - | Text to display after the value. |
-| inputStyle | any | - | Inline style of the input field. |
-| inputStyleClass | string | - | Style class of the input field. |
-| showClear | boolean | false | When enabled, a clear icon is displayed to clear the value. |
-| autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
+| showButtons | InputSignalWithTransform<boolean, unknown> | ... | Displays spinner buttons. |
+| format | InputSignalWithTransform<boolean, unknown> | ... | Whether to format the value. |
+| buttonLayout | InputSignal<InputNumberButtonLayout> | ... | Layout of the buttons, valid values are "stacked" (default), "horizontal" and "vertical". |
+| inputId | InputSignal<string> | ... | Identifier of the focus input to match a label defined for the component. |
+| placeholder | InputSignal<string> | ... | Advisory information to display on input. |
+| tabindex | InputSignalWithTransform<number, unknown> | ... | Specifies tab order of the element. |
+| title | InputSignal<string> | ... | Title text of the input text. |
+| ariaLabelledBy | InputSignal<string> | ... | Specifies one or more IDs in the DOM that labels the input field. |
+| ariaDescribedBy | InputSignal<string> | ... | Specifies one or more IDs in the DOM that describes the input field. |
+| ariaLabel | InputSignal<string> | ... | Used to define a string that labels the input element. |
+| ariaRequired | InputSignalWithTransform<boolean, unknown> | ... | Used to indicate that user input is required on an element before a form can be submitted. |
+| autocomplete | InputSignal<string> | ... | Used to define a string that autocomplete attribute the current element. |
+| incrementButtonClass | InputSignal<string> | ... | Style class of the increment button. |
+| decrementButtonClass | InputSignal<string> | ... | Style class of the decrement button. |
+| incrementButtonIcon | InputSignal<string> | ... | Style class of the increment button. |
+| decrementButtonIcon | InputSignal<string> | ... | Style class of the decrement button. |
+| readonly | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that an input field is read-only. |
+| allowEmpty | InputSignalWithTransform<boolean, unknown> | ... | Determines whether the input field is empty. |
+| locale | InputSignal<string> | ... | Locale to be used in formatting. |
+| localeMatcher | InputSignal<InputNumberLocaleMatcher> | ... | The locale matching algorithm to use. Possible values are "lookup" and "best fit"; the default is "best fit". See Locale Negotiation for details. |
+| mode | InputSignal<InputNumberMode> | ... | Defines the behavior of the component, valid values are "decimal" and "currency". |
+| currency | InputSignal<string> | ... | The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as "USD" for the US dollar, "EUR" for the euro, or "CNY" for the Chinese RMB. There is no default value; if the style is "currency", the currency property must be provided. |
+| currencyDisplay | InputSignal<InputNumberCurrencyDisplay> | ... | How to display the currency in currency formatting. Possible values are "symbol" to use a localized currency symbol such as €, ü"code" to use the ISO currency code, "name" to use a localized currency name such as "dollar"; the default is "symbol". |
+| useGrouping | InputSignalWithTransform<boolean, unknown> | ... | Whether to use grouping separators, such as thousands separators or thousand/lakh/crore separators. |
+| minFractionDigits | InputSignalWithTransform<number, unknown> | ... | The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information). |
+| maxFractionDigits | InputSignalWithTransform<number, unknown> | ... | The maximum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number formatting is the larger of minimumFractionDigits and 3; the default for currency formatting is the larger of minimumFractionDigits and the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information). |
+| prefix | InputSignal<string> | ... | Text to display before the value. |
+| suffix | InputSignal<string> | ... | Text to display after the value. |
+| inputStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the input field. |
+| inputStyleClass | InputSignal<string> | ... | Style class of the input field. |
+| showClear | InputSignalWithTransform<boolean, unknown> | ... | When enabled, a clear icon is displayed to clear the value. |
+| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
 
 ### Emits
 
@@ -638,9 +637,9 @@ InputNumber is an input component to provide numerical input.
 
 | Name | Type | Description |
 |------|------|-------------|
-| clearicon | TemplateRef<void> | Custom clear icon template. |
-| incrementbuttonicon | TemplateRef<void> | Custom increment button icon template. |
-| decrementbuttonicon | TemplateRef<void> | Custom decrement button icon template. |
+| clearicon | Signal<TemplateRef<void>> | Custom clear icon template. |
+| incrementbuttonicon | Signal<TemplateRef<void>> | Custom increment button icon template. |
+| decrementbuttonicon | Signal<TemplateRef<void>> | Custom decrement button icon template. |
 
 ## Pass Through Options
 

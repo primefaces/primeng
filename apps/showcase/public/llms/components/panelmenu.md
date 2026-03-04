@@ -320,7 +320,7 @@ import { PanelMenu } from 'primeng/panelmenu';
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-panelmenu [model]="items" styleClass="w-full md:w-80" [multiple]="true" />
+            <p-panelmenu [model]="items" class="w-full md:w-80" [multiple]="true" />
         </div>
     `,
     standalone: true,
@@ -501,9 +501,13 @@ import { PanelMenu } from 'primeng/panelmenu';
                 <ng-template #item let-item>
                     <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
                         <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
-                        <span class="ms-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        <span class="ms-2" [class.text-sm]="!item.items">{{ item.label }}</span>
+                        @if (item.badge) {
+                            <p-badge class="ms-auto" [value]="item.badge" />
+                        }
+                        @if (item.shortcut) {
+                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        }
                     </a>
                 </ng-template>
             </p-panelmenu>
@@ -600,21 +604,19 @@ PanelMenu is a hybrid of Accordion and Tree components.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<PanelMenuPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| model | MenuItem[] | - | An array of menuitems. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
-| multiple | boolean | false | Whether multiple tabs can be activated at the same time or not. |
-| transitionOptions | string | 400ms cubic-bezier(0.86, 0, 0.07, 1) | Transition options of the animation. **(Deprecated)** |
+| model | InputSignal<MenuItem[]> | ... | An array of menuitems. |
+| multiple | InputSignalWithTransform<boolean, unknown> | ... | Whether multiple tabs can be activated at the same time or not. |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| id | string | - | Current id state as a string. |
-| tabindex | number | 0 | Index of the element in tabbing order. |
+| id | InputSignal<string> | ... | Current id state as a string. |
+| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| submenuicon | TemplateRef<void> | Template option of submenu icon. |
-| headericon | TemplateRef<void> | Template option of header icon. |
-| item | TemplateRef<PanelMenuItemTemplateContext> | Template option of item. |
+| submenuicon | Signal<TemplateRef<void>> | Template option of submenu icon. |
+| headericon | Signal<TemplateRef<void>> | Template option of header icon. |
+| item | Signal<TemplateRef<PanelMenuItemTemplateContext>> | Template option of item. |
 
 ### Methods
 
@@ -696,6 +698,9 @@ PanelMenu is a hybrid of Accordion and Tree components.
 | panelmenu.item.border.radius | --p-panelmenu-item-border-radius | Border radius of item |
 | panelmenu.item.icon.color | --p-panelmenu-item-icon-color | Icon color of item |
 | panelmenu.item.icon.focus.color | --p-panelmenu-item-icon-focus-color | Icon focus color of item |
+| panelmenu.item.icon.size | --p-panelmenu-item-icon-size | Icon size of item |
+| panelmenu.item.label.font.weight | --p-panelmenu-item-label-font-weight | Font weight of item label |
+| panelmenu.item.label.font.size | --p-panelmenu-item-label-font-size | Font size of item label |
 | panelmenu.submenu.indent | --p-panelmenu-submenu-indent | Indent of submenu |
 | panelmenu.submenu.icon.color | --p-panelmenu-submenu-icon-color | Color of submenu icon |
 | panelmenu.submenu.icon.focus.color | --p-panelmenu-submenu-icon-focus-color | Focus color of submenu icon |

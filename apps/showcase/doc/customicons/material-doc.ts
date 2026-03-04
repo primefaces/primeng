@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
 })
 export class MaterialDoc {
     code: Code = {
-        typescript: `<p-dropdown>
+        html: `<p-dropdown>
     <ng-template #dropdownicon>
         <span class="material-icons">arrow_drop_down</span>
     </ng-template>

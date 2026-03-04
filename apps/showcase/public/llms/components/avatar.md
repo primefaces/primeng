@@ -121,20 +121,23 @@ export class AvatarAvatarstyleDemo {}
 
 ## Badge
 
-A badge can be added to an Avatar with the Badge directive.
+A badge can be added to an Avatar with the OverlayBadge component.
 
 ```typescript
 import { Component } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" pBadge value="4" severity="danger" />
+            <p-overlaybadge value="4" severity="danger">
+                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" />
+            </p-overlaybadge>
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: [AvatarModule, OverlayBadgeModule]
 })
 export class AvatarBadgeDemo {}
 ```
@@ -349,14 +352,13 @@ Avatar represents people using icons, labels and images.
 
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| label | string | - | Defines the text to display. |
-| icon | string | - | Defines the icon to display. |
-| image | string | - | Defines the image to display. |
-| size | "large" \| "xlarge" \| "normal" | normal | Size of the element. |
-| shape | "circle" \| "square" | square | Shape of the element. |
-| styleClass | string | - | Class of the element. **(Deprecated)** |
-| ariaLabel | string | - | Establishes a string value that labels the component. |
-| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| label | InputSignal<string> | ... | Defines the text to display. |
+| icon | InputSignal<string> | ... | Defines the icon to display. |
+| image | InputSignal<string> | ... | Defines the image to display. |
+| size | InputSignal<AvatarSize> | ... | Size of the element. |
+| shape | InputSignal<AvatarShape> | ... | Shape of the element. |
+| ariaLabel | InputSignal<string> | ... | Establishes a string value that labels the component. |
+| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<AvatarPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
@@ -398,6 +400,7 @@ Avatar represents people using icons, labels and images.
 |-------|--------------|-------------|
 | avatar.width | --p-avatar-width | Width of root |
 | avatar.height | --p-avatar-height | Height of root |
+| avatar.font.weight | --p-avatar-font-weight | Font weight of root |
 | avatar.font.size | --p-avatar-font-size | Font size of root |
 | avatar.background | --p-avatar-background | Background of root |
 | avatar.color | --p-avatar-color | Color of root |

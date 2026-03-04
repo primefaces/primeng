@@ -19,10 +19,10 @@ import { InplaceModule } from 'primeng/inplace';
         <div class="card">
             <p-inplace>
                 <ng-template #display>
-                    <span>View Content</span>
+                    <span class="text-sm">View Content</span>
                 </ng-template>
                 <ng-template #content>
-                    <p class="m-0">
+                    <p class="m-0 text-sm">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </p>
@@ -52,7 +52,7 @@ import { Photo } from '@/domain/photo';
                 <ng-template #display>
                     <span class="inline-flex items-center gap-2">
                         <span class="pi pi-image" style="vertical-align: middle"></span>
-                        <span class="ml-2">View Photo</span>
+                        <span class="ml-2 text-sm">View Photo</span>
                     </span>
                 </ng-template>
                 <ng-template #content>
@@ -82,7 +82,7 @@ import { InputTextModule } from 'primeng/inputtext';
         <div class="card">
             <p-inplace>
                 <ng-template #display>
-                    <span>Click to Edit</span>
+                    <span class="text-sm">Click to Edit</span>
                 </ng-template>
                 <ng-template #content let-closeCallback="closeCallback">
                     <span class="inline-flex gap-2">
@@ -117,10 +117,10 @@ import { Product } from '@/domain/product';
         <div class="card">
             <p-inplace (onActivate)="loadData()">
                 <ng-template #display>
-                    <span>View Data</span>
+                    <span class="text-sm">View Data</span>
                 </ng-template>
                 <ng-template #content>
-                    <p-table [value]="products" responsiveLayout="scroll">
+                    <p-table [value]="products">
                         <ng-template #header>
                             <tr>
                                 <th>Code</th>
@@ -167,13 +167,9 @@ Inplace provides an easy to do editing and display at the same time where clicki
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<InplacePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| active | boolean | false | Whether the content is displayed or not. |
-| closable | boolean | false | Displays a button to switch back to display mode. **(Deprecated)** |
-| disabled | boolean | false | When present, it specifies that the element should be disabled. |
-| preventClick | boolean | false | Allows to prevent clicking. |
-| styleClass | string | - | Class of the element. **(Deprecated)** |
-| closeIcon | string | - | Icon to display in the close button. **(Deprecated)** |
-| closeAriaLabel | string | - | Establishes a string value that labels the close button. |
+| active | WritableSignal<boolean> | ... | Whether the content is displayed or not. |
+| disabled | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the element should be disabled. |
+| preventClick | InputSignalWithTransform<boolean, unknown> | ... | Allows to prevent clicking. |
 
 ### Emits
 
@@ -186,9 +182,8 @@ Inplace provides an easy to do editing and display at the same time where clicki
 
 | Name | Type | Description |
 |------|------|-------------|
-| display | TemplateRef<void> | Custom display template. |
-| content | TemplateRef<InplaceContentTemplateContext> | Custom content template. |
-| closeicon | TemplateRef<void> | Custom close icon template. |
+| display | Signal<TemplateRef<void>> | Custom display template. |
+| content | Signal<TemplateRef<InplaceContentTemplateContext>> | Custom content template. |
 
 ### Methods
 

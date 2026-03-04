@@ -466,20 +466,15 @@ Toast is used to display messages in an overlay.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ToastPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| key | string | - | Key of the message in case message is targeted to a specific toast component. |
-| autoZIndex | boolean | true | Whether to automatically manage layering. |
-| baseZIndex | number | 0 | Base zIndex value to use in layering. |
-| life | number | 3000 | The default time to display messages for in milliseconds. |
-| styleClass | string | - | Inline class of the component. **(Deprecated)** |
-| position | ToastPositionType | - | Position of the toast in viewport. |
-| preventOpenDuplicates | boolean | false | It does not add the new message if there is already a toast displayed with the same content |
-| preventDuplicates | boolean | false | Displays only once a message with the same content. |
-| showTransformOptions | string | translateY(100%) | Transform options of the show animation. **(Deprecated)** |
-| hideTransformOptions | string | translateY(-100%) | Transform options of the hide animation. **(Deprecated)** |
-| showTransitionOptions | string | 300ms ease-out | Transition options of the show animation. **(Deprecated)** |
-| hideTransitionOptions | string | 250ms ease-in | Transition options of the hide animation. **(Deprecated)** |
+| key | InputSignal<string> | ... | Key of the message in case message is targeted to a specific toast component. |
+| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
+| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
+| life | InputSignalWithTransform<number, unknown> | ... | The default time to display messages for in milliseconds. |
+| position | InputSignal<ToastPositionType> | ... | Position of the toast in viewport. |
+| preventOpenDuplicates | InputSignalWithTransform<boolean, unknown> | ... | It does not add the new message if there is already a toast displayed with the same content |
+| preventDuplicates | InputSignalWithTransform<boolean, unknown> | ... | Displays only once a message with the same content. |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| breakpoints | { [key: string]: any } | - | Object literal to define styles per screen size. |
+| breakpoints | InputSignal<ToastBreakpoints> | ... | Object literal to define styles per screen size. |
 
 ### Emits
 
@@ -491,8 +486,8 @@ Toast is used to display messages in an overlay.
 
 | Name | Type | Description |
 |------|------|-------------|
-| template | TemplateRef<ToastMessageTemplateContext> | Custom message template. |
-| headless | TemplateRef<ToastHeadlessTemplateContext> | Custom headless template. |
+| message | Signal<TemplateRef<ToastMessageTemplateContext>> | Custom message template. |
+| headless | Signal<TemplateRef<ToastHeadlessTemplateContext>> | Custom headless template. |
 
 ## Pass Through Options
 

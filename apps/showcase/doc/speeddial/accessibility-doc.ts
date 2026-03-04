@@ -103,6 +103,6 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        typescript: `<p-speeddial aria-label="Options" />`
+        html: `<p-speeddial aria-label="Options" />`
     };
 }

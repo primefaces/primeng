@@ -25,7 +25,7 @@ import { Component } from '@angular/core';
 })
 export class ConfigurationDoc {
     markupCode: Code = {
-        typescript: `<html dir="rtl">`
+        html: `<html dir="rtl">`
     };
 
     cssCode: Code = {

@@ -48,11 +48,11 @@ import { CheckboxModule } from 'primeng/checkbox';
 })
 export class WAIARIADoc {
     code1: Code = {
-        typescript: `<input type="checkbox" value="Prime" name="ui" checked/>`
+        html: `<input type="checkbox" value="Prime" name="ui" checked/>`
     };
 
     code2: Code = {
-        typescript: `<div class="fancy-checkbox">
+        html: `<div class="fancy-checkbox">
     @if (checked) {
         <i class="checked-icon"></i>
     }
@@ -60,7 +60,7 @@ export class WAIARIADoc {
     };
 
     code3: Code = {
-        typescript: `<span id="chk-label">Remember Me></span>
+        html: `<span id="chk-label">Remember Me></span>
 <div class="fancy-checkbox" role="checkbox" aria-checked="false" tabindex="0" aria-labelledby="chk-label" (click)="toggle()" (keydown)="onKeyDown($event)">
     @if (checked) {
         <i class="checked-icon"></i>
@@ -69,7 +69,7 @@ export class WAIARIADoc {
     };
 
     code4: Code = {
-        typescript: `<label for="chkbox">Remember Me></label>
+        html: `<label for="chkbox">Remember Me></label>
 <div class="fancy-checkbox" (click)="toggle()">
     <input class="p-sr-only" type="checkbox" id="chkbox" (focus)="updateParentVisuals()" (blur)="updateParentVisuals()" (keydown)="$event.keyCode === 32 && updateParentVisuals()">
     @if (checked) {

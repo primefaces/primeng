@@ -221,8 +221,7 @@ IconField wraps an input and an icon.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<IconFieldPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| iconPosition | "right" \| "left" | left | Position of the icon. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
+| iconPosition | InputSignal<IconFieldIconPosition> | ... | Position of the icon. |
 
 ## Pass Through Options
 

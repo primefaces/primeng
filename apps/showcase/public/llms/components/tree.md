@@ -88,7 +88,7 @@ import { ContextMenu } from 'primeng/contextmenu';
     template: `
         <div class="card">
             <p-toast [style]="{ marginTop: '80px' }" />
-            <p-tree [value]="files()" class="w-full md:w-80" selectionMode="single" [(selection)]="selectedNode" [(contextMenuSelection)]="contextMenuNode" [contextMenu]="cm" contextMenuSelectionMode="separate" />
+            <p-tree [value]="files()" class="w-full md:w-80" selectionMode="single" [(selection)]="selectedNode" [(contextMenuSelection)]="contextMenuNode" [contextMenu]="cm" />
             <p-contextmenu #cm [model]="items" />
         </div>
     `,
@@ -436,7 +436,7 @@ export class TreeSingleDemo implements OnInit {
 
 ## Template
 
-Custom node content instead of a node label is defined with the pTemplate property.
+Custom node content instead of a node label is defined with the #node template reference.
 
 ```typescript
 import { Component, OnInit, signal } from '@angular/core';
@@ -447,11 +447,12 @@ import { TreeNode } from 'primeng/api';
     template: `
         <div class="card">
             <p-tree [value]="nodes()" class="w-full md:w-[30rem]">
-                <ng-template let-node pTemplate="url">
-                    <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">{{ node.label }}</a>
-                </ng-template>
-                <ng-template let-node pTemplate="default">
-                    <b>{{ node.label }}</b>
+                <ng-template #node let-node>
+                    @if (node.type === 'url') {
+                        <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">{{ node.label }}</a>
+                    } @else {
+                        <b>{{ node.label }}</b>
+                    }
                 </ng-template>
             </p-tree>
         </div>
@@ -577,45 +578,42 @@ Tree is used to display hierarchical data.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<TreePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| value | any | - | An array of treenodes. |
-| selectionMode | "multiple" \| "single" \| "checkbox" | - | Defines the selection mode. |
-| loadingMode | "icon" \| "mask" | mask | Loading mode display. |
+| value | InputSignal<any> | ... | An array of treenodes. |
+| selectionMode | InputSignal<TreeSelectionMode> | ... | Defines the selection mode. |
+| loadingMode | InputSignal<TreeLoadingMode> | ... | Loading mode display. |
 | selection | ModelSignal<TreeNode<any> \| TreeNode<any>[]> | ... | A single treenode instance or an array to refer to the selections. |
-| styleClass | string | - | Style class of the component. **(Deprecated)** |
-| contextMenu | any | - | Context menu instance. |
-| contextMenuSelectionMode | "separate" \| "joint" | joint | Defines the behavior of context menu selection, in "separate" mode context menu updates contextMenuSelection property whereas in joint mode selection property is used instead so that when row selection is enabled, both row selection and context menu selection use the same property. |
+| contextMenu | InputSignal<any> | ... | Context menu instance. |
 | contextMenuSelection | ModelSignal<TreeNode<any>> | ... | Selected node with a context menu. |
-| draggableScope | any | - | Scope of the draggable nodes to match a droppableScope. |
-| droppableScope | any | - | Scope of the droppable nodes to match a draggableScope. |
-| draggableNodes | boolean | false | Whether the nodes are draggable. |
-| droppableNodes | boolean | false | Whether the nodes are droppable. |
-| metaKeySelection | boolean | false | Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically. |
-| propagateSelectionUp | boolean | true | Whether checkbox selections propagate to ancestor nodes. |
-| propagateSelectionDown | boolean | true | Whether checkbox selections propagate to descendant nodes. |
-| loading | boolean | false | Displays a loader to indicate data load is in progress. |
-| loadingIcon | string | - | The icon to show while indicating data load is in progress. |
-| emptyMessage | string | - | Text to display when there is no data. |
-| ariaLabel | string | - | Used to define a string that labels the tree. |
-| togglerAriaLabel | string | - | Defines a string that labels the toggler icon for accessibility. |
-| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| validateDrop | boolean | false | When enabled, drop can be accepted or rejected based on condition defined at onNodeDrop. |
-| filter | boolean | false | When specified, displays an input field to filter the items. |
-| filterInputAutoFocus | boolean | false | Determines whether the filter input should be automatically focused when the component is rendered. |
-| filterBy | string | label | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
-| filterMode | string | lenient | Mode for filtering valid values are "lenient" and "strict". Default is lenient. |
+| draggableScope | InputSignal<any> | ... | Scope of the draggable nodes to match a droppableScope. |
+| droppableScope | InputSignal<any> | ... | Scope of the droppable nodes to match a draggableScope. |
+| draggableNodes | InputSignalWithTransform<boolean, unknown> | ... | Whether the nodes are draggable. |
+| droppableNodes | InputSignalWithTransform<boolean, unknown> | ... | Whether the nodes are droppable. |
+| metaKeySelection | InputSignalWithTransform<boolean, unknown> | ... | Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically. |
+| propagateSelectionUp | InputSignalWithTransform<boolean, unknown> | ... | Whether checkbox selections propagate to ancestor nodes. |
+| propagateSelectionDown | InputSignalWithTransform<boolean, unknown> | ... | Whether checkbox selections propagate to descendant nodes. |
+| loading | InputSignalWithTransform<boolean, unknown> | ... | Displays a loader to indicate data load is in progress. |
+| loadingIcon | InputSignal<string> | ... | The icon to show while indicating data load is in progress. |
+| emptyMessage | InputSignal<string> | ... | Text to display when there is no data. |
+| ariaLabel | InputSignal<string> | ... | Used to define a string that labels the tree. |
+| togglerAriaLabel | InputSignal<string> | ... | Defines a string that labels the toggler icon for accessibility. |
+| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| validateDrop | InputSignalWithTransform<boolean, unknown> | ... | When enabled, drop can be accepted or rejected based on condition defined at onNodeDrop. |
+| filter | InputSignalWithTransform<boolean, unknown> | ... | When specified, displays an input field to filter the items. |
+| filterInputAutoFocus | InputSignalWithTransform<boolean, unknown> | ... | Determines whether the filter input should be automatically focused when the component is rendered. |
+| filterBy | InputSignal<string> | ... | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
+| filterMode | InputSignal<string> | ... | Mode for filtering valid values are "lenient" and "strict". Default is lenient. |
 | filterOptions | any | - | Mode for filtering valid values are "lenient" and "strict". Default is lenient. |
-| filterPlaceholder | string | - | Placeholder text to show when filter input is empty. |
+| filterPlaceholder | InputSignal<string> | ... | Placeholder text to show when filter input is empty. |
 | filteredNodes | TreeNode<any>[] | - | Values after the tree nodes are filtered. |
-| filterLocale | string | - | Locale to use in filtering. The default locale is the host environment's current locale. |
-| scrollHeight | string | - | Height of the scrollable viewport. |
-| lazy | boolean | false | Defines if data is loaded and interacted with in lazy manner. |
-| virtualScroll | boolean | false | Whether the data should be loaded on demand during scroll. |
-| virtualScrollItemSize | number | - | Height of an item in the list for VirtualScrolling. |
-| virtualScrollOptions | ScrollerOptions | - | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
-| indentation | number | 1.5 | Indentation factor for spacing of the nested node when virtual scrolling is enabled. |
-| _templateMap | any | - | Custom templates of the component. |
-| trackBy | Function | ... | Function to optimize the node list rendering, default algorithm checks for object identity. |
-| highlightOnSelect | boolean | false | Highlights the node on select. |
+| filterLocale | InputSignal<string> | ... | Locale to use in filtering. The default locale is the host environment's current locale. |
+| scrollHeight | InputSignal<string> | ... | Height of the scrollable viewport. |
+| lazy | InputSignalWithTransform<boolean, unknown> | ... | Defines if data is loaded and interacted with in lazy manner. |
+| virtualScroll | InputSignalWithTransform<boolean, unknown> | ... | Whether the data should be loaded on demand during scroll. |
+| virtualScrollItemSize | InputSignal<number> | ... | Height of an item in the list for VirtualScrolling. |
+| virtualScrollOptions | InputSignal<ScrollerOptions> | ... | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
+| indentation | InputSignalWithTransform<number, unknown> | ... | Indentation factor for spacing of the nested node when virtual scrolling is enabled. |
+| trackBy | InputSignal<Function> | ... | Function to optimize the node list rendering, default algorithm checks for object identity. |
+| highlightOnSelect | InputSignalWithTransform<boolean, unknown> | ... | Highlights the node on select. |
 
 ### Emits
 
@@ -637,16 +635,16 @@ Tree is used to display hierarchical data.
 
 | Name | Type | Description |
 |------|------|-------------|
-| filter | TemplateRef<TreeFilterTemplateContext> | Custom filter template. |
-| node | TemplateRef<any> | Custom node template. |
-| header | TemplateRef<void> | Custom header template. |
-| footer | TemplateRef<void> | Custom footer template. |
-| loader | TemplateRef<TreeLoaderTemplateContext> | Custom loader template. |
-| empty | TemplateRef<void> | Custom empty message template. |
-| togglericon | TemplateRef<TreeTogglerIconTemplateContext> | Custom toggler icon template. |
-| checkboxicon | TemplateRef<TreeCheckboxIconTemplateContext> | Custom checkbox icon template. |
-| loadingicon | TemplateRef<void> | Custom loading icon template. |
-| filtericon | TemplateRef<void> | Custom filter icon template. |
+| filter | Signal<TemplateRef<TreeFilterTemplateContext>> | Custom filter template. |
+| node | Signal<TemplateRef<any>> | Custom node template. |
+| header | Signal<TemplateRef<void>> | Custom header template. |
+| footer | Signal<TemplateRef<void>> | Custom footer template. |
+| loader | Signal<TemplateRef<TreeLoaderTemplateContext>> | Custom loader template. |
+| empty | Signal<TemplateRef<void>> | Custom empty message template. |
+| togglericon | Signal<TemplateRef<TreeTogglerIconTemplateContext>> | Custom toggler icon template. |
+| checkboxicon | Signal<TemplateRef<TreeCheckboxIconTemplateContext>> | Custom checkbox icon template. |
+| loadingicon | Signal<TemplateRef<void>> | Custom loading icon template. |
+| filtericon | Signal<TemplateRef<void>> | Custom filter icon template. |
 
 ### Methods
 
@@ -731,6 +729,9 @@ Tree is used to display hierarchical data.
 | tree.node.icon.color | --p-tree-node-icon-color | Color of node icon |
 | tree.node.icon.hover.color | --p-tree-node-icon-hover-color | Hover color of node icon |
 | tree.node.icon.selected.color | --p-tree-node-icon-selected-color | Selected color of node icon |
+| tree.node.label.font.weight | --p-tree-node-label-font-weight | Font weight of node label |
+| tree.node.label.font.size | --p-tree-node-label-font-size | Font size of node label |
+| tree.node.label.selected.font.weight | --p-tree-node-label-selected-font-weight | Font weight of a selected node label |
 | tree.node.toggle.button.border.radius | --p-tree-node-toggle-button-border-radius | Border radius of node toggle button |
 | tree.node.toggle.button.size | --p-tree-node-toggle-button-size | Size of node toggle button |
 | tree.node.toggle.button.hover.background | --p-tree-node-toggle-button-hover-background | Hover background of node toggle button |

@@ -36,7 +36,7 @@ import { DrawerModule } from 'primeng/drawer';
     template: `
         <div class="card flex justify-center">
             <p-drawer [(visible)]="visible" header="Drawer">
-                <p>
+                <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
@@ -65,7 +65,7 @@ import { DrawerModule } from 'primeng/drawer';
     template: `
         <div class="card flex justify-center">
             <p-drawer header="Drawer" [(visible)]="visible" [fullScreen]="true">
-                <p>
+                <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
@@ -98,7 +98,7 @@ import { RippleModule } from 'primeng/ripple';
             <p-drawer #drawerRef [(visible)]="visible">
                 <ng-template #headless>
                     <div class="flex flex-col h-full">
-                        <div class="flex items-center justify-between px-6 pt-4 shrink-0">
+                        <div class="flex items-center justify-between px-5 pt-3 shrink-0">
                             <span class="inline-flex items-center gap-2">
                                 <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                                     <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
@@ -129,14 +129,14 @@ import { RippleModule } from 'primeng/ripple';
                                     <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
                                     <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                                 </svg>
-                                <span class="font-semibold text-2xl text-primary">Your Logo</span>
+                                <span class="font-semibold text-xl text-primary">Your Logo</span>
                             </span>
                             <span>
                                 <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-8 w-8"></p-button>
                             </span>
                         </div>
                         <div class="overflow-y-auto">
-                            <ul class="list-none p-4 m-0">
+                            <ul class="list-none p-3 m-0">
                                 <li>
                                     <div
                                         pRipple
@@ -145,22 +145,22 @@ import { RippleModule } from 'primeng/ripple';
                                         enterActiveClass="animate-slidedown"
                                         leaveToClass="hidden"
                                         leaveActiveClass="animate-slideup"
-                                        class="p-4 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple"
+                                        class="p-3 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple"
                                     >
-                                        <span class="font-medium">FAVORITES</span>
+                                        <span class="font-medium text-sm">FAVORITES</span>
                                         <i class="pi pi-chevron-down"></i>
                                     </div>
                                     <ul class="list-none p-0 m-0 overflow-hidden">
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-home mr-2"></i>
-                                                <span class="font-medium">Dashboard</span>
+                                                <span class="font-medium text-sm">Dashboard</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-bookmark mr-2"></i>
-                                                <span class="font-medium">Bookmarks</span>
+                                                <span class="font-medium text-sm">Bookmarks</span>
                                             </a>
                                         </li>
                                         <li>
@@ -171,10 +171,10 @@ import { RippleModule } from 'primeng/ripple';
                                                 enterActiveClass="animate-slidedown"
                                                 leaveToClass="hidden"
                                                 leaveActiveClass="animate-slideup"
-                                                class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
+                                                class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                                             >
                                                 <i class="pi pi-chart-line mr-2"></i>
-                                                <span class="font-medium">Reports</span>
+                                                <span class="font-medium text-sm">Reports</span>
                                                 <i class="pi pi-chevron-down ml-auto"></i>
                                             </a>
                                             <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
@@ -186,70 +186,70 @@ import { RippleModule } from 'primeng/ripple';
                                                         enterActiveClass="animate-slidedown"
                                                         leaveToClass="hidden"
                                                         leaveActiveClass="animate-slideup"
-                                                        class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
+                                                        class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                                                     >
                                                         <i class="pi pi-chart-line mr-2"></i>
-                                                        <span class="font-medium">Revenue</span>
+                                                        <span class="font-medium text-sm">Revenue</span>
                                                         <i class="pi pi-chevron-down ml-auto"></i>
                                                     </a>
                                                     <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
                                                         <li>
                                                             <a
                                                                 pRipple
-                                                                class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
+                                                                class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                                                             >
                                                                 <i class="pi pi-table mr-2"></i>
-                                                                <span class="font-medium">View</span>
+                                                                <span class="font-medium text-sm">View</span>
                                                             </a>
                                                         </li>
                                                         <li>
                                                             <a
                                                                 pRipple
-                                                                class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
+                                                                class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                                                             >
                                                                 <i class="pi pi-search mr-2"></i>
-                                                                <span class="font-medium">Search</span>
+                                                                <span class="font-medium text-sm">Search</span>
                                                             </a>
                                                         </li>
                                                     </ul>
                                                 </li>
                                                 <li>
-                                                    <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                                    <a pRipple class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                         <i class="pi pi-chart-line mr-2"></i>
-                                                        <span class="font-medium">Expenses</span>
+                                                        <span class="font-medium text-sm">Expenses</span>
                                                     </a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-users mr-2"></i>
-                                                <span class="font-medium">Team</span>
+                                                <span class="font-medium text-sm">Team</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-comments mr-2"></i>
-                                                <span class="font-medium">Messages</span>
-                                                <span class="inline-flex items-center justify-center ml-auto bg-primary text-primary-contrast rounded-full" style="min-width: 1.5rem; height: 1.5rem">3</span>
+                                                <span class="font-medium text-sm">Messages</span>
+                                                <span class="inline-flex items-center justify-center ml-auto bg-primary text-primary-contrast rounded-full text-sm" style="min-width: 1.4rem; height: 1.4rem">3</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-calendar mr-2"></i>
-                                                <span class="font-medium">Calendar</span>
+                                                <span class="font-medium text-sm">Calendar</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-cog mr-2"></i>
-                                                <span class="font-medium">Settings</span>
+                                                <span class="font-medium text-sm">Settings</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
-                            <ul class="list-none p-4 m-0">
+                            <ul class="list-none p-3 m-0">
                                 <li>
                                     <div
                                         pRipple
@@ -258,28 +258,28 @@ import { RippleModule } from 'primeng/ripple';
                                         enterActiveClass="animate-slidedown"
                                         leaveToClass="hidden"
                                         leaveActiveClass="animate-slideup"
-                                        class="p-4 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple"
+                                        class="p-3 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple"
                                     >
-                                        <span class="font-medium">APPLICATION</span>
+                                        <span class="font-medium text-sm">APPLICATION</span>
                                         <i class="pi pi-chevron-down"></i>
                                     </div>
                                     <ul class="list-none p-0 m-0 overflow-hidden">
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-folder mr-2"></i>
-                                                <span class="font-medium">Projects</span>
+                                                <span class="font-medium text-sm">Projects</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-chart-bar mr-2"></i>
-                                                <span class="font-medium">Performance</span>
+                                                <span class="font-medium text-sm">Performance</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-cog mr-2"></i>
-                                                <span class="font-medium">Settings</span>
+                                                <span class="font-medium text-sm">Settings</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -287,10 +287,10 @@ import { RippleModule } from 'primeng/ripple';
                             </ul>
                         </div>
                         <div class="mt-auto">
-                            <hr class="mb-4 mx-4 border-t border-0 border-surface" />
-                            <a pRipple class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                            <hr class="mb-3 mx-3 border-t border-0 border-surface" />
+                            <a pRipple class="m-3 flex items-center cursor-pointer p-3 gap-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-                                <span class="font-bold">Amy Elsner</span>
+                                <span class="font-bold text-sm">Amy Elsner</span>
                             </a>
                         </div>
                     </div>
@@ -324,25 +324,25 @@ import { Drawer, DrawerModule } from 'primeng/drawer';
     template: `
         <div class="card">
             <p-drawer header="Left Drawer" [(visible)]="visible1" position="left">
-                <p>
+                <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
             </p-drawer>
             <p-drawer header="Right Drawer" [(visible)]="visible2" position="right">
-                <p>
+                <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
             </p-drawer>
             <p-drawer header="Top Drawer" [(visible)]="visible3" position="top" [style]="{ height: 'auto' }">
-                <p>
+                <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
             </p-drawer>
             <p-drawer header="Bottom Drawer" [(visible)]="visible4" position="bottom" [style]="{ height: 'auto' }">
-                <p>
+                <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
@@ -379,7 +379,7 @@ import { DrawerModule } from 'primeng/drawer';
     template: `
         <div class="card flex justify-center">
             <p-drawer header="Drawer" [(visible)]="visible" styleClass="!w-full md:!w-80 lg:!w-[30rem]">
-                <p>
+                <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
@@ -415,18 +415,26 @@ import { ButtonModule } from 'primeng/button';
                         <span class="font-bold">Amy Elsner</span>
                     </div>
                 </ng-template>
-                <p>
+                <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
                 <ng-template #footer>
                     <div class="flex items-center gap-2">
-                        <button pButton label="Account" icon="pi pi-user" class="w-full" outlined></button>
-                        <button pButton label="Logout" icon="pi pi-sign-out" class="w-full" severity="danger" text></button>
+                        <button pButton class="w-full" outlined>
+                            <span pButtonIcon class="pi pi-user"></span>
+                            <span pButtonLabel>Account</span>
+                        </button>
+                        <button pButton class="w-full" severity="danger" text>
+                            <span pButtonIcon class="pi pi-sign-out"></span>
+                            <span pButtonLabel>Logout</span>
+                        </button>
                     </div>
                 </ng-template>
             </p-drawer>
-            <button pButton (click)="visible = true" icon="pi pi-plus"></button>
+            <button pButton (click)="visible = true">
+                <span pButtonIcon class="pi pi-plus"></span>
+            </button>
         </div>
     `,
     standalone: true,
@@ -449,26 +457,25 @@ Sidebar is a panel component displayed as an overlay at the edges of the screen.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<DrawerPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
-| blockScroll | boolean | false | Whether to block scrolling of the document when drawer is active. |
-| style | { [klass: string]: any } | - | Inline style of the component. |
-| styleClass | string | - | Style class of the component. |
-| ariaCloseLabel | string | - | Aria label of the close icon. |
-| autoZIndex | boolean | true | Whether to automatically manage layering. |
-| baseZIndex | number | 0 | Base zIndex value to use in layering. |
-| modal | boolean | true | Whether an overlay mask is displayed behind the drawer. |
-| closeButtonProps | ButtonProps | ... | Used to pass all properties of the ButtonProps to the Button component. |
-| dismissible | boolean | true | Whether to dismiss drawer on click of the mask. |
-| showCloseIcon | boolean | true | Whether to display the close icon. **(Deprecated)** |
-| closeOnEscape | boolean | true | Specifies if pressing escape key should hide the drawer. |
-| transitionOptions | string | 150ms cubic-bezier(0, 0, 0.2, 1) | Transition options of the animation. **(Deprecated)** |
-| visible | boolean | - | The visible property is an input that determines the visibility of the component. |
-| position | InputSignal<"right" \| "left" \| "top" \| "bottom" \| "full"> | 'left' | Specifies the position of the drawer, valid values are "left", "right", "bottom" and "top". |
+| blockScroll | InputSignalWithTransform<boolean, unknown> | ... | Whether to block scrolling of the document when drawer is active. |
+| style | InputSignal<{ [klass: string]: any }> | ... | Inline style of the component. |
+| styleClass | InputSignal<string> | ... | Style class of the component. |
+| ariaCloseLabel | InputSignal<string> | ... | Aria label of the close icon. |
+| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
+| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
+| modal | InputSignalWithTransform<boolean, unknown> | ... | Whether an overlay mask is displayed behind the drawer. |
+| closeButtonProps | InputSignal<ButtonProps> | ... | Used to pass all properties of the ButtonProps to the Button component. |
+| dismissible | InputSignalWithTransform<boolean, unknown> | ... | Whether to dismiss drawer on click of the mask. |
+| showCloseIcon | InputSignalWithTransform<boolean, unknown> | ... | Whether to display the close icon. **(Deprecated)** |
+| closeOnEscape | InputSignalWithTransform<boolean, unknown> | ... | Specifies if pressing escape key should hide the drawer. |
+| visible | ModelSignal<boolean> | false | The visible property is an input that determines the visibility of the component. |
+| position | InputSignal<DrawerPosition> | 'left' | Specifies the position of the drawer, valid values are "left", "right", "bottom" and "top". |
 | fullScreen | InputSignal<boolean> | false | Adds a close icon to the header to hide the dialog. |
-| header | string | - | Title content of the dialog. |
-| maskStyle | { [klass: string]: any } | - | Style of the mask. |
-| closable | boolean | true | Whether to display close button. |
+| header | InputSignal<string> | ... | Title content of the dialog. |
+| maskStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Style of the mask. |
+| closable | InputSignalWithTransform<boolean, unknown> | true | Whether to display close button. |
 
 ### Emits
 
@@ -476,17 +483,16 @@ Sidebar is a panel component displayed as an overlay at the edges of the screen.
 |------|------------|-------------|
 | onShow | value: any | Callback to invoke when dialog is shown. |
 | onHide | value: any | Callback to invoke when dialog is hidden. |
-| visibleChange | value: boolean | Callback to invoke when dialog visibility is changed. |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | TemplateRef<void> | Custom header template. |
-| footer | TemplateRef<void> | Custom footer template. |
-| content | TemplateRef<void> | Custom content template. |
-| closeicon | TemplateRef<void> | Custom close icon template. |
-| headless | TemplateRef<void> | Custom headless template to replace the entire drawer content. |
+| header | Signal<TemplateRef<void>> | Custom header template. |
+| footer | Signal<TemplateRef<void>> | Custom footer template. |
+| content | Signal<TemplateRef<void>> | Custom content template. |
+| closeicon | Signal<TemplateRef<void>> | Custom close icon template. |
+| headless | Signal<TemplateRef<void>> | Custom headless template to replace the entire drawer content. |
 
 ## Pass Through Options
 

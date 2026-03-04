@@ -80,13 +80,13 @@ import { MessageService, ConfirmationService } from 'primeng/api';
             <p-confirmdialog #cd>
                 <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
                     @if (message) {
-                        <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
+                        <div class="flex flex-col items-center p-7 bg-surface-0 dark:bg-surface-900 rounded">
                             <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
                                 <i class="pi pi-question !text-5xl"></i>
                             </div>
-                            <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
-                            <p class="mb-0">{{ message.message }}</p>
-                            <div class="flex items-center gap-2 mt-6">
+                            <span class="font-bold text-xl block mb-2 mt-5">{{ message.header }}</span>
+                            <p class="mb-0 text-sm">{{ message.message }}</p>
+                            <div class="flex items-center gap-2 mt-5">
                                 <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
                                 <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
                             </div>
@@ -170,7 +170,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
                     @if (message) {
                         <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
                             <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
-                            <p>{{ message.message }}</p>
+                            <p class="text-sm">{{ message.message }}</p>
                         </div>
                     }
                 </ng-template>
@@ -200,40 +200,41 @@ ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ConfirmDialogPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| header | string | - | Title text of the dialog. |
-| icon | string | - | Icon to display next to message. |
-| message | string | - | Message of the confirmation. |
-| style | { [klass: string]: any } | - | Inline style of the element. |
-| styleClass | string | - | Class of the element. |
-| maskStyleClass | string | - | Specify the CSS class(es) for styling the mask element |
-| acceptIcon | string | - | Icon of the accept button. |
-| acceptLabel | string | - | Label of the accept button. |
-| closeAriaLabel | string | - | Defines a string that labels the close button for accessibility. |
-| acceptAriaLabel | string | - | Defines a string that labels the accept button for accessibility. |
-| acceptVisible | boolean | true | Visibility of the accept button. |
-| rejectIcon | string | - | Icon of the reject button. |
-| rejectLabel | string | - | Label of the reject button. |
-| rejectAriaLabel | string | - | Defines a string that labels the reject button for accessibility. |
-| rejectVisible | boolean | true | Visibility of the reject button. |
-| acceptButtonStyleClass | string | - | Style class of the accept button. |
-| rejectButtonStyleClass | string | - | Style class of the reject button. |
-| closeOnEscape | boolean | true | Specifies if pressing escape key should hide the dialog. |
-| dismissableMask | boolean | false | Specifies if clicking the modal background should hide the dialog. |
-| blockScroll | boolean | true | Determines whether scrolling behavior should be blocked within the component. |
-| rtl | boolean | false | When enabled dialog is displayed in RTL direction. |
-| closable | boolean | true | Adds a close icon to the header to hide the dialog. |
-| appendTo | InputSignal<any> | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| key | string | - | Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs. |
-| autoZIndex | boolean | true | Whether to automatically manage layering. |
-| baseZIndex | number | 0 | Base zIndex value to use in layering. |
-| transitionOptions | string | 150ms cubic-bezier(0, 0, 0.2, 1) | Transition options of the animation. |
-| focusTrap | boolean | true | When enabled, can only focus on elements inside the confirm dialog. |
-| defaultFocus | "accept" \| "reject" \| "none" \| "close" | accept | Element to receive the focus when the dialog gets visible. |
-| breakpoints | any | - | Object literal to define widths per screen size. |
-| modal | boolean | true | Defines if background should be blocked when dialog is displayed. |
-| visible | any | - | Current visible state as a boolean. |
-| position | "right" \| "left" \| "top" \| "bottom" \| "center" \| "topleft" \| "bottomleft" \| "topright" \| "bottomright" | center | Allows getting the position of the component. |
-| draggable | boolean | true | Enables dragging to change the position using header. |
+| header | InputSignal<string> | ... | Title text of the dialog. |
+| icon | InputSignal<string> | ... | Icon to display next to message. |
+| message | InputSignal<string> | ... | Message of the confirmation. |
+| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the element. |
+| styleClass | InputSignal<string> | ... | Class of the element. |
+| maskStyleClass | InputSignal<string> | ... | Specify the CSS class(es) for styling the mask element |
+| acceptIcon | InputSignal<string> | ... | Icon of the accept button. |
+| acceptLabel | InputSignal<string> | ... | Label of the accept button. |
+| closeAriaLabel | InputSignal<string> | ... | Defines a string that labels the close button for accessibility. |
+| acceptAriaLabel | InputSignal<string> | ... | Defines a string that labels the accept button for accessibility. |
+| acceptVisible | InputSignalWithTransform<boolean, unknown> | ... | Visibility of the accept button. |
+| rejectIcon | InputSignal<string> | ... | Icon of the reject button. |
+| rejectLabel | InputSignal<string> | ... | Label of the reject button. |
+| rejectAriaLabel | InputSignal<string> | ... | Defines a string that labels the reject button for accessibility. |
+| rejectVisible | InputSignalWithTransform<boolean, unknown> | ... | Visibility of the reject button. |
+| acceptButtonStyleClass | InputSignal<string> | ... | Style class of the accept button. |
+| rejectButtonStyleClass | InputSignal<string> | ... | Style class of the reject button. |
+| closeOnEscape | InputSignalWithTransform<boolean, unknown> | ... | Specifies if pressing escape key should hide the dialog. |
+| dismissableMask | InputSignalWithTransform<boolean, unknown> | ... | Specifies if clicking the modal background should hide the dialog. |
+| blockScroll | InputSignalWithTransform<boolean, unknown> | ... | Determines whether scrolling behavior should be blocked within the component. |
+| rtl | InputSignalWithTransform<boolean, unknown> | ... | When enabled dialog is displayed in RTL direction. |
+| closable | InputSignalWithTransform<boolean, unknown> | ... | Adds a close icon to the header to hide the dialog. |
+| appendTo | InputSignal<AppendTo> | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| key | InputSignal<string> | ... | Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs. |
+| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
+| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| maskMotionOptions | InputSignal<MotionOptions> | ... | The motion options for the mask. |
+| focusTrap | InputSignalWithTransform<boolean, unknown> | ... | When enabled, can only focus on elements inside the confirm dialog. |
+| defaultFocus | InputSignal<ConfirmDialogDefaultFocus> | ... | Element to receive the focus when the dialog gets visible. |
+| breakpoints | InputSignal<Record<string, string>> | ... | Object literal to define widths per screen size. |
+| modal | InputSignalWithTransform<boolean, unknown> | ... | Defines if background should be blocked when dialog is displayed. |
+| visible | ModelSignal<boolean> | ... | Current visible state as a boolean. |
+| position | InputSignal<DialogPosition> | ... | Allows getting the position of the component. |
+| draggable | InputSignalWithTransform<boolean, unknown> | ... | Enables dragging to change the position using header. |
 
 ### Emits
 
@@ -245,13 +246,13 @@ ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | TemplateRef<void> | Custom header template. |
-| footer | TemplateRef<void> | Custom footer template. |
-| rejecticon | TemplateRef<void> | Custom reject icon template. |
-| accepticon | TemplateRef<void> | Custom accept icon template. |
-| message | TemplateRef<ConfirmDialogMessageTemplateContext> | Custom message template. |
-| icon | TemplateRef<void> | Custom icon template. |
-| headless | TemplateRef<ConfirmDialogHeadlessTemplateContext> | Custom headless template. |
+| header | Signal<TemplateRef<void>> | Custom header template. |
+| footer | Signal<TemplateRef<void>> | Custom footer template. |
+| rejecticon | Signal<TemplateRef<void>> | Custom reject icon template. |
+| accepticon | Signal<TemplateRef<void>> | Custom accept icon template. |
+| message | Signal<TemplateRef<ConfirmDialogMessageTemplateContext>> | Custom message template. |
+| icon | Signal<TemplateRef<void>> | Custom icon template. |
+| headless | Signal<TemplateRef<ConfirmDialogHeadlessTemplateContext>> | Custom headless template. |
 
 ## Pass Through Options
 
@@ -271,6 +272,8 @@ ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
 | footer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the footer's DOM element. |
 | pcAcceptButton | ButtonPassThrough | Used to pass attributes to the accept Button component. |
 | pcRejectButton | ButtonPassThrough | Used to pass attributes to the reject Button component. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
+| maskMotion | MotionOptions | Used to pass motion options for the mask animation. |
 
 ## Theming
 
@@ -291,4 +294,7 @@ ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
 | confirmdialog.icon.size | --p-confirmdialog-icon-size | Size of icon |
 | confirmdialog.icon.color | --p-confirmdialog-icon-color | Color of icon |
 | confirmdialog.content.gap | --p-confirmdialog-content-gap | Gap of content |
+| confirmdialog.message.color | --p-confirmdialog-message-color | Color of message |
+| confirmdialog.message.font.weight | --p-confirmdialog-message-font-weight | Font weight of message |
+| confirmdialog.message.font.size | --p-confirmdialog-message-font-size | Font size of message |
 

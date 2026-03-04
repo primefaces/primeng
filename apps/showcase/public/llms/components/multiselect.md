@@ -481,7 +481,13 @@ interface City {
 export class MultiselectInvalidDemo {
     value1: boolean = true;
     value2: boolean = true;
-    cities: City[];
+    cities: City[] = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Paris', code: 'PRS' }
+    ];
     selectedCities1!: City[];
     selectedCities2!: City[];
 }
@@ -566,7 +572,13 @@ interface City {
 export class MultiselectReactiveformsDemo {
     private messageService = inject(MessageService);
     messageService = inject(MessageService);
-    cities: City[];
+    cities: City[] = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Paris', code: 'PRS' }
+    ];
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
 
@@ -752,7 +764,13 @@ interface City {
 export class MultiselectTemplatedrivenformsDemo {
     private messageService = inject(MessageService);
     messageService = inject(MessageService);
-    cities: City[];
+    cities: City[] = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Paris', code: 'PRS' }
+    ];
     selectedCity: City | undefined;
 
     onSubmit(form: any) {
@@ -791,8 +809,12 @@ import { MultiSelectModule } from 'primeng/multiselect';
                 #ms
             >
                 <ng-template #headercheckboxicon let-allSelected="checked" let-partialSelected="partialSelected">
-                    <i class="pi pi-check" *ngIf="allSelected"></i>
-                    <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>
+                    @if (allSelected) {
+                        <i class="pi pi-check"></i>
+                    }
+                    @if (partialSelected) {
+                        <i class="pi pi-minus" [ngStyle]="{ color: 'var(--text-color)' }"></i>
+                    }
                 </ng-template>
             </p-multiselect>
         </div>
@@ -828,70 +850,69 @@ MultiSelect is used to select multiple items from a collection.
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| id | string | - | Unique identifier of the component |
-| ariaLabel | string | - | Defines a string that labels the input for accessibility. |
-| styleClass | string | - | Style class of the element. **(Deprecated)** |
-| panelStyle | any | - | Inline style of the overlay panel. |
-| panelStyleClass | string | - | Style class of the overlay panel element. |
-| inputId | string | - | Identifier of the focus input to match a label defined for the component. |
-| readonly | boolean | false | When present, it specifies that the component cannot be edited. |
-| group | boolean | false | Whether to display options as grouped when nested options are provided. |
-| filter | boolean | true | When specified, displays an input field to filter the items on keyup. |
-| filterPlaceHolder | string | - | Defines placeholder of the filter input. |
-| filterLocale | string | - | Locale to use in filtering. The default locale is the host environment's current locale. |
-| overlayVisible | boolean | false | Specifies the visibility of the options panel. |
-| tabindex | number | 0 | Index of the element in tabbing order. |
-| dataKey | string | - | A property to uniquely identify a value in options. |
-| ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| displaySelectedLabel | boolean | - | Whether to show labels of selected item labels or use default label. |
-| maxSelectedLabels | number | - | Decides how many selected item labels to show at most. |
-| selectionLimit | number | - | Maximum number of selectable items. |
-| selectedItemsLabel | string | - | Label to display after exceeding max selected labels e.g. ({0} items selected), defaults "ellipsis" keyword to indicate a text-overflow. |
-| showToggleAll | boolean | true | Whether to show the checkbox at header to toggle all items at once. |
-| emptyFilterMessage | string | - | Text to display when filtering does not return any results. |
-| emptyMessage | string | - | Text to display when there is no data. Defaults to global value in i18n translation configuration. |
-| resetFilterOnHide | boolean | false | Clears the filter value when hiding the dropdown. |
-| dropdownIcon | string | - | Icon class of the dropdown icon. |
-| chipIcon | string | - | Icon class of the chip icon. |
-| optionLabel | string | - | Name of the label field of an option. |
-| optionValue | string | - | Name of the value field of an option. |
-| optionDisabled | string | - | Name of the disabled field of an option. |
-| optionGroupLabel | string | label | Name of the label field of an option group. |
-| optionGroupChildren | string | items | Name of the options field of an option group. |
-| showHeader | boolean | true | Whether to show the header. |
-| filterBy | string | - | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
-| scrollHeight | string | 200px | Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
-| lazy | boolean | false | Defines if data is loaded and interacted with in lazy manner. |
-| virtualScroll | boolean | false | Whether the data should be loaded on demand during scroll. |
-| loading | boolean | false | Whether the multiselect is in loading state. |
-| virtualScrollItemSize | number | - | Height of an item in the list for VirtualScrolling. |
-| loadingIcon | string | - | Icon to display in loading state. |
-| virtualScrollOptions | ScrollerOptions | - | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
-| overlayOptions | OverlayOptions | - | Whether to use overlay API feature. The properties of overlay API can be used like an object in it. |
-| ariaFilterLabel | string | - | Defines a string that labels the filter input. |
-| filterMatchMode | "startsWith" \| "contains" \| "endsWith" \| "equals" \| "notEquals" \| "in" \| "lt" \| "lte" \| "gt" \| "gte" | contains | Defines how the items are filtered. |
-| tooltip | string | - | Advisory information to display in a tooltip on hover. |
-| tooltipPosition | "right" \| "left" \| "top" \| "bottom" | right | Position of the tooltip. |
-| tooltipPositionStyle | string | absolute | Type of CSS position. |
-| tooltipStyleClass | string | - | Style class of the tooltip. |
-| autofocusFilter | boolean | false | Applies focus to the filter element when the overlay is shown. |
-| display | string | comma | Defines how the selected items are displayed. |
-| autocomplete | string | off | Defines the autocomplete is active. |
-| showClear | boolean | false | When enabled, a clear icon is displayed to clear the value. |
-| autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
-| placeholder | Signal<string> | - | Label to display when there are no selections. |
-| options | any[] | - | An array of objects to display as the available options. |
-| filterValue | string | - | When specified, filter displays with this value. |
-| selectAll | boolean | - | Whether all data is selected. |
-| focusOnHover | boolean | true | Indicates whether to focus on options when hovering over them, defaults to optionLabel. |
-| filterFields | any[] | - | Fields used when filtering the options, defaults to optionLabel. |
-| selectOnFocus | boolean | false | Determines if the option will be selected on focus. |
-| autoOptionFocus | boolean | false | Whether to focus on the first visible or selected element when the overlay panel is shown. |
-| highlightOnSelect | boolean | true | Whether the selected option will be add highlight class. |
+| id | InputSignal<string> | ... | Unique identifier of the component |
+| ariaLabel | InputSignal<string> | ... | Defines a string that labels the input for accessibility. |
+| panelStyle | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the overlay panel. |
+| panelStyleClass | InputSignal<string> | ... | Style class of the overlay panel element. |
+| inputId | InputSignal<string> | ... | Identifier of the focus input to match a label defined for the component. |
+| readonly | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component cannot be edited. |
+| group | InputSignalWithTransform<boolean, unknown> | ... | Whether to display options as grouped when nested options are provided. |
+| filter | InputSignalWithTransform<boolean, unknown> | ... | When specified, displays an input field to filter the items on keyup. |
+| filterPlaceHolder | InputSignal<string> | ... | Defines placeholder of the filter input. |
+| filterLocale | InputSignal<string> | ... | Locale to use in filtering. The default locale is the host environment's current locale. |
+| overlayVisible | WritableSignal<boolean> | ... | Specifies the visibility of the options panel. |
+| tabindex | InputSignalWithTransform<number, unknown> | ... | Index of the element in tabbing order. |
+| dataKey | InputSignal<string> | ... | A property to uniquely identify a value in options. |
+| ariaLabelledBy | InputSignal<string> | ... | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
+| displaySelectedLabel | InputSignalWithTransform<boolean, unknown> | true | Whether to show labels of selected item labels or use default label. |
+| maxSelectedLabels | InputSignal<number> | 3 | Decides how many selected item labels to show at most. |
+| selectionLimit | InputSignalWithTransform<number, unknown> | ... | Maximum number of selectable items. |
+| selectedItemsLabel | InputSignal<string> | ... | Label to display after exceeding max selected labels e.g. ({0} items selected), defaults "ellipsis" keyword to indicate a text-overflow. |
+| showToggleAll | InputSignalWithTransform<boolean, unknown> | ... | Whether to show the checkbox at header to toggle all items at once. |
+| emptyFilterMessage | InputSignal<string> | ... | Text to display when filtering does not return any results. |
+| emptyMessage | InputSignal<string> | ... | Text to display when there is no data. Defaults to global value in i18n translation configuration. |
+| resetFilterOnHide | InputSignalWithTransform<boolean, unknown> | ... | Clears the filter value when hiding the dropdown. |
+| dropdownIcon | InputSignal<string> | ... | Icon class of the dropdown icon. |
+| chipIcon | InputSignal<string> | ... | Icon class of the chip icon. |
+| optionLabel | InputSignal<string> | ... | Name of the label field of an option. |
+| optionValue | InputSignal<string> | ... | Name of the value field of an option. |
+| optionDisabled | InputSignal<string> | ... | Name of the disabled field of an option. |
+| optionGroupLabel | InputSignal<string> | ... | Name of the label field of an option group. |
+| optionGroupChildren | InputSignal<string> | ... | Name of the options field of an option group. |
+| showHeader | InputSignalWithTransform<boolean, unknown> | ... | Whether to show the header. |
+| filterBy | InputSignal<string> | ... | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
+| scrollHeight | InputSignal<string> | ... | Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
+| lazy | InputSignalWithTransform<boolean, unknown> | ... | Defines if data is loaded and interacted with in lazy manner. |
+| virtualScroll | InputSignalWithTransform<boolean, unknown> | ... | Whether the data should be loaded on demand during scroll. |
+| loading | InputSignalWithTransform<boolean, unknown> | ... | Whether the multiselect is in loading state. |
+| virtualScrollItemSize | InputSignalWithTransform<number, unknown> | ... | Height of an item in the list for VirtualScrolling. |
+| loadingIcon | InputSignal<string> | ... | Icon to display in loading state. |
+| virtualScrollOptions | InputSignal<ScrollerOptions> | ... | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
+| overlayOptions | InputSignal<OverlayOptions> | ... | Whether to use overlay API feature. The properties of overlay API can be used like an object in it. |
+| ariaFilterLabel | InputSignal<string> | ... | Defines a string that labels the filter input. |
+| filterMatchMode | InputSignal<FilterMatchModeType> | ... | Defines how the items are filtered. |
+| tooltip | InputSignal<string> | ... | Advisory information to display in a tooltip on hover. |
+| tooltipPosition | InputSignal<TooltipPosition> | ... | Position of the tooltip. |
+| tooltipPositionStyle | InputSignal<string> | ... | Type of CSS position. |
+| tooltipStyleClass | InputSignal<string> | ... | Style class of the tooltip. |
+| autofocusFilter | InputSignalWithTransform<boolean, unknown> | ... | Applies focus to the filter element when the overlay is shown. |
+| display | InputSignal<MultiSelectDisplay> | ... | Defines how the selected items are displayed. |
+| autocomplete | InputSignal<string> | ... | Defines the autocomplete is active. |
+| showClear | InputSignalWithTransform<boolean, unknown> | ... | When enabled, a clear icon is displayed to clear the value. |
+| autofocus | InputSignalWithTransform<boolean, unknown> | ... | When present, it specifies that the component should automatically get focus on load. |
+| placeholder | InputSignal<string> | ... | Label to display when there are no selections. |
+| options | InputSignal<any[]> | ... | An array of objects to display as the available options. |
+| filterValue | InputSignal<string> | ... | When specified, filter displays with this value. |
+| selectAll | InputSignal<boolean> | ... | Whether all data is selected. |
+| focusOnHover | InputSignalWithTransform<boolean, unknown> | ... | Indicates whether to focus on options when hovering over them, defaults to optionLabel. |
+| filterFields | InputSignal<string[]> | ... | Fields used when filtering the options, defaults to optionLabel. |
+| selectOnFocus | InputSignalWithTransform<boolean, unknown> | ... | Determines if the option will be selected on focus. |
+| autoOptionFocus | InputSignalWithTransform<boolean, unknown> | ... | Whether to focus on the first visible or selected element when the overlay panel is shown. |
+| highlightOnSelect | InputSignalWithTransform<boolean, unknown> | ... | Whether the selected option will be add highlight class. |
 | size | InputSignal<"small" \| "large"> | undefined | Specifies the size of the component. |
-| variant | InputSignal<"outlined" \| "filled"> | undefined | Specifies the input variant of the component. |
+| variant | InputSignal<"filled" \| "outlined"> | undefined | Specifies the input variant of the component. |
 | fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
-| appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
@@ -914,23 +935,23 @@ MultiSelect is used to select multiple items from a collection.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<MultiSelectItemTemplateContext<any>> | Custom item template. |
-| group | TemplateRef<MultiSelectGroupTemplateContext<any>> | Custom group template. |
-| loader | TemplateRef<MultiSelectLoaderTemplateContext> | Custom loader template. |
-| header | TemplateRef<void> | Custom header template. |
-| filter | TemplateRef<MultiSelectFilterTemplateContext> | Custom filter template. |
-| footer | TemplateRef<void> | Custom footer template. |
-| emptyfilter | TemplateRef<void> | Custom empty filter template. |
-| empty | TemplateRef<void> | Custom empty template. |
-| selecteditems | TemplateRef<MultiSelectSelectedItemsTemplateContext<any>> | Custom selected items template. |
-| loadingicon | TemplateRef<void> | Custom loading icon template. |
-| filtericon | TemplateRef<void> | Custom filter icon template. |
-| removetokenicon | TemplateRef<MultiSelectChipIconTemplateContext> | Custom remove token icon template. |
-| chipicon | TemplateRef<MultiSelectChipIconTemplateContext> | Custom chip icon template. |
-| clearicon | TemplateRef<void> | Custom clear icon template. |
-| dropdownicon | TemplateRef<MultiSelectDropdownIconTemplateContext> | Custom dropdown icon template. |
-| itemcheckboxicon | TemplateRef<MultiSelectItemCheckboxIconTemplateContext> | Custom item checkbox icon template. |
-| headercheckboxicon | TemplateRef<MultiSelectHeaderCheckboxIconTemplateContext> | Custom header checkbox icon template. |
+| item | Signal<TemplateRef<MultiSelectItemTemplateContext<any>>> | Custom item template. |
+| group | Signal<TemplateRef<MultiSelectGroupTemplateContext<any>>> | Custom group template. |
+| loader | Signal<TemplateRef<MultiSelectLoaderTemplateContext>> | Custom loader template. |
+| header | Signal<TemplateRef<void>> | Custom header template. |
+| filter | Signal<TemplateRef<MultiSelectFilterTemplateContext>> | Custom filter template. |
+| footer | Signal<TemplateRef<void>> | Custom footer template. |
+| emptyfilter | Signal<TemplateRef<void>> | Custom empty filter template. |
+| empty | Signal<TemplateRef<void>> | Custom empty template. |
+| selecteditems | Signal<TemplateRef<MultiSelectSelectedItemsTemplateContext<any>>> | Custom selected items template. |
+| loadingicon | Signal<TemplateRef<void>> | Custom loading icon template. |
+| filtericon | Signal<TemplateRef<void>> | Custom filter icon template. |
+| removetokenicon | Signal<TemplateRef<MultiSelectChipIconTemplateContext>> | Custom remove token icon template. |
+| chipicon | Signal<TemplateRef<MultiSelectChipIconTemplateContext>> | Custom chip icon template. |
+| clearicon | Signal<TemplateRef<void>> | Custom clear icon template. |
+| dropdownicon | Signal<TemplateRef<MultiSelectDropdownIconTemplateContext>> | Custom dropdown icon template. |
+| itemcheckboxicon | Signal<TemplateRef<MultiSelectItemCheckboxIconTemplateContext>> | Custom item checkbox icon template. |
+| headercheckboxicon | Signal<TemplateRef<MultiSelectHeaderCheckboxIconTemplateContext>> | Custom header checkbox icon template. |
 
 ### Methods
 
@@ -1026,6 +1047,8 @@ MultiSelect is used to select multiple items from a collection.
 | multiselect.lg.font.size | --p-multiselect-lg-font-size | Lg font size of root |
 | multiselect.lg.padding.x | --p-multiselect-lg-padding-x | Lg padding x of root |
 | multiselect.lg.padding.y | --p-multiselect-lg-padding-y | Lg padding y of root |
+| multiselect.font.weight | --p-multiselect-font-weight | Font weight of root |
+| multiselect.font.size | --p-multiselect-font-size | Font size of root |
 | multiselect.dropdown.width | --p-multiselect-dropdown-width | Width of dropdown |
 | multiselect.dropdown.color | --p-multiselect-dropdown-color | Color of dropdown |
 | multiselect.overlay.background | --p-multiselect-overlay-background | Background of overlay |
@@ -1043,12 +1066,16 @@ MultiSelect is used to select multiple items from a collection.
 | multiselect.option.focus.color | --p-multiselect-option-focus-color | Focus color of option |
 | multiselect.option.selected.color | --p-multiselect-option-selected-color | Selected color of option |
 | multiselect.option.selected.focus.color | --p-multiselect-option-selected-focus-color | Selected focus color of option |
+| multiselect.option.selected.font.weight | --p-multiselect-option-selected-font-weight | Font weight of a selected option |
 | multiselect.option.padding | --p-multiselect-option-padding | Padding of option |
 | multiselect.option.border.radius | --p-multiselect-option-border-radius | Border radius of option |
 | multiselect.option.gap | --p-multiselect-option-gap | Gap of option |
+| multiselect.option.font.weight | --p-multiselect-option-font-weight | Font weight of option |
+| multiselect.option.font.size | --p-multiselect-option-font-size | Font size of option |
 | multiselect.option.group.background | --p-multiselect-option-group-background | Background of option group |
 | multiselect.option.group.color | --p-multiselect-option-group-color | Color of option group |
 | multiselect.option.group.font.weight | --p-multiselect-option-group-font-weight | Font weight of option group |
+| multiselect.option.group.font.size | --p-multiselect-option-group-font-size | Font size of option group |
 | multiselect.option.group.padding | --p-multiselect-option-group-padding | Padding of option group |
 | multiselect.clear.icon.color | --p-multiselect-clear-icon-color | Color of clear icon |
 | multiselect.chip.border.radius | --p-multiselect-chip-border-radius | Border radius of chip |

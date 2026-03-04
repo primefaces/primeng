@@ -62,18 +62,19 @@ interface Users {
         <div class="card flex sm:justify-center">
             <p-toast />
             <ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
-                <li
-                    *ngFor="let user of users"
-                    class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
-                    [ngClass]="{ 'border-primary': selectedId === user.id }"
-                    (contextmenu)="onContextMenu($event, user)"
-                >
-                    <div class="flex flex-1 items-center gap-2">
-                        <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" />
-                        <span class="font-bold">{{ user.name }}</span>
-                    </div>
-                    <p-tag [value]="user.role" [severity]="getBadge(user)" />
-                </li>
+                @for (user of users; track user.id) {
+                    <li
+                        class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
+                        [ngClass]="{ 'border-primary': selectedId === user.id }"
+                        (contextmenu)="onContextMenu($event, user)"
+                    >
+                        <div class="flex flex-1 items-center gap-2">
+                            <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" />
+                            <span class="font-bold text-sm">{{ user.name }}</span>
+                        </div>
+                        <p-tag [value]="user.role" [severity]="getBadge(user)" />
+                    </li>
+                }
             </ul>
             <p-contextmenu #cm [model]="items" (onHide)="onHide()" />
         </div>
@@ -166,7 +167,7 @@ import { ContextMenu } from 'primeng/contextmenu';
 @Component({
     template: `
         <div class="card text-center">
-            <p class="mb-0">Right-Click anywhere on this page to view the global ContextMenu.</p>
+            <p class="mb-0 text-sm">Right-Click anywhere on this page to view the global ContextMenu.</p>
             <p-contextmenu [model]="items" [global]="true" />
         </div>
     `,
@@ -299,34 +300,41 @@ import { ContextMenu } from 'primeng/contextmenu';
 @Component({
     template: `
         <div class="card flex md:justify-center">
-            <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded p-4 flex flex-col gap-2 w-full md:w-[30rem]">
-                <li
-                    *ngFor="let product of data"
-                    class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
-                    [ngClass]="{ 'border-primary': selectedId === product.id }"
-                    (contextmenu)="onContextMenu($event)"
-                >
-                    <div class="flex flex-wrap p-2 items-center gap-4">
-                        <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
-                        <div class="flex-1 flex flex-col gap-1">
-                            <span class="font-bold">{{ product.name }}</span>
-                            <div class="flex items-center gap-2">
-                                <i class="pi pi-tag text-sm"></i>
-                                <span>{{ product.category }}</span>
+            <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded p-3 flex flex-col gap-2 w-full md:w-[30rem]">
+                @for (product of data; track product.id) {
+                    <li
+                        class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
+                        [ngClass]="{ 'border-primary': selectedId === product.id }"
+                        (contextmenu)="onContextMenu($event)"
+                    >
+                        <div class="flex flex-wrap p-2 items-center gap-4">
+                            <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
+                            <div class="flex-1 flex flex-col gap-1">
+                                <span class="font-bold text-sm">{{ product.name }}</span>
+                                <div class="flex items-center gap-2">
+                                    <i class="pi pi-tag text-sm"></i>
+                                    <span class="text-sm">{{ product.category }}</span>
+                                </div>
                             </div>
+                            <span class="font-bold ml-8 text-sm">&#36;{{ product.price }}</span>
                         </div>
-                        <span class="font-bold ml-8">&#36;{{ product.price }}</span>
-                    </div>
-                </li>
+                    </li>
+                }
             </ul>
             <p-contextmenu #cm [model]="items" (onHide)="onHide()">
                 <ng-template #item let-item>
-                    <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
+                    <a pRipple class="flex items-center px-3 py-2 cursor-pointer">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-                        <i *ngIf="item.items" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
+                        @if (item.badge) {
+                            <p-badge class="ms-auto" [value]="item.badge" />
+                        }
+                        @if (item.shortcut) {
+                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        }
+                        @if (item.items) {
+                            <i class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
+                        }
                     </a>
                 </ng-template>
             </p-contextmenu>
@@ -338,7 +346,68 @@ import { ContextMenu } from 'primeng/contextmenu';
 export class ContextmenuTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;
     selectedId!: string;
-    data: any[];
+    data: any[] = [
+        {
+            id: '1000',
+            code: 'f230fh0g3',
+            name: 'Bamboo Watch',
+            description: 'Product Description',
+            image: 'bamboo-watch.jpg',
+            price: 65,
+            category: 'Accessories',
+            quantity: 24,
+            inventoryStatus: 'INSTOCK',
+            rating: 5
+        },
+        {
+            id: '1001',
+            code: 'nvklal433',
+            name: 'Black Watch',
+            description: 'Product Description',
+            image: 'black-watch.jpg',
+            price: 72,
+            category: 'Accessories',
+            quantity: 61,
+            inventoryStatus: 'INSTOCK',
+            rating: 4
+        },
+        {
+            id: '1002',
+            code: 'zz21cz3c1',
+            name: 'Blue Band',
+            description: 'Product Description',
+            image: 'blue-band.jpg',
+            price: 79,
+            category: 'Fitness',
+            quantity: 2,
+            inventoryStatus: 'LOWSTOCK',
+            rating: 3
+        },
+        {
+            id: '1003',
+            code: '244wgerg2',
+            name: 'Blue T-Shirt',
+            description: 'Product Description',
+            image: 'blue-t-shirt.jpg',
+            price: 29,
+            category: 'Clothing',
+            quantity: 25,
+            inventoryStatus: 'INSTOCK',
+            rating: 5
+        },
+        {
+            id: '1004',
+            code: 'h456wer53',
+            name: 'Bracelet',
+            description: 'Product Description',
+            image: 'bracelet.jpg',
+            price: 15,
+            category: 'Accessories',
+            quantity: 73,
+            inventoryStatus: 'INSTOCK',
+            rating: 4
+        }
+    ];
 
     ngOnInit() {
         this.items = [
@@ -397,35 +466,35 @@ ContextMenu displays an overlay menu on right click of its target. Note that com
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ContextMenuPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| model | MenuItem[] | - | An array of menuitems. |
-| triggerEvent | string | contextmenu | Event for which the menu must be displayed. |
-| target | string \| HTMLElement | - | Local template variable name of the element to attach the context menu. |
-| global | boolean | false | Attaches the menu to document instead of a particular item. |
-| style | { [klass: string]: any } | - | Inline style of the component. |
-| styleClass | string | - | Style class of the component. |
-| autoZIndex | boolean | true | Whether to automatically manage layering. |
-| baseZIndex | number | 0 | Base zIndex value to use in layering. |
-| id | string | - | Current id state as a string. |
-| breakpoint | string | 960px | The breakpoint to define the maximum width boundary. |
-| ariaLabel | string | - | Defines a string value that labels an interactive element. |
-| ariaLabelledBy | string | - | Identifier of the underlying input element. |
-| pressDelay | number | 500 | Press delay in touch devices as miliseconds. |
-| appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| model | InputSignal<MenuItem[]> | ... | An array of menuitems. |
+| triggerEvent | InputSignal<string> | ... | Event for which the menu must be displayed. |
+| target | InputSignal<string \| HTMLElement> | ... | Local template variable name of the element to attach the context menu. |
+| global | InputSignalWithTransform<boolean, unknown> | ... | Attaches the menu to document instead of a particular item. |
+| style | InputSignal<Partial<CSSStyleDeclaration>> | ... | Inline style of the component. |
+| styleClass | InputSignal<string> | ... | Style class of the component. |
+| autoZIndex | InputSignalWithTransform<boolean, unknown> | ... | Whether to automatically manage layering. |
+| baseZIndex | InputSignalWithTransform<number, unknown> | ... | Base zIndex value to use in layering. |
+| id | InputSignal<string> | ... | Current id state as a string. |
+| breakpoint | InputSignal<string> | ... | The breakpoint to define the maximum width boundary. |
+| ariaLabel | InputSignal<string> | ... | Defines a string value that labels an interactive element. |
+| ariaLabelledBy | InputSignal<string> | ... | Identifier of the underlying input element. |
+| pressDelay | InputSignalWithTransform<number, unknown> | ... | Press delay in touch devices as miliseconds. |
+| appendTo | InputSignal<AppendTo> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
 
 | Name | Parameters | Description |
 |------|------------|-------------|
-| onShow | value: null | Callback to invoke when overlay menu is shown. |
-| onHide | value: null | Callback to invoke when overlay menu is hidden. |
+| onShow | value: void | Callback to invoke when overlay menu is shown. |
+| onHide | value: void | Callback to invoke when overlay menu is hidden. |
 
 ### Templates
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<ContextMenuItemTemplateContext> | Custom item template. |
-| submenuicon | TemplateRef<ContextMenuSubmenuIconTemplateContext> | Custom submenu icon template. |
+| item | Signal<TemplateRef<ContextMenuItemTemplateContext>> | Custom item template. |
+| submenuicon | Signal<TemplateRef<ContextMenuSubmenuIconTemplateContext>> | Custom submenu icon template. |
 
 ## Pass Through Options
 
@@ -483,6 +552,9 @@ ContextMenu displays an overlay menu on right click of its target. Note that com
 | contextmenu.item.icon.color | --p-contextmenu-item-icon-color | Icon color of item |
 | contextmenu.item.icon.focus.color | --p-contextmenu-item-icon-focus-color | Icon focus color of item |
 | contextmenu.item.icon.active.color | --p-contextmenu-item-icon-active-color | Icon active color of item |
+| contextmenu.item.icon.size | --p-contextmenu-item-icon-size | Icon size of item |
+| contextmenu.item.label.font.weight | --p-contextmenu-item-label-font-weight | Font weight of item label |
+| contextmenu.item.label.font.size | --p-contextmenu-item-label-font-size | Font size of item label |
 | contextmenu.submenu.mobile.indent | --p-contextmenu-submenu-mobile-indent | Mobile indent of submenu |
 | contextmenu.submenu.icon.size | --p-contextmenu-submenu-icon-size | Size of submenu icon |
 | contextmenu.submenu.icon.color | --p-contextmenu-submenu-icon-color | Color of submenu icon |
