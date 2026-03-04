@@ -7,18 +7,18 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: [CommonModule],
     template: `
-        <section class="landing-users py-20 px-4 lg:px-20">
+        <section class="landing-users py-20 px-3.5 lg:px-20">
             <div class="section-header">Who Uses</div>
             <p class="section-detail">
                 PrimeTek libraries have reached over<span class="font-semibold animated-text relative white-space-nowrap !p-0"><span>400 Million Downloads</span></span
                 >on npm! Join the PrimeLand community and experience the difference yourself.
             </p>
-            <div class="flex justify-center items-center mt-6">
+            <div class="flex justify-center items-center mt-5">
                 <span class="ml-2"> </span>
             </div>
             @for (x of users; track $index) {
-                <div class="logo-section relative w-full md:w-8/12 mt-12 users-container">
-                    <div class="fade-left h-24 w-24 block absolute top-0 left-0 z-20"></div>
+                <div class="logo-section relative w-full md:w-8/12 mt-10 users-container">
+                    <div class="fade-left h-21 w-21 block absolute top-0 left-0 z-20"></div>
                     <div class="marquee-wrapper overflow-hidden flex">
                         @for (_ of [1, 2, 3]; track $index) {
                             <div [ngClass]="getMarqueeClass(x.reverse)">
@@ -30,7 +30,7 @@ import { Component } from '@angular/core';
                             </div>
                         }
                     </div>
-                    <div class="fade-right h-24 w-24 block absolute top-0 right-0 z-20"></div>
+                    <div class="fade-right h-21 w-21 block absolute top-0 right-0 z-20"></div>
                 </div>
             }
         </section>

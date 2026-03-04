@@ -49,53 +49,53 @@ import { OverviewApp } from './samples/overviewapp.component';
         ButtonModule
     ],
     template: `
-        <section class="landing-hero py-20 px-8 lg:px-20">
+        <section class="landing-hero py-20 px-7 lg:px-20">
             <div class="flex flex-col items-center">
-                <h1 class="text-5xl font-bold text-center xl:text-left leading-tight">The Next-Gen UI Suite for <span class="font-bold text-primary">Angular</span></h1>
-                <p class="text-center mt-0 mb-8 text-surface-500 dark:text-surface-400 font-medium text-xl leading-relaxed lg:px-56">
+                <h1 class="text-4xl font-bold text-center xl:text-left leading-tight">The Next-Gen UI Suite for <span class="font-bold text-primary">Angular</span></h1>
+                <p class="text-center mt-0 mb-7 text-surface-500 dark:text-surface-400 font-medium text-lg leading-relaxed lg:px-56">
                     Enhance your web applications with PrimeNG's comprehensive suite of customizable, feature-rich UI components. With PrimeNG, turning your development vision into reality has never been easier.
                 </p>
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-3.5">
                     <a [routerLink]="'installation'" class="linkbox linkbox-primary">
                         <span>Get Started</span>
-                        <i class="pi pi-arrow-right ms-4"></i>
+                        <i class="pi pi-arrow-right ms-3.5"></i>
                     </a>
                     <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="linkbox">
                         <span>Give a Star</span>
-                        <i class="pi pi-star-fill ms-4 text-yellow-500"></i>
+                        <i class="pi pi-star-fill ms-3.5 text-yellow-500"></i>
                     </a>
                 </div>
-                <div class="w-full flex lg:hidden items-center justify-center mt-16 mb-4">
+                <div class="w-full flex lg:hidden items-center justify-center mt-14 mb-3.5">
                     <p-selectbutton [(ngModel)]="selectedSampleOption" [options]="sampleOptions" optionLabel="title" styleClass="dark:border dark:border-white/20">
                         <ng-template #item let-item>
                             <i [class]="item.icon"></i>
-                            <div class="hidden sm:flex flex-1 text-sm font-medium leading-5">{{ item.title }}</div>
+                            <div class="hidden sm:flex flex-1 text-sm font-medium leading-4">{{ item.title }}</div>
                         </ng-template>
                     </p-selectbutton>
                 </div>
-                <div class="bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full rounded-3xl p-0 flex lg:hidden items-start gap-6 overflow-hidden">
+                <div class="bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full rounded-3xl p-0 flex lg:hidden items-start gap-5 overflow-hidden">
                     @for (sampleOption of sampleOptions; track sampleOption.title) {
                         @if (selectedSampleOption.title === sampleOption.title) {
                             <img [src]="sampleOption.src + (isDarkMode ? '-dark.jpg' : '.jpg')" class="w-full" />
                         }
                     }
                 </div>
-                <div class="bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full h-[85vh] max-h-[1040px] rounded-3xl p-6 hidden lg:flex lg:mt-20 items-start gap-6 overflow-hidden">
+                <div class="bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full h-[85vh] max-h-[1040px] rounded-3xl p-5 hidden lg:flex lg:mt-20 items-start gap-5 overflow-hidden">
                     <div
                         [ngClass]="{
                             'w-auto': isSlimMenu,
-                            'w-72': !isSlimMenu
+                            'w-64': !isSlimMenu
                         }"
                         class="rounded-2xl p-5 bg-surface-50 dark:bg-surface-900 h-full flex flex-col justify-between"
                     >
                         <div
                             [ngClass]="{
-                                'w-12 flex flex-col items-center': isSlimMenu,
+                                'w-11 flex flex-col items-center': isSlimMenu,
                                 'w-auto': !isSlimMenu
                             }"
                         >
-                            <div class="flex items-center gap-3">
-                                <div class="w-11 h-11 border border-primary rounded-xl flex items-center justify-center">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-10 h-10 border border-primary rounded-xl flex items-center justify-center">
                                     <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M14.65 11.0645L13.1283 10.7253L14.3119 12.4216V17.6803L18.3698 14.2876V8.52002L16.5099 9.19856L14.65 11.0645Z" fill="var(--p-primary-color)" />
                                         <path d="M5.18078 11.0645L6.70251 10.7253L5.51894 12.4216V17.6803L1.46098 14.2876V8.52002L3.32088 9.19856L5.18078 11.0645Z" fill="var(--p-primary-color)" />
@@ -119,19 +119,19 @@ import { OverviewApp } from './samples/overviewapp.component';
                                         hidden: isSlimMenu,
                                         block: !isSlimMenu
                                     }"
-                                    class="text-surface-950 dark:text-surface-0 font-medium text-3xl"
+                                    class="text-surface-950 dark:text-surface-0 font-medium text-2xl"
                                 >
                                     Prime
                                 </div>
                             </div>
-                            <div class="mt-10 flex flex-col gap-2">
+                            <div class="mt-9 flex flex-col gap-2">
                                 @for (navItem of sampleAppsSidebarNavs; track navItem.title) {
                                     <div
                                         [pTooltip]="isSlimMenu ? navItem.title : null"
                                         (click)="setSelectedSampleAppsSidebarNav(navItem.title)"
-                                        class="px-4 py-1 flex items-center gap-1 cursor-pointer text-base rounded-lg transition-all select-none"
+                                        class="px-3.5 py-1 flex items-center gap-1 cursor-pointer text-sm rounded-lg transition-all select-none"
                                         [ngClass]="{
-                                            'w-12 justify-center py-4': isSlimMenu,
+                                            'w-11 justify-center py-3.5': isSlimMenu,
                                             'w-full': !isSlimMenu,
                                             'text-muted-color hover:bg-emphasis bg-transparent': selectedSampleAppsSidebarNav !== navItem.title,
                                             'text-primary-contrast bg-primary hover:bg-primary-emphasis': selectedSampleAppsSidebarNav === navItem.title
@@ -141,7 +141,7 @@ import { OverviewApp } from './samples/overviewapp.component';
                                         <span
                                             [ngClass]="{
                                                 hidden: isSlimMenu,
-                                                'font-medium leading-8': !isSlimMenu
+                                                'font-medium leading-7': !isSlimMenu
                                             }"
                                             >・</span
                                         >
@@ -158,24 +158,24 @@ import { OverviewApp } from './samples/overviewapp.component';
                         </div>
                         <div
                             [ngClass]="{
-                                'w-12 flex flex-col items-center': isSlimMenu,
+                                'w-11 flex flex-col items-center': isSlimMenu,
                                 'w-auto': !isSlimMenu
                             }"
                         >
-                            <div class="mt-10 flex flex-col gap-2">
+                            <div class="mt-9 flex flex-col gap-2">
                                 @if (false) {
                                     <div
                                         [pTooltip]="isSlimMenu ? 'Expanded Mode' : null"
-                                        class="px-4 py-1 flex items-center gap-1 cursor-pointer text-base rounded-lg transition-all select-none text-muted-color hover:bg-emphasis"
+                                        class="px-3.5 py-1 flex items-center gap-1 cursor-pointer text-sm rounded-lg transition-all select-none text-muted-color hover:bg-emphasis"
                                         [ngClass]="{
-                                            'w-12 justify-center py-4': isSlimMenu,
+                                            'w-11 justify-center py-3.5': isSlimMenu,
                                             'w-full': !isSlimMenu
                                         }"
                                     >
                                         <a class="cursor-pointer block p-0 m-0 leading-none">
                                             <a class="cursor-pointer block p-0 m-0 leading-none">
                                                 <i [class]="isSlimMenu ? 'pi pi-window-maximize' : 'pi pi-window-minimize'"></i>
-                                                <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-8'">・</span>
+                                                <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-7'">・</span>
                                                 <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-none'"> Slim Mode</span>
                                             </a>
                                         </a>
@@ -185,25 +185,25 @@ import { OverviewApp } from './samples/overviewapp.component';
                                     <div
                                         [pTooltip]="isSlimMenu ? navItem.title : null"
                                         (click)="dashboardSidebarVisible = true"
-                                        class="px-4 py-1 flex items-center gap-1 cursor-pointer text-base rounded-lg transition-all select-none"
+                                        class="px-3.5 py-1 flex items-center gap-1 cursor-pointer text-sm rounded-lg transition-all select-none"
                                         [ngClass]="{
-                                            'w-12 justify-center py-4': isSlimMenu,
+                                            'w-11 justify-center py-3.5': isSlimMenu,
                                             'w-full': !isSlimMenu,
                                             'text-muted-color hover:bg-emphasis bg-transparent': selectedSampleAppsSidebarNav !== navItem.title,
                                             'text-primary-contrast bg-primary hover:bg-primary-emphasis': selectedSampleAppsSidebarNav === navItem.title
                                         }"
                                     >
                                         <i [class]="navItem.icon"></i>
-                                        <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-8'">・</span>
+                                        <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-7'">・</span>
                                         <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-none'">{{ navItem.title }}</span>
                                     </div>
                                 }
                             </div>
                             <p-divider />
-                            <div [class]="isSlimMenu ? 'justify-center' : ' gap-3'" class="flex items-center">
+                            <div [class]="isSlimMenu ? 'justify-center' : ' gap-2.5'" class="flex items-center">
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" size="large" shape="circle" class="shrink-0" />
                                 <div>
-                                    <div [class]="isSlimMenu ? 'hidden' : 'text-base font-medium text-color leading-5'">Robin Jonas</div>
+                                    <div [class]="isSlimMenu ? 'hidden' : 'text-sm font-medium text-color leading-4'">Robin Jonas</div>
                                     <div [class]="isSlimMenu ? 'hidden' : 'text-sm text-muted-color mt-1'">hi&#64;robin.xyz</div>
                                 </div>
                             </div>
@@ -233,86 +233,86 @@ import { OverviewApp } from './samples/overviewapp.component';
                 <ng-template #headless>
                     <div class="flex flex-col h-screen overflow-auto">
                         <div class="">
-                            <div class="flex align-items-center gap-3 p-6">
+                            <div class="flex align-items-center gap-2.5 p-5">
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" size="large" class="rounded-xl overflow-hidden" />
                                 <div class="flex-1">
-                                    <div class="leading-6 text-color font-medium">Brook Simmons</div>
-                                    <div class="mt-1 leading-5 text-muted-color text-sm">Sales Executive</div>
+                                    <div class="leading-5 text-color font-medium">Brook Simmons</div>
+                                    <div class="mt-1 leading-4 text-muted-color text-sm">Sales Executive</div>
                                 </div>
                                 <p-button (onClick)="dashboardSidebarVisible = false" icon="pi pi-sign-out" text rounded severity="secondary" />
                             </div>
-                            <p-selectbutton [(ngModel)]="selectedSidebarOption" [options]="sidebarOptions" class="w-full px-6 py-3" styleClass="flex-1 w-full py-2.5">
+                            <p-selectbutton [(ngModel)]="selectedSidebarOption" [options]="sidebarOptions" class="w-full px-5 py-2.5" styleClass="flex-1 w-full py-2.5">
                                 <ng-template #item let-item>
                                     <span class="text-sm">{{ item }}</span>
                                 </ng-template>
                             </p-selectbutton>
                         </div>
                         @if (selectedSidebarOption === 'Interaction Logs') {
-                            <div class="h-[calc(100%-172px)] flex flex-col gap-4 p-6">
-                                <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
+                            <div class="h-[calc(100%-172px)] flex flex-col gap-3.5 p-5">
+                                <div class="h-1/3 flex flex-col p-2.5 rounded-xl bg-emphasis">
                                     <div class="flex items-start justify-between">
-                                        <div class="leading-6 font-medium text-color">Call Logs</div>
-                                        <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all" severity="secondary" text />
+                                        <div class="leading-5 font-medium text-color">Call Logs</div>
+                                        <p-button icon="pi pi-download text-sm" styleClass="w-7 h-7 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all" severity="secondary" text />
                                     </div>
                                     <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
                                         @for (data of callLogs; track $index) {
-                                            <div class="flex items-center gap-3 p-2">
+                                            <div class="flex items-center gap-2.5 p-2">
                                                 <p-overlaybadge severity="success" styleClass="w-fit">
-                                                    <p-avatar [image]="data.image" size="normal" styleClass="rounded-md w-10 h-10 overflow-hidden flex" />
+                                                    <p-avatar [image]="data.image" size="normal" styleClass="rounded-md w-9 h-9 overflow-hidden flex" />
                                                 </p-overlaybadge>
 
                                                 <div class="flex-1">
-                                                    <div class="text-sm leading-5 font-medium text-color">{{ data.name }}</div>
-                                                    <div class="mt-1 text-sm leading-5 text-muted-color">{{ data.time }}</div>
+                                                    <div class="text-sm leading-4 font-medium text-color">{{ data.name }}</div>
+                                                    <div class="mt-1 text-sm leading-4 text-muted-color">{{ data.time }}</div>
                                                 </div>
-                                                <p-button icon="pi pi-phone text-sm" text styleClass="bg-primary/10 dark:bg-primary/20 w-8 h-8" />
+                                                <p-button icon="pi pi-phone text-sm" text styleClass="bg-primary/10 dark:bg-primary/20 w-7 h-7" />
                                             </div>
                                         }
                                     </div>
                                 </div>
-                                <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
+                                <div class="h-1/3 flex flex-col p-2.5 rounded-xl bg-emphasis">
                                     <div class="flex items-start justify-between">
-                                        <div class="leading-6 font-medium text-color">Email Records</div>
-                                        <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all" severity="secondary" text />
+                                        <div class="leading-5 font-medium text-color">Email Records</div>
+                                        <p-button icon="pi pi-download text-sm" styleClass="w-7 h-7 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all" severity="secondary" text />
                                     </div>
                                     <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
                                         @for (data of emailRecords; track $index) {
-                                            <div class="flex items-center gap-3 p-2">
+                                            <div class="flex items-center gap-2.5 p-2">
                                                 <p-overlayBadge severity="danger" styleClass="w-fit">
-                                                    <p-avatar [image]="data.image" size="normal" styleClass="rounded-md overflow-hidden w-10 h-10 flex" />
+                                                    <p-avatar [image]="data.image" size="normal" styleClass="rounded-md overflow-hidden w-9 h-9 flex" />
                                                 </p-overlayBadge>
 
-                                                <div class="w-1/5 text-sm leading-5 font-medium text-color">{{ data.name }}</div>
+                                                <div class="w-1/5 text-sm leading-4 font-medium text-color">{{ data.name }}</div>
                                                 <div class="flex-1">
-                                                    <div class="text-sm leading-5 font-medium text-color line-clamp-2">
+                                                    <div class="text-sm leading-4 font-medium text-color line-clamp-2">
                                                         {{ data.title }}
                                                         <span class="text-muted-color">
                                                             {{ data.text }}
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div class="w-1/6 text-sm leading-5 text-muted-color text-right">
+                                                <div class="w-1/6 text-sm leading-4 text-muted-color text-right">
                                                     {{ data.time }}
                                                 </div>
                                             </div>
                                         }
                                     </div>
                                 </div>
-                                <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
+                                <div class="h-1/3 flex flex-col p-2.5 rounded-xl bg-emphasis">
                                     <div class="flex items-start justify-between">
-                                        <div class="leading-6 font-medium text-color">Meeting Notes</div>
-                                        <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all leading-none" severity="secondary" text />
+                                        <div class="leading-5 font-medium text-color">Meeting Notes</div>
+                                        <p-button icon="pi pi-download text-sm" styleClass="w-7 h-7 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all leading-none" severity="secondary" text />
                                     </div>
-                                    <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col rounded-lg overflow-hidden">
+                                    <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-3.5 flex flex-col rounded-lg overflow-hidden">
                                         <div class="flex items-start justify-between gap-1">
-                                            <div class="text-sm text-color font-medium max-w-60">Subject: Meeting Wrap-up & Action Items: Jacob Jones</div>
+                                            <div class="text-sm text-color font-medium max-w-52">Subject: Meeting Wrap-up & Action Items: Jacob Jones</div>
                                             <div class="text-sm text-muted-color">February 14, 2024 / 2:00 PM</div>
                                         </div>
-                                        <div class="text-sm text-muted-color mt-6">
+                                        <div class="text-sm text-muted-color mt-5">
                                             Here's a quick review of our meeting with Brook Simmons and next steps. Summary:
                                             <br />
                                             <br />
-                                            <ul class="list-disc pl-5">
+                                            <ul class="list-disc pl-4">
                                                 <li>Reviewed our SaaS solution and its features.</li>
                                                 <li>Arlene McCoy intrigued by user experience potential.</li>
                                                 <li>Voiced concerns on integration with current system.Action Items:</li>
@@ -329,14 +329,14 @@ import { OverviewApp } from './samples/overviewapp.component';
                             </div>
                         }
                         @if (selectedSidebarOption === 'Preferences') {
-                            <div class="h-[calc(100%-72px)] flex flex-col gap-4 p-6">
+                            <div class="h-[calc(100%-72px)] flex flex-col gap-3.5 p-5">
                                 @for (data of preferences; track $index) {
-                                    <div class="h-1/4 flex flex-col p-3 rounded-xl bg-emphasis">
-                                        <div class="leading-6 font-medium text-color p-2">{{ data.title }}</div>
-                                        <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col gap-3 rounded-lg">
+                                    <div class="h-1/4 flex flex-col p-2.5 rounded-xl bg-emphasis">
+                                        <div class="leading-5 font-medium text-color p-2">{{ data.title }}</div>
+                                        <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-3.5 flex flex-col gap-2.5 rounded-lg">
                                             @for (pref of data.prefs; track $index) {
                                                 <div class="flex items-center gap-2">
-                                                    <i class="text-lg text-color" [class]="pref.icon"></i>
+                                                    <i class="text-color" [class]="pref.icon"></i>
                                                     <div class="font-medium text-color flex-1">{{ pref.title }}</div>
                                                     <p-toggleswitch [(ngModel)]="pref.checked" />
                                                 </div>
@@ -347,13 +347,13 @@ import { OverviewApp } from './samples/overviewapp.component';
                             </div>
                         }
                         @if (selectedSidebarOption === 'Opportunities') {
-                            <div class="grid grid-cols-2 gap-6 p-6">
+                            <div class="grid grid-cols-2 gap-5 p-5">
                                 @for (data of opportunities; track $index) {
-                                    <div class="flex flex-col p-3 rounded-xl bg-emphasis">
+                                    <div class="flex flex-col p-2.5 rounded-xl bg-emphasis">
                                         <div class="flex items-start justify-between gap-2">
                                             <div class="font-medium text-color mt-0.5">{{ data.title }}</div>
                                             <a [href]="data.link" target="_blank" rel="noopener">
-                                                <p-button icon="pi pi-arrow-up-right text-sm !leading-none" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900" severity="secondary" text />
+                                                <p-button icon="pi pi-arrow-up-right text-sm !leading-none" styleClass="w-7 h-7 !border-surface !bg-surface-0 dark:!bg-surface-900" severity="secondary" text />
                                             </a>
                                         </div>
                                         <img class="w-full rounded-lg mt-2 block" [src]="data.image" alt="Opportunutiy Image" />
@@ -365,45 +365,45 @@ import { OverviewApp } from './samples/overviewapp.component';
                             </div>
                         }
                         @if (selectedSidebarOption === 'Statistics') {
-                            <div class="h-[calc(100%-160px)] p-6">
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
+                            <div class="h-[calc(100%-160px)] p-5">
+                                <div class="grid grid-cols-2 gap-3.5">
+                                    <div class="w-full h-full flex flex-col p-2.5 rounded-xl bg-emphasis">
                                         <div class="flex items-center justify-between gap-2">
                                             <div class="font-medium text-color p-2">Customer Satisfaction Score</div>
                                         </div>
-                                        <div class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
-                                            <p-knob [(ngModel)]="customerSatisfaction" [size]="150" [strokeWidth]="8" valueTemplate="{value}%" styleClass="pointer-events-none" />
+                                        <div class="flex-1 py-3.5 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                            <p-knob [(ngModel)]="customerSatisfaction" [size]="150" [strokeWidth]="8" valueTemplate="{value}%" class="pointer-events-none" />
                                         </div>
                                     </div>
-                                    <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
+                                    <div class="w-full h-full flex flex-col p-2.5 rounded-xl bg-emphasis">
                                         <div class="flex items-center justify-between gap-2">
                                             <div class="font-medium text-color p-2">Estimated Lifetime Value</div>
                                         </div>
                                         <div class="flex-1 flex items-center gap-2 justify-center mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
-                                            <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">$</div>
-                                            <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">272</div>
-                                            <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">123</div>
-                                            <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">000</div>
+                                            <div class="font-semibold leading-none text-color border border-surface py-3.5 px-2 rounded-lg">$</div>
+                                            <div class="font-semibold leading-none text-color border border-surface py-3.5 px-2 rounded-lg">272</div>
+                                            <div class="font-semibold leading-none text-color border border-surface py-3.5 px-2 rounded-lg">123</div>
+                                            <div class="font-semibold leading-none text-color border border-surface py-3.5 px-2 rounded-lg">000</div>
                                         </div>
                                     </div>
-                                    <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
+                                    <div class="w-full h-full flex flex-col p-2.5 rounded-xl bg-emphasis">
                                         <div class="flex items-center justify-between gap-2">
                                             <div class="font-medium text-color p-2">Product Usage</div>
                                         </div>
-                                        <div class="flex-1 mt-2 py-4 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
-                                            <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions" styleClass="min-h-44 w-full" width="100%" height="11rem" />
+                                        <div class="flex-1 mt-2 py-3.5 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                            <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions" styleClass="min-h-40 w-full" width="100%" height="11rem" />
                                         </div>
                                     </div>
-                                    <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
+                                    <div class="w-full h-full flex flex-col p-2.5 rounded-xl bg-emphasis">
                                         <div class="font-medium text-color p-2">Churn Risk</div>
-                                        <div class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                        <div class="flex-1 py-3.5 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
                                             <p-knob [(ngModel)]="churnRisk" [size]="150" [strokeWidth]="8" valueTemplate="{value}%" class="pointer-events-none" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-4 w-full flex flex-col p-3 rounded-xl bg-emphasis">
+                                <div class="mt-3.5 w-full flex flex-col p-2.5 rounded-xl bg-emphasis">
                                     <div class="font-medium text-color p-2">Total Purchases</div>
-                                    <div class="flex-1 py-4 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                    <div class="flex-1 py-3.5 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
                                         <p-chart type="bar" [data]="chartData2" [options]="chartOptions2" height="15rem" class="w-full" />
                                     </div>
                                 </div>

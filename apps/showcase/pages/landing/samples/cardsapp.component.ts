@@ -54,28 +54,28 @@ import { TooltipModule } from 'primeng/tooltip';
         ToggleSwitchModule
     ],
     template: `
-        <div class="text-color text-2xl font-medium leading-8">Cards</div>
-        <div class="mt-1 text-muted-color leading-6">You can make cards using Aura like below 👇</div>
-        <div class="mt-6 flex flex-wrap items-start gap-6">
-            <div class="flex-1 flex flex-col gap-6">
-                <div class="border border-surface rounded-3xl p-6 flex flex-col gap-6">
-                    <div class="flex items-center gap-3">
+        <div class="text-color text-xl font-medium leading-7">Cards</div>
+        <div class="mt-1 text-sm text-muted-color leading-5">You can make cards using Aura like below 👇</div>
+        <div class="mt-5 flex flex-wrap items-start gap-5">
+            <div class="flex-1 flex flex-col gap-5">
+                <div class="border border-surface rounded-3xl p-5 flex flex-col gap-5">
+                    <div class="flex items-center gap-2.5">
                         <p-overlaybadge severity="danger" styleClass="w-fit">
                             <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden flex" />
                         </p-overlaybadge>
 
                         <div>
-                            <div class="font-medium text-color leading-6">Jacob Jones</div>
-                            <div class="mt-1 text-muted-color leading-5">hi&#64;jacobjones.co</div>
+                            <div class="text-sm font-medium text-color leading-5">Jacob Jones</div>
+                            <div class="mt-1 text-sm text-muted-color leading-4">hi&#64;jacobjones.co</div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-6">
-                        <div class="text-sm leading-5 text-color">14.k <span class="text-muted-color">Followers</span></div>
-                        <div class="text-sm leading-5 text-color">359 <span class="text-muted-color">Following</span></div>
+                    <div class="flex items-center gap-5">
+                        <div class="text-sm leading-4 text-color">14.k <span class="text-muted-color">Followers</span></div>
+                        <div class="text-sm leading-4 text-color">359 <span class="text-muted-color">Following</span></div>
                     </div>
-                    <p class="text-sm text-muted-color leading-5 mb-0">Meet Jacob Jones, the whimsical adventurer on a quest for life's quirks. From sock mysteries to subway adventures, join him for a laughter-filled journey!</p>
+                    <p class="text-sm text-muted-color leading-4 mb-0">Meet Jacob Jones, the whimsical adventurer on a quest for life's quirks. From sock mysteries to subway adventures, join him for a laughter-filled journey!</p>
                     <div class="flex items-center justify-between gap-2">
-                        <div class="text-sm leading-5 text-color font-medium">Mutual Friends</div>
+                        <div class="text-sm leading-4 text-color font-medium">Mutual Friends</div>
                         <p-avatar-group>
                             <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png" class="rounded-lg overflow-hidden" />
                             <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" class="rounded-lg overflow-hidden" />
@@ -86,103 +86,103 @@ import { TooltipModule } from 'primeng/tooltip';
                         </p-avatar-group>
                     </div>
                     <p-selectbutton [(ngModel)]="selectedUserSelectButtonOption" [options]="userSelectButtonOptions" />
-                    <div class="flex flex-col gap-4">
-                        <div class="p-2 rounded-2xl flex items-center gap-3 bg-emphasis">
+                    <div class="flex flex-col gap-3.5">
+                        <div class="p-2 rounded-2xl flex items-center gap-2.5 bg-emphasis">
                             <p-overlaybadge severity="danger" class="w-fit">
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden w-10 h-10 block" />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden w-9 h-9 block" />
                             </p-overlaybadge>
 
                             <div class="flex-1">
-                                <div class="text-color text-sm font-medium leading-5">Jacob Jones</div>
+                                <div class="text-color text-sm font-medium leading-4">Jacob Jones</div>
                                 <div class="mt-1 text-muted-color text-xs leading-4">hi&#64;jacobjones.co</div>
                             </div>
                             <p-button label="Join" />
                         </div>
-                        <div class="p-2 rounded-2xl flex items-center gap-3 bg-emphasis">
+                        <div class="p-2 rounded-2xl flex items-center gap-2.5 bg-emphasis">
                             <p-overlaybadge severity="danger" class="w-fit">
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" class="rounded-lg overflow-hidden w-10 h-10 flex" />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" class="rounded-lg overflow-hidden w-9 h-9 flex" />
                             </p-overlaybadge>
 
                             <div class="flex-1">
-                                <div class="text-color text-sm font-medium leading-5">Courtney Henry</div>
+                                <div class="text-color text-sm font-medium leading-4">Courtney Henry</div>
                                 <div class="mt-1 text-muted-color text-xs leading-4">cou.henry41&#64;courtney.co</div>
                             </div>
                             <p-button label="Join" />
                         </div>
                     </div>
                 </div>
-                <div class="border border-surface rounded-3xl p-6">
-                    <div class="flex items-center gap-3 p-3 border border-surface rounded-xl shadow-[0px_1px_2px_0px_rgba(18,18,23,0.05)]">
-                        <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden w-14 h-14" />
+                <div class="border border-surface rounded-3xl p-5">
+                    <div class="flex items-center gap-2.5 p-2.5 border border-surface rounded-xl shadow-[0px_1px_2px_0px_rgba(18,18,23,0.05)]">
+                        <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden w-12 h-12" />
                         <div class="flex-1">
-                            <div class="text-color font-medium leading-7">Jacob Jones</div>
+                            <div class="text-sm text-color font-medium leading-6">Jacob Jones</div>
                             <div class="text-muted-color text-sm mt-1">hi&#64;jacobjones.co</div>
                         </div>
                         <p-button icon="pi pi-bell" severity="contrast" text />
                     </div>
-                    <div class="mt-4 flex flex-col gap-1">
+                    <div class="mt-3.5 flex flex-col gap-1">
                         <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
-                            <i class="pi pi-envelope text-lg w-7 h-7 flex items-center justify-center"></i>
-                            <div class="font-medium leading-normal flex-1 text-left">Messages</div>
+                            <i class="pi pi-envelope w-6 h-6 flex items-center justify-center"></i>
+                            <div class="text-sm font-medium leading-normal flex-1 text-left">Messages</div>
                         </button>
                         <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
-                            <i class="pi pi-cog text-lg w-7 h-7 flex items-center justify-center"></i>
-                            <div class="font-medium leading-normal flex-1 text-left">Settings</div>
+                            <i class="pi pi-cog w-6 h-6 flex items-center justify-center"></i>
+                            <div class="text-sm font-medium leading-normal flex-1 text-left">Settings</div>
                         </button>
                         <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
-                            <i class="pi pi-sync text-lg w-7 h-7 flex items-center justify-center"></i>
-                            <div class="font-medium leading-normal flex-1 text-left">Switch Accounts</div>
+                            <i class="pi pi-sync w-6 h-6 flex items-center justify-center"></i>
+                            <div class="text-sm font-medium leading-normal flex-1 text-left">Switch Accounts</div>
                         </button>
                         <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
-                            <i class="pi pi-sign-in text-lg w-7 h-7 flex items-center justify-center"></i>
-                            <div class="font-medium leading-normal flex-1 text-left">Log out</div>
+                            <i class="pi pi-sign-in w-6 h-6 flex items-center justify-center"></i>
+                            <div class="text-sm font-medium leading-normal flex-1 text-left">Log out</div>
                         </button>
                     </div>
                     <p-divider />
                     <div class="w-full flex items-center gap-2 text-color p-2 bg-transparent cursor-pointer rounded-lg transition-all select-none">
                         <i
-                            class="pi text-lg w-7 h-7 flex items-center justify-center"
+                            class="pi w-6 h-6 flex items-center justify-center"
                             [ngClass]="{
                                 'pi-moon': !darkMode,
                                 'pi-sun': darkMode
                             }"
                         ></i>
-                        <div class="font-medium leading-normal flex-1 text-left">Switch to {{ darkMode ? 'Light' : 'Dark' }}</div>
+                        <div class="text-sm font-medium leading-normal flex-1 text-left">Switch to {{ darkMode ? 'Light' : 'Dark' }}</div>
                         <p-toggleswitch [(ngModel)]="darkMode" />
                     </div>
                 </div>
                 <div class="border border-surface rounded-3xl">
-                    <div class="pt-6 px-6 flex flex-col gap-6">
+                    <div class="pt-5 px-5 flex flex-col gap-5">
                         <div class="flex items-start gap-2 justify-between">
                             <div>
-                                <div class="text-2xl text-color font-medium">Data Analyst</div>
-                                <div class="mt-2 text-color">Data Insights Ltd.</div>
+                                <div class="text-xl text-color font-medium">Data Analyst</div>
+                                <div class="mt-2 text-sm text-color">Data Insights Ltd.</div>
                             </div>
                             <p-button (click)="jobApplication = !jobApplication" [icon]="jobApplication ? 'pi pi-bookmark-fill' : 'pi pi-bookmark'" severity="secondary" outlined rounded />
                         </div>
                         <div class="flex flex-wrap gap-1 items-center justify-between">
                             <div class="flex items-center gap-2 whitespace-nowrap text-muted-color">
-                                <i class="pi pi-users text-xl"></i>
-                                <div class="font-medium leading-none">Senior</div>
+                                <i class="pi pi-users text-lg"></i>
+                                <div class="text-sm font-medium leading-none">Senior</div>
                             </div>
                             <div class="flex items-center gap-2 whitespace-nowrap text-muted-color">
-                                <i class="pi pi-stopwatch text-xl"></i>
-                                <div class="font-medium leading-none">Full-Time</div>
+                                <i class="pi pi-stopwatch text-lg"></i>
+                                <div class="text-sm font-medium leading-none">Full-Time</div>
                             </div>
                             <div class="flex items-center gap-2 whitespace-nowrap text-muted-color">
-                                <i class="pi pi-money-bill text-xl"></i>
-                                <div class="font-medium leading-none">$80,000</div>
+                                <i class="pi pi-money-bill text-lg"></i>
+                                <div class="text-sm font-medium leading-none">$80,000</div>
                             </div>
                         </div>
-                        <p class="leading-6 text-muted-color mb-0">Expert in data analysis? Join Data Insights Ltd. as a senior data analyst. Lead in the world of data with us!</p>
+                        <p class="text-sm leading-5 text-muted-color mb-0">Expert in data analysis? Join Data Insights Ltd. as a senior data analyst. Lead in the world of data with us!</p>
                         <div class="flex flex-wrap gap-2 items-center">
                             <p-tag value="Data Analysis" rounded class="font-normal"></p-tag>
                             <p-tag value="Analytics" rounded class="font-normal"></p-tag>
                             <p-tag value="Big Data" rounded class="font-normal"></p-tag>
                         </div>
                     </div>
-                    <div class="p-1 mt-4">
-                        <button class="p-4 rounded-3xl w-full bg-emphasis transition-all text-color hover:text-color-emphasis flex items-center gap-2 justify-between cursor-pointer">
+                    <div class="p-1 mt-3.5">
+                        <button class="p-3.5 rounded-3xl w-full bg-emphasis transition-all text-color hover:text-color-emphasis flex items-center gap-2 justify-between cursor-pointer">
                             <div class="flex items-center [&>*]:-mr-2">
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" shape="circle" />
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg" shape="circle" />
@@ -191,30 +191,30 @@ import { TooltipModule } from 'primeng/tooltip';
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png" shape="circle" />
                             </div>
                             <div class="flex items-center gap-2">
-                                <div class="font-medium leading-6">12 Applicants</div>
+                                <div class="text-sm font-medium leading-5">12 Applicants</div>
                                 <i class="pi pi-arrow-right"></i>
                             </div>
                         </button>
                     </div>
                 </div>
             </div>
-            <div class="flex-1 flex flex-col gap-6">
-                <div class="border border-surface rounded-3xl p-6 flex flex-col gap-6">
+            <div class="flex-1 flex flex-col gap-5">
+                <div class="border border-surface rounded-3xl p-5 flex flex-col gap-5">
                     <div class="flex items-center gap-2 text-color">
-                        <i class="pi pi-cloud-upload text-xl"></i>
-                        <div class="flex-1 font-medium leading-6">Upload Files</div>
+                        <i class="pi pi-cloud-upload text-lg"></i>
+                        <div class="flex-1 text-sm font-medium leading-5">Upload Files</div>
                         <p-button icon="pi pi-times" text rounded />
                     </div>
                     <div>
-                        <label for="document-name" class="text-color font-medium leading-6">Document Name </label>
+                        <label for="document-name" class="text-sm text-color font-medium leading-5">Document Name </label>
                         <input type="text" pInputText id="document-name" [(ngModel)]="documentName" class="mt-2 w-full" />
                     </div>
                     <div>
-                        <label class="text-color font-medium leading-6">Upload Files</label>
+                        <label class="text-sm text-color font-medium leading-5">Upload Files</label>
                         <p-fileupload name="demo[]" url="/api/upload" (onUpload)="onTemplatedUpload($event)" accept="image/*" [maxFileSize]="1000000" styleClass="mt-2" (onSelect)="onSelectedFiles($event)">
                             <ng-template #header let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
                                 @if (files.length > 0 || uploadedFiles.length > 0) {
-                                    <div class="flex w-full flex-wrap justify-between items-center flex-1 gap-4 border-b border-surface pb-4">
+                                    <div class="flex w-full flex-wrap justify-between items-center flex-1 gap-3.5 border-b border-surface pb-3.5">
                                         <div class="flex gap-2">
                                             <p-button (click)="chooseCallback()" icon="pi pi-images" rounded outlined severity="secondary"></p-button>
                                             <p-button (click)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" rounded outlined severity="success" [disabled]="!files || files.length === 0"></p-button>
@@ -222,8 +222,8 @@ import { TooltipModule } from 'primeng/tooltip';
                                         </div>
                                     </div>
                                 } @else {
-                                    <div class="flex flex-col items-center justify-center p-6 cursor-pointer" (click)="chooseCallback()">
-                                        <i class="pi pi-cloud-upload text-4xl text-color"></i>
+                                    <div class="flex flex-col items-center justify-center p-5 cursor-pointer" (click)="chooseCallback()">
+                                        <i class="pi pi-cloud-upload text-3xl text-color"></i>
                                         <div class="text-sm text-color font-medium mt-2">Click to upload <span class="text-muted-color">or and drop</span></div>
                                         <p class="mt-2 mb-0 text-sm text-muted-color text-center">PDF, JPG, PNG, JPEG, DOC, CSV, XML, XMLX, XLS, XLSX (max 10MB)</p>
                                     </div>
@@ -232,7 +232,7 @@ import { TooltipModule } from 'primeng/tooltip';
 
                             <ng-template #content let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback" let-removeCallback="removeCallback">
                                 @if (files.length > 0) {
-                                    <div class="px-4 py-0">
+                                    <div class="px-3.5 py-0">
                                         <h5 class="m-0 mb-2">Pending</h5>
                                         <div class="flex flex-wrap gap-2 grow overflow-auto max-h-[210px]">
                                             @for (file of files; track $index; let i = $index) {
@@ -253,7 +253,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                 }
 
                                 @if (uploadedFiles.length > 0) {
-                                    <div class="px-4 py-0">
+                                    <div class="px-3.5 py-0">
                                         <h5 class="m-0 mb-2">Completed</h5>
                                         <div class="flex flex-wrap gap-2">
                                             @for (file of uploadedFiles; track $index) {
@@ -264,7 +264,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                                     <span class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden">{{ file.name }}</span>
                                                     <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
                                                     <div class="grow flex flex-col gap-2 justify-end">
-                                                        <p-badge value="Completed" class="mt-3" severity="success" />
+                                                        <p-badge value="Completed" class="mt-2.5" severity="success" />
                                                         <p-button icon="pi pi-times text-sm leading-none" class="!text-sm !leading-none" label="Cancel" text severity="danger" />
                                                     </div>
                                                 </div>
@@ -276,14 +276,14 @@ import { TooltipModule } from 'primeng/tooltip';
                         </p-fileupload>
                     </div>
                     <div>
-                        <label class="text-color font-medium leading-6">Tag (Optional)</label>
+                        <label class="text-sm text-color font-medium leading-5">Tag (Optional)</label>
                         <p-autocomplete [(ngModel)]="filesTag" styleClass="w-full mt-2" inputId="multiple-ac-2" multiple (completeMethod)="search($event)" [typeahead]="false" />
                     </div>
                     <div class="flex items-center gap-2">
                         @for (permission of permissions; track permission.key) {
                             <label [for]="permission.key" class="cursor-pointer flex-1 flex items-center gap-1 p-2 rounded-border border border-surface hover:bg-emphasis transition-all select-none">
                                 <i class="text-color" :class="permission.icon"></i>
-                                <div class="flex-1 text-sm leading-5 text-color">{{ permission.name }}</div>
+                                <div class="flex-1 text-sm leading-4 text-color">{{ permission.name }}</div>
                                 <p-radiobutton [(ngModel)]="selectedPermission" [inputId]="permission.key" variant="filled" name="dynamic" [value]="permission.name" />
                             </label>
                         }
@@ -293,7 +293,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         <button pButton class="flex-1"><span pButtonLabel>Upload</span></button>
                     </div>
                 </div>
-                <div class="border border-surface rounded-3xl p-6">
+                <div class="border border-surface rounded-3xl p-5">
                     <div class="flex items-start justify-between gap-1">
                         <div class="flex items-center gap-x-2 gap-y-1 flex-wrap flex-1">
                             <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png" shape="circle" class="rounded-lg overflow-hidden" />
@@ -310,140 +310,140 @@ import { TooltipModule } from 'primeng/tooltip';
                         </div>
                         <p-button icon="pi pi-arrow-up-right" rounded text />
                     </div>
-                    <div class="text-2xl font-medium text-color mt-6 leading-8">That's your avatar</div>
-                    <div class="leading-6 text-muted-color mt-2">Easy to use! place it, watch it.</div>
+                    <div class="text-xl font-medium text-color mt-5 leading-7">That's your avatar</div>
+                    <div class="text-sm leading-5 text-muted-color mt-2">Easy to use! place it, watch it.</div>
                 </div>
-                <div class="border border-surface rounded-3xl p-6 flex flex-col gap-6">
+                <div class="border border-surface rounded-3xl p-5 flex flex-col gap-5">
                     <div class="flex items-center justify-between gap-2">
-                        <div class="text-2xl font-medium leading-8 flex-1">Add Member</div>
+                        <div class="text-xl font-medium leading-7 flex-1">Add Member</div>
                         <p-button icon="pi pi-times" rounded text severity="secondary" />
                     </div>
                     <div>
-                        <div class="text-muted-color leading-6">Email</div>
-                        <div class="flex items-start gap-3 mt-2">
+                        <div class="text-sm text-muted-color leading-5">Email</div>
+                        <div class="flex items-start gap-2.5 mt-2">
                             <p-autocomplete [(ngModel)]="emailChips" inputId="multiple-ac-2" styleClass="w-full" class="flex-1" multiple (onSelect)="search($event)" [typeahead]="false" />
                             <p-button label="Invite" />
                         </div>
                     </div>
                     <div>
-                        <div class="font-medium leading-6 text-muted-color">Members</div>
-                        <div class="mt-4 flex flex-col gap-4">
+                        <div class="text-sm font-medium leading-5 text-muted-color">Members</div>
+                        <div class="mt-3.5 flex flex-col gap-3.5">
                             <div class="flex items-center gap-2 justify-between">
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png" class="w-9 h-9" shape="circle" />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png" class="w-8 h-8" shape="circle" />
                                 <div class="flex-1">
-                                    <div class="text-sm font-medium text-color leading-5">Brook Simmons</div>
-                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">brook.sim42&#64;primeng.org</div>
+                                    <div class="text-xs font-medium text-color leading-4">Brook Simmons</div>
+                                    <div class="text-xs text-muted-color leading-4 line-clamp-4">brook.sim42&#64;primeng.org</div>
                                 </div>
                                 <p-select [(ngModel)]="memberSelectedTypes[0]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!border-0 !shadow-none" />
                             </div>
                             <div class="flex items-center gap-2 justify-between">
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg" class="w-9 h-9" shape="circle" />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg" class="w-8 h-8" shape="circle" />
                                 <div class="flex-1">
-                                    <div class="text-sm font-medium text-color leading-5">Dianne Russell</div>
-                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">di.russ23&#64;primeng.org</div>
+                                    <div class="text-xs font-medium text-color leading-4">Dianne Russell</div>
+                                    <div class="text-xs text-muted-color leading-4 line-clamp-4">di.russ23&#64;primeng.org</div>
                                 </div>
                                 <p-select [(ngModel)]="memberSelectedTypes[1]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!border-0 !shadow-none" />
                             </div>
                             <div class="flex items-center gap-2 justify-between">
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg" class="w-9 h-9" shape="circle" />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg" class="w-8 h-8" shape="circle" />
                                 <div class="flex-1">
-                                    <div class="text-sm font-medium text-color leading-5">Jacob Jones</div>
-                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">jac.jon87&#64;primeng.org</div>
+                                    <div class="text-xs font-medium text-color leading-4">Jacob Jones</div>
+                                    <div class="text-xs text-muted-color leading-4 line-clamp-4">jac.jon87&#64;primeng.org</div>
                                 </div>
                                 <p-select [(ngModel)]="memberSelectedTypes[2]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!border-0 !shadow-none" />
                             </div>
                         </div>
                     </div>
                     <div>
-                        <div class="font-medium leading-6 text-muted-color">Copy Link</div>
-                        <div class="flex items-center gap-3 mt-2">
+                        <div class="text-sm font-medium leading-5 text-muted-color">Copy Link</div>
+                        <div class="flex items-center gap-2.5 mt-2">
                             <input type="text" pInputText [(ngModel)]="copiedText" type="text" class="flex-1" readOnly />
                             <p-button label="Copy" severity="secondary" />
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="flex-1 flex flex-wrap gap-6">
-                <div class="flex-1 border border-surface rounded-3xl p-6">
-                    <div class="text-color font-medium leading-6 mb-4">User Profiles</div>
+            <div class="flex-1 flex flex-wrap gap-5">
+                <div class="flex-1 border border-surface rounded-3xl p-5">
+                    <div class="text-sm text-color font-medium leading-5 mb-3.5">User Profiles</div>
                     <p-selectbutton [(ngModel)]="userProfiles" [options]="userProfilesOptions" class="w-full" styleClass="flex-1 w-full" />
-                    <div class="flex flex-col gap-4 mt-6">
-                        <div class="flex items-center gap-3">
-                            <i class="pi pi-volume-down text-color text-xl"></i>
-                            <div class="leading-6 text-color flex-1">Sound</div>
+                    <div class="flex flex-col gap-3.5 mt-5">
+                        <div class="flex items-center gap-2.5">
+                            <i class="pi pi-volume-down text-color text-lg"></i>
+                            <div class="text-sm leading-5 text-color flex-1">Sound</div>
                             <p-toggleswitch [(ngModel)]="userProfilesValues[0]" />
                         </div>
-                        <div class="flex items-center gap-3">
-                            <i class="pi pi-wifi text-color text-xl"></i>
-                            <div class="leading-6 text-color flex-1">Wi-Fi</div>
+                        <div class="flex items-center gap-2.5">
+                            <i class="pi pi-wifi text-color text-lg"></i>
+                            <div class="text-sm leading-5 text-color flex-1">Wi-Fi</div>
                             <p-toggleswitch [(ngModel)]="userProfilesValues[1]" />
                         </div>
-                        <div class="flex items-center gap-3">
-                            <i class="pi pi-moon text-color text-xl"></i>
-                            <div class="leading-6 text-color flex-1">Dark Mode</div>
+                        <div class="flex items-center gap-2.5">
+                            <i class="pi pi-moon text-color text-lg"></i>
+                            <div class="text-sm leading-5 text-color flex-1">Dark Mode</div>
                             <p-toggleswitch [(ngModel)]="userProfilesValues[2]" />
                         </div>
-                        <div class="flex items-center gap-3">
-                            <i class="pi pi-map-marker text-color text-xl"></i>
-                            <div class="leading-6 text-color flex-1">Location Services</div>
+                        <div class="flex items-center gap-2.5">
+                            <i class="pi pi-map-marker text-color text-lg"></i>
+                            <div class="text-sm leading-5 text-color flex-1">Location Services</div>
                             <p-toggleswitch [(ngModel)]="userProfilesValues[3]" />
                         </div>
-                        <div class="flex items-center gap-3">
-                            <i class="pi pi-shield text-color text-xl"></i>
-                            <div class="leading-6 text-color flex-1">Privacy Settings</div>
+                        <div class="flex items-center gap-2.5">
+                            <i class="pi pi-shield text-color text-lg"></i>
+                            <div class="text-sm leading-5 text-color flex-1">Privacy Settings</div>
                             <p-toggleswitch [(ngModel)]="userProfilesValues[4]" />
                         </div>
-                        <div class="flex items-center gap-3">
-                            <i class="pi pi-sync text-color text-xl"></i>
-                            <div class="leading-6 text-color flex-1">Auto Update</div>
+                        <div class="flex items-center gap-2.5">
+                            <i class="pi pi-sync text-color text-lg"></i>
+                            <div class="text-sm leading-5 text-color flex-1">Auto Update</div>
                             <p-toggleswitch [(ngModel)]="userProfilesValues[5]" />
                         </div>
                     </div>
                 </div>
-                <div class="flex-1 border border-surface rounded-3xl p-6 flex flex-col gap-6">
-                    <div class="font-medium text-color text-2xl text-center">Forgot Password</div>
+                <div class="flex-1 border border-surface rounded-3xl p-5 flex flex-col gap-5">
+                    <div class="font-medium text-color text-xl text-center">Forgot Password</div>
                     <div>
-                        <div class="text-muted-color text-lg text-center leading-snug">
+                        <div class="text-sm text-muted-color text-center leading-snug">
                             Verification code <br />
                             has been sent to email
                         </div>
-                        <div class="rounded-full px-4 py-1 bg-surface-200 dark:bg-surface-800 w-fit mx-auto mt-4 text-color text-lg leading-relaxed">u*******m&#64;gmail.com</div>
+                        <div class="rounded-full px-3.5 py-1 bg-surface-200 dark:bg-surface-800 w-fit mx-auto mt-3.5 text-sm text-color leading-relaxed">u*******m&#64;gmail.com</div>
                     </div>
                     <div class="flex items-center justify-center">
                         <p-button label="Resend" text />
                     </div>
                     <div class="flex items-center justify-center">
-                        <p-inputotp [(ngModel)]="forgotPasswordOTP" [length]="6" [integerOnly]="true" class="w-full [&>*]:flex-1 [&>*]:min-h-14 [&>*]:text-2xl" />
+                        <p-inputotp [(ngModel)]="forgotPasswordOTP" [length]="6" [integerOnly]="true" class="w-full [&>*]:flex-1 [&>*]:min-h-12 [&>*]:text-xl" />
                     </div>
                     <button pButton class="w-full"><span pButtonLabel>Change password</span></button>
                 </div>
-                <div class="border border-surface rounded-3xl p-6">
-                    <div class="text-color font-medium leading-6 mb-6">Price Range</div>
+                <div class="border border-surface rounded-3xl p-5">
+                    <div class="text-sm text-color font-medium leading-5 mb-5">Price Range</div>
                     <div>
                         <p-slider [(ngModel)]="priceRange" [min]="0" range [max]="15000" />
                     </div>
-                    <div class="mt-4 flex gap-2">
+                    <div class="mt-3.5 flex gap-2">
                         <div class="flex-1">
-                            <label for="price-min-val" class="leading-6 text-color">Min Value</label>
-                            <p-inputnumber [(ngModel)]="priceRange[0]" [min]="0" inputId="price-min-val" mode="currency" currency="USD" locale="en-US" styleClass="w-full" />
+                            <label for="price-min-val" class="text-sm leading-5 text-color">Min Value</label>
+                            <p-inputnumber [(ngModel)]="priceRange[0]" [min]="0" inputId="price-min-val" mode="currency" currency="USD" locale="en-US" class="w-full" />
                         </div>
                         <div class="flex-1">
-                            <label for="price-max-val" class="leading-6 text-color">Max Value</label>
-                            <p-inputnumber [(ngModel)]="priceRange[1]" inputId="price-max-val" mode="currency" currency="USD" locale="en-US" styleClass="w-full" />
+                            <label for="price-max-val" class="text-sm leading-5 text-color">Max Value</label>
+                            <p-inputnumber [(ngModel)]="priceRange[1]" inputId="price-max-val" mode="currency" currency="USD" locale="en-US" class="w-full" />
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <div class="text-color font-medium leading-6 mb-6">Popular specs</div>
-                        <div class="flex items-center gap-4 flex-wrap">
+                    <div class="mt-3.5">
+                        <div class="text-sm text-color font-medium leading-5 mb-5">Popular specs</div>
+                        <div class="flex items-center gap-3.5 flex-wrap">
                             @for (data of priceRangePopularSpecs; track data.value) {
                                 <div class="flex align-items-center">
                                     <p-checkbox [(ngModel)]="priceRangePopularSpecsChecked" [inputId]="data.value" [name]="data.value" [value]="data.value" />
-                                    <label [for]="data.value" class="ml-2">{{ data.value }}</label>
+                                    <label [for]="data.value" class="text-sm ml-2">{{ data.value }}</label>
                                 </div>
                             }
                         </div>
                     </div>
-                    <div class="flex items-center gap-3 flex-wrap [&>*]:flex-1 mt-6">
+                    <div class="flex items-center gap-2.5 flex-wrap [&>*]:flex-1 mt-5">
                         <button pButton outlined class="w-full"><span pButtonLabel>Undo</span></button>
                         <button pButton class="w-full"><span pButtonLabel>Random</span></button>
                     </div>
@@ -452,7 +452,7 @@ import { TooltipModule } from 'primeng/tooltip';
         </div>
     `,
     host: {
-        class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-6'
+        class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-5'
     },
     providers: [MessageService],
     changeDetection: ChangeDetectionStrategy.OnPush

@@ -45,10 +45,10 @@ import { TooltipModule } from 'primeng/tooltip';
     ],
     template: `
         <div class="flex-1 h-full overflow-y-auto pb-0.5">
-            <div class="flex flex-wrap gap-4 items-start justify-between p-1">
+            <div class="flex flex-wrap gap-3.5 items-start justify-between p-1">
                 <div class="flex-1">
-                    <div class="text-muted-color font-medium leading-normal">Overview</div>
-                    <div class="text-color text-3xl font-semibold leading-normal">Welcome to PrimeNG</div>
+                    <div class="text-sm text-muted-color font-medium leading-normal">Overview</div>
+                    <div class="text-color text-2xl font-semibold leading-normal">Welcome to PrimeNG</div>
                 </div>
                 <div class="flex gap-2 whitespace-nowrap flex-nowrap">
                     <p-iconfield iconPosition="left">
@@ -62,32 +62,32 @@ import { TooltipModule } from 'primeng/tooltip';
                     </p-button>
                 </div>
             </div>
-            <div class="mt-4 flex flex-wrap gap-6 items-center justify-between p-1">
+            <div class="mt-3.5 flex flex-wrap gap-5 items-center justify-between p-1">
                 <p-selectbutton [(ngModel)]="selectedTime" [options]="timeOptions" aria-labelledby="basic" [allowEmpty]="false" (onChange)="changeSelect()" />
                 <div class="flex items-center gap-2">
                     <p-button label="Download" icon="pi pi-download" iconPos="right" />
                     <p-datepicker [(ngModel)]="dates" appendTo="body" dateFormat="dd.mm.yy" selectionMode="range" showIcon iconDisplay="input" placeholder="06/11/2024 - 06/22/2024" />
                 </div>
             </div>
-            <div class="flex flex-col gap-6 mt-6">
-                <div class="w-full border border-surface rounded-2xl py-5 px-7 flex flex-col justify-between">
-                    <div class="flex items-center gap-6 mb-6">
-                        <div class="flex-1 text-color font-semibold leading-6">Crypto Analytics</div>
+            <div class="flex flex-col gap-5 mt-5">
+                <div class="w-full border border-surface rounded-2xl py-4 px-7 flex flex-col justify-between">
+                    <div class="flex items-center gap-5 mb-5">
+                        <div class="flex-1 text-sm text-color font-semibold leading-5">Crypto Analytics</div>
                         <div class="flex items-center gap-5">
                             @for (item of chartData?.datasets; track $index) {
                                 <div class="flex items-center gap-2">
-                                    <div class="w-3 h-3 rounded-full" [style.backgroundColor]="item.backgroundColor"></div>
-                                    <span class="font-medium text-color leading-6">{{ item.label }}</span>
+                                    <div class="w-2.5 h-2.5 rounded-full" [style.backgroundColor]="item.backgroundColor"></div>
+                                    <span class="text-sm font-medium text-color leading-5">{{ item.label }}</span>
                                 </div>
                             }
                         </div>
                     </div>
                     <p-chart type="bar" [data]="chartData" [options]="chartOptions" [height]="'20rem'" />
                 </div>
-                <div class="flex gap-6 xl:flex-row flex-col">
-                    <div class="flex-1 border border-surface rounded-2xl py-5 px-7">
-                        <div class="flex items-center gap-6 mb-4">
-                            <div class="flex-1 text-color font-semibold leading-6">Transactions</div>
+                <div class="flex gap-5 xl:flex-row flex-col">
+                    <div class="flex-1 border border-surface rounded-2xl py-4 px-7">
+                        <div class="flex items-center gap-5 mb-3.5">
+                            <div class="flex-1 text-sm text-color font-semibold leading-5">Transactions</div>
                             <p-button type="button" icon="pi pi-ellipsis-h" severity="secondary" text (click)="menu.toggle($event)" aria-haspopup="true" aria-controls="overlay_menu" />
                             <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" />
                         </div>
@@ -117,12 +117,12 @@ import { TooltipModule } from 'primeng/tooltip';
                             <ng-template #body let-item>
                                 <tr>
                                     <td class="w-1/12">
-                                        <div class="text-muted-color">{{ item.id }}</div>
+                                        <div class="text-sm text-muted-color">{{ item.id }}</div>
                                     </td>
                                     <td class="w-1/4">
                                         <div class="flex items-center">
                                             <p-avatar [label]="item.name.label" class="mr-2 text-xs font-medium" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" shape="circle" />
-                                            <div class="leading-6 text-muted-color flex-1">{{ item.name.text }}</div>
+                                            <div class="text-sm leading-5 text-muted-color flex-1">{{ item.name.text }}</div>
                                         </div>
                                     </td>
                                     <td class="w-1/6">
@@ -130,43 +130,43 @@ import { TooltipModule } from 'primeng/tooltip';
                                             <i
                                                 class="pi"
                                                 [ngClass]="{
-                                                    'pi-bitcoin text-yellow-500 !text-3xl': item.coin !== 'btc',
-                                                    'pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7 h-7 rounded-full !flex items-center justify-center': item.coin !== 'eth'
+                                                    'pi-bitcoin text-yellow-500 !text-2xl': item.coin !== 'btc',
+                                                    'pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-6 h-6 rounded-full !flex items-center justify-center': item.coin !== 'eth'
                                                 }"
                                             ></i>
                                         </div>
                                     </td>
                                     <td class="w-1/6">
-                                        <div class="text-muted-color">{{ item.date }}</div>
+                                        <div class="text-sm text-muted-color">{{ item.date }}</div>
                                     </td>
                                     <td class="w-1/6">
                                         <p-tag [severity]="item.process.type" [value]="item.process.value" styleClass="font-medium"></p-tag>
                                     </td>
                                     <td class="w-1/6">
-                                        <div class="text-muted-color text-right">{{ item.amount }}</div>
+                                        <div class="text-sm text-muted-color text-right">{{ item.amount }}</div>
                                     </td>
                                 </tr>
                             </ng-template>
                         </p-table>
                     </div>
-                    <div class="xl:w-96 border border-surface rounded-2xl py-5 px-7 flex flex-col justify-between">
+                    <div class="xl:w-96 border border-surface rounded-2xl py-4 px-7 flex flex-col justify-between">
                         <div>
-                            <div class="flex items-center mb-6">
-                                <div class="flex-1 text-color font-semibold leading-6">My Wallet</div>
+                            <div class="flex items-center mb-5">
+                                <div class="flex-1 text-sm text-color font-semibold leading-5">My Wallet</div>
                                 <p-button type="button" icon="pi pi-ellipsis-h" severity="secondary" text (click)="menu.toggle($event)" aria-haspopup="true" aria-controls="overlay_menu" />
                                 <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" styleClass="ml-6" />
                             </div>
                             <p-metergroup [value]="metersData" labelPosition="end">
                                 <ng-template #label>
-                                    <div class="flex flex-col gap-6 mt-4">
+                                    <div class="flex flex-col gap-5 mt-3.5">
                                         @for (val of metersData; track $index) {
                                             <div class="flex items-center gap-2">
                                                 <div class="w-2 h-2 rounded-full" [style]="{ backgroundColor: val.color }"></div>
-                                                <div class="text-color uppercase font-medium leading-6 flex-1">
+                                                <div class="text-sm text-color uppercase font-medium leading-5 flex-1">
                                                     {{ val.label }}
                                                     <span class="text-muted-color">({{ val.value }}%)</span>
                                                 </div>
-                                                <div class="leading-6 font-medium text-color">{{ val.text }}</div>
+                                                <div class="text-sm leading-5 font-medium text-color">{{ val.text }}</div>
                                             </div>
                                         }
                                     </div>
@@ -415,7 +415,7 @@ export class OverviewApp {
                                 'chartjs-tooltip',
                                 'dark:bg-surface-950',
                                 'bg-surface-0',
-                                'p-3',
+                                'p-2.5',
                                 'rounded-[8px]',
                                 'overflow-hidden',
                                 'opacity-100',
@@ -442,7 +442,7 @@ export class OverviewApp {
                             tooltipEl.innerHTML = '';
                             const tooltipBody = document.createElement('div');
 
-                            tooltipBody.classList.add('flex', 'flex-col', 'gap-4', 'px-3', 'py-3', 'min-w-[18rem]');
+                            tooltipBody.classList.add('flex', 'flex-col', 'gap-3.5', 'px-2.5', 'py-3', 'min-w-[18rem]');
                             tooltip.dataPoints.reverse().forEach((body, i) => {
                                 const row = document.createElement('div');
 
@@ -455,12 +455,12 @@ export class OverviewApp {
                                 const label = document.createElement('span');
 
                                 label.appendChild(document.createTextNode(body.dataset.label));
-                                label.classList.add('text-base', 'font-medium', 'text-color', 'flex-1', 'text-left', 'capitalize');
+                                label.classList.add('text-sm', 'font-medium', 'text-color', 'flex-1', 'text-left', 'capitalize');
                                 row.appendChild(label);
                                 const value = document.createElement('span');
 
                                 value.appendChild(document.createTextNode(body.formattedValue));
-                                value.classList.add('text-base', 'font-medium', 'text-color', 'text-right');
+                                value.classList.add('text-sm', 'font-medium', 'text-color', 'text-right');
                                 row.appendChild(value);
                                 tooltipBody.appendChild(row);
                             });

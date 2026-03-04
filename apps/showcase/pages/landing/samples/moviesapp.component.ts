@@ -18,7 +18,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     standalone: true,
     imports: [RouterModule, SelectButton, FormsModule, AvatarModule, TooltipModule, IconField, InputIcon, ButtonModule, InputTextModule, ProgressBar, Carousel, OverlayBadgeModule],
     template: `
-        <div class="flex flex-wrap gap-4 items-center justify-between">
+        <div class="flex flex-wrap gap-3.5 items-center justify-between">
             <p-selectbutton [(ngModel)]="value" [options]="options" aria-labelledby="basic" />
             <div class="flex gap-2.5 items-center">
                 <p-iconfield iconPosition="left">
@@ -30,12 +30,12 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                         <i class="pi pi-bell"></i>
                     </p-overlaybadge>
                 </p-button>
-                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" shape="circle" class="w-9 h-9 cursor-pointer" />
+                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" shape="circle" class="w-8 h-8 cursor-pointer" />
             </div>
         </div>
         <div class="">
-            <div class="flex items-center justify-between gap-2 mb-6">
-                <div class="text-color text-xl font-medium leading-7">Keep watching</div>
+            <div class="flex items-center justify-between gap-2 mb-5">
+                <div class="text-color text-lg font-medium leading-6">Keep watching</div>
                 <div class="xl:flex hidden items-center gap-2">
                     <p-button [disabled]="page === 0" (click)="previousPage()" icon="pi pi-chevron-left" severity="secondary" outlined />
                     <p-button [disabled]="page === carouselData.length - page" (click)="nextPage()" icon="pi pi-chevron-right" severity="secondary" outlined />
@@ -57,15 +57,15 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                 <p-progressbar
                                     [value]="item.watchedPercent"
                                     [showValue]="false"
-                                    styleClass="!h-1.5 !bg-surface-950 dark:!bg-surface-50 !rounded-full"
+                                    class="!h-1.5 !bg-surface-950 dark:!bg-surface-50 !rounded-full"
                                     valueStyleClass="p-progressbar-value !bg-surface-0 dark:!bg-surface-950 !rounded-full"
                                 />
                             </div>
                         </div>
                         <div class="mt-2 flex items-start justify-between gap-1">
                             <div class="px-2 flex-1">
-                                <div class="font-medium text-color leading-6 line-clamp-1">{{ item.name }}</div>
-                                <div class="mt-1 text-muted-color text-sm leading-5">
+                                <div class="text-sm font-medium text-color leading-5 line-clamp-1">{{ item.name }}</div>
+                                <div class="mt-1 text-muted-color text-sm leading-4">
                                     {{ item.categories.join(', ') }}
                                 </div>
                             </div>
@@ -78,7 +78,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
             </p-carousel>
         </div>
         <div>
-            <div class="mb-6 flex items-center gap-4 justify-between">
+            <div class="mb-5 flex items-center gap-3.5 justify-between">
                 <div class="flex items-center gap-2">
                     <p-button label="Popular" severity="secondary" />
                     <p-button label="New Releases" text severity="secondary" />
@@ -98,8 +98,8 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                         </div>
                         <div class="mt-2 flex items-start justify-between gap-1">
                             <div class="px-2 flex-1">
-                                <div class="font-medium text-color leading-6 line-clamp-1">{{ movie.name }}</div>
-                                <div class="mt-1 text-muted-color text-sm leading-5">
+                                <div class="text-sm font-medium text-color leading-5 line-clamp-1">{{ movie.name }}</div>
+                                <div class="mt-1 text-muted-color text-sm leading-4">
                                     {{ movie.categories.join(', ') }}
                                 </div>
                             </div>
@@ -114,7 +114,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'flex-1 flex flex-col gap-6 p-6 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl'
+        class: 'flex-1 flex flex-col gap-5 p-5 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl'
     }
 })
 export class MoviesApp {

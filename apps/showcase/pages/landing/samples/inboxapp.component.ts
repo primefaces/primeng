@@ -20,16 +20,16 @@ import { Tag } from 'primeng/tag';
     standalone: true,
     imports: [CommonModule, RouterModule, FormsModule, DividerModule, AvatarModule, IconField, InputIcon, ButtonModule, TableModule, InputTextModule, MenuModule, Tag, ProgressBar, Checkbox, OverlayBadgeModule],
     template: `
-        <div class="w-64 h-full overflow-hidden border border-surface rounded-2xl flex flex-col">
-            <div class="flex items-center justify-between gap-2 p-4 border-b border-surface">
-                <div class="text-xl font-medium leading-7 text-color">Mails</div>
-                <p-button icon="pi pi-plus" styleClass="w-8 h-8" />
+        <div class="w-56 h-full overflow-hidden border border-surface rounded-2xl flex flex-col">
+            <div class="flex items-center justify-between gap-2 p-3.5 border-b border-surface">
+                <div class="text-lg font-medium leading-6 text-color">Mails</div>
+                <p-button icon="pi pi-plus" styleClass="w-7 h-7" />
             </div>
-            <div class="flex-1 flex flex-col overflow-auto justify-between gap-4 pt-4 pb-4 px-4">
+            <div class="flex-1 flex flex-col overflow-auto justify-between gap-3.5 pt-3.5 pb-3.5 px-3.5">
                 <div class="flex-1 overflow-auto flex flex-col gap-2">
                     @for (navData of inboxNavs; track navData.title) {
                         <div class="flex flex-col gap-2">
-                            <div class="text-sm font-medium leading-5 text-surface-400 dark:text-surface-500">
+                            <div class="text-sm font-medium leading-4 text-surface-400 dark:text-surface-500">
                                 {{ navData.title }}
                             </div>
                             @for (nav of navData.navs; track nav.name) {
@@ -39,21 +39,21 @@ import { Tag } from 'primeng/tag';
                                         'text-color bg-emphasis': activeInboxNav === nav.name,
                                         'text-muted-color bg-transparent': activeInboxNav !== nav.name
                                     }"
-                                    class="px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-emphasis transition-all"
+                                    class="px-3.5 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-emphasis transition-all"
                                 >
                                     <i [class]="nav.icon"></i>
-                                    <span class="font-medium">{{ nav.name }}</span>
+                                    <span class="text-sm font-medium">{{ nav.name }}</span>
                                 </button>
                             }
                         </div>
                     }
                 </div>
                 <div>
-                    <div class="border border-surface rounded-border px-4 pb-4 pt-3 mb-4">
-                        <div class="font-medium text-color mb-4">Free Version</div>
+                    <div class="border border-surface rounded-border px-3.5 pb-3.5 pt-2.5 mb-3.5">
+                        <div class="text-sm font-medium text-color mb-3.5">Free Version</div>
                         <p-progressbar [value]="75">
                             <ng-template #content let-value>
-                                <span class="w-full text-center text-sm font-normal text-primary-contrast leading-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">4 days left</span>
+                                <span class="w-full text-center text-sm font-normal text-primary-contrast leading-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">4 days left</span>
                             </ng-template>
                         </p-progressbar>
                     </div>
@@ -111,14 +111,14 @@ import { Tag } from 'primeng/tag';
                                     />
                                 </p-overlaybadge>
 
-                                <div class="ml-4 leading-6 text-color font-medium">{{ data.name }}</div>
+                                <div class="ml-3.5 text-sm leading-5 text-color font-medium">{{ data.name }}</div>
                             </div>
                         </td>
 
                         <td style="min-width: 14rem; max-width: 20rem">
                             <div class="truncate">
-                                <span class="text-color leading-6 mr-2">{{ data.title }}</span>
-                                <span class="text-muted-color leading-5 text-sm">{{ data.message }}</span>
+                                <span class="text-sm text-color leading-5 mr-2">{{ data.title }}</span>
+                                <span class="text-muted-color leading-4 text-sm">{{ data.message }}</span>
                             </div>
                         </td>
 
@@ -129,7 +129,7 @@ import { Tag } from 'primeng/tag';
                         </td>
 
                         <td style="width: 4rem">
-                            <div class="text-right text-sm leading-5 text-muted-color">{{ data.time }}</div>
+                            <div class="text-right text-sm leading-4 text-muted-color">{{ data.time }}</div>
                         </td>
                     </tr>
                 </ng-template>
@@ -137,7 +137,7 @@ import { Tag } from 'primeng/tag';
         </div>
     `,
     host: {
-        class: 'flex gap-4 h-full flex-1 w-full overflow-auto'
+        class: 'flex gap-3.5 h-full flex-1 w-full overflow-auto'
     },
     changeDetection: ChangeDetectionStrategy.OnPush
 })

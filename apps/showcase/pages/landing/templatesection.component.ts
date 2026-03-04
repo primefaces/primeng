@@ -10,14 +10,14 @@ import { Component } from '@angular/core';
         <section class="landing-templates theme-dark py-20">
             <div class="section-header relative z-30">Templates</div>
             <p class="section-detail relative z-30">Professionally designed highly customizable application templates to get started in style.</p>
-            <div class="flex justify-center mt-6 relative z-30">
+            <div class="flex justify-center mt-5 relative z-30">
                 <a href="https://primeui.store/templates" class="linkbox linkbox-primary">
                     <span>Explore All</span>
                     <i class="pi pi-arrow-right ms-2"></i>
                 </a>
             </div>
-            <section class="templates templates-animation flex justify-center items-center flex-col mt-7">
-                <div class="flex md:flex-row flex-col gap-6 lg:gap-0">
+            <section class="templates templates-animation flex justify-center items-center flex-col mt-6">
+                <div class="flex md:flex-row flex-col gap-5 lg:gap-0">
                     <div
                         class="template-block block-5 mr-2 lg:mb-0 flex justify-center items-center"
                         [ngStyle]="{
@@ -35,7 +35,7 @@ import { Component } from '@angular/core';
                         <a class="templates-btn" href="https://www.primefaces.org/freya-ng/" target="_blank">Freya Preview</a>
                     </div>
                 </div>
-                <div class="flex my-6 md:flex-row flex-col gap-6 lg:gap-0">
+                <div class="flex my-5 md:flex-row flex-col gap-5 lg:gap-0">
                     <div
                         class="template-block block-3 mr-2 lg:mb-0 flex justify-center items-center"
                         [ngStyle]="{
@@ -59,7 +59,7 @@ import { Component } from '@angular/core';
                         <a class="templates-btn" href="https://www.primefaces.org/apollo-ng/" target="_blank">Apollo Preview</a>
                     </div>
                 </div>
-                <div class="flex md:flex-row flex-col gap-6 lg:gap-0">
+                <div class="flex md:flex-row flex-col gap-5 lg:gap-0">
                     <div
                         class="template-block block-1 mr-2 lg:mb-0 flex justify-center items-center"
                         [ngStyle]="{
