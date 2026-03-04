@@ -171,8 +171,6 @@ Chip represents people using icons, labels and images.
 | chip.image.height | --p-chip-image-height | Height of image |
 | chip.icon.size | --p-chip-icon-size | Size of icon |
 | chip.icon.color | --p-chip-icon-color | Color of icon |
-| chip.label.font.weight | --p-chip-label-font-weight | Font weight of label |
-| chip.label.font.size | --p-chip-label-font-size | Font size of label |
 | chip.remove.icon.size | --p-chip-remove-icon-size | Size of remove icon |
 | chip.remove.icon.focus.ring.width | --p-chip-remove-icon-focus-ring-width | Focus ring width of remove icon |
 | chip.remove.icon.focus.ring.style | --p-chip-remove-icon-focus-ring-style | Focus ring style of remove icon |

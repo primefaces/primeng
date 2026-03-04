@@ -258,11 +258,6 @@
             "description": "Font weight of header"
           },
           {
-            "token": "accordion.header.font.size",
-            "variable": "--p-accordion-header-font-size",
-            "description": "Font size of header"
-          },
-          {
             "token": "accordion.header.border.radius",
             "variable": "--p-accordion-header-border-radius",
             "description": "Border radius of header"
@@ -1765,16 +1760,6 @@
             "description": "Border radius of option"
           },
           {
-            "token": "autocomplete.option.font.weight",
-            "variable": "--p-autocomplete-option-font-weight",
-            "description": "Font weight of option"
-          },
-          {
-            "token": "autocomplete.option.font.size",
-            "variable": "--p-autocomplete-option-font-size",
-            "description": "Font size of option"
-          },
-          {
             "token": "autocomplete.option.group.background",
             "variable": "--p-autocomplete-option-group-background",
             "description": "Background of option group"
@@ -1788,11 +1773,6 @@
             "token": "autocomplete.option.group.font.weight",
             "variable": "--p-autocomplete-option-group-font-weight",
             "description": "Font weight of option group"
-          },
-          {
-            "token": "autocomplete.option.group.font.size",
-            "variable": "--p-autocomplete-option-group-font-size",
-            "description": "Font size of option group"
           },
           {
             "token": "autocomplete.option.group.padding",
@@ -2232,11 +2212,6 @@
             "token": "avatar.height",
             "variable": "--p-avatar-height",
             "description": "Height of root"
-          },
-          {
-            "token": "avatar.font.weight",
-            "variable": "--p-avatar-font-weight",
-            "description": "Font weight of root"
           },
           {
             "token": "avatar.font.size",
@@ -3032,21 +3007,6 @@
             "description": "Icon hover color of item"
           },
           {
-            "token": "breadcrumb.item.icon.size",
-            "variable": "--p-breadcrumb-item-icon-size",
-            "description": "Icon size of item icon"
-          },
-          {
-            "token": "breadcrumb.item.label.font.weight",
-            "variable": "--p-breadcrumb-item-label-font-weight",
-            "description": "Font weight of item label"
-          },
-          {
-            "token": "breadcrumb.item.label.font.size",
-            "variable": "--p-breadcrumb-item-label-font-size",
-            "description": "Font size of item label"
-          },
-          {
             "token": "breadcrumb.item.focus.ring.width",
             "variable": "--p-breadcrumb-item-focus-ring-width",
             "description": "Focus ring width of item"
@@ -3578,11 +3538,6 @@
             "token": "button.icon.only.width",
             "variable": "--p-button-icon-only-width",
             "description": "Icon only width of root"
-          },
-          {
-            "token": "button.icon.only.width",
-            "variable": "--p-button-icon-only-width",
-            "description": "Font size of root"
           },
           {
             "token": "button.sm.font.size",
@@ -4669,16 +4624,6 @@
             "token": "card.subtitle.color",
             "variable": "--p-card-subtitle-color",
             "description": "Color of subtitle"
-          },
-          {
-            "token": "card.subtitle.font.size",
-            "variable": "--p-card-subtitle-font-size",
-            "description": "Font size of subtitle"
-          },
-          {
-            "token": "card.subtitle.font.weight",
-            "variable": "--p-card-subtitle-font-weight",
-            "description": "Font weight of subtitle"
           }
         ]
       }
@@ -6003,16 +5948,6 @@
             "description": "Lg padding y of root"
           },
           {
-            "token": "cascadeselect.font.weight",
-            "variable": "--p-cascadeselect-font-weight",
-            "description": "Font weight of current value"
-          },
-          {
-            "token": "cascadeselect.font.size",
-            "variable": "--p-cascadeselect-font-size",
-            "description": "Font size of current value"
-          },
-          {
             "token": "cascadeselect.dropdown.width",
             "variable": "--p-cascadeselect-dropdown-width",
             "description": "Width of dropdown"
@@ -6098,11 +6033,6 @@
             "description": "Selected focus color of option"
           },
           {
-            "token": "cascadeselect.option.selected.font.weight",
-            "variable": "--p-cascadeselect-option-selected-font-weight",
-            "description": "Font weight of a selected option"
-          },
-          {
             "token": "cascadeselect.option.padding",
             "variable": "--p-cascadeselect-option-padding",
             "description": "Padding of option"
@@ -6126,16 +6056,6 @@
             "token": "cascadeselect.option.icon.size",
             "variable": "--p-cascadeselect-option-icon-size",
             "description": "Icon size of option"
-          },
-          {
-            "token": "cascadeselect.option.font.weight",
-            "variable": "--p-cascadeselect-option-font-weight",
-            "description": "Font weight of option"
-          },
-          {
-            "token": "cascadeselect.option.font.size",
-            "variable": "--p-cascadeselect-option-font-size",
-            "description": "Font size of option"
           },
           {
             "token": "cascadeselect.clear.icon.color",
@@ -7227,16 +7147,6 @@
             "description": "Color of icon"
           },
           {
-            "token": "chip.label.font.weight",
-            "variable": "--p-chip-label-font-weight",
-            "description": "Font weight of label"
-          },
-          {
-            "token": "chip.label.font.size",
-            "variable": "--p-chip-label-font-size",
-            "description": "Font size of label"
-          },
-          {
             "token": "chip.remove.icon.size",
             "variable": "--p-chip-remove-icon-size",
             "description": "Size of remove icon"
@@ -8155,21 +8065,6 @@
             "token": "confirmdialog.content.gap",
             "variable": "--p-confirmdialog-content-gap",
             "description": "Gap of content"
-          },
-          {
-            "token": "confirmdialog.message.color",
-            "variable": "--p-confirmdialog-message-color",
-            "description": "Color of message"
-          },
-          {
-            "token": "confirmdialog.message.font.weight",
-            "variable": "--p-confirmdialog-message-font-weight",
-            "description": "Font weight of message"
-          },
-          {
-            "token": "confirmdialog.message.font.size",
-            "variable": "--p-confirmdialog-message-font-size",
-            "description": "Font size of message"
           }
         ]
       }
@@ -8498,21 +8393,6 @@
             "token": "confirmpopup.icon.color",
             "variable": "--p-confirmpopup-icon-color",
             "description": "Color of icon"
-          },
-          {
-            "token": "confirmpopup.message.color",
-            "variable": "--p-confirmpopup-message-color",
-            "description": "Color of message"
-          },
-          {
-            "token": "confirmpopup.message.font.weight",
-            "variable": "--p-confirmpopup-message-font-weight",
-            "description": "Font weight of message"
-          },
-          {
-            "token": "confirmpopup.message.font.size",
-            "variable": "--p-confirmpopup-message-font-size",
-            "description": "Font size of message"
           },
           {
             "token": "confirmpopup.footer.gap",
@@ -8950,21 +8830,6 @@
             "token": "contextmenu.item.icon.active.color",
             "variable": "--p-contextmenu-item-icon-active-color",
             "description": "Icon active color of item"
-          },
-          {
-            "token": "contextmenu.item.icon.size",
-            "variable": "--p-contextmenu-item-icon-size",
-            "description": "Icon size of item"
-          },
-          {
-            "token": "contextmenu.item.label.font.weight",
-            "variable": "--p-contextmenu-item-label-font-weight",
-            "description": "Font weight of item label"
-          },
-          {
-            "token": "contextmenu.item.label.font.size",
-            "variable": "--p-contextmenu-item-label-font-size",
-            "description": "Font size of item label"
           },
           {
             "token": "contextmenu.submenu.mobile.indent",
@@ -11100,11 +10965,6 @@
             "description": "Font weight of title"
           },
           {
-            "token": "datepicker.title.font.size",
-            "variable": "--p-datepicker-title-font-size",
-            "description": "Font size of title"
-          },
-          {
             "token": "datepicker.dropdown.width",
             "variable": "--p-datepicker-dropdown-width",
             "description": "Width of dropdown"
@@ -11225,16 +11085,6 @@
             "description": "Border radius of select month"
           },
           {
-            "token": "datepicker.select.month.font.weight",
-            "variable": "--p-datepicker-select-month-font-weight",
-            "description": "Font weight of select month"
-          },
-          {
-            "token": "datepicker.select.month.font.size",
-            "variable": "--p-datepicker-select-month-font-size",
-            "description": "Font size of select month"
-          },
-          {
             "token": "datepicker.select.year.hover.background",
             "variable": "--p-datepicker-select-year-hover-background",
             "description": "Hover background of select year"
@@ -11260,16 +11110,6 @@
             "description": "Border radius of select year"
           },
           {
-            "token": "datepicker.select.year.font.weight",
-            "variable": "--p-datepicker-select-year-font-weight",
-            "description": "Font weight of select year"
-          },
-          {
-            "token": "datepicker.select.year.font.size",
-            "variable": "--p-datepicker-select-year-font-size",
-            "description": "Font size of select year"
-          },
-          {
             "token": "datepicker.group.border.color",
             "variable": "--p-datepicker-group-border-color",
             "description": "Border color of group"
@@ -11293,11 +11133,6 @@
             "token": "datepicker.week.day.font.weight",
             "variable": "--p-datepicker-week-day-font-weight",
             "description": "Font weight of week day"
-          },
-          {
-            "token": "datepicker.week.day.font.size",
-            "variable": "--p-datepicker-week-day-font-size",
-            "description": "Font size of week day"
           },
           {
             "token": "datepicker.week.day.color",
@@ -11385,16 +11220,6 @@
             "description": "Focus ring shadow of date"
           },
           {
-            "token": "datepicker.date.font.weight",
-            "variable": "--p-datepicker-date-font-weight",
-            "description": "Font weight of date"
-          },
-          {
-            "token": "datepicker.date.font.size",
-            "variable": "--p-datepicker-date-font-size",
-            "description": "Font size of date"
-          },
-          {
             "token": "datepicker.month.view.margin",
             "variable": "--p-datepicker-month-view-margin",
             "description": "Margin of month view"
@@ -11453,21 +11278,6 @@
             "token": "datepicker.time.picker.button.gap",
             "variable": "--p-datepicker-time-picker-button-gap",
             "description": "Button gap of time picker"
-          },
-          {
-            "token": "datepicker.time.picker.color",
-            "variable": "--p-datepicker-time-picker-color",
-            "description": "Color of time picker label"
-          },
-          {
-            "token": "datepicker.time.picker.font.weight",
-            "variable": "--p-datepicker-time-picker-font-weight",
-            "description": "Font weight of time picker label"
-          },
-          {
-            "token": "datepicker.time.picker.font.size",
-            "variable": "--p-datepicker-time-picker-font-size",
-            "description": "Font size of time picker label"
           },
           {
             "token": "datepicker.today.background",
@@ -14037,11 +13847,6 @@
             "description": "Font weight of legend"
           },
           {
-            "token": "fieldset.legend.font.size",
-            "variable": "--p-fieldset-legend-font-size",
-            "description": "Font size of legend"
-          },
-          {
             "token": "fieldset.legend.focus.ring.width",
             "variable": "--p-fieldset-legend-focus-ring-width",
             "description": "Focus ring width of legend"
@@ -14898,36 +14703,6 @@
             "description": "Info gap of file"
           },
           {
-            "token": "fileupload.file.name.color",
-            "variable": "--p-fileupload-file-name-color",
-            "description": "Color of file name"
-          },
-          {
-            "token": "fileupload.file.name.font.weight",
-            "variable": "--p-fileupload-file-name-font-weight",
-            "description": "Font weight of file name"
-          },
-          {
-            "token": "fileupload.file.name.font.size",
-            "variable": "--p-fileupload-file-name-font-size",
-            "description": "Font size of file name"
-          },
-          {
-            "token": "fileupload.file.size.color",
-            "variable": "--p-fileupload-file-size-color",
-            "description": "Color of file size"
-          },
-          {
-            "token": "fileupload.file.size.font.weight",
-            "variable": "--p-fileupload-file-size-font-weight",
-            "description": "Font weight of file size"
-          },
-          {
-            "token": "fileupload.file.size.font.size",
-            "variable": "--p-fileupload-file-size-font-size",
-            "description": "Font size of file size"
-          },
-          {
             "token": "fileupload.file.list.gap",
             "variable": "--p-fileupload-file-list-gap",
             "description": "Gap of file list"
@@ -15075,11 +14850,6 @@
             "token": "floatlabel.position.y",
             "variable": "--p-floatlabel-position-y",
             "description": "Position y of root"
-          },
-          {
-            "token": "floatlabel.font.size",
-            "variable": "--p-floatlabel-font-size",
-            "description": "Font size of root"
           },
           {
             "token": "floatlabel.font.weight",
@@ -17130,16 +16900,6 @@
             "token": "inputgroup.addon.min.width",
             "variable": "--p-inputgroup-addon-min-width",
             "description": "Min width of addon"
-          },
-          {
-            "token": "inputgroup.addon.font.weight",
-            "variable": "--p-inputgroup-addon-font-weight",
-            "description": "Font weight of addon"
-          },
-          {
-            "token": "inputgroup.addon.font.size",
-            "variable": "--p-inputgroup-addon-font-size",
-            "description": "Font size of addon"
           }
         ]
       }
@@ -19000,16 +18760,6 @@
             "token": "inputtext.lg.padding.y",
             "variable": "--p-inputtext-lg-padding-y",
             "description": "Lg padding y of root"
-          },
-          {
-            "token": "inputtext.font.weight",
-            "variable": "--p-inputtext-font-weight",
-            "description": "Font weight of root"
-          },
-          {
-            "token": "inputtext.font.size",
-            "variable": "--p-inputtext-font-size",
-            "description": "Font size of root"
           }
         ]
       }
@@ -19454,16 +19204,6 @@
             "token": "knob.text.color",
             "variable": "--p-knob-text-color",
             "description": "Color of text"
-          },
-          {
-            "token": "knob.text.font.size",
-            "variable": "--p-knob-text-font-size",
-            "description": "Font size of text"
-          },
-          {
-            "token": "knob.text.font.weight",
-            "variable": "--p-knob-text-font-weight",
-            "description": "Font weight of text"
           }
         ]
       }
@@ -20393,11 +20133,6 @@
             "description": "Selected focus color of option"
           },
           {
-            "token": "listbox.option.selected.font.weight",
-            "variable": "--p-listbox-option-selected-font-weight",
-            "description": "Font weight of a selected option"
-          },
-          {
             "token": "listbox.option.padding",
             "variable": "--p-listbox-option-padding",
             "description": "Padding of option"
@@ -20413,16 +20148,6 @@
             "description": "Striped background of option"
           },
           {
-            "token": "listbox.option.font.weight",
-            "variable": "--p-listbox-option-font-weight",
-            "description": "Font weight of option"
-          },
-          {
-            "token": "listbox.option.font.size",
-            "variable": "--p-listbox-option-font-size",
-            "description": "Font size of option"
-          },
-          {
             "token": "listbox.option.group.background",
             "variable": "--p-listbox-option-group-background",
             "description": "Background of option group"
@@ -20436,11 +20161,6 @@
             "token": "listbox.option.group.font.weight",
             "variable": "--p-listbox-option-group-font-weight",
             "description": "Font weight of option group"
-          },
-          {
-            "token": "listbox.option.group.font.size",
-            "variable": "--p-listbox-option-group-font-size",
-            "description": "Font size of option group"
           },
           {
             "token": "listbox.option.group.padding",
@@ -21043,21 +20763,6 @@
             "description": "Icon active color of item"
           },
           {
-            "token": "megamenu.item.icon.size",
-            "variable": "--p-megamenu-item-icon-size",
-            "description": "Icon size of item"
-          },
-          {
-            "token": "megamenu.item.label.font.weight",
-            "variable": "--p-megamenu-item-label-font-weight",
-            "description": "Font weight of item label"
-          },
-          {
-            "token": "megamenu.item.label.font.size",
-            "variable": "--p-megamenu-item-label-font-size",
-            "description": "Font size of item label"
-          },
-          {
             "token": "megamenu.overlay.padding",
             "variable": "--p-megamenu-overlay-padding",
             "description": "Padding of overlay"
@@ -21111,11 +20816,6 @@
             "token": "megamenu.submenu.label.font.weight",
             "variable": "--p-megamenu-submenu-label-font-weight",
             "description": "Font weight of submenu label"
-          },
-          {
-            "token": "megamenu.submenu.label.font.size",
-            "variable": "--p-megamenu-submenu-label-font-size",
-            "description": "Font size of submenu label"
           },
           {
             "token": "megamenu.submenu.label.background",
@@ -21685,21 +21385,6 @@
             "description": "Icon focus color of item"
           },
           {
-            "token": "menu.item.icon.size",
-            "variable": "--p-menu-item-icon-size",
-            "description": "Icon size of item"
-          },
-          {
-            "token": "menu.item.label.font.weight",
-            "variable": "--p-menu-item-label-font-weight",
-            "description": "Font weight of item label"
-          },
-          {
-            "token": "menu.item.label.font.size",
-            "variable": "--p-menu-item-label-font-size",
-            "description": "Font size of item label"
-          },
-          {
             "token": "menu.submenu.label.padding",
             "variable": "--p-menu-submenu-label-padding",
             "description": "Padding of submenu label"
@@ -21708,11 +21393,6 @@
             "token": "menu.submenu.label.font.weight",
             "variable": "--p-menu-submenu-label-font-weight",
             "description": "Font weight of submenu label"
-          },
-          {
-            "token": "menu.submenu.label.font.size",
-            "variable": "--p-menu-submenu-label-font-size",
-            "description": "Font size of submenu label"
           },
           {
             "token": "menu.submenu.label.background",
@@ -22165,21 +21845,6 @@
             "token": "menubar.item.icon.active.color",
             "variable": "--p-menubar-item-icon-active-color",
             "description": "Icon active color of item"
-          },
-          {
-            "token": "menubar.item.icon.size",
-            "variable": "--p-menubar-item-icon-size",
-            "description": "Icon size of item"
-          },
-          {
-            "token": "menubar.item.label.font.weight",
-            "variable": "--p-menubar-item-label-font-weight",
-            "description": "Font weight of item label"
-          },
-          {
-            "token": "menubar.item.label.font.size",
-            "variable": "--p-menubar-item-label-font-size",
-            "description": "Font size of item label"
           },
           {
             "token": "menubar.submenu.padding",
@@ -23341,16 +23006,6 @@
             "token": "metergroup.label.marker.size",
             "variable": "--p-metergroup-label-marker-size",
             "description": "Size of label marker"
-          },
-          {
-            "token": "metergroup.label.text.font.weight",
-            "variable": "--p-metergroup-label-text-font-weight",
-            "description": "Font weight of label text"
-          },
-          {
-            "token": "metergroup.label.text.font.size",
-            "variable": "--p-metergroup-label-text-font-size",
-            "description": "Font size of label text"
           },
           {
             "token": "metergroup.label.icon.size",
@@ -24607,16 +24262,6 @@
             "description": "Lg padding y of root"
           },
           {
-            "token": "multiselect.font.weight",
-            "variable": "--p-multiselect-font-weight",
-            "description": "Font weight of root"
-          },
-          {
-            "token": "multiselect.font.size",
-            "variable": "--p-multiselect-font-size",
-            "description": "Font size of root"
-          },
-          {
             "token": "multiselect.dropdown.width",
             "variable": "--p-multiselect-dropdown-width",
             "description": "Width of dropdown"
@@ -24702,11 +24347,6 @@
             "description": "Selected focus color of option"
           },
           {
-            "token": "multiselect.option.selected.font.weight",
-            "variable": "--p-multiselect-option-selected-font-weight",
-            "description": "Font weight of a selected option"
-          },
-          {
             "token": "multiselect.option.padding",
             "variable": "--p-multiselect-option-padding",
             "description": "Padding of option"
@@ -24722,16 +24362,6 @@
             "description": "Gap of option"
           },
           {
-            "token": "multiselect.option.font.weight",
-            "variable": "--p-multiselect-option-font-weight",
-            "description": "Font weight of option"
-          },
-          {
-            "token": "multiselect.option.font.size",
-            "variable": "--p-multiselect-option-font-size",
-            "description": "Font size of option"
-          },
-          {
             "token": "multiselect.option.group.background",
             "variable": "--p-multiselect-option-group-background",
             "description": "Background of option group"
@@ -24745,11 +24375,6 @@
             "token": "multiselect.option.group.font.weight",
             "variable": "--p-multiselect-option-group-font-weight",
             "description": "Font weight of option group"
-          },
-          {
-            "token": "multiselect.option.group.font.size",
-            "variable": "--p-multiselect-option-group-font-size",
-            "description": "Font size of option group"
           },
           {
             "token": "multiselect.option.group.padding",
@@ -26569,16 +26194,6 @@
             "description": "Border radius of nav button"
           },
           {
-            "token": "paginator.nav.button.font.weight",
-            "variable": "--p-paginator-nav-button-font-weight",
-            "description": "Font weight of nav button"
-          },
-          {
-            "token": "paginator.nav.button.font.size",
-            "variable": "--p-paginator-nav-button-font-size",
-            "description": "Font size of nav button"
-          },
-          {
             "token": "paginator.nav.button.focus.ring.width",
             "variable": "--p-paginator-nav-button-focus-ring-width",
             "description": "Focus ring width of nav button"
@@ -26607,16 +26222,6 @@
             "token": "paginator.current.page.report.color",
             "variable": "--p-paginator-current-page-report-color",
             "description": "Color of current page report"
-          },
-          {
-            "token": "paginator.current.page.report.font.weight",
-            "variable": "--p-paginator-current-page-report-font-weight",
-            "description": "Font weight of current page report"
-          },
-          {
-            "token": "paginator.current.page.report.font.size",
-            "variable": "--p-paginator-current-page-report-font-size",
-            "description": "Font size of current page report"
           },
           {
             "token": "paginator.jump.to.page.input.max.width",
@@ -26978,11 +26583,6 @@
             "token": "panel.title.font.weight",
             "variable": "--p-panel-title-font-weight",
             "description": "Font weight of title"
-          },
-          {
-            "token": "panel.title.font.size",
-            "variable": "--p-panel-title-font-size",
-            "description": "Font size of title"
           },
           {
             "token": "panel.content.padding",
@@ -27439,21 +27039,6 @@
             "token": "panelmenu.item.icon.focus.color",
             "variable": "--p-panelmenu-item-icon-focus-color",
             "description": "Icon focus color of item"
-          },
-          {
-            "token": "panelmenu.item.icon.size",
-            "variable": "--p-panelmenu-item-icon-size",
-            "description": "Icon size of item"
-          },
-          {
-            "token": "panelmenu.item.label.font.weight",
-            "variable": "--p-panelmenu-item-label-font-weight",
-            "description": "Font weight of item label"
-          },
-          {
-            "token": "panelmenu.item.label.font.size",
-            "variable": "--p-panelmenu-item-label-font-size",
-            "description": "Font size of item label"
           },
           {
             "token": "panelmenu.submenu.indent",
@@ -28141,16 +27726,6 @@
             "token": "password.content.gap",
             "variable": "--p-password-content-gap",
             "description": "Gap of content"
-          },
-          {
-            "token": "password.meter.text.font.weight",
-            "variable": "--p-password-meter-text-font-weight",
-            "description": "Font weight of meter text"
-          },
-          {
-            "token": "password.meter.text.font.size",
-            "variable": "--p-password-meter-text-font-size",
-            "description": "Font size of meter text"
           },
           {
             "token": "password.strength.weak.background",
@@ -32535,16 +32110,6 @@
             "description": "Lg padding y of root"
           },
           {
-            "token": "select.font.weight",
-            "variable": "--p-select-font-weight",
-            "description": "Font weight of root"
-          },
-          {
-            "token": "select.font.size",
-            "variable": "--p-select-font-size",
-            "description": "Font size of root"
-          },
-          {
             "token": "select.dropdown.width",
             "variable": "--p-select-dropdown-width",
             "description": "Width of dropdown"
@@ -32630,11 +32195,6 @@
             "description": "Selected focus color of option"
           },
           {
-            "token": "select.option.selected.font.weight",
-            "variable": "--p-select-option-selected-font-weight",
-            "description": "Font weight of a selected option"
-          },
-          {
             "token": "select.option.padding",
             "variable": "--p-select-option-padding",
             "description": "Padding of option"
@@ -32643,16 +32203,6 @@
             "token": "select.option.border.radius",
             "variable": "--p-select-option-border-radius",
             "description": "Border radius of option"
-          },
-          {
-            "token": "select.option.font.weight",
-            "variable": "--p-select-option-font-weight",
-            "description": "Font weight of option"
-          },
-          {
-            "token": "select.option.font.size",
-            "variable": "--p-select-option-font-size",
-            "description": "Font size of option"
           },
           {
             "token": "select.option.group.background",
@@ -32668,11 +32218,6 @@
             "token": "select.option.group.font.weight",
             "variable": "--p-select-option-group-font-weight",
             "description": "Font weight of option group"
-          },
-          {
-            "token": "select.option.group.font.size",
-            "variable": "--p-select-option-group-font-size",
-            "description": "Font size of option group"
           },
           {
             "token": "select.option.group.padding",
@@ -34913,11 +34458,6 @@
             "description": "Font weight of step title"
           },
           {
-            "token": "stepper.step.title.font.size",
-            "variable": "--p-stepper-step-title-font-size",
-            "description": "Font size of step title"
-          },
-          {
             "token": "stepper.step.number.background",
             "variable": "--p-stepper-step-number-background",
             "description": "Background of step number"
@@ -36952,11 +36492,6 @@
             "description": "Font weight of tab"
           },
           {
-            "token": "tabs.tab.font.size",
-            "variable": "--p-tabs-tab-font-size",
-            "description": "Font size of tab"
-          },
-          {
             "token": "tabs.tab.margin",
             "variable": "--p-tabs-tab-margin",
             "description": "Margin of tab"
@@ -37568,16 +37103,6 @@
             "description": "Border radius of root"
           },
           {
-            "token": "terminal.font.weight",
-            "variable": "--p-terminal-font-weight",
-            "description": "Font weight of root"
-          },
-          {
-            "token": "terminal.font.size",
-            "variable": "--p-terminal-font-size",
-            "description": "Font size of root"
-          },
-          {
             "token": "terminal.prompt.gap",
             "variable": "--p-terminal-prompt-gap",
             "description": "Gap of prompt"
@@ -37955,16 +37480,6 @@
             "token": "textarea.lg.padding.y",
             "variable": "--p-textarea-lg-padding-y",
             "description": "Lg padding y of root"
-          },
-          {
-            "token": "textarea.font.weight",
-            "variable": "--p-textarea-font-weight",
-            "description": "Font weight of root"
-          },
-          {
-            "token": "textarea.font.size",
-            "variable": "--p-textarea-font-size",
-            "description": "Font size of root"
           }
         ]
       }
@@ -38451,21 +37966,6 @@
             "token": "tieredmenu.item.icon.active.color",
             "variable": "--p-tieredmenu-item-icon-active-color",
             "description": "Icon active color of item"
-          },
-          {
-            "token": "tieredmenu.item.icon.size",
-            "variable": "--p-tieredmenu-item-icon-size",
-            "description": "Icon size of item"
-          },
-          {
-            "token": "tieredmenu.item.label.font.weight",
-            "variable": "--p-tieredmenu-item-label-font-weight",
-            "description": "Font weight of item label"
-          },
-          {
-            "token": "tieredmenu.item.label.font.size",
-            "variable": "--p-tieredmenu-item-label-font-size",
-            "description": "Font size of item label"
           },
           {
             "token": "tieredmenu.submenu.mobile.indent",
@@ -39788,11 +39288,6 @@
             "description": "Gap of root"
           },
           {
-            "token": "togglebutton.font.size",
-            "variable": "--p-togglebutton-font-size",
-            "description": "Font size of root"
-          },
-          {
             "token": "togglebutton.font.weight",
             "variable": "--p-togglebutton-font-weight",
             "description": "Font weight of root"
@@ -40867,16 +40362,6 @@
             "token": "tooltip.color",
             "variable": "--p-tooltip-color",
             "description": "Color of root"
-          },
-          {
-            "token": "tooltip.font.weight",
-            "variable": "--p-tooltip-font-weight",
-            "description": "Font weight of root"
-          },
-          {
-            "token": "tooltip.font.size",
-            "variable": "--p-tooltip-font-size",
-            "description": "Font size of root"
           }
         ]
       }
@@ -41771,21 +41256,6 @@
             "token": "tree.node.icon.selected.color",
             "variable": "--p-tree-node-icon-selected-color",
             "description": "Selected color of node icon"
-          },
-          {
-            "token": "tree.node.label.font.weight",
-            "variable": "--p-tree-node-label-font-weight",
-            "description": "Font weight of node label"
-          },
-          {
-            "token": "tree.node.label.font.size",
-            "variable": "--p-tree-node-label-font-size",
-            "description": "Font size of node label"
-          },
-          {
-            "token": "tree.node.label.selected.font.weight",
-            "variable": "--p-tree-node-label-selected-font-weight",
-            "description": "Font weight of a selected node label"
           },
           {
             "token": "tree.node.toggle.button.border.radius",
@@ -42790,16 +42260,6 @@
             "token": "treeselect.lg.padding.y",
             "variable": "--p-treeselect-lg-padding-y",
             "description": "Lg padding y of root"
-          },
-          {
-            "token": "treeselect.font.weight",
-            "variable": "--p-treeselect-font-weight",
-            "description": "Font weight of root"
-          },
-          {
-            "token": "treeselect.font.size",
-            "variable": "--p-treeselect-font-size",
-            "description": "Font size of root"
           },
           {
             "token": "treeselect.dropdown.width",
@@ -44265,11 +43725,6 @@
             "description": "Font weight of column title"
           },
           {
-            "token": "treetable.column.title.font.size",
-            "variable": "--p-treetable-column-title-font-size",
-            "description": "Font size of column title"
-          },
-          {
             "token": "treetable.row.background",
             "variable": "--p-treetable-row-background",
             "description": "Background of row"
@@ -44345,16 +43800,6 @@
             "description": "Selected border color of body cell"
           },
           {
-            "token": "treetable.body.cell.font.weight",
-            "variable": "--p-treetable-body-cell-font-weight",
-            "description": "Font weight of body cell"
-          },
-          {
-            "token": "treetable.body.cell.font.size",
-            "variable": "--p-treetable-body-cell-font-size",
-            "description": "Font size of body cell"
-          },
-          {
             "token": "treetable.footer.cell.background",
             "variable": "--p-treetable-footer-cell-background",
             "description": "Background of footer cell"
@@ -44378,11 +43823,6 @@
             "token": "treetable.column.footer.font.weight",
             "variable": "--p-treetable-column-footer-font-weight",
             "description": "Font weight of column footer"
-          },
-          {
-            "token": "treetable.column.footer.font.size",
-            "variable": "--p-treetable-column-footer-font-size",
-            "description": "Font size of column footer"
           },
           {
             "token": "treetable.footer.background",

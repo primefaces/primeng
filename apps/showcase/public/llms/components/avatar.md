@@ -398,7 +398,6 @@ Avatar represents people using icons, labels and images.
 |-------|--------------|-------------|
 | avatar.width | --p-avatar-width | Width of root |
 | avatar.height | --p-avatar-height | Height of root |
-| avatar.font.weight | --p-avatar-font-weight | Font weight of root |
 | avatar.font.size | --p-avatar-font-size | Font size of root |
 | avatar.background | --p-avatar-background | Background of root |
 | avatar.color | --p-avatar-color | Color of root |

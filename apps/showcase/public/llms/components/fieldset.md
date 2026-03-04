@@ -173,7 +173,6 @@ Fieldset is a grouping component with the optional content toggle feature.
 | fieldset.legend.padding | --p-fieldset-legend-padding | Padding of legend |
 | fieldset.legend.gap | --p-fieldset-legend-gap | Gap of legend |
 | fieldset.legend.font.weight | --p-fieldset-legend-font-weight | Font weight of legend |
-| fieldset.legend.font.size | --p-fieldset-legend-font-size | Font size of legend |
 | fieldset.legend.focus.ring.width | --p-fieldset-legend-focus-ring-width | Focus ring width of legend |
 | fieldset.legend.focus.ring.style | --p-fieldset-legend-focus-ring-style | Focus ring style of legend |
 | fieldset.legend.focus.ring.color | --p-fieldset-legend-focus-ring-color | Focus ring color of legend |

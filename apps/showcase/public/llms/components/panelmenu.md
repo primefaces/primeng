@@ -696,9 +696,6 @@ PanelMenu is a hybrid of Accordion and Tree components.
 | panelmenu.item.border.radius | --p-panelmenu-item-border-radius | Border radius of item |
 | panelmenu.item.icon.color | --p-panelmenu-item-icon-color | Icon color of item |
 | panelmenu.item.icon.focus.color | --p-panelmenu-item-icon-focus-color | Icon focus color of item |
-| panelmenu.item.icon.size | --p-panelmenu-item-icon-size | Icon size of item |
-| panelmenu.item.label.font.weight | --p-panelmenu-item-label-font-weight | Font weight of item label |
-| panelmenu.item.label.font.size | --p-panelmenu-item-label-font-size | Font size of item label |
 | panelmenu.submenu.indent | --p-panelmenu-submenu-indent | Indent of submenu |
 | panelmenu.submenu.icon.color | --p-panelmenu-submenu-icon-color | Color of submenu icon |
 | panelmenu.submenu.icon.focus.color | --p-panelmenu-submenu-icon-focus-color | Focus color of submenu icon |

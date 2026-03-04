@@ -1325,7 +1325,6 @@ Accordion groups a collection of contents in tabs.
 | accordion.header.active.hover.color | --p-accordion-header-active-hover-color | Active hover color of header |
 | accordion.header.padding | --p-accordion-header-padding | Padding of header |
 | accordion.header.font.weight | --p-accordion-header-font-weight | Font weight of header |
-| accordion.header.font.size | --p-accordion-header-font-size | Font size of header |
 | accordion.header.border.radius | --p-accordion-header-border-radius | Border radius of header |
 | accordion.header.border.width | --p-accordion-header-border-width | Border width of header |
 | accordion.header.border.color | --p-accordion-header-border-color | Border color of header |
@@ -2732,12 +2731,9 @@ AutoComplete is an input component that provides real-time suggestions when bein
 | autocomplete.option.selected.focus.color | --p-autocomplete-option-selected-focus-color | Selected focus color of option |
 | autocomplete.option.padding | --p-autocomplete-option-padding | Padding of option |
 | autocomplete.option.border.radius | --p-autocomplete-option-border-radius | Border radius of option |
-| autocomplete.option.font.weight | --p-autocomplete-option-font-weight | Font weight of option |
-| autocomplete.option.font.size | --p-autocomplete-option-font-size | Font size of option |
 | autocomplete.option.group.background | --p-autocomplete-option-group-background | Background of option group |
 | autocomplete.option.group.color | --p-autocomplete-option-group-color | Color of option group |
 | autocomplete.option.group.font.weight | --p-autocomplete-option-group-font-weight | Font weight of option group |
-| autocomplete.option.group.font.size | --p-autocomplete-option-group-font-size | Font size of option group |
 | autocomplete.option.group.padding | --p-autocomplete-option-group-padding | Padding of option group |
 | autocomplete.dropdown.width | --p-autocomplete-dropdown-width | Width of dropdown |
 | autocomplete.dropdown.sm.width | --p-autocomplete-dropdown-sm-width | Sm width of dropdown |
@@ -3226,7 +3222,6 @@ Avatar represents people using icons, labels and images.
 |-------|--------------|-------------|
 | avatar.width | --p-avatar-width | Width of root |
 | avatar.height | --p-avatar-height | Height of root |
-| avatar.font.weight | --p-avatar-font-weight | Font weight of root |
 | avatar.font.size | --p-avatar-font-size | Font size of root |
 | avatar.background | --p-avatar-background | Background of root |
 | avatar.color | --p-avatar-color | Color of root |
@@ -3813,9 +3808,6 @@ Breadcrumb provides contextual information about page hierarchy.
 | breadcrumb.item.gap | --p-breadcrumb-item-gap | Gap of item |
 | breadcrumb.item.icon.color | --p-breadcrumb-item-icon-color | Icon color of item |
 | breadcrumb.item.icon.hover.color | --p-breadcrumb-item-icon-hover-color | Icon hover color of item |
-| breadcrumb.item.icon.size | --p-breadcrumb-item-icon-size | Icon size of item icon |
-| breadcrumb.item.label.font.weight | --p-breadcrumb-item-label-font-weight | Font weight of item label |
-| breadcrumb.item.label.font.size | --p-breadcrumb-item-label-font-size | Font size of item label |
 | breadcrumb.item.focus.ring.width | --p-breadcrumb-item-focus-ring-width | Focus ring width of item |
 | breadcrumb.item.focus.ring.style | --p-breadcrumb-item-focus-ring-style | Focus ring style of item |
 | breadcrumb.item.focus.ring.color | --p-breadcrumb-item-focus-ring-color | Focus ring color of item |
@@ -4496,7 +4488,6 @@ Button is an extension to standard button element with icons and theming.
 | button.padding.x | --p-button-padding-x | Padding x of root |
 | button.padding.y | --p-button-padding-y | Padding y of root |
 | button.icon.only.width | --p-button-icon-only-width | Icon only width of root |
-| button.icon.only.width | --p-button-icon-only-width | Font size of root |
 | button.sm.font.size | --p-button-sm-font-size | Sm font size of root |
 | button.sm.padding.x | --p-button-sm-padding-x | Sm padding x of root |
 | button.sm.padding.y | --p-button-sm-padding-y | Sm padding y of root |
@@ -4811,8 +4802,6 @@ Card is a flexible container component.
 | card.title.font.size | --p-card-title-font-size | Font size of title |
 | card.title.font.weight | --p-card-title-font-weight | Font weight of title |
 | card.subtitle.color | --p-card-subtitle-color | Color of subtitle |
-| card.subtitle.font.size | --p-card-subtitle-font-size | Font size of subtitle |
-| card.subtitle.font.weight | --p-card-subtitle-font-weight | Font weight of subtitle |
 
 ---
 
@@ -6738,8 +6727,6 @@ CascadeSelect is a form component to select a value from a nested structure of o
 | cascadeselect.lg.font.size | --p-cascadeselect-lg-font-size | Lg font size of root |
 | cascadeselect.lg.padding.x | --p-cascadeselect-lg-padding-x | Lg padding x of root |
 | cascadeselect.lg.padding.y | --p-cascadeselect-lg-padding-y | Lg padding y of root |
-| cascadeselect.font.weight | --p-cascadeselect-font-weight | Font weight of current value |
-| cascadeselect.font.size | --p-cascadeselect-font-size | Font size of current value |
 | cascadeselect.dropdown.width | --p-cascadeselect-dropdown-width | Width of dropdown |
 | cascadeselect.dropdown.color | --p-cascadeselect-dropdown-color | Color of dropdown |
 | cascadeselect.overlay.background | --p-cascadeselect-overlay-background | Background of overlay |
@@ -6757,14 +6744,11 @@ CascadeSelect is a form component to select a value from a nested structure of o
 | cascadeselect.option.focus.color | --p-cascadeselect-option-focus-color | Focus color of option |
 | cascadeselect.option.selected.color | --p-cascadeselect-option-selected-color | Selected color of option |
 | cascadeselect.option.selected.focus.color | --p-cascadeselect-option-selected-focus-color | Selected focus color of option |
-| cascadeselect.option.selected.font.weight | --p-cascadeselect-option-selected-font-weight | Font weight of a selected option |
 | cascadeselect.option.padding | --p-cascadeselect-option-padding | Padding of option |
 | cascadeselect.option.border.radius | --p-cascadeselect-option-border-radius | Border radius of option |
 | cascadeselect.option.icon.color | --p-cascadeselect-option-icon-color | Icon color of option |
 | cascadeselect.option.icon.focus.color | --p-cascadeselect-option-icon-focus-color | Icon focus color of option |
 | cascadeselect.option.icon.size | --p-cascadeselect-option-icon-size | Icon size of option |
-| cascadeselect.option.font.weight | --p-cascadeselect-option-font-weight | Font weight of option |
-| cascadeselect.option.font.size | --p-cascadeselect-option-font-size | Font size of option |
 | cascadeselect.clear.icon.color | --p-cascadeselect-clear-icon-color | Color of clear icon |
 
 ---
@@ -8752,8 +8736,6 @@ Chip represents people using icons, labels and images.
 | chip.image.height | --p-chip-image-height | Height of image |
 | chip.icon.size | --p-chip-icon-size | Size of icon |
 | chip.icon.color | --p-chip-icon-color | Color of icon |
-| chip.label.font.weight | --p-chip-label-font-weight | Font weight of label |
-| chip.label.font.size | --p-chip-label-font-size | Font size of label |
 | chip.remove.icon.size | --p-chip-remove-icon-size | Size of remove icon |
 | chip.remove.icon.focus.ring.width | --p-chip-remove-icon-focus-ring-width | Focus ring width of remove icon |
 | chip.remove.icon.focus.ring.style | --p-chip-remove-icon-focus-ring-style | Focus ring style of remove icon |
@@ -9383,9 +9365,6 @@ ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
 | confirmdialog.icon.size | --p-confirmdialog-icon-size | Size of icon |
 | confirmdialog.icon.color | --p-confirmdialog-icon-color | Color of icon |
 | confirmdialog.content.gap | --p-confirmdialog-content-gap | Gap of content |
-| confirmdialog.message.color | --p-confirmdialog-message-color | Color of message |
-| confirmdialog.message.font.weight | --p-confirmdialog-message-font-weight | Font weight of message |
-| confirmdialog.message.font.size | --p-confirmdialog-message-font-size | Font size of message |
 
 ---
 
@@ -9829,9 +9808,6 @@ ConfirmPopup displays a confirmation overlay displayed relatively to its target.
 | confirmpopup.content.gap | --p-confirmpopup-content-gap | Gap of content |
 | confirmpopup.icon.size | --p-confirmpopup-icon-size | Size of icon |
 | confirmpopup.icon.color | --p-confirmpopup-icon-color | Color of icon |
-| confirmpopup.message.color | --p-confirmpopup-message-color | Color of message |
-| confirmpopup.message.font.weight | --p-confirmpopup-message-font-weight | Font weight of message |
-| confirmpopup.message.font.size | --p-confirmpopup-message-font-size | Font size of message |
 | confirmpopup.footer.gap | --p-confirmpopup-footer-gap | Gap of footer |
 | confirmpopup.footer.padding | --p-confirmpopup-footer-padding | Padding of footer |
 
@@ -10332,9 +10308,6 @@ ContextMenu displays an overlay menu on right click of its target. Note that com
 | contextmenu.item.icon.color | --p-contextmenu-item-icon-color | Icon color of item |
 | contextmenu.item.icon.focus.color | --p-contextmenu-item-icon-focus-color | Icon focus color of item |
 | contextmenu.item.icon.active.color | --p-contextmenu-item-icon-active-color | Icon active color of item |
-| contextmenu.item.icon.size | --p-contextmenu-item-icon-size | Icon size of item |
-| contextmenu.item.label.font.weight | --p-contextmenu-item-label-font-weight | Font weight of item label |
-| contextmenu.item.label.font.size | --p-contextmenu-item-label-font-size | Font size of item label |
 | contextmenu.submenu.mobile.indent | --p-contextmenu-submenu-mobile-indent | Mobile indent of submenu |
 | contextmenu.submenu.icon.size | --p-contextmenu-submenu-icon-size | Size of submenu icon |
 | contextmenu.submenu.icon.color | --p-contextmenu-submenu-icon-color | Color of submenu icon |
@@ -12216,7 +12189,6 @@ DatePicker is a form component to work with dates.
 | datepicker.header.padding | --p-datepicker-header-padding | Padding of header |
 | datepicker.title.gap | --p-datepicker-title-gap | Gap of title |
 | datepicker.title.font.weight | --p-datepicker-title-font-weight | Font weight of title |
-| datepicker.title.font.size | --p-datepicker-title-font-size | Font size of title |
 | datepicker.dropdown.width | --p-datepicker-dropdown-width | Width of dropdown |
 | datepicker.dropdown.sm.width | --p-datepicker-dropdown-sm-width | Sm width of dropdown |
 | datepicker.dropdown.lg.width | --p-datepicker-dropdown-lg-width | Lg width of dropdown |
@@ -12241,21 +12213,16 @@ DatePicker is a form component to work with dates.
 | datepicker.select.month.hover.color | --p-datepicker-select-month-hover-color | Hover color of select month |
 | datepicker.select.month.padding | --p-datepicker-select-month-padding | Padding of select month |
 | datepicker.select.month.border.radius | --p-datepicker-select-month-border-radius | Border radius of select month |
-| datepicker.select.month.font.weight | --p-datepicker-select-month-font-weight | Font weight of select month |
-| datepicker.select.month.font.size | --p-datepicker-select-month-font-size | Font size of select month |
 | datepicker.select.year.hover.background | --p-datepicker-select-year-hover-background | Hover background of select year |
 | datepicker.select.year.color | --p-datepicker-select-year-color | Color of select year |
 | datepicker.select.year.hover.color | --p-datepicker-select-year-hover-color | Hover color of select year |
 | datepicker.select.year.padding | --p-datepicker-select-year-padding | Padding of select year |
 | datepicker.select.year.border.radius | --p-datepicker-select-year-border-radius | Border radius of select year |
-| datepicker.select.year.font.weight | --p-datepicker-select-year-font-weight | Font weight of select year |
-| datepicker.select.year.font.size | --p-datepicker-select-year-font-size | Font size of select year |
 | datepicker.group.border.color | --p-datepicker-group-border-color | Border color of group |
 | datepicker.group.gap | --p-datepicker-group-gap | Gap of group |
 | datepicker.day.view.margin | --p-datepicker-day-view-margin | Margin of day view |
 | datepicker.week.day.padding | --p-datepicker-week-day-padding | Padding of week day |
 | datepicker.week.day.font.weight | --p-datepicker-week-day-font-weight | Font weight of week day |
-| datepicker.week.day.font.size | --p-datepicker-week-day-font-size | Font size of week day |
 | datepicker.week.day.color | --p-datepicker-week-day-color | Color of week day |
 | datepicker.date.hover.background | --p-datepicker-date-hover-background | Hover background of date |
 | datepicker.date.selected.background | --p-datepicker-date-selected-background | Selected background of date |
@@ -12273,8 +12240,6 @@ DatePicker is a form component to work with dates.
 | datepicker.date.focus.ring.color | --p-datepicker-date-focus-ring-color | Focus ring color of date |
 | datepicker.date.focus.ring.offset | --p-datepicker-date-focus-ring-offset | Focus ring offset of date |
 | datepicker.date.focus.ring.shadow | --p-datepicker-date-focus-ring-shadow | Focus ring shadow of date |
-| datepicker.date.font.weight | --p-datepicker-date-font-weight | Font weight of date |
-| datepicker.date.font.size | --p-datepicker-date-font-size | Font size of date |
 | datepicker.month.view.margin | --p-datepicker-month-view-margin | Margin of month view |
 | datepicker.month.padding | --p-datepicker-month-padding | Padding of month |
 | datepicker.month.border.radius | --p-datepicker-month-border-radius | Border radius of month |
@@ -12287,9 +12252,6 @@ DatePicker is a form component to work with dates.
 | datepicker.time.picker.border.color | --p-datepicker-time-picker-border-color | Border color of time picker |
 | datepicker.time.picker.gap | --p-datepicker-time-picker-gap | Gap of time picker |
 | datepicker.time.picker.button.gap | --p-datepicker-time-picker-button-gap | Button gap of time picker |
-| datepicker.time.picker.color | --p-datepicker-time-picker-color | Color of time picker label |
-| datepicker.time.picker.font.weight | --p-datepicker-time-picker-font-weight | Font weight of time picker label |
-| datepicker.time.picker.font.size | --p-datepicker-time-picker-font-size | Font size of time picker label |
 | datepicker.today.background | --p-datepicker-today-background | Background of today |
 | datepicker.today.color | --p-datepicker-today-color | Color of today |
 
@@ -15169,7 +15131,6 @@ Fieldset is a grouping component with the optional content toggle feature.
 | fieldset.legend.padding | --p-fieldset-legend-padding | Padding of legend |
 | fieldset.legend.gap | --p-fieldset-legend-gap | Gap of legend |
 | fieldset.legend.font.weight | --p-fieldset-legend-font-weight | Font weight of legend |
-| fieldset.legend.font.size | --p-fieldset-legend-font-size | Font size of legend |
 | fieldset.legend.focus.ring.width | --p-fieldset-legend-focus-ring-width | Focus ring width of legend |
 | fieldset.legend.focus.ring.style | --p-fieldset-legend-focus-ring-style | Focus ring style of legend |
 | fieldset.legend.focus.ring.color | --p-fieldset-legend-focus-ring-color | Focus ring color of legend |
@@ -15618,12 +15579,6 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 | fileupload.file.gap | --p-fileupload-file-gap | Gap of file |
 | fileupload.file.border.color | --p-fileupload-file-border-color | Border color of file |
 | fileupload.file.info.gap | --p-fileupload-file-info-gap | Info gap of file |
-| fileupload.file.name.color | --p-fileupload-file-name-color | Color of file name |
-| fileupload.file.name.font.weight | --p-fileupload-file-name-font-weight | Font weight of file name |
-| fileupload.file.name.font.size | --p-fileupload-file-name-font-size | Font size of file name |
-| fileupload.file.size.color | --p-fileupload-file-size-color | Color of file size |
-| fileupload.file.size.font.weight | --p-fileupload-file-size-font-weight | Font weight of file size |
-| fileupload.file.size.font.size | --p-fileupload-file-size-font-size | Font size of file size |
 | fileupload.file.list.gap | --p-fileupload-file-list-gap | Gap of file list |
 | fileupload.progressbar.height | --p-fileupload-progressbar-height | Height of progressbar |
 | fileupload.basic.gap | --p-fileupload-basic-gap | Gap of basic |
@@ -15780,7 +15735,6 @@ FloatLabel appears on top of the input field when focused.
 | floatlabel.transition.duration | --p-floatlabel-transition-duration | Transition duration of root |
 | floatlabel.position.x | --p-floatlabel-position-x | Position x of root |
 | floatlabel.position.y | --p-floatlabel-position-y | Position y of root |
-| floatlabel.font.size | --p-floatlabel-font-size | Font size of root |
 | floatlabel.font.weight | --p-floatlabel-font-weight | Font weight of root |
 | floatlabel.active.font.size | --p-floatlabel-active-font-size | Active font size of root |
 | floatlabel.active.font.weight | --p-floatlabel-active-font-weight | Active font weight of root |
@@ -17650,8 +17604,6 @@ InputGroup displays text, icon, buttons and other content can be grouped next to
 | inputgroup.addon.border.radius | --p-inputgroup-addon-border-radius | Border radius of addon |
 | inputgroup.addon.padding | --p-inputgroup-addon-padding | Padding of addon |
 | inputgroup.addon.min.width | --p-inputgroup-addon-min-width | Min width of addon |
-| inputgroup.addon.font.weight | --p-inputgroup-addon-font-weight | Font weight of addon |
-| inputgroup.addon.font.size | --p-inputgroup-addon-font-size | Font size of addon |
 
 ---
 
@@ -19807,8 +19759,6 @@ InputText directive is an extension to standard input element with theming.
 | inputtext.lg.font.size | --p-inputtext-lg-font-size | Lg font size of root |
 | inputtext.lg.padding.x | --p-inputtext-lg-padding-x | Lg padding x of root |
 | inputtext.lg.padding.y | --p-inputtext-lg-padding-y | Lg padding y of root |
-| inputtext.font.weight | --p-inputtext-font-weight | Font weight of root |
-| inputtext.font.size | --p-inputtext-font-size | Font size of root |
 
 ---
 
@@ -20406,8 +20356,6 @@ Knob is a form component to define number inputs with a dial.
 | knob.value.background | --p-knob-value-background | Background of value |
 | knob.range.background | --p-knob-range-background | Background of range |
 | knob.text.color | --p-knob-text-color | Color of text |
-| knob.text.font.size | --p-knob-text-font-size | Font size of text |
-| knob.text.font.weight | --p-knob-text-font-weight | Font weight of text |
 
 ---
 
@@ -21224,16 +21172,12 @@ ListBox is used to select one or more values from a list of items.
 | listbox.option.focus.color | --p-listbox-option-focus-color | Focus color of option |
 | listbox.option.selected.color | --p-listbox-option-selected-color | Selected color of option |
 | listbox.option.selected.focus.color | --p-listbox-option-selected-focus-color | Selected focus color of option |
-| listbox.option.selected.font.weight | --p-listbox-option-selected-font-weight | Font weight of a selected option |
 | listbox.option.padding | --p-listbox-option-padding | Padding of option |
 | listbox.option.border.radius | --p-listbox-option-border-radius | Border radius of option |
 | listbox.option.striped.background | --p-listbox-option-striped-background | Striped background of option |
-| listbox.option.font.weight | --p-listbox-option-font-weight | Font weight of option |
-| listbox.option.font.size | --p-listbox-option-font-size | Font size of option |
 | listbox.option.group.background | --p-listbox-option-group-background | Background of option group |
 | listbox.option.group.color | --p-listbox-option-group-color | Color of option group |
 | listbox.option.group.font.weight | --p-listbox-option-group-font-weight | Font weight of option group |
-| listbox.option.group.font.size | --p-listbox-option-group-font-size | Font size of option group |
 | listbox.option.group.padding | --p-listbox-option-group-padding | Padding of option group |
 | listbox.checkmark.color | --p-listbox-checkmark-color | Color of checkmark |
 | listbox.checkmark.gutter.start | --p-listbox-checkmark-gutter-start | Gutter start of checkmark |
@@ -21884,9 +21828,6 @@ MegaMenu is navigation component that displays submenus together.
 | megamenu.item.icon.color | --p-megamenu-item-icon-color | Icon color of item |
 | megamenu.item.icon.focus.color | --p-megamenu-item-icon-focus-color | Icon focus color of item |
 | megamenu.item.icon.active.color | --p-megamenu-item-icon-active-color | Icon active color of item |
-| megamenu.item.icon.size | --p-megamenu-item-icon-size | Icon size of item |
-| megamenu.item.label.font.weight | --p-megamenu-item-label-font-weight | Font weight of item label |
-| megamenu.item.label.font.size | --p-megamenu-item-label-font-size | Font size of item label |
 | megamenu.overlay.padding | --p-megamenu-overlay-padding | Padding of overlay |
 | megamenu.overlay.background | --p-megamenu-overlay-background | Background of overlay |
 | megamenu.overlay.border.color | --p-megamenu-overlay-border-color | Border color of overlay |
@@ -21898,7 +21839,6 @@ MegaMenu is navigation component that displays submenus together.
 | megamenu.submenu.gap | --p-megamenu-submenu-gap | Gap of submenu |
 | megamenu.submenu.label.padding | --p-megamenu-submenu-label-padding | Padding of submenu label |
 | megamenu.submenu.label.font.weight | --p-megamenu-submenu-label-font-weight | Font weight of submenu label |
-| megamenu.submenu.label.font.size | --p-megamenu-submenu-label-font-size | Font size of submenu label |
 | megamenu.submenu.label.background | --p-megamenu-submenu-label-background | Background of submenu label |
 | megamenu.submenu.label.color | --p-megamenu-submenu-label-color | Color of submenu label |
 | megamenu.submenu.icon.size | --p-megamenu-submenu-icon-size | Size of submenu icon |
@@ -22411,12 +22351,8 @@ Menu is a navigation / command component that supports dynamic and static positi
 | menu.item.gap | --p-menu-item-gap | Gap of item |
 | menu.item.icon.color | --p-menu-item-icon-color | Icon color of item |
 | menu.item.icon.focus.color | --p-menu-item-icon-focus-color | Icon focus color of item |
-| menu.item.icon.size | --p-menu-item-icon-size | Icon size of item |
-| menu.item.label.font.weight | --p-menu-item-label-font-weight | Font weight of item label |
-| menu.item.label.font.size | --p-menu-item-label-font-size | Font size of item label |
 | menu.submenu.label.padding | --p-menu-submenu-label-padding | Padding of submenu label |
 | menu.submenu.label.font.weight | --p-menu-submenu-label-font-weight | Font weight of submenu label |
-| menu.submenu.label.font.size | --p-menu-submenu-label-font-size | Font size of submenu label |
 | menu.submenu.label.background | --p-menu-submenu-label-background | Background of submenu label |
 | menu.submenu.label.color | --p-menu-submenu-label-color | Color of submenu label |
 | menu.separator.border.color | --p-menu-separator-border-color | Border color of separator |
@@ -22873,9 +22809,6 @@ Menubar is a horizontal menu component.
 | menubar.item.icon.color | --p-menubar-item-icon-color | Icon color of item |
 | menubar.item.icon.focus.color | --p-menubar-item-icon-focus-color | Icon focus color of item |
 | menubar.item.icon.active.color | --p-menubar-item-icon-active-color | Icon active color of item |
-| menubar.item.icon.size | --p-menubar-item-icon-size | Icon size of item |
-| menubar.item.label.font.weight | --p-menubar-item-label-font-weight | Font weight of item label |
-| menubar.item.label.font.size | --p-menubar-item-label-font-size | Font size of item label |
 | menubar.submenu.padding | --p-menubar-submenu-padding | Padding of submenu |
 | menubar.submenu.gap | --p-menubar-submenu-gap | Gap of submenu |
 | menubar.submenu.background | --p-menubar-submenu-background | Background of submenu |
@@ -23656,8 +23589,6 @@ MeterGroup displays scalar measurements within a known range.
 | metergroup.meters.size | --p-metergroup-meters-size | Size of meters |
 | metergroup.label.gap | --p-metergroup-label-gap | Gap of label |
 | metergroup.label.marker.size | --p-metergroup-label-marker-size | Size of label marker |
-| metergroup.label.text.font.weight | --p-metergroup-label-text-font-weight | Font weight of label text |
-| metergroup.label.text.font.size | --p-metergroup-label-text-font-size | Font size of label text |
 | metergroup.label.icon.size | --p-metergroup-label-icon-size | Size of label icon |
 | metergroup.label.list.vertical.gap | --p-metergroup-label-list-vertical-gap | Vertical gap of label list |
 | metergroup.label.list.horizontal.gap | --p-metergroup-label-list-horizontal-gap | Horizontal gap of label list |
@@ -24719,8 +24650,6 @@ MultiSelect is used to select multiple items from a collection.
 | multiselect.lg.font.size | --p-multiselect-lg-font-size | Lg font size of root |
 | multiselect.lg.padding.x | --p-multiselect-lg-padding-x | Lg padding x of root |
 | multiselect.lg.padding.y | --p-multiselect-lg-padding-y | Lg padding y of root |
-| multiselect.font.weight | --p-multiselect-font-weight | Font weight of root |
-| multiselect.font.size | --p-multiselect-font-size | Font size of root |
 | multiselect.dropdown.width | --p-multiselect-dropdown-width | Width of dropdown |
 | multiselect.dropdown.color | --p-multiselect-dropdown-color | Color of dropdown |
 | multiselect.overlay.background | --p-multiselect-overlay-background | Background of overlay |
@@ -24738,16 +24667,12 @@ MultiSelect is used to select multiple items from a collection.
 | multiselect.option.focus.color | --p-multiselect-option-focus-color | Focus color of option |
 | multiselect.option.selected.color | --p-multiselect-option-selected-color | Selected color of option |
 | multiselect.option.selected.focus.color | --p-multiselect-option-selected-focus-color | Selected focus color of option |
-| multiselect.option.selected.font.weight | --p-multiselect-option-selected-font-weight | Font weight of a selected option |
 | multiselect.option.padding | --p-multiselect-option-padding | Padding of option |
 | multiselect.option.border.radius | --p-multiselect-option-border-radius | Border radius of option |
 | multiselect.option.gap | --p-multiselect-option-gap | Gap of option |
-| multiselect.option.font.weight | --p-multiselect-option-font-weight | Font weight of option |
-| multiselect.option.font.size | --p-multiselect-option-font-size | Font size of option |
 | multiselect.option.group.background | --p-multiselect-option-group-background | Background of option group |
 | multiselect.option.group.color | --p-multiselect-option-group-color | Color of option group |
 | multiselect.option.group.font.weight | --p-multiselect-option-group-font-weight | Font weight of option group |
-| multiselect.option.group.font.size | --p-multiselect-option-group-font-size | Font size of option group |
 | multiselect.option.group.padding | --p-multiselect-option-group-padding | Padding of option group |
 | multiselect.clear.icon.color | --p-multiselect-clear-icon-color | Color of clear icon |
 | multiselect.chip.border.radius | --p-multiselect-chip-border-radius | Border radius of chip |
@@ -25899,16 +25824,12 @@ Paginator is a generic component to display content in paged format.
 | paginator.nav.button.width | --p-paginator-nav-button-width | Width of nav button |
 | paginator.nav.button.height | --p-paginator-nav-button-height | Height of nav button |
 | paginator.nav.button.border.radius | --p-paginator-nav-button-border-radius | Border radius of nav button |
-| paginator.nav.button.font.weight | --p-paginator-nav-button-font-weight | Font weight of nav button |
-| paginator.nav.button.font.size | --p-paginator-nav-button-font-size | Font size of nav button |
 | paginator.nav.button.focus.ring.width | --p-paginator-nav-button-focus-ring-width | Focus ring width of nav button |
 | paginator.nav.button.focus.ring.style | --p-paginator-nav-button-focus-ring-style | Focus ring style of nav button |
 | paginator.nav.button.focus.ring.color | --p-paginator-nav-button-focus-ring-color | Focus ring color of nav button |
 | paginator.nav.button.focus.ring.offset | --p-paginator-nav-button-focus-ring-offset | Focus ring offset of nav button |
 | paginator.nav.button.focus.ring.shadow | --p-paginator-nav-button-focus-ring-shadow | Focus ring shadow of nav button |
 | paginator.current.page.report.color | --p-paginator-current-page-report-color | Color of current page report |
-| paginator.current.page.report.font.weight | --p-paginator-current-page-report-font-weight | Font weight of current page report |
-| paginator.current.page.report.font.size | --p-paginator-current-page-report-font-size | Font size of current page report |
 | paginator.jump.to.page.input.max.width | --p-paginator-jump-to-page-input-max-width | Max width of jump to page input |
 
 ---
@@ -26133,7 +26054,6 @@ Panel is a container with the optional content toggle feature.
 | panel.header.border.radius | --p-panel-header-border-radius | Border radius of header |
 | panel.toggleable.header.padding | --p-panel-toggleable-header-padding | Padding of toggleable header |
 | panel.title.font.weight | --p-panel-title-font-weight | Font weight of title |
-| panel.title.font.size | --p-panel-title-font-size | Font size of title |
 | panel.content.padding | --p-panel-content-padding | Padding of content |
 | panel.footer.padding | --p-panel-footer-padding | Padding of footer |
 
@@ -26849,9 +26769,6 @@ PanelMenu is a hybrid of Accordion and Tree components.
 | panelmenu.item.border.radius | --p-panelmenu-item-border-radius | Border radius of item |
 | panelmenu.item.icon.color | --p-panelmenu-item-icon-color | Icon color of item |
 | panelmenu.item.icon.focus.color | --p-panelmenu-item-icon-focus-color | Icon focus color of item |
-| panelmenu.item.icon.size | --p-panelmenu-item-icon-size | Icon size of item |
-| panelmenu.item.label.font.weight | --p-panelmenu-item-label-font-weight | Font weight of item label |
-| panelmenu.item.label.font.size | --p-panelmenu-item-label-font-size | Font size of item label |
 | panelmenu.submenu.indent | --p-panelmenu-submenu-indent | Indent of submenu |
 | panelmenu.submenu.icon.color | --p-panelmenu-submenu-icon-color | Color of submenu icon |
 | panelmenu.submenu.icon.focus.color | --p-panelmenu-submenu-icon-focus-color | Focus color of submenu icon |
@@ -27486,8 +27403,6 @@ Password displays strength indicator for password fields.
 | password.overlay.padding | --p-password-overlay-padding | Padding of overlay |
 | password.overlay.shadow | --p-password-overlay-shadow | Shadow of overlay |
 | password.content.gap | --p-password-content-gap | Gap of content |
-| password.meter.text.font.weight | --p-password-meter-text-font-weight | Font weight of meter text |
-| password.meter.text.font.size | --p-password-meter-text-font-size | Font size of meter text |
 | password.strength.weak.background | --p-password-strength-weak-background | Weak background of strength |
 | password.strength.medium.background | --p-password-strength-medium-background | Medium background of strength |
 | password.strength.strong.background | --p-password-strength-strong-background | Strong background of strength |
@@ -31105,8 +31020,6 @@ Select is used to choose an item from a collection of options.
 | select.lg.font.size | --p-select-lg-font-size | Lg font size of root |
 | select.lg.padding.x | --p-select-lg-padding-x | Lg padding x of root |
 | select.lg.padding.y | --p-select-lg-padding-y | Lg padding y of root |
-| select.font.weight | --p-select-font-weight | Font weight of root |
-| select.font.size | --p-select-font-size | Font size of root |
 | select.dropdown.width | --p-select-dropdown-width | Width of dropdown |
 | select.dropdown.color | --p-select-dropdown-color | Color of dropdown |
 | select.overlay.background | --p-select-overlay-background | Background of overlay |
@@ -31124,15 +31037,11 @@ Select is used to choose an item from a collection of options.
 | select.option.focus.color | --p-select-option-focus-color | Focus color of option |
 | select.option.selected.color | --p-select-option-selected-color | Selected color of option |
 | select.option.selected.focus.color | --p-select-option-selected-focus-color | Selected focus color of option |
-| select.option.selected.font.weight | --p-select-option-selected-font-weight | Font weight of a selected option |
 | select.option.padding | --p-select-option-padding | Padding of option |
 | select.option.border.radius | --p-select-option-border-radius | Border radius of option |
-| select.option.font.weight | --p-select-option-font-weight | Font weight of option |
-| select.option.font.size | --p-select-option-font-size | Font size of option |
 | select.option.group.background | --p-select-option-group-background | Background of option group |
 | select.option.group.color | --p-select-option-group-color | Color of option group |
 | select.option.group.font.weight | --p-select-option-group-font-weight | Font weight of option group |
-| select.option.group.font.size | --p-select-option-group-font-size | Font size of option group |
 | select.option.group.padding | --p-select-option-group-padding | Padding of option group |
 | select.clear.icon.color | --p-select-clear-icon-color | Color of clear icon |
 | select.checkmark.color | --p-select-checkmark-color | Color of checkmark |
@@ -34384,7 +34293,6 @@ Stepper is a component that streamlines a wizard-like workflow, organizing conte
 | stepper.step.title.color | --p-stepper-step-title-color | Color of step title |
 | stepper.step.title.active.color | --p-stepper-step-title-active-color | Active color of step title |
 | stepper.step.title.font.weight | --p-stepper-step-title-font-weight | Font weight of step title |
-| stepper.step.title.font.size | --p-stepper-step-title-font-size | Font size of step title |
 | stepper.step.number.background | --p-stepper-step-number-background | Background of step number |
 | stepper.step.number.active.background | --p-stepper-step-number-active-background | Active background of step number |
 | stepper.step.number.border.color | --p-stepper-step-number-border-color | Border color of step number |
@@ -39722,7 +39630,6 @@ Tabs facilitates seamless switching between different views.
 | tabs.tab.active.color | --p-tabs-tab-active-color | Active color of tab |
 | tabs.tab.padding | --p-tabs-tab-padding | Padding of tab |
 | tabs.tab.font.weight | --p-tabs-tab-font-weight | Font weight of tab |
-| tabs.tab.font.size | --p-tabs-tab-font-size | Font size of tab |
 | tabs.tab.margin | --p-tabs-tab-margin | Margin of tab |
 | tabs.tab.gap | --p-tabs-tab-gap | Gap of tab |
 | tabs.tab.focus.ring.width | --p-tabs-tab-focus-ring-width | Focus ring width of tab |
@@ -40085,8 +39992,6 @@ Terminal is a text based user interface.
 | terminal.height | --p-terminal-height | Height of root |
 | terminal.padding | --p-terminal-padding | Padding of root |
 | terminal.border.radius | --p-terminal-border-radius | Border radius of root |
-| terminal.font.weight | --p-terminal-font-weight | Font weight of root |
-| terminal.font.size | --p-terminal-font-size | Font size of root |
 | terminal.prompt.gap | --p-terminal-prompt-gap | Gap of prompt |
 | terminal.command.response.margin | --p-terminal-command-response-margin | Margin of command response |
 
@@ -40531,8 +40436,6 @@ Textarea adds styling and autoResize functionality to standard textarea element.
 | textarea.lg.font.size | --p-textarea-lg-font-size | Lg font size of root |
 | textarea.lg.padding.x | --p-textarea-lg-padding-x | Lg padding x of root |
 | textarea.lg.padding.y | --p-textarea-lg-padding-y | Lg padding y of root |
-| textarea.font.weight | --p-textarea-font-weight | Font weight of root |
-| textarea.font.size | --p-textarea-font-size | Font size of root |
 
 ---
 
@@ -41123,9 +41026,6 @@ TieredMenu displays submenus in nested overlays.
 | tieredmenu.item.icon.color | --p-tieredmenu-item-icon-color | Icon color of item |
 | tieredmenu.item.icon.focus.color | --p-tieredmenu-item-icon-focus-color | Icon focus color of item |
 | tieredmenu.item.icon.active.color | --p-tieredmenu-item-icon-active-color | Icon active color of item |
-| tieredmenu.item.icon.size | --p-tieredmenu-item-icon-size | Icon size of item |
-| tieredmenu.item.label.font.weight | --p-tieredmenu-item-label-font-weight | Font weight of item label |
-| tieredmenu.item.label.font.size | --p-tieredmenu-item-label-font-size | Font size of item label |
 | tieredmenu.submenu.mobile.indent | --p-tieredmenu-submenu-mobile-indent | Mobile indent of submenu |
 | tieredmenu.submenu.icon.size | --p-tieredmenu-submenu-icon-size | Size of submenu icon |
 | tieredmenu.submenu.icon.color | --p-tieredmenu-submenu-icon-color | Color of submenu icon |
@@ -42423,7 +42323,6 @@ ToggleButton is used to select a boolean value using a button.
 | togglebutton.padding | --p-togglebutton-padding | Padding of root |
 | togglebutton.border.radius | --p-togglebutton-border-radius | Border radius of root |
 | togglebutton.gap | --p-togglebutton-gap | Gap of root |
-| togglebutton.font.size | --p-togglebutton-font-size | Font size of root |
 | togglebutton.font.weight | --p-togglebutton-font-weight | Font weight of root |
 | togglebutton.disabled.background | --p-togglebutton-disabled-background | Disabled background of root |
 | togglebutton.disabled.border.color | --p-togglebutton-disabled-border-color | Disabled border color of root |
@@ -43239,8 +43138,6 @@ Tooltip directive provides advisory information for a component.
 | tooltip.border.radius | --p-tooltip-border-radius | Border radius of root |
 | tooltip.background | --p-tooltip-background | Background of root |
 | tooltip.color | --p-tooltip-color | Color of root |
-| tooltip.font.weight | --p-tooltip-font-weight | Font weight of root |
-| tooltip.font.size | --p-tooltip-font-size | Font size of root |
 
 ---
 
@@ -44001,9 +43898,6 @@ Tree is used to display hierarchical data.
 | tree.node.icon.color | --p-tree-node-icon-color | Color of node icon |
 | tree.node.icon.hover.color | --p-tree-node-icon-hover-color | Hover color of node icon |
 | tree.node.icon.selected.color | --p-tree-node-icon-selected-color | Selected color of node icon |
-| tree.node.label.font.weight | --p-tree-node-label-font-weight | Font weight of node label |
-| tree.node.label.font.size | --p-tree-node-label-font-size | Font size of node label |
-| tree.node.label.selected.font.weight | --p-tree-node-label-selected-font-weight | Font weight of a selected node label |
 | tree.node.toggle.button.border.radius | --p-tree-node-toggle-button-border-radius | Border radius of node toggle button |
 | tree.node.toggle.button.size | --p-tree-node-toggle-button-size | Size of node toggle button |
 | tree.node.toggle.button.hover.background | --p-tree-node-toggle-button-hover-background | Hover background of node toggle button |
@@ -44958,8 +44852,6 @@ TreeSelect is a form component to choose from hierarchical data.
 | treeselect.lg.font.size | --p-treeselect-lg-font-size | Lg font size of root |
 | treeselect.lg.padding.x | --p-treeselect-lg-padding-x | Lg padding x of root |
 | treeselect.lg.padding.y | --p-treeselect-lg-padding-y | Lg padding y of root |
-| treeselect.font.weight | --p-treeselect-font-weight | Font weight of root |
-| treeselect.font.size | --p-treeselect-font-size | Font size of root |
 | treeselect.dropdown.width | --p-treeselect-dropdown-width | Width of dropdown |
 | treeselect.dropdown.color | --p-treeselect-dropdown-color | Color of dropdown |
 | treeselect.overlay.background | --p-treeselect-overlay-background | Background of overlay |
@@ -47807,7 +47699,6 @@ TreeTable is used to display hierarchical data in tabular format.
 | treetable.header.cell.focus.ring.offset | --p-treetable-header-cell-focus-ring-offset | Focus ring offset of header cell |
 | treetable.header.cell.focus.ring.shadow | --p-treetable-header-cell-focus-ring-shadow | Focus ring shadow of header cell |
 | treetable.column.title.font.weight | --p-treetable-column-title-font-weight | Font weight of column title |
-| treetable.column.title.font.size | --p-treetable-column-title-font-size | Font size of column title |
 | treetable.row.background | --p-treetable-row-background | Background of row |
 | treetable.row.hover.background | --p-treetable-row-hover-background | Hover background of row |
 | treetable.row.selected.background | --p-treetable-row-selected-background | Selected background of row |
@@ -47823,14 +47714,11 @@ TreeTable is used to display hierarchical data in tabular format.
 | treetable.body.cell.padding | --p-treetable-body-cell-padding | Padding of body cell |
 | treetable.body.cell.gap | --p-treetable-body-cell-gap | Gap of body cell |
 | treetable.body.cell.selected.border.color | --p-treetable-body-cell-selected-border-color | Selected border color of body cell |
-| treetable.body.cell.font.weight | --p-treetable-body-cell-font-weight | Font weight of body cell |
-| treetable.body.cell.font.size | --p-treetable-body-cell-font-size | Font size of body cell |
 | treetable.footer.cell.background | --p-treetable-footer-cell-background | Background of footer cell |
 | treetable.footer.cell.border.color | --p-treetable-footer-cell-border-color | Border color of footer cell |
 | treetable.footer.cell.color | --p-treetable-footer-cell-color | Color of footer cell |
 | treetable.footer.cell.padding | --p-treetable-footer-cell-padding | Padding of footer cell |
 | treetable.column.footer.font.weight | --p-treetable-column-footer-font-weight | Font weight of column footer |
-| treetable.column.footer.font.size | --p-treetable-column-footer-font-size | Font size of column footer |
 | treetable.footer.background | --p-treetable-footer-background | Background of footer |
 | treetable.footer.border.color | --p-treetable-footer-border-color | Border color of footer |
 | treetable.footer.color | --p-treetable-footer-color | Color of footer |

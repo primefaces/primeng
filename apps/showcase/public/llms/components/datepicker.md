@@ -1197,7 +1197,6 @@ DatePicker is a form component to work with dates.
 | datepicker.header.padding | --p-datepicker-header-padding | Padding of header |
 | datepicker.title.gap | --p-datepicker-title-gap | Gap of title |
 | datepicker.title.font.weight | --p-datepicker-title-font-weight | Font weight of title |
-| datepicker.title.font.size | --p-datepicker-title-font-size | Font size of title |
 | datepicker.dropdown.width | --p-datepicker-dropdown-width | Width of dropdown |
 | datepicker.dropdown.sm.width | --p-datepicker-dropdown-sm-width | Sm width of dropdown |
 | datepicker.dropdown.lg.width | --p-datepicker-dropdown-lg-width | Lg width of dropdown |
@@ -1222,21 +1221,16 @@ DatePicker is a form component to work with dates.
 | datepicker.select.month.hover.color | --p-datepicker-select-month-hover-color | Hover color of select month |
 | datepicker.select.month.padding | --p-datepicker-select-month-padding | Padding of select month |
 | datepicker.select.month.border.radius | --p-datepicker-select-month-border-radius | Border radius of select month |
-| datepicker.select.month.font.weight | --p-datepicker-select-month-font-weight | Font weight of select month |
-| datepicker.select.month.font.size | --p-datepicker-select-month-font-size | Font size of select month |
 | datepicker.select.year.hover.background | --p-datepicker-select-year-hover-background | Hover background of select year |
 | datepicker.select.year.color | --p-datepicker-select-year-color | Color of select year |
 | datepicker.select.year.hover.color | --p-datepicker-select-year-hover-color | Hover color of select year |
 | datepicker.select.year.padding | --p-datepicker-select-year-padding | Padding of select year |
 | datepicker.select.year.border.radius | --p-datepicker-select-year-border-radius | Border radius of select year |
-| datepicker.select.year.font.weight | --p-datepicker-select-year-font-weight | Font weight of select year |
-| datepicker.select.year.font.size | --p-datepicker-select-year-font-size | Font size of select year |
 | datepicker.group.border.color | --p-datepicker-group-border-color | Border color of group |
 | datepicker.group.gap | --p-datepicker-group-gap | Gap of group |
 | datepicker.day.view.margin | --p-datepicker-day-view-margin | Margin of day view |
 | datepicker.week.day.padding | --p-datepicker-week-day-padding | Padding of week day |
 | datepicker.week.day.font.weight | --p-datepicker-week-day-font-weight | Font weight of week day |
-| datepicker.week.day.font.size | --p-datepicker-week-day-font-size | Font size of week day |
 | datepicker.week.day.color | --p-datepicker-week-day-color | Color of week day |
 | datepicker.date.hover.background | --p-datepicker-date-hover-background | Hover background of date |
 | datepicker.date.selected.background | --p-datepicker-date-selected-background | Selected background of date |
@@ -1254,8 +1248,6 @@ DatePicker is a form component to work with dates.
 | datepicker.date.focus.ring.color | --p-datepicker-date-focus-ring-color | Focus ring color of date |
 | datepicker.date.focus.ring.offset | --p-datepicker-date-focus-ring-offset | Focus ring offset of date |
 | datepicker.date.focus.ring.shadow | --p-datepicker-date-focus-ring-shadow | Focus ring shadow of date |
-| datepicker.date.font.weight | --p-datepicker-date-font-weight | Font weight of date |
-| datepicker.date.font.size | --p-datepicker-date-font-size | Font size of date |
 | datepicker.month.view.margin | --p-datepicker-month-view-margin | Margin of month view |
 | datepicker.month.padding | --p-datepicker-month-padding | Padding of month |
 | datepicker.month.border.radius | --p-datepicker-month-border-radius | Border radius of month |
@@ -1268,9 +1260,6 @@ DatePicker is a form component to work with dates.
 | datepicker.time.picker.border.color | --p-datepicker-time-picker-border-color | Border color of time picker |
 | datepicker.time.picker.gap | --p-datepicker-time-picker-gap | Gap of time picker |
 | datepicker.time.picker.button.gap | --p-datepicker-time-picker-button-gap | Button gap of time picker |
-| datepicker.time.picker.color | --p-datepicker-time-picker-color | Color of time picker label |
-| datepicker.time.picker.font.weight | --p-datepicker-time-picker-font-weight | Font weight of time picker label |
-| datepicker.time.picker.font.size | --p-datepicker-time-picker-font-size | Font size of time picker label |
 | datepicker.today.background | --p-datepicker-today-background | Background of today |
 | datepicker.today.color | --p-datepicker-today-color | Color of today |
 

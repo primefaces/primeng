@@ -1019,8 +1019,6 @@ MultiSelect is used to select multiple items from a collection.
 | multiselect.lg.font.size | --p-multiselect-lg-font-size | Lg font size of root |
 | multiselect.lg.padding.x | --p-multiselect-lg-padding-x | Lg padding x of root |
 | multiselect.lg.padding.y | --p-multiselect-lg-padding-y | Lg padding y of root |
-| multiselect.font.weight | --p-multiselect-font-weight | Font weight of root |
-| multiselect.font.size | --p-multiselect-font-size | Font size of root |
 | multiselect.dropdown.width | --p-multiselect-dropdown-width | Width of dropdown |
 | multiselect.dropdown.color | --p-multiselect-dropdown-color | Color of dropdown |
 | multiselect.overlay.background | --p-multiselect-overlay-background | Background of overlay |
@@ -1038,16 +1036,12 @@ MultiSelect is used to select multiple items from a collection.
 | multiselect.option.focus.color | --p-multiselect-option-focus-color | Focus color of option |
 | multiselect.option.selected.color | --p-multiselect-option-selected-color | Selected color of option |
 | multiselect.option.selected.focus.color | --p-multiselect-option-selected-focus-color | Selected focus color of option |
-| multiselect.option.selected.font.weight | --p-multiselect-option-selected-font-weight | Font weight of a selected option |
 | multiselect.option.padding | --p-multiselect-option-padding | Padding of option |
 | multiselect.option.border.radius | --p-multiselect-option-border-radius | Border radius of option |
 | multiselect.option.gap | --p-multiselect-option-gap | Gap of option |
-| multiselect.option.font.weight | --p-multiselect-option-font-weight | Font weight of option |
-| multiselect.option.font.size | --p-multiselect-option-font-size | Font size of option |
 | multiselect.option.group.background | --p-multiselect-option-group-background | Background of option group |
 | multiselect.option.group.color | --p-multiselect-option-group-color | Color of option group |
 | multiselect.option.group.font.weight | --p-multiselect-option-group-font-weight | Font weight of option group |
-| multiselect.option.group.font.size | --p-multiselect-option-group-font-size | Font size of option group |
 | multiselect.option.group.padding | --p-multiselect-option-group-padding | Padding of option group |
 | multiselect.clear.icon.color | --p-multiselect-clear-icon-color | Color of clear icon |
 | multiselect.chip.border.radius | --p-multiselect-chip-border-radius | Border radius of chip |

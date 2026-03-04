@@ -485,6 +485,4 @@ InputText directive is an extension to standard input element with theming.
 | inputtext.lg.font.size | --p-inputtext-lg-font-size | Lg font size of root |
 | inputtext.lg.padding.x | --p-inputtext-lg-padding-x | Lg padding x of root |
 | inputtext.lg.padding.y | --p-inputtext-lg-padding-y | Lg padding y of root |
-| inputtext.font.weight | --p-inputtext-font-weight | Font weight of root |
-| inputtext.font.size | --p-inputtext-font-size | Font size of root |
 

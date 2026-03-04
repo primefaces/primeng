@@ -212,7 +212,6 @@ Panel is a container with the optional content toggle feature.
 | panel.header.border.radius | --p-panel-header-border-radius | Border radius of header |
 | panel.toggleable.header.padding | --p-panel-toggleable-header-padding | Padding of toggleable header |
 | panel.title.font.weight | --p-panel-title-font-weight | Font weight of title |
-| panel.title.font.size | --p-panel-title-font-size | Font size of title |
 | panel.content.padding | --p-panel-content-padding | Padding of content |
 | panel.footer.padding | --p-panel-footer-padding | Padding of footer |
 

@@ -785,16 +785,12 @@ ListBox is used to select one or more values from a list of items.
 | listbox.option.focus.color | --p-listbox-option-focus-color | Focus color of option |
 | listbox.option.selected.color | --p-listbox-option-selected-color | Selected color of option |
 | listbox.option.selected.focus.color | --p-listbox-option-selected-focus-color | Selected focus color of option |
-| listbox.option.selected.font.weight | --p-listbox-option-selected-font-weight | Font weight of a selected option |
 | listbox.option.padding | --p-listbox-option-padding | Padding of option |
 | listbox.option.border.radius | --p-listbox-option-border-radius | Border radius of option |
 | listbox.option.striped.background | --p-listbox-option-striped-background | Striped background of option |
-| listbox.option.font.weight | --p-listbox-option-font-weight | Font weight of option |
-| listbox.option.font.size | --p-listbox-option-font-size | Font size of option |
 | listbox.option.group.background | --p-listbox-option-group-background | Background of option group |
 | listbox.option.group.color | --p-listbox-option-group-color | Color of option group |
 | listbox.option.group.font.weight | --p-listbox-option-group-font-weight | Font weight of option group |
-| listbox.option.group.font.size | --p-listbox-option-group-font-size | Font size of option group |
 | listbox.option.group.padding | --p-listbox-option-group-padding | Padding of option group |
 | listbox.checkmark.color | --p-listbox-checkmark-color | Color of checkmark |
 | listbox.checkmark.gutter.start | --p-listbox-checkmark-gutter-start | Gutter start of checkmark |

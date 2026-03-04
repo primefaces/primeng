@@ -425,12 +425,6 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 | fileupload.file.gap | --p-fileupload-file-gap | Gap of file |
 | fileupload.file.border.color | --p-fileupload-file-border-color | Border color of file |
 | fileupload.file.info.gap | --p-fileupload-file-info-gap | Info gap of file |
-| fileupload.file.name.color | --p-fileupload-file-name-color | Color of file name |
-| fileupload.file.name.font.weight | --p-fileupload-file-name-font-weight | Font weight of file name |
-| fileupload.file.name.font.size | --p-fileupload-file-name-font-size | Font size of file name |
-| fileupload.file.size.color | --p-fileupload-file-size-color | Color of file size |
-| fileupload.file.size.font.weight | --p-fileupload-file-size-font-weight | Font weight of file size |
-| fileupload.file.size.font.size | --p-fileupload-file-size-font-size | Font size of file size |
 | fileupload.file.list.gap | --p-fileupload-file-list-gap | Gap of file list |
 | fileupload.progressbar.height | --p-fileupload-progressbar-height | Height of progressbar |
 | fileupload.basic.gap | --p-fileupload-basic-gap | Gap of basic |

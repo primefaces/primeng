@@ -603,7 +603,6 @@ Button is an extension to standard button element with icons and theming.
 | button.padding.x | --p-button-padding-x | Padding x of root |
 | button.padding.y | --p-button-padding-y | Padding y of root |
 | button.icon.only.width | --p-button-icon-only-width | Icon only width of root |
-| button.icon.only.width | --p-button-icon-only-width | Font size of root |
 | button.sm.font.size | --p-button-sm-font-size | Sm font size of root |
 | button.sm.padding.x | --p-button-sm-padding-x | Sm padding x of root |
 | button.sm.padding.y | --p-button-sm-padding-y | Sm padding y of root |

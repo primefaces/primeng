@@ -136,6 +136,4 @@ Card is a flexible container component.
 | card.title.font.size | --p-card-title-font-size | Font size of title |
 | card.title.font.weight | --p-card-title-font-weight | Font weight of title |
 | card.subtitle.color | --p-card-subtitle-color | Color of subtitle |
-| card.subtitle.font.size | --p-card-subtitle-font-size | Font size of subtitle |
-| card.subtitle.font.weight | --p-card-subtitle-font-weight | Font weight of subtitle |
 

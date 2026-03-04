@@ -460,6 +460,4 @@ Knob is a form component to define number inputs with a dial.
 | knob.value.background | --p-knob-value-background | Background of value |
 | knob.range.background | --p-knob-range-background | Background of range |
 | knob.text.color | --p-knob-text-color | Color of text |
-| knob.text.font.size | --p-knob-text-font-size | Font size of text |
-| knob.text.font.weight | --p-knob-text-font-weight | Font weight of text |
 

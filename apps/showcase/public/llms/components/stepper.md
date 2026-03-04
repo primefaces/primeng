@@ -392,7 +392,6 @@ Stepper is a component that streamlines a wizard-like workflow, organizing conte
 | stepper.step.title.color | --p-stepper-step-title-color | Color of step title |
 | stepper.step.title.active.color | --p-stepper-step-title-active-color | Active color of step title |
 | stepper.step.title.font.weight | --p-stepper-step-title-font-weight | Font weight of step title |
-| stepper.step.title.font.size | --p-stepper-step-title-font-size | Font size of step title |
 | stepper.step.number.background | --p-stepper-step-number-background | Background of step number |
 | stepper.step.number.active.background | --p-stepper-step-number-active-background | Active background of step number |
 | stepper.step.number.border.color | --p-stepper-step-number-border-color | Border color of step number |

@@ -568,8 +568,6 @@ Password displays strength indicator for password fields.
 | password.overlay.padding | --p-password-overlay-padding | Padding of overlay |
 | password.overlay.shadow | --p-password-overlay-shadow | Shadow of overlay |
 | password.content.gap | --p-password-content-gap | Gap of content |
-| password.meter.text.font.weight | --p-password-meter-text-font-weight | Font weight of meter text |
-| password.meter.text.font.size | --p-password-meter-text-font-size | Font size of meter text |
 | password.strength.weak.background | --p-password-strength-weak-background | Weak background of strength |
 | password.strength.medium.background | --p-password-strength-medium-background | Medium background of strength |
 | password.strength.strong.background | --p-password-strength-strong-background | Strong background of strength |

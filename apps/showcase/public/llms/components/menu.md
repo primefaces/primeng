@@ -478,12 +478,8 @@ Menu is a navigation / command component that supports dynamic and static positi
 | menu.item.gap | --p-menu-item-gap | Gap of item |
 | menu.item.icon.color | --p-menu-item-icon-color | Icon color of item |
 | menu.item.icon.focus.color | --p-menu-item-icon-focus-color | Icon focus color of item |
-| menu.item.icon.size | --p-menu-item-icon-size | Icon size of item |
-| menu.item.label.font.weight | --p-menu-item-label-font-weight | Font weight of item label |
-| menu.item.label.font.size | --p-menu-item-label-font-size | Font size of item label |
 | menu.submenu.label.padding | --p-menu-submenu-label-padding | Padding of submenu label |
 | menu.submenu.label.font.weight | --p-menu-submenu-label-font-weight | Font weight of submenu label |
-| menu.submenu.label.font.size | --p-menu-submenu-label-font-size | Font size of submenu label |
 | menu.submenu.label.background | --p-menu-submenu-label-background | Background of submenu label |
 | menu.submenu.label.color | --p-menu-submenu-label-color | Color of submenu label |
 | menu.separator.border.color | --p-menu-separator-border-color | Border color of separator |

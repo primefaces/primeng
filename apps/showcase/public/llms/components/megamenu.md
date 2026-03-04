@@ -572,9 +572,6 @@ MegaMenu is navigation component that displays submenus together.
 | megamenu.item.icon.color | --p-megamenu-item-icon-color | Icon color of item |
 | megamenu.item.icon.focus.color | --p-megamenu-item-icon-focus-color | Icon focus color of item |
 | megamenu.item.icon.active.color | --p-megamenu-item-icon-active-color | Icon active color of item |
-| megamenu.item.icon.size | --p-megamenu-item-icon-size | Icon size of item |
-| megamenu.item.label.font.weight | --p-megamenu-item-label-font-weight | Font weight of item label |
-| megamenu.item.label.font.size | --p-megamenu-item-label-font-size | Font size of item label |
 | megamenu.overlay.padding | --p-megamenu-overlay-padding | Padding of overlay |
 | megamenu.overlay.background | --p-megamenu-overlay-background | Background of overlay |
 | megamenu.overlay.border.color | --p-megamenu-overlay-border-color | Border color of overlay |
@@ -586,7 +583,6 @@ MegaMenu is navigation component that displays submenus together.
 | megamenu.submenu.gap | --p-megamenu-submenu-gap | Gap of submenu |
 | megamenu.submenu.label.padding | --p-megamenu-submenu-label-padding | Padding of submenu label |
 | megamenu.submenu.label.font.weight | --p-megamenu-submenu-label-font-weight | Font weight of submenu label |
-| megamenu.submenu.label.font.size | --p-megamenu-submenu-label-font-size | Font size of submenu label |
 | megamenu.submenu.label.background | --p-megamenu-submenu-label-background | Background of submenu label |
 | megamenu.submenu.label.color | --p-megamenu-submenu-label-color | Color of submenu label |
 | megamenu.submenu.icon.size | --p-megamenu-submenu-icon-size | Size of submenu icon |

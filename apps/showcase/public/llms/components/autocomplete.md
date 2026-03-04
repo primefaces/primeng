@@ -1048,12 +1048,9 @@ export class AutocompleteVirtualScrollDemo implements OnInit {
 | autocomplete.option.selected.focus.color | --p-autocomplete-option-selected-focus-color | Selected focus color of option |
 | autocomplete.option.padding | --p-autocomplete-option-padding | Padding of option |
 | autocomplete.option.border.radius | --p-autocomplete-option-border-radius | Border radius of option |
-| autocomplete.option.font.weight | --p-autocomplete-option-font-weight | Font weight of option |
-| autocomplete.option.font.size | --p-autocomplete-option-font-size | Font size of option |
 | autocomplete.option.group.background | --p-autocomplete-option-group-background | Background of option group |
 | autocomplete.option.group.color | --p-autocomplete-option-group-color | Color of option group |
 | autocomplete.option.group.font.weight | --p-autocomplete-option-group-font-weight | Font weight of option group |
-| autocomplete.option.group.font.size | --p-autocomplete-option-group-font-size | Font size of option group |
 | autocomplete.option.group.padding | --p-autocomplete-option-group-padding | Padding of option group |
 | autocomplete.dropdown.width | --p-autocomplete-dropdown-width | Width of dropdown |
 | autocomplete.dropdown.sm.width | --p-autocomplete-dropdown-sm-width | Sm width of dropdown |

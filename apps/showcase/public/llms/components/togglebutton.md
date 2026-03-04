@@ -322,7 +322,6 @@ ToggleButton is used to select a boolean value using a button.
 | togglebutton.padding | --p-togglebutton-padding | Padding of root |
 | togglebutton.border.radius | --p-togglebutton-border-radius | Border radius of root |
 | togglebutton.gap | --p-togglebutton-gap | Gap of root |
-| togglebutton.font.size | --p-togglebutton-font-size | Font size of root |
 | togglebutton.font.weight | --p-togglebutton-font-weight | Font weight of root |
 | togglebutton.disabled.background | --p-togglebutton-disabled-background | Disabled background of root |
 | togglebutton.disabled.border.color | --p-togglebutton-disabled-border-color | Disabled border color of root |

@@ -901,8 +901,6 @@ TreeSelect is a form component to choose from hierarchical data.
 | treeselect.lg.font.size | --p-treeselect-lg-font-size | Lg font size of root |
 | treeselect.lg.padding.x | --p-treeselect-lg-padding-x | Lg padding x of root |
 | treeselect.lg.padding.y | --p-treeselect-lg-padding-y | Lg padding y of root |
-| treeselect.font.weight | --p-treeselect-font-weight | Font weight of root |
-| treeselect.font.size | --p-treeselect-font-size | Font size of root |
 | treeselect.dropdown.width | --p-treeselect-dropdown-width | Width of dropdown |
 | treeselect.dropdown.color | --p-treeselect-dropdown-color | Color of dropdown |
 | treeselect.overlay.background | --p-treeselect-overlay-background | Background of overlay |

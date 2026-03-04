@@ -413,6 +413,4 @@ Textarea adds styling and autoResize functionality to standard textarea element.
 | textarea.lg.font.size | --p-textarea-lg-font-size | Lg font size of root |
 | textarea.lg.padding.x | --p-textarea-lg-padding-x | Lg padding x of root |
 | textarea.lg.padding.y | --p-textarea-lg-padding-y | Lg padding y of root |
-| textarea.font.weight | --p-textarea-font-weight | Font weight of root |
-| textarea.font.size | --p-textarea-font-size | Font size of root |
 

@@ -395,7 +395,6 @@ Accordion groups a collection of contents in tabs.
 | accordion.header.active.hover.color | --p-accordion-header-active-hover-color | Active hover color of header |
 | accordion.header.padding | --p-accordion-header-padding | Padding of header |
 | accordion.header.font.weight | --p-accordion-header-font-weight | Font weight of header |
-| accordion.header.font.size | --p-accordion-header-font-size | Font size of header |
 | accordion.header.border.radius | --p-accordion-header-border-radius | Border radius of header |
 | accordion.header.border.width | --p-accordion-header-border-width | Border width of header |
 | accordion.header.border.color | --p-accordion-header-border-color | Border color of header |

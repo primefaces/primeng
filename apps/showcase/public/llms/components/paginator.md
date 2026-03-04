@@ -306,15 +306,11 @@ Paginator is a generic component to display content in paged format.
 | paginator.nav.button.width | --p-paginator-nav-button-width | Width of nav button |
 | paginator.nav.button.height | --p-paginator-nav-button-height | Height of nav button |
 | paginator.nav.button.border.radius | --p-paginator-nav-button-border-radius | Border radius of nav button |
-| paginator.nav.button.font.weight | --p-paginator-nav-button-font-weight | Font weight of nav button |
-| paginator.nav.button.font.size | --p-paginator-nav-button-font-size | Font size of nav button |
 | paginator.nav.button.focus.ring.width | --p-paginator-nav-button-focus-ring-width | Focus ring width of nav button |
 | paginator.nav.button.focus.ring.style | --p-paginator-nav-button-focus-ring-style | Focus ring style of nav button |
 | paginator.nav.button.focus.ring.color | --p-paginator-nav-button-focus-ring-color | Focus ring color of nav button |
 | paginator.nav.button.focus.ring.offset | --p-paginator-nav-button-focus-ring-offset | Focus ring offset of nav button |
 | paginator.nav.button.focus.ring.shadow | --p-paginator-nav-button-focus-ring-shadow | Focus ring shadow of nav button |
 | paginator.current.page.report.color | --p-paginator-current-page-report-color | Color of current page report |
-| paginator.current.page.report.font.weight | --p-paginator-current-page-report-font-weight | Font weight of current page report |
-| paginator.current.page.report.font.size | --p-paginator-current-page-report-font-size | Font size of current page report |
 | paginator.jump.to.page.input.max.width | --p-paginator-jump-to-page-input-max-width | Max width of jump to page input |
 

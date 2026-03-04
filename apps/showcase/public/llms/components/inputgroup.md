@@ -304,6 +304,4 @@ InputGroup displays text, icon, buttons and other content can be grouped next to
 | inputgroup.addon.border.radius | --p-inputgroup-addon-border-radius | Border radius of addon |
 | inputgroup.addon.padding | --p-inputgroup-addon-padding | Padding of addon |
 | inputgroup.addon.min.width | --p-inputgroup-addon-min-width | Min width of addon |
-| inputgroup.addon.font.weight | --p-inputgroup-addon-font-weight | Font weight of addon |
-| inputgroup.addon.font.size | --p-inputgroup-addon-font-size | Font size of addon |
 
