@@ -9,7 +9,7 @@ import { ToastModule } from 'primeng/toast';
     selector: 'design-custom-tokens',
     standalone: true,
     imports: [FormsModule, ToastModule],
-    template: ` <div class="leading-6 text-muted-color mb-4">
+    template: ` <div class="text-sm leading-6 text-muted-color mb-4">
             Extend the theming system with your own design tokens e.g. <span class="font-medium">accent.color</span>. Do not use curly braces in the name field, and ensure that the name does not match any built-in tokens.
         </div>
         @if (tokens?.length) {
@@ -22,7 +22,7 @@ import { ToastModule } from 'primeng/toast';
                                 <input
                                     [(ngModel)]="token['name']"
                                     type="text"
-                                    class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full"
+                                    class="border border-surface-300 dark:border-surface-600 rounded-lg py-1.5 px-1.5 w-full text-sm"
                                     placeholder="custom.token.name"
                                     maxlength="100"
                                     [disabled]="designerService.isThemeViewOnly()"
@@ -33,7 +33,7 @@ import { ToastModule } from 'primeng/toast';
                                 <input
                                     [(ngModel)]="token['value']"
                                     type="text"
-                                    class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full"
+                                    class="border border-surface-300 dark:border-surface-600 rounded-lg py-1.5 px-1.5 w-full text-sm"
                                     placeholder="token value"
                                     maxlength="100"
                                     [disabled]="designerService.isThemeViewOnly()"

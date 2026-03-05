@@ -16,7 +16,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
     selector: 'app-designer',
     standalone: true,
     imports: [CommonModule, DrawerModule, ToastModule, ConfirmDialogModule, DesignDashboard, DesignCreateTheme, DesignEditor, DesignEditorFooter, ConfirmPopupModule],
-    template: `<p-drawer #drawer [(visible)]="visible" position="right" styleClass="designer !w-screen md:!w-[48rem]" [modal]="false" [dismissible]="false">
+    template: `<p-drawer #drawer [(visible)]="visible" position="right" styleClass="designer !w-screen md:!w-[42rem]" [modal]="false" [dismissible]="false">
             <ng-template #headless>
                 <div class="flex items-center justify-between p-5">
                     <div class="flex items-center gap-2">
@@ -25,7 +25,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
                                 <i class="pi pi-chevron-left"></i>
                             </button>
                         }
-                        <span class="font-bold text-xl">{{ viewTitle() }}</span>
+                        <span class="font-bold text-lg">{{ viewTitle() }}</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <button type="button" (click)="toggleDarkMode()" class="icon-btn">

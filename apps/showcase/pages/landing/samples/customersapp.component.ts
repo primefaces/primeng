@@ -43,12 +43,12 @@ import { TooltipModule } from 'primeng/tooltip';
     template: `
         <div class="flex items-start gap-2 justify-between">
             <div>
-                <div class="text-xl leading-7 text-color font-medium">Customers</div>
+                <div class="text-lg leading-7 text-color font-medium">Customers</div>
                 <div class="mt-1 text-sm leading-5 text-muted-color">The analysis list here shows all users</div>
             </div>
             <p-button icon="pi pi-circle-fill text-green-500" label="950 Active User" outlined severity="secondary" />
         </div>
-        <div class="mt-9 mb-3.5 flex items-center justify-between">
+        <div class="mt-8 mb-3.5 flex items-center justify-between">
             <p-iconfield iconPosition="left">
                 <p-inputicon class="pi pi-search"> </p-inputicon>
                 <input pInputText type="text" [(ngModel)]="search" placeholder="Search" />
@@ -139,7 +139,7 @@ import { TooltipModule } from 'primeng/tooltip';
         </div>
     `,
     host: {
-        class: 'h-full flex-1 flex flex-col overflow-hidden border border-surface rounded-2xl p-5'
+        class: 'h-full flex-1 flex flex-col overflow-hidden border border-surface rounded-2xl p-4'
     },
     changeDetection: ChangeDetectionStrategy.OnPush
 })

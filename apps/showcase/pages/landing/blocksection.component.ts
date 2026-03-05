@@ -12,7 +12,7 @@ import { TagModule } from 'primeng/tag';
             <p class="section-detail relative z-30">490+ ready to copy-paste UI blocks to build spectacular applications in no time.</p>
             <div class="flex justify-center mt-5 relative z-30">
                 <a href="https://primeblocks.org" target="_blank" class="linkbox linkbox-primary">
-                    <span>Explore All</span>
+                    <span class="text-sm">Explore All</span>
                     <i class="pi pi-arrow-right ms-2"></i>
                 </a>
             </div>

@@ -22,7 +22,7 @@ import { Tag } from 'primeng/tag';
     template: `
         <div class="w-56 h-full overflow-hidden border border-surface rounded-2xl flex flex-col">
             <div class="flex items-center justify-between gap-2 p-3.5 border-b border-surface">
-                <div class="text-lg font-medium leading-6 text-color">Mails</div>
+                <div class="text-base font-medium leading-6 text-color">Mails</div>
                 <p-button icon="pi pi-plus" styleClass="w-7 h-7" />
             </div>
             <div class="flex-1 flex flex-col overflow-auto justify-between gap-3.5 pt-3.5 pb-3.5 px-3.5">

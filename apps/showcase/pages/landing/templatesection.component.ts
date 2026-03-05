@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
             <p class="section-detail relative z-30">Professionally designed highly customizable application templates to get started in style.</p>
             <div class="flex justify-center mt-5 relative z-30">
                 <a href="https://primeui.store/templates" class="linkbox linkbox-primary">
-                    <span>Explore All</span>
+                    <span class="text-sm">Explore All</span>
                     <i class="pi pi-arrow-right ms-2"></i>
                 </a>
             </div>

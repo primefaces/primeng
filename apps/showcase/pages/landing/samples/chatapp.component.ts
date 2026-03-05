@@ -20,20 +20,20 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     standalone: true,
     imports: [CommonModule, RouterModule, ChartModule, ToggleSwitchModule, SelectButton, BadgeModule, FormsModule, AvatarModule, IconField, InputIcon, ButtonModule, InputTextModule, MenuModule, Textarea],
     template: `
-        <div class="w-4/12 xl:w-3/12 min-w-40 overflow-auto flex flex-col gap-5">
-            <div class="flex flex-col gap-5 pt-2.5 pb-2 -mb-2 px-5 sticky top-0 bg-surface-0 dark:bg-surface-950 z-10">
-                <div class="flex items-center justify-between gap-5 text-color">
-                    <div class="text-xl font-medium lead">Chats</div>
+        <div class="w-4/12 xl:w-3/12 min-w-40 overflow-auto flex flex-col gap-4">
+            <div class="flex flex-col gap-4 pt-2.5 pb-2 -mb-2 px-4 sticky top-0 bg-surface-0 dark:bg-surface-950 z-10">
+                <div class="flex items-center justify-between gap-4 text-color">
+                    <div class="text-lg font-medium lead">Chats</div>
                     <p-button icon="pi pi-plus" text />
                 </div>
             </div>
-            <div class="px-5">
+            <div class="px-4">
                 <p-iconfield iconPosition="left">
                     <p-inputicon class="pi pi-search"> </p-inputicon>
                     <input type="text" pInputText [(ngModel)]="search" placeholder="Search" class="w-full" />
                 </p-iconfield>
             </div>
-            <div class="w-full px-5">
+            <div class="w-full px-4">
                 <p-selectbutton [(ngModel)]="value" [options]="options" aria-labelledby="basic" class="w-full" styleClass="w-full" />
             </div>
             <div class="flex-1 flex flex-col">
@@ -65,7 +65,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                                 <div class="text-sm text-color font-medium leading-5">{{ chat.name }}</div>
                                 <div class="text-sm text-muted-color leading-4">{{ chat.time }}</div>
                             </div>
-                            <div class="flex items-center gap-5 justify-between mt-1">
+                            <div class="flex items-center gap-4 justify-between mt-1">
                                 <div class="text-muted-color text-sm leading-4 line-clamp-1">
                                     {{ chat.lastMessage }}
                                 </div>
@@ -94,7 +94,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" />
                 </div>
             </div>
-            <div class="flex-1 overflow-y-auto flex flex-col gap-8 py-8 px-5">
+            <div class="flex-1 overflow-y-auto flex flex-col gap-7 py-7 px-4">
                 @for (message of chatMessages; track message.id) {
                     <div class="flex items-start min-w-64 w-fit max-w-[60%]" [ngClass]="{ 'ml-auto mr-0 flex-row-reverse': message.type === 'sent' }">
                         <div
@@ -151,7 +151,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 <p-button icon="pi pi-send" />
             </div>
         </div>
-        <div class="w-3/12 xl:block hidden min-w-40 py-6 px-2.5 overflow-auto">
+        <div class="w-3/12 xl:block hidden min-w-40 py-5 px-2.5 overflow-auto">
             <div class="flex flex-col items-center justify-center">
                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar-primetek.png" styleClass="w-32 h-32" size="xlarge" shape="circle" />
                 <div class="text-sm leading-5 font-medium text-color mt-3.5 w-full text-center">PrimeTek</div>
@@ -182,7 +182,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     <p-toggleswitch [(ngModel)]="download" />
                 </div>
             </div>
-            <div class="mt-5">
+            <div class="mt-4">
                 <div class="flex items-center gap-2">
                     <div class="flex-1 text-sm text-color leading-5 font-medium">Members</div>
                     <p-button label="See All" styleClass="text-sm py-0.5 px-2 text-muted-color" text />
@@ -208,10 +208,10 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     }
                 </div>
             </div>
-            <div class="mt-5">
+            <div class="mt-4">
                 <p-selectbutton [(ngModel)]="media" [options]="mediaOptions" class="w-full" styleClass="flex-1 w-full" />
 
-                <div class="mt-2.5 mb-5 grid grid-cols-3 gap-2">
+                <div class="mt-2.5 mb-4 grid grid-cols-3 gap-2">
                     @for (media of chatMedia; track $index) {
                         <div class="bg-emphasis hover:opacity-70 transition-all flex-1 aspect-square rounded-lg border border-surface cursor-pointer">
                             <img class="w-full h-full object-cover block" [src]="media" alt="Media Image" />

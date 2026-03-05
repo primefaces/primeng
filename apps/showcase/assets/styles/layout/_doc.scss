@@ -483,6 +483,8 @@
             display: flex;
             flex-direction: column;
             padding: 0.438rem;
+            font-size: 0.875rem;
+            line-height: normal;
 
             &:hover {
                 background-color: var(--hover-background);

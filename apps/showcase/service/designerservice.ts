@@ -441,7 +441,7 @@ export class DesignerService {
                 project: 'primeng',
                 base: this.basePreset(),
                 config: {
-                    font_size: '14px',
+                    font_size: '16px',
                     font_family: 'Inter var'
                 }
             };
@@ -467,7 +467,7 @@ export class DesignerService {
                 key: t_key,
                 preset: preset,
                 config: {
-                    font_size: '14px',
+                    font_size: '16px',
                     font_family: 'Inter var'
                 },
                 origin: 'web'
@@ -476,7 +476,7 @@ export class DesignerService {
         this.missingTokens.set([]);
         this.status.set(null);
         await this.applyFont('Inter var');
-        document.documentElement.style.fontSize = '14px';
+        document.documentElement.style.fontSize = '16px';
         usePreset(preset);
         this.refreshACTokens();
         this.designer.update((prev) => ({ ...prev, activeTab: 0, activeView: 'editor' }));
@@ -495,7 +495,7 @@ export class DesignerService {
                 project: 'primeng',
                 base: 'Figma',
                 config: {
-                    font_size: '14px',
+                    font_size: '16px',
                     font_family: 'Inter var'
                 }
             };

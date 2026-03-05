@@ -48,7 +48,7 @@ import { TooltipModule } from 'primeng/tooltip';
             <div class="flex flex-wrap gap-3.5 items-start justify-between p-1">
                 <div class="flex-1">
                     <div class="text-sm text-muted-color font-medium leading-normal">Overview</div>
-                    <div class="text-color text-2xl font-semibold leading-normal">Welcome to PrimeNG</div>
+                    <div class="text-color text-xl font-semibold leading-normal">Welcome to PrimeNG</div>
                 </div>
                 <div class="flex gap-2 whitespace-nowrap flex-nowrap">
                     <p-iconfield iconPosition="left">
@@ -62,18 +62,18 @@ import { TooltipModule } from 'primeng/tooltip';
                     </p-button>
                 </div>
             </div>
-            <div class="mt-3.5 flex flex-wrap gap-5 items-center justify-between p-1">
+            <div class="mt-3.5 flex flex-wrap gap-4 items-center justify-between p-1">
                 <p-selectbutton [(ngModel)]="selectedTime" [options]="timeOptions" aria-labelledby="basic" [allowEmpty]="false" (onChange)="changeSelect()" />
                 <div class="flex items-center gap-2">
                     <p-button label="Download" icon="pi pi-download" iconPos="right" />
                     <p-datepicker [(ngModel)]="dates" appendTo="body" dateFormat="dd.mm.yy" selectionMode="range" showIcon iconDisplay="input" placeholder="06/11/2024 - 06/22/2024" />
                 </div>
             </div>
-            <div class="flex flex-col gap-5 mt-5">
-                <div class="w-full border border-surface rounded-2xl py-4 px-7 flex flex-col justify-between">
-                    <div class="flex items-center gap-5 mb-5">
+            <div class="flex flex-col gap-4 mt-4">
+                <div class="w-full border border-surface rounded-2xl py-4 px-6 flex flex-col justify-between">
+                    <div class="flex items-center gap-4 mb-4">
                         <div class="flex-1 text-sm text-color font-semibold leading-5">Crypto Analytics</div>
-                        <div class="flex items-center gap-5">
+                        <div class="flex items-center gap-4">
                             @for (item of chartData?.datasets; track $index) {
                                 <div class="flex items-center gap-2">
                                     <div class="w-2.5 h-2.5 rounded-full" [style.backgroundColor]="item.backgroundColor"></div>
@@ -82,11 +82,11 @@ import { TooltipModule } from 'primeng/tooltip';
                             }
                         </div>
                     </div>
-                    <p-chart type="bar" [data]="chartData" [options]="chartOptions" [height]="'20rem'" />
+                    <p-chart type="bar" [data]="chartData" [options]="chartOptions" [height]="'17.5rem'" />
                 </div>
-                <div class="flex gap-5 xl:flex-row flex-col">
-                    <div class="flex-1 border border-surface rounded-2xl py-4 px-7">
-                        <div class="flex items-center gap-5 mb-3.5">
+                <div class="flex gap-4 xl:flex-row flex-col">
+                    <div class="flex-1 border border-surface rounded-2xl py-4 px-6">
+                        <div class="flex items-center gap-4 mb-3.5">
                             <div class="flex-1 text-sm text-color font-semibold leading-5">Transactions</div>
                             <p-button type="button" icon="pi pi-ellipsis-h" severity="secondary" text (click)="menu.toggle($event)" aria-haspopup="true" aria-controls="overlay_menu" />
                             <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" />
@@ -149,16 +149,16 @@ import { TooltipModule } from 'primeng/tooltip';
                             </ng-template>
                         </p-table>
                     </div>
-                    <div class="xl:w-96 border border-surface rounded-2xl py-4 px-7 flex flex-col justify-between">
+                    <div class="xl:w-96 border border-surface rounded-2xl py-4 px-6 flex flex-col justify-between">
                         <div>
-                            <div class="flex items-center mb-5">
+                            <div class="flex items-center mb-4">
                                 <div class="flex-1 text-sm text-color font-semibold leading-5">My Wallet</div>
                                 <p-button type="button" icon="pi pi-ellipsis-h" severity="secondary" text (click)="menu.toggle($event)" aria-haspopup="true" aria-controls="overlay_menu" />
                                 <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" styleClass="ml-6" />
                             </div>
                             <p-metergroup [value]="metersData" labelPosition="end">
                                 <ng-template #label>
-                                    <div class="flex flex-col gap-5 mt-3.5">
+                                    <div class="flex flex-col gap-4 mt-3.5">
                                         @for (val of metersData; track $index) {
                                             <div class="flex items-center gap-2">
                                                 <div class="w-2 h-2 rounded-full" [style]="{ backgroundColor: val.color }"></div>

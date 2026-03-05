@@ -19,22 +19,22 @@ import { ToastModule } from 'primeng/toast';
             </a>
         </div>
 
-        <div class="text-lg font-semibold mb-2">Authenticate</div>
+        <div class="text-base font-semibold mb-2">Authenticate</div>
         @if (!verified()) {
             <div>
-                <span class="block leading-6 mb-4"
+                <span class="block text-sm leading-6 mb-4"
                     >Theme Designer is the ultimate tool to customize and design your own themes featuring a visual editor, Figma to theme code, cloud storage, and migration assistant. <a routerLink="/designer" class="doc-link">Discover</a> more
                     about the Theme Designer by visiting the detailed <a routerLink="/designer/guide" class="doc-link">documentation</a>.</span
                 >
-                <span class="block leading-6 mb-4"
+                <span class="block text-sm leading-6 mb-4"
                     >A license can be purchased from <a href="https://primeui.store/designer" class="doc-link" rel="noopener noreferrer">PrimeStore</a>, if you do not have a license key, you are still able to experience the Designer in trial mode.
                     Note that in trial mode, downloads, figma to theme code, migration assistant and cloud storage are not available.</span
                 >
-                <span class="block leading-6 mb-4">Sign-in at <a href="https://primeui.store/designer" class="doc-link" rel="noopener noreferrer">PrimeStore</a> to retrieve your license key along with the pass key.</span>
+                <span class="block text-sm leading-6 mb-4">Sign-in at <a href="https://primeui.store/designer" class="doc-link" rel="noopener noreferrer">PrimeStore</a> to retrieve your license key along with the pass key.</span>
             </div>
             <div class="flex gap-4">
-                <input [(ngModel)]="licenseKey" type="password" [attr.autocomplete]="'off'" class="px-3 py-2 rounded-md border border-surface-300 dark:border-surface-700 flex-1" placeholder="License Key" />
-                <input [(ngModel)]="otp" autocomplete="off" class="px-3 py-2 rounded-md border border-surface-300 dark:border-surface-700" placeholder="Pass Key" />
+                <input [(ngModel)]="licenseKey" type="password" [attr.autocomplete]="'off'" class="text-sm px-2.5 py-1.5 rounded-md border border-surface-300 dark:border-surface-700 flex-1" placeholder="License Key" />
+                <input [(ngModel)]="otp" autocomplete="off" class="text-sm px-2.5 py-1.5 rounded-md border border-surface-300 dark:border-surface-700" placeholder="Pass Key" />
                 <button type="button" (click)="activate()" class="btn-design">Activate</button>
             </div>
         } @else {
@@ -44,7 +44,7 @@ import { ToastModule } from 'primeng/toast';
             </div>
         }
         <div class="flex justify-between items-center mb-2 mt-6">
-            <span class="text-lg font-semibold">My Themes</span>
+            <span class="text-base font-semibold">My Themes</span>
             @if (themeLimit()) {
                 <div class="flex items-center gap-2">
                     <span class="text-muted-color text-xs">{{ designerService.designer()?.themes?.length }} / {{ themeLimit() }}</span>
@@ -54,11 +54,11 @@ import { ToastModule } from 'primeng/toast';
                 </div>
             }
         </div>
-        <span class="block text-muted-color leading-6 mb-4">Continue editing your existing themes or build a new one.</span>
+        <span class="block text-sm text-muted-color leading-6 mb-4">Continue editing your existing themes or build a new one.</span>
         <div class="flex flex-wrap gap-4">
             <button
                 type="button"
-                class="rounded-xl h-32 w-32 bg-transparent border border-surface-200 dark:border-surface-700 text-black dark:text-white"
+                class="rounded-xl h-28 w-28 bg-transparent border border-surface-200 dark:border-surface-700 text-black dark:text-white"
                 [ngClass]="{ 'opacity-50 cursor-auto': themeLimitReached(), 'hover:border-surface-400 dark:hover:border-surface-500': !themeLimitReached() }"
                 (click)="openNewTheme()"
             >
@@ -68,10 +68,10 @@ import { ToastModule } from 'primeng/toast';
                 <div class="flex flex-col gap-2 relative">
                     <button
                         type="button"
-                        class="relative rounded-xl h-32 w-32 px-4 overflow-hidden text-ellipsis bg-transparent border border-surface-200 dark:border-surface-700 hover:border-surface-400 dark:hover:border-surface-500 text-black dark:text-white"
+                        class="relative rounded-xl h-28 w-28 px-4 overflow-hidden text-ellipsis bg-transparent border border-surface-200 dark:border-surface-700 hover:border-surface-400 dark:hover:border-surface-500 text-black dark:text-white"
                         (click)="loadTheme(theme)"
                     >
-                        <span class="text-2xl uppercase font-bold">{{ abbrThemeName(theme) }}</span>
+                        <span class="text-xl uppercase font-bold">{{ abbrThemeName(theme) }}</span>
                         @if (theme.t_origin !== 'web') {
                             <span class="absolute bottom-2 start-0 text-xs text-muted-color ms-start w-full">View Only</span>
                         }

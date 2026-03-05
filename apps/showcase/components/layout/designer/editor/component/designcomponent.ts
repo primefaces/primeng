@@ -13,7 +13,7 @@ import { AppConfigService } from '@/service/appconfigservice';
     standalone: true,
     imports: [CommonModule, FieldsetModule, TabsModule, DesignComponentSection],
     template: `<section class="flex flex-col gap-3">
-        <div class="text-lg font-semibold capitalize mb-2">{{ componentKey() }}</div>
+        <div class="text-base font-semibold capitalize mb-2">{{ componentKey() }}</div>
         <p-fieldset legend="Common" [toggleable]="true">
             <div class="flex flex-col gap-3">
                 @if (hasCommonTokens()) {
@@ -23,7 +23,7 @@ import { AppConfigService } from '@/service/appconfigservice';
                         }
                     }
                 } @else {
-                    <span class="block py-3">There are no design tokens</span>
+                    <span class="block text-sm py-3">There are no design tokens</span>
                 }
             </div>
         </p-fieldset>
@@ -52,7 +52,7 @@ import { AppConfigService } from '@/service/appconfigservice';
                     </p-tabpanels>
                 </p-tabs>
             } @else {
-                <span class="block py-3">There are no design tokens defined per color scheme.</span>
+                <span class="block text-sm py-3">There are no design tokens defined per color scheme.</span>
             }
         </p-fieldset>
     </section>`

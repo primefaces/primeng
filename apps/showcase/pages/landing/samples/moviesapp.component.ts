@@ -35,7 +35,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
         </div>
         <div class="">
             <div class="flex items-center justify-between gap-2 mb-5">
-                <div class="text-color text-lg font-medium leading-6">Keep watching</div>
+                <div class="text-color text-base font-medium leading-6">Keep watching</div>
                 <div class="xl:flex hidden items-center gap-2">
                     <p-button [disabled]="page === 0" (click)="previousPage()" icon="pi pi-chevron-left" severity="secondary" outlined />
                     <p-button [disabled]="page === carouselData.length - page" (click)="nextPage()" icon="pi pi-chevron-right" severity="secondary" outlined />
@@ -78,7 +78,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
             </p-carousel>
         </div>
         <div>
-            <div class="mb-5 flex items-center gap-3.5 justify-between">
+            <div class="mb-4 flex items-center gap-3.5 justify-between">
                 <div class="flex items-center gap-2">
                     <p-button label="Popular" severity="secondary" />
                     <p-button label="New Releases" text severity="secondary" />
@@ -114,7 +114,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'flex-1 flex flex-col gap-5 p-5 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl'
+        class: 'flex-1 flex flex-col gap-4 p-4 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl'
     }
 })
 export class MoviesApp {

@@ -54,11 +54,11 @@ import { TooltipModule } from 'primeng/tooltip';
         ToggleSwitchModule
     ],
     template: `
-        <div class="text-color text-xl font-medium leading-7">Cards</div>
+        <div class="text-color text-lg font-medium leading-7">Cards</div>
         <div class="mt-1 text-sm text-muted-color leading-5">You can make cards using Aura like below 👇</div>
-        <div class="mt-5 flex flex-wrap items-start gap-5">
-            <div class="flex-1 flex flex-col gap-5">
-                <div class="border border-surface rounded-3xl p-5 flex flex-col gap-5">
+        <div class="mt-4 flex flex-wrap items-start gap-4">
+            <div class="flex-1 flex flex-col gap-4">
+                <div class="border border-surface rounded-2xl p-4 flex flex-col gap-4">
                     <div class="flex items-center gap-2.5">
                         <p-overlaybadge severity="danger" styleClass="w-fit">
                             <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden flex" />
@@ -69,13 +69,13 @@ import { TooltipModule } from 'primeng/tooltip';
                             <div class="mt-1 text-sm text-muted-color leading-4">hi&#64;jacobjones.co</div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-5">
+                    <div class="flex items-center gap-4">
                         <div class="text-sm leading-4 text-color">14.k <span class="text-muted-color">Followers</span></div>
                         <div class="text-sm leading-4 text-color">359 <span class="text-muted-color">Following</span></div>
                     </div>
-                    <p class="text-sm text-muted-color leading-4 mb-0">Meet Jacob Jones, the whimsical adventurer on a quest for life's quirks. From sock mysteries to subway adventures, join him for a laughter-filled journey!</p>
+                    <p class="text-xs text-muted-color leading-4 mb-0">Meet Jacob Jones, the whimsical adventurer on a quest for life's quirks. From sock mysteries to subway adventures, join him for a laughter-filled journey!</p>
                     <div class="flex items-center justify-between gap-2">
-                        <div class="text-sm leading-4 text-color font-medium">Mutual Friends</div>
+                        <div class="text-xs leading-4 text-color font-medium">Mutual Friends</div>
                         <p-avatar-group>
                             <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png" class="rounded-lg overflow-hidden" />
                             <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" class="rounded-lg overflow-hidden" />
@@ -111,7 +111,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         </div>
                     </div>
                 </div>
-                <div class="border border-surface rounded-3xl p-5">
+                <div class="border border-surface rounded-2xl p-4">
                     <div class="flex items-center gap-2.5 p-2.5 border border-surface rounded-xl shadow-[0px_1px_2px_0px_rgba(18,18,23,0.05)]">
                         <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden w-12 h-12" />
                         <div class="flex-1">
@@ -120,28 +120,28 @@ import { TooltipModule } from 'primeng/tooltip';
                         </div>
                         <p-button icon="pi pi-bell" severity="contrast" text />
                     </div>
-                    <div class="mt-3.5 flex flex-col gap-1">
+                    <div class="mt-4 flex flex-col gap-1">
                         <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
-                            <i class="pi pi-envelope w-6 h-6 flex items-center justify-center"></i>
+                            <i class="pi pi-envelope w-6 h-6 !flex items-center justify-center"></i>
                             <div class="text-sm font-medium leading-normal flex-1 text-left">Messages</div>
                         </button>
                         <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
-                            <i class="pi pi-cog w-6 h-6 flex items-center justify-center"></i>
+                            <i class="pi pi-cog w-6 h-6 !flex items-center justify-center"></i>
                             <div class="text-sm font-medium leading-normal flex-1 text-left">Settings</div>
                         </button>
                         <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
-                            <i class="pi pi-sync w-6 h-6 flex items-center justify-center"></i>
+                            <i class="pi pi-sync w-6 h-6 !flex items-center justify-center"></i>
                             <div class="text-sm font-medium leading-normal flex-1 text-left">Switch Accounts</div>
                         </button>
                         <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
-                            <i class="pi pi-sign-in w-6 h-6 flex items-center justify-center"></i>
+                            <i class="pi pi-sign-in w-6 h-6 !flex items-center justify-center"></i>
                             <div class="text-sm font-medium leading-normal flex-1 text-left">Log out</div>
                         </button>
                     </div>
                     <p-divider />
                     <div class="w-full flex items-center gap-2 text-color p-2 bg-transparent cursor-pointer rounded-lg transition-all select-none">
                         <i
-                            class="pi w-6 h-6 flex items-center justify-center"
+                            class="pi"
                             [ngClass]="{
                                 'pi-moon': !darkMode,
                                 'pi-sun': darkMode
@@ -151,11 +151,11 @@ import { TooltipModule } from 'primeng/tooltip';
                         <p-toggleswitch [(ngModel)]="darkMode" />
                     </div>
                 </div>
-                <div class="border border-surface rounded-3xl">
-                    <div class="pt-5 px-5 flex flex-col gap-5">
+                <div class="border border-surface rounded-2xl">
+                    <div class="pt-4 px-4 flex flex-col gap-4">
                         <div class="flex items-start gap-2 justify-between">
                             <div>
-                                <div class="text-xl text-color font-medium">Data Analyst</div>
+                                <div class="text-lg text-color font-medium">Data Analyst</div>
                                 <div class="mt-2 text-sm text-color">Data Insights Ltd.</div>
                             </div>
                             <p-button (click)="jobApplication = !jobApplication" [icon]="jobApplication ? 'pi pi-bookmark-fill' : 'pi pi-bookmark'" severity="secondary" outlined rounded />
@@ -182,7 +182,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         </div>
                     </div>
                     <div class="p-1 mt-3.5">
-                        <button class="p-3.5 rounded-3xl w-full bg-emphasis transition-all text-color hover:text-color-emphasis flex items-center gap-2 justify-between cursor-pointer">
+                        <button class="p-3.5 rounded-2xl w-full bg-emphasis transition-all text-color hover:text-color-emphasis flex items-center gap-2 justify-between cursor-pointer">
                             <div class="flex items-center [&>*]:-mr-2">
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" shape="circle" />
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg" shape="circle" />
@@ -198,8 +198,8 @@ import { TooltipModule } from 'primeng/tooltip';
                     </div>
                 </div>
             </div>
-            <div class="flex-1 flex flex-col gap-5">
-                <div class="border border-surface rounded-3xl p-5 flex flex-col gap-5">
+            <div class="flex-1 flex flex-col gap-4">
+                <div class="border border-surface rounded-2xl p-4 flex flex-col gap-4">
                     <div class="flex items-center gap-2 text-color">
                         <i class="pi pi-cloud-upload text-lg"></i>
                         <div class="flex-1 text-sm font-medium leading-5">Upload Files</div>
@@ -222,7 +222,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                         </div>
                                     </div>
                                 } @else {
-                                    <div class="flex flex-col items-center justify-center p-5 cursor-pointer" (click)="chooseCallback()">
+                                    <div class="flex flex-col items-center justify-center p-4 cursor-pointer" (click)="chooseCallback()">
                                         <i class="pi pi-cloud-upload text-3xl text-color"></i>
                                         <div class="text-sm text-color font-medium mt-2">Click to upload <span class="text-muted-color">or and drop</span></div>
                                         <p class="mt-2 mb-0 text-sm text-muted-color text-center">PDF, JPG, PNG, JPEG, DOC, CSV, XML, XMLX, XLS, XLSX (max 10MB)</p>
@@ -293,7 +293,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         <button pButton class="flex-1"><span pButtonLabel>Upload</span></button>
                     </div>
                 </div>
-                <div class="border border-surface rounded-3xl p-5">
+                <div class="border border-surface rounded-2xl p-4">
                     <div class="flex items-start justify-between gap-1">
                         <div class="flex items-center gap-x-2 gap-y-1 flex-wrap flex-1">
                             <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png" shape="circle" class="rounded-lg overflow-hidden" />
@@ -310,12 +310,12 @@ import { TooltipModule } from 'primeng/tooltip';
                         </div>
                         <p-button icon="pi pi-arrow-up-right" rounded text />
                     </div>
-                    <div class="text-xl font-medium text-color mt-5 leading-7">That's your avatar</div>
+                    <div class="text-lg font-medium text-color mt-4 leading-7">That's your avatar</div>
                     <div class="text-sm leading-5 text-muted-color mt-2">Easy to use! place it, watch it.</div>
                 </div>
-                <div class="border border-surface rounded-3xl p-5 flex flex-col gap-5">
+                <div class="border border-surface rounded-2xl p-4 flex flex-col gap-4">
                     <div class="flex items-center justify-between gap-2">
-                        <div class="text-xl font-medium leading-7 flex-1">Add Member</div>
+                        <div class="text-lg font-medium leading-7 flex-1">Add Member</div>
                         <p-button icon="pi pi-times" rounded text severity="secondary" />
                     </div>
                     <div>
@@ -363,11 +363,11 @@ import { TooltipModule } from 'primeng/tooltip';
                     </div>
                 </div>
             </div>
-            <div class="flex-1 flex flex-wrap gap-5">
-                <div class="flex-1 border border-surface rounded-3xl p-5">
+            <div class="flex-1 flex flex-wrap gap-4">
+                <div class="flex-1 border border-surface rounded-2xl p-4">
                     <div class="text-sm text-color font-medium leading-5 mb-3.5">User Profiles</div>
                     <p-selectbutton [(ngModel)]="userProfiles" [options]="userProfilesOptions" class="w-full" styleClass="flex-1 w-full" />
-                    <div class="flex flex-col gap-3.5 mt-5">
+                    <div class="flex flex-col gap-3 mt-4">
                         <div class="flex items-center gap-2.5">
                             <i class="pi pi-volume-down text-color text-lg"></i>
                             <div class="text-sm leading-5 text-color flex-1">Sound</div>
@@ -400,8 +400,8 @@ import { TooltipModule } from 'primeng/tooltip';
                         </div>
                     </div>
                 </div>
-                <div class="flex-1 border border-surface rounded-3xl p-5 flex flex-col gap-5">
-                    <div class="font-medium text-color text-xl text-center">Forgot Password</div>
+                <div class="flex-1 border border-surface rounded-2xl p-4 flex flex-col gap-4">
+                    <div class="font-medium text-color text-lg text-center">Forgot Password</div>
                     <div>
                         <div class="text-sm text-muted-color text-center leading-snug">
                             Verification code <br />
@@ -413,12 +413,12 @@ import { TooltipModule } from 'primeng/tooltip';
                         <p-button label="Resend" text />
                     </div>
                     <div class="flex items-center justify-center">
-                        <p-inputotp [(ngModel)]="forgotPasswordOTP" [length]="6" [integerOnly]="true" class="w-full [&>*]:flex-1 [&>*]:min-h-12 [&>*]:text-xl" />
+                        <p-inputotp [(ngModel)]="forgotPasswordOTP" [length]="6" [integerOnly]="true" class="w-full [&>*]:flex-1 [&>*]:min-h-10 [&>*]:text-lg" />
                     </div>
                     <button pButton class="w-full"><span pButtonLabel>Change password</span></button>
                 </div>
-                <div class="border border-surface rounded-3xl p-5">
-                    <div class="text-sm text-color font-medium leading-5 mb-5">Price Range</div>
+                <div class="border border-surface rounded-2xl p-4">
+                    <div class="text-sm text-color font-medium leading-5 mb-4">Price Range</div>
                     <div>
                         <p-slider [(ngModel)]="priceRange" [min]="0" range [max]="15000" />
                     </div>
@@ -433,7 +433,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         </div>
                     </div>
                     <div class="mt-3.5">
-                        <div class="text-sm text-color font-medium leading-5 mb-5">Popular specs</div>
+                        <div class="text-sm text-color font-medium leading-5 mb-4">Popular specs</div>
                         <div class="flex items-center gap-3.5 flex-wrap">
                             @for (data of priceRangePopularSpecs; track data.value) {
                                 <div class="flex align-items-center">
@@ -443,7 +443,7 @@ import { TooltipModule } from 'primeng/tooltip';
                             }
                         </div>
                     </div>
-                    <div class="flex items-center gap-2.5 flex-wrap [&>*]:flex-1 mt-5">
+                    <div class="flex items-center gap-2.5 flex-wrap [&>*]:flex-1 mt-4">
                         <button pButton outlined class="w-full"><span pButtonLabel>Undo</span></button>
                         <button pButton class="w-full"><span pButtonLabel>Random</span></button>
                     </div>
@@ -452,7 +452,7 @@ import { TooltipModule } from 'primeng/tooltip';
         </div>
     `,
     host: {
-        class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-5'
+        class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-4'
     },
     providers: [MessageService],
     changeDetection: ChangeDetectionStrategy.OnPush
