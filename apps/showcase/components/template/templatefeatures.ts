@@ -42,7 +42,7 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
                                         <div class="w-full bg-surface-100 dark:bg-surface-800 rounded-lg overflow-hidden flex">
                                             <img class="w-full h-auto rounded-lg" [src]="isDarkMode ? data.darkSrc || data.src : data.src" [alt]="data.title" />
                                         </div>
-                                        <h2 class="mt-5 mb-0 text-surface-900 dark:text-surface-0 font-semibold">{{ data.title }}</h2>
+                                        <h2 class="mt-5 mb-0 text-surface-900 dark:text-surface-0 font-semibold text-base">{{ data.title }}</h2>
                                         <p class="mt-2 mb-0 text-muted-color text-sm" [innerHTML]="sanitizer.bypassSecurityTrustHtml(data.description)"></p>
                                     </div>
                                 }
