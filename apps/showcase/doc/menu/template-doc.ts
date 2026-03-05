@@ -21,7 +21,7 @@ import { Ripple } from 'primeng/ripple';
         <div class="card">
             <p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
                 <ng-template #start>
-                    <span class="inline-flex items-center gap-1 px-2 py-2">
+                    <span class="inline-flex items-center gap-1 px-1.5 py-1.5">
                         <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                             <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
                             <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -51,30 +51,30 @@ import { Ripple } from 'primeng/ripple';
                             <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
                             <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                         </svg>
-                        <span class="text-xl font-semibold">PRIME<span class="text-primary">APP</span></span>
+                        <span class="text-lg font-semibold">PRIME<span class="text-primary">APP</span></span>
                     </span>
                 </ng-template>
                 <ng-template #submenuheader let-item>
-                    <span class="text-primary font-bold">{{ item.label }}</span>
+                    <span class="text-primary font-bold text-sm">{{ item.label }}</span>
                 </ng-template>
                 <ng-template #item let-item>
-                    <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class]="item.linkClass">
+                    <a pRipple class="flex items-center px-2.5 py-1.5 cursor-pointer" [class]="item.linkClass">
                         <span [class]="item.icon"></span>
-                        <span class="ms-2">{{ item.label }}</span>
+                        <span class="ms-2 text-sm">{{ item.label }}</span>
                         @if (item.badge) {
                             <p-badge class="ms-auto" [value]="item.badge" />
                         }
                         @if (item.shortcut) {
-                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs px-1 py-0.5">{{ item.shortcut }}</span>
                         }
                     </a>
                 </ng-template>
                 <ng-template #end>
-                    <button pRipple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
+                    <button pRipple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-1.5 pl-3.5 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
                         <span class="inline-flex flex-col items-start">
-                            <span class="font-bold">Amy Elsner</span>
-                            <span class="text-sm">Admin</span>
+                            <span class="text-sm font-bold">Amy Elsner</span>
+                            <span class="text-xs">Admin</span>
                         </span>
                     </button>
                 </ng-template>
