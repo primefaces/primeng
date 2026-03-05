@@ -2,6 +2,12 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.1.3](https://github.com/primefaces/primeng/tree/21.1.3) (2026-03-04)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.1.2...21.1.3)
+
+**Fixed bugs:**
+- Menu | Component is not destroyed on navigation [#19455](https://github.com/primefaces/primeng/issues/19455)
+
 ## [21.1.2](https://github.com/primefaces/primeng/tree/21.1.2) (2026-03-03)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.1.1...21.1.2)
 

@@ -289,6 +289,8 @@ export class MotionDirective extends BaseComponent {
 
         resetStyles(this.$el, this.hideStrategy());
 
+        this.$el?.remove();
+
         this.isInitialMount = true;
     }
 }
