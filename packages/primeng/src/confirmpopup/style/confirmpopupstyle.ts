@@ -5,7 +5,7 @@ import { BaseStyle } from 'primeng/base';
 const classes = {
     root: () => ['p-confirmpopup p-component'],
     content: 'p-confirmpopup-content',
-    icon: ({ instance }) => ['p-confirmpopup-icon', instance.confirmation?.icon],
+    icon: ({ instance }) => ['p-confirmpopup-icon', instance.confirmation()?.icon],
     message: 'p-confirmpopup-message',
     footer: 'p-confirmpopup-footer',
     pcRejectButton: 'p-confirmpopup-reject-button',

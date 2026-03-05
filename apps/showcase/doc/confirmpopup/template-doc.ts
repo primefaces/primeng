@@ -20,7 +20,7 @@ import { ToastModule } from 'primeng/toast';
             <p-confirmpopup>
                 <ng-template #content let-message>
                     <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700 p-4 mb-4 pb-0">
-                        <i [class]="message.icon" class="!text-6xl text-primary-500"></i>
+                        <i [class]="message.icon" class="!text-5xl text-primary-500"></i>
                         <p class="text-sm">{{ message.message }}</p>
                     </div>
                 </ng-template>
