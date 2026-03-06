@@ -2011,6 +2011,11 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
             }
 
             this.selectionKeysChange.emit(this.selectionKeys);
+            if (check) {
+                this.onNodeSelect.emit({ originalEvent: event, node: node });
+            } else {
+                this.onNodeUnselect.emit({ originalEvent: event, node: node });
+            }
         } else {
             this.toggleNodeWithCheckbox({ originalEvent, rowNode });
         }
