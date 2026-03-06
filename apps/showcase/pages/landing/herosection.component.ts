@@ -52,7 +52,7 @@ import { OverviewApp } from './samples/overviewapp.component';
         <section class="landing-hero py-20 px-7 lg:px-20">
             <div class="flex flex-col items-center">
                 <h1 class="text-4xl font-bold text-center xl:text-left leading-tight">The Next-Gen UI Suite for <span class="font-bold text-primary">Angular</span></h1>
-                <p class="text-center mt-0 mb-7 text-surface-500 dark:text-surface-400 font-medium text-lg leading-relaxed lg:px-48">
+                <p class="text-center mt-0 mb-7 text-surface-500 dark:text-surface-400 font-medium text-lg leading-relaxed lg:px-44">
                     Enhance your web applications with PrimeNG's comprehensive suite of customizable, feature-rich UI components. With PrimeNG, turning your development vision into reality has never been easier.
                 </p>
                 <div class="flex items-center gap-3.5">

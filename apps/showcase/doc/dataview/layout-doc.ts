@@ -42,11 +42,11 @@ import { TagModule } from 'primeng/tag';
                                     <div class="flex flex-row md:flex-col justify-between items-start gap-2">
                                         <div>
                                             <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ item.category }}</span>
-                                            <div class="font-medium mt-2">{{ item.name }}</div>
+                                            <div class="font-medium mt-1">{{ item.name }}</div>
                                         </div>
                                         <div class="bg-surface-100 p-1" style="border-radius: 30px">
-                                            <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
-                                                <span class="text-surface-900 font-medium text-sm">{{ item.rating }}</span>
+                                            <div class="bg-surface-0 flex items-center gap-2 justify-center py-0.5 px-1.5" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
+                                                <span class="text-surface-900 font-medium text-xs">{{ item.rating }}</span>
                                                 <i class="pi pi-star-fill text-yellow-500"></i>
                                             </div>
                                         </div>
@@ -86,7 +86,7 @@ import { TagModule } from 'primeng/tag';
                                                 <div class="font-medium mt-1">{{ product.name }}</div>
                                             </div>
                                             <div class="bg-surface-100 p-1" style="border-radius: 30px; height:100%">
-                                                <div class="bg-surface-0 flex products-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
+                                                <div class="bg-surface-0 flex products-center gap-2 justify-center py-0.5 px-1.5" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
                                                     <span class="text-surface-900 font-medium text-sm">{{ product.rating }}</span>
                                                     <i class="pi pi-star-fill text-yellow-500"></i>
                                                 </div>
