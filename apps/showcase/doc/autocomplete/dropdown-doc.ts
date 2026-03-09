@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppCode } from '@/components/doc/app.code';
 
 interface AutoCompleteCompleteEvent {
@@ -12,17 +13,19 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'dropdown-doc',
     standalone: true,
-    imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
+    imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>
                 Enabling <i>dropdown</i> property displays a button next to the input field where click behavior of the button is defined using <i>dropdownMode</i> property that takes <strong>blank</strong> or <strong>current</strong> as possible
                 values. <i>blank</i> is the default mode to send a query with an empty string whereas <i>current</i> setting sends a query with the current value of the input.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />
-        </div>
-        <app-code></app-code>`
+        <app-demo-wrapper name="dropdown-demo">
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>`
 })
 export class DropdownDoc {
     items: any[] | undefined;

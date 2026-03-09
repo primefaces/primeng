@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppCode } from '@/components/doc/app.code';
 
 interface AutoCompleteCompleteEvent {
@@ -13,14 +14,16 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'force-selection-doc',
     standalone: true,
-    imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
+    imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>ForceSelection mode validates the manual input to check whether it also exists in the suggestions list, if not the input value is cleared to make sure the value passed to the model is always one of the suggestions.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
-        </div>
-        <app-code></app-code>`
+        <app-demo-wrapper name="force-selection-demo">
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>`
 })
 export class ForceSelectionDoc implements OnInit {
     countries: any[] | undefined;

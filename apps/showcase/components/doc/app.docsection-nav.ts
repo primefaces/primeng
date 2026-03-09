@@ -30,6 +30,19 @@ import { fromEvent } from 'rxjs';
                                                     {{ child.label }}
                                                 </button>
                                             </div>
+                                            @if (child.children) {
+                                                <ul>
+                                                    @for (grandchild of child.children; track grandchild.label) {
+                                                        <li class="navbar-item" [ngClass]="{ 'active-navbar-item': activeId() === grandchild.id }">
+                                                            <div class="navbar-item-content">
+                                                                <button (click)="onButtonClick(grandchild)">
+                                                                    {{ grandchild.label }}
+                                                                </button>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            }
                                         </li>
                                     }
                                 </ul>
@@ -148,7 +161,7 @@ export class AppDocSectionNav implements OnInit {
     }
 
     getLabels() {
-        return [...Array.from(this.document.querySelectorAll(':is(h1,h2,h3).doc-section-label'))].filter((el: any) => DomHandler.isVisible(el));
+        return [...Array.from(this.document.querySelectorAll(':is(h1,h2,h3,h4).doc-section-label'))].filter((el: any) => DomHandler.isVisible(el));
     }
 
     onScroll() {

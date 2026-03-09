@@ -16,8 +16,16 @@ import { AppDocSectionText } from './app.docsectiontext';
                         <app-docsectiontext [title]="doc.label" [id]="doc.id" [level]="2" [description]="doc?.description" />
 
                         @for (child of doc.children; track $index) {
-                            <app-docsectiontext [title]="child.label" [id]="child.id" [level]="3" [description]="child?.description" />
-                            <ng-container *ngComponentOutlet="child.component"></ng-container>
+                            @if (!child.component && child.children) {
+                                <app-docsectiontext [title]="child.label" [id]="child.id" [level]="3" [description]="child?.description" />
+                                @for (grandchild of child.children; track $index) {
+                                    <app-docsectiontext [title]="grandchild.label" [id]="grandchild.id" [level]="4" [description]="grandchild?.description" />
+                                    <ng-container *ngComponentOutlet="grandchild.component"></ng-container>
+                                }
+                            } @else {
+                                <app-docsectiontext [title]="child.label" [id]="child.id" [level]="3" [description]="child?.description" />
+                                <ng-container *ngComponentOutlet="child.component"></ng-container>
+                            }
                         }
                     }
 

@@ -4,6 +4,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { RouterModule } from '@angular/router';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppCode } from '@/components/doc/app.code';
 
 interface AutoCompleteCompleteEvent {
@@ -14,30 +15,32 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'float-label-doc',
     standalone: true,
-    imports: [FormsModule, AutoCompleteModule, FloatLabelModule, RouterModule, AppDocSectionText, AppCode],
+    imports: [FormsModule, AutoCompleteModule, FloatLabelModule, RouterModule, AppDocSectionText, AppCode, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>
                 A floating label appears on top of the input field when focused. Visit
                 <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel>
-                <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search($event)" inputId="over_label" />
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
+        <app-demo-wrapper name="float-label-demo">
+            <div class="flex flex-wrap justify-center items-end gap-4">
+                <p-floatlabel>
+                    <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search($event)" inputId="over_label" />
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
 
-            <p-floatlabel variant="in">
-                <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search($event)" inputId="in_label" />
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
+                <p-floatlabel variant="in">
+                    <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search($event)" inputId="in_label" />
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
 
-            <p-floatlabel variant="on">
-                <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search($event)" inputId="on_label" />
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
-        <app-code></app-code>`
+                <p-floatlabel variant="on">
+                    <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search($event)" inputId="on_label" />
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>`
 })
 export class FloatLabelDoc {
     value1: string | undefined;

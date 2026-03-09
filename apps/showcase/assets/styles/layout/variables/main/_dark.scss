@@ -16,6 +16,15 @@
     --overlay-background: var(--p-surface-900);
     --hover-background: var(--p-surface-800);
     --code-background: var(--p-surface-900);
+    --code-color: var(--p-surface-0);
+    --code-line-number-color: var(--p-surface-500);
+    --code-figure-background: color-mix(in srgb, var(--p-surface-900) 40%, var(--p-surface-950) 60%);
+    --code-figure-color: var(--p-surface-0);
+    --code-figure-border: var(--p-surface-800);
+    --code-figure-number-color: var(--p-surface-500);
+    --demo-background: color-mix(in srgb, var(--p-surface-800) 60%, transparent);
+    --demo-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.2);
+    --demo-card-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.15);
     --high-contrast-text-color: var(--p-surface-0);
     --hover-border-color: var(--p-surface-500);
     --mark-background: var(--p-surface-700);

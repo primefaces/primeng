@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppCode } from '@/components/doc/app.code';
 
 interface AutoCompleteCompleteEvent {
@@ -14,21 +15,23 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'group-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
+    imports: [CommonModule, FormsModule, AutoCompleteModule, AppDocSectionText, AppCode, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>Option grouping is enabled when <i>group</i> property is set to <i>true</i>. <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" placeholder="Hint: type 'a'">
-                <ng-template let-group #group>
-                    <div class="flex items-center">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
-                        <span>{{ group.label }}</span>
-                    </div>
-                </ng-template>
-            </p-autocomplete>
-        </div>
-        <app-code></app-code>`
+        <app-demo-wrapper name="group-demo">
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" placeholder="Hint: type 'a'">
+                    <ng-template let-group #group>
+                        <div class="flex items-center">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                            <span>{{ group.label }}</span>
+                        </div>
+                    </ng-template>
+                </p-autocomplete>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>`
 })
 export class GroupDoc implements OnInit {
     selectedCity: any;

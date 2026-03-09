@@ -40,12 +40,7 @@
                         "styles": [
                             "assets/styles/global.scss"
                         ],
-                        "scripts": [
-                            "./node_modules/prismjs/prism.js",
-                            "./node_modules/prismjs/components/prism-typescript.js",
-                            "./node_modules/prismjs/components/prism-scss.js",
-                            "./node_modules/prismjs/components/prism-bash.js"
-                        ],
+                        "scripts": [],
                         "allowedCommonJsDependencies": [
                             "chart.js",
                             "jspdf-autotable",

@@ -12,7 +12,7 @@ import { FluidDoc } from '@/doc/autocomplete/fluid-doc';
 import { ForceSelectionDoc } from '@/doc/autocomplete/force-selection-doc';
 import { GroupDoc } from '@/doc/autocomplete/group-doc';
 import { IftaLabelDoc } from '@/doc/autocomplete/ifta-label-doc';
-import { ImportDoc } from '@/doc/autocomplete/import-doc';
+import { UsageDoc } from '@/doc/autocomplete/usage-doc';
 import { InvalidDoc } from '@/doc/autocomplete/invalid-doc';
 import { MultipleDoc } from '@/doc/autocomplete/multiple-doc';
 import { ObjectsDoc } from '@/doc/autocomplete/objects-doc';
@@ -30,6 +30,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         header="AutoComplete"
         description="AutoComplete is an input component that provides real-time suggestions when being typed."
         [docs]="docs"
+        [heroDoc]="heroDoc"
         [apiDocs]="['AutoComplete']"
         [ptDocs]="ptComponent"
         themeDocs="AutoComplete"
@@ -40,115 +41,50 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class AutoCompleteDemo {
     ptComponent = PTComponent;
+    heroDoc = BasicDoc;
 
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'dropdown',
-            label: 'Dropdown',
-            component: DropdownDoc
-        },
-        {
-            id: 'objects',
-            label: 'Objects',
-            component: ObjectsDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
-            id: 'group',
-            label: 'Group',
-            component: GroupDoc
-        },
-        {
-            id: 'forceselection',
-            label: 'Force Selection',
-            component: ForceSelectionDoc
-        },
-        {
-            id: 'virtualscroll',
-            label: 'Virtual Scroll',
-            component: VirtualScrollDoc
-        },
-        {
-            id: 'multiple',
-            label: 'Multiple',
-            component: MultipleDoc
-        },
-        {
-            id: 'chips',
-            label: 'Chips',
+            id: 'examples',
+            label: 'Examples',
             children: [
+                { id: 'basic', label: 'Basic', component: BasicDoc },
+                { id: 'dropdown', label: 'Dropdown', component: DropdownDoc },
+                { id: 'objects', label: 'Objects', component: ObjectsDoc },
+                { id: 'template', label: 'Template', component: TemplateDoc },
+                { id: 'group', label: 'Group', component: GroupDoc },
+                { id: 'forceselection', label: 'Force Selection', component: ForceSelectionDoc },
+                { id: 'virtualscroll', label: 'Virtual Scroll', component: VirtualScrollDoc },
+                { id: 'multiple', label: 'Multiple', component: MultipleDoc },
                 {
-                    id: 'basicchips',
-                    label: 'Basic',
-                    component: BasicChipsDoc
+                    id: 'chips',
+                    label: 'Chips',
+                    children: [
+                        { id: 'basicchips', label: 'Basic', component: BasicChipsDoc },
+                        { id: 'advancedchips', label: 'Advanced', component: AdvancedChipsDoc }
+                    ]
                 },
+                { id: 'floatlabel', label: 'Float Label', component: FloatLabelDoc },
+                { id: 'iftalabel', label: 'Ifta Label', component: IftaLabelDoc },
+                { id: 'clearicon', label: 'Clear Icon', component: ClearIconDoc },
+                { id: 'sizes', label: 'Sizes', component: SizesDoc },
+                { id: 'fluid', label: 'Fluid', component: FluidDoc },
+                { id: 'filled', label: 'Filled', component: FilledDoc },
+                { id: 'disabled', label: 'Disabled', component: DisabledDoc },
+                { id: 'invalid', label: 'Invalid', component: InvalidDoc },
                 {
-                    id: 'advancedchips',
-                    label: 'Advanced',
-                    component: AdvancedChipsDoc
+                    id: 'forms',
+                    label: 'Forms',
+                    children: [
+                        { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                        { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                    ]
                 }
-            ]
-        },
-        {
-            id: 'floatlabel',
-            label: 'Float Label',
-            component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
-        },
-        {
-            id: 'clearicon',
-            label: 'Clear Icon',
-            component: ClearIconDoc
-        },
-        {
-            id: 'sizes',
-            label: 'Sizes',
-            component: SizesDoc
-        },
-        {
-            id: 'fluid',
-            label: 'Fluid',
-            component: FluidDoc
-        },
-        {
-            id: 'filled',
-            label: 'Filled',
-            component: FilledDoc
-        },
-        {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
-        },
-        {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc
-        },
-        {
-            id: 'forms',
-            label: 'Forms',
-            children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
             ]
         },
         {

@@ -43,6 +43,7 @@ import { AppDocThemingSection } from './app.docthemingsection';
                     [header]="header() ?? _componentName()"
                     [description]="description()"
                     [docs]="docs()"
+                    [heroDoc]="heroDoc()"
                     [componentName]="isComponentDoc() ? _componentName() : ''"
                     [docType]="docType()"
                     [ngStyle]="{ display: docService.activeTab() === 0 ? 'flex' : 'none' }"
@@ -91,6 +92,8 @@ export class AppDoc implements OnInit, OnChanges {
     });
 
     isComponentDoc = computed(() => !!(this.docs() && (this.apiDocs() || this.themeDocs() || this.ptDocs())));
+
+    heroDoc = input<any>();
 
     ptDocs = input<any>();
 

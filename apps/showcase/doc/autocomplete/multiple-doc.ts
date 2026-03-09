@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -12,18 +13,20 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'multiple-doc',
     standalone: true,
-    imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
+    imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>Enable multiple selection mode using the <i>⁠multiple</i> property to allow users to select more than one value from the autocomplete. When enabled, the value reference must be an array.</p>
         </app-docsectiontext>
-        <div class="card">
-            <label for="multiple-ac-1" class="text-sm font-bold mb-2 block">With Typeahead</label>
-            <p-autocomplete [(ngModel)]="value1" inputId="multiple-ac-1" multiple fluid [suggestions]="items" (completeMethod)="search($event)" />
+        <app-demo-wrapper name="multiple-demo">
+            <div>
+                <label for="multiple-ac-1" class="text-sm font-bold mb-2 block">With Typeahead</label>
+                <p-autocomplete [(ngModel)]="value1" inputId="multiple-ac-1" multiple fluid [suggestions]="items" (completeMethod)="search($event)" />
 
-            <label for="multiple-ac-2" class="text-sm font-bold mt-8 mb-2 block">Without Typeahead</label>
-            <p-autocomplete [(ngModel)]="value2" inputId="multiple-ac-2" multiple fluid (completeMethod)="search($event)" [typeahead]="false" />
-        </div>
-        <app-code></app-code>`
+                <label for="multiple-ac-2" class="text-sm font-bold mt-8 mb-2 block">Without Typeahead</label>
+                <p-autocomplete [(ngModel)]="value2" inputId="multiple-ac-2" multiple fluid (completeMethod)="search($event)" [typeahead]="false" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>`
 })
 export class MultipleDoc {
     value1: any[] | undefined;

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppCode } from '@/components/doc/app.code';
 
 interface AutoCompleteCompleteEvent {
@@ -15,29 +16,31 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, AutoCompleteModule, ButtonModule, AppDocSectionText, AppCode],
+    imports: [CommonModule, FormsModule, AutoCompleteModule, ButtonModule, AppDocSectionText, AppCode, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>AutoComplete offers multiple templates for customization through templating.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name">
-                <ng-template let-country #item>
-                    <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ country.name }}</div>
-                    </div>
-                </ng-template>
-                <ng-template #header>
-                    <div class="font-medium px-3 py-2">Available Countries</div>
-                </ng-template>
-                <ng-template #footer>
-                    <div class="px-3 py-3">
-                        <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
-                    </div>
-                </ng-template>
-            </p-autocomplete>
-        </div>
-        <app-code></app-code>`
+        <app-demo-wrapper name="template-demo">
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name">
+                    <ng-template let-country #item>
+                        <div class="flex items-center gap-2">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                            <div>{{ country.name }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template #header>
+                        <div class="font-medium px-3 py-2">Available Countries</div>
+                    </ng-template>
+                    <ng-template #footer>
+                        <div class="px-3 py-3">
+                            <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+                        </div>
+                    </ng-template>
+                </p-autocomplete>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>`
 })
 export class TemplateDoc {
     countries: any[] | undefined;

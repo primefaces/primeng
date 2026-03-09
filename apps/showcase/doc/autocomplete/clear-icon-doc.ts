@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -12,14 +13,16 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'clear-icon-doc',
     standalone: true,
-    imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
+    imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>When <i>showClear</i> is enabled, a clear icon is displayed to clear the value.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [showClear]="true" inputStyleClass="w-56" />
-        </div>
-        <app-code></app-code>`
+        <app-demo-wrapper name="clear-icon-demo">
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [showClear]="true" inputStyleClass="w-56" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>`
 })
 export class ClearIconDoc {
     items: any[] = [];

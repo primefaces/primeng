@@ -1,26 +1,85 @@
+// Shiki code highlighting styles
+[data-rehype-pretty-code-figure] {
+    background-color: var(--code-figure-background);
+    color: var(--code-figure-color);
+    border-radius: 10px;
+    border: 1px solid var(--code-figure-border);
+    margin: 0;
+    overflow: hidden;
+    outline: none;
+    position: relative;
+    min-width: 0;
+    overflow-x: auto;
+    padding: 0;
+
+    &:has([data-line-numbers]) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+[data-line-numbers] {
+    display: grid;
+    min-width: 100%;
+    white-space: pre;
+    border: 0;
+    background: transparent;
+    padding: 1.313rem;
+    counter-reset: line;
+    box-decoration-break: clone;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.doc-section-demo-code [data-line-numbers] {
+    padding: 1.313rem 0;
+}
+
+.doc-section-demo-code [data-rehype-pretty-code-figure] [data-line]::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 3rem;
+    padding-right: 1rem;
+    text-align: right;
+    color: var(--code-figure-number-color);
+    background-color: var(--code-figure-background);
+    position: sticky;
+    left: 0;
+}
+
+[data-rehype-pretty-code-figure] [data-line] {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    min-height: 2px;
+    width: 100%;
+    font-size: 14px;
+    display: inline-block;
+}
+
+[data-rehype-pretty-code-figure] [data-line] span {
+    color: var(--shiki-light);
+}
+
+:root[class="p-dark"] [data-rehype-pretty-code-figure] [data-line] span {
+    color: var(--shiki-dark) !important;
+}
+
+// Legacy Prism fallback (for any remaining usages)
 code[class*="language-"],
 pre[class*="language-"] {
     background: none;
-    font-family: ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,Liberation Mono,monospace;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
     text-align: start;
     white-space: pre;
     word-spacing: normal;
     word-break: normal;
     word-wrap: normal;
     line-height: 1.5;
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
     tab-size: 4;
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    -ms-hyphens: none;
     hyphens: none;
 }
-
-div.code-toolbar > .toolbar {
-    display: none;
-}
-
 
 pre[class*="language-"] {
     position: relative;
@@ -29,7 +88,6 @@ pre[class*="language-"] {
     padding: 0;
     max-height: 35rem;
     overflow: auto;
-    color-scheme: dark;
 
     &:before, &:after {
         display: none !important;
@@ -47,87 +105,14 @@ pre[class*="language-"] {
         padding: 1.313rem;
         display: block;
         overflow: auto;
-        
-        .token.comment,
-        .token.block-comment,
-        .token.prolog,
-        .token.doctype,
-        .token.cdata {
-            color: #bbf7d0;
-        }
-
-        .token.punctuation {
-            color: #bfdbfe;
-        }
-
-        .token.property,
-        .token.tag,
-        .token.boolean,
-        .token.number,
-        .token.function-name,
-        .token.constant,
-        .token.symbol,
-        .token.deleted {
-            color: #93c5fd;
-        }
-
-        .token.selector,
-        .token.attr-name,
-        .token.string,
-        .token.char,
-        .token.function,
-        .token.builtin,
-        .token.inserted {
-            color: #eff6ff;
-        }
-
-        .token.operator,
-        .token.entity,
-        .token.url,
-        .token.variable {
-            color: #ffffff;
-        }
-
-        .token.atrule,
-        .token.attr-value,
-        .token.keyword,
-        .token.class-name {
-            color: #bbf7d0;
-        }
-
-        .token.regex,
-        .token.important {
-            color: #fde68a;
-        }
-
-        .language-css .token.string,
-        .style .token.string {
-            color: #fde68a;
-        }
-
-        .token.important {
-            font-weight: normal;
-        }
-
-        .token.bold {
-            font-weight: bold;
-        }
-        .token.italic {
-            font-style: italic;
-        }
-
-        .token.entity {
-            cursor: help;
-        }
+        background: var(--code-background);
     }
+}
+
+div.code-toolbar > .toolbar {
+    display: none;
 }
 
 .copy-to-clipboard-button {
     display: none;
-}
-
-pre[class*="language-"] {    
-    code {
-        background: var(--code-background);
-    }
 }

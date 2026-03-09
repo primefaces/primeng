@@ -1,14 +1,16 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, Injector, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AppDocSection } from './app.docsection';
 import { AppDocSectionNav } from './app.docsection-nav';
 import { AppDocCopyMarkdown } from './app.doccopymarkdown';
+import { DEMO_MODE } from './demo-mode.token';
 
 @Component({
     selector: 'app-docfeaturessection',
     standalone: true,
-    imports: [AppDocSection, AppDocSectionNav, AppDocCopyMarkdown],
+    imports: [CommonModule, AppDocSection, AppDocSectionNav, AppDocCopyMarkdown],
     template: ` <div class="doc-main">
-            <div class="doc-intro">
+            <div class="doc-intro" [class.!mb-0]="heroDoc">
                 <div class="grid grid-cols-[1fr_auto] gap-2 items-start">
                     <h1 class="m-0">{{ header }}</h1>
                     @if (componentName || docType === 'page') {
@@ -17,6 +19,11 @@ import { AppDocCopyMarkdown } from './app.doccopymarkdown';
                     <p class="col-span-2">{{ description }}</p>
                 </div>
             </div>
+            @if (heroDoc) {
+                <div class="doc-hero">
+                    <ng-container *ngComponentOutlet="heroDoc; injector: heroInjector"></ng-container>
+                </div>
+            }
             <app-docsection [docs]="docs" />
         </div>
         <app-docsection-nav [docs]="docs" />`,
@@ -36,4 +43,13 @@ export class AppDocFeaturesSection {
     @Input() componentName: string = '';
 
     @Input() docType: 'component' | 'page' = 'component';
+
+    @Input() heroDoc?: any;
+
+    private parentInjector = inject(Injector);
+
+    heroInjector = Injector.create({
+        providers: [{ provide: DEMO_MODE, useValue: 'collapsible' }],
+        parent: this.parentInjector
+    });
 }

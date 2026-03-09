@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -13,17 +14,19 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
+    imports: [CommonModule, FormsModule, AutoCompleteModule, AppDocSectionText, AppCode, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>
                 AutoComplete uses <i>ngModel</i> for two-way binding, requires a list of suggestions and a <i>completeMethod</i> to query for the results. The completeMethod gets the query text as <i>event.query</i> property and should update the
                 suggestions with the search results.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
-        </div>
-        <app-code></app-code>`
+        <app-demo-wrapper name="basic-demo">
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>`
 })
 export class BasicDoc {
     items: any[] = [];

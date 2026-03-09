@@ -1,8 +1,10 @@
 import { Code, ExtFile, RouteFile } from '@/domain/code';
 import { resolveDomainTypes, ResolvedRouteFiles, resolveRouteFiles } from '@/domain/types';
 import { DemoCodeService } from '@/service/democodeservice';
+import { HighlightService } from '@/service/highlightservice';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { afterNextRender, Component, computed, effect, ElementRef, inject, input, NgModule, PLATFORM_ID, signal, ViewChild } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, input, NgModule, PLATFORM_ID, signal } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
@@ -33,20 +35,7 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
                     </button>
                 </div>
 
-                <div dir="ltr">
-                    @if (lang() === 'typescript') {
-                        <pre [style]="{ 'max-height': codeHeight() }" class="language-typescript"><code #codeElement>{{ resolvedCode()!.typescript }}</code></pre>
-                    }
-                    @if (lang() === 'html') {
-                        <pre [style]="{ 'max-height': codeHeight() }" class="language-markup"><code #codeElement>{{ resolvedCode()!.html }}</code></pre>
-                    }
-                    @if (lang() === 'scss') {
-                        <pre [style]="{ 'max-height': codeHeight() }" class="language-scss"><code #codeElement>{{ resolvedCode()!.scss }}</code></pre>
-                    }
-                    @if (lang() === 'command') {
-                        <pre class="language-shell"><code #codeElement>{{ resolvedCode()!.command }}</code></pre>
-                    }
-                </div>
+                <div dir="ltr" [style]="{ 'max-height': codeHeight() }" class="overflow-auto" [innerHTML]="highlightedHtml()"></div>
             </div>
         }
     `
@@ -63,11 +52,10 @@ export class AppCode {
     importCode = input(false, { transform: (v: boolean | string) => v === '' || v === true });
     codeHeight = computed(() => (this.fullCodeVisible() ? '50rem' : '20rem'));
 
-    @ViewChild('codeElement') codeElement: ElementRef;
-
     fullCodeVisible = signal(false);
     lang = signal('typescript');
     resolvedCode = signal<Code | null>(null);
+    highlightedHtml = signal<SafeHtml>('');
     resolvedExtFiles = signal<ExtFile[]>([]);
     resolvedRouteFiles = signal<RouteFile[]>([]);
     resolvedService = signal<string[]>([]);
@@ -111,6 +99,8 @@ export class AppCode {
     });
 
     private demoCodeService = inject(DemoCodeService);
+    private highlightService = inject(HighlightService);
+    private sanitizer = inject(DomSanitizer);
     private elementRef = inject(ElementRef);
     private route = inject(ActivatedRoute);
     private platformId = inject(PLATFORM_ID);
@@ -123,28 +113,22 @@ export class AppCode {
             const isLoaded = this.demoCodeService.isLoaded();
 
             if (codeInput) {
-                // Priority 1: Use code input prop
                 this.resolvedCode.set(codeInput);
                 this.resolvedExtFiles.set(this.resolveExtFilesInput(this.extFiles()));
                 const { routeFiles: resolvedRoutes, services: routeServices } = this.resolveRouteFilesInput(this.routeFiles());
                 this.resolvedRouteFiles.set(resolvedRoutes);
-                // Merge services from route files with code.service
                 const codeServices = this.service() || [];
                 this.resolvedService.set(this.mergeServices(codeServices, routeServices));
             } else if (selector && isLoaded) {
-                // Priority 2: Look up from JSON
                 const demo = this.demoCodeService.getCode(selector);
                 if (demo) {
                     this.resolvedCode.set(demo.code);
-                    // Merge extFiles from input with those from demos.json
                     const inputExtFiles = this.resolveExtFilesInput(this.extFiles());
                     const demoExtFiles = demo.metadata.extFiles || [];
                     this.resolvedExtFiles.set(this.mergeExtFiles(inputExtFiles, demoExtFiles));
-                    // Merge routeFiles from input with those from demos.json
                     const { routeFiles: inputRouteFiles, services: routeServices } = this.resolveRouteFilesInput(this.routeFiles());
                     const demoRouteFiles = demo.metadata.routeFiles || [];
                     this.resolvedRouteFiles.set(this.mergeRouteFiles(inputRouteFiles, demoRouteFiles));
-                    // Merge services from route files with those from demos.json
                     const demoServices = demo.metadata.services || [];
                     this.resolvedService.set(this.mergeServices(demoServices, routeServices));
                 }
@@ -155,32 +139,28 @@ export class AppCode {
         effect(() => {
             const initialLang = this.initialLang();
             if (initialLang && this.lang() === 'typescript' && initialLang !== 'typescript') {
-                // Only update if we haven't manually changed the lang
                 this.lang.set(initialLang);
             }
         });
 
-        // Prism highlighting after render
-        afterNextRender(() => {
-            this.highlightCode();
-        });
-    }
+        // Effect: Highlight code with Shiki when code or lang changes
+        effect(() => {
+            const code = this.resolvedCode();
+            const lang = this.lang();
 
-    private highlightCode() {
-        if (isPlatformBrowser(this.platformId)) {
-            if (window['Prism'] && this.codeElement && !this.codeElement.nativeElement.classList.contains('prism')) {
-                window['Prism'].highlightElement(this.codeElement.nativeElement);
-                this.codeElement.nativeElement.classList.add('prism');
-                this.codeElement.nativeElement.setAttribute('tabindex', '-1');
-                this.codeElement.nativeElement.parentElement?.setAttribute('tabindex', '-1');
+            if (code && isPlatformBrowser(this.platformId)) {
+                const source = code[lang] || '';
+                const shikiLang = lang === 'html' ? 'html' : lang === 'scss' ? 'scss' : lang === 'command' ? 'bash' : 'typescript';
+
+                this.highlightService.highlight(source, shikiLang).then((html) => {
+                    this.highlightedHtml.set(this.sanitizer.bypassSecurityTrustHtml(html));
+                });
             }
-        }
+        });
     }
 
     changeLang(newLang: string) {
         this.lang.set(newLang);
-        // Re-highlight after lang change
-        setTimeout(() => this.highlightCode(), 0);
     }
 
     async copyCode() {
@@ -191,15 +171,8 @@ export class AppCode {
     }
 
     toggleCode() {
-        const isVisible = !this.fullCodeVisible();
-        this.fullCodeVisible.set(isVisible);
-
-        const code = this.resolvedCode();
-        if (code) {
-            this.lang.set('typescript');
-            // Re-highlight after toggle
-            setTimeout(() => this.highlightCode(), 0);
-        }
+        this.fullCodeVisible.set(!this.fullCodeVisible());
+        this.lang.set('typescript');
     }
 
     openStackBlitz() {

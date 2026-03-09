@@ -4,6 +4,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { RouterModule } from '@angular/router';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppCode } from '@/components/doc/app.code';
 
 interface AutoCompleteCompleteEvent {
@@ -14,17 +15,19 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'ifta-label-doc',
     standalone: true,
-    imports: [FormsModule, AutoCompleteModule, IftaLabelModule, RouterModule, AppDocSectionText, AppCode],
+    imports: [FormsModule, AutoCompleteModule, IftaLabelModule, RouterModule, AppDocSectionText, AppCode, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for more information.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-iftalabel>
-                <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" inputId="ac" />
-                <label for="ac">Identifier</label>
-            </p-iftalabel>
-        </div>
-        <app-code></app-code>`
+        <app-demo-wrapper name="ifta-label-demo">
+            <div class="flex justify-center">
+                <p-iftalabel>
+                    <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" inputId="ac" />
+                    <label for="ac">Identifier</label>
+                </p-iftalabel>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>`
 })
 export class IftaLabelDoc {
     items: any[] | undefined;

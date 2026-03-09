@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -11,48 +12,50 @@ import { ChipModule } from 'primeng/chip';
 @Component({
     selector: 'advanced-chips-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, AutoCompleteModule, ChipModule, AppDocSectionText, AppCode],
+    imports: [CommonModule, FormsModule, AutoCompleteModule, ChipModule, AppDocSectionText, AppCode, AppDemoWrapper],
     providers: [ProductService],
     template: ` <app-docsectiontext>
             <p>This example demonstrates an advanced use case with templating, object handling, dropdown, and multiple mode.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-autocomplete
-                [(ngModel)]="selectedProducts"
-                [suggestions]="filteredProducts"
-                (completeMethod)="filterProducts($event)"
-                inputId="advanced-chips"
-                [multiple]="true"
-                [fluid]="true"
-                [typeahead]="false"
-                [dropdown]="true"
-                [optionLabel]="getProductLabel"
-                [optionValue]="getProductValue"
-                placeholder="Add products"
-            >
-                <ng-template let-product #item>
-                    <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
-                        <div class="flex-1 flex flex-col">
-                            <span class="font-medium text-sm">{{ product.name }}</span>
-                            <span class="text-sm text-surface-500 dark:text-surface-400">{{ product.category }}</span>
+        <app-demo-wrapper name="advanced-chips-demo">
+            <div>
+                <p-autocomplete
+                    [(ngModel)]="selectedProducts"
+                    [suggestions]="filteredProducts"
+                    (completeMethod)="filterProducts($event)"
+                    inputId="advanced-chips"
+                    [multiple]="true"
+                    [fluid]="true"
+                    [typeahead]="false"
+                    [dropdown]="true"
+                    [optionLabel]="getProductLabel"
+                    [optionValue]="getProductValue"
+                    placeholder="Add products"
+                >
+                    <ng-template let-product #item>
+                        <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                            <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
+                            <div class="flex-1 flex flex-col">
+                                <span class="font-medium text-sm">{{ product.name }}</span>
+                                <span class="text-sm text-surface-500 dark:text-surface-400">{{ product.category }}</span>
+                            </div>
+                            <span class="font-bold sm:ml-8">\${{ product.price }}</span>
                         </div>
-                        <span class="font-bold sm:ml-8">\${{ product.price }}</span>
-                    </div>
-                </ng-template>
-                <ng-template let-value #selecteditem>
-                    @if (value.price) {
-                        <div class="flex align-items-center gap-2">
-                            <span class="font-semibold">{{ value.name }}</span>
-                            <span class="text-primary text-sm font-bold">\${{ value.price }}</span>
-                        </div>
-                    } @else {
-                        <span class="font-semibold">{{ value }}</span>
-                    }
-                </ng-template>
-            </p-autocomplete>
-        </div>
-        <app-code></app-code>`
+                    </ng-template>
+                    <ng-template let-value #selecteditem>
+                        @if (value.price) {
+                            <div class="flex align-items-center gap-2">
+                                <span class="font-semibold">{{ value.name }}</span>
+                                <span class="text-primary text-sm font-bold">\${{ value.price }}</span>
+                            </div>
+                        } @else {
+                            <span class="font-semibold">{{ value }}</span>
+                        }
+                    </ng-template>
+                </p-autocomplete>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>`
 })
 export class AdvancedChipsDoc implements OnInit {
     products = signal<Product[]>([]);
