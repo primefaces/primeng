@@ -10,7 +10,8 @@ catalog:
     '@primeuix/motion': ^0.0.10
     '@primeuix/mcp': ^1.0.0
     'tailwindcss-primeui': ^0.6.1
-    'primeicons': ^7.0.0
+    '@primeicons/angular': 8.0.0-alpha.7
+    'primeicons': 8.0.0-alpha.7
 
 catalogs:
     angular21:

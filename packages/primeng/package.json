@@ -57,6 +57,7 @@
         "rxjs": "^6.0.0 || ^7.8.1"
     },
     "dependencies": {
+        "@primeicons/angular": "catalog:",
         "@primeuix/styled": "catalog:",
         "@primeuix/utils": "catalog:",
         "@primeuix/styles": "catalog:",
