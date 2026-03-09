@@ -3,7 +3,8 @@ import { ChangeDetectionStrategy, Component, computed, contentChild, HostListene
 import { findSingle, focus, getAttribute } from '@primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
+import { ChevronDown as ChevronDownIcon } from '@primeicons/angular/chevron-down';
+import { ChevronUp as ChevronUpIcon } from '@primeicons/angular/chevron-up';
 import { Ripple } from 'primeng/ripple';
 import { AccordionHeaderPassThrough, AccordionToggleIconTemplateContext } from 'primeng/types/accordion';
 import type { Accordion } from './accordion';

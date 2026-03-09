@@ -5,7 +5,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ChipProps, ChipPassThrough } from 'primeng/types/chip';
 import { ChipStyle } from './style/chipstyle';
-import { TimesCircleIcon } from 'primeng/icons';
+import { TimesCircle as TimesCircleIcon } from '@primeicons/angular/times-circle';
 
 const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
 

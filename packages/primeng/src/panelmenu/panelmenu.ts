@@ -6,7 +6,8 @@ import { equals, findSingle, focus, getAttribute, isNotEmpty, resolve, uuid } fr
 import { MenuItem, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { ChevronDownIcon, ChevronRightIcon } from 'primeng/icons';
+import { ChevronDown as ChevronDownIcon } from '@primeicons/angular/chevron-down';
+import { ChevronRight as ChevronRightIcon } from '@primeicons/angular/chevron-right';
 import { MotionModule } from 'primeng/motion';
 import { TooltipModule } from 'primeng/tooltip';
 import { PanelMenuItemTemplateContext, PanelMenuPassThrough } from 'primeng/types/panelmenu';

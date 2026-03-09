@@ -2,9 +2,9 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input, signal, ViewEncapsulation } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
-import { SortAltIcon } from 'primeng/icons/sortalt';
-import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
-import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
+import { SortAlt } from '@primeicons/angular/sort-alt';
+import { SortAmountDown } from '@primeicons/angular/sort-amount-down';
+import { SortAmountUpAlt } from '@primeicons/angular/sort-amount-up-alt';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableStyle } from './style/tablestyle';
 import { TABLE_INSTANCE } from './table-service';
@@ -13,7 +13,7 @@ import type { Table } from './table';
 @Component({
     selector: 'p-sort-icon, p-sorticon',
     standalone: true,
-    imports: [NgTemplateOutlet, BadgeModule, SortAltIcon, SortAmountUpAltIcon, SortAmountDownIcon],
+    imports: [NgTemplateOutlet, BadgeModule, SortAlt, SortAmountUpAlt, SortAmountDown],
     template: `
         @if (!dataTable.sortIconTemplate()) {
             @if (sortOrder() === 0) {

@@ -5,7 +5,7 @@ import { resolveFieldData } from '@primeuix/utils';
 import { BlockableUI, FilterService, Footer, Header, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { SpinnerIcon } from 'primeng/icons';
+import { Spinner as SpinnerIcon } from '@primeicons/angular/spinner';
 import { PaginatorModule } from 'primeng/paginator';
 import {
     DataViewGridTemplateContext,

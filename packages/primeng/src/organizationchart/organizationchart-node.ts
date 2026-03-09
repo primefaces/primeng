@@ -3,7 +3,8 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, computed, inject,
 import { TreeNode } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BindModule } from 'primeng/bind';
-import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
+import { ChevronDown as ChevronDownIcon } from '@primeicons/angular/chevron-down';
+import { ChevronUp as ChevronUpIcon } from '@primeicons/angular/chevron-up';
 import type { OrganizationChart } from './organizationchart';
 import { ORGANIZATIONCHART_INSTANCE } from './organizationchart-token';
 import { OrganizationChartStyle } from './style/organizationchartstyle';

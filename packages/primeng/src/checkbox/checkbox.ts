@@ -26,8 +26,8 @@ import { SharedModule } from 'primeng/api';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Bind, BindModule } from 'primeng/bind';
-import { CheckIcon } from 'primeng/icons/check';
-import { MinusIcon } from 'primeng/icons/minus';
+import { Check } from '@primeicons/angular/check';
+import { Minus } from '@primeicons/angular/minus';
 import { Nullable } from 'primeng/ts-helpers';
 import type { CSSProperties, InputSize, InputVariant } from 'primeng/types/shared';
 import { CheckboxChangeEvent, CheckboxIconTemplateContext, CheckboxPassThrough } from 'primeng/types/checkbox';
@@ -47,7 +47,7 @@ export const CHECKBOX_VALUE_ACCESSOR: Provider = {
 @Component({
     selector: 'p-checkbox, p-check-box',
     standalone: true,
-    imports: [NgTemplateOutlet, SharedModule, CheckIcon, MinusIcon, BindModule],
+    imports: [NgTemplateOutlet, SharedModule, Check, Minus, BindModule],
     template: `
         <input
             #input

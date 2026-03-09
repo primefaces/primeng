@@ -11,10 +11,10 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { FilterIcon } from 'primeng/icons/filter';
-import { FilterFillIcon } from 'primeng/icons/filterfill';
-import { PlusIcon } from 'primeng/icons/plus';
-import { TrashIcon } from 'primeng/icons/trash';
+import { Filter } from '@primeicons/angular/filter';
+import { FilterFill } from '@primeicons/angular/filter-fill';
+import { Plus } from '@primeicons/angular/plus';
+import { Trash } from '@primeicons/angular/trash';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { MotionModule } from 'primeng/motion';
@@ -34,7 +34,7 @@ import type { Table } from './table';
 @Component({
     selector: 'p-column-filter, p-columnfilter',
     standalone: true,
-    imports: [NgTemplateOutlet, FormsModule, ButtonModule, SelectModule, InputTextModule, InputNumberModule, CheckboxModule, DatePickerModule, BindModule, MotionModule, FilterIcon, FilterFillIcon, TrashIcon, PlusIcon, ColumnFilterFormElement],
+    imports: [NgTemplateOutlet, FormsModule, ButtonModule, SelectModule, InputTextModule, InputNumberModule, CheckboxModule, DatePickerModule, BindModule, MotionModule, Filter, FilterFill, Trash, Plus, ColumnFilterFormElement],
     template: `
         <div [class]="cx('filter')">
             @if (display() === 'row') {

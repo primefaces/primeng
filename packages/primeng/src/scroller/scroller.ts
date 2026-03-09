@@ -4,7 +4,7 @@ import { findSingle, getHeight, getWidth, isTouchDevice, isVisible } from '@prim
 import { ScrollerOptions } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { SpinnerIcon } from 'primeng/icons';
+import { Spinner as SpinnerIcon } from '@primeicons/angular/spinner';
 import { VoidListener } from 'primeng/ts-helpers';
 import {
     ScrollerContentTemplateContext,

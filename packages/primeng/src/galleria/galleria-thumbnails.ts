@@ -3,7 +3,10 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, computed, Element
 import { addClass, find, findSingle, focus, getAttribute, removeClass, setAttribute } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from 'primeng/icons';
+import { ChevronDown as ChevronDownIcon } from '@primeicons/angular/chevron-down';
+import { ChevronLeft as ChevronLeftIcon } from '@primeicons/angular/chevron-left';
+import { ChevronRight as ChevronRightIcon } from '@primeicons/angular/chevron-right';
+import { ChevronUp as ChevronUpIcon } from '@primeicons/angular/chevron-up';
 import { Ripple } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
 import type { GalleriaPassThrough, GalleriaResponsiveOptions } from 'primeng/types/galleria';

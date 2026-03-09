@@ -3,7 +3,8 @@ import { booleanAttribute, Component, computed, inject, input, numberAttribute, 
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BindModule } from 'primeng/bind';
-import { BlankIcon, CheckIcon } from 'primeng/icons';
+import { Check as CheckIcon } from '@primeicons/angular/check';
+import { BlankIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import type { Select } from './select';
 import { SELECT_INSTANCE, SELECT_ITEM_INSTANCE } from './select-token';

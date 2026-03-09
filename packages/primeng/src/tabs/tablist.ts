@@ -4,7 +4,8 @@ import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
+import { ChevronLeft as ChevronLeftIcon } from '@primeicons/angular/chevron-left';
+import { ChevronRight as ChevronRightIcon } from '@primeicons/angular/chevron-right';
 import { RippleModule } from 'primeng/ripple';
 import { TabListStyle } from './style/tabliststyle';
 import { Tabs } from './tabs';

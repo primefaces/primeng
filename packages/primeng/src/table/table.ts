@@ -9,9 +9,9 @@ import { CheckboxChangeEvent } from 'primeng/checkbox';
 import { DomHandler } from 'primeng/dom';
 import { PaginatorModule } from 'primeng/paginator';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ArrowDownIcon } from 'primeng/icons/arrowdown';
-import { ArrowUpIcon } from 'primeng/icons/arrowup';
-import { SpinnerIcon } from 'primeng/icons/spinner';
+import { ArrowDown } from '@primeicons/angular/arrow-down';
+import { ArrowUp } from '@primeicons/angular/arrow-up';
+import { Spinner } from '@primeicons/angular/spinner';
 import {
     ExportCSVOptions,
     TableColResizeEvent,
@@ -54,7 +54,7 @@ import { TABLE_INSTANCE, TableService } from './table-service';
 @Component({
     selector: 'p-table',
     standalone: true,
-    imports: [NgTemplateOutlet, PaginatorModule, ScrollerModule, FormsModule, BindModule, SpinnerIcon, ArrowDownIcon, ArrowUpIcon, TableBody],
+    imports: [NgTemplateOutlet, PaginatorModule, ScrollerModule, FormsModule, BindModule, Spinner, ArrowDown, ArrowUp, TableBody],
     template: `
         @if (showLoadingMask()) {
             <div [class]="cx('mask')" [pBind]="ptm('mask')" animate.enter="p-overlay-mask-enter-active" animate.leave="p-overlay-mask-leave-active">

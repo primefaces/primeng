@@ -4,7 +4,7 @@ import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableChara
 import { MegaMenuItem, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { BarsIcon } from 'primeng/icons';
+import { Bars as BarsIcon } from '@primeicons/angular/bars';
 import { VoidListener } from 'primeng/ts-helpers';
 import { MegaMenuFocusedItemInfo, MegaMenuItemClickEvent, MegaMenuItemMouseEnterEvent, MegaMenuItemTemplateContext, MegaMenuOrientation, MegaMenuPassThrough, ProcessedMegaMenuItem } from 'primeng/types/megamenu';
 import { ZIndexUtils } from 'primeng/utils';

@@ -28,7 +28,14 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Button } from 'primeng/button';
 import type { ButtonProps } from 'primeng/types/button';
-import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from 'primeng/icons';
+import { AngleDoubleDown as AngleDoubleDownIcon } from '@primeicons/angular/angle-double-down';
+import { AngleDoubleLeft as AngleDoubleLeftIcon } from '@primeicons/angular/angle-double-left';
+import { AngleDoubleRight as AngleDoubleRightIcon } from '@primeicons/angular/angle-double-right';
+import { AngleDoubleUp as AngleDoubleUpIcon } from '@primeicons/angular/angle-double-up';
+import { AngleDown as AngleDownIcon } from '@primeicons/angular/angle-down';
+import { AngleLeft as AngleLeftIcon } from '@primeicons/angular/angle-left';
+import { AngleRight as AngleRightIcon } from '@primeicons/angular/angle-right';
+import { AngleUp as AngleUpIcon } from '@primeicons/angular/angle-up';
 import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
 import type { CSSProperties } from 'primeng/types/shared';
 import {

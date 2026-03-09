@@ -34,7 +34,9 @@ import { BaseInput } from 'primeng/baseinput';
 import { Bind, BindModule } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Fluid } from 'primeng/fluid';
-import { EyeIcon, EyeSlashIcon, TimesIcon } from 'primeng/icons';
+import { Eye as EyeIcon } from '@primeicons/angular/eye';
+import { EyeSlash as EyeSlashIcon } from '@primeicons/angular/eye-slash';
+import { Times as TimesIcon } from '@primeicons/angular/times';
 import { InputText } from 'primeng/inputtext';
 import { Overlay } from 'primeng/overlay';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -472,7 +474,7 @@ export const Password_VALUE_ACCESSOR: any = {
         @if (toggleMask()) {
             @if (unmasked()) {
                 @if (!hideIconTemplate()) {
-                    <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [pBind]="ptm('maskIcon')" (click)="onMaskToggle()" />
+                    <svg data-p-icon="eye-slash" [class]="cx('maskIcon')" [pBind]="ptm('maskIcon')" (click)="onMaskToggle()" />
                 } @else {
                     <span (click)="onMaskToggle()" [pBind]="ptm('maskIcon')">
                         <ng-container *ngTemplateOutlet="hideIconTemplate(); context: maskIconContext"></ng-container>

@@ -26,7 +26,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Button } from 'primeng/button';
 import type { ButtonProps } from 'primeng/types/button';
-import { PlusIcon } from 'primeng/icons';
+import { Plus as PlusIcon } from '@primeicons/angular/plus';
 import { TooltipModule } from 'primeng/tooltip';
 import type { CSSProperties } from 'primeng/types/shared';
 import { SpeedDialButtonTemplateContext, SpeedDialDirection, SpeedDialItemTemplateContext, SpeedDialPassThrough, SpeedDialType } from 'primeng/types/speeddial';

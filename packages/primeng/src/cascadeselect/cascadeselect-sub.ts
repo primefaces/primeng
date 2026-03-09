@@ -4,7 +4,7 @@ import { calculateScrollbarWidth, equals, getHiddenElementOuterWidth, getOffset,
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { AngleRightIcon } from 'primeng/icons';
+import { AngleRight as AngleRightIcon } from '@primeicons/angular/angle-right';
 import { Ripple } from 'primeng/ripple';
 import type { CascadeSelectOptionTemplateContext, CascadeSelectProcessedOption, CascadeSelectSubChangeEvent, CascadeSelectSubFocusChangeEvent } from 'primeng/types/cascadeselect';
 import type { CascadeSelect } from './cascadeselect';

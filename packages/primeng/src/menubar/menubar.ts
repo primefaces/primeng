@@ -4,7 +4,7 @@ import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableChara
 import { MenuItem, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { BarsIcon } from 'primeng/icons';
+import { Bars as BarsIcon } from '@primeicons/angular/bars';
 import { VoidListener } from 'primeng/ts-helpers';
 import { FocusedItemInfo, MenubarItemClickEvent, MenubarItemMouseEnterEvent, MenubarItemTemplateContext, MenubarPassThrough, ProcessedMenuItem } from 'primeng/types/menubar';
 import { ZIndexUtils } from 'primeng/utils';

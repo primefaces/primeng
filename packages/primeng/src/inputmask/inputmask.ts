@@ -55,7 +55,7 @@ import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseInput } from 'primeng/baseinput';
 import { Bind } from 'primeng/bind';
-import { TimesIcon } from 'primeng/icons';
+import { Times as TimesIcon } from '@primeicons/angular/times';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import type { Caret, InputMaskPassThrough } from 'primeng/types/inputmask';

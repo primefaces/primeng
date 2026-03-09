@@ -7,7 +7,7 @@ import { MenuItem, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BindModule } from 'primeng/bind';
-import { AngleRightIcon } from 'primeng/icons';
+import { AngleRight as AngleRightIcon } from '@primeicons/angular/angle-right';
 import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';

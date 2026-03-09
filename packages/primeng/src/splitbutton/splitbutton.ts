@@ -6,7 +6,7 @@ import { MenuItem, TooltipOptions } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Button } from 'primeng/button';
-import { ChevronDownIcon } from 'primeng/icons';
+import { ChevronDown as ChevronDownIcon } from '@primeicons/angular/chevron-down';
 import type { AppendTo, CSSProperties } from 'primeng/types/shared';
 import { TieredMenu } from 'primeng/tieredmenu';
 import { TooltipModule } from 'primeng/tooltip';

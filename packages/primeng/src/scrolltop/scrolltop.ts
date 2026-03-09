@@ -7,7 +7,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Button } from 'primeng/button';
 import type { ButtonProps } from 'primeng/button';
-import { ChevronUpIcon } from 'primeng/icons';
+import { ChevronUp as ChevronUpIcon } from '@primeicons/angular/chevron-up';
 import { MotionDirective } from 'primeng/motion';
 import type { CSSProperties } from 'primeng/types/shared';
 import type { ScrollTopIconTemplateContext, ScrollTopPassThrough, ScrollTopTarget, ScrollTopBehavior } from 'primeng/types/scrolltop';

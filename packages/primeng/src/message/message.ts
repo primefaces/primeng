@@ -4,7 +4,7 @@ import { MotionOptions } from '@primeuix/motion';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { TimesIcon } from 'primeng/icons';
+import { Times as TimesIcon } from '@primeicons/angular/times';
 import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { MessageCloseEvent, MessageContainerTemplateContext, MessagePassThrough, MessageSeverity, MessageSize, MessageVariant } from 'primeng/types/message';

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, ElementRef, HostListener,
 import { uuid } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { TimesIcon } from 'primeng/icons';
+import { Times as TimesIcon } from '@primeicons/angular/times';
 import type { GalleriaPassThrough } from 'primeng/types/galleria';
 import type { Galleria } from './galleria';
 import { GalleriaItem } from './galleria-item';

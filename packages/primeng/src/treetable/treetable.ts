@@ -5,7 +5,9 @@ import { BlockableUI, FilterMetadata, FilterService, ScrollerOptions, SortMeta, 
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { DomHandler } from 'primeng/dom';
-import { ArrowDownIcon, ArrowUpIcon, SpinnerIcon } from 'primeng/icons';
+import { ArrowDown as ArrowDownIcon } from '@primeicons/angular/arrow-down';
+import { ArrowUp as ArrowUpIcon } from '@primeicons/angular/arrow-up';
+import { Spinner as SpinnerIcon } from '@primeicons/angular/spinner';
 import { PaginatorModule } from 'primeng/paginator';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import type { CSSProperties } from 'primeng/types/shared';

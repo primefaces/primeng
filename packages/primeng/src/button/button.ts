@@ -6,7 +6,7 @@ import { BadgeModule } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Fluid } from 'primeng/fluid';
-import { SpinnerIcon } from 'primeng/icons';
+import { Spinner as SpinnerIcon } from '@primeicons/angular/spinner';
 import { Ripple } from 'primeng/ripple';
 import type { ButtonIconPosition, ButtonIconTemplateContext, ButtonLoadingIconTemplateContext, ButtonPassThrough, ButtonProps, ButtonSeverity, ButtonSize, ButtonVariant } from 'primeng/types/button';
 import type { CSSProperties } from 'primeng/types/shared';

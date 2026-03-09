@@ -5,7 +5,7 @@ import { Badge } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Button } from 'primeng/button';
-import { TimesIcon } from 'primeng/icons';
+import { Times as TimesIcon } from '@primeicons/angular/times';
 import { FileContentRemoveEvent, FileRemoveIconTemplateContext } from 'primeng/types/fileupload';
 import type { FileUpload } from './fileupload';
 import { FILEUPLOAD_INSTANCE } from './fileupload-token';
