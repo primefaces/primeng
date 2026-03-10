@@ -21,7 +21,9 @@ const classes = {
             'p-toggleswitch p-component': true,
             'p-toggleswitch-checked': instance.checked(),
             'p-disabled': instance.$disabled(),
-            'p-invalid': instance.invalid()
+            'p-invalid': instance.invalid(),
+            'p-toggleswitch-sm p-inputfield-sm': instance.size() === 'small',
+            'p-toggleswitch-lg p-inputfield-lg': instance.size() === 'large'
         }
     ],
 
