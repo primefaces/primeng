@@ -1,12 +1,13 @@
 import { Component, computed, contentChild, inject, input, signal } from '@angular/core';
 import { TooltipModule } from 'primeng/tooltip';
 import { AppCode } from './app.code';
-import { DEMO_MODE } from './demo-mode.token';
+import { DEMO_MODE, IN_DEMO_WRAPPER } from './demo-mode.token';
 
 @Component({
     selector: 'app-demo-wrapper',
     standalone: true,
     imports: [TooltipModule],
+    providers: [{ provide: IN_DEMO_WRAPPER, useValue: true }],
     template: `
         <div class="doc-section-demo">
             <div class="doc-section-demo-card">
@@ -24,16 +25,14 @@ import { DEMO_MODE } from './demo-mode.token';
                             </button>
                         } @else {
                             <button class="doc-section-demo-action" [pTooltip]="appCode()?.fullCodeVisible() ? 'Collapse' : 'Expand'" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip" (click)="appCode()?.toggleCode()">
-                                <i class="pi pi-arrows-v"></i>
+                                <i class="pi" [class.pi-arrow-up-right-and-arrow-down-left-from-center]="!appCode()?.fullCodeVisible()" [class.pi-arrow-down-left-and-arrow-up-right-to-center]="appCode()?.fullCodeVisible()"></i>
                             </button>
                         }
                         <button class="doc-section-demo-action" pTooltip="Edit in StackBlitz" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip" (click)="appCode()?.openStackBlitz()">
-                            <svg role="img" width="13" height="18" viewBox="0 0 13 19" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 10.6533H5.43896L2.26866 18.1733L12.6667 7.463H7.1986L10.3399 0L0 10.6533Z" />
-                            </svg>
+                            <i class="pi pi-bolt"></i>
                         </button>
-                        <button class="doc-section-demo-action" pTooltip="Copy Code" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip" (click)="appCode()?.copyCode()">
-                            <i class="pi pi-copy"></i>
+                        <button class="doc-section-demo-action" [pTooltip]="copied() ? 'Copied!' : 'Copy Code'" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip" (click)="copyCode()">
+                            <i class="pi" [class.pi-clone]="!copied()" [class.pi-check]="copied()"></i>
                         </button>
                     </div>
                 </div>
@@ -48,12 +47,22 @@ export class AppDemoWrapper {
     name = input<string>('');
 
     private demoMode = inject(DEMO_MODE, { optional: true });
+
     isCollapsible = computed(() => this.demoMode === 'collapsible');
+
     codeVisible = signal(false);
+
+    copied = signal(false);
 
     appCode = contentChild(AppCode);
 
     toggleCodeVisibility() {
         this.codeVisible.update((v) => !v);
+    }
+
+    async copyCode() {
+        await this.appCode()?.copyCode();
+        this.copied.set(true);
+        setTimeout(() => this.copied.set(false), 2000);
     }
 }

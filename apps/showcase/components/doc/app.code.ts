@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { useCodeSandbox, useStackBlitz } from './codeeditor';
+import { IN_DEMO_WRAPPER } from './demo-mode.token';
 
 @Component({
     selector: 'app-code',
@@ -17,23 +18,23 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
     template: `
         @if (resolvedCode()) {
             <div class="doc-section-code">
-                <div class="doc-section-code-buttons animate-scalein animate-duration-300">
-                    @if (!hideToggleCode()) {
-                        <button [pTooltip]="fullCodeVisible() ? 'Collapse' : 'Expand'" tooltipStyleClass="doc-section-code-tooltip" tooltipPosition="bottom" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="toggleCode()">
-                            <i class="pi pi-arrows-v"></i>
+                @if (!inDemoWrapper) {
+                    <div class="doc-section-code-buttons animate-scalein animate-duration-300">
+                        @if (!hideToggleCode()) {
+                            <button [pTooltip]="fullCodeVisible() ? 'Collapse' : 'Expand'" tooltipStyleClass="doc-section-code-tooltip" tooltipPosition="bottom" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="toggleCode()">
+                                <i class="pi" [class.pi-arrow-up-right-and-arrow-down-left-from-center]="!fullCodeVisible()" [class.pi-arrow-down-left-and-arrow-up-right-to-center]="fullCodeVisible()"></i>
+                            </button>
+                        }
+                        @if (!hideStackBlitz() && !hideToggleCode()) {
+                            <button pTooltip="Edit in StackBlitz" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="openStackBlitz()">
+                                <i class="pi pi-bolt"></i>
+                            </button>
+                        }
+                        <button type="button" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="copyCode()" pTooltip="Copy Code" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip">
+                            <i class="pi pi-clone"></i>
                         </button>
-                    }
-                    @if (!hideStackBlitz() && !hideToggleCode()) {
-                        <button pTooltip="Edit in StackBlitz" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="openStackBlitz()">
-                            <svg role="img" width="13" height="18" viewBox="0 0 13 19" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="display: 'block'">
-                                <path d="M0 10.6533H5.43896L2.26866 18.1733L12.6667 7.463H7.1986L10.3399 0L0 10.6533Z" />
-                            </svg>
-                        </button>
-                    }
-                    <button type="button" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="copyCode()" pTooltip="Copy Code" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip">
-                        <i class="pi pi-copy"></i>
-                    </button>
-                </div>
+                    </div>
+                }
 
                 <div dir="ltr" [style]="{ 'max-height': codeHeight() }" class="overflow-auto" [innerHTML]="highlightedHtml()"></div>
             </div>
@@ -97,6 +98,8 @@ export class AppCode {
         }
         return 'typescript';
     });
+
+    inDemoWrapper = inject(IN_DEMO_WRAPPER, { optional: true }) ?? false;
 
     private demoCodeService = inject(DemoCodeService);
     private highlightService = inject(HighlightService);

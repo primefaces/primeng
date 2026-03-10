@@ -186,23 +186,45 @@
     max-height: calc(100vh - 12.25rem);
 }
 
+.doc-section-nav-title {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-color);
+    padding-block-end: 0.5rem;
+}
 
 .doc-section-nav {
     list-style: none;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    padding-inline-start: 1rem;
+    position: relative;
 
+    // Static border line (full height)
+    &::before {
+        content: '';
+        position: absolute;
+        inset-inline-start: 0;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: var(--border-color);
+    }
 
-    >.navbar-item {
-        .navbar-item-content {
-            border-inline-start: 1px solid var(--border-color);
-            padding-inline-start: 0.219rem;
-            transition: all .2s;
-
-            &:hover {
-                border-inline-start-color: var(--hover-border-color);
-            }
-        }
+    // Animated active indicator (slides)
+    &::after {
+        content: '';
+        position: absolute;
+        inset-inline-start: 0;
+        top: var(--indicator-top, 0px);
+        height: var(--indicator-height, 0px);
+        width: 1px;
+        background: var(--p-primary-color);
+        transition: top 0.2s ease, height 0.2s ease;
+        z-index: 1;
     }
 
     .navbar-item {
@@ -216,14 +238,14 @@
                 background: transparent;
                 margin: 0;
                 border: 0 none;
-                padding-block: 0.219rem;
-                padding-inline: 0.875rem;
+                padding-block: 0.25rem;
+                padding-inline: 0;
                 color: var(--text-secondary-color);
                 white-space: nowrap;
                 min-width: 0;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                transition: outline-color 0.2s, border-color .2s;
+                transition: color 0.2s;
                 outline-color: transparent;
                 cursor: pointer;
                 user-select: none;
@@ -233,15 +255,13 @@
 
             &:hover {
                 button {
-                    color: var(--text-color);
+                    color: var(--primary-text-color);
                 }
             }
         }
 
         &.active-navbar-item {
             >.navbar-item-content {
-                border-color: var(--primary-text-color);
-
                 button {
                     color: var(--primary-text-color);
                 }
@@ -255,14 +275,18 @@
 
             .navbar-item {
                 .navbar-item-content {
-                    padding-inline-start: 0.875rem;
+                    button {
+                        padding-inline-start: 0.875rem;
+                    }
                 }
             }
 
             ul {
                 .navbar-item {
                     .navbar-item-content {
-                        padding-inline-start: 1.75rem;
+                        button {
+                            padding-inline-start: 1.75rem;
+                        }
                     }
                 }
             }
@@ -375,10 +399,6 @@ app-code + app-code {
 
     .doc-section-code {
         margin: 0 !important;
-    }
-
-    .doc-section-code-buttons {
-        display: none !important;
     }
 
     .overflow-auto {

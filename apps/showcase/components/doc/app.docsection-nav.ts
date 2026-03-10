@@ -1,6 +1,6 @@
 import { Doc } from '@/domain/doc';
 import { CommonModule, DOCUMENT, isPlatformBrowser, Location } from '@angular/common';
-import { Component, DestroyRef, ElementRef, inject, input, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, inject, input, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -14,6 +14,7 @@ import { fromEvent } from 'rxjs';
     imports: [CommonModule, ButtonModule, RouterLink],
     template: `
         <div class="doc-section-nav-container">
+            <span class="doc-section-nav-title">ON THIS PAGE</span>
             <ul #nav class="doc-section-nav">
                 @for (doc of docs(); track doc.label) {
                     @if (!doc.isInterface) {
@@ -85,7 +86,7 @@ import { fromEvent } from 'rxjs';
         </div>
     `
 })
-export class AppDocSectionNav implements OnInit {
+export class AppDocSectionNav implements OnInit, AfterViewInit {
     docs = input.required<Doc[]>();
 
     activeId = signal<string | null>(null);
@@ -148,6 +149,12 @@ export class AppDocSectionNav implements OnInit {
         this.ad = this.ads[Math.floor(Math.random() * this.ads.length)];
     }
 
+    ngAfterViewInit() {
+        if (isPlatformBrowser(this.platformId)) {
+            setTimeout(() => this.updateIndicator(), 300);
+        }
+    }
+
     scrollCurrentUrl() {
         const hash = window.location.hash.substring(1);
         const hasHash = ObjectUtils.isNotEmpty(hash);
@@ -187,8 +194,10 @@ export class AppDocSectionNav implements OnInit {
                 this.isScrollBlocked = false;
 
                 const activeItem = DomHandler.findSingle(this.nav.nativeElement, '.active-navbar-item');
-
-                activeItem && activeItem.scrollIntoView({ block: 'nearest', inline: 'start' });
+                if (activeItem) {
+                    activeItem.scrollIntoView({ block: 'nearest', inline: 'start' });
+                }
+                this.updateIndicator();
             }, 50);
         }
     }
@@ -198,6 +207,7 @@ export class AppDocSectionNav implements OnInit {
         setTimeout(() => {
             this.scrollToLabelById(doc.id);
             this.isScrollBlocked = true;
+            this.updateIndicator();
         }, 1);
     }
 
@@ -211,6 +221,19 @@ export class AppDocSectionNav implements OnInit {
         }
 
         return this.topbarHeight + DomHandler.getHeight(label) * 3.5;
+    }
+
+    updateIndicator() {
+        const navEl = this.nav?.nativeElement;
+        if (!navEl) return;
+
+        const activeItem = DomHandler.findSingle(navEl, '.active-navbar-item > .navbar-item-content');
+        if (activeItem) {
+            const top = activeItem.offsetTop;
+            const height = activeItem.offsetHeight;
+            navEl.style.setProperty('--indicator-top', `${top}px`);
+            navEl.style.setProperty('--indicator-height', `${height}px`);
+        }
     }
 
     scrollToLabelById(id: string) {
