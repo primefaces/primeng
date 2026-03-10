@@ -18,13 +18,13 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
                 <ng-template let-item #item>
                     {{ item.name }}
                 </ng-template>
             </p-picklist>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PickListModule],
@@ -55,7 +55,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-picklist
                 [source]="sourceProducts()"
                 [target]="targetProducts()"
@@ -85,7 +85,7 @@ import { Product } from '@/domain/product';
                     </div>
                 </ng-template>
             </p-picklist>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PickListModule],
@@ -116,7 +116,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
@@ -136,7 +136,7 @@ import { Product } from '@/domain/product';
                     </div>
                 </ng-template>
             </p-picklist>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PickListModule],

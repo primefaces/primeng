@@ -18,9 +18,11 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <input pInputText pInputMask="99-999999" [(ngModel)]="value" placeholder="99-999999" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <input pInputText pInputMask="99-999999" [(ngModel)]="value" placeholder="99-999999" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
@@ -41,9 +43,11 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-inputmask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" [showClear]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-inputmask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" [showClear]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputMaskModule, FormsModule]
@@ -65,9 +69,11 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <input pInputText pInputMask="999-99-9999" [(ngModel)]="value" disabled />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <input pInputText pInputMask="999-99-9999" [(ngModel)]="value" disabled />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
@@ -89,9 +95,11 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <input pInputText pInputMask="99-999999" [(ngModel)]="value" variant="filled" placeholder="99-999999" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <input pInputText pInputMask="99-999999" [(ngModel)]="value" variant="filled" placeholder="99-999999" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
@@ -114,20 +122,22 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel>
-                <input pInputText id="over_label" [(ngModel)]="value1" pInputMask="999-99-9999" />
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="in">
-                <input pInputText id="in_label" [(ngModel)]="value2" pInputMask="999-99-9999" />
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="on">
-                <input pInputText id="on_label" [(ngModel)]="value3" pInputMask="999-99-9999" />
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-end gap-4">
+                <p-floatlabel>
+                    <input pInputText id="over_label" [(ngModel)]="value1" pInputMask="999-99-9999" />
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
+                <p-floatlabel variant="in">
+                    <input pInputText id="in_label" [(ngModel)]="value2" pInputMask="999-99-9999" />
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <input pInputText id="on_label" [(ngModel)]="value3" pInputMask="999-99-9999" />
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FloatLabelModule, InputTextModule, InputMaskModule, FormsModule]
@@ -151,9 +161,9 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <input pInputText pInputMask="99-999999" [(ngModel)]="value" placeholder="99-999999" fluid />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
@@ -176,12 +186,14 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-iftalabel>
-                <input pInputText id="ssn" [(ngModel)]="value" pInputMask="999-99-9999" autocomplete="off" />
-                <label for="ssn">SSN</label>
-            </p-iftalabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-iftalabel>
+                    <input pInputText id="ssn" [(ngModel)]="value" pInputMask="999-99-9999" autocomplete="off" />
+                    <label for="ssn">SSN</label>
+                </p-iftalabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [IftaLabelModule, InputTextModule, InputMaskModule, FormsModule]
@@ -203,10 +215,12 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center gap-4">
-            <input pInputText [(ngModel)]="value1" pInputMask="99-999999" placeholder="Serial Key" [invalid]="!value1" />
-            <input pInputText [(ngModel)]="value2" pInputMask="99-999999" placeholder="Serial Key" [invalid]="!value2" variant="filled" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-4">
+                <input pInputText [(ngModel)]="value1" pInputMask="99-999999" placeholder="Serial Key" [invalid]="!value1" />
+                <input pInputText [(ngModel)]="value2" pInputMask="99-999999" placeholder="Serial Key" [invalid]="!value2" variant="filled" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
@@ -229,20 +243,22 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     template: `
-        <p-fluid class="card flex flex-wrap gap-4">
-            <div class="flex-auto">
-                <span class="font-bold block mb-2">SSN</span>
-                <input pInputText pInputMask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
-            </div>
-            <div class="flex-auto">
-                <span class="font-bold block mb-2">Phone</span>
-                <input pInputText pInputMask="(999) 999-9999" [(ngModel)]="value2" placeholder="(999) 999-9999" />
-            </div>
-            <div class="flex-auto">
-                <span class="font-bold block mb-2">Serial Number</span>
-                <input pInputText pInputMask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999" />
-            </div>
-        </p-fluid>
+        <app-demo-wrapper>
+            <p-fluid class="flex flex-wrap gap-4">
+                <div class="flex-auto">
+                    <span class="font-bold block mb-2">SSN</span>
+                    <input pInputText pInputMask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
+                </div>
+                <div class="flex-auto">
+                    <span class="font-bold block mb-2">Phone</span>
+                    <input pInputText pInputMask="(999) 999-9999" [(ngModel)]="value2" placeholder="(999) 999-9999" />
+                </div>
+                <div class="flex-auto">
+                    <span class="font-bold block mb-2">Serial Number</span>
+                    <input pInputText pInputMask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999" />
+                </div>
+            </p-fluid>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
@@ -266,9 +282,11 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <input pInputText pInputMask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <input pInputText pInputMask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
@@ -295,17 +313,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
-                <div class="flex flex-col gap-1">
-                    <input pInputText pInputMask="99-999999" formControlName="value" placeholder="99-999999" [invalid]="isInvalid('value')" fluid />
-                    @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
+                    <div class="flex flex-col gap-1">
+                        <input pInputText pInputMask="99-999999" formControlName="value" placeholder="99-999999" [invalid]="isInvalid('value')" fluid />
+                        @if (isInvalid('value')) {
+                            <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, ToastModule, ButtonModule, InputTextModule, InputMaskModule, ReactiveFormsModule]
@@ -350,11 +370,13 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <input pInputText [(ngModel)]="value1" placeholder="Small" pSize="small" pInputMask="99-999999" />
-            <input pInputText [(ngModel)]="value2" placeholder="Normal" pInputMask="99-999999" />
-            <input pInputText [(ngModel)]="value3" placeholder="Large" pSize="large" pInputMask="99-999999" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <input pInputText [(ngModel)]="value1" placeholder="Small" pSize="small" pInputMask="99-999999" />
+                <input pInputText [(ngModel)]="value2" placeholder="Normal" pInputMask="99-999999" />
+                <input pInputText [(ngModel)]="value3" placeholder="Large" pSize="large" pInputMask="99-999999" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
@@ -378,9 +400,11 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <input pInputText [(ngModel)]="value" pInputMask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <input pInputText [(ngModel)]="value" pInputMask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
@@ -405,17 +429,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
-                <div class="flex flex-col gap-1">
-                    <input pInputText name="serial" pInputMask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required fluid />
-                    @if (serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
+                    <div class="flex flex-col gap-1">
+                        <input pInputText name="serial" pInputMask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required fluid />
+                        @if (serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, ToastModule, ButtonModule, InputTextModule, InputMaskModule, FormsModule]

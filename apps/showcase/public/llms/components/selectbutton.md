@@ -17,9 +17,11 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectButtonModule, FormsModule]
@@ -44,10 +46,12 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
     template: `
-        <div class="card flex justify-center flex-wrap gap-4">
-            <p-selectbutton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value" [disabled]="true" />
-            <p-selectbutton [options]="stateOptions2" [(ngModel)]="value2" optionLabel="label" optionValue="value" optionDisabled="constant" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center flex-wrap gap-4">
+                <p-selectbutton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value" [disabled]="true" />
+                <p-selectbutton [options]="stateOptions2" [(ngModel)]="value2" optionLabel="label" optionValue="value" optionDisabled="constant" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectButtonModule, FormsModule]
@@ -77,9 +81,9 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" fluid />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectButtonModule, FormsModule]
@@ -104,9 +108,11 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" [invalid]="value === undefined" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" [invalid]="value === undefined" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectButtonModule, FormsModule]
@@ -131,9 +137,11 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-selectbutton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-selectbutton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectButtonModule, FormsModule]
@@ -164,17 +172,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <p-selectbutton [options]="stateOptions" formControlName="value" [invalid]="isInvalid('value')" optionLabel="label" optionValue="value" />
-                    @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">Selection is required</p-message>
-                    }
-                </div>
-                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <p-selectbutton [options]="stateOptions" formControlName="value" [invalid]="isInvalid('value')" optionLabel="label" optionValue="value" />
+                        @if (isInvalid('value')) {
+                            <p-message severity="error" size="small" variant="simple">Selection is required</p-message>
+                        }
+                    </div>
+                    <button pButton type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, SelectButtonModule, ToastModule, ButtonModule, ReactiveFormsModule]
@@ -221,11 +231,13 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <p-selectbutton [(ngModel)]="value1" [options]="options" size="small" />
-            <p-selectbutton [(ngModel)]="value2" [options]="options" />
-            <p-selectbutton [(ngModel)]="value3" [options]="options" size="large" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-selectbutton [(ngModel)]="value1" [options]="options" size="small" />
+                <p-selectbutton [(ngModel)]="value2" [options]="options" />
+                <p-selectbutton [(ngModel)]="value3" [options]="options" size="large" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectButtonModule, FormsModule]
@@ -252,13 +264,15 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-selectbutton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
-                <ng-template #item let-item>
-                    <i [class]="item.icon"></i>
-                </ng-template>
-            </p-selectbutton>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-selectbutton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
+                    <ng-template #item let-item>
+                        <i [class]="item.icon"></i>
+                    </ng-template>
+                </p-selectbutton>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectButtonModule, FormsModule]
@@ -288,17 +302,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <p-selectbutton #model="ngModel" [(ngModel)]="value" [options]="stateOptions" optionLabel="label" optionValue="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" required name="value" />
-                    @if (model.invalid && (model.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
-                    }
-                </div>
-                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <p-selectbutton #model="ngModel" [(ngModel)]="value" [options]="stateOptions" optionLabel="label" optionValue="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" required name="value" />
+                        @if (model.invalid && (model.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
+                        }
+                    </div>
+                    <button pButton type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, SelectButtonModule, ToastModule, ButtonModule, FormsModule]

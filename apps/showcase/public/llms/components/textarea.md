@@ -15,9 +15,11 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <textarea rows="5" cols="30" pTextarea [autoResize]="true"></textarea>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <textarea rows="5" cols="30" pTextarea [autoResize]="true"></textarea>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: []
@@ -35,9 +37,11 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <textarea rows="5" cols="30" pTextarea [(ngModel)]="value"></textarea>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <textarea rows="5" cols="30" pTextarea [(ngModel)]="value"></textarea>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FormsModule]
@@ -56,9 +60,11 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <textarea rows="5" cols="30" pTextarea [disabled]="true"></textarea>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <textarea rows="5" cols="30" pTextarea [disabled]="true"></textarea>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: []
@@ -76,9 +82,11 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <textarea [(ngModel)]="value" [variant]="'filled'" rows="5" cols="30" pTextarea></textarea>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <textarea [(ngModel)]="value" [variant]="'filled'" rows="5" cols="30" pTextarea></textarea>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FormsModule]
@@ -99,20 +107,22 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center items-stretch gap-4">
-            <p-floatlabel>
-                <textarea pTextarea id="over_label" [(ngModel)]="value1" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="in">
-                <textarea pTextarea id="in_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="on">
-                <textarea pTextarea id="on_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-stretch gap-4">
+                <p-floatlabel>
+                    <textarea pTextarea id="over_label" [(ngModel)]="value1" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
+                <p-floatlabel variant="in">
+                    <textarea pTextarea id="in_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <textarea pTextarea id="on_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FloatLabelModule, FormsModule]
@@ -134,9 +144,9 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <textarea rows="5" cols="30" pTextarea [(ngModel)]="value" fluid></textarea>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FormsModule]
@@ -157,12 +167,14 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-iftalabel>
-                <textarea pTextarea id="description" [(ngModel)]="value" rows="5" cols="30" style="resize: none"></textarea>
-                <label for="description">Description</label>
-            </p-iftalabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-iftalabel>
+                    <textarea pTextarea id="description" [(ngModel)]="value" rows="5" cols="30" style="resize: none"></textarea>
+                    <label for="description">Description</label>
+                </p-iftalabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [IftaLabelModule, FormsModule]
@@ -182,9 +194,11 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <textarea rows="5" cols="30" pTextarea [(ngModel)]="value" [invalid]="!value" placeholder="Address"></textarea>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <textarea rows="5" cols="30" pTextarea [(ngModel)]="value" [invalid]="!value" placeholder="Address"></textarea>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FormsModule]
@@ -203,9 +217,11 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <textarea pKeyFilter="int" rows="5" cols="30" pTextarea></textarea>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <textarea pKeyFilter="int" rows="5" cols="30" pTextarea></textarea>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: []
@@ -228,17 +244,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <textarea rows="5" cols="30" pTextarea formControlName="address" [invalid]="isInvalid('address')"></textarea>
-                    @if (isInvalid('address')) {
-                        <p-message severity="error" size="small" variant="simple">Address is required..</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <textarea rows="5" cols="30" pTextarea formControlName="address" [invalid]="isInvalid('address')"></textarea>
+                        @if (isInvalid('address')) {
+                            <p-message severity="error" size="small" variant="simple">Address is required..</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
@@ -281,11 +299,13 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <textarea pTextarea [(ngModel)]="value1" pSize="small" placeholder="Small" rows="3"></textarea>
-            <textarea pTextarea [(ngModel)]="value2" placeholder="Normal" rows="3"></textarea>
-            <textarea pTextarea [(ngModel)]="value3" pSize="large" placeholder="Large" rows="3"></textarea>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <textarea pTextarea [(ngModel)]="value1" pSize="small" placeholder="Small" rows="3"></textarea>
+                <textarea pTextarea [(ngModel)]="value2" placeholder="Normal" rows="3"></textarea>
+                <textarea pTextarea [(ngModel)]="value3" pSize="large" placeholder="Large" rows="3"></textarea>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FormsModule]
@@ -310,17 +330,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <textarea name="address" #address="ngModel" rows="5" cols="30" [(ngModel)]="value" pTextarea [invalid]="address.invalid && (address.touched || exampleForm.submitted)" required></textarea>
-                    @if (address.invalid && (address.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Address is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <textarea name="address" #address="ngModel" rows="5" cols="30" [(ngModel)]="value" pTextarea [invalid]="address.invalid && (address.touched || exampleForm.submitted)" required></textarea>
+                        @if (address.invalid && (address.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">Address is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, ToastModule, ButtonModule, FormsModule]

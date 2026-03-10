@@ -18,7 +18,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -37,7 +37,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -69,7 +69,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -124,7 +124,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule, InputTextModule, FormsModule],
@@ -154,7 +154,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -179,7 +179,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -209,7 +209,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="sales" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -244,7 +244,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule]
@@ -348,7 +348,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" showGridlines [resizableColumns]="true" columnResizeMode="expand" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -367,7 +367,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -397,7 +397,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" showGridlines [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -416,7 +416,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -444,7 +444,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -463,7 +463,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -496,8 +496,8 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
             <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -520,7 +520,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, TableModule, ToastModule],
@@ -563,7 +563,7 @@ interface Column {
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #caption>
                     <p-multiselect display="chip" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ 'min-width': '200px' }" placeholder="Choose Columns" />
@@ -589,7 +589,7 @@ interface Column {
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MultiSelectModule, TableModule, FormsModule],
@@ -630,7 +630,8 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <p-toast />
+        <app-demo-wrapper>
             <p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
             <p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
@@ -650,8 +651,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-            <p-toast />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ContextMenuModule, TableModule, ToastModule],
@@ -708,7 +708,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table
                 #dt
                 [value]="customers"
@@ -862,7 +862,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, SelectModule, IconFieldModule, InputIconModule, MultiSelectModule, ProgressBarModule, SliderModule, TableModule, TagModule, InputTextModule, FormsModule],
@@ -949,7 +949,7 @@ interface Column {
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header let-columns>
                     <tr>
@@ -970,7 +970,7 @@ interface Column {
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -1010,7 +1010,7 @@ import { Customer, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{ 'min-width': '70rem' }">
                 <ng-template #header>
                     <tr>
@@ -1061,7 +1061,7 @@ import { Customer, Country } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule, TagModule, ButtonModule, RippleModule],
@@ -1136,7 +1136,7 @@ interface ExportColumn {
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table #dt [columns]="cols" [value]="products" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #caption>
                     <div class="text-end pb-4">
@@ -1162,7 +1162,7 @@ interface ExportColumn {
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, TableModule],
@@ -1210,7 +1210,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table #dt1 [value]="customers()" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading()" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" showGridlines>
                 <ng-template #caption>
                     <div class="flex">
@@ -1351,7 +1351,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, SelectModule, IconFieldModule, InputIconModule, MultiSelectModule, ProgressBarModule, SliderModule, TableModule, TagModule, InputTextModule, FormsModule],
@@ -1440,7 +1440,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table
                 #dt2
                 [value]="customers"
@@ -1544,7 +1544,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, IconFieldModule, InputIconModule, MultiSelectModule, TableModule, TagModule, InputTextModule, FormsModule],
@@ -1625,7 +1625,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex justify-center">
                 <button type="button" (click)="showDialog()" pButton>
                     <span pButtonIcon class="pi pi-external-link"></span>
@@ -1655,7 +1655,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
                 </ng-template>
             </p-dialog>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, DialogModule, TableModule],
@@ -1692,7 +1692,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-togglebutton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance" />
             <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" class="mt-4">
                 <ng-template #header>
@@ -1724,7 +1724,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule, ToggleButtonModule, FormsModule],
@@ -1761,7 +1761,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="unlockedCustomers" [frozenValue]="lockedCustomers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '60rem' }">
                 <ng-template #header>
                     <tr>
@@ -1799,7 +1799,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule, ButtonModule, RippleModule],
@@ -1862,7 +1862,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -1881,7 +1881,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -1911,7 +1911,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
                 <ng-template #header>
                     <tr>
@@ -1953,7 +1953,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -1987,7 +1987,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
                 <ng-template #header>
                     <tr>
@@ -2006,7 +2006,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -2036,7 +2036,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -2055,7 +2055,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SkeletonModule, TableModule]
@@ -2081,7 +2081,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }" sortMode="multiple">
                 <ng-template #header>
                     <tr>
@@ -2120,7 +2120,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -2152,7 +2152,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex justify-center items-center mb-5 gap-2">
                 <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
                 <label for="input-metakey" class="text-sm">MetaKey</label>
@@ -2175,7 +2175,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule, ToggleSwitchModule, FormsModule],
@@ -2207,7 +2207,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="customers" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[5, 10, 20]">
                 <ng-template #header>
                     <tr>
@@ -2226,7 +2226,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -2257,7 +2257,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="mb-4 flex gap-1">
                 <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text />
                 <p-button type="button" icon="pi pi-refresh" (click)="reset()" text />
@@ -2291,7 +2291,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, TableModule],
@@ -2348,7 +2348,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
                 <ng-template #header>
                     <tr>
@@ -2394,7 +2394,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -2451,8 +2451,8 @@ interface ExportColumn {
 
 @Component({
     template: `
-        <div class="card">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
             <p-toolbar class="mb-5">
                 <ng-template #start>
                     <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
@@ -2611,7 +2611,7 @@ interface ExportColumn {
                 </ng-template>
             </p-dialog>
             <p-confirmdialog [style]="{ width: '450px' }" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ConfirmDialogModule, DialogModule, SelectModule, FileUploadModule, IconFieldModule, InputIconModule, InputNumberModule, RadioButtonModule, RatingModule, TableModule, TagModule, ToastModule, ToolbarModule, InputTextModule, FormsModule],
@@ -2796,7 +2796,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -2819,7 +2819,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -2851,7 +2851,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table #dt [value]="products" (sortFunction)="customSort($event)" [customSort]="true">
                 <ng-template #header>
                     <tr>
@@ -2890,7 +2890,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -2957,7 +2957,7 @@ interface Column {
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header let-columns>
                     <tr>
@@ -2982,7 +2982,7 @@ interface Column {
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -3027,8 +3027,8 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
             <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -3101,7 +3101,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, TableModule, TagModule, ToastModule, ButtonModule, InputTextModule, RippleModule, FormsModule],
@@ -3175,8 +3175,8 @@ import { Customer } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
             <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
                 <ng-template #caption>
                     <div class="flex flex-wrap justify-end gap-2">
@@ -3280,7 +3280,7 @@ import { Customer } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, RatingModule, TableModule, TagModule, ToastModule, RippleModule, FormsModule],
@@ -3356,7 +3356,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single" [tableStyle]="{ 'min-width': '75rem' }">
                 <ng-template #header>
                     <tr>
@@ -3397,7 +3397,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule, TagModule],
@@ -3462,8 +3462,8 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
             <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" dataKey="code" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -3482,7 +3482,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule, ToastModule],
@@ -3522,7 +3522,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
                 <ng-template #header>
                     <tr>
@@ -3561,7 +3561,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -3593,7 +3593,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex justify-center items-center mb-5 gap-2">
                 <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
                 <label for="input-metakey" class="text-sm">MetaKey</label>
@@ -3616,7 +3616,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule, ToggleSwitchModule, FormsModule],
@@ -3650,7 +3650,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex justify-center mb-4">
                 <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="value" />
             </div>
@@ -3672,7 +3672,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectButtonModule, TableModule, FormsModule],
@@ -3713,7 +3713,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table
                 #dt1
                 [value]="customers"
@@ -3809,7 +3809,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [IconFieldModule, InputIconModule, TableModule, TagModule, InputTextModule],
@@ -3840,7 +3840,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" stripedRows [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -3859,7 +3859,7 @@ import { Product } from '@/domain/product';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -3988,7 +3988,7 @@ import { Customer, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{ 'min-width': '60rem' }">
                 <ng-template #header>
                     <tr>
@@ -4039,7 +4039,7 @@ import { Customer, Country } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule, TagModule],
@@ -4111,7 +4111,7 @@ interface Column {
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
                 <ng-template #caption>
                     <div class="flex items-center justify-between">
@@ -4149,7 +4149,7 @@ interface Column {
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, RatingModule, TableModule, TagModule, FormsModule],
@@ -4195,7 +4195,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -4214,7 +4214,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -4249,7 +4249,7 @@ interface Column {
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="400px" [virtualScroll]="true" [virtualScrollItemSize]="46">
                 <ng-template #header let-columns>
                     <tr>
@@ -4270,7 +4270,7 @@ interface Column {
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule],
@@ -4315,7 +4315,7 @@ interface Column {
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="400px" [rows]="100" [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
                 <ng-template #header let-columns>
                     <tr>
@@ -4345,7 +4345,7 @@ interface Column {
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SkeletonModule, TableModule],

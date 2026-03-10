@@ -18,9 +18,9 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-tree [value]="files()" class="w-full md:w-[30rem]" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeModule],
@@ -50,9 +50,9 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-tree [value]="files()" selectionMode="checkbox" class="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeModule],
@@ -86,11 +86,11 @@ import { ContextMenu } from 'primeng/contextmenu';
 
 @Component({
     template: `
-        <div class="card">
-            <p-toast [style]="{ marginTop: '80px' }" />
+        <p-toast [style]="{ marginTop: '80px' }" />
+        <app-demo-wrapper>
             <p-tree [value]="files()" class="w-full md:w-80" selectionMode="single" [(selection)]="selectedNode" [(contextMenuSelection)]="contextMenuNode" [contextMenu]="cm" />
             <p-contextmenu #cm [model]="items" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ContextMenuModule, ToastModule, TreeModule],
@@ -151,13 +151,13 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex flex-wrap gap-2 mb-6">
                 <p-button icon="pi pi-plus" label="Expand all" (click)="expandAll()" />
                 <p-button icon="pi pi-minus" label="Collapse all" (click)="collapseAll()" />
             </div>
             <p-tree [value]="files()" class="w-full md:w-[30rem]" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, TreeModule],
@@ -198,8 +198,8 @@ import { TreeNode, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
             <p-tree
                 [value]="files()"
                 class="w-full md:w-[30rem]"
@@ -210,7 +210,7 @@ import { TreeNode, MessageService } from 'primeng/api';
                 (onNodeSelect)="nodeSelect($event)"
                 (onNodeUnselect)="nodeUnselect($event)"
             />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ToastModule, TreeModule],
@@ -258,14 +258,16 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap gap-4">
-            <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-                <p-tree [value]="files()" [filter]="true" filterPlaceholder="Lenient Filter" />
+        <app-demo-wrapper>
+            <div class="flex flex-wrap gap-4">
+                <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
+                    <p-tree [value]="files()" [filter]="true" filterPlaceholder="Lenient Filter" />
+                </div>
+                <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
+                    <p-tree [value]="files2()" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
+                </div>
             </div>
-            <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-                <p-tree [value]="files2()" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
-            </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeModule],
@@ -296,9 +298,9 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeModule]
@@ -375,13 +377,13 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex items-center mb-6 gap-2">
                 <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
                 <label for="input-metakey">MetaKey</label>
             </div>
             <p-tree [metaKeySelection]="metaKeySelection" [value]="files()" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ToggleSwitchModule, TreeModule, FormsModule],
@@ -413,9 +415,9 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeModule],
@@ -445,7 +447,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-tree [value]="nodes()" class="w-full md:w-[30rem]">
                 <ng-template #node let-node>
                     @if (node.type === 'url') {
@@ -455,7 +457,7 @@ import { TreeNode } from 'primeng/api';
                     }
                 </ng-template>
             </p-tree>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeModule]
@@ -502,9 +504,9 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="35" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeModule],
@@ -532,9 +534,9 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeModule],

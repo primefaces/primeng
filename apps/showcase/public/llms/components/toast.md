@@ -18,10 +18,12 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-button (onClick)="show()" label="Show" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (onClick)="show()" label="Show" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ToastModule],
@@ -44,11 +46,13 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-2">
-            <p-toast key="myKey" />
-            <p-button (click)="show()" label="Show" />
-            <p-button (click)="clear()" label="Clear" severity="secondary" />
-        </div>
+        <p-toast key="myKey" />
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-2">
+                <p-button (click)="show()" label="Show" />
+                <p-button (click)="clear()" label="Clear" severity="secondary" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ToastModule],
@@ -76,27 +80,29 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast position="top-center" key="confirm" (onClose)="onClose()" [baseZIndex]="5000">
-                <ng-template let-message #headless let-closeFn="closeFn">
-                    <section class="flex flex-col p-4 gap-4 w-full bg-primary/70 rounded-xl">
-                        <div class="flex items-center gap-5">
-                            <i class="pi pi-cloud-upload text-white dark:text-black text-2xl"></i>
-                            <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <p-progressbar [value]="progress()" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
-                            <label class="text-sm font-bold text-white dark:text-black">{{ progress() }}% uploaded</label>
-                        </div>
-                        <div class="flex gap-4 mb-4 justify-end">
-                            <p-button label="Another Upload?" (click)="closeFn($event)" size="small" />
-                            <p-button label="Cancel" (click)="closeFn($event)" size="small" />
-                        </div>
-                    </section>
-                </ng-template>
-            </p-toast>
-            <p-button (click)="showConfirm()" label="Confirm" />
-        </div>
+        <p-toast position="top-center" key="confirm" (onClose)="onClose()" [baseZIndex]="5000">
+            <ng-template let-message #headless let-closeFn="closeFn">
+                <section class="flex flex-col p-4 gap-4 w-full bg-primary/70 rounded-xl">
+                    <div class="flex items-center gap-5">
+                        <i class="pi pi-cloud-upload text-white dark:text-black text-2xl"></i>
+                        <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <p-progressbar [value]="progress()" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
+                        <label class="text-sm font-bold text-white dark:text-black">{{ progress() }}% uploaded</label>
+                    </div>
+                    <div class="flex gap-4 mb-4 justify-end">
+                        <p-button label="Another Upload?" (click)="closeFn($event)" size="small" />
+                        <p-button label="Cancel" (click)="closeFn($event)" size="small" />
+                    </div>
+                </section>
+            </ng-template>
+        </p-toast>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (click)="showConfirm()" label="Confirm" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ProgressBarModule, ToastModule],
@@ -155,11 +161,13 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-2">
-            <p-toast [life]="10000" />
-            <p-button (click)="showLife()" label="Show Life" />
-            <p-button (click)="showLifeLong()" label="Show Life Long" />
-        </div>
+        <p-toast [life]="10000" />
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-2">
+                <p-button (click)="showLife()" label="Show Life" />
+                <p-button (click)="showLifeLong()" label="Show Life Long" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ToastModule],
@@ -187,10 +195,12 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-button pRipple (click)="show()" label="Multiple" severity="warn" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button pRipple (click)="show()" label="Multiple" severity="warn" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ToastModule, RippleModule],
@@ -214,16 +224,18 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast position="top-left" key="tl" />
-            <p-toast position="bottom-left" key="bl" />
-            <p-toast position="bottom-right" key="br" />
-            <div class="flex flex-wrap gap-2">
-                <p-button pRipple (click)="showTopLeft()" label="Top Left" />
-                <p-button pRipple (click)="showBottomLeft()" label="Bottom Left" />
-                <p-button pRipple (click)="showBottomRight()" label="Bottom Right" />
+        <p-toast position="top-left" key="tl" />
+        <p-toast position="bottom-left" key="bl" />
+        <p-toast position="bottom-right" key="br" />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <div class="flex flex-wrap gap-2">
+                    <p-button pRipple (click)="showTopLeft()" label="Top Left" />
+                    <p-button pRipple (click)="showBottomLeft()" label="Bottom Left" />
+                    <p-button pRipple (click)="showBottomRight()" label="Bottom Right" />
+                </div>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ToastModule, RippleModule],
@@ -266,10 +278,12 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
-            <p-button (click)="show()" label="Show" />
-        </div>
+        <p-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (click)="show()" label="Show" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ToastModule],
@@ -293,15 +307,17 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-2">
-            <p-toast />
-            <p-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
-            <p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />
-            <p-button type="button" pRipple (click)="showWarn()" label="Warn" severity="warn" />
-            <p-button type="button" pRipple (click)="showError()" label="Error" severity="danger" />
-            <p-button type="button" pRipple (click)="showSecondary()" label="Secondary" severity="secondary" />
-            <p-button type="button" pRipple (click)="showContrast()" label="Contrast" severity="contrast" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-2">
+                <p-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
+                <p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />
+                <p-button type="button" pRipple (click)="showWarn()" label="Warn" severity="warn" />
+                <p-button type="button" pRipple (click)="showError()" label="Error" severity="danger" />
+                <p-button type="button" pRipple (click)="showSecondary()" label="Secondary" severity="secondary" />
+                <p-button type="button" pRipple (click)="showContrast()" label="Contrast" severity="contrast" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ToastModule, RippleModule],
@@ -345,13 +361,15 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <div class="flex flex-wrap gap-2">
-                <p-button pRipple (click)="show()" label="Sticky" />
-                <p-button pRipple (click)="clear()" severity="secondary" label="Clear" />
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <div class="flex flex-wrap gap-2">
+                    <p-button pRipple (click)="show()" label="Sticky" />
+                    <p-button pRipple (click)="clear()" severity="secondary" label="Clear" />
+                </div>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ToastModule, RippleModule],
@@ -378,12 +396,14 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-2">
-            <p-toast key="toast1" />
-            <p-toast key="toast2" />
-            <p-button (click)="showToast1()" label="Show Success" />
-            <p-button (click)="showToast2()" label="Show Warning" severity="warn" />
-        </div>
+        <p-toast key="toast1" />
+        <p-toast key="toast2" />
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-2">
+                <p-button (click)="showToast1()" label="Show Success" />
+                <p-button (click)="showToast2()" label="Show Warning" severity="warn" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ToastModule],
@@ -412,21 +432,23 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
-                <ng-template let-message #message>
-                    <div class="flex flex-col items-start flex-auto">
-                        <div class="flex items-center gap-2">
-                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-                            <span class="font-bold">Amy Elsner</span>
-                        </div>
-                        <div class="font-medium text-lg my-4">{{ message.summary }}</div>
-                        <p-button severity="success" size="small" label="Reply" (click)="onConfirm()" />
+        <p-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
+            <ng-template let-message #message>
+                <div class="flex flex-col items-start flex-auto">
+                    <div class="flex items-center gap-2">
+                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <span class="font-bold">Amy Elsner</span>
                     </div>
-                </ng-template>
-            </p-toast>
-            <p-button (click)="showConfirm()" label="View" />
-        </div>
+                    <div class="font-medium text-lg my-4">{{ message.summary }}</div>
+                    <p-button severity="success" size="small" label="Reply" (click)="onConfirm()" />
+                </div>
+            </ng-template>
+        </p-toast>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (click)="showConfirm()" label="View" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AvatarModule, ButtonModule, ToastModule],

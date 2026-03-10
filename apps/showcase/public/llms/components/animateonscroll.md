@@ -16,7 +16,8 @@ import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center overflow-hidden">
+        <app-demo-wrapper>
+        <div class="flex flex-col items-center overflow-hidden">
             <div class="flex flex-col items-center gap-2">
                 <span class="font-medium">Scroll Down</span>
                 <span class="animate-bounce h-8 w-8 bg-primary text-primary-contrast rounded-full inline-flex items-center justify-center">
@@ -134,6 +135,7 @@ import { AvatarModule } from 'primeng/avatar';
                 </div>
             </div>
         </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AvatarModule]

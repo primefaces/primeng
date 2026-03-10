@@ -17,9 +17,9 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-menubar [model]="items" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MenubarModule]
@@ -90,10 +90,10 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
             <p-menubar [model]="items" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MenubarModule, ToastModule],
@@ -176,9 +176,9 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-menubar [model]="items" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MenubarModule]
@@ -243,7 +243,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-menubar [model]="items">
                 <ng-template #start>
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
@@ -297,7 +297,7 @@ import { MenuItem } from 'primeng/api';
                     </div>
                 </ng-template>
             </p-menubar>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AvatarModule, BadgeModule, MenubarModule, InputTextModule, RippleModule]

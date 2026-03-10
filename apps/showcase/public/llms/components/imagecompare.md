@@ -16,16 +16,18 @@ import { ImageCompareModule } from 'primeng/imagecompare';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-imagecompare class="shadow-lg rounded-2xl">
-                <ng-template #left>
-                    <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
-                </ng-template>
-                <ng-template #right>
-                    <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
-                </ng-template>
-            </p-imagecompare>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-imagecompare class="shadow-lg rounded-2xl">
+                    <ng-template #left>
+                        <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
+                    </ng-template>
+                    <ng-template #right>
+                        <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
+                    </ng-template>
+                </p-imagecompare>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ImageCompareModule]
@@ -43,16 +45,18 @@ import { ImageCompareModule } from 'primeng/imagecompare';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-imagecompare class="sm:!w-96 shadow-lg rounded-2xl">
-                <ng-template #left>
-                    <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
-                </ng-template>
-                <ng-template #right>
-                    <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
-                </ng-template>
-            </p-imagecompare>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-imagecompare class="sm:!w-96 shadow-lg rounded-2xl">
+                    <ng-template #left>
+                        <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
+                    </ng-template>
+                    <ng-template #right>
+                        <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
+                    </ng-template>
+                </p-imagecompare>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ImageCompareModule]

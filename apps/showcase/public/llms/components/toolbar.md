@@ -22,7 +22,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-toolbar>
                 <ng-template #start>
                     <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
@@ -39,7 +39,7 @@ import { MenuItem } from 'primeng/api';
                     <p-splitbutton label="Save" [model]="items" />
                 </ng-template>
             </p-toolbar>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, IconFieldModule, InputIconModule, SplitButtonModule, ToolbarModule, InputTextModule]
@@ -74,7 +74,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-toolbar [style]="{ 'border-radius': '3rem', padding: '1rem 1rem 1rem 1.5rem' }">
                 <ng-template #start>
                     <div class="flex items-center gap-2">
@@ -119,7 +119,7 @@ import { ToolbarModule } from 'primeng/toolbar';
                     </div>
                 </ng-template>
             </p-toolbar>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AvatarModule, ButtonModule, ToolbarModule]

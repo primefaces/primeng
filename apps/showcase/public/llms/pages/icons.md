@@ -52,10 +52,6 @@ npm install primeicons
 
 PrimeIcons library is now available on Figma Community . By adding them as a library, you can easily use these icons in your designs.
 
-## Import-
-
-CSS file of the icon library needs to be imported in styles.scss of your application.
-
 ## List-
 
 Here is the full list of PrimeIcons. More icons will be added periodically and you may also request new icons at the issue tracker.

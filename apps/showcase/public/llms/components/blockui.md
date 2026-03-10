@@ -18,7 +18,7 @@ import { PanelModule } from 'primeng/panel';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-button label="Block" (click)="blockedPanel = true" class="me-2" severity="secondary" />
             <p-button label="Unblock" (click)="blockedPanel = false" severity="secondary" />
             <p-blockui [target]="pnl" [blocked]="blockedPanel" />
@@ -28,7 +28,7 @@ import { PanelModule } from 'primeng/panel';
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
             </p-panel>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [BlockUIModule, ButtonModule, PanelModule]
@@ -49,10 +49,10 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-blockui [blocked]="blockedDocument" />
             <p-button label="Block" (click)="blockDocument()" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [BlockUIModule, ButtonModule]

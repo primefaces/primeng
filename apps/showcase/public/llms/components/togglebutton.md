@@ -17,9 +17,11 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" class="w-24" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" class="w-24" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ToggleButtonModule, FormsModule]
@@ -40,9 +42,11 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-togglebutton [(ngModel)]="checked" onLabel="Locked" offLabel="Unlocked" onIcon="pi pi-check" offIcon="pi pi-times" onIcon="pi pi-lock" offIcon="pi pi-lock-open" class="w-36" ariaLabel="Do you confirm" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-togglebutton [(ngModel)]="checked" onLabel="Locked" offLabel="Unlocked" onIcon="pi pi-check" offIcon="pi pi-times" onIcon="pi pi-lock" offIcon="pi pi-lock-open" class="w-36" ariaLabel="Do you confirm" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ToggleButtonModule, FormsModule]
@@ -63,9 +67,11 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-togglebutton disabled="true" onIcon="pi pi-check" offIcon="pi pi-times" [(ngModel)]="checked" onLabel="Yes" offLabel="No" class="w-full sm:w-40" ariaLabel="Confirmation" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-togglebutton disabled="true" onIcon="pi pi-check" offIcon="pi pi-times" [(ngModel)]="checked" onLabel="Yes" offLabel="No" class="w-full sm:w-40" ariaLabel="Confirmation" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ToggleButtonModule, FormsModule]
@@ -86,9 +92,11 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" fluid />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" fluid />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ToggleButtonModule, FormsModule]
@@ -109,9 +117,11 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" [invalid]="!checked" class="w-full sm:w-40" aria-label="Confirmation" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" [invalid]="!checked" class="w-full sm:w-40" aria-label="Confirmation" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ToggleButtonModule, FormsModule]
@@ -137,17 +147,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
-                <div class="flex flex-col items-center gap-1">
-                    <p-togglebutton name="consent" formControlName="checked" [invalid]="isInvalid('checked')" onLabel="Accept All" offLabel="Reject All" class="min-w-40" />
-                    @if (isInvalid('checked')) {
-                        <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
-                    }
-                </div>
-                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
+                    <div class="flex flex-col items-center gap-1">
+                        <p-togglebutton name="consent" formControlName="checked" [invalid]="isInvalid('checked')" onLabel="Accept All" offLabel="Reject All" class="min-w-40" />
+                        @if (isInvalid('checked')) {
+                            <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
+                        }
+                    </div>
+                    <button pButton type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, ToastModule, ToggleButtonModule, ButtonModule, ReactiveFormsModule]
@@ -190,11 +202,13 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <p-togglebutton [(ngModel)]="value1" onLabel="On" offLabel="Off" size="small" class="min-w-16" />
-            <p-togglebutton [(ngModel)]="value2" onLabel="On" offLabel="Off" class="min-w-20" />
-            <p-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" class="min-w-24" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-togglebutton [(ngModel)]="value1" onLabel="On" offLabel="Off" size="small" class="min-w-16" />
+                <p-togglebutton [(ngModel)]="value2" onLabel="On" offLabel="Off" class="min-w-20" />
+                <p-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" class="min-w-24" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ToggleButtonModule, FormsModule]
@@ -220,19 +234,21 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
-                <div class="flex flex-col items-center gap-1">
-                    <p-togglebutton #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required class="min-w-40" />
-                    @if (model.invalid && (model.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
-                    }
-                </div>
-                <button pButton type="submit">
-                    <span pButtonLabel>Submit</span>
-                </button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
+                    <div class="flex flex-col items-center gap-1">
+                        <p-togglebutton #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required class="min-w-40" />
+                        @if (model.invalid && (model.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
+                        }
+                    </div>
+                    <button pButton type="submit">
+                        <span pButtonLabel>Submit</span>
+                    </button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, ToastModule, ToggleButtonModule, ButtonModule, FormsModule]

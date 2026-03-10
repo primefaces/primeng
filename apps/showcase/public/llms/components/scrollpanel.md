@@ -16,7 +16,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-scrollpanel [style]="{ width: '100%', height: '150px' }">
                 <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -31,7 +31,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
                     officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
                 </p>
             </p-scrollpanel>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ScrollPanelModule]
@@ -49,7 +49,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-scrollpanel [style]="{ width: '100%', height: '200px' }">
                 <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -76,7 +76,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
                     officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
                 </p>
             </p-scrollpanel>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ScrollPanelModule]

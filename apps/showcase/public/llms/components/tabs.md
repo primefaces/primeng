@@ -16,7 +16,7 @@ import { TabsModule } from 'primeng/tabs';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-tabs value="0">
                 <p-tablist>
                     <p-tab value="0">Header I</p-tab>
@@ -45,7 +45,7 @@ import { TabsModule } from 'primeng/tabs';
                     </p-tabpanel>
                 </p-tabpanels>
             </p-tabs>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TabsModule]
@@ -64,7 +64,7 @@ import { TabsModule } from 'primeng/tabs';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex mb-2 gap-2 justify-end">
                 <p-button (onClick)="value = 0" rounded="true" styleClass="w-8 h-8 p-0" [outlined]="value !== 0" label="1" />
                 <p-button (onClick)="value = 1" rounded="true" styleClass="w-8 h-8 p-0" [outlined]="value !== 1" label="2" />
@@ -98,7 +98,7 @@ import { TabsModule } from 'primeng/tabs';
                     </p-tabpanel>
                 </p-tabpanels>
             </p-tabs>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, TabsModule]
@@ -120,7 +120,7 @@ import { TabsModule } from 'primeng/tabs';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-tabs value="0" scrollable>
                 <p-tablist>
                     <ng-template #previcon>
@@ -165,7 +165,7 @@ import { TabsModule } from 'primeng/tabs';
                     </p-tabpanel>
                 </p-tabpanels>
             </p-tabs>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AvatarModule, BadgeModule, TabsModule]
@@ -183,7 +183,7 @@ import { TabsModule } from 'primeng/tabs';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-tabs value="0">
                 <p-tablist>
                     <p-tab value="0">Header I</p-tab>
@@ -213,7 +213,7 @@ import { TabsModule } from 'primeng/tabs';
                     </p-tabpanel>
                 </p-tabpanels>
             </p-tabs>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TabsModule]
@@ -231,7 +231,7 @@ import { TabsModule } from 'primeng/tabs';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-tabs value="0">
                 <p-tablist>
                     @for (tab of tabs; track tab.value) {
@@ -246,7 +246,7 @@ import { TabsModule } from 'primeng/tabs';
                     }
                 </p-tabpanels>
             </p-tabs>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TabsModule]
@@ -272,7 +272,7 @@ import { TabsModule } from 'primeng/tabs';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-tabs lazy value="0">
                 <p-tablist>
                     <p-tab value="0">Header I</p-tab>
@@ -298,7 +298,7 @@ import { TabsModule } from 'primeng/tabs';
                     </p-tabpanel>
                 </p-tabpanels>
             </p-tabs>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TabsModule]
@@ -316,7 +316,7 @@ import { TabsModule } from 'primeng/tabs';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-tabs value="0" scrollable>
                 <p-tablist>
                     @for (tab of scrollableTabs; track tab.value) {
@@ -333,7 +333,7 @@ import { TabsModule } from 'primeng/tabs';
                     }
                 </p-tabpanels>
             </p-tabs>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TabsModule]
@@ -357,7 +357,7 @@ import { TabsModule } from 'primeng/tabs';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-tabs value="dashboard">
                 <p-tablist>
                     @for (tab of tabs; track tab.route) {
@@ -369,7 +369,7 @@ import { TabsModule } from 'primeng/tabs';
                 </p-tablist>
             </p-tabs>
             <!--<router-outlet></router-outlet>-->
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TabsModule]

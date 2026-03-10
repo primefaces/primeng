@@ -16,9 +16,11 @@ import { Paginator, PaginatorModule } from 'primeng/paginator';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PaginatorModule]
@@ -44,18 +46,20 @@ import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-paginator
-                (onPageChange)="onPageChange($event)"
-                [first]="first"
-                [rows]="rows"
-                [totalRecords]="120"
-                [showCurrentPageReport]="true"
-                [showPageLinks]="false"
-                [showJumpToPageDropdown]="false"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
-            />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-paginator
+                    (onPageChange)="onPageChange($event)"
+                    [first]="first"
+                    [rows]="rows"
+                    [totalRecords]="120"
+                    [showCurrentPageReport]="true"
+                    [showPageLinks]="false"
+                    [showJumpToPageDropdown]="false"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+                />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PaginatorModule]
@@ -81,10 +85,12 @@ import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
     template: `
-        <div class="card flex flex-col gap-4 justify-center items-center">
-            <p-paginator [first]="first" [rows]="1" [totalRecords]="12" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
-            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/nature/nature' + (first + 1) + '.jpg'" class="max-w-full rounded-xl" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col gap-4 justify-center items-center">
+                <p-paginator [first]="first" [rows]="1" [totalRecords]="12" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
+                <img [src]="'https://primefaces.org/cdn/primeng/images/demo/nature/nature' + (first + 1) + '.jpg'" class="max-w-full rounded-xl" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PaginatorModule]
@@ -115,50 +121,52 @@ import { SliderModule } from 'primeng/slider';
 
 @Component({
     template: `
-        <div class="card flex flex-col gap-4">
-            <div class="flex items-center justify-center">
-                <div>
-                    <p-button icon="pi pi-star" outlined />
+        <app-demo-wrapper>
+            <div class="flex flex-col gap-4">
+                <div class="flex items-center justify-center">
+                    <div>
+                        <p-button icon="pi pi-star" outlined />
+                    </div>
+                    <div class="flex-1">
+                        <p-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false" />
+                    </div>
+                    <div class="justify-end">
+                        <p-button icon="pi pi-search" />
+                    </div>
                 </div>
-                <div class="flex-1">
-                    <p-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false" />
+                <p-divider />
+                <div class="flex items-center justify-end">
+                    <span class="mx-1 text-color">Items per page: </span>
+                    <p-select [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
+                    <p-paginator
+                        [first]="first2"
+                        [rows]="rows2"
+                        [totalRecords]="120"
+                        (onPageChange)="onPageChange2($event)"
+                        [showCurrentPageReport]="true"
+                        currentPageReportTemplate="{first} - {last} of {totalRecords}"
+                        [showPageLinks]="false"
+                        [showFirstLastIcon]="false"
+                    ></p-paginator>
                 </div>
-                <div class="justify-end">
-                    <p-button icon="pi pi-search" />
+                <p-divider />
+                <div class="flex items-center justify-start">
+                    <div class="flex justify-center items-center gap-4">
+                        <span>Items per page: </span>
+                        <p-slider [(ngModel)]="rows3" (ngModelChange)="first3 = 0" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30" />
+                    </div>
+                    <p-paginator
+                        (onPageChange)="onPageChange3($event)"
+                        [first]="first3"
+                        [rows]="rows3"
+                        [totalRecords]="totalRecords"
+                        [showFirstLastIcon]="false"
+                        [showCurrentPageReport]="true"
+                        currentPageReportTemplate="{first} - {last} of {totalRecords}"
+                    ></p-paginator>
                 </div>
             </div>
-            <p-divider />
-            <div class="flex items-center justify-end">
-                <span class="mx-1 text-color">Items per page: </span>
-                <p-select [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
-                <p-paginator
-                    [first]="first2"
-                    [rows]="rows2"
-                    [totalRecords]="120"
-                    (onPageChange)="onPageChange2($event)"
-                    [showCurrentPageReport]="true"
-                    currentPageReportTemplate="{first} - {last} of {totalRecords}"
-                    [showPageLinks]="false"
-                    [showFirstLastIcon]="false"
-                ></p-paginator>
-            </div>
-            <p-divider />
-            <div class="flex items-center justify-start">
-                <div class="flex justify-center items-center gap-4">
-                    <span>Items per page: </span>
-                    <p-slider [(ngModel)]="rows3" (ngModelChange)="first3 = 0" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30" />
-                </div>
-                <p-paginator
-                    (onPageChange)="onPageChange3($event)"
-                    [first]="first3"
-                    [rows]="rows3"
-                    [totalRecords]="totalRecords"
-                    [showFirstLastIcon]="false"
-                    [showCurrentPageReport]="true"
-                    currentPageReportTemplate="{first} - {last} of {totalRecords}"
-                ></p-paginator>
-            </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, DividerModule, SelectModule, PaginatorModule, SliderModule, FormsModule]

@@ -12,30 +12,32 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
     template: `
-        <div class="card flex items-center justify-center gap-7">
-            <div class="flex flex-col items-center">
-                <div>
-                    <p-button pStyleClass=".box1" enterFromClass="my-hidden" enterActiveClass="my-fadein" label="FadeIn" class="mr-2" />
-                    <p-button pStyleClass=".box1" leaveActiveClass="my-fadeout" leaveToClass="my-hidden" label="FadeOut" severity="secondary" />
+        <app-demo-wrapper>
+            <div class="flex items-center justify-center gap-7">
+                <div class="flex flex-col items-center">
+                    <div>
+                        <p-button pStyleClass=".box1" enterFromClass="my-hidden" enterActiveClass="my-fadein" label="FadeIn" class="mr-2" />
+                        <p-button pStyleClass=".box1" leaveActiveClass="my-fadeout" leaveToClass="my-hidden" label="FadeOut" severity="secondary" />
+                    </div>
+                    <div class="h-32">
+                        <div class="my-hidden animate-duration-500 box1">
+                            <div class="flex bg-primary text-primary-contrast items-center justify-center py-3 rounded-md mt-4 font-bold text-sm w-28 h-28">Custom</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="h-32">
-                    <div class="my-hidden animate-duration-500 box1">
-                        <div class="flex bg-primary text-primary-contrast items-center justify-center py-3 rounded-md mt-4 font-bold text-sm w-28 h-28">Custom</div>
+                <div class="flex flex-col items-center">
+                    <div>
+                        <p-button pStyleClass=".box2" enterFromClass="hidden" enterActiveClass="animate-slidedown" label="SlideDown" class="mr-2" />
+                        <p-button pStyleClass=".box2" leaveActiveClass="animate-slideup" leaveToClass="hidden" label="SlideUp" severity="secondary" />
+                    </div>
+                    <div class="h-32">
+                        <div class="hidden animate-duration-500 box2 overflow-hidden">
+                            <div class="flex bg-primary text-primary-contrast items-center justify-center py-3 rounded-md mt-4 font-bold text-sm w-28 h-28">Content</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col items-center">
-                <div>
-                    <p-button pStyleClass=".box2" enterFromClass="hidden" enterActiveClass="animate-slidedown" label="SlideDown" class="mr-2" />
-                    <p-button pStyleClass=".box2" leaveActiveClass="animate-slideup" leaveToClass="hidden" label="SlideUp" severity="secondary" />
-                </div>
-                <div class="h-32">
-                    <div class="hidden animate-duration-500 box2 overflow-hidden">
-                        <div class="flex bg-primary text-primary-contrast items-center justify-center py-3 rounded-md mt-4 font-bold text-sm w-28 h-28">Content</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule]
@@ -53,7 +55,7 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex flex-wrap justify-center gap-4">
                 <div class="flex flex-col items-center gap-4 w-[25rem]">
                     <p-button
@@ -94,7 +96,7 @@ import { ButtonModule } from 'primeng/button';
                     </div>
                 </div>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule]
@@ -113,10 +115,12 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center">
-            <p-button label="Toggle Display" pStyleClass="@next" toggleClass="hidden" />
-            <input type="text" pInputText class="hidden mt-4" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center">
+                <p-button label="Toggle Display" pStyleClass="@next" toggleClass="hidden" />
+                <input type="text" pInputText class="hidden mt-4" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, InputTextModule]

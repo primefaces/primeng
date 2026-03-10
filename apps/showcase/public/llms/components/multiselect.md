@@ -22,9 +22,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
@@ -61,9 +63,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" class="w-full md:w-80" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-multiselect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" class="w-full md:w-80" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
@@ -100,9 +104,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" [showClear]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" [showClear]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
@@ -139,9 +145,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [disabled]="true" optionLabel="name" placeholder="Select Cities" class="w-full md:w-80" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [disabled]="true" optionLabel="name" placeholder="Select Cities" class="w-full md:w-80" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
@@ -178,9 +186,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" variant="filled" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-multiselect [options]="cities" [(ngModel)]="selectedCities" variant="filled" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
@@ -217,9 +227,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
@@ -257,20 +269,22 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel class="w-full md:w-80">
-                <p-multiselect id="over_label" [(ngModel)]="value1" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel class="w-full md:w-80" variant="in">
-                <p-multiselect id="in_label" [(ngModel)]="value2" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel class="w-full md:w-80" variant="on">
-                <p-multiselect id="on_label" [(ngModel)]="value3" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-end gap-4">
+                <p-floatlabel class="w-full md:w-80">
+                    <p-multiselect id="over_label" [(ngModel)]="value1" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
+                <p-floatlabel class="w-full md:w-80" variant="in">
+                    <p-multiselect id="in_label" [(ngModel)]="value2" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
+                <p-floatlabel class="w-full md:w-80" variant="on">
+                    <p-multiselect id="on_label" [(ngModel)]="value3" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FloatLabelModule, MultiSelectModule, FormsModule]
@@ -309,9 +323,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" fluid />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" fluid />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
@@ -349,16 +365,18 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-multiselect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" scrollHeight="250px" display="chip" class="w-full md:w-80">
-                <ng-template let-group #group>
-                    <div class="flex items-center">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
-                        <span>{{ group.label }}</span>
-                    </div>
-                </ng-template>
-            </p-multiselect>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-multiselect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" scrollHeight="250px" display="chip" class="w-full md:w-80">
+                    <ng-template let-group #group>
+                        <div class="flex items-center">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                            <span>{{ group.label }}</span>
+                        </div>
+                    </ng-template>
+                </p-multiselect>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
@@ -421,12 +439,14 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-iftalabel class="w-full md:w-80">
-                <p-multiselect [(ngModel)]="selectedCities" inputId="ms_cities" [options]="cities" optionLabel="name" [filter]="true" [maxSelectedLabels]="3" class="w-full" />
-                <label for="ms_cities">Cities</label>
-            </p-iftalabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-iftalabel class="w-full md:w-80">
+                    <p-multiselect [(ngModel)]="selectedCities" inputId="ms_cities" [options]="cities" optionLabel="name" [filter]="true" [maxSelectedLabels]="3" class="w-full" />
+                    <label for="ms_cities">Cities</label>
+                </p-iftalabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [IftaLabelModule, MultiSelectModule, FormsModule]
@@ -463,10 +483,12 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-4">
-            <p-multiselect [options]="cities" [(ngModel)]="selectedCities1" [invalid]="value1" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
-            <p-multiselect [options]="cities" [(ngModel)]="selectedCities2" [invalid]="value2" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" variant="filled" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-4">
+                <p-multiselect [options]="cities" [(ngModel)]="selectedCities1" [invalid]="value1" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
+                <p-multiselect [options]="cities" [(ngModel)]="selectedCities2" [invalid]="value2" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" variant="filled" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
@@ -502,9 +524,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-80" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-80" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
@@ -546,17 +570,19 @@ interface City {
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 w-full md:w-80">
-                <div class="flex flex-col gap-1">
-                    <p-multiselect [options]="cities" formControlName="city" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" [fluid]="true" [invalid]="isInvalid('city')" />
-                    @if (isInvalid('city')) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 w-full md:w-80">
+                    <div class="flex flex-col gap-1">
+                        <p-multiselect [options]="cities" formControlName="city" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" [fluid]="true" [invalid]="isInvalid('city')" />
+                        @if (isInvalid('city')) {
+                            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, MultiSelectModule, ToastModule, ButtonModule, ReactiveFormsModule],
@@ -613,11 +639,13 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <p-multiselect [(ngModel)]="value1" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="small" placeholder="Small" />
-            <p-multiselect [(ngModel)]="value2" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" placeholder="Normal" />
-            <p-multiselect [(ngModel)]="value3" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="large" placeholder="Large" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-multiselect [(ngModel)]="value1" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="small" placeholder="Small" />
+                <p-multiselect [(ngModel)]="value2" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" placeholder="Normal" />
+                <p-multiselect [(ngModel)]="value3" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="large" placeholder="Large" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
@@ -658,31 +686,33 @@ interface Country {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-multiselect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name" class="w-full md:w-80" display="chip">
-                <ng-template let-country #item>
-                    <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ country.name }}</div>
-                    </div>
-                </ng-template>
-                <ng-template #dropdownicon>
-                    <i class="pi pi-map"></i>
-                </ng-template>
-                <ng-template #filtericon>
-                    <i class="pi pi-map-marker"></i>
-                </ng-template>
-                <ng-template #header>
-                    <div class="font-medium px-3 py-2">Available Countries</div>
-                </ng-template>
-                <ng-template #footer>
-                    <div class="p-3 flex justify-between">
-                        <p-button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
-                        <p-button label="Remove All" severity="danger" text size="small" icon="pi pi-times" />
-                    </div>
-                </ng-template>
-            </p-multiselect>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-multiselect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name" class="w-full md:w-80" display="chip">
+                    <ng-template let-country #item>
+                        <div class="flex items-center gap-2">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                            <div>{{ country.name }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template #dropdownicon>
+                        <i class="pi pi-map"></i>
+                    </ng-template>
+                    <ng-template #filtericon>
+                        <i class="pi pi-map-marker"></i>
+                    </ng-template>
+                    <ng-template #header>
+                        <div class="font-medium px-3 py-2">Available Countries</div>
+                    </ng-template>
+                    <ng-template #footer>
+                        <div class="p-3 flex justify-between">
+                            <p-button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
+                            <p-button label="Remove All" severity="danger" text size="small" icon="pi pi-times" />
+                        </div>
+                    </ng-template>
+                </p-multiselect>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, MultiSelectModule, FormsModule]
@@ -727,28 +757,30 @@ interface City {
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 w-full md:w-80">
-                <div class="flex flex-col gap-1">
-                    <p-multiselect
-                        #city="ngModel"
-                        [(ngModel)]="selectedCity"
-                        [options]="cities"
-                        optionLabel="name"
-                        name="city"
-                        placeholder="Select Cities"
-                        [maxSelectedLabels]="3"
-                        [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
-                        fluid
-                        required
-                    />
-                    @if (city.invalid && (city.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 w-full md:w-80">
+                    <div class="flex flex-col gap-1">
+                        <p-multiselect
+                            #city="ngModel"
+                            [(ngModel)]="selectedCity"
+                            [options]="cities"
+                            optionLabel="name"
+                            name="city"
+                            placeholder="Select Cities"
+                            [maxSelectedLabels]="3"
+                            [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
+                            fluid
+                            required
+                        />
+                        @if (city.invalid && (city.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, MultiSelectModule, ToastModule, ButtonModule, FormsModule],
@@ -786,31 +818,33 @@ import { MultiSelectModule } from 'primeng/multiselect';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-multiselect
-                [options]="items"
-                [showToggleAll]="true"
-                [selectAll]="selectAll"
-                [(ngModel)]="selectedItems"
-                optionLabel="label"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="43"
-                placeholder="Select Cities"
-                (onSelectAllChange)="onSelectAllChange($event)"
-                [maxSelectedLabels]="3"
-                class="w-full md:w-80"
-                #ms
-            >
-                <ng-template #headercheckboxicon let-allSelected="checked" let-partialSelected="partialSelected">
-                    @if (allSelected) {
-                        <i class="pi pi-check"></i>
-                    }
-                    @if (partialSelected) {
-                        <i class="pi pi-minus" [ngStyle]="{ color: 'var(--text-color)' }"></i>
-                    }
-                </ng-template>
-            </p-multiselect>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-multiselect
+                    [options]="items"
+                    [showToggleAll]="true"
+                    [selectAll]="selectAll"
+                    [(ngModel)]="selectedItems"
+                    optionLabel="label"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                    placeholder="Select Cities"
+                    (onSelectAllChange)="onSelectAllChange($event)"
+                    [maxSelectedLabels]="3"
+                    class="w-full md:w-80"
+                    #ms
+                >
+                    <ng-template #headercheckboxicon let-allSelected="checked" let-partialSelected="partialSelected">
+                        @if (allSelected) {
+                            <i class="pi pi-check"></i>
+                        }
+                        @if (partialSelected) {
+                            <i class="pi pi-minus" [ngStyle]="{ color: 'var(--text-color)' }"></i>
+                        }
+                    </ng-template>
+                </p-multiselect>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MultiSelectModule, FormsModule]

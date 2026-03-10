@@ -18,13 +18,15 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px">
-                <ng-template #item let-option>
-                    {{ option.name }}
-                </ng-template>
-            </p-orderlist>
-        </div>
+        <app-demo-wrapper>
+            <div class="sm:flex sm:justify-center">
+                <p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px">
+                    <ng-template #item let-option>
+                        {{ option.name }}
+                    </ng-template>
+                </p-orderlist>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [OrderListModule],
@@ -65,28 +67,30 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products()" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
-                <ng-template let-option let-selected="selected" #item>
-                    <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
-                        <div class="flex-1 flex flex-col">
-                            <span class="font-medium text-sm">{{ option.name }}</span>
-                            <span
-                                [ngClass]="{
-                                    'text-sm': true,
-                                    'text-surface-500': !selected,
-                                    'dark:text-surface-400': !selected,
-                                    'text-inherit': selected
-                                }"
-                                >{{ option.category }}</span
-                            >
+        <app-demo-wrapper>
+            <div class="sm:flex sm:justify-center">
+                <p-orderlist [value]="products()" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+                    <ng-template let-option let-selected="selected" #item>
+                        <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                            <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                            <div class="flex-1 flex flex-col">
+                                <span class="font-medium text-sm">{{ option.name }}</span>
+                                <span
+                                    [ngClass]="{
+                                        'text-sm': true,
+                                        'text-surface-500': !selected,
+                                        'dark:text-surface-400': !selected,
+                                        'text-inherit': selected
+                                    }"
+                                    >{{ option.category }}</span
+                                >
+                            </div>
+                            <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
                         </div>
-                        <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
-                    </div>
-                </ng-template>
-            </p-orderlist>
-        </div>
+                    </ng-template>
+                </p-orderlist>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [OrderListModule],
@@ -127,28 +131,30 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products()" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
-                <ng-template let-option let-selected="selected" #item>
-                    <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
-                        <div class="flex-1 flex flex-col">
-                            <span class="font-medium text-sm">{{ option.name }}</span>
-                            <span
-                                [ngClass]="{
-                                    'text-sm': true,
-                                    'text-surface-500': !selected,
-                                    'dark:text-surface-400': !selected,
-                                    'text-inherit': selected
-                                }"
-                                >{{ option.category }}</span
-                            >
+        <app-demo-wrapper>
+            <div class="sm:flex sm:justify-center">
+                <p-orderlist [value]="products()" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
+                    <ng-template let-option let-selected="selected" #item>
+                        <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                            <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                            <div class="flex-1 flex flex-col">
+                                <span class="font-medium text-sm">{{ option.name }}</span>
+                                <span
+                                    [ngClass]="{
+                                        'text-sm': true,
+                                        'text-surface-500': !selected,
+                                        'dark:text-surface-400': !selected,
+                                        'text-inherit': selected
+                                    }"
+                                    >{{ option.category }}</span
+                                >
+                            </div>
+                            <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
                         </div>
-                        <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
-                    </div>
-                </ng-template>
-            </p-orderlist>
-        </div>
+                    </ng-template>
+                </p-orderlist>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [OrderListModule],
@@ -189,28 +195,30 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
-                <ng-template let-option let-selected="selected" #item>
-                    <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
-                        <div class="flex-1 flex flex-col">
-                            <span class="font-medium text-sm">{{ option.name }}</span>
-                            <span
-                                [ngClass]="{
-                                    'text-sm': true,
-                                    'text-surface-500': !selected,
-                                    'dark:text-surface-400': !selected,
-                                    'text-inherit': selected
-                                }"
-                                >{{ option.category }}</span
-                            >
+        <app-demo-wrapper>
+            <div class="sm:flex sm:justify-center">
+                <p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+                    <ng-template let-option let-selected="selected" #item>
+                        <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                            <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                            <div class="flex-1 flex flex-col">
+                                <span class="font-medium text-sm">{{ option.name }}</span>
+                                <span
+                                    [ngClass]="{
+                                        'text-sm': true,
+                                        'text-surface-500': !selected,
+                                        'dark:text-surface-400': !selected,
+                                        'text-inherit': selected
+                                    }"
+                                    >{{ option.category }}</span
+                                >
+                            </div>
+                            <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
                         </div>
-                        <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
-                    </div>
-                </ng-template>
-            </p-orderlist>
-        </div>
+                    </ng-template>
+                </p-orderlist>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [OrderListModule],

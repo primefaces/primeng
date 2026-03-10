@@ -19,52 +19,54 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
-            <p-popover #op>
-                <div class="flex flex-col gap-4 w-[25rem]">
-                    <div>
-                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2 text-sm">Share this document</span>
-                        <p-inputgroup>
-                            <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
-                            <p-inputgroup-addon>
-                                <i class="pi pi-copy"></i>
-                            </p-inputgroup-addon>
-                        </p-inputgroup>
-                    </div>
-                    <div>
-                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2 text-sm">Invite Member</span>
-                        <div class="flex">
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
+                <p-popover #op>
+                    <div class="flex flex-col gap-4 w-[25rem]">
+                        <div>
+                            <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2 text-sm">Share this document</span>
                             <p-inputgroup>
-                                <input pInputText disabled />
-                                <button pButton>
-                                    <span pButtonIcon class="pi pi-users"></span>
-                                    <span pButtonLabel>Invite</span>
-                                </button>
+                                <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
+                                <p-inputgroup-addon>
+                                    <i class="pi pi-copy"></i>
+                                </p-inputgroup-addon>
                             </p-inputgroup>
                         </div>
+                        <div>
+                            <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2 text-sm">Invite Member</span>
+                            <div class="flex">
+                                <p-inputgroup>
+                                    <input pInputText disabled />
+                                    <button pButton>
+                                        <span pButtonIcon class="pi pi-users"></span>
+                                        <span pButtonLabel>Invite</span>
+                                    </button>
+                                </p-inputgroup>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2 text-sm">Team Members</span>
+                            <ul class="list-none p-0 m-0 flex flex-col gap-4">
+                                @for (member of members; track member) {
+                                    <li class="flex items-center gap-2">
+                                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
+                                        <div>
+                                            <span class="font-medium text-sm">{{ member.name }}</span>
+                                            <div class="text-xs text-muted-color">{{ member.email }}</div>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-muted-color ml-auto text-sm">
+                                            <span>{{ member.role }}</span>
+                                            <i class="pi pi-angle-down"></i>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
                     </div>
-                    <div>
-                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2 text-sm">Team Members</span>
-                        <ul class="list-none p-0 m-0 flex flex-col gap-4">
-                            @for (member of members; track member) {
-                                <li class="flex items-center gap-2">
-                                    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
-                                    <div>
-                                        <span class="font-medium text-sm">{{ member.name }}</span>
-                                        <div class="text-xs text-muted-color">{{ member.email }}</div>
-                                    </div>
-                                    <div class="flex items-center gap-2 text-muted-color ml-auto text-sm">
-                                        <span>{{ member.role }}</span>
-                                        <i class="pi pi-angle-down"></i>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </p-popover>
-        </div>
+                </p-popover>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, InputGroupModule, PopoverModule, InputTextModule]
@@ -94,7 +96,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products()" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
                 <ng-template #header>
                     <tr>
@@ -160,7 +162,7 @@ import { Product } from '@/domain/product';
                     }
                 </ng-template>
             </p-popover>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, PopoverModule, TableModule, TagModule],
@@ -225,27 +227,29 @@ import { Popover, PopoverModule } from 'primeng/popover';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-button type="button" [label]="selectedMember ? selectedMember.name : 'Select Member'" (onClick)="toggle($event)" styleClass="min-w-48" />
-            <p-popover #op>
-                <div class="flex flex-col gap-4">
-                    <div>
-                        <span class="font-medium block mb-2 text-sm">Team Members</span>
-                        <ul class="list-none p-0 m-0 flex flex-col">
-                            @for (member of members; track member.name) {
-                                <li class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
-                                    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
-                                    <div>
-                                        <span class="font-medium text-sm">{{ member.name }}</span>
-                                        <div class="text-xs text-surface-500 dark:text-surface-400">{{ member.email }}</div>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button type="button" [label]="selectedMember ? selectedMember.name : 'Select Member'" (onClick)="toggle($event)" styleClass="min-w-48" />
+                <p-popover #op>
+                    <div class="flex flex-col gap-4">
+                        <div>
+                            <span class="font-medium block mb-2 text-sm">Team Members</span>
+                            <ul class="list-none p-0 m-0 flex flex-col">
+                                @for (member of members; track member.name) {
+                                    <li class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
+                                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
+                                        <div>
+                                            <span class="font-medium text-sm">{{ member.name }}</span>
+                                            <div class="text-xs text-surface-500 dark:text-surface-400">{{ member.email }}</div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </p-popover>
-        </div>
+                </p-popover>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, PopoverModule]
@@ -280,15 +284,17 @@ import { PopoverModule } from 'primeng/popover';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
-            <div #targetEl class="mt-8 w-40 h-20 border border-surface rounded-border flex items-center justify-center">
-                <span class="text-sm">Target Element</span>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
+                <div #targetEl class="mt-8 w-40 h-20 border border-surface rounded-border flex items-center justify-center">
+                    <span class="text-sm">Target Element</span>
+                </div>
+                <p-popover #op>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
+                </p-popover>
             </div>
-            <p-popover #op>
-                <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
-            </p-popover>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, PopoverModule]
@@ -308,14 +314,16 @@ import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-popover #op>
-                <ng-template #content>
-                    <h4>Custom Content</h4>
-                </ng-template>
-            </p-popover>
-            <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-popover #op>
+                    <ng-template #content>
+                        <h4>Custom Content</h4>
+                    </ng-template>
+                </p-popover>
+                <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, PopoverModule]

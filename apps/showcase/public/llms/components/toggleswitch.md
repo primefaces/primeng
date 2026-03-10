@@ -17,9 +17,11 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toggleswitch [(ngModel)]="checked" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-toggleswitch [(ngModel)]="checked" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ToggleSwitchModule, FormsModule]
@@ -40,9 +42,11 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toggleswitch [(ngModel)]="checked" [disabled]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-toggleswitch [(ngModel)]="checked" [disabled]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ToggleSwitchModule, FormsModule]
@@ -63,9 +67,11 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toggleswitch [(ngModel)]="checked" [invalid]="!checked" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-toggleswitch [(ngModel)]="checked" [invalid]="!checked" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ToggleSwitchModule, FormsModule]
@@ -86,9 +92,11 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toggleswitch [(ngModel)]="checked" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-toggleswitch [(ngModel)]="checked" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ToggleSwitchModule, FormsModule]
@@ -114,17 +122,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-48">
-                <div class="flex flex-col items-center gap-2">
-                    <p-toggleswitch name="activation" formControlName="activation" [invalid]="isInvalid('activation')" />
-                    @if (isInvalid('activation')) {
-                        <p-message severity="error" size="small" variant="simple">Activation is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-48">
+                    <div class="flex flex-col items-center gap-2">
+                        <p-toggleswitch name="activation" formControlName="activation" [invalid]="isInvalid('activation')" />
+                        @if (isInvalid('activation')) {
+                            <p-message severity="error" size="small" variant="simple">Activation is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, ToastModule, ToggleSwitchModule, ButtonModule, ReactiveFormsModule]
@@ -167,13 +177,15 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-4">
-            <p-toggleswitch [(ngModel)]="checked">
-                <ng-template #handle let-checked="checked">
-                    <i [ngClass]="['!text-xs', 'pi', checked ? 'pi-check' : 'pi-times']"></i>
-                </ng-template>
-            </p-toggleswitch>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-4">
+                <p-toggleswitch [(ngModel)]="checked">
+                    <ng-template #handle let-checked="checked">
+                        <i [ngClass]="['!text-xs', 'pi', checked ? 'pi-check' : 'pi-times']"></i>
+                    </ng-template>
+                </p-toggleswitch>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ToggleSwitchModule, FormsModule]
@@ -197,17 +209,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-48">
-                <div class="flex flex-col items-center gap-2">
-                    <p-toggleswitch #model="ngModel" [(ngModel)]="checked" name="activation" [invalid]="model.invalid && exampleForm.submitted" required />
-                    @if (model.invalid && exampleForm.submitted) {
-                        <p-message severity="error" size="small" variant="simple">Activation is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-48">
+                    <div class="flex flex-col items-center gap-2">
+                        <p-toggleswitch #model="ngModel" [(ngModel)]="checked" name="activation" [invalid]="model.invalid && exampleForm.submitted" required />
+                        @if (model.invalid && exampleForm.submitted) {
+                            <p-message severity="error" size="small" variant="simple">Activation is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, ToastModule, ToggleSwitchModule, ButtonModule, FormsModule]

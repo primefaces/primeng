@@ -20,7 +20,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-carousel [value]="products()" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
                 <ng-template let-product #item>
                     <div class="border border-surface rounded-border m-2 p-4">
@@ -41,7 +41,7 @@ import { Product } from '@/domain/product';
                     </div>
                 </ng-template>
             </p-carousel>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, CarouselModule, TagModule],
@@ -107,7 +107,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
@@ -128,7 +128,7 @@ import { Product } from '@/domain/product';
                     </div>
                 </ng-template>
             </p-carousel>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, CarouselModule, TagModule],
@@ -194,7 +194,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
@@ -215,7 +215,7 @@ import { Product } from '@/domain/product';
                     </div>
                 </ng-template>
             </p-carousel>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, CarouselModule, TagModule],
@@ -281,7 +281,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-carousel [value]="products()" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
@@ -302,7 +302,7 @@ import { Product } from '@/domain/product';
                     </div>
                 </ng-template>
             </p-carousel>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, CarouselModule, TagModule],

@@ -22,9 +22,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]
@@ -61,9 +63,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]
@@ -100,9 +104,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" [showClear]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" [showClear]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]
@@ -143,31 +149,33 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
-                <ng-template #filter let-options="options">
-                    <div class="flex gap-1">
-                        <p-inputgroup (click)="$event.stopPropagation()">
-                            <p-inputgroup-addon><i class="pi pi-search"></i></p-inputgroup-addon>
-                            <input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
-                        </p-inputgroup>
-                        <p-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
-                    </div>
-                </ng-template>
-                <ng-template #selectedItem let-selectedOption>
-                    <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ selectedOption.name }}</div>
-                    </div>
-                </ng-template>
-                <ng-template #item let-country>
-                    <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ country.name }}</div>
-                    </div>
-                </ng-template>
-            </p-select>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+                    <ng-template #filter let-options="options">
+                        <div class="flex gap-1">
+                            <p-inputgroup (click)="$event.stopPropagation()">
+                                <p-inputgroup-addon><i class="pi pi-search"></i></p-inputgroup-addon>
+                                <input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
+                            </p-inputgroup>
+                            <p-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
+                        </div>
+                    </ng-template>
+                    <ng-template #selectedItem let-selectedOption>
+                        <div class="flex items-center gap-2">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
+                            <div>{{ selectedOption.name }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template #item let-country>
+                        <div class="flex items-center gap-2">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                            <div>{{ country.name }}</div>
+                        </div>
+                    </ng-template>
+                </p-select>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, SelectModule, InputGroupModule, InputTextModule, FormsModule]
@@ -219,9 +227,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]
@@ -258,9 +268,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" class="w-full md:w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" class="w-full md:w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]
@@ -297,9 +309,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]
@@ -332,22 +346,24 @@ import { Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
-                <ng-template #selectedItem let-selectedOption>
-                    <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ selectedOption.name }}</div>
-                    </div>
-                </ng-template>
-                <ng-template let-country #item>
-                    <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ country.name }}</div>
-                    </div>
-                </ng-template>
-            </p-select>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
+                    <ng-template #selectedItem let-selectedOption>
+                        <div class="flex items-center gap-2">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
+                            <div>{{ selectedOption.name }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-country #item>
+                        <div class="flex items-center gap-2">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                            <div>{{ country.name }}</div>
+                        </div>
+                    </ng-template>
+                </p-select>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]
@@ -390,20 +406,22 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel class="w-full md:w-56">
-                <p-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" class="w-full" />
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel class="w-full md:w-56" variant="in">
-                <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" class="w-full" variant="filled" />
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel class="w-full md:w-56" variant="on">
-                <p-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" class="w-full" />
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-end gap-4">
+                <p-floatlabel class="w-full md:w-56">
+                    <p-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" class="w-full" />
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
+                <p-floatlabel class="w-full md:w-56" variant="in">
+                    <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" class="w-full" variant="filled" />
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
+                <p-floatlabel class="w-full md:w-56" variant="on">
+                    <p-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" class="w-full" />
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FloatLabelModule, FormsModule]
@@ -442,9 +460,9 @@ interface City {
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" fluid />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]
@@ -477,16 +495,18 @@ import { SelectItemGroup } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
-                <ng-template let-group #group>
-                    <div class="flex items-center">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
-                        <span>{{ group.label }}</span>
-                    </div>
-                </ng-template>
-            </p-select>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
+                    <ng-template let-group #group>
+                        <div class="flex items-center">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                            <span>{{ group.label }}</span>
+                        </div>
+                    </ng-template>
+                </p-select>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]
@@ -549,12 +569,14 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-iftalabel class="w-full md:w-56">
-                <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" class="w-full" />
-                <label for="dd-city">City</label>
-            </p-iftalabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-iftalabel class="w-full md:w-56">
+                    <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" class="w-full" />
+                    <label for="dd-city">City</label>
+                </p-iftalabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, IftaLabelModule, FormsModule]
@@ -591,10 +613,12 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-4">
-            <p-select [options]="cities" [(ngModel)]="selectedCity1" optionLabel="name" [showClear]="true" [invalid]="value1" placeholder="Select a City" class="w-full md:w-56" />
-            <p-select [options]="cities" [(ngModel)]="selectedCity2" optionLabel="name" [showClear]="true" [invalid]="value2" placeholder="Select a City" class="w-full md:w-56" variant="filled" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-4">
+                <p-select [options]="cities" [(ngModel)]="selectedCity1" optionLabel="name" [showClear]="true" [invalid]="value1" placeholder="Select a City" class="w-full md:w-56" />
+                <p-select [options]="cities" [(ngModel)]="selectedCity2" optionLabel="name" [showClear]="true" [invalid]="value2" placeholder="Select a City" class="w-full md:w-56" variant="filled" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]
@@ -624,9 +648,11 @@ import { SelectItem } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]
@@ -692,9 +718,11 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]
@@ -736,17 +764,19 @@ interface City {
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
-                <div class="flex flex-col gap-1">
-                    <p-select formControlName="city" [options]="cities" [invalid]="isInvalid('city')" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
-                    @if (isInvalid('city')) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
+                    <div class="flex flex-col gap-1">
+                        <p-select formControlName="city" [options]="cities" [invalid]="isInvalid('city')" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+                        @if (isInvalid('city')) {
+                            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
@@ -801,11 +831,13 @@ interface City {
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <p-select [(ngModel)]="value1" [options]="cities" optionLabel="name" size="small" placeholder="Small" class="w-full md:w-56" />
-            <p-select [(ngModel)]="value2" [options]="cities" optionLabel="name" placeholder="Normal" class="w-full md:w-56" />
-            <p-select [(ngModel)]="value3" [options]="cities" optionLabel="name" size="large" placeholder="Large" class="w-full md:w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-select [(ngModel)]="value1" [options]="cities" optionLabel="name" size="small" placeholder="Small" class="w-full md:w-56" />
+                <p-select [(ngModel)]="value2" [options]="cities" optionLabel="name" placeholder="Normal" class="w-full md:w-56" />
+                <p-select [(ngModel)]="value3" [options]="cities" optionLabel="name" size="large" placeholder="Large" class="w-full md:w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]
@@ -840,35 +872,37 @@ import { SelectModule } from 'primeng/select';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" placeholder="Select a country" class="w-full md:w-56">
-                <ng-template #selectedItem let-selectedOption>
-                    @if (selectedOption) {
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" placeholder="Select a country" class="w-full md:w-56">
+                    <ng-template #selectedItem let-selectedOption>
+                        @if (selectedOption) {
+                            <div class="flex items-center gap-2">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
+                                <div>{{ selectedOption.name }}</div>
+                            </div>
+                        }
+                    </ng-template>
+                    <ng-template let-country #item>
                         <div class="flex items-center gap-2">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
-                            <div>{{ selectedOption.name }}</div>
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                            <div>{{ country.name }}</div>
                         </div>
-                    }
-                </ng-template>
-                <ng-template let-country #item>
-                    <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ country.name }}</div>
-                    </div>
-                </ng-template>
-                <ng-template #dropdownicon>
-                    <i class="pi pi-map"></i>
-                </ng-template>
-                <ng-template #header>
-                    <div class="font-medium p-3">Available Countries</div>
-                </ng-template>
-                <ng-template #footer>
-                    <div class="p-3">
-                        <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
-                    </div>
-                </ng-template>
-            </p-select>
-        </div>
+                    </ng-template>
+                    <ng-template #dropdownicon>
+                        <i class="pi pi-map"></i>
+                    </ng-template>
+                    <ng-template #header>
+                        <div class="font-medium p-3">Available Countries</div>
+                    </ng-template>
+                    <ng-template #footer>
+                        <div class="p-3">
+                            <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+                        </div>
+                    </ng-template>
+                </p-select>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, SelectModule, FormsModule]
@@ -913,27 +947,29 @@ interface City {
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
-                <div class="flex flex-col gap-1">
-                    <p-select
-                        #city="ngModel"
-                        [(ngModel)]="selectedCity"
-                        [options]="cities"
-                        [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
-                        optionLabel="name"
-                        name="city"
-                        placeholder="Select a City"
-                        class="w-full md:w-56"
-                        required
-                    />
-                    @if (city.invalid && (city.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
+                    <div class="flex flex-col gap-1">
+                        <p-select
+                            #city="ngModel"
+                            [(ngModel)]="selectedCity"
+                            [options]="cities"
+                            [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
+                            optionLabel="name"
+                            name="city"
+                            placeholder="Select a City"
+                            class="w-full md:w-56"
+                            required
+                        />
+                        @if (city.invalid && (city.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, MessageModule, ToastModule, ButtonModule, FormsModule]
@@ -970,9 +1006,11 @@ import { SelectItem } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, FormsModule]

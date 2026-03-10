@@ -16,9 +16,9 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ChartModule]
@@ -104,9 +104,9 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ChartModule]
@@ -203,9 +203,11 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ChartModule]
@@ -263,9 +265,9 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ChartModule]
@@ -357,9 +359,9 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ChartModule]
@@ -449,9 +451,9 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ChartModule]
@@ -590,9 +592,9 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ChartModule]
@@ -698,9 +700,11 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ChartModule]
@@ -758,9 +762,11 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ChartModule]
@@ -907,9 +913,11 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ChartModule]
@@ -987,9 +995,9 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ChartModule]
@@ -1089,9 +1097,9 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ChartModule]

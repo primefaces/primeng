@@ -23,14 +23,14 @@ interface UploadEvent {
 
 @Component({
     template: `
-        <div class="card">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
             <p-fileupload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" mode="advanced">
                 <ng-template #empty>
                     <div>Drag and drop files to here to upload.</div>
                 </ng-template>
             </p-fileupload>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FileUploadModule, ToastModule],
@@ -59,10 +59,12 @@ interface UploadEvent {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-fileupload mode="basic" name="demo[]" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-fileupload mode="basic" name="demo[]" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FileUploadModule, ToastModule],
@@ -92,10 +94,12 @@ interface UploadEvent {
 @Component({
     template: `
         <p-toast />
-        <div class="card flex flex-wrap gap-6 items-center justify-between">
-            <p-fileupload #fu mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)" />
-            <p-button label="Upload" (onClick)="fu.upload()" severity="secondary" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap gap-6 items-center justify-between">
+                <p-fileupload #fu mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)" />
+                <p-button label="Upload" (onClick)="fu.upload()" severity="secondary" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, FileUploadModule, ToastModule],
@@ -118,10 +122,12 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast></p-toast>
-            <p-fileupload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileupload>
-        </div>
+        <p-toast></p-toast>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-fileupload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileupload>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FileUploadModule, ToastModule],
@@ -153,8 +159,8 @@ import { MessageService } from 'primeng/api';
                 option is <i>toolbar</i> to display custom content at toolbar.
             </p></app-docsectiontext
         >
-        <div class="card">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
             <p-fileupload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true" accept="image/*" maxFileSize="1000000" (onUpload)="onTemplatedUpload()" (onSelect)="onSelectedFiles($event)">
                 <ng-template #header let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
                     <div class="flex flex-wrap justify-between items-center flex-1 gap-4">
@@ -216,7 +222,7 @@ import { MessageService } from 'primeng/api';
                     </div>
                 </ng-template>
             </p-fileupload>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [BadgeModule, ButtonModule, FileUploadModule, ProgressBarModule, ToastModule],

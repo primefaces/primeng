@@ -26,53 +26,55 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card dock-demo">
-            <p-menubar [model]="menubarItems">
-                <ng-template #start>
-                    <i class="pi pi-apple px-2"></i>
-                </ng-template>
-                <ng-template #end>
-                    <i class="pi pi-video px-2"></i>
-                    <i class="pi pi-wifi px-2"></i>
-                    <i class="pi pi-volume-up px-2"></i>
-                    <span class="px-2 text-sm">Fri 13:07</span>
-                    <i class="pi pi-search px-2"></i>
-                    <i class="pi pi-bars px-2"></i>
-                </ng-template>
-            </p-menubar>
-            <div class="dock-window">
-                <p-dock [model]="dockItems" position="bottom">
-                    <ng-template #item let-item>
-                        <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
-                            <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
-                        </a>
+        <app-demo-wrapper>
+            <div class="dock-demo">
+                <p-menubar [model]="menubarItems">
+                    <ng-template #start>
+                        <i class="pi pi-apple px-2"></i>
                     </ng-template>
-                </p-dock>
-                <p-toast position="top-center" key="tc" />
-                <p-dialog [(visible)]="displayFinder" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw', height: '18rem' }" [draggable]="false" [resizable]="false" header="Finder">
-                    <p-tree [value]="nodes" />
-                </p-dialog>
-                <p-dialog [maximizable]="true" [(visible)]="displayTerminal" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" header="Terminal">
-                    <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
-                </p-dialog>
-                <p-galleria
-                    [(value)]="images"
-                    [showThumbnails]="false"
-                    [showThumbnailNavigators]="false"
-                    [showItemNavigators]="true"
-                    [(visible)]="displayGalleria"
-                    [circular]="true"
-                    [responsiveOptions]="responsiveOptions"
-                    [circular]="true"
-                    [fullScreen]="true"
-                    [containerStyle]="{ width: '400px' }"
-                >
-                    <ng-template #item let-item>
-                        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+                    <ng-template #end>
+                        <i class="pi pi-video px-2"></i>
+                        <i class="pi pi-wifi px-2"></i>
+                        <i class="pi pi-volume-up px-2"></i>
+                        <span class="px-2 text-sm">Fri 13:07</span>
+                        <i class="pi pi-search px-2"></i>
+                        <i class="pi pi-bars px-2"></i>
                     </ng-template>
-                </p-galleria>
+                </p-menubar>
+                <div class="dock-window">
+                    <p-dock [model]="dockItems" position="bottom">
+                        <ng-template #item let-item>
+                            <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
+                                <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
+                            </a>
+                        </ng-template>
+                    </p-dock>
+                    <p-toast position="top-center" key="tc" />
+                    <p-dialog [(visible)]="displayFinder" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw', height: '18rem' }" [draggable]="false" [resizable]="false" header="Finder">
+                        <p-tree [value]="nodes" />
+                    </p-dialog>
+                    <p-dialog [maximizable]="true" [(visible)]="displayTerminal" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" header="Terminal">
+                        <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
+                    </p-dialog>
+                    <p-galleria
+                        [(value)]="images"
+                        [showThumbnails]="false"
+                        [showThumbnailNavigators]="false"
+                        [showItemNavigators]="true"
+                        [(visible)]="displayGalleria"
+                        [circular]="true"
+                        [responsiveOptions]="responsiveOptions"
+                        [circular]="true"
+                        [fullScreen]="true"
+                        [containerStyle]="{ width: '400px' }"
+                    >
+                        <ng-template #item let-item>
+                            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+                        </ng-template>
+                    </p-galleria>
+                </div>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DialogModule, DockModule, GalleriaModule, MenubarModule, TerminalModule, ToastModule, TreeModule, TooltipModule],
@@ -377,7 +379,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex flex-wrap gap-4 mb-7">
                 @for (pos of positionOptions; track pos.value) {
                     <div class="flex items-center">
@@ -393,7 +395,7 @@ import { MenuItem } from 'primeng/api';
                     </ng-template>
                 </p-dock>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DockModule, RadioButtonModule, TooltipModule, FormsModule]

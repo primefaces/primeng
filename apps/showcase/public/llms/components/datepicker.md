@@ -17,9 +17,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="date" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -41,23 +43,25 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-4 flex-wrap">
-            <p-datepicker [(ngModel)]="date" [showButtonBar]="true" placeholder="Basic" />
-            <p-datepicker [(ngModel)]="dates" [showButtonBar]="true" placeholder="Customized" selectionMode="range" [readonlyInput]="true">
-                <ng-template #buttonbar let-todayCallback="todayCallback" let-clearCallback="clearCallback">
-                    <div class="flex justify-between w-full">
-                        <div class="flex gap-2">
-                            <p-button size="small" label="Exact" severity="secondary" />
-                            <p-button size="small" label="Flexible" severity="secondary" />
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-4 flex-wrap">
+                <p-datepicker [(ngModel)]="date" [showButtonBar]="true" placeholder="Basic" />
+                <p-datepicker [(ngModel)]="dates" [showButtonBar]="true" placeholder="Customized" selectionMode="range" [readonlyInput]="true">
+                    <ng-template #buttonbar let-todayCallback="todayCallback" let-clearCallback="clearCallback">
+                        <div class="flex justify-between w-full">
+                            <div class="flex gap-2">
+                                <p-button size="small" label="Exact" severity="secondary" />
+                                <p-button size="small" label="Flexible" severity="secondary" />
+                            </div>
+                            <div class="flex gap-2">
+                                <p-button size="small" label="Today" (click)="todayCallback($event)" variant="outlined" />
+                                <p-button size="small" icon="pi pi-times" severity="danger" variant="text" (click)="clearCallback($event)" />
+                            </div>
                         </div>
-                        <div class="flex gap-2">
-                            <p-button size="small" label="Today" (click)="todayCallback($event)" variant="outlined" />
-                            <p-button size="small" icon="pi pi-times" severity="danger" variant="text" (click)="clearCallback($event)" />
-                        </div>
-                    </div>
-                </ng-template>
-            </p-datepicker>
-        </div>
+                    </ng-template>
+                </p-datepicker>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, DatePickerModule, FormsModule]
@@ -79,9 +83,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" [showClear]="true" inputStyleClass="w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="date" [showClear]="true" inputStyleClass="w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -102,17 +108,19 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date">
-                <ng-template #date let-date>
-                    @if (date.day > 10 && date.day < 15) {
-                        <strong style="text-decoration: line-through">{{ date.day }}</strong>
-                    } @else {
-                        {{ date.day }}
-                    }
-                </ng-template>
-            </p-datepicker>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="date">
+                    <ng-template #date let-date>
+                        @if (date.day > 10 && date.day < 15) {
+                            <strong style="text-decoration: line-through">{{ date.day }}</strong>
+                        } @else {
+                            {{ date.day }}
+                        }
+                    </ng-template>
+                </p-datepicker>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -133,9 +141,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" [disabled]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="date" [disabled]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -251,9 +261,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" variant="filled" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="date" variant="filled" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -275,20 +287,22 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel>
-                <p-datepicker [(ngModel)]="value1" inputId="over_label" showIcon iconDisplay="input" />
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="in">
-                <p-datepicker [(ngModel)]="value2" inputId="in_label" showIcon iconDisplay="input" />
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="on">
-                <p-datepicker [(ngModel)]="value3" inputId="on_label" showIcon iconDisplay="input" />
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-end gap-4">
+                <p-floatlabel>
+                    <p-datepicker [(ngModel)]="value1" inputId="over_label" showIcon iconDisplay="input" />
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
+                <p-floatlabel variant="in">
+                    <p-datepicker [(ngModel)]="value2" inputId="in_label" showIcon iconDisplay="input" />
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <p-datepicker [(ngModel)]="value3" inputId="on_label" showIcon iconDisplay="input" />
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FloatLabelModule, FormsModule]
@@ -311,9 +325,9 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-datepicker [(ngModel)]="date" fluid />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -334,9 +348,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" dateFormat="dd.mm.yy" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="date" dateFormat="dd.mm.yy" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -357,24 +373,26 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <p-fluid class="card flex flex-wrap gap-4">
-            <div class="flex-auto">
-                <label for="buttondisplay" class="text-sm font-bold block mb-2"> Button </label>
-                <p-datepicker [(ngModel)]="date1" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
-            </div>
-            <div class="flex-auto">
-                <label for="icondisplay" class="text-sm font-bold block mb-2"> Default Icon </label>
-                <p-datepicker [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
-            </div>
-            <div class="flex-auto">
-                <label for="templatedisplay" class="text-sm font-bold block mb-2"> Custom Icon </label>
-                <p-datepicker [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
-                    <ng-template #inputicon let-clickCallBack="clickCallBack">
-                        <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
-                    </ng-template>
-                </p-datepicker>
-            </div>
-        </p-fluid>
+        <app-demo-wrapper>
+            <p-fluid class="flex flex-wrap gap-4">
+                <div class="flex-auto">
+                    <label for="buttondisplay" class="text-sm font-bold block mb-2"> Button </label>
+                    <p-datepicker [(ngModel)]="date1" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
+                </div>
+                <div class="flex-auto">
+                    <label for="icondisplay" class="text-sm font-bold block mb-2"> Default Icon </label>
+                    <p-datepicker [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
+                </div>
+                <div class="flex-auto">
+                    <label for="templatedisplay" class="text-sm font-bold block mb-2"> Custom Icon </label>
+                    <p-datepicker [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
+                        <ng-template #inputicon let-clickCallBack="clickCallBack">
+                            <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
+                        </ng-template>
+                    </p-datepicker>
+                </div>
+            </p-fluid>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -398,12 +416,14 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-iftalabel>
-                <p-datepicker [(ngModel)]="value" inputId="date" showIcon iconDisplay="input" />
-                <label for="date">Date</label>
-            </p-iftalabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-iftalabel>
+                    <p-datepicker [(ngModel)]="value" inputId="date" showIcon iconDisplay="input" />
+                    <label for="date">Date</label>
+                </p-iftalabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, IftaLabelModule, FormsModule]
@@ -424,9 +444,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -447,10 +469,12 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center gap-4">
-            <p-datepicker [(ngModel)]="date1" [invalid]="!date1" placeholder="Date" />
-            <p-datepicker [(ngModel)]="date2" [invalid]="!date2" variant="filled" placeholder="Date" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-4">
+                <p-datepicker [(ngModel)]="date1" [invalid]="!date1" placeholder="Date" />
+                <p-datepicker [(ngModel)]="date2" [invalid]="!date2" variant="filled" placeholder="Date" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -477,9 +501,11 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" dateFormat="dd/mm/yy" placeholder="dd/mm/yyyy" pInputMask="99/99/9999" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="date" dateFormat="dd/mm/yy" placeholder="dd/mm/yyyy" pInputMask="99/99/9999" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, InputMaskModule, FormsModule]
@@ -534,9 +560,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -575,9 +603,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -598,9 +628,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -621,9 +653,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" [numberOfMonths]="2" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="date" [numberOfMonths]="2" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -644,9 +678,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -672,17 +708,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <p-datepicker formControlName="selectedDate" [invalid]="isInvalid('selectedDate')" />
-                    @if (isInvalid('selectedDate')) {
-                        <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <p-datepicker formControlName="selectedDate" [invalid]="isInvalid('selectedDate')" />
+                        @if (isInvalid('selectedDate')) {
+                            <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
@@ -725,11 +763,13 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <p-datepicker [(ngModel)]="value1" size="small" placeholder="Small" showIcon iconDisplay="input" />
-            <p-datepicker [(ngModel)]="value2" placeholder="Normal" showIcon iconDisplay="input" />
-            <p-datepicker [(ngModel)]="value3" size="large" placeholder="Large" showIcon iconDisplay="input" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-datepicker [(ngModel)]="value1" size="small" placeholder="Small" showIcon iconDisplay="input" />
+                <p-datepicker [(ngModel)]="value2" placeholder="Normal" showIcon iconDisplay="input" />
+                <p-datepicker [(ngModel)]="value3" size="large" placeholder="Large" showIcon iconDisplay="input" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -751,12 +791,14 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-calendar [(ngModel)]="date">
-                <ng-template #header>Header</ng-template>
-                <ng-template #footer>Footer</ng-template>
-            </p-calendar>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-calendar [(ngModel)]="date">
+                    <ng-template #header>Header</ng-template>
+                    <ng-template #footer>Footer</ng-template>
+                </p-calendar>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FormsModule]
@@ -780,17 +822,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <p-datepicker name="date" [invalid]="dateModel.invalid && (dateModel.touched || exampleForm.submitted)" #dateModel="ngModel" [(ngModel)]="date" required />
-                    @if (dateModel.invalid && (dateModel.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <p-datepicker name="date" [invalid]="dateModel.invalid && (dateModel.touched || exampleForm.submitted)" #dateModel="ngModel" [(ngModel)]="date" required />
+                        @if (dateModel.invalid && (dateModel.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, MessageModule, ToastModule, ButtonModule, FormsModule]
@@ -885,20 +929,22 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <p-fluid class="card flex flex-wrap gap-4">
-            <div class="flex-auto">
-                <label for="calendar-12h" class="text-sm font-bold block mb-2"> 12h Format </label>
-                <p-datepicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" [hourFormat]="12" />
-            </div>
-            <div class="flex-auto">
-                <label for="calendar-24h" class="text-sm font-bold block mb-2"> 24h Format </label>
-                <p-datepicker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" [hourFormat]="24" />
-            </div>
-            <div class="flex-auto">
-                <label for="calendar-timeonly" class="text-sm font-bold block mb-2"> Time Only </label>
-                <p-datepicker inputId="calendar-timeonly" [(ngModel)]="time" [timeOnly]="true" />
-            </div>
-        </p-fluid>
+        <app-demo-wrapper>
+            <p-fluid class="flex flex-wrap gap-4">
+                <div class="flex-auto">
+                    <label for="calendar-12h" class="text-sm font-bold block mb-2"> 12h Format </label>
+                    <p-datepicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" [hourFormat]="12" />
+                </div>
+                <div class="flex-auto">
+                    <label for="calendar-24h" class="text-sm font-bold block mb-2"> 24h Format </label>
+                    <p-datepicker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" [hourFormat]="24" />
+                </div>
+                <div class="flex-auto">
+                    <label for="calendar-timeonly" class="text-sm font-bold block mb-2"> Time Only </label>
+                    <p-datepicker inputId="calendar-timeonly" [(ngModel)]="time" [timeOnly]="true" />
+                </div>
+            </p-fluid>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -921,9 +967,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]
@@ -944,9 +992,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" view="year" dateFormat="yy" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="date" view="year" dateFormat="yy" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DatePickerModule, FormsModule]

@@ -16,9 +16,11 @@ import { BadgeModule } from 'primeng/badge';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-badge value="2" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-badge value="2" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [BadgeModule]
@@ -36,10 +38,12 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
     template: `
-        <div class="card flex justify-center flex-wrap gap-4">
-            <p-button label="Emails" icon="pi pi-bell" label="Notifications" badge="2" />
-            <p-button label="Inbox" icon="pi pi-inbox" badge="2" badgeSeverity="contrast" outlined />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center flex-wrap gap-4">
+                <p-button label="Emails" icon="pi pi-bell" label="Notifications" badge="2" />
+                <p-button label="Inbox" icon="pi pi-inbox" badge="2" badgeSeverity="contrast" outlined />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule]
@@ -57,17 +61,19 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center gap-6">
-            <p-overlaybadge value="2">
-                <i class="pi pi-bell" style="font-size: 2rem"></i>
-            </p-overlaybadge>
-            <p-overlaybadge value="4" severity="danger">
-                <i class="pi pi-calendar" style="font-size: 2rem"></i>
-            </p-overlaybadge>
-            <p-overlaybadge severity="danger">
-                <i class="pi pi-envelope" style="font-size: 2rem"></i>
-            </p-overlaybadge>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-6">
+                <p-overlaybadge value="2">
+                    <i class="pi pi-bell" style="font-size: 2rem"></i>
+                </p-overlaybadge>
+                <p-overlaybadge value="4" severity="danger">
+                    <i class="pi pi-calendar" style="font-size: 2rem"></i>
+                </p-overlaybadge>
+                <p-overlaybadge severity="danger">
+                    <i class="pi pi-envelope" style="font-size: 2rem"></i>
+                </p-overlaybadge>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [OverlayBadgeModule]
@@ -85,17 +91,19 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-overlaybadge value="2" class="mr-6">
-                <i class="pi pi-bell p-text-secondary" style="font-size: 2rem"></i>
-            </p-overlaybadge>
-            <p-overlaybadge value="10+" severity="danger" class="mr-6">
-                <i class="pi pi-calendar p-text-secondary" style="font-size: 2rem"></i>
-            </p-overlaybadge>
-            <p-overlaybadge severity="danger">
-                <i class="pi pi-envelope p-text-secondary" style="font-size: 2rem"></i>
-            </p-overlaybadge>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-overlaybadge value="2" class="mr-6">
+                    <i class="pi pi-bell p-text-secondary" style="font-size: 2rem"></i>
+                </p-overlaybadge>
+                <p-overlaybadge value="10+" severity="danger" class="mr-6">
+                    <i class="pi pi-calendar p-text-secondary" style="font-size: 2rem"></i>
+                </p-overlaybadge>
+                <p-overlaybadge severity="danger">
+                    <i class="pi pi-envelope p-text-secondary" style="font-size: 2rem"></i>
+                </p-overlaybadge>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [OverlayBadgeModule]
@@ -113,15 +121,17 @@ import { BadgeModule } from 'primeng/badge';
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-2">
-            <p-badge value="2" />
-            <p-badge value="6" severity="secondary" />
-            <p-badge value="8" severity="success" />
-            <p-badge value="4" severity="info" />
-            <p-badge value="9" severity="warn" />
-            <p-badge value="3" severity="danger" />
-            <p-badge value="5" severity="contrast" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-2">
+                <p-badge value="2" />
+                <p-badge value="6" severity="secondary" />
+                <p-badge value="8" severity="success" />
+                <p-badge value="4" severity="info" />
+                <p-badge value="9" severity="warn" />
+                <p-badge value="3" severity="danger" />
+                <p-badge value="5" severity="contrast" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [BadgeModule]
@@ -139,12 +149,14 @@ import { BadgeModule } from 'primeng/badge';
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-1 items-end">
-            <p-badge value="8" badgeSize="xlarge" severity="success" />
-            <p-badge value="6" badgeSize="large" severity="warn" />
-            <p-badge value="4" severity="info" />
-            <p-badge value="2" badgeSize="small" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-1 items-end">
+                <p-badge value="8" badgeSize="xlarge" severity="success" />
+                <p-badge value="6" badgeSize="large" severity="warn" />
+                <p-badge value="4" severity="info" />
+                <p-badge value="2" badgeSize="small" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [BadgeModule]

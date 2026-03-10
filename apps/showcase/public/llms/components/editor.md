@@ -17,9 +17,9 @@ import { EditorModule } from 'primeng/editor';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [EditorModule, FormsModule]
@@ -40,7 +40,7 @@ import { EditorModule } from 'primeng/editor';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
                 <ng-template #header>
                     <span class="ql-formats">
@@ -50,7 +50,7 @@ import { EditorModule } from 'primeng/editor';
                     </span>
                 </ng-template>
             </p-editor>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [EditorModule, FormsModule]
@@ -80,7 +80,7 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card ">
+        <app-demo-wrapper>
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
                     <p-editor formControlName="text" [invalid]="isInvalid('text')" [style]="{ height: '320px' }" />
@@ -90,7 +90,7 @@ import { MessageService } from 'primeng/api';
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [EditorModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
@@ -134,9 +134,9 @@ import { EditorModule } from 'primeng/editor';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [EditorModule, FormsModule]
@@ -160,7 +160,7 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card">
+        <app-demo-wrapper>
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
                     <p-editor #content="ngModel" [(ngModel)]="text" [invalid]="content.invalid && (content.touched || exampleForm.submitted)" name="content" [style]="{ height: '320px' }" required />
@@ -170,7 +170,7 @@ import { MessageService } from 'primeng/api';
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [EditorModule, MessageModule, ToastModule, ButtonModule, FormsModule]

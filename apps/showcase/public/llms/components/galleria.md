@@ -18,7 +18,7 @@ import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-galleria
                 #galleria
                 [(value)]="images"
@@ -62,7 +62,7 @@ import { PhotoService } from '@/service/photoservice';
                     </div>
                 </ng-template>
             </p-galleria>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [GalleriaModule, ButtonModule],
@@ -189,7 +189,7 @@ import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
                 <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
@@ -198,7 +198,7 @@ import { PhotoService } from '@/service/photoservice';
                     <img [src]="item.thumbnailImageSrc" style="display: block" />
                 </ng-template>
             </p-galleria>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [GalleriaModule],
@@ -235,7 +235,7 @@ import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width:100%" />
@@ -244,7 +244,7 @@ import { PhotoService } from '@/service/photoservice';
                     <img [src]="item.thumbnailImageSrc" />
                 </ng-template>
             </p-galleria>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [GalleriaModule],
@@ -281,7 +281,7 @@ import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
@@ -294,7 +294,7 @@ import { PhotoService } from '@/service/photoservice';
                     <p class="text-white text-sm">{{ item.alt }}</p>
                 </ng-template>
             </p-galleria>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [GalleriaModule],
@@ -332,7 +332,7 @@ import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="mb-4">
                 <p-button type="button" icon="pi pi-minus" (click)="prev()" />
                 <p-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
@@ -345,7 +345,7 @@ import { PhotoService } from '@/service/photoservice';
                     <img [src]="item.thumbnailImageSrc" />
                 </ng-template>
             </p-galleria>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, GalleriaModule],
@@ -391,7 +391,7 @@ import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="7" [circular]="true">
                 <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
@@ -400,7 +400,7 @@ import { PhotoService } from '@/service/photoservice';
                     <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [GalleriaModule],
@@ -439,7 +439,7 @@ import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex flex-wrap gap-4 mb-7">
                 @for (option of positionOptions; track $index) {
                     <div class="flex items-center">
@@ -458,7 +458,7 @@ import { PhotoService } from '@/service/photoservice';
                     </div>
                 </ng-template>
             </p-galleria>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [GalleriaModule, RadioButtonModule, FormsModule],

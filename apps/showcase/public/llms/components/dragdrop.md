@@ -12,29 +12,31 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap gap-4">
-            <div class="p-2 border border-surface rounded-border w-60">
-                <ul class="list-none flex flex-col gap-2 p-0 m-0">
-                    @for (product of availableProducts; track product.id) {
-                        <li class="p-2 rounded-border shadow-sm" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
-                            {{ product.name }}
-                        </li>
-                    }
-                </ul>
-            </div>
-            <div class="p-2 border border-surface rounded-border w-60" pDroppable (onDrop)="drop()">
-                <p class="text-center border-surface border-b">Drop Zone</p>
-                @if (selectedProducts) {
+        <app-demo-wrapper>
+            <div class="flex flex-wrap gap-4">
+                <div class="p-2 border border-surface rounded-border w-60">
                     <ul class="list-none flex flex-col gap-2 p-0 m-0">
-                        @for (product of selectedProducts; track product.id) {
-                            <li class="p-2 rounded-border shadow-sm">
+                        @for (product of availableProducts; track product.id) {
+                            <li class="p-2 rounded-border shadow-sm" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                                 {{ product.name }}
                             </li>
                         }
                     </ul>
-                }
+                </div>
+                <div class="p-2 border border-surface rounded-border w-60" pDroppable (onDrop)="drop()">
+                    <p class="text-center border-surface border-b">Drop Zone</p>
+                    @if (selectedProducts) {
+                        <ul class="list-none flex flex-col gap-2 p-0 m-0">
+                            @for (product of selectedProducts; track product.id) {
+                                <li class="p-2 rounded-border shadow-sm">
+                                    {{ product.name }}
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: []
@@ -95,48 +97,50 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card grid grid-cols-12 gap-4 grid-nogutter">
-            <div class="col-span-12 md:col-span-6 drag-column">
-                @for (product of availableProducts; track product.id) {
-                    <div>
-                        <div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
-                            <div class="image-container">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="product-image" />
-                            </div>
-                            <div class="product-list-detail">
-                                <h5 class="mb-2">{{ product.name }}</h5>
-                                <i class="pi pi-tag product-category-icon"></i>
-                                <span class="product-category">{{ product.category }}</span>
-                            </div>
-                            <div class="product-list-action">
-                                <h6 class="mb-2">{{ product.price }}</h6>
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+        <app-demo-wrapper>
+            <div class="grid grid-cols-12 gap-4 grid-nogutter">
+                <div class="col-span-12 md:col-span-6 drag-column">
+                    @for (product of availableProducts; track product.id) {
+                        <div>
+                            <div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
+                                <div class="image-container">
+                                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="product-image" />
+                                </div>
+                                <div class="product-list-detail">
+                                    <h5 class="mb-2">{{ product.name }}</h5>
+                                    <i class="pi pi-tag product-category-icon"></i>
+                                    <span class="product-category">{{ product.category }}</span>
+                                </div>
+                                <div class="product-list-action">
+                                    <h6 class="mb-2">{{ product.price }}</h6>
+                                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
+                <div class="col-span-12 md:col-span-6 drop-column" pDroppable="products" (onDrop)="drop()">
+                    <p-table [value]="selectedProducts">
+                        <ng-template #header>
+                            <tr>
+                                <th>ID</th>
+                                <th>Category</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-product>
+                            <tr>
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.category }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.price }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
             </div>
-            <div class="col-span-12 md:col-span-6 drop-column" pDroppable="products" (onDrop)="drop()">
-                <p-table [value]="selectedProducts">
-                    <ng-template #header>
-                        <tr>
-                            <th>ID</th>
-                            <th>Category</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template #body let-product>
-                        <tr>
-                            <td>{{ product.id }}</td>
-                            <td>{{ product.category }}</td>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.price }}</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TableModule, TagModule],
@@ -205,11 +209,11 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div pDraggable dragHandle=".p-panel-header" class="w-60">
                 <p-panel header="Drag Header"> Content </p-panel>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PanelModule]
@@ -227,29 +231,31 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap gap-4">
-            <div class="p-2 border border-surface rounded-border w-60 h-40">
-                <ul class="list-none flex flex-col gap-2 p-0 m-0">
-                    @for (product of availableProducts; track product.id) {
-                        <li class="p-2 rounded-border shadow-sm" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
-                            {{ product.name }}
-                        </li>
-                    }
-                </ul>
-            </div>
-            <div class="p-2 w-60 h-40 drop-column" pDroppable (onDrop)="drop()">
-                <p class="text-center border-surface border-b">Drop Zone</p>
-                @if (selectedProducts) {
+        <app-demo-wrapper>
+            <div class="flex flex-wrap gap-4">
+                <div class="p-2 border border-surface rounded-border w-60 h-40">
                     <ul class="list-none flex flex-col gap-2 p-0 m-0">
-                        @for (product of selectedProducts; track product.id) {
-                            <li class="p-2 rounded-border shadow-sm">
+                        @for (product of availableProducts; track product.id) {
+                            <li class="p-2 rounded-border shadow-sm" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                                 {{ product.name }}
                             </li>
                         }
                     </ul>
-                }
+                </div>
+                <div class="p-2 w-60 h-40 drop-column" pDroppable (onDrop)="drop()">
+                    <p class="text-center border-surface border-b">Drop Zone</p>
+                    @if (selectedProducts) {
+                        <ul class="list-none flex flex-col gap-2 p-0 m-0">
+                            @for (product of selectedProducts; track product.id) {
+                                <li class="p-2 rounded-border shadow-sm">
+                                    {{ product.name }}
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: []

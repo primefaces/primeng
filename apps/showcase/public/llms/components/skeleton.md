@@ -16,7 +16,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
                 <div class="flex mb-4">
                     <p-skeleton shape="circle" size="4rem" class="mr-2" />
@@ -32,7 +32,7 @@ import { SkeletonModule } from 'primeng/skeleton';
                     <p-skeleton width="4rem" height="2rem" />
                 </div>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SkeletonModule]
@@ -51,7 +51,7 @@ import { TableModule } from 'primeng/table';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -70,7 +70,7 @@ import { TableModule } from 'primeng/table';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SkeletonModule, TableModule]
@@ -94,7 +94,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
                 <ul class="m-0 p-0 list-none">
                     <li class="mb-4">
@@ -135,7 +135,7 @@ import { SkeletonModule } from 'primeng/skeleton';
                     </li>
                 </ul>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SkeletonModule]
@@ -153,7 +153,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex flex-wrap">
                 <div class="w-full xl:w-6/12 p-4">
                     <h5>Rectangle</h5>
@@ -190,7 +190,7 @@ import { SkeletonModule } from 'primeng/skeleton';
                     </div>
                 </div>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SkeletonModule]

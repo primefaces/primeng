@@ -17,9 +17,11 @@ import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-rating [(ngModel)]="value" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [RatingModule, FormsModule]
@@ -40,9 +42,11 @@ import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" [disabled]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-rating [(ngModel)]="value" [disabled]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [RatingModule, FormsModule]
@@ -63,9 +67,11 @@ import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" [stars]="10" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-rating [(ngModel)]="value" [stars]="10" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [RatingModule, FormsModule]
@@ -91,17 +97,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-40">
-                <div class="flex flex-col items-center gap-2">
-                    <p-rating formControlName="ratingValue" [invalid]="isInvalid('ratingValue')" />
-                    @if (isInvalid('ratingValue')) {
-                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-40">
+                    <div class="flex flex-col items-center gap-2">
+                        <p-rating formControlName="ratingValue" [invalid]="isInvalid('ratingValue')" />
+                        @if (isInvalid('ratingValue')) {
+                            <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, RatingModule, ToastModule, ButtonModule, ReactiveFormsModule],
@@ -146,9 +154,11 @@ import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" [readonly]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-rating [(ngModel)]="value" [readonly]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [RatingModule, FormsModule]
@@ -169,16 +179,18 @@ import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value">
-                <ng-template #onicon>
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" height="24" width="24" />
-                </ng-template>
-                <ng-template #officon>
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" height="24" width="24" />
-                </ng-template>
-            </p-rating>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-rating [(ngModel)]="value">
+                    <ng-template #onicon>
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" height="24" width="24" />
+                    </ng-template>
+                    <ng-template #officon>
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" height="24" width="24" />
+                    </ng-template>
+                </p-rating>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [RatingModule, FormsModule]
@@ -202,17 +214,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-40">
-                <div class="flex flex-col items-center gap-2">
-                    <p-rating #ratingValue="ngModel" [(ngModel)]="value" required name="ratingValue" [invalid]="ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)" />
-                    @if (ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-40">
+                    <div class="flex flex-col items-center gap-2">
+                        <p-rating #ratingValue="ngModel" [(ngModel)]="value" required name="ratingValue" [invalid]="ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)" />
+                        @if (ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, RatingModule, ToastModule, ButtonModule, FormsModule],
@@ -243,9 +257,11 @@ import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-rating [(ngModel)]="value" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [RatingModule, FormsModule]

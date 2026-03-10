@@ -17,9 +17,11 @@ import { KnobModule } from 'primeng/knob';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-knob [(ngModel)]="value" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [KnobModule, FormsModule]
@@ -40,9 +42,11 @@ import { KnobModule } from 'primeng/knob';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [KnobModule, FormsModule]
@@ -63,9 +67,11 @@ import { KnobModule } from 'primeng/knob';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [disabled]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-knob [(ngModel)]="value" [disabled]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [KnobModule, FormsModule]
@@ -86,9 +92,11 @@ import { KnobModule } from 'primeng/knob';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [min]="-50" [max]="50" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-knob [(ngModel)]="value" [min]="-50" [max]="50" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [KnobModule, FormsModule]
@@ -110,13 +118,15 @@ import { KnobModule } from 'primeng/knob';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-2">
-            <p-knob [(ngModel)]="value" size="150" readonly="true" />
-            <div class="flex gap-2">
-                <p-button icon="pi pi-plus" (click)="value = value + 1" [disabled]="value >= 100" />
-                <p-button icon="pi pi-minus" (click)="value = value - 1" [disabled]="value <= 0" />
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-2">
+                <p-knob [(ngModel)]="value" size="150" readonly="true" />
+                <div class="flex gap-2">
+                    <p-button icon="pi pi-plus" (click)="value = value + 1" [disabled]="value >= 100" />
+                    <p-button icon="pi pi-minus" (click)="value = value - 1" [disabled]="value <= 0" />
+                </div>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, KnobModule, FormsModule]
@@ -142,17 +152,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
-                <div class="flex flex-col items-center gap-1">
-                    <p-knob formControlName="value" [invalid]="isInvalid('value')" />
-                    @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">{{ getErrorMessage('value') }}</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
+                    <div class="flex flex-col items-center gap-1">
+                        <p-knob formControlName="value" [invalid]="isInvalid('value')" />
+                        @if (isInvalid('value')) {
+                            <p-message severity="error" size="small" variant="simple">{{ getErrorMessage('value') }}</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [KnobModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
@@ -215,9 +227,11 @@ import { KnobModule } from 'primeng/knob';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [readonly]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-knob [(ngModel)]="value" [readonly]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [KnobModule, FormsModule]
@@ -238,9 +252,11 @@ import { KnobModule } from 'primeng/knob';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [size]="200" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-knob [(ngModel)]="value" [size]="200" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [KnobModule, FormsModule]
@@ -261,9 +277,11 @@ import { KnobModule } from 'primeng/knob';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [step]="10" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-knob [(ngModel)]="value" [step]="10" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [KnobModule, FormsModule]
@@ -284,9 +302,11 @@ import { KnobModule } from 'primeng/knob';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [strokeWidth]="5" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-knob [(ngModel)]="value" [strokeWidth]="5" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [KnobModule, FormsModule]
@@ -307,9 +327,11 @@ import { KnobModule } from 'primeng/knob';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" valueTemplate="{value}%" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-knob [(ngModel)]="value" valueTemplate="{value}%" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [KnobModule, FormsModule]
@@ -333,17 +355,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
-                <div class="flex flex-col items-center gap-1">
-                    <p-knob #model="ngModel" [(ngModel)]="value" [invalid]="isInvalid(model)" name="knob" />
-                    @if (isInvalid(model)) {
-                        <p-message severity="error" size="small" variant="simple">{{ getErrorMessage(model) }}</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
+                    <div class="flex flex-col items-center gap-1">
+                        <p-knob #model="ngModel" [(ngModel)]="value" [invalid]="isInvalid(model)" name="knob" />
+                        @if (isInvalid(model)) {
+                            <p-message severity="error" size="small" variant="simple">{{ getErrorMessage(model) }}</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [KnobModule, MessageModule, ToastModule, ButtonModule, FormsModule]

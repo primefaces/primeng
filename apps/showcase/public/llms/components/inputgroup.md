@@ -25,29 +25,31 @@ interface City {
 
 @Component({
     template: `
-        <div class="card grid grid-cols-1 md:grid-cols-2 gap-4">
-            <p-inputgroup>
-                <p-inputgroup-addon>
-                    <i class="pi pi-user"></i>
-                </p-inputgroup-addon>
-                <input pInputText [(ngModel)]="text1" placeholder="Username" />
-            </p-inputgroup>
-            <p-inputgroup>
-                <p-inputgroup-addon>$</p-inputgroup-addon>
-                <p-inputnumber [(ngModel)]="number" placeholder="Price" />
-                <p-inputgroup-addon>.00</p-inputgroup-addon>
-            </p-inputgroup>
-            <p-inputgroup>
-                <p-inputgroup-addon>www</p-inputgroup-addon>
-                <input pInputText [(ngModel)]="text2" placeholder="Website" />
-            </p-inputgroup>
-            <p-inputgroup>
-                <p-inputgroup-addon>
-                    <i class="pi pi-map"></i>
-                </p-inputgroup-addon>
-                <p-select [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" placeholder="City" />
-            </p-inputgroup>
-        </div>
+        <app-demo-wrapper>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <p-inputgroup>
+                    <p-inputgroup-addon>
+                        <i class="pi pi-user"></i>
+                    </p-inputgroup-addon>
+                    <input pInputText [(ngModel)]="text1" placeholder="Username" />
+                </p-inputgroup>
+                <p-inputgroup>
+                    <p-inputgroup-addon>$</p-inputgroup-addon>
+                    <p-inputnumber [(ngModel)]="number" placeholder="Price" />
+                    <p-inputgroup-addon>.00</p-inputgroup-addon>
+                </p-inputgroup>
+                <p-inputgroup>
+                    <p-inputgroup-addon>www</p-inputgroup-addon>
+                    <input pInputText [(ngModel)]="text2" placeholder="Website" />
+                </p-inputgroup>
+                <p-inputgroup>
+                    <p-inputgroup-addon>
+                        <i class="pi pi-map"></i>
+                    </p-inputgroup-addon>
+                    <p-select [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" placeholder="City" />
+                </p-inputgroup>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectModule, InputGroupModule, InputNumberModule, InputTextModule, FormsModule]
@@ -81,28 +83,30 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex flex-col md:flex-row gap-4">
-            <p-inputgroup>
-                <p-button label="Search" />
-                <input pInputText placeholder="Keyword" />
-            </p-inputgroup>
-            <p-inputgroup>
-                <input pInputText placeholder="Keyword" />
-                <p-inputgroup-addon>
-                    <p-button icon="pi pi-search" severity="secondary" variant="text" (click)="menu.toggle($event)" />
-                </p-inputgroup-addon>
-            </p-inputgroup>
-            <p-menu #menu [model]="items" popup styleClass="!min-w-fit" />
-            <p-inputgroup>
-                <p-inputgroup-addon>
-                    <p-button icon="pi pi-check" severity="secondary" />
-                </p-inputgroup-addon>
-                <input pInputText placeholder="Vote" />
-                <p-inputgroup-addon>
-                    <p-button icon="pi pi-times" severity="secondary" />
-                </p-inputgroup-addon>
-            </p-inputgroup>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col md:flex-row gap-4">
+                <p-inputgroup>
+                    <p-button label="Search" />
+                    <input pInputText placeholder="Keyword" />
+                </p-inputgroup>
+                <p-inputgroup>
+                    <input pInputText placeholder="Keyword" />
+                    <p-inputgroup-addon>
+                        <p-button icon="pi pi-search" severity="secondary" variant="text" (click)="menu.toggle($event)" />
+                    </p-inputgroup-addon>
+                </p-inputgroup>
+                <p-menu #menu [model]="items" popup styleClass="!min-w-fit" />
+                <p-inputgroup>
+                    <p-inputgroup-addon>
+                        <p-button icon="pi pi-check" severity="secondary" />
+                    </p-inputgroup-addon>
+                    <input pInputText placeholder="Vote" />
+                    <p-inputgroup-addon>
+                        <p-button icon="pi pi-times" severity="secondary" />
+                    </p-inputgroup-addon>
+                </p-inputgroup>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, InputGroupModule, MenuModule, InputTextModule]
@@ -130,21 +134,23 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <div class="card flex flex-col md:flex-row gap-4">
-            <p-inputgroup>
-                <input type="text" pInputText placeholder="Price" />
-                <p-inputgroup-addon><p-radiobutton [(ngModel)]="radioValue1" name="rb1" value="rb1" /></p-inputgroup-addon>
-            </p-inputgroup>
-            <p-inputgroup>
-                <p-inputgroup-addon><p-checkbox [(ngModel)]="checked1" [binary]="true" /></p-inputgroup-addon>
-                <input type="text" pInputText placeholder="Username" />
-            </p-inputgroup>
-            <p-inputgroup>
-                <p-inputgroup-addon><p-checkbox [(ngModel)]="checked2" [binary]="true" /></p-inputgroup-addon>
-                <input type="text" pInputText placeholder="Website" />
-                <p-inputgroup-addon><p-radiobutton name="rb2" value="rb2" [(ngModel)]="category" /></p-inputgroup-addon>
-            </p-inputgroup>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col md:flex-row gap-4">
+                <p-inputgroup>
+                    <input type="text" pInputText placeholder="Price" />
+                    <p-inputgroup-addon><p-radiobutton [(ngModel)]="radioValue1" name="rb1" value="rb1" /></p-inputgroup-addon>
+                </p-inputgroup>
+                <p-inputgroup>
+                    <p-inputgroup-addon><p-checkbox [(ngModel)]="checked1" [binary]="true" /></p-inputgroup-addon>
+                    <input type="text" pInputText placeholder="Username" />
+                </p-inputgroup>
+                <p-inputgroup>
+                    <p-inputgroup-addon><p-checkbox [(ngModel)]="checked2" [binary]="true" /></p-inputgroup-addon>
+                    <input type="text" pInputText placeholder="Website" />
+                    <p-inputgroup-addon><p-radiobutton name="rb2" value="rb2" [(ngModel)]="category" /></p-inputgroup-addon>
+                </p-inputgroup>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CheckboxModule, InputGroupModule, RadioButtonModule, InputTextModule, FormsModule]
@@ -170,32 +176,34 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <div class="card flex flex-col md:items-end md:flex-row gap-4">
-            <p-inputgroup>
-                <p-inputgroup-addon>
-                    <i class="pi pi-user"></i>
-                </p-inputgroup-addon>
-                <p-floatlabel>
-                    <input pInputText id="over_label" [(ngModel)]="value1" />
-                    <label for="over_label">Over Label</label>
-                </p-floatlabel>
-            </p-inputgroup>
-            <p-inputgroup>
-                <p-inputgroup-addon>$</p-inputgroup-addon>
-                <p-floatlabel variant="in">
-                    <input pInputText id="in_label" [(ngModel)]="value2" />
-                    <label for="in_label">In Label</label>
-                </p-floatlabel>
-                <p-inputgroup-addon>.00</p-inputgroup-addon>
-            </p-inputgroup>
-            <p-inputgroup>
-                <p-inputgroup-addon>www</p-inputgroup-addon>
-                <p-floatlabel variant="on">
-                    <input pInputText id="on_label" [(ngModel)]="value3" />
-                    <label for="on_label">On Label</label>
-                </p-floatlabel>
-            </p-inputgroup>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col md:items-end md:flex-row gap-4">
+                <p-inputgroup>
+                    <p-inputgroup-addon>
+                        <i class="pi pi-user"></i>
+                    </p-inputgroup-addon>
+                    <p-floatlabel>
+                        <input pInputText id="over_label" [(ngModel)]="value1" />
+                        <label for="over_label">Over Label</label>
+                    </p-floatlabel>
+                </p-inputgroup>
+                <p-inputgroup>
+                    <p-inputgroup-addon>$</p-inputgroup-addon>
+                    <p-floatlabel variant="in">
+                        <input pInputText id="in_label" [(ngModel)]="value2" />
+                        <label for="in_label">In Label</label>
+                    </p-floatlabel>
+                    <p-inputgroup-addon>.00</p-inputgroup-addon>
+                </p-inputgroup>
+                <p-inputgroup>
+                    <p-inputgroup-addon>www</p-inputgroup-addon>
+                    <p-floatlabel variant="on">
+                        <input pInputText id="on_label" [(ngModel)]="value3" />
+                        <label for="on_label">On Label</label>
+                    </p-floatlabel>
+                </p-inputgroup>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FloatLabelModule, InputGroupModule, InputTextModule, FormsModule]
@@ -220,17 +228,19 @@ import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-inputgroup class="md:!w-80">
-                <p-inputgroup-addon>
-                    <i class="pi pi-shopping-cart"></i>
-                </p-inputgroup-addon>
-                <p-iftalabel>
-                    <p-inputnumber [(ngModel)]="value" inputId="price" mode="currency" currency="USD" locale="en-US" />
-                    <label for="price">Price</label>
-                </p-iftalabel>
-            </p-inputgroup>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-inputgroup class="md:!w-80">
+                    <p-inputgroup-addon>
+                        <i class="pi pi-shopping-cart"></i>
+                    </p-inputgroup-addon>
+                    <p-iftalabel>
+                        <p-inputnumber [(ngModel)]="value" inputId="price" mode="currency" currency="USD" locale="en-US" />
+                        <label for="price">Price</label>
+                    </p-iftalabel>
+                </p-inputgroup>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [IftaLabelModule, InputGroupModule, InputNumberModule, FormsModule]
@@ -251,19 +261,21 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-inputgroup class="w-full md:!w-[30rem]">
-                <p-inputgroup-addon>
-                    <i class="pi pi-clock"></i>
-                </p-inputgroup-addon>
-                <p-inputgroup-addon>
-                    <i class="pi pi-star-fill"></i>
-                </p-inputgroup-addon>
-                <input type="text" pInputText placeholder="Price" />
-                <p-inputgroup-addon>$</p-inputgroup-addon>
-                <p-inputgroup-addon>.00</p-inputgroup-addon>
-            </p-inputgroup>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-inputgroup class="w-full md:!w-[30rem]">
+                    <p-inputgroup-addon>
+                        <i class="pi pi-clock"></i>
+                    </p-inputgroup-addon>
+                    <p-inputgroup-addon>
+                        <i class="pi pi-star-fill"></i>
+                    </p-inputgroup-addon>
+                    <input type="text" pInputText placeholder="Price" />
+                    <p-inputgroup-addon>$</p-inputgroup-addon>
+                    <p-inputgroup-addon>.00</p-inputgroup-addon>
+                </p-inputgroup>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputGroupModule, InputTextModule]

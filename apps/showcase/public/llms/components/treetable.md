@@ -1201,7 +1201,7 @@ interface Column {
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-treetable
                 [value]="files"
                 [columns]="cols"
@@ -1241,7 +1241,7 @@ interface Column {
                     </tr>
                 </ng-template>
             </p-treetable>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1330,29 +1330,27 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
-            <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
-                <ng-template #header>
-                    <tr>
-                        <th>Name</th>
-                        <th>Size</th>
-                        <th>Type</th>
-                    </tr>
-                </ng-template>
-                <ng-template #body let-rowNode let-rowData="rowData">
-                    <tr [ttRow]="rowNode">
-                        <td>
-                            <div class="flex items-center gap-2">
-                                <p-treetable-toggler [rowNode]="rowNode" />
-                                <span>{{ rowData.name }}</span>
-                            </div>
-                        </td>
-                        <td>{{ rowData.size }}</td>
-                        <td>{{ rowData.type }}</td>
-                    </tr>
-                </ng-template>
-            </p-treetable>
-        </div>
+        <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
+            <ng-template #header>
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Type</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-rowNode let-rowData="rowData">
+                <tr [ttRow]="rowNode">
+                    <td>
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <span>{{ rowData.name }}</span>
+                        </div>
+                    </td>
+                    <td>{{ rowData.size }}</td>
+                    <td>{{ rowData.type }}</td>
+                </tr>
+            </ng-template>
+        </p-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1381,24 +1379,22 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
-            <p-treetable [value]="files()" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template #header>
-                    <tr>
-                        <th>Name</th>
-                        <th>Size</th>
-                        <th>Type</th>
-                    </tr>
-                </ng-template>
-                <ng-template #body>
-                    <tr>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
-                    </tr>
-                </ng-template>
-            </p-treetable>
-        </div>
+        <p-treetable [value]="files()" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template #header>
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Type</th>
+                </tr>
+            </ng-template>
+            <ng-template #body>
+                <tr>
+                    <td><p-skeleton /></td>
+                    <td><p-skeleton /></td>
+                    <td><p-skeleton /></td>
+                </tr>
+            </ng-template>
+        </p-treetable>
     `,
     standalone: true,
     imports: [SkeletonModule, TreeTableModule],

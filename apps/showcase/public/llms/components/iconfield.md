@@ -18,16 +18,18 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center gap-4">
-            <p-iconfield>
-                <p-inputicon class="pi pi-search" />
-                <input type="text" pInputText placeholder="Search" />
-            </p-iconfield>
-            <p-iconfield>
-                <input type="text" pInputText />
-                <p-inputicon class="pi pi-spinner pi-spin" />
-            </p-iconfield>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-4">
+                <p-iconfield>
+                    <p-inputicon class="pi pi-search" />
+                    <input type="text" pInputText placeholder="Search" />
+                </p-iconfield>
+                <p-iconfield>
+                    <input type="text" pInputText />
+                    <p-inputicon class="pi pi-spinner pi-spin" />
+                </p-iconfield>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [IconFieldModule, InputIconModule, InputTextModule]
@@ -35,7 +37,7 @@ import { InputTextModule } from 'primeng/inputtext';
 export class IconfieldBasicDemo {}
 ```
 
-## Float Label
+## floatlabel-doc
 
 FloatLabel visually integrates a label with its form element. Visit FloatLabel documentation for more information.
 
@@ -49,29 +51,31 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel>
-                <p-iconfield>
-                    <p-inputicon class="pi pi-search" />
-                    <input pInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
-                </p-iconfield>
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="in">
-                <p-iconfield>
-                    <p-inputicon class="pi pi-search" />
-                    <input pInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
-                </p-iconfield>
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="on">
-                <p-iconfield>
-                    <p-inputicon class="pi pi-search" />
-                    <input pInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
-                </p-iconfield>
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-end gap-4">
+                <p-floatlabel>
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-search" />
+                        <input pInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
+                    </p-iconfield>
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
+                <p-floatlabel variant="in">
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-search" />
+                        <input pInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
+                    </p-iconfield>
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-search" />
+                        <input pInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
+                    </p-iconfield>
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FloatLabelModule, IconFieldModule, InputIconModule, InputTextModule, FormsModule]
@@ -83,7 +87,7 @@ export class IconfieldFloatlabelDemo {
 }
 ```
 
-## Ifta Label
+## iftalabel-doc
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
 
@@ -97,15 +101,17 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-iftalabel>
-                <p-iconfield>
-                    <p-inputicon class="pi pi-user" />
-                    <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
-                </p-iconfield>
-                <label for="username">Username</label>
-            </p-iftalabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-iftalabel>
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-user" />
+                        <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
+                    </p-iconfield>
+                    <label for="username">Username</label>
+                </p-iftalabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [IconFieldModule, IftaLabelModule, InputIconModule, InputTextModule, FormsModule]
@@ -128,21 +134,23 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <p-iconfield>
-                <p-inputicon class="pi pi-search" />
-                <input pInputText [(ngModel)]="value1" placeholder="Small" pSize="small" />
-            </p-iconfield>
-            <p-iconfield>
-                <input pInputText [(ngModel)]="value2" placeholder="Normal" />
-                <p-inputicon class="pi pi-user" />
-            </p-iconfield>
-            <p-iconfield>
-                <p-inputicon class="pi pi-lock" />
-                <input pInputText [(ngModel)]="value3" placeholder="Large" pSize="large" />
-                <p-inputicon class="pi pi-spin pi-spinner" />
-            </p-iconfield>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-iconfield>
+                    <p-inputicon class="pi pi-search" />
+                    <input pInputText [(ngModel)]="value1" placeholder="Small" pSize="small" />
+                </p-iconfield>
+                <p-iconfield>
+                    <input pInputText [(ngModel)]="value2" placeholder="Normal" />
+                    <p-inputicon class="pi pi-user" />
+                </p-iconfield>
+                <p-iconfield>
+                    <p-inputicon class="pi pi-lock" />
+                    <input pInputText [(ngModel)]="value3" placeholder="Large" pSize="large" />
+                    <p-inputicon class="pi pi-spin pi-spinner" />
+                </p-iconfield>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [IconFieldModule, InputIconModule, InputTextModule, FormsModule]
@@ -166,8 +174,9 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-iconfield iconPosition="left">
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-iconfield iconPosition="left">
                 <p-inputicon>
                     <svg width="14" height="16" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
@@ -200,8 +209,9 @@ import { InputTextModule } from 'primeng/inputtext';
                     </svg>
                 </p-inputicon>
                 <input type="text" pInputText placeholder="Search" />
-            </p-iconfield>
-        </div>
+                </p-iconfield>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [IconFieldModule, InputIconModule, InputTextModule]

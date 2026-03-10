@@ -24,10 +24,12 @@ import { Dialog } from 'primeng/dialog';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ToastModule],
@@ -86,10 +88,6 @@ To pass data to a dynamically loaded component, you can use either the data or i
 ## style-doc
 
 Following is the list of structural style classes, for theming classes visit theming page.
-
-## Usage
-
-To use dynamic dialog, a reference should be declared as DynamicDialogRef after the DialogService injected into the component.
 
 ## Theming
 

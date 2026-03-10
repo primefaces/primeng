@@ -18,9 +18,9 @@ import { Table } from 'primeng/table';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-megamenu [model]="items" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MegaMenuModule]
@@ -144,9 +144,9 @@ import { MegaMenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-megamenu [model]="items" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MegaMenuModule]
@@ -215,7 +215,7 @@ import { MegaMenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" class="p-3 bg-surface-0 dark:bg-surface-900">
                 <ng-template #start>
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -276,7 +276,7 @@ import { MegaMenuItem } from 'primeng/api';
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                 </ng-template>
             </p-megamenu>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AvatarModule, ButtonModule, MegaMenuModule, RippleModule]
@@ -356,9 +356,9 @@ import { MegaMenu } from 'primeng/megamenu';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-megamenu [model]="items" orientation="vertical" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MegaMenuModule]

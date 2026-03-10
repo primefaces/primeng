@@ -17,25 +17,27 @@ import { CardModule } from 'primeng/card';
 
 @Component({
     template: `
-        <div class="mb-4 p-8 flex items-center justify-center">
-            <p-card [style]="{ width: '25rem', overflow: 'hidden' }">
-                <ng-template #header>
-                    <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
-                </ng-template>
-                <ng-template #title> Advanced Card </ng-template>
-                <ng-template #subtitle> Card subtitle </ng-template>
-                <p class="text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-                    quas!
-                </p>
-                <ng-template #footer>
-                    <div class="flex gap-4 mt-1">
-                        <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
-                        <p-button label="Save" class="w-full" styleClass="w-full" />
-                    </div>
-                </ng-template>
-            </p-card>
-        </div>
+        <app-demo-wrapper>
+            <div class="mb-4 p-8 flex items-center justify-center">
+                <p-card [style]="{ width: '25rem', overflow: 'hidden' }">
+                    <ng-template #header>
+                        <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+                    </ng-template>
+                    <ng-template #title> Advanced Card </ng-template>
+                    <ng-template #subtitle> Card subtitle </ng-template>
+                    <p class="text-sm">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+                        quas!
+                    </p>
+                    <ng-template #footer>
+                        <div class="flex gap-4 mt-1">
+                            <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
+                            <p-button label="Save" class="w-full" styleClass="w-full" />
+                        </div>
+                    </ng-template>
+                </p-card>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, CardModule]
@@ -53,14 +55,16 @@ import { CardModule } from 'primeng/card';
 
 @Component({
     template: `
-        <div class="mb-4 p-8">
-            <p-card header="Simple Card">
-                <p class="m-0 text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-                    quas!
-                </p>
-            </p-card>
-        </div>
+        <app-demo-wrapper>
+            <div class="mb-4 p-8">
+                <p-card header="Simple Card">
+                    <p class="m-0 text-sm">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+                        quas!
+                    </p>
+                </p-card>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CardModule]

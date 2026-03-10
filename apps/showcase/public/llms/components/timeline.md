@@ -24,23 +24,25 @@ interface EventItem {
 
 @Component({
     template: `
-        <div class="card flex flex-wrap gap-12">
-            <p-timeline [value]="events" class="w-full md:w-80">
-                <ng-template #content let-event>
-                    {{ event.status }}
-                </ng-template>
-            </p-timeline>
-            <p-timeline [value]="events" class="w-full md:w-80" align="right">
-                <ng-template #content let-event>
-                    {{ event.status }}
-                </ng-template>
-            </p-timeline>
-            <p-timeline [value]="events" class="w-full md:w-80" align="alternate">
-                <ng-template #content let-event>
-                    {{ event.status }}
-                </ng-template>
-            </p-timeline>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap gap-12">
+                <p-timeline [value]="events" class="w-full md:w-80">
+                    <ng-template #content let-event>
+                        {{ event.status }}
+                    </ng-template>
+                </p-timeline>
+                <p-timeline [value]="events" class="w-full md:w-80" align="right">
+                    <ng-template #content let-event>
+                        {{ event.status }}
+                    </ng-template>
+                </p-timeline>
+                <p-timeline [value]="events" class="w-full md:w-80" align="alternate">
+                    <ng-template #content let-event>
+                        {{ event.status }}
+                    </ng-template>
+                </p-timeline>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TimelineModule]
@@ -69,13 +71,13 @@ import { TimelineModule } from 'primeng/timeline';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-timeline [value]="events">
                 <ng-template #content let-event>
                     {{ event.status }}
                 </ng-template>
             </p-timeline>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TimelineModule]
@@ -104,24 +106,26 @@ import { TimelineModule } from 'primeng/timeline';
 
 @Component({
     template: `
-        <div class="card flex flex-col gap-4">
-            <p-timeline [value]="events" layout="horizontal" align="top">
-                <ng-template #content let-event>
-                    {{ event }}
-                </ng-template>
-            </p-timeline>
-            <p-timeline [value]="events" layout="horizontal" align="bottom">
-                <ng-template #content let-event>
-                    {{ event }}
-                </ng-template>
-            </p-timeline>
-            <p-timeline [value]="events" layout="horizontal" align="alternate">
-                <ng-template #content let-event>
-                    {{ event }}
-                </ng-template>
-                <ng-template #opposite let-event><span>&nbsp;</span></ng-template>
-            </p-timeline>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col gap-4">
+                <p-timeline [value]="events" layout="horizontal" align="top">
+                    <ng-template #content let-event>
+                        {{ event }}
+                    </ng-template>
+                </p-timeline>
+                <p-timeline [value]="events" layout="horizontal" align="bottom">
+                    <ng-template #content let-event>
+                        {{ event }}
+                    </ng-template>
+                </p-timeline>
+                <p-timeline [value]="events" layout="horizontal" align="alternate">
+                    <ng-template #content let-event>
+                        {{ event }}
+                    </ng-template>
+                    <ng-template #opposite let-event><span>&nbsp;</span></ng-template>
+                </p-timeline>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TimelineModule]
@@ -153,7 +157,7 @@ interface EventItem {
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-timeline [value]="events">
                 <ng-template #opposite let-event>
                     <small class="text-surface-500 dark:text-surface-400">{{ event.date }}</small>
@@ -162,7 +166,7 @@ interface EventItem {
                     {{ event.status }}
                 </ng-template>
             </p-timeline>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TimelineModule]
@@ -201,7 +205,7 @@ interface EventItem {
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-timeline [value]="events" align="alternate" class="customized-timeline">
                 <ng-template #marker let-event>
                     <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
@@ -221,7 +225,7 @@ interface EventItem {
                     </p-card>
                 </ng-template>
             </p-timeline>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, CardModule, TimelineModule]

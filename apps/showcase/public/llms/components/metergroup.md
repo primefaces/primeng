@@ -16,9 +16,9 @@ import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-metergroup [value]="value" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MeterGroupModule]
@@ -38,9 +38,9 @@ import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-metergroup [value]="value" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MeterGroupModule]
@@ -65,9 +65,9 @@ import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-metergroup [value]="value" labelPosition="start" labelOrientation="vertical" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MeterGroupModule]
@@ -92,9 +92,9 @@ import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-metergroup [value]="value" [max]="200" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MeterGroupModule]
@@ -119,9 +119,9 @@ import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-metergroup [value]="value" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MeterGroupModule]
@@ -148,7 +148,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-metergroup [value]="value" labelPosition="start">
                 <ng-template #label>
                     <div class="flex flex-wrap gap-4">
@@ -184,7 +184,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
                     </div>
                 </ng-template>
             </p-metergroup>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, CardModule, MeterGroupModule]
@@ -209,9 +209,11 @@ import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-metergroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-metergroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MeterGroupModule]

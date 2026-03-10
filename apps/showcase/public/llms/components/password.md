@@ -17,9 +17,11 @@ import { PasswordModule } from 'primeng/password';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" [feedback]="false" autocomplete="off" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-password [(ngModel)]="value" [feedback]="false" autocomplete="off" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PasswordModule, FormsModule]
@@ -40,9 +42,11 @@ import { PasswordModule } from 'primeng/password';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" [feedback]="false" autocomplete="off" [showClear]="true" inputStyleClass="w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-password [(ngModel)]="value" [feedback]="false" autocomplete="off" [showClear]="true" inputStyleClass="w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PasswordModule, FormsModule]
@@ -63,9 +67,11 @@ import { PasswordModule } from 'primeng/password';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" autocomplete="off" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" autocomplete="off" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PasswordModule, FormsModule]
@@ -86,9 +92,11 @@ import { PasswordModule } from 'primeng/password';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" [feedback]="false" variant="filled" autocomplete="off" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-password [(ngModel)]="value" [feedback]="false" variant="filled" autocomplete="off" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PasswordModule, FormsModule]
@@ -110,20 +118,22 @@ import { PasswordModule } from 'primeng/password';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel>
-                <p-password [(ngModel)]="value1" inputId="over_label" autocomplete="off" />
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="in">
-                <p-password [(ngModel)]="value2" inputId="in_label" autocomplete="off" />
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="on">
-                <p-password [(ngModel)]="value3" inputId="on_label" autocomplete="off" />
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-end gap-4">
+                <p-floatlabel>
+                    <p-password [(ngModel)]="value1" inputId="over_label" autocomplete="off" />
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
+                <p-floatlabel variant="in">
+                    <p-password [(ngModel)]="value2" inputId="in_label" autocomplete="off" />
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <p-password [(ngModel)]="value3" inputId="on_label" autocomplete="off" />
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FloatLabelModule, PasswordModule, FormsModule]
@@ -146,9 +156,9 @@ import { PasswordModule } from 'primeng/password';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-password [(ngModel)]="value" [feedback]="false" autocomplete="off" fluid />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PasswordModule, FormsModule]
@@ -170,12 +180,14 @@ import { PasswordModule } from 'primeng/password';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-iftalabel>
-                <p-password [(ngModel)]="value" inputId="password" autocomplete="off" />
-                <label for="password">Password</label>
-            </p-iftalabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-iftalabel>
+                    <p-password [(ngModel)]="value" inputId="password" autocomplete="off" />
+                    <label for="password">Password</label>
+                </p-iftalabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [IftaLabelModule, PasswordModule, FormsModule]
@@ -196,10 +208,12 @@ import { PasswordModule } from 'primeng/password';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center gap-4">
-            <p-password [(ngModel)]="value1" [invalid]="!value1" placeholder="Password" />
-            <p-password [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Password" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-4">
+                <p-password [(ngModel)]="value1" [invalid]="!value1" placeholder="Password" />
+                <p-password [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Password" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PasswordModule, FormsModule]
@@ -221,9 +235,11 @@ import { PasswordModule } from 'primeng/password';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" autocomplete="off" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" autocomplete="off" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PasswordModule, FormsModule]
@@ -244,9 +260,11 @@ import { PasswordModule } from 'primeng/password';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" autocomplete="off" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-password [(ngModel)]="value" autocomplete="off" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PasswordModule, FormsModule]
@@ -272,17 +290,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
-                <div class="flex flex-col gap-1">
-                    <p-password formControlName="value" [invalid]="isInvalid('value')" [feedback]="false" autocomplete="off" fluid />
-                    @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
+                    <div class="flex flex-col gap-1">
+                        <p-password formControlName="value" [invalid]="isInvalid('value')" [feedback]="false" autocomplete="off" fluid />
+                        @if (isInvalid('value')) {
+                            <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, PasswordModule, ToastModule, ButtonModule, ReactiveFormsModule],
@@ -327,11 +347,13 @@ import { PasswordModule } from 'primeng/password';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <p-password [(ngModel)]="value1" type="text" size="small" placeholder="Small" />
-            <p-password [(ngModel)]="value2" type="text" placeholder="Normal" />
-            <p-password [(ngModel)]="value3" type="text" size="large" placeholder="Large" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-password [(ngModel)]="value1" type="text" size="small" placeholder="Small" />
+                <p-password [(ngModel)]="value2" type="text" placeholder="Normal" />
+                <p-password [(ngModel)]="value3" type="text" size="large" placeholder="Large" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PasswordModule, FormsModule]
@@ -355,22 +377,24 @@ import { PasswordModule } from 'primeng/password';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" autocomplete="off">
-                <ng-template #header>
-                    <div class="font-semibold text-xm mb-4">Reset Password</div>
-                </ng-template>
-                <ng-template #footer>
-                    <p-divider />
-                    <ul class="pl-2 my-0 leading-normal text-sm">
-                        <li>At least one lowercase</li>
-                        <li>At least one uppercase</li>
-                        <li>At least one numeric</li>
-                        <li>Minimum 8 characters</li>
-                    </ul>
-                </ng-template>
-            </p-password>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-password [(ngModel)]="value" autocomplete="off">
+                    <ng-template #header>
+                        <div class="font-semibold text-xm mb-4">Reset Password</div>
+                    </ng-template>
+                    <ng-template #footer>
+                        <p-divider />
+                        <ul class="pl-2 my-0 leading-normal text-sm">
+                            <li>At least one lowercase</li>
+                            <li>At least one uppercase</li>
+                            <li>At least one numeric</li>
+                            <li>Minimum 8 characters</li>
+                        </ul>
+                    </ng-template>
+                </p-password>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DividerModule, PasswordModule, FormsModule]
@@ -394,17 +418,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
-                <div class="flex flex-col gap-1">
-                    <p-password #model="ngModel" [(ngModel)]="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="password" [feedback]="false" autocomplete="off" required fluid />
-                    @if (model.invalid && (model.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
+                    <div class="flex flex-col gap-1">
+                        <p-password #model="ngModel" [(ngModel)]="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="password" [feedback]="false" autocomplete="off" required fluid />
+                        @if (model.invalid && (model.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, PasswordModule, ToastModule, ButtonModule, FormsModule],
@@ -435,9 +461,11 @@ import { PasswordModule } from 'primeng/password';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" [toggleMask]="true" autocomplete="off" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-password [(ngModel)]="value" [toggleMask]="true" autocomplete="off" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [PasswordModule, FormsModule]

@@ -12,9 +12,11 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <input type="text" pInputText [pAutoFocus]="true" placeholder="Automatically focused" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <input type="text" pInputText [pAutoFocus]="true" placeholder="Automatically focused" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputTextModule]

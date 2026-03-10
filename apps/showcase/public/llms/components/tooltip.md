@@ -17,10 +17,12 @@ import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center gap-2">
-            <input type="text" pInputText pTooltip="Enter your username" [autoHide]="false" placeholder="autoHide: false" />
-            <input type="text" pInputText pTooltip="Enter your username" placeholder="autoHide: true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-2">
+                <input type="text" pInputText pTooltip="Enter your username" [autoHide]="false" placeholder="autoHide: false" />
+                <input type="text" pInputText pTooltip="Enter your username" placeholder="autoHide: true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputTextModule, TooltipModule]
@@ -39,9 +41,10 @@ import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-button [pTooltip]="tooltipContent" severity="secondary" tooltipPosition="bottom" label="Button" />
-            <ng-template #tooltipContent>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button [pTooltip]="tooltipContent" severity="secondary" tooltipPosition="bottom" label="Button" />
+                <ng-template #tooltipContent>
                 <div class="flex items-center">
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
                         <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
@@ -75,7 +78,8 @@ import { TooltipModule } from 'primeng/tooltip';
                     <span> <b>PrimeNG</b> rocks! </span>
                 </div>
             </ng-template>
-        </div>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, TooltipModule]
@@ -94,9 +98,11 @@ import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-button pTooltip="Confirm to proceed" showDelay="1000" hideDelay="300" label="Save" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button pTooltip="Confirm to proceed" showDelay="1000" hideDelay="300" label="Save" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, TooltipModule]
@@ -115,9 +121,11 @@ import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center gap-2">
-            <input type="text" pInputText pTooltip="Enter your username" tooltipEvent="focus" placeholder="focus to display tooltip" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-2">
+                <input type="text" pInputText pTooltip="Enter your username" tooltipEvent="focus" placeholder="focus to display tooltip" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputTextModule, TooltipModule]
@@ -136,9 +144,11 @@ import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <input type="text" pInputText pTooltip="Enter your username" [tooltipOptions]="tooltipOptions" placeholder="hover to display tooltip" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <input type="text" pInputText pTooltip="Enter your username" [tooltipOptions]="tooltipOptions" placeholder="hover to display tooltip" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputTextModule, TooltipModule]
@@ -164,12 +174,14 @@ import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center gap-2">
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="right" placeholder="Right" />
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top" />
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom" />
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-2">
+                <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="right" placeholder="Right" />
+                <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top" />
+                <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom" />
+                <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputTextModule, TooltipModule]

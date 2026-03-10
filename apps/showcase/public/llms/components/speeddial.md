@@ -18,12 +18,12 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <p-toast />
+        <app-demo-wrapper>
             <div style="position:relative; height: 500px;" class="flex items-center justify-center">
-                <p-toast />
                 <p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warn', rounded: true }" />
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SpeedDialModule, ToastModule],
@@ -79,15 +79,15 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <p-toast />
+        <app-demo-wrapper>
             <div style="height: 500px; position: relative;">
-                <p-toast />
                 <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', bottom: 0 }" />
                 <p-speeddial [model]="items" direction="down" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', top: 0 }" />
                 <p-speeddial [model]="items" direction="left" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', right: 0 }" />
                 <p-speeddial [model]="items" direction="right" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', left: 0 }" />
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SpeedDialModule, ToastModule],
@@ -143,12 +143,14 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card p-4">
-            <div [style]="{ position: 'relative', height: '350px' }">
-                <p-toast />
-                <p-speeddial [model]="items" direction="up" mask [style]="{ position: 'absolute', right: '1rem', bottom: '1rem' }" />
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="p-4">
+                <div [style]="{ position: 'relative', height: '350px' }">
+                    <p-speeddial [model]="items" direction="up" mask [style]="{ position: 'absolute', right: '1rem', bottom: '1rem' }" />
+                </div>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SpeedDialModule, ToastModule],
@@ -204,15 +206,15 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <p-toast />
+        <app-demo-wrapper>
             <div style="position: relative; height: 500px">
-                <p-toast />
                 <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="up-left" [style]="{ position: 'absolute', right: 0, bottom: 0 }" />
                 <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="up-right" [style]="{ position: 'absolute', left: 0, bottom: 0 }" />
                 <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="down-left" [style]="{ position: 'absolute', right: 0, top: 0 }" />
                 <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="down-right" [style]="{ position: 'absolute', left: 0, top: 0 }" />
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SpeedDialModule, ToastModule],
@@ -268,15 +270,15 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <p-toast />
+        <app-demo-wrapper>
             <div style="position: relative; height: 500px">
-                <p-toast />
                 <p-speeddial [model]="items" [radius]="80" type="semi-circle" direction="down" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', top: 0 }" />
                 <p-speeddial [model]="items" [radius]="80" type="semi-circle" direction="right" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', left: 0 }" />
                 <p-speeddial [model]="items" [radius]="80" type="semi-circle" direction="left" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', right: 0 }" />
                 <p-speeddial [model]="items" [radius]="80" type="semi-circle" direction="up" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', bottom: 0 }" />
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SpeedDialModule, ToastModule],
@@ -333,9 +335,9 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <p-toast />
+        <app-demo-wrapper>
             <div class="flex items-end justify-center" style="position: 'relative'; height: '400px'">
-                <p-toast />
                 <p-speeddial [model]="items" direction="up" [transitionDelay]="80" style="position: 'absolute'">
                     <ng-template #button let-toggleCallback="toggleCallback">
                         <p-button outlined styleClass="border" (click)="toggleCallback($event)">
@@ -380,7 +382,7 @@ import { MenuItem, MessageService } from 'primeng/api';
                     </ng-template>
                 </p-speeddial>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, SpeedDialModule, ToastModule],
@@ -444,13 +446,13 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <p-toast />
+        <app-demo-wrapper>
             <div [style]="{ position: 'relative', height: '350px' }">
-                <p-toast />
                 <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', right: 0, bottom: 0 }" [buttonProps]="{ severity: 'help', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'left' }" />
                 <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 0, bottom: 0 }" [buttonProps]="{ severity: 'danger', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'right' }" />
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SpeedDialModule, ToastModule],

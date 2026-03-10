@@ -20,7 +20,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-dataview #dv [value]="products()">
                 <ng-template #list let-items>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
@@ -61,7 +61,7 @@ import { Product } from '@/domain/product';
                     </div>
                 </ng-template>
             </p-dataview>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, DataViewModule, TagModule],
@@ -113,7 +113,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-dataview #dv [value]="products()" [layout]="layout">
                 <ng-template #header>
                     <div class="flex justify-end">
@@ -205,7 +205,7 @@ import { Product } from '@/domain/product';
                     </div>
                 </ng-template>
             </p-dataview>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DataViewModule, SelectButtonModule, TagModule, ButtonModule, FormsModule],
@@ -239,7 +239,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-dataview #dv [value]="products()" [layout]="layout">
                 <ng-template #header>
                     <div class="flex justify-end">
@@ -299,7 +299,7 @@ import { Product } from '@/domain/product';
                     </div>
                 </ng-template>
             </p-dataview>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [DataViewModule, SelectButtonModule, SkeletonModule, FormsModule],
@@ -334,7 +334,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-dataview #dv [value]="products()" [rows]="5" [paginator]="true">
                 <ng-template #list let-items>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
@@ -375,7 +375,7 @@ import { Product } from '@/domain/product';
                     </div>
                 </ng-template>
             </p-dataview>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, DataViewModule, TagModule],
@@ -410,7 +410,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-dataview #dv [value]="products()" [sortField]="sortField" [sortOrder]="sortOrder">
                 <ng-template #header>
                     <div class="flex flex-col md:flex-row md:justify-between">
@@ -456,7 +456,7 @@ import { Product } from '@/domain/product';
                     </div>
                 </ng-template>
             </p-dataview>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, DataViewModule, SelectModule, TagModule, FormsModule],

@@ -18,10 +18,12 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-splitbutton label="Save" (onClick)="save()" [model]="items" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitButtonModule, ToastModule],
@@ -76,10 +78,12 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-splitbutton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitButtonModule, ToastModule],
@@ -134,10 +138,12 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton label="Save" icon="pi pi-check" dropdownIcon="pi pi-cog" [model]="items" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-splitbutton label="Save" icon="pi pi-check" dropdownIcon="pi pi-cog" [model]="items" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitButtonModule, ToastModule],
@@ -190,10 +196,12 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton label="Save" (onClick)="save('info')" [model]="items" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-splitbutton label="Save" (onClick)="save('info')" [model]="items" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitButtonModule, ToastModule],
@@ -350,17 +358,19 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" outlined />
-            <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" outlined severity="secondary" />
-            <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" outlined severity="success" />
-            <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" outlined severity="info" />
-            <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" outlined severity="warn" />
-            <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" outlined severity="help" />
-            <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" outlined severity="danger" />
-            <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" outlined severity="contrast" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center flex-wrap gap-4">
+                <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" outlined />
+                <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" outlined severity="secondary" />
+                <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" outlined severity="success" />
+                <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" outlined severity="info" />
+                <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" outlined severity="warn" />
+                <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" outlined severity="help" />
+                <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" outlined severity="danger" />
+                <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" outlined severity="contrast" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitButtonModule, ToastModule],
@@ -416,17 +426,19 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" raised />
-            <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" raised severity="secondary" />
-            <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" raised severity="success" />
-            <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" raised severity="info" />
-            <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" raised severity="warn" />
-            <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" raised severity="help" />
-            <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" raised severity="danger" />
-            <p-splitbutton label="Contrast" (onClick)="save('info')" [model]="items" severity="contrast" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center flex-wrap gap-4">
+                <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" raised />
+                <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" raised severity="secondary" />
+                <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" raised severity="success" />
+                <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" raised severity="info" />
+                <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" raised severity="warn" />
+                <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" raised severity="help" />
+                <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" raised severity="danger" />
+                <p-splitbutton label="Contrast" (onClick)="save('info')" [model]="items" severity="contrast" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitButtonModule, ToastModule],
@@ -482,17 +494,19 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" raised text />
-            <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" raised text severity="secondary" />
-            <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" raised text severity="success" />
-            <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" raised text severity="info" />
-            <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" raised text severity="warn" />
-            <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" raised text severity="help" />
-            <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" raised text severity="danger" />
-            <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" raised text severity="contrast" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center flex-wrap gap-4">
+                <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" raised text />
+                <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" raised text severity="secondary" />
+                <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" raised text severity="success" />
+                <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" raised text severity="info" />
+                <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" raised text severity="warn" />
+                <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" raised text severity="help" />
+                <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" raised text severity="danger" />
+                <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" raised text severity="contrast" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitButtonModule, ToastModule],
@@ -552,17 +566,19 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" rounded />
-            <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" rounded severity="secondary" />
-            <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" rounded severity="success" />
-            <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" rounded severity="info" />
-            <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" rounded severity="warn" />
-            <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" rounded severity="help" />
-            <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" rounded severity="danger" />
-            <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" rounded severity="contrast" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center flex-wrap gap-4">
+                <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" rounded />
+                <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" rounded severity="secondary" />
+                <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" rounded severity="success" />
+                <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" rounded severity="info" />
+                <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" rounded severity="warn" />
+                <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" rounded severity="help" />
+                <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" rounded severity="danger" />
+                <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" rounded severity="contrast" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitButtonModule, ToastModule],
@@ -618,17 +634,19 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="secondary" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="success" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="info" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="warn" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="help" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="danger" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="contrast" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center flex-wrap gap-4">
+                <p-splitbutton label="Save" (onClick)="save()" [model]="items" />
+                <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="secondary" />
+                <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="success" />
+                <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="info" />
+                <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="warn" />
+                <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="help" />
+                <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="danger" />
+                <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="contrast" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitButtonModule, ToastModule],
@@ -684,12 +702,14 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center items-center gap-4">
-            <p-toast />
-            <p-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="small" />
-            <p-splitbutton label="Normal" [model]="items" (onClick)="save('info')" />
-            <p-splitbutton label="Large" [model]="items" (onClick)="save('info')" size="large" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <p-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="small" />
+                <p-splitbutton label="Normal" [model]="items" (onClick)="save('info')" />
+                <p-splitbutton label="Large" [model]="items" (onClick)="save('info')" size="large" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitButtonModule, ToastModule],
@@ -744,17 +764,19 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton (onClick)="save()" severity="contrast" [model]="items">
-                <ng-template #content>
-                    <span class="flex items-center font-bold">
-                        <img alt="logo" src="https://primefaces.org/cdn/primeng/images/logo.svg" style="height: 1rem; margin-right: 0.5rem" />
-                        <span>PrimeNG</span>
-                    </span>
-                </ng-template>
-            </p-splitbutton>
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-splitbutton (onClick)="save()" severity="contrast" [model]="items">
+                    <ng-template #content>
+                        <span class="flex items-center font-bold">
+                            <img alt="logo" src="https://primefaces.org/cdn/primeng/images/logo.svg" style="height: 1rem; margin-right: 0.5rem" />
+                            <span>PrimeNG</span>
+                        </span>
+                    </ng-template>
+                </p-splitbutton>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitButtonModule, ToastModule],
@@ -810,17 +832,19 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" text />
-            <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" text severity="secondary" />
-            <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" text severity="success" />
-            <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" text severity="info" />
-            <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" text severity="warn" />
-            <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" text severity="help" />
-            <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" text severity="danger" />
-            <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" text severity="contrast" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center flex-wrap gap-4">
+                <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" text />
+                <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" text severity="secondary" />
+                <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" text severity="success" />
+                <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" text severity="info" />
+                <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" text severity="warn" />
+                <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" text severity="help" />
+                <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" text severity="danger" />
+                <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" text severity="contrast" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitButtonModule, ToastModule],

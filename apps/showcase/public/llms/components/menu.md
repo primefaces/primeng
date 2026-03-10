@@ -17,9 +17,11 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-menu [model]="items" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-menu [model]="items" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MenuModule]
@@ -48,10 +50,12 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-menu [model]="items" />
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-menu [model]="items" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MenuModule, ToastModule],
@@ -101,9 +105,11 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-menu [model]="items" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-menu [model]="items" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MenuModule],
@@ -158,10 +164,12 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-menu #menu [model]="items" [popup]="true" />
-            <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-menu #menu [model]="items" [popup]="true" />
+                <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, MenuModule],
@@ -202,9 +210,11 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-menu [model]="items" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-menu [model]="items" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MenuModule]
@@ -255,7 +265,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
                 <ng-template #start>
                     <span class="inline-flex items-center gap-1 px-1.5 py-1.5">
@@ -316,7 +326,7 @@ import { MenuItem } from 'primeng/api';
                     </button>
                 </ng-template>
             </p-menu>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AvatarModule, BadgeModule, MenuModule, RippleModule]

@@ -28,10 +28,12 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-button (click)="toggle()" label="Show Overlay"></p-button>
-            <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border"> Content </p-overlay>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (click)="toggle()" label="Show Overlay"></p-button>
+                <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border"> Content </p-overlay>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule]
@@ -139,12 +141,14 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-button (click)="toggle()" label="Show Overlay"></p-button>
-            <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
-                <ng-template #content let-option> Content - {{ option.mode }} </ng-template>
-            </p-overlay>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (click)="toggle()" label="Show Overlay"></p-button>
+                <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
+                    <ng-template #content let-option> Content - {{ option.mode }} </ng-template>
+                </p-overlay>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule]

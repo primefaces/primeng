@@ -16,7 +16,7 @@ import { InplaceModule } from 'primeng/inplace';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-inplace>
                 <ng-template #display>
                     <span class="text-sm">View Content</span>
@@ -28,7 +28,7 @@ import { InplaceModule } from 'primeng/inplace';
                     </p>
                 </ng-template>
             </p-inplace>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InplaceModule]
@@ -47,7 +47,7 @@ import { Photo } from '@/domain/photo';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-inplace>
                 <ng-template #display>
                     <span class="inline-flex items-center gap-2">
@@ -59,7 +59,7 @@ import { Photo } from '@/domain/photo';
                     <img class="w-full sm:w-80 shadow-md" src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" alt="Nature" />
                 </ng-template>
             </p-inplace>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InplaceModule]
@@ -79,7 +79,7 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-inplace>
                 <ng-template #display>
                     <span class="text-sm">Click to Edit</span>
@@ -93,7 +93,7 @@ import { InputTextModule } from 'primeng/inputtext';
                     </span>
                 </ng-template>
             </p-inplace>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InplaceModule, ButtonModule, InputTextModule]
@@ -114,7 +114,7 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-inplace (onActivate)="loadData()">
                 <ng-template #display>
                     <span class="text-sm">View Data</span>
@@ -140,7 +140,7 @@ import { Product } from '@/domain/product';
                     </p-table>
                 </ng-template>
             </p-inplace>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InplaceModule, TableModule],

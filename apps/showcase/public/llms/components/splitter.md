@@ -16,7 +16,7 @@ import { SplitterModule } from 'primeng/splitter';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-splitter [style]="{ height: '300px' }" class="mb-8">
                 <ng-template #panel>
                     <div class="flex items-center justify-center h-full text-sm">Panel 1</div>
@@ -25,7 +25,7 @@ import { SplitterModule } from 'primeng/splitter';
                     <div class="flex items-center justify-center h-full text-sm">Panel 2</div>
                 </ng-template>
             </p-splitter>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitterModule]
@@ -43,7 +43,7 @@ import { SplitterModule } from 'primeng/splitter';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" class="mb-8">
                 <ng-template #panel>
                     <div class="col flex w-full items-center justify-center text-sm">Panel 1</div>
@@ -66,7 +66,7 @@ import { SplitterModule } from 'primeng/splitter';
                     </p-splitter>
                 </ng-template>
             </p-splitter>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitterModule]
@@ -84,7 +84,7 @@ import { SplitterModule } from 'primeng/splitter';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" class="mb-8">
                 <ng-template #panel>
                     <div class="flex items-center justify-center h-full text-sm">Panel 1</div>
@@ -93,7 +93,7 @@ import { SplitterModule } from 'primeng/splitter';
                     <div class="flex items-center justify-center h-full text-sm">Panel 2</div>
                 </ng-template>
             </p-splitter>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitterModule]
@@ -111,7 +111,7 @@ import { SplitterModule } from 'primeng/splitter';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-splitter [style]="{ height: '300px' }" class="mb-8" [panelSizes]="[50, 50]" layout="vertical">
                 <ng-template #panel>
                     <div class="flex items-center justify-center h-full text-sm">Panel 1</div>
@@ -120,7 +120,7 @@ import { SplitterModule } from 'primeng/splitter';
                     <div class="flex items-center justify-center h-full text-sm">Panel 2</div>
                 </ng-template>
             </p-splitter>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SplitterModule]

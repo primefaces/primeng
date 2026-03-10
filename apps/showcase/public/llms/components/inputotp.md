@@ -17,9 +17,11 @@ import { InputOtpModule } from 'primeng/inputotp';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-inputotp [(ngModel)]="value" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-inputotp [(ngModel)]="value" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputOtpModule, FormsModule]
@@ -40,9 +42,11 @@ import { InputOtpModule } from 'primeng/inputotp';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-inputotp [(ngModel)]="value" [integerOnly]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-inputotp [(ngModel)]="value" [integerOnly]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputOtpModule, FormsModule]
@@ -63,9 +67,11 @@ import { InputOtpModule } from 'primeng/inputotp';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-inputotp [(ngModel)]="value" [mask]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-inputotp [(ngModel)]="value" [mask]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputOtpModule, FormsModule]
@@ -91,17 +97,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <p-inputotp formControlName="value" [invalid]="isInvalid('value')" />
-                    @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <p-inputotp formControlName="value" [invalid]="isInvalid('value')" />
+                        @if (isInvalid('value')) {
+                            <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputOtpModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
@@ -145,26 +153,28 @@ import { InputOtpModule } from 'primeng/inputotp';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <div class="flex flex-col items-center">
-                <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
-                <p class="text-sm text-muted-color block mb-8">Please enter the code sent to your phone.</p>
-                <p-inputotp [(ngModel)]="value" [length]="6">
-                    <ng-template #input let-token let-events="events" let-index="index">
-                        <input type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
-                        @if (index === 3) {
-                            <div class="px-4">
-                                <i class="pi pi-minus"></i>
-                            </div>
-                        }
-                    </ng-template>
-                </p-inputotp>
-                <div class="flex justify-between mt-8 self-stretch">
-                    <p-button label="Resend Code" [link]="true" class="p-0" />
-                    <p-button label="Submit Code" />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <div class="flex flex-col items-center">
+                    <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
+                    <p class="text-sm text-muted-color block mb-8">Please enter the code sent to your phone.</p>
+                    <p-inputotp [(ngModel)]="value" [length]="6">
+                        <ng-template #input let-token let-events="events" let-index="index">
+                            <input type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
+                            @if (index === 3) {
+                                <div class="px-4">
+                                    <i class="pi pi-minus"></i>
+                                </div>
+                            }
+                        </ng-template>
+                    </p-inputotp>
+                    <div class="flex justify-between mt-8 self-stretch">
+                        <p-button label="Resend Code" [link]="true" class="p-0" />
+                        <p-button label="Submit Code" />
+                    </div>
                 </div>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, InputOtpModule, FormsModule]
@@ -185,11 +195,13 @@ import { InputOtpModule } from 'primeng/inputotp';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <p-inputotp [(ngModel)]="value1" size="small" />
-            <p-inputotp [(ngModel)]="value2" />
-            <p-inputotp [(ngModel)]="value3" size="large" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-inputotp [(ngModel)]="value1" size="small" />
+                <p-inputotp [(ngModel)]="value2" />
+                <p-inputotp [(ngModel)]="value3" size="large" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputOtpModule, FormsModule]
@@ -212,13 +224,15 @@ import { InputOtpModule } from 'primeng/inputotp';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-inputotp [(ngModel)]="value">
-                <ng-template #input let-token let-events="events">
-                    <input class="custom-otp-input" (keydown)="events.keydown($event)" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
-                </ng-template>
-            </p-inputotp>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-inputotp [(ngModel)]="value">
+                    <ng-template #input let-token let-events="events">
+                        <input class="custom-otp-input" (keydown)="events.keydown($event)" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
+                    </ng-template>
+                </p-inputotp>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputOtpModule, FormsModule]
@@ -242,17 +256,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <p-inputotp #otpModel="ngModel" [(ngModel)]="value" [invalid]="otpModel.invalid && (otpModel.touched || exampleForm.submitted)" name="value" required [minlength]="4" />
-                    @if (otpModel.invalid && (otpModel.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <p-inputotp #otpModel="ngModel" [(ngModel)]="value" [invalid]="otpModel.invalid && (otpModel.touched || exampleForm.submitted)" name="value" required [minlength]="4" />
+                        @if (otpModel.invalid && (otpModel.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [InputOtpModule, MessageModule, ToastModule, ButtonModule, FormsModule]

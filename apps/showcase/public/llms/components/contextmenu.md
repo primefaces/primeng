@@ -18,10 +18,12 @@ import { ContextMenu } from 'primeng/contextmenu';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
-            <p-contextmenu [target]="img" [model]="items" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
+                <p-contextmenu [target]="img" [model]="items" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ContextMenuModule]
@@ -59,8 +61,9 @@ interface Users {
 
 @Component({
     template: `
-        <div class="card flex sm:justify-center">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex sm:justify-center">
             <ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
                 @for (user of users; track user.id) {
                     <li
@@ -78,6 +81,7 @@ interface Users {
             </ul>
             <p-contextmenu #cm [model]="items" (onHide)="onHide()" />
         </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ContextMenuModule, TagModule, ToastModule],
@@ -166,10 +170,12 @@ import { ContextMenu } from 'primeng/contextmenu';
 
 @Component({
     template: `
-        <div class="card text-center">
-            <p class="mb-0 text-sm">Right-Click anywhere on this page to view the global ContextMenu.</p>
-            <p-contextmenu [model]="items" [global]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="text-center">
+                <p class="mb-0 text-sm">Right-Click anywhere on this page to view the global ContextMenu.</p>
+                <p-contextmenu [model]="items" [global]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ContextMenuModule]
@@ -220,7 +226,8 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
+        <app-demo-wrapper>
+            <div class="flex justify-center">
             <span #span class="inline-flex items-center justify-center border-2 border-primary rounded w-16 h-16" aria-haspopup="true">
                 <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                     <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
@@ -249,6 +256,7 @@ import { MenuItem } from 'primeng/api';
             </span>
             <p-contextmenu [target]="span" [model]="items" />
         </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ContextMenuModule]
@@ -299,7 +307,8 @@ import { ContextMenu } from 'primeng/contextmenu';
 
 @Component({
     template: `
-        <div class="card flex md:justify-center">
+        <app-demo-wrapper>
+            <div class="flex md:justify-center">
             <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded p-3 flex flex-col gap-2 w-full md:w-[30rem]">
                 @for (product of data; track product.id) {
                     <li
@@ -339,6 +348,7 @@ import { ContextMenu } from 'primeng/contextmenu';
                 </ng-template>
             </p-contextmenu>
         </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [BadgeModule, ContextMenuModule, RippleModule]

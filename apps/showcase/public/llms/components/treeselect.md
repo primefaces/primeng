@@ -19,9 +19,11 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeSelectModule, FormsModule],
@@ -53,9 +55,11 @@ import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeSelectModule, FormsModule],
@@ -87,9 +91,11 @@ import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" class="md:w-80 w-full" [showClear]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" class="md:w-80 w-full" [showClear]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeSelectModule, FormsModule],
@@ -121,9 +127,11 @@ import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" [disabled]="true" placeholder="TreeSelect" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" [disabled]="true" placeholder="TreeSelect" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeSelectModule, FormsModule],
@@ -155,9 +163,11 @@ import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" variant="filled" [options]="nodes" placeholder="Select Item" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" variant="filled" [options]="nodes" placeholder="Select Item" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeSelectModule, FormsModule],
@@ -189,9 +199,11 @@ import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeSelectModule, FormsModule],
@@ -224,20 +236,22 @@ import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel class="w-full md:w-80">
-                <p-treeselect [(ngModel)]="value1" inputId="over_label" [options]="nodes" class="w-full" />
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel class="w-full md:w-80" variant="in">
-                <p-treeselect [(ngModel)]="value2" inputId="in_label" [options]="nodes" class="w-full" />
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel class="w-full md:w-80" variant="on">
-                <p-treeselect [(ngModel)]="value3" inputId="on_label" [options]="nodes" class="w-full" />
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-end gap-4">
+                <p-floatlabel class="w-full md:w-80">
+                    <p-treeselect [(ngModel)]="value1" inputId="over_label" [options]="nodes" class="w-full" />
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
+                <p-floatlabel class="w-full md:w-80" variant="in">
+                    <p-treeselect [(ngModel)]="value2" inputId="in_label" [options]="nodes" class="w-full" />
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
+                <p-floatlabel class="w-full md:w-80" variant="on">
+                    <p-treeselect [(ngModel)]="value3" inputId="on_label" [options]="nodes" class="w-full" />
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [FloatLabelModule, TreeSelectModule, FormsModule],
@@ -271,9 +285,9 @@ import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" fluid />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeSelectModule, FormsModule],
@@ -306,12 +320,14 @@ import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-iftalabel class="w-full md:w-80">
-                <p-treeselect [(ngModel)]="selectedValue" inputId="t_file" [options]="nodes" class="w-full" />
-                <label for="t_file">File</label>
-            </p-iftalabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-iftalabel class="w-full md:w-80">
+                    <p-treeselect [(ngModel)]="selectedValue" inputId="t_file" [options]="nodes" class="w-full" />
+                    <label for="t_file">File</label>
+                </p-iftalabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [IftaLabelModule, TreeSelectModule, FormsModule],
@@ -343,10 +359,12 @@ import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center gap-4">
-            <p-treeselect [invalid]="selectedValue1 === undefined" [(ngModel)]="selectedValue1" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
-            <p-treeselect [invalid]="selectedValue2 === undefined" [(ngModel)]="selectedValue2" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-4">
+                <p-treeselect [invalid]="selectedValue1 === undefined" [(ngModel)]="selectedValue1" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
+                <p-treeselect [invalid]="selectedValue2 === undefined" [(ngModel)]="selectedValue2" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeSelectModule, FormsModule],
@@ -379,20 +397,22 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-treeselect
-                class="w-full md:w-80"
-                [(ngModel)]="selectedNodes"
-                (onNodeExpand)="onNodeExpand($event)"
-                [options]="nodes()"
-                display="chip"
-                [metaKeySelection]="false"
-                selectionMode="checkbox"
-                placeholder="Select Item"
-                [loading]="loading"
-                loadingMode="icon"
-            />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-treeselect
+                    class="w-full md:w-80"
+                    [(ngModel)]="selectedNodes"
+                    (onNodeExpand)="onNodeExpand($event)"
+                    [options]="nodes()"
+                    display="chip"
+                    [metaKeySelection]="false"
+                    selectionMode="checkbox"
+                    placeholder="Select Item"
+                    [loading]="loading"
+                    loadingMode="icon"
+                />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeSelectModule, FormsModule]
@@ -467,9 +487,11 @@ import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeSelectModule, FormsModule],
@@ -506,17 +528,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full md:w-80">
-                <div class="flex flex-col gap-1">
-                    <p-treeselect class="md:w-80 w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Select Item" [invalid]="isInvalid('selectedNodes')" />
-                    @if (isInvalid('selectedNodes')) {
-                        <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full md:w-80">
+                    <div class="flex flex-col gap-1">
+                        <p-treeselect class="md:w-80 w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Select Item" [invalid]="isInvalid('selectedNodes')" />
+                        @if (isInvalid('selectedNodes')) {
+                            <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, ToastModule, TreeSelectModule, ButtonModule, ReactiveFormsModule],
@@ -567,11 +591,13 @@ import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <p-treeselect [(ngModel)]="value1" [options]="nodes" size="small" placeholder="Small" class="md:w-80 w-full" />
-            <p-treeselect [(ngModel)]="value2" [options]="nodes" placeholder="Normal" class="md:w-80 w-full" />
-            <p-treeselect [(ngModel)]="value3" [options]="nodes" size="large" placeholder="Large" class="md:w-80 w-full" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-treeselect [(ngModel)]="value1" [options]="nodes" size="small" placeholder="Small" class="md:w-80 w-full" />
+                <p-treeselect [(ngModel)]="value2" [options]="nodes" placeholder="Normal" class="md:w-80 w-full" />
+                <p-treeselect [(ngModel)]="value3" [options]="nodes" size="large" placeholder="Large" class="md:w-80 w-full" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeSelectModule, FormsModule],
@@ -606,22 +632,24 @@ import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item">
-                <ng-template #dropdownicon>
-                    <i class="pi pi-search"></i>
-                </ng-template>
-                <ng-template #header>
-                    <div class="font-medium px-3 py-2">Available Files</div>
-                </ng-template>
-                <ng-template #footer>
-                    <div class="px-3 pt-1 pb-2 flex justify-between">
-                        <p-button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
-                        <p-button label="Remove All" severity="danger" text size="small" icon="pi pi-plus" />
-                    </div>
-                </ng-template>
-            </p-treeselect>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item">
+                    <ng-template #dropdownicon>
+                        <i class="pi pi-search"></i>
+                    </ng-template>
+                    <ng-template #header>
+                        <div class="font-medium px-3 py-2">Available Files</div>
+                    </ng-template>
+                    <ng-template #footer>
+                        <div class="px-3 pt-1 pb-2 flex justify-between">
+                            <p-button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
+                            <p-button label="Remove All" severity="danger" text size="small" icon="pi pi-plus" />
+                        </div>
+                    </ng-template>
+                </p-treeselect>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, TreeSelectModule, FormsModule],
@@ -656,17 +684,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full md:w-80">
-                <div class="flex flex-col gap-1">
-                    <p-treeselect #node="ngModel" [(ngModel)]="selectedNodes" [invalid]="node.invalid && exampleForm.submitted" name="node" class="md:w-80 w-full" [options]="nodes" placeholder="Select Item" required />
-                    @if (node.invalid && exampleForm.submitted) {
-                        <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full md:w-80">
+                    <div class="flex flex-col gap-1">
+                        <p-treeselect #node="ngModel" [(ngModel)]="selectedNodes" [invalid]="node.invalid && exampleForm.submitted" name="node" class="md:w-80 w-full" [options]="nodes" placeholder="Select Item" required />
+                        @if (node.invalid && exampleForm.submitted) {
+                            <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, ToastModule, TreeSelectModule, ButtonModule, FormsModule],
@@ -706,20 +736,22 @@ import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-treeselect
-                class="w-full md:w-80"
-                [(ngModel)]="selectedNodes"
-                [options]="nodes"
-                display="chip"
-                [metaKeySelection]="false"
-                selectionMode="checkbox"
-                placeholder="Select Item"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="35"
-                [virtualScrollOptions]="{ scrollHeight: '200px' }"
-            ></p-treeselect>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-treeselect
+                    class="w-full md:w-80"
+                    [(ngModel)]="selectedNodes"
+                    [options]="nodes"
+                    display="chip"
+                    [metaKeySelection]="false"
+                    selectionMode="checkbox"
+                    placeholder="Select Item"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="35"
+                    [virtualScrollOptions]="{ scrollHeight: '200px' }"
+                ></p-treeselect>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [TreeSelectModule, FormsModule],

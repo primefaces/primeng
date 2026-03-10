@@ -16,9 +16,9 @@ import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-progressbar [value]="50" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ProgressBarModule]
@@ -38,10 +38,10 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
             <p-progressbar [value]="value" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ProgressBarModule, ToastModule],
@@ -86,9 +86,9 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-progressbar mode="indeterminate" [style]="{ height: '6px' }" />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ProgressBarModule],
@@ -109,13 +109,13 @@ import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-progressbar [value]="50">
                 <ng-template #content let-value>
                     <span>{{ value }}/100</span>
                 </ng-template>
             </p-progressbar>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ProgressBarModule]

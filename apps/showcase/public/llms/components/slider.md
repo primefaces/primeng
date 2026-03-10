@@ -17,9 +17,11 @@ import { SliderModule } from 'primeng/slider';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-slider [(ngModel)]="value" class="w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-slider [(ngModel)]="value" class="w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SliderModule, FormsModule]
@@ -41,13 +43,15 @@ import { SliderModule } from 'primeng/slider';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <div class="flex flex-col items-center">
-                <img alt="user header" class="w-full md:w-80 rounded mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
-                <p-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
-                <p-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <div class="flex flex-col items-center">
+                    <img alt="user header" class="w-full md:w-80 rounded mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
+                    <p-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
+                    <p-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
+                </div>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SelectButtonModule, SliderModule, FormsModule]
@@ -75,12 +79,14 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <div>
-                <input type="text" pInputText [(ngModel)]="value" class="w-full mb-4" />
-                <p-slider [(ngModel)]="value" class="w-full" />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <div>
+                    <input type="text" pInputText [(ngModel)]="value" class="w-full mb-4" />
+                    <p-slider [(ngModel)]="value" class="w-full" />
+                </div>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SliderModule, InputTextModule, FormsModule]
@@ -101,9 +107,11 @@ import { SliderModule } from 'primeng/slider';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-slider [(ngModel)]="rangeValues" [range]="true" class="w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-slider [(ngModel)]="rangeValues" [range]="true" class="w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SliderModule, FormsModule]
@@ -129,17 +137,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-4">
-                    <p-slider formControlName="value" class="w-56" />
-                    @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-4">
+                        <p-slider formControlName="value" class="w-56" />
+                        @if (isInvalid('value')) {
+                            <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, SliderModule, ToastModule, ButtonModule, ReactiveFormsModule]
@@ -182,9 +192,11 @@ import { SliderModule } from 'primeng/slider';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-slider [(ngModel)]="value" [step]="20" class="w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-slider [(ngModel)]="value" [step]="20" class="w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SliderModule, FormsModule]
@@ -208,17 +220,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
-                <div class="flex flex-col gap-4">
-                    <p-slider #model="ngModel" [(ngModel)]="value" class="w-56" required [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="slider" />
-                    @if (model.invalid && (model.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
+                    <div class="flex flex-col gap-4">
+                        <p-slider #model="ngModel" [(ngModel)]="value" class="w-56" required [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="slider" />
+                        @if (model.invalid && (model.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [MessageModule, SliderModule, ToastModule, ButtonModule, FormsModule]
@@ -247,9 +261,11 @@ import { SliderModule } from 'primeng/slider';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-slider [(ngModel)]="value" orientation="vertical" class="h-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-slider [(ngModel)]="value" orientation="vertical" class="h-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [SliderModule, FormsModule]

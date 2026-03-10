@@ -19,12 +19,14 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-2">
-            <p-toast />
-            <p-confirmdialog />
-            <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
-            <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
-        </div>
+        <p-toast />
+        <p-confirmdialog />
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-2">
+                <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
+                <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ConfirmDialogModule, ToastModule],
@@ -75,27 +77,29 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-confirmdialog #cd>
-                <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
-                    @if (message) {
-                        <div class="flex flex-col items-center p-7 bg-surface-0 dark:bg-surface-900 rounded">
-                            <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
-                                <i class="pi pi-question !text-5xl"></i>
-                            </div>
-                            <span class="font-bold text-xl block mb-2 mt-5">{{ message.header }}</span>
-                            <p class="mb-0 text-sm">{{ message.message }}</p>
-                            <div class="flex items-center gap-2 mt-5">
-                                <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
-                                <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
-                            </div>
+        <p-toast />
+        <p-confirmdialog #cd>
+            <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
+                @if (message) {
+                    <div class="flex flex-col items-center p-7 bg-surface-0 dark:bg-surface-900 rounded">
+                        <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
+                            <i class="pi pi-question !text-5xl"></i>
                         </div>
-                    }
-                </ng-template>
-            </p-confirmdialog>
-            <p-button (click)="confirm()" label="Save" />
-        </div>
+                        <span class="font-bold text-xl block mb-2 mt-5">{{ message.header }}</span>
+                        <p class="mb-0 text-sm">{{ message.message }}</p>
+                        <div class="flex items-center gap-2 mt-5">
+                            <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
+                            <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
+                        </div>
+                    </div>
+                }
+            </ng-template>
+        </p-confirmdialog>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (click)="confirm()" label="Save" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ConfirmDialogModule, ToastModule],
@@ -121,9 +125,9 @@ import { Dialog } from 'primeng/dialog';
 
 @Component({
     template: `
-        <div class="card">
-            <p-toast />
-            <p-confirmdialog key="positionDialog" [position]="position" />
+        <p-toast />
+        <p-confirmdialog key="positionDialog" [position]="position" />
+        <app-demo-wrapper>
             <div class="flex flex-wrap justify-center gap-2 mb-4">
                 <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
                 <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
@@ -138,7 +142,7 @@ import { Dialog } from 'primeng/dialog';
                 <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40" />
                 <p-button (click)="confirmPosition('bottomright')" icon="pi pi-arrow-up" label="BottomRight" severity="secondary" styleClass="min-w-40" />
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ConfirmDialogModule, ToastModule],
@@ -163,20 +167,22 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-confirmdialog>
-                <ng-template #message let-message>
-                    @if (message) {
-                        <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
-                            <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
-                            <p class="text-sm">{{ message.message }}</p>
-                        </div>
-                    }
-                </ng-template>
-            </p-confirmdialog>
-            <p-button (click)="confirm()" label="Save" />
-        </div>
+        <p-toast />
+        <p-confirmdialog>
+            <ng-template #message let-message>
+                @if (message) {
+                    <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+                        <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
+                        <p class="text-sm">{{ message.message }}</p>
+                    </div>
+                }
+            </ng-template>
+        </p-confirmdialog>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (click)="confirm()" label="Save" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, ConfirmDialogModule, ToastModule],
