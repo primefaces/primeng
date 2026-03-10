@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AvatarModule } from 'primeng/avatar';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
     selector: 'label-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, AvatarModule, OverlayBadgeModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, AvatarModule, OverlayBadgeModule],
     template: `
         <app-docsectiontext>
             <p>A letter Avatar is defined with the <i>label</i> property.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex flex-wrap gap-8">
                 <div class="flex-auto">
                     <h5>Label</h5>
@@ -33,8 +34,8 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                     </p-overlay-badge>
                 </div>
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class LabelDoc {}

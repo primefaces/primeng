@@ -3,17 +3,18 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'position-doc',
     standalone: true,
-    imports: [DialogModule, ButtonModule, InputTextModule, AppCode, AppDocSectionText],
+    imports: [DialogModule, ButtonModule, InputTextModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The <i>position</i> property is used to display a Dialog at all edges and corners of the screen.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex flex-wrap justify-center gap-2 mb-2">
                 <p-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
                 <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
@@ -43,8 +44,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <p-button label="Save" (click)="visible = false" />
                 </div>
             </p-dialog>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class PositionDoc {

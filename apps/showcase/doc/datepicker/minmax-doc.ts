@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -7,15 +8,17 @@ import { DatePickerModule } from 'primeng/datepicker';
 @Component({
     selector: 'minmax-doc',
     standalone: true,
-    imports: [FormsModule, DatePickerModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, DatePickerModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Boundaries for the permitted dates that can be entered are defined with <i>minDate</i> and <i>maxDate</i> properties.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-datepicker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class MinMaxDoc implements OnInit {

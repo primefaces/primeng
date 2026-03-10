@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit, signal } from '@angular/core';
@@ -10,13 +11,13 @@ import { TreeModule } from 'primeng/tree';
 @Component({
     selector: 'event-doc',
     standalone: true,
-    imports: [TreeModule, FormsModule, ToastModule, AppCode, AppDocSectionText],
+    imports: [TreeModule, FormsModule, ToastModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>An event is provided for each type of user interaction such as expand, collapse and selection.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
             <p-tree
                 [value]="files()"
                 class="w-full md:w-[30rem]"
@@ -27,8 +28,8 @@ import { TreeModule } from 'primeng/tree';
                 (onNodeSelect)="nodeSelect($event)"
                 (onNodeUnselect)="nodeUnselect($event)"
             />
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService]
 })

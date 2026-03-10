@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -17,12 +18,12 @@ interface Column {
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo, RatingModule, TagModule],
+    imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo, RatingModule, TagModule, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>Custom content at <i>header</i>, <i>body</i> and <i>footer</i> sections are supported via templating.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
+            <app-demo-wrapper>
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template #caption>
                         <div class="flex items-center justify-between">
@@ -60,9 +61,9 @@ interface Column {
                         </tr>
                     </ng-template>
                 </p-table>
-            </div>
-        </p-deferred-demo>
-        <app-code [extFiles]="['Product']"></app-code>`,
+                <app-code [extFiles]="['Product']"></app-code>
+            </app-demo-wrapper>
+        </p-deferred-demo>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TemplateDoc {

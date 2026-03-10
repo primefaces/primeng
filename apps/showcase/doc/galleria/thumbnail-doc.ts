@@ -4,17 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { GalleriaModule } from 'primeng/galleria';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'thumbnail-doc',
     standalone: true,
-    imports: [FormsModule, GalleriaModule, RadioButtonModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, GalleriaModule, RadioButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex flex-wrap gap-4 mb-7">
                 @for (option of positionOptions; track $index) {
                     <div class="flex items-center">
@@ -33,8 +34,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     </div>
                 </ng-template>
             </p-galleria>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ThumbnailDoc implements OnInit {

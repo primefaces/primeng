@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -8,7 +9,7 @@ import { SelectModule } from 'primeng/select';
 @Component({
     selector: 'virtualscroll-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, FormsModule, SelectModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -16,10 +17,12 @@ import { SelectModule } from 'primeng/select';
                 issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining <i>virtualScrollItemSize</i> to specify the height of an item.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class VirtualScrollDoc {

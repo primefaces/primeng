@@ -1,17 +1,18 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { Component } from '@angular/core';
 import { SplitterModule } from 'primeng/splitter';
 
 @Component({
     selector: 'nested-doc',
     standalone: true,
-    imports: [AppDocSectionText, SplitterModule, AppCode],
+    imports: [AppDocSectionText, SplitterModule, AppCode, AppDemoWrapper],
     template: `
         <app-docsectiontext>
             <p>Splitters can be combined to create advanced layouts.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" class="mb-8">
                 <ng-template #panel>
                     <div class="col flex w-full items-center justify-center text-sm">Panel 1</div>
@@ -34,8 +35,8 @@ import { SplitterModule } from 'primeng/splitter';
                     </p-splitter>
                 </ng-template>
             </p-splitter>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class NestedDoc {}

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { RouterModule } from '@angular/router';
@@ -10,19 +11,19 @@ import { RouterModule } from '@angular/router';
 @Component({
     selector: 'tooltip-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, SpeedDialModule, ToastModule, RouterModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, SpeedDialModule, ToastModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>Items display a tooltip on hover when a standalone <a href="#" [routerLink]="['/tooltip']">Tooltip</a> is present with a target that matches the items.</p>
         </app-docsectiontext>
-        <div class="card">
+        <p-toast />
+        <app-demo-wrapper>
             <div [style]="{ position: 'relative', height: '350px' }">
-                <p-toast />
                 <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', right: 0, bottom: 0 }" [buttonProps]="{ severity: 'help', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'left' }" />
                 <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 0, bottom: 0 }" [buttonProps]="{ severity: 'danger', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'right' }" />
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService]
 })

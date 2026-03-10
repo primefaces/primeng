@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -17,12 +18,12 @@ interface Column {
 @Component({
     selector: 'columntoggle-doc',
     standalone: true,
-    imports: [FormsModule, TableModule, MultiSelectModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [FormsModule, TableModule, MultiSelectModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>This demo uses a multiselect component to implement toggleable columns.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
+            <app-demo-wrapper>
                 <p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #caption>
                         <p-multiselect display="chip" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ 'min-width': '200px' }" placeholder="Choose Columns" />
@@ -48,9 +49,9 @@ interface Column {
                         </tr>
                     </ng-template>
                 </p-table>
-            </div>
-        </p-deferred-demo>
-        <app-code [extFiles]="['Product']"></app-code>`,
+                <app-code [extFiles]="['Product']"></app-code>
+            </app-demo-wrapper>
+        </p-deferred-demo>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnToggleDoc {

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ChipModule } from 'primeng/chip';
 
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, ChipModule],
+    imports: [AppCode, AppDemoWrapper, AppDocSectionText, ChipModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -14,13 +15,15 @@ import { ChipModule } from 'primeng/chip';
                 is hidden.
             </p>
         </app-docsectiontext>
-        <div class="card flex items-center gap-2 flex-wrap">
-            <p-chip label="Action" />
-            <p-chip label="Comedy" />
-            <p-chip label="Mystery" />
-            <p-chip label="Thriller" [removable]="true" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex items-center gap-2 flex-wrap">
+                <p-chip label="Action" />
+                <p-chip label="Comedy" />
+                <p-chip label="Mystery" />
+                <p-chip label="Thriller" [removable]="true" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc {}

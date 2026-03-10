@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -57,6 +58,7 @@ interface ExportColumn {
         TagModule,
         AppDocSectionText,
         AppCode,
+        AppDemoWrapper,
         DeferredDemo,
         ConfirmDialogModule,
         TextareaModule
@@ -65,8 +67,8 @@ interface ExportColumn {
             <p>CRUD implementation example with a Dialog.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
-                <p-toast />
+            <p-toast />
+            <app-demo-wrapper>
                 <p-toolbar class="mb-5">
                     <ng-template #start>
                         <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
@@ -233,9 +235,9 @@ interface ExportColumn {
                 </p-dialog>
 
                 <p-confirmdialog [style]="{ width: '450px' }" />
-            </div>
-        </p-deferred-demo>
-        <app-code [extFiles]="['Product']"></app-code>`,
+                <app-code [extFiles]="['Product']"></app-code>
+            </app-demo-wrapper>
+        </p-deferred-demo>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService, ConfirmationService]
 })

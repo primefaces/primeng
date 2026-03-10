@@ -1,16 +1,24 @@
+import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'usage-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText],
+    imports: [AppCode],
     template: `
-        <app-docsectiontext>
-            <p><i>FilterService</i> needs to be injected into your component. Filters are accessed with <i>FilterService.filters</i>.</p>
-        </app-docsectiontext>
-        <app-code [hideToggleCode]="true"></app-code>
+        <app-code [code]="importCode" [hideToggleCode]="true"></app-code>
+        <app-code [code]="usageCode" [hideToggleCode]="true"></app-code>
     `
 })
-export class UsageDoc {}
+export class UsageDoc {
+    importCode: Code = {
+        typescript: `import { FilterService } from 'primeng/api';`
+    };
+
+    usageCode: Code = {
+        typescript: `export class MyComponent {
+    constructor(private filterService: FilterService) {}
+}`
+    };
+}

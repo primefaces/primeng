@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
@@ -16,7 +17,7 @@ interface Column {
 @Component({
     selector: 'paginatortemplate-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, ButtonModule, RouterModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [CommonModule, TreeTableModule, ButtonModule, RouterModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -24,7 +25,7 @@ interface Column {
                 <a href="#" [routerLink]="['/paginator']">Paginator</a> component for more information about the advanced customization options.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>
@@ -61,8 +62,8 @@ interface Column {
                     </ng-template>
                 </p-treetable>
             </p-deferred-demo>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

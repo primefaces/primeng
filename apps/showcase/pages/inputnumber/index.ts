@@ -7,7 +7,7 @@ import { FilledDoc } from '@/doc/inputnumber/filled-doc';
 import { FloatlabelDoc } from '@/doc/inputnumber/floatlabel-doc';
 import { FluidDoc } from '@/doc/inputnumber/fluid-doc';
 import { IftaLabelDoc } from '@/doc/inputnumber/iftalabel-doc';
-import { ImportDoc } from '@/doc/inputnumber/import-doc';
+import { UsageDoc } from '@/doc/inputnumber/usage-doc';
 import { InvalidDoc } from '@/doc/inputnumber/invalid-doc';
 import { LocaleDoc } from '@/doc/inputnumber/locale-doc';
 import { NumeralsDoc } from '@/doc/inputnumber/numerals-doc';
@@ -26,6 +26,7 @@ import { AppDoc } from '@/components/doc/app.doc';
         header="InputNumber"
         description="InputNumber is an input component to provide numerical input."
         [docs]="docs"
+        [heroDoc]="heroDoc"
         [apiDocs]="['InputNumber']"
         themeDocs="inputnumber"
         [ptDocs]="ptComponent"
@@ -34,88 +35,96 @@ import { AppDoc } from '@/components/doc/app.doc';
     imports: [AppDoc]
 })
 export class InputNumberDemo {
+    heroDoc = NumeralsDoc;
+
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'numerals',
-            label: 'Numerals',
-            component: NumeralsDoc
-        },
-        {
-            id: 'locale',
-            label: 'Locale',
-            component: LocaleDoc
-        },
-        {
-            id: 'currency',
-            label: 'Currency',
-            component: CurrencyDoc
-        },
-        {
-            id: 'prefixsuffix',
-            label: 'Prefix & Suffix',
-            component: PrefixSuffixDoc
-        },
-        {
-            id: 'buttons',
-            label: 'Buttons',
-            component: ButtonsDoc
-        },
-        {
-            id: 'vertical',
-            label: 'Vertical',
-            component: VerticalDoc
-        },
-        {
-            id: 'floatlabel',
-            label: 'Float Label',
-            component: FloatlabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
-        },
-        {
-            id: 'clearicon',
-            label: 'Clear Icon',
-            component: ClearIconDoc
-        },
-        {
-            id: 'sizes',
-            label: 'Sizes',
-            component: SizesDoc
-        },
-        {
-            id: 'fluid',
-            label: 'Fluid',
-            component: FluidDoc
-        },
-        {
-            id: 'filled',
-            label: 'Filled',
-            component: FilledDoc
-        },
-        {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
-        },
-        {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc
-        },
-        {
-            id: 'forms',
-            label: 'Forms',
+            id: 'examples',
+            label: 'Examples',
             children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                {
+                    id: 'numerals',
+                    label: 'Numerals',
+                    component: NumeralsDoc
+                },
+                {
+                    id: 'locale',
+                    label: 'Locale',
+                    component: LocaleDoc
+                },
+                {
+                    id: 'currency',
+                    label: 'Currency',
+                    component: CurrencyDoc
+                },
+                {
+                    id: 'prefixsuffix',
+                    label: 'Prefix & Suffix',
+                    component: PrefixSuffixDoc
+                },
+                {
+                    id: 'buttons',
+                    label: 'Buttons',
+                    component: ButtonsDoc
+                },
+                {
+                    id: 'vertical',
+                    label: 'Vertical',
+                    component: VerticalDoc
+                },
+                {
+                    id: 'floatlabel',
+                    label: 'Float Label',
+                    component: FloatlabelDoc
+                },
+                {
+                    id: 'iftalabel',
+                    label: 'Ifta Label',
+                    component: IftaLabelDoc
+                },
+                {
+                    id: 'clearicon',
+                    label: 'Clear Icon',
+                    component: ClearIconDoc
+                },
+                {
+                    id: 'sizes',
+                    label: 'Sizes',
+                    component: SizesDoc
+                },
+                {
+                    id: 'fluid',
+                    label: 'Fluid',
+                    component: FluidDoc
+                },
+                {
+                    id: 'filled',
+                    label: 'Filled',
+                    component: FilledDoc
+                },
+                {
+                    id: 'disabled',
+                    label: 'Disabled',
+                    component: DisabledDoc
+                },
+                {
+                    id: 'invalid',
+                    label: 'Invalid',
+                    component: InvalidDoc
+                },
+                {
+                    id: 'forms',
+                    label: 'Forms',
+                    children: [
+                        { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                        { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                    ]
+                }
             ]
         },
         {

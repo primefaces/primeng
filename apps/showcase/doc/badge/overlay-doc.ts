@@ -1,28 +1,31 @@
 import { Component } from '@angular/core';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'overlay-doc',
     standalone: true,
-    imports: [OverlayBadgeModule, AppCode, AppDocSectionText],
+    imports: [OverlayBadgeModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>A badge can be added to any element by encapsulating the content with the <i>OverlayBadge</i> component.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-center gap-6">
-            <p-overlaybadge value="2">
-                <i class="pi pi-bell" style="font-size: 2rem"></i>
-            </p-overlaybadge>
-            <p-overlaybadge value="4" severity="danger">
-                <i class="pi pi-calendar" style="font-size: 2rem"></i>
-            </p-overlaybadge>
-            <p-overlaybadge severity="danger">
-                <i class="pi pi-envelope" style="font-size: 2rem"></i>
-            </p-overlaybadge>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-6">
+                <p-overlaybadge value="2">
+                    <i class="pi pi-bell" style="font-size: 2rem"></i>
+                </p-overlaybadge>
+                <p-overlaybadge value="4" severity="danger">
+                    <i class="pi pi-calendar" style="font-size: 2rem"></i>
+                </p-overlaybadge>
+                <p-overlaybadge severity="danger">
+                    <i class="pi pi-envelope" style="font-size: 2rem"></i>
+                </p-overlaybadge>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class OverlayDoc {}

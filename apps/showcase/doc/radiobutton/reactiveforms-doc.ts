@@ -6,13 +6,14 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'reactiveforms-doc',
     standalone: true,
-    imports: [ReactiveFormsModule, RadioButtonModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText, CommonModule],
+    imports: [ReactiveFormsModule, RadioButtonModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDemoWrapper, AppDocSectionText, CommonModule],
     providers: [MessageService],
     template: `
         <app-docsectiontext>
@@ -20,26 +21,27 @@ import { CommonModule } from '@angular/common';
         </app-docsectiontext>
 
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-wrap gap-4">
-                    @for (category of categories; track category.key) {
-                        <div class="flex items-center gap-2">
-                            <p-radiobutton formControlName="selectedCategory" name="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
-                            <label [for]="category.key" class="text-sm"> {{ category.name }} </label>
-                        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-wrap gap-4">
+                        @for (category of categories; track category.key) {
+                            <div class="flex items-center gap-2">
+                                <p-radiobutton formControlName="selectedCategory" name="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
+                                <label [for]="category.key" class="text-sm"> {{ category.name }} </label>
+                            </div>
+                        }
+                    </div>
+                    @if (isInvalid('selectedCategory')) {
+                        <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
                     }
-                </div>
-                @if (isInvalid('selectedCategory')) {
-                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
-                }
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
-                </button>
-            </form>
-        </div>
-
-        <app-code></app-code>
+                    <button pButton severity="secondary" type="submit">
+                        <span pButtonLabel>Submit</span>
+                    </button>
+                </form>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ReactiveFormsDoc {

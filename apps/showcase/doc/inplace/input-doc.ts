@@ -3,18 +3,19 @@ import { InplaceModule } from 'primeng/inplace';
 import { InputTextModule } from 'primeng/inputtext';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'input-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCodeModule, InplaceModule, InputTextModule, AutoFocusModule, ButtonModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, InplaceModule, InputTextModule, AutoFocusModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>The <i>closeCallback</i> switches the state back to display mode when called from an event.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-inplace>
                 <ng-template #display>
                     <span class="text-sm">Click to Edit</span>
@@ -28,8 +29,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     </span>
                 </ng-template>
             </p-inplace>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class InputDoc {}

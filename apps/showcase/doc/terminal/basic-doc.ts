@@ -4,20 +4,21 @@ import { TerminalModule } from 'primeng/terminal';
 import { Subscription } from 'rxjs';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, TerminalModule],
+    imports: [AppDocSectionText, AppCode, TerminalModule, AppDemoWrapper],
     template: `
         <app-docsectiontext>
             <p>Commands are processed using observables via the <i>TerminalService</i>. Import this service into your component and subscribe to <i>commandHandler</i> to process commands by sending replies with <i>sendResponse</i> function.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
             <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [TerminalService]
 })

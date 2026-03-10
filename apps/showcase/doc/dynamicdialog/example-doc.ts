@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
@@ -11,7 +12,7 @@ import { ProductListDemo } from './productlistdemo';
 @Component({
     selector: 'example-doc',
     standalone: true,
-    imports: [ToastModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [ToastModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -19,11 +20,13 @@ import { ProductListDemo } from './productlistdemo';
                 of <i>open</i> method is the type of component to load and the second parameter is the configuration of the Dialog such as <i>header</i>, <i>width</i> and more.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
-        </div>
-        <app-code [extFiles]="['Product']" [routeFiles]="['ProductListDemo', 'InfoDemo', 'Footer']"></app-code>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
+            </div>
+            <app-code [extFiles]="['Product']" [routeFiles]="['ProductListDemo', 'InfoDemo', 'Footer']"></app-code>
+        </app-demo-wrapper>
     `,
     providers: [DialogService, MessageService]
 })

@@ -6,7 +6,7 @@ import { FilledDoc } from '@/doc/treeselect/filled-doc';
 import { FilterDoc } from '@/doc/treeselect/filter-doc';
 import { FloatLabelDoc } from '@/doc/treeselect/floatlabel-doc';
 import { IftaLabelDoc } from '@/doc/treeselect/iftalabel-doc';
-import { ImportDoc } from '@/doc/treeselect/import-doc';
+import { UsageDoc } from '@/doc/treeselect/usage-doc';
 import { InvalidDoc } from '@/doc/treeselect/invalid-doc';
 import { LazyDoc } from '@/doc/treeselect/lazy-doc';
 import { MultipleDoc } from '@/doc/treeselect/multiple-doc';
@@ -22,107 +22,58 @@ import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular TreeSelect Component"
-        header="TreeSelect"
-        description="TreeSelect is a form component to choose from hierarchical data."
-        [docs]="docs"
-        [apiDocs]="['TreeSelect', 'TreeNode']"
-        [ptDocs]="ptComponent"
-        themeDocs="treeselect"
-    ></app-doc>`,
     standalone: true,
-    imports: [AppDoc]
+    imports: [AppDoc],
+    template: `
+        <app-doc
+            docTitle="Angular TreeSelect Component"
+            header="TreeSelect"
+            description="TreeSelect is a form component to choose from hierarchical data."
+            [docs]="docs"
+            [heroDoc]="heroDoc"
+            [apiDocs]="['TreeSelect', 'TreeNode']"
+            [ptDocs]="ptComponent"
+            themeDocs="treeselect"
+        ></app-doc>
+    `
 })
 export class TreeSelectDemo {
     ptComponent = PTComponent;
+    heroDoc = BasicDoc;
+
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'multiple',
-            label: 'Multiple',
-            component: MultipleDoc
-        },
-        {
-            id: 'checkbox',
-            label: 'Checkbox',
-            component: CheckboxDoc
-        },
-        {
-            id: 'virtual-scroll-doc',
-            label: 'Virtual Scroll',
-            component: VirtualScrollDoc
-        },
-        {
-            id: 'lazy',
-            label: 'Lazy',
-            component: LazyDoc
-        },
-        {
-            id: 'filter',
-            label: 'Filter',
-            component: FilterDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
-            id: 'floatlabel',
-            label: 'Float Label',
-            component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
-        },
-        {
-            id: 'clearicon',
-            label: 'Clear Icon',
-            component: ClearIconDoc
-        },
-        {
-            id: 'sizes',
-            label: 'Sizes',
-            component: SizesDoc
-        },
-        {
-            id: 'fluid',
-            label: 'Fluid',
-            component: FluidDoc
-        },
-        {
-            id: 'filled',
-            label: 'Filled',
-            component: FilledDoc
-        },
-        {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
-        },
-        {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc
-        },
-        {
-            id: 'forms',
-            label: 'Forms',
+            id: 'examples',
+            label: 'Examples',
             children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                { id: 'basic', label: 'Basic', component: BasicDoc },
+                { id: 'multiple', label: 'Multiple', component: MultipleDoc },
+                { id: 'checkbox', label: 'Checkbox', component: CheckboxDoc },
+                { id: 'virtual-scroll-doc', label: 'Virtual Scroll', component: VirtualScrollDoc },
+                { id: 'lazy', label: 'Lazy', component: LazyDoc },
+                { id: 'filter', label: 'Filter', component: FilterDoc },
+                { id: 'template', label: 'Template', component: TemplateDoc },
+                { id: 'floatlabel', label: 'Float Label', component: FloatLabelDoc },
+                { id: 'iftalabel', label: 'Ifta Label', component: IftaLabelDoc },
+                { id: 'clearicon', label: 'Clear Icon', component: ClearIconDoc },
+                { id: 'sizes', label: 'Sizes', component: SizesDoc },
+                { id: 'fluid', label: 'Fluid', component: FluidDoc },
+                { id: 'filled', label: 'Filled', component: FilledDoc },
+                { id: 'disabled', label: 'Disabled', component: DisabledDoc },
+                { id: 'invalid', label: 'Invalid', component: InvalidDoc },
+                {
+                    id: 'forms',
+                    label: 'Forms',
+                    children: [
+                        { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                        { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                    ]
+                }
             ]
         },
         {

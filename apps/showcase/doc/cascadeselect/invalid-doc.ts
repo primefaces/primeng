@@ -2,31 +2,43 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'invalid-doc',
     standalone: true,
-    imports: [FormsModule, CascadeSelectModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, CascadeSelectModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-center gap-4">
-            <p-cascadeselect [(ngModel)]="selectedCity1" [invalid]="!selectedCity1" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full sm:w-56" placeholder="Select a City" />
-            <p-cascadeselect
-                [(ngModel)]="selectedCity2"
-                [invalid]="!selectedCity2"
-                [options]="countries"
-                optionLabel="cname"
-                optionGroupLabel="name"
-                [optionGroupChildren]="['states', 'cities']"
-                class="w-full sm:w-56"
-                placeholder="Select a City"
-                variant="filled"
-            />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-4">
+                <p-cascadeselect
+                    [(ngModel)]="selectedCity1"
+                    [invalid]="!selectedCity1"
+                    [options]="countries"
+                    optionLabel="cname"
+                    optionGroupLabel="name"
+                    [optionGroupChildren]="['states', 'cities']"
+                    class="w-full sm:w-56"
+                    placeholder="Select a City"
+                />
+                <p-cascadeselect
+                    [(ngModel)]="selectedCity2"
+                    [invalid]="!selectedCity2"
+                    [options]="countries"
+                    optionLabel="cname"
+                    optionGroupLabel="name"
+                    [optionGroupChildren]="['states', 'cities']"
+                    class="w-full sm:w-56"
+                    placeholder="Select a City"
+                    variant="filled"
+                />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class InvalidDoc {

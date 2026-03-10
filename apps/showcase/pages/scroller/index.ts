@@ -3,7 +3,7 @@ import { BasicDoc } from '@/doc/scroller/basic-doc';
 import { DelayDoc } from '@/doc/scroller/delay-doc';
 import { GridDoc } from '@/doc/scroller/grid-doc';
 import { HorizontalDoc } from '@/doc/scroller/horizontal-doc';
-import { ImportDoc } from '@/doc/scroller/import-doc';
+import { UsageDoc } from '@/doc/scroller/usage-doc';
 import { LazyLoadDoc } from '@/doc/scroller/lazyload-doc';
 import { LoaderDoc } from '@/doc/scroller/loader-doc';
 import { PTComponent } from '@/doc/scroller/pt/PTComponent';
@@ -22,63 +22,71 @@ import { AppDoc } from '@/components/doc/app.doc';
         [apiDocs]="['Scroller']"
         [ptDocs]="ptComponent"
         themeDocs="scroller"
+        [heroDoc]="heroDoc"
     ></app-doc>`,
     standalone: true,
     imports: [AppDoc],
     styleUrl: './scrollerdemo.scss'
 })
 export class VirtualScrollerDemo {
+    heroDoc = BasicDoc;
     ptComponent = PTComponent;
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'horizontal',
-            label: 'Horizontal',
-            component: HorizontalDoc
-        },
-        {
-            id: 'grid',
-            label: 'Grid',
-            component: GridDoc
-        },
-        {
-            id: 'delay',
-            label: 'Delay',
-            component: DelayDoc
-        },
-        {
-            id: 'loading',
-            label: 'Loading',
-            component: LoaderDoc
-        },
-        {
-            id: 'lazy',
-            label: 'Lazy',
-            component: LazyLoadDoc
-        },
-        {
-            id: 'programmatic',
-            label: 'Programmatic',
-            component: ProgrammaticDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
-            id: 'scrolloptions',
-            label: 'Scroll Options',
-            component: ScrollOptionsDoc
+            id: 'examples',
+            label: 'Examples',
+            children: [
+                {
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
+                },
+                {
+                    id: 'horizontal',
+                    label: 'Horizontal',
+                    component: HorizontalDoc
+                },
+                {
+                    id: 'grid',
+                    label: 'Grid',
+                    component: GridDoc
+                },
+                {
+                    id: 'delay',
+                    label: 'Delay',
+                    component: DelayDoc
+                },
+                {
+                    id: 'loading',
+                    label: 'Loading',
+                    component: LoaderDoc
+                },
+                {
+                    id: 'lazy',
+                    label: 'Lazy',
+                    component: LazyLoadDoc
+                },
+                {
+                    id: 'programmatic',
+                    label: 'Programmatic',
+                    component: ProgrammaticDoc
+                },
+                {
+                    id: 'template',
+                    label: 'Template',
+                    component: TemplateDoc
+                },
+                {
+                    id: 'scrolloptions',
+                    label: 'Scroll Options',
+                    component: ScrollOptionsDoc
+                }
+            ]
         },
         {
             id: 'accessibility',

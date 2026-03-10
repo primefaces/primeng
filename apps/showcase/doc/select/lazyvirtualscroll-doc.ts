@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ScrollerOptions, SelectItem } from 'primeng/api';
@@ -7,12 +8,14 @@ import { SelectModule } from 'primeng/select';
 @Component({
     selector: 'lazyvirtualscroll-doc',
     standalone: true,
-    imports: [AppCode, FormsModule, SelectModule],
+    imports: [AppCode, AppDemoWrapper, FormsModule, SelectModule],
     template: `
-        <div class="card flex justify-center">
-            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class LazyVirtualScrollDoc {

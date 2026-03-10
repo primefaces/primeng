@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -13,13 +14,13 @@ import { TagModule } from 'primeng/tag';
 @Component({
     selector: 'layout-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, DataViewModule, ButtonModule, TagModule, SelectButtonModule, AppCode, AppDocSectionText],
+    imports: [CommonModule, FormsModule, DataViewModule, ButtonModule, TagModule, SelectButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     providers: [ProductService],
     template: `
         <app-docsectiontext>
             <p>DataView supports <i>list</i> and <i>grid</i> display modes defined with the <i>layout</i> property. The <i>grid</i> mode is not built-in for flexibility purposes and requires a library with CSS grid features like Tailwind.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-dataview #dv [value]="products()" [layout]="layout">
                 <ng-template #header>
                     <div class="flex justify-end">
@@ -111,8 +112,8 @@ import { TagModule } from 'primeng/tag';
                     </div>
                 </ng-template>
             </p-dataview>
-        </div>
-        <app-code [extFiles]="['Product']"></app-code>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>
     `
 })
 export class LayoutDoc {

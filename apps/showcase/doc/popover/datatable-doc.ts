@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -12,13 +13,13 @@ import { TagModule } from 'primeng/tag';
 @Component({
     selector: 'datatable-doc',
     standalone: true,
-    imports: [PopoverModule, TableModule, ButtonModule, TagModule, AppCode, AppDocSectionText],
+    imports: [PopoverModule, TableModule, ButtonModule, TagModule, AppCode, AppDemoWrapper, AppDocSectionText],
     providers: [MessageService, ProductService],
     template: `
         <app-docsectiontext>
             <p>Place the Popover outside of the data iteration components to avoid rendering it multiple times.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products()" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
                 <ng-template #header>
                     <tr>
@@ -84,8 +85,8 @@ import { TagModule } from 'primeng/tag';
                     }
                 </ng-template>
             </p-popover>
-        </div>
-        <app-code [extFiles]="['Product']"></app-code>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>
     `
 })
 export class DataTableDoc implements OnInit {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
@@ -7,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 @Component({
     selector: 'animation-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, StyleClassModule, ButtonModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, StyleClassModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -15,31 +16,33 @@ import { ButtonModule } from 'primeng/button';
                 in case the target is an overlay, <i>hideOnOutsideClick</i> would be handy to hide the target if outside of the popup is clicked, or enable <i>hideOnEscape</i> to close the popup by listening <i>escape</i> key.
             </p>
         </app-docsectiontext>
-        <div class="card flex items-center justify-center gap-7">
-            <div class="flex flex-col items-center">
-                <div>
-                    <p-button pStyleClass=".box1" enterFromClass="my-hidden" enterActiveClass="my-fadein" label="FadeIn" class="mr-2" />
-                    <p-button pStyleClass=".box1" leaveActiveClass="my-fadeout" leaveToClass="my-hidden" label="FadeOut" severity="secondary" />
+        <app-demo-wrapper>
+            <div class="flex items-center justify-center gap-7">
+                <div class="flex flex-col items-center">
+                    <div>
+                        <p-button pStyleClass=".box1" enterFromClass="my-hidden" enterActiveClass="my-fadein" label="FadeIn" class="mr-2" />
+                        <p-button pStyleClass=".box1" leaveActiveClass="my-fadeout" leaveToClass="my-hidden" label="FadeOut" severity="secondary" />
+                    </div>
+                    <div class="h-32">
+                        <div class="my-hidden animate-duration-500 box1">
+                            <div class="flex bg-primary text-primary-contrast items-center justify-center py-3 rounded-md mt-4 font-bold text-sm w-28 h-28">Custom</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="h-32">
-                    <div class="my-hidden animate-duration-500 box1">
-                        <div class="flex bg-primary text-primary-contrast items-center justify-center py-3 rounded-md mt-4 font-bold text-sm w-28 h-28">Custom</div>
+                <div class="flex flex-col items-center">
+                    <div>
+                        <p-button pStyleClass=".box2" enterFromClass="hidden" enterActiveClass="animate-slidedown" label="SlideDown" class="mr-2" />
+                        <p-button pStyleClass=".box2" leaveActiveClass="animate-slideup" leaveToClass="hidden" label="SlideUp" severity="secondary" />
+                    </div>
+                    <div class="h-32">
+                        <div class="hidden animate-duration-500 box2 overflow-hidden">
+                            <div class="flex bg-primary text-primary-contrast items-center justify-center py-3 rounded-md mt-4 font-bold text-sm w-28 h-28">Content</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col items-center">
-                <div>
-                    <p-button pStyleClass=".box2" enterFromClass="hidden" enterActiveClass="animate-slidedown" label="SlideDown" class="mr-2" />
-                    <p-button pStyleClass=".box2" leaveActiveClass="animate-slideup" leaveToClass="hidden" label="SlideUp" severity="secondary" />
-                </div>
-                <div class="h-32">
-                    <div class="hidden animate-duration-500 box2 overflow-hidden">
-                        <div class="flex bg-primary text-primary-contrast items-center justify-center py-3 rounded-md mt-4 font-bold text-sm w-28 h-28">Content</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     styles: [
         `

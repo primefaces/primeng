@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { IftaLabelModule } from 'primeng/iftalabel';
@@ -14,18 +15,20 @@ interface City {
 @Component({
     selector: 'iftalabel-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule, IftaLabelModule, RouterModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, FormsModule, SelectModule, IftaLabelModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for more information.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-iftalabel class="w-full md:w-56">
-                <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" class="w-full" />
-                <label for="dd-city">City</label>
-            </p-iftalabel>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-iftalabel class="w-full md:w-56">
+                    <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" class="w-full" />
+                    <label for="dd-city">City</label>
+                </p-iftalabel>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class IftaLabelDoc implements OnInit {

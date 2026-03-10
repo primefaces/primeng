@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer, Representative } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
@@ -20,12 +21,29 @@ import { TagModule } from 'primeng/tag';
 @Component({
     selector: 'customers-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, TableModule, ButtonModule, IconFieldModule, InputIconModule, InputTextModule, MultiSelectModule, SelectModule, TagModule, SliderModule, ProgressBarModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [
+        CommonModule,
+        FormsModule,
+        TableModule,
+        ButtonModule,
+        IconFieldModule,
+        InputIconModule,
+        InputTextModule,
+        MultiSelectModule,
+        SelectModule,
+        TagModule,
+        SliderModule,
+        ProgressBarModule,
+        AppDocSectionText,
+        AppCode,
+        DeferredDemo,
+        AppDemoWrapper
+    ],
     template: ` <app-docsectiontext>
             <p>DataTable with selection, pagination, filtering, sorting and templating.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
+            <app-demo-wrapper>
                 <p-table
                     #dt
                     [value]="customers"
@@ -179,9 +197,9 @@ import { TagModule } from 'primeng/tag';
                         </tr>
                     </ng-template>
                 </p-table>
-            </div>
-        </p-deferred-demo>
-        <app-code [extFiles]="['Customer']"></app-code>`,
+                <app-code [extFiles]="['Customer']"></app-code>
+            </app-demo-wrapper>
+        </p-deferred-demo>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomersDoc {

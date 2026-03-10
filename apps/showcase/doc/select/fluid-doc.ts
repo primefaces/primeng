@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 
@@ -12,15 +13,15 @@ interface City {
 @Component({
     selector: 'fluid-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, FormsModule, SelectModule],
     template: `
         <app-docsectiontext>
             <p>The fluid prop makes the component take up the full width of its container when set to true.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" fluid />
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class FluidDoc implements OnInit {

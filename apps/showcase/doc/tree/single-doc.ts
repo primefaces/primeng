@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit, signal } from '@angular/core';
@@ -9,15 +10,15 @@ import { TreeModule } from 'primeng/tree';
 @Component({
     selector: 'single-doc',
     standalone: true,
-    imports: [TreeModule, FormsModule, AppCode, AppDocSectionText],
+    imports: [TreeModule, FormsModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Single node selection is configured by setting <i>selectionMode</i> as <i>single</i> along with <i>selection</i> properties to manage the selection value binding.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class SingleDoc implements OnInit {

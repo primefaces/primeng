@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [ContextMenuModule, AppCode, AppDocSectionText],
+    imports: [ContextMenuModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -15,11 +16,13 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <i>target</i> property.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
-            <p-contextmenu [target]="img" [model]="items" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
+                <p-contextmenu [target]="img" [model]="items" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc implements OnInit {

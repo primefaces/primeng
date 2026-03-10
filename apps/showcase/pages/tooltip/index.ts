@@ -3,9 +3,9 @@ import { AutoHideDoc } from '@/doc/tooltip/autohide-doc';
 import { CustomDoc } from '@/doc/tooltip/custom-doc';
 import { DelayDoc } from '@/doc/tooltip/delay-doc';
 import { EventDoc } from '@/doc/tooltip/event-doc';
-import { ImportDoc } from '@/doc/tooltip/import-doc';
 import { OptionsDoc } from '@/doc/tooltip/options-doc';
 import { PositionDoc } from '@/doc/tooltip/position-doc';
+import { UsageDoc } from '@/doc/tooltip/usage-doc';
 import { PTComponent } from '@/doc/tooltip/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
@@ -19,48 +19,56 @@ import { AppDoc } from '@/components/doc/app.doc';
         [apiDocs]="['Tooltip', 'TooltipOptions']"
         [ptDocs]="ptComponent"
         themeDocs="tooltip"
+        [heroDoc]="heroDoc"
     ></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class TooltipDemo {
+    heroDoc = PositionDoc;
+
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'position',
-            label: 'Position',
-            component: PositionDoc
+            id: 'examples',
+            label: 'Examples',
+            children: [
+                {
+                    id: 'position',
+                    label: 'Position',
+                    component: PositionDoc
+                },
+                {
+                    id: 'event',
+                    label: 'Event',
+                    component: EventDoc
+                },
+                {
+                    id: 'autohide',
+                    label: 'Auto Hide',
+                    component: AutoHideDoc
+                },
+                {
+                    id: 'delay',
+                    label: 'Delay',
+                    component: DelayDoc
+                },
+                {
+                    id: 'custom',
+                    label: 'Custom',
+                    component: CustomDoc
+                },
+                {
+                    id: 'options',
+                    label: 'Tooltip Options',
+                    component: OptionsDoc
+                }
+            ]
         },
-        {
-            id: 'event',
-            label: 'Event',
-            component: EventDoc
-        },
-        {
-            id: 'autohide',
-            label: 'Auto Hide',
-            component: AutoHideDoc
-        },
-        {
-            id: 'delay',
-            label: 'Delay',
-            component: DelayDoc
-        },
-        {
-            id: 'custom',
-            label: 'Custom',
-            component: CustomDoc
-        },
-        {
-            id: 'options',
-            label: 'Tooltip Options',
-            component: OptionsDoc
-        },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

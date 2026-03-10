@@ -1,10 +1,10 @@
 import { AccessibilityDoc } from '@/doc/megamenu/accessibility-doc';
 import { BasicDoc } from '@/doc/megamenu/basic-doc';
 import { CommandDoc } from '@/doc/megamenu/command-doc';
-import { ImportDoc } from '@/doc/megamenu/import-doc';
 import { PTComponent } from '@/doc/megamenu/pt/PTComponent';
 import { RouterDoc } from '@/doc/megamenu/router-doc';
 import { TemplateDoc } from '@/doc/megamenu/template-doc';
+import { UsageDoc } from '@/doc/megamenu/usage-doc';
 import { VerticalDoc } from '@/doc/megamenu/vertical-doc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
@@ -21,6 +21,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
         [apiDocs]="['MegaMenu', 'MegaMenuItem']"
         [ptDocs]="ptComponent"
         themeDocs="megamenu"
+        [heroDoc]="heroDoc"
     ></app-doc>`,
     styles: [
         `
@@ -36,36 +37,44 @@ import { AppDocService } from '@/components/doc/app.doc.service';
 export class MegaMenuDemo {
     ptComponent = PTComponent;
 
+    heroDoc = BasicDoc;
+
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'vertical',
-            label: 'Vertical',
-            component: VerticalDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
-            id: 'command',
-            label: 'Command',
-            component: CommandDoc
-        },
-        {
-            id: 'router',
-            label: 'Router',
-            component: RouterDoc
+            id: 'examples',
+            label: 'Examples',
+            children: [
+                {
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
+                },
+                {
+                    id: 'vertical',
+                    label: 'Vertical',
+                    component: VerticalDoc
+                },
+                {
+                    id: 'template',
+                    label: 'Template',
+                    component: TemplateDoc
+                },
+                {
+                    id: 'command',
+                    label: 'Command',
+                    component: CommandDoc
+                },
+                {
+                    id: 'router',
+                    label: 'Router',
+                    component: RouterDoc
+                }
+            ]
         },
         {
             id: 'accessibility',

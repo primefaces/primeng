@@ -1,4 +1,5 @@
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -11,12 +12,12 @@ import { RippleModule } from 'primeng/ripple';
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [NgClass, MegaMenuModule, ButtonModule, AvatarModule, RippleModule, AppCodeModule, AppDocSectionText],
+    imports: [NgClass, MegaMenuModule, ButtonModule, AvatarModule, RippleModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Custom content can be placed between p-megamenu tags. Megamenu should be <i>horizontal</i> for custom content.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" class="p-3 bg-surface-0 dark:bg-surface-900">
                 <ng-template #start>
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,8 +78,8 @@ import { RippleModule } from 'primeng/ripple';
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                 </ng-template>
             </p-megamenu>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TemplateDoc implements OnInit {

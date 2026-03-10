@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2026-03-04
+Generated: 2026-03-10
 
 ---
 
@@ -1511,42 +1511,44 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <div class="card">
-            <p-autocomplete
-                [(ngModel)]="selectedProducts"
-                [suggestions]="filteredProducts"
-                (completeMethod)="filterProducts($event)"
-                inputId="advanced-chips"
-                [multiple]="true"
-                [fluid]="true"
-                [typeahead]="false"
-                [dropdown]="true"
-                [optionLabel]="getProductLabel"
-                [optionValue]="getProductValue"
-                placeholder="Add products"
-            >
-                <ng-template let-product #item>
-                    <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
-                        <div class="flex-1 flex flex-col">
-                            <span class="font-medium text-sm">{{ product.name }}</span>
-                            <span class="text-sm text-surface-500 dark:text-surface-400">{{ product.category }}</span>
+        <app-demo-wrapper>
+            <div>
+                <p-autocomplete
+                    [(ngModel)]="selectedProducts"
+                    [suggestions]="filteredProducts"
+                    (completeMethod)="filterProducts($event)"
+                    inputId="advanced-chips"
+                    [multiple]="true"
+                    [fluid]="true"
+                    [typeahead]="false"
+                    [dropdown]="true"
+                    [optionLabel]="getProductLabel"
+                    [optionValue]="getProductValue"
+                    placeholder="Add products"
+                >
+                    <ng-template let-product #item>
+                        <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                            <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
+                            <div class="flex-1 flex flex-col">
+                                <span class="font-medium text-sm">{{ product.name }}</span>
+                                <span class="text-sm text-surface-500 dark:text-surface-400">{{ product.category }}</span>
+                            </div>
+                            <span class="font-bold sm:ml-8">\${{ product.price }}</span>
                         </div>
-                        <span class="font-bold sm:ml-8">\${{ product.price }}</span>
-                    </div>
-                </ng-template>
-                <ng-template let-value #selecteditem>
-                    @if (value.price) {
-                        <div class="flex align-items-center gap-2">
-                            <span class="font-semibold">{{ value.name }}</span>
-                            <span class="text-primary text-sm font-bold">\${{ value.price }}</span>
-                        </div>
-                    } @else {
-                        <span class="font-semibold">{{ value }}</span>
-                    }
-                </ng-template>
-            </p-autocomplete>
-        </div>
+                    </ng-template>
+                    <ng-template let-value #selecteditem>
+                        @if (value.price) {
+                            <div class="flex align-items-center gap-2">
+                                <span class="font-semibold">{{ value.name }}</span>
+                                <span class="text-primary text-sm font-bold">\${{ value.price }}</span>
+                            </div>
+                        } @else {
+                            <span class="font-semibold">{{ value }}</span>
+                        }
+                    </ng-template>
+                </p-autocomplete>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule],
@@ -1608,16 +1610,18 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @Component({
     template: `
-        <div class="card">
-            <label for="chips-blur" class="text-sm font-bold mb-2 block">With Add On Blur</label>
-            <p-autocomplete [(ngModel)]="valueBlur" inputId="chips-blur" multiple fluid [typeahead]="false" [addOnBlur]="true" placeholder="Type and click outside to add..." />
-            <label for="chips-tab" class="text-sm font-bold mt-8 mb-2 block">With Add On Tab</label>
-            <p-autocomplete [(ngModel)]="valueTab" inputId="chips-tab" multiple fluid [typeahead]="false" [addOnTab]="true" placeholder="Type and press Tab to add..." />
-            <label for="chips-separator" class="text-sm font-bold mt-8 mb-2 block">With Separator (Comma)</label>
-            <p-autocomplete [(ngModel)]="valueSeparator" inputId="chips-separator" multiple fluid [typeahead]="false" separator="," placeholder="Type items separated by comma..." />
-            <label for="chips-combined" class="text-sm font-bold mt-8 mb-2 block">Combined Features</label>
-            <p-autocomplete [(ngModel)]="valueCombined" inputId="chips-combined" multiple fluid [typeahead]="false" [addOnBlur]="true" [addOnTab]="true" separator="," placeholder="Use Tab, Blur, or Comma to add items..." />
-        </div>
+        <app-demo-wrapper>
+            <div>
+                <label for="chips-blur" class="text-sm font-bold mb-2 block">With Add On Blur</label>
+                <p-autocomplete [(ngModel)]="valueBlur" inputId="chips-blur" multiple fluid [typeahead]="false" [addOnBlur]="true" placeholder="Type and click outside to add..." />
+                <label for="chips-tab" class="text-sm font-bold mt-8 mb-2 block">With Add On Tab</label>
+                <p-autocomplete [(ngModel)]="valueTab" inputId="chips-tab" multiple fluid [typeahead]="false" [addOnTab]="true" placeholder="Type and press Tab to add..." />
+                <label for="chips-separator" class="text-sm font-bold mt-8 mb-2 block">With Separator (Comma)</label>
+                <p-autocomplete [(ngModel)]="valueSeparator" inputId="chips-separator" multiple fluid [typeahead]="false" separator="," placeholder="Type items separated by comma..." />
+                <label for="chips-combined" class="text-sm font-bold mt-8 mb-2 block">Combined Features</label>
+                <p-autocomplete [(ngModel)]="valueCombined" inputId="chips-combined" multiple fluid [typeahead]="false" [addOnBlur]="true" [addOnTab]="true" separator="," placeholder="Use Tab, Blur, or Comma to add items..." />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -1648,9 +1652,11 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -1683,9 +1689,11 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [showClear]="true" inputStyleClass="w-56" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [showClear]="true" inputStyleClass="w-56" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -1718,9 +1726,11 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" placeholder="Disabled" (completeMethod)="search($event)" [disabled]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" placeholder="Disabled" (completeMethod)="search($event)" [disabled]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -1754,9 +1764,11 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -1791,9 +1803,11 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" variant="filled" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" variant="filled" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -1828,20 +1842,22 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel>
-                <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search($event)" inputId="over_label" />
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="in">
-                <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search($event)" inputId="in_label" />
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="on">
-                <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search($event)" inputId="on_label" />
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-end gap-4">
+                <p-floatlabel>
+                    <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search($event)" inputId="over_label" />
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
+                <p-floatlabel variant="in">
+                    <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search($event)" inputId="in_label" />
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
+                <p-floatlabel variant="on">
+                    <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search($event)" inputId="on_label" />
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FloatLabelModule, FormsModule]
@@ -1876,9 +1892,11 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card">
-            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" fluid />
-        </div>
+        <app-demo-wrapper>
+            <div>
+                <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" fluid />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -1912,9 +1930,11 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule],
@@ -1967,16 +1987,18 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" placeholder="Hint: type 'a'">
-                <ng-template let-group #group>
-                    <div class="flex items-center">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
-                        <span>{{ group.label }}</span>
-                    </div>
-                </ng-template>
-            </p-autocomplete>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" placeholder="Hint: type 'a'">
+                    <ng-template let-group #group>
+                        <div class="flex items-center">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                            <span>{{ group.label }}</span>
+                        </div>
+                    </ng-template>
+                </p-autocomplete>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -2060,12 +2082,14 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-iftalabel>
-                <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" inputId="ac" />
-                <label for="ac">Identifier</label>
-            </p-iftalabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-iftalabel>
+                    <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" inputId="ac" />
+                    <label for="ac">Identifier</label>
+                </p-iftalabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, IftaLabelModule, FormsModule]
@@ -2098,10 +2122,12 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center gap-4">
-            <p-autocomplete [(ngModel)]="value1" [suggestions]="suggestions" [invalid]="!value1" (completeMethod)="search($event)" placeholder="Code" />
-            <p-autocomplete [(ngModel)]="value2" [suggestions]="suggestions" [invalid]="!value2" (completeMethod)="search($event)" variant="filled" placeholder="Code" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-4">
+                <p-autocomplete [(ngModel)]="value1" [suggestions]="suggestions" [invalid]="!value1" (completeMethod)="search($event)" placeholder="Code" />
+                <p-autocomplete [(ngModel)]="value2" [suggestions]="suggestions" [invalid]="!value2" (completeMethod)="search($event)" variant="filled" placeholder="Code" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -2135,12 +2161,14 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card">
-            <label for="multiple-ac-1" class="text-sm font-bold mb-2 block">With Typeahead</label>
-            <p-autocomplete [(ngModel)]="value1" inputId="multiple-ac-1" multiple fluid [suggestions]="items" (completeMethod)="search($event)" />
-            <label for="multiple-ac-2" class="text-sm font-bold mt-8 mb-2 block">Without Typeahead</label>
-            <p-autocomplete [(ngModel)]="value2" inputId="multiple-ac-2" multiple fluid (completeMethod)="search($event)" [typeahead]="false" />
-        </div>
+        <app-demo-wrapper>
+            <div>
+                <label for="multiple-ac-1" class="text-sm font-bold mb-2 block">With Typeahead</label>
+                <p-autocomplete [(ngModel)]="value1" inputId="multiple-ac-1" multiple fluid [suggestions]="items" (completeMethod)="search($event)" />
+                <label for="multiple-ac-2" class="text-sm font-bold mt-8 mb-2 block">Without Typeahead</label>
+                <p-autocomplete [(ngModel)]="value2" inputId="multiple-ac-2" multiple fluid (completeMethod)="search($event)" [typeahead]="false" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -2176,9 +2204,11 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule],
@@ -2235,17 +2265,19 @@ interface AutoCompleteCompleteEvent {
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 md:w-56">
-                <div class="flex flex-col gap-1">
-                    <p-autocomplete formControlName="value" [suggestions]="items" [invalid]="isInvalid('value')" (completeMethod)="search($event)" fluid />
-                    @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 md:w-56">
+                    <div class="flex flex-col gap-1">
+                        <p-autocomplete formControlName="value" [suggestions]="items" [invalid]="isInvalid('value')" (completeMethod)="search($event)" fluid />
+                        @if (isInvalid('value')) {
+                            <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
@@ -2295,11 +2327,13 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search()" size="small" placeholder="Small" dropdown />
-            <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search()" placeholder="Normal" dropdown />
-            <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search()" size="large" placeholder="Large" dropdown />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search()" size="small" placeholder="Small" dropdown />
+                <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search()" placeholder="Normal" dropdown />
+                <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search()" size="large" placeholder="Large" dropdown />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -2336,24 +2370,26 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name">
-                <ng-template let-country #item>
-                    <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ country.name }}</div>
-                    </div>
-                </ng-template>
-                <ng-template #header>
-                    <div class="font-medium px-3 py-2">Available Countries</div>
-                </ng-template>
-                <ng-template #footer>
-                    <div class="px-3 py-3">
-                        <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
-                    </div>
-                </ng-template>
-            </p-autocomplete>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name">
+                    <ng-template let-country #item>
+                        <div class="flex items-center gap-2">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                            <div>{{ country.name }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template #header>
+                        <div class="font-medium px-3 py-2">Available Countries</div>
+                    </ng-template>
+                    <ng-template #footer>
+                        <div class="px-3 py-3">
+                            <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+                        </div>
+                    </ng-template>
+                </p-autocomplete>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, ButtonModule, FormsModule],
@@ -2402,17 +2438,19 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
-                <div class="flex flex-col gap-1">
-                    <p-autocomplete #val="ngModel" [(ngModel)]="value" [suggestions]="items" [invalid]="val.invalid && (val.touched || exampleForm.submitted)" name="val" (completeMethod)="search($event)" required fluid />
-                    @if (val.invalid && (val.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
+                    <div class="flex flex-col gap-1">
+                        <p-autocomplete #val="ngModel" [(ngModel)]="value" [suggestions]="items" [invalid]="val.invalid && (val.touched || exampleForm.submitted)" name="val" (completeMethod)="search($event)" required fluid />
+                        @if (val.invalid && (val.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, MessageModule, ToastModule, ButtonModule, FormsModule]
@@ -2453,9 +2491,11 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" optionLabel="label" [dropdown]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-autocomplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" optionLabel="label" [dropdown]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -5205,9 +5245,11 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
@@ -5308,9 +5350,11 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" placeholder="Select a City" [style]="{ minWidth: '14rem' }" [showClear]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" placeholder="Select a City" [style]="{ minWidth: '14rem' }" [showClear]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
@@ -5410,9 +5454,11 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-cascadeselect [disabled]="true" placeholder="Disabled" [style]="{ minWidth: '14rem' }" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-cascadeselect [disabled]="true" placeholder="Disabled" [style]="{ minWidth: '14rem' }" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule]
@@ -5433,9 +5479,11 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-cascadeselect [(ngModel)]="selectedCity" variant="filled" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-cascadeselect [(ngModel)]="selectedCity" variant="filled" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
@@ -5537,20 +5585,22 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel class="w-full md:w-56">
-                <p-cascadeselect [(ngModel)]="value1" inputId="over_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel class="w-full md:w-56" variant="in">
-                <p-cascadeselect [(ngModel)]="value2" inputId="in_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel class="w-full md:w-56" variant="on">
-                <p-cascadeselect [(ngModel)]="value3" inputId="on_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-end gap-4">
+                <p-floatlabel class="w-full md:w-56">
+                    <p-cascadeselect [(ngModel)]="value1" inputId="over_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
+                <p-floatlabel class="w-full md:w-56" variant="in">
+                    <p-cascadeselect [(ngModel)]="value2" inputId="in_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
+                <p-floatlabel class="w-full md:w-56" variant="on">
+                    <p-cascadeselect [(ngModel)]="value3" inputId="on_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, FloatLabelModule, FormsModule]
@@ -5654,9 +5704,9 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" placeholder="Select a City" fluid />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
@@ -5758,12 +5808,14 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-iftalabel class="w-full md:w-56">
-                <p-cascadeselect [(ngModel)]="selectedCity" inputId="cs_city" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
-                <label for="cs_city">City</label>
-            </p-iftalabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-iftalabel class="w-full md:w-56">
+                    <p-cascadeselect [(ngModel)]="selectedCity" inputId="cs_city" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
+                    <label for="cs_city">City</label>
+                </p-iftalabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, IftaLabelModule, FormsModule]
@@ -5864,20 +5916,22 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center gap-4">
-            <p-cascadeselect [(ngModel)]="selectedCity1" [invalid]="!selectedCity1" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full sm:w-56" placeholder="Select a City" />
-            <p-cascadeselect
-                [(ngModel)]="selectedCity2"
-                [invalid]="!selectedCity2"
-                [options]="countries"
-                optionLabel="cname"
-                optionGroupLabel="name"
-                [optionGroupChildren]="['states', 'cities']"
-                class="w-full sm:w-56"
-                placeholder="Select a City"
-                variant="filled"
-            />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-4">
+                <p-cascadeselect [(ngModel)]="selectedCity1" [invalid]="!selectedCity1" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full sm:w-56" placeholder="Select a City" />
+                <p-cascadeselect
+                    [(ngModel)]="selectedCity2"
+                    [invalid]="!selectedCity2"
+                    [options]="countries"
+                    optionLabel="cname"
+                    optionGroupLabel="name"
+                    [optionGroupChildren]="['states', 'cities']"
+                    class="w-full sm:w-56"
+                    placeholder="Select a City"
+                    variant="filled"
+                />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
@@ -5978,9 +6032,11 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-cascadeselect [loading]="true" [style]="{ minWidth: '14rem' }" placeholder="Loading..." />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-cascadeselect [loading]="true" [style]="{ minWidth: '14rem' }" placeholder="Loading..." />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule]
@@ -6006,26 +6062,28 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <p-cascadeselect
-                        formControlName="selectedCity"
-                        [options]="countries"
-                        optionLabel="cname"
-                        optionGroupLabel="name"
-                        [optionGroupChildren]="['states', 'cities']"
-                        [style]="{ minWidth: '14rem' }"
-                        placeholder="Select a City"
-                        [invalid]="isInvalid('selectedCity')"
-                    />
-                    @if (isInvalid('selectedCity')) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <p-cascadeselect
+                            formControlName="selectedCity"
+                            [options]="countries"
+                            optionLabel="cname"
+                            optionGroupLabel="name"
+                            [optionGroupChildren]="['states', 'cities']"
+                            [style]="{ minWidth: '14rem' }"
+                            placeholder="Select a City"
+                            [invalid]="isInvalid('selectedCity')"
+                        />
+                        @if (isInvalid('selectedCity')) {
+                            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
@@ -6146,11 +6204,13 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <p-cascadeselect [(ngModel)]="value1" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-56" size="small" placeholder="Small" />
-            <p-cascadeselect [(ngModel)]="value2" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-56" placeholder="Normal" />
-            <p-cascadeselect [(ngModel)]="value3" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-56" size="large" placeholder="Large" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-cascadeselect [(ngModel)]="value1" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-56" size="small" placeholder="Small" />
+                <p-cascadeselect [(ngModel)]="value2" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-56" placeholder="Normal" />
+                <p-cascadeselect [(ngModel)]="value3" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-56" size="large" placeholder="Large" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
@@ -6254,35 +6314,37 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City">
-                <ng-template #option let-option>
-                    <div class="flex items-center">
-                        @if (option.states) {
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + option.code.toLowerCase()" style="width: 18px" />
-                        }
-                        @if (option.cities) {
-                            <i class="pi pi-compass mr-2"></i>
-                        }
-                        @if (option.cname) {
-                            <i class="pi pi-map-marker mr-2"></i>
-                        }
-                        <span>{{ option.cname || option.name }}</span>
-                    </div>
-                </ng-template>
-                <ng-template #triggericon>
-                    <i class="pi pi-map"></i>
-                </ng-template>
-                <ng-template #header>
-                    <div class="font-medium px-3 py-2">Available Countries</div>
-                </ng-template>
-                <ng-template #footer>
-                    <div class="px-3 py-1">
-                        <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
-                    </div>
-                </ng-template>
-            </p-cascadeselect>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City">
+                    <ng-template #option let-option>
+                        <div class="flex items-center">
+                            @if (option.states) {
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + option.code.toLowerCase()" style="width: 18px" />
+                            }
+                            @if (option.cities) {
+                                <i class="pi pi-compass mr-2"></i>
+                            }
+                            @if (option.cname) {
+                                <i class="pi pi-map-marker mr-2"></i>
+                            }
+                            <span>{{ option.cname || option.name }}</span>
+                        </div>
+                    </ng-template>
+                    <ng-template #triggericon>
+                        <i class="pi pi-map"></i>
+                    </ng-template>
+                    <ng-template #header>
+                        <div class="font-medium px-3 py-2">Available Countries</div>
+                    </ng-template>
+                    <ng-template #footer>
+                        <div class="px-3 py-1">
+                            <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+                        </div>
+                    </ng-template>
+                </p-cascadeselect>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, CascadeSelectModule, FormsModule]
@@ -6386,29 +6448,31 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <p-cascadeselect
-                        #city="ngModel"
-                        [(ngModel)]="selectedCity"
-                        [options]="countries"
-                        [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
-                        name="city"
-                        optionLabel="cname"
-                        optionGroupLabel="name"
-                        [optionGroupChildren]="['states', 'cities']"
-                        [style]="{ minWidth: '14rem' }"
-                        placeholder="Select a City"
-                        required
-                    />
-                    @if (city.invalid && (city.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <p-cascadeselect
+                            #city="ngModel"
+                            [(ngModel)]="selectedCity"
+                            [options]="countries"
+                            [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
+                            name="city"
+                            optionLabel="cname"
+                            optionGroupLabel="name"
+                            [optionGroupChildren]="['states', 'cities']"
+                            [style]="{ minWidth: '14rem' }"
+                            placeholder="Select a City"
+                            required
+                        />
+                        @if (city.invalid && (city.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, MessageModule, ToastModule, ButtonModule, FormsModule]
@@ -7960,9 +8024,11 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-4">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-4">
+                <p-checkbox [(ngModel)]="checked" [binary]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -7985,10 +8051,12 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-2">
-            <p-checkbox [(ngModel)]="checked1" [binary]="true" [disabled]="true" />
-            <p-checkbox [(ngModel)]="checked2" [binary]="true" [disabled]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-2">
+                <p-checkbox [(ngModel)]="checked1" [binary]="true" [disabled]="true" />
+                <p-checkbox [(ngModel)]="checked2" [binary]="true" [disabled]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -8012,16 +8080,18 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <div class="flex flex-col gap-4">
-                @for (category of categories; track category.key) {
-                    <div class="flex items-center">
-                        <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
-                        <label [for]="category.key" class="text-sm ml-2"> {{ category.name }} </label>
-                    </div>
-                }
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <div class="flex flex-col gap-4">
+                    @for (category of categories; track category.key) {
+                        <div class="flex items-center">
+                            <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
+                            <label [for]="category.key" class="text-sm ml-2"> {{ category.name }} </label>
+                        </div>
+                    }
+                </div>
             </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -8054,9 +8124,11 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -8079,9 +8151,11 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-4">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-4">
+                <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -8104,9 +8178,11 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" [invalid]="!checked" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-checkbox [(ngModel)]="checked" [binary]="true" [invalid]="!checked" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -8129,10 +8205,12 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <div class="card flex justify-center gap-4">
-            <p-checkbox name="groupname" value="val1" label="Value 1" [(ngModel)]="selectedValues"></p-checkbox>
-            <p-checkbox name="groupname" value="val2" label="Value 2" [(ngModel)]="selectedValues"></p-checkbox>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-4">
+                <p-checkbox name="groupname" value="val1" label="Value 1" [(ngModel)]="selectedValues"></p-checkbox>
+                <p-checkbox name="groupname" value="val2" label="Value 2" [(ngModel)]="selectedValues"></p-checkbox>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -8155,24 +8233,26 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center gap-4">
-            <div class="flex items-center">
-                <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" [(ngModel)]="pizza" />
-                <label for="ingredient1" class="text-sm ml-2"> Cheese </label>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="flex items-center">
+                    <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" [(ngModel)]="pizza" />
+                    <label for="ingredient1" class="text-sm ml-2"> Cheese </label>
+                </div>
+                <div class="flex items-center">
+                    <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" [(ngModel)]="pizza" />
+                    <label for="ingredient2" class="text-sm ml-2"> Mushroom </label>
+                </div>
+                <div class="flex items-center">
+                    <p-checkbox inputId="ingredient3" name="pizza" value="Pepper" [(ngModel)]="pizza" />
+                    <label for="ingredient3" class="text-sm ml-2"> Pepper </label>
+                </div>
+                <div class="flex items-center">
+                    <p-checkbox inputId="ingredient4" name="pizza" value="Onion" [(ngModel)]="pizza" />
+                    <label for="ingredient4" class="text-sm ml-2"> Onion </label>
+                </div>
             </div>
-            <div class="flex items-center">
-                <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" [(ngModel)]="pizza" />
-                <label for="ingredient2" class="text-sm ml-2"> Mushroom </label>
-            </div>
-            <div class="flex items-center">
-                <p-checkbox inputId="ingredient3" name="pizza" value="Pepper" [(ngModel)]="pizza" />
-                <label for="ingredient3" class="text-sm ml-2"> Pepper </label>
-            </div>
-            <div class="flex items-center">
-                <p-checkbox inputId="ingredient4" name="pizza" value="Onion" [(ngModel)]="pizza" />
-                <label for="ingredient4" class="text-sm ml-2"> Onion </label>
-            </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -8200,24 +8280,26 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-wrap gap-4">
-                    @for (item of formKeys; track item) {
-                        <div class="flex items-center gap-2">
-                            <p-checkbox [formControlName]="item" [binary]="true" [inputId]="item" [invalid]="isInvalid(item)" />
-                            <label [for]="item" class="text-sm"> {{ item | titlecase }} </label>
-                        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-wrap gap-4">
+                        @for (item of formKeys; track item) {
+                            <div class="flex items-center gap-2">
+                                <p-checkbox [formControlName]="item" [binary]="true" [inputId]="item" [invalid]="isInvalid(item)" />
+                                <label [for]="item" class="text-sm"> {{ item | titlecase }} </label>
+                            </div>
+                        }
+                    </div>
+                    @if (hasAnyInvalid()) {
+                        <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
                     }
-                </div>
-                @if (hasAnyInvalid()) {
-                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
-                }
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
-                </button>
-            </form>
-        </div>
+                    <button pButton severity="secondary" type="submit">
+                        <span pButtonLabel>Submit</span>
+                    </button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CheckboxModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
@@ -8291,20 +8373,22 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center gap-4">
-            <div class="flex items-center gap-2">
-                <p-checkbox [(ngModel)]="size" inputId="size_small" name="size" value="Small" size="small" />
-                <label for="size_small" class="text-sm">Small</label>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="flex items-center gap-2">
+                    <p-checkbox [(ngModel)]="size" inputId="size_small" name="size" value="Small" size="small" />
+                    <label for="size_small" class="text-sm">Small</label>
+                </div>
+                <div class="flex items-center gap-2">
+                    <p-checkbox [(ngModel)]="size" inputId="size_normal" name="size" value="Normal" />
+                    <label for="size_normal">Normal</label>
+                </div>
+                <div class="flex items-center gap-2">
+                    <p-checkbox [(ngModel)]="size" inputId="size_large" name="size" value="Large" size="large" />
+                    <label for="size_large" class="text-lg">Large</label>
+                </div>
             </div>
-            <div class="flex items-center gap-2">
-                <p-checkbox [(ngModel)]="size" inputId="size_normal" name="size" value="Normal" />
-                <label for="size_normal">Normal</label>
-            </div>
-            <div class="flex items-center gap-2">
-                <p-checkbox [(ngModel)]="size" inputId="size_large" name="size" value="Large" size="large" />
-                <label for="size_large" class="text-lg">Large</label>
-            </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -8330,24 +8414,26 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4">
-                <div class="flex flex-wrap gap-4">
-                    @for (item of formKeys; track item) {
-                        <div class="flex items-center gap-2">
-                            <p-checkbox [inputId]="item" [name]="item" [(ngModel)]="formModel[item]" [binary]="true" [invalid]="isInvalid()"></p-checkbox>
-                            <label [for]="item" class="text-sm">{{ item | titlecase }}</label>
-                        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4">
+                    <div class="flex flex-wrap gap-4">
+                        @for (item of formKeys; track item) {
+                            <div class="flex items-center gap-2">
+                                <p-checkbox [inputId]="item" [name]="item" [(ngModel)]="formModel[item]" [binary]="true" [invalid]="isInvalid()"></p-checkbox>
+                                <label [for]="item" class="text-sm">{{ item | titlecase }}</label>
+                            </div>
+                        }
+                    </div>
+                    @if (isInvalid()) {
+                        <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
                     }
-                </div>
-                @if (isInvalid()) {
-                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
-                }
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
-                </button>
-            </form>
-        </div>
+                    <button pButton severity="secondary" type="submit">
+                        <span pButtonLabel>Submit</span>
+                    </button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CheckboxModule, MessageModule, ToastModule, ButtonModule, FormsModule]
@@ -8717,9 +8803,11 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-colorpicker [(ngModel)]="color" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-colorpicker [(ngModel)]="color" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ColorPickerModule, FormsModule]
@@ -8742,9 +8830,11 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-colorpicker [(ngModel)]="color" [disabled]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-colorpicker [(ngModel)]="color" [disabled]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ColorPickerModule, FormsModule]
@@ -8767,23 +8857,25 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap gap-4">
-            <div class="flex-1 flex flex-col items-center">
-                <label for="cp-hex" class="text-sm font-bold block mb-2"> HEX </label>
-                <p-colorpicker [(ngModel)]="color" inputId="cp-hex" class="mb-4" />
-                <span class="text-sm">{{ color }}</span>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap gap-4">
+                <div class="flex-1 flex flex-col items-center">
+                    <label for="cp-hex" class="text-sm font-bold block mb-2"> HEX </label>
+                    <p-colorpicker [(ngModel)]="color" inputId="cp-hex" class="mb-4" />
+                    <span class="text-sm">{{ color }}</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center">
+                    <label for="cp-rgb" class="text-sm font-bold block mb-2"> RGB </label>
+                    <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" class="mb-4" />
+                    <span class="text-sm">{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center">
+                    <label for="cp-hsb" class="text-sm font-bold block mb-2"> HSB </label>
+                    <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" class="mb-4" />
+                    <span class="text-sm">{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
+                </div>
             </div>
-            <div class="flex-1 flex flex-col items-center">
-                <label for="cp-rgb" class="text-sm font-bold block mb-2"> RGB </label>
-                <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" class="mb-4" />
-                <span class="text-sm">{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
-            </div>
-            <div class="flex-1 flex flex-col items-center">
-                <label for="cp-hsb" class="text-sm font-bold block mb-2"> HSB </label>
-                <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" class="mb-4" />
-                <span class="text-sm">{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
-            </div>
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ColorPickerModule, FormsModule]
@@ -8808,9 +8900,11 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-colorpicker [(ngModel)]="color" [inline]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-colorpicker [(ngModel)]="color" [inline]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ColorPickerModule, FormsModule]
@@ -8837,18 +8931,20 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-col items-center gap-2">
-                    <p-colorpicker formControlName="color" defaultColor="989898" />
-                    @if (isInvalid('color')) {
-                        <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-col items-center gap-2">
+                        <p-colorpicker formControlName="color" defaultColor="989898" />
+                        @if (isInvalid('color')) {
+                            <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ColorPickerModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
@@ -8895,18 +8991,20 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-toast />
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
-                <div class="flex flex-col items-center gap-2">
-                    <p-colorpicker name="color" [(ngModel)]="color" #colorModel="ngModel" required defaultColor="989898" />
-                    @if (colorModel.invalid && (colorModel.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+                    <div class="flex flex-col items-center gap-2">
+                        <p-colorpicker name="color" [(ngModel)]="color" #colorModel="ngModel" required defaultColor="989898" />
+                        @if (colorModel.invalid && (colorModel.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ColorPickerModule, MessageModule, ToastModule, ButtonModule, FormsModule]
@@ -9619,7 +9717,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
             <p-confirmpopup>
                 <ng-template #content let-message>
                     <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700 p-4 mb-4 pb-0">
-                        <i [class]="message.icon" class="!text-6xl text-primary-500"></i>
+                        <i [class]="message.icon" class="!text-5xl text-primary-500"></i>
                         <p class="text-sm">{{ message.message }}</p>
                     </div>
                 </ng-template>
@@ -10370,14 +10468,14 @@ import { Product } from '@/domain/product';
                                         <div class="flex flex-row md:flex-col justify-between items-start gap-2">
                                             <div>
                                                 <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
-                                                <div class="font-medium text-surface-900 dark:text-surface-0 mt-2">{{ item.name }}</div>
+                                                <div class="font-medium text-surface-900 dark:text-surface-0 mt-1">{{ item.name }}</div>
                                             </div>
                                             <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
                                                 <div
-                                                    class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
+                                                    class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-0.5 px-1.5"
                                                     style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
                                                 >
-                                                    <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{ item.rating }}</span>
+                                                    <span class="text-surface-900 dark:text-surface-0 font-medium text-xs">{{ item.rating }}</span>
                                                     <i class="pi pi-star-fill text-yellow-500"></i>
                                                 </div>
                                             </div>
@@ -10473,11 +10571,11 @@ import { Product } from '@/domain/product';
                                     <div class="flex flex-row md:flex-col justify-between items-start gap-2">
                                         <div>
                                             <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ item.category }}</span>
-                                            <div class="font-medium mt-2">{{ item.name }}</div>
+                                            <div class="font-medium mt-1">{{ item.name }}</div>
                                         </div>
                                         <div class="bg-surface-100 p-1" style="border-radius: 30px">
-                                            <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
-                                                <span class="text-surface-900 font-medium text-sm">{{ item.rating }}</span>
+                                            <div class="bg-surface-0 flex items-center gap-2 justify-center py-0.5 px-1.5" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
+                                                <span class="text-surface-900 font-medium text-xs">{{ item.rating }}</span>
                                                 <i class="pi pi-star-fill text-yellow-500"></i>
                                             </div>
                                         </div>
@@ -10517,7 +10615,7 @@ import { Product } from '@/domain/product';
                                                 <div class="font-medium mt-1">{{ product.name }}</div>
                                             </div>
                                             <div class="bg-surface-100 p-1" style="border-radius: 30px; height:100%">
-                                                <div class="bg-surface-0 flex products-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
+                                                <div class="bg-surface-0 flex products-center gap-2 justify-center py-0.5 px-1.5" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
                                                     <span class="text-surface-900 font-medium text-sm">{{ product.rating }}</span>
                                                     <i class="pi pi-star-fill text-yellow-500"></i>
                                                 </div>
@@ -10690,14 +10788,14 @@ import { Product } from '@/domain/product';
                                         <div class="flex flex-row md:flex-col justify-between items-start gap-2">
                                             <div>
                                                 <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
-                                                <div class="font-medium text-surface-900 dark:text-surface-0 mt-2">{{ item.name }}</div>
+                                                <div class="font-medium text-surface-900 dark:text-surface-0 mt-1">{{ item.name }}</div>
                                             </div>
                                             <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
                                                 <div
-                                                    class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
+                                                    class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-0.5 px-1.5"
                                                     style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
                                                 >
-                                                    <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{ item.rating }}</span>
+                                                    <span class="text-surface-900 dark:text-surface-0 font-medium text-xs">{{ item.rating }}</span>
                                                     <i class="pi pi-star-fill text-yellow-500"></i>
                                                 </div>
                                             </div>
@@ -10773,14 +10871,14 @@ import { Product } from '@/domain/product';
                                         <div class="flex flex-row md:flex-col justify-between items-start gap-2">
                                             <div>
                                                 <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
-                                                <div class="font-medium text-surface-900 dark:text-surface-0 mt-2">{{ item.name }}</div>
+                                                <div class="font-medium text-surface-900 dark:text-surface-0 mt-1">{{ item.name }}</div>
                                             </div>
                                             <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
                                                 <div
-                                                    class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
+                                                    class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-0.5 px-1.5"
                                                     style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
                                                 >
-                                                    <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{ item.rating }}</span>
+                                                    <span class="text-surface-900 dark:text-surface-0 font-medium text-xs">{{ item.rating }}</span>
                                                     <i class="pi pi-star-fill text-yellow-500"></i>
                                                 </div>
                                             </div>
@@ -15441,8 +15539,8 @@ import { MessageService } from 'primeng/api';
                 <ng-template #file></ng-template>
                 <ng-template #empty>
                     <div class="flex items-center justify-center flex-col">
-                        <i class="pi pi-cloud-upload !border-2 !rounded-full !p-8 !text-4xl !text-muted-color"></i>
-                        <p class="mt-6 mb-0">Drag and drop files to here to upload.</p>
+                        <i class="pi pi-cloud-upload !border-2 !rounded-full !p-7 !text-3xl !text-muted-color"></i>
+                        <p class="mt-5 mb-0 text-sm">Drag and drop files to here to upload.</p>
                     </div>
                 </ng-template>
             </p-fileupload>
@@ -22310,7 +22408,7 @@ import { MenuItem } from 'primeng/api';
         <div class="card">
             <p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
                 <ng-template #start>
-                    <span class="inline-flex items-center gap-1 px-2 py-2">
+                    <span class="inline-flex items-center gap-1 px-1.5 py-1.5">
                         <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                             <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
                             <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -22340,30 +22438,30 @@ import { MenuItem } from 'primeng/api';
                             <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
                             <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                         </svg>
-                        <span class="text-xl font-semibold">PRIME<span class="text-primary">APP</span></span>
+                        <span class="text-lg font-semibold">PRIME<span class="text-primary">APP</span></span>
                     </span>
                 </ng-template>
                 <ng-template #submenuheader let-item>
-                    <span class="text-primary font-bold">{{ item.label }}</span>
+                    <span class="text-primary font-bold text-sm">{{ item.label }}</span>
                 </ng-template>
                 <ng-template #item let-item>
-                    <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class]="item.linkClass">
+                    <a pRipple class="flex items-center px-2.5 py-1.5 cursor-pointer" [class]="item.linkClass">
                         <span [class]="item.icon"></span>
-                        <span class="ms-2">{{ item.label }}</span>
+                        <span class="ms-2 text-sm">{{ item.label }}</span>
                         @if (item.badge) {
                             <p-badge class="ms-auto" [value]="item.badge" />
                         }
                         @if (item.shortcut) {
-                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs px-1 py-0.5">{{ item.shortcut }}</span>
                         }
                     </a>
                 </ng-template>
                 <ng-template #end>
-                    <button pRipple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
+                    <button pRipple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-1.5 pl-3.5 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
                         <span class="inline-flex flex-col items-start">
-                            <span class="font-bold">Amy Elsner</span>
-                            <span class="text-sm">Admin</span>
+                            <span class="text-sm font-bold">Amy Elsner</span>
+                            <span class="text-xs">Admin</span>
                         </span>
                     </button>
                 </ng-template>

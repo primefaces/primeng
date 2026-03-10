@@ -1,6 +1,6 @@
 import { AccessibilityDoc } from '@/doc/inputotp/accessibility-doc';
 import { BasicDoc } from '@/doc/inputotp/basic-doc';
-import { ImportDoc } from '@/doc/inputotp/import-doc';
+import { UsageDoc } from '@/doc/inputotp/usage-doc';
 import { IntegerOnlyDoc } from '@/doc/inputotp/integeronly-doc';
 import { MaskDoc } from '@/doc/inputotp/mask-doc';
 import { ReactiveFormsDoc } from '@/doc/inputotp/reactiveforms-doc';
@@ -15,54 +15,63 @@ import { AppDoc } from '@/components/doc/app.doc';
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular Otp Input Component" header="InputOtp" description="Input Otp is used to enter one time passwords." [docs]="docs" [ptDocs]="ptComponent" [apiDocs]="['InputOtp']" themeDocs="inputotp"></app-doc> `,
+    template: `
+        <app-doc docTitle="Angular Otp Input Component" header="InputOtp" description="Input Otp is used to enter one time passwords." [docs]="docs" [ptDocs]="ptComponent" [apiDocs]="['InputOtp']" themeDocs="inputotp" [heroDoc]="heroDoc"></app-doc>
+    `,
     encapsulation: ViewEncapsulation.None
 })
 export class InputOtpDemo {
+    heroDoc = BasicDoc;
     ptComponent = PTComponent;
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'mask',
-            label: 'Mask',
-            component: MaskDoc
-        },
-        {
-            id: 'integeronly',
-            label: 'Integer Only',
-            component: IntegerOnlyDoc
-        },
-        {
-            id: 'sizes',
-            label: 'Sizes',
-            component: SizesDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
-            id: 'forms',
-            label: 'Forms',
+            id: 'examples',
+            label: 'Examples',
             children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                {
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
+                },
+                {
+                    id: 'mask',
+                    label: 'Mask',
+                    component: MaskDoc
+                },
+                {
+                    id: 'integeronly',
+                    label: 'Integer Only',
+                    component: IntegerOnlyDoc
+                },
+                {
+                    id: 'sizes',
+                    label: 'Sizes',
+                    component: SizesDoc
+                },
+                {
+                    id: 'template',
+                    label: 'Template',
+                    component: TemplateDoc
+                },
+                {
+                    id: 'forms',
+                    label: 'Forms',
+                    children: [
+                        { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                        { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                    ]
+                },
+                {
+                    id: 'sample',
+                    label: 'Sample',
+                    component: SampleDoc
+                }
             ]
-        },
-        {
-            id: 'sample',
-            label: 'Sample',
-            component: SampleDoc
         },
         {
             id: 'accessibility',

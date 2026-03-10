@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
@@ -11,7 +12,7 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, SpeedDialModule, ToastModule, ButtonModule],
+    imports: [CommonModule, AppDocSectionText, AppCode, AppDemoWrapper, SpeedDialModule, ToastModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -19,9 +20,9 @@ import { CommonModule } from '@angular/common';
                 embed icon content for default button.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <p-toast />
+        <app-demo-wrapper>
             <div class="flex items-end justify-center" style="position: 'relative'; height: '400px'">
-                <p-toast />
                 <p-speeddial [model]="items" direction="up" [transitionDelay]="80" style="position: 'absolute'">
                     <ng-template #button let-toggleCallback="toggleCallback">
                         <p-button outlined styleClass="border" (click)="toggleCallback($event)">
@@ -66,8 +67,8 @@ import { CommonModule } from '@angular/common';
                     </ng-template>
                 </p-speeddial>
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService]
 })

@@ -1,4 +1,5 @@
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -7,15 +8,17 @@ import { ImageModule } from 'primeng/image';
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCodeModule, ImageModule, RouterModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, ImageModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>Image is used as the native <i>img</i> element and supports all properties that the native element has. For multiple image, see <a [routerLink]="['/galleria']">Galleria.</a></p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc {}

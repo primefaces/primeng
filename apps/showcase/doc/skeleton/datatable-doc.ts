@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
@@ -8,12 +9,12 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'datatable-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, SkeletonModule, TableModule, CommonModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, SkeletonModule, TableModule, CommonModule],
     template: `
         <app-docsectiontext>
             <p>Sample DataTable implementation using different Skeleton components and Tailwind CSS utilities.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -32,8 +33,8 @@ import { CommonModule } from '@angular/common';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class DataTableDoc implements OnInit {

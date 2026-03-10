@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MessageService } from 'primeng/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import { TextareaModule } from 'primeng/textarea';
@@ -12,24 +13,26 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'reactiveforms-doc',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, AppCode, AppDocSectionText, ButtonModule, MessageModule, TextareaModule, ToastModule],
+    imports: [CommonModule, ReactiveFormsModule, AppCode, AppDocSectionText, AppDemoWrapper, ButtonModule, MessageModule, TextareaModule, ToastModule],
     template: `
         <app-docsectiontext>
             <p>Textarea can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <textarea rows="5" cols="30" pTextarea formControlName="address" [invalid]="isInvalid('address')"></textarea>
-                    @if (isInvalid('address')) {
-                        <p-message severity="error" size="small" variant="simple">Address is required..</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <textarea rows="5" cols="30" pTextarea formControlName="address" [invalid]="isInvalid('address')"></textarea>
+                        @if (isInvalid('address')) {
+                            <p-message severity="error" size="small" variant="simple">Address is required..</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ReactiveFormsDoc {

@@ -5,19 +5,20 @@ import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } fro
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ChartModule } from 'primeng/chart';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
     selector: 'horizontalbar-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, ChartModule],
+    imports: [AppCode, AppDocSectionText, ChartModule, AppDemoWrapper],
     template: `
         <app-docsectiontext>
             <p>A bar chart is rendered horizontally when <i>indexAxis</i> option is set as <i>y</i>.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class HorizontalBarDoc implements OnInit {

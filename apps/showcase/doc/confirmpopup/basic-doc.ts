@@ -4,23 +4,26 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [ConfirmPopupModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [ConfirmPopupModule, ToastModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>ConfirmPopup is defined using <i>p-confirmpopup</i> tag and an instance of <i>ConfirmationService</i> is required to display it bycalling confirm method.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center gap-2">
-            <p-toast />
-            <p-confirmpopup />
-            <p-button (onClick)="confirm1($event)" label="Save" [outlined]="true" />
-            <p-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
-        </div>
-        <app-code></app-code>
+        <p-toast />
+        <p-confirmpopup />
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-2">
+                <p-button (onClick)="confirm1($event)" label="Save" [outlined]="true" />
+                <p-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [ConfirmationService, MessageService]
 })

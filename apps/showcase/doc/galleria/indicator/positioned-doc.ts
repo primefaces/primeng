@@ -5,12 +5,13 @@ import { GalleriaModule } from 'primeng/galleria';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'positioned-doc',
     standalone: true,
-    imports: [FormsModule, GalleriaModule, RadioButtonModule, CheckboxModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, GalleriaModule, RadioButtonModule, CheckboxModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -18,7 +19,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <i>bottom</i> by default, accepted values are <i>top</i>, <i>left</i>, <i>right</i>, and <i>bottom</i>.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex flex-wrap gap-4 mb-8">
                 @for (option of positionOptions; track $index) {
                     <div class="flex items-center">
@@ -36,8 +37,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class PositionedDoc implements OnInit {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
@@ -8,12 +9,12 @@ import { InputTextModule } from 'primeng/inputtext';
 @Component({
     selector: 'login-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, ButtonModule, DividerModule, InputTextModule],
+    imports: [AppCode, AppDemoWrapper, AppDocSectionText, ButtonModule, DividerModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>Sample implementation of a login form using a divider with content.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex flex-col md:flex-row">
                 <div class="w-full md:w-5/12 flex flex-col items-center justify-center gap-3 py-5">
                     <div class="flex flex-col gap-2">
@@ -36,8 +37,8 @@ import { InputTextModule } from 'primeng/inputtext';
                     <p-button label="Sign Up" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
                 </div>
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class LoginDoc {}

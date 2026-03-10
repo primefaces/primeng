@@ -7,11 +7,12 @@ import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
     selector: 'reactiveforms-doc',
     standalone: true,
-    imports: [ReactiveFormsModule, PasswordModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText],
+    imports: [ReactiveFormsModule, PasswordModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText, AppDemoWrapper],
     providers: [MessageService],
     template: `
         <app-docsectiontext>
@@ -19,19 +20,21 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
 
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
-                <div class="flex flex-col gap-1">
-                    <p-password formControlName="value" [invalid]="isInvalid('value')" [feedback]="false" autocomplete="off" fluid />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
+                    <div class="flex flex-col gap-1">
+                        <p-password formControlName="value" [invalid]="isInvalid('value')" [feedback]="false" autocomplete="off" fluid />
 
-                    @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
-        <app-code></app-code>
+                        @if (isInvalid('value')) {
+                            <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ReactiveFormsDoc {

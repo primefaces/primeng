@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { TabsModule } from 'primeng/tabs';
@@ -6,7 +7,7 @@ import { TabsModule } from 'primeng/tabs';
 @Component({
     selector: 'lazy-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, TabsModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, TabsModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -14,7 +15,7 @@ import { TabsModule } from 'primeng/tabs';
                 becomes active. If a lazy tab contains complex components that should only be initialized when the tab is activated, you should wrap the content inside: <i>&lt;ng-template #content&gt;your content&lt;/ng-template&gt;</i>.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-tabs lazy value="0">
                 <p-tablist>
                     <p-tab value="0">Header I</p-tab>
@@ -40,8 +41,8 @@ import { TabsModule } from 'primeng/tabs';
                     </p-tabpanel>
                 </p-tabpanels>
             </p-tabs>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class LazyDoc {}

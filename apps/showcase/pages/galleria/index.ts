@@ -8,7 +8,7 @@ import { ControlledDoc } from '@/doc/galleria/controlled-doc';
 import { CustomContentDoc } from '@/doc/galleria/fullscreen/customcontent-doc';
 import { WithoutThumbnailsDoc } from '@/doc/galleria/fullscreen/withoutthumbnails-doc';
 import { WithThumbnailsDoc } from '@/doc/galleria/fullscreen/withthumbnails-doc';
-import { ImportDoc } from '@/doc/galleria/import-doc';
+import { UsageDoc } from '@/doc/galleria/usage-doc';
 import { ClickEventDoc } from '@/doc/galleria/indicator/clickevent-doc';
 import { HoverEventDoc } from '@/doc/galleria/indicator/hoverevent-doc';
 import { PositionedDoc } from '@/doc/galleria/indicator/positioned-doc';
@@ -23,126 +23,145 @@ import { ThumbnailDoc } from '@/doc/galleria/thumbnail-doc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: ` <app-doc docTitle="Angular Gallery Component" header="Galleria" description="Galleria is an advanced content gallery component." [docs]="docs" [apiDocs]="['Galleria']" [ptDocs]="ptComponent" componentName="Galleria"></app-doc>`,
+    template: `
+        <app-doc
+            docTitle="Angular Gallery Component"
+            header="Galleria"
+            description="Galleria is an advanced content gallery component."
+            [docs]="docs"
+            [heroDoc]="heroDoc"
+            [apiDocs]="['Galleria']"
+            [ptDocs]="ptComponent"
+            componentName="Galleria"
+        ></app-doc>
+    `,
     standalone: true,
     imports: [AppDoc],
     styleUrl: './galleriademo.scss'
 })
 export class GalleriaDemo {
     ptComponent = PTComponent;
+    heroDoc = BasicDoc;
+
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'controlled',
-            label: 'Controlled',
-            component: ControlledDoc
-        },
-        {
-            id: 'indicator',
-            label: 'Indicator',
+            id: 'examples',
+            label: 'Examples',
             children: [
                 {
-                    id: 'clickevent',
-                    label: 'Click Event',
-                    component: ClickEventDoc
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
                 },
                 {
-                    id: 'hoverevent',
-                    label: 'Hover Event',
-                    component: HoverEventDoc
+                    id: 'controlled',
+                    label: 'Controlled',
+                    component: ControlledDoc
                 },
                 {
-                    id: 'position',
-                    label: 'Position',
-                    component: PositionedDoc
+                    id: 'indicator',
+                    label: 'Indicator',
+                    children: [
+                        {
+                            id: 'clickevent',
+                            label: 'Click Event',
+                            component: ClickEventDoc
+                        },
+                        {
+                            id: 'hoverevent',
+                            label: 'Hover Event',
+                            component: HoverEventDoc
+                        },
+                        {
+                            id: 'position',
+                            label: 'Position',
+                            component: PositionedDoc
+                        },
+                        {
+                            id: 'template',
+                            label: 'Template',
+                            component: TemplateDoc
+                        }
+                    ]
                 },
                 {
-                    id: 'template',
-                    label: 'Template',
-                    component: TemplateDoc
+                    id: 'thumbnail',
+                    label: 'Thumbnail',
+                    component: ThumbnailDoc
+                },
+                {
+                    id: 'responsive',
+                    label: 'Responsive',
+                    component: ResponsiveDoc
+                },
+                {
+                    id: 'fullscreen',
+                    label: 'Full Screen',
+                    children: [
+                        {
+                            id: 'withthumbnails',
+                            label: 'With Thumbnails',
+                            component: WithThumbnailsDoc
+                        },
+                        {
+                            id: 'withtouthumbnails',
+                            label: 'Without Thumbnails',
+                            component: WithoutThumbnailsDoc
+                        },
+                        {
+                            id: 'customcontent',
+                            label: 'Custom Content',
+                            component: CustomContentDoc
+                        }
+                    ]
+                },
+                {
+                    id: 'navigator',
+                    label: 'Navigator',
+                    children: [
+                        {
+                            id: 'itemwiththumbnails',
+                            label: 'With Thumbnails',
+                            component: ItemThumbnailsDoc
+                        },
+                        {
+                            id: 'itemwithtouthumbnails',
+                            label: 'Without Thumbnails',
+                            component: ItemWithoutThumbnailsDoc
+                        },
+                        {
+                            id: 'hover',
+                            label: 'Display on Hover',
+                            component: HoverDoc
+                        },
+                        {
+                            id: 'withindicators',
+                            label: 'With Indicators',
+                            component: IndicatorsDoc
+                        }
+                    ]
+                },
+                {
+                    id: 'autoplay',
+                    label: 'AutoPlay',
+                    component: AutoPlayDoc
+                },
+                {
+                    id: 'caption',
+                    label: 'Caption',
+                    component: CaptionDoc
+                },
+                {
+                    id: 'advanced',
+                    label: 'Advanced',
+                    component: AdvancedDoc
                 }
             ]
-        },
-        {
-            id: 'thumbnail',
-            label: 'Thumbnail',
-            component: ThumbnailDoc
-        },
-        {
-            id: 'responsive',
-            label: 'Responsive',
-            component: ResponsiveDoc
-        },
-        {
-            id: 'fullscreen',
-            label: 'Full Screen',
-            children: [
-                {
-                    id: 'withthumbnails',
-                    label: 'With Thumbnails',
-                    component: WithThumbnailsDoc
-                },
-                {
-                    id: 'withtouthumbnails',
-                    label: 'Without Thumbnails',
-                    component: WithoutThumbnailsDoc
-                },
-                {
-                    id: 'customcontent',
-                    label: 'Custom Content',
-                    component: CustomContentDoc
-                }
-            ]
-        },
-        {
-            id: 'navigator',
-            label: 'Navigator',
-            children: [
-                {
-                    id: 'itemwiththumbnails',
-                    label: 'With Thumbnails',
-                    component: ItemThumbnailsDoc
-                },
-                {
-                    id: 'itemwithtouthumbnails',
-                    label: 'Without Thumbnails',
-                    component: ItemWithoutThumbnailsDoc
-                },
-                {
-                    id: 'hover',
-                    label: 'Display on Hover',
-                    component: HoverDoc
-                },
-                {
-                    id: 'withindicators',
-                    label: 'With Indicators',
-                    component: IndicatorsDoc
-                }
-            ]
-        },
-        {
-            id: 'autoplay',
-            label: 'AutoPlay',
-            component: AutoPlayDoc
-        },
-        {
-            id: 'caption',
-            label: 'Caption',
-            component: CaptionDoc
-        },
-        {
-            id: 'advanced',
-            label: 'Advanced',
-            component: AdvancedDoc
         },
         {
             id: 'accessibility',

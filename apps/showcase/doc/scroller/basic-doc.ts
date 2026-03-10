@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ScrollerModule } from 'primeng/scroller';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [ScrollerModule, AppCode, AppDocSectionText, CommonModule],
+    imports: [ScrollerModule, AppCode, AppDemoWrapper, AppDocSectionText, CommonModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -15,16 +16,18 @@ import { CommonModule } from '@angular/common';
                 items to display. Size of the viewport is configured using <i>scrollWidth</i>, <i>scrollHeight</i> properties directly or with CSS <i>width</i> and <i>height</i> styles.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-virtualscroller [items]="items" [itemSize]="50" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
-                <ng-template #item let-item let-options="options">
-                    <div class="flex items-center p-2 text-sm" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
-                        {{ item }}
-                    </div>
-                </ng-template>
-            </p-virtualscroller>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-virtualscroller [items]="items" [itemSize]="50" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+                    <ng-template #item let-item let-options="options">
+                        <div class="flex items-center p-2 text-sm" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                            {{ item }}
+                        </div>
+                    </ng-template>
+                </p-virtualscroller>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

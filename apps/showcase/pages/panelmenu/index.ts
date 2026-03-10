@@ -3,11 +3,11 @@ import { AccessibilityDoc } from '@/doc/panelmenu/accessibility-doc';
 import { BasicDoc } from '@/doc/panelmenu/basic-doc';
 import { CommandDoc } from '@/doc/panelmenu/command-doc';
 import { ControlledDoc } from '@/doc/panelmenu/controlled-doc';
-import { ImportDoc } from '@/doc/panelmenu/import-doc';
 import { MultipleDoc } from '@/doc/panelmenu/multiple-doc';
 import { PTComponent } from '@/doc/panelmenu/pt/PTComponent';
 import { RouterDoc } from '@/doc/panelmenu/router-doc';
 import { TemplateDoc } from '@/doc/panelmenu/template-doc';
+import { UsageDoc } from '@/doc/panelmenu/usage-doc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -16,6 +16,7 @@ import { Component } from '@angular/core';
         header="PanelMenu"
         description="PanelMenu is a hybrid of Accordion and Tree components."
         [docs]="docs"
+        [heroDoc]="heroDoc"
         [apiDocs]="['PanelMenu', 'MenuItem']"
         themeDocs="panelmenu"
         [ptDocs]="ptComponent"
@@ -24,41 +25,25 @@ import { Component } from '@angular/core';
     imports: [AppDoc]
 })
 export class PanelMenuDemo {
+    heroDoc = BasicDoc;
+
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'multiple',
-            label: 'Multiple',
-            component: MultipleDoc
-        },
-        {
-            id: 'controlled',
-            label: 'Controlled',
-            component: ControlledDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
-            id: 'command',
-            label: 'Command',
-            component: CommandDoc
-        },
-        {
-            id: 'router',
-            label: 'Router',
-            component: RouterDoc
+            id: 'examples',
+            label: 'Examples',
+            children: [
+                { id: 'basic', label: 'Basic', component: BasicDoc },
+                { id: 'multiple', label: 'Multiple', component: MultipleDoc },
+                { id: 'controlled', label: 'Controlled', component: ControlledDoc },
+                { id: 'template', label: 'Template', component: TemplateDoc },
+                { id: 'command', label: 'Command', component: CommandDoc },
+                { id: 'router', label: 'Router', component: RouterDoc }
+            ]
         },
         {
             id: 'accessibility',

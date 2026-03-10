@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ListboxModule } from 'primeng/listbox';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface City {
@@ -12,15 +13,17 @@ interface City {
 @Component({
     selector: 'checkmark-doc',
     standalone: true,
-    imports: [FormsModule, ListboxModule, AppCodeModule, AppDocSectionText],
+    imports: [FormsModule, ListboxModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>An alternative way to highlight the selected option is displaying a checkmark instead.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-listbox [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" [checkmark]="true" [highlightOnSelect]="false" class="w-full md:w-56" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-listbox [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" [checkmark]="true" [highlightOnSelect]="false" class="w-full md:w-56" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class CheckmarkDoc implements OnInit {

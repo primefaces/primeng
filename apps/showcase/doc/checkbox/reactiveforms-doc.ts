@@ -7,38 +7,40 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'reactiveforms-doc',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, CheckboxModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText],
+    imports: [CommonModule, ReactiveFormsModule, CheckboxModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Checkbox can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
 
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-wrap gap-4">
-                    @for (item of formKeys; track item) {
-                        <div class="flex items-center gap-2">
-                            <p-checkbox [formControlName]="item" [binary]="true" [inputId]="item" [invalid]="isInvalid(item)" />
-                            <label [for]="item" class="text-sm"> {{ item | titlecase }} </label>
-                        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-wrap gap-4">
+                        @for (item of formKeys; track item) {
+                            <div class="flex items-center gap-2">
+                                <p-checkbox [formControlName]="item" [binary]="true" [inputId]="item" [invalid]="isInvalid(item)" />
+                                <label [for]="item" class="text-sm"> {{ item | titlecase }} </label>
+                            </div>
+                        }
+                    </div>
+                    @if (hasAnyInvalid()) {
+                        <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
                     }
-                </div>
-                @if (hasAnyInvalid()) {
-                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
-                }
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
-                </button>
-            </form>
-        </div>
-
-        <app-code></app-code>
+                    <button pButton severity="secondary" type="submit">
+                        <span pButtonLabel>Submit</span>
+                    </button>
+                </form>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ReactiveFormsDoc {

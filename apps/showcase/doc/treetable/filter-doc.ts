@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { CommonModule } from '@angular/common';
@@ -20,7 +21,7 @@ interface Column {
 @Component({
     selector: 'filter-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, TreeTableModule, SelectButtonModule, InputTextModule, IconFieldModule, InputIconModule, AppCode, AppDocSectionText, DeferredDemo],
+    imports: [CommonModule, FormsModule, TreeTableModule, SelectButtonModule, InputTextModule, IconFieldModule, InputIconModule, AppCode, AppDemoWrapper, AppDocSectionText, DeferredDemo],
     template: `
         <app-docsectiontext>
             <p>
@@ -28,7 +29,7 @@ interface Column {
                 <i>strict</i> mode when the query matches a node, filtering continues on all descendants. A general filled called <i>filterGlobal</i> is also provided to search all columns that support filtering.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex justify-center mb-6">
                 <p-selectbutton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value" />
             </div>
@@ -81,8 +82,8 @@ interface Column {
                     </ng-template>
                 </p-treetable>
             </p-deferred-demo>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

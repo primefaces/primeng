@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { CommonModule } from '@angular/common';
@@ -15,12 +16,12 @@ interface Column {
 @Component({
     selector: 'sortsinglecolumn-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Sorting on a column is enabled by adding the <i>ttSortableColumn</i> property.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>
@@ -53,8 +54,8 @@ interface Column {
                     </ng-template>
                 </p-treetable>
             </p-deferred-demo>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

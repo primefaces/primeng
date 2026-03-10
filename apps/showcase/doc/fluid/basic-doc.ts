@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Fluid } from 'primeng/fluid';
 import { InputTextModule } from 'primeng/inputtext';
@@ -7,7 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, Fluid, InputTextModule],
+    imports: [AppCode, AppDemoWrapper, AppDocSectionText, Fluid, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -16,26 +17,28 @@ import { InputTextModule } from 'primeng/inputtext';
             </p>
             <p>Any component that has the <i>fluid</i> property can be nested inside the <i>Fluid</i> component. The <i>fluid</i> property of a child component has higher precedence than the fluid container as shown in the last sample.</p>
         </app-docsectiontext>
-        <div class="card flex flex-col gap-5">
-            <div>
-                <label for="non-fluid" class="font-bold mb-2 block text-sm">Non-Fluid</label>
-                <input type="text" pInputText id="non-fluid" />
-            </div>
-            <div>
-                <label for="fluid" class="font-bold mb-2 block text-sm">Fluid Prop</label>
-                <input type="text" pInputText id="fluid" fluid />
-            </div>
-            <p-fluid>
-                <span class="font-bold mb-2 block text-sm">Fluid Container</span>
-                <div class="grid grid-cols-2 gap-4">
-                    <div><input type="text" pInputText /></div>
-                    <div><input type="text" pInputText /></div>
-                    <div class="col-span-full"><input type="text" pInputText /></div>
-                    <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
+        <app-demo-wrapper>
+            <div class="flex flex-col gap-5">
+                <div>
+                    <label for="non-fluid" class="font-bold mb-2 block text-sm">Non-Fluid</label>
+                    <input type="text" pInputText id="non-fluid" />
                 </div>
-            </p-fluid>
-        </div>
-        <app-code></app-code>
+                <div>
+                    <label for="fluid" class="font-bold mb-2 block text-sm">Fluid Prop</label>
+                    <input type="text" pInputText id="fluid" fluid />
+                </div>
+                <p-fluid>
+                    <span class="font-bold mb-2 block text-sm">Fluid Container</span>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><input type="text" pInputText /></div>
+                        <div><input type="text" pInputText /></div>
+                        <div class="col-span-full"><input type="text" pInputText /></div>
+                        <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
+                    </div>
+                </p-fluid>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc {}

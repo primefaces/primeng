@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { Component } from '@angular/core';
@@ -8,7 +9,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
 @Component({
     selector: 'multiple-doc',
     standalone: true,
-    imports: [TreeSelectModule, FormsModule, AppCode, AppDocSectionText],
+    imports: [TreeSelectModule, FormsModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -18,10 +19,12 @@ import { TreeSelectModule } from 'primeng/treeselect';
             <p>In multiple selection mode, value binding should be a key-value pair where key is the node key and value is a boolean to indicate selection.</p>
         </app-docsectiontext>
         <app-code [code]="exampleCode" [hideToggleCode]="true"></app-code>
-        <div class="card flex justify-center">
-            <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class MultipleDoc {

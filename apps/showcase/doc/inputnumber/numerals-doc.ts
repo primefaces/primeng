@@ -2,36 +2,39 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FluidModule } from 'primeng/fluid';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'numerals-doc',
     standalone: true,
-    imports: [FormsModule, InputNumberModule, FluidModule, AppCodeModule, AppDocSectionText],
+    imports: [FormsModule, InputNumberModule, FluidModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>InputNumber is used as a controlled input with <i>ngModel</i> property.</p>
         </app-docsectiontext>
-        <p-fluid class="card flex flex-wrap gap-4">
-            <div class="flex-auto">
-                <label class="text-sm mb-2 font-bold block" for="integeronly">Integer Only</label>
-                <p-inputnumber inputId="integeronly" [(ngModel)]="value1" />
-            </div>
-            <div class="flex-auto">
-                <label class="text-sm mb-2 font-bold block" for="withoutgrouping">Without Grouping</label>
-                <p-inputnumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" />
-            </div>
-            <div class="flex-auto">
-                <label class="text-sm mb-2 font-bold block" for="minmaxfraction">Min-Max Fraction Digits</label>
-                <p-inputnumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5" />
-            </div>
-            <div class="flex-auto">
-                <label class="text-sm mb-2 font-bold block" for="minmax">Min-Max Boundaries</label>
-                <p-inputnumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100" />
-            </div>
-        </p-fluid>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <p-fluid class="flex flex-wrap gap-4">
+                <div class="flex-auto">
+                    <label class="text-sm mb-2 font-bold block" for="integeronly">Integer Only</label>
+                    <p-inputnumber inputId="integeronly" [(ngModel)]="value1" />
+                </div>
+                <div class="flex-auto">
+                    <label class="text-sm mb-2 font-bold block" for="withoutgrouping">Without Grouping</label>
+                    <p-inputnumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" />
+                </div>
+                <div class="flex-auto">
+                    <label class="text-sm mb-2 font-bold block" for="minmaxfraction">Min-Max Fraction Digits</label>
+                    <p-inputnumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5" />
+                </div>
+                <div class="flex-auto">
+                    <label class="text-sm mb-2 font-bold block" for="minmax">Min-Max Boundaries</label>
+                    <p-inputnumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100" />
+                </div>
+            </p-fluid>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class NumeralsDoc {

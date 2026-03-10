@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -9,18 +10,20 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'sizes-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule, RouterModule],
+    imports: [AppCode, AppDemoWrapper, AppDocSectionText, SplitButtonModule, ToastModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>SplitButton provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-center items-center gap-4">
-            <p-toast />
-            <p-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="small" />
-            <p-splitbutton label="Normal" [model]="items" (onClick)="save('info')" />
-            <p-splitbutton label="Large" [model]="items" (onClick)="save('info')" size="large" />
-        </div>
-        <app-code></app-code>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <p-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="small" />
+                <p-splitbutton label="Normal" [model]="items" (onClick)="save('info')" />
+                <p-splitbutton label="Large" [model]="items" (onClick)="save('info')" size="large" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService]
 })

@@ -2,13 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MultiSelect, MultiSelectModule } from 'primeng/multiselect';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'virtualscroll-doc',
     standalone: true,
-    imports: [NgStyle, FormsModule, MultiSelectModule, AppCodeModule, AppDocSectionText],
+    imports: [NgStyle, FormsModule, MultiSelectModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -16,32 +17,34 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining <i>virtualScrollItemSize</i> to specify the height of an item.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-multiselect
-                [options]="items"
-                [showToggleAll]="true"
-                [selectAll]="selectAll"
-                [(ngModel)]="selectedItems"
-                optionLabel="label"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="43"
-                placeholder="Select Cities"
-                (onSelectAllChange)="onSelectAllChange($event)"
-                [maxSelectedLabels]="3"
-                class="w-full md:w-80"
-                #ms
-            >
-                <ng-template #headercheckboxicon let-allSelected="checked" let-partialSelected="partialSelected">
-                    @if (allSelected) {
-                        <i class="pi pi-check"></i>
-                    }
-                    @if (partialSelected) {
-                        <i class="pi pi-minus" [ngStyle]="{ color: 'var(--text-color)' }"></i>
-                    }
-                </ng-template>
-            </p-multiselect>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-multiselect
+                    [options]="items"
+                    [showToggleAll]="true"
+                    [selectAll]="selectAll"
+                    [(ngModel)]="selectedItems"
+                    optionLabel="label"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                    placeholder="Select Cities"
+                    (onSelectAllChange)="onSelectAllChange($event)"
+                    [maxSelectedLabels]="3"
+                    class="w-full md:w-80"
+                    #ms
+                >
+                    <ng-template #headercheckboxicon let-allSelected="checked" let-partialSelected="partialSelected">
+                        @if (allSelected) {
+                            <i class="pi pi-check"></i>
+                        }
+                        @if (partialSelected) {
+                            <i class="pi pi-minus" [ngStyle]="{ color: 'var(--text-color)' }"></i>
+                        }
+                    </ng-template>
+                </p-multiselect>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class VirtualScrollDoc {

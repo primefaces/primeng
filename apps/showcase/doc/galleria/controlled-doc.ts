@@ -4,17 +4,18 @@ import { CommonModule } from '@angular/common';
 import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'controlled-doc',
     standalone: true,
-    imports: [CommonModule, GalleriaModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [CommonModule, GalleriaModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="mb-4">
                 <p-button type="button" icon="pi pi-minus" (click)="prev()" />
                 <p-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
@@ -27,8 +28,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <img [src]="item.thumbnailImageSrc" />
                 </ng-template>
             </p-galleria>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ControlledDoc implements OnInit {

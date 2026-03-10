@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { ScrollerModule } from 'primeng/scroller';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +12,7 @@ interface LazyEvent {
 @Component({
     selector: 'lazyload-doc',
     standalone: true,
-    imports: [ScrollerModule, AppCode, AppDocSectionText, CommonModule],
+    imports: [ScrollerModule, AppCode, AppDemoWrapper, AppDocSectionText, CommonModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -21,16 +22,28 @@ interface LazyEvent {
                 information about the chunk of data to load such as the index and number of items to load. Notice that a new template called loadingItem is also required to display as a placeholder while the new items are being loaded.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-virtualscroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
-                <ng-template #item let-item let-options="options">
-                    <div class="flex items-center p-2 text-sm" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
-                        {{ item }}
-                    </div>
-                </ng-template>
-            </p-virtualscroller>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-virtualscroller
+                    [items]="items"
+                    [itemSize]="50"
+                    [showLoader]="true"
+                    [delay]="250"
+                    [loading]="lazyLoading"
+                    [lazy]="true"
+                    (onLazyLoad)="onLazyLoad($event)"
+                    styleClass="border border-surface"
+                    [style]="{ width: '200px', height: '200px' }"
+                >
+                    <ng-template #item let-item let-options="options">
+                        <div class="flex items-center p-2 text-sm" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                            {{ item }}
+                        </div>
+                    </ng-template>
+                </p-virtualscroller>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

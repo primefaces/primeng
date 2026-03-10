@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -10,12 +11,12 @@ import { TableModule } from 'primeng/table';
 @Component({
     selector: 'columnresizeexpandmode-doc',
     standalone: true,
-    imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>Setting <i>columnResizeMode</i> as <i>expand</i> changes the table width as well.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
+            <app-demo-wrapper>
                 <p-table [value]="products" showGridlines [resizableColumns]="true" columnResizeMode="expand" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
@@ -34,9 +35,9 @@ import { TableModule } from 'primeng/table';
                         </tr>
                     </ng-template>
                 </p-table>
-            </div>
-        </p-deferred-demo>
-        <app-code [extFiles]="['Product']"></app-code>`,
+                <app-code [extFiles]="['Product']"></app-code>
+            </app-demo-wrapper>
+        </p-deferred-demo>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnResizeExpandModeDoc {

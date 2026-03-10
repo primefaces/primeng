@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -13,13 +14,13 @@ import { SkeletonModule } from 'primeng/skeleton';
 @Component({
     selector: 'loading-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, RouterModule, DataViewModule, SkeletonModule, SelectButtonModule, AppCode, AppDocSectionText],
+    imports: [CommonModule, FormsModule, RouterModule, DataViewModule, SkeletonModule, SelectButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     providers: [ProductService],
     template: `
         <app-docsectiontext>
             <p>While data is being loaded. <a routerLink="/skeleton">Skeleton</a> component may be used to indicate the busy state.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-dataview #dv [value]="products()" [layout]="layout">
                 <ng-template #header>
                     <div class="flex justify-end">
@@ -80,8 +81,8 @@ import { SkeletonModule } from 'primeng/skeleton';
                     </div>
                 </ng-template>
             </p-dataview>
-        </div>
-        <app-code [extFiles]="['Product']"></app-code>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>
     `
 })
 export class LoadingDoc {

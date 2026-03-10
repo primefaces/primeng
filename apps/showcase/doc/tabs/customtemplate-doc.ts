@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { TabsModule } from 'primeng/tabs';
 import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
@@ -8,12 +9,12 @@ import { BadgeModule } from 'primeng/badge';
 @Component({
     selector: 'customtemplate-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, TabsModule, AvatarModule, BadgeModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, TabsModule, AvatarModule, BadgeModule],
     template: `
         <app-docsectiontext>
             <p>Custom content for a tab is defined with the default ng-content.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-tabs value="0" scrollable>
                 <p-tablist>
                     <ng-template #previcon>
@@ -58,8 +59,8 @@ import { BadgeModule } from 'primeng/badge';
                     </p-tabpanel>
                 </p-tabpanels>
             </p-tabs>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TemplateDoc {}

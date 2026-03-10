@@ -1,25 +1,28 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectButton } from 'primeng/selectbutton';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [FormsModule, SelectButton, AppDocSectionText, AppCode],
+    imports: [FormsModule, SelectButton, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>For custom content support define a template named <i>item</i> where the default local template variable refers to an option.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-selectbutton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
-                <ng-template #item let-item>
-                    <i [class]="item.icon"></i>
-                </ng-template>
-            </p-selectbutton>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-selectbutton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
+                    <ng-template #item let-item>
+                        <i [class]="item.icon"></i>
+                    </ng-template>
+                </p-selectbutton>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TemplateDoc {

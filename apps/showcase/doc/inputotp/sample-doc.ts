@@ -1,4 +1,5 @@
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -8,32 +9,34 @@ import { InputOtpModule } from 'primeng/inputotp';
 @Component({
     selector: 'sample-doc',
     standalone: true,
-    imports: [FormsModule, InputOtpModule, ButtonModule, AppCodeModule, AppDocSectionText],
+    imports: [FormsModule, InputOtpModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>A sample UI implementation with templating and additional elements.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <div class="flex flex-col items-center">
-                <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
-                <p class="text-sm text-muted-color block mb-8">Please enter the code sent to your phone.</p>
-                <p-inputotp [(ngModel)]="value" [length]="6">
-                    <ng-template #input let-token let-events="events" let-index="index">
-                        <input type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
-                        @if (index === 3) {
-                            <div class="px-4">
-                                <i class="pi pi-minus"></i>
-                            </div>
-                        }
-                    </ng-template>
-                </p-inputotp>
-                <div class="flex justify-between mt-8 self-stretch">
-                    <p-button label="Resend Code" [link]="true" class="p-0" />
-                    <p-button label="Submit Code" />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <div class="flex flex-col items-center">
+                    <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
+                    <p class="text-sm text-muted-color block mb-8">Please enter the code sent to your phone.</p>
+                    <p-inputotp [(ngModel)]="value" [length]="6">
+                        <ng-template #input let-token let-events="events" let-index="index">
+                            <input type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
+                            @if (index === 3) {
+                                <div class="px-4">
+                                    <i class="pi pi-minus"></i>
+                                </div>
+                            }
+                        </ng-template>
+                    </p-inputotp>
+                    <div class="flex justify-between mt-8 self-stretch">
+                        <p-button label="Resend Code" [link]="true" class="p-0" />
+                        <p-button label="Submit Code" />
+                    </div>
                 </div>
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     styles: [
         `

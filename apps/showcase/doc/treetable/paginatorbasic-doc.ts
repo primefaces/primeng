@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
@@ -14,11 +15,11 @@ interface Column {
 @Component({
     selector: 'paginatorbasic-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: ` <app-docsectiontext>
             <p>Pagination is enabled by adding <i>paginator</i> property and defining <i>rows</i> per page.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 25]" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>
@@ -48,8 +49,8 @@ interface Column {
                     </ng-template>
                 </p-treetable>
             </p-deferred-demo>
-        </div>
-        <app-code></app-code>`,
+            <app-code></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorBasicDoc {

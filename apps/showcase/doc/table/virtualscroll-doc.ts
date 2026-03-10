@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
@@ -15,7 +16,7 @@ interface Column {
 @Component({
     selector: 'virtualscroll-doc',
     standalone: true,
-    imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>
                 Virtual Scrolling is an efficient way to render large amount data. Usage is similar to regular scrolling with the addition of <i>virtualScrollerOptions</i> property to define a fixed <i>itemSize</i>. Internally, VirtualScroller
@@ -24,7 +25,7 @@ interface Column {
             <p>In this example, <b>10000</b> preloaded records are rendered by the Table.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
+            <app-demo-wrapper>
                 <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="400px" [virtualScroll]="true" [virtualScrollItemSize]="46">
                     <ng-template #header let-columns>
                         <tr>
@@ -45,9 +46,9 @@ interface Column {
                         </tr>
                     </ng-template>
                 </p-table>
-            </div>
-        </p-deferred-demo>
-        <app-code [extFiles]="['Car']"></app-code>`,
+                <app-code [extFiles]="['Car']"></app-code>
+            </app-demo-wrapper>
+        </p-deferred-demo>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VirtualScrollDoc {

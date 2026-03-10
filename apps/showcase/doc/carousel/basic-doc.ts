@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -11,12 +12,12 @@ import { TagModule } from 'primeng/tag';
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, CarouselModule, ButtonModule, TagModule],
+    imports: [CommonModule, AppDocSectionText, AppCode, AppDemoWrapper, CarouselModule, ButtonModule, TagModule],
     template: `
         <app-docsectiontext>
             <p>Carousel requires a collection of items as its value along with a template to render each item.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-carousel [value]="products()" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
                 <ng-template let-product #item>
                     <div class="border border-surface rounded-border m-2 p-4">
@@ -37,8 +38,8 @@ import { TagModule } from 'primeng/tag';
                     </div>
                 </ng-template>
             </p-carousel>
-        </div>
-        <app-code [extFiles]="['Product']"></app-code>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc implements OnInit {

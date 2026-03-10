@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
@@ -12,24 +13,26 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 @Component({
     selector: 'reactiveforms-doc',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, ToggleButtonModule, ToastModule, MessageModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [CommonModule, ReactiveFormsModule, ToggleButtonModule, ToastModule, MessageModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>ToggleButton can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
-                <div class="flex flex-col items-center gap-1">
-                    <p-togglebutton name="consent" formControlName="checked" [invalid]="isInvalid('checked')" onLabel="Accept All" offLabel="Reject All" class="min-w-40" />
-                    @if (isInvalid('checked')) {
-                        <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
-                    }
-                </div>
-                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
+                    <div class="flex flex-col items-center gap-1">
+                        <p-togglebutton name="consent" formControlName="checked" [invalid]="isInvalid('checked')" onLabel="Accept All" offLabel="Reject All" class="min-w-40" />
+                        @if (isInvalid('checked')) {
+                            <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
+                        }
+                    </div>
+                    <button pButton type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ReactiveFormsDoc {

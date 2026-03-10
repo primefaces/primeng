@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { InplaceModule } from 'primeng/inplace';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'image-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCodeModule, InplaceModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, InplaceModule],
     template: `
         <app-docsectiontext>
             <p>Any content such as an image can be placed inside an Inplace.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-inplace>
                 <ng-template #display>
                     <span class="inline-flex items-center gap-2">
@@ -23,8 +24,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <img class="w-full sm:w-80 shadow-md" src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" alt="Nature" />
                 </ng-template>
             </p-inplace>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ImageDoc {}

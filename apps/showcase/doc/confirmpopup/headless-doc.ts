@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -10,27 +11,29 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'headless-doc',
     standalone: true,
-    imports: [CommonModule, ConfirmPopupModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [CommonModule, ConfirmPopupModule, ToastModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-confirmpopup #cp>
-                <ng-template #headless let-message>
-                    <div class="rounded p-4">
-                        <span class="text-sm">{{ message.message }}</span>
-                        <div class="flex items-center gap-2 mt-4">
-                            <p-button (onClick)="cp.onAccept()" label="Save" size="small" [autofocus]="true" />
-                            <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
-                        </div>
+        <p-toast />
+        <p-confirmpopup #cp>
+            <ng-template #headless let-message>
+                <div class="rounded p-4">
+                    <span class="text-sm">{{ message.message }}</span>
+                    <div class="flex items-center gap-2 mt-4">
+                        <p-button (onClick)="cp.onAccept()" label="Save" size="small" [autofocus]="true" />
+                        <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
                     </div>
-                </ng-template>
-            </p-confirmpopup>
-            <p-button (onClick)="confirm($event)" label="Save" />
-        </div>
-        <app-code></app-code>
+                </div>
+            </ng-template>
+        </p-confirmpopup>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (onClick)="confirm($event)" label="Save" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [ConfirmationService, MessageService]
 })

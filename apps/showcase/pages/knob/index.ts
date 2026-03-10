@@ -2,7 +2,7 @@ import { AccessibilityDoc } from '@/doc/knob/accessibility-doc';
 import { BasicDoc } from '@/doc/knob/basic-doc';
 import { ColorDoc } from '@/doc/knob/color-doc';
 import { DisabledDoc } from '@/doc/knob/disabled-doc';
-import { ImportDoc } from '@/doc/knob/import-doc';
+import { UsageDoc } from '@/doc/knob/usage-doc';
 import { MinMaxDoc } from '@/doc/knob/minmax-doc';
 import { PTComponent } from '@/doc/knob/pt/PTComponent';
 import { ReactiveDoc } from '@/doc/knob/reactive-doc';
@@ -17,74 +17,92 @@ import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular Knob Component" header="Knob" description="Knob is a form component to define number inputs with a dial." [docs]="docs" [apiDocs]="['Knob']" themeDocs="knob" [ptDocs]="ptComponent"></app-doc> `,
+    template: `<app-doc
+        docTitle="Angular Knob Component"
+        header="Knob"
+        description="Knob is a form component to define number inputs with a dial."
+        [docs]="docs"
+        [heroDoc]="heroDoc"
+        [apiDocs]="['Knob']"
+        themeDocs="knob"
+        [ptDocs]="ptComponent"
+    ></app-doc> `,
     standalone: true,
     imports: [AppDoc]
 })
 export class KnobDemo {
+    ptComponent = PTComponent;
+    heroDoc = BasicDoc;
+
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'minmax',
-            label: 'Min/Max',
-            component: MinMaxDoc
-        },
-        {
-            id: 'step',
-            label: 'Step',
-            component: StepDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
-            id: 'stroke',
-            label: 'Stroke',
-            component: StrokeDoc
-        },
-        {
-            id: 'size',
-            label: 'Size',
-            component: SizeDoc
-        },
-        {
-            id: 'color',
-            label: 'Color',
-            component: ColorDoc
-        },
-        {
-            id: 'reactive',
-            label: 'Reactive',
-            component: ReactiveDoc
-        },
-        {
-            id: 'readonly',
-            label: 'ReadOnly',
-            component: ReadonlyDoc
-        },
-        {
-            id: 'forms',
-            label: 'Forms',
+            id: 'examples',
+            label: 'Examples',
             children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactiveforms', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                {
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
+                },
+                {
+                    id: 'minmax',
+                    label: 'Min/Max',
+                    component: MinMaxDoc
+                },
+                {
+                    id: 'step',
+                    label: 'Step',
+                    component: StepDoc
+                },
+                {
+                    id: 'template',
+                    label: 'Template',
+                    component: TemplateDoc
+                },
+                {
+                    id: 'stroke',
+                    label: 'Stroke',
+                    component: StrokeDoc
+                },
+                {
+                    id: 'size',
+                    label: 'Size',
+                    component: SizeDoc
+                },
+                {
+                    id: 'color',
+                    label: 'Color',
+                    component: ColorDoc
+                },
+                {
+                    id: 'reactive',
+                    label: 'Reactive',
+                    component: ReactiveDoc
+                },
+                {
+                    id: 'readonly',
+                    label: 'ReadOnly',
+                    component: ReadonlyDoc
+                },
+                {
+                    id: 'forms',
+                    label: 'Forms',
+                    children: [
+                        { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                        { id: 'reactiveforms', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                    ]
+                },
+                {
+                    id: 'disabled',
+                    label: 'Disabled',
+                    component: DisabledDoc
+                }
             ]
-        },
-        {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
         },
         {
             id: 'accessibility',
@@ -92,6 +110,4 @@ export class KnobDemo {
             component: AccessibilityDoc
         }
     ];
-
-    ptComponent = PTComponent;
 }

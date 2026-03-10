@@ -1,26 +1,29 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { StepperModule } from 'primeng/stepper';
 
 @Component({
     selector: 'stepsonly',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, StepperModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, StepperModule],
     template: `
         <app-docsectiontext>
             <p>Use Stepper with a <i>StepList</i> only for custom requirements where a progress indicator is needed.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-stepper [value]="1" class="basis-[50rem]">
-                <p-step-list>
-                    <p-step [value]="1">Design</p-step>
-                    <p-step [value]="2">Development</p-step>
-                    <p-step [value]="3">QA</p-step>
-                </p-step-list>
-            </p-stepper>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-stepper [value]="1" class="basis-[50rem]">
+                    <p-step-list>
+                        <p-step [value]="1">Design</p-step>
+                        <p-step [value]="2">Development</p-step>
+                        <p-step [value]="3">QA</p-step>
+                    </p-step-list>
+                </p-stepper>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class StepsOnlyDoc {}

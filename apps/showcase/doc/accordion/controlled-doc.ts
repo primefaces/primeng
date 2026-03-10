@@ -2,18 +2,18 @@ import { Component } from '@angular/core';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'controlled-doc',
     standalone: true,
-    imports: [AccordionModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [AccordionModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Panels can be controlled programmatically using <i>value</i> property as a model.</p>
         </app-docsectiontext>
-
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex mb-4 gap-2 justify-end">
                 <p-button (onClick)="active = '0'" [rounded]="true" label="1" styleClass="w-8 h-8 p-0" [outlined]="active !== '0'" />
                 <p-button (onClick)="active = '1'" [rounded]="true" label="2" styleClass="w-8 h-8 p-0" [outlined]="active !== '1'" />
@@ -50,9 +50,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     </p-accordion-content>
                 </p-accordion-panel>
             </p-accordion>
-        </div>
-
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ControlledDoc {

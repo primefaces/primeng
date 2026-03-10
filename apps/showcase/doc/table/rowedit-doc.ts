@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -18,7 +19,7 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'rowedit-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, TableModule, ToastModule, InputTextModule, SelectModule, TagModule, ButtonModule, RippleModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [CommonModule, FormsModule, TableModule, ToastModule, InputTextModule, SelectModule, TagModule, ButtonModule, RippleModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>
                 Row editing toggles the visibility of all the editors in the row at once and provides additional options to save and cancel editing. Row editing functionality is enabled by setting the <i>editMode</i> to "row" on table, defining a
@@ -35,8 +36,8 @@ import { ToastModule } from 'primeng/toast';
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
-                <p-toast />
+            <p-toast />
+            <app-demo-wrapper>
                 <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
@@ -109,9 +110,9 @@ import { ToastModule } from 'primeng/toast';
                         </tr>
                     </ng-template>
                 </p-table>
-            </div>
-        </p-deferred-demo>
-        <app-code [extFiles]="['Product']"></app-code>`,
+                <app-code [extFiles]="['Product']"></app-code>
+            </app-demo-wrapper>
+        </p-deferred-demo>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })

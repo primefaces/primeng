@@ -5,11 +5,12 @@ import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } fro
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ChartModule } from 'primeng/chart';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, ChartModule],
+    imports: [AppCode, AppDocSectionText, ChartModule, AppDemoWrapper],
     template: `
         <app-docsectiontext>
             <p>
@@ -17,10 +18,10 @@ import { ChartModule } from 'primeng/chart';
                 <i>polarArea</i> as a value. The <i>data</i> defines datasets represented with the chart and the <i>options</i> provide numerous customization options to customize the presentation.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc implements OnInit {

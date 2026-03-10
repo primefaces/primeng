@@ -2,23 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'command-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, TieredMenuModule, ToastModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, TieredMenuModule, ToastModule],
     providers: [MessageService],
     template: `
         <app-docsectiontext>
             <p>The <i>command</i> property defines the callback to run when an item is activated by click or a key event.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-tieredmenu [model]="items" />
-        </div>
-        <app-code></app-code>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-tieredmenu [model]="items" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class CommandDoc implements OnInit {

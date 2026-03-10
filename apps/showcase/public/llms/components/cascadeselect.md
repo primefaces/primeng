@@ -17,9 +17,11 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
@@ -118,9 +120,11 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" placeholder="Select a City" [style]="{ minWidth: '14rem' }" [showClear]="true" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" placeholder="Select a City" [style]="{ minWidth: '14rem' }" [showClear]="true" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
@@ -218,9 +222,11 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-cascadeselect [disabled]="true" placeholder="Disabled" [style]="{ minWidth: '14rem' }" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-cascadeselect [disabled]="true" placeholder="Disabled" [style]="{ minWidth: '14rem' }" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule]
@@ -239,9 +245,11 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-cascadeselect [(ngModel)]="selectedCity" variant="filled" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-cascadeselect [(ngModel)]="selectedCity" variant="filled" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
@@ -341,20 +349,22 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel class="w-full md:w-56">
-                <p-cascadeselect [(ngModel)]="value1" inputId="over_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel class="w-full md:w-56" variant="in">
-                <p-cascadeselect [(ngModel)]="value2" inputId="in_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel class="w-full md:w-56" variant="on">
-                <p-cascadeselect [(ngModel)]="value3" inputId="on_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-end gap-4">
+                <p-floatlabel class="w-full md:w-56">
+                    <p-cascadeselect [(ngModel)]="value1" inputId="over_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
+                <p-floatlabel class="w-full md:w-56" variant="in">
+                    <p-cascadeselect [(ngModel)]="value2" inputId="in_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
+                <p-floatlabel class="w-full md:w-56" variant="on">
+                    <p-cascadeselect [(ngModel)]="value3" inputId="on_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, FloatLabelModule, FormsModule]
@@ -456,9 +466,9 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" placeholder="Select a City" fluid />
-        </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
@@ -558,12 +568,14 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-iftalabel class="w-full md:w-56">
-                <p-cascadeselect [(ngModel)]="selectedCity" inputId="cs_city" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
-                <label for="cs_city">City</label>
-            </p-iftalabel>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-iftalabel class="w-full md:w-56">
+                    <p-cascadeselect [(ngModel)]="selectedCity" inputId="cs_city" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
+                    <label for="cs_city">City</label>
+                </p-iftalabel>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, IftaLabelModule, FormsModule]
@@ -662,20 +674,22 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex flex-wrap justify-center gap-4">
-            <p-cascadeselect [(ngModel)]="selectedCity1" [invalid]="!selectedCity1" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full sm:w-56" placeholder="Select a City" />
-            <p-cascadeselect
-                [(ngModel)]="selectedCity2"
-                [invalid]="!selectedCity2"
-                [options]="countries"
-                optionLabel="cname"
-                optionGroupLabel="name"
-                [optionGroupChildren]="['states', 'cities']"
-                class="w-full sm:w-56"
-                placeholder="Select a City"
-                variant="filled"
-            />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-4">
+                <p-cascadeselect [(ngModel)]="selectedCity1" [invalid]="!selectedCity1" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full sm:w-56" placeholder="Select a City" />
+                <p-cascadeselect
+                    [(ngModel)]="selectedCity2"
+                    [invalid]="!selectedCity2"
+                    [options]="countries"
+                    optionLabel="cname"
+                    optionGroupLabel="name"
+                    [optionGroupChildren]="['states', 'cities']"
+                    class="w-full sm:w-56"
+                    placeholder="Select a City"
+                    variant="filled"
+                />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
@@ -774,9 +788,11 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-cascadeselect [loading]="true" [style]="{ minWidth: '14rem' }" placeholder="Loading..." />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-cascadeselect [loading]="true" [style]="{ minWidth: '14rem' }" placeholder="Loading..." />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule]
@@ -800,26 +816,28 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <p-cascadeselect
-                        formControlName="selectedCity"
-                        [options]="countries"
-                        optionLabel="cname"
-                        optionGroupLabel="name"
-                        [optionGroupChildren]="['states', 'cities']"
-                        [style]="{ minWidth: '14rem' }"
-                        placeholder="Select a City"
-                        [invalid]="isInvalid('selectedCity')"
-                    />
-                    @if (isInvalid('selectedCity')) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <p-cascadeselect
+                            formControlName="selectedCity"
+                            [options]="countries"
+                            optionLabel="cname"
+                            optionGroupLabel="name"
+                            [optionGroupChildren]="['states', 'cities']"
+                            [style]="{ minWidth: '14rem' }"
+                            placeholder="Select a City"
+                            [invalid]="isInvalid('selectedCity')"
+                        />
+                        @if (isInvalid('selectedCity')) {
+                            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
@@ -938,11 +956,13 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex flex-col items-center gap-4">
-            <p-cascadeselect [(ngModel)]="value1" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-56" size="small" placeholder="Small" />
-            <p-cascadeselect [(ngModel)]="value2" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-56" placeholder="Normal" />
-            <p-cascadeselect [(ngModel)]="value3" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-56" size="large" placeholder="Large" />
-        </div>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-cascadeselect [(ngModel)]="value1" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-56" size="small" placeholder="Small" />
+                <p-cascadeselect [(ngModel)]="value2" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-56" placeholder="Normal" />
+                <p-cascadeselect [(ngModel)]="value3" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-56" size="large" placeholder="Large" />
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
@@ -1044,35 +1064,37 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     template: `
-        <div class="card flex justify-center">
-            <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City">
-                <ng-template #option let-option>
-                    <div class="flex items-center">
-                        @if (option.states) {
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + option.code.toLowerCase()" style="width: 18px" />
-                        }
-                        @if (option.cities) {
-                            <i class="pi pi-compass mr-2"></i>
-                        }
-                        @if (option.cname) {
-                            <i class="pi pi-map-marker mr-2"></i>
-                        }
-                        <span>{{ option.cname || option.name }}</span>
-                    </div>
-                </ng-template>
-                <ng-template #triggericon>
-                    <i class="pi pi-map"></i>
-                </ng-template>
-                <ng-template #header>
-                    <div class="font-medium px-3 py-2">Available Countries</div>
-                </ng-template>
-                <ng-template #footer>
-                    <div class="px-3 py-1">
-                        <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
-                    </div>
-                </ng-template>
-            </p-cascadeselect>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City">
+                    <ng-template #option let-option>
+                        <div class="flex items-center">
+                            @if (option.states) {
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + option.code.toLowerCase()" style="width: 18px" />
+                            }
+                            @if (option.cities) {
+                                <i class="pi pi-compass mr-2"></i>
+                            }
+                            @if (option.cname) {
+                                <i class="pi pi-map-marker mr-2"></i>
+                            }
+                            <span>{{ option.cname || option.name }}</span>
+                        </div>
+                    </ng-template>
+                    <ng-template #triggericon>
+                        <i class="pi pi-map"></i>
+                    </ng-template>
+                    <ng-template #header>
+                        <div class="font-medium px-3 py-2">Available Countries</div>
+                    </ng-template>
+                    <ng-template #footer>
+                        <div class="px-3 py-1">
+                            <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+                        </div>
+                    </ng-template>
+                </p-cascadeselect>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ButtonModule, CascadeSelectModule, FormsModule]
@@ -1174,29 +1196,31 @@ import { MessageService } from 'primeng/api';
 @Component({
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <p-cascadeselect
-                        #city="ngModel"
-                        [(ngModel)]="selectedCity"
-                        [options]="countries"
-                        [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
-                        name="city"
-                        optionLabel="cname"
-                        optionGroupLabel="name"
-                        [optionGroupChildren]="['states', 'cities']"
-                        [style]="{ minWidth: '14rem' }"
-                        placeholder="Select a City"
-                        required
-                    />
-                    @if (city.invalid && (city.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <p-cascadeselect
+                            #city="ngModel"
+                            [(ngModel)]="selectedCity"
+                            [options]="countries"
+                            [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
+                            name="city"
+                            optionLabel="cname"
+                            optionGroupLabel="name"
+                            [optionGroupChildren]="['states', 'cities']"
+                            [style]="{ minWidth: '14rem' }"
+                            placeholder="Select a City"
+                            required
+                        />
+                        @if (city.invalid && (city.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [CascadeSelectModule, MessageModule, ToastModule, ButtonModule, FormsModule]

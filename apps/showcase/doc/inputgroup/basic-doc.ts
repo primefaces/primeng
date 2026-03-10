@@ -5,7 +5,8 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectModule } from 'primeng/select';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface City {
@@ -15,38 +16,40 @@ interface City {
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCodeModule, FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, InputNumberModule, SelectModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, InputNumberModule, SelectModule],
     template: `
         <app-docsectiontext>
             <p>A group is created by wrapping the input and add-ons with the <i>p-inputgroup</i> component. Each add-on element is defined as a child of <i>p-inputgroup-addon</i> component.</p>
         </app-docsectiontext>
-        <div class="card grid grid-cols-1 md:grid-cols-2 gap-4">
-            <p-inputgroup>
-                <p-inputgroup-addon>
-                    <i class="pi pi-user"></i>
-                </p-inputgroup-addon>
-                <input pInputText [(ngModel)]="text1" placeholder="Username" />
-            </p-inputgroup>
+        <app-demo-wrapper>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <p-inputgroup>
+                    <p-inputgroup-addon>
+                        <i class="pi pi-user"></i>
+                    </p-inputgroup-addon>
+                    <input pInputText [(ngModel)]="text1" placeholder="Username" />
+                </p-inputgroup>
 
-            <p-inputgroup>
-                <p-inputgroup-addon>$</p-inputgroup-addon>
-                <p-inputnumber [(ngModel)]="number" placeholder="Price" />
-                <p-inputgroup-addon>.00</p-inputgroup-addon>
-            </p-inputgroup>
+                <p-inputgroup>
+                    <p-inputgroup-addon>$</p-inputgroup-addon>
+                    <p-inputnumber [(ngModel)]="number" placeholder="Price" />
+                    <p-inputgroup-addon>.00</p-inputgroup-addon>
+                </p-inputgroup>
 
-            <p-inputgroup>
-                <p-inputgroup-addon>www</p-inputgroup-addon>
-                <input pInputText [(ngModel)]="text2" placeholder="Website" />
-            </p-inputgroup>
+                <p-inputgroup>
+                    <p-inputgroup-addon>www</p-inputgroup-addon>
+                    <input pInputText [(ngModel)]="text2" placeholder="Website" />
+                </p-inputgroup>
 
-            <p-inputgroup>
-                <p-inputgroup-addon>
-                    <i class="pi pi-map"></i>
-                </p-inputgroup-addon>
-                <p-select [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" placeholder="City" />
-            </p-inputgroup>
-        </div>
-        <app-code></app-code>
+                <p-inputgroup>
+                    <p-inputgroup-addon>
+                        <i class="pi pi-map"></i>
+                    </p-inputgroup-addon>
+                    <p-select [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" placeholder="City" />
+                </p-inputgroup>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc {

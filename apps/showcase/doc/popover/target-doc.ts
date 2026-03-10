@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { PopoverModule } from 'primeng/popover';
 import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'target-doc',
     standalone: true,
-    imports: [PopoverModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [PopoverModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -15,16 +16,18 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 parameter <i>target</i>.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-col items-center gap-4">
-            <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
-            <div #targetEl class="mt-8 w-40 h-20 border border-surface rounded-border flex items-center justify-center">
-                <span class="text-sm">Target Element</span>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
+                <div #targetEl class="mt-8 w-40 h-20 border border-surface rounded-border flex items-center justify-center">
+                    <span class="text-sm">Target Element</span>
+                </div>
+                <p-popover #op>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
+                </p-popover>
             </div>
-            <p-popover #op>
-                <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
-            </p-popover>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TargetDoc {}

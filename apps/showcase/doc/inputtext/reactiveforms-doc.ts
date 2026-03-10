@@ -5,37 +5,40 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
     selector: 'reactiveforms-doc',
     standalone: true,
-    imports: [ReactiveFormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule, AppCodeModule],
+    imports: [ReactiveFormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDemoWrapper],
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
-                <div class="flex flex-col gap-1">
-                    <input pInputText type="text" id="username" placeholder="Username" formControlName="username" [invalid]="isInvalid('username')" />
-                    @if (isInvalid('username')) {
-                        <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
-                    }
-                </div>
-                <div class="flex flex-col gap-1">
-                    <input pInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
-                    @if (isInvalid('email')) {
-                        @if (exampleForm.get('email')?.errors?.['required']) {
-                            <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
+                    <div class="flex flex-col gap-1">
+                        <input pInputText type="text" id="username" placeholder="Username" formControlName="username" [invalid]="isInvalid('username')" />
+                        @if (isInvalid('username')) {
+                            <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
                         }
-                        @if (exampleForm.get('email')?.errors?.['email']) {
-                            <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <input pInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
+                        @if (isInvalid('email')) {
+                            @if (exampleForm.get('email')?.errors?.['required']) {
+                                <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+                            }
+                            @if (exampleForm.get('email')?.errors?.['email']) {
+                                <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
+                            }
                         }
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
-        <app-code></app-code>
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ReactiveFormsDoc {

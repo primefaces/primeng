@@ -2,7 +2,6 @@ import { AppDoc } from '@/components/doc/app.doc';
 import { CloseDoc } from '@/doc/dynamicdialog/close-doc';
 import { CustomizationDoc } from '@/doc/dynamicdialog/customization-doc';
 import { ExampleDoc } from '@/doc/dynamicdialog/example-doc';
-import { ImportDoc } from '@/doc/dynamicdialog/import-doc';
 import { OpenDoc } from '@/doc/dynamicdialog/open-doc';
 import { PassingDataDoc } from '@/doc/dynamicdialog/passingdata-doc';
 import { PTComponent } from '@/doc/dynamicdialog/pt/PTComponent';
@@ -21,48 +20,51 @@ import { Component } from '@angular/core';
             [apiDocs]="['DynamicDialog-Ref', 'DynamicDialog-Config', 'DialogService']"
             [ptDocs]="ptComponent"
             themeDocs="dynamicdialog"
-            [ptDocs]="ptComponent"
+            [heroDoc]="heroDoc"
         ></app-doc>
     `
 })
 export class DynamicDialogDemo {
     ptComponent = PTComponent;
 
+    heroDoc = ExampleDoc;
+
     docs = [
-        {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
-        },
         {
             id: 'usage',
             label: 'Usage',
             component: UsageDoc
         },
         {
-            id: 'open',
-            label: 'Opening a Dialog',
-            component: OpenDoc
-        },
-        {
-            id: 'customization',
-            label: 'Customization',
-            component: CustomizationDoc
-        },
-        {
-            id: 'passingdata',
-            label: 'Passing Data',
-            component: PassingDataDoc
-        },
-        {
-            id: 'close',
-            label: 'Closing a Dialog',
-            component: CloseDoc
-        },
-        {
-            id: 'example',
-            label: 'Example',
-            component: ExampleDoc
+            id: 'examples',
+            label: 'Examples',
+            children: [
+                {
+                    id: 'open',
+                    label: 'Opening a Dialog',
+                    component: OpenDoc
+                },
+                {
+                    id: 'customization',
+                    label: 'Customization',
+                    component: CustomizationDoc
+                },
+                {
+                    id: 'passingdata',
+                    label: 'Passing Data',
+                    component: PassingDataDoc
+                },
+                {
+                    id: 'close',
+                    label: 'Closing a Dialog',
+                    component: CloseDoc
+                },
+                {
+                    id: 'example',
+                    label: 'Example',
+                    component: ExampleDoc
+                }
+            ]
         }
     ];
 }

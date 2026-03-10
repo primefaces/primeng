@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SelectFilterOptions } from 'primeng/select';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -18,37 +19,39 @@ interface City {
 @Component({
     selector: 'customfilter-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, FormsModule, SelectModule, InputGroupModule, InputGroupAddonModule, ButtonModule, InputTextModule],
+    imports: [CommonModule, AppDocSectionText, AppCode, AppDemoWrapper, FormsModule, SelectModule, InputGroupModule, InputGroupAddonModule, ButtonModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>Custom filter can be applied with the <i>filterTemplate</i>.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
-                <ng-template #filter let-options="options">
-                    <div class="flex gap-1">
-                        <p-inputgroup (click)="$event.stopPropagation()">
-                            <p-inputgroup-addon><i class="pi pi-search"></i></p-inputgroup-addon>
-                            <input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
-                        </p-inputgroup>
-                        <p-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
-                    </div>
-                </ng-template>
-                <ng-template #selectedItem let-selectedOption>
-                    <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ selectedOption.name }}</div>
-                    </div>
-                </ng-template>
-                <ng-template #item let-country>
-                    <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ country.name }}</div>
-                    </div>
-                </ng-template>
-            </p-select>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+                    <ng-template #filter let-options="options">
+                        <div class="flex gap-1">
+                            <p-inputgroup (click)="$event.stopPropagation()">
+                                <p-inputgroup-addon><i class="pi pi-search"></i></p-inputgroup-addon>
+                                <input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
+                            </p-inputgroup>
+                            <p-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
+                        </div>
+                    </ng-template>
+                    <ng-template #selectedItem let-selectedOption>
+                        <div class="flex items-center gap-2">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
+                            <div>{{ selectedOption.name }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template #item let-country>
+                        <div class="flex items-center gap-2">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                            <div>{{ country.name }}</div>
+                        </div>
+                    </ng-template>
+                </p-select>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class CustomFilterDoc implements OnInit {

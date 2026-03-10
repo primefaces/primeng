@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({
     selector: 'tabmenu-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, TabsModule],
+    imports: [CommonModule, AppDocSectionText, AppCode, AppDemoWrapper, TabsModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -15,7 +16,7 @@ import { TabsModule } from 'primeng/tabs';
                 <a href="https://angular.dev/api/router/RouterOutlet?tab=description" target="_blank" rel="noopener noreferrer">router-outlet</a>. For the purpose of this demo, <i>router-outlet</i> is not included.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-tabs value="dashboard">
                 <p-tablist>
                     @for (tab of tabs; track tab.route) {
@@ -27,8 +28,8 @@ import { TabsModule } from 'primeng/tabs';
                 </p-tablist>
             </p-tabs>
             <!--<router-outlet></router-outlet>-->
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TabmenuDoc {

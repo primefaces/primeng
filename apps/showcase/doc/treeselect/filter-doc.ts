@@ -3,12 +3,13 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'filter-doc',
     standalone: true,
-    imports: [FormsModule, TreeSelectModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, TreeSelectModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -17,10 +18,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 On the other hand, in <i>strict</i> mode when the query matches a node, filtering continues on all descendants.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class FilterDoc {

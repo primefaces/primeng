@@ -7,7 +7,7 @@ import { DisabledDoc } from '@/doc/listbox/disabled-doc';
 import { DragDropDoc } from '@/doc/listbox/dragdrop-doc';
 import { FilterDoc } from '@/doc/listbox/filter-doc';
 import { GroupDoc } from '@/doc/listbox/group-doc';
-import { ImportDoc } from '@/doc/listbox/import-doc';
+import { UsageDoc } from '@/doc/listbox/usage-doc';
 import { InvalidDoc } from '@/doc/listbox/invalid-doc';
 import { MultipleDoc } from '@/doc/listbox/multiple-doc';
 import { PTComponent } from '@/doc/listbox/pt/PTComponent';
@@ -23,6 +23,7 @@ import { Component } from '@angular/core';
         header="Listbox"
         description="Listbox is used to select one or more values from a list of items."
         [docs]="docs"
+        [heroDoc]="heroDoc"
         [apiDocs]="['Listbox']"
         themeDocs="listbox"
         [ptDocs]="ptComponent"
@@ -31,73 +32,81 @@ import { Component } from '@angular/core';
     imports: [AppDoc]
 })
 export class ListboxDemo {
+    heroDoc = BasicDoc;
+
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'checkmark',
-            label: 'Checkmark',
-            component: CheckmarkDoc
-        },
-        {
-            id: 'checkbox',
-            label: 'Checkbox',
-            component: CheckboxDoc
-        },
-        {
-            id: 'multiple',
-            label: 'Multiple',
-            component: MultipleDoc
-        },
-        {
-            id: 'group',
-            label: 'Group',
-            component: GroupDoc
-        },
-        {
-            id: 'filter',
-            label: 'Filter',
-            component: FilterDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
-            id: 'virtualscroll',
-            label: 'Virtual Scroll',
-            component: VirtualScrollDoc
-        },
-        {
-            id: 'drag-drop',
-            label: 'Drag & Drop',
-            component: DragDropDoc
-        },
-        {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc
-        },
-        {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
-        },
-        {
-            id: 'forms',
-            label: 'Forms',
+            id: 'examples',
+            label: 'Examples',
             children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                {
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
+                },
+                {
+                    id: 'checkmark',
+                    label: 'Checkmark',
+                    component: CheckmarkDoc
+                },
+                {
+                    id: 'checkbox',
+                    label: 'Checkbox',
+                    component: CheckboxDoc
+                },
+                {
+                    id: 'multiple',
+                    label: 'Multiple',
+                    component: MultipleDoc
+                },
+                {
+                    id: 'group',
+                    label: 'Group',
+                    component: GroupDoc
+                },
+                {
+                    id: 'filter',
+                    label: 'Filter',
+                    component: FilterDoc
+                },
+                {
+                    id: 'template',
+                    label: 'Template',
+                    component: TemplateDoc
+                },
+                {
+                    id: 'virtualscroll',
+                    label: 'Virtual Scroll',
+                    component: VirtualScrollDoc
+                },
+                {
+                    id: 'drag-drop',
+                    label: 'Drag & Drop',
+                    component: DragDropDoc
+                },
+                {
+                    id: 'invalid',
+                    label: 'Invalid',
+                    component: InvalidDoc
+                },
+                {
+                    id: 'disabled',
+                    label: 'Disabled',
+                    component: DisabledDoc
+                },
+                {
+                    id: 'forms',
+                    label: 'Forms',
+                    children: [
+                        { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                        { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                    ]
+                }
             ]
         },
         {

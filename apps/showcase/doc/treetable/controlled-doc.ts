@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
@@ -10,11 +11,11 @@ import { TreeTableModule } from 'primeng/treetable';
 @Component({
     selector: 'controlled-doc',
     standalone: true,
-    imports: [TreeTableModule, ButtonModule, AppCode, AppDocSectionText, DeferredDemo],
+    imports: [TreeTableModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Expansion state is controlled with <i>expandedKeys</i> property.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-button (click)="toggleApplications()" label="Toggle Applications" class="block mb-4" />
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
@@ -39,8 +40,8 @@ import { TreeTableModule } from 'primeng/treetable';
                     </ng-template>
                 </p-treetable>
             </p-deferred-demo>
-        </div>
-        <app-code></app-code>`,
+            <app-code></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlledDoc {

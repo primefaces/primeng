@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { TimelineModule } from 'primeng/timeline';
 
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [AppDocSectionText, TimelineModule, AppCode],
+    imports: [AppDocSectionText, TimelineModule, AppCode, AppDemoWrapper],
     template: `
         <app-docsectiontext>
             <p>
@@ -14,14 +15,14 @@ import { TimelineModule } from 'primeng/timeline';
                 is used throughout the documentation.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-timeline [value]="events">
                 <ng-template #content let-event>
                     {{ event.status }}
                 </ng-template>
             </p-timeline>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc {

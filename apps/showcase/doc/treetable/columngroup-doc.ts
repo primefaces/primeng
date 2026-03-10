@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
@@ -7,9 +8,9 @@ import { TreeTableModule } from 'primeng/treetable';
 @Component({
     selector: 'columngroup-doc',
     standalone: true,
-    imports: [TreeTableModule, DeferredDemo, AppCode],
+    imports: [TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper],
     template: `
-        <div class="card">
+        <app-demo-wrapper>
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
@@ -51,8 +52,8 @@ import { TreeTableModule } from 'primeng/treetable';
                     </ng-template>
                 </p-treetable>
             </p-deferred-demo>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

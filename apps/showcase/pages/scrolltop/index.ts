@@ -1,7 +1,7 @@
 import { AccessibilityDoc } from '@/doc/scrolltop/accessibility-doc';
 import { BasicDoc } from '@/doc/scrolltop/basic-doc';
 import { ElementDoc } from '@/doc/scrolltop/element-doc';
-import { ImportDoc } from '@/doc/scrolltop/import-doc';
+import { UsageDoc } from '@/doc/scrolltop/usage-doc';
 import { PTComponent } from '@/doc/scrolltop/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
@@ -14,6 +14,7 @@ import { Component } from '@angular/core';
         header="ScrollTop"
         description="ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly."
         [docs]="docs"
+        [heroDoc]="heroDoc"
         [ptDocs]="ptComponent"
         [apiDocs]="['ScrollTop']"
         themeDocs="scrollTop"
@@ -21,25 +22,32 @@ import { Component } from '@angular/core';
     styleUrls: ['./scrolltopdemo.scss']
 })
 export class ScrollTopDemo {
+    heroDoc = BasicDoc;
+
     ptComponent = PTComponent;
 
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
+            id: 'examples',
+            label: 'Examples',
+            children: [
+                {
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
+                },
+                {
+                    id: 'element',
+                    label: 'Target Element',
+                    component: ElementDoc
+                }
+            ]
         },
-        {
-            id: 'element',
-            label: 'Target Element',
-            component: ElementDoc
-        },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({
     selector: 'disabled-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, TabsModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, TabsModule],
     template: `
         <app-docsectiontext>
             <p>Enabling <i>disabled</i> property of a Tab prevents user interaction.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-tabs value="0">
                 <p-tablist>
                     <p-tab value="0">Header I</p-tab>
@@ -41,8 +42,8 @@ import { TabsModule } from 'primeng/tabs';
                     </p-tabpanel>
                 </p-tabpanels>
             </p-tabs>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class DisabledDoc {}

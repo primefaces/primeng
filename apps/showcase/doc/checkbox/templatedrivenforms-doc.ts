@@ -7,36 +7,38 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'templatedrivenforms-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, CheckboxModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText],
+    imports: [CommonModule, FormsModule, CheckboxModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />
-        <div class="card flex justify-center">
-            <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4">
-                <div class="flex flex-wrap gap-4">
-                    @for (item of formKeys; track item) {
-                        <div class="flex items-center gap-2">
-                            <p-checkbox [inputId]="item" [name]="item" [(ngModel)]="formModel[item]" [binary]="true" [invalid]="isInvalid()"></p-checkbox>
-                            <label [for]="item" class="text-sm">{{ item | titlecase }}</label>
-                        </div>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4">
+                    <div class="flex flex-wrap gap-4">
+                        @for (item of formKeys; track item) {
+                            <div class="flex items-center gap-2">
+                                <p-checkbox [inputId]="item" [name]="item" [(ngModel)]="formModel[item]" [binary]="true" [invalid]="isInvalid()"></p-checkbox>
+                                <label [for]="item" class="text-sm">{{ item | titlecase }}</label>
+                            </div>
+                        }
+                    </div>
+                    @if (isInvalid()) {
+                        <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
                     }
-                </div>
-                @if (isInvalid()) {
-                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
-                }
 
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
-                </button>
-            </form>
-        </div>
-
-        <app-code></app-code>
+                    <button pButton severity="secondary" type="submit">
+                        <span pButtonLabel>Submit</span>
+                    </button>
+                </form>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TemplateDrivenFormsDoc {

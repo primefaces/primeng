@@ -5,31 +5,34 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'reactiveforms-doc',
     standalone: true,
-    imports: [ReactiveFormsModule, SelectButtonModule, ToastModule, ButtonModule, MessageModule, AppDocSectionText, AppCode, CommonModule],
+    imports: [ReactiveFormsModule, SelectButtonModule, ToastModule, ButtonModule, MessageModule, AppCode, AppDemoWrapper, AppDocSectionText, CommonModule],
     template: `
         <app-docsectiontext>
             <p>SelectButton can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <p-selectbutton [options]="stateOptions" formControlName="value" [invalid]="isInvalid('value')" optionLabel="label" optionValue="value" />
-                    @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">Selection is required</p-message>
-                    }
-                </div>
-                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <p-selectbutton [options]="stateOptions" formControlName="value" [invalid]="isInvalid('value')" optionLabel="label" optionValue="value" />
+                        @if (isInvalid('value')) {
+                            <p-message severity="error" size="small" variant="simple">Selection is required</p-message>
+                        }
+                    </div>
+                    <button pButton type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ReactiveFormsDoc {

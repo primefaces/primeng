@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -10,7 +11,7 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [CommonModule, ConfirmDialogModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [CommonModule, ConfirmDialogModule, ToastModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -22,21 +23,23 @@ import { ToastModule } from 'primeng/toast';
                 your own buttons.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-confirmdialog>
-                <ng-template #message let-message>
-                    @if (message) {
-                        <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
-                            <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
-                            <p class="text-sm">{{ message.message }}</p>
-                        </div>
-                    }
-                </ng-template>
-            </p-confirmdialog>
-            <p-button (click)="confirm()" label="Save" />
-        </div>
-        <app-code></app-code>
+        <p-toast />
+        <p-confirmdialog>
+            <ng-template #message let-message>
+                @if (message) {
+                    <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+                        <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
+                        <p class="text-sm">{{ message.message }}</p>
+                    </div>
+                }
+            </ng-template>
+        </p-confirmdialog>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (click)="confirm()" label="Save" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [ConfirmationService, MessageService]
 })

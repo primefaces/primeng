@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -9,54 +10,56 @@ import { Ripple } from 'primeng/ripple';
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [CommonModule, ContextMenuModule, BadgeModule, Ripple, AppCode, AppDocSectionText],
+    imports: [CommonModule, ContextMenuModule, BadgeModule, Ripple, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>ContextMenu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter.</p>
         </app-docsectiontext>
-        <div class="card flex md:justify-center">
-            <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded p-3 flex flex-col gap-2 w-full md:w-[30rem]">
-                @for (product of data; track product.id) {
-                    <li
-                        class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
-                        [ngClass]="{ 'border-primary': selectedId === product.id }"
-                        (contextmenu)="onContextMenu($event)"
-                    >
-                        <div class="flex flex-wrap p-2 items-center gap-4">
-                            <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
-                            <div class="flex-1 flex flex-col gap-1">
-                                <span class="font-bold text-sm">{{ product.name }}</span>
-                                <div class="flex items-center gap-2">
-                                    <i class="pi pi-tag text-sm"></i>
-                                    <span class="text-sm">{{ product.category }}</span>
+        <app-demo-wrapper>
+            <div class="flex md:justify-center">
+                <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded p-3 flex flex-col gap-2 w-full md:w-[30rem]">
+                    @for (product of data; track product.id) {
+                        <li
+                            class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
+                            [ngClass]="{ 'border-primary': selectedId === product.id }"
+                            (contextmenu)="onContextMenu($event)"
+                        >
+                            <div class="flex flex-wrap p-2 items-center gap-4">
+                                <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
+                                <div class="flex-1 flex flex-col gap-1">
+                                    <span class="font-bold text-sm">{{ product.name }}</span>
+                                    <div class="flex items-center gap-2">
+                                        <i class="pi pi-tag text-sm"></i>
+                                        <span class="text-sm">{{ product.category }}</span>
+                                    </div>
                                 </div>
+                                <span class="font-bold ml-8 text-sm">&#36;{{ product.price }}</span>
                             </div>
-                            <span class="font-bold ml-8 text-sm">&#36;{{ product.price }}</span>
-                        </div>
-                    </li>
-                }
-            </ul>
+                        </li>
+                    }
+                </ul>
 
-            <p-contextmenu #cm [model]="items" (onHide)="onHide()">
-                <ng-template #item let-item>
-                    <a pRipple class="flex items-center px-3 py-2 cursor-pointer">
-                        <span [class]="item.icon"></span>
-                        <span class="ms-2">{{ item.label }}</span>
-                        @if (item.badge) {
-                            <p-badge class="ms-auto" [value]="item.badge" />
-                        }
-                        @if (item.shortcut) {
-                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-                        }
-                        @if (item.items) {
-                            <i class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
-                        }
-                    </a>
-                </ng-template>
-            </p-contextmenu>
-        </div>
+                <p-contextmenu #cm [model]="items" (onHide)="onHide()">
+                    <ng-template #item let-item>
+                        <a pRipple class="flex items-center px-3 py-2 cursor-pointer">
+                            <span [class]="item.icon"></span>
+                            <span class="ms-2">{{ item.label }}</span>
+                            @if (item.badge) {
+                                <p-badge class="ms-auto" [value]="item.badge" />
+                            }
+                            @if (item.shortcut) {
+                                <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                            }
+                            @if (item.items) {
+                                <i class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
+                            }
+                        </a>
+                    </ng-template>
+                </p-contextmenu>
+            </div>
 
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TemplateDoc implements OnInit {

@@ -2,7 +2,7 @@ import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/scrollpanel/accessibility-doc';
 import { BasicDoc } from '@/doc/scrollpanel/basic-doc';
 import { CusstomDoc } from '@/doc/scrollpanel/custom-doc';
-import { ImportDoc } from '@/doc/scrollpanel/import-doc';
+import { UsageDoc } from '@/doc/scrollpanel/usage-doc';
 import { PTComponent } from '@/doc/scrollpanel/pt/PTComponent';
 import { Component } from '@angular/core';
 
@@ -15,28 +15,36 @@ import { Component } from '@angular/core';
         [apiDocs]="['ScrollPanel']"
         themeDocs="scrollpanel"
         [ptDocs]="ptComponent"
+        [heroDoc]="heroDoc"
     ></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class ScrollPanelDemo {
+    heroDoc = BasicDoc;
+
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
+            id: 'examples',
+            label: 'Examples',
+            children: [
+                {
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
+                },
+                {
+                    id: 'custom',
+                    label: 'Custom',
+                    component: CusstomDoc
+                }
+            ]
         },
-        {
-            id: 'custom',
-            label: 'Custom',
-            component: CusstomDoc
-        },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

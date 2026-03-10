@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
@@ -7,7 +8,7 @@ import { ClassNamesModule } from 'primeng/classnames';
 @Component({
     selector: 'examples-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, ClassNamesModule, CommonModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, ClassNamesModule, CommonModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -19,7 +20,7 @@ import { ClassNamesModule } from 'primeng/classnames';
                 <a href="https://github.com/tailwindlabs/tailwindcss-intellisense?tab=readme-ov-file#tailwindcssclassattributes" target="_blank" rel="noopener noreferrer">classAttributes</a> configuration for intellisense support.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex justify-between gap-4">
                 <div class="flex flex-col gap-4">
                     <div class="font-semibold text-sm">pClass Directive</div>
@@ -49,8 +50,8 @@ import { ClassNamesModule } from 'primeng/classnames';
                     </div>
                 </div>
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ExamplesDoc {

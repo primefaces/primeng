@@ -1,6 +1,6 @@
 import { AccessibilityDoc } from '@/doc/dataview/accessibility-doc';
 import { BasicDoc } from '@/doc/dataview/basic-doc';
-import { ImportDoc } from '@/doc/dataview/import-doc';
+import { UsageDoc } from '@/doc/dataview/usage-doc';
 import { LayoutDoc } from '@/doc/dataview/layout-doc';
 import { LoadingDoc } from '@/doc/dataview/loading-doc';
 import { PaginationDoc } from '@/doc/dataview/pagination-doc';
@@ -18,6 +18,7 @@ import { AppDoc } from '@/components/doc/app.doc';
             header="DataView"
             description="DataView displays data in grid grid-cols-12 gap-4 or list layout with pagination and sorting features."
             [docs]="docs"
+            [heroDoc]="heroDoc"
             [apiDocs]="['DataView']"
             [ptDocs]="ptComponent"
             themeDocs="dataview"
@@ -27,37 +28,24 @@ import { AppDoc } from '@/components/doc/app.doc';
 })
 export class DataViewDemo {
     ptComponent = PTComponent;
+    heroDoc = BasicDoc;
 
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'pagination',
-            label: 'Pagination',
-            component: PaginationDoc
-        },
-        {
-            id: 'sorting',
-            label: 'Sorting',
-            component: SortingDoc
-        },
-        {
-            id: 'layout',
-            label: 'Layout',
-            component: LayoutDoc
-        },
-        {
-            id: 'loading',
-            label: 'Loading',
-            component: LoadingDoc
+            id: 'examples',
+            label: 'Examples',
+            children: [
+                { id: 'basic', label: 'Basic', component: BasicDoc },
+                { id: 'pagination', label: 'Pagination', component: PaginationDoc },
+                { id: 'sorting', label: 'Sorting', component: SortingDoc },
+                { id: 'layout', label: 'Layout', component: LayoutDoc },
+                { id: 'loading', label: 'Loading', component: LoadingDoc }
+            ]
         },
         {
             id: 'accessibility',

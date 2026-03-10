@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'card-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, SkeletonModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, SkeletonModule],
     template: `
         <app-docsectiontext>
             <p>Sample Card implementation using different Skeleton components and Tailwind CSS utilities.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
                 <div class="flex mb-4">
                     <p-skeleton shape="circle" size="4rem" class="mr-2" />
@@ -27,8 +28,8 @@ import { SkeletonModule } from 'primeng/skeleton';
                     <p-skeleton width="4rem" height="2rem" />
                 </div>
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class CardDoc {}

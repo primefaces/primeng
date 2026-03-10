@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TreeTableModule } from 'primeng/treetable';
 import { InputTextModule } from 'primeng/inputtext';
 import { AppCodeComponent } from '@/components/doc/app.code.component';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionTextComponent } from '@/components/doc/app.docsectiontext.component';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { NodeService } from '@/service/nodeservice';
@@ -17,12 +18,12 @@ interface Column {
 @Component({
     selector: 'edit-doc',
     standalone: true,
-    imports: [NgClass, FormsModule, TreeTableModule, InputTextModule, AppCodeComponent, AppDocSectionTextComponent, DeferredDemo],
+    imports: [NgClass, FormsModule, TreeTableModule, InputTextModule, AppCodeComponent, AppDocSectionTextComponent, DeferredDemo, AppDemoWrapper],
     template: `
         <app-docsectiontext>
             <p>Incell editing is enabled by defining input elements with <i>treeTableCellEditor</i>.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>
@@ -53,8 +54,8 @@ interface Column {
                     </ng-template>
                 </p-treetable>
             </p-deferred-demo>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

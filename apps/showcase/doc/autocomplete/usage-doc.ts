@@ -17,6 +17,6 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />`
+        html: `<p-autocomplete />`
     };
 }

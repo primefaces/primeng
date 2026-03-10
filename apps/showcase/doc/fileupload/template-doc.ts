@@ -7,12 +7,13 @@ import { ButtonModule } from 'primeng/button';
 import { BadgeModule } from 'primeng/badge';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [FileUploadModule, ToastModule, ButtonModule, BadgeModule, ProgressBarModule, AppCode, AppDocSectionText],
+    imports: [FileUploadModule, ToastModule, ButtonModule, BadgeModule, ProgressBarModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -21,8 +22,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 option is <i>toolbar</i> to display custom content at toolbar.
             </p></app-docsectiontext
         >
-        <div class="card">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
             <p-fileupload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true" accept="image/*" maxFileSize="1000000" (onUpload)="onTemplatedUpload()" (onSelect)="onSelectedFiles($event)">
                 <ng-template #header let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
                     <div class="flex flex-wrap justify-between items-center flex-1 gap-4">
@@ -84,8 +85,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     </div>
                 </ng-template>
             </p-fileupload>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService]
 })

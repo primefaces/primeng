@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
@@ -9,23 +10,25 @@ import { RouterModule } from '@angular/router';
 @Component({
     selector: 'text-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule, RouterModule],
+    imports: [AppCode, AppDemoWrapper, AppDocSectionText, SplitButtonModule, ToastModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>Text buttons are displayed as textual elements.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" text />
-            <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" text severity="secondary" />
-            <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" text severity="success" />
-            <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" text severity="info" />
-            <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" text severity="warn" />
-            <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" text severity="help" />
-            <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" text severity="danger" />
-            <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" text severity="contrast" />
-        </div>
-        <app-code></app-code>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center flex-wrap gap-4">
+                <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" text />
+                <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" text severity="secondary" />
+                <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" text severity="success" />
+                <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" text severity="info" />
+                <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" text severity="warn" />
+                <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" text severity="help" />
+                <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" text severity="danger" />
+                <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" text severity="contrast" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService]
 })

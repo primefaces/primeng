@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { CommonModule } from '@angular/common';
@@ -21,13 +22,13 @@ interface NodeEvent {
 @Component({
     selector: 'selectioneventsc-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, ToastModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [CommonModule, TreeTableModule, ToastModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>TreeTable provides <i>onNodeSelect</i> and <i>onNodeUnselect</i> events to listen selection events.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable
                     [value]="files"
@@ -67,8 +68,8 @@ interface NodeEvent {
                     </ng-template>
                 </p-treetable>
             </p-deferred-demo>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService],
     changeDetection: ChangeDetectionStrategy.OnPush

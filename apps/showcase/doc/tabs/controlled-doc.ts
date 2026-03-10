@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { TabsModule } from 'primeng/tabs';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'controlled-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, TabsModule, ButtonModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, TabsModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>Tabs can be controlled programmatically using <i>value</i> property as a model.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex mb-2 gap-2 justify-end">
                 <p-button (onClick)="value = 0" rounded="true" styleClass="w-8 h-8 p-0" [outlined]="value !== 0" label="1" />
                 <p-button (onClick)="value = 1" rounded="true" styleClass="w-8 h-8 p-0" [outlined]="value !== 1" label="2" />
@@ -46,8 +47,8 @@ import { ButtonModule } from 'primeng/button';
                     </p-tabpanel>
                 </p-tabpanels>
             </p-tabs>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ControlledDoc {

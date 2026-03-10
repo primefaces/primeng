@@ -1,29 +1,32 @@
 import { Component, signal } from '@angular/core';
 import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dynamic-doc',
     standalone: true,
-    imports: [MessageModule, ButtonModule, AppCodeModule, AppDocSectionText],
+    imports: [MessageModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Multiple messages can be displayed using the standard <i>for</i> block.</p>
         </app-docsectiontext>
-        <div class="card flex flex-col items-center justify-center gap-4">
-            <div class="flex gap-2">
-                <p-button label="Show" (onClick)="addMessages()" />
-                <p-button label="Clear" severity="secondary" (onClick)="clearMessages()" />
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center justify-center gap-4">
+                <div class="flex gap-2">
+                    <p-button label="Show" (onClick)="addMessages()" />
+                    <p-button label="Clear" severity="secondary" (onClick)="clearMessages()" />
+                </div>
+                <div class="flex flex-col">
+                    @for (message of messages(); track message.severity; let first = $first) {
+                        <p-message [severity]="message.severity" [class]="{ 'mt-4': !first }" [closable]="message?.closable">{{ message.content }}</p-message>
+                    }
+                </div>
             </div>
-            <div class="flex flex-col">
-                @for (message of messages(); track message.severity; let first = $first) {
-                    <p-message [severity]="message.severity" [class]="{ 'mt-4': !first }" [closable]="message?.closable">{{ message.content }}</p-message>
-                }
-            </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class DynamicDoc {

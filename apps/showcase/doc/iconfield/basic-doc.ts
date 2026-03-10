@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCodeModule, IconFieldModule, InputIconModule, InputTextModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, IconFieldModule, InputIconModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -16,17 +17,19 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 that the default value is <i>right</i> and also <i>left</i> option is available.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-center gap-4">
-            <p-iconfield>
-                <p-inputicon class="pi pi-search" />
-                <input type="text" pInputText placeholder="Search" />
-            </p-iconfield>
-            <p-iconfield>
-                <input type="text" pInputText />
-                <p-inputicon class="pi pi-spinner pi-spin" />
-            </p-iconfield>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-4">
+                <p-iconfield>
+                    <p-inputicon class="pi pi-search" />
+                    <input type="text" pInputText placeholder="Search" />
+                </p-iconfield>
+                <p-iconfield>
+                    <input type="text" pInputText />
+                    <p-inputicon class="pi pi-spinner pi-spin" />
+                </p-iconfield>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc {}

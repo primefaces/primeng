@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AvatarModule } from 'primeng/avatar';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
     selector: 'image-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, AvatarModule, OverlayBadgeModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, AvatarModule, OverlayBadgeModule],
     template: `
         <app-docsectiontext>
             <p>Use the <i>image</i> property to display an image as an Avatar.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex flex-wrap gap-8">
                 <div class="flex-auto">
                     <h5>Image</h5>
@@ -33,8 +34,8 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                     <p-avatar image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp" class="flex items-center justify-center mr-2" size="xlarge" />
                 </div>
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ImageDoc {}

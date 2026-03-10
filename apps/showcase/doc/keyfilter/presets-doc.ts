@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { KeyFilterModule } from 'primeng/keyfilter';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'presets-doc',
     standalone: true,
-    imports: [InputTextModule, KeyFilterModule, AppCodeModule, AppDocSectionText],
+    imports: [InputTextModule, KeyFilterModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>KeyFilter provides various presets configured with the <i>pKeyFilter</i> property.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex flex-wrap gap-4 mb-6">
                 <div class="flex-auto">
                     <label for="integer" class="text-sm font-bold block mb-2"> Integer </label>
@@ -41,8 +42,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <input pInputText id="alphanumeric" pKeyFilter="alphanum" class="w-full" />
                 </div>
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class PresetsDoc {}

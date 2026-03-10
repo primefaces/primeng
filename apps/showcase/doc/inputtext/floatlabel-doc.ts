@@ -3,13 +3,14 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { RouterModule } from '@angular/router';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'floatlabel-doc',
     standalone: true,
-    imports: [FormsModule, InputTextModule, FloatLabelModule, RouterModule, AppCodeModule, AppDocSectionText],
+    imports: [FormsModule, InputTextModule, FloatLabelModule, RouterModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -17,23 +18,25 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel>
-                <input pInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-end gap-4">
+                <p-floatlabel>
+                    <input pInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
 
-            <p-floatlabel variant="in">
-                <input pInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
+                <p-floatlabel variant="in">
+                    <input pInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
 
-            <p-floatlabel variant="on">
-                <input pInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
-        <app-code></app-code>
+                <p-floatlabel variant="on">
+                    <input pInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class FloatLabelDoc {

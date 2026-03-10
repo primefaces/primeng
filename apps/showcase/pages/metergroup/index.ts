@@ -1,7 +1,7 @@
 import { AccessibilityDoc } from '@/doc/metergroup/accessibility-doc';
 import { BasicDoc } from '@/doc/metergroup/basic-doc';
 import { IconDoc } from '@/doc/metergroup/icon-doc';
-import { ImportDoc } from '@/doc/metergroup/import-doc';
+import { UsageDoc } from '@/doc/metergroup/usage-doc';
 import { LabelDoc } from '@/doc/metergroup/label-doc';
 import { MinMaxDoc } from '@/doc/metergroup/minmax-doc';
 import { MultipleDoc } from '@/doc/metergroup/multiple-doc';
@@ -19,6 +19,7 @@ import { AppDoc } from '@/components/doc/app.doc';
         header="MeterGroup"
         description="MeterGroup displays scalar measurements within a known range."
         [docs]="docs"
+        [heroDoc]="heroDoc"
         [ptDocs]="ptComponent"
         [apiDocs]="['MeterGroup']"
         themeDocs="metergroup"
@@ -26,47 +27,26 @@ import { AppDoc } from '@/components/doc/app.doc';
 })
 export class MeterGroupDemo {
     ptComponent = PTComponent;
+    heroDoc = BasicDoc;
 
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'multiple',
-            label: 'Multiple',
-            component: MultipleDoc
-        },
-        {
-            id: 'icon',
-            label: 'Icon',
-            component: IconDoc
-        },
-        {
-            id: 'label',
-            label: 'Label',
-            component: LabelDoc
-        },
-        {
-            id: 'vertical',
-            label: 'Vertical',
-            component: VerticalDoc
-        },
-        {
-            id: 'minmax',
-            label: 'Min Max',
-            component: MinMaxDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
+            id: 'examples',
+            label: 'Examples',
+            children: [
+                { id: 'basic', label: 'Basic', component: BasicDoc },
+                { id: 'multiple', label: 'Multiple', component: MultipleDoc },
+                { id: 'icon', label: 'Icon', component: IconDoc },
+                { id: 'label', label: 'Label', component: LabelDoc },
+                { id: 'vertical', label: 'Vertical', component: VerticalDoc },
+                { id: 'minmax', label: 'Min Max', component: MinMaxDoc },
+                { id: 'template', label: 'Template', component: TemplateDoc }
+            ]
         },
         {
             id: 'accessibility',

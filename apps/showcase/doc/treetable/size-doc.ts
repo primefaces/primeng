@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { CommonModule } from '@angular/common';
@@ -12,12 +13,12 @@ import { TreeTableModule } from 'primeng/treetable';
 @Component({
     selector: 'size-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, TreeTableModule, SelectButtonModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [CommonModule, FormsModule, TreeTableModule, SelectButtonModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: ` <section class="py-6">
         <app-docsectiontext>
             <p>In addition to a regular treetable, alternatives with alternative sizes are available. Add <i>p-treetable-sm</i> class to reduce the size of treetable or <i>p-treetable-lg</i> to enlarge it.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex justify-center mb-4">
                 <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
             </div>
@@ -44,8 +45,8 @@ import { TreeTableModule } from 'primeng/treetable';
                     </ng-template>
                 </p-treetable>
             </p-deferred-demo>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

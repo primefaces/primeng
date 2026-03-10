@@ -1,7 +1,7 @@
 import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/imagecompare/accessibility-doc';
 import { BasicDoc } from '@/doc/imagecompare/basic-doc';
-import { ImportDoc } from '@/doc/imagecompare/import-doc';
+import { UsageDoc } from '@/doc/imagecompare/usage-doc';
 import { PTComponent } from '@/doc/imagecompare/pt/PTComponent';
 import { ResponsiveDoc } from '@/doc/imagecompare/responsive-doc';
 import { Component } from '@angular/core';
@@ -15,26 +15,35 @@ import { Component } from '@angular/core';
         [apiDocs]="['ImageCompare']"
         [ptDocs]="ptComponent"
         themeDocs="imagecompare"
+        [heroDoc]="heroDoc"
     ></app-doc> `,
     standalone: true,
     imports: [AppDoc]
 })
 export class ImageCompareDemo {
+    heroDoc = BasicDoc;
+
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'responsive',
-            label: 'Responsive',
-            component: ResponsiveDoc
+            id: 'examples',
+            label: 'Examples',
+            children: [
+                {
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
+                },
+                {
+                    id: 'responsive',
+                    label: 'Responsive',
+                    component: ResponsiveDoc
+                }
+            ]
         },
         {
             id: 'accessibility',

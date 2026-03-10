@@ -3,11 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
     selector: 'locale-doc',
     standalone: true,
-    imports: [FormsModule, PasswordModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, PasswordModule, AppCode, AppDocSectionText, AppDemoWrapper],
     template: `
         <app-docsectiontext>
             <p>
@@ -15,10 +16,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <a href="/configuration/#locale">locale</a>
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" autocomplete="off" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" autocomplete="off" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class LocaleDoc {

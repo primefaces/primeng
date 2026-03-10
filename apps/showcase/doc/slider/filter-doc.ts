@@ -4,23 +4,26 @@ import { SliderModule } from 'primeng/slider';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
     selector: 'filter-doc',
     standalone: true,
-    imports: [FormsModule, SliderModule, SelectButtonModule, AppDocSectionText, AppCode],
+    imports: [FormsModule, SliderModule, SelectButtonModule, AppDocSectionText, AppCode, AppDemoWrapper],
     template: `
         <app-docsectiontext>
             <p>Image filter implementation using multiple sliders.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <div class="flex flex-col items-center">
-                <img alt="user header" class="w-full md:w-80 rounded mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
-                <p-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
-                <p-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <div class="flex flex-col items-center">
+                    <img alt="user header" class="w-full md:w-80 rounded mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
+                    <p-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
+                    <p-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
+                </div>
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class FilterDoc {

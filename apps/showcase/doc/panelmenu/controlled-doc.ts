@@ -3,21 +3,24 @@ import { MenuItem } from 'primeng/api';
 import { PanelMenu } from 'primeng/panelmenu';
 import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'controlled-doc',
     standalone: true,
-    imports: [PanelMenu, ButtonModule, AppCode, AppDocSectionText],
+    imports: [PanelMenu, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Menu items can be controlled programmatically.</p>
         </app-docsectiontext>
-        <div class="card flex flex-col items-center gap-4">
-            <p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
-            <p-panelmenu [model]="items" class="w-full md:w-80" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
+                <p-panelmenu [model]="items" class="w-full md:w-80" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ControlledDoc implements OnInit {

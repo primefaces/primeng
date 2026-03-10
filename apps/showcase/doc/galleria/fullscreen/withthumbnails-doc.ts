@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { PhotoService } from '@/service/photoservice';
 import { CommonModule } from '@angular/common';
@@ -9,23 +10,25 @@ import { GalleriaModule } from 'primeng/galleria';
 @Component({
     selector: 'with-thumbnails-doc',
     standalone: true,
-    imports: [CommonModule, GalleriaModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [CommonModule, GalleriaModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Full screen mode is enabled by adding <i>fullScreen</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-button icon="pi pi-external-link" label="Show" (click)="displayBasic = true" />
-            <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '50%' }" [numVisible]="9" [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
-                <ng-template #item let-item>
-                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-                </ng-template>
-                <ng-template #thumbnail let-item>
-                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
-                </ng-template>
-            </p-galleria>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button icon="pi pi-external-link" label="Show" (click)="displayBasic = true" />
+                <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '50%' }" [numVisible]="9" [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
+                    <ng-template #item let-item>
+                        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+                    </ng-template>
+                    <ng-template #thumbnail let-item>
+                        <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                    </ng-template>
+                </p-galleria>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class WithThumbnailsDoc implements OnInit {

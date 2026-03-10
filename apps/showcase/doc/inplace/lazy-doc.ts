@@ -3,18 +3,19 @@ import { ProductService } from '@/service/productservice';
 import { Component } from '@angular/core';
 import { InplaceModule } from 'primeng/inplace';
 import { TableModule } from 'primeng/table';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'lazy-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCodeModule, InplaceModule, TableModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, InplaceModule, TableModule],
     template: `
         <app-docsectiontext>
             <p>Using the <i>onActivate</i> event, data can be loaded in a lazy manner before displaying it in a table.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-inplace (onActivate)="loadData()">
                 <ng-template #display>
                     <span class="text-sm">View Data</span>
@@ -40,8 +41,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     </p-table>
                 </ng-template>
             </p-inplace>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class LazyDoc {

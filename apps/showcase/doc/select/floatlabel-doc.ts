@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -14,7 +15,7 @@ interface City {
 @Component({
     selector: 'floatlabel-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule, FloatLabelModule, RouterModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, FormsModule, SelectModule, FloatLabelModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -22,23 +23,25 @@ interface City {
                 <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel class="w-full md:w-56">
-                <p-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" class="w-full" />
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-end gap-4">
+                <p-floatlabel class="w-full md:w-56">
+                    <p-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" class="w-full" />
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
 
-            <p-floatlabel class="w-full md:w-56" variant="in">
-                <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" class="w-full" variant="filled" />
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
+                <p-floatlabel class="w-full md:w-56" variant="in">
+                    <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" class="w-full" variant="filled" />
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
 
-            <p-floatlabel class="w-full md:w-56" variant="on">
-                <p-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" class="w-full" />
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
-        <app-code></app-code>
+                <p-floatlabel class="w-full md:w-56" variant="on">
+                    <p-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" class="w-full" />
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class FloatLabelDoc implements OnInit {

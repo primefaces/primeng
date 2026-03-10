@@ -1,20 +1,21 @@
 import { Component } from '@angular/core';
 import { MeterGroupModule } from 'primeng/metergroup';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'icon-doc',
     standalone: true,
-    imports: [MeterGroupModule, AppCodeModule, AppDocSectionText],
+    imports: [MeterGroupModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Icons can be displayed next to the labels instead of the default marker.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-metergroup [value]="value" />
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class IconDoc {

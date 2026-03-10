@@ -5,19 +5,20 @@ import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } fro
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ChartModule } from 'primeng/chart';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
     selector: 'combo-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, ChartModule],
+    imports: [AppCode, AppDocSectionText, ChartModule, AppDemoWrapper],
     template: `
         <app-docsectiontext>
             <p>Different chart types can be combined in the same graph using the <i>type</i> option of a dataset.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ComboDoc implements OnInit {

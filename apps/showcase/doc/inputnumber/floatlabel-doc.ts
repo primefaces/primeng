@@ -3,13 +3,14 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'floatlabel-doc',
     standalone: true,
-    imports: [FormsModule, RouterModule, InputNumberModule, FloatLabelModule, AppCodeModule, AppDocSectionText],
+    imports: [FormsModule, RouterModule, InputNumberModule, FloatLabelModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -17,23 +18,25 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel>
-                <p-inputnumber [(ngModel)]="value1" inputId="over_label" mode="currency" currency="USD" locale="en-US" />
-                <label for="over_label">Over Label</label>
-            </p-floatlabel>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center items-end gap-4">
+                <p-floatlabel>
+                    <p-inputnumber [(ngModel)]="value1" inputId="over_label" mode="currency" currency="USD" locale="en-US" />
+                    <label for="over_label">Over Label</label>
+                </p-floatlabel>
 
-            <p-floatlabel variant="in">
-                <p-inputnumber [(ngModel)]="value2" inputId="in_label" mode="currency" currency="USD" locale="en-US" />
-                <label for="in_label">In Label</label>
-            </p-floatlabel>
+                <p-floatlabel variant="in">
+                    <p-inputnumber [(ngModel)]="value2" inputId="in_label" mode="currency" currency="USD" locale="en-US" />
+                    <label for="in_label">In Label</label>
+                </p-floatlabel>
 
-            <p-floatlabel variant="on">
-                <p-inputnumber [(ngModel)]="value3" inputId="on_label" mode="currency" currency="USD" locale="en-US" />
-                <label for="on_label">On Label</label>
-            </p-floatlabel>
-        </div>
-        <app-code></app-code>
+                <p-floatlabel variant="on">
+                    <p-inputnumber [(ngModel)]="value3" inputId="on_label" mode="currency" currency="USD" locale="en-US" />
+                    <label for="on_label">On Label</label>
+                </p-floatlabel>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class FloatlabelDoc {

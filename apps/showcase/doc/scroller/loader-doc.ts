@@ -2,43 +2,46 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ScrollerModule } from 'primeng/scroller';
 import { Skeleton } from 'primeng/skeleton';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'loader-doc',
     standalone: true,
-    imports: [ScrollerModule, Skeleton, AppCode, AppDocSectionText, CommonModule],
+    imports: [ScrollerModule, Skeleton, AppCode, AppDemoWrapper, AppDocSectionText, CommonModule],
     template: `
         <app-docsectiontext>
             <p>Busy state is enabled by adding <i>showLoader</i> property which blocks the UI with a modal by default. Alternatively, <i>loader</i> template can be used to customize items e.g. with <a href="/skeleton" class="">Skeleton</a>.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-center gap-4">
-            <div>
-                <p-virtualscroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
-                    <ng-template #item let-item let-options="options">
-                        <div class="flex items-center p-2 text-sm" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
-                            {{ item }}
-                        </div>
-                    </ng-template>
-                </p-virtualscroller>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-4">
+                <div>
+                    <p-virtualscroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+                        <ng-template #item let-item let-options="options">
+                            <div class="flex items-center p-2 text-sm" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                                {{ item }}
+                            </div>
+                        </ng-template>
+                    </p-virtualscroller>
+                </div>
+                <div>
+                    <p-virtualscroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+                        <ng-template #item let-item let-options="options">
+                            <div class="flex items-center p-2 text-sm" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                                {{ item }}
+                            </div>
+                        </ng-template>
+                        <ng-template #loader let-options="options">
+                            <div class="flex items-center p-2 text-sm" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                                <p-skeleton [width]="options.even ? '60%' : '50%'" height="1.138rem"></p-skeleton>
+                            </div>
+                        </ng-template>
+                    </p-virtualscroller>
+                </div>
             </div>
-            <div>
-                <p-virtualscroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
-                    <ng-template #item let-item let-options="options">
-                        <div class="flex items-center p-2 text-sm" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
-                            {{ item }}
-                        </div>
-                    </ng-template>
-                    <ng-template #loader let-options="options">
-                        <div class="flex items-center p-2 text-sm" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
-                            <p-skeleton [width]="options.even ? '60%' : '50%'" height="1.138rem"></p-skeleton>
-                        </div>
-                    </ng-template>
-                </p-virtualscroller>
-            </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

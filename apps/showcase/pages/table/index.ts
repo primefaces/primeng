@@ -21,7 +21,7 @@ import { FrozenColumnsDoc } from '@/doc/table/frozencolumns-doc';
 import { FrozenRowsDoc } from '@/doc/table/frozenrows-doc';
 import { GridlinesDoc } from '@/doc/table/gridlines-doc';
 import { HorizontalScrollDoc } from '@/doc/table/horizontalscroll-doc';
-import { ImportDoc } from '@/doc/table/import-doc';
+import { UsageDoc } from '@/doc/table/usage-doc';
 import { LoadingMaskDoc } from '@/doc/table/loadingmask-doc';
 import { LoadingSkeletonDoc } from '@/doc/table/loadingskeleton-doc';
 import { MultipleColumnsSortDoc } from '@/doc/table/multiplecolumnssort-doc';
@@ -52,316 +52,333 @@ import { VirtualScrollLazyDoc } from '@/doc/table/virtualscrolllazy-doc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Angular Table Component" header="Table" description="Table displays data in tabular format." [docs]="docs" [apiDocs]="['Table', 'ColumnFilter']" themeDocs="table" [ptDocs]="ptComponent"></app-doc>`,
+    template: `<app-doc
+        docTitle="Angular Table Component"
+        header="Table"
+        description="Table displays data in tabular format."
+        [docs]="docs"
+        [heroDoc]="heroDoc"
+        [apiDocs]="['Table', 'ColumnFilter']"
+        themeDocs="table"
+        [ptDocs]="ptComponent"
+    ></app-doc>`,
     standalone: true,
     imports: [AppDoc],
     styleUrl: './tabledemo.scss'
 })
 export class TableDemo {
+    heroDoc = BasicDoc;
+
     docs = [
         {
-            id: 'import-demo',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'dynamic',
-            label: 'Dynamic Columns',
-            component: DynamicDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
-            id: 'size',
-            label: 'Size',
-            component: SizeDoc
-        },
-        {
-            id: 'gridlines',
-            label: 'Grid Lines',
-            component: GridlinesDoc
-        },
-        {
-            id: 'striped',
-            label: 'Striped Rows',
-            component: StripedDoc
-        },
-        {
-            id: 'table-style',
-            label: 'Conditional Style',
-            component: StyleDoc
-        },
-        {
-            id: 'loading',
-            label: 'Loading',
+            id: 'examples',
+            label: 'Examples',
             children: [
                 {
-                    id: 'loading-mask',
-                    label: 'Mask',
-                    component: LoadingMaskDoc
-                },
-                {
-                    id: 'loading-skeleton',
-                    label: 'Skeleton',
-                    component: LoadingSkeletonDoc
-                }
-            ]
-        },
-        {
-            id: 'paginator',
-            label: 'Pagination',
-            children: [
-                {
-                    id: 'paginator-basic',
+                    id: 'basic',
                     label: 'Basic',
-                    component: PaginatorBasicDoc
+                    component: BasicDoc
                 },
                 {
-                    id: 'paginator-programmatic',
-                    label: 'Programmatic',
-                    component: PaginatorProgrammaticDoc
-                }
-            ]
-        },
-        {
-            id: 'sort',
-            label: 'Sort',
-            children: [
-                {
-                    id: 'single-column-sort',
-                    label: 'Single Column',
-                    component: SingleColumnSortDoc
+                    id: 'dynamic',
+                    label: 'Dynamic Columns',
+                    component: DynamicDoc
                 },
                 {
-                    id: 'multiple-columns-sort',
-                    label: 'Multiple Columns',
-                    component: MultipleColumnsSortDoc
+                    id: 'template',
+                    label: 'Template',
+                    component: TemplateDoc
                 },
                 {
-                    id: 'pre-sort',
-                    label: 'Presort',
-                    component: PreSortDoc
+                    id: 'size',
+                    label: 'Size',
+                    component: SizeDoc
                 },
                 {
-                    id: 'removable-sort',
-                    label: 'Removable',
-                    component: RemovableSortDoc
-                }
-            ]
-        },
-        {
-            id: 'filter',
-            label: 'Filter',
-            children: [
-                {
-                    id: 'filter-basic',
-                    label: 'Basic',
-                    component: FilterBasicDoc
+                    id: 'gridlines',
+                    label: 'Grid Lines',
+                    component: GridlinesDoc
                 },
                 {
-                    id: 'filter-advanced',
-                    label: 'Advanced',
-                    component: FilterAdvancedDoc
-                }
-            ]
-        },
-        {
-            id: 'row-selection',
-            label: 'Row Selection',
-            children: [
-                {
-                    id: 'single-selection',
-                    label: 'Single',
-                    component: SingleSelectionDoc
+                    id: 'striped',
+                    label: 'Striped Rows',
+                    component: StripedDoc
                 },
                 {
-                    id: 'multiple-selection',
-                    label: 'Multiple',
-                    component: MultipleSelectionDoc
+                    id: 'table-style',
+                    label: 'Conditional Style',
+                    component: StyleDoc
                 },
                 {
-                    id: 'radio-button-selection',
-                    label: 'RadioButton',
-                    component: RadioButtonSelectionDoc
+                    id: 'loading',
+                    label: 'Loading',
+                    children: [
+                        {
+                            id: 'loading-mask',
+                            label: 'Mask',
+                            component: LoadingMaskDoc
+                        },
+                        {
+                            id: 'loading-skeleton',
+                            label: 'Skeleton',
+                            component: LoadingSkeletonDoc
+                        }
+                    ]
                 },
                 {
-                    id: 'checkbox-selection',
-                    label: 'Checkbox',
-                    component: CheckboxSelectionDoc
+                    id: 'paginator',
+                    label: 'Pagination',
+                    children: [
+                        {
+                            id: 'paginator-basic',
+                            label: 'Basic',
+                            component: PaginatorBasicDoc
+                        },
+                        {
+                            id: 'paginator-programmatic',
+                            label: 'Programmatic',
+                            component: PaginatorProgrammaticDoc
+                        }
+                    ]
                 },
                 {
-                    id: 'column-selection',
-                    label: 'Column',
-                    component: ColumnSelectionDoc
+                    id: 'sort',
+                    label: 'Sort',
+                    children: [
+                        {
+                            id: 'single-column-sort',
+                            label: 'Single Column',
+                            component: SingleColumnSortDoc
+                        },
+                        {
+                            id: 'multiple-columns-sort',
+                            label: 'Multiple Columns',
+                            component: MultipleColumnsSortDoc
+                        },
+                        {
+                            id: 'pre-sort',
+                            label: 'Presort',
+                            component: PreSortDoc
+                        },
+                        {
+                            id: 'removable-sort',
+                            label: 'Removable',
+                            component: RemovableSortDoc
+                        }
+                    ]
                 },
                 {
-                    id: 'selection-events',
-                    label: 'Events',
-                    component: SelectionEventsDoc
-                }
-            ]
-        },
-        {
-            id: 'row-expansion',
-            label: 'Row Expansion',
-            component: RowExpansionDoc
-        },
-        {
-            id: 'Edit',
-            label: 'Edit',
-            children: [
-                {
-                    id: 'cell-edit',
-                    label: 'Cell',
-                    component: CellEditDoc
+                    id: 'filter',
+                    label: 'Filter',
+                    children: [
+                        {
+                            id: 'filter-basic',
+                            label: 'Basic',
+                            component: FilterBasicDoc
+                        },
+                        {
+                            id: 'filter-advanced',
+                            label: 'Advanced',
+                            component: FilterAdvancedDoc
+                        }
+                    ]
                 },
                 {
-                    id: 'row-edit',
-                    label: 'Row',
-                    component: RowEditDoc
-                }
-            ]
-        },
-        {
-            id: 'scroll',
-            label: 'Scroll',
-            children: [
-                {
-                    id: 'vertical-scroll',
-                    label: 'Vertical',
-                    component: VerticalScrollDoc
+                    id: 'row-selection',
+                    label: 'Row Selection',
+                    children: [
+                        {
+                            id: 'single-selection',
+                            label: 'Single',
+                            component: SingleSelectionDoc
+                        },
+                        {
+                            id: 'multiple-selection',
+                            label: 'Multiple',
+                            component: MultipleSelectionDoc
+                        },
+                        {
+                            id: 'radio-button-selection',
+                            label: 'RadioButton',
+                            component: RadioButtonSelectionDoc
+                        },
+                        {
+                            id: 'checkbox-selection',
+                            label: 'Checkbox',
+                            component: CheckboxSelectionDoc
+                        },
+                        {
+                            id: 'column-selection',
+                            label: 'Column',
+                            component: ColumnSelectionDoc
+                        },
+                        {
+                            id: 'selection-events',
+                            label: 'Events',
+                            component: SelectionEventsDoc
+                        }
+                    ]
                 },
                 {
-                    id: 'flex-scroll',
-                    label: 'Flexible',
-                    component: FlexibleScrollDoc
+                    id: 'row-expansion',
+                    label: 'Row Expansion',
+                    component: RowExpansionDoc
                 },
                 {
-                    id: 'horizontal-scroll',
-                    label: 'Horizontal',
-                    component: HorizontalScrollDoc
+                    id: 'Edit',
+                    label: 'Edit',
+                    children: [
+                        {
+                            id: 'cell-edit',
+                            label: 'Cell',
+                            component: CellEditDoc
+                        },
+                        {
+                            id: 'row-edit',
+                            label: 'Row',
+                            component: RowEditDoc
+                        }
+                    ]
                 },
                 {
-                    id: 'frozen-rows',
-                    label: 'Frozen Rows',
-                    component: FrozenRowsDoc
+                    id: 'scroll',
+                    label: 'Scroll',
+                    children: [
+                        {
+                            id: 'vertical-scroll',
+                            label: 'Vertical',
+                            component: VerticalScrollDoc
+                        },
+                        {
+                            id: 'flex-scroll',
+                            label: 'Flexible',
+                            component: FlexibleScrollDoc
+                        },
+                        {
+                            id: 'horizontal-scroll',
+                            label: 'Horizontal',
+                            component: HorizontalScrollDoc
+                        },
+                        {
+                            id: 'frozen-rows',
+                            label: 'Frozen Rows',
+                            component: FrozenRowsDoc
+                        },
+                        {
+                            id: 'frozen-columns',
+                            label: 'Frozen Columns',
+                            component: FrozenColumnsDoc
+                        }
+                    ]
                 },
                 {
-                    id: 'frozen-columns',
-                    label: 'Frozen Columns',
-                    component: FrozenColumnsDoc
-                }
-            ]
-        },
-        {
-            id: 'virtual-scroll',
-            label: 'Virtual Scroll',
-            children: [
-                {
-                    id: 'virtual-scroll-basic',
-                    label: 'Preload',
-                    component: VirtualScrollDoc
+                    id: 'virtual-scroll',
+                    label: 'Virtual Scroll',
+                    children: [
+                        {
+                            id: 'virtual-scroll-basic',
+                            label: 'Preload',
+                            component: VirtualScrollDoc
+                        },
+                        {
+                            id: 'virtual-scroll-lazy',
+                            label: 'Lazy',
+                            component: VirtualScrollLazyDoc
+                        }
+                    ]
                 },
                 {
-                    id: 'virtual-scroll-lazy',
-                    label: 'Lazy',
-                    component: VirtualScrollLazyDoc
-                }
-            ]
-        },
-        {
-            id: 'column-group',
-            label: 'Column Group',
-            component: ColumnGroupDoc
-        },
-        {
-            id: 'row-group',
-            label: 'Row Group',
-            children: [
-                {
-                    id: 'subheader',
-                    label: 'Subheader',
-                    component: SubheaderGroupingDoc
+                    id: 'column-group',
+                    label: 'Column Group',
+                    component: ColumnGroupDoc
                 },
                 {
-                    id: 'expand',
-                    label: 'Expandable',
-                    component: ExpandableRowGroupDoc
+                    id: 'row-group',
+                    label: 'Row Group',
+                    children: [
+                        {
+                            id: 'subheader',
+                            label: 'Subheader',
+                            component: SubheaderGroupingDoc
+                        },
+                        {
+                            id: 'expand',
+                            label: 'Expandable',
+                            component: ExpandableRowGroupDoc
+                        },
+                        {
+                            id: 'row-span',
+                            label: 'RowSpan',
+                            component: RowspanGroupingDoc
+                        }
+                    ]
                 },
                 {
-                    id: 'row-span',
-                    label: 'RowSpan',
-                    component: RowspanGroupingDoc
-                }
-            ]
-        },
-        {
-            id: 'column-resize',
-            label: 'Column Resize',
-            children: [
-                {
-                    id: 'fit-mode',
-                    label: 'Fit Mode',
-                    component: ColumnResizeFitModeDoc
+                    id: 'column-resize',
+                    label: 'Column Resize',
+                    children: [
+                        {
+                            id: 'fit-mode',
+                            label: 'Fit Mode',
+                            component: ColumnResizeFitModeDoc
+                        },
+                        {
+                            id: 'expand-mode',
+                            label: 'Expand Mode',
+                            component: ColumnResizeExpandModeDoc
+                        },
+                        {
+                            id: 'scrollable',
+                            label: 'Scrollable',
+                            component: ColumnResizeScrollableModeDoc
+                        }
+                    ]
                 },
                 {
-                    id: 'expand-mode',
-                    label: 'Expand Mode',
-                    component: ColumnResizeExpandModeDoc
+                    id: 'reorder',
+                    label: 'Reorder',
+                    component: ReorderDoc
                 },
                 {
-                    id: 'scrollable',
-                    label: 'Scrollable',
-                    component: ColumnResizeScrollableModeDoc
-                }
-            ]
-        },
-        {
-            id: 'reorder',
-            label: 'Reorder',
-            component: ReorderDoc
-        },
-        {
-            id: 'column-toggle',
-            label: 'Column Toggle',
-            component: ColumnToggleDoc
-        },
-        {
-            id: 'export',
-            label: 'Export',
-            component: ExportDoc
-        },
-        {
-            id: 'context-menu',
-            label: 'Context Menu',
-            component: ContextMenuDoc
-        },
-        {
-            id: 'stateful',
-            label: 'Stateful',
-            component: StatefulDoc
-        },
-        {
-            id: 'samples',
-            label: 'Samples',
-            children: [
-                {
-                    id: 'customers',
-                    label: 'Customers',
-                    component: CustomersDoc
+                    id: 'column-toggle',
+                    label: 'Column Toggle',
+                    component: ColumnToggleDoc
                 },
                 {
-                    id: 'products',
-                    label: 'Products',
-                    component: ProductsDoc
+                    id: 'export',
+                    label: 'Export',
+                    component: ExportDoc
+                },
+                {
+                    id: 'context-menu',
+                    label: 'Context Menu',
+                    component: ContextMenuDoc
+                },
+                {
+                    id: 'stateful',
+                    label: 'Stateful',
+                    component: StatefulDoc
+                },
+                {
+                    id: 'samples',
+                    label: 'Samples',
+                    children: [
+                        {
+                            id: 'customers',
+                            label: 'Customers',
+                            component: CustomersDoc
+                        },
+                        {
+                            id: 'products',
+                            label: 'Products',
+                            component: ProductsDoc
+                        }
+                    ]
                 }
             ]
         },

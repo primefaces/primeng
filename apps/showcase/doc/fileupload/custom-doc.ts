@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
@@ -8,16 +9,18 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'custom-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, FileUploadModule, ToastModule],
+    imports: [AppCode, AppDemoWrapper, AppDocSectionText, FileUploadModule, ToastModule],
     template: `
         <app-docsectiontext>
             <p>FileUpload basic <i>mode</i> provides a simpler UI as an alternative to default advanced mode.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-toast></p-toast>
-            <p-fileupload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileupload>
-        </div>
-        <app-code></app-code>
+        <p-toast></p-toast>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-fileupload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileupload>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService]
 })

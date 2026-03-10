@@ -4,7 +4,7 @@ import { DisabledDoc } from '@/doc/password/disabled-doc';
 import { FilledDoc } from '@/doc/password/filled-doc';
 import { FloatLabelDoc } from '@/doc/password/floatlabel-doc';
 import { IftaLabelDoc } from '@/doc/password/iftalabel-doc';
-import { ImportDoc } from '@/doc/password/import-doc';
+import { UsageDoc } from '@/doc/password/usage-doc';
 import { InvalidDoc } from '@/doc/password/invalid-doc';
 import { LocaleDoc } from '@/doc/password/locale-doc';
 import { MeterDoc } from '@/doc/password/meter-doc';
@@ -28,90 +28,97 @@ import { AppDoc } from '@/components/doc/app.doc';
         [apiDocs]="['Password', 'PasswordDirective']"
         [ptDocs]="ptComponent"
         themeDocs="password"
+        [heroDoc]="heroDoc"
     ></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class PasswordDemo {
     ptComponent = PTComponent;
+    heroDoc = BasicDoc;
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-
-        {
-            id: 'meter',
-            label: 'Meter',
-            component: MeterDoc
-        },
-        {
-            id: 'locale',
-            label: 'Locale',
-            component: LocaleDoc
-        },
-        {
-            id: 'togglemask',
-            label: 'Toggle Mask',
-            component: ToggleMaskDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
-            id: 'floatlabel',
-            label: 'Float Label',
-            component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
-        },
-        {
-            id: 'clearicon',
-            label: 'Clear Icon',
-            component: ClearIconDoc
-        },
-        {
-            id: 'sizes',
-            label: 'Sizes',
-            component: SizesDoc
-        },
-        {
-            id: 'fluid',
-            label: 'Fluid',
-            component: FluidDoc
-        },
-        {
-            id: 'filled',
-            label: 'Filled',
-            component: FilledDoc
-        },
-        {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
-        },
-        {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc
-        },
-        {
-            id: 'forms',
-            label: 'Forms',
+            id: 'examples',
+            label: 'Examples',
             children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                {
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
+                },
+                {
+                    id: 'meter',
+                    label: 'Meter',
+                    component: MeterDoc
+                },
+                {
+                    id: 'locale',
+                    label: 'Locale',
+                    component: LocaleDoc
+                },
+                {
+                    id: 'togglemask',
+                    label: 'Toggle Mask',
+                    component: ToggleMaskDoc
+                },
+                {
+                    id: 'template',
+                    label: 'Template',
+                    component: TemplateDoc
+                },
+                {
+                    id: 'floatlabel',
+                    label: 'Float Label',
+                    component: FloatLabelDoc
+                },
+                {
+                    id: 'iftalabel',
+                    label: 'Ifta Label',
+                    component: IftaLabelDoc
+                },
+                {
+                    id: 'clearicon',
+                    label: 'Clear Icon',
+                    component: ClearIconDoc
+                },
+                {
+                    id: 'sizes',
+                    label: 'Sizes',
+                    component: SizesDoc
+                },
+                {
+                    id: 'fluid',
+                    label: 'Fluid',
+                    component: FluidDoc
+                },
+                {
+                    id: 'filled',
+                    label: 'Filled',
+                    component: FilledDoc
+                },
+                {
+                    id: 'disabled',
+                    label: 'Disabled',
+                    component: DisabledDoc
+                },
+                {
+                    id: 'invalid',
+                    label: 'Invalid',
+                    component: InvalidDoc
+                },
+                {
+                    id: 'forms',
+                    label: 'Forms',
+                    children: [
+                        { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                        { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                    ]
+                }
             ]
         },
         {

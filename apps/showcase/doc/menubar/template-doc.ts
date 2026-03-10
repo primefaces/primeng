@@ -1,4 +1,5 @@
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -12,12 +13,12 @@ import { Ripple } from 'primeng/ripple';
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [NgClass, MenubarModule, BadgeModule, AvatarModule, InputTextModule, Ripple, AppCodeModule, AppDocSectionText],
+    imports: [NgClass, MenubarModule, BadgeModule, AvatarModule, InputTextModule, Ripple, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Custom content can be placed inside the menubar using the <i>start</i> and <i>end</i> templates.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-menubar [model]="items">
                 <ng-template #start>
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
@@ -71,8 +72,8 @@ import { Ripple } from 'primeng/ripple';
                     </div>
                 </ng-template>
             </p-menubar>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TemplateDoc implements OnInit {

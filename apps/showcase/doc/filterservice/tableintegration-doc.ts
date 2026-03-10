@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
@@ -9,12 +10,12 @@ import { TableModule } from 'primeng/table';
 @Component({
     selector: 'tableintegration-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, TableModule],
+    imports: [AppCode, AppDemoWrapper, AppDocSectionText, TableModule],
     template: `
         <app-docsectiontext>
             <p>A custom equals filter that checks for exact case sensitive value is registered and defined as a match mode of a column filter.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '75rem' }">
                 <ng-template #header let-columns>
                     <tr>
@@ -38,8 +39,8 @@ import { TableModule } from 'primeng/table';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
-        <app-code [extFiles]="['Product', 'Car']"></app-code>
+            <app-code [extFiles]="['Product', 'Car']"></app-code>
+        </app-demo-wrapper>
     `,
     providers: [FilterService]
 })

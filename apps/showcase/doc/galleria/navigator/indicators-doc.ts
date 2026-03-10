@@ -3,17 +3,18 @@ import { Component, inject, model, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GalleriaModule } from 'primeng/galleria';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'indicators-doc',
     standalone: true,
-    imports: [CommonModule, GalleriaModule, AppCode, AppDocSectionText],
+    imports: [CommonModule, GalleriaModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Navigators and Indicators can be combined as well.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-galleria
                 [(value)]="images"
                 [showItemNavigators]="true"
@@ -31,8 +32,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <img [src]="item.thumbnailImageSrc" style="display: block;" />
                 </ng-template>
             </p-galleria>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [PhotoService]
 })

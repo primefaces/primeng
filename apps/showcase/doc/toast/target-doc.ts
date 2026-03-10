@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'target-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, ToastModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -16,13 +17,15 @@ import { ButtonModule } from 'primeng/button';
                 <i>key</i> property so that toast and the message can match.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center gap-2">
-            <p-toast key="toast1" />
-            <p-toast key="toast2" />
-            <p-button (click)="showToast1()" label="Show Success" />
-            <p-button (click)="showToast2()" label="Show Warning" severity="warn" />
-        </div>
-        <app-code></app-code>
+        <p-toast key="toast1" />
+        <p-toast key="toast2" />
+        <app-demo-wrapper>
+            <div class="flex justify-center gap-2">
+                <p-button (click)="showToast1()" label="Show Success" />
+                <p-button (click)="showToast2()" label="Show Warning" severity="warn" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService]
 })

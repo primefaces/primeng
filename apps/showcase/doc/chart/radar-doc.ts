@@ -5,19 +5,22 @@ import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } fro
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ChartModule } from 'primeng/chart';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
     selector: 'radar-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, ChartModule],
+    imports: [AppCode, AppDocSectionText, ChartModule, AppDemoWrapper],
     template: `
         <app-docsectiontext>
             <p>A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes starting from the same point.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class RadarDoc implements OnInit {

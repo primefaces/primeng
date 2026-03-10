@@ -5,7 +5,7 @@ import { FilledDoc } from '@/doc/inputtext/filled-doc';
 import { FloatLabelDoc } from '@/doc/inputtext/floatlabel-doc';
 import { HelpTextDoc } from '@/doc/inputtext/helptext-doc';
 import { IftaLabelDoc } from '@/doc/inputtext/iftalabel-doc';
-import { ImportDoc } from '@/doc/inputtext/import-doc';
+import { UsageDoc } from '@/doc/inputtext/usage-doc';
 import { InvalidDoc } from '@/doc/inputtext/invalid-doc';
 import { PTComponent } from '@/doc/inputtext/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/inputtext/reactiveforms-doc';
@@ -24,70 +24,78 @@ import { AppDoc } from '@/components/doc/app.doc';
         description="InputText is an extension to standard input element with theming and keyfiltering."
         [apiDocs]="['InputText']"
         [docs]="docs"
+        [heroDoc]="heroDoc"
         [ptDocs]="ptComponent"
         themeDocs="inputtext"
     ></app-doc> `
 })
 export class InputTextDemo {
     ptComponent = PTComponent;
+    heroDoc = BasicDoc;
 
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'floatlabel',
-            label: 'Float Label',
-            component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
-        },
-        {
-            id: 'sizes',
-            label: 'Sizes',
-            component: SizesDoc
-        },
-        {
-            id: 'fluid',
-            label: 'Fluid',
-            component: FluidDoc
-        },
-        {
-            id: 'helptext',
-            label: 'Help Text',
-            component: HelpTextDoc
-        },
-        {
-            id: 'filled',
-            label: 'Filled',
-            component: FilledDoc
-        },
-        {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
-        },
-        {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc
-        },
-        {
-            id: 'forms',
-            label: 'Forms',
+            id: 'examples',
+            label: 'Examples',
             children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                {
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
+                },
+                {
+                    id: 'floatlabel',
+                    label: 'Float Label',
+                    component: FloatLabelDoc
+                },
+                {
+                    id: 'iftalabel',
+                    label: 'Ifta Label',
+                    component: IftaLabelDoc
+                },
+                {
+                    id: 'sizes',
+                    label: 'Sizes',
+                    component: SizesDoc
+                },
+                {
+                    id: 'fluid',
+                    label: 'Fluid',
+                    component: FluidDoc
+                },
+                {
+                    id: 'helptext',
+                    label: 'Help Text',
+                    component: HelpTextDoc
+                },
+                {
+                    id: 'filled',
+                    label: 'Filled',
+                    component: FilledDoc
+                },
+                {
+                    id: 'disabled',
+                    label: 'Disabled',
+                    component: DisabledDoc
+                },
+                {
+                    id: 'invalid',
+                    label: 'Invalid',
+                    component: InvalidDoc
+                },
+                {
+                    id: 'forms',
+                    label: 'Forms',
+                    children: [
+                        { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                        { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                    ]
+                }
             ]
         },
         {

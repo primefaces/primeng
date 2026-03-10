@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { StepperModule } from 'primeng/stepper';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'vertical-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, StepperModule, ButtonModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, StepperModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>Vertical layout requires <i>StepItem</i> as a wrapper of <i>Step</i> and <i>StepPanel</i> components.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-stepper [value]="1">
                 <p-step-item [value]="1">
                     <p-step>Header I</p-step>
@@ -57,8 +58,8 @@ import { ButtonModule } from 'primeng/button';
                     </p-step-panel>
                 </p-step-item>
             </p-stepper>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class VerticalDoc {}

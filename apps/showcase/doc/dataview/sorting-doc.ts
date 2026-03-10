@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -14,13 +15,13 @@ import { TagModule } from 'primeng/tag';
 @Component({
     selector: 'sorting-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, DataViewModule, ButtonModule, TagModule, SelectModule, AppCode, AppDocSectionText],
+    imports: [CommonModule, FormsModule, DataViewModule, ButtonModule, TagModule, SelectModule, AppCode, AppDemoWrapper, AppDocSectionText],
     providers: [ProductService],
     template: `
         <app-docsectiontext>
             <p>Built-in sorting is controlled by bindings <i>sortField</i> and <i>sortOrder</i> properties from a custom UI.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-dataview #dv [value]="products()" [sortField]="sortField" [sortOrder]="sortOrder">
                 <ng-template #header>
                     <div class="flex flex-col md:flex-row md:justify-between">
@@ -66,8 +67,8 @@ import { TagModule } from 'primeng/tag';
                     </div>
                 </ng-template>
             </p-dataview>
-        </div>
-        <app-code [extFiles]="['Product']"></app-code>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>
     `
 })
 export class SortingDoc {

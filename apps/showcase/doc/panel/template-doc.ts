@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component, OnInit } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
@@ -9,12 +10,12 @@ import { PanelModule } from 'primeng/panel';
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [PanelModule, AvatarModule, ButtonModule, MenuModule, AppCode, AppDocSectionText],
+    imports: [PanelModule, AvatarModule, ButtonModule, MenuModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Header and Footers sections can be customized using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-panel [toggleable]="true">
                 <ng-template #header>
                     <div class="flex items-center gap-2">
@@ -40,8 +41,8 @@ import { PanelModule } from 'primeng/panel';
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
             </p-panel>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TemplateDoc implements OnInit {

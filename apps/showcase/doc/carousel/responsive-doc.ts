@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -11,7 +12,7 @@ import { TagModule } from 'primeng/tag';
 @Component({
     selector: 'responsive-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, CarouselModule, ButtonModule, TagModule],
+    imports: [CommonModule, AppDocSectionText, AppCode, AppDemoWrapper, CarouselModule, ButtonModule, TagModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -21,7 +22,7 @@ import { TagModule } from 'primeng/tag';
                 <i>numVisible</i> properties of the Carousel are used as default when there is breakpoint that applies.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
@@ -42,8 +43,8 @@ import { TagModule } from 'primeng/tag';
                     </div>
                 </ng-template>
             </p-carousel>
-        </div>
-        <app-code [extFiles]="['Product']"></app-code>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ResponsiveDoc implements OnInit {

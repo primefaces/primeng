@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer, Representative } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
@@ -20,12 +21,29 @@ import { TagModule } from 'primeng/tag';
 @Component({
     selector: 'filter-advanced-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, TableModule, ButtonModule, TagModule, IconFieldModule, InputIconModule, InputTextModule, MultiSelectModule, SelectModule, SliderModule, ProgressBarModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [
+        CommonModule,
+        FormsModule,
+        TableModule,
+        ButtonModule,
+        TagModule,
+        IconFieldModule,
+        InputIconModule,
+        InputTextModule,
+        MultiSelectModule,
+        SelectModule,
+        SliderModule,
+        ProgressBarModule,
+        AppDocSectionText,
+        AppCode,
+        DeferredDemo,
+        AppDemoWrapper
+    ],
     template: ` <app-docsectiontext>
             <p>Filters are displayed in an overlay.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
+            <app-demo-wrapper>
                 <p-table #dt1 [value]="customers()" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading()" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" showGridlines>
                     <ng-template #caption>
                         <div class="flex">
@@ -166,9 +184,9 @@ import { TagModule } from 'primeng/tag';
                         </tr>
                     </ng-template>
                 </p-table>
-            </div>
-        </p-deferred-demo>
-        <app-code></app-code>`,
+                <app-code></app-code>
+            </app-demo-wrapper>
+        </p-deferred-demo>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterAdvancedDoc {

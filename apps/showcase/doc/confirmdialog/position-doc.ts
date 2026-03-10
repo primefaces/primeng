@@ -4,19 +4,20 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'position-doc',
     standalone: true,
-    imports: [ConfirmDialogModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [ConfirmDialogModule, ToastModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The <i>position</i> property of the confirm options is used to display a Dialog at all edges and corners of the screen.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-toast />
-            <p-confirmdialog key="positionDialog" [position]="position" />
+        <p-toast />
+        <p-confirmdialog key="positionDialog" [position]="position" />
+        <app-demo-wrapper>
             <div class="flex flex-wrap justify-center gap-2 mb-4">
                 <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
                 <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
@@ -31,8 +32,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40" />
                 <p-button (click)="confirmPosition('bottomright')" icon="pi pi-arrow-up" label="BottomRight" severity="secondary" styleClass="min-w-40" />
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [ConfirmationService, MessageService]
 })

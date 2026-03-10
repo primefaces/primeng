@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { RouterModule } from '@angular/router';
@@ -9,18 +10,18 @@ import { RouterModule } from '@angular/router';
 @Component({
     selector: 'circle-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, SpeedDialModule, ToastModule, RouterModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, SpeedDialModule, ToastModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>Items can be displayed around the button when <i>type</i> is set to <i>circle</i>. Additional <i>radius</i> property defines the radius of the circle.</p>
         </app-docsectiontext>
-        <div class="card">
+        <p-toast />
+        <app-demo-wrapper>
             <div style="position:relative; height: 500px;" class="flex items-center justify-center">
-                <p-toast />
                 <p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warn', rounded: true }" />
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService]
 })

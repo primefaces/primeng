@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -12,7 +13,7 @@ import { InputIconModule } from 'primeng/inputicon';
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, ToolbarModule, ButtonModule, SplitButtonModule, InputTextModule, IconFieldModule, InputIconModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, ToolbarModule, ButtonModule, SplitButtonModule, InputTextModule, IconFieldModule, InputIconModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -20,7 +21,7 @@ import { InputIconModule } from 'primeng/inputicon';
                 <i>start</i>, <i>center</i> and <i>end</i> sections.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-toolbar>
                 <ng-template #start>
                     <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
@@ -37,8 +38,8 @@ import { InputIconModule } from 'primeng/inputicon';
                     <p-splitbutton label="Save" [model]="items" />
                 </ng-template>
             </p-toolbar>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc implements OnInit {

@@ -6,7 +6,6 @@ import { DirectiveDoc } from '@/doc/button/directive-doc';
 import { DisabledDoc } from '@/doc/button/disabled-doc';
 import { IconsDoc } from '@/doc/button/icons-doc';
 import { IconOnlyDoc } from '@/doc/button/iconsonly-doc';
-import { ImportDoc } from '@/doc/button/import-doc';
 import { LinkDoc } from '@/doc/button/link-doc';
 import { LoadingDoc } from '@/doc/button/loading-doc';
 import { OutlinedDoc } from '@/doc/button/outlined-doc';
@@ -17,6 +16,7 @@ import { SeverityDoc } from '@/doc/button/severity-doc';
 import { SizesDoc } from '@/doc/button/sizes-doc';
 import { TemplateDoc } from '@/doc/button/template-doc';
 import { TextDoc } from '@/doc/button/text-doc';
+import { UsageDoc } from '@/doc/button/usage-doc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 import { PTComponent } from '@/doc/button/pt/PTComponent';
@@ -32,104 +32,112 @@ import { PTComponent } from '@/doc/button/pt/PTComponent';
             [apiDocs]="['Button', 'ButtonDirective']"
             themeDocs="button"
             [ptDocs]="ptComponent"
+            [heroDoc]="heroDoc"
         ></app-doc>
     `
 })
 export class ButtonDemo {
     ptComponent = PTComponent;
 
+    heroDoc = BasicDoc;
+
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
+            id: 'examples',
+            label: 'Examples',
+            children: [
+                {
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
+                },
+                {
+                    id: 'directive',
+                    label: 'Directive',
+                    component: DirectiveDoc
+                },
+                {
+                    id: 'link',
+                    label: 'Link',
+                    component: LinkDoc
+                },
+                {
+                    id: 'icons',
+                    label: 'Icons',
+                    component: IconsDoc
+                },
+                {
+                    id: 'loading',
+                    label: 'Loading',
+                    component: LoadingDoc
+                },
+                {
+                    id: 'severity',
+                    label: 'Severity',
+                    component: SeverityDoc
+                },
+                {
+                    id: 'disabled',
+                    label: 'Disabled',
+                    component: DisabledDoc
+                },
+                {
+                    id: 'raised',
+                    label: 'Raised',
+                    component: RaisedDoc
+                },
+                {
+                    id: 'rounded',
+                    label: 'Rounded',
+                    component: RoundedDoc
+                },
+                {
+                    id: 'text',
+                    label: 'Text',
+                    component: TextDoc
+                },
+                {
+                    id: 'raisedtext',
+                    label: 'Raised Text',
+                    component: RaisedTextDoc
+                },
+                {
+                    id: 'outlined',
+                    label: 'Outlined',
+                    component: OutlinedDoc
+                },
+                {
+                    id: 'icononly',
+                    label: 'Icon Only',
+                    component: IconOnlyDoc
+                },
+                {
+                    id: 'badge',
+                    label: 'Badge',
+                    component: BadgeDoc
+                },
+                {
+                    id: 'buttongroup',
+                    label: 'Button Group',
+                    component: ButtonGroupDoc
+                },
+                {
+                    id: 'sizes',
+                    label: 'Sizes',
+                    component: SizesDoc
+                },
+                {
+                    id: 'template',
+                    label: 'Template',
+                    component: TemplateDoc
+                }
+            ]
         },
-        {
-            id: 'directive',
-            label: 'Directive',
-            component: DirectiveDoc
-        },
-        {
-            id: 'link',
-            label: 'Link',
-            component: LinkDoc
-        },
-        {
-            id: 'icons',
-            label: 'Icons',
-            component: IconsDoc
-        },
-        {
-            id: 'loading',
-            label: 'Loading',
-            component: LoadingDoc
-        },
-        {
-            id: 'severity',
-            label: 'Severity',
-            component: SeverityDoc
-        },
-        {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
-        },
-        {
-            id: 'raised',
-            label: 'Raised',
-            component: RaisedDoc
-        },
-        {
-            id: 'rounded',
-            label: 'Rounded',
-            component: RoundedDoc
-        },
-        {
-            id: 'text',
-            label: 'Text',
-            component: TextDoc
-        },
-        {
-            id: 'raisedtext',
-            label: 'Raised Text',
-            component: RaisedTextDoc
-        },
-        {
-            id: 'outlined',
-            label: 'Outlined',
-            component: OutlinedDoc
-        },
-        {
-            id: 'icononly',
-            label: 'Icon Only',
-            component: IconOnlyDoc
-        },
-        {
-            id: 'badge',
-            label: 'Badge',
-            component: BadgeDoc
-        },
-        {
-            id: 'buttongroup',
-            label: 'Button Group',
-            component: ButtonGroupDoc
-        },
-        {
-            id: 'sizes',
-            label: 'Sizes',
-            component: SizesDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

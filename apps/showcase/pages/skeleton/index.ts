@@ -1,7 +1,7 @@
 import { AccessibilityDoc } from '@/doc/skeleton/accessibility-doc';
 import { CardDoc } from '@/doc/skeleton/card-doc';
 import { DataTableDoc } from '@/doc/skeleton/datatable-doc';
-import { ImportDoc } from '@/doc/skeleton/import-doc';
+import { UsageDoc } from '@/doc/skeleton/usage-doc';
 import { ListDoc } from '@/doc/skeleton/list-doc';
 import { PTComponent } from '@/doc/skeleton/pt/PTComponent';
 import { ShapesDoc } from '@/doc/skeleton/shapes-doc';
@@ -14,6 +14,7 @@ import { Component } from '@angular/core';
         header="Skeleton"
         description="Skeleton is a placeholder to display instead of the actual content."
         [docs]="docs"
+        [heroDoc]="heroDoc"
         [apiDocs]="['Skeleton']"
         [ptDocs]="ptComponent"
         themeDocs="skeleton"
@@ -24,34 +25,24 @@ import { Component } from '@angular/core';
 })
 export class SkeletonDemo {
     ptComponent = PTComponent;
+    heroDoc = ShapesDoc;
 
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'shapes',
-            label: 'Shapes',
-            component: ShapesDoc
+            id: 'examples',
+            label: 'Examples',
+            children: [
+                { id: 'shapes', label: 'Shapes', component: ShapesDoc },
+                { id: 'card', label: 'Card', component: CardDoc },
+                { id: 'list', label: 'List', component: ListDoc },
+                { id: 'datatable', label: 'DataTable', component: DataTableDoc }
+            ]
         },
-        {
-            id: 'card',
-            label: 'Card',
-            component: CardDoc
-        },
-        {
-            id: 'list',
-            label: 'List',
-            component: ListDoc
-        },
-        {
-            id: 'datatable',
-            label: 'DataTable',
-            component: DataTableDoc
-        },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

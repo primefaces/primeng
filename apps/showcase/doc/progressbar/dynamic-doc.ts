@@ -3,22 +3,23 @@ import { MessageService } from 'primeng/api';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dynamic-doc',
     standalone: true,
-    imports: [ProgressBarModule, ToastModule, AppCode, AppDocSectionText],
+    imports: [ProgressBarModule, ToastModule, AppCode, AppDemoWrapper, AppDocSectionText],
     providers: [MessageService],
     template: `
         <app-docsectiontext>
             <p>Value is reactive so updating it dynamically changes the bar as well.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-toast />
+        <p-toast />
+        <app-demo-wrapper>
             <p-progressbar [value]="value" />
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class DynamicDoc implements OnInit, OnDestroy {

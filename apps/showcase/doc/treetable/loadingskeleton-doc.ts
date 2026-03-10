@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
@@ -10,12 +11,12 @@ import { TreeTableModule } from 'primeng/treetable';
 @Component({
     selector: 'loadingskeleton-doc',
     standalone: true,
-    imports: [TreeTableModule, AppDocSectionText, AppCode, DeferredDemo, SkeletonModule],
+    imports: [TreeTableModule, AppDocSectionText, AppCode, AppDemoWrapper, DeferredDemo, SkeletonModule],
     template: ` <app-docsectiontext>
             <p>Skeleton component can be used as a placeholder during the loading process.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
+        <app-demo-wrapper>
+            <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files()" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
@@ -32,9 +33,9 @@ import { TreeTableModule } from 'primeng/treetable';
                         </tr>
                     </ng-template>
                 </p-treetable>
-            </div>
-        </p-deferred-demo>
-        <app-code></app-code>`,
+            </p-deferred-demo>
+            <app-code></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoadingSkeletonDoc {

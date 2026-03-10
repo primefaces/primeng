@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 
@@ -8,7 +9,7 @@ import { DragDropModule } from 'primeng/dragdrop';
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [DragDropModule, AppCode, AppDocSectionText],
+    imports: [DragDropModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -16,30 +17,32 @@ import { DragDropModule } from 'primeng/dragdrop';
                 be an array to accept multiple droppables.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-4">
-            <div class="p-2 border border-surface rounded-border w-60">
-                <ul class="list-none flex flex-col gap-2 p-0 m-0">
-                    @for (product of availableProducts; track product.id) {
-                        <li class="p-2 rounded-border shadow-sm" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
-                            {{ product.name }}
-                        </li>
-                    }
-                </ul>
-            </div>
-            <div class="p-2 border border-surface rounded-border w-60" pDroppable (onDrop)="drop()">
-                <p class="text-center border-surface border-b">Drop Zone</p>
-                @if (selectedProducts) {
+        <app-demo-wrapper>
+            <div class="flex flex-wrap gap-4">
+                <div class="p-2 border border-surface rounded-border w-60">
                     <ul class="list-none flex flex-col gap-2 p-0 m-0">
-                        @for (product of selectedProducts; track product.id) {
-                            <li class="p-2 rounded-border shadow-sm">
+                        @for (product of availableProducts; track product.id) {
+                            <li class="p-2 rounded-border shadow-sm" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                                 {{ product.name }}
                             </li>
                         }
                     </ul>
-                }
+                </div>
+                <div class="p-2 border border-surface rounded-border w-60" pDroppable (onDrop)="drop()">
+                    <p class="text-center border-surface border-b">Drop Zone</p>
+                    @if (selectedProducts) {
+                        <ul class="list-none flex flex-col gap-2 p-0 m-0">
+                            @for (product of selectedProducts; track product.id) {
+                                <li class="p-2 rounded-border shadow-sm">
+                                    {{ product.name }}
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
             </div>
-        </div>
-        <app-code [extFiles]="['Product']"></app-code>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc implements OnInit {

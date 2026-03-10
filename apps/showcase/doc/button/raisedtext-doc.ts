@@ -1,27 +1,30 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'raisedtext-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, ButtonModule],
+    imports: [AppCode, AppDemoWrapper, AppDocSectionText, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>Text buttons can be displayed as raised for elevation.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-4 justify-center">
-            <p-button label="Primary" variant="text" [raised]="true" />
-            <p-button label="Secondary" variant="text" [raised]="true" severity="secondary" />
-            <p-button label="Success" variant="text" [raised]="true" severity="success" />
-            <p-button label="Info" variant="text" [raised]="true" severity="info" />
-            <p-button label="Warn" variant="text" [raised]="true" severity="warn" />
-            <p-button label="Help" variant="text" [raised]="true" severity="help" />
-            <p-button label="Danger" variant="text" [raised]="true" severity="danger" />
-            <p-button label="Plain" variant="text" [raised]="true" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <p-button label="Primary" variant="text" [raised]="true" />
+                <p-button label="Secondary" variant="text" [raised]="true" severity="secondary" />
+                <p-button label="Success" variant="text" [raised]="true" severity="success" />
+                <p-button label="Info" variant="text" [raised]="true" severity="info" />
+                <p-button label="Warn" variant="text" [raised]="true" severity="warn" />
+                <p-button label="Help" variant="text" [raised]="true" severity="help" />
+                <p-button label="Danger" variant="text" [raised]="true" severity="danger" />
+                <p-button label="Plain" variant="text" [raised]="true" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class RaisedTextDoc {}

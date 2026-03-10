@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { CommonModule } from '@angular/common';
@@ -14,7 +15,7 @@ interface Column {
 @Component({
     selector: 'lazyload-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, AppCode, AppDocSectionText],
+    imports: [CommonModule, TreeTableModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -27,7 +28,7 @@ interface Column {
             </p>
             <p>In addition, only the root elements should be loaded, children can be loaded on demand using <i>onNodeExpand</i> callback.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-treetable
                 [value]="files"
                 [columns]="cols"
@@ -67,8 +68,8 @@ interface Column {
                     </tr>
                 </ng-template>
             </p-treetable>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

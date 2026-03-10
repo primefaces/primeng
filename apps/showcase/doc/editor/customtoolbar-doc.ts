@@ -2,17 +2,18 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EditorModule } from 'primeng/editor';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'customtoolbar-doc',
     standalone: true,
-    imports: [FormsModule, EditorModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, EditorModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
                 <ng-template #header>
                     <span class="ql-formats">
@@ -22,8 +23,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     </span>
                 </ng-template>
             </p-editor>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class CustomToolbarDoc {

@@ -2,27 +2,30 @@ import { Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [OrganizationChartModule, AppCode, AppDocSectionText],
+    imports: [OrganizationChartModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Custom content instead of a node <i>label</i> is defined using the <i>#node</i> template reference.</p>
         </app-docsectiontext>
-        <div class="card overflow-x-auto">
-            <p-organization-chart [value]="data" [collapsible]="true">
-                <ng-template #node let-node>
-                    <div class="flex flex-col items-center">
-                        <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
-                        <div class="mt-4 font-medium">{{ node.label }}</div>
-                    </div>
-                </ng-template>
-            </p-organization-chart>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="overflow-x-auto">
+                <p-organization-chart [value]="data" [collapsible]="true">
+                    <ng-template #node let-node>
+                        <div class="flex flex-col items-center">
+                            <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
+                            <div class="mt-4 font-medium">{{ node.label }}</div>
+                        </div>
+                    </ng-template>
+                </p-organization-chart>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TemplateDoc {

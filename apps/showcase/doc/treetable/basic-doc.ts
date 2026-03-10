@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
@@ -9,11 +10,11 @@ import { TreeTableModule } from 'primeng/treetable';
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: ` <app-docsectiontext>
             <p>TreeTable requires a collection of <i>TreeNode</i> instances as a <i>value</i> components as children for the representation.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
@@ -37,8 +38,8 @@ import { TreeTableModule } from 'primeng/treetable';
                     </ng-template>
                 </p-treetable>
             </p-deferred-demo>
-        </div>
-        <app-code></app-code>`,
+            <app-code></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BasicDoc {

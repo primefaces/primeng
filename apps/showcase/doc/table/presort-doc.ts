@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -10,7 +11,7 @@ import { TableModule } from 'primeng/table';
 @Component({
     selector: 'presort-doc',
     standalone: true,
-    imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo, CommonModule],
+    imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper, CommonModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -19,7 +20,7 @@ import { TableModule } from 'primeng/table';
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
+            <app-demo-wrapper>
                 <p-table [value]="products" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template #header>
                         <tr>
@@ -65,9 +66,9 @@ import { TableModule } from 'primeng/table';
                         </tr>
                     </ng-template>
                 </p-table>
-            </div>
+                <app-code [extFiles]="['Product']"></app-code>
+            </app-demo-wrapper>
         </p-deferred-demo>
-        <app-code [extFiles]="['Product']"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
@@ -11,7 +12,7 @@ import { TableModule } from 'primeng/table';
 @Component({
     selector: 'flexiblescroll-doc',
     standalone: true,
-    imports: [TableModule, ButtonModule, DialogModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [TableModule, ButtonModule, DialogModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>
                 Flex scroll feature makes the scrollable viewport section dynamic instead of a fixed value so that it can grow or shrink relative to the parent size of the table. Click the button below to display a maximizable Dialog where data
@@ -19,7 +20,7 @@ import { TableModule } from 'primeng/table';
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
+            <app-demo-wrapper>
                 <div class="flex justify-center">
                     <button type="button" (click)="showDialog()" pButton>
                         <span pButtonIcon class="pi pi-external-link"></span>
@@ -49,9 +50,9 @@ import { TableModule } from 'primeng/table';
                         <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
                     </ng-template>
                 </p-dialog>
-            </div>
-        </p-deferred-demo>
-        <app-code [extFiles]="['Customer']"></app-code>`,
+                <app-code [extFiles]="['Customer']"></app-code>
+            </app-demo-wrapper>
+        </p-deferred-demo>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FlexibleScrollDoc {

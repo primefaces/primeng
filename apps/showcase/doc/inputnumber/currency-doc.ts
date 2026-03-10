@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FluidModule } from 'primeng/fluid';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'currency-doc',
     standalone: true,
-    imports: [FormsModule, InputNumberModule, FluidModule, AppCodeModule, AppDocSectionText],
+    imports: [FormsModule, InputNumberModule, FluidModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -16,25 +17,27 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 "code".
             </p>
         </app-docsectiontext>
-        <p-fluid class="card flex flex-wrap gap-4">
-            <div class="flex-auto">
-                <label class="text-sm block font-bold mb-2" for="currency-us">United States</label>
-                <p-inputnumber [(ngModel)]="value1" inputId="currency-us" mode="currency" currency="USD" locale="en-US" />
-            </div>
-            <div class="flex-auto">
-                <label class="text-sm block font-bold mb-2" for="currency-germany">Germany</label>
-                <p-inputnumber [(ngModel)]="value2" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE" />
-            </div>
-            <div class="flex-auto">
-                <label class="text-sm block font-bold mb-2" for="currency-india">India</label>
-                <p-inputnumber [(ngModel)]="value3" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN" />
-            </div>
-            <div class="flex-auto">
-                <label class="text-sm block font-bold mb-2" for="currency-japan">Japan</label>
-                <p-inputnumber [(ngModel)]="value4" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP" />
-            </div>
-        </p-fluid>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <p-fluid class="flex flex-wrap gap-4">
+                <div class="flex-auto">
+                    <label class="text-sm block font-bold mb-2" for="currency-us">United States</label>
+                    <p-inputnumber [(ngModel)]="value1" inputId="currency-us" mode="currency" currency="USD" locale="en-US" />
+                </div>
+                <div class="flex-auto">
+                    <label class="text-sm block font-bold mb-2" for="currency-germany">Germany</label>
+                    <p-inputnumber [(ngModel)]="value2" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE" />
+                </div>
+                <div class="flex-auto">
+                    <label class="text-sm block font-bold mb-2" for="currency-india">India</label>
+                    <p-inputnumber [(ngModel)]="value3" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN" />
+                </div>
+                <div class="flex-auto">
+                    <label class="text-sm block font-bold mb-2" for="currency-japan">Japan</label>
+                    <p-inputnumber [(ngModel)]="value4" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP" />
+                </div>
+            </p-fluid>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class CurrencyDoc {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
@@ -9,7 +10,7 @@ import { RouterModule } from '@angular/router';
 @Component({
     selector: 'disabled-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule, RouterModule],
+    imports: [AppCode, AppDemoWrapper, AppDocSectionText, SplitButtonModule, ToastModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -17,11 +18,13 @@ import { RouterModule } from '@angular/router';
                 present, and the menu button is disabled when <i>menuButtonDisabled</i> is present.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
-        </div>
-        <app-code></app-code>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-splitbutton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService]
 })

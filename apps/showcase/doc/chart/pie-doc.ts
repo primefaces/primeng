@@ -5,19 +5,22 @@ import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } fro
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ChartModule } from 'primeng/chart';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
     selector: 'pie-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, ChartModule],
+    imports: [AppCode, AppDocSectionText, ChartModule, AppDemoWrapper],
     template: `
         <app-docsectiontext>
             <p>A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class PieDoc implements OnInit {

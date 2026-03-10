@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit, signal } from '@angular/core';
@@ -8,7 +9,7 @@ import { TreeModule } from 'primeng/tree';
 @Component({
     selector: 'filter-doc',
     standalone: true,
-    imports: [TreeModule, AppCode, AppDocSectionText],
+    imports: [TreeModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -17,15 +18,17 @@ import { TreeModule } from 'primeng/tree';
                 On the other hand, in <i>strict</i> mode when the query matches a node, filtering continues on all descendants.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-4">
-            <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-                <p-tree [value]="files()" [filter]="true" filterPlaceholder="Lenient Filter" />
+        <app-demo-wrapper>
+            <div class="flex flex-wrap gap-4">
+                <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
+                    <p-tree [value]="files()" [filter]="true" filterPlaceholder="Lenient Filter" />
+                </div>
+                <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
+                    <p-tree [value]="files2()" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
+                </div>
             </div>
-            <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-                <p-tree [value]="files2()" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
-            </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class FilterDoc implements OnInit {

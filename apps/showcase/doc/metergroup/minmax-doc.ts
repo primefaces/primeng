@@ -1,20 +1,21 @@
 import { Component } from '@angular/core';
 import { MeterGroupModule } from 'primeng/metergroup';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'minmax-doc',
     standalone: true,
-    imports: [MeterGroupModule, AppCodeModule, AppDocSectionText],
+    imports: [MeterGroupModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Boundaries are configured with the <i>min</i> and <i>max</i> values whose defaults are 0 and 100 respectively.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-metergroup [value]="value" [max]="200" />
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class MinMaxDoc {

@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
@@ -7,7 +8,7 @@ import { StyleClassModule } from 'primeng/styleclass';
 @Component({
     selector: 'hideonresize-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, StyleClassModule, ButtonModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, StyleClassModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -15,7 +16,7 @@ import { StyleClassModule } from 'primeng/styleclass';
                 Set <i>resizeSelector</i> to "window" (default) or "document" for browser resize, or a CSS selector to observe the target element's dimensions.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex flex-wrap justify-center gap-4">
                 <div class="flex flex-col items-center gap-4 w-[25rem]">
                     <p-button
@@ -58,8 +59,8 @@ import { StyleClassModule } from 'primeng/styleclass';
                     </div>
                 </div>
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class HideOnResizeDoc {}

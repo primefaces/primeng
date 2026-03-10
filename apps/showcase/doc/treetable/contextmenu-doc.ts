@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { CommonModule } from '@angular/common';
@@ -17,7 +18,7 @@ interface Column {
 @Component({
     selector: 'contextmenu-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, ToastModule, ContextMenuModule, AppCode, AppDocSectionText, DeferredDemo],
+    imports: [CommonModule, TreeTableModule, ToastModule, ContextMenuModule, AppCode, AppDemoWrapper, AppDocSectionText, DeferredDemo],
     template: `
         <app-docsectiontext>
             <p>
@@ -26,8 +27,8 @@ interface Column {
                 row. For dynamic columns, setting <i>ttContextMenuRowDisabled</i> property as true disables context menu for that particular row.
             </p>
         </app-docsectiontext>
-        <div class="card">
-            <p-toast [style]="{ marginTop: '80px' }" />
+        <p-toast [style]="{ marginTop: '80px' }" />
+        <app-demo-wrapper>
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>
@@ -58,8 +59,8 @@ interface Column {
                 </p-treetable>
             </p-deferred-demo>
             <p-contextmenu #cm [model]="items" />
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService],
     changeDetection: ChangeDetectionStrategy.OnPush

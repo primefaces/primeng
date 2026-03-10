@@ -1,25 +1,28 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputOtpModule } from 'primeng/inputotp';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [FormsModule, InputOtpModule, AppCodeModule, AppDocSectionText],
+    imports: [FormsModule, InputOtpModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Define a template with your own UI elements with bindings to the provided events and attributes to replace the default design.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-inputotp [(ngModel)]="value">
-                <ng-template #input let-token let-events="events">
-                    <input class="custom-otp-input" (keydown)="events.keydown($event)" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
-                </ng-template>
-            </p-inputotp>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-inputotp [(ngModel)]="value">
+                    <ng-template #input let-token let-events="events">
+                        <input class="custom-otp-input" (keydown)="events.keydown($event)" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
+                    </ng-template>
+                </p-inputotp>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     styles: [
         `

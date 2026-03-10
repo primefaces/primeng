@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { PhotoService } from '@/service/photoservice';
 import { NgStyle, isPlatformBrowser } from '@angular/common';
@@ -9,12 +10,12 @@ import { Galleria, GalleriaModule } from 'primeng/galleria';
 @Component({
     selector: 'advanced-doc',
     standalone: true,
-    imports: [NgStyle, GalleriaModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [NgStyle, GalleriaModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Galleria can be extended further to implement complex requirements.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-galleria
                 #galleria
                 [(value)]="images"
@@ -58,8 +59,8 @@ import { Galleria, GalleriaModule } from 'primeng/galleria';
                     </div>
                 </ng-template>
             </p-galleria>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class AdvancedDoc implements OnInit, OnDestroy {

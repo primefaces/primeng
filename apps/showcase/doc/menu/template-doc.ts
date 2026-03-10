@@ -1,4 +1,5 @@
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
@@ -10,7 +11,7 @@ import { Ripple } from 'primeng/ripple';
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [MenuModule, BadgeModule, AvatarModule, Ripple, AppCodeModule, AppDocSectionText],
+    imports: [MenuModule, BadgeModule, AvatarModule, Ripple, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -18,7 +19,7 @@ import { Ripple } from 'primeng/ripple';
                 <i>end</i> are provided to embed content before or after the menu.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
                 <ng-template #start>
                     <span class="inline-flex items-center gap-1 px-1.5 py-1.5">
@@ -79,8 +80,8 @@ import { Ripple } from 'primeng/ripple';
                     </button>
                 </ng-template>
             </p-menu>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TemplateDoc implements OnInit {

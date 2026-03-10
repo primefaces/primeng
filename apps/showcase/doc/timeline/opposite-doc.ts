@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { TimelineModule } from 'primeng/timeline';
 
 interface EventItem {
@@ -14,12 +15,12 @@ interface EventItem {
 @Component({
     selector: 'opposite-doc',
     standalone: true,
-    imports: [AppDocSectionText, TimelineModule, AppCode],
+    imports: [AppDocSectionText, TimelineModule, AppCode, AppDemoWrapper],
     template: `
         <app-docsectiontext>
             <p>Additional content at the other side of the line can be provided with the <i>opposite</i> property.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-timeline [value]="events">
                 <ng-template #opposite let-event>
                     <small class="text-surface-500 dark:text-surface-400">{{ event.date }}</small>
@@ -28,8 +29,8 @@ interface EventItem {
                     {{ event.status }}
                 </ng-template>
             </p-timeline>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class OppositeDoc {

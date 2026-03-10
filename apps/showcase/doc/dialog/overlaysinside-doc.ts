@@ -4,6 +4,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface City {
@@ -14,7 +15,7 @@ interface City {
 @Component({
     selector: 'overlaysinside-doc',
     standalone: true,
-    imports: [FormsModule, DialogModule, ButtonModule, SelectModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, DialogModule, ButtonModule, SelectModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -22,15 +23,17 @@ interface City {
                 <i>appendTo</i> property or allow overflow in dialog.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
-            <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
-                <div class="flex py-2 justify-center">
-                    <p-select appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-select>
-                </div>
-            </p-dialog>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
+                <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
+                    <div class="flex py-2 justify-center">
+                        <p-select appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-select>
+                    </div>
+                </p-dialog>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class OverlaysInsideDoc implements OnInit {

@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -11,13 +12,13 @@ import { TagModule } from 'primeng/tag';
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [CommonModule, DataViewModule, ButtonModule, TagModule, AppCode, AppDocSectionText],
+    imports: [CommonModule, DataViewModule, ButtonModule, TagModule, AppCode, AppDemoWrapper, AppDocSectionText],
     providers: [ProductService],
     template: `
         <app-docsectiontext>
             <p>DataView requires a value to display along with a <i>list</i> template that receives an object in the collection to return content.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-dataview #dv [value]="products()">
                 <ng-template #list let-items>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
@@ -58,8 +59,8 @@ import { TagModule } from 'primeng/tag';
                     </div>
                 </ng-template>
             </p-dataview>
-        </div>
-        <app-code [extFiles]="['Product']"></app-code>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc {

@@ -7,40 +7,43 @@ import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'reactiveforms-doc',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, CascadeSelectModule, ToastModule, MessageModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [CommonModule, ReactiveFormsModule, CascadeSelectModule, ToastModule, MessageModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>CascadeSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
 
         <p-toast />
-        <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <p-cascadeselect
-                        formControlName="selectedCity"
-                        [options]="countries"
-                        optionLabel="cname"
-                        optionGroupLabel="name"
-                        [optionGroupChildren]="['states', 'cities']"
-                        [style]="{ minWidth: '14rem' }"
-                        placeholder="Select a City"
-                        [invalid]="isInvalid('selectedCity')"
-                    />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <p-cascadeselect
+                            formControlName="selectedCity"
+                            [options]="countries"
+                            optionLabel="cname"
+                            optionGroupLabel="name"
+                            [optionGroupChildren]="['states', 'cities']"
+                            [style]="{ minWidth: '14rem' }"
+                            placeholder="Select a City"
+                            [invalid]="isInvalid('selectedCity')"
+                        />
 
-                    @if (isInvalid('selectedCity')) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
-        <app-code></app-code>
+                        @if (isInvalid('selectedCity')) {
+                            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ReactiveFormsDoc {

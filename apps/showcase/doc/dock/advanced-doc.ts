@@ -12,68 +12,71 @@ import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'advanced-doc',
     standalone: true,
-    imports: [Dock, DialogModule, GalleriaModule, MenubarModule, TerminalModule, ToastModule, TooltipModule, TreeModule, AppCode, AppDocSectionText],
+    imports: [Dock, DialogModule, GalleriaModule, MenubarModule, TerminalModule, ToastModule, TooltipModule, TreeModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>A mock desktop UI implemented with various components in addition to Dock.</p>
         </app-docsectiontext>
-        <div class="card dock-demo">
-            <p-menubar [model]="menubarItems">
-                <ng-template #start>
-                    <i class="pi pi-apple px-2"></i>
-                </ng-template>
-                <ng-template #end>
-                    <i class="pi pi-video px-2"></i>
-                    <i class="pi pi-wifi px-2"></i>
-                    <i class="pi pi-volume-up px-2"></i>
-                    <span class="px-2 text-sm">Fri 13:07</span>
-                    <i class="pi pi-search px-2"></i>
-                    <i class="pi pi-bars px-2"></i>
-                </ng-template>
-            </p-menubar>
-            <div class="dock-window">
-                <p-dock [model]="dockItems" position="bottom">
-                    <ng-template #item let-item>
-                        <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
-                            <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
-                        </a>
+        <app-demo-wrapper>
+            <div class="dock-demo">
+                <p-menubar [model]="menubarItems">
+                    <ng-template #start>
+                        <i class="pi pi-apple px-2"></i>
                     </ng-template>
-                </p-dock>
-
-                <p-toast position="top-center" key="tc" />
-
-                <p-dialog [(visible)]="displayFinder" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw', height: '18rem' }" [draggable]="false" [resizable]="false" header="Finder">
-                    <p-tree [value]="nodes" />
-                </p-dialog>
-
-                <p-dialog [maximizable]="true" [(visible)]="displayTerminal" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" header="Terminal">
-                    <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
-                </p-dialog>
-
-                <p-galleria
-                    [(value)]="images"
-                    [showThumbnails]="false"
-                    [showThumbnailNavigators]="false"
-                    [showItemNavigators]="true"
-                    [(visible)]="displayGalleria"
-                    [circular]="true"
-                    [responsiveOptions]="responsiveOptions"
-                    [circular]="true"
-                    [fullScreen]="true"
-                    [containerStyle]="{ width: '400px' }"
-                >
-                    <ng-template #item let-item>
-                        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+                    <ng-template #end>
+                        <i class="pi pi-video px-2"></i>
+                        <i class="pi pi-wifi px-2"></i>
+                        <i class="pi pi-volume-up px-2"></i>
+                        <span class="px-2 text-sm">Fri 13:07</span>
+                        <i class="pi pi-search px-2"></i>
+                        <i class="pi pi-bars px-2"></i>
                     </ng-template>
-                </p-galleria>
+                </p-menubar>
+                <div class="dock-window">
+                    <p-dock [model]="dockItems" position="bottom">
+                        <ng-template #item let-item>
+                            <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
+                                <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
+                            </a>
+                        </ng-template>
+                    </p-dock>
+
+                    <p-toast position="top-center" key="tc" />
+
+                    <p-dialog [(visible)]="displayFinder" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw', height: '18rem' }" [draggable]="false" [resizable]="false" header="Finder">
+                        <p-tree [value]="nodes" />
+                    </p-dialog>
+
+                    <p-dialog [maximizable]="true" [(visible)]="displayTerminal" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" header="Terminal">
+                        <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
+                    </p-dialog>
+
+                    <p-galleria
+                        [(value)]="images"
+                        [showThumbnails]="false"
+                        [showThumbnailNavigators]="false"
+                        [showItemNavigators]="true"
+                        [(visible)]="displayGalleria"
+                        [circular]="true"
+                        [responsiveOptions]="responsiveOptions"
+                        [circular]="true"
+                        [fullScreen]="true"
+                        [containerStyle]="{ width: '400px' }"
+                    >
+                        <ng-template #item let-item>
+                            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+                        </ng-template>
+                    </p-galleria>
+                </div>
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     styles: [
         `

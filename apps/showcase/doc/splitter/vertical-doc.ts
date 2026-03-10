@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { SplitterModule } from 'primeng/splitter';
 
 @Component({
     selector: 'vertical-doc',
     standalone: true,
-    imports: [AppDocSectionText, SplitterModule, AppCode],
+    imports: [AppDocSectionText, SplitterModule, AppCode, AppDemoWrapper],
     template: `
         <app-docsectiontext>
             <p>Panels are displayed as stacked by setting the <i>layout</i> to <i>vertical</i>.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-splitter [style]="{ height: '300px' }" class="mb-8" [panelSizes]="[50, 50]" layout="vertical">
                 <ng-template #panel>
                     <div class="flex items-center justify-center h-full text-sm">Panel 1</div>
@@ -20,8 +21,8 @@ import { SplitterModule } from 'primeng/splitter';
                     <div class="flex items-center justify-center h-full text-sm">Panel 2</div>
                 </ng-template>
             </p-splitter>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class VerticalDoc {}

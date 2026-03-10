@@ -2,18 +2,19 @@ import { Component } from '@angular/core';
 import { MeterGroupModule } from 'primeng/metergroup';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [MeterGroupModule, CardModule, ButtonModule, AppCodeModule, AppDocSectionText],
+    imports: [MeterGroupModule, CardModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>MeterGroup provides templating support for labels, meter items, and content around the meters.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-metergroup [value]="value" labelPosition="start">
                 <ng-template #label>
                     <div class="flex flex-wrap gap-4">
@@ -49,8 +50,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     </div>
                 </ng-template>
             </p-metergroup>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TemplateDoc {

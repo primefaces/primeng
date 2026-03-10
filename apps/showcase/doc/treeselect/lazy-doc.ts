@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ChangeDetectorRef, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -8,7 +9,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
 @Component({
     selector: 'lazy-doc',
     standalone: true,
-    imports: [FormsModule, TreeSelectModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, TreeSelectModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -16,21 +17,23 @@ import { TreeSelectModule } from 'primeng/treeselect';
                 <i>loading</i> property and <i>onNodeExpand</i> method.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-treeselect
-                class="w-full md:w-80"
-                [(ngModel)]="selectedNodes"
-                (onNodeExpand)="onNodeExpand($event)"
-                [options]="nodes()"
-                display="chip"
-                [metaKeySelection]="false"
-                selectionMode="checkbox"
-                placeholder="Select Item"
-                [loading]="loading"
-                loadingMode="icon"
-            />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-treeselect
+                    class="w-full md:w-80"
+                    [(ngModel)]="selectedNodes"
+                    (onNodeExpand)="onNodeExpand($event)"
+                    [options]="nodes()"
+                    display="chip"
+                    [metaKeySelection]="false"
+                    selectionMode="checkbox"
+                    placeholder="Select Item"
+                    [loading]="loading"
+                    loadingMode="icon"
+                />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class LazyDoc {

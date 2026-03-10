@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
@@ -17,32 +18,34 @@ interface City {
 @Component({
     selector: 'templatedrivenforms-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, FormsModule, SelectModule, ToastModule, MessageModule, ButtonModule, CommonModule],
+    imports: [CommonModule, AppDocSectionText, AppCode, AppDemoWrapper, FormsModule, SelectModule, ToastModule, MessageModule, ButtonModule, CommonModule],
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
-                <div class="flex flex-col gap-1">
-                    <p-select
-                        #city="ngModel"
-                        [(ngModel)]="selectedCity"
-                        [options]="cities"
-                        [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
-                        optionLabel="name"
-                        name="city"
-                        placeholder="Select a City"
-                        class="w-full md:w-56"
-                        required
-                    />
-                    @if (city.invalid && (city.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
+                    <div class="flex flex-col gap-1">
+                        <p-select
+                            #city="ngModel"
+                            [(ngModel)]="selectedCity"
+                            [options]="cities"
+                            [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
+                            optionLabel="name"
+                            name="city"
+                            placeholder="Select a City"
+                            class="w-full md:w-56"
+                            required
+                        />
+                        @if (city.invalid && (city.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TemplateDrivenFormsDoc {

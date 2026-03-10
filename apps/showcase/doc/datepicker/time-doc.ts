@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -8,28 +9,28 @@ import { FluidModule } from 'primeng/fluid';
 @Component({
     selector: 'time-doc',
     standalone: true,
-    imports: [FormsModule, DatePickerModule, FluidModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, DatePickerModule, FluidModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>A time picker is displayed when <i>showTime</i> is enabled where 12/24 hour format is configured with <i>hourFormat</i> property. In case, only time needs to be selected, add <i>timeOnly</i> to hide the date section.</p>
         </app-docsectiontext>
-
-        <p-fluid class="card flex flex-wrap gap-4">
-            <div class="flex-auto">
-                <label for="calendar-12h" class="text-sm font-bold block mb-2"> 12h Format </label>
-                <p-datepicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" [hourFormat]="12" />
-            </div>
-            <div class="flex-auto">
-                <label for="calendar-24h" class="text-sm font-bold block mb-2"> 24h Format </label>
-                <p-datepicker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" [hourFormat]="24" />
-            </div>
-            <div class="flex-auto">
-                <label for="calendar-timeonly" class="text-sm font-bold block mb-2"> Time Only </label>
-                <p-datepicker inputId="calendar-timeonly" [(ngModel)]="time" [timeOnly]="true" />
-            </div>
-        </p-fluid>
-
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <p-fluid class="flex flex-wrap gap-4">
+                <div class="flex-auto">
+                    <label for="calendar-12h" class="text-sm font-bold block mb-2"> 12h Format </label>
+                    <p-datepicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" [hourFormat]="12" />
+                </div>
+                <div class="flex-auto">
+                    <label for="calendar-24h" class="text-sm font-bold block mb-2"> 24h Format </label>
+                    <p-datepicker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" [hourFormat]="24" />
+                </div>
+                <div class="flex-auto">
+                    <label for="calendar-timeonly" class="text-sm font-bold block mb-2"> Time Only </label>
+                    <p-datepicker inputId="calendar-timeonly" [(ngModel)]="time" [timeOnly]="true" />
+                </div>
+            </p-fluid>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TimeDoc {

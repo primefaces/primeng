@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
@@ -8,12 +9,12 @@ import { AvatarModule } from 'primeng/avatar';
 @Component({
     selector: 'custom-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, ToolbarModule, ButtonModule, AvatarModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, ToolbarModule, ButtonModule, AvatarModule],
     template: `
         <app-docsectiontext>
             <p>Content can also be placed using the <i>start</i>, <i>center</i> and <i>end</i> templates.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-toolbar [style]="{ 'border-radius': '3rem', padding: '1rem 1rem 1rem 1.5rem' }">
                 <ng-template #start>
                     <div class="flex items-center gap-2">
@@ -59,8 +60,8 @@ import { AvatarModule } from 'primeng/avatar';
                     </div>
                 </ng-template>
             </p-toolbar>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class CustomDoc {}

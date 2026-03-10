@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { CommonModule } from '@angular/common';
@@ -17,7 +18,7 @@ interface Column {
 @Component({
     selector: 'selectionmultiple-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, TreeTableModule, ToggleSwitchModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [CommonModule, FormsModule, TreeTableModule, ToggleSwitchModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -25,7 +26,7 @@ interface Column {
                 disabling the <i>metaKeySelection</i> property. Note that in touch enabled devices, TreeTable always ignores metaKey.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex gap-4 items-center justify-center mb-6">
                 <p-toggleswitch [(ngModel)]="metaKeySelection" />
                 <span>Metakey</span>
@@ -59,8 +60,8 @@ interface Column {
                     </ng-template>
                 </p-treetable>
             </p-deferred-demo>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

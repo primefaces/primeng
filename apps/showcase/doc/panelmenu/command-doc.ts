@@ -3,21 +3,24 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { PanelMenu } from 'primeng/panelmenu';
 import { ToastModule } from 'primeng/toast';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'command-doc',
     standalone: true,
-    imports: [PanelMenu, ToastModule, AppCode, AppDocSectionText],
+    imports: [PanelMenu, ToastModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The <i>command</i> property defines the callback to run when an item is activated by click or a key event.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-panelmenu [model]="items" class="w-full md:w-80" />
-        </div>
-        <app-code></app-code>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-panelmenu [model]="items" class="w-full md:w-80" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService]
 })

@@ -1,7 +1,7 @@
 import { AccessibilityDoc } from '@/doc/selectbutton/accessibility-doc';
 import { BasicDoc } from '@/doc/selectbutton/basic-doc';
 import { DisabledDoc } from '@/doc/selectbutton/disabled-doc';
-import { ImportDoc } from '@/doc/selectbutton/import-doc';
+import { UsageDoc } from '@/doc/selectbutton/usage-doc';
 import { InvalidDoc } from '@/doc/selectbutton/invalid-doc';
 import { MultipleDoc } from '@/doc/selectbutton/multiple-doc';
 import { ReactiveFormsDoc } from '@/doc/selectbutton/reactiveforms-doc';
@@ -22,6 +22,7 @@ import { Component } from '@angular/core';
         [apiDocs]="['SelectButton']"
         [ptDocs]="ptComponent"
         themeDocs="selectbutton"
+        [heroDoc]="heroDoc"
     ></app-doc>`,
     standalone: true,
     imports: [AppDoc]
@@ -29,53 +30,61 @@ import { Component } from '@angular/core';
 export class SelectButtonDemo {
     ptComponent = PTComponent;
 
+    heroDoc = BasicDoc;
+
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'multiple',
-            label: 'Multiple',
-            component: MultipleDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
-            id: 'sizes',
-            label: 'Sizes',
-            component: SizesDoc
-        },
-        {
-            id: 'fluid',
-            label: 'Fluid',
-            component: FluidDoc
-        },
-        {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
-        },
-        {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc
-        },
-        {
-            id: 'forms',
-            label: 'Forms',
+            id: 'examples',
+            label: 'Examples',
             children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                {
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
+                },
+                {
+                    id: 'multiple',
+                    label: 'Multiple',
+                    component: MultipleDoc
+                },
+                {
+                    id: 'template',
+                    label: 'Template',
+                    component: TemplateDoc
+                },
+                {
+                    id: 'sizes',
+                    label: 'Sizes',
+                    component: SizesDoc
+                },
+                {
+                    id: 'fluid',
+                    label: 'Fluid',
+                    component: FluidDoc
+                },
+                {
+                    id: 'disabled',
+                    label: 'Disabled',
+                    component: DisabledDoc
+                },
+                {
+                    id: 'invalid',
+                    label: 'Invalid',
+                    component: InvalidDoc
+                },
+                {
+                    id: 'forms',
+                    label: 'Forms',
+                    children: [
+                        { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                        { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                    ]
+                }
             ]
         },
         {

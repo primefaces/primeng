@@ -5,39 +5,42 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
     selector: 'templatedrivenforms-doc',
     standalone: true,
-    imports: [FormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule, AppCodeModule],
+    imports: [FormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDemoWrapper],
     template: `
         <p-toast />
-        <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
-                <div class="flex flex-col gap-1">
-                    <input pInputText type="text" id="username" placeholder="Username" name="username" [(ngModel)]="user.username" #username="ngModel" [invalid]="username.invalid && (username.touched || exampleForm.submitted)" required />
-                    @if (username.invalid && (username.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
-                    }
-                </div>
-                <div class="flex flex-col gap-1">
-                    <input pInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email [invalid]="email.invalid && (email.touched || exampleForm.submitted)" />
-                    @if (email.invalid && (email.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">
-                            @if (email.hasError('required')) {
-                                Email is Required.
-                            }
-                            @if (email.hasError('email')) {
-                                Please enter a valid email.
-                            }
-                        </p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
+                    <div class="flex flex-col gap-1">
+                        <input pInputText type="text" id="username" placeholder="Username" name="username" [(ngModel)]="user.username" #username="ngModel" [invalid]="username.invalid && (username.touched || exampleForm.submitted)" required />
+                        @if (username.invalid && (username.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+                        }
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <input pInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email [invalid]="email.invalid && (email.touched || exampleForm.submitted)" />
+                        @if (email.invalid && (email.touched || exampleForm.submitted)) {
+                            <p-message severity="error" size="small" variant="simple">
+                                @if (email.hasError('required')) {
+                                    Email is Required.
+                                }
+                                @if (email.hasError('email')) {
+                                    Please enter a valid email.
+                                }
+                            </p-message>
+                        }
+                    </div>
+                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                </form>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TemplateDrivenFormsDoc {

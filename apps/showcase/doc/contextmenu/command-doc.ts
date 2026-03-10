@@ -5,6 +5,7 @@ import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
 import { Tag } from 'primeng/tag';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 interface Users {
     id: number;
@@ -16,33 +17,35 @@ interface Users {
 @Component({
     selector: 'command-doc',
     standalone: true,
-    imports: [CommonModule, ContextMenuModule, ToastModule, Tag, AppCode, AppDocSectionText],
+    imports: [CommonModule, ContextMenuModule, ToastModule, Tag, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex sm:justify-center">
-            <p-toast />
-            <ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
-                @for (user of users; track user.id) {
-                    <li
-                        class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
-                        [ngClass]="{ 'border-primary': selectedId === user.id }"
-                        (contextmenu)="onContextMenu($event, user)"
-                    >
-                        <div class="flex flex-1 items-center gap-2">
-                            <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" />
-                            <span class="font-bold text-sm">{{ user.name }}</span>
-                        </div>
-                        <p-tag [value]="user.role" [severity]="getBadge(user)" />
-                    </li>
-                }
-            </ul>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex sm:justify-center">
+                <ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
+                    @for (user of users; track user.id) {
+                        <li
+                            class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
+                            [ngClass]="{ 'border-primary': selectedId === user.id }"
+                            (contextmenu)="onContextMenu($event, user)"
+                        >
+                            <div class="flex flex-1 items-center gap-2">
+                                <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" />
+                                <span class="font-bold text-sm">{{ user.name }}</span>
+                            </div>
+                            <p-tag [value]="user.role" [severity]="getBadge(user)" />
+                        </li>
+                    }
+                </ul>
 
-            <p-contextmenu #cm [model]="items" (onHide)="onHide()" />
-        </div>
+                <p-contextmenu #cm [model]="items" (onHide)="onHide()" />
+            </div>
 
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService]
 })

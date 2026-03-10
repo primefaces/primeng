@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
@@ -10,13 +11,13 @@ import { TableModule } from 'primeng/table';
 @Component({
     selector: 'paginatorprogrammatic-doc',
     standalone: true,
-    imports: [TableModule, ButtonModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [TableModule, ButtonModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: `
         <app-docsectiontext>
             <p>Paginator can also be controlled via model using a binding to the <i>first</i> property where changes trigger a pagination.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
+            <app-demo-wrapper>
                 <div class="mb-4 flex gap-1">
                     <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text />
                     <p-button type="button" icon="pi pi-refresh" (click)="reset()" text />
@@ -50,9 +51,9 @@ import { TableModule } from 'primeng/table';
                         </tr>
                     </ng-template>
                 </p-table>
-            </div>
+                <app-code [extFiles]="['Customer']"></app-code>
+            </app-demo-wrapper>
         </p-deferred-demo>
-        <app-code [extFiles]="['Customer']"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

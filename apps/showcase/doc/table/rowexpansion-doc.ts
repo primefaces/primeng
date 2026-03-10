@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -17,7 +18,7 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'rowexpansion-doc',
     standalone: true,
-    imports: [TableModule, ToastModule, ButtonModule, FormsModule, RippleModule, AppDocSectionText, AppCode, DeferredDemo, CommonModule, RatingModule, TagModule],
+    imports: [TableModule, ToastModule, ButtonModule, FormsModule, RippleModule, AppDocSectionText, AppCode, DeferredDemo, CommonModule, RatingModule, TagModule, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>
                 Row expansion allows displaying detailed content for a particular row. To use this feature, define a <i>dataKey</i>, add a template named <i>expandedrow</i> and use the <i>pRowToggler</i> directive on an element as the target to
@@ -25,8 +26,8 @@ import { ToastModule } from 'primeng/toast';
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
-                <p-toast />
+            <p-toast />
+            <app-demo-wrapper>
                 <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
                     <ng-template #caption>
                         <div class="flex flex-wrap justify-end gap-2">
@@ -130,9 +131,9 @@ import { ToastModule } from 'primeng/toast';
                         </tr>
                     </ng-template>
                 </p-table>
-            </div>
-        </p-deferred-demo>
-        <app-code [extFiles]="['Product']"></app-code>`,
+                <app-code [extFiles]="['Product']"></app-code>
+            </app-demo-wrapper>
+        </p-deferred-demo>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })

@@ -2,17 +2,18 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({
     selector: 'scrollable-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, TabsModule],
+    imports: [CommonModule, AppDocSectionText, AppCode, AppDemoWrapper, TabsModule],
     template: `
         <app-docsectiontext>
             <p>Adding <i>scrollable</i> property displays navigational buttons at each side to scroll between tabs.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-tabs value="0" scrollable>
                 <p-tablist>
                     @for (tab of scrollableTabs; track tab.value) {
@@ -29,8 +30,8 @@ import { TabsModule } from 'primeng/tabs';
                     }
                 </p-tabpanels>
             </p-tabs>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ScrollableDoc {

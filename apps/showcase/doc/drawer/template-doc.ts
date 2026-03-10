@@ -3,46 +3,49 @@ import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [DrawerModule, ButtonModule, AvatarModule, AppCode, AppDocSectionText],
+    imports: [DrawerModule, ButtonModule, AvatarModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Drawer is customizable by <i>header</i>, <i>content</i>, <i>footer</i> templates.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-drawer [(visible)]="visible" [closable]="false">
-                <ng-template #header>
-                    <div class="flex items-center gap-2">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-                        <span class="font-bold">Amy Elsner</span>
-                    </div>
-                </ng-template>
-                <p class="text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                </p>
-                <ng-template #footer>
-                    <div class="flex items-center gap-2">
-                        <button pButton class="w-full" outlined>
-                            <span pButtonIcon class="pi pi-user"></span>
-                            <span pButtonLabel>Account</span>
-                        </button>
-                        <button pButton class="w-full" severity="danger" text>
-                            <span pButtonIcon class="pi pi-sign-out"></span>
-                            <span pButtonLabel>Logout</span>
-                        </button>
-                    </div>
-                </ng-template>
-            </p-drawer>
-            <button pButton (click)="visible = true">
-                <span pButtonIcon class="pi pi-plus"></span>
-            </button>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-drawer [(visible)]="visible" [closable]="false">
+                    <ng-template #header>
+                        <div class="flex items-center gap-2">
+                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                            <span class="font-bold">Amy Elsner</span>
+                        </div>
+                    </ng-template>
+                    <p class="text-sm">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                    </p>
+                    <ng-template #footer>
+                        <div class="flex items-center gap-2">
+                            <button pButton class="w-full" outlined>
+                                <span pButtonIcon class="pi pi-user"></span>
+                                <span pButtonLabel>Account</span>
+                            </button>
+                            <button pButton class="w-full" severity="danger" text>
+                                <span pButtonIcon class="pi pi-sign-out"></span>
+                                <span pButtonLabel>Logout</span>
+                            </button>
+                        </div>
+                    </ng-template>
+                </p-drawer>
+                <button pButton (click)="visible = true">
+                    <span pButtonIcon class="pi pi-plus"></span>
+                </button>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class TemplateDoc {

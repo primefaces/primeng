@@ -3,35 +3,38 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'withoutmodal-doc',
     standalone: true,
-    imports: [DialogModule, ButtonModule, InputTextModule, AppCode, AppDocSectionText],
+    imports: [DialogModule, ButtonModule, InputTextModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Mask layer behind the Dialog is configured with the <i>modal</i> property. By default, no modal layer is added.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-button (click)="showDialog()" label="Show" />
-            <p-dialog header="Edit Profile" [(visible)]="visible" [style]="{ width: '25rem' }">
-                <span class="p-text-secondary block mb-8 text-sm">Update your information.</span>
-                <div class="flex items-center gap-4 mb-4">
-                    <label for="username" class="font-semibold w-24 text-sm">Username</label>
-                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
-                </div>
-                <div class="flex items-center gap-4 mb-8">
-                    <label for="email" class="font-semibold w-24 text-sm">Email</label>
-                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
-                </div>
-                <div class="flex justify-end gap-2">
-                    <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-                    <p-button label="Save" (click)="visible = false" />
-                </div>
-            </p-dialog>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-button (click)="showDialog()" label="Show" />
+                <p-dialog header="Edit Profile" [(visible)]="visible" [style]="{ width: '25rem' }">
+                    <span class="p-text-secondary block mb-8 text-sm">Update your information.</span>
+                    <div class="flex items-center gap-4 mb-4">
+                        <label for="username" class="font-semibold w-24 text-sm">Username</label>
+                        <input pInputText id="username" class="flex-auto" autocomplete="off" />
+                    </div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <label for="email" class="font-semibold w-24 text-sm">Email</label>
+                        <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                    </div>
+                    <div class="flex justify-end gap-2">
+                        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+                        <p-button label="Save" (click)="visible = false" />
+                    </div>
+                </p-dialog>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class WithoutModalDoc {

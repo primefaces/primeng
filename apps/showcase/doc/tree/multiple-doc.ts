@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit, signal } from '@angular/core';
@@ -10,7 +11,7 @@ import { TreeModule } from 'primeng/tree';
 @Component({
     selector: 'multiple-doc',
     standalone: true,
-    imports: [TreeModule, FormsModule, ToggleSwitchModule, AppCode, AppDocSectionText],
+    imports: [TreeModule, FormsModule, ToggleSwitchModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -19,14 +20,14 @@ import { TreeModule } from 'primeng/tree';
             </p>
             <p>In multiple selection mode, value binding should be a key-value pair where key is the node key and value is a boolean to indicate selection.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex items-center mb-6 gap-2">
                 <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
                 <label for="input-metakey">MetaKey</label>
             </div>
             <p-tree [metaKeySelection]="metaKeySelection" [value]="files()" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class MultipleDoc implements OnInit {

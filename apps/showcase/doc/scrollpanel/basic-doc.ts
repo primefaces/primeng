@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, ScrollPanelModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, ScrollPanelModule],
     template: `
         <app-docsectiontext>
             <p class="text-sm">ScrollPanel is defined using dimensions for the scrollable viewport.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-scrollpanel [style]="{ width: '100%', height: '150px' }">
                 <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -26,8 +27,8 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
                     officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
                 </p>
             </p-scrollpanel>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc {}

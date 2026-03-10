@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component, OnInit, signal } from '@angular/core';
 import { TreeDragDropService, TreeNode } from 'primeng/api';
@@ -7,7 +8,7 @@ import { TreeModule } from 'primeng/tree';
 @Component({
     selector: 'multiple-drag-drop-doc',
     standalone: true,
-    imports: [TreeModule, AppCode, AppDocSectionText],
+    imports: [TreeModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -15,18 +16,20 @@ import { TreeModule } from 'primeng/tree';
                 the end.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-col md:flex-row gap-4">
-            <p-tree [value]="value1()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" draggableScope="first" droppableScope="none">
-                <ng-template #empty> No Items Left </ng-template>
-            </p-tree>
-            <p-tree [value]="value2()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" draggableScope="second" droppableScope="first">
-                <ng-template #empty> Drag Nodes Here </ng-template>
-            </p-tree>
-            <p-tree [value]="value3()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" [droppableScope]="['first', 'second']">
-                <ng-template #empty> Drag Nodes Here </ng-template>
-            </p-tree>
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex flex-col md:flex-row gap-4">
+                <p-tree [value]="value1()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" draggableScope="first" droppableScope="none">
+                    <ng-template #empty> No Items Left </ng-template>
+                </p-tree>
+                <p-tree [value]="value2()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" draggableScope="second" droppableScope="first">
+                    <ng-template #empty> Drag Nodes Here </ng-template>
+                </p-tree>
+                <p-tree [value]="value3()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" [droppableScope]="['first', 'second']">
+                    <ng-template #empty> Drag Nodes Here </ng-template>
+                </p-tree>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [TreeDragDropService],
     styles: [

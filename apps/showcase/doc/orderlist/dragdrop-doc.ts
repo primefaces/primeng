@@ -1,4 +1,5 @@
-import { AppCodeModule } from '@/components/doc/app.code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -9,35 +10,37 @@ import { OrderListModule } from 'primeng/orderlist';
 @Component({
     selector: 'dragdrop-doc',
     standalone: true,
-    imports: [CommonModule, OrderListModule, AppCodeModule, AppDocSectionText],
+    imports: [CommonModule, OrderListModule, AppCode, AppDemoWrapper, AppDocSectionText],
     providers: [ProductService],
     template: `
         <app-docsectiontext>
             <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property. Depends on <i>&#64;angular/cdk</i> package.</p>
         </app-docsectiontext>
-        <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products()" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
-                <ng-template let-option let-selected="selected" #item>
-                    <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
-                        <div class="flex-1 flex flex-col">
-                            <span class="font-medium text-sm">{{ option.name }}</span>
-                            <span
-                                [ngClass]="{
-                                    'text-sm': true,
-                                    'text-surface-500': !selected,
-                                    'dark:text-surface-400': !selected,
-                                    'text-inherit': selected
-                                }"
-                                >{{ option.category }}</span
-                            >
+        <app-demo-wrapper>
+            <div class="sm:flex sm:justify-center">
+                <p-orderlist [value]="products()" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+                    <ng-template let-option let-selected="selected" #item>
+                        <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                            <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                            <div class="flex-1 flex flex-col">
+                                <span class="font-medium text-sm">{{ option.name }}</span>
+                                <span
+                                    [ngClass]="{
+                                        'text-sm': true,
+                                        'text-surface-500': !selected,
+                                        'dark:text-surface-400': !selected,
+                                        'text-inherit': selected
+                                    }"
+                                    >{{ option.category }}</span
+                                >
+                            </div>
+                            <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
                         </div>
-                        <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
-                    </div>
-                </ng-template>
-            </p-orderlist>
-        </div>
-        <app-code [extFiles]="['Product']"></app-code>
+                    </ng-template>
+                </p-orderlist>
+            </div>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>
     `
 })
 export class DragDropDoc implements OnInit {

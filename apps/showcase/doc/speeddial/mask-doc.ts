@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { RouterModule } from '@angular/router';
@@ -9,18 +10,20 @@ import { RouterModule } from '@angular/router';
 @Component({
     selector: 'mask-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, SpeedDialModule, ToastModule, RouterModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, SpeedDialModule, ToastModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>Adding <i>mask</i> property displays a modal layer behind the popup items.</p>
         </app-docsectiontext>
-        <div class="card p-4">
-            <div [style]="{ position: 'relative', height: '350px' }">
-                <p-toast />
-                <p-speeddial [model]="items" direction="up" mask [style]="{ position: 'absolute', right: '1rem', bottom: '1rem' }" />
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="p-4">
+                <div [style]="{ position: 'relative', height: '350px' }">
+                    <p-speeddial [model]="items" direction="up" mask [style]="{ position: 'absolute', right: '1rem', bottom: '1rem' }" />
+                </div>
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService]
 })

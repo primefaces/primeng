@@ -2,7 +2,7 @@ import { AccessibilityDoc } from '@/doc/colorpicker/accessibility-doc';
 import { BasicDoc } from '@/doc/colorpicker/basic-doc';
 import { DisabledDoc } from '@/doc/colorpicker/disabled-doc';
 import { FormatDoc } from '@/doc/colorpicker/format-doc';
-import { ImportDoc } from '@/doc/colorpicker/import-doc';
+import { UsageDoc } from '@/doc/colorpicker/usage-doc';
 import { InlineDoc } from '@/doc/colorpicker/inline-doc';
 import { PTComponent } from '@/doc/colorpicker/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/colorpicker/reactiveforms-doc';
@@ -18,45 +18,39 @@ import { AppDoc } from '@/components/doc/app.doc';
         header="ColorPicker"
         description="ColorPicker is an input component to select a color."
         [docs]="docs"
+        [heroDoc]="heroDoc"
         [apiDocs]="['ColorPicker']"
         themeDocs="colorpicker"
         [ptDocs]="ptComponent"
     ></app-doc>`
 })
 export class ColorPickerDemo {
+    ptComponent = PTComponent;
+    heroDoc = BasicDoc;
+
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'inline',
-            label: 'Inline',
-            component: InlineDoc
-        },
-        {
-            id: 'format',
-            label: 'Format',
-            component: FormatDoc
-        },
-        {
-            id: 'forms',
-            label: 'Forms',
+            id: 'examples',
+            label: 'Examples',
             children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                { id: 'basic', label: 'Basic', component: BasicDoc },
+                { id: 'inline', label: 'Inline', component: InlineDoc },
+                { id: 'format', label: 'Format', component: FormatDoc },
+                { id: 'disabled', label: 'Disabled', component: DisabledDoc },
+                {
+                    id: 'forms',
+                    label: 'Forms',
+                    children: [
+                        { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                        { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                    ]
+                }
             ]
-        },
-        {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
         },
         {
             id: 'accessibility',
@@ -64,6 +58,4 @@ export class ColorPickerDemo {
             component: AccessibilityDoc
         }
     ];
-
-    ptComponent = PTComponent;
 }

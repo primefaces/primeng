@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
@@ -8,16 +9,18 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'icons-doc',
     standalone: true,
-    imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule],
+    imports: [AppCode, AppDemoWrapper, AppDocSectionText, SplitButtonModule, ToastModule],
     template: `
         <app-docsectiontext>
             <p>The buttons and menuitems have support to display icons.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton label="Save" icon="pi pi-check" dropdownIcon="pi pi-cog" [model]="items" />
-        </div>
-        <app-code></app-code>
+        <p-toast />
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-splitbutton label="Save" icon="pi pi-check" dropdownIcon="pi pi-cog" [model]="items" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService]
 })

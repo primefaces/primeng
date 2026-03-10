@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -7,17 +8,19 @@ import { DatePickerModule } from 'primeng/datepicker';
 @Component({
     selector: 'sizes-doc',
     standalone: true,
-    imports: [FormsModule, DatePickerModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, DatePickerModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>DatePicker provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>
         </app-docsectiontext>
-        <div class="card flex flex-col items-center gap-4">
-            <p-datepicker [(ngModel)]="value1" size="small" placeholder="Small" showIcon iconDisplay="input" />
-            <p-datepicker [(ngModel)]="value2" placeholder="Normal" showIcon iconDisplay="input" />
-            <p-datepicker [(ngModel)]="value3" size="large" placeholder="Large" showIcon iconDisplay="input" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex flex-col items-center gap-4">
+                <p-datepicker [(ngModel)]="value1" size="small" placeholder="Small" showIcon iconDisplay="input" />
+                <p-datepicker [(ngModel)]="value2" placeholder="Normal" showIcon iconDisplay="input" />
+                <p-datepicker [(ngModel)]="value3" size="large" placeholder="Large" showIcon iconDisplay="input" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class SizesDoc {

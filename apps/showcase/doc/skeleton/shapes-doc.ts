@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'shapes-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, SkeletonModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, SkeletonModule],
     template: `
         <app-docsectiontext>
             <p>Various shapes and sizes can be created using styling properties like <i>shape</i>, <i>width</i>, <i>height</i>, <i>borderRadius</i> and <i>class</i>.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <div class="flex flex-wrap">
                 <div class="w-full xl:w-6/12 p-4">
                     <h5>Rectangle</h5>
@@ -48,8 +49,8 @@ import { SkeletonModule } from 'primeng/skeleton';
                     </div>
                 </div>
             </div>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ShapesDoc {}

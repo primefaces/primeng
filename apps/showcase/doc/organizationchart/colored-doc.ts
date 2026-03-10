@@ -2,34 +2,37 @@ import { Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'colored-doc',
     standalone: true,
-    imports: [OrganizationChartModule, AppCode, AppDocSectionText],
+    imports: [OrganizationChartModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Styling a specific node is configured with <i>class</i> and <i>style</i> options of a TreeNode.</p></app-docsectiontext
         >
-        <div class="card overflow-x-auto">
-            <p-organization-chart [value]="data" [collapsible]="true">
-                <ng-template #node let-node>
-                    @if (node.type === 'person') {
-                        <div class="flex flex-col">
-                            <div class="flex flex-col items-center">
-                                <img [src]="node.data.image" class="mb-4 w-12 h-12" />
-                                <span class="font-bold mb-2">{{ node.data.name }}</span>
-                                <span>{{ node.data.title }}</span>
+        <app-demo-wrapper>
+            <div class="overflow-x-auto">
+                <p-organization-chart [value]="data" [collapsible]="true">
+                    <ng-template #node let-node>
+                        @if (node.type === 'person') {
+                            <div class="flex flex-col">
+                                <div class="flex flex-col items-center">
+                                    <img [src]="node.data.image" class="mb-4 w-12 h-12" />
+                                    <span class="font-bold mb-2">{{ node.data.name }}</span>
+                                    <span>{{ node.data.title }}</span>
+                                </div>
                             </div>
-                        </div>
-                    } @else {
-                        <div>{{ node.label }}</div>
-                    }
-                </ng-template>
-            </p-organization-chart>
-        </div>
-        <app-code></app-code>
+                        } @else {
+                            <div>{{ node.label }}</div>
+                        }
+                    </ng-template>
+                </p-organization-chart>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ColoredDoc {

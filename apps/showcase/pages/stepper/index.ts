@@ -1,7 +1,7 @@
 import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/stepper/accessibility-doc';
 import { BasicDoc } from '@/doc/stepper/basic-doc';
-import { ImportDoc } from '@/doc/stepper/import-doc';
+import { UsageDoc } from '@/doc/stepper/usage-doc';
 import { LinearDoc } from '@/doc/stepper/linear-doc';
 import { PTComponent } from '@/doc/stepper/pt/PTComponent';
 import { StepsOnlyDoc } from '@/doc/stepper/stepsonly';
@@ -18,41 +18,50 @@ import { Component } from '@angular/core';
         [apiDocs]="['Stepper']"
         themeDocs="stepper"
         [ptDocs]="ptComponent"
+        [heroDoc]="heroDoc"
     ></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class StepperDemo {
+    heroDoc = BasicDoc;
+
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'horizontal',
-            label: 'Horizontal',
-            component: BasicDoc
-        },
-        {
-            id: 'vertical',
-            label: 'Vertical',
-            component: VerticalDoc
-        },
-        {
-            id: 'linear',
-            label: 'Linear',
-            component: LinearDoc
-        },
-        {
-            id: 'steps-only',
-            label: 'Steps Only',
-            component: StepsOnlyDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
+            id: 'examples',
+            label: 'Examples',
+            children: [
+                {
+                    id: 'horizontal',
+                    label: 'Horizontal',
+                    component: BasicDoc
+                },
+                {
+                    id: 'vertical',
+                    label: 'Vertical',
+                    component: VerticalDoc
+                },
+                {
+                    id: 'linear',
+                    label: 'Linear',
+                    component: LinearDoc
+                },
+                {
+                    id: 'steps-only',
+                    label: 'Steps Only',
+                    component: StepsOnlyDoc
+                },
+                {
+                    id: 'template',
+                    label: 'Template',
+                    component: TemplateDoc
+                }
+            ]
         },
         {
             id: 'accessibility',

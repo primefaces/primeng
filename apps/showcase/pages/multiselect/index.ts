@@ -7,7 +7,7 @@ import { FilterDoc } from '@/doc/multiselect/filter-doc';
 import { FloatLabelDoc } from '@/doc/multiselect/floatlabel-doc';
 import { GroupDoc } from '@/doc/multiselect/group-doc';
 import { IftaLabelDoc } from '@/doc/multiselect/iftalabel-doc';
-import { ImportDoc } from '@/doc/multiselect/import-doc';
+import { UsageDoc } from '@/doc/multiselect/usage-doc';
 import { InvalidDoc } from '@/doc/multiselect/invalid-doc';
 import { LoadingStateDoc } from '@/doc/multiselect/loadingstate-doc';
 import { ReactiveFormsDoc } from '@/doc/multiselect/reactiveforms-doc';
@@ -27,6 +27,7 @@ import { AppDoc } from '@/components/doc/app.doc';
         header="MultiSelect"
         description="MultiSelect is used to select multiple items from a collection."
         [docs]="docs"
+        [heroDoc]="heroDoc"
         [apiDocs]="['MultiSelect']"
         [ptDocs]="ptComponent"
         themeDocs="multiselect"
@@ -36,93 +37,100 @@ import { AppDoc } from '@/components/doc/app.doc';
 })
 export class MultiSelectDemo {
     ptComponent = PTComponent;
+    heroDoc = BasicDoc;
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'chips',
-            label: 'Chips',
-            component: ChipsDoc
-        },
-        {
-            id: 'group',
-            label: 'Group',
-            component: GroupDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
-            id: 'filter',
-            label: 'Filter',
-            component: FilterDoc
-        },
-        {
-            id: 'loadingstate',
-            label: 'Loading State',
-            component: LoadingStateDoc
-        },
-        {
-            id: 'virtualscroll',
-            label: 'VirtualScroll',
-            component: VirtualScrollDoc
-        },
-        {
-            id: 'floatlabel',
-            label: 'Float Label',
-            component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
-        },
-        {
-            id: 'clearicon',
-            label: 'Clear Icon',
-            component: ClearIconDoc
-        },
-        {
-            id: 'sizes',
-            label: 'Sizes',
-            component: SizesDoc
-        },
-        {
-            id: 'fluid',
-            label: 'Fluid',
-            component: FluidDoc
-        },
-        {
-            id: 'filled',
-            label: 'Filled',
-            component: FilledDoc
-        },
-        {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
-        },
-        {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc
-        },
-        {
-            id: 'forms',
-            label: 'Forms',
+            id: 'examples',
+            label: 'Examples',
             children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                {
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
+                },
+                {
+                    id: 'chips',
+                    label: 'Chips',
+                    component: ChipsDoc
+                },
+                {
+                    id: 'group',
+                    label: 'Group',
+                    component: GroupDoc
+                },
+                {
+                    id: 'template',
+                    label: 'Template',
+                    component: TemplateDoc
+                },
+                {
+                    id: 'filter',
+                    label: 'Filter',
+                    component: FilterDoc
+                },
+                {
+                    id: 'loadingstate',
+                    label: 'Loading State',
+                    component: LoadingStateDoc
+                },
+                {
+                    id: 'virtualscroll',
+                    label: 'VirtualScroll',
+                    component: VirtualScrollDoc
+                },
+                {
+                    id: 'floatlabel',
+                    label: 'Float Label',
+                    component: FloatLabelDoc
+                },
+                {
+                    id: 'iftalabel',
+                    label: 'Ifta Label',
+                    component: IftaLabelDoc
+                },
+                {
+                    id: 'clearicon',
+                    label: 'Clear Icon',
+                    component: ClearIconDoc
+                },
+                {
+                    id: 'sizes',
+                    label: 'Sizes',
+                    component: SizesDoc
+                },
+                {
+                    id: 'fluid',
+                    label: 'Fluid',
+                    component: FluidDoc
+                },
+                {
+                    id: 'filled',
+                    label: 'Filled',
+                    component: FilledDoc
+                },
+                {
+                    id: 'disabled',
+                    label: 'Disabled',
+                    component: DisabledDoc
+                },
+                {
+                    id: 'invalid',
+                    label: 'Invalid',
+                    component: InvalidDoc
+                },
+                {
+                    id: 'forms',
+                    label: 'Forms',
+                    children: [
+                        { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                        { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                    ]
+                }
             ]
         },
         {

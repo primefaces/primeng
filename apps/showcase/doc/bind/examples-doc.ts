@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
@@ -8,17 +9,19 @@ import { TooltipModule } from 'primeng/tooltip';
 @Component({
     selector: 'examples-doc',
     standalone: true,
-    imports: [AppCode, BindModule, TooltipModule, CommonModule, AppDocSectionText],
+    imports: [AppCode, AppDemoWrapper, BindModule, TooltipModule, CommonModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The <i>pBind</i> is a directive that accepts an object of HTML attributes.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-center gap-4">
-            <div [pBind]="{ 'aria-label': 'basic-box', class: 'bg-primary text-primary-contrast flex items-center justify-center p-3 rounded-lg w-28 font-medium text-sm' }">Static</div>
+        <app-demo-wrapper>
+            <div class="flex flex-wrap justify-center gap-4">
+                <div [pBind]="{ 'aria-label': 'basic-box', class: 'bg-primary text-primary-contrast flex items-center justify-center p-3 rounded-lg w-28 font-medium text-sm' }">Static</div>
 
-            <div [pBind]="boxBinding()" pTooltip="Click to change color">Dynamic</div>
-        </div>
-        <app-code></app-code>
+                <div [pBind]="boxBinding()" pTooltip="Click to change color">Dynamic</div>
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class ExamplesDoc {

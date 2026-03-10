@@ -2,7 +2,7 @@ import { AppDoc } from '@/components/doc/app.doc';
 import { BasicDoc } from '@/doc/message/basic-doc';
 import { FormDoc } from '@/doc/message/form-doc';
 import { IconDoc } from '@/doc/message/icon-doc';
-import { ImportDoc } from '@/doc/message/import-doc';
+import { UsageDoc } from '@/doc/message/usage-doc';
 import { OutlinedDoc } from '@/doc/message/outlined-doc';
 import { PTComponent } from '@/doc/message/pt/PTComponent';
 import { SeverityDoc } from '@/doc/message/severity-doc';
@@ -15,68 +15,77 @@ import { AccessibilityDoc } from '@/doc/message/accessibility-doc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Angular Message Component" header="Message" description="Message component is used to display inline messages." [docs]="docs" [apiDocs]="['Message']" [ptDocs]="ptComponent" themeDocs="message"></app-doc>`,
+    template: `
+        <app-doc docTitle="Angular Message Component" header="Message" description="Message component is used to display inline messages." [docs]="docs" [heroDoc]="heroDoc" [apiDocs]="['Message']" [ptDocs]="ptComponent" themeDocs="message"></app-doc>
+    `,
     imports: [AppDoc],
     standalone: true
 })
 export class MessageDemo {
     ptComponent = PTComponent;
+    heroDoc = BasicDoc;
 
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'severity',
-            label: 'Severity',
-            component: SeverityDoc
-        },
-        {
-            id: 'icon',
-            label: 'Icon',
-            component: IconDoc
-        },
-        {
-            id: 'outlined',
-            label: 'Outlined',
-            component: OutlinedDoc
-        },
-        {
-            id: 'simple',
-            label: 'Simple',
-            component: SimpleDoc
-        },
-        {
-            id: 'sizes',
-            label: 'Sizes',
-            component: SizesDoc
-        },
-        {
-            id: 'forms',
-            label: 'Forms',
-            component: FormDoc
-        },
-        {
-            id: 'dynamic',
-            label: 'Dynamic',
-            component: DynamicDoc
-        },
-        {
-            id: 'closable',
-            label: 'Closable',
-            component: ClosableDoc
-        },
-        {
-            id: 'life',
-            label: 'Life',
-            component: LifeDoc
+            id: 'examples',
+            label: 'Examples',
+            children: [
+                {
+                    id: 'basic',
+                    label: 'Basic',
+                    component: BasicDoc
+                },
+                {
+                    id: 'severity',
+                    label: 'Severity',
+                    component: SeverityDoc
+                },
+                {
+                    id: 'icon',
+                    label: 'Icon',
+                    component: IconDoc
+                },
+                {
+                    id: 'outlined',
+                    label: 'Outlined',
+                    component: OutlinedDoc
+                },
+                {
+                    id: 'simple',
+                    label: 'Simple',
+                    component: SimpleDoc
+                },
+                {
+                    id: 'sizes',
+                    label: 'Sizes',
+                    component: SizesDoc
+                },
+                {
+                    id: 'forms',
+                    label: 'Forms',
+                    component: FormDoc
+                },
+                {
+                    id: 'dynamic',
+                    label: 'Dynamic',
+                    component: DynamicDoc
+                },
+                {
+                    id: 'closable',
+                    label: 'Closable',
+                    component: ClosableDoc
+                },
+                {
+                    id: 'life',
+                    label: 'Life',
+                    component: LifeDoc
+                }
+            ]
         },
         {
             id: 'accessibility',

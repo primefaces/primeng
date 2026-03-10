@@ -1,5 +1,6 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -12,7 +13,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 @Component({
     selector: 'multipleselection-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, TableModule, ToggleSwitchModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [CommonModule, FormsModule, TableModule, ToggleSwitchModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>
             <p>
                 More than one row is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>⌘</i>) is not necessary to add to existing selections. When the optional
@@ -21,7 +22,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
+            <app-demo-wrapper>
                 <div class="flex justify-center items-center mb-5 gap-2">
                     <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
                     <label for="input-metakey" class="text-sm">MetaKey</label>
@@ -44,9 +45,9 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                         </tr>
                     </ng-template>
                 </p-table>
-            </div>
-        </p-deferred-demo>
-        <app-code [extFiles]="['Product']"></app-code>`,
+                <app-code [extFiles]="['Product']"></app-code>
+            </app-demo-wrapper>
+        </p-deferred-demo>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultipleSelectionDoc {

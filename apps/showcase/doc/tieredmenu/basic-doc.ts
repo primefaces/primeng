@@ -2,20 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, TieredMenuModule],
+    imports: [AppDocSectionText, AppCode, AppDemoWrapper, TieredMenuModule],
     template: `
         <app-docsectiontext>
             <p>TieredMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-tieredmenu [model]="items" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-tieredmenu [model]="items" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc implements OnInit {

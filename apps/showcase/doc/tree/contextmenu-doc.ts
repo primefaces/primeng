@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component, model, OnInit, signal } from '@angular/core';
@@ -10,17 +11,17 @@ import { TreeModule } from 'primeng/tree';
 @Component({
     selector: 'contextmenu-doc',
     standalone: true,
-    imports: [TreeModule, ContextMenuModule, ToastModule, AppCode, AppDocSectionText],
+    imports: [TreeModule, ContextMenuModule, ToastModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Tree has exclusive integration with ContextMenu using the <i>contextMenu</i> property along with the <i>contextMenuSelection</i> to manage the selection.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-toast [style]="{ marginTop: '80px' }" />
+        <p-toast [style]="{ marginTop: '80px' }" />
+        <app-demo-wrapper>
             <p-tree [value]="files()" class="w-full md:w-80" selectionMode="single" [(selection)]="selectedNode" [(contextMenuSelection)]="contextMenuNode" [contextMenu]="cm" />
             <p-contextmenu #cm [model]="items" />
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `,
     providers: [MessageService],
     changeDetection: ChangeDetectionStrategy.OnPush

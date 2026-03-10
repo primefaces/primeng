@@ -2,20 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { PanelMenu } from 'primeng/panelmenu';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'multiple-doc',
     standalone: true,
-    imports: [PanelMenu, AppCode, AppDocSectionText],
+    imports: [PanelMenu, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Only one single root menuitem can be active by default, enable <i>multiple</i> property to be able to open more than one items.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-panelmenu [model]="items" class="w-full md:w-80" [multiple]="true" />
-        </div>
-        <app-code></app-code>
+        <app-demo-wrapper>
+            <div class="flex justify-center">
+                <p-panelmenu [model]="items" class="w-full md:w-80" [multiple]="true" />
+            </div>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class MultipleDoc implements OnInit {

@@ -1,4 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -8,7 +9,7 @@ import { PickListModule } from 'primeng/picklist';
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [PickListModule, AppCode, AppDocSectionText],
+    imports: [PickListModule, AppCode, AppDemoWrapper, AppDocSectionText],
     providers: [ProductService],
     template: `
         <app-docsectiontext>
@@ -17,14 +18,14 @@ import { PickListModule } from 'primeng/picklist';
                 functionality depends on <i>&#64;angular/cdk</i> package.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
                 <ng-template let-item #item>
                     {{ item.name }}
                 </ng-template>
             </p-picklist>
-        </div>
-        <app-code [extFiles]="['Product']"></app-code>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>
     `
 })
 export class BasicDoc implements OnInit {

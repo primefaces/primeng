@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { AccordionModule } from 'primeng/accordion';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dynamic-doc',
     standalone: true,
-    imports: [AccordionModule, AppCode, AppDocSectionText],
+    imports: [AccordionModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>AccordionPanel can be generated dynamically using the standard <i>&#64;for</i> block.</p>
         </app-docsectiontext>
-        <div class="card">
+        <app-demo-wrapper>
             <p-accordion [value]="['0']">
                 @for (tab of tabs; track tab.title) {
                     <p-accordion-panel [value]="tab.value">
@@ -22,8 +23,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     </p-accordion-panel>
                 }
             </p-accordion>
-        </div>
-        <app-code></app-code>
+            <app-code></app-code>
+        </app-demo-wrapper>
     `
 })
 export class DynamicDoc {
