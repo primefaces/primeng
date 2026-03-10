@@ -20,7 +20,7 @@ interface AutoCompleteCompleteEvent {
                 values. <i>blank</i> is the default mode to send a query with an empty string whereas <i>current</i> setting sends a query with the current value of the input.
             </p>
         </app-docsectiontext>
-        <app-demo-wrapper name="dropdown-demo">
+        <app-demo-wrapper>
             <div class="flex justify-center">
                 <p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />
             </div>

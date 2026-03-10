@@ -17,7 +17,7 @@ import { ChipModule } from 'primeng/chip';
     template: ` <app-docsectiontext>
             <p>This example demonstrates an advanced use case with templating, object handling, dropdown, and multiple mode.</p>
         </app-docsectiontext>
-        <app-demo-wrapper name="advanced-chips-demo">
+        <app-demo-wrapper>
             <div>
                 <p-autocomplete
                     [(ngModel)]="selectedProducts"

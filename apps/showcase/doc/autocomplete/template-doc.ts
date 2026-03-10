@@ -20,7 +20,7 @@ interface AutoCompleteCompleteEvent {
     template: ` <app-docsectiontext>
             <p>AutoComplete offers multiple templates for customization through templating.</p>
         </app-docsectiontext>
-        <app-demo-wrapper name="template-demo">
+        <app-demo-wrapper>
             <div class="flex justify-center">
                 <p-autocomplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name">
                     <ng-template let-country #item>

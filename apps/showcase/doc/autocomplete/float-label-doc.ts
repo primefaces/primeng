@@ -22,7 +22,7 @@ interface AutoCompleteCompleteEvent {
                 <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
             </p>
         </app-docsectiontext>
-        <app-demo-wrapper name="float-label-demo">
+        <app-demo-wrapper>
             <div class="flex flex-wrap justify-center items-end gap-4">
                 <p-floatlabel>
                     <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search($event)" inputId="over_label" />

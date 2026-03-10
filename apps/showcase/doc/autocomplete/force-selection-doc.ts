@@ -18,7 +18,7 @@ interface AutoCompleteCompleteEvent {
     template: ` <app-docsectiontext>
             <p>ForceSelection mode validates the manual input to check whether it also exists in the suggestions list, if not the input value is cleared to make sure the value passed to the model is always one of the suggestions.</p>
         </app-docsectiontext>
-        <app-demo-wrapper name="force-selection-demo">
+        <app-demo-wrapper>
             <div class="flex justify-center">
                 <p-autocomplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
             </div>

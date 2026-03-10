@@ -21,7 +21,7 @@ interface AutoCompleteCompleteEvent {
                 suggestions with the search results.
             </p>
         </app-docsectiontext>
-        <app-demo-wrapper name="basic-demo">
+        <app-demo-wrapper>
             <div class="flex justify-center">
                 <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
             </div>

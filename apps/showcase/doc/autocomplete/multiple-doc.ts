@@ -17,7 +17,7 @@ interface AutoCompleteCompleteEvent {
     template: ` <app-docsectiontext>
             <p>Enable multiple selection mode using the <i>⁠multiple</i> property to allow users to select more than one value from the autocomplete. When enabled, the value reference must be an array.</p>
         </app-docsectiontext>
-        <app-demo-wrapper name="multiple-demo">
+        <app-demo-wrapper>
             <div>
                 <label for="multiple-ac-1" class="text-sm font-bold mb-2 block">With Typeahead</label>
                 <p-autocomplete [(ngModel)]="value1" inputId="multiple-ac-1" multiple fluid [suggestions]="items" (completeMethod)="search($event)" />

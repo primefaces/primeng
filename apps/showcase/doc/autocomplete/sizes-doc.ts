@@ -12,7 +12,7 @@ import { AppCode } from '@/components/doc/app.code';
     template: ` <app-docsectiontext>
             <p>AutoComplete provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>
         </app-docsectiontext>
-        <app-demo-wrapper name="sizes-demo">
+        <app-demo-wrapper>
             <div class="flex flex-col items-center gap-4">
                 <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search()" size="small" placeholder="Small" dropdown />
                 <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search()" placeholder="Normal" dropdown />

@@ -23,7 +23,7 @@ interface AutoCompleteCompleteEvent {
             <p>AutoComplete can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <p-toast />
-        <app-demo-wrapper name="reactive-forms-demo">
+        <app-demo-wrapper>
             <div class="flex justify-center">
                 <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 md:w-56">
                     <div class="flex flex-col gap-1">

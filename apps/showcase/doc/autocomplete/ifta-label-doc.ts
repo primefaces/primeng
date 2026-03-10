@@ -19,7 +19,7 @@ interface AutoCompleteCompleteEvent {
     template: ` <app-docsectiontext>
             <p>IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for more information.</p>
         </app-docsectiontext>
-        <app-demo-wrapper name="ifta-label-demo">
+        <app-demo-wrapper>
             <div class="flex justify-center">
                 <p-iftalabel>
                     <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" inputId="ac" />

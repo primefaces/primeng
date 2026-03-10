@@ -17,7 +17,7 @@ interface AutoCompleteCompleteEvent {
     template: ` <app-docsectiontext>
             <p>When <i>showClear</i> is enabled, a clear icon is displayed to clear the value.</p>
         </app-docsectiontext>
-        <app-demo-wrapper name="clear-icon-demo">
+        <app-demo-wrapper>
             <div class="flex justify-center">
                 <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [showClear]="true" inputStyleClass="w-56" />
             </div>

@@ -17,7 +17,7 @@ interface AutoCompleteCompleteEvent {
     template: ` <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
-        <app-demo-wrapper name="disabled-demo">
+        <app-demo-wrapper>
             <div class="flex justify-center">
                 <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" placeholder="Disabled" (completeMethod)="search($event)" [disabled]="true" />
             </div>

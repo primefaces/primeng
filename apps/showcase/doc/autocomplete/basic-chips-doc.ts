@@ -12,7 +12,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     template: ` <app-docsectiontext>
             <p>With <i>⁠multiple</i> enabled, the AutoComplete component behaves like a chips or tags input. Use <i>addOnBlur</i>, <i>⁠addOnTab</i>, and <i>⁠separator</i> properties to customize the keystroke behavior for adding items.</p>
         </app-docsectiontext>
-        <app-demo-wrapper name="basic-chips-demo">
+        <app-demo-wrapper>
             <div>
                 <label for="chips-blur" class="text-sm font-bold mb-2 block">With Add On Blur</label>
                 <p-autocomplete [(ngModel)]="valueBlur" inputId="chips-blur" multiple fluid [typeahead]="false" [addOnBlur]="true" placeholder="Type and click outside to add..." />

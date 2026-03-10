@@ -1,4 +1,4 @@
-import { Component, computed, contentChild, inject, input, signal } from '@angular/core';
+import { Component, computed, contentChild, ElementRef, inject, input, signal } from '@angular/core';
 import { TooltipModule } from 'primeng/tooltip';
 import { AppCode } from './app.code';
 import { DEMO_MODE, IN_DEMO_WRAPPER } from './demo-mode.token';
@@ -16,7 +16,7 @@ import { DEMO_MODE, IN_DEMO_WRAPPER } from './demo-mode.token';
                 </div>
                 <div class="doc-section-demo-toolbar">
                     @if (!isCollapsible()) {
-                        <span class="doc-section-demo-name">{{ name() }}</span>
+                        <span class="doc-section-demo-name">{{ resolvedName() }}</span>
                     }
                     <div class="doc-section-demo-actions">
                         @if (isCollapsible()) {
@@ -46,7 +46,23 @@ import { DEMO_MODE, IN_DEMO_WRAPPER } from './demo-mode.token';
 export class AppDemoWrapper {
     name = input<string>('');
 
+    private elementRef = inject(ElementRef);
     private demoMode = inject(DEMO_MODE, { optional: true });
+
+    resolvedName = computed(() => {
+        const explicit = this.name();
+        if (explicit) return explicit;
+
+        let el = this.elementRef.nativeElement.parentElement;
+        while (el) {
+            const tag = el.tagName?.toLowerCase();
+            if (tag?.endsWith('-doc') || tag?.endsWith('-demo')) {
+                return tag.replace(/-doc$/, '-demo');
+            }
+            el = el.parentElement;
+        }
+        return '';
+    });
 
     isCollapsible = computed(() => this.demoMode === 'collapsible');
 

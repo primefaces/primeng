@@ -18,7 +18,7 @@ import { AppCode } from '@/components/doc/app.code';
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />
-        <app-demo-wrapper name="template-driven-forms-demo">
+        <app-demo-wrapper>
             <div class="flex justify-center">
                 <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
                     <div class="flex flex-col gap-1">

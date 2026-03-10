@@ -17,7 +17,7 @@ interface AutoCompleteCompleteEvent {
     template: ` <app-docsectiontext>
             <p>The fluid prop makes the component take up the full width of its container when set to true.</p>
         </app-docsectiontext>
-        <app-demo-wrapper name="fluid-demo">
+        <app-demo-wrapper>
             <div>
                 <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" fluid />
             </div>

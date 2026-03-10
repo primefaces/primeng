@@ -21,7 +21,7 @@ interface AutoCompleteCompleteEvent {
                 a Country object that has name and code fields such as <i>&#123;name: "United States", code:"USA"&#125;</i>.
             </p>
         </app-docsectiontext>
-        <app-demo-wrapper name="objects-demo">
+        <app-demo-wrapper>
             <div class="flex justify-center">
                 <p-autocomplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
             </div>
