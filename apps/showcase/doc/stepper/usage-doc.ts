@@ -17,6 +17,14 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<p-stepper />`
+        html: `<p-stepper>
+    <p-step-list>
+        <p-step></p-step>
+    </p-step-list>
+    <p-step-panels>
+        <p-step-panel>
+        </p-step-panel>
+    </p-step-panels>
+</p-stepper>`
     };
 }

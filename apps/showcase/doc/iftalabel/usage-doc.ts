@@ -17,6 +17,9 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<p-iftalabel />`
+        html: `<p-iftalabel>
+    <!-- input element like InputText, InputNumber, Select, Textarea etc. -->
+    <!-- label element -->
+</p-iftalabel>`
     };
 }

@@ -17,6 +17,14 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<p-dynamicdialog />`
+        typescript: `dialogService = inject(DialogService);
+
+ref: DynamicDialogRef | undefined;
+
+show() {
+    this.ref = this.dialogService.open(YourComponent, {
+        header: 'Header'
+    });
+}`
     };
 }

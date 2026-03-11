@@ -17,6 +17,14 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<p-tabs />`
+        html: `<p-tabs>
+    <p-tablist>
+        <p-tab></p-tab>
+    </p-tablist>
+    <p-tabpanels>
+        <p-tabpanel>
+        </p-tabpanel>
+    </p-tabpanels>
+</p-tabs>`
     };
 }

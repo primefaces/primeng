@@ -17,6 +17,6 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<p-textarea />`
+        html: `<textarea pTextarea></textarea>`
     };
 }

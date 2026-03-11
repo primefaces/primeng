@@ -17,6 +17,10 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<p-toolbar />`
+        html: `<p-toolbar>
+    <ng-template #start></ng-template>
+    <ng-template #center></ng-template>
+    <ng-template #end></ng-template>
+</p-toolbar>`
     };
 }

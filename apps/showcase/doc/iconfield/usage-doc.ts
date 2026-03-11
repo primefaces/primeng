@@ -18,6 +18,9 @@ import { InputIconModule } from 'primeng/inputicon';`
     };
 
     usageCode: Code = {
-        html: `<p-iconfield />`
+        html: `<p-iconfield>
+    <p-inputicon class="pi pi-search" />
+    <!-- input element like InputText, InputNumber, Select, input etc. -->
+</p-iconfield>`
     };
 }

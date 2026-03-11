@@ -17,6 +17,6 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<p-inputmask />`
+        html: `<input pInputMask="99-999999" />`
     };
 }

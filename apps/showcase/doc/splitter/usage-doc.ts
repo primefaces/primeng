@@ -17,6 +17,9 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<p-splitter />`
+        html: `<p-splitter>
+    <ng-template #panel></ng-template>
+    <ng-template #panel></ng-template>
+</p-splitter>`
     };
 }

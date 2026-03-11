@@ -17,6 +17,6 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<div [pBind]="{ class: 'my-class' }" />`
+        html: `<div [pBind]="{ class: 'my-class' }"></div>`
     };
 }

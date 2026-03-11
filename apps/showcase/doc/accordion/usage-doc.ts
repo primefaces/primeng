@@ -17,6 +17,13 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<p-accordion />`
+        html: `<p-accordion>
+    <p-accordion-panel>
+        <p-accordion-header></p-accordion-header>
+        <p-accordion-content>
+
+        </p-accordion-content>
+    </p-accordion-panel>
+</p-accordion>`
     };
 }

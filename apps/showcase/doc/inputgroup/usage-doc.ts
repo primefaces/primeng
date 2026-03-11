@@ -18,6 +18,8 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';`
     };
 
     usageCode: Code = {
-        html: `<p-inputgroup />`
+        html: `<p-inputgroup>
+    <p-inputgroup-addon></p-inputgroup-addon>
+</p-inputgroup>`
     };
 }
