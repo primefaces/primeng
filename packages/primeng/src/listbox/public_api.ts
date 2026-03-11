@@ -1,3 +1,3 @@
+export * from 'primeng/types/listbox';
 export * from './listbox';
-export * from './listbox.interface';
 export * from './style/listboxstyle';

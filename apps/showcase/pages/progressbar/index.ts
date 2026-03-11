@@ -1,18 +1,21 @@
-import { AccessibilityDoc } from '@/doc/progressbar/accessibilitydoc';
-import { BasicDoc } from '@/doc/progressbar/basicdoc';
-import { DynamicDoc } from '@/doc/progressbar/dynamicdoc';
-import { ImportDoc } from '@/doc/progressbar/importdoc';
-import { IndeterminateDoc } from '@/doc/progressbar/indeterminatedoc';
-import { ProgressBarDocModule } from '@/doc/progressbar/progressbardoc.module';
-import { TemplateDoc } from '@/doc/progressbar/templatedoc';
+import { AccessibilityDoc } from '@/doc/progressbar/accessibility-doc';
+import { BasicDoc } from '@/doc/progressbar/basic-doc';
+import { DynamicDoc } from '@/doc/progressbar/dynamic-doc';
+import { ImportDoc } from '@/doc/progressbar/import-doc';
+import { IndeterminateDoc } from '@/doc/progressbar/indeterminate-doc';
+import { PTComponent } from '@/doc/progressbar/pt/PTComponent';
+import { TemplateDoc } from '@/doc/progressbar/template-doc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular ProgressBar Component" header="ProgressBar" description="ProgressBar is a process status indicator." [docs]="docs" [apiDocs]="['ProgressBar']" themeDocs="progressbar"></app-doc>`,
+    template: `<app-doc docTitle="Angular ProgressBar Component" header="ProgressBar" description="ProgressBar is a process status indicator." [docs]="docs" [ptDocs]="ptComponent" [apiDocs]="['ProgressBar']" themeDocs="progressbar"></app-doc>`,
     standalone: true,
-    imports: [ProgressBarDocModule]
+    imports: [AppDoc]
 })
 export class ProgressBarDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

@@ -1,33 +1,36 @@
-import { AccessibilityDoc } from '@/doc/select/accessibilitydoc';
-import { BasicDoc } from '@/doc/select/basicdoc';
-import { CheckmarkDoc } from '@/doc/select/checkmarkdoc';
-import { ClearIconDoc } from '@/doc/select/clearicondoc';
-import { DisabledDoc } from '@/doc/select/disableddoc';
-import { EditableDoc } from '@/doc/select/editabledoc';
-import { FilledDoc } from '@/doc/select/filleddoc';
-import { FilterDoc } from '@/doc/select/filterdoc';
-import { FloatLabelDoc } from '@/doc/select/floatlabeldoc';
-import { GroupDoc } from '@/doc/select/groupdoc';
-import { IftaLabelDoc } from '@/doc/select/iftalabeldoc';
-import { ImportDoc } from '@/doc/select/importdoc';
-import { InvalidDoc } from '@/doc/select/invaliddoc';
-import { LazyVirtualScrollDoc } from '@/doc/select/lazyvirtualscrolldoc';
-import { LoadingStateDoc } from '@/doc/select/loadingstatedoc';
-import { ReactiveFormsDoc } from '@/doc/select/reactiveformsdoc';
-import { SelectDocModule } from '@/doc/select/selectdoc.module';
-import { SizesDoc } from '@/doc/select/sizesdoc';
-import { TemplateDoc } from '@/doc/select/templatedoc';
-import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenformsdoc';
-import { VirtualScrollDoc } from '@/doc/select/virtualscrolldoc';
+import { AccessibilityDoc } from '@/doc/select/accessibility-doc';
+import { BasicDoc } from '@/doc/select/basic-doc';
+import { CheckmarkDoc } from '@/doc/select/checkmark-doc';
+import { ClearIconDoc } from '@/doc/select/clearicon-doc';
+import { DisabledDoc } from '@/doc/select/disabled-doc';
+import { EditableDoc } from '@/doc/select/editable-doc';
+import { FilledDoc } from '@/doc/select/filled-doc';
+import { FilterDoc } from '@/doc/select/filter-doc';
+import { FloatLabelDoc } from '@/doc/select/floatlabel-doc';
+import { FluidDoc } from '@/doc/select/fluid-doc';
+import { GroupDoc } from '@/doc/select/group-doc';
+import { IftaLabelDoc } from '@/doc/select/iftalabel-doc';
+import { ImportDoc } from '@/doc/select/import-doc';
+import { InvalidDoc } from '@/doc/select/invalid-doc';
+import { LazyVirtualScrollDoc } from '@/doc/select/lazyvirtualscroll-doc';
+import { LoadingStateDoc } from '@/doc/select/loadingstate-doc';
+import { PTComponent } from '@/doc/select/pt/PTComponent';
+import { ReactiveFormsDoc } from '@/doc/select/reactiveforms-doc';
+import { SizesDoc } from '@/doc/select/sizes-doc';
+import { TemplateDoc } from '@/doc/select/template-doc';
+import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenforms-doc';
+import { VirtualScrollDoc } from '@/doc/select/virtualscroll-doc';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Angular Select Component" header="Select" description="Select is used to choose an item from a collection of options." [docs]="docs" [apiDocs]="['Select']" themeDocs="select"></app-doc> `,
+    template: `<app-doc docTitle="Angular Select Component" header="Select" description="Select is used to choose an item from a collection of options." [docs]="docs" [apiDocs]="['Select']" [ptDocs]="ptComponent" themeDocs="select"></app-doc> `,
     standalone: true,
-    imports: [SelectDocModule],
+    imports: [AppDoc],
     styleUrl: './selectdemo.scss'
 })
 export class SelectDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',
@@ -65,16 +68,10 @@ export class SelectDemo {
             component: FilterDoc
         },
         {
-            id: 'clearicon',
-            label: 'Clear Icon',
-            component: ClearIconDoc
-        },
-        {
             id: 'loadingstate',
             label: 'Loading State',
             component: LoadingStateDoc
         },
-
         {
             id: 'virtualscroll',
             label: 'Virtual Scroll',
@@ -101,9 +98,19 @@ export class SelectDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'disabled',

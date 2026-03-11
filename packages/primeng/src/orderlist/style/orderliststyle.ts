@@ -11,7 +11,7 @@ const classes = {
 export class OrderListStyle extends BaseStyle {
     name = 'orderlist';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

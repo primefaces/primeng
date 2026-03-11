@@ -1,3 +1,3 @@
-export * from './tieredmenu';
-export * from './tieredmenu.interface';
+export * from 'primeng/types/tieredmenu';
 export * from './style/tieredmenustyle';
+export * from './tieredmenu';

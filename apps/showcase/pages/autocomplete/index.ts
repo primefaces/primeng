@@ -1,22 +1,27 @@
-import { AccessibilityDoc } from '@/doc/autocomplete/accessibilitydoc';
-import { AutoCompleteDocModule } from '@/doc/autocomplete/autocompletedoc.module';
-import { BasicDoc } from '@/doc/autocomplete/basicdoc';
-import { DisabledDoc } from '@/doc/autocomplete/disableddoc';
-import { DropdownDoc } from '@/doc/autocomplete/dropdowndoc';
-import { FilledDoc } from '@/doc/autocomplete/filleddoc';
-import { FloatLabelDoc } from '@/doc/autocomplete/floatlabeldoc';
-import { ForceSelectionDoc } from '@/doc/autocomplete/forceselectiondoc';
-import { GroupDoc } from '@/doc/autocomplete/groupdoc';
-import { IftaLabelDoc } from '@/doc/autocomplete/iftalabeldoc';
-import { ImportDoc } from '@/doc/autocomplete/importdoc';
-import { InvalidDoc } from '@/doc/autocomplete/invaliddoc';
-import { MultipleDoc } from '@/doc/autocomplete/multipledoc';
-import { ObjectsDoc } from '@/doc/autocomplete/objectsdoc';
-import { ReactiveFormsDoc } from '@/doc/autocomplete/reactiveformsdoc';
-import { SizesDoc } from '@/doc/autocomplete/sizesdoc';
-import { TemplateDoc } from '@/doc/autocomplete/templatedoc';
-import { TemplateDrivenFormsDoc } from '@/doc/autocomplete/templatedrivenformsdoc';
-import { VirtualScrollDoc } from '@/doc/autocomplete/virtualscrolldoc';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AccessibilityDoc } from '@/doc/autocomplete/accessibility-doc';
+import { AdvancedChipsDoc } from '@/doc/autocomplete/advanced-chips-doc';
+import { BasicChipsDoc } from '@/doc/autocomplete/basic-chips-doc';
+import { BasicDoc } from '@/doc/autocomplete/basic-doc';
+import { ClearIconDoc } from '@/doc/autocomplete/clear-icon-doc';
+import { DisabledDoc } from '@/doc/autocomplete/disabled-doc';
+import { DropdownDoc } from '@/doc/autocomplete/dropdown-doc';
+import { FilledDoc } from '@/doc/autocomplete/filled-doc';
+import { FloatLabelDoc } from '@/doc/autocomplete/float-label-doc';
+import { FluidDoc } from '@/doc/autocomplete/fluid-doc';
+import { ForceSelectionDoc } from '@/doc/autocomplete/force-selection-doc';
+import { GroupDoc } from '@/doc/autocomplete/group-doc';
+import { IftaLabelDoc } from '@/doc/autocomplete/ifta-label-doc';
+import { ImportDoc } from '@/doc/autocomplete/import-doc';
+import { InvalidDoc } from '@/doc/autocomplete/invalid-doc';
+import { MultipleDoc } from '@/doc/autocomplete/multiple-doc';
+import { ObjectsDoc } from '@/doc/autocomplete/objects-doc';
+import { PTComponent } from '@/doc/autocomplete/pt/PTComponent';
+import { ReactiveFormsDoc } from '@/doc/autocomplete/reactive-forms-doc';
+import { SizesDoc } from '@/doc/autocomplete/sizes-doc';
+import { TemplateDoc } from '@/doc/autocomplete/template-doc';
+import { TemplateDrivenFormsDoc } from '@/doc/autocomplete/template-driven-forms-doc';
+import { VirtualScrollDoc } from '@/doc/autocomplete/virtual-scroll-doc';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
@@ -26,13 +31,16 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         description="AutoComplete is an input component that provides real-time suggestions when being typed."
         [docs]="docs"
         [apiDocs]="['AutoComplete']"
+        [ptDocs]="ptComponent"
         themeDocs="AutoComplete"
     ></app-doc>`,
     standalone: true,
-    imports: [AutoCompleteDocModule],
+    imports: [AppDoc],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AutoCompleteDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',
@@ -80,6 +88,22 @@ export class AutoCompleteDemo {
             component: MultipleDoc
         },
         {
+            id: 'chips',
+            label: 'Chips',
+            children: [
+                {
+                    id: 'basicchips',
+                    label: 'Basic',
+                    component: BasicChipsDoc
+                },
+                {
+                    id: 'advancedchips',
+                    label: 'Advanced',
+                    component: AdvancedChipsDoc
+                }
+            ]
+        },
+        {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
@@ -90,9 +114,19 @@ export class AutoCompleteDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',

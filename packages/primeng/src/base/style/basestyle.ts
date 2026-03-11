@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { css as Css, dt, Theme } from '@primeuix/styled';
-import { style as theme } from '@primeuix/styles/base';
+import { style as base_style } from '@primeuix/styles/base';
 import { minifyCSS, resolve } from '@primeuix/utils';
 import { UseStyle } from 'primeng/usestyle';
 
@@ -33,9 +33,9 @@ export class BaseStyle {
 
     useStyle: UseStyle = inject(UseStyle);
 
-    theme = undefined;
+    css: string | undefined = undefined;
 
-    css = undefined;
+    style: any = undefined;
 
     classes = {};
 
@@ -43,6 +43,7 @@ export class BaseStyle {
 
     load = (style, options = {}, transform = (cs) => cs) => {
         const computedStyle = transform(Css`${resolve(style, { dt })}`);
+
         return computedStyle ? this.useStyle.use(minifyCSS(computedStyle), { name: this.name, ...options }) : {};
     };
 
@@ -50,16 +51,16 @@ export class BaseStyle {
         return this.load(this.css, options);
     };
 
-    loadTheme = (options: any = {}, style: string = '') => {
-        return this.load(this.theme, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
+    loadStyle = (options: any = {}, style: string = '') => {
+        return this.load(this.style, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
     };
 
-    loadGlobalCSS = (options = {}) => {
+    loadBaseCSS = (options = {}) => {
         return this.load(css, options);
     };
 
-    loadGlobalTheme = (options: any = {}, style: string = '') => {
-        return this.load(theme, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
+    loadBaseStyle = (options: any = {}, style: string = '') => {
+        return this.load(base_style, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
     };
 
     getCommonTheme = (params?) => {
@@ -68,10 +69,6 @@ export class BaseStyle {
 
     getComponentTheme = (params) => {
         return Theme.getComponent(this.name, params);
-    };
-
-    getDirectiveTheme = (params) => {
-        return Theme.getDirective(this.name, params);
     };
 
     getPresetTheme = (preset, selector, params) => {
@@ -87,7 +84,7 @@ export class BaseStyle {
             const _css = resolve(this.css, { dt });
             const _style = minifyCSS(Css`${_css}${extendedCSS}`);
             const _props = Object.entries(props)
-                .reduce((acc, [k, v]) => acc.push(`${k}="${v}"`) && acc, [])
+                .reduce<any>((acc, [k, v]) => acc.push(`${k}="${v}"`) && acc, [])
                 .join(' ');
 
             return `<style type="text/css" data-primeng-style-id="${this.name}" ${_props}>${_style}</style>`;
@@ -103,12 +100,12 @@ export class BaseStyle {
     getThemeStyleSheet = (params, props = {}) => {
         let css = [Theme.getStyleSheet(this.name, params, props)];
 
-        if (this.theme) {
+        if (this.style) {
             const name = this.name === 'base' ? 'global-style' : `${this.name}-style`;
-            const _css = Css`${resolve(this.theme, { dt })}`;
-            const _style = minifyCSS(Theme.transformCSS(name, _css));
+            const _css = Css`${resolve(this.style, { dt })}`;
+            const _style = minifyCSS(Theme.transformCSS(name, _css as string));
             const _props = Object.entries(props)
-                .reduce((acc, [k, v]) => acc.push(`${k}="${v}"`) && acc, [])
+                .reduce<any>((acc, [k, v]) => acc.push(`${k}="${v}"`) && acc, [])
                 .join(' ');
 
             css.push(`<style type="text/css" data-primeng-style-id="${name}" ${_props}>${_style}</style>`);

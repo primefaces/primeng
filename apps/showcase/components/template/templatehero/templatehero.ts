@@ -1,12 +1,12 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { TemplateHeroLightModule } from './templateherolight';
-import { TemplateHeroRectangleModule } from './templateherorectangle';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import { TemplateHeroLight } from './templateherolight';
+import { TemplateHeroRectangle } from './templateherorectangle';
 
 @Component({
     selector: 'template-hero',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TemplateHeroLight, TemplateHeroRectangle],
     template: `
         <div class="w-full h-[56rem] md:h-[32rem] xl:h-[36.25rem] bg-primary rounded-3xl overflow-hidden relative">
             <ng-container *ngIf="!!templateHeroData?.pattern">
@@ -35,7 +35,7 @@ import { TemplateHeroRectangleModule } from './templateherorectangle';
                             Live Demo
                         </a>
                         <a
-                            [href]="templateHeroData?.storeHref ?? 'https://www.primefaces.org/store/'"
+                            [href]="templateHeroData?.storeHref ?? 'https://primeui.store'"
                             target="_blank"
                             class="flex-1 rounded-full border text-center font-semibold w-full bg-primary-600 border-primary-600 hover:bg-primary-700 text-surface-0 py-3.5 transition-all leading-none"
                         >
@@ -80,10 +80,3 @@ export class TemplateHero {
     @Input() templateHeroData;
     @Input() templateLogo;
 }
-
-@NgModule({
-    imports: [CommonModule, SharedModule, NgOptimizedImage, TemplateHeroLightModule, TemplateHeroRectangleModule],
-    exports: [TemplateHero, SharedModule],
-    declarations: [TemplateHero]
-})
-export class TemplateHeroModule {}

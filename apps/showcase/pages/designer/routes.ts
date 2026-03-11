@@ -1,5 +1,6 @@
 import { DesignerDemo } from './';
 import { GuideDemo } from './guide';
+import { CIDemo } from './ci';
 
 export default [
     {
@@ -9,5 +10,9 @@ export default [
     {
         path: 'guide',
         component: GuideDemo
+    },
+    {
+        path: 'ci',
+        component: CIDemo
     }
 ];

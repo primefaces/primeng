@@ -1,19 +1,21 @@
-import { AccessibilityDoc } from '@/doc/inputmask/accessibilitydoc';
-import { BasicDoc } from '@/doc/inputmask/basicdoc';
-import { DisabledDoc } from '@/doc/inputmask/disableddoc';
-import { FilledDoc } from '@/doc/inputmask/filleddoc';
-import { FloatlabelDoc } from '@/doc/inputmask/floatlabeldoc';
-import { IftaLabelDoc } from '@/doc/inputmask/iftalabeldoc';
-import { ImportDoc } from '@/doc/inputmask/importdoc';
-import { InputMaskDocModule } from '@/doc/inputmask/inputmaskdoc.module';
-import { InvalidDoc } from '@/doc/inputmask/invaliddoc';
-import { MaskDoc } from '@/doc/inputmask/maskdoc';
-import { OptionalDoc } from '@/doc/inputmask/optionaldoc';
-import { ReactiveFormsDoc } from '@/doc/inputmask/reactiveformsdoc';
-import { SizesDoc } from '@/doc/inputmask/sizesdoc';
-import { SlotCharDoc } from '@/doc/inputmask/slotchardoc';
-import { TemplateDrivenFormsDoc } from '@/doc/inputmask/templatedrivenformsdoc';
+import { AccessibilityDoc } from '@/doc/inputmask/accessibility-doc';
+import { BasicDoc } from '@/doc/inputmask/basic-doc';
+import { DisabledDoc } from '@/doc/inputmask/disabled-doc';
+import { FilledDoc } from '@/doc/inputmask/filled-doc';
+import { FloatlabelDoc } from '@/doc/inputmask/floatlabel-doc';
+import { IftaLabelDoc } from '@/doc/inputmask/iftalabel-doc';
+import { ImportDoc } from '@/doc/inputmask/import-doc';
+import { InvalidDoc } from '@/doc/inputmask/invalid-doc';
+import { MaskDoc } from '@/doc/inputmask/mask-doc';
+import { OptionalDoc } from '@/doc/inputmask/optional-doc';
+import { ReactiveFormsDoc } from '@/doc/inputmask/reactiveforms-doc';
+import { SizesDoc } from '@/doc/inputmask/sizes-doc';
+import { SlotCharDoc } from '@/doc/inputmask/slotchar-doc';
+import { TemplateDrivenFormsDoc } from '@/doc/inputmask/templatedrivenforms-doc';
+import { FluidDoc } from '@/doc/inputmask/fluid-doc';
+import { PTComponent } from '@/doc/inputmask/pt/PTComponent';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc
@@ -21,13 +23,16 @@ import { Component } from '@angular/core';
         header="InputMask"
         description="InputMask component is used to enter input in a certain format such as numeric, date, currency and phone."
         [docs]="docs"
+        [ptDocs]="ptComponent"
         [apiDocs]="['InputMask']"
         themeDocs="inputmask"
     ></app-doc> `,
     standalone: true,
-    imports: [InputMaskDocModule]
+    imports: [AppDoc]
 })
 export class InputMaskDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',
@@ -73,6 +78,11 @@ export class InputMaskDemo {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'disabled',

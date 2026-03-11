@@ -1,9 +1,11 @@
-import { AppDocModule } from '@/components/doc/app.doc.module';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'v19-breaking-doc',
-    imports: [AppDocModule],
+    standalone: true,
+    imports: [RouterModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <h4>Configuration</h4>

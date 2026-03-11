@@ -1,18 +1,20 @@
-import { AccessibilityDoc } from '@/doc/splitter/accessibilitydoc';
-import { HorizontalDoc } from '@/doc/splitter/horizontaldoc';
-import { ImportDoc } from '@/doc/splitter/importdoc';
-import { NestedDoc } from '@/doc/splitter/nesteddoc';
-import { SizeDoc } from '@/doc/splitter/sizedoc';
-import { SplitterDocModule } from '@/doc/splitter/splitterdoc.module';
-import { VerticalDoc } from '@/doc/splitter/verticaldoc';
+import { AccessibilityDoc } from '@/doc/splitter/accessibility-doc';
+import { HorizontalDoc } from '@/doc/splitter/horizontal-doc';
+import { ImportDoc } from '@/doc/splitter/import-doc';
+import { NestedDoc } from '@/doc/splitter/nested-doc';
+import { SizeDoc } from '@/doc/splitter/size-doc';
+import { VerticalDoc } from '@/doc/splitter/vertical-doc';
+import { PTComponent } from '@/doc/splitter/pt/PTComponent';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular Splitter Component" header="Splitter" description="Splitter is utilized to separate and resize panels." [docs]="docs" [apiDocs]="['Splitter']" themeDocs="splitter"></app-doc>`,
+    template: `<app-doc docTitle="Angular Splitter Component" header="Splitter" description="Splitter is utilized to separate and resize panels." [docs]="docs" [apiDocs]="['Splitter']" [ptDocs]="ptComponent" themeDocs="splitter"></app-doc>`,
     standalone: true,
-    imports: [SplitterDocModule]
+    imports: [AppDoc]
 })
 export class SplitterDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

@@ -1,12 +1,17 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, computed, Directive, ElementRef, inject, input, Input, NgModule, NgZone, numberAttribute, OnDestroy, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { appendChild, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, Input, NgModule, NgZone, numberAttribute, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
 import { TooltipOptions } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BindModule } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
+import { TooltipPassThroughOptions } from 'primeng/types/tooltip';
 import { ZIndexUtils } from 'primeng/utils';
 import { TooltipStyle } from './style/tooltipstyle';
+import type { TooltipPassThrough } from 'primeng/types/tooltip';
+
+const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
 
 /**
  * Tooltip directive provides advisory information for a component.
@@ -15,9 +20,13 @@ import { TooltipStyle } from './style/tooltipstyle';
 @Directive({
     selector: '[pTooltip]',
     standalone: true,
-    providers: [TooltipStyle]
+    providers: [TooltipStyle, { provide: TOOLTIP_INSTANCE, useExisting: Tooltip }, { provide: PARENT_INSTANCE, useExisting: Tooltip }]
 })
-export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
+export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
+    componentName = 'Tooltip';
+
+    $pcTooltip: Tooltip | undefined = inject(TOOLTIP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     /**
      * Position of the tooltip.
      * @group Props
@@ -27,7 +36,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
      * Event to show the tooltip.
      * @group Props
      */
-    @Input() tooltipEvent: 'hover' | 'focus' | 'both' | string | any = 'hover';
+    @Input() tooltipEvent: 'hover' | 'focus' | 'both' = 'hover';
     /**
      * Type of CSS position.
      * @group Props
@@ -89,6 +98,11 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
      */
     @Input({ transform: booleanAttribute }) hideOnEscape: boolean = true;
     /**
+     * Whether to show the tooltip only when the target text overflows (e.g., ellipsis is active).
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) showOnEllipsis: boolean = false;
+    /**
      * Content of the tooltip.
      * @group Props
      */
@@ -136,6 +150,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         life: null,
         autoHide: true,
         hideOnEscape: true,
+        showOnEllipsis: false,
         id: uuid('pn_id_') + '_tooltip'
     };
 
@@ -146,6 +161,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     styleClass: string | undefined;
 
     tooltipText: any;
+
+    rootPTClasses: string = '';
 
     showTimeout: any;
 
@@ -165,6 +182,12 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     blurListener: Nullable<Function>;
 
+    touchStartListener: Nullable<Function>;
+
+    touchEndListener: Nullable<Function>;
+
+    documentTouchListener: Nullable<Function>;
+
     documentEscapeListener: Nullable<Function>;
 
     scrollHandler: any;
@@ -175,15 +198,42 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     interactionInProgress = false;
 
+    /**
+     * Used to pass attributes to DOM elements inside the Tooltip component.
+     * @defaultValue undefined
+     * @deprecated use pTooltipPT instead.
+     * @group Props
+     */
+    ptTooltip = input<TooltipPassThrough | undefined>();
+    /**
+     * Used to pass attributes to DOM elements inside the Tooltip component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pTooltipPT = input<TooltipPassThrough | undefined>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pTooltipUnstyled = input<boolean | undefined>();
+
     constructor(
         public zone: NgZone,
         private viewContainer: ViewContainerRef
     ) {
         super();
+        effect(() => {
+            const pt = this.ptTooltip() || this.pTooltipPT();
+            pt && this.directivePT.set(pt);
+        });
+
+        effect(() => {
+            this.pTooltipUnstyled() && this.directiveUnstyled.set(this.pTooltipUnstyled());
+        });
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 const tooltipEvent = this.getOption('tooltipEvent');
@@ -195,6 +245,12 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
                     this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
                     this.el.nativeElement.addEventListener('click', this.clickListener);
                     this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
+
+                    // Touch support
+                    this.touchStartListener = this.onTouchStart.bind(this);
+                    this.touchEndListener = this.onTouchEnd.bind(this);
+                    this.el.nativeElement.addEventListener('touchstart', this.touchStartListener, { passive: true });
+                    this.el.nativeElement.addEventListener('touchend', this.touchEndListener, { passive: true });
                 }
                 if (tooltipEvent === 'focus' || tooltipEvent === 'both') {
                     this.focusListener = this.onFocus.bind(this);
@@ -213,8 +269,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    ngOnChanges(simpleChange: SimpleChanges) {
-        super.ngOnChanges(simpleChange);
+    onChanges(simpleChange: SimpleChanges) {
         if (simpleChange.tooltipPosition) {
             this.setOption({ tooltipPosition: simpleChange.tooltipPosition.currentValue });
         }
@@ -288,6 +343,10 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
             this.setOption({ autoHide: simpleChange.autoHide.currentValue });
         }
 
+        if (simpleChange.showOnEllipsis) {
+            this.setOption({ showOnEllipsis: simpleChange.showOnEllipsis.currentValue });
+        }
+
         if (simpleChange.id) {
             this.setOption({ id: simpleChange.id.currentValue });
         }
@@ -330,6 +389,40 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         }
     }
 
+    onTouchStart(e: TouchEvent) {
+        if (!this.container && !this.showTimeout) {
+            this.activate();
+
+            if (!this.isAutoHide()) {
+                this.bindDocumentTouchListener();
+            }
+        }
+    }
+
+    onTouchEnd(e: TouchEvent) {
+        if (this.isAutoHide()) {
+            this.deactivate();
+        }
+    }
+
+    bindDocumentTouchListener() {
+        if (!this.documentTouchListener) {
+            this.documentTouchListener = this.renderer.listen('document', 'touchstart', (e: TouchEvent) => {
+                if (this.container && !this.container.contains(e.target) && !this.el.nativeElement.contains(e.target)) {
+                    this.deactivate();
+                    this.unbindDocumentTouchListener();
+                }
+            });
+        }
+    }
+
+    unbindDocumentTouchListener() {
+        if (this.documentTouchListener) {
+            this.documentTouchListener();
+            this.documentTouchListener = null;
+        }
+    }
+
     onFocus(e: Event) {
         this.activate();
     }
@@ -342,8 +435,16 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         this.deactivate();
     }
 
+    hasEllipsis(): boolean {
+        const el = this.el.nativeElement;
+        return el.offsetWidth < el.scrollWidth || el.offsetHeight < el.scrollHeight;
+    }
+
     activate() {
         if (!this.interactionInProgress) {
+            if (this.getOption('showOnEllipsis') && !this.hasEllipsis()) {
+                return;
+            }
             this.active = true;
             this.clearHideTimeout();
 
@@ -363,7 +464,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
             if (this.getOption('hideOnEscape')) {
                 this.documentEscapeListener = this.renderer.listen('document', 'keydown.escape', () => {
                     this.deactivate();
-                    this.documentEscapeListener();
+                    this.documentEscapeListener?.();
                 });
             }
             this.interactionInProgress = true;
@@ -395,17 +496,11 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
             this.remove();
         }
 
-        this.container = document.createElement('div');
-        this.container.setAttribute('id', this.getOption('id'));
+        this.container = createElement('div', { class: this.cx('root'), 'p-bind': this.ptm('root'), 'data-pc-section': 'root' });
         this.container.setAttribute('role', 'tooltip');
-
-        let tooltipArrow = document.createElement('div');
-        tooltipArrow.className = 'p-tooltip-arrow';
-        tooltipArrow.setAttribute('data-pc-section', 'arrow');
+        let tooltipArrow = createElement('div', { class: this.cx('arrow'), 'p-bind': this.ptm('arrow'), 'data-pc-section': 'arrow' });
         this.container.appendChild(tooltipArrow);
-
-        this.tooltipText = document.createElement('div');
-        this.tooltipText.className = 'p-tooltip-text';
+        this.tooltipText = createElement('div', { class: this.cx('text'), 'p-bind': this.ptm('text'), 'data-pc-section': 'text' });
 
         this.updateText();
 
@@ -483,13 +578,12 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         if (this.getOption('tooltipZIndex') === 'auto') {
             ZIndexUtils.clear(this.container);
         }
-
         this.remove();
     }
 
     updateText() {
         const content = this.getOption('tooltipLabel');
-        if (content instanceof TemplateRef) {
+        if (content && typeof (content as TemplateRef<any>).createEmbeddedView === 'function') {
             const embeddedViewRef = this.viewContainer.createEmbeddedView(content);
             embeddedViewRef.detectChanges();
             embeddedViewRef.rootNodes.forEach((node) => this.tooltipText.appendChild(node));
@@ -502,7 +596,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     align() {
-        let position = this.getOption('tooltipPosition');
+        const position = this.getOption('tooltipPosition') as keyof typeof positionPriority;
 
         const positionPriority = {
             top: [this.alignTop, this.alignBottom, this.alignRight, this.alignLeft],
@@ -511,7 +605,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
             right: [this.alignRight, this.alignLeft, this.alignTop, this.alignBottom]
         };
 
-        for (let [index, alignmentFn] of positionPriority[position].entries()) {
+        const alignFns = positionPriority[position] || [];
+        for (let [index, alignmentFn] of alignFns.entries()) {
             if (index === 0) alignmentFn.call(this);
             else if (this.isOutOfBounds()) alignmentFn.call(this);
             else break;
@@ -622,9 +717,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     preAlign(position: string) {
         this.container.style.left = -999 + 'px';
         this.container.style.top = -999 + 'px';
-
-        let defaultClassName = 'p-tooltip p-component p-tooltip-' + position;
-        this.container.className = this.getOption('tooltipStyleClass') ? defaultClassName + ' ' + this.getOption('tooltipStyleClass') : defaultClassName;
+        this.container.className = this.cn(this.cx('root'), this.ptm('root')?.class, 'p-tooltip-' + position, this.getOption('tooltipStyleClass'));
     }
 
     isOutOfBounds(): boolean {
@@ -681,6 +774,11 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
             this.el.nativeElement.removeEventListener('mouseenter', this.mouseEnterListener);
             this.el.nativeElement.removeEventListener('mouseleave', this.mouseLeaveListener);
             this.el.nativeElement.removeEventListener('click', this.clickListener);
+
+            // Touch support
+            this.el.nativeElement.removeEventListener('touchstart', this.touchStartListener);
+            this.el.nativeElement.removeEventListener('touchend', this.touchEndListener);
+            this.unbindDocumentTouchListener();
         }
         if (tooltipEvent === 'focus' || tooltipEvent === 'both') {
             let target = this.el.nativeElement.querySelector('.p-component');
@@ -705,6 +803,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
         this.unbindContainerMouseleaveListener();
+        this.unbindDocumentTouchListener();
         this.clearTimeouts();
         this.container = null;
         this.scrollHandler = null;
@@ -729,9 +828,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         this.clearHideTimeout();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindEvents();
-        super.ngOnDestroy();
 
         if (this.container) {
             ZIndexUtils.clear(this.container);
@@ -751,7 +849,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [Tooltip],
-    exports: [Tooltip]
+    imports: [Tooltip, BindModule],
+    exports: [Tooltip, BindModule]
 })
 export class TooltipModule {}

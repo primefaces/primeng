@@ -1,9 +1,12 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'translation-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
             <p>A translation is specified using the translation property during initialization.</p>
@@ -13,7 +16,7 @@ import { Component } from '@angular/core';
 })
 export class TranslationDoc {
     code: Code = {
-        typescript: `providePrimeNG({
+        typescript: `providePrimeNG({ 
     translation: {
         accept: 'Aceptar',
         reject: 'Rechazar',

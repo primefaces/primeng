@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
+const css = /*css*/ `
 .p-virtualscroller {
     position: relative;
     overflow: auto;
@@ -85,7 +85,7 @@ const classes = {
 export class ScrollerStyle extends BaseStyle {
     name = 'virtualscroller';
 
-    theme = theme;
+    css = css;
 
     classes = classes;
 }

@@ -3,7 +3,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { BaseModelHolder } from 'primeng/basemodelholder';
 
 @Directive({ standalone: true })
-export class BaseEditableHolder extends BaseModelHolder implements ControlValueAccessor {
+export class BaseEditableHolder<PT = any> extends BaseModelHolder<PT> implements ControlValueAccessor {
     /**
      * There must be a value (if set).
      * @defaultValue false

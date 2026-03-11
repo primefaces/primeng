@@ -1,10 +1,9 @@
-import { TemplateConfigurationModule } from '@/components/template/templateconfiguration';
-import { TemplateFeaturesModule } from '@/components/template/templatefeatures';
-import { TemplateFeaturesAnimationModule } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
-import { TemplateHeroModule } from '@/components/template/templatehero/templatehero';
-import { TemplateLicenseModule } from '@/components/template/templatelicense';
-import { TemplateSeparatorModule } from '@/components/template/templateseparator';
-import { TemplateYoutubeModule } from '@/components/template/templateyoutube';
+import { TemplateConfiguration } from '@/components/template/templateconfiguration';
+import { TemplateFeatures } from '@/components/template/templatefeatures';
+import { TemplateFeaturesAnimation } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
+import { TemplateHero } from '@/components/template/templatehero/templatehero';
+import { TemplateLicense } from '@/components/template/templatelicense';
+import { TemplateYoutube } from '@/components/template/templateyoutube';
 import { Component } from '@angular/core';
 import { PoseidonLogo } from './poseidonlogo';
 import { PoseidonSeparator } from './poseidonseparator';
@@ -12,7 +11,7 @@ import { PoseidonSeparator } from './poseidonseparator';
 @Component({
     standalone: true,
     selector: 'poseidon-page',
-    imports: [TemplateHeroModule, TemplateSeparatorModule, TemplateFeaturesAnimationModule, TemplateFeaturesModule, TemplateConfigurationModule, TemplateFeaturesAnimationModule, TemplateYoutubeModule, TemplateLicenseModule, PoseidonSeparator],
+    imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateYoutube, TemplateLicense, PoseidonSeparator],
     template: `<div class="apollo template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="poseidonLogo"></template-hero>
         <poseidon-separator></poseidon-separator>
@@ -44,7 +43,8 @@ export class PoseidonPage {
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-hero-2.jpg',
         description: 'A modern and easy to use premium application template with various color schemes.Based on flat design language, it is fully responsive, touch optimized, built with SASS, CSS3 and HTML5.',
         liveHref: 'https://poseidon.primeng.org',
-        docHref: 'https://poseidon.primeng.org/documentation'
+        docHref: 'https://poseidon.primeng.org/documentation',
+        storeHref: 'https://primeui.store/templates/angular/poseidon'
     };
 
     features2Data = [
@@ -95,7 +95,7 @@ export class PoseidonPage {
         {
             id: 2,
             title: 'PrimeBlocks',
-            description: `Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.`,
+            description: `Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
         },
         {
@@ -110,7 +110,7 @@ export class PoseidonPage {
             width: 1440,
             height: 1788,
             description: `Poseidon uses Figma as the design tool. It will be possible to download the Figma file after your purchase.
-                    You can <a href="https://www.figma.com/design/eMNbyxsMp3H0PQbMyyGK77/Preview-%7C-Poseidon?node-id=0-1&t=wJRSplRnKvjqju9S-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> the Figma file before the purchase.
+                    You can <a href="https://www.figma.com/design/lRgoOE0jsHoL20okFMM5xT/Preview-%7C-Poseidon-%7C%C2%A02.0.0?node-id=0-1&t=Co2AkDgjOnN425Tz-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> the Figma file before the purchase.
                     Note that PrimeNG UI components are excluded from the
                     Avalon Figma file as they are available in <a href="/uikit">PrimeOne for Figma</a> only.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-figma.png'

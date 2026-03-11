@@ -2,13 +2,13 @@ import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
 import { PrimeNG } from 'primeng/config';
 import { DomHandler } from 'primeng/dom';
 import { AppFooterComponent } from './footer/app.footer.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppNewsComponent } from './news/app.news.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';
-import { AppDesigner } from '@/components/layout/designer/app.designer';
 
 @Component({
     selector: 'app-main',
@@ -16,7 +16,9 @@ import { AppDesigner } from '@/components/layout/designer/app.designer';
         <div class="layout-wrapper" [ngClass]="containerClass()">
             <app-news />
             <app-topbar />
-            <div class="layout-mask" [ngClass]="{ 'layout-mask-active': isMenuActive() }" (click)="hideMenu()"></div>
+            @if (isMenuActive()) {
+                <div class="layout-mask" (click)="hideMenu()" animate.enter="px-modal-enter" animate.leave="px-modal-leave"></div>
+            }
             <div class="layout-content">
                 <app-menu />
                 <div class="layout-content-slot">
@@ -24,11 +26,10 @@ import { AppDesigner } from '@/components/layout/designer/app.designer';
                 </div>
             </div>
             <app-footer />
-            <app-designer />
         </div>
     `,
     standalone: true,
-    imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppTopBarComponent, AppDesigner]
+    imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppTopBarComponent]
 })
 export class AppMainComponent {
     configService: AppConfigService = inject(AppConfigService);
@@ -39,12 +40,9 @@ export class AppMainComponent {
 
     isMenuActive = computed(() => this.configService.appState().menuActive);
 
-    isRippleDisabled = computed(() => this.primeng.ripple());
-
     containerClass = computed(() => {
         return {
             'layout-news-active': this.isNewsActive()
-            // 'p-ripple-disabled': this.isRippleDisabled,
         };
     });
 

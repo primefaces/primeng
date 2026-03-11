@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/togglebutton';
+import { style as togglebutton_style } from '@primeuix/styles/togglebutton';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${togglebutton_style}
 
     /* For PrimeNG (iconPos) */
     .p-togglebutton-icon-right {
@@ -38,7 +38,7 @@ const classes = {
 export class ToggleButtonStyle extends BaseStyle {
     name = 'togglebutton';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

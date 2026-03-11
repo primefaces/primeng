@@ -58,7 +58,7 @@ const classes = {
 export class CarouselStyle extends BaseStyle {
     name = 'carousel';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

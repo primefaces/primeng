@@ -1,24 +1,35 @@
-import { AccessibilityDoc } from '@/doc/textarea/accessibilitydoc';
-import { AutoResizeDoc } from '@/doc/textarea/autoresizedoc';
-import { BasicDoc } from '@/doc/textarea/basicdoc';
-import { DisabledDoc } from '@/doc/textarea/disableddoc';
-import { FilledDoc } from '@/doc/textarea/filleddoc';
-import { FloatlabelDoc } from '@/doc/textarea/floatlabeldoc';
-import { IftaLabelDoc } from '@/doc/textarea/iftalabeldoc';
-import { ImportDoc } from '@/doc/textarea/importdoc';
-import { InvalidDoc } from '@/doc/textarea/invaliddoc';
-import { ReactiveFormsDoc } from '@/doc/textarea/reactiveformsdoc';
-import { SizesDoc } from '@/doc/textarea/sizesdoc';
-import { TemplateDrivenFormsDoc } from '@/doc/textarea/templatedrivenformsdoc';
-import { TextareaDocModule } from '@/doc/textarea/texteareadoc.module';
+import { AccessibilityDoc } from '@/doc/textarea/accessibility-doc';
+import { AutoResizeDoc } from '@/doc/textarea/autoresize-doc';
+import { BasicDoc } from '@/doc/textarea/basic-doc';
+import { DisabledDoc } from '@/doc/textarea/disabled-doc';
+import { FilledDoc } from '@/doc/textarea/filled-doc';
+import { FloatlabelDoc } from '@/doc/textarea/floatlabel-doc';
+import { IftaLabelDoc } from '@/doc/textarea/iftalabel-doc';
+import { ImportDoc } from '@/doc/textarea/import-doc';
+import { InvalidDoc } from '@/doc/textarea/invalid-doc';
+import { ReactiveFormsDoc } from '@/doc/textarea/reactiveforms-doc';
+import { SizesDoc } from '@/doc/textarea/sizes-doc';
+import { TemplateDrivenFormsDoc } from '@/doc/textarea/templatedrivenforms-doc';
+import { FluidDoc } from '@/doc/textarea/fluid-doc';
+import { PTComponent } from '@/doc/textarea/pt/PTComponent';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [TextareaDocModule],
-    template: `<app-doc docTitle="Angular Textarea Component" header="Textarea" description="Textarea adds styling and autoResize functionality to standard textarea element." [docs]="docs" [apiDocs]="['Textarea']" themeDocs="textearea"></app-doc>`
+    imports: [AppDoc],
+    template: `<app-doc
+        docTitle="Angular Textarea Component"
+        header="Textarea"
+        description="Textarea adds styling and autoResize functionality to standard textarea element."
+        [docs]="docs"
+        [apiDocs]="['Textarea']"
+        [ptDocs]="ptComponent"
+        themeDocs="textearea"
+    ></app-doc>`
 })
 export class TextareaDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',
@@ -49,6 +60,11 @@ export class TextareaDemo {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',

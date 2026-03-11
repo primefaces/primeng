@@ -48,7 +48,7 @@ const classes = {
 export class ToastStyle extends BaseStyle {
     name = 'toast';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 

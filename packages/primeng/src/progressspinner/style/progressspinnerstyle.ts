@@ -12,7 +12,7 @@ const classes = {
 export class ProgressSpinnerStyle extends BaseStyle {
     name = 'progressspinner';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

@@ -1,3 +1,3 @@
+export * from 'primeng/types/blockui';
 export * from './blockui';
-export * from './blockui.interface';
 export * from './style/blockuistyle';

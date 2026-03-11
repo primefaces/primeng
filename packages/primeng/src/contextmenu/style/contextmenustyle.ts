@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/contextmenu';
+import { BaseStyle } from 'primeng/base';
 
 const inlineStyles = {
     root: { position: 'absolute' }
@@ -31,7 +31,7 @@ const classes = {
 export class ContextMenuStyle extends BaseStyle {
     name = 'contextmenu';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 

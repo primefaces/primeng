@@ -1,21 +1,23 @@
-import { AccessibilityDoc } from '@/doc/fileupload/accessibilitydoc';
-import { AdvancedDoc } from '@/doc/fileupload/advanceddoc';
-import { AutoDoc } from '@/doc/fileupload/autodoc';
-import { BasicDoc } from '@/doc/fileupload/basicdoc';
-import { FileUploadDocModule } from '@/doc/fileupload/fileuploaddoc.module';
-import { ImportDoc } from '@/doc/fileupload/importdoc';
-import { TemplateDoc } from '@/doc/fileupload/templatedoc';
+import { AccessibilityDoc } from '@/doc/fileupload/accessibility-doc';
+import { AdvancedDoc } from '@/doc/fileupload/advanced-doc';
+import { AutoDoc } from '@/doc/fileupload/auto-doc';
+import { BasicDoc } from '@/doc/fileupload/basic-doc';
+import { ImportDoc } from '@/doc/fileupload/import-doc';
+import { PTComponent } from '@/doc/fileupload/pt/PTComponent';
+import { TemplateDoc } from '@/doc/fileupload/template-doc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [FileUploadDocModule],
+    imports: [AppDoc],
     template: ` <app-doc
         docTitle="Angular FileUpload Component"
         header="FileUpload"
         description="FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations."
         [docs]="docs"
         [apiDocs]="['FileUpload']"
+        [ptDocs]="ptComponent"
         themeDocs="fileupload"
     ></app-doc>`
 })
@@ -52,4 +54,6 @@ export class FileUploadDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

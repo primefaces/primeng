@@ -21,7 +21,7 @@ const classes = {
 export class SplitButtonStyle extends BaseStyle {
     name = 'splitbutton';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

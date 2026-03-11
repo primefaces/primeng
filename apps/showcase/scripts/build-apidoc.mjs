@@ -6,7 +6,6 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const rootDir = path.resolve(__dirname, '../../../packages/primeng');
 const outputPath = path.resolve(__dirname, '../../../apps/showcase/doc/apidoc/');
 
 const staticMessages = {
@@ -26,7 +25,7 @@ async function main() {
         // typedoc options here
         name: 'PrimeNG',
         entryPointStrategy: 'expand',
-        entryPoints: ['../../packages/primeng'],
+        entryPoints: ['../../packages/primeng/'],
         hideGenerator: true,
         excludeExternals: false,
         includeVersion: true,
@@ -34,7 +33,7 @@ async function main() {
         disableSources: true,
         logLevel: 'Error',
         sort: ['source-order'],
-        exclude: ['node_modules', 'src/**/*spec.ts', 'src/**/*public_api.ts']
+        exclude: ['node_modules', 'src/**/*spec.ts']
     });
 
     const project = await app.convert();
@@ -81,11 +80,17 @@ async function main() {
         const modules = project.groups.find((g) => g.title === 'Modules');
         if (isProcessable(modules)) {
             modules.children.forEach((module) => {
-                const name = module.name.replace(/.*\//, '');
+                const fullPath = module.name;
+                const pathParts = fullPath.split('/');
+                const name = pathParts[pathParts.length - 1];
+
+                // For public_api files, use the parent component name
+                const actualName = name === 'public_api' && pathParts.length > 1 ? pathParts[pathParts.length - 2] : name;
+
                 if (allowed(name)) {
                     if (module.groups) {
-                        if (!doc[name]) {
-                            doc[name] = {
+                        if (!doc[actualName]) {
+                            doc[actualName] = {
                                 components: {}
                             };
                         }
@@ -135,7 +140,7 @@ async function main() {
                                 }
                             });
 
-                            doc[name]['classes'] = classes;
+                            doc[actualName]['classes'] = classes;
                         }
 
                         if (isProcessable(module_components_group)) {
@@ -143,7 +148,7 @@ async function main() {
                                 const componentName = component.name;
                                 const comment = component.comment;
 
-                                doc[name]['components'][componentName] = {
+                                doc[actualName]['components'][componentName] = {
                                     description: comment && comment.summary.map((s) => s.text || '').join(' ')
                                 };
 
@@ -177,7 +182,7 @@ async function main() {
                                         });
                                     });
 
-                                    doc[name]['components'][componentName]['props'] = props;
+                                    doc[actualName]['components'][componentName]['props'] = props;
                                 }
 
                                 const component_emits_group = component.groups.find((g) => g.title === 'Emits');
@@ -201,7 +206,7 @@ async function main() {
                                         });
                                     });
 
-                                    doc[name]['components'][componentName]['emits'] = emits;
+                                    doc[actualName]['components'][componentName]['emits'] = emits;
                                 }
 
                                 const component_methods_group = component.groups.find((g) => g.title === 'Method');
@@ -226,7 +231,7 @@ async function main() {
                                         });
                                     });
 
-                                    doc[name]['components'][componentName]['methods'] = methods;
+                                    doc[actualName]['components'][componentName]['methods'] = methods;
                                 }
 
                                 const component_events_group = component.groups.find((g) => g.title === 'Events');
@@ -253,7 +258,7 @@ async function main() {
                                         });
                                     });
 
-                                    doc[name]['components'][componentName]['events'] = events;
+                                    doc[actualName]['components'][componentName]['events'] = events;
                                 }
 
                                 const component_templates_group = component.groups.find((g) => g.title === 'Templates');
@@ -280,7 +285,7 @@ async function main() {
                                         });
                                     });
 
-                                    doc[name]['components'][componentName]['templates'] = templates;
+                                    doc[actualName]['components'][componentName]['templates'] = templates;
                                 }
 
                                 const component_types_group = component.groups.find((g) => g.title === 'Types');
@@ -298,7 +303,7 @@ async function main() {
                                             deprecated: getDeprecatedText(type)
                                         });
                                     });
-                                    doc[name]['components'][componentName]['types'] = types;
+                                    doc[actualName]['components'][componentName]['types'] = types;
                                 }
                             });
                         }
@@ -326,7 +331,7 @@ async function main() {
                                 });
                             });
 
-                            doc[name]['events'] = events;
+                            doc[actualName]['events'] = events;
                         }
 
                         if (isProcessable(module_templates_group)) {
@@ -342,7 +347,7 @@ async function main() {
                                     templates.values.push({
                                         parent: parent,
                                         name: signature ? signature.name : child.name,
-                                        parameters: signature.parameters.map((param) => {
+                                        parameters: (signature?.parameters || []).map((param) => {
                                             let type = param.type.toString();
 
                                             if (param.type.declaration) {
@@ -371,13 +376,13 @@ async function main() {
                                                 description: param.comment && param.comment.summary.map((s) => s.text || '').join(' ')
                                             };
                                         }),
-                                        description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' '),
-                                        deprecated: getDeprecatedText(signature)
+                                        description: signature?.comment && signature.comment.summary.map((s) => s.text || '').join(' '),
+                                        deprecated: signature ? getDeprecatedText(signature) : undefined
                                     });
                                 });
                             });
 
-                            doc[name]['templates'] = templates;
+                            doc[actualName]['templates'] = templates;
                         }
 
                         if (isProcessable(module_interface_group)) {
@@ -403,11 +408,11 @@ async function main() {
                                 });
                             });
 
-                            doc[name]['interfaces'] = interfaces;
+                            doc[actualName]['interfaces'] = interfaces;
                         }
 
                         if (isProcessable(module_service_group)) {
-                            doc[name] = {
+                            doc[actualName] = {
                                 description: staticMessages['service']
                             };
 
@@ -435,7 +440,7 @@ async function main() {
                                         });
                                     });
 
-                                    doc[name]['methods'] = methods;
+                                    doc[actualName]['methods'] = methods;
                                 }
                             });
                         }
@@ -512,46 +517,103 @@ async function main() {
                                 });
                             });
 
-                            doc[name]['types'] = types;
+                            doc[actualName]['types'] = types;
                         }
                     }
                 }
             });
         }
 
+        // Identify sub-components based on module paths
+        const subComponentMap = {};
+
+        modules.children.forEach((module) => {
+            const fullPath = module.name;
+            const pathParts = fullPath.split('/');
+
+            // Pattern: stepper/style/stepitemstyle -> stepitem is a sub-component of stepper
+            if (pathParts.length === 3 && pathParts[1] === 'style') {
+                const parentName = pathParts[0];
+                const childStyleName = pathParts[2].replace(/style$/i, '');
+
+                if (parentName !== childStyleName) {
+                    subComponentMap[childStyleName] = parentName;
+                }
+            }
+        });
+
         let mergedDocs = {};
 
         for (const key in doc) {
-            const parentKey = key.includes('style') ? key.replace(/style/g, '') : key.includes('.interface') ? key.split('.')[0] : key;
+            const parentKey = key.includes('style') ? key.replace(/style/g, '') : key.includes('.interface') || key.includes('.types') ? key.split('.')[0] : key;
 
-            if (!mergedDocs[parentKey]) {
-                mergedDocs[parentKey] = {
-                    ...doc[parentKey]
+            // Check if this is a sub-component that should be merged into parent
+            const isSubComponent = subComponentMap[parentKey];
+            const targetParentKey = isSubComponent || parentKey;
+
+            if (!mergedDocs[targetParentKey]) {
+                mergedDocs[targetParentKey] = {
+                    ...doc[targetParentKey]
                 };
             }
 
             if (key.includes('style')) {
                 const styleDoc = doc[key];
-                mergedDocs[parentKey] = {
-                    ...mergedDocs[parentKey],
-                    style: {
-                        ...styleDoc
-                    }
-                };
-            }
 
-            if (key.includes('.interface')) {
-                const interfaceDoc = doc[key];
-                mergedDocs[parentKey] = {
-                    ...mergedDocs[parentKey],
-                    interfaces: {
-                        ...interfaceDoc
+                if (isSubComponent) {
+                    // Merge sub-component style into parent's style.components
+                    if (!mergedDocs[targetParentKey].style) {
+                        mergedDocs[targetParentKey].style = { components: {} };
                     }
-                };
+                    if (!mergedDocs[targetParentKey].style.components) {
+                        mergedDocs[targetParentKey].style.components = {};
+                    }
+                    mergedDocs[targetParentKey].style.components[parentKey] = styleDoc;
+                } else {
+                    // Preserve existing style.components when merging parent style
+                    const existingComponents = mergedDocs[targetParentKey]?.style?.components;
+                    mergedDocs[targetParentKey] = {
+                        ...mergedDocs[targetParentKey],
+                        style: {
+                            ...styleDoc,
+                            ...(existingComponents && { components: existingComponents })
+                        }
+                    };
+                }
+            }
+            if (key.includes('.interface') || key.includes('.types')) {
+                const interfaceDoc = doc[key];
+                const targetKey = key.includes('.interface') ? 'interfaces' : 'types';
+
+                // If types are being added and interfaces already exist, merge them into types.interfaces
+                if (targetKey === 'types' && mergedDocs[parentKey]?.interfaces) {
+                    const existingInterfaces = mergedDocs[parentKey].interfaces;
+                    delete mergedDocs[parentKey].interfaces;
+
+                    mergedDocs[parentKey] = {
+                        ...mergedDocs[parentKey],
+                        types: {
+                            ...interfaceDoc,
+                            interfaces: {
+                                description: staticMessages['interfaces'],
+                                values: [...(interfaceDoc.interfaces?.values || []), ...(existingInterfaces.values || [])]
+                            }
+                        }
+                    };
+                } else {
+                    mergedDocs[parentKey] = {
+                        ...mergedDocs[parentKey],
+                        [targetKey]: {
+                            ...interfaceDoc
+                        }
+                    };
+                }
             }
         }
 
-        const typedocJSON = JSON.stringify(mergedDocs, null, 4);
+        let typedocJSON = JSON.stringify(mergedDocs, null, 4);
+        // Replace generic type "T" with "unknown" for better documentation clarity
+        typedocJSON = typedocJSON.replace(/"type": "T"/g, '"type": "unknown"');
 
         !fs.existsSync(outputPath) && fs.mkdirSync(outputPath);
         fs.writeFileSync(path.resolve(outputPath, 'index.json'), typedocJSON);

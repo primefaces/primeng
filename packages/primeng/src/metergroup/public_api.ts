@@ -1,3 +1,3 @@
+export * from 'primeng/types/metergroup';
 export * from './metergroup';
-export * from './metergroup.interface';
 export * from './style/metergroupstyle';

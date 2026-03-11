@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/picklist';
+import { BaseStyle } from 'primeng/base';
 
 const classes = {
     root: () => ['p-picklist p-component'],
@@ -15,7 +15,7 @@ const classes = {
 export class PickListStyle extends BaseStyle {
     name = 'picklist';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

@@ -1,3 +1,3 @@
+export * from 'primeng/types/datepicker';
 export * from './datepicker';
-export * from './datepicker.interface';
 export * from './style/datepickerstyle';

@@ -17,7 +17,7 @@ const classes = {
 export class BreadCrumbStyle extends BaseStyle {
     name = 'breadcrumb';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

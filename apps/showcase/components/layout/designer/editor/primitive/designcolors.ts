@@ -15,7 +15,14 @@ import { FieldsetModule } from 'primeng/fieldset';
             <section *ngIf="key !== 'borderRadius'" class="flex justify-between items-center mb-4 gap-8">
                 <div class="flex gap-2 items-center">
                     <span class="text-sm capitalize block w-20">{{ key }}</span>
-                    <input [value]="designerService.resolveColor(designerService.designer().theme.preset.primitive[key]['500'])" (change)="onColorChange($event, key)" (blur)="onBlur()" type="color" />
+                    <input
+                        [value]="designerService.resolveColor(designerService.designer().theme.preset.primitive[key]['500'])"
+                        (change)="onColorChange($event, key)"
+                        (blur)="onBlur()"
+                        type="color"
+                        [disabled]="designerService.isThemeViewOnly()"
+                        [class]="{ '!cursor-not-allowed': designerService.isThemeViewOnly() }"
+                    />
                 </div>
                 <design-color-palette [value]="designerService.designer().theme?.preset?.primitive[key]" />
             </section>

@@ -16,7 +16,7 @@ const classes = {
 export class IconFieldStyle extends BaseStyle {
     name = 'iconfield';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

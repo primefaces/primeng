@@ -1,11 +1,9 @@
-import { TemplateConfigurationModule } from '@/components/template/templateconfiguration';
-import { TemplateFeaturesModule } from '@/components/template/templatefeatures';
-import { TemplateFeaturesAnimationModule } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
-import { TemplateHeroModule } from '@/components/template/templatehero/templatehero';
-import { TemplateLicenseModule } from '@/components/template/templatelicense';
-import { TemplateRelatedModule } from '@/components/template/templaterelated';
-import { TemplateSeparatorModule } from '@/components/template/templateseparator';
-import { TemplateYoutubeModule } from '@/components/template/templateyoutube';
+import { TemplateConfiguration } from '@/components/template/templateconfiguration';
+import { TemplateFeatures } from '@/components/template/templatefeatures';
+import { TemplateFeaturesAnimation } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
+import { TemplateHero } from '@/components/template/templatehero/templatehero';
+import { TemplateLicense } from '@/components/template/templatelicense';
+import { TemplateYoutube } from '@/components/template/templateyoutube';
 import { Component } from '@angular/core';
 import { UltimaLogo } from './ultimalogo';
 import { UltimaSeparator } from './ultimaseparator';
@@ -13,18 +11,7 @@ import { UltimaSeparator } from './ultimaseparator';
 @Component({
     standalone: true,
     selector: 'ultima-page',
-    imports: [
-        TemplateHeroModule,
-        TemplateSeparatorModule,
-        TemplateFeaturesAnimationModule,
-        TemplateFeaturesModule,
-        TemplateConfigurationModule,
-        TemplateFeaturesAnimationModule,
-        TemplateRelatedModule,
-        TemplateYoutubeModule,
-        TemplateLicenseModule,
-        UltimaSeparator
-    ],
+    imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateYoutube, TemplateLicense, UltimaSeparator],
     template: `<div class="ultima template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="ultimaLogo"></template-hero>
         <ultima-separator></ultima-separator>
@@ -57,7 +44,8 @@ export class UltimaPage {
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-dashboard2.png',
         liveHref: 'https://ultima.primeng.org',
-        docHref: 'https://ultima.primeng.org/documentation'
+        docHref: 'https://ultima.primeng.org/documentation',
+        storeHref: 'https://primeui.store/templates/angular/ultima'
     };
 
     features2Data = [
@@ -107,7 +95,7 @@ export class UltimaPage {
         {
             id: 2,
             title: 'PrimeBlocks',
-            description: `Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.`,
+            description: `Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
         },
         {
@@ -120,7 +108,7 @@ export class UltimaPage {
             id: 4,
             title: 'Figma File',
             description: `Ultima uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
-                <a href="https://www.figma.com/file/ijQrxq13lxacgkb6XHlLxA/Preview-%7C-Ultima-2022?node-id=354%3A7715&t=gjWHprUDE5RJIg78-1">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the Ultima
+                <a href="https://www.figma.com/design/5eUk7EYGAjTFCIOSVpJxgS/Preview-%7C%C2%A0Ultima-%7C%C2%A03.0.0?node-id=0-1&t=WtPNbQrpbf9V2eTz-1">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the Ultima
                 Figma file as they are available in <a href="/uikit">PrimeOne for Figma</a> only.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/ultima/features-animation-figma.png'
         }

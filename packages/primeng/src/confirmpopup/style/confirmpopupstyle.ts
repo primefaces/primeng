@@ -16,7 +16,7 @@ const classes = {
 export class ConfirmPopupStyle extends BaseStyle {
     name = 'confirmpopup';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

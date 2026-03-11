@@ -52,7 +52,7 @@ const classes = {
 export class PaginatorStyle extends BaseStyle {
     name = 'paginator';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

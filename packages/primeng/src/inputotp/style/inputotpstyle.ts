@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/inputotp';
+import { BaseStyle } from 'primeng/base';
 
 const classes = {
     root: 'p-inputotp p-component',
@@ -11,7 +11,7 @@ const classes = {
 export class InputOtpStyle extends BaseStyle {
     name = 'inputotp';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

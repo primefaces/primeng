@@ -15,7 +15,7 @@ const classes = {
 export class TabsStyle extends BaseStyle {
     name = 'tabs';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

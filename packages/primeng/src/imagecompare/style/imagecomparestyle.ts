@@ -11,7 +11,7 @@ const classes = {
 export class ImageCompareStyle extends BaseStyle {
     name = 'imagecompare';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

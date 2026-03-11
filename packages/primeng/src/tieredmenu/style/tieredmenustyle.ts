@@ -11,7 +11,7 @@ const classes = {
         'p-tieredmenu p-component',
         {
             'p-tieredmenu-overlay': instance.popup,
-            'p-tieredmenu-mobile': instance.queryMatches
+            'p-tieredmenu-mobile': instance.queryMatches()
         }
     ],
     start: 'p-tieredmenu-start',
@@ -39,7 +39,7 @@ const classes = {
 export class TieredMenuStyle extends BaseStyle {
     name = 'tieredmenu';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 

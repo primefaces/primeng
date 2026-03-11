@@ -16,7 +16,7 @@ const classes = {
 export class TimelineStyle extends BaseStyle {
     name = 'timeline';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

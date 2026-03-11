@@ -1,11 +1,10 @@
-import { AppCodeModule } from '@/components/doc/app.code.component';
-import { AppDocModule } from '@/components/doc/app.doc.module';
-
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'v20-migration-overview-doc',
-    imports: [AppDocModule, AppCodeModule],
+    standalone: true,
+    imports: [AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

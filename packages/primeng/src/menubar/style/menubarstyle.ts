@@ -10,7 +10,7 @@ const classes = {
     root: ({ instance }) => [
         'p-menubar p-component',
         {
-            'p-menubar-mobile': instance.queryMatches,
+            'p-menubar-mobile': instance.queryMatches(),
             'p-menubar-mobile-active': instance.mobileActive
         }
     ],
@@ -39,7 +39,7 @@ const classes = {
 export class MenuBarStyle extends BaseStyle {
     name = 'menubar';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 

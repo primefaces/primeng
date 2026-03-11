@@ -1,21 +1,31 @@
-import { AccessibilityDoc } from '@/doc/toggleswitch/accessibilitydoc';
-import { BasicDoc } from '@/doc/toggleswitch/basicdoc';
-import { DisabledDoc } from '@/doc/toggleswitch/disableddoc';
-import { ImportDoc } from '@/doc/toggleswitch/importdoc';
-import { InvalidDoc } from '@/doc/toggleswitch/invaliddoc';
-import { PreselectionDoc } from '@/doc/toggleswitch/preselectiondoc';
-import { ReactiveFormsDoc } from '@/doc/toggleswitch/reactiveformsdoc';
-import { TemplateDoc } from '@/doc/toggleswitch/templatedoc';
-import { TemplateDrivenFormsDoc } from '@/doc/toggleswitch/templatedrivenformsdoc';
-import { ToggleSwitchDocModule } from '@/doc/toggleswitch/toggleswitchdoc.module';
+import { AccessibilityDoc } from '@/doc/toggleswitch/accessibility-doc';
+import { BasicDoc } from '@/doc/toggleswitch/basic-doc';
+import { DisabledDoc } from '@/doc/toggleswitch/disabled-doc';
+import { ImportDoc } from '@/doc/toggleswitch/import-doc';
+import { InvalidDoc } from '@/doc/toggleswitch/invalid-doc';
+import { PreselectionDoc } from '@/doc/toggleswitch/preselection-doc';
+import { ReactiveFormsDoc } from '@/doc/toggleswitch/reactiveforms-doc';
+import { TemplateDoc } from '@/doc/toggleswitch/template-doc';
+import { TemplateDrivenFormsDoc } from '@/doc/toggleswitch/templatedrivenforms-doc';
+import { PTComponent } from '@/doc/toggleswitch/pt/PTComponent';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular ToggleSwitch Component" header="ToggleSwitch" description="ToggleSwitch is used to select a boolean value." [docs]="docs" [apiDocs]="['ToggleSwitch']" themeDocs="toggleswitch"></app-doc>`,
+    template: `<app-doc
+        docTitle="Angular ToggleSwitch Component"
+        header="ToggleSwitch"
+        description="ToggleSwitch is used to select a boolean value."
+        [docs]="docs"
+        [apiDocs]="['ToggleSwitch']"
+        [ptDocs]="ptComponent"
+        themeDocs="toggleswitch"
+    ></app-doc>`,
     standalone: true,
-    imports: [ToggleSwitchDocModule]
+    imports: [AppDoc]
 })
 export class ToggleSwitchDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

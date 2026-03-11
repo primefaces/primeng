@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/buttongroup';
+import { style as buttongroup_style } from '@primeuix/styles/buttongroup';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${buttongroup_style}
 
     /* For PrimeNG */
     .p-buttongroup p-button:focus .p-button {
@@ -39,7 +39,7 @@ const classes = {
 export class ButtonGroupStyle extends BaseStyle {
     name = 'buttongroup';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

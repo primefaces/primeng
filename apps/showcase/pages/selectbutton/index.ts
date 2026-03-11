@@ -1,14 +1,16 @@
-import { AccessibilityDoc } from '@/doc/selectbutton/accessibilitydoc';
-import { BasicDoc } from '@/doc/selectbutton/basicdoc';
-import { DisabledDoc } from '@/doc/selectbutton/disableddoc';
-import { ImportDoc } from '@/doc/selectbutton/importdoc';
-import { InvalidDoc } from '@/doc/selectbutton/invaliddoc';
-import { MultipleDoc } from '@/doc/selectbutton/multipledoc';
-import { ReactiveFormsDoc } from '@/doc/selectbutton/reactiveformsdoc';
-import { SelectButtonDocModule } from '@/doc/selectbutton/selectbuttondoc.module';
-import { SizesDoc } from '@/doc/selectbutton/sizesdoc';
-import { TemplateDoc } from '@/doc/selectbutton/templatedoc';
-import { TemplateDrivenFormsDoc } from '@/doc/selectbutton/templatedrivenformsdoc';
+import { AccessibilityDoc } from '@/doc/selectbutton/accessibility-doc';
+import { BasicDoc } from '@/doc/selectbutton/basic-doc';
+import { DisabledDoc } from '@/doc/selectbutton/disabled-doc';
+import { ImportDoc } from '@/doc/selectbutton/import-doc';
+import { InvalidDoc } from '@/doc/selectbutton/invalid-doc';
+import { MultipleDoc } from '@/doc/selectbutton/multiple-doc';
+import { ReactiveFormsDoc } from '@/doc/selectbutton/reactiveforms-doc';
+import { SizesDoc } from '@/doc/selectbutton/sizes-doc';
+import { TemplateDoc } from '@/doc/selectbutton/template-doc';
+import { TemplateDrivenFormsDoc } from '@/doc/selectbutton/templatedrivenforms-doc';
+import { FluidDoc } from '@/doc/selectbutton/fluid-doc';
+import { PTComponent } from '@/doc/selectbutton/pt/PTComponent';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -18,12 +20,15 @@ import { Component } from '@angular/core';
         description="SelectButton is used to choose single or multiple items from a list using buttons."
         [docs]="docs"
         [apiDocs]="['SelectButton']"
+        [ptDocs]="ptComponent"
         themeDocs="selectbutton"
     ></app-doc>`,
     standalone: true,
-    imports: [SelectButtonDocModule]
+    imports: [AppDoc]
 })
 export class SelectButtonDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',
@@ -49,6 +54,11 @@ export class SelectButtonDemo {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'disabled',

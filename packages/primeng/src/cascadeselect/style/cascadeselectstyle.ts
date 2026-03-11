@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/cascadeselect';
+import { style as cascadeselect_style } from '@primeuix/styles/cascadeselect';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${cascadeselect_style}
 
     /* For PrimeNG */
     .p-cascadeselect.ng-invalid.ng-dirty:not(.ng-untouched):not(.ng-pristine) {
@@ -76,7 +76,7 @@ const classes = {
 export class CascadeSelectStyle extends BaseStyle {
     name = 'cascadeselect';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 

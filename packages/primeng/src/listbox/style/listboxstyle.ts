@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/listbox';
+import { style as listbox_style } from '@primeuix/styles/listbox';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${listbox_style}
 
     /* For PrimeNG */
     .p-listbox.ng-invalid.ng-dirty {
@@ -18,6 +18,28 @@ const theme = /*css*/ `
     .p-listbox-header > .p-iconfield {
         flex-grow: 1;
     }
+
+    .p-listbox-list-container {
+        height: 100%;
+    }
+
+    /* CDK Drag & Drop styles */
+    .p-listbox-option.cdk-drag-preview {
+        background: dt('listbox.background');
+    }
+
+    .p-listbox-dragging .p-listbox-option:not(.cdk-drag-preview) {
+        pointer-events: none !important;
+    }
+
+    .p-listbox-dragging .p-listbox-option:not(.cdk-drag-preview):hover {
+        background: inherit !important;
+        color: inherit !important;
+    }
+
+    .cdk-drag-placeholder {
+        pointer-events: none;
+    }
 `;
 
 const classes = {
@@ -27,7 +49,8 @@ const classes = {
             'p-listbox-striped': instance.striped,
             'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
-            'p-listbox-fluid': instance.fluid()
+            'p-listbox-fluid': instance.fluid(),
+            'p-listbox-dragging': instance.isDragging()
         }
     ],
     header: 'p-listbox-header',
@@ -52,7 +75,7 @@ const classes = {
 export class ListBoxStyle extends BaseStyle {
     name = 'listbox';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

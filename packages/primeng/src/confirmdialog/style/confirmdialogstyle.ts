@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/confirmdialog';
+import { BaseStyle } from 'primeng/base';
 
 const classes = {
     root: 'p-confirmdialog',
@@ -14,7 +14,7 @@ const classes = {
 export class ConfirmDialogStyle extends BaseStyle {
     name = 'confirmdialog';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

@@ -3,6 +3,7 @@ export default {
     rules: {
         'type-enum': [2, 'always', ['feat', 'fix', 'docs', 'style', 'refactor', 'test', 'chore']],
         'subject-case': [1, 'always', ['sentence-case', 'lower-case']],
+        'body-max-line-length': [0],
         'references-empty': [1, 'never']
     },
     ignores: [(commit: string) => commit.startsWith('Merge')],

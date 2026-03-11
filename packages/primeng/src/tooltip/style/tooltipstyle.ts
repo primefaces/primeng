@@ -12,7 +12,7 @@ const classes = {
 export class TooltipStyle extends BaseStyle {
     name = 'tooltip';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

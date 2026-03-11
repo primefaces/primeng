@@ -1,7 +1,6 @@
 {
-    "id": 86,
-    "content": "All Premium Templates Now Upgraded to v20 🎉",
+    "id": 97,
+    "content": "Introducing PrimeOne UI Kit v4 with Figma Native Variables",
     "linkText": "Learn More",
-    "routerLink": "/templates",
-    "target": "_blank"
+    "routerLink": "/uikit"
 }

@@ -6,10 +6,7 @@ const classes = {
     root: ({ instance }) => [
         'p-button p-component',
         {
-            'p-button-icon-only':
-                (instance.icon || instance.buttonProps?.icon || instance.iconTemplate || instance._iconTemplate || instance.loadingIcon || instance.loadingIconTemplate || instance._loadingIconTemplate) &&
-                !instance.label &&
-                !instance.buttonProps?.label,
+            'p-button-icon-only': instance.hasIcon && !instance.label && !instance.buttonProps?.label && !instance.badge,
             'p-button-vertical': (instance.iconPos === 'top' || instance.iconPos === 'bottom') && instance.label,
             'p-button-loading': instance.loading || instance.buttonProps?.loading,
             'p-button-link': instance.link || instance.buttonProps?.link,
@@ -30,13 +27,15 @@ const classes = {
         {
             [`p-button-icon-${instance.iconPos || instance.buttonProps?.iconPos}`]: instance.label || instance.buttonProps?.label,
             'p-button-icon-left': ((instance.iconPos === 'left' || instance.buttonProps?.iconPos === 'left') && instance.label) || instance.buttonProps?.label,
-            'p-button-icon-right': ((instance.iconPos === 'right' || instance.buttonProps?.iconPos === 'right') && instance.label) || instance.buttonProps?.label
+            'p-button-icon-right': ((instance.iconPos === 'right' || instance.buttonProps?.iconPos === 'right') && instance.label) || instance.buttonProps?.label,
+            'p-button-icon-top': ((instance.iconPos === 'top' || instance.buttonProps?.iconPos === 'top') && instance.label) || instance.buttonProps?.label,
+            'p-button-icon-bottom': ((instance.iconPos === 'bottom' || instance.buttonProps?.iconPos === 'bottom') && instance.label) || instance.buttonProps?.label
         },
         instance.icon,
         instance.buttonProps?.icon
     ],
     spinnerIcon: ({ instance }) => {
-        return Object.entries(instance.iconClass())
+        return Object.entries(instance.cx('icon'))
             .filter(([, value]) => !!value)
             .reduce((acc, [key]) => acc + ` ${key}`, 'p-button-loading-icon');
     },
@@ -47,7 +46,7 @@ const classes = {
 export class ButtonStyle extends BaseStyle {
     name = 'button';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

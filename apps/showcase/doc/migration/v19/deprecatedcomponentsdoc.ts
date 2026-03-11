@@ -1,9 +1,10 @@
-import { AppDocModule } from '@/components/doc/app.doc.module';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'v19-deprecated-doc',
-    imports: [AppDocModule],
+    standalone: true,
+    imports: [AppDocSectionText],
     template: `
         <app-docsectiontext>
             <h4>Deprecated Components</h4>

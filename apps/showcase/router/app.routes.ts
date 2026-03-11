@@ -9,6 +9,8 @@ export const routes: Routes = [
         component: AppMainComponent,
         children: [
             { path: 'accessibility', redirectTo: 'guides/accessibility', pathMatch: 'full' },
+            { path: 'theming', redirectTo: 'theming/styled', pathMatch: 'full' },
+            { path: 'uikit/guide', redirectTo: 'uikit/guide/v3', pathMatch: 'full' },
             { path: 'autocomplete', loadChildren: () => import('@/pages/autocomplete/routes') },
             {
                 path: 'installation',
@@ -21,7 +23,6 @@ export const routes: Routes = [
             { path: 'playground', loadChildren: () => import('@/pages/playground/routes') },
             { path: 'roadmap', loadChildren: () => import('@/pages/roadmap/routes') },
             { path: 'team', loadChildren: () => import('@/pages/team/routes') },
-            { path: 'partners', loadChildren: () => import('@/pages/partners/routes') },
             {
                 path: 'theming',
                 loadChildren: () => import('@/pages/theming/routes')
@@ -31,6 +32,7 @@ export const routes: Routes = [
                 path: 'customicons',
                 loadChildren: () => import('@/pages/customicons/routes')
             },
+            { path: 'passthrough', loadChildren: () => import('@/pages/passthrough/routes') },
             { path: 'accordion', loadChildren: () => import('@/pages/accordion/routes') },
             { path: 'avatar', loadChildren: () => import('@/pages/avatar/routes') },
             { path: 'blockui', loadChildren: () => import('@/pages/blockui/routes') },
@@ -292,8 +294,18 @@ export const routes: Routes = [
                 path: 'animateonscroll',
                 loadChildren: () => import('@/pages/animateonscroll/routes')
             },
+            {
+                path: 'classnames',
+                loadChildren: () => import('@/pages/classnames/routes')
+            },
+            {
+                path: 'bind',
+                loadChildren: () => import('@/pages/bind/routes')
+            },
             { path: 'templates', loadChildren: () => import('@/pages/templates/templates.module').then((m) => m.TemplatesModule) },
-            { path: 'guides', loadChildren: () => import('@/pages/guides/guides.module').then((m) => m.GuidesModule) },
+            { path: 'guides', loadChildren: () => import('@/pages/guides/routes') },
+            { path: 'llms', loadChildren: () => import('@/pages/llms/routes') },
+            { path: 'mcp', loadChildren: () => import('@/pages/mcp/routes') },
             {
                 path: 'designer',
                 loadChildren: () => import('@/pages/designer/routes')

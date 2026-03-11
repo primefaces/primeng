@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BaseIcon } from 'primeng/icons/baseicon';
 
@@ -27,11 +27,10 @@ import { BaseIcon } from 'primeng/icons/baseicon';
         </svg:defs>
     `
 })
-export class ExclamationTriangleIcon extends BaseIcon implements OnInit {
+export class ExclamationTriangleIcon extends BaseIcon {
     pathId: string;
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.pathId = 'url(#' + uuid() + ')';
     }
 }
