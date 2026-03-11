@@ -30,8 +30,8 @@ import { IN_DEMO_WRAPPER } from './demo-mode.token';
                                 <i class="pi pi-bolt"></i>
                             </button>
                         }
-                        <button type="button" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="copyCode()" pTooltip="Copy Code" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip">
-                            <i class="pi pi-clone"></i>
+                        <button type="button" class="h-8 w-8 p-0 inline-flex items-center justify-center" [disabled]="copied()" (click)="copyCode()" pTooltip="Copy Code" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip">
+                            <i class="pi" [class.pi-clone]="!copied()" [class.pi-check]="copied()"></i>
                         </button>
                     </div>
                 }
@@ -53,6 +53,7 @@ export class AppCode {
     importCode = input(false, { transform: (v: boolean | string) => v === '' || v === true });
     codeHeight = computed(() => (this.fullCodeVisible() ? '50rem' : '20rem'));
 
+    copied = signal(false);
     fullCodeVisible = signal(false);
     lang = signal('typescript');
     resolvedCode = signal<Code | null>(null);
@@ -170,6 +171,8 @@ export class AppCode {
         const code = this.resolvedCode();
         if (code) {
             await navigator.clipboard.writeText(code[this.lang()]);
+            this.copied.set(true);
+            setTimeout(() => this.copied.set(false), 2000);
         }
     }
 

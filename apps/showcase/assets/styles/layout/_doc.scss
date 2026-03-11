@@ -421,11 +421,6 @@ app-code + app-code {
     }
 
 
-    &:hover {
-        .doc-section-code-buttons {
-            display: flex;
-        }
-    }
 }
 
 .doc-section-code-buttons {
@@ -436,12 +431,10 @@ app-code + app-code {
     top: 0.656rem;
     right: 0.656rem;
     gap: 0.438rem;
-    display: none;
-    background: rgba(255, 255, 255, .05);
-    border-radius: 10px;
+    display: flex;
+    background: transparent;
+    border: 0 none;
     padding: 2px;
-    backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, .1);
 
     button {
         outline: 0 none;

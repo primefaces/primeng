@@ -24,16 +24,16 @@
     white-space: pre;
     border: 0;
     background: transparent;
-    padding: 1.313rem;
+    padding: 0.75rem 1rem;
     counter-reset: line;
     box-decoration-break: clone;
     font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
-    font-size: 14px;
+    font-size: 0.875rem;
     line-height: 1.5;
 }
 
 .doc-section-demo-code [data-line-numbers] {
-    padding: 1.313rem 0;
+    padding: 0.75rem 0;
 }
 
 .doc-section-demo-code [data-rehype-pretty-code-figure] [data-line]::before {
@@ -54,7 +54,7 @@
     padding-bottom: 1px;
     min-height: 2px;
     width: 100%;
-    font-size: 14px;
+    font-size: 0.875rem;
     display: inline-block;
 }
 
@@ -94,10 +94,9 @@ pre[class*="language-"] {
     }
 
     code {
-        border-left: 0.875rem solid transparent;
         box-shadow: none;
         margin: 0;
-        font-size: 14px;
+        font-size: 0.875rem;
         border-radius: 10px;
         color: #ffffff;
         max-height: inherit;
