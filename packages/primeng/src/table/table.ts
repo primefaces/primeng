@@ -2972,12 +2972,12 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             let state: TableState = JSON.parse(stateString, reviver);
 
             if (this.paginator) {
-                if (this.first !== undefined) {
+                if (this.first !== undefined && state.first) {
                     this.first = state.first;
                     this.firstChange.emit(this.first);
                 }
 
-                if (this.rows !== undefined) {
+                if (this.rows !== undefined && state.rows) {
                     this.rows = state.rows;
                     this.rowsChange.emit(this.rows);
                 }
