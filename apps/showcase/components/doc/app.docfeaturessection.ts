@@ -16,7 +16,7 @@ import { DEMO_MODE } from './demo-mode.token';
                     @if (componentName || docType === 'page') {
                         <app-doccopymarkdown [componentName]="componentName" [docType]="docType" class="flex items-center gap-4 relative row-start-3 sm:row-start-1 sm:col-start-2" />
                     }
-                    <p class="col-span-2">{{ description }}</p>
+                    <p class="col-span-2 opacity-50 text-surface-900 dark:text-surface-0">{{ description }}</p>
                 </div>
             </div>
             @if (heroDoc) {

@@ -40,7 +40,7 @@
                 padding-block: 0.438rem;
                 padding-inline: 1px;
                 color: var(--text-color);
-                font-weight: 600;
+                font-weight: 500;
                 transition: outline-color 0.2s;
                 outline-color: transparent;
                 position: relative;
@@ -120,34 +120,35 @@
                 ol {
                     margin-block: 0;
                     margin-inline: 0 0.875rem;
-                    padding: 0.219rem 0;
+                    padding: 0;
                     list-style: none;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1px;
 
                     li {
                         a {
-                            border-inline-start: 1px solid var(--border-color);
                             transition: all .2s;
                             font-size: 0.875rem;
                             line-height: normal;
-                            font-weight: 450;
+                            font-weight: 400;
                             display: flex;
                             align-items: center;
-                            padding: 0.438rem;
-                            padding-inline-start: 0.875rem;
-                            color: var(--text-secondary-color);
-                            transition: outline-color 0.2s, border-color .2s;
+                            height: 2rem;
+                            padding-inline: 0.75rem;
+                            border-radius: 8px;
+                            color: var(--sidebar-item-color);
                             outline-color: transparent;
                             position: relative;
                             --p-focus-ring-offset: -1px;
                             @include focus-visible();
 
                             &:hover {
-                                border-inline-start-color: var(--hover-border-color);
+                                background-color: var(--sidebar-item-hover-background);
                             }
 
                             &.router-link-active {
-                                color: var(--primary-text-color);
-                                border-inline-start-color: var(--primary-text-color);
+                                background-color: var(--sidebar-item-hover-background);
                             }
                         }
 
@@ -157,11 +158,11 @@
                         }
 
                         &:has(.menu-child-category) {
-                            margin-top: 0.875rem;
+                            margin-top: 1.75rem;
                         }
 
                         &:has(.menu-child-category):first-child {
-                            margin-top: 0rem;
+                            margin-top: 0.5rem;
                         }
                     }
                 }
@@ -182,13 +183,13 @@
 
         .menu-child-category {
             display: flex;
-            padding: 0.438rem;
-            padding-inline-start: 0;
-            font-size: 0.766rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            color: var(--text-secondary-color);
-            margin-bottom: 0.219rem;
+            padding: 0;
+            padding-inline-start: 0.75rem;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--sidebar-category-color);
+            margin-bottom: 0.25rem;
         }
     }
 }
