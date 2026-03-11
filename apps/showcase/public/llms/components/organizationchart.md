@@ -16,11 +16,9 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center overflow-x-auto">
-                <p-organization-chart [value]="data" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center overflow-x-auto">
+            <p-organization-chart [value]="data" />
+        </div>
     `,
     standalone: true,
     imports: []
@@ -69,28 +67,23 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <app-docsectiontext>
-            <p>Styling a specific node is configured with <i>class</i> and <i>style</i> options of a TreeNode.</p></app-docsectiontext
-        >
-        <app-demo-wrapper>
-            <div class="overflow-x-auto">
-                <p-organization-chart [value]="data" [collapsible]="true">
-                    <ng-template #node let-node>
-                        @if (node.type === 'person') {
-                            <div class="flex flex-col">
-                                <div class="flex flex-col items-center">
-                                    <img [src]="node.data.image" class="mb-4 w-12 h-12" />
-                                    <span class="font-bold mb-2">{{ node.data.name }}</span>
-                                    <span>{{ node.data.title }}</span>
-                                </div>
+        <div class="overflow-x-auto">
+            <p-organization-chart [value]="data" [collapsible]="true">
+                <ng-template #node let-node>
+                    @if (node.type === 'person') {
+                        <div class="flex flex-col">
+                            <div class="flex flex-col items-center">
+                                <img [src]="node.data.image" class="mb-4 w-12 h-12" />
+                                <span class="font-bold mb-2">{{ node.data.name }}</span>
+                                <span>{{ node.data.title }}</span>
                             </div>
-                        } @else {
-                            <div>{{ node.label }}</div>
-                        }
-                    </ng-template>
-                </p-organization-chart>
-            </div>
-        </app-demo-wrapper>
+                        </div>
+                    } @else {
+                        <div>{{ node.label }}</div>
+                    }
+                </ng-template>
+            </p-organization-chart>
+        </div>
     `,
     standalone: true,
     imports: []
@@ -161,30 +154,23 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <app-docsectiontext>
-            <p>
-                Nodes can be selected by defining <i>selectionMode</i> along with a value binding with <i>selection</i> properties. By default only one node can be selected, set <i>selectionMode</i> as <i>multiple</i> to select more than one.
-            </p></app-docsectiontext
-        >
-        <app-demo-wrapper>
-            <div class="flex justify-center overflow-x-auto">
-                <p-organization-chart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" [collapsible]="true">
-                    <ng-template #node let-node>
-                        @if (node.type === 'person') {
-                            <div class="flex flex-col">
-                                <div class="flex flex-col items-center">
-                                    <img [src]="node.data.image" class="mb-4 w-12 h-12" />
-                                    <div class="font-bold mb-2">{{ node.data.name }}</div>
-                                    <div>{{ node.data.title }}</div>
-                                </div>
+        <div class="flex justify-center overflow-x-auto">
+            <p-organization-chart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" [collapsible]="true">
+                <ng-template #node let-node>
+                    @if (node.type === 'person') {
+                        <div class="flex flex-col">
+                            <div class="flex flex-col items-center">
+                                <img [src]="node.data.image" class="mb-4 w-12 h-12" />
+                                <div class="font-bold mb-2">{{ node.data.name }}</div>
+                                <div>{{ node.data.title }}</div>
                             </div>
-                        } @else {
-                            <div>{{ node.label }}</div>
-                        }
-                    </ng-template>
-                </p-organization-chart>
-            </div>
-        </app-demo-wrapper>
+                        </div>
+                    } @else {
+                        <div>{{ node.label }}</div>
+                    }
+                </ng-template>
+            </p-organization-chart>
+        </div>
     `,
     standalone: true,
     imports: []
@@ -251,18 +237,16 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="overflow-x-auto">
-                <p-organization-chart [value]="data" [collapsible]="true">
-                    <ng-template #node let-node>
-                        <div class="flex flex-col items-center">
-                            <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
-                            <div class="mt-4 font-medium">{{ node.label }}</div>
-                        </div>
-                    </ng-template>
-                </p-organization-chart>
-            </div>
-        </app-demo-wrapper>
+        <div class="overflow-x-auto">
+            <p-organization-chart [value]="data" [collapsible]="true">
+                <ng-template #node let-node>
+                    <div class="flex flex-col items-center">
+                        <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
+                        <div class="mt-4 font-medium">{{ node.label }}</div>
+                    </div>
+                </ng-template>
+            </p-organization-chart>
+        </div>
     `,
     standalone: true,
     imports: []

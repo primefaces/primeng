@@ -17,9 +17,7 @@ import { EditorModule } from 'primeng/editor';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
-        </app-demo-wrapper>
+        <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
     `,
     standalone: true,
     imports: [EditorModule, FormsModule]
@@ -40,17 +38,15 @@ import { EditorModule } from 'primeng/editor';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
-                <ng-template #header>
-                    <span class="ql-formats">
-                        <button type="button" class="ql-bold" aria-label="Bold"></button>
-                        <button type="button" class="ql-italic" aria-label="Italic"></button>
-                        <button type="button" class="ql-underline" aria-label="Underline"></button>
-                    </span>
-                </ng-template>
-            </p-editor>
-        </app-demo-wrapper>
+        <p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
+            <ng-template #header>
+                <span class="ql-formats">
+                    <button type="button" class="ql-bold" aria-label="Bold"></button>
+                    <button type="button" class="ql-italic" aria-label="Italic"></button>
+                    <button type="button" class="ql-underline" aria-label="Underline"></button>
+                </span>
+            </ng-template>
+        </p-editor>
     `,
     standalone: true,
     imports: [EditorModule, FormsModule]
@@ -73,27 +69,23 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditorModule } from 'primeng/editor';
 import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <p-editor formControlName="text" [invalid]="isInvalid('text')" [style]="{ height: '320px' }" />
-                    @if (isInvalid('text')) {
-                        <p-message severity="error" size="small" variant="simple">Content is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </app-demo-wrapper>
+        <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+            <div class="flex flex-col gap-1">
+                <p-editor formControlName="text" [invalid]="isInvalid('text')" [style]="{ height: '320px' }" />
+                @if (isInvalid('text')) {
+                    <p-message severity="error" size="small" variant="simple">Content is required.</p-message>
+                }
+            </div>
+            <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+        </form>
     `,
     standalone: true,
-    imports: [EditorModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [EditorModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
 export class EditorReactiveformsDemo {
     messageService = inject(MessageService);
@@ -134,9 +126,7 @@ import { EditorModule } from 'primeng/editor';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
-        </app-demo-wrapper>
+        <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
     `,
     standalone: true,
     imports: [EditorModule, FormsModule]
@@ -153,27 +143,23 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EditorModule } from 'primeng/editor';
 import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <p-editor #content="ngModel" [(ngModel)]="text" [invalid]="content.invalid && (content.touched || exampleForm.submitted)" name="content" [style]="{ height: '320px' }" required />
-                    @if (content.invalid && (content.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Content is required.</p-message>
-                    }
-                </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-            </form>
-        </app-demo-wrapper>
+        <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+            <div class="flex flex-col gap-1">
+                <p-editor #content="ngModel" [(ngModel)]="text" [invalid]="content.invalid && (content.touched || exampleForm.submitted)" name="content" [style]="{ height: '320px' }" required />
+                @if (content.invalid && (content.touched || exampleForm.submitted)) {
+                    <p-message severity="error" size="small" variant="simple">Content is required.</p-message>
+                }
+            </div>
+            <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+        </form>
     `,
     standalone: true,
-    imports: [EditorModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [EditorModule, MessageModule, ButtonModule, FormsModule]
 })
 export class EditorTemplatedrivenformsDemo {
     messageService = inject(MessageService);

@@ -16,9 +16,9 @@ import { ToastModule } from 'primeng/toast';
     template: ` <app-docsectiontext>
             <p>Table provides <i>onRowSelect</i> and <i>onRowUnselect</i> events to listen selection events.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
-            <p-toast />
-            <app-demo-wrapper>
+        <p-toast />
+        <app-demo-wrapper>
+            <p-deferred-demo (load)="loadDemoData()">
                 <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" dataKey="code" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
@@ -37,9 +37,9 @@ import { ToastModule } from 'primeng/toast';
                         </tr>
                     </ng-template>
                 </p-table>
-                <app-code [extFiles]="['Product']"></app-code>
-            </app-demo-wrapper>
-        </p-deferred-demo>`,
+            </p-deferred-demo>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })

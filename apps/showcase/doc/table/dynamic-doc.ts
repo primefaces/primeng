@@ -20,8 +20,8 @@ interface Column {
     template: ` <app-docsectiontext>
             <p>Columns can be defined dynamically using the <i>&#64;for</i> block.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
-            <app-demo-wrapper>
+        <app-demo-wrapper>
+            <p-deferred-demo (load)="loadDemoData()">
                 <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>
                         <tr>
@@ -42,9 +42,9 @@ interface Column {
                         </tr>
                     </ng-template>
                 </p-table>
-                <app-code [extFiles]="['Product']"></app-code>
-            </app-demo-wrapper>
-        </p-deferred-demo>`,
+            </p-deferred-demo>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicDoc {

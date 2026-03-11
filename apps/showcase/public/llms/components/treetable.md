@@ -1201,47 +1201,45 @@ interface Column {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-treetable
-                [value]="files"
-                [columns]="cols"
-                [paginator]="true"
-                [rows]="10"
-                [lazy]="true"
-                (onLazyLoad)="loadNodes($event)"
-                [totalRecords]="1000"
-                [loading]="loading"
-                (onNodeExpand)="onNodeExpand($event)"
-                [scrollable]="true"
-                [tableStyle]="{ 'min-width': '50rem' }"
-            >
-                <ng-template #header let-columns>
-                    <tr>
-                        @for (col of columns; track col) {
-                            <th>
-                                {{ col.header }}
-                            </th>
-                        }
-                    </tr>
-                </ng-template>
-                <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                    <tr [ttRow]="rowNode">
-                        @for (col of columns; let first = $first; track col) {
-                            <td>
-                                @if (first) {
-                                    <div class="flex items-center gap-2">
-                                        <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                        <span>{{ rowData[col.field] }}</span>
-                                    </div>
-                                } @else {
-                                    {{ rowData[col.field] }}
-                                }
-                            </td>
-                        }
-                    </tr>
-                </ng-template>
-            </p-treetable>
-        </app-demo-wrapper>
+        <p-treetable
+            [value]="files"
+            [columns]="cols"
+            [paginator]="true"
+            [rows]="10"
+            [lazy]="true"
+            (onLazyLoad)="loadNodes($event)"
+            [totalRecords]="1000"
+            [loading]="loading"
+            (onNodeExpand)="onNodeExpand($event)"
+            [scrollable]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+        >
+            <ng-template #header let-columns>
+                <tr>
+                    @for (col of columns; track col) {
+                        <th>
+                            {{ col.header }}
+                        </th>
+                    }
+                </tr>
+            </ng-template>
+            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr [ttRow]="rowNode">
+                    @for (col of columns; let first = $first; track col) {
+                        <td>
+                            @if (first) {
+                                <div class="flex items-center gap-2">
+                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <span>{{ rowData[col.field] }}</span>
+                                </div>
+                            } @else {
+                                {{ rowData[col.field] }}
+                            }
+                        </td>
+                    }
+                </tr>
+            </ng-template>
+        </p-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],

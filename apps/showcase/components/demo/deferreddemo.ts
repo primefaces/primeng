@@ -7,7 +7,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLA
     imports: [CommonModule],
     template: `
         @if (!visible) {
-            <div class="card">
+            <div>
                 <div class="deferred-demo-loading"></div>
             </div>
         } @else {

@@ -27,8 +27,8 @@ interface ExportColumn {
     template: ` <app-docsectiontext>
             <p>Table can export its data to CSV format.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
-            <app-demo-wrapper>
+        <app-demo-wrapper>
+            <p-deferred-demo (load)="loadDemoData()">
                 <p-table #dt [columns]="cols" [value]="products" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #caption>
                         <div class="text-end pb-4">
@@ -54,9 +54,9 @@ interface ExportColumn {
                         </tr>
                     </ng-template>
                 </p-table>
-                <app-code [extFiles]="['Product']"></app-code>
-            </app-demo-wrapper>
-        </p-deferred-demo>`,
+            </p-deferred-demo>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExportDoc {

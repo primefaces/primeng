@@ -18,11 +18,9 @@ import { PanelMenu } from 'primeng/panelmenu';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-panelmenu [model]="items" class="w-full md:w-80" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-panelmenu [model]="items" class="w-full md:w-80" />
+        </div>
     `,
     standalone: true,
     imports: [PanelMenuModule]
@@ -120,21 +118,17 @@ The command property defines the callback to run when an item is activated by cl
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
-import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
 import { PanelMenu } from 'primeng/panelmenu';
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-panelmenu [model]="items" class="w-full md:w-80" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-panelmenu [model]="items" class="w-full md:w-80" />
+        </div>
     `,
     standalone: true,
-    imports: [PanelMenuModule, ToastModule],
+    imports: [PanelMenuModule],
     providers: [MessageService]
 })
 export class PanelmenuCommandDemo implements OnInit {
@@ -225,12 +219,10 @@ import { PanelMenu } from 'primeng/panelmenu';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-col items-center gap-4">
-                <p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
-                <p-panelmenu [model]="items" class="w-full md:w-80" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-col items-center gap-4">
+            <p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
+            <p-panelmenu [model]="items" class="w-full md:w-80" />
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, PanelMenuModule]
@@ -325,11 +317,9 @@ import { PanelMenu } from 'primeng/panelmenu';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-panelmenu [model]="items" class="w-full md:w-80" [multiple]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-panelmenu [model]="items" class="w-full md:w-80" [multiple]="true" />
+        </div>
     `,
     standalone: true,
     imports: [PanelMenuModule]
@@ -432,11 +422,9 @@ import { PanelMenu } from 'primeng/panelmenu';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-panelmenu [model]="items" class="w-full md:w-80" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-panelmenu [model]="items" class="w-full md:w-80" />
+        </div>
     `,
     standalone: true,
     imports: [PanelMenuModule],
@@ -506,24 +494,22 @@ import { PanelMenu } from 'primeng/panelmenu';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-col items-center">
-                <p-panelmenu [model]="items" class="w-full md:w-80">
-                    <ng-template #item let-item>
-                        <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
-                            <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
-                            <span class="ms-2" [class.text-sm]="!item.items">{{ item.label }}</span>
-                            @if (item.badge) {
-                                <p-badge class="ms-auto" [value]="item.badge" />
-                            }
-                            @if (item.shortcut) {
-                                <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-                            }
-                        </a>
-                    </ng-template>
-                </p-panelmenu>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-col items-center">
+            <p-panelmenu [model]="items" class="w-full md:w-80">
+                <ng-template #item let-item>
+                    <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
+                        <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
+                        <span class="ms-2" [class.text-sm]="!item.items">{{ item.label }}</span>
+                        @if (item.badge) {
+                            <p-badge class="ms-auto" [value]="item.badge" />
+                        }
+                        @if (item.shortcut) {
+                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        }
+                    </a>
+                </ng-template>
+            </p-panelmenu>
+        </div>
     `,
     standalone: true,
     imports: [BadgeModule, PanelMenuModule, RippleModule]

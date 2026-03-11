@@ -19,44 +19,42 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div>
-                <p-autocomplete
-                    [(ngModel)]="selectedProducts"
-                    [suggestions]="filteredProducts"
-                    (completeMethod)="filterProducts($event)"
-                    inputId="advanced-chips"
-                    [multiple]="true"
-                    [fluid]="true"
-                    [typeahead]="false"
-                    [dropdown]="true"
-                    [optionLabel]="getProductLabel"
-                    [optionValue]="getProductValue"
-                    placeholder="Add products"
-                >
-                    <ng-template let-product #item>
-                        <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                            <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
-                            <div class="flex-1 flex flex-col">
-                                <span class="font-medium text-sm">{{ product.name }}</span>
-                                <span class="text-sm text-surface-500 dark:text-surface-400">{{ product.category }}</span>
-                            </div>
-                            <span class="font-bold sm:ml-8">\${{ product.price }}</span>
+        <div>
+            <p-autocomplete
+                [(ngModel)]="selectedProducts"
+                [suggestions]="filteredProducts"
+                (completeMethod)="filterProducts($event)"
+                inputId="advanced-chips"
+                [multiple]="true"
+                [fluid]="true"
+                [typeahead]="false"
+                [dropdown]="true"
+                [optionLabel]="getProductLabel"
+                [optionValue]="getProductValue"
+                placeholder="Add products"
+            >
+                <ng-template let-product #item>
+                    <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
+                        <div class="flex-1 flex flex-col">
+                            <span class="font-medium text-sm">{{ product.name }}</span>
+                            <span class="text-sm text-surface-500 dark:text-surface-400">{{ product.category }}</span>
                         </div>
-                    </ng-template>
-                    <ng-template let-value #selecteditem>
-                        @if (value.price) {
-                            <div class="flex align-items-center gap-2">
-                                <span class="font-semibold">{{ value.name }}</span>
-                                <span class="text-primary text-sm font-bold">\${{ value.price }}</span>
-                            </div>
-                        } @else {
-                            <span class="font-semibold">{{ value }}</span>
-                        }
-                    </ng-template>
-                </p-autocomplete>
-            </div>
-        </app-demo-wrapper>
+                        <span class="font-bold sm:ml-8">\${{ product.price }}</span>
+                    </div>
+                </ng-template>
+                <ng-template let-value #selecteditem>
+                    @if (value.price) {
+                        <div class="flex align-items-center gap-2">
+                            <span class="font-semibold">{{ value.name }}</span>
+                            <span class="text-primary text-sm font-bold">\${{ value.price }}</span>
+                        </div>
+                    } @else {
+                        <span class="font-semibold">{{ value }}</span>
+                    }
+                </ng-template>
+            </p-autocomplete>
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule],
@@ -116,18 +114,16 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div>
-                <label for="chips-blur" class="text-sm font-bold mb-2 block">With Add On Blur</label>
-                <p-autocomplete [(ngModel)]="valueBlur" inputId="chips-blur" multiple fluid [typeahead]="false" [addOnBlur]="true" placeholder="Type and click outside to add..." />
-                <label for="chips-tab" class="text-sm font-bold mt-8 mb-2 block">With Add On Tab</label>
-                <p-autocomplete [(ngModel)]="valueTab" inputId="chips-tab" multiple fluid [typeahead]="false" [addOnTab]="true" placeholder="Type and press Tab to add..." />
-                <label for="chips-separator" class="text-sm font-bold mt-8 mb-2 block">With Separator (Comma)</label>
-                <p-autocomplete [(ngModel)]="valueSeparator" inputId="chips-separator" multiple fluid [typeahead]="false" separator="," placeholder="Type items separated by comma..." />
-                <label for="chips-combined" class="text-sm font-bold mt-8 mb-2 block">Combined Features</label>
-                <p-autocomplete [(ngModel)]="valueCombined" inputId="chips-combined" multiple fluid [typeahead]="false" [addOnBlur]="true" [addOnTab]="true" separator="," placeholder="Use Tab, Blur, or Comma to add items..." />
-            </div>
-        </app-demo-wrapper>
+        <div>
+            <label for="chips-blur" class="text-sm font-bold mb-2 block">With Add On Blur</label>
+            <p-autocomplete [(ngModel)]="valueBlur" inputId="chips-blur" multiple fluid [typeahead]="false" [addOnBlur]="true" placeholder="Type and click outside to add..." />
+            <label for="chips-tab" class="text-sm font-bold mt-8 mb-2 block">With Add On Tab</label>
+            <p-autocomplete [(ngModel)]="valueTab" inputId="chips-tab" multiple fluid [typeahead]="false" [addOnTab]="true" placeholder="Type and press Tab to add..." />
+            <label for="chips-separator" class="text-sm font-bold mt-8 mb-2 block">With Separator (Comma)</label>
+            <p-autocomplete [(ngModel)]="valueSeparator" inputId="chips-separator" multiple fluid [typeahead]="false" separator="," placeholder="Type items separated by comma..." />
+            <label for="chips-combined" class="text-sm font-bold mt-8 mb-2 block">Combined Features</label>
+            <p-autocomplete [(ngModel)]="valueCombined" inputId="chips-combined" multiple fluid [typeahead]="false" [addOnBlur]="true" [addOnTab]="true" separator="," placeholder="Use Tab, Blur, or Comma to add items..." />
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -156,11 +152,9 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -191,11 +185,9 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [showClear]="true" inputStyleClass="w-56" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [showClear]="true" inputStyleClass="w-56" />
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -226,11 +218,9 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" placeholder="Disabled" (completeMethod)="search($event)" [disabled]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" placeholder="Disabled" (completeMethod)="search($event)" [disabled]="true" />
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -262,11 +252,9 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -299,11 +287,9 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" variant="filled" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" variant="filled" />
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -336,22 +322,20 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-wrap justify-center items-end gap-4">
-                <p-floatlabel>
-                    <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search($event)" inputId="over_label" />
-                    <label for="over_label">Over Label</label>
-                </p-floatlabel>
-                <p-floatlabel variant="in">
-                    <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search($event)" inputId="in_label" />
-                    <label for="in_label">In Label</label>
-                </p-floatlabel>
-                <p-floatlabel variant="on">
-                    <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search($event)" inputId="on_label" />
-                    <label for="on_label">On Label</label>
-                </p-floatlabel>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-wrap justify-center items-end gap-4">
+            <p-floatlabel>
+                <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search($event)" inputId="over_label" />
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+            <p-floatlabel variant="in">
+                <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search($event)" inputId="in_label" />
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search($event)" inputId="on_label" />
+                <label for="on_label">On Label</label>
+            </p-floatlabel>
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FloatLabelModule, FormsModule]
@@ -384,11 +368,9 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div>
-                <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" fluid />
-            </div>
-        </app-demo-wrapper>
+        <div>
+            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" fluid />
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -420,11 +402,9 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-autocomplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-autocomplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule],
@@ -475,18 +455,16 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-autocomplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" placeholder="Hint: type 'a'">
-                    <ng-template let-group #group>
-                        <div class="flex items-center">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
-                            <span>{{ group.label }}</span>
-                        </div>
-                    </ng-template>
-                </p-autocomplete>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-autocomplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" placeholder="Hint: type 'a'">
+                <ng-template let-group #group>
+                    <div class="flex items-center">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                        <span>{{ group.label }}</span>
+                    </div>
+                </ng-template>
+            </p-autocomplete>
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -568,14 +546,12 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-iftalabel>
-                    <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" inputId="ac" />
-                    <label for="ac">Identifier</label>
-                </p-iftalabel>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-iftalabel>
+                <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" inputId="ac" />
+                <label for="ac">Identifier</label>
+            </p-iftalabel>
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, IftaLabelModule, FormsModule]
@@ -606,12 +582,10 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-wrap justify-center gap-4">
-                <p-autocomplete [(ngModel)]="value1" [suggestions]="suggestions" [invalid]="!value1" (completeMethod)="search($event)" placeholder="Code" />
-                <p-autocomplete [(ngModel)]="value2" [suggestions]="suggestions" [invalid]="!value2" (completeMethod)="search($event)" variant="filled" placeholder="Code" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-wrap justify-center gap-4">
+            <p-autocomplete [(ngModel)]="value1" [suggestions]="suggestions" [invalid]="!value1" (completeMethod)="search($event)" placeholder="Code" />
+            <p-autocomplete [(ngModel)]="value2" [suggestions]="suggestions" [invalid]="!value2" (completeMethod)="search($event)" variant="filled" placeholder="Code" />
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -643,14 +617,12 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div>
-                <label for="multiple-ac-1" class="text-sm font-bold mb-2 block">With Typeahead</label>
-                <p-autocomplete [(ngModel)]="value1" inputId="multiple-ac-1" multiple fluid [suggestions]="items" (completeMethod)="search($event)" />
-                <label for="multiple-ac-2" class="text-sm font-bold mt-8 mb-2 block">Without Typeahead</label>
-                <p-autocomplete [(ngModel)]="value2" inputId="multiple-ac-2" multiple fluid (completeMethod)="search($event)" [typeahead]="false" />
-            </div>
-        </app-demo-wrapper>
+        <div>
+            <label for="multiple-ac-1" class="text-sm font-bold mb-2 block">With Typeahead</label>
+            <p-autocomplete [(ngModel)]="value1" inputId="multiple-ac-1" multiple fluid [suggestions]="items" (completeMethod)="search($event)" />
+            <label for="multiple-ac-2" class="text-sm font-bold mt-8 mb-2 block">Without Typeahead</label>
+            <p-autocomplete [(ngModel)]="value2" inputId="multiple-ac-2" multiple fluid (completeMethod)="search($event)" [typeahead]="false" />
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -684,11 +656,9 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-autocomplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-autocomplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule],
@@ -731,7 +701,6 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
@@ -742,23 +711,20 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 md:w-56">
-                    <div class="flex flex-col gap-1">
-                        <p-autocomplete formControlName="value" [suggestions]="items" [invalid]="isInvalid('value')" (completeMethod)="search($event)" fluid />
-                        @if (isInvalid('value')) {
-                            <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
-                        }
-                    </div>
-                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-                </form>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 md:w-56">
+                <div class="flex flex-col gap-1">
+                    <p-autocomplete formControlName="value" [suggestions]="items" [invalid]="isInvalid('value')" (completeMethod)="search($event)" fluid />
+                    @if (isInvalid('value')) {
+                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [AutoCompleteModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
 export class AutocompleteReactiveFormsDemo {
     messageService = inject(MessageService);
@@ -803,13 +769,11 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-col items-center gap-4">
-                <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search()" size="small" placeholder="Small" dropdown />
-                <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search()" placeholder="Normal" dropdown />
-                <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search()" size="large" placeholder="Large" dropdown />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-col items-center gap-4">
+            <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search()" size="small" placeholder="Small" dropdown />
+            <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search()" placeholder="Normal" dropdown />
+            <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search()" size="large" placeholder="Large" dropdown />
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
@@ -844,26 +808,24 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-autocomplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name">
-                    <ng-template let-country #item>
-                        <div class="flex items-center gap-2">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-                            <div>{{ country.name }}</div>
-                        </div>
-                    </ng-template>
-                    <ng-template #header>
-                        <div class="font-medium px-3 py-2">Available Countries</div>
-                    </ng-template>
-                    <ng-template #footer>
-                        <div class="px-3 py-3">
-                            <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
-                        </div>
-                    </ng-template>
-                </p-autocomplete>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-autocomplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name">
+                <ng-template let-country #item>
+                    <div class="flex items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                        <div>{{ country.name }}</div>
+                    </div>
+                </ng-template>
+                <ng-template #header>
+                    <div class="font-medium px-3 py-2">Available Countries</div>
+                </ng-template>
+                <ng-template #footer>
+                    <div class="px-3 py-3">
+                        <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+                    </div>
+                </ng-template>
+            </p-autocomplete>
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, ButtonModule, FormsModule],
@@ -903,29 +865,25 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
-                    <div class="flex flex-col gap-1">
-                        <p-autocomplete #val="ngModel" [(ngModel)]="value" [suggestions]="items" [invalid]="val.invalid && (val.touched || exampleForm.submitted)" name="val" (completeMethod)="search($event)" required fluid />
-                        @if (val.invalid && (val.touched || exampleForm.submitted)) {
-                            <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
-                        }
-                    </div>
-                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-                </form>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
+                <div class="flex flex-col gap-1">
+                    <p-autocomplete #val="ngModel" [(ngModel)]="value" [suggestions]="items" [invalid]="val.invalid && (val.touched || exampleForm.submitted)" name="val" (completeMethod)="search($event)" required fluid />
+                    @if (val.invalid && (val.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [AutoCompleteModule, MessageModule, ButtonModule, FormsModule]
 })
 export class AutocompleteTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
@@ -961,11 +919,9 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-autocomplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" optionLabel="label" [dropdown]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-autocomplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" optionLabel="label" [dropdown]="true" />
+        </div>
     `,
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]

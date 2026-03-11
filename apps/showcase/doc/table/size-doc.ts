@@ -17,8 +17,8 @@ import { TableModule } from 'primeng/table';
     template: ` <app-docsectiontext>
             <p>In addition to a regular table, alternatives with alternative sizes are available.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
-            <app-demo-wrapper>
+        <app-demo-wrapper>
+            <p-deferred-demo (load)="loadDemoData()">
                 <div class="flex justify-center mb-4">
                     <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="value" />
                 </div>
@@ -40,9 +40,9 @@ import { TableModule } from 'primeng/table';
                         </tr>
                     </ng-template>
                 </p-table>
-                <app-code [extFiles]="['Product']"></app-code>
-            </app-demo-wrapper>
-        </p-deferred-demo>`,
+            </p-deferred-demo>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SizeDoc {

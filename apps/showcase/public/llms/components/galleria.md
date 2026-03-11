@@ -18,51 +18,49 @@ import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-galleria
-                #galleria
-                [(value)]="images"
-                [(activeIndex)]="activeIndex"
-                [numVisible]="5"
-                [showThumbnails]="showThumbnails"
-                [showItemNavigators]="true"
-                [showItemNavigatorsOnHover]="true"
-                [circular]="true"
-                [autoPlay]="isAutoPlay"
-                [transitionInterval]="3000"
-                [containerStyle]="{ 'max-width': '640px' }"
-                [pt]="galleriaPT"
-            >
-                <ng-template #item let-item>
-                    <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
-                </ng-template>
-                <ng-template #thumbnail let-item>
-                    <div class="grid gap-4 justify-center">
-                        <img [src]="item.thumbnailImageSrc" style="display: block" />
-                    </div>
-                </ng-template>
-                <ng-template #footer let-item>
-                    <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
-                        <button type="button" pButton (click)="onThumbnailButtonClick()" class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3">
-                            <span pButtonIcon class="pi pi-th-large"></span>
-                        </button>
-                        <button type="button" pButton (click)="toggleAutoSlide()" class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3">
-                            <span pButtonIcon [class]="slideButtonIcon()"></span>
-                        </button>
-                        @if (images()) {
-                            <span class="flex items-center gap-4 ml-3">
-                                <span class="text-xs">{{ activeIndex + 1 }}/{{ images().length }}</span>
-                                <span class="font-bold text-xs">{{ images()[activeIndex].title }}</span>
-                                <span class="text-xs">{{ images()[activeIndex].alt }}</span>
-                            </span>
-                        }
-                        <button type="button" pButton (click)="toggleFullScreen()" class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3 ml-auto">
-                            <span pButtonIcon [class]="fullScreenIcon()"></span>
-                        </button>
-                    </div>
-                </ng-template>
-            </p-galleria>
-        </app-demo-wrapper>
+        <p-galleria
+            #galleria
+            [(value)]="images"
+            [(activeIndex)]="activeIndex"
+            [numVisible]="5"
+            [showThumbnails]="showThumbnails"
+            [showItemNavigators]="true"
+            [showItemNavigatorsOnHover]="true"
+            [circular]="true"
+            [autoPlay]="isAutoPlay"
+            [transitionInterval]="3000"
+            [containerStyle]="{ 'max-width': '640px' }"
+            [pt]="galleriaPT"
+        >
+            <ng-template #item let-item>
+                <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
+            </ng-template>
+            <ng-template #thumbnail let-item>
+                <div class="grid gap-4 justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block" />
+                </div>
+            </ng-template>
+            <ng-template #footer let-item>
+                <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
+                    <button type="button" pButton (click)="onThumbnailButtonClick()" class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3">
+                        <span pButtonIcon class="pi pi-th-large"></span>
+                    </button>
+                    <button type="button" pButton (click)="toggleAutoSlide()" class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3">
+                        <span pButtonIcon [class]="slideButtonIcon()"></span>
+                    </button>
+                    @if (images()) {
+                        <span class="flex items-center gap-4 ml-3">
+                            <span class="text-xs">{{ activeIndex + 1 }}/{{ images().length }}</span>
+                            <span class="font-bold text-xs">{{ images()[activeIndex].title }}</span>
+                            <span class="text-xs">{{ images()[activeIndex].alt }}</span>
+                        </span>
+                    }
+                    <button type="button" pButton (click)="toggleFullScreen()" class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3 ml-auto">
+                        <span pButtonIcon [class]="fullScreenIcon()"></span>
+                    </button>
+                </div>
+            </ng-template>
+        </p-galleria>
     `,
     standalone: true,
     imports: [GalleriaModule, ButtonModule],
@@ -189,16 +187,14 @@ import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
-                <ng-template #item let-item>
-                    <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
-                </ng-template>
-                <ng-template #thumbnail let-item>
-                    <img [src]="item.thumbnailImageSrc" style="display: block" />
-                </ng-template>
-            </p-galleria>
-        </app-demo-wrapper>
+        <p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
+            <ng-template #item let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+            </ng-template>
+            <ng-template #thumbnail let-item>
+                <img [src]="item.thumbnailImageSrc" style="display: block" />
+            </ng-template>
+        </p-galleria>
     `,
     standalone: true,
     imports: [GalleriaModule],
@@ -235,16 +231,14 @@ import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
-                <ng-template #item let-item>
-                    <img [src]="item.itemImageSrc" style="width:100%" />
-                </ng-template>
-                <ng-template #thumbnail let-item>
-                    <img [src]="item.thumbnailImageSrc" />
-                </ng-template>
-            </p-galleria>
-        </app-demo-wrapper>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+            <ng-template #item let-item>
+                <img [src]="item.itemImageSrc" style="width:100%" />
+            </ng-template>
+            <ng-template #thumbnail let-item>
+                <img [src]="item.thumbnailImageSrc" />
+            </ng-template>
+        </p-galleria>
     `,
     standalone: true,
     imports: [GalleriaModule],
@@ -281,20 +275,18 @@ import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
-                <ng-template #item let-item>
-                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-                </ng-template>
-                <ng-template #thumbnail let-item>
-                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
-                </ng-template>
-                <ng-template #caption let-item>
-                    <div class="text-lg mb-2 font-bold">{{ item.title }}</div>
-                    <p class="text-white text-sm">{{ item.alt }}</p>
-                </ng-template>
-            </p-galleria>
-        </app-demo-wrapper>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+            <ng-template #item let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template #thumbnail let-item>
+                <img [src]="item.thumbnailImageSrc" style="display: block;" />
+            </ng-template>
+            <ng-template #caption let-item>
+                <div class="text-lg mb-2 font-bold">{{ item.title }}</div>
+                <p class="text-white text-sm">{{ item.alt }}</p>
+            </ng-template>
+        </p-galleria>
     `,
     standalone: true,
     imports: [GalleriaModule],
@@ -332,20 +324,18 @@ import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="mb-4">
-                <p-button type="button" icon="pi pi-minus" (click)="prev()" />
-                <p-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
-            </div>
-            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
-                <ng-template #item let-item>
-                    <img [src]="item.itemImageSrc" style="width: 100%;" />
-                </ng-template>
-                <ng-template #thumbnail let-item>
-                    <img [src]="item.thumbnailImageSrc" />
-                </ng-template>
-            </p-galleria>
-        </app-demo-wrapper>
+        <div class="mb-4">
+            <p-button type="button" icon="pi pi-minus" (click)="prev()" />
+            <p-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
+        </div>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
+            <ng-template #item let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%;" />
+            </ng-template>
+            <ng-template #thumbnail let-item>
+                <img [src]="item.thumbnailImageSrc" />
+            </ng-template>
+        </p-galleria>
     `,
     standalone: true,
     imports: [ButtonModule, GalleriaModule],
@@ -391,16 +381,14 @@ import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="7" [circular]="true">
-                <ng-template #item let-item>
-                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-                </ng-template>
-                <ng-template #thumbnail let-item>
-                    <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block;" />
-                </ng-template>
-            </p-galleria>
-        </app-demo-wrapper>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="7" [circular]="true">
+            <ng-template #item let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template #thumbnail let-item>
+                <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+        </p-galleria>
     `,
     standalone: true,
     imports: [GalleriaModule],
@@ -439,26 +427,24 @@ import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-wrap gap-4 mb-7">
-                @for (option of positionOptions; track $index) {
-                    <div class="flex items-center">
-                        <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
-                        <label [for]="option.label" class="ml-2 text-sm"> {{ option.label }} </label>
-                    </div>
-                }
-            </div>
-            <p-galleria [value]="images()" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
-                <ng-template #item let-item>
-                    <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
-                </ng-template>
-                <ng-template #thumbnail let-item>
-                    <div class="grid gap-4 justify-center">
-                        <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block" />
-                    </div>
-                </ng-template>
-            </p-galleria>
-        </app-demo-wrapper>
+        <div class="flex flex-wrap gap-4 mb-7">
+            @for (option of positionOptions; track $index) {
+                <div class="flex items-center">
+                    <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
+                    <label [for]="option.label" class="ml-2 text-sm"> {{ option.label }} </label>
+                </div>
+            }
+        </div>
+        <p-galleria [value]="images()" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+            <ng-template #item let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+            </ng-template>
+            <ng-template #thumbnail let-item>
+                <div class="grid gap-4 justify-center">
+                    <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block" />
+                </div>
+            </ng-template>
+        </p-galleria>
     `,
     standalone: true,
     imports: [GalleriaModule, RadioButtonModule, FormsModule],

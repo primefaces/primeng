@@ -18,26 +18,24 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-button (click)="showDialog()" label="Show" />
-                <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-                    <span class="p-text-secondary block mb-8 text-sm">Update your information.</span>
-                    <div class="flex items-center gap-4 mb-4">
-                        <label for="username" class="font-semibold w-24 text-sm">Username</label>
-                        <input pInputText id="username" class="flex-auto" autocomplete="off" />
-                    </div>
-                    <div class="flex items-center gap-4 mb-8">
-                        <label for="email" class="font-semibold w-24 text-sm">Email</label>
-                        <input pInputText id="email" class="flex-auto" autocomplete="off" />
-                    </div>
-                    <div class="flex justify-end gap-2">
-                        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-                        <p-button label="Save" (click)="visible = false" />
-                    </div>
-                </p-dialog>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-button (click)="showDialog()" label="Show" />
+            <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+                <span class="p-text-secondary block mb-8 text-sm">Update your information.</span>
+                <div class="flex items-center gap-4 mb-4">
+                    <label for="username" class="font-semibold w-24 text-sm">Username</label>
+                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex items-center gap-4 mb-8">
+                    <label for="email" class="font-semibold w-24 text-sm">Email</label>
+                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex justify-end gap-2">
+                    <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+                    <p-button label="Save" (click)="visible = false" />
+                </div>
+            </p-dialog>
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, DialogModule, InputTextModule]
@@ -63,10 +61,9 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
-                <p-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="visible" styleClass="!border-0 !bg-transparent">
+        <div class="flex justify-center">
+            <p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
+            <p-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="visible" styleClass="!border-0 !bg-transparent">
                 <ng-template #headless>
                     <div class="flex flex-col px-8 py-8 gap-5 rounded-2xl" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--p-primary-400), var(--p-primary-700))">
                         <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
@@ -112,9 +109,8 @@ import { InputTextModule } from 'primeng/inputtext';
                         </div>
                     </div>
                 </ng-template>
-                </p-dialog>
-            </div>
-        </app-demo-wrapper>
+            </p-dialog>
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, DialogModule, InputTextModule]
@@ -143,10 +139,9 @@ import { DialogModule } from 'primeng/dialog';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-button (click)="showDialog()" label="Show" />
-                <p-dialog header="Header" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+        <div class="flex justify-center">
+            <p-button (click)="showDialog()" label="Show" />
+            <p-dialog header="Header" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
                 <p class="mb-8 text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -154,14 +149,14 @@ import { DialogModule } from 'primeng/dialog';
                 <p class="mb-8 text-sm">
                     "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
                     ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                    adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
-                    commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+                    adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid
+                    ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
                 </p>
                 <p class="mb-8 text-sm">
-                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-                    officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
-                    placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non
-                    recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
+                    qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod
+                    maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae
+                    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
                 </p>
                 <p class="mb-8 text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -170,18 +165,17 @@ import { DialogModule } from 'primeng/dialog';
                 <p class="mb-8 text-sm">
                     "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
                     ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                    adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
-                    commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+                    adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid
+                    ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
                 </p>
                 <p class="text-sm">
-                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-                    officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
-                    placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non
-                    recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
+                    qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod
+                    maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae
+                    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
                 </p>
-                </p-dialog>
-            </div>
-        </app-demo-wrapper>
+            </p-dialog>
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, DialogModule]
@@ -206,17 +200,15 @@ import { DialogModule } from 'primeng/dialog';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-button (click)="showDialog()" label="Show" />
-                <p-dialog header="Header" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true">
-                    <p class="text-sm">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </p-dialog>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-button (click)="showDialog()" label="Show" />
+            <p-dialog header="Header" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true">
+                <p class="text-sm">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </p-dialog>
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, DialogModule]
@@ -281,16 +273,14 @@ interface City {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
-                <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
-                    <div class="flex py-2 justify-center">
-                        <p-select appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-select>
-                    </div>
-                </p-dialog>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
+            <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
+                <div class="flex py-2 justify-center">
+                    <p-select appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-select>
+                </div>
+            </p-dialog>
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, DialogModule, SelectModule, FormsModule]
@@ -328,37 +318,35 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-wrap justify-center gap-2 mb-2">
-                <p-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
+        <div class="flex flex-wrap justify-center gap-2 mb-2">
+            <p-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
+            <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
+        </div>
+        <div class="flex flex-wrap justify-center gap-2 mb-2">
+            <p-button (click)="showDialog('topleft')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" styleClass="min-w-40" />
+            <p-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" styleClass="min-w-40" />
+            <p-button (click)="showDialog('topright')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" styleClass="min-w-40" />
+        </div>
+        <div class="flex flex-wrap justify-center gap-2">
+            <p-button (click)="showDialog('bottomleft')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" styleClass="min-w-40" />
+            <p-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40" />
+            <p-button (click)="showDialog('bottomright')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" styleClass="min-w-40" />
+        </div>
+        <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
+            <span class="text-surface-500 dark:text-surface-400 block mb-8 text-sm">Update your information.</span>
+            <div class="flex items-center gap-4 mb-4">
+                <label for="username" class="font-semibold w-24 text-sm">Username</label>
+                <input pInputText id="username" class="flex-auto" autocomplete="off" />
             </div>
-            <div class="flex flex-wrap justify-center gap-2 mb-2">
-                <p-button (click)="showDialog('topleft')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="showDialog('topright')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" styleClass="min-w-40" />
+            <div class="flex items-center gap-4 mb-8">
+                <label for="email" class="font-semibold w-24 text-sm">Email</label>
+                <input pInputText id="email" class="flex-auto" autocomplete="off" />
             </div>
-            <div class="flex flex-wrap justify-center gap-2">
-                <p-button (click)="showDialog('bottomleft')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="showDialog('bottomright')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" styleClass="min-w-40" />
+            <div class="flex justify-end gap-2">
+                <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+                <p-button label="Save" (click)="visible = false" />
             </div>
-            <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
-                <span class="text-surface-500 dark:text-surface-400 block mb-8 text-sm">Update your information.</span>
-                <div class="flex items-center gap-4 mb-4">
-                    <label for="username" class="font-semibold w-24 text-sm">Username</label>
-                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
-                </div>
-                <div class="flex items-center gap-4 mb-8">
-                    <label for="email" class="font-semibold w-24 text-sm">Email</label>
-                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
-                </div>
-                <div class="flex justify-end gap-2">
-                    <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-                    <p-button label="Save" (click)="visible = false" />
-                </div>
-            </p-dialog>
-        </app-demo-wrapper>
+        </p-dialog>
     `,
     standalone: true,
     imports: [ButtonModule, DialogModule, InputTextModule]
@@ -384,17 +372,15 @@ import { Dialog, DialogModule } from 'primeng/dialog';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-button (click)="showDialog()" label="Show" />
-                <p-dialog header="Header" [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-                    <p class="text-sm">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </p-dialog>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-button (click)="showDialog()" label="Show" />
+            <p-dialog header="Header" [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+                <p class="text-sm">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </p-dialog>
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, DialogModule]
@@ -421,32 +407,30 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-button (click)="showDialog()" label="Show" />
-                <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
-                    <ng-template #header>
-                        <div class="inline-flex items-center justify-center gap-2">
-                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-                            <span class="font-bold whitespace-nowrap">Amy Elsner</span>
-                        </div>
-                    </ng-template>
-                    <span class="text-surface-500 dark:text-surface-400 block mb-8 text-sm">Update your information.</span>
-                    <div class="flex items-center gap-4 mb-4">
-                        <label for="username" class="font-semibold w-24 text-sm">Username</label>
-                        <input pInputText id="username" class="flex-auto" autocomplete="off" />
+        <div class="flex justify-center">
+            <p-button (click)="showDialog()" label="Show" />
+            <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+                <ng-template #header>
+                    <div class="inline-flex items-center justify-center gap-2">
+                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <span class="font-bold whitespace-nowrap">Amy Elsner</span>
                     </div>
-                    <div class="flex items-center gap-4 mb-2">
-                        <label for="email" class="font-semibold w-24 text-sm">Email</label>
-                        <input pInputText id="email" class="flex-auto" autocomplete="off" />
-                    </div>
-                    <ng-template #footer>
-                        <p-button label="Cancel" [text]="true" severity="secondary" (click)="visible = false" />
-                        <p-button label="Save" [outlined]="true" severity="secondary" (click)="visible = false" />
-                    </ng-template>
-                </p-dialog>
-            </div>
-        </app-demo-wrapper>
+                </ng-template>
+                <span class="text-surface-500 dark:text-surface-400 block mb-8 text-sm">Update your information.</span>
+                <div class="flex items-center gap-4 mb-4">
+                    <label for="username" class="font-semibold w-24 text-sm">Username</label>
+                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex items-center gap-4 mb-2">
+                    <label for="email" class="font-semibold w-24 text-sm">Email</label>
+                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                </div>
+                <ng-template #footer>
+                    <p-button label="Cancel" [text]="true" severity="secondary" (click)="visible = false" />
+                    <p-button label="Save" [outlined]="true" severity="secondary" (click)="visible = false" />
+                </ng-template>
+            </p-dialog>
+        </div>
     `,
     standalone: true,
     imports: [AvatarModule, ButtonModule, DialogModule, InputTextModule]
@@ -472,26 +456,24 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-button (click)="showDialog()" label="Show" />
-                <p-dialog header="Edit Profile" [(visible)]="visible" [style]="{ width: '25rem' }">
-                    <span class="p-text-secondary block mb-8 text-sm">Update your information.</span>
-                    <div class="flex items-center gap-4 mb-4">
-                        <label for="username" class="font-semibold w-24 text-sm">Username</label>
-                        <input pInputText id="username" class="flex-auto" autocomplete="off" />
-                    </div>
-                    <div class="flex items-center gap-4 mb-8">
-                        <label for="email" class="font-semibold w-24 text-sm">Email</label>
-                        <input pInputText id="email" class="flex-auto" autocomplete="off" />
-                    </div>
-                    <div class="flex justify-end gap-2">
-                        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-                        <p-button label="Save" (click)="visible = false" />
-                    </div>
-                </p-dialog>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-button (click)="showDialog()" label="Show" />
+            <p-dialog header="Edit Profile" [(visible)]="visible" [style]="{ width: '25rem' }">
+                <span class="p-text-secondary block mb-8 text-sm">Update your information.</span>
+                <div class="flex items-center gap-4 mb-4">
+                    <label for="username" class="font-semibold w-24 text-sm">Username</label>
+                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex items-center gap-4 mb-8">
+                    <label for="email" class="font-semibold w-24 text-sm">Email</label>
+                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex justify-end gap-2">
+                    <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+                    <p-button label="Save" (click)="visible = false" />
+                </div>
+            </p-dialog>
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, DialogModule, InputTextModule]

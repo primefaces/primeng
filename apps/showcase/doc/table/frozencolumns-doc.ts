@@ -17,8 +17,8 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     template: ` <app-docsectiontext>
             <p>Certain columns can be frozen by using the <i>pFrozenColumn</i> directive of the table component. In addition, <i>alignFrozen</i> is available to define whether the column should be fixed on the left or right.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
-            <app-demo-wrapper>
+        <app-demo-wrapper>
+            <p-deferred-demo (load)="loadDemoData()">
                 <p-togglebutton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance" />
 
                 <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" class="mt-4">
@@ -51,9 +51,9 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
                         </tr>
                     </ng-template>
                 </p-table>
-                <app-code [extFiles]="['Customer']"></app-code>
-            </app-demo-wrapper>
-        </p-deferred-demo>`,
+            </p-deferred-demo>
+            <app-code [extFiles]="['Customer']"></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FrozenColumnsDoc {

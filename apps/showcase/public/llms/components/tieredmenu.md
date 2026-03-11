@@ -17,11 +17,9 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-tieredmenu [model]="items" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-tieredmenu [model]="items" />
+        </div>
     `,
     standalone: true,
     imports: [TieredMenuModule]
@@ -110,20 +108,16 @@ The command property defines the callback to run when an item is activated by cl
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { TieredMenuModule } from 'primeng/tieredmenu';
-import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-tieredmenu [model]="items" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-tieredmenu [model]="items" />
+        </div>
     `,
     standalone: true,
-    imports: [TieredMenuModule, ToastModule],
+    imports: [TieredMenuModule],
     providers: [MessageService]
 })
 export class TieredmenuCommandDemo implements OnInit {
@@ -204,12 +198,10 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-button label="Toggle" (click)="menu.toggle($event)" />
-                <p-tieredmenu #menu [model]="items" [popup]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-button label="Toggle" (click)="menu.toggle($event)" />
+            <p-tieredmenu #menu [model]="items" [popup]="true" />
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, TieredMenuModule]
@@ -302,11 +294,9 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-tieredmenu [model]="items" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-tieredmenu [model]="items" />
+        </div>
     `,
     standalone: true,
     imports: [TieredMenuModule]
@@ -369,27 +359,25 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-tieredmenu [model]="items">
-                    <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-                        <a pRipple class="flex items-center px-3 py-2 cursor-pointer">
-                            <span [class]="item.icon"></span>
-                            <span class="ms-2 text-sm">{{ item.label }}</span>
-                            @if (item.badge) {
-                                <p-badge class="ml-auto" [value]="item.badge" />
-                            }
-                            @if (item.shortcut) {
-                                <span class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-                            }
-                            @if (hasSubmenu) {
-                                <i class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
-                            }
-                        </a>
-                    </ng-template>
-                </p-tieredmenu>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-tieredmenu [model]="items">
+                <ng-template #item let-item let-hasSubmenu="hasSubmenu">
+                    <a pRipple class="flex items-center px-3 py-2 cursor-pointer">
+                        <span [class]="item.icon"></span>
+                        <span class="ms-2 text-sm">{{ item.label }}</span>
+                        @if (item.badge) {
+                            <p-badge class="ml-auto" [value]="item.badge" />
+                        }
+                        @if (item.shortcut) {
+                            <span class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        }
+                        @if (hasSubmenu) {
+                            <i class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
+                        }
+                    </a>
+                </ng-template>
+            </p-tieredmenu>
+        </div>
     `,
     standalone: true,
     imports: [BadgeModule, TieredMenuModule, RippleModule]

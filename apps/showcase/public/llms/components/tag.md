@@ -16,11 +16,9 @@ import { TagModule } from 'primeng/tag';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-tag value="New" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-tag value="New" />
+        </div>
     `,
     standalone: true,
     imports: [TagModule]
@@ -38,17 +36,15 @@ import { TagModule } from 'primeng/tag';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-wrap justify-center gap-2">
-                <p-tag icon="pi pi-user" value="Primary" />
-                <p-tag icon="pi pi-search" severity="secondary" value="Secondary" />
-                <p-tag icon="pi pi-check" severity="success" value="Success" />
-                <p-tag icon="pi pi-info-circle" severity="info" value="Info" />
-                <p-tag icon="pi pi-exclamation-triangle" severity="warn" value="Warn" />
-                <p-tag icon="pi pi-times" severity="danger" value="Danger" />
-                <p-tag icon="pi pi-cog" severity="contrast" value="Contrast" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-wrap justify-center gap-2">
+            <p-tag icon="pi pi-user" value="Primary" />
+            <p-tag icon="pi pi-search" severity="secondary" value="Secondary" />
+            <p-tag icon="pi pi-check" severity="success" value="Success" />
+            <p-tag icon="pi pi-info-circle" severity="info" value="Info" />
+            <p-tag icon="pi pi-exclamation-triangle" severity="warn" value="Warn" />
+            <p-tag icon="pi pi-times" severity="danger" value="Danger" />
+            <p-tag icon="pi pi-cog" severity="contrast" value="Contrast" />
+        </div>
     `,
     standalone: true,
     imports: [TagModule]
@@ -66,17 +62,15 @@ import { TagModule } from 'primeng/tag';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center gap-2">
-                <p-tag value="Primary" [rounded]="true" />
-                <p-tag severity="secondary" value="Secondary" [rounded]="true" />
-                <p-tag severity="success" value="Success" [rounded]="true" />
-                <p-tag severity="info" value="Info" [rounded]="true" />
-                <p-tag severity="warn" value="Warn" [rounded]="true" />
-                <p-tag severity="danger" value="Danger" [rounded]="true" />
-                <p-tag severity="contrast" value="Contrast" [rounded]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center gap-2">
+            <p-tag value="Primary" [rounded]="true" />
+            <p-tag severity="secondary" value="Secondary" [rounded]="true" />
+            <p-tag severity="success" value="Success" [rounded]="true" />
+            <p-tag severity="info" value="Info" [rounded]="true" />
+            <p-tag severity="warn" value="Warn" [rounded]="true" />
+            <p-tag severity="danger" value="Danger" [rounded]="true" />
+            <p-tag severity="contrast" value="Contrast" [rounded]="true" />
+        </div>
     `,
     standalone: true,
     imports: [TagModule]
@@ -94,17 +88,15 @@ import { TagModule } from 'primeng/tag';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center gap-2">
-                <p-tag value="Primary" />
-                <p-tag severity="secondary" value="Secondary" />
-                <p-tag severity="success" value="Success" />
-                <p-tag severity="info" value="Info" />
-                <p-tag severity="warn" value="Warn" />
-                <p-tag severity="danger" value="Danger" />
-                <p-tag severity="contrast" value="Contrast" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center gap-2">
+            <p-tag value="Primary" />
+            <p-tag severity="secondary" value="Secondary" />
+            <p-tag severity="success" value="Success" />
+            <p-tag severity="info" value="Info" />
+            <p-tag severity="warn" value="Warn" />
+            <p-tag severity="danger" value="Danger" />
+            <p-tag severity="contrast" value="Contrast" />
+        </div>
     `,
     standalone: true,
     imports: [TagModule]
@@ -123,16 +115,14 @@ import { Country } from '@/domain/customer';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-tag [style]="{ border: '2px solid var(--border-color)', background: 'transparent', color: 'var(--text-color)' }">
-                    <div class="flex items-center gap-2 px-1">
-                        <img alt="Country" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" class="flag flag-it" style="width: 18px" />
-                        <span class="text-sm">Italy</span>
-                    </div>
-                </p-tag>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-tag [style]="{ border: '2px solid var(--border-color)', background: 'transparent', color: 'var(--text-color)' }">
+                <div class="flex items-center gap-2 px-1">
+                    <img alt="Country" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" class="flag flag-it" style="width: 18px" />
+                    <span class="text-sm">Italy</span>
+                </div>
+            </p-tag>
+        </div>
     `,
     standalone: true,
     imports: [TagModule]

@@ -16,14 +16,12 @@ import { ChipModule } from 'primeng/chip';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex items-center gap-2 flex-wrap">
-                <p-chip label="Action" />
-                <p-chip label="Comedy" />
-                <p-chip label="Mystery" />
-                <p-chip label="Thriller" [removable]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex items-center gap-2 flex-wrap">
+            <p-chip label="Action" />
+            <p-chip label="Comedy" />
+            <p-chip label="Mystery" />
+            <p-chip label="Thriller" [removable]="true" />
+        </div>
     `,
     standalone: true,
     imports: [ChipModule]
@@ -41,14 +39,12 @@ import { ChipModule } from 'primeng/chip';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex items-center gap-2 flex-wrap">
-                <p-chip label="Apple" icon="pi pi-apple" />
-                <p-chip label="Facebook" icon="pi pi-facebook" />
-                <p-chip label="Google" icon="pi pi-google" />
-                <p-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex items-center gap-2 flex-wrap">
+            <p-chip label="Apple" icon="pi pi-apple" />
+            <p-chip label="Facebook" icon="pi pi-facebook" />
+            <p-chip label="Google" icon="pi pi-google" />
+            <p-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true" />
+        </div>
     `,
     standalone: true,
     imports: [ChipModule]
@@ -66,14 +62,12 @@ import { ChipModule } from 'primeng/chip';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex items-center gap-2 flex-wrap">
-                <p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" alt="Avatar image" />
-                <p-chip label="Asiya Javayant" image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" alt="Avatar image" />
-                <p-chip label="Onyama Limba" image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" alt="Avatar image" />
-                <p-chip label="Xuxue Feng" image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" alt="Avatar image" [removable]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex items-center gap-2 flex-wrap">
+            <p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" alt="Avatar image" />
+            <p-chip label="Asiya Javayant" image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" alt="Avatar image" />
+            <p-chip label="Onyama Limba" image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" alt="Avatar image" />
+            <p-chip label="Xuxue Feng" image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" alt="Avatar image" [removable]="true" />
+        </div>
     `,
     standalone: true,
     imports: [ChipModule]
@@ -91,12 +85,10 @@ import { ChipModule } from 'primeng/chip';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-chip class="!py-0 !pl-0 !pr-4">
-                <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">P</span>
-                <span class="ml-2 font-medium">PRIME</span>
-            </p-chip>
-        </app-demo-wrapper>
+        <p-chip class="!py-0 !pl-0 !pr-4">
+            <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">P</span>
+            <span class="ml-2 font-medium">PRIME</span>
+        </p-chip>
     `,
     standalone: true,
     imports: [ChipModule]

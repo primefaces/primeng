@@ -16,27 +16,25 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-col gap-5">
-                <div>
-                    <label for="non-fluid" class="font-bold mb-2 block text-sm">Non-Fluid</label>
-                    <input type="text" pInputText id="non-fluid" />
-                </div>
-                <div>
-                    <label for="fluid" class="font-bold mb-2 block text-sm">Fluid Prop</label>
-                    <input type="text" pInputText id="fluid" fluid />
-                </div>
-                <p-fluid>
-                    <span class="font-bold mb-2 block text-sm">Fluid Container</span>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div><input type="text" pInputText /></div>
-                        <div><input type="text" pInputText /></div>
-                        <div class="col-span-full"><input type="text" pInputText /></div>
-                        <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
-                    </div>
-                </p-fluid>
+        <div class="flex flex-col gap-5">
+            <div>
+                <label for="non-fluid" class="font-bold mb-2 block text-sm">Non-Fluid</label>
+                <input type="text" pInputText id="non-fluid" />
             </div>
-        </app-demo-wrapper>
+            <div>
+                <label for="fluid" class="font-bold mb-2 block text-sm">Fluid Prop</label>
+                <input type="text" pInputText id="fluid" fluid />
+            </div>
+            <p-fluid>
+                <span class="font-bold mb-2 block text-sm">Fluid Container</span>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><input type="text" pInputText /></div>
+                    <div><input type="text" pInputText /></div>
+                    <div class="col-span-full"><input type="text" pInputText /></div>
+                    <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
+                </div>
+            </p-fluid>
+        </div>
     `,
     standalone: true,
     imports: [InputTextModule]

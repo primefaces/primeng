@@ -17,11 +17,9 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <input type="text" pInputText [(ngModel)]="value" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <input type="text" pInputText [(ngModel)]="value" />
+        </div>
     `,
     standalone: true,
     imports: [InputTextModule, FormsModule]
@@ -42,11 +40,9 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <input pInputText [disabled]="true" [(ngModel)]="value" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <input pInputText [disabled]="true" [(ngModel)]="value" />
+        </div>
     `,
     standalone: true,
     imports: [InputTextModule, FormsModule]
@@ -67,11 +63,9 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <input type="text" pInputText [(ngModel)]="value" variant="filled" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <input type="text" pInputText [(ngModel)]="value" variant="filled" />
+        </div>
     `,
     standalone: true,
     imports: [InputTextModule, FormsModule]
@@ -93,22 +87,20 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-wrap justify-center items-end gap-4">
-                <p-floatlabel>
-                    <input pInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
-                    <label for="over_label">Over Label</label>
-                </p-floatlabel>
-                <p-floatlabel variant="in">
-                    <input pInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
-                    <label for="in_label">In Label</label>
-                </p-floatlabel>
-                <p-floatlabel variant="on">
-                    <input pInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
-                    <label for="on_label">On Label</label>
-                </p-floatlabel>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-wrap justify-center items-end gap-4">
+            <p-floatlabel>
+                <input pInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+            <p-floatlabel variant="in">
+                <input pInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <input pInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
+                <label for="on_label">On Label</label>
+            </p-floatlabel>
+        </div>
     `,
     standalone: true,
     imports: [FloatLabelModule, InputTextModule, FormsModule]
@@ -131,11 +123,9 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <input type="text" pInputText [(ngModel)]="value" fluid />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <input type="text" pInputText [(ngModel)]="value" fluid />
+        </div>
     `,
     standalone: true,
     imports: [InputTextModule, FormsModule]
@@ -156,15 +146,13 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <div class="flex flex-col gap-2">
-                    <label for="username" class="text-sm">Username</label>
-                    <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
-                    <small id="username-help" class="text-sm">Enter your username to reset your password.</small>
-                </div>
+        <div class="flex justify-center">
+            <div class="flex flex-col gap-2">
+                <label for="username" class="text-sm">Username</label>
+                <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
+                <small id="username-help" class="text-sm">Enter your username to reset your password.</small>
             </div>
-        </app-demo-wrapper>
+        </div>
     `,
     standalone: true,
     imports: [InputTextModule, FormsModule]
@@ -185,18 +173,16 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-wrap justify-center gap-4">
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input type="text" pInputText [(ngModel)]="value" />
-                </span>
-                <span class="p-input-icon-right">
-                    <i class="pi pi-spin pi-spinner"></i>
-                    <input type="text" pInputText [(ngModel)]="value2" />
-                </span>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-wrap justify-center gap-4">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input type="text" pInputText [(ngModel)]="value" />
+            </span>
+            <span class="p-input-icon-right">
+                <i class="pi pi-spin pi-spinner"></i>
+                <input type="text" pInputText [(ngModel)]="value2" />
+            </span>
+        </div>
     `,
     standalone: true,
     imports: [InputTextModule, FormsModule]
@@ -219,14 +205,12 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-iftalabel>
-                    <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
-                    <label for="username">Username</label>
-                </p-iftalabel>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-iftalabel>
+                <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
+                <label for="username">Username</label>
+            </p-iftalabel>
+        </div>
     `,
     standalone: true,
     imports: [IftaLabelModule, InputTextModule, FormsModule]
@@ -247,12 +231,10 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-wrap justify-center gap-4">
-                <input pInputText [(ngModel)]="value1" [invalid]="!value1" placeholder="Name" />
-                <input pInputText [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Name" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-wrap justify-center gap-4">
+            <input pInputText [(ngModel)]="value1" [invalid]="!value1" placeholder="Name" />
+            <input pInputText [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Name" />
+        </div>
     `,
     standalone: true,
     imports: [InputTextModule, FormsModule]
@@ -274,11 +256,9 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <input pInputText pKeyFilter="int" placeholder="Integers" [(ngModel)]="value" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <input pInputText pKeyFilter="int" placeholder="Integers" [(ngModel)]="value" />
+        </div>
     `,
     standalone: true,
     imports: [InputTextModule, FormsModule]
@@ -294,41 +274,37 @@ export class InputtextKeyfilterDemo {
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
-                    <div class="flex flex-col gap-1">
-                        <input pInputText type="text" id="username" placeholder="Username" formControlName="username" [invalid]="isInvalid('username')" />
-                        @if (isInvalid('username')) {
-                            <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+        <div class="flex justify-center">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
+                <div class="flex flex-col gap-1">
+                    <input pInputText type="text" id="username" placeholder="Username" formControlName="username" [invalid]="isInvalid('username')" />
+                    @if (isInvalid('username')) {
+                        <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+                    }
+                </div>
+                <div class="flex flex-col gap-1">
+                    <input pInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
+                    @if (isInvalid('email')) {
+                        @if (exampleForm.get('email')?.errors?.['required']) {
+                            <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
                         }
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <input pInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
-                        @if (isInvalid('email')) {
-                            @if (exampleForm.get('email')?.errors?.['required']) {
-                                <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
-                            }
-                            @if (exampleForm.get('email')?.errors?.['email']) {
-                                <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
-                            }
+                        @if (exampleForm.get('email')?.errors?.['email']) {
+                            <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
                         }
-                    </div>
-                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-                </form>
-            </div>
-        </app-demo-wrapper>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
     `,
     standalone: true,
-    imports: [MessageModule, ToastModule, ButtonModule, InputTextModule, ReactiveFormsModule]
+    imports: [MessageModule, ButtonModule, InputTextModule, ReactiveFormsModule]
 })
 export class InputtextReactiveformsDemo {
     messageService = inject(MessageService);
@@ -369,13 +345,11 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-col items-center gap-4">
-                <input pInputText [(ngModel)]="value1" type="text" pSize="small" placeholder="Small" />
-                <input pInputText [(ngModel)]="value2" type="text" placeholder="Normal" />
-                <input pInputText [(ngModel)]="value3" type="text" pSize="large" placeholder="Large" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-col items-center gap-4">
+            <input pInputText [(ngModel)]="value1" type="text" pSize="small" placeholder="Small" />
+            <input pInputText [(ngModel)]="value2" type="text" placeholder="Normal" />
+            <input pInputText [(ngModel)]="value3" type="text" pSize="large" placeholder="Large" />
+        </div>
     `,
     standalone: true,
     imports: [InputTextModule, FormsModule]
@@ -393,43 +367,39 @@ export class InputtextSizesDemo {
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
-                    <div class="flex flex-col gap-1">
-                        <input pInputText type="text" id="username" placeholder="Username" name="username" [(ngModel)]="user.username" #username="ngModel" [invalid]="username.invalid && (username.touched || exampleForm.submitted)" required />
-                        @if (username.invalid && (username.touched || exampleForm.submitted)) {
-                            <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
-                        }
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <input pInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email [invalid]="email.invalid && (email.touched || exampleForm.submitted)" />
-                        @if (email.invalid && (email.touched || exampleForm.submitted)) {
-                            <p-message severity="error" size="small" variant="simple">
-                                @if (email.hasError('required')) {
-                                    Email is Required.
-                                }
-                                @if (email.hasError('email')) {
-                                    Please enter a valid email.
-                                }
-                            </p-message>
-                        }
-                    </div>
-                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-                </form>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
+                <div class="flex flex-col gap-1">
+                    <input pInputText type="text" id="username" placeholder="Username" name="username" [(ngModel)]="user.username" #username="ngModel" [invalid]="username.invalid && (username.touched || exampleForm.submitted)" required />
+                    @if (username.invalid && (username.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+                    }
+                </div>
+                <div class="flex flex-col gap-1">
+                    <input pInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email [invalid]="email.invalid && (email.touched || exampleForm.submitted)" />
+                    @if (email.invalid && (email.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">
+                            @if (email.hasError('required')) {
+                                Email is Required.
+                            }
+                            @if (email.hasError('email')) {
+                                Please enter a valid email.
+                            }
+                        </p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
     `,
     standalone: true,
-    imports: [MessageModule, ToastModule, ButtonModule, InputTextModule, FormsModule]
+    imports: [MessageModule, ButtonModule, InputTextModule, FormsModule]
 })
 export class InputtextTemplatedrivenformsDemo {
     messageService = inject(MessageService);

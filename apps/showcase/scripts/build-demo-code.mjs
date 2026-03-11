@@ -723,6 +723,12 @@ function extractDemoContent(template) {
     html = html.replace(/<app-code[^>]*><\/app-code>/g, '');
     html = html.replace(/<app-code[^>]*\/>/g, '');
 
+    // Handle app-demo-wrapper - extract inner content
+    const wrapperMatch = html.match(/<app-demo-wrapper[^>]*>([\s\S]*?)<\/app-demo-wrapper>/);
+    if (wrapperMatch) {
+        html = wrapperMatch[1];
+    }
+
     // Handle p-deferred-demo wrapper - extract inner content
     const deferredMatch = html.match(/<p-deferred-demo[^>]*>([\s\S]*?)<\/p-deferred-demo>/);
     if (deferredMatch) {

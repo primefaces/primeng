@@ -17,17 +17,15 @@ import { DrawerModule } from 'primeng/drawer';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-drawer [(visible)]="visible" header="Drawer">
-                    <p class="text-sm">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
-                    </p>
-                </p-drawer>
-                <p-button (click)="visible = true" icon="pi pi-arrow-right" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-drawer [(visible)]="visible" header="Drawer">
+                <p class="text-sm">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                </p>
+            </p-drawer>
+            <p-button (click)="visible = true" icon="pi pi-arrow-right" />
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, DrawerModule]
@@ -48,17 +46,15 @@ import { DrawerModule } from 'primeng/drawer';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-drawer header="Drawer" [(visible)]="visible" [fullScreen]="true">
-                    <p class="text-sm">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
-                    </p>
-                </p-drawer>
-                <p-button (click)="visible = true" icon="pi pi-window-maximize" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-drawer header="Drawer" [(visible)]="visible" [fullScreen]="true">
+                <p class="text-sm">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                </p>
+            </p-drawer>
+            <p-button (click)="visible = true" icon="pi pi-window-maximize" />
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, DrawerModule]
@@ -81,9 +77,8 @@ import { RippleModule } from 'primeng/ripple';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-drawer #drawerRef [(visible)]="visible">
+        <div class="flex justify-center">
+            <p-drawer #drawerRef [(visible)]="visible">
                 <ng-template #headless>
                     <div class="flex flex-col h-full">
                         <div class="flex items-center justify-between px-5 pt-3 shrink-0">
@@ -202,7 +197,10 @@ import { RippleModule } from 'primeng/ripple';
                                                     </ul>
                                                 </li>
                                                 <li>
-                                                    <a pRipple class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                                    <a
+                                                        pRipple
+                                                        class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
+                                                    >
                                                         <i class="pi pi-chart-line mr-2"></i>
                                                         <span class="font-medium text-sm">Expenses</span>
                                                     </a>
@@ -283,10 +281,9 @@ import { RippleModule } from 'primeng/ripple';
                         </div>
                     </div>
                 </ng-template>
-                </p-drawer>
-                <p-button (click)="visible = true" icon="pi pi-bars" />
-            </div>
-        </app-demo-wrapper>
+            </p-drawer>
+            <p-button (click)="visible = true" icon="pi pi-bars" />
+        </div>
     `,
     standalone: true,
     imports: [AvatarModule, ButtonModule, DrawerModule, RippleModule]
@@ -311,38 +308,36 @@ import { Drawer, DrawerModule } from 'primeng/drawer';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-drawer header="Left Drawer" [(visible)]="visible1" position="left">
-                <p class="text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                </p>
-            </p-drawer>
-            <p-drawer header="Right Drawer" [(visible)]="visible2" position="right">
-                <p class="text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                </p>
-            </p-drawer>
-            <p-drawer header="Top Drawer" [(visible)]="visible3" position="top" [style]="{ height: 'auto' }">
-                <p class="text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                </p>
-            </p-drawer>
-            <p-drawer header="Bottom Drawer" [(visible)]="visible4" position="bottom" [style]="{ height: 'auto' }">
-                <p class="text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                </p>
-            </p-drawer>
-            <div class="flex gap-2 justify-center">
-                <p-button type="button" (click)="visible1 = true" icon="pi pi-arrow-right" />
-                <p-button type="button" (click)="visible2 = true" icon="pi pi-arrow-left" />
-                <p-button type="button" (click)="visible3 = true" icon="pi pi-arrow-down" />
-                <p-button type="button" (click)="visible4 = true" icon="pi pi-arrow-up" />
-            </div>
-        </app-demo-wrapper>
+        <p-drawer header="Left Drawer" [(visible)]="visible1" position="left">
+            <p class="text-sm">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.
+            </p>
+        </p-drawer>
+        <p-drawer header="Right Drawer" [(visible)]="visible2" position="right">
+            <p class="text-sm">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.
+            </p>
+        </p-drawer>
+        <p-drawer header="Top Drawer" [(visible)]="visible3" position="top" [style]="{ height: 'auto' }">
+            <p class="text-sm">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.
+            </p>
+        </p-drawer>
+        <p-drawer header="Bottom Drawer" [(visible)]="visible4" position="bottom" [style]="{ height: 'auto' }">
+            <p class="text-sm">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.
+            </p>
+        </p-drawer>
+        <div class="flex gap-2 justify-center">
+            <p-button type="button" (click)="visible1 = true" icon="pi pi-arrow-right" />
+            <p-button type="button" (click)="visible2 = true" icon="pi pi-arrow-left" />
+            <p-button type="button" (click)="visible3 = true" icon="pi pi-arrow-down" />
+            <p-button type="button" (click)="visible4 = true" icon="pi pi-arrow-up" />
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, DrawerModule]
@@ -366,17 +361,15 @@ import { DrawerModule } from 'primeng/drawer';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-drawer header="Drawer" [(visible)]="visible" styleClass="!w-full md:!w-80 lg:!w-[30rem]">
-                    <p class="text-sm">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
-                    </p>
-                </p-drawer>
-                <p-button (click)="visible = true" icon="pi pi-arrow-right" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-drawer header="Drawer" [(visible)]="visible" styleClass="!w-full md:!w-80 lg:!w-[30rem]">
+                <p class="text-sm">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                </p>
+            </p-drawer>
+            <p-button (click)="visible = true" icon="pi pi-arrow-right" />
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, DrawerModule]
@@ -398,37 +391,35 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-drawer [(visible)]="visible" [closable]="false">
-                    <ng-template #header>
-                        <div class="flex items-center gap-2">
-                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-                            <span class="font-bold">Amy Elsner</span>
-                        </div>
-                    </ng-template>
-                    <p class="text-sm">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
-                    </p>
-                    <ng-template #footer>
-                        <div class="flex items-center gap-2">
-                            <button pButton class="w-full" outlined>
-                                <span pButtonIcon class="pi pi-user"></span>
-                                <span pButtonLabel>Account</span>
-                            </button>
-                            <button pButton class="w-full" severity="danger" text>
-                                <span pButtonIcon class="pi pi-sign-out"></span>
-                                <span pButtonLabel>Logout</span>
-                            </button>
-                        </div>
-                    </ng-template>
-                </p-drawer>
-                <button pButton (click)="visible = true">
-                    <span pButtonIcon class="pi pi-plus"></span>
-                </button>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-drawer [(visible)]="visible" [closable]="false">
+                <ng-template #header>
+                    <div class="flex items-center gap-2">
+                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <span class="font-bold">Amy Elsner</span>
+                    </div>
+                </ng-template>
+                <p class="text-sm">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                </p>
+                <ng-template #footer>
+                    <div class="flex items-center gap-2">
+                        <button pButton class="w-full" outlined>
+                            <span pButtonIcon class="pi pi-user"></span>
+                            <span pButtonLabel>Account</span>
+                        </button>
+                        <button pButton class="w-full" severity="danger" text>
+                            <span pButtonIcon class="pi pi-sign-out"></span>
+                            <span pButtonLabel>Logout</span>
+                        </button>
+                    </div>
+                </ng-template>
+            </p-drawer>
+            <button pButton (click)="visible = true">
+                <span pButtonIcon class="pi pi-plus"></span>
+            </button>
+        </div>
     `,
     standalone: true,
     imports: [AvatarModule, DrawerModule, ButtonModule]

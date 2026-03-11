@@ -66,9 +66,9 @@ interface ExportColumn {
     template: ` <app-docsectiontext>
             <p>CRUD implementation example with a Dialog.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
-            <p-toast />
-            <app-demo-wrapper>
+        <p-toast />
+        <app-demo-wrapper>
+            <p-deferred-demo (load)="loadDemoData()">
                 <p-toolbar class="mb-5">
                     <ng-template #start>
                         <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
@@ -235,9 +235,9 @@ interface ExportColumn {
                 </p-dialog>
 
                 <p-confirmdialog [style]="{ width: '450px' }" />
-                <app-code [extFiles]="['Product']"></app-code>
-            </app-demo-wrapper>
-        </p-deferred-demo>`,
+            </p-deferred-demo>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService, ConfirmationService]
 })

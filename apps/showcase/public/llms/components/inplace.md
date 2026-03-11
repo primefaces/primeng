@@ -16,19 +16,17 @@ import { InplaceModule } from 'primeng/inplace';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-inplace>
-                <ng-template #display>
-                    <span class="text-sm">View Content</span>
-                </ng-template>
-                <ng-template #content>
-                    <p class="m-0 text-sm">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </ng-template>
-            </p-inplace>
-        </app-demo-wrapper>
+        <p-inplace>
+            <ng-template #display>
+                <span class="text-sm">View Content</span>
+            </ng-template>
+            <ng-template #content>
+                <p class="m-0 text-sm">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </ng-template>
+        </p-inplace>
     `,
     standalone: true,
     imports: [InplaceModule]
@@ -47,19 +45,17 @@ import { Photo } from '@/domain/photo';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-inplace>
-                <ng-template #display>
-                    <span class="inline-flex items-center gap-2">
-                        <span class="pi pi-image" style="vertical-align: middle"></span>
-                        <span class="ml-2 text-sm">View Photo</span>
-                    </span>
-                </ng-template>
-                <ng-template #content>
-                    <img class="w-full sm:w-80 shadow-md" src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" alt="Nature" />
-                </ng-template>
-            </p-inplace>
-        </app-demo-wrapper>
+        <p-inplace>
+            <ng-template #display>
+                <span class="inline-flex items-center gap-2">
+                    <span class="pi pi-image" style="vertical-align: middle"></span>
+                    <span class="ml-2 text-sm">View Photo</span>
+                </span>
+            </ng-template>
+            <ng-template #content>
+                <img class="w-full sm:w-80 shadow-md" src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" alt="Nature" />
+            </ng-template>
+        </p-inplace>
     `,
     standalone: true,
     imports: [InplaceModule]
@@ -79,21 +75,19 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-inplace>
-                <ng-template #display>
-                    <span class="text-sm">Click to Edit</span>
-                </ng-template>
-                <ng-template #content let-closeCallback="closeCallback">
-                    <span class="inline-flex gap-2">
-                        <input type="text" pInputText [pAutoFocus]="true" />
-                        <button type="button" pButton (click)="closeCallback($event)" text severity="danger">
-                            <i class="pi pi-times" pButtonIcon></i>
-                        </button>
-                    </span>
-                </ng-template>
-            </p-inplace>
-        </app-demo-wrapper>
+        <p-inplace>
+            <ng-template #display>
+                <span class="text-sm">Click to Edit</span>
+            </ng-template>
+            <ng-template #content let-closeCallback="closeCallback">
+                <span class="inline-flex gap-2">
+                    <input type="text" pInputText [pAutoFocus]="true" />
+                    <button type="button" pButton (click)="closeCallback($event)" text severity="danger">
+                        <i class="pi pi-times" pButtonIcon></i>
+                    </button>
+                </span>
+            </ng-template>
+        </p-inplace>
     `,
     standalone: true,
     imports: [InplaceModule, ButtonModule, InputTextModule]
@@ -114,33 +108,31 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-inplace (onActivate)="loadData()">
-                <ng-template #display>
-                    <span class="text-sm">View Data</span>
-                </ng-template>
-                <ng-template #content>
-                    <p-table [value]="products">
-                        <ng-template #header>
-                            <tr>
-                                <th>Code</th>
-                                <th>Name</th>
-                                <th>Category</th>
-                                <th>Quantity</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template #body let-product>
-                            <tr>
-                                <td>{{ product.code }}</td>
-                                <td>{{ product.name }}</td>
-                                <td>{{ product.category }}</td>
-                                <td>{{ product.quantity }}</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </ng-template>
-            </p-inplace>
-        </app-demo-wrapper>
+        <p-inplace (onActivate)="loadData()">
+            <ng-template #display>
+                <span class="text-sm">View Data</span>
+            </ng-template>
+            <ng-template #content>
+                <p-table [value]="products">
+                    <ng-template #header>
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-product>
+                        <tr>
+                            <td>{{ product.code }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.quantity }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </ng-template>
+        </p-inplace>
     `,
     standalone: true,
     imports: [InplaceModule, TableModule],

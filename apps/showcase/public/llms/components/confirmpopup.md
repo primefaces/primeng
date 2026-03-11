@@ -13,23 +13,17 @@ ConfirmPopup is defined using p-confirmpopup tag and an instance of Confirmation
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ToastModule } from 'primeng/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <p-confirmpopup />
-        <app-demo-wrapper>
-            <div class="flex justify-center gap-2">
-                <p-button (onClick)="confirm1($event)" label="Save" [outlined]="true" />
-                <p-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center gap-2">
+            <p-button (onClick)="confirm1($event)" label="Save" [outlined]="true" />
+            <p-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
+        </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ConfirmPopupModule, ToastModule],
+    imports: [ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmpopupBasicDemo {
@@ -180,32 +174,16 @@ Headless mode allows you to customize the entire user interface instead of the d
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ToastModule } from 'primeng/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <p-confirmpopup #cp>
-            <ng-template #headless let-message>
-                <div class="rounded p-4">
-                    <span class="text-sm">{{ message.message }}</span>
-                    <div class="flex items-center gap-2 mt-4">
-                        <p-button (onClick)="cp.onAccept()" label="Save" size="small" [autofocus]="true" />
-                        <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
-                    </div>
-                </div>
-            </ng-template>
-        </p-confirmpopup>
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-button (onClick)="confirm($event)" label="Save" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-button (onClick)="confirm($event)" label="Save" />
+        </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ConfirmPopupModule, ToastModule],
+    imports: [ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmpopupHeadlessDemo {
@@ -279,29 +257,16 @@ Content section can be customized using content template.
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ToastModule } from 'primeng/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <p-confirmpopup>
-            <ng-template #content let-message>
-                <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700 p-4 mb-4 pb-0">
-                    <i [class]="message.icon" class="!text-5xl text-primary-500"></i>
-                    <p class="text-sm">{{ message.message }}</p>
-                </div>
-            </ng-template>
-        </p-confirmpopup>
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-button (click)="confirm($event)" label="Save" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-button (click)="confirm($event)" label="Save" />
+        </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ConfirmPopupModule, ToastModule],
+    imports: [ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmpopupTemplateDemo {

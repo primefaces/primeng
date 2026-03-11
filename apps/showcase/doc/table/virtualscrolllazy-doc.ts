@@ -24,8 +24,8 @@ interface Column {
                 suggested to use the same <i>virtualScrollItemSize</i> value on the tr element inside the body template.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
-            <app-demo-wrapper>
+        <app-demo-wrapper>
+            <p-deferred-demo (load)="loadDemoData()">
                 <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="400px" [rows]="100" [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
                     <ng-template #header let-columns>
                         <tr>
@@ -55,9 +55,9 @@ interface Column {
                         </tr>
                     </ng-template>
                 </p-table>
-                <app-code [extFiles]="['Car']"></app-code>
-            </app-demo-wrapper>
-        </p-deferred-demo>`,
+            </p-deferred-demo>
+            <app-code [extFiles]="['Car']"></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VirtualScrollLazyDoc {

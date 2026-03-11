@@ -24,8 +24,8 @@ interface Column {
             </p>
             <p>In this example, <b>10000</b> preloaded records are rendered by the Table.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
-            <app-demo-wrapper>
+        <app-demo-wrapper>
+            <p-deferred-demo (load)="loadDemoData()">
                 <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="400px" [virtualScroll]="true" [virtualScrollItemSize]="46">
                     <ng-template #header let-columns>
                         <tr>
@@ -46,9 +46,9 @@ interface Column {
                         </tr>
                     </ng-template>
                 </p-table>
-                <app-code [extFiles]="['Car']"></app-code>
-            </app-demo-wrapper>
-        </p-deferred-demo>`,
+            </p-deferred-demo>
+            <app-code [extFiles]="['Car']"></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VirtualScrollDoc {

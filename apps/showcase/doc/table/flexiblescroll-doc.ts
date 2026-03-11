@@ -19,8 +19,8 @@ import { TableModule } from 'primeng/table';
                 viewport adjusts itself according to the size changes.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
-            <app-demo-wrapper>
+        <app-demo-wrapper>
+            <p-deferred-demo (load)="loadDemoData()">
                 <div class="flex justify-center">
                     <button type="button" (click)="showDialog()" pButton>
                         <span pButtonIcon class="pi pi-external-link"></span>
@@ -50,9 +50,9 @@ import { TableModule } from 'primeng/table';
                         <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
                     </ng-template>
                 </p-dialog>
-                <app-code [extFiles]="['Customer']"></app-code>
-            </app-demo-wrapper>
-        </p-deferred-demo>`,
+            </p-deferred-demo>
+            <app-code [extFiles]="['Customer']"></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FlexibleScrollDoc {

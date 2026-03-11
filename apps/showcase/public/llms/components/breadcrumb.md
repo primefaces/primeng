@@ -17,11 +17,9 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-breadcrumb [model]="items" [home]="home" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-breadcrumb [model]="items" [home]="home" />
+        </div>
     `,
     standalone: true,
     imports: [BreadcrumbModule]
@@ -48,11 +46,9 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-breadcrumb [home]="home" [model]="items" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-breadcrumb [home]="home" [model]="items" />
+        </div>
     `,
     standalone: true,
     imports: [BreadcrumbModule]
@@ -74,18 +70,16 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-breadcrumb [model]="items" [home]="home">
-                    <ng-template #item let-item>
-                        <a class="cursor-pointer" [routerLink]="item.url">
-                            <i [class]="item.icon"></i>
-                        </a>
-                    </ng-template>
-                    <ng-template #separator> / </ng-template>
-                </p-breadcrumb>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-breadcrumb [model]="items" [home]="home">
+                <ng-template #item let-item>
+                    <a class="cursor-pointer" [routerLink]="item.url">
+                        <i [class]="item.icon"></i>
+                    </a>
+                </ng-template>
+                <ng-template #separator> / </ng-template>
+            </p-breadcrumb>
+        </div>
     `,
     standalone: true,
     imports: [BreadcrumbModule]

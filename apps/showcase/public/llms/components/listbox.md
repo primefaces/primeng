@@ -22,11 +22,9 @@ interface City {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" />
+        </div>
     `,
     standalone: true,
     imports: [ListboxModule, FormsModule]
@@ -63,11 +61,9 @@ interface City {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-listbox [(ngModel)]="selectedCity" [options]="cities" [multiple]="true" [checkbox]="true" optionLabel="name" class="w-full md:w-56" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-listbox [(ngModel)]="selectedCity" [options]="cities" [multiple]="true" [checkbox]="true" optionLabel="name" class="w-full md:w-56" />
+        </div>
     `,
     standalone: true,
     imports: [ListboxModule, FormsModule]
@@ -104,11 +100,9 @@ interface City {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-listbox [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" [checkmark]="true" [highlightOnSelect]="false" class="w-full md:w-56" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-listbox [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" [checkmark]="true" [highlightOnSelect]="false" class="w-full md:w-56" />
+        </div>
     `,
     standalone: true,
     imports: [ListboxModule, FormsModule]
@@ -145,11 +139,9 @@ interface City {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
+        </div>
     `,
     standalone: true,
     imports: [ListboxModule, FormsModule]
@@ -181,11 +173,9 @@ import { ListboxModule } from 'primeng/listbox';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [dragdrop]="true" class="w-full md:w-56" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [dragdrop]="true" class="w-full md:w-56" />
+        </div>
     `,
     standalone: true,
     imports: [ListboxModule, FormsModule]
@@ -222,11 +212,9 @@ interface City {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" class="w-full md:w-56" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" class="w-full md:w-56" />
+        </div>
     `,
     standalone: true,
     imports: [ListboxModule, FormsModule]
@@ -265,18 +253,16 @@ interface Country {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCountry" class="w-full md:w-56">
-                    <ng-template let-group #group>
-                        <div class="flex items-center">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
-                            <span>{{ group.label }}</span>
-                        </div>
-                    </ng-template>
-                </p-listbox>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCountry" class="w-full md:w-56">
+                <ng-template let-group #group>
+                    <div class="flex items-center">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                        <span>{{ group.label }}</span>
+                    </div>
+                </ng-template>
+            </p-listbox>
+        </div>
     `,
     standalone: true,
     imports: [ListboxModule, FormsModule]
@@ -338,11 +324,9 @@ interface City {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="selectedCity === undefined" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="selectedCity === undefined" />
+        </div>
     `,
     standalone: true,
     imports: [ListboxModule, FormsModule]
@@ -379,11 +363,9 @@ interface City {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [multiple]="true" [metaKeySelection]="false" class="w-full md:w-56" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [multiple]="true" [metaKeySelection]="false" class="w-full md:w-56" />
+        </div>
     `,
     standalone: true,
     imports: [ListboxModule, FormsModule]
@@ -413,7 +395,6 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListboxModule } from 'primeng/listbox';
 import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
@@ -424,23 +405,20 @@ interface City {
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
-                    <div class="flex flex-col gap-1">
-                        <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="isInvalid('selectedCity')" />
-                        @if (isInvalid('selectedCity')) {
-                            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-                        }
-                    </div>
-                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-                </form>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
+                <div class="flex flex-col gap-1">
+                    <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="isInvalid('selectedCity')" />
+                    @if (isInvalid('selectedCity')) {
+                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
     `,
     standalone: true,
-    imports: [ListboxModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ListboxModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
 export class ListboxReactiveformsDemo {
     messageService = inject(MessageService);
@@ -494,18 +472,16 @@ interface Country {
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
-                    <ng-template #item let-country>
-                        <div class="flex items-center gap-2">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-                            <div>{{ country.name }}</div>
-                        </div>
-                    </ng-template>
-                </p-listbox>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
+                <ng-template #item let-country>
+                    <div class="flex items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                        <div>{{ country.name }}</div>
+                    </div>
+                </ng-template>
+            </p-listbox>
+        </div>
     `,
     standalone: true,
     imports: [ListboxModule, FormsModule]
@@ -538,7 +514,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ListboxModule } from 'primeng/listbox';
 import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
@@ -549,23 +524,20 @@ interface City {
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
-                    <div class="flex flex-col gap-1">
-                        <p-listbox #city="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="city.invalid && exampleForm.submitted" name="city" required />
-                        @if (city.invalid && exampleForm.submitted) {
-                            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-                        }
-                    </div>
-                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-                </form>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
+                <div class="flex flex-col gap-1">
+                    <p-listbox #city="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="city.invalid && exampleForm.submitted" name="city" required />
+                    @if (city.invalid && exampleForm.submitted) {
+                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
     `,
     standalone: true,
-    imports: [ListboxModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [ListboxModule, MessageModule, ButtonModule, FormsModule]
 })
 export class ListboxTemplatedrivenformsDemo implements OnInit {
     messageService = inject(MessageService);
@@ -602,27 +574,25 @@ import { ListboxModule } from 'primeng/listbox';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-listbox
-                    [options]="items"
-                    [(ngModel)]="selectedItems"
-                    [selectAll]="selectAll"
-                    [filter]="true"
-                    [checkbox]="true"
-                    optionLabel="label"
-                    [virtualScroll]="true"
-                    [virtualScrollItemSize]="40"
-                    [multiple]="true"
-                    [metaKeySelection]="false"
-                    (onSelectAllChange)="onSelectAllChange($event)"
-                    (onChange)="onChange($event)"
-                    scrollHeight="250px"
-                    [striped]="true"
-                    class="w-full md:w-56"
-                />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-listbox
+                [options]="items"
+                [(ngModel)]="selectedItems"
+                [selectAll]="selectAll"
+                [filter]="true"
+                [checkbox]="true"
+                optionLabel="label"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="40"
+                [multiple]="true"
+                [metaKeySelection]="false"
+                (onSelectAllChange)="onSelectAllChange($event)"
+                (onChange)="onChange($event)"
+                scrollHeight="250px"
+                [striped]="true"
+                class="w-full md:w-56"
+            />
+        </div>
     `,
     standalone: true,
     imports: [ListboxModule, FormsModule]

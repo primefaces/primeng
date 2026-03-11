@@ -16,23 +16,21 @@ import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
-                <div class="flex mb-4">
-                    <p-skeleton shape="circle" size="4rem" class="mr-2" />
-                    <div>
-                        <p-skeleton width="10rem" class="mb-2" />
-                        <p-skeleton width="5rem" class="mb-2" />
-                        <p-skeleton height=".5rem" />
-                    </div>
-                </div>
-                <p-skeleton width="100%" height="150px" />
-                <div class="flex justify-between mt-4">
-                    <p-skeleton width="4rem" height="2rem" />
-                    <p-skeleton width="4rem" height="2rem" />
+        <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
+            <div class="flex mb-4">
+                <p-skeleton shape="circle" size="4rem" class="mr-2" />
+                <div>
+                    <p-skeleton width="10rem" class="mb-2" />
+                    <p-skeleton width="5rem" class="mb-2" />
+                    <p-skeleton height=".5rem" />
                 </div>
             </div>
-        </app-demo-wrapper>
+            <p-skeleton width="100%" height="150px" />
+            <div class="flex justify-between mt-4">
+                <p-skeleton width="4rem" height="2rem" />
+                <p-skeleton width="4rem" height="2rem" />
+            </div>
+        </div>
     `,
     standalone: true,
     imports: [SkeletonModule]
@@ -51,26 +49,24 @@ import { TableModule } from 'primeng/table';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template #header>
-                    <tr>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Quantity</th>
-                    </tr>
-                </ng-template>
-                <ng-template #body let-product>
-                    <tr>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </app-demo-wrapper>
+        <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template #header>
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-product>
+                <tr>
+                    <td><p-skeleton /></td>
+                    <td><p-skeleton /></td>
+                    <td><p-skeleton /></td>
+                    <td><p-skeleton /></td>
+                </tr>
+            </ng-template>
+        </p-table>
     `,
     standalone: true,
     imports: [SkeletonModule, TableModule]
@@ -94,48 +90,46 @@ import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
-                <ul class="m-0 p-0 list-none">
-                    <li class="mb-4">
-                        <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
-                            <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" class="mb-2" />
-                                <p-skeleton width="75%" />
-                            </div>
+        <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
+            <ul class="m-0 p-0 list-none">
+                <li class="mb-4">
+                    <div class="flex">
+                        <p-skeleton shape="circle" size="4rem" class="mr-2" />
+                        <div class="self-center" style="flex: 1">
+                            <p-skeleton width="100%" class="mb-2" />
+                            <p-skeleton width="75%" />
                         </div>
-                    </li>
-                    <li class="mb-4">
-                        <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
-                            <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" class="mb-2" />
-                                <p-skeleton width="75%" />
-                            </div>
+                    </div>
+                </li>
+                <li class="mb-4">
+                    <div class="flex">
+                        <p-skeleton shape="circle" size="4rem" class="mr-2" />
+                        <div class="self-center" style="flex: 1">
+                            <p-skeleton width="100%" class="mb-2" />
+                            <p-skeleton width="75%" />
                         </div>
-                    </li>
-                    <li class="mb-4">
-                        <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
-                            <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" class="mb-2" />
-                                <p-skeleton width="75%" />
-                            </div>
+                    </div>
+                </li>
+                <li class="mb-4">
+                    <div class="flex">
+                        <p-skeleton shape="circle" size="4rem" class="mr-2" />
+                        <div class="self-center" style="flex: 1">
+                            <p-skeleton width="100%" class="mb-2" />
+                            <p-skeleton width="75%" />
                         </div>
-                    </li>
-                    <li>
-                        <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
-                            <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" class="mb-2" />
-                                <p-skeleton width="75%" />
-                            </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex">
+                        <p-skeleton shape="circle" size="4rem" class="mr-2" />
+                        <div class="self-center" style="flex: 1">
+                            <p-skeleton width="100%" class="mb-2" />
+                            <p-skeleton width="75%" />
                         </div>
-                    </li>
-                </ul>
-            </div>
-        </app-demo-wrapper>
+                    </div>
+                </li>
+            </ul>
+        </div>
     `,
     standalone: true,
     imports: [SkeletonModule]
@@ -153,44 +147,42 @@ import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-wrap">
-                <div class="w-full xl:w-6/12 p-4">
-                    <h5>Rectangle</h5>
-                    <p-skeleton class="mb-2" />
-                    <p-skeleton width="10rem" class="mb-2" />
-                    <p-skeleton width="5rem" class="mb-2" />
-                    <p-skeleton height="2rem" class="mb-2" />
-                    <p-skeleton width="10rem" height="4rem" />
-                </div>
-                <div class="w-full xl:w-6/12 p-4">
-                    <h5>Rounded</h5>
-                    <p-skeleton class="mb-2" borderRadius="16px" />
-                    <p-skeleton width="10rem" class="mb-2" borderRadius="16px" />
-                    <p-skeleton width="5rem" class="mb-2" borderRadius="16px" />
-                    <p-skeleton height="2rem" class="mb-2" borderRadius="16px" />
-                    <p-skeleton width="10rem" height="4rem" borderRadius="16px" />
-                </div>
-                <div class="w-full xl:w-6/12 p-4">
-                    <h5 class="mt-4">Square</h5>
-                    <div class="flex items-end">
-                        <p-skeleton size="2rem" class="mr-2" />
-                        <p-skeleton size="3rem" class="mr-2" />
-                        <p-skeleton size="4rem" class="mr-2" />
-                        <p-skeleton size="5rem" />
-                    </div>
-                </div>
-                <div class="field w-full xl:w-6/12 p-4">
-                    <h5 class="mt-4">Circle</h5>
-                    <div class="flex items-end">
-                        <p-skeleton shape="circle" size="2rem" class="mr-2" />
-                        <p-skeleton shape="circle" size="3rem" class="mr-2" />
-                        <p-skeleton shape="circle" size="4rem" class="mr-2" />
-                        <p-skeleton shape="circle" size="5rem" />
-                    </div>
+        <div class="flex flex-wrap">
+            <div class="w-full xl:w-6/12 p-4">
+                <h5>Rectangle</h5>
+                <p-skeleton class="mb-2" />
+                <p-skeleton width="10rem" class="mb-2" />
+                <p-skeleton width="5rem" class="mb-2" />
+                <p-skeleton height="2rem" class="mb-2" />
+                <p-skeleton width="10rem" height="4rem" />
+            </div>
+            <div class="w-full xl:w-6/12 p-4">
+                <h5>Rounded</h5>
+                <p-skeleton class="mb-2" borderRadius="16px" />
+                <p-skeleton width="10rem" class="mb-2" borderRadius="16px" />
+                <p-skeleton width="5rem" class="mb-2" borderRadius="16px" />
+                <p-skeleton height="2rem" class="mb-2" borderRadius="16px" />
+                <p-skeleton width="10rem" height="4rem" borderRadius="16px" />
+            </div>
+            <div class="w-full xl:w-6/12 p-4">
+                <h5 class="mt-4">Square</h5>
+                <div class="flex items-end">
+                    <p-skeleton size="2rem" class="mr-2" />
+                    <p-skeleton size="3rem" class="mr-2" />
+                    <p-skeleton size="4rem" class="mr-2" />
+                    <p-skeleton size="5rem" />
                 </div>
             </div>
-        </app-demo-wrapper>
+            <div class="field w-full xl:w-6/12 p-4">
+                <h5 class="mt-4">Circle</h5>
+                <div class="flex items-end">
+                    <p-skeleton shape="circle" size="2rem" class="mr-2" />
+                    <p-skeleton shape="circle" size="3rem" class="mr-2" />
+                    <p-skeleton shape="circle" size="4rem" class="mr-2" />
+                    <p-skeleton shape="circle" size="5rem" />
+                </div>
+            </div>
+        </div>
     `,
     standalone: true,
     imports: [SkeletonModule]

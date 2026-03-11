@@ -16,9 +16,7 @@ import { MessageModule } from 'primeng/message';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-message>Message Content</p-message>
-        </app-demo-wrapper>
+        <p-message>Message Content</p-message>
     `,
     standalone: true,
     imports: [MessageModule]
@@ -36,9 +34,7 @@ import { MessageModule } from 'primeng/message';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-message closable>Closable Message</p-message>
-        </app-demo-wrapper>
+        <p-message closable>Closable Message</p-message>
     `,
     standalone: true,
     imports: [MessageModule]
@@ -57,19 +53,17 @@ import { MessageModule } from 'primeng/message';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-col items-center justify-center gap-4">
-                <div class="flex gap-2">
-                    <p-button label="Show" (onClick)="addMessages()" />
-                    <p-button label="Clear" severity="secondary" (onClick)="clearMessages()" />
-                </div>
-                <div class="flex flex-col">
-                    @for (message of messages(); track message.severity; let first = $first) {
-                        <p-message [severity]="message.severity" [class]="{ 'mt-4': !first }" [closable]="message?.closable">{{ message.content }}</p-message>
-                    }
-                </div>
+        <div class="flex flex-col items-center justify-center gap-4">
+            <div class="flex gap-2">
+                <p-button label="Show" (onClick)="addMessages()" />
+                <p-button label="Clear" severity="secondary" (onClick)="clearMessages()" />
             </div>
-        </app-demo-wrapper>
+            <div class="flex flex-col">
+                @for (message of messages(); track message.severity; let first = $first) {
+                    <p-message [severity]="message.severity" [class]="{ 'mt-4': !first }" [closable]="message?.closable">{{ message.content }}</p-message>
+                }
+            </div>
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, MessageModule]
@@ -104,25 +98,23 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <div class="flex flex-col gap-4">
-                    <p-message severity="error" icon="pi pi-times-circle" class="mb-2">Validation Failed</p-message>
-                    <div class="flex flex-col gap-1">
-                        <input pInputText placeholder="Username" [(ngModel)]="username" aria-label="username" [invalid]="!username" />
-                        @if (!username) {
-                            <p-message severity="error" variant="simple" size="small">Username is required</p-message>
-                        }
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <p-inputmask mask="(999) 999-9999" [(ngModel)]="phone" placeholder="Phone" [invalid]="!phone" />
-                        @if (!phone) {
-                            <p-message severity="error" variant="simple" size="small">Phone number is required</p-message>
-                        }
-                    </div>
+        <div class="flex justify-center">
+            <div class="flex flex-col gap-4">
+                <p-message severity="error" icon="pi pi-times-circle" class="mb-2">Validation Failed</p-message>
+                <div class="flex flex-col gap-1">
+                    <input pInputText placeholder="Username" [(ngModel)]="username" aria-label="username" [invalid]="!username" />
+                    @if (!username) {
+                        <p-message severity="error" variant="simple" size="small">Username is required</p-message>
+                    }
+                </div>
+                <div class="flex flex-col gap-1">
+                    <p-inputmask mask="(999) 999-9999" [(ngModel)]="phone" placeholder="Phone" [invalid]="!phone" />
+                    @if (!phone) {
+                        <p-message severity="error" variant="simple" size="small">Phone number is required</p-message>
+                    }
                 </div>
             </div>
-        </app-demo-wrapper>
+        </div>
     `,
     standalone: true,
     imports: [InputMaskModule, MessageModule, InputTextModule, FormsModule]
@@ -144,17 +136,15 @@ import { MessageModule } from 'primeng/message';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center items-center gap-4">
-                <p-message severity="info" icon="pi pi-send" class="h-full">Info Message</p-message>
-                <p-message severity="success">
-                    <ng-template #icon>
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-                    </ng-template>
-                    <span class="ms-2">How may I help you?</span>
-                </p-message>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center items-center gap-4">
+            <p-message severity="info" icon="pi pi-send" class="h-full">Info Message</p-message>
+            <p-message severity="success">
+                <ng-template #icon>
+                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                </ng-template>
+                <span class="ms-2">How may I help you?</span>
+            </p-message>
+        </div>
     `,
     standalone: true,
     imports: [AvatarModule, MessageModule]
@@ -173,14 +163,12 @@ import { MessageModule } from 'primeng/message';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-col items-center justify-center">
-                <p-button label="Show" (onClick)="showMessage()" [disabled]="visible()" styleClass="mb-4" />
-                @if (visible()) {
-                    <p-message [life]="3000" severity="success">Auto disappear message</p-message>
-                }
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-col items-center justify-center">
+            <p-button label="Show" (onClick)="showMessage()" [disabled]="visible()" styleClass="mb-4" />
+            @if (visible()) {
+                <p-message [life]="3000" severity="success">Auto disappear message</p-message>
+            }
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, MessageModule]
@@ -208,16 +196,14 @@ import { MessageModule } from 'primeng/message';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-wrap gap-4 justify-center">
-                <p-message severity="success" variant="outlined">Success Message</p-message>
-                <p-message severity="info" variant="outlined">Info Message</p-message>
-                <p-message severity="warn" variant="outlined">Warn Message</p-message>
-                <p-message severity="error" variant="outlined">Error Message</p-message>
-                <p-message severity="secondary" variant="outlined">Secondary Message</p-message>
-                <p-message severity="contrast" variant="outlined">Contrast Message</p-message>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <p-message severity="success" variant="outlined">Success Message</p-message>
+            <p-message severity="info" variant="outlined">Info Message</p-message>
+            <p-message severity="warn" variant="outlined">Warn Message</p-message>
+            <p-message severity="error" variant="outlined">Error Message</p-message>
+            <p-message severity="secondary" variant="outlined">Secondary Message</p-message>
+            <p-message severity="contrast" variant="outlined">Contrast Message</p-message>
+        </div>
     `,
     standalone: true,
     imports: [MessageModule]
@@ -235,16 +221,14 @@ import { MessageModule } from 'primeng/message';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-wrap gap-4 justify-center">
-                <p-message severity="success">Success Message</p-message>
-                <p-message severity="info">Info Message</p-message>
-                <p-message severity="warn">Warn Message</p-message>
-                <p-message severity="error">Error Message</p-message>
-                <p-message severity="secondary">Secondary Message</p-message>
-                <p-message severity="contrast">Contrast Message</p-message>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <p-message severity="success">Success Message</p-message>
+            <p-message severity="info">Info Message</p-message>
+            <p-message severity="warn">Warn Message</p-message>
+            <p-message severity="error">Error Message</p-message>
+            <p-message severity="secondary">Secondary Message</p-message>
+            <p-message severity="contrast">Contrast Message</p-message>
+        </div>
     `,
     standalone: true,
     imports: [MessageModule]
@@ -262,16 +246,14 @@ import { MessageModule } from 'primeng/message';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-wrap gap-4 justify-center">
-                <p-message severity="success" variant="simple">Success Message</p-message>
-                <p-message severity="info" variant="simple">Info Message</p-message>
-                <p-message severity="warn" variant="simple">Warn Message</p-message>
-                <p-message severity="error" variant="simple">Error Message</p-message>
-                <p-message severity="secondary" variant="simple">Secondary Message</p-message>
-                <p-message severity="contrast" variant="simple">Contrast Message</p-message>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <p-message severity="success" variant="simple">Success Message</p-message>
+            <p-message severity="info" variant="simple">Info Message</p-message>
+            <p-message severity="warn" variant="simple">Warn Message</p-message>
+            <p-message severity="error" variant="simple">Error Message</p-message>
+            <p-message severity="secondary" variant="simple">Secondary Message</p-message>
+            <p-message severity="contrast" variant="simple">Contrast Message</p-message>
+        </div>
     `,
     standalone: true,
     imports: [MessageModule]
@@ -289,13 +271,11 @@ import { MessageModule } from 'primeng/message';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-col items-center gap-4">
-                <p-message size="small" icon="pi pi-send">Small Message</p-message>
-                <p-message icon="pi pi-user">Normal Message</p-message>
-                <p-message size="large" icon="pi pi-check">Large Message</p-message>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex flex-col items-center gap-4">
+            <p-message size="small" icon="pi pi-send">Small Message</p-message>
+            <p-message icon="pi pi-user">Normal Message</p-message>
+            <p-message size="large" icon="pi pi-check">Large Message</p-message>
+        </div>
     `,
     standalone: true,
     imports: [MessageModule]

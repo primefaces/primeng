@@ -11,8 +11,7 @@ import { TableModule } from 'primeng/table';
     selector: 'singlecolumnsort-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>
                 A column can be made sortable by adding the <i>pSortableColumn</i> directive whose value is the field to sort against and a sort indicator via <i>p-sort-icon</i> component. For dynamic columns, setting
                 <i>pSortableColumnDisabled</i> property as true disables sorting for that particular column.
@@ -22,8 +21,8 @@ import { TableModule } from 'primeng/table';
                 property to "multiple" and use metakey when clicking on another column.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
-            <app-demo-wrapper>
+        <app-demo-wrapper>
+            <p-deferred-demo (load)="loadDemoData()">
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template #header>
                         <tr>
@@ -62,10 +61,9 @@ import { TableModule } from 'primeng/table';
                         </tr>
                     </ng-template>
                 </p-table>
-                <app-code [extFiles]="['Product']"></app-code>
-            </app-demo-wrapper>
-        </p-deferred-demo>
-    `,
+            </p-deferred-demo>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SingleColumnSortDoc {

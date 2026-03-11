@@ -17,11 +17,9 @@ import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-rating [(ngModel)]="value" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-rating [(ngModel)]="value" />
+        </div>
     `,
     standalone: true,
     imports: [RatingModule, FormsModule]
@@ -42,11 +40,9 @@ import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-rating [(ngModel)]="value" [disabled]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-rating [(ngModel)]="value" [disabled]="true" />
+        </div>
     `,
     standalone: true,
     imports: [RatingModule, FormsModule]
@@ -67,11 +63,9 @@ import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-rating [(ngModel)]="value" [stars]="10" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-rating [(ngModel)]="value" [stars]="10" />
+        </div>
     `,
     standalone: true,
     imports: [RatingModule, FormsModule]
@@ -90,29 +84,25 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
 import { RatingModule } from 'primeng/rating';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-40">
-                    <div class="flex flex-col items-center gap-2">
-                        <p-rating formControlName="ratingValue" [invalid]="isInvalid('ratingValue')" />
-                        @if (isInvalid('ratingValue')) {
-                            <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
-                        }
-                    </div>
-                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-                </form>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-40">
+                <div class="flex flex-col items-center gap-2">
+                    <p-rating formControlName="ratingValue" [invalid]="isInvalid('ratingValue')" />
+                    @if (isInvalid('ratingValue')) {
+                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
     `,
     standalone: true,
-    imports: [MessageModule, RatingModule, ToastModule, ButtonModule, ReactiveFormsModule],
+    imports: [MessageModule, RatingModule, ButtonModule, ReactiveFormsModule],
     providers: [MessageService]
 })
 export class RatingReactiveformsDemo {
@@ -154,11 +144,9 @@ import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-rating [(ngModel)]="value" [readonly]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-rating [(ngModel)]="value" [readonly]="true" />
+        </div>
     `,
     standalone: true,
     imports: [RatingModule, FormsModule]
@@ -179,18 +167,16 @@ import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-rating [(ngModel)]="value">
-                    <ng-template #onicon>
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" height="24" width="24" />
-                    </ng-template>
-                    <ng-template #officon>
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" height="24" width="24" />
-                    </ng-template>
-                </p-rating>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-rating [(ngModel)]="value">
+                <ng-template #onicon>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" height="24" width="24" />
+                </ng-template>
+                <ng-template #officon>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" height="24" width="24" />
+                </ng-template>
+            </p-rating>
+        </div>
     `,
     standalone: true,
     imports: [RatingModule, FormsModule]
@@ -207,29 +193,25 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
 import { RatingModule } from 'primeng/rating';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-40">
-                    <div class="flex flex-col items-center gap-2">
-                        <p-rating #ratingValue="ngModel" [(ngModel)]="value" required name="ratingValue" [invalid]="ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)" />
-                        @if (ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)) {
-                            <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
-                        }
-                    </div>
-                    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-                </form>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-40">
+                <div class="flex flex-col items-center gap-2">
+                    <p-rating #ratingValue="ngModel" [(ngModel)]="value" required name="ratingValue" [invalid]="ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)" />
+                    @if (ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
     `,
     standalone: true,
-    imports: [MessageModule, RatingModule, ToastModule, ButtonModule, FormsModule],
+    imports: [MessageModule, RatingModule, ButtonModule, FormsModule],
     providers: [MessageService]
 })
 export class RatingTemplatedrivenformsDemo {
@@ -257,11 +239,9 @@ import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-rating [(ngModel)]="value" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-rating [(ngModel)]="value" />
+        </div>
     `,
     standalone: true,
     imports: [RatingModule, FormsModule]

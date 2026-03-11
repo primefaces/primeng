@@ -18,12 +18,10 @@ import { ContextMenu } from 'primeng/contextmenu';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
-                <p-contextmenu [target]="img" [model]="items" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
+            <p-contextmenu [target]="img" [model]="items" />
+        </div>
     `,
     standalone: true,
     imports: [ContextMenuModule]
@@ -48,7 +46,6 @@ The function to invoke when an item is clicked is defined using the command prop
 import { Component, OnInit, inject } from '@angular/core';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ContextMenu } from 'primeng/contextmenu';
 
@@ -61,9 +58,7 @@ interface Users {
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex sm:justify-center">
+        <div class="flex sm:justify-center">
             <ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
                 @for (user of users; track user.id) {
                     <li
@@ -81,10 +76,9 @@ interface Users {
             </ul>
             <p-contextmenu #cm [model]="items" (onHide)="onHide()" />
         </div>
-        </app-demo-wrapper>
     `,
     standalone: true,
-    imports: [ContextMenuModule, TagModule, ToastModule],
+    imports: [ContextMenuModule, TagModule],
     providers: [MessageService]
 })
 export class ContextmenuCommandDemo implements OnInit {
@@ -170,12 +164,10 @@ import { ContextMenu } from 'primeng/contextmenu';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="text-center">
-                <p class="mb-0 text-sm">Right-Click anywhere on this page to view the global ContextMenu.</p>
-                <p-contextmenu [model]="items" [global]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="text-center">
+            <p class="mb-0 text-sm">Right-Click anywhere on this page to view the global ContextMenu.</p>
+            <p-contextmenu [model]="items" [global]="true" />
+        </div>
     `,
     standalone: true,
     imports: [ContextMenuModule]
@@ -226,8 +218,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
+        <div class="flex justify-center">
             <span #span class="inline-flex items-center justify-center border-2 border-primary rounded w-16 h-16" aria-haspopup="true">
                 <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                     <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
@@ -247,7 +238,12 @@ import { MenuItem } from 'primeng/api';
                     />
                     <path d="M19.3168 24.7437L21.4168 22.6444V20.5451L19.3168 22.3214V24.7437Z" fill="var(--ground-background)" />
                     <path d="M10.9166 24.7437L8.81662 22.6444V20.5451L10.9166 22.3214V24.7437Z" fill="var(--ground-background)" />
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.0167 5.68861L11.7244 8.7568L13.8244 14.8932H14.7936V5.68861H13.0167ZM15.4397 5.68861V14.8932H16.5706L18.5091 8.7568L17.2167 5.68861H15.4397Z" fill="var(--ground-background)" />
+                    <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M13.0167 5.68861L11.7244 8.7568L13.8244 14.8932H14.7936V5.68861H13.0167ZM15.4397 5.68861V14.8932H16.5706L18.5091 8.7568L17.2167 5.68861H15.4397Z"
+                        fill="var(--ground-background)"
+                    />
                     <path d="M13.8244 14.8932L6.87813 12.3094L5.90888 8.27235L11.8859 8.7568L13.9859 14.8932H13.8244Z" fill="var(--ground-background)" />
                     <path d="M16.5706 14.8932L23.5169 12.3094L24.4861 8.27235L18.3476 8.7568L16.4091 14.8932H16.5706Z" fill="var(--ground-background)" />
                     <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
@@ -256,7 +252,6 @@ import { MenuItem } from 'primeng/api';
             </span>
             <p-contextmenu [target]="span" [model]="items" />
         </div>
-        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [ContextMenuModule]
@@ -307,8 +302,7 @@ import { ContextMenu } from 'primeng/contextmenu';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex md:justify-center">
+        <div class="flex md:justify-center">
             <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded p-3 flex flex-col gap-2 w-full md:w-[30rem]">
                 @for (product of data; track product.id) {
                     <li
@@ -348,7 +342,6 @@ import { ContextMenu } from 'primeng/contextmenu';
                 </ng-template>
             </p-contextmenu>
         </div>
-        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [BadgeModule, ContextMenuModule, RippleModule]

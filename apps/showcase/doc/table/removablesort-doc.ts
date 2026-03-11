@@ -12,12 +12,11 @@ import { Table, TableModule } from 'primeng/table';
     selector: 'removablesort-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>The removable sort can be implemented using the <i>customSort</i> property.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
-            <app-demo-wrapper>
+        <app-demo-wrapper>
+            <p-deferred-demo (load)="loadDemoData()">
                 <p-table #dt [value]="products" (sortFunction)="customSort($event)" [customSort]="true">
                     <ng-template #header>
                         <tr>
@@ -56,10 +55,9 @@ import { Table, TableModule } from 'primeng/table';
                         </tr>
                     </ng-template>
                 </p-table>
-                <app-code [extFiles]="['Product']"></app-code>
-            </app-demo-wrapper>
-        </p-deferred-demo>
-    `,
+            </p-deferred-demo>
+            <app-code [extFiles]="['Product']"></app-code>
+        </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RemovableSortDoc {

@@ -11,8 +11,8 @@ import { TableModule } from 'primeng/table';
     selector: 'columnresizescrollablemode-doc',
     standalone: true,
     imports: [CommonModule, TableModule, AppCode, DeferredDemo, AppDemoWrapper],
-    template: ` <p-deferred-demo (load)="loadDemoData()">
-        <app-demo-wrapper>
+    template: ` <app-demo-wrapper>
+        <p-deferred-demo (load)="loadDemoData()">
             <p-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
@@ -31,9 +31,9 @@ import { TableModule } from 'primeng/table';
                     </tr>
                 </ng-template>
             </p-table>
-            <app-code></app-code>
-        </app-demo-wrapper>
-    </p-deferred-demo>`,
+        </p-deferred-demo>
+        <app-code></app-code>
+    </app-demo-wrapper>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnResizeScrollableModeDoc {

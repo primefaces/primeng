@@ -17,12 +17,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center gap-2">
-                <p-radiobutton [(ngModel)]="value" [value]="1" [disabled]="true" />
-                <p-radiobutton [(ngModel)]="value" [value]="2" [disabled]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center gap-2">
+            <p-radiobutton [(ngModel)]="value" [value]="1" [disabled]="true" />
+            <p-radiobutton [(ngModel)]="value" [value]="2" [disabled]="true" />
+        </div>
     `,
     standalone: true,
     imports: [RadioButtonModule, FormsModule]
@@ -43,18 +41,16 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <div class="flex flex-col gap-4">
-                    @for (category of categories; track category.key) {
-                        <div class="field-checkbox">
-                            <p-radiobutton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" />
-                            <label [for]="category.key" class="text-sm ml-2">{{ category.name }}</label>
-                        </div>
-                    }
-                </div>
+        <div class="flex justify-center">
+            <div class="flex flex-col gap-4">
+                @for (category of categories; track category.key) {
+                    <div class="field-checkbox">
+                        <p-radiobutton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" />
+                        <label [for]="category.key" class="text-sm ml-2">{{ category.name }}</label>
+                    </div>
+                }
             </div>
-        </app-demo-wrapper>
+        </div>
     `,
     standalone: true,
     imports: [RadioButtonModule, FormsModule]
@@ -85,11 +81,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-radiobutton [(ngModel)]="checked" variant="filled" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-radiobutton [(ngModel)]="checked" variant="filled" />
+        </div>
     `,
     standalone: true,
     imports: [RadioButtonModule, FormsModule]
@@ -110,28 +104,26 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <div class="flex flex-wrap gap-4">
-                    <div class="flex items-center">
-                        <p-radiobutton name="pizza" value="Cheese" [(ngModel)]="ingredient" inputId="ingredient1" />
-                        <label for="ingredient1" class="text-sm ml-2">Cheese</label>
-                    </div>
-                    <div class="flex items-center">
-                        <p-radiobutton name="pizza" value="Mushroom" [(ngModel)]="ingredient" inputId="ingredient2" />
-                        <label for="ingredient2" class="text-sm ml-2">Mushroom</label>
-                    </div>
-                    <div class="flex items-center">
-                        <p-radiobutton name="pizza" value="Pepper" [(ngModel)]="ingredient" inputId="ingredient3" />
-                        <label for="ingredient3" class="text-sm ml-2">Pepper</label>
-                    </div>
-                    <div class="flex items-center">
-                        <p-radiobutton name="pizza" value="Onion" [(ngModel)]="ingredient" inputId="ingredient4" />
-                        <label for="ingredient4" class="text-sm ml-2">Onion</label>
-                    </div>
+        <div class="flex justify-center">
+            <div class="flex flex-wrap gap-4">
+                <div class="flex items-center">
+                    <p-radiobutton name="pizza" value="Cheese" [(ngModel)]="ingredient" inputId="ingredient1" />
+                    <label for="ingredient1" class="text-sm ml-2">Cheese</label>
+                </div>
+                <div class="flex items-center">
+                    <p-radiobutton name="pizza" value="Mushroom" [(ngModel)]="ingredient" inputId="ingredient2" />
+                    <label for="ingredient2" class="text-sm ml-2">Mushroom</label>
+                </div>
+                <div class="flex items-center">
+                    <p-radiobutton name="pizza" value="Pepper" [(ngModel)]="ingredient" inputId="ingredient3" />
+                    <label for="ingredient3" class="text-sm ml-2">Pepper</label>
+                </div>
+                <div class="flex items-center">
+                    <p-radiobutton name="pizza" value="Onion" [(ngModel)]="ingredient" inputId="ingredient4" />
+                    <label for="ingredient4" class="text-sm ml-2">Onion</label>
                 </div>
             </div>
-        </app-demo-wrapper>
+        </div>
     `,
     standalone: true,
     imports: [RadioButtonModule, FormsModule]
@@ -152,11 +144,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-radiobutton [(ngModel)]="value" [invalid]="!value" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-radiobutton [(ngModel)]="value" [invalid]="!value" />
+        </div>
     `,
     standalone: true,
     imports: [RadioButtonModule, FormsModule]
@@ -175,36 +165,32 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                    <div class="flex flex-wrap gap-4">
-                        @for (category of categories; track category.key) {
-                            <div class="flex items-center gap-2">
-                                <p-radiobutton formControlName="selectedCategory" name="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
-                                <label [for]="category.key" class="text-sm"> {{ category.name }} </label>
-                            </div>
-                        }
-                    </div>
-                    @if (isInvalid('selectedCategory')) {
-                        <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+        <div class="flex justify-center">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                <div class="flex flex-wrap gap-4">
+                    @for (category of categories; track category.key) {
+                        <div class="flex items-center gap-2">
+                            <p-radiobutton formControlName="selectedCategory" name="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
+                            <label [for]="category.key" class="text-sm"> {{ category.name }} </label>
+                        </div>
                     }
-                    <button pButton severity="secondary" type="submit">
-                        <span pButtonLabel>Submit</span>
-                    </button>
-                </form>
-            </div>
-        </app-demo-wrapper>
+                </div>
+                @if (isInvalid('selectedCategory')) {
+                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+                }
+                <button pButton severity="secondary" type="submit">
+                    <span pButtonLabel>Submit</span>
+                </button>
+            </form>
+        </div>
     `,
     standalone: true,
-    imports: [MessageModule, RadioButtonModule, ToastModule, ButtonModule, ReactiveFormsModule],
+    imports: [MessageModule, RadioButtonModule, ButtonModule, ReactiveFormsModule],
     providers: [MessageService]
 })
 export class RadiobuttonReactiveformsDemo {
@@ -260,24 +246,22 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <div class="flex flex-wrap gap-4">
-                    <div class="flex items-center gap-2">
-                        <p-radiobutton [(ngModel)]="size" inputId="size_small" name="size" value="Small" size="small" />
-                        <label for="size_small" class="text-sm">Small</label>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <p-radiobutton [(ngModel)]="size" inputId="size_normal" name="size" value="Normal" />
-                        <label for="size_normal">Normal</label>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <p-radiobutton [(ngModel)]="size" inputId="size_large" name="size" value="Large" size="large" />
-                        <label for="size_large" class="text-lg">Large</label>
-                    </div>
+        <div class="flex justify-center">
+            <div class="flex flex-wrap gap-4">
+                <div class="flex items-center gap-2">
+                    <p-radiobutton [(ngModel)]="size" inputId="size_small" name="size" value="Small" size="small" />
+                    <label for="size_small" class="text-sm">Small</label>
+                </div>
+                <div class="flex items-center gap-2">
+                    <p-radiobutton [(ngModel)]="size" inputId="size_normal" name="size" value="Normal" />
+                    <label for="size_normal">Normal</label>
+                </div>
+                <div class="flex items-center gap-2">
+                    <p-radiobutton [(ngModel)]="size" inputId="size_large" name="size" value="Large" size="large" />
+                    <label for="size_large" class="text-lg">Large</label>
                 </div>
             </div>
-        </app-demo-wrapper>
+        </div>
     `,
     standalone: true,
     imports: [RadioButtonModule, FormsModule]
@@ -294,36 +278,32 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
-                    <div class="flex flex-wrap gap-4">
-                        @for (category of categories; track category.name) {
-                            <div class="flex items-center gap-2">
-                                <p-radiobutton [(ngModel)]="ingredient" [inputId]="category.key" [value]="category" [invalid]="isInvalid(exampleForm)" name="ingredient" />
-                                <label [for]="category.key" class="text-sm"> {{ category.name }} </label>
-                            </div>
-                        }
-                    </div>
-                    @if (isInvalid(exampleForm)) {
-                        <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+        <div class="flex justify-center">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+                <div class="flex flex-wrap gap-4">
+                    @for (category of categories; track category.name) {
+                        <div class="flex items-center gap-2">
+                            <p-radiobutton [(ngModel)]="ingredient" [inputId]="category.key" [value]="category" [invalid]="isInvalid(exampleForm)" name="ingredient" />
+                            <label [for]="category.key" class="text-sm"> {{ category.name }} </label>
+                        </div>
                     }
-                    <button pButton severity="secondary" type="submit">
-                        <span pButtonLabel>Submit</span>
-                    </button>
-                </form>
-            </div>
-        </app-demo-wrapper>
+                </div>
+                @if (isInvalid(exampleForm)) {
+                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+                }
+                <button pButton severity="secondary" type="submit">
+                    <span pButtonLabel>Submit</span>
+                </button>
+            </form>
+        </div>
     `,
     standalone: true,
-    imports: [MessageModule, RadioButtonModule, ToastModule, ButtonModule, FormsModule],
+    imports: [MessageModule, RadioButtonModule, ButtonModule, FormsModule],
     providers: [MessageService]
 })
 export class RadiobuttonTemplatedrivenformsDemo {

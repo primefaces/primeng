@@ -15,11 +15,9 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-progress-spinner ariaLabel="loading" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-progress-spinner ariaLabel="loading" />
+        </div>
     `,
     standalone: true,
     imports: []
@@ -36,11 +34,9 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-progress-spinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-progress-spinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />
+        </div>
     `,
     standalone: true,
     imports: []

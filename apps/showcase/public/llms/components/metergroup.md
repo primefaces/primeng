@@ -16,9 +16,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-metergroup [value]="value" />
-        </app-demo-wrapper>
+        <p-metergroup [value]="value" />
     `,
     standalone: true,
     imports: [MeterGroupModule]
@@ -38,9 +36,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-metergroup [value]="value" />
-        </app-demo-wrapper>
+        <p-metergroup [value]="value" />
     `,
     standalone: true,
     imports: [MeterGroupModule]
@@ -65,9 +61,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-metergroup [value]="value" labelPosition="start" labelOrientation="vertical" />
-        </app-demo-wrapper>
+        <p-metergroup [value]="value" labelPosition="start" labelOrientation="vertical" />
     `,
     standalone: true,
     imports: [MeterGroupModule]
@@ -92,9 +86,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-metergroup [value]="value" [max]="200" />
-        </app-demo-wrapper>
+        <p-metergroup [value]="value" [max]="200" />
     `,
     standalone: true,
     imports: [MeterGroupModule]
@@ -119,9 +111,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-metergroup [value]="value" />
-        </app-demo-wrapper>
+        <p-metergroup [value]="value" />
     `,
     standalone: true,
     imports: [MeterGroupModule]
@@ -148,43 +138,41 @@ import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-metergroup [value]="value" labelPosition="start">
-                <ng-template #label>
-                    <div class="flex flex-wrap gap-4">
-                        @for (meterItem of value; track $index; let index = $index) {
-                            <p-card class="flex-1" styleClass="border border-surface shadow-none">
-                                <div class="flex justify-between gap-7">
-                                    <div class="flex flex-col gap-1">
-                                        <span class="text-surface-500 dark:text-surface-400 text-sm">{{ meterItem.label }}</span>
-                                        <span class="font-bold">{{ meterItem.value }}%</span>
-                                    </div>
-                                    <span class="w-8 h-8 rounded-full inline-flex justify-center items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
-                                        <i [class]="meterItem.icon"></i>
-                                    </span>
+        <p-metergroup [value]="value" labelPosition="start">
+            <ng-template #label>
+                <div class="flex flex-wrap gap-4">
+                    @for (meterItem of value; track $index; let index = $index) {
+                        <p-card class="flex-1" styleClass="border border-surface shadow-none">
+                            <div class="flex justify-between gap-7">
+                                <div class="flex flex-col gap-1">
+                                    <span class="text-surface-500 dark:text-surface-400 text-sm">{{ meterItem.label }}</span>
+                                    <span class="font-bold">{{ meterItem.value }}%</span>
                                 </div>
-                            </p-card>
-                        }
-                    </div>
-                </ng-template>
-                <ng-template #meter let-value let-class="class" let-width="size">
-                    <span [class]="class" [style]="{ background: 'linear-gradient(to right, ' + value.color1 + ', ' + value.color2 + ')', width: width }"></span>
-                </ng-template>
-                <ng-template #start let-totalPercent="totalPercent">
-                    <div class="flex justify-between mt-4 mb-2 relative">
-                        <span class="text-sm">Storage</span>
-                        <span [style]="{ width: totalPercent + '%' }" class="absolute text-right text-sm">{{ totalPercent }}%</span>
-                        <span class="font-medium text-sm">1TB</span>
-                    </div>
-                </ng-template>
-                <ng-template #end>
-                    <div class="flex justify-between mt-4">
-                        <p-button label="Manage Storage" [outlined]="true" size="small" />
-                        <p-button label="Update Plan" size="small" />
-                    </div>
-                </ng-template>
-            </p-metergroup>
-        </app-demo-wrapper>
+                                <span class="w-8 h-8 rounded-full inline-flex justify-center items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
+                                    <i [class]="meterItem.icon"></i>
+                                </span>
+                            </div>
+                        </p-card>
+                    }
+                </div>
+            </ng-template>
+            <ng-template #meter let-value let-class="class" let-width="size">
+                <span [class]="class" [style]="{ background: 'linear-gradient(to right, ' + value.color1 + ', ' + value.color2 + ')', width: width }"></span>
+            </ng-template>
+            <ng-template #start let-totalPercent="totalPercent">
+                <div class="flex justify-between mt-4 mb-2 relative">
+                    <span class="text-sm">Storage</span>
+                    <span [style]="{ width: totalPercent + '%' }" class="absolute text-right text-sm">{{ totalPercent }}%</span>
+                    <span class="font-medium text-sm">1TB</span>
+                </div>
+            </ng-template>
+            <ng-template #end>
+                <div class="flex justify-between mt-4">
+                    <p-button label="Manage Storage" [outlined]="true" size="small" />
+                    <p-button label="Update Plan" size="small" />
+                </div>
+            </ng-template>
+        </p-metergroup>
     `,
     standalone: true,
     imports: [ButtonModule, CardModule, MeterGroupModule]
@@ -209,11 +197,9 @@ import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-metergroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-metergroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
+        </div>
     `,
     standalone: true,
     imports: [MeterGroupModule]

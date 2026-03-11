@@ -17,11 +17,9 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center gap-4">
-                <p-checkbox [(ngModel)]="checked" [binary]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center gap-4">
+            <p-checkbox [(ngModel)]="checked" [binary]="true" />
+        </div>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -42,12 +40,10 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center gap-2">
-                <p-checkbox [(ngModel)]="checked1" [binary]="true" [disabled]="true" />
-                <p-checkbox [(ngModel)]="checked2" [binary]="true" [disabled]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center gap-2">
+            <p-checkbox [(ngModel)]="checked1" [binary]="true" [disabled]="true" />
+            <p-checkbox [(ngModel)]="checked2" [binary]="true" [disabled]="true" />
+        </div>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -69,18 +65,16 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <div class="flex flex-col gap-4">
-                    @for (category of categories; track category.key) {
-                        <div class="flex items-center">
-                            <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
-                            <label [for]="category.key" class="text-sm ml-2"> {{ category.name }} </label>
-                        </div>
-                    }
-                </div>
+        <div class="flex justify-center">
+            <div class="flex flex-col gap-4">
+                @for (category of categories; track category.key) {
+                    <div class="flex items-center">
+                        <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
+                        <label [for]="category.key" class="text-sm ml-2"> {{ category.name }} </label>
+                    </div>
+                }
             </div>
-        </app-demo-wrapper>
+        </div>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -111,11 +105,9 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" />
+        </div>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -136,11 +128,9 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center gap-4">
-                <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center gap-4">
+            <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" />
+        </div>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -161,11 +151,9 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-checkbox [(ngModel)]="checked" [binary]="true" [invalid]="!checked" />
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-checkbox [(ngModel)]="checked" [binary]="true" [invalid]="!checked" />
+        </div>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -186,12 +174,10 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center gap-4">
-                <p-checkbox name="groupname" value="val1" label="Value 1" [(ngModel)]="selectedValues"></p-checkbox>
-                <p-checkbox name="groupname" value="val2" label="Value 2" [(ngModel)]="selectedValues"></p-checkbox>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center gap-4">
+            <p-checkbox name="groupname" value="val1" label="Value 1" [(ngModel)]="selectedValues"></p-checkbox>
+            <p-checkbox name="groupname" value="val2" label="Value 2" [(ngModel)]="selectedValues"></p-checkbox>
+        </div>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -212,26 +198,24 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-wrap justify-center gap-4">
-                <div class="flex items-center">
-                    <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" [(ngModel)]="pizza" />
-                    <label for="ingredient1" class="text-sm ml-2"> Cheese </label>
-                </div>
-                <div class="flex items-center">
-                    <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" [(ngModel)]="pizza" />
-                    <label for="ingredient2" class="text-sm ml-2"> Mushroom </label>
-                </div>
-                <div class="flex items-center">
-                    <p-checkbox inputId="ingredient3" name="pizza" value="Pepper" [(ngModel)]="pizza" />
-                    <label for="ingredient3" class="text-sm ml-2"> Pepper </label>
-                </div>
-                <div class="flex items-center">
-                    <p-checkbox inputId="ingredient4" name="pizza" value="Onion" [(ngModel)]="pizza" />
-                    <label for="ingredient4" class="text-sm ml-2"> Onion </label>
-                </div>
+        <div class="flex flex-wrap justify-center gap-4">
+            <div class="flex items-center">
+                <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" [(ngModel)]="pizza" />
+                <label for="ingredient1" class="text-sm ml-2"> Cheese </label>
             </div>
-        </app-demo-wrapper>
+            <div class="flex items-center">
+                <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" [(ngModel)]="pizza" />
+                <label for="ingredient2" class="text-sm ml-2"> Mushroom </label>
+            </div>
+            <div class="flex items-center">
+                <p-checkbox inputId="ingredient3" name="pizza" value="Pepper" [(ngModel)]="pizza" />
+                <label for="ingredient3" class="text-sm ml-2"> Pepper </label>
+            </div>
+            <div class="flex items-center">
+                <p-checkbox inputId="ingredient4" name="pizza" value="Onion" [(ngModel)]="pizza" />
+                <label for="ingredient4" class="text-sm ml-2"> Onion </label>
+            </div>
+        </div>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -250,36 +234,32 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-                    <div class="flex flex-wrap gap-4">
-                        @for (item of formKeys; track item) {
-                            <div class="flex items-center gap-2">
-                                <p-checkbox [formControlName]="item" [binary]="true" [inputId]="item" [invalid]="isInvalid(item)" />
-                                <label [for]="item" class="text-sm"> {{ item | titlecase }} </label>
-                            </div>
-                        }
-                    </div>
-                    @if (hasAnyInvalid()) {
-                        <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+        <div class="flex justify-center">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                <div class="flex flex-wrap gap-4">
+                    @for (item of formKeys; track item) {
+                        <div class="flex items-center gap-2">
+                            <p-checkbox [formControlName]="item" [binary]="true" [inputId]="item" [invalid]="isInvalid(item)" />
+                            <label [for]="item" class="text-sm"> {{ item | titlecase }} </label>
+                        </div>
                     }
-                    <button pButton severity="secondary" type="submit">
-                        <span pButtonLabel>Submit</span>
-                    </button>
-                </form>
-            </div>
-        </app-demo-wrapper>
+                </div>
+                @if (hasAnyInvalid()) {
+                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+                }
+                <button pButton severity="secondary" type="submit">
+                    <span pButtonLabel>Submit</span>
+                </button>
+            </form>
+        </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [CheckboxModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
 export class CheckboxReactiveformsDemo {
     messageService = inject(MessageService);
@@ -348,22 +328,20 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex flex-wrap justify-center gap-4">
-                <div class="flex items-center gap-2">
-                    <p-checkbox [(ngModel)]="size" inputId="size_small" name="size" value="Small" size="small" />
-                    <label for="size_small" class="text-sm">Small</label>
-                </div>
-                <div class="flex items-center gap-2">
-                    <p-checkbox [(ngModel)]="size" inputId="size_normal" name="size" value="Normal" />
-                    <label for="size_normal">Normal</label>
-                </div>
-                <div class="flex items-center gap-2">
-                    <p-checkbox [(ngModel)]="size" inputId="size_large" name="size" value="Large" size="large" />
-                    <label for="size_large" class="text-lg">Large</label>
-                </div>
+        <div class="flex flex-wrap justify-center gap-4">
+            <div class="flex items-center gap-2">
+                <p-checkbox [(ngModel)]="size" inputId="size_small" name="size" value="Small" size="small" />
+                <label for="size_small" class="text-sm">Small</label>
             </div>
-        </app-demo-wrapper>
+            <div class="flex items-center gap-2">
+                <p-checkbox [(ngModel)]="size" inputId="size_normal" name="size" value="Normal" />
+                <label for="size_normal">Normal</label>
+            </div>
+            <div class="flex items-center gap-2">
+                <p-checkbox [(ngModel)]="size" inputId="size_large" name="size" value="Large" size="large" />
+                <label for="size_large" class="text-lg">Large</label>
+            </div>
+        </div>
     `,
     standalone: true,
     imports: [CheckboxModule, FormsModule]
@@ -380,36 +358,32 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4">
-                    <div class="flex flex-wrap gap-4">
-                        @for (item of formKeys; track item) {
-                            <div class="flex items-center gap-2">
-                                <p-checkbox [inputId]="item" [name]="item" [(ngModel)]="formModel[item]" [binary]="true" [invalid]="isInvalid()"></p-checkbox>
-                                <label [for]="item" class="text-sm">{{ item | titlecase }}</label>
-                            </div>
-                        }
-                    </div>
-                    @if (isInvalid()) {
-                        <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+        <div class="flex justify-center">
+            <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4">
+                <div class="flex flex-wrap gap-4">
+                    @for (item of formKeys; track item) {
+                        <div class="flex items-center gap-2">
+                            <p-checkbox [inputId]="item" [name]="item" [(ngModel)]="formModel[item]" [binary]="true" [invalid]="isInvalid()"></p-checkbox>
+                            <label [for]="item" class="text-sm">{{ item | titlecase }}</label>
+                        </div>
                     }
-                    <button pButton severity="secondary" type="submit">
-                        <span pButtonLabel>Submit</span>
-                    </button>
-                </form>
-            </div>
-        </app-demo-wrapper>
+                </div>
+                @if (isInvalid()) {
+                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+                }
+                <button pButton severity="secondary" type="submit">
+                    <span pButtonLabel>Submit</span>
+                </button>
+            </form>
+        </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [CheckboxModule, MessageModule, ButtonModule, FormsModule]
 })
 export class CheckboxTemplatedrivenformsDemo {
     messageService = inject(MessageService);

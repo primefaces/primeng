@@ -18,14 +18,12 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-iftalabel>
-                    <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
-                    <label for="username">Username</label>
-                </p-iftalabel>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-iftalabel>
+                <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
+                <label for="username">Username</label>
+            </p-iftalabel>
+        </div>
     `,
     standalone: true,
     imports: [IftaLabelModule, InputTextModule, FormsModule]
@@ -47,14 +45,12 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <div class="flex justify-center">
-                <p-iftalabel>
-                    <input pInputText id="username" [(ngModel)]="value" [invalid]="!value" autocomplete="off" />
-                    <label for="username">Username</label>
-                </p-iftalabel>
-            </div>
-        </app-demo-wrapper>
+        <div class="flex justify-center">
+            <p-iftalabel>
+                <input pInputText id="username" [(ngModel)]="value" [invalid]="!value" autocomplete="off" />
+                <label for="username">Username</label>
+            </p-iftalabel>
+        </div>
     `,
     standalone: true,
     imports: [IftaLabelModule, InputTextModule, FormsModule]

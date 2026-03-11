@@ -16,7 +16,6 @@ import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     template: `
-        <app-demo-wrapper>
         <div class="flex flex-col items-center overflow-hidden">
             <div class="flex flex-col items-center gap-2">
                 <span class="font-medium">Scroll Down</span>
@@ -38,7 +37,12 @@ import { AvatarModule } from 'primeng/avatar';
                     <span class="text-xl font-bold">Individual</span>
                     <span class="text-muted-color text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
                 </div>
-                <div pAnimateOnScroll enterClass="animate-enter fade-in-10 animate-duration-1000" leaveClass="animate-leave fade-out-0" class="flex flex-col border border-surface shadow-lg justify-center items-center max-w-72 rounded-2xl p-7 gap-4">
+                <div
+                    pAnimateOnScroll
+                    enterClass="animate-enter fade-in-10 animate-duration-1000"
+                    leaveClass="animate-leave fade-out-0"
+                    class="flex flex-col border border-surface shadow-lg justify-center items-center max-w-72 rounded-2xl p-7 gap-4"
+                >
                     <div class="rounded-full bg-primary text-primary-contrast w-12 h-12 flex items-center justify-center">
                         <i class="pi pi-users !text-xl"></i>
                     </div>
@@ -135,7 +139,6 @@ import { AvatarModule } from 'primeng/avatar';
                 </div>
             </div>
         </div>
-        </app-demo-wrapper>
     `,
     standalone: true,
     imports: [AvatarModule]

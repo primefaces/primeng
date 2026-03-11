@@ -16,10 +16,8 @@ import { TerminalModule } from 'primeng/terminal';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
-            <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
-        </app-demo-wrapper>
+        <p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
+        <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
     `,
     standalone: true,
     imports: [TerminalModule]

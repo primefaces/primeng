@@ -16,9 +16,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-progressbar [value]="50" />
-        </app-demo-wrapper>
+        <p-progressbar [value]="50" />
     `,
     standalone: true,
     imports: [ProgressBarModule]
@@ -33,18 +31,14 @@ Value is reactive so updating it dynamically changes the bar as well.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-toast />
-        <app-demo-wrapper>
-            <p-progressbar [value]="value" />
-        </app-demo-wrapper>
+        <p-progressbar [value]="value" />
     `,
     standalone: true,
-    imports: [ProgressBarModule, ToastModule],
+    imports: [ProgressBarModule],
     providers: [MessageService]
 })
 export class ProgressbarDynamicDemo implements OnInit {
@@ -86,9 +80,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-progressbar mode="indeterminate" [style]="{ height: '6px' }" />
-        </app-demo-wrapper>
+        <p-progressbar mode="indeterminate" [style]="{ height: '6px' }" />
     `,
     standalone: true,
     imports: [ProgressBarModule],
@@ -109,13 +101,11 @@ import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
     template: `
-        <app-demo-wrapper>
-            <p-progressbar [value]="50">
-                <ng-template #content let-value>
-                    <span>{{ value }}/100</span>
-                </ng-template>
-            </p-progressbar>
-        </app-demo-wrapper>
+        <p-progressbar [value]="50">
+            <ng-template #content let-value>
+                <span>{{ value }}/100</span>
+            </ng-template>
+        </p-progressbar>
     `,
     standalone: true,
     imports: [ProgressBarModule]
