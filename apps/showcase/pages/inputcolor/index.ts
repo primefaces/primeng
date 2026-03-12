@@ -1,4 +1,8 @@
 import { BasicDoc } from '@/doc/inputcolor/basic-doc';
+import { AdvancedDoc } from '@/doc/inputcolor/advanced-doc';
+import { ControlledDoc } from '@/doc/inputcolor/controlled-doc';
+import { VerticalSliderDoc } from '@/doc/inputcolor/verticalslider-doc';
+import { PopoverDoc } from '@/doc/inputcolor/popover-doc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
@@ -19,6 +23,26 @@ export class InputColorDemo {
                     id: 'basic',
                     label: 'Basic',
                     component: BasicDoc
+                },
+                {
+                    id: 'popover',
+                    label: 'Popover',
+                    component: PopoverDoc
+                },
+                {
+                    id: 'vertical-slider',
+                    label: 'Vertical Slider',
+                    component: VerticalSliderDoc
+                },
+                {
+                    id: 'controlled',
+                    label: 'Controlled',
+                    component: ControlledDoc
+                },
+                {
+                    id: 'advanced',
+                    label: 'Advanced',
+                    component: AdvancedDoc
                 }
             ]
         }

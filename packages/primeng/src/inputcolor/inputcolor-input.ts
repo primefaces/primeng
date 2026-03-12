@@ -13,9 +13,10 @@ import { InputColorInputStyle } from './style/inputcolorinputstyle';
     imports: [InputText],
     template: `<input
         pInputText
-        [class]="cx('root')"
+        [class]="$inputClass()"
+        [style]="hostStyle()"
         [type]="$inputType()"
-        [pSize]="pSize()"
+        [pSize]="size()"
         [variant]="variant()"
         [fluid]="fluid()"
         [invalid]="invalid()"
@@ -49,7 +50,7 @@ export class InputColorInput extends BaseComponent {
      * Defines the size of the input.
      * @group Props
      */
-    pSize = input<InputSize>();
+    size = input<InputSize>();
 
     /**
      * Specifies the input variant.
@@ -68,6 +69,24 @@ export class InputColorInput extends BaseComponent {
      * @group Props
      */
     invalid = input(undefined, { transform: booleanAttribute });
+
+    /**
+     * Style class to forward to the inner input element.
+     * @group Props
+     */
+    hostClass = input<string>('', { alias: 'class' });
+
+    /**
+     * Inline style to forward to the inner input element.
+     * @group Props
+     */
+    hostStyle = input<string>('', { alias: 'style' });
+
+    $inputClass = computed(() => {
+        const base = this.cx('root');
+        const extra = this.hostClass();
+        return extra ? `${base} ${extra}` : base;
+    });
 
     $inputType = computed(() => {
         const ch = this.channel();
