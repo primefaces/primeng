@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ColorChannel, ColorSliderChannel, getChannelGradient, getChannelRange, snapValue } from './color-manager';
+import { ColorChannel, ColorSliderChannel, getChannelRange, snapValue } from './color-manager';
 import { INPUT_COLOR_INSTANCE, INPUT_COLOR_SLIDER_INSTANCE } from './inputcolor.token';
 import { InputColorSliderStyle } from './style/inputcolorsliderstyle';
 
@@ -34,7 +34,7 @@ export class InputColorSlider extends BaseComponent {
      * The color channel this slider controls.
      * @group Props
      */
-    channel = input.required<ColorSliderChannel>();
+    channel = input<ColorSliderChannel>('hue');
 
     /**
      * Orientation of the slider.

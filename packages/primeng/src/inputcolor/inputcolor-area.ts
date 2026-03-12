@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ColorChannel, getAreaBackgroundGradient, getAreaGradient, getChannelRange, snapValue } from './color-manager';
+import { ColorChannel, getAreaGradient, getChannelRange, snapValue } from './color-manager';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
 import { InputColorAreaStyle } from './style/inputcolorareastyle';
 
@@ -13,8 +13,7 @@ import { InputColorAreaStyle } from './style/inputcolorareastyle';
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': 'cx("root")',
-        '[style.--area-background]': '$areaBackground()',
-        '[style.--area-gradient]': '$areaOverlayGradient()',
+        '[style.--area-gradient]': '$areaGradient()',
         '[style.--thumb-background]': '$thumbBackground()',
         '[style.--thumb-position-left]': '$thumbLeft()',
         '[style.--thumb-position-top]': '$thumbTop()',
@@ -35,16 +34,12 @@ export class InputColorArea extends BaseComponent {
     $xChannel = computed(() => this.$pc.$axes().xChannel);
     $yChannel = computed(() => this.$pc.$axes().yChannel);
 
-    $areaBackground = computed(() => {
+    $areaGradient = computed(() => {
         const color = this.$pc.$color();
         const xCh = this.$xChannel();
         const yCh = this.$yChannel();
-        return getAreaGradient(color, xCh, yCh);
-    });
-
-    $areaOverlayGradient = computed(() => {
-        const yCh = this.$yChannel();
-        return getAreaBackgroundGradient(yCh);
+        const format = this.$pc.format();
+        return getAreaGradient(color, xCh, yCh, format);
     });
 
     $thumbBackground = computed(() => this.$pc.$color().toRgbString());

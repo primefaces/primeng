@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ColorChannel, getChannelGradient } from './color-manager';
+import { getChannelGradient } from './color-manager';
 import { INPUT_COLOR_INSTANCE, INPUT_COLOR_SLIDER_INSTANCE } from './inputcolor.token';
 import { InputColorSliderTrackStyle } from './style/inputcolorslidertrackstyle';
 
@@ -32,7 +32,8 @@ export class InputColorSliderTrack extends BaseComponent {
     $gradient = computed(() => {
         const ch = this.pcSlider.channel();
         const color = this.$pc.$color();
-        return getChannelGradient(color, ch);
+        const orientation = this.pcSlider.orientation();
+        return getChannelGradient(color, ch, orientation);
     });
 
     onAfterViewChecked() {

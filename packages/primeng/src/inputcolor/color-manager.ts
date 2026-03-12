@@ -4,7 +4,7 @@ export type ColorChannel = 'hue' | 'saturation' | 'brightness' | 'lightness' | '
 
 export type ColorSliderChannel = 'hue' | 'saturation' | 'brightness' | 'lightness' | 'red' | 'green' | 'blue' | 'alpha' | 'oklchLightness' | 'oklchChroma' | 'oklchHue';
 
-export type ColorInputChannel = ColorChannel;
+export type ColorInputChannel = ColorChannel | 'css';
 
 export interface ColorChannelRange {
     minValue: number;
@@ -85,9 +85,9 @@ export abstract class Color implements ColorOutput {
             const a = Math.round(this.alpha * 255)
                 .toString(16)
                 .padStart(2, '0');
-            return `#${r}${g}${b}${a}`.toUpperCase();
+            return `#${r}${g}${b}${a}`;
         }
-        return `#${r}${g}${b}`.toUpperCase();
+        return `#${r}${g}${b}`;
     }
 
     toHexInt(): number {
@@ -130,13 +130,11 @@ export abstract class Color implements ColorOutput {
 
     toOklchString(): string {
         const oklch = this.toOKLCH();
-        const l = round(oklch.oklchLightness, 4);
+        const l = round(oklch.oklchLightness * 100, 2);
         const c = round(oklch.oklchChroma, 4);
         const h = round(oklch.oklchHue, 2);
-        if (this.alpha < 1) {
-            return `oklch(${l} ${c} ${h} / ${round(this.alpha, 2)})`;
-        }
-        return `oklch(${l} ${c} ${h})`;
+        const a = round(this.alpha, 2);
+        return `oklch(${l}% ${c} ${h} / ${a})`;
     }
 
     toString(format?: ColorSpace): string {
@@ -201,6 +199,12 @@ export class HSBColor extends Color {
                 return this.brightness;
             case 'alpha':
                 return this._alpha;
+            case 'lightness':
+                return this.toHSL().getChannelValue(channel);
+            case 'oklchLightness':
+            case 'oklchChroma':
+            case 'oklchHue':
+                return this.toOKLCH().getChannelValue(channel);
             default:
                 return this.toRGB().getChannelValue(channel);
         }
@@ -216,6 +220,16 @@ export class HSBColor extends Color {
                 return new HSBColor(this.hue, this.saturation, value, this._alpha);
             case 'alpha':
                 return new HSBColor(this.hue, this.saturation, this.brightness, value);
+            case 'lightness': {
+                const hsl = this.toHSL().setChannelValue(channel, value);
+                return hsl.toHSB();
+            }
+            case 'oklchLightness':
+            case 'oklchChroma':
+            case 'oklchHue': {
+                const oklch = this.toOKLCH().setChannelValue(channel, value);
+                return oklch.toHSB();
+            }
             default: {
                 const rgb = this.toRGB().setChannelValue(channel, value);
                 return rgb.toHSB();
@@ -326,6 +340,12 @@ export class HSLColor extends Color {
                 return this.lightness;
             case 'alpha':
                 return this._alpha;
+            case 'brightness':
+                return this.toHSB().getChannelValue(channel);
+            case 'oklchLightness':
+            case 'oklchChroma':
+            case 'oklchHue':
+                return this.toOKLCH().getChannelValue(channel);
             default:
                 return this.toRGB().getChannelValue(channel);
         }
@@ -341,6 +361,16 @@ export class HSLColor extends Color {
                 return new HSLColor(this.hue, this.saturation, value, this._alpha);
             case 'alpha':
                 return new HSLColor(this.hue, this.saturation, this.lightness, value);
+            case 'brightness': {
+                const hsb = this.toHSB().setChannelValue(channel, value);
+                return hsb.toHSL();
+            }
+            case 'oklchLightness':
+            case 'oklchChroma':
+            case 'oklchHue': {
+                const oklch = this.toOKLCH().setChannelValue(channel, value);
+                return oklch.toHSL();
+            }
             default: {
                 const rgb = this.toRGB().setChannelValue(channel, value);
                 return rgb.toHSL();
@@ -412,6 +442,16 @@ export class RGBColor extends Color {
                 return this.blue;
             case 'alpha':
                 return this._alpha;
+            case 'hue':
+            case 'saturation':
+            case 'brightness':
+                return this.toHSB().getChannelValue(channel);
+            case 'lightness':
+                return this.toHSL().getChannelValue(channel);
+            case 'oklchLightness':
+            case 'oklchChroma':
+            case 'oklchHue':
+                return this.toOKLCH().getChannelValue(channel);
             default:
                 return this.toHSB().getChannelValue(channel);
         }
@@ -427,6 +467,22 @@ export class RGBColor extends Color {
                 return new RGBColor(this.red, this.green, value, this._alpha);
             case 'alpha':
                 return new RGBColor(this.red, this.green, this.blue, value);
+            case 'hue':
+            case 'saturation':
+            case 'brightness': {
+                const hsb = this.toHSB().setChannelValue(channel, value);
+                return hsb.toRGB();
+            }
+            case 'lightness': {
+                const hsl = this.toHSL().setChannelValue(channel, value);
+                return hsl.toRGB();
+            }
+            case 'oklchLightness':
+            case 'oklchChroma':
+            case 'oklchHue': {
+                const oklch = this.toOKLCH().setChannelValue(channel, value);
+                return oklch.toRGB();
+            }
             default: {
                 const hsb = this.toHSB().setChannelValue(channel, value);
                 return hsb.toRGB();
@@ -670,9 +726,11 @@ export function parseColor(value: string | ColorInstance | null | undefined): Co
         return new HSBColor(parseFloat(hsbMatch[1]), parseFloat(hsbMatch[2]), parseFloat(hsbMatch[3]), hsbMatch[4] !== undefined ? parseFloat(hsbMatch[4]) : 1);
     }
 
-    const oklchMatch = str.match(/^oklch\(\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)\s*(?:\/\s*([\d.]+))?\s*\)$/i);
+    const oklchMatch = str.match(/^oklch\(\s*([\d.]+)(%?)\s+([\d.]+)\s+([\d.]+)\s*(?:\/\s*([\d.]+))?\s*\)$/i);
     if (oklchMatch) {
-        return new OKLCHColor(parseFloat(oklchMatch[1]), parseFloat(oklchMatch[2]), parseFloat(oklchMatch[3]), oklchMatch[4] !== undefined ? parseFloat(oklchMatch[4]) : 1);
+        const lVal = parseFloat(oklchMatch[1]);
+        const l = oklchMatch[2] === '%' ? lVal / 100 : lVal;
+        return new OKLCHColor(l, parseFloat(oklchMatch[3]), parseFloat(oklchMatch[4]), oklchMatch[5] !== undefined ? parseFloat(oklchMatch[5]) : 1);
     }
 
     return null;
@@ -709,49 +767,87 @@ export function getInputChannelRange(channel: ColorInputChannel): ColorChannelRa
     return getChannelRange(channel as ColorSliderChannel);
 }
 
-export function getChannelGradient(color: ColorInstance, channel: ColorSliderChannel): string {
+export function getChannelGradient(color: ColorInstance, channel: ColorSliderChannel, orientation: 'horizontal' | 'vertical' = 'horizontal'): string {
     const range = getChannelRange(channel);
-    const steps = channel === 'hue' || channel === 'oklchHue' ? 36 : 10;
-    const colors: string[] = [];
+    const direction = orientation === 'horizontal' ? 'right' : 'bottom';
 
-    for (let i = 0; i <= steps; i++) {
-        const value = range.minValue + (i / steps) * (range.maxValue - range.minValue);
-        const c = color.setChannelValue(channel as ColorChannel, value);
-        colors.push(c.toRgbString());
+    switch (channel) {
+        case 'hue':
+        case 'oklchHue':
+            return `linear-gradient(to ${direction}, rgb(255, 0, 0) 0%, rgb(255, 255, 0) 17%, rgb(0, 255, 0) 33%, rgb(0, 255, 255) 50%, rgb(0, 0, 255) 67%, rgb(255, 0, 255) 83%, rgb(255, 0, 0) 100%)`;
+
+        case 'lightness':
+        case 'oklchLightness': {
+            const start = color.setChannelValue(channel as ColorChannel, range.minValue).toRgbString();
+            const middle = color.setChannelValue(channel as ColorChannel, (range.maxValue - range.minValue) / 2).toRgbString();
+            const end = color.setChannelValue(channel as ColorChannel, range.maxValue).toRgbString();
+            return `linear-gradient(to ${direction}, ${start}, ${middle}, ${end})`;
+        }
+
+        case 'alpha': {
+            const start = color.setChannelValue('alpha', range.minValue).toRgbString();
+            const end = color.setChannelValue('alpha', range.maxValue).toRgbString();
+            return `linear-gradient(to ${direction}, ${start}, ${end})`;
+        }
+
+        default: {
+            const start = color.setChannelValue(channel as ColorChannel, range.minValue).toRgbString();
+            const end = color.setChannelValue(channel as ColorChannel, range.maxValue).toRgbString();
+            return `linear-gradient(to ${direction}, ${start}, ${end})`;
+        }
     }
-
-    return `linear-gradient(to right, ${colors.join(', ')})`;
 }
 
-export function getChannelColor(color: ColorInstance, channel: ColorSliderChannel): string {
-    return color.toRgbString();
-}
+const channelGenerators: Record<string, (color: ColorInstance) => string> = {
+    hue: (color) => [0, 60, 120, 180, 240, 300, 360].map((h) => color.setChannelValue('hue', h).toRgbString()).join(', '),
+    saturation: (color) => `${color.setChannelValue('saturation', 0).toRgbString()}, transparent`,
+    lightness: () => 'black, transparent, white',
+    brightness: () => 'black, transparent',
+    oklchHue: (color) => [0, 60, 120, 180, 240, 300, 360].map((h) => color.setChannelValue('oklchHue', h).toRgbString()).join(', '),
+    oklchChroma: (color) => `${color.setChannelValue('oklchChroma', 0).toRgbString()}, transparent`,
+    oklchLightness: () => 'black, transparent, white'
+};
 
-export function getAreaGradient(color: ColorInstance, xChannel: ColorSliderChannel, yChannel: ColorSliderChannel): string {
-    const xRange = getChannelRange(xChannel);
+export function getAreaGradient(color: ColorInstance, xChannel: ColorSliderChannel, yChannel: ColorSliderChannel, format: ColorSpace): string {
+    const axes3d = getDefault3DAxes(format);
+    const zChannel = axes3d.zChannel;
+    const zValue = color.getChannelValue(zChannel as ColorChannel);
 
-    const xSteps = 10;
-    const xColors: string[] = [];
-    for (let i = 0; i <= xSteps; i++) {
-        const value = xRange.minValue + (i / xSteps) * (xRange.maxValue - xRange.minValue);
-        const c = color.setChannelValue(xChannel as ColorChannel, value).setChannelValue(yChannel as ColorChannel, getChannelRange(yChannel).maxValue);
-        xColors.push(c.toRgbString());
+    const isHSL = format === 'hsla';
+
+    let base: ColorInstance;
+    if (isHSL) {
+        base = (parseColor('hsl(0, 100%, 50%)') as ColorInstance).setChannelValue(zChannel as ColorChannel, zValue);
+    } else {
+        base = (parseColor('hsb(0, 100%, 100%)') as ColorInstance).setChannelValue(zChannel as ColorChannel, zValue);
     }
 
-    return `linear-gradient(to right, ${xColors.join(', ')})`;
-}
+    const channels = [xChannel, yChannel];
+    const direction = (c: string) => (c === xChannel ? 'right' : 'top');
 
-export function getAreaBackgroundGradient(yChannel: ColorSliderChannel): string {
-    if (yChannel === 'brightness' || yChannel === 'lightness') {
-        return 'linear-gradient(to bottom, transparent, black)';
+    const layers = channels
+        .map((c) => {
+            const gen = channelGenerators[c];
+            if (!gen) return null;
+            return `linear-gradient(to ${direction(c)}, ${gen(base)})`;
+        })
+        .filter(Boolean)
+        .reverse() as string[];
+
+    const isHueZ = zChannel === 'hue' || zChannel === 'oklchHue';
+    if (isHueZ) {
+        layers.push(base.toRgbString());
     }
-    return 'linear-gradient(to bottom, transparent, black)';
+
+    return layers.join(', ');
 }
 
 export function getInputChannelValue(color: ColorInstance, channel: ColorInputChannel): string {
     if (channel === 'hex') {
-        const hex = color.toHex();
-        return hex.startsWith('#') ? hex.substring(1) : hex;
+        return color.toHex();
+    }
+    if (channel === 'css') {
+        return color.toOklchString();
     }
     const value = color.getChannelValue(channel);
     const range = getChannelRange(channel as ColorSliderChannel);
@@ -763,12 +859,11 @@ export function getInputChannelValue(color: ColorInstance, channel: ColorInputCh
 
 export function getDefault2DAxes(format: ColorSpace): Color2DAxes {
     switch (format) {
-        case 'hsba':
-            return { xChannel: 'saturation', yChannel: 'brightness' };
         case 'hsla':
             return { xChannel: 'saturation', yChannel: 'lightness' };
+        case 'hsba':
+        case 'rgba':
         case 'oklch':
-            return { xChannel: 'oklchChroma', yChannel: 'oklchLightness' };
         default:
             return { xChannel: 'saturation', yChannel: 'brightness' };
     }
@@ -776,12 +871,11 @@ export function getDefault2DAxes(format: ColorSpace): Color2DAxes {
 
 export function getDefault3DAxes(format: ColorSpace): Color3DAxes {
     switch (format) {
-        case 'hsba':
-            return { xChannel: 'saturation', yChannel: 'brightness', zChannel: 'hue' };
         case 'hsla':
             return { xChannel: 'saturation', yChannel: 'lightness', zChannel: 'hue' };
+        case 'hsba':
+        case 'rgba':
         case 'oklch':
-            return { xChannel: 'oklchChroma', yChannel: 'oklchLightness', zChannel: 'oklchHue' };
         default:
             return { xChannel: 'saturation', yChannel: 'brightness', zChannel: 'hue' };
     }

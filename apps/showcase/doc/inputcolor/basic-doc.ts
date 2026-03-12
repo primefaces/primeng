@@ -57,12 +57,12 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
                 </p-inputcolor-area>
                 <div class="flex items-center gap-2">
                     <div class="flex-1 space-y-1 mr-1">
-                        <p-inputcolor-slider channel="hue" orientation="horizontal">
+                        <p-inputcolor-slider>
                             <p-inputcolor-transparency-grid />
                             <p-inputcolor-slider-track />
                             <p-inputcolor-slider-thumb />
                         </p-inputcolor-slider>
-                        <p-inputcolor-slider channel="alpha" orientation="horizontal">
+                        <p-inputcolor-slider channel="alpha">
                             <p-inputcolor-transparency-grid />
                             <p-inputcolor-slider-track />
                             <p-inputcolor-slider-thumb />
@@ -77,42 +77,37 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
                     </p-inputcolor-eyedropper>
                 </div>
                 <div class="flex items-center gap-2">
-                    <p-select [(ngModel)]="format" [options]="formatOptions" optionLabel="label" optionValue="value" class="w-full md:w-26" />
+                    <p-select [(ngModel)]="format" [options]="formatOptions" optionLabel="label" optionValue="value" class="w-26 shrink-0" />
                     <div class="flex-1">
                         @if (format === 'hex') {
-                            <p-inputcolor-input channel="hex" />
+                            <p-inputcolor-input [fluid]="true" channel="hex" />
                         }
                         @if (format === 'rgba') {
                             <p-inputgroup>
-                                <p-inputcolor-input channel="red" />
-                                <p-inputcolor-input channel="green" />
-                                <p-inputcolor-input channel="blue" />
-                                <p-inputcolor-input channel="alpha" />
+                                <p-inputcolor-input [fluid]="true" channel="red" />
+                                <p-inputcolor-input [fluid]="true" channel="green" />
+                                <p-inputcolor-input [fluid]="true" channel="blue" />
+                                <p-inputcolor-input [fluid]="true" channel="alpha" />
                             </p-inputgroup>
                         }
                         @if (format === 'hsba') {
                             <p-inputgroup>
-                                <p-inputcolor-input channel="hue" />
-                                <p-inputcolor-input channel="saturation" />
-                                <p-inputcolor-input channel="brightness" />
-                                <p-inputcolor-input channel="alpha" />
+                                <p-inputcolor-input [fluid]="true" channel="hue" />
+                                <p-inputcolor-input [fluid]="true" channel="saturation" />
+                                <p-inputcolor-input [fluid]="true" channel="brightness" />
+                                <p-inputcolor-input [fluid]="true" channel="alpha" />
                             </p-inputgroup>
                         }
                         @if (format === 'hsla') {
                             <p-inputgroup>
-                                <p-inputcolor-input channel="hue" />
-                                <p-inputcolor-input channel="saturation" />
-                                <p-inputcolor-input channel="lightness" />
-                                <p-inputcolor-input channel="alpha" />
+                                <p-inputcolor-input [fluid]="true" channel="hue" />
+                                <p-inputcolor-input [fluid]="true" channel="saturation" />
+                                <p-inputcolor-input [fluid]="true" channel="lightness" />
+                                <p-inputcolor-input [fluid]="true" channel="alpha" />
                             </p-inputgroup>
                         }
                         @if (format === 'oklcha') {
-                            <p-inputgroup>
-                                <p-inputcolor-input channel="oklchLightness" />
-                                <p-inputcolor-input channel="oklchChroma" />
-                                <p-inputcolor-input channel="oklchHue" />
-                                <p-inputcolor-input channel="alpha" />
-                            </p-inputgroup>
+                            <p-inputcolor-input [fluid]="true" channel="css" />
                         }
                     </div>
                 </div>
