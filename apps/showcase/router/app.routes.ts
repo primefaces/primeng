@@ -122,6 +122,7 @@ export const routes: Routes = [
             { path: 'image', loadChildren: () => import('@/pages/image/routes') },
             { path: 'imagecompare', loadChildren: () => import('@/pages/imagecompare/routes') },
             { path: 'inplace', loadChildren: () => import('@/pages/inplace/routes') },
+            { path: 'inputcolor', loadChildren: () => import('@/pages/inputcolor/routes') },
             { path: 'fluid', loadChildren: () => import('@/pages/fluid/routes') },
             {
                 path: 'metergroup',

@@ -1,0 +1,1 @@
+export * from './inputcolor.types';

@@ -76,6 +76,11 @@
                             "routerLink": "/colorpicker"
                         },
                         {
+                            "name": "InputColor",
+                            "routerLink": "/inputcolor",
+                            "badge": "NEW"
+                        },
+                        {
                             "name": "DatePicker",
                             "routerLink": "/datepicker"
                         },
