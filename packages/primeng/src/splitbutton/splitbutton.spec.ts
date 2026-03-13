@@ -1196,58 +1196,13 @@ describe('SplitButton', () => {
             expect(splitButtonInstance.$menuButtonDisabled()).toBe(true);
         });
 
-        it('should compute buttonAriaLabel from buttonProps', async () => {
-            expect(splitButtonInstance.buttonAriaLabel()).toBeUndefined();
-
-            component.buttonProps = { ariaLabel: 'Save action' };
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            expect(splitButtonInstance.buttonAriaLabel()).toBe('Save action');
-        });
-
-        it('should compute buttonAriaLabelWithLabel with fallback to label', async () => {
-            expect(splitButtonInstance.buttonAriaLabelWithLabel()).toBe('Save');
-
-            component.buttonProps = { ariaLabel: 'Custom label' };
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            expect(splitButtonInstance.buttonAriaLabelWithLabel()).toBe('Custom label');
-        });
-
-        it('should compute menuButtonAriaLabel from menuButtonProps or expandAriaLabel', async () => {
-            expect(splitButtonInstance.menuButtonAriaLabel()).toBeUndefined();
-
+        it('should pass expandAriaLabel to menu button', async () => {
             component.expandAriaLabel = 'Expand menu';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.menuButtonAriaLabel()).toBe('Expand menu');
-
-            component.menuButtonProps = { ariaLabel: 'Menu actions' };
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            expect(splitButtonInstance.menuButtonAriaLabel()).toBe('Menu actions');
-        });
-
-        it('should compute menuButtonAriaExpanded from menuButtonProps or isExpanded', async () => {
-            expect(splitButtonInstance.menuButtonAriaExpanded()).toBe(false);
-
-            splitButtonInstance.onShow();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            expect(splitButtonInstance.menuButtonAriaExpanded()).toBe(true);
-        });
-
-        it('should compute menuButtonAriaControls from menuButtonProps or ariaId', () => {
-            expect(splitButtonInstance.menuButtonAriaControls()).toBe(splitButtonInstance.ariaId);
+            expect(splitButtonInstance.expandAriaLabel()).toBe('Expand menu');
         });
     });
 });

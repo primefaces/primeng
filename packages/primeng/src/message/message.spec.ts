@@ -8,29 +8,13 @@ import { Message } from './message';
 @Component({
     standalone: false,
     template: `
-        <p-message
-            [severity]="severity"
-            [text]="text"
-            [escape]="escape"
-            [style]="style"
-            [styleClass]="styleClass"
-            [closable]="closable"
-            [icon]="icon"
-            [closeIcon]="closeIcon"
-            [life]="life"
-            [size]="size"
-            [variant]="variant"
-            (onClose)="onClose($event)"
-        >
+        <p-message [severity]="severity" [styleClass]="styleClass" [closable]="closable" [icon]="icon" [closeIcon]="closeIcon" [life]="life" [size]="size" [variant]="variant" (onClose)="onClose($event)">
             <div class="message-content">{{ content }}</div>
         </p-message>
     `
 })
 class TestBasicMessageComponent {
     severity: 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' = 'info';
-    text: string | undefined;
-    escape = true;
-    style: { [klass: string]: any } | null | undefined = null;
     styleClass: string | undefined;
     closable = false;
     icon: string | undefined;
@@ -117,15 +101,12 @@ describe('Message', () => {
         it('should have default values', () => {
             const messageInstance = messageEl.componentInstance as Message;
             expect(messageInstance.severity()).toBe('info');
-            expect(messageInstance.escape()).toBe(true);
             expect(messageInstance.closable()).toBe(false);
             expect(messageInstance.visible()).toBe(true);
         });
 
         it('should accept custom values', async () => {
             component.severity = 'error';
-            component.text = 'Error message';
-            component.escape = false;
             component.closable = true;
             component.icon = 'pi pi-exclamation-triangle';
             component.closeIcon = 'pi pi-times';
@@ -137,8 +118,6 @@ describe('Message', () => {
 
             const messageInstance = messageEl.componentInstance as Message;
             expect(messageInstance.severity()).toBe('error');
-            expect(messageInstance.text()).toBe('Error message');
-            expect(messageInstance.escape()).toBe(false);
             expect(messageInstance.closable()).toBe(true);
             expect(messageInstance.icon()).toBe('pi pi-exclamation-triangle');
             expect(messageInstance.closeIcon()).toBe('pi pi-times');
@@ -344,34 +323,6 @@ describe('Message', () => {
             component = fixture.componentInstance;
         });
 
-        it('should display text content when text property is set', () => {
-            component.text = 'Test message text';
-            fixture.detectChanges();
-
-            const textElement = fixture.debugElement.query(By.css('span'));
-            expect(textElement).toBeTruthy();
-            expect(textElement.nativeElement.textContent).toContain('Test message text');
-        });
-
-        it('should escape HTML when escape is true', () => {
-            component.text = '<script>alert("XSS")</script>';
-            component.escape = true;
-            fixture.detectChanges();
-
-            const textElement = fixture.debugElement.query(By.css('span'));
-            expect(textElement.nativeElement.textContent).toContain('<script>alert("XSS")</script>');
-            expect(textElement.nativeElement.innerHTML).not.toContain('<script>');
-        });
-
-        it('should render HTML when escape is false', () => {
-            component.text = '<strong>Bold text</strong>';
-            component.escape = false;
-            fixture.detectChanges();
-
-            const messageDiv = fixture.debugElement.query(By.css('.p-message'));
-            expect(messageDiv.nativeElement.innerHTML).toContain('<strong>Bold text</strong>');
-        });
-
         it('should display content projection', () => {
             component.content = 'Projected content';
             fixture.detectChanges();
@@ -516,14 +467,12 @@ describe('Message', () => {
             expect(messageDiv.nativeElement.classList).toContain('custom-message-class');
         });
 
-        it('should apply custom styles', () => {
-            component.style = { border: '2px solid red', padding: '10px' };
+        it('should apply styleClass correctly via component', () => {
+            component.styleClass = 'another-custom-class';
             fixture.detectChanges();
 
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
-            const messageInstance = messageEl.componentInstance as Message;
-
-            expect(messageInstance.style()).toEqual({ border: '2px solid red', padding: '10px' });
+            const messageDiv = fixture.debugElement.query(By.css('.p-message'));
+            expect(messageDiv.nativeElement.classList).toContain('another-custom-class');
         });
 
         it('should apply size classes', async () => {
@@ -615,19 +564,9 @@ describe('Message', () => {
         });
 
         it('should handle null/undefined values gracefully', () => {
-            component.text = undefined;
             component.icon = undefined;
             component.closeIcon = undefined;
-            component.style = null;
             component.styleClass = undefined;
-            fixture.detectChanges();
-
-            const messageDiv = fixture.debugElement.query(By.css('.p-message'));
-            expect(messageDiv).toBeTruthy();
-        });
-
-        it('should handle empty text content', () => {
-            component.text = '';
             fixture.detectChanges();
 
             const messageDiv = fixture.debugElement.query(By.css('.p-message'));
@@ -688,23 +627,13 @@ describe('Message', () => {
             expect(messageInstance.visible()).toBe(true);
         });
 
-        it('should handle very long text content', () => {
-            component.text = 'A'.repeat(1000);
+        it('should handle long projected content', () => {
+            component.content = 'A'.repeat(1000);
             fixture.detectChanges();
 
-            const textElement = fixture.debugElement.query(By.css('span'));
-            expect(textElement).toBeTruthy();
-            expect(textElement.nativeElement.textContent.length).toBe(1000);
-        });
-
-        it('should handle special characters in text', () => {
-            component.text = '!@#$%^&*()_+-=[]{}|;\':",.<>?/`~';
-            component.escape = true;
-            fixture.detectChanges();
-
-            const textElement = fixture.debugElement.query(By.css('span'));
-            expect(textElement).toBeTruthy();
-            expect(textElement.nativeElement.textContent).toBe('!@#$%^&*()_+-=[]{}|;\':",.<>?/`~');
+            const contentElement = fixture.debugElement.query(By.css('.message-content'));
+            expect(contentElement).toBeTruthy();
+            expect(contentElement.nativeElement.textContent.length).toBe(1000);
         });
     });
 

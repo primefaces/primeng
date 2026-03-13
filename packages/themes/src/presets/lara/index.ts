@@ -87,7 +87,7 @@ import tree from '@primeng/themes/lara/tree';
 import treeselect from '@primeng/themes/lara/treeselect';
 import treetable from '@primeng/themes/lara/treetable';
 import virtualscroller from '@primeng/themes/lara/virtualscroller';
-import type { LaraBaseDesignTokens } from '@primeuix/themes/lara/base';
+import type { BaseDesignTokens as LaraBaseDesignTokens } from '@primeuix/themes/lara/base';
 import type { Preset } from '@primeuix/themes/types';
 
 export default {
