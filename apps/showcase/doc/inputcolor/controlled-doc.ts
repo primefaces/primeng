@@ -16,6 +16,7 @@ import {
     parseColor,
     ColorInstance
 } from 'primeng/inputcolor';
+import { InputText } from 'primeng/inputtext';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
@@ -38,6 +39,7 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
         InputColorTransparencyGrid,
         InputColorInput,
         InputColorEyeDropper,
+        InputText,
         AppDocSectionText,
         AppCode,
         AppDemoWrapper,
@@ -77,9 +79,7 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
                             <svg data-p-icon="eye-dropper" />
                         </p-inputcolor-eyedropper>
                     </div>
-                    <div>
-                        <p-inputcolor-input [fluid]="true" channel="hex" />
-                    </div>
+                    <input pInputText pInputColorInput [fluid]="true" channel="hex" />
                 </p-inputcolor>
             </div>
 

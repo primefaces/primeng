@@ -1,35 +1,18 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
+import { computed, Directive, effect, inject, input } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { InputText } from 'primeng/inputtext';
-import type { InputSize, InputVariant } from 'primeng/types/shared';
 import { ColorChannel, ColorInputChannel, ColorSliderChannel, getChannelRange, getInputChannelValue, parseColor } from './color-manager';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
 import { InputColorInputStyle } from './style/inputcolorinputstyle';
 
-@Component({
-    selector: 'p-inputcolor-input',
+@Directive({
+    selector: '[pInputColorInput]',
     standalone: true,
-    imports: [InputText],
-    template: `<input
-        pInputText
-        [class]="$inputClass()"
-        [style]="hostStyle()"
-        [type]="$inputType()"
-        [pSize]="size()"
-        [variant]="variant()"
-        [fluid]="fluid()"
-        [invalid]="invalid()"
-        [attr.data-channel]="channel()"
-        [value]="$displayValue()"
-        (input)="onInput($event)"
-        (blur)="onBlur($event)"
-        (keydown.enter)="onEnter($event)"
-    />`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
     host: {
-        style: 'display: contents;'
+        '[class]': "cx('root')",
+        '[attr.data-channel]': 'channel()',
+        '(input)': 'onInput($event)',
+        '(blur)': 'onBlur($event)',
+        '(keydown.enter)': 'onEnter($event)'
     },
     providers: [InputColorInputStyle, { provide: PARENT_INSTANCE, useExisting: InputColorInput }]
 })
@@ -47,52 +30,10 @@ export class InputColorInput extends BaseComponent {
     channel = input.required<ColorInputChannel>();
 
     /**
-     * Defines the size of the input.
-     * @group Props
-     */
-    size = input<InputSize>();
-
-    /**
-     * Specifies the input variant.
-     * @group Props
-     */
-    variant = input<InputVariant>();
-
-    /**
-     * Spans 100% width of the container when enabled.
-     * @group Props
-     */
-    fluid = input(undefined, { transform: booleanAttribute });
-
-    /**
-     * When present, it specifies that the component should have invalid state style.
-     * @group Props
-     */
-    invalid = input(undefined, { transform: booleanAttribute });
-
-    /**
-     * The type of the input element.
+     * The input type attribute.
      * @group Props
      */
     type = input<string>();
-
-    /**
-     * Style class to forward to the inner input element.
-     * @group Props
-     */
-    hostClass = input<string>('', { alias: 'class' });
-
-    /**
-     * Inline style to forward to the inner input element.
-     * @group Props
-     */
-    hostStyle = input<string>('', { alias: 'style' });
-
-    $inputClass = computed(() => {
-        const base = this.cx('root');
-        const extra = this.hostClass();
-        return extra ? `${base} ${extra}` : base;
-    });
 
     $inputType = computed(() => {
         const t = this.type();
@@ -108,6 +49,18 @@ export class InputColorInput extends BaseComponent {
     });
 
     private pendingValue: string | null = null;
+
+    constructor() {
+        super();
+
+        effect(() => {
+            this.el.nativeElement.type = this.$inputType();
+        });
+
+        effect(() => {
+            this.el.nativeElement.value = String(this.$displayValue() ?? '');
+        });
+    }
 
     onInput(event: Event) {
         const target = event.target as HTMLInputElement;
