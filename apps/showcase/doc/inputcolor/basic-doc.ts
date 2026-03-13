@@ -70,7 +70,7 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
                             <p-inputcolor-slider-thumb />
                         </p-inputcolor-slider>
                     </div>
-                    <p-inputcolor-swatch>
+                    <p-inputcolor-swatch class="shrink-0">
                         <p-inputcolor-transparency-grid />
                         <p-inputcolor-swatch-background />
                     </p-inputcolor-swatch>
@@ -79,7 +79,7 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
                     </p-inputcolor-eyedropper>
                 </div>
                 <div class="flex items-center gap-2">
-                    <p-select [(ngModel)]="format" [options]="formatOptions" optionLabel="label" optionValue="value" class="w-26 shrink-0" />
+                    <p-select [(ngModel)]="format" [options]="formatOptions" optionLabel="label" optionValue="value" class="w-28" />
                     <div class="flex-1">
                         @if (format === 'hex') {
                             <input pInputText pInputColorInput [fluid]="true" channel="hex" />

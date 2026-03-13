@@ -115,7 +115,7 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
                         <p-inputcolor-slider-thumb />
                     </p-inputcolor-slider>
                     <div class="flex gap-2">
-                        <p-inputcolor-swatch>
+                        <p-inputcolor-swatch class="shrink-0">
                             <p-inputcolor-transparency-grid />
                             <p-inputcolor-swatch-background />
                         </p-inputcolor-swatch>
