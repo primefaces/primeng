@@ -45,7 +45,8 @@ export class InputColorInput extends BaseComponent {
     $displayValue = computed(() => {
         const ch = this.channel();
         const color = this.$pc.$color();
-        return getInputChannelValue(color, ch);
+        const format = this.$pc.format();
+        return getInputChannelValue(color, ch, format);
     });
 
     private pendingValue: string | null = null;

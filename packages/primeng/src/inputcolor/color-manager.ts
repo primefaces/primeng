@@ -1,6 +1,6 @@
 export type ColorSpace = 'hsba' | 'hsla' | 'rgba' | 'hexa' | 'oklch';
 
-export type ColorOutputFormat = ColorSpace | 'hex' | 'rgb' | 'hsl' | 'hsb' | 'css';
+export type ColorOutputFormat = ColorSpace | 'hex' | 'rgb' | 'hsl' | 'hsb' | 'oklcha' | 'css';
 
 export type ColorChannel = 'hue' | 'saturation' | 'brightness' | 'lightness' | 'red' | 'green' | 'blue' | 'alpha' | 'hex' | 'oklchLightness' | 'oklchChroma' | 'oklchHue';
 
@@ -32,7 +32,6 @@ export interface ColorOutput {
     toRgbString(): string;
     toHslString(): string;
     toHsbString(): string;
-    toOklchString(): string;
 }
 
 export type ColorInstance = HSBColor | HSLColor | RGBColor | OKLCHColor;
@@ -44,6 +43,10 @@ function clamp(value: number, min: number, max: number): number {
 function round(value: number, decimals: number = 0): number {
     const factor = Math.pow(10, decimals);
     return Math.round(value * factor) / factor;
+}
+
+function multiplyMatrices(matrix: number[], vector: number[]): number[] {
+    return [matrix[0] * vector[0] + matrix[1] * vector[1] + matrix[2] * vector[2], matrix[3] * vector[0] + matrix[4] * vector[1] + matrix[5] * vector[2], matrix[6] * vector[0] + matrix[7] * vector[1] + matrix[8] * vector[2]];
 }
 
 function mod(n: number, m: number): number {
@@ -116,7 +119,7 @@ export abstract class Color implements ColorOutput {
 
     toHslString(): string {
         const hsl = this.toHSL();
-        const h = Math.round(hsl.hue);
+        const h = Math.round(hsl.hue) % 360;
         const s = Math.round(hsl.saturation);
         const l = Math.round(hsl.lightness);
         if (this.alpha < 1) {
@@ -127,22 +130,13 @@ export abstract class Color implements ColorOutput {
 
     toHsbString(): string {
         const hsb = this.toHSB();
-        const h = Math.round(hsb.hue);
+        const h = Math.round(hsb.hue) % 360;
         const s = Math.round(hsb.saturation);
         const b = Math.round(hsb.brightness);
         if (this.alpha < 1) {
             return `hsba(${h}, ${s}%, ${b}%, ${round(this.alpha, 2)})`;
         }
         return `hsb(${h}, ${s}%, ${b}%)`;
-    }
-
-    toOklchString(): string {
-        const oklch = this.toOKLCH();
-        const l = round(oklch.oklchLightness * 100, 2);
-        const c = round(oklch.oklchChroma, 4);
-        const h = round(oklch.oklchHue, 2);
-        const a = round(this.alpha, 2);
-        return `oklch(${l}% ${c} ${h} / ${a})`;
     }
 
     toString(format?: ColorOutputFormat): string {
@@ -162,7 +156,7 @@ export abstract class Color implements ColorOutput {
             case 'hsba':
                 return this.toHsbString();
             case 'oklch':
-                return this.toOklchString();
+                return this.toOKLCH().toString('oklch');
             case 'css':
                 return this.toHex();
             default:
@@ -198,7 +192,7 @@ export class HSBColor extends Color {
         private _alpha: number = 1
     ) {
         super();
-        this.hue = hue >= 0 && hue <= 360 ? hue : mod(hue, 360);
+        this.hue = mod(hue, 360);
         this.saturation = clamp(saturation, 0, 100);
         this.brightness = clamp(brightness, 0, 100);
         this._alpha = clamp(_alpha, 0, 1);
@@ -339,7 +333,7 @@ export class HSLColor extends Color {
         private _alpha: number = 1
     ) {
         super();
-        this.hue = hue >= 0 && hue <= 360 ? hue : mod(hue, 360);
+        this.hue = mod(hue, 360);
         this.saturation = clamp(saturation, 0, 100);
         this.lightness = clamp(lightness, 0, 100);
         this._alpha = clamp(_alpha, 0, 1);
@@ -571,28 +565,23 @@ export class RGBColor extends Color {
     }
 
     toOKLCH(): OKLCHColor {
-        const toLinear = (c: number) => {
-            c = c / 255;
-            return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-        };
+        const rgb = [this.red / 255, this.green / 255, this.blue / 255];
+        const rgbLinear = rgb.map((c) => (Math.abs(c) <= 0.04045 ? c / 12.92 : (c < 0 ? -1 : 1) * ((Math.abs(c) + 0.055) / 1.055) ** 2.4));
 
-        const lr = toLinear(this.red);
-        const lg = toLinear(this.green);
-        const lb = toLinear(this.blue);
+        const xyz = multiplyMatrices([0.41239079926595934, 0.357584339383878, 0.1804807884018343, 0.21263900587151027, 0.715168678767756, 0.07219231536073371, 0.01933081871559182, 0.11919477979462598, 0.9505321522496607], rgbLinear);
+        const LMS = multiplyMatrices([0.819022437996703, 0.3619062600528904, -0.1288737815209879, 0.0329836539323885, 0.9292868615863434, 0.0361446663506424, 0.0481771893596242, 0.2642395317527308, 0.6335478284694309], xyz);
+        const LMSg = LMS.map((val) => Math.cbrt(val));
 
-        const l_ = Math.cbrt(0.4122214708 * lr + 0.5363325363 * lg + 0.0514459929 * lb);
-        const m_ = Math.cbrt(0.2119034982 * lr + 0.6806995451 * lg + 0.1073969566 * lb);
-        const s_ = Math.cbrt(0.0883024619 * lr + 0.2817188376 * lg + 0.6299787005 * lb);
+        const [L, a, b] = multiplyMatrices([0.210454268309314, 0.7936177747023054, -0.0040720430116193, 1.9779985324311684, -2.4285922420485799, 0.450593709617411, 0.0259040424655478, 0.7827717124575296, -0.8086757549230774], LMSg);
 
-        const L = 0.2104542553 * l_ + 0.793617785 * m_ - 0.0040720468 * s_;
-        const a = 1.9779984951 * l_ - 2.428592205 * m_ + 0.4505937099 * s_;
-        const b = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.808675766 * s_;
+        const C = Math.sqrt(a ** 2 + b ** 2);
+        const H = Math.abs(a) < 0.0002 && Math.abs(b) < 0.0002 ? NaN : ((((Math.atan2(b, a) * 180) / Math.PI) % 360) + 360) % 360;
 
-        const C = Math.sqrt(a * a + b * b);
-        let H = (Math.atan2(b, a) * 180) / Math.PI;
-        if (H < 0) H += 360;
+        const outL = Number(Math.min(1, Math.max(0, L)).toFixed(4));
+        const outC = Number(C.toFixed(4));
+        const outH = Number.isNaN(H) ? NaN : Number(H.toFixed(2));
 
-        return new OKLCHColor(L, C, H, this._alpha);
+        return new OKLCHColor(outL, outC, outH, Number(this._alpha.toFixed(2)));
     }
 
     clone(): RGBColor {
@@ -612,7 +601,7 @@ export class OKLCHColor extends Color {
         super();
         this.oklchLightness = clamp(oklchLightness, 0, 1);
         this.oklchChroma = clamp(oklchChroma, 0, 0.4);
-        this.oklchHue = oklchHue >= 0 && oklchHue <= 360 ? oklchHue : mod(oklchHue, 360);
+        this.oklchHue = Number.isNaN(oklchHue) ? NaN : mod(oklchHue, 360);
         this._alpha = clamp(_alpha, 0, 1);
     }
 
@@ -658,8 +647,8 @@ export class OKLCHColor extends Color {
 
     toRGB(): RGBColor {
         const hRad = (this.oklchHue * Math.PI) / 180;
-        const a = this.oklchChroma * Math.cos(hRad);
-        const b = this.oklchChroma * Math.sin(hRad);
+        const a = Number.isNaN(this.oklchHue) ? 0 : this.oklchChroma * Math.cos(hRad);
+        const b = Number.isNaN(this.oklchHue) ? 0 : this.oklchChroma * Math.sin(hRad);
 
         const l_ = this.oklchLightness + 0.3963377774 * a + 0.2158037573 * b;
         const m_ = this.oklchLightness - 0.1055613458 * a - 0.0638541728 * b;
@@ -683,6 +672,28 @@ export class OKLCHColor extends Color {
 
     toOKLCH(): OKLCHColor {
         return this.clone();
+    }
+
+    override toString(format?: ColorOutputFormat): string {
+        const f = format || this.colorSpace;
+        switch (f) {
+            case 'oklch': {
+                const l = Number.isNaN(this.oklchLightness) ? 0 : Number((this.oklchLightness * 100).toFixed(2));
+                const c = Number.isNaN(this.oklchChroma) ? 0 : Number(this.oklchChroma.toFixed(4));
+                const h = Number.isNaN(this.oklchHue) ? 0 : Number(this.oklchHue.toFixed(2));
+                return `oklch(${l}% ${c} ${h})`;
+            }
+            case 'oklcha':
+            case 'css': {
+                const l = Number.isNaN(this.oklchLightness) ? 0 : Number((this.oklchLightness * 100).toFixed(2));
+                const c = Number.isNaN(this.oklchChroma) ? 0 : Number(this.oklchChroma.toFixed(4));
+                const h = Number.isNaN(this.oklchHue) ? 0 : Number(this.oklchHue.toFixed(2));
+                const a = Number.isNaN(this._alpha) ? 1 : Number(this._alpha.toFixed(2));
+                return `oklch(${l}% ${c} ${h} / ${a})`;
+            }
+            default:
+                return super.toString(f);
+        }
     }
 
     clone(): OKLCHColor {
@@ -754,6 +765,7 @@ export function parseColor(value: string | ColorInstance | null | undefined): Co
 export function getChannelRange(channel: ColorSliderChannel): ColorChannelRange {
     switch (channel) {
         case 'hue':
+            return { minValue: 0, maxValue: 360, step: 1, pageStep: 15 };
         case 'oklchHue':
             return { minValue: 0, maxValue: 360, step: 1, pageStep: 15 };
         case 'saturation':
@@ -769,7 +781,7 @@ export function getChannelRange(channel: ColorSliderChannel): ColorChannelRange 
         case 'oklchLightness':
             return { minValue: 0, maxValue: 1, step: 0.01, pageStep: 0.1 };
         case 'oklchChroma':
-            return { minValue: 0, maxValue: 0.4, step: 0.001, pageStep: 0.05 };
+            return { minValue: 0, maxValue: 0.4, step: 0.01, pageStep: 0.05 };
         default:
             return { minValue: 0, maxValue: 100, step: 1, pageStep: 10 };
     }
@@ -875,19 +887,56 @@ export function getChannelColor(color: ColorInstance, channel: ColorChannel): Co
     }
 }
 
-export function getInputChannelValue(color: ColorInstance, channel: ColorInputChannel): string {
+function toCssString(color: ColorInstance, format: ColorSpace): string {
+    const a = round(color.alpha, 2);
+    switch (format) {
+        case 'rgba':
+        case 'hexa': {
+            const rgb = color.toRGB();
+            return `rgba(${Math.round(rgb.red)}, ${Math.round(rgb.green)}, ${Math.round(rgb.blue)}, ${a})`;
+        }
+        case 'hsla': {
+            const hsl = color.toHSL();
+            return `hsla(${Math.round(hsl.hue) % 360}, ${hsl.saturation.toFixed(2)}%, ${hsl.lightness.toFixed(2)}%, ${a})`;
+        }
+        case 'hsba': {
+            // CSS doesn't support hsb, convert to hsl
+            const hsl = color.toHSL();
+            return `hsla(${Math.round(hsl.hue) % 360}, ${hsl.saturation.toFixed(2)}%, ${hsl.lightness.toFixed(2)}%, ${a})`;
+        }
+        case 'oklch': {
+            return color.toOKLCH().toString('css');
+        }
+        default:
+            return color.toOKLCH().toString('css');
+    }
+}
+
+export function getInputChannelValue(color: ColorInstance, channel: ColorInputChannel, format: ColorSpace = 'hsba'): string {
     if (channel === 'hex') {
+        if (color.alpha < 1) {
+            return color.toHexa();
+        }
         return color.toHex();
     }
     if (channel === 'css') {
-        return color.toOklchString();
+        return toCssString(color, format);
     }
     const value = color.getChannelValue(channel);
+    if (Number.isNaN(value)) return 'NaN';
     const range = getChannelRange(channel as ColorSliderChannel);
-    if (range.step < 1) {
-        return round(value, 4).toString();
+    if (channel === 'oklchHue') {
+        const rounded = round(value, 2);
+        return (rounded === 360 ? 0 : rounded).toString();
     }
-    return Math.round(value).toString();
+    if (channel === 'hue') {
+        const rounded = Math.round(value);
+        return (rounded === 360 ? 0 : rounded).toString();
+    }
+    if (range.step >= 1) {
+        return Math.round(value).toString();
+    }
+    return round(value, 4).toString();
 }
 
 export function getDefault2DAxes(format: ColorSpace): Color2DAxes {
