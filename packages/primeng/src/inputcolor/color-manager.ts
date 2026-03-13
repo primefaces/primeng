@@ -769,7 +769,7 @@ export function getInputChannelRange(channel: ColorInputChannel): ColorChannelRa
 
 export function getChannelGradient(color: ColorInstance, channel: ColorSliderChannel, orientation: 'horizontal' | 'vertical' = 'horizontal'): string {
     const range = getChannelRange(channel);
-    const direction = orientation === 'horizontal' ? 'right' : 'bottom';
+    const direction = orientation === 'horizontal' ? 'right' : 'top';
 
     switch (channel) {
         case 'hue':

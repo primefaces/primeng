@@ -14,8 +14,9 @@ import { InputColorSliderThumbStyle } from './style/inputcolorsliderthumbstyle';
     host: {
         '[class]': 'cx("root")',
         '[style.--slider-thumb-background]': '$thumbColor()',
-        '[style.left]': '$thumbPosition()',
-        '[style.translate]': "'-50% 0'",
+        '[style.left]': '$isVertical() ? null : $thumbPosition()',
+        '[style.top]': '$isVertical() ? $thumbPositionVertical() : null',
+        '[style.translate]': '$isVertical() ? "0 -50%" : "-50% 0"',
         '[attr.role]': "'slider'",
         '[attr.tabindex]': '0',
         '[attr.aria-valuemin]': '$range().minValue',
@@ -38,6 +39,7 @@ export class InputColorSliderThumb extends BaseComponent {
     private pcSlider = inject(INPUT_COLOR_SLIDER_INSTANCE);
 
     $channel = computed(() => this.pcSlider.channel());
+    $isVertical = computed(() => this.pcSlider.orientation() === 'vertical');
     $range = computed(() => getChannelRange(this.$channel()));
     $value = computed(() => this.$pc.$color().getChannelValue(this.$channel() as ColorChannel));
 
@@ -45,6 +47,13 @@ export class InputColorSliderThumb extends BaseComponent {
         const range = this.$range();
         const value = this.$value();
         const pct = ((value - range.minValue) / (range.maxValue - range.minValue)) * 100;
+        return `${pct}%`;
+    });
+
+    $thumbPositionVertical = computed(() => {
+        const range = this.$range();
+        const value = this.$value();
+        const pct = 100 - ((value - range.minValue) / (range.maxValue - range.minValue)) * 100;
         return `${pct}%`;
     });
 
