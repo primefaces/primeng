@@ -59,6 +59,17 @@ export class InputColorInput extends BaseComponent {
         });
 
         effect(() => {
+            const el = this.el.nativeElement;
+            const ch = this.channel();
+            if (ch !== 'hex' && ch !== 'css') {
+                const range = getChannelRange(ch as ColorSliderChannel);
+                el.min = String(range.minValue);
+                el.max = String(range.maxValue);
+                el.step = String(range.step);
+            }
+        });
+
+        effect(() => {
             this.el.nativeElement.value = String(this.$displayValue() ?? '');
         });
     }
