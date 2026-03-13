@@ -192,7 +192,7 @@ export class HSBColor extends Color {
         private _alpha: number = 1
     ) {
         super();
-        this.hue = mod(hue, 360);
+        this.hue = hue >= 0 && hue <= 360 ? hue : mod(hue, 360);
         this.saturation = clamp(saturation, 0, 100);
         this.brightness = clamp(brightness, 0, 100);
         this._alpha = clamp(_alpha, 0, 1);
@@ -333,7 +333,7 @@ export class HSLColor extends Color {
         private _alpha: number = 1
     ) {
         super();
-        this.hue = mod(hue, 360);
+        this.hue = hue >= 0 && hue <= 360 ? hue : mod(hue, 360);
         this.saturation = clamp(saturation, 0, 100);
         this.lightness = clamp(lightness, 0, 100);
         this._alpha = clamp(_alpha, 0, 1);
@@ -601,7 +601,7 @@ export class OKLCHColor extends Color {
         super();
         this.oklchLightness = clamp(oklchLightness, 0, 1);
         this.oklchChroma = clamp(oklchChroma, 0, 0.4);
-        this.oklchHue = Number.isNaN(oklchHue) ? NaN : mod(oklchHue, 360);
+        this.oklchHue = Number.isNaN(oklchHue) ? NaN : oklchHue >= 0 && oklchHue <= 360 ? oklchHue : mod(oklchHue, 360);
         this._alpha = clamp(_alpha, 0, 1);
     }
 
