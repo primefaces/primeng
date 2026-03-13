@@ -42,7 +42,7 @@ export class InputColorArea extends BaseComponent {
         return getAreaGradient(color, xCh, yCh, format);
     });
 
-    $thumbBackground = computed(() => this.$pc.$color().toRgbString());
+    $thumbBackground = computed(() => this.$pc.$color().setChannelValue('alpha', 1).toRgbString());
 
     $thumbLeft = computed(() => {
         const xCh = this.$xChannel();

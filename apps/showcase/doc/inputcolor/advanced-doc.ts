@@ -124,79 +124,79 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
                     </div>
                     <p-inputgroup>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="red" size="small" />
+                            <p-inputcolor-input channel="red" type="text" size="small" />
                             <label>Red</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="green" size="small" />
+                            <p-inputcolor-input channel="green" type="text" size="small" />
                             <label>Green</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="blue" size="small" />
+                            <p-inputcolor-input channel="blue" type="text" size="small" />
                             <label>Blue</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="alpha" size="small" />
+                            <p-inputcolor-input channel="alpha" type="text" size="small" />
                             <label>Alpha</label>
                         </p-floatlabel>
                     </p-inputgroup>
                     <p-inputgroup>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="hue" size="small" />
+                            <p-inputcolor-input channel="hue" type="text" size="small" />
                             <label>Hue</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="saturation" size="small" />
+                            <p-inputcolor-input channel="saturation" type="text" size="small" />
                             <label>Saturation</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="brightness" size="small" />
+                            <p-inputcolor-input channel="brightness" type="text" size="small" />
                             <label>Brightness</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="alpha" size="small" />
+                            <p-inputcolor-input channel="alpha" type="text" size="small" />
                             <label>Alpha</label>
                         </p-floatlabel>
                     </p-inputgroup>
                     <p-inputgroup>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="hue" size="small" />
+                            <p-inputcolor-input channel="hue" type="text" size="small" />
                             <label>Hue</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="saturation" size="small" />
+                            <p-inputcolor-input channel="saturation" type="text" size="small" />
                             <label>Saturation</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="lightness" size="small" />
+                            <p-inputcolor-input channel="lightness" type="text" size="small" />
                             <label>Lightness</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="alpha" size="small" />
+                            <p-inputcolor-input channel="alpha" type="text" size="small" />
                             <label>Alpha</label>
                         </p-floatlabel>
                     </p-inputgroup>
                     <p-inputgroup>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="oklchLightness" size="small" />
+                            <p-inputcolor-input channel="oklchLightness" type="text" size="small" />
                             <label>Lightness</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="oklchChroma" size="small" />
+                            <p-inputcolor-input channel="oklchChroma" type="text" size="small" />
                             <label>Chroma</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="oklchHue" size="small" />
+                            <p-inputcolor-input channel="oklchHue" type="text" size="small" />
                             <label>Hue</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <p-inputcolor-input channel="alpha" size="small" />
+                            <p-inputcolor-input channel="alpha" type="text" size="small" />
                             <label>Alpha</label>
                         </p-floatlabel>
                     </p-inputgroup>
                     <p-inputgroup>
                         <p-inputgroup-addon>CSS</p-inputgroup-addon>
-                        <p-inputcolor-input channel="css" [fluid]="true" />
+                        <p-inputcolor-input channel="css" type="text" [fluid]="true" />
                     </p-inputgroup>
                 </p-inputcolor>
             </div>

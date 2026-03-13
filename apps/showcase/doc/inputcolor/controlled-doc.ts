@@ -12,7 +12,9 @@ import {
     InputColorSwatchBackground,
     InputColorTransparencyGrid,
     InputColorInput,
-    InputColorEyeDropper
+    InputColorEyeDropper,
+    parseColor,
+    ColorInstance
 } from 'primeng/inputcolor';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -46,10 +48,10 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
             <p>Demonstrates tracking color value changes during interaction and when interaction ends.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <div class="max-w-xs mx-auto space-y-3">
-                <div class="text-center font-mono text-sm text-surface-500 mb-4">ngModelChange: {{ currentValue }}</div>
-                <div class="text-center font-mono text-sm text-surface-500 mb-4">onValueChangeEnd: {{ endValue }}</div>
-                <p-inputcolor [(ngModel)]="color" (ngModelChange)="onColorChange($event)" (onValueChangeEnd)="onColorChangeEnd($event)" class="space-y-3">
+            <div class="max-w-xs mx-auto">
+                <div class="text-center font-mono text-sm text-surface-500 mb-4">onValueChange: {{ value.toString('hex') }}</div>
+                <div class="text-center font-mono text-sm text-surface-500 mb-4">onValueChangeEnd: {{ endValue.toString('hex') }}</div>
+                <p-inputcolor [(ngModel)]="color" (onValueChange)="onColorChange($event)" (onValueChangeEnd)="onColorChangeEnd($event)" class="space-y-3">
                     <p-inputcolor-area>
                         <p-inputcolor-area-background />
                         <p-inputcolor-area-thumb />
@@ -75,7 +77,9 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
                             <svg data-p-icon="eye-dropper" />
                         </p-inputcolor-eyedropper>
                     </div>
-                    <p-inputcolor-input [fluid]="true" channel="hex" />
+                    <div>
+                        <p-inputcolor-input [fluid]="true" channel="hex" />
+                    </div>
                 </p-inputcolor>
             </div>
 
@@ -85,14 +89,14 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
 })
 export class ControlledDoc {
     color: string = '#000000';
-    currentValue: string = '#000000';
-    endValue: string = '#000000';
+    value: ColorInstance = parseColor('#000000')!;
+    endValue: ColorInstance = parseColor('#000000')!;
 
-    onColorChange(value: string) {
-        this.currentValue = value;
+    onColorChange(event: any) {
+        this.value = event.color;
     }
 
     onColorChangeEnd(event: any) {
-        this.endValue = event.color?.toString('hex') ?? this.currentValue;
+        this.endValue = event.color;
     }
 }

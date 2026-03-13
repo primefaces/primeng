@@ -80,7 +80,7 @@ export class InputColor extends BaseEditableHolder {
 
     // Computed color - resolved from internal state or default
     $color = computed<ColorInstance>(() => {
-        return this._color() || parseColor(this.defaultValue() as any) || new HSBColor(0, 100, 100, 1);
+        return this._color() || parseColor(this.defaultValue() as any) || (parseColor('#ff0000') as ColorInstance).toFormat(this.format());
     });
 
     // Computed 2D axes based on format
@@ -133,21 +133,28 @@ export class InputColor extends BaseEditableHolder {
     }
 
     toChannelNativeFormat(color: ColorInstance, channel: ColorChannel): ColorInstance {
+        // If the current color natively supports this channel, don't convert
+        if (color instanceof HSBColor && (channel === 'hue' || channel === 'saturation' || channel === 'brightness')) return color;
+        if (color instanceof HSLColor && (channel === 'hue' || channel === 'saturation' || channel === 'lightness')) return color;
+        if (color instanceof RGBColor && (channel === 'red' || channel === 'green' || channel === 'blue')) return color;
+        if (color instanceof OKLCHColor && (channel === 'oklchLightness' || channel === 'oklchChroma' || channel === 'oklchHue')) return color;
+
+        // Otherwise convert to the appropriate format
         switch (channel) {
             case 'hue':
             case 'saturation':
             case 'brightness':
-                return color instanceof HSBColor ? color : color.toHSB();
+                return color.toHSB();
             case 'lightness':
-                return color instanceof HSLColor ? color : color.toHSL();
+                return color.toHSL();
             case 'red':
             case 'green':
             case 'blue':
-                return color instanceof RGBColor ? color : color.toRGB();
+                return color.toRGB();
             case 'oklchLightness':
             case 'oklchChroma':
             case 'oklchHue':
-                return color instanceof OKLCHColor ? color : color.toOKLCH();
+                return color.toOKLCH();
             case 'alpha':
             default:
                 return color;

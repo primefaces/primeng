@@ -71,6 +71,12 @@ export class InputColorInput extends BaseComponent {
     invalid = input(undefined, { transform: booleanAttribute });
 
     /**
+     * The type of the input element.
+     * @group Props
+     */
+    type = input<string>();
+
+    /**
      * Style class to forward to the inner input element.
      * @group Props
      */
@@ -89,6 +95,8 @@ export class InputColorInput extends BaseComponent {
     });
 
     $inputType = computed(() => {
+        const t = this.type();
+        if (t) return t;
         const ch = this.channel();
         return ch === 'hex' || ch === 'css' ? 'text' : 'number';
     });

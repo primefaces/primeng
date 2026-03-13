@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ColorChannel, getChannelRange } from './color-manager';
+import { ColorChannel, getChannelColor, getChannelRange } from './color-manager';
 import { INPUT_COLOR_INSTANCE, INPUT_COLOR_SLIDER_INSTANCE } from './inputcolor.token';
 import { InputColorSliderThumbStyle } from './style/inputcolorsliderthumbstyle';
 
@@ -57,7 +57,7 @@ export class InputColorSliderThumb extends BaseComponent {
         return `${pct}%`;
     });
 
-    $thumbColor = computed(() => this.$pc.$color().toRgbString());
+    $thumbColor = computed(() => getChannelColor(this.$pc.$color(), this.$channel() as ColorChannel).toRgbString());
 
     onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));

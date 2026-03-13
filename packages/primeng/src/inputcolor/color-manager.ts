@@ -1,5 +1,7 @@
 export type ColorSpace = 'hsba' | 'hsla' | 'rgba' | 'hexa' | 'oklch';
 
+export type ColorOutputFormat = ColorSpace | 'hex' | 'rgb' | 'hsl' | 'hsb' | 'css';
+
 export type ColorChannel = 'hue' | 'saturation' | 'brightness' | 'lightness' | 'red' | 'green' | 'blue' | 'alpha' | 'hex' | 'oklchLightness' | 'oklchChroma' | 'oklchHue';
 
 export type ColorSliderChannel = 'hue' | 'saturation' | 'brightness' | 'lightness' | 'red' | 'green' | 'blue' | 'alpha' | 'oklchLightness' | 'oklchChroma' | 'oklchHue';
@@ -23,8 +25,9 @@ export interface Color3DAxes extends Color2DAxes {
 }
 
 export interface ColorOutput {
-    toString(format?: ColorSpace): string;
+    toString(format?: ColorOutputFormat): string;
     toHex(): string;
+    toHexa(): string;
     toHexInt(): number;
     toRgbString(): string;
     toHslString(): string;
@@ -81,13 +84,18 @@ export abstract class Color implements ColorOutput {
         const r = Math.round(rgb.red).toString(16).padStart(2, '0');
         const g = Math.round(rgb.green).toString(16).padStart(2, '0');
         const b = Math.round(rgb.blue).toString(16).padStart(2, '0');
+        return `#${r}${g}${b}`;
+    }
+
+    toHexa(): string {
+        const hex = this.toHex();
         if (this.alpha < 1) {
             const a = Math.round(this.alpha * 255)
                 .toString(16)
                 .padStart(2, '0');
-            return `#${r}${g}${b}${a}`;
+            return `${hex}${a}`;
         }
-        return `#${r}${g}${b}`;
+        return hex;
     }
 
     toHexInt(): number {
@@ -137,19 +145,26 @@ export abstract class Color implements ColorOutput {
         return `oklch(${l}% ${c} ${h} / ${a})`;
     }
 
-    toString(format?: ColorSpace): string {
+    toString(format?: ColorOutputFormat): string {
         const f = format || this.colorSpace;
         switch (f) {
-            case 'hexa':
+            case 'hex':
                 return this.toHex();
+            case 'hexa':
+                return this.toHexa();
+            case 'rgb':
             case 'rgba':
                 return this.toRgbString();
+            case 'hsl':
             case 'hsla':
                 return this.toHslString();
+            case 'hsb':
             case 'hsba':
                 return this.toHsbString();
             case 'oklch':
                 return this.toOklchString();
+            case 'css':
+                return this.toHex();
             default:
                 return this.toHex();
         }
@@ -840,6 +855,24 @@ export function getAreaGradient(color: ColorInstance, xChannel: ColorSliderChann
     }
 
     return layers.join(', ');
+}
+
+export function getChannelColor(color: ColorInstance, channel: ColorChannel): ColorInstance {
+    switch (channel) {
+        case 'hue':
+            return parseColor(`hsl(${color.getChannelValue('hue')}, 100%, 50%)`)!;
+        case 'red':
+        case 'green':
+        case 'blue':
+        case 'lightness':
+        case 'brightness':
+        case 'saturation':
+            return color.setChannelValue('alpha', 1);
+        case 'alpha':
+            return color;
+        default:
+            return color.setChannelValue('alpha', 1);
+    }
 }
 
 export function getInputChannelValue(color: ColorInstance, channel: ColorInputChannel): string {
