@@ -914,9 +914,6 @@ function toCssString(color: ColorInstance, format: ColorSpace): string {
 
 export function getInputChannelValue(color: ColorInstance, channel: ColorInputChannel, format: ColorSpace = 'hsba'): string {
     if (channel === 'hex') {
-        if (color.alpha < 1) {
-            return color.toHexa();
-        }
         return color.toHex();
     }
     if (channel === 'css') {
