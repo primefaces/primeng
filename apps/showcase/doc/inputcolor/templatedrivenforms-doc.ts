@@ -39,8 +39,6 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         InputColorSwatch,
         InputColorSwatchBackground,
         InputColorTransparencyGrid,
-        InputColorInput,
-        InputText,
         ButtonModule,
         MessageModule,
         ToastModule,
