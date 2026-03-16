@@ -2,24 +2,21 @@ import { computed, Directive, effect, inject, input } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { ColorChannel, ColorInputChannel, ColorSliderChannel, getChannelRange, getInputChannelValue, parseColor } from './color-manager';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
-import { InputColorInputStyle } from './style/inputcolorinputstyle';
 
 @Directive({
     selector: '[pInputColorInput]',
     standalone: true,
     host: {
-        '[class]': "cx('root')",
+        '[attr.disabled]': '$pc.$disabled() || null',
         '[attr.data-channel]': 'channel()',
         '(input)': 'onInput($event)',
         '(blur)': 'onBlur($event)',
         '(keydown.enter)': 'onEnter($event)'
     },
-    providers: [InputColorInputStyle, { provide: PARENT_INSTANCE, useExisting: InputColorInput }]
+    providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorInput }]
 })
 export class InputColorInput extends BaseComponent {
     componentName = 'InputColorInput';
-
-    _componentStyle = inject(InputColorInputStyle);
 
     $pc = inject(INPUT_COLOR_INSTANCE);
 

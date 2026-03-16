@@ -3,7 +3,6 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ColorChannel, getAreaGradient, getChannelRange, snapValue } from './color-manager';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
-import { InputColorAreaStyle } from './style/inputcolorareastyle';
 
 @Component({
     selector: 'p-inputcolor-area',
@@ -12,20 +11,18 @@ import { InputColorAreaStyle } from './style/inputcolorareastyle';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': 'cx("root")',
+        '[class]': '$pc.cx("area")',
         '[style.--area-gradient]': '$areaGradient()',
         '[style.--thumb-background]': '$thumbBackground()',
         '[style.--thumb-position-left]': '$thumbLeft()',
         '[style.--thumb-position-top]': '$thumbTop()',
         '(pointerdown)': 'onPointerDown($event)'
     },
-    providers: [InputColorAreaStyle, { provide: PARENT_INSTANCE, useExisting: InputColorArea }],
+    providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorArea }],
     hostDirectives: [Bind]
 })
 export class InputColorArea extends BaseComponent {
     componentName = 'InputColorArea';
-
-    _componentStyle = inject(InputColorAreaStyle);
 
     bindDirectiveInstance = inject(Bind, { self: true });
 

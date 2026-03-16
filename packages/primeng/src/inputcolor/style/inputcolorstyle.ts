@@ -158,23 +158,17 @@ const theme = `
 `;
 
 const classes = {
-    root: ({ instance }) => [
-        'p-inputcolor p-component',
-        {
-            'p-disabled': instance.$disabled()
-        }
-    ],
+    root: 'p-inputcolor p-component',
     area: 'p-inputcolor-area',
-    areaThumb: ({ instance }) => ['p-inputcolor-area-thumb', { 'p-disabled': instance.$pc?.$disabled() }],
+    areaThumb: ({ instance }) => ['p-inputcolor-area-thumb', { 'p-disabled': instance.$disabled() }],
     areaBackground: 'p-inputcolor-area-background',
-    slider: ({ instance }) => ['p-inputcolor-slider', `p-inputcolor-slider-${instance.orientation()}`],
-    sliderThumb: ({ instance }) => ['p-inputcolor-slider-thumb', { 'p-disabled': instance.$pc?.$disabled() }],
+    slider: 'p-inputcolor-slider',
+    sliderThumb: ({ instance }) => ['p-inputcolor-slider-thumb', { 'p-disabled': instance.$disabled() }],
     sliderTrack: 'p-inputcolor-slider-track',
     transparencyGrid: 'p-inputcolor-transparency-grid',
     swatch: 'p-inputcolor-swatch',
     swatchBackground: 'p-inputcolor-swatch-background',
-    eyeDropper: 'p-inputcolor-eyedropper',
-    input: 'p-inputcolor-input'
+    eyeDropper: 'p-inputcolor-eyedropper'
 };
 
 @Injectable()

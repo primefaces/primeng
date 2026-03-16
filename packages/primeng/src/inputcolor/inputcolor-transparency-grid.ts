@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { InputColorTransparencyGridStyle } from './style/inputcolortransparencygridstyle';
+import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
 
 @Component({
     selector: 'p-inputcolor-transparency-grid',
@@ -10,17 +10,17 @@ import { InputColorTransparencyGridStyle } from './style/inputcolortransparencyg
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': 'cx("root")'
+        '[class]': '$pc.cx("transparencyGrid")'
     },
-    providers: [InputColorTransparencyGridStyle, { provide: PARENT_INSTANCE, useExisting: InputColorTransparencyGrid }],
+    providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorTransparencyGrid }],
     hostDirectives: [Bind]
 })
 export class InputColorTransparencyGrid extends BaseComponent {
     componentName = 'InputColorTransparencyGrid';
 
-    _componentStyle = inject(InputColorTransparencyGridStyle);
-
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pc = inject(INPUT_COLOR_INSTANCE);
 
     onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));

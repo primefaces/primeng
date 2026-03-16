@@ -6,7 +6,6 @@ import { Bind } from 'primeng/bind';
 import { ButtonDirective, ButtonIcon } from 'primeng/button';
 import { parseColor } from './color-manager';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
-import { InputColorEyeDropperStyle } from './style/inputcoloreyedropperstyle';
 
 @Component({
     selector: 'p-inputcolor-eyedropper',
@@ -27,15 +26,13 @@ import { InputColorEyeDropperStyle } from './style/inputcoloreyedropperstyle';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': 'cx("root")'
+        '[class]': '$pc.cx("eyeDropper")'
     },
-    providers: [InputColorEyeDropperStyle, { provide: PARENT_INSTANCE, useExisting: InputColorEyeDropper }],
+    providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorEyeDropper }],
     hostDirectives: [Bind]
 })
 export class InputColorEyeDropper extends BaseComponent {
     componentName = 'InputColorEyeDropper';
-
-    _componentStyle = inject(InputColorEyeDropperStyle);
 
     bindDirectiveInstance = inject(Bind, { self: true });
 

@@ -3,7 +3,6 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { getChannelGradient } from './color-manager';
 import { INPUT_COLOR_INSTANCE, INPUT_COLOR_SLIDER_INSTANCE } from './inputcolor.token';
-import { InputColorSliderTrackStyle } from './style/inputcolorslidertrackstyle';
 
 @Component({
     selector: 'p-inputcolor-slider-track',
@@ -12,16 +11,14 @@ import { InputColorSliderTrackStyle } from './style/inputcolorslidertrackstyle';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': 'cx("root")',
+        '[class]': '$pc.cx("sliderTrack")',
         '[style.--slider-background]': '$gradient()'
     },
-    providers: [InputColorSliderTrackStyle, { provide: PARENT_INSTANCE, useExisting: InputColorSliderTrack }],
+    providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorSliderTrack }],
     hostDirectives: [Bind]
 })
 export class InputColorSliderTrack extends BaseComponent {
     componentName = 'InputColorSliderTrack';
-
-    _componentStyle = inject(InputColorSliderTrackStyle);
 
     bindDirectiveInstance = inject(Bind, { self: true });
 

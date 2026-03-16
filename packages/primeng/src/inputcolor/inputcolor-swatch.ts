@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { InputColorSwatchStyle } from './style/inputcolorswatchstyle';
+import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
 
 @Component({
     selector: 'p-inputcolor-swatch',
@@ -10,17 +10,17 @@ import { InputColorSwatchStyle } from './style/inputcolorswatchstyle';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': 'cx("root")'
+        '[class]': '$pc.cx("swatch")'
     },
-    providers: [InputColorSwatchStyle, { provide: PARENT_INSTANCE, useExisting: InputColorSwatch }],
+    providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorSwatch }],
     hostDirectives: [Bind]
 })
 export class InputColorSwatch extends BaseComponent {
     componentName = 'InputColorSwatch';
 
-    _componentStyle = inject(InputColorSwatchStyle);
-
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pc = inject(INPUT_COLOR_INSTANCE);
 
     onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));

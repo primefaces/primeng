@@ -64,6 +64,17 @@ export class InputColor extends BaseEditableHolder {
     defaultValue = input<string | ColorInstance | null>(null);
 
     /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
+    disabled = input<boolean>(false);
+
+    /**
+     * Computed disabled state
+     */
+    $disabled = computed(() => this.disabled());
+
+    /**
      * Callback on value change (during interaction).
      * @group Emits
      */

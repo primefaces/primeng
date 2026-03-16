@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
-import { InputColorSwatchBackgroundStyle } from './style/inputcolorswatchbackgroundstyle';
 
 @Component({
     selector: 'p-inputcolor-swatch-background',
@@ -11,16 +10,14 @@ import { InputColorSwatchBackgroundStyle } from './style/inputcolorswatchbackgro
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': 'cx("root")',
+        '[class]': '$pc.cx("swatchBackground")',
         '[style.--swatch-background]': '$swatchColor()'
     },
-    providers: [InputColorSwatchBackgroundStyle, { provide: PARENT_INSTANCE, useExisting: InputColorSwatchBackground }],
+    providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorSwatchBackground }],
     hostDirectives: [Bind]
 })
 export class InputColorSwatchBackground extends BaseComponent {
     componentName = 'InputColorSwatchBackground';
-
-    _componentStyle = inject(InputColorSwatchBackgroundStyle);
 
     bindDirectiveInstance = inject(Bind, { self: true });
 

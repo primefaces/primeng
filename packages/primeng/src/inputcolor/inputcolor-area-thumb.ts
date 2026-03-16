@@ -3,7 +3,6 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ColorChannel, getChannelRange } from './color-manager';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
-import { InputColorAreaThumbStyle } from './style/inputcolorareathumbstyle';
 
 @Component({
     selector: 'p-inputcolor-area-thumb',
@@ -12,7 +11,7 @@ import { InputColorAreaThumbStyle } from './style/inputcolorareathumbstyle';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': 'cx("root")',
+        '[class]': '$pc.cx("areaThumb")',
         '[attr.role]': "'slider'",
         '[attr.tabindex]': '0',
         '[attr.aria-roledescription]': "'2d slider'",
@@ -21,13 +20,11 @@ import { InputColorAreaThumbStyle } from './style/inputcolorareathumbstyle';
         '[attr.aria-valuenow]': '$xValue()',
         '(keydown)': 'onKeyDown($event)'
     },
-    providers: [InputColorAreaThumbStyle, { provide: PARENT_INSTANCE, useExisting: InputColorAreaThumb }],
+    providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorAreaThumb }],
     hostDirectives: [Bind]
 })
 export class InputColorAreaThumb extends BaseComponent {
     componentName = 'InputColorAreaThumb';
-
-    _componentStyle = inject(InputColorAreaThumbStyle);
 
     bindDirectiveInstance = inject(Bind, { self: true });
 

@@ -3,7 +3,6 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ColorChannel, ColorSliderChannel, getChannelRange, snapValue } from './color-manager';
 import { INPUT_COLOR_INSTANCE, INPUT_COLOR_SLIDER_INSTANCE } from './inputcolor.token';
-import { InputColorSliderStyle } from './style/inputcolorsliderstyle';
 
 @Component({
     selector: 'p-inputcolor-slider',
@@ -12,19 +11,20 @@ import { InputColorSliderStyle } from './style/inputcolorsliderstyle';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': 'cx("root")',
+        '[class]': '$pc.cx("slider")',
         '[class.p-inputcolor-slider-horizontal]': 'orientation() === "horizontal"',
         '[class.p-inputcolor-slider-vertical]': 'orientation() === "vertical"',
         '[attr.data-orientation]': 'orientation()',
         '(pointerdown)': 'onPointerDown($event)'
     },
-    providers: [InputColorSliderStyle, { provide: INPUT_COLOR_SLIDER_INSTANCE, useExisting: InputColorSlider }, { provide: PARENT_INSTANCE, useExisting: InputColorSlider }],
+    providers: [
+        { provide: INPUT_COLOR_SLIDER_INSTANCE, useExisting: InputColorSlider },
+        { provide: PARENT_INSTANCE, useExisting: InputColorSlider }
+    ],
     hostDirectives: [Bind]
 })
 export class InputColorSlider extends BaseComponent {
     componentName = 'InputColorSlider';
-
-    _componentStyle = inject(InputColorSliderStyle);
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
