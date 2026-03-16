@@ -62,6 +62,7 @@
 - [Angular Image Component](https://primeng.org/image): Displays an image with preview and tranformation options.
 - [Angular ImageCompare Component](https://primeng.org/imagecompare): Compare two images side by side with a slider.
 - [Angular Inplace Component](https://primeng.org/inplace): Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.
+- [Angular InputColor Component](https://primeng.org/inputcolor): InputColor is a composable color picker component.
 - [Angular InputGroup Component](https://primeng.org/inputgroup): Text, icon, buttons and other content can be grouped next to an input.
 - [Angular InputMask Component](https://primeng.org/inputmask): InputMask component is used to enter input in a certain format such as numeric, date, currency and phone.
 - [Angular InputNumber Component](https://primeng.org/inputnumber): InputNumber is an input component to provide numerical input.

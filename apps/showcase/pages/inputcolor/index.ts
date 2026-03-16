@@ -5,6 +5,8 @@ import { VerticalSliderDoc } from '@/doc/inputcolor/verticalslider-doc';
 import { PopoverDoc } from '@/doc/inputcolor/popover-doc';
 import { ReactiveFormsDoc } from '@/doc/inputcolor/reactiveforms-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputcolor/templatedrivenforms-doc';
+import { ColorManagerDoc } from '@/doc/inputcolor/colormanager-doc';
+import { AccessibilityDoc } from '@/doc/inputcolor/accessibility-doc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
@@ -28,7 +30,7 @@ export class InputColorDemo {
                 },
                 {
                     id: 'popover',
-                    label: 'Popover',
+                    label: 'With Popover',
                     component: PopoverDoc
                 },
                 {
@@ -55,6 +57,22 @@ export class InputColorDemo {
                     ]
                 }
             ]
+        },
+        {
+            id: 'colormanager',
+            label: 'Color Manager',
+            children: [
+                {
+                    id: 'colorclass',
+                    label: 'Color Class',
+                    component: ColorManagerDoc
+                }
+            ]
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 }

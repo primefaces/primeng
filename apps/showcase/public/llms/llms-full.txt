@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2026-03-12
+Generated: 2026-03-16
 
 ---
 
@@ -17472,6 +17472,662 @@ Inplace provides an easy to do editing and display at the same time where clicki
 | inplace.transition.duration | --p-inplace-transition-duration | Transition duration of root |
 | inplace.display.hover.background | --p-inplace-display-hover-background | Hover background of display |
 | inplace.display.hover.color | --p-inplace-display-hover-color | Hover color of display |
+
+---
+
+# Angular InputColor Component
+
+InputColor is a composable color picker component.
+
+## Advanced
+
+Advanced color picker with per-format channel sliders, input groups for RGBA, HSBA, HSLA, OKLCH channels, and a CSS output.
+
+**Example:**
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    template: `
+        <div class="w-80 mx-auto space-y-3">
+            <p-select [(ngModel)]="format" [options]="formatOptions" optionLabel="label" optionValue="value" [fluid]="true" />
+            <p-inputcolor [(ngModel)]="color" [format]="activeFormat" class="space-y-3">
+                <p-inputcolor-area>
+                    <p-inputcolor-area-background />
+                    <p-inputcolor-area-thumb />
+                </p-inputcolor-area>
+                <p-inputcolor-slider>
+                    <p-inputcolor-transparency-grid />
+                    <p-inputcolor-slider-track />
+                    <p-inputcolor-slider-thumb />
+                </p-inputcolor-slider>
+                @if (format === 'rgba') {
+                    <p-inputcolor-slider channel="red">
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-slider-track />
+                        <p-inputcolor-slider-thumb />
+                    </p-inputcolor-slider>
+                    <p-inputcolor-slider channel="green">
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-slider-track />
+                        <p-inputcolor-slider-thumb />
+                    </p-inputcolor-slider>
+                    <p-inputcolor-slider channel="blue">
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-slider-track />
+                        <p-inputcolor-slider-thumb />
+                    </p-inputcolor-slider>
+                }
+                @if (format === 'hsba') {
+                    <p-inputcolor-slider channel="saturation">
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-slider-track />
+                        <p-inputcolor-slider-thumb />
+                    </p-inputcolor-slider>
+                    <p-inputcolor-slider channel="brightness">
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-slider-track />
+                        <p-inputcolor-slider-thumb />
+                    </p-inputcolor-slider>
+                }
+                @if (format === 'hsla') {
+                    <p-inputcolor-slider channel="saturation">
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-slider-track />
+                        <p-inputcolor-slider-thumb />
+                    </p-inputcolor-slider>
+                    <p-inputcolor-slider channel="lightness">
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-slider-track />
+                        <p-inputcolor-slider-thumb />
+                    </p-inputcolor-slider>
+                }
+                <p-inputcolor-slider channel="alpha">
+                    <p-inputcolor-transparency-grid />
+                    <p-inputcolor-slider-track />
+                    <p-inputcolor-slider-thumb />
+                </p-inputcolor-slider>
+                <div class="flex gap-2">
+                    <p-inputcolor-swatch class="shrink-0">
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-swatch-background />
+                    </p-inputcolor-swatch>
+                    <p-inputcolor-eyedropper [iconOnly]="true" [outlined]="true" severity="secondary">
+                        <svg data-p-icon="eye-dropper" />
+                    </p-inputcolor-eyedropper>
+                    <input pInputText pInputColorInput [fluid]="true" channel="hex" />
+                </div>
+                <p-inputgroup>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="red" type="text" pSize="small" />
+                        <label>Red</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="green" type="text" pSize="small" />
+                        <label>Green</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="blue" type="text" pSize="small" />
+                        <label>Blue</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="alpha" type="text" pSize="small" />
+                        <label>Alpha</label>
+                    </p-floatlabel>
+                </p-inputgroup>
+                <p-inputgroup>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="hue" type="text" pSize="small" />
+                        <label>Hue</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="saturation" type="text" pSize="small" />
+                        <label>Saturation</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="brightness" type="text" pSize="small" />
+                        <label>Brightness</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="alpha" type="text" pSize="small" />
+                        <label>Alpha</label>
+                    </p-floatlabel>
+                </p-inputgroup>
+                <p-inputgroup>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="hue" type="text" pSize="small" />
+                        <label>Hue</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="saturation" type="text" pSize="small" />
+                        <label>Saturation</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="lightness" type="text" pSize="small" />
+                        <label>Lightness</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="alpha" type="text" pSize="small" />
+                        <label>Alpha</label>
+                    </p-floatlabel>
+                </p-inputgroup>
+                <p-inputgroup>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="L" type="text" pSize="small" />
+                        <label>Lightness</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="C" type="text" pSize="small" />
+                        <label>Chroma</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="H" type="text" pSize="small" />
+                        <label>Hue</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <input pInputText pInputColorInput channel="alpha" type="text" pSize="small" />
+                        <label>Alpha</label>
+                    </p-floatlabel>
+                </p-inputgroup>
+                <p-inputgroup>
+                    <p-inputgroup-addon>CSS</p-inputgroup-addon>
+                    <input pInputText pInputColorInput channel="css" type="text" [fluid]="true" />
+                </p-inputgroup>
+            </p-inputcolor>
+        </div>
+    `,
+    standalone: true,
+    imports: [SelectModule, FloatLabelModule, InputGroupModule, InputTextModule, FormsModule]
+})
+export class InputcolorAdvancedDemo {
+    color: string = '';
+    format: string = 'hsla';
+    formatOptions: any[] = [
+        { label: 'RGBA', value: 'rgba' },
+        { label: 'HSBA', value: 'hsba' },
+        { label: 'HSLA', value: 'hsla' },
+        { label: 'OKLCHA', value: 'oklcha' }
+    ];
+}
+```
+
+## Basic
+
+InputColor is a composable color picker with area, slider, swatch, and input sub-components.
+
+**Example:**
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    template: `
+        <p-inputcolor [(ngModel)]="color" [format]="activeFormat" defaultValue="#276def" class="w-80 mx-auto space-y-3">
+            <p-inputcolor-area>
+                <p-inputcolor-area-background />
+                <p-inputcolor-area-thumb />
+            </p-inputcolor-area>
+            <div class="flex items-center gap-2">
+                <div class="flex-1 space-y-1 mr-1">
+                    <p-inputcolor-slider>
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-slider-track />
+                        <p-inputcolor-slider-thumb />
+                    </p-inputcolor-slider>
+                    <p-inputcolor-slider channel="alpha">
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-slider-track />
+                        <p-inputcolor-slider-thumb />
+                    </p-inputcolor-slider>
+                </div>
+                <p-inputcolor-swatch class="shrink-0">
+                    <p-inputcolor-transparency-grid />
+                    <p-inputcolor-swatch-background />
+                </p-inputcolor-swatch>
+                <p-inputcolor-eyedropper [iconOnly]="true" [outlined]="true" severity="secondary">
+                    <svg data-p-icon="eye-dropper" />
+                </p-inputcolor-eyedropper>
+            </div>
+            <div class="flex items-center gap-2">
+                <p-select [(ngModel)]="format" [options]="formatOptions" optionLabel="label" optionValue="value" class="w-28" />
+                <div class="flex-1">
+                    @if (format === 'hex') {
+                        <input pInputText pInputColorInput [fluid]="true" channel="hex" />
+                    }
+                    @if (format === 'rgba') {
+                        <p-inputgroup>
+                            <input pInputText pInputColorInput [fluid]="true" channel="red" />
+                            <input pInputText pInputColorInput [fluid]="true" channel="green" />
+                            <input pInputText pInputColorInput [fluid]="true" channel="blue" />
+                            <input pInputText pInputColorInput [fluid]="true" channel="alpha" />
+                        </p-inputgroup>
+                    }
+                    @if (format === 'hsba') {
+                        <p-inputgroup>
+                            <input pInputText pInputColorInput [fluid]="true" channel="hue" />
+                            <input pInputText pInputColorInput [fluid]="true" channel="saturation" />
+                            <input pInputText pInputColorInput [fluid]="true" channel="brightness" />
+                            <input pInputText pInputColorInput [fluid]="true" channel="alpha" />
+                        </p-inputgroup>
+                    }
+                    @if (format === 'hsla') {
+                        <p-inputgroup>
+                            <input pInputText pInputColorInput [fluid]="true" channel="hue" />
+                            <input pInputText pInputColorInput [fluid]="true" channel="saturation" />
+                            <input pInputText pInputColorInput [fluid]="true" channel="lightness" />
+                            <input pInputText pInputColorInput [fluid]="true" channel="alpha" />
+                        </p-inputgroup>
+                    }
+                    @if (format === 'oklcha') {
+                        <input pInputText pInputColorInput [fluid]="true" channel="css" />
+                    }
+                </div>
+            </div>
+        </p-inputcolor>
+    `,
+    standalone: true,
+    imports: [SelectModule, InputGroupModule, InputTextModule, FormsModule]
+})
+export class InputcolorBasicDemo {
+    color: string = '';
+    format: string = 'hex';
+    formatOptions: any[] = [
+        { label: 'HEX', value: 'hex' },
+        { label: 'RGBA', value: 'rgba' },
+        { label: 'HSBA', value: 'hsba' },
+        { label: 'HSLA', value: 'hsla' },
+        { label: 'OKLCHA', value: 'oklcha' }
+    ];
+}
+```
+
+## Color Manager
+
+The colorManager module provides utilities for programmatic color manipulation. It exports the Color class and helper functions for working with colors outside of the InputColor component. The Color class is the base class for all color classes. It provides the basic functionality for all color classes. clone() : Clones the color. toString(format) : Converts the color to a string. toFormat(format) : Converts the color to a specific format. toJSON() : Converts the color to a JSON object. getChannelRange(channel) : Returns the range of the channel. getFormat() : Returns the format of the color. getChannels() : Returns the channels of the color. getChannelValue(channel) : Returns the value of the channel. getSpaceAxes(xyChannels) : Returns the axes of the color. incChannelValue(channel, step) : Increments the value of the channel by the step. decChannelValue(channel, step) : Decrements the value of the channel by the step. setChannelValue(channel, value) : Returns a new color with the value of the channel changed.
+
+**Example:**
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    template: `
+        <div class="doc-section-description font-bold mb-4">Color class</div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class InputcolorColormanagerDemo {}
+```
+
+## Controlled
+
+Demonstrates tracking color value changes during interaction and when interaction ends.
+
+**Example:**
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    template: `
+        <div class="w-80 mx-auto">
+            <div class="text-center font-mono text-sm text-surface-500 mb-4">onValueChange: {{ value.toString('hex') }}</div>
+            <div class="text-center font-mono text-sm text-surface-500 mb-4">onValueChangeEnd: {{ endValue.toString('hex') }}</div>
+            <p-inputcolor [(ngModel)]="value" (onValueChange)="onColorChange($event)" (onValueChangeEnd)="onColorChangeEnd($event)" class="space-y-3">
+                <p-inputcolor-area>
+                    <p-inputcolor-area-background />
+                    <p-inputcolor-area-thumb />
+                </p-inputcolor-area>
+                <div class="flex items-center gap-2">
+                    <div class="flex-1 space-y-1 mr-1">
+                        <p-inputcolor-slider>
+                            <p-inputcolor-transparency-grid />
+                            <p-inputcolor-slider-track />
+                            <p-inputcolor-slider-thumb />
+                        </p-inputcolor-slider>
+                        <p-inputcolor-slider channel="alpha">
+                            <p-inputcolor-transparency-grid />
+                            <p-inputcolor-slider-track />
+                            <p-inputcolor-slider-thumb />
+                        </p-inputcolor-slider>
+                    </div>
+                    <p-inputcolor-swatch>
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-swatch-background />
+                    </p-inputcolor-swatch>
+                    <p-inputcolor-eyedropper [iconOnly]="true" [outlined]="true" severity="secondary">
+                        <svg data-p-icon="eye-dropper" />
+                    </p-inputcolor-eyedropper>
+                </div>
+                <input pInputText pInputColorInput [fluid]="true" channel="hex" />
+            </p-inputcolor>
+        </div>
+    `,
+    standalone: true,
+    imports: [InputTextModule, FormsModule]
+})
+export class InputcolorControlledDemo {
+    value: ColorInstance = parseColor('#000000')!;
+    endValue: ColorInstance = parseColor('#000000')!;
+
+    onColorChange(event: any) {
+        this.value = event.color;
+    }
+
+    onColorChangeEnd(event: any) {
+        this.endValue = event.color;
+    }
+}
+```
+
+## With Popover
+
+InputColor can be used inside a Popover, with a color swatch as the trigger.
+
+**Example:**
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Popover, PopoverModule } from 'primeng/popover';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    template: `
+        <div class="flex items-center justify-center">
+            <p-inputcolor [(ngModel)]="color" defaultValue="#0099ff">
+                <p-inputcolor-swatch (click)="op.toggle($event)" style="cursor: pointer">
+                    <p-inputcolor-transparency-grid />
+                    <p-inputcolor-swatch-background />
+                </p-inputcolor-swatch>
+                <p-popover #op>
+                    <div class="w-72 space-y-3">
+                        <p-inputcolor-area>
+                            <p-inputcolor-area-background />
+                            <p-inputcolor-area-thumb />
+                        </p-inputcolor-area>
+                        <p-inputcolor-slider>
+                            <p-inputcolor-transparency-grid />
+                            <p-inputcolor-slider-track />
+                            <p-inputcolor-slider-thumb />
+                        </p-inputcolor-slider>
+                        <p-inputcolor-slider channel="alpha">
+                            <p-inputcolor-transparency-grid />
+                            <p-inputcolor-slider-track />
+                            <p-inputcolor-slider-thumb />
+                        </p-inputcolor-slider>
+                        <div class="flex items-center gap-2">
+                            <input pInputText pInputColorInput channel="hex" class="flex-1" />
+                            <p-inputcolor-eyedropper [iconOnly]="true" [outlined]="true" severity="secondary">
+                                <svg data-p-icon="eye-dropper" />
+                            </p-inputcolor-eyedropper>
+                        </div>
+                    </div>
+                </p-popover>
+            </p-inputcolor>
+        </div>
+    `,
+    standalone: true,
+    imports: [PopoverModule, InputTextModule, FormsModule]
+})
+export class InputcolorPopoverDemo {
+    color: string = '';
+}
+```
+
+## reactiveforms-doc
+
+InputColor can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
+
+**Example:**
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="flex justify-center">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                <div class="flex flex-col items-center gap-2">
+                    <p-inputcolor formControlName="color" defaultValue="#276def" class="w-80 space-y-3">
+                        <p-inputcolor-area>
+                            <p-inputcolor-area-background />
+                            <p-inputcolor-area-thumb />
+                        </p-inputcolor-area>
+                        <div class="flex items-center gap-2">
+                            <div class="flex-1 space-y-1 mr-1">
+                                <p-inputcolor-slider>
+                                    <p-inputcolor-transparency-grid />
+                                    <p-inputcolor-slider-track />
+                                    <p-inputcolor-slider-thumb />
+                                </p-inputcolor-slider>
+                            </div>
+                            <p-inputcolor-swatch class="shrink-0">
+                                <p-inputcolor-transparency-grid />
+                                <p-inputcolor-swatch-background />
+                            </p-inputcolor-swatch>
+                        </div>
+                        <input pInputText pInputColorInput [fluid]="true" channel="hex" />
+                    </p-inputcolor>
+                    @if (isInvalid('color')) {
+                        <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
+    standalone: true,
+    imports: [MessageModule, ButtonModule, InputTextModule, ReactiveFormsModule]
+})
+export class InputcolorReactiveformsDemo {
+    messageService = inject(MessageService);
+    exampleForm: FormGroup;
+    formSubmitted: boolean = false;
+
+    constructor() {
+        this.exampleForm = this.fb.group({
+                    color: ['', Validators.required]
+                });
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && this.formSubmitted;
+    }
+}
+```
+
+## templatedrivenforms-doc
+
+**Example:**
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    template: `
+        <div class="flex justify-center">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+                <div class="flex flex-col items-center gap-2">
+                    <p-inputcolor name="color" [(ngModel)]="color" #colorModel="ngModel" required defaultValue="#276def" class="w-80 space-y-3">
+                        <p-inputcolor-area>
+                            <p-inputcolor-area-background />
+                            <p-inputcolor-area-thumb />
+                        </p-inputcolor-area>
+                        <div class="flex items-center gap-2">
+                            <div class="flex-1 space-y-1 mr-1">
+                                <p-inputcolor-slider>
+                                    <p-inputcolor-transparency-grid />
+                                    <p-inputcolor-slider-track />
+                                    <p-inputcolor-slider-thumb />
+                                </p-inputcolor-slider>
+                            </div>
+                            <p-inputcolor-swatch class="shrink-0">
+                                <p-inputcolor-transparency-grid />
+                                <p-inputcolor-swatch-background />
+                            </p-inputcolor-swatch>
+                        </div>
+                        <input pInputText pInputColorInput [fluid]="true" channel="hex" />
+                    </p-inputcolor>
+                    @if (colorModel.invalid && (colorModel.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
+                    }
+                </div>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+            </form>
+        </div>
+    `,
+    standalone: true,
+    imports: [MessageModule, ButtonModule, InputTextModule, FormsModule]
+})
+export class InputcolorTemplatedrivenformsDemo {
+    messageService = inject(MessageService);
+    color: string | undefined;
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+
+## verticalslider-doc
+
+Sliders support vertical orientation, displayed alongside the color area.
+
+**Example:**
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    template: `
+        <div class="flex justify-center">
+            <p-inputcolor [(ngModel)]="color" format="hsba" class="w-full max-w-md">
+                <div class="flex gap-4 w-full">
+                    <p-inputcolor-area class="flex-1">
+                        <p-inputcolor-area-background />
+                        <p-inputcolor-area-thumb />
+                    </p-inputcolor-area>
+                    <p-inputcolor-slider orientation="vertical">
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-slider-track />
+                        <p-inputcolor-slider-thumb />
+                    </p-inputcolor-slider>
+                    <p-inputcolor-slider channel="saturation" orientation="vertical">
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-slider-track />
+                        <p-inputcolor-slider-thumb />
+                    </p-inputcolor-slider>
+                    <p-inputcolor-slider channel="brightness" orientation="vertical">
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-slider-track />
+                        <p-inputcolor-slider-thumb />
+                    </p-inputcolor-slider>
+                    <p-inputcolor-slider channel="alpha" orientation="vertical">
+                        <p-inputcolor-transparency-grid />
+                        <p-inputcolor-slider-track />
+                        <p-inputcolor-slider-thumb />
+                    </p-inputcolor-slider>
+                </div>
+            </p-inputcolor>
+        </div>
+    `,
+    standalone: true,
+    imports: [FormsModule]
+})
+export class InputcolorVerticalsliderDemo {
+    color: string = '';
+}
+```
+
+## Input Color
+
+InputColor is a composable color picker component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+| required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
+| invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
+| disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
+| name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
+| format | InputSignal<ColorSpace> | ... | Color format/space used internally. |
+| defaultValue | InputSignal<string \| ColorInstance> | ... | Default color value. |
+
+### Emits
+
+| Name | Parameters | Description |
+|------|------------|-------------|
+| onValueChange | event: { color: ColorInstance; originalEvent?: Event } | Callback on value change (during interaction). |
+| onValueChangeEnd | event: { color: ColorInstance; originalEvent?: Event } | Callback when interaction ends (mouseup/touchend/keyup). |
+
+## Pass Through Options
+
+| Name | Type | Description |
+|------|------|-------------|
+| host | PassThroughOption<HTMLElement, I> | Used to pass attributes to the host's DOM element. |
+| root | PassThroughOption<HTMLElement, I> | Used to pass attributes to the root's DOM element. |
+
+## Theming
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| p-inputcolor |  |
+| p-inputcolor-area |  |
+| p-inputcolor-area-background |  |
+| p-inputcolor-area-thumb |  |
+| p-inputcolor-slider |  |
+| p-inputcolor-slider-track |  |
+| p-inputcolor-slider-thumb |  |
+| p-inputcolor-swatch |  |
+| p-inputcolor-swatch-background |  |
+| p-inputcolor-transparency-grid |  |
+| p-inputcolor-input |  |
+| p-inputcolor-eyedropper |  |
 
 ---
 

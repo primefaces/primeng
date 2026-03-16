@@ -20423,6 +20423,334 @@
             }
         }
     },
+    "color-manager": {
+        "components": {}
+    },
+    "inputcolor-area-background": {
+        "components": {}
+    },
+    "inputcolor-area-thumb": {
+        "components": {}
+    },
+    "inputcolor-area": {
+        "components": {}
+    },
+    "inputcolor-eyedropper": {
+        "components": {}
+    },
+    "inputcolor-input": {
+        "components": {}
+    },
+    "inputcolor-slider-thumb": {
+        "components": {}
+    },
+    "inputcolor-slider-track": {
+        "components": {}
+    },
+    "inputcolor-slider": {
+        "components": {}
+    },
+    "inputcolor-swatch-background": {
+        "components": {}
+    },
+    "inputcolor-swatch": {
+        "components": {}
+    },
+    "inputcolor-transparency-grid": {
+        "components": {}
+    },
+    "inputcolor.token": {
+        "components": {}
+    },
+    "inputcolor": {
+        "components": {
+            "InputColor": {
+                "description": "InputColor is a composable color picker component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "required",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "false",
+                            "description": "There must be a value (if set)."
+                        },
+                        {
+                            "name": "invalid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should have invalid state style."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should have disabled state style."
+                        },
+                        {
+                            "name": "name",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "undefined",
+                            "description": "When present, it specifies that the name of the input."
+                        },
+                        {
+                            "name": "format",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ColorSpace>",
+                            "default": "...",
+                            "description": "Color format/space used internally."
+                        },
+                        {
+                            "name": "defaultValue",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string | ColorInstance>",
+                            "default": "...",
+                            "description": "Default color value."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onValueChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "{ color: ColorInstance; originalEvent?: Event }"
+                                }
+                            ],
+                            "description": "Callback on value change (during interaction)."
+                        },
+                        {
+                            "name": "onValueChangeEnd",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "{ color: ColorInstance; originalEvent?: Event }"
+                                }
+                            ],
+                            "description": "Callback when interaction ends (mouseup/touchend/keyup)."
+                        }
+                    ]
+                }
+            }
+        },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-inputcolor"
+                    },
+                    {
+                        "class": "p-inputcolor-area"
+                    },
+                    {
+                        "class": "p-inputcolor-area-background"
+                    },
+                    {
+                        "class": "p-inputcolor-area-thumb"
+                    },
+                    {
+                        "class": "p-inputcolor-slider"
+                    },
+                    {
+                        "class": "p-inputcolor-slider-track"
+                    },
+                    {
+                        "class": "p-inputcolor-slider-thumb"
+                    },
+                    {
+                        "class": "p-inputcolor-swatch"
+                    },
+                    {
+                        "class": "p-inputcolor-swatch-background"
+                    },
+                    {
+                        "class": "p-inputcolor-transparency-grid"
+                    },
+                    {
+                        "class": "p-inputcolor-input"
+                    },
+                    {
+                        "class": "p-inputcolor-eyedropper"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "InputColorPassThroughOptions",
+                        "description": "Defines valid pass-through options in InputColor component.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputColorAreaPassThroughOptions",
+                        "description": "Defines valid pass-through options in InputColorArea component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputColorSliderPassThroughOptions",
+                        "description": "Defines valid pass-through options in InputColorSlider component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputColorValueChangeEvent",
+                        "description": "Custom value change event.",
+                        "props": [
+                            {
+                                "name": "color",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "The color instance."
+                            },
+                            {
+                                "name": "originalEvent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser native event."
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "inputcolorareabackground": {
+        "style": {
+            "components": {}
+        }
+    },
+    "inputcolorarea": {
+        "style": {
+            "components": {}
+        }
+    },
+    "inputcolorareathumb": {
+        "style": {
+            "components": {}
+        }
+    },
+    "inputcoloreyedropper": {
+        "style": {
+            "components": {}
+        }
+    },
+    "inputcolorinput": {
+        "style": {
+            "components": {}
+        }
+    },
+    "inputcolorslider": {
+        "style": {
+            "components": {}
+        }
+    },
+    "inputcolorsliderthumb": {
+        "style": {
+            "components": {}
+        }
+    },
+    "inputcolorslidertrack": {
+        "style": {
+            "components": {}
+        }
+    },
+    "inputcolorswatchbackground": {
+        "style": {
+            "components": {}
+        }
+    },
+    "inputcolorswatch": {
+        "style": {
+            "components": {}
+        }
+    },
+    "inputcolortransparencygrid": {
+        "style": {
+            "components": {}
+        }
+    },
     "inputgroup": {
         "components": {
             "InputGroup": {

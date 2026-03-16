@@ -77,9 +77,36 @@ export abstract class Color implements ColorOutput {
     abstract toRGB(): RGBColor;
     abstract toOKLCH(): OKLCHColor;
     abstract clone(): ColorInstance;
+    abstract toJSON(): Record<string, number>;
+    abstract getFormat(): ColorSpace;
+    abstract getChannels(): [ColorChannel, ColorChannel, ColorChannel];
+    abstract getChannelRange(channel: ColorChannel): ColorChannelRange;
 
     get alpha(): number {
         return this.getChannelValue('alpha');
+    }
+
+    getSpaceAxes(xyChannels: Color2DAxes): Color3DAxes {
+        const { xChannel, yChannel } = xyChannels;
+        if (xChannel === yChannel) {
+            throw new Error('xChannel and yChannel cannot be the same');
+        }
+        const zChannel = this.getChannels().find((channel) => channel !== xChannel && channel !== yChannel);
+        if (!zChannel) {
+            throw new Error('zChannel not found');
+        }
+        return { xChannel, yChannel, zChannel: zChannel as ColorSliderChannel };
+    }
+
+    incChannelValue(channel: ColorChannel, step: number): ColorInstance {
+        const range = this.getChannelRange(channel);
+        const currentValue = this.getChannelValue(channel);
+        const newValue = snapValue(clamp(currentValue + step, range.minValue, range.maxValue), range.minValue, range.maxValue, range.step);
+        return this.setChannelValue(channel, newValue);
+    }
+
+    decChannelValue(channel: ColorChannel, step: number): ColorInstance {
+        return this.incChannelValue(channel, -step);
     }
 
     toHex(): string {
@@ -327,6 +354,50 @@ export class HSBColor extends Color {
     clone(): HSBColor {
         return new HSBColor(this.hue, this.saturation, this.brightness, this._alpha);
     }
+
+    toJSON(): Record<string, number> {
+        return {
+            hue: this.hue,
+            saturation: this.saturation,
+            brightness: this.brightness,
+            alpha: this._alpha
+        };
+    }
+
+    getFormat(): ColorSpace {
+        return 'hsba';
+    }
+
+    getChannels(): [ColorChannel, ColorChannel, ColorChannel] {
+        return ['hue', 'saturation', 'brightness'];
+    }
+
+    getChannelRange(channel: ColorChannel): ColorChannelRange {
+        switch (channel) {
+            case 'hue':
+                return { minValue: 0, maxValue: 360, step: 1, pageStep: 15 };
+            case 'saturation':
+            case 'brightness':
+                return { minValue: 0, maxValue: 100, step: 1, pageStep: 10 };
+            case 'alpha':
+                return { minValue: 0, maxValue: 1, step: 0.01, pageStep: 0.1 };
+            case 'lightness':
+                return this.toHSL().getChannelRange(channel);
+            case 'L':
+            case 'C':
+            case 'H':
+            case 'oklchLightness':
+            case 'oklchChroma':
+            case 'oklchHue':
+                return this.toOKLCH().getChannelRange(channel);
+            case 'red':
+            case 'green':
+            case 'blue':
+                return this.toRGB().getChannelRange(channel);
+            default:
+                throw new Error(`Unknown color channel: ${channel}`);
+        }
+    }
 }
 
 export class HSLColor extends Color {
@@ -434,6 +505,50 @@ export class HSLColor extends Color {
 
     clone(): HSLColor {
         return new HSLColor(this.hue, this.saturation, this.lightness, this._alpha);
+    }
+
+    toJSON(): Record<string, number> {
+        return {
+            hue: this.hue,
+            saturation: this.saturation,
+            lightness: this.lightness,
+            alpha: this._alpha
+        };
+    }
+
+    getFormat(): ColorSpace {
+        return 'hsla';
+    }
+
+    getChannels(): [ColorChannel, ColorChannel, ColorChannel] {
+        return ['hue', 'saturation', 'lightness'];
+    }
+
+    getChannelRange(channel: ColorChannel): ColorChannelRange {
+        switch (channel) {
+            case 'hue':
+                return { minValue: 0, maxValue: 360, step: 1, pageStep: 15 };
+            case 'saturation':
+            case 'lightness':
+                return { minValue: 0, maxValue: 100, step: 1, pageStep: 10 };
+            case 'alpha':
+                return { minValue: 0, maxValue: 1, step: 0.01, pageStep: 0.1 };
+            case 'brightness':
+                return this.toHSB().getChannelRange(channel);
+            case 'L':
+            case 'C':
+            case 'H':
+            case 'oklchLightness':
+            case 'oklchChroma':
+            case 'oklchHue':
+                return this.toOKLCH().getChannelRange(channel);
+            case 'red':
+            case 'green':
+            case 'blue':
+                return this.toRGB().getChannelRange(channel);
+            default:
+                throw new Error(`Unknown color channel: ${channel}`);
+        }
     }
 }
 
@@ -605,6 +720,49 @@ export class RGBColor extends Color {
     clone(): RGBColor {
         return new RGBColor(this.red, this.green, this.blue, this._alpha);
     }
+
+    toJSON(): Record<string, number> {
+        return {
+            red: this.red,
+            green: this.green,
+            blue: this.blue,
+            alpha: this._alpha
+        };
+    }
+
+    getFormat(): ColorSpace {
+        return 'rgba';
+    }
+
+    getChannels(): [ColorChannel, ColorChannel, ColorChannel] {
+        return ['red', 'green', 'blue'];
+    }
+
+    getChannelRange(channel: ColorChannel): ColorChannelRange {
+        switch (channel) {
+            case 'red':
+            case 'green':
+            case 'blue':
+                return { minValue: 0, maxValue: 255, step: 1, pageStep: 17 };
+            case 'alpha':
+                return { minValue: 0, maxValue: 1, step: 0.01, pageStep: 0.1 };
+            case 'hue':
+            case 'saturation':
+            case 'brightness':
+                return this.toHSB().getChannelRange(channel);
+            case 'lightness':
+                return this.toHSL().getChannelRange(channel);
+            case 'L':
+            case 'C':
+            case 'H':
+            case 'oklchLightness':
+            case 'oklchChroma':
+            case 'oklchHue':
+                return this.toOKLCH().getChannelRange(channel);
+            default:
+                throw new Error(`Unknown color channel: ${channel}`);
+        }
+    }
 }
 
 export class OKLCHColor extends Color {
@@ -722,6 +880,51 @@ export class OKLCHColor extends Color {
 
     clone(): OKLCHColor {
         return new OKLCHColor(this.L, this.C, this.H, this._alpha);
+    }
+
+    toJSON(): Record<string, number> {
+        return {
+            L: this.L,
+            C: this.C,
+            H: this.H,
+            alpha: this._alpha
+        };
+    }
+
+    getFormat(): ColorSpace {
+        return 'oklch';
+    }
+
+    getChannels(): [ColorChannel, ColorChannel, ColorChannel] {
+        return ['L', 'C', 'H'];
+    }
+
+    getChannelRange(channel: ColorChannel): ColorChannelRange {
+        switch (channel) {
+            case 'L':
+            case 'oklchLightness':
+                return { minValue: 0, maxValue: 1, step: 0.01, pageStep: 0.1 };
+            case 'C':
+            case 'oklchChroma':
+                return { minValue: 0, maxValue: 0.4, step: 0.01, pageStep: 0.05 };
+            case 'H':
+            case 'oklchHue':
+                return { minValue: 0, maxValue: 360, step: 1, pageStep: 15 };
+            case 'alpha':
+                return { minValue: 0, maxValue: 1, step: 0.01, pageStep: 0.1 };
+            case 'hue':
+            case 'saturation':
+            case 'brightness':
+                return this.toHSB().getChannelRange(channel);
+            case 'lightness':
+                return this.toHSL().getChannelRange(channel);
+            case 'red':
+            case 'green':
+            case 'blue':
+                return this.toRGB().getChannelRange(channel);
+            default:
+                throw new Error(`Unknown color channel: ${channel}`);
+        }
     }
 }
 
