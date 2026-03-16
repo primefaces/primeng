@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, forwardRef, inject, input, NgModule, output, Provider, signal, ViewEncapsulation } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, forwardRef, inject, input, NgModule, output, Provider, signal, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { BaseModelHolder } from 'primeng/basemodelholder';
 import { Bind } from 'primeng/bind';
 import { ColorChannel, ColorInstance, ColorSpace, getDefault2DAxes, HSBColor, HSLColor, OKLCHColor, parseColor, RGBColor } from './color-manager';
 import { InputColorArea } from './inputcolor-area';
@@ -44,7 +44,7 @@ export const INPUT_COLOR_VALUE_ACCESSOR: Provider = {
     },
     hostDirectives: [Bind]
 })
-export class InputColor extends BaseEditableHolder {
+export class InputColor extends BaseModelHolder implements ControlValueAccessor {
     componentName = 'InputColor';
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -67,12 +67,11 @@ export class InputColor extends BaseEditableHolder {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    disabled = input<boolean>(false);
+    disabled = input(false, { transform: booleanAttribute });
 
-    /**
-     * Computed disabled state
-     */
-    $disabled = computed(() => this.disabled());
+    _disabled = signal<boolean>(false);
+
+    $disabled = computed(() => this.disabled() || this._disabled());
 
     /**
      * Callback on value change (during interaction).
@@ -128,7 +127,23 @@ export class InputColor extends BaseEditableHolder {
         this.updateColor(newColor, event, isEnd);
     }
 
-    writeControlValue(value: any) {
+    onModelChange: Function = () => {};
+
+    onModelTouched: Function = () => {};
+
+    registerOnChange(fn: Function) {
+        this.onModelChange = fn;
+    }
+
+    registerOnTouched(fn: Function) {
+        this.onModelTouched = fn;
+    }
+
+    setDisabledState(val: boolean) {
+        this._disabled.set(val);
+    }
+
+    writeValue(value: any) {
         if (value) {
             const current = this._color();
             if (current && current.toString(this.format()) === value) {
