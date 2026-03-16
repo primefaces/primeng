@@ -1,8 +1,7 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, forwardRef, inject, input, NgModule, output, Provider, signal, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseModelHolder } from 'primeng/basemodelholder';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ColorChannel, ColorInstance, ColorSpace, getDefault2DAxes, HSBColor, HSLColor, OKLCHColor, parseColor, RGBColor } from './color-manager';
 import { InputColorArea } from './inputcolor-area';
@@ -44,7 +43,7 @@ export const INPUT_COLOR_VALUE_ACCESSOR: Provider = {
     },
     hostDirectives: [Bind]
 })
-export class InputColor extends BaseModelHolder implements ControlValueAccessor {
+export class InputColor extends BaseComponent implements ControlValueAccessor {
     componentName = 'InputColor';
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -108,7 +107,6 @@ export class InputColor extends BaseModelHolder implements ControlValueAccessor 
 
         const outputValue = color.toString(this.format());
         this.onModelChange(outputValue);
-        this.writeModelValue(outputValue);
 
         this.onValueChange.emit({ color, originalEvent: event });
 
