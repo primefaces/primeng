@@ -8,7 +8,7 @@ import { InputColorSliderThumbStyle } from './style/inputcolorsliderthumbstyle';
 @Component({
     selector: 'p-inputcolor-slider-thumb',
     standalone: true,
-    template: ``,
+    template: `<ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {

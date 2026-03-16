@@ -8,7 +8,7 @@ import { InputColorSliderTrackStyle } from './style/inputcolorslidertrackstyle';
 @Component({
     selector: 'p-inputcolor-slider-track',
     standalone: true,
-    template: ``,
+    template: `<ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {

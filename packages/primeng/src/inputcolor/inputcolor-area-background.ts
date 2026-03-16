@@ -6,7 +6,7 @@ import { InputColorAreaBackgroundStyle } from './style/inputcolorareabackgrounds
 @Component({
     selector: 'p-inputcolor-area-background',
     standalone: true,
-    template: ``,
+    template: `<ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {

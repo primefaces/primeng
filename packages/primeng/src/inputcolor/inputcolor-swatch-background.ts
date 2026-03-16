@@ -7,7 +7,7 @@ import { InputColorSwatchBackgroundStyle } from './style/inputcolorswatchbackgro
 @Component({
     selector: 'p-inputcolor-swatch-background',
     standalone: true,
-    template: ``,
+    template: `<ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {

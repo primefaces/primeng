@@ -6,7 +6,7 @@ import { InputColorTransparencyGridStyle } from './style/inputcolortransparencyg
 @Component({
     selector: 'p-inputcolor-transparency-grid',
     standalone: true,
-    template: ``,
+    template: `<ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {

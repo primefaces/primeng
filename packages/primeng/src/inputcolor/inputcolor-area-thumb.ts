@@ -8,7 +8,7 @@ import { InputColorAreaThumbStyle } from './style/inputcolorareathumbstyle';
 @Component({
     selector: 'p-inputcolor-area-thumb',
     standalone: true,
-    template: ``,
+    template: `<ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
