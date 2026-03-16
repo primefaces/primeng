@@ -7,6 +7,7 @@ import { ReactiveFormsDoc } from '@/doc/inputcolor/reactiveforms-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputcolor/templatedrivenforms-doc';
 import { ColorManagerDoc } from '@/doc/inputcolor/colormanager-doc';
 import { AccessibilityDoc } from '@/doc/inputcolor/accessibility-doc';
+import { UsageDoc } from '@/doc/inputcolor/usage-doc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
@@ -19,6 +20,11 @@ export class InputColorDemo {
     heroDoc = BasicDoc;
 
     docs = [
+        {
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc
+        },
         {
             id: 'examples',
             label: 'Examples',
