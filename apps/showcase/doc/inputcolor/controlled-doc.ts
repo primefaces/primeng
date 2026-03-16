@@ -53,7 +53,7 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
             <div class="w-80 mx-auto">
                 <div class="text-center font-mono text-sm text-surface-500 mb-4">onValueChange: {{ value.toString('hex') }}</div>
                 <div class="text-center font-mono text-sm text-surface-500 mb-4">onValueChangeEnd: {{ endValue.toString('hex') }}</div>
-                <p-inputcolor [(ngModel)]="color" (onValueChange)="onColorChange($event)" (onValueChangeEnd)="onColorChangeEnd($event)" class="space-y-3">
+                <p-inputcolor [(ngModel)]="value" (onValueChange)="onColorChange($event)" (onValueChangeEnd)="onColorChangeEnd($event)" class="space-y-3">
                     <p-inputcolor-area>
                         <p-inputcolor-area-background />
                         <p-inputcolor-area-thumb />
@@ -88,7 +88,6 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
     `
 })
 export class ControlledDoc {
-    color: string = '#000000';
     value: ColorInstance = parseColor('#000000')!;
     endValue: ColorInstance = parseColor('#000000')!;
 
