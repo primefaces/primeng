@@ -180,15 +180,15 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
                     </p-inputgroup>
                     <p-inputgroup>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="oklchLightness" type="text" pSize="small" />
+                            <input pInputText pInputColorInput channel="L" type="text" pSize="small" />
                             <label>Lightness</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="oklchChroma" type="text" pSize="small" />
+                            <input pInputText pInputColorInput channel="C" type="text" pSize="small" />
                             <label>Chroma</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="oklchHue" type="text" pSize="small" />
+                            <input pInputText pInputColorInput channel="H" type="text" pSize="small" />
                             <label>Hue</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">

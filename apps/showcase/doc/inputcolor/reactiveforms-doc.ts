@@ -39,6 +39,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         InputColorSwatch,
         InputColorSwatchBackground,
         InputColorTransparencyGrid,
+        InputColorInput,
+        InputText,
         ButtonModule,
         MessageModule,
         ToastModule,
@@ -73,6 +75,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                                     <p-inputcolor-swatch-background />
                                 </p-inputcolor-swatch>
                             </div>
+                            <input pInputText pInputColorInput [fluid]="true" channel="hex" />
                         </p-inputcolor>
                         @if (isInvalid('color')) {
                             <p-message severity="error" size="small" variant="simple">Color is required.</p-message>

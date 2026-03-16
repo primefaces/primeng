@@ -222,8 +222,8 @@ describe('Color Manager', () => {
             });
 
             it('should delegate oklch channels to OKLCH', () => {
-                expect(typeof c.getChannelValue('oklchLightness')).toBe('number');
-                expect(typeof c.getChannelValue('oklchChroma')).toBe('number');
+                expect(typeof c.getChannelValue('L')).toBe('number');
+                expect(typeof c.getChannelValue('C')).toBe('number');
             });
         });
 
@@ -255,7 +255,7 @@ describe('Color Manager', () => {
             });
 
             it('should set oklch channels through OKLCH conversion', () => {
-                const newC = c.setChannelValue('oklchLightness', 0.5);
+                const newC = c.setChannelValue('L', 0.5);
                 expect(newC instanceof HSBColor).toBeTrue();
             });
         });
@@ -312,7 +312,7 @@ describe('Color Manager', () => {
             it('should convert to OKLCH', () => {
                 const oklch = new HSBColor(0, 100, 100).toOKLCH();
                 expect(oklch).toBeInstanceOf(OKLCHColor);
-                expect(oklch.oklchLightness).toBeGreaterThan(0);
+                expect(oklch.L).toBeGreaterThan(0);
             });
 
             it('toHSB should return a clone', () => {
@@ -453,7 +453,7 @@ describe('Color Manager', () => {
             });
 
             it('should delegate oklch to OKLCH', () => {
-                expect(typeof c.getChannelValue('oklchLightness')).toBe('number');
+                expect(typeof c.getChannelValue('L')).toBe('number');
             });
         });
 
@@ -485,7 +485,7 @@ describe('Color Manager', () => {
             });
 
             it('should set oklch through OKLCH', () => {
-                const n = c.setChannelValue('oklchLightness', 0.5);
+                const n = c.setChannelValue('L', 0.5);
                 expect(n).toBeInstanceOf(HSLColor);
             });
         });
@@ -588,8 +588,8 @@ describe('Color Manager', () => {
             });
 
             it('should delegate oklch channels', () => {
-                expect(typeof c.getChannelValue('oklchLightness')).toBe('number');
-                expect(typeof c.getChannelValue('oklchChroma')).toBe('number');
+                expect(typeof c.getChannelValue('L')).toBe('number');
+                expect(typeof c.getChannelValue('C')).toBe('number');
             });
         });
 
@@ -621,7 +621,7 @@ describe('Color Manager', () => {
             });
 
             it('should set oklch through OKLCH', () => {
-                const n = c.setChannelValue('oklchChroma', 0.1);
+                const n = c.setChannelValue('C', 0.1);
                 expect(n).toBeInstanceOf(RGBColor);
             });
         });
@@ -643,13 +643,13 @@ describe('Color Manager', () => {
             it('should convert to OKLCH', () => {
                 const oklch = new RGBColor(255, 0, 0).toOKLCH();
                 expect(oklch).toBeInstanceOf(OKLCHColor);
-                expect(oklch.oklchLightness).toBeGreaterThan(0);
+                expect(oklch.L).toBeGreaterThan(0);
             });
 
             it('should convert black to OKLCH with NaN hue', () => {
                 const oklch = new RGBColor(0, 0, 0).toOKLCH();
-                expect(oklch.oklchLightness).toBe(0);
-                expect(Number.isNaN(oklch.oklchHue)).toBeTrue();
+                expect(oklch.L).toBe(0);
+                expect(Number.isNaN(oklch.H)).toBeTrue();
             });
 
             it('toRGB should return clone', () => {
@@ -677,33 +677,33 @@ describe('Color Manager', () => {
         describe('construction & clamping', () => {
             it('should create with valid values', () => {
                 const c = new OKLCHColor(0.5, 0.2, 180, 0.9);
-                expect(c.oklchLightness).toBe(0.5);
-                expect(c.oklchChroma).toBe(0.2);
-                expect(c.oklchHue).toBe(180);
+                expect(c.L).toBe(0.5);
+                expect(c.C).toBe(0.2);
+                expect(c.H).toBe(180);
                 expect(c.alpha).toBe(0.9);
             });
 
             it('should clamp lightness to 0-1', () => {
-                expect(new OKLCHColor(-0.5, 0, 0).oklchLightness).toBe(0);
-                expect(new OKLCHColor(2, 0, 0).oklchLightness).toBe(1);
+                expect(new OKLCHColor(-0.5, 0, 0).L).toBe(0);
+                expect(new OKLCHColor(2, 0, 0).L).toBe(1);
             });
 
             it('should clamp chroma to 0-0.4', () => {
-                expect(new OKLCHColor(0.5, -0.1, 0).oklchChroma).toBe(0);
-                expect(new OKLCHColor(0.5, 0.8, 0).oklchChroma).toBe(0.4);
+                expect(new OKLCHColor(0.5, -0.1, 0).C).toBe(0);
+                expect(new OKLCHColor(0.5, 0.8, 0).C).toBe(0.4);
             });
 
             it('should normalize hue via mod', () => {
-                expect(new OKLCHColor(0.5, 0.1, 400).oklchHue).toBe(40);
-                expect(new OKLCHColor(0.5, 0.1, -30).oklchHue).toBe(330);
+                expect(new OKLCHColor(0.5, 0.1, 400).H).toBe(40);
+                expect(new OKLCHColor(0.5, 0.1, -30).H).toBe(330);
             });
 
             it('should keep hue 360 as-is', () => {
-                expect(new OKLCHColor(0.5, 0.1, 360).oklchHue).toBe(360);
+                expect(new OKLCHColor(0.5, 0.1, 360).H).toBe(360);
             });
 
             it('should preserve NaN hue', () => {
-                expect(Number.isNaN(new OKLCHColor(0.5, 0, NaN).oklchHue)).toBeTrue();
+                expect(Number.isNaN(new OKLCHColor(0.5, 0, NaN).H)).toBeTrue();
             });
 
             it('should have colorSpace oklch', () => {
@@ -714,15 +714,15 @@ describe('Color Manager', () => {
         describe('getChannelValue', () => {
             it('should return native channels', () => {
                 const c = new OKLCHColor(0.5, 0.2, 180, 0.8);
-                expect(c.getChannelValue('oklchLightness')).toBe(0.5);
-                expect(c.getChannelValue('oklchChroma')).toBe(0.2);
-                expect(c.getChannelValue('oklchHue')).toBe(180);
+                expect(c.getChannelValue('L')).toBe(0.5);
+                expect(c.getChannelValue('C')).toBe(0.2);
+                expect(c.getChannelValue('H')).toBe(180);
                 expect(c.getChannelValue('alpha')).toBe(0.8);
             });
 
             it('should return NaN hue for achromatic', () => {
                 const c = new OKLCHColor(0.5, 0, NaN);
-                expect(Number.isNaN(c.getChannelValue('oklchHue'))).toBeTrue();
+                expect(Number.isNaN(c.getChannelValue('H'))).toBeTrue();
             });
 
             it('should delegate red to RGB', () => {
@@ -734,19 +734,19 @@ describe('Color Manager', () => {
         describe('setChannelValue', () => {
             const c = new OKLCHColor(0.5, 0.2, 180);
 
-            it('should set oklchLightness', () => {
-                const n = c.setChannelValue('oklchLightness', 0.8) as OKLCHColor;
-                expect(n.oklchLightness).toBe(0.8);
+            it('should set L', () => {
+                const n = c.setChannelValue('L', 0.8) as OKLCHColor;
+                expect(n.L).toBe(0.8);
             });
 
-            it('should set oklchChroma', () => {
-                const n = c.setChannelValue('oklchChroma', 0.1) as OKLCHColor;
-                expect(n.oklchChroma).toBe(0.1);
+            it('should set C', () => {
+                const n = c.setChannelValue('C', 0.1) as OKLCHColor;
+                expect(n.C).toBe(0.1);
             });
 
-            it('should set oklchHue', () => {
-                const n = c.setChannelValue('oklchHue', 90) as OKLCHColor;
-                expect(n.oklchHue).toBe(90);
+            it('should set H', () => {
+                const n = c.setChannelValue('H', 90) as OKLCHColor;
+                expect(n.H).toBe(90);
             });
 
             it('should set alpha', () => {
@@ -776,15 +776,15 @@ describe('Color Manager', () => {
             it('should roundtrip OKLCH→RGB→OKLCH approximately', () => {
                 const c = new OKLCHColor(0.6, 0.15, 120);
                 const rt = c.toRGB().toOKLCH();
-                expect(Math.abs(rt.oklchLightness - c.oklchLightness)).toBeLessThan(0.01);
-                expect(Math.abs(rt.oklchChroma - c.oklchChroma)).toBeLessThan(0.01);
+                expect(Math.abs(rt.L - c.L)).toBeLessThan(0.01);
+                expect(Math.abs(rt.C - c.C)).toBeLessThan(0.01);
             });
 
             it('toOKLCH should return clone', () => {
                 const c = new OKLCHColor(0.5, 0.2, 180);
                 const cl = c.toOKLCH();
                 expect(cl).not.toBe(c);
-                expect(cl.oklchLightness).toBe(c.oklchLightness);
+                expect(cl.L).toBe(c.L);
             });
 
             it('toHSB delegates through RGB', () => {
@@ -932,9 +932,9 @@ describe('Color Manager', () => {
             it('should parse oklch(L% C H)', () => {
                 const c = parseColor('oklch(50% 0.2 180)') as OKLCHColor;
                 expect(c).toBeInstanceOf(OKLCHColor);
-                expect(c.oklchLightness).toBe(0.5);
-                expect(c.oklchChroma).toBe(0.2);
-                expect(c.oklchHue).toBe(180);
+                expect(c.L).toBe(0.5);
+                expect(c.C).toBe(0.2);
+                expect(c.H).toBe(180);
             });
 
             it('should parse oklch with alpha', () => {
@@ -944,7 +944,7 @@ describe('Color Manager', () => {
 
             it('should parse raw lightness (no %)', () => {
                 const c = parseColor('oklch(0.5 0.2 180)') as OKLCHColor;
-                expect(c!.oklchLightness).toBe(0.5);
+                expect(c!.L).toBe(0.5);
             });
         });
 
@@ -1016,20 +1016,20 @@ describe('Color Manager', () => {
             expect(r.pageStep).toBe(0.1);
         });
 
-        it('should return oklchLightness range 0-1', () => {
-            const r = getChannelRange('oklchLightness');
+        it('should return L range 0-1', () => {
+            const r = getChannelRange('L');
             expect(r.minValue).toBe(0);
             expect(r.maxValue).toBe(1);
             expect(r.step).toBe(0.01);
         });
 
-        it('should return oklchChroma range 0-0.4', () => {
-            const r = getChannelRange('oklchChroma');
+        it('should return C range 0-0.4', () => {
+            const r = getChannelRange('C');
             expect(r.maxValue).toBe(0.4);
         });
 
-        it('should return oklchHue range 0-360', () => {
-            expect(getChannelRange('oklchHue').maxValue).toBe(360);
+        it('should return H range 0-360', () => {
+            expect(getChannelRange('H').maxValue).toBe(360);
         });
     });
 
@@ -1079,9 +1079,9 @@ describe('Color Manager', () => {
             expect(getInputChannelValue(c, 'hue')).toBe('0');
         });
 
-        it('should normalize oklchHue 360 to 0', () => {
+        it('should normalize H 360 to 0', () => {
             const c = new OKLCHColor(0.5, 0.2, 360);
-            expect(getInputChannelValue(c, 'oklchHue')).toBe('0');
+            expect(getInputChannelValue(c, 'H')).toBe('0');
         });
 
         it('should round integer channels', () => {
@@ -1089,14 +1089,14 @@ describe('Color Manager', () => {
             expect(getInputChannelValue(c, 'red')).toBe('101');
         });
 
-        it('should return NaN string for NaN oklchHue', () => {
+        it('should return NaN string for NaN H', () => {
             const c = new OKLCHColor(0.5, 0, NaN);
-            expect(getInputChannelValue(c, 'oklchHue')).toBe('NaN');
+            expect(getInputChannelValue(c, 'H')).toBe('NaN');
         });
 
         it('should return decimal for sub-1 step channels', () => {
             const c = new OKLCHColor(0.5678, 0.2, 180);
-            const val = getInputChannelValue(c, 'oklchLightness');
+            const val = getInputChannelValue(c, 'L');
             expect(val).toContain('.');
         });
     });
@@ -1404,9 +1404,9 @@ describe('InputColor Component Tests', () => {
 
             it('should not convert OKLCH for native OKLCH channels', () => {
                 const c = new OKLCHColor(0.5, 0.2, 180);
-                expect(inputColor.toChannelNativeFormat(c, 'oklchLightness')).toBe(c);
-                expect(inputColor.toChannelNativeFormat(c, 'oklchChroma')).toBe(c);
-                expect(inputColor.toChannelNativeFormat(c, 'oklchHue')).toBe(c);
+                expect(inputColor.toChannelNativeFormat(c, 'L')).toBe(c);
+                expect(inputColor.toChannelNativeFormat(c, 'C')).toBe(c);
+                expect(inputColor.toChannelNativeFormat(c, 'H')).toBe(c);
             });
 
             it('should convert RGB to HSB for hue', () => {
@@ -1427,9 +1427,9 @@ describe('InputColor Component Tests', () => {
                 expect(result).toBeInstanceOf(RGBColor);
             });
 
-            it('should convert RGB to OKLCH for oklchLightness', () => {
+            it('should convert RGB to OKLCH for L', () => {
                 const c = new RGBColor(255, 0, 0);
-                const result = inputColor.toChannelNativeFormat(c, 'oklchLightness');
+                const result = inputColor.toChannelNativeFormat(c, 'L');
                 expect(result).toBeInstanceOf(OKLCHColor);
             });
 
@@ -1563,8 +1563,8 @@ describe('InputColor Component Tests', () => {
                 expect(input.type).toBe('number');
             });
 
-            it('should set type=number for oklchLightness', async () => {
-                component.channel = 'oklchLightness';
+            it('should set type=number for L', async () => {
+                component.channel = 'L';
                 fixture.detectChanges();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
@@ -1621,8 +1621,8 @@ describe('InputColor Component Tests', () => {
                 expect(input.step).toBe('0.01');
             });
 
-            it('should set min/max/step for oklchChroma', async () => {
-                component.channel = 'oklchChroma';
+            it('should set min/max/step for C', async () => {
+                component.channel = 'C';
                 fixture.detectChanges();
                 await fixture.whenStable();
                 const input = fixture.debugElement.query(By.directive(InputColorInput)).nativeElement;
@@ -2418,17 +2418,17 @@ describe('InputColor Component Tests', () => {
         describe('OKLCH achromatic', () => {
             it('black should have NaN hue', () => {
                 const oklch = new RGBColor(0, 0, 0).toOKLCH();
-                expect(Number.isNaN(oklch.oklchHue)).toBeTrue();
+                expect(Number.isNaN(oklch.H)).toBeTrue();
             });
 
             it('white should have NaN hue', () => {
                 const oklch = new RGBColor(255, 255, 255).toOKLCH();
-                expect(Number.isNaN(oklch.oklchHue)).toBeTrue();
+                expect(Number.isNaN(oklch.H)).toBeTrue();
             });
 
             it('grey should have NaN hue', () => {
                 const oklch = new RGBColor(128, 128, 128).toOKLCH();
-                expect(Number.isNaN(oklch.oklchHue)).toBeTrue();
+                expect(Number.isNaN(oklch.H)).toBeTrue();
             });
 
             it('NaN hue should output as 0 in toString', () => {
