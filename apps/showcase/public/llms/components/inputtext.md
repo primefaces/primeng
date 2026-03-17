@@ -24,7 +24,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [InputTextModule, FormsModule]
 })
-export class InputtextBasicDemo {
+export class InputTextBasicDemo {
     value: string;
 }
 ```
@@ -47,7 +47,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [InputTextModule, FormsModule]
 })
-export class InputtextDisabledDemo {
+export class InputTextDisabledDemo {
     value: string | undefined = 'Disabled';
 }
 ```
@@ -70,7 +70,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [InputTextModule, FormsModule]
 })
-export class InputtextFilledDemo {
+export class InputTextFilledDemo {
     value: string;
 }
 ```
@@ -105,7 +105,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [FloatLabelModule, InputTextModule, FormsModule]
 })
-export class InputtextFloatlabelDemo {
+export class InputTextFloatLabelDemo {
     value1: string | undefined;
     value2: string | undefined;
     value3: string | undefined;
@@ -130,7 +130,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [InputTextModule, FormsModule]
 })
-export class InputtextFluidDemo {
+export class InputTextFluidDemo {
     value: string;
 }
 ```
@@ -157,7 +157,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [InputTextModule, FormsModule]
 })
-export class InputtextHelptextDemo {
+export class InputTextHelpTextDemo {
     value: string | undefined;
 }
 ```
@@ -187,7 +187,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [InputTextModule, FormsModule]
 })
-export class InputtextIconsDemo {
+export class InputTextIconsDemo {
     value: string | undefined;
     value2: string | undefined;
 }
@@ -215,7 +215,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [IftaLabelModule, InputTextModule, FormsModule]
 })
-export class InputtextIftalabelDemo {
+export class InputTextIftaLabelDemo {
     value: string | undefined;
 }
 ```
@@ -239,7 +239,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [InputTextModule, FormsModule]
 })
-export class InputtextInvalidDemo {
+export class InputTextInvalidDemo {
     value1: string | undefined;
     value2: string | undefined;
 }
@@ -263,7 +263,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [InputTextModule, FormsModule]
 })
-export class InputtextKeyfilterDemo {
+export class InputTextKeyFilterDemo {
     value: number | undefined;
 }
 ```
@@ -306,7 +306,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [MessageModule, ButtonModule, InputTextModule, ReactiveFormsModule]
 })
-export class InputtextReactiveformsDemo {
+export class InputTextReactiveFormsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup;
     formSubmitted: boolean = false;
@@ -354,7 +354,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [InputTextModule, FormsModule]
 })
-export class InputtextSizesDemo {
+export class InputTextSizesDemo {
     value1: string | undefined;
     value2: string | undefined;
     value3: string | undefined;
@@ -401,7 +401,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [MessageModule, ButtonModule, InputTextModule, FormsModule]
 })
-export class InputtextTemplatedrivenformsDemo {
+export class InputTextTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     user: any = {
         username: '',

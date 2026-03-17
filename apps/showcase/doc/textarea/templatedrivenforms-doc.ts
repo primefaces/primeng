@@ -11,7 +11,7 @@ import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'templatedrivenforms-doc',
+    selector: 'template-driven-forms-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, AppCode, AppDocSectionText, AppDemoWrapper, ButtonModule, MessageModule, TextareaModule, ToastModule],
     template: `

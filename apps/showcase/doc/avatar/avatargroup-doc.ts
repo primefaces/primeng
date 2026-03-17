@@ -6,7 +6,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 
 @Component({
-    selector: 'avatargroup-doc',
+    selector: 'avatar-group-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, AppDemoWrapper, AvatarModule, AvatarGroupModule],
     template: `

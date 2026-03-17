@@ -24,7 +24,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     standalone: true,
     imports: [SelectButtonModule, FormsModule]
 })
-export class SelectbuttonBasicDemo {
+export class SelectButtonBasicDemo {
     stateOptions: any[] = [
         { label: 'One-Way', value: 'one-way' },
         { label: 'Return', value: 'return' }
@@ -52,7 +52,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     standalone: true,
     imports: [SelectButtonModule, FormsModule]
 })
-export class SelectbuttonDisabledDemo {
+export class SelectButtonDisabledDemo {
     stateOptions: any[] = [
         { label: 'Off', value: 'off' },
         { label: 'On', value: 'on' }
@@ -82,7 +82,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     standalone: true,
     imports: [SelectButtonModule, FormsModule]
 })
-export class SelectbuttonFluidDemo {
+export class SelectButtonFluidDemo {
     stateOptions: any[] = [
         { label: 'One-Way', value: 'one-way' },
         { label: 'Return', value: 'return' }
@@ -109,7 +109,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     standalone: true,
     imports: [SelectButtonModule, FormsModule]
 })
-export class SelectbuttonInvalidDemo {
+export class SelectButtonInvalidDemo {
     stateOptions: any[] = [
         { label: 'One-Way', value: 'one-way' },
         { label: 'Return', value: 'return' }
@@ -136,7 +136,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     standalone: true,
     imports: [SelectButtonModule, FormsModule]
 })
-export class SelectbuttonMultipleDemo {
+export class SelectButtonMultipleDemo {
     paymentOptions: any[] = [
         { name: 'Option 1', value: 1 },
         { name: 'Option 2', value: 2 },
@@ -175,7 +175,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [MessageModule, SelectButtonModule, ButtonModule, ReactiveFormsModule]
 })
-export class SelectbuttonReactiveformsDemo {
+export class SelectButtonReactiveFormsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
@@ -226,7 +226,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     standalone: true,
     imports: [SelectButtonModule, FormsModule]
 })
-export class SelectbuttonSizesDemo {
+export class SelectButtonSizesDemo {
     value1!: string;
     value2: string = 'Beginner';
     value3: string = 'Expert';
@@ -259,7 +259,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     standalone: true,
     imports: [SelectButtonModule, FormsModule]
 })
-export class SelectbuttonTemplateDemo {
+export class SelectButtonTemplateDemo {
     value: any;
     justifyOptions: any[] = [
         { icon: 'pi pi-align-left', justify: 'Left' },
@@ -297,7 +297,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [MessageModule, SelectButtonModule, ButtonModule, FormsModule]
 })
-export class SelectbuttonTemplatedrivenformsDemo {
+export class SelectButtonTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     value: any;
     stateOptions: any[] = [

@@ -9,7 +9,7 @@ import { SortEvent } from 'primeng/api';
 import { Table, TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'removablesort-doc',
+    selector: 'removable-sort-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

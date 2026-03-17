@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'avatarstyle-doc',
+    selector: 'avatar-style-doc',
     standalone: true,
     imports: [AppDocSectionText, RouterModule],
     template: `

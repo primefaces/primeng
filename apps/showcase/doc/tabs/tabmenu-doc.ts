@@ -6,7 +6,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({
-    selector: 'tabmenu-doc',
+    selector: 'tab-menu-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, AppCode, AppDemoWrapper, TabsModule],
     template: `

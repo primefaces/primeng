@@ -28,7 +28,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [IftaLabelModule, InputTextModule, FormsModule]
 })
-export class IftalabelBasicDemo {
+export class IftaLabelBasicDemo {
     value: string | undefined;
 }
 ```
@@ -55,7 +55,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [IftaLabelModule, InputTextModule, FormsModule]
 })
-export class IftalabelInvalidDemo {
+export class IftaLabelInvalidDemo {
     value: string | undefined;
 }
 ```

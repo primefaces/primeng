@@ -14,7 +14,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'columnresizefit-doc',
+    selector: 'column-resize-fit-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

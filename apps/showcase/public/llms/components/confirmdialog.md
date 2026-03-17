@@ -26,7 +26,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     imports: [ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmdialogBasicDemo {
+export class ConfirmDialogBasicDemo {
     private confirmationService = inject(ConfirmationService);
     private messageService = inject(MessageService);
 
@@ -77,7 +77,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     imports: [ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmdialogHeadlessDemo {
+export class ConfirmDialogHeadlessDemo {
     private confirmationService = inject(ConfirmationService);
     private messageService = inject(MessageService);
 }
@@ -114,7 +114,7 @@ import { Dialog } from 'primeng/dialog';
     imports: [ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmdialogPositionDemo {
+export class ConfirmDialogPositionDemo {
     private confirmationService = inject(ConfirmationService);
     private messageService = inject(MessageService);
 }
@@ -139,7 +139,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     imports: [ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmdialogTemplateDemo {
+export class ConfirmDialogTemplateDemo {
     private confirmationService = inject(ConfirmationService);
     private messageService = inject(MessageService);
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'intelligentcompletion-doc',
+    selector: 'intelligent-completion-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText],
     template: `<app-docsectiontext>

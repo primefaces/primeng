@@ -22,7 +22,7 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: []
 })
-export class ProgressspinnerBasicDemo {}
+export class ProgressSpinnerBasicDemo {}
 ```
 
 ## Custom
@@ -41,7 +41,7 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: []
 })
-export class ProgressspinnerCustomDemo {}
+export class ProgressSpinnerCustomDemo {}
 ```
 
 ## Progress Spinner

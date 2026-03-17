@@ -14,7 +14,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'scrollfrozencolumns-doc',
+    selector: 'scroll-frozen-columns-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

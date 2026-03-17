@@ -5,7 +5,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'previewimagesource-doc',
+    selector: 'preview-image-source-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, AppDemoWrapper, ImageModule],
     template: `

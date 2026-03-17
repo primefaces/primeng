@@ -180,7 +180,7 @@ import { DialogModule } from 'primeng/dialog';
     standalone: true,
     imports: [ButtonModule, DialogModule]
 })
-export class DialogLongcontentDemo {
+export class DialogLongContentDemo {
     visible: boolean = false;
 
     showDialog() {
@@ -285,7 +285,7 @@ interface City {
     standalone: true,
     imports: [ButtonModule, DialogModule, SelectModule, FormsModule]
 })
-export class DialogOverlaysinsideDemo implements OnInit {
+export class DialogOverlaysInsideDemo implements OnInit {
     cities: City[] | undefined;
     selectedCity: City | undefined;
     visible: boolean = false;
@@ -478,7 +478,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [ButtonModule, DialogModule, InputTextModule]
 })
-export class DialogWithoutmodalDemo {
+export class DialogWithoutModalDemo {
     visible: boolean = false;
 
     showDialog() {

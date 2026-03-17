@@ -16,7 +16,7 @@ import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'rowexpansion-doc',
+    selector: 'row-expansion-doc',
     standalone: true,
     imports: [TableModule, ToastModule, ButtonModule, FormsModule, RippleModule, AppDocSectionText, AppCode, DeferredDemo, CommonModule, RatingModule, TagModule, AppDemoWrapper],
     template: ` <app-docsectiontext>

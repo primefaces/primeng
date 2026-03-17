@@ -8,7 +8,7 @@ import { TreeNode } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
-    selector: 'gridlines-doc',
+    selector: 'grid-lines-doc',
     standalone: true,
     imports: [TreeTableModule, AppCode, AppDemoWrapper, AppDocSectionText, DeferredDemo],
     template: ` <section class="py-6">

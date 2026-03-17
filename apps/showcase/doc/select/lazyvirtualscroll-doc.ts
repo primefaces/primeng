@@ -6,7 +6,7 @@ import { ScrollerOptions, SelectItem } from 'primeng/api';
 import { SelectModule } from 'primeng/select';
 
 @Component({
-    selector: 'lazyvirtualscroll-doc',
+    selector: 'lazy-virtual-scroll-doc',
     standalone: true,
     imports: [AppCode, AppDemoWrapper, FormsModule, SelectModule],
     template: `

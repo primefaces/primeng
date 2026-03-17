@@ -28,7 +28,7 @@ import { Product } from '@/domain/product';
     imports: [PickListModule],
     providers: [ProductService]
 })
-export class PicklistBasicDemo implements OnInit {
+export class PickListBasicDemo implements OnInit {
     private productService = inject(ProductService);
     sourceProducts = signal<Product[]>([]);
     targetProducts = signal<Product[]>([]);
@@ -87,7 +87,7 @@ import { Product } from '@/domain/product';
     imports: [PickListModule],
     providers: [ProductService]
 })
-export class PicklistFilterDemo implements OnInit {
+export class PickListFilterDemo implements OnInit {
     private productService = inject(ProductService);
     sourceProducts = signal<Product[]>([]);
     targetProducts = signal<Product[]>([]);
@@ -136,7 +136,7 @@ import { Product } from '@/domain/product';
     imports: [PickListModule],
     providers: [ProductService]
 })
-export class PicklistTemplateDemo implements OnInit {
+export class PickListTemplateDemo implements OnInit {
     private productService = inject(ProductService);
     sourceProducts = signal<Product[]>([]);
     targetProducts = signal<Product[]>([]);
@@ -257,7 +257,7 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: []
 })
-export class PicklistTemplatesDemo {}
+export class PickListTemplatesDemo {}
 ```
 
 ## Pick List

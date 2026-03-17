@@ -13,7 +13,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'paginatorbasic-doc',
+    selector: 'paginator-basic-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: ` <app-docsectiontext>

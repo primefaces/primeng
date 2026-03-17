@@ -8,7 +8,7 @@ import { ToastModule } from 'primeng/toast';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'raisedtext-doc',
+    selector: 'raised-text-doc',
     standalone: true,
     imports: [AppCode, AppDemoWrapper, AppDocSectionText, SplitButtonModule, ToastModule, RouterModule],
     template: `

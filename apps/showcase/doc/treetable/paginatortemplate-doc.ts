@@ -15,7 +15,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'paginatortemplate-doc',
+    selector: 'paginator-template-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, ButtonModule, RouterModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

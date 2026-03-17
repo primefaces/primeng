@@ -7,7 +7,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
-    selector: 'columngroup-doc',
+    selector: 'column-group-doc',
     standalone: true,
     imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

@@ -10,7 +10,7 @@ import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'reactiveforms-doc',
+    selector: 'reactive-forms-doc',
     standalone: true,
     imports: [ReactiveFormsModule, KnobModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

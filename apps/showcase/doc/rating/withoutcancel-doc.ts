@@ -6,7 +6,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'withoutcancel-doc',
+    selector: 'without-cancel-doc',
     standalone: true,
     imports: [FormsModule, RatingModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

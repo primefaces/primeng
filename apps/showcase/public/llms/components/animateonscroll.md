@@ -143,7 +143,7 @@ import { AvatarModule } from 'primeng/avatar';
     standalone: true,
     imports: [AvatarModule]
 })
-export class AnimateonscrollBasicDemo {}
+export class AnimateOnScrollBasicDemo {}
 ```
 
 ## Animate On Scroll

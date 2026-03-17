@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'videotutorial-doc',
+    selector: 'video-tutorial-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, RouterModule],
     template: `<app-docsectiontext>

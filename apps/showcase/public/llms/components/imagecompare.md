@@ -30,7 +30,7 @@ import { ImageCompareModule } from 'primeng/imagecompare';
     standalone: true,
     imports: [ImageCompareModule]
 })
-export class ImagecompareBasicDemo {}
+export class ImageCompareBasicDemo {}
 ```
 
 ## Responsive
@@ -57,7 +57,7 @@ import { ImageCompareModule } from 'primeng/imagecompare';
     standalone: true,
     imports: [ImageCompareModule]
 })
-export class ImagecompareResponsiveDemo {}
+export class ImageCompareResponsiveDemo {}
 ```
 
 ## Pass Through Options

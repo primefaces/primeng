@@ -8,7 +8,7 @@ import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'tableintegration-doc',
+    selector: 'table-integration-doc',
     standalone: true,
     imports: [AppCode, AppDemoWrapper, AppDocSectionText, TableModule],
     template: `

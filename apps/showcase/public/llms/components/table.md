@@ -126,7 +126,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule, InputTextModule, FormsModule],
     providers: [ProductService]
 })
-export class TableCelleditDemo implements OnInit {
+export class TableCellEditDemo implements OnInit {
     private productService = inject(ProductService);
     products!: Product[];
 
@@ -179,7 +179,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule],
     providers: [ProductService]
 })
-export class TableCheckboxselectionDemo implements OnInit {
+export class TableCheckboxSelectionDemo implements OnInit {
     private productService = inject(ProductService);
     products!: Product[];
     selectedProducts!: Product;
@@ -241,7 +241,7 @@ import { Product } from '@/domain/product';
     standalone: true,
     imports: [TableModule]
 })
-export class TableColumngroupDemo implements OnInit {
+export class TableColumnGroupDemo implements OnInit {
     sales!: any[];
     lastYearTotal!: number;
     thisYearTotal!: number;
@@ -363,7 +363,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule],
     providers: [ProductService]
 })
-export class TableColumnresizeexpandmodeDemo implements OnInit {
+export class TableColumnResizeExpandModeDemo implements OnInit {
     private productService = inject(ProductService);
     products!: Product[];
 
@@ -410,7 +410,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule],
     providers: [ProductService]
 })
-export class TableColumnresizefitmodeDemo implements OnInit {
+export class TableColumnResizeFitModeDemo implements OnInit {
     private productService = inject(ProductService);
     products!: Product[];
 
@@ -455,7 +455,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
     imports: [TableModule],
     providers: [CustomerService]
 })
-export class TableColumnresizescrollablemodeDemo implements OnInit {
+export class TableColumnResizeScrollableModeDemo implements OnInit {
     private customerService = inject(CustomerService);
     customers!: Customer[];
 
@@ -508,7 +508,7 @@ import { Product } from '@/domain/product';
     imports: [ButtonModule, TableModule],
     providers: [ProductService, MessageService]
 })
-export class TableColumnselectionDemo implements OnInit {
+export class TableColumnSelectionDemo implements OnInit {
     private productService = inject(ProductService);
     private messageService = inject(MessageService);
     products!: Product[];
@@ -575,7 +575,7 @@ interface Column {
     imports: [MultiSelectModule, TableModule, FormsModule],
     providers: [ProductService]
 })
-export class TableColumntoggleDemo implements OnInit {
+export class TableColumnToggleDemo implements OnInit {
     private productService = inject(ProductService);
     products!: Product[];
     cols!: Column[];
@@ -633,7 +633,7 @@ import { Product } from '@/domain/product';
     imports: [ContextMenuModule, TableModule],
     providers: [ProductService, MessageService]
 })
-export class TableContextmenuDemo implements OnInit {
+export class TableContextMenuDemo implements OnInit {
     private productService = inject(ProductService);
     private messageService = inject(MessageService);
     products!: Product[];
@@ -1037,7 +1037,7 @@ import { Customer, Country } from '@/domain/customer';
     imports: [TableModule, TagModule, ButtonModule, RippleModule],
     providers: [CustomerService]
 })
-export class TableExpandablerowgroupDemo implements OnInit {
+export class TableExpandableRowGroupDemo implements OnInit {
     private customerService = inject(CustomerService);
     customers!: Customer[];
 
@@ -1514,7 +1514,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
     imports: [SelectModule, IconFieldModule, InputIconModule, MultiSelectModule, TableModule, TagModule, InputTextModule, FormsModule],
     providers: [CustomerService]
 })
-export class TableFilterbasicDemo implements OnInit {
+export class TableFilterBasicDemo implements OnInit {
     private customerService = inject(CustomerService);
     customers!: Customer[];
     representatives!: Representative[];
@@ -1623,7 +1623,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
     imports: [ButtonModule, DialogModule, TableModule],
     providers: [CustomerService]
 })
-export class TableFlexiblescrollDemo implements OnInit {
+export class TableFlexibleScrollDemo implements OnInit {
     private customerService = inject(CustomerService);
     customers!: Customer[];
     dialogVisible: boolean = false;
@@ -1690,7 +1690,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
     imports: [TableModule, ToggleButtonModule, FormsModule],
     providers: [CustomerService]
 })
-export class TableFrozencolumnsDemo implements OnInit {
+export class TableFrozenColumnsDemo implements OnInit {
     private customerService = inject(CustomerService);
     balanceFrozen: boolean = false;
     customers!: Customer[];
@@ -1763,7 +1763,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
     imports: [TableModule, ButtonModule, RippleModule],
     providers: [CustomerService]
 })
-export class TableFrozenrowsDemo implements OnInit {
+export class TableFrozenRowsDemo implements OnInit {
     private customerService = inject(CustomerService);
     unlockedCustomers!: Customer[];
     lockedCustomers!: Customer[];
@@ -1843,7 +1843,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule],
     providers: [ProductService]
 })
-export class TableGridlinesDemo implements OnInit {
+export class TableGridLinesDemo implements OnInit {
     private productService = inject(ProductService);
     products!: Product[];
 
@@ -1913,7 +1913,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
     imports: [TableModule],
     providers: [CustomerService]
 })
-export class TableHorizontalscrollDemo implements OnInit {
+export class TableHorizontalScrollDemo implements OnInit {
     private customerService = inject(CustomerService);
     customers!: Customer[];
 
@@ -1964,7 +1964,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule],
     providers: [ProductService]
 })
-export class TableLoadingmaskDemo implements OnInit {
+export class TableLoadingMaskDemo implements OnInit {
     private productService = inject(ProductService);
     products!: Product[];
 
@@ -2010,7 +2010,7 @@ import { Product } from '@/domain/product';
     standalone: true,
     imports: [SkeletonModule, TableModule]
 })
-export class TableLoadingskeletonDemo implements OnInit {
+export class TableLoadingSkeletonDemo implements OnInit {
     products!: Product[];
 
     ngOnInit() {
@@ -2074,7 +2074,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule],
     providers: [ProductService]
 })
-export class TableMultiplecolumnssortDemo implements OnInit {
+export class TableMultipleColumnsSortDemo implements OnInit {
     private productService = inject(ProductService);
     products: Product[];
 
@@ -2127,7 +2127,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule, ToggleSwitchModule, FormsModule],
     providers: [ProductService]
 })
-export class TableMultipleselectionDemo implements OnInit {
+export class TableMultipleSelectionDemo implements OnInit {
     private productService = inject(ProductService);
     products!: Product[];
     selectedProducts!: Product;
@@ -2176,7 +2176,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
     imports: [TableModule],
     providers: [CustomerService]
 })
-export class TablePaginatorbasicDemo implements OnInit {
+export class TablePaginatorBasicDemo implements OnInit {
     private customerService = inject(CustomerService);
     customers!: Customer[];
 
@@ -2239,7 +2239,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
     imports: [ButtonModule, TableModule],
     providers: [CustomerService]
 })
-export class TablePaginatorprogrammaticDemo implements OnInit {
+export class TablePaginatorProgrammaticDemo implements OnInit {
     private customerService = inject(CustomerService);
     customers!: Customer[];
     first: number = 0;
@@ -2340,7 +2340,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule],
     providers: [ProductService]
 })
-export class TablePresortDemo implements OnInit {
+export class TablePreSortDemo implements OnInit {
     private productService = inject(ProductService);
     products!: Product[];
 
@@ -2759,7 +2759,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule],
     providers: [ProductService]
 })
-export class TableRadiobuttonselectionDemo implements OnInit {
+export class TableRadioButtonSelectionDemo implements OnInit {
     private productService = inject(ProductService);
     products!: Product[];
     selectedProduct!: Product;
@@ -2828,7 +2828,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule],
     providers: [ProductService]
 })
-export class TableRemovablesortDemo implements OnInit {
+export class TableRemovableSortDemo implements OnInit {
     private productService = inject(ProductService);
     products: Product[];
     initialValue: Product[];
@@ -3033,7 +3033,7 @@ import { Product } from '@/domain/product';
     imports: [SelectModule, TableModule, TagModule, ButtonModule, InputTextModule, RippleModule, FormsModule],
     providers: [ProductService, MessageService]
 })
-export class TableRoweditDemo implements OnInit {
+export class TableRowEditDemo implements OnInit {
     private productService = inject(ProductService);
     private messageService = inject(MessageService);
     products!: Product[];
@@ -3208,7 +3208,7 @@ import { Customer } from '@/domain/customer';
     imports: [ButtonModule, RatingModule, TableModule, TagModule, RippleModule, FormsModule],
     providers: [ProductService, MessageService]
 })
-export class TableRowexpansionDemo implements OnInit {
+export class TableRowExpansionDemo implements OnInit {
     private productService = inject(ProductService);
     private messageService = inject(MessageService);
     products!: Product[];
@@ -3323,7 +3323,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
     imports: [TableModule, TagModule],
     providers: [CustomerService]
 })
-export class TableRowspangroupingDemo implements OnInit {
+export class TableRowSpanGroupingDemo implements OnInit {
     private customerService = inject(CustomerService);
     customers!: Customer[];
 
@@ -3404,7 +3404,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule],
     providers: [ProductService, MessageService]
 })
-export class TableSelectioneventsDemo implements OnInit {
+export class TableSelectionEventsDemo implements OnInit {
     private productService = inject(ProductService);
     private messageService = inject(MessageService);
     products!: Product[];
@@ -3481,7 +3481,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule],
     providers: [ProductService]
 })
-export class TableSinglecolumnsortDemo implements OnInit {
+export class TableSingleColumnSortDemo implements OnInit {
     private productService = inject(ProductService);
     products!: Product[];
 
@@ -3534,7 +3534,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule, ToggleSwitchModule, FormsModule],
     providers: [ProductService]
 })
-export class TableSingleselectionDemo implements OnInit {
+export class TableSingleSelectionDemo implements OnInit {
     private productService = inject(ProductService);
     products!: Product[];
     selectedProduct!: Product;
@@ -3949,7 +3949,7 @@ import { Customer, Country } from '@/domain/customer';
     imports: [TableModule, TagModule],
     providers: [CustomerService]
 })
-export class TableSubheadergroupingDemo implements OnInit {
+export class TableSubHeaderGroupingDemo implements OnInit {
     private customerService = inject(CustomerService);
     customers!: Customer[];
 
@@ -4120,7 +4120,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
     imports: [TableModule],
     providers: [CustomerService]
 })
-export class TableVerticalscrollDemo implements OnInit {
+export class TableVerticalScrollDemo implements OnInit {
     private customerService = inject(CustomerService);
     customers!: Customer[];
 
@@ -4174,7 +4174,7 @@ interface Column {
     imports: [TableModule],
     providers: [CarService]
 })
-export class TableVirtualscrollDemo implements OnInit {
+export class TableVirtualScrollDemo implements OnInit {
     private carService = inject(CarService);
     cars!: Car[];
     virtualCars!: Car[];
@@ -4247,7 +4247,7 @@ interface Column {
     imports: [SkeletonModule, TableModule],
     providers: [CarService]
 })
-export class TableVirtualscrolllazyDemo implements OnInit {
+export class TableVirtualScrollLazyDemo implements OnInit {
     private carService = inject(CarService);
     cars!: Car[];
     virtualCars!: Car[];

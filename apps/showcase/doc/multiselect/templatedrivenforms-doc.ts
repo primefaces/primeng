@@ -16,7 +16,7 @@ interface City {
 }
 
 @Component({
-    selector: 'templatedrivenforms-doc',
+    selector: 'template-driven-forms-doc',
     standalone: true,
     imports: [FormsModule, MultiSelectModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDemoWrapper, AppDocSectionText, CommonModule],
     providers: [MessageService],

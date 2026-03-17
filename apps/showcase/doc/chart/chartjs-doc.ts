@@ -3,7 +3,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'chartjs-doc',
+    selector: 'chart-js-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText],
     template: `

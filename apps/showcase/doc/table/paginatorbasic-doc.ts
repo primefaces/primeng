@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'paginatorbasic-doc',
+    selector: 'paginator-basic-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

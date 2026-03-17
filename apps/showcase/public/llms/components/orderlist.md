@@ -30,7 +30,7 @@ import { Product } from '@/domain/product';
     imports: [OrderListModule],
     providers: [ProductService]
 })
-export class OrderlistBasicDemo implements OnInit {
+export class OrderListBasicDemo implements OnInit {
     private productService = inject(ProductService);
     products = signal<Product[]>([]);
 
@@ -92,7 +92,7 @@ import { Product } from '@/domain/product';
     imports: [OrderListModule],
     providers: [ProductService]
 })
-export class OrderlistDragdropDemo implements OnInit {
+export class OrderListDragDropDemo implements OnInit {
     private productService = inject(ProductService);
     products = signal<Product[]>([]);
 
@@ -154,7 +154,7 @@ import { Product } from '@/domain/product';
     imports: [OrderListModule],
     providers: [ProductService]
 })
-export class OrderlistFilterDemo implements OnInit {
+export class OrderListFilterDemo implements OnInit {
     private productService = inject(ProductService);
     products = signal<Product[]>([]);
 
@@ -216,7 +216,7 @@ import { Product } from '@/domain/product';
     imports: [OrderListModule],
     providers: [ProductService]
 })
-export class OrderlistTemplateDemo implements OnInit {
+export class OrderListTemplateDemo implements OnInit {
     private productService = inject(ProductService);
     products = signal<Product[]>([]);
 

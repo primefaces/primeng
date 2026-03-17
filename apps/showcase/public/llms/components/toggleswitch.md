@@ -24,7 +24,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     standalone: true,
     imports: [ToggleSwitchModule, FormsModule]
 })
-export class ToggleswitchBasicDemo {
+export class ToggleSwitchBasicDemo {
     checked: boolean = false;
 }
 ```
@@ -47,7 +47,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     standalone: true,
     imports: [ToggleSwitchModule, FormsModule]
 })
-export class ToggleswitchDisabledDemo {
+export class ToggleSwitchDisabledDemo {
     checked: boolean = false;
 }
 ```
@@ -70,7 +70,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     standalone: true,
     imports: [ToggleSwitchModule, FormsModule]
 })
-export class ToggleswitchInvalidDemo {
+export class ToggleSwitchInvalidDemo {
     checked: boolean = false;
 }
 ```
@@ -93,7 +93,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     standalone: true,
     imports: [ToggleSwitchModule, FormsModule]
 })
-export class ToggleswitchPreselectionDemo {
+export class ToggleSwitchPreSelectionDemo {
     checked: boolean = true;
 }
 ```
@@ -127,7 +127,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [MessageModule, ToggleSwitchModule, ButtonModule, ReactiveFormsModule]
 })
-export class ToggleswitchReactiveformsDemo {
+export class ToggleSwitchReactiveFormsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
@@ -176,7 +176,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     standalone: true,
     imports: [ToggleSwitchModule, FormsModule]
 })
-export class ToggleswitchTemplateDemo {
+export class ToggleSwitchTemplateDemo {
     checked: boolean = false;
 }
 ```
@@ -208,7 +208,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [MessageModule, ToggleSwitchModule, ButtonModule, FormsModule]
 })
-export class ToggleswitchTemplatedrivenformsDemo {
+export class ToggleSwitchTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     checked: boolean;
 

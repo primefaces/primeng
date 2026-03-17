@@ -10,7 +10,7 @@ interface City {
 }
 
 @Component({
-    selector: 'anchoredoverlays-doc',
+    selector: 'anchored-overlays-doc',
     standalone: true,
     imports: [AppDocSectionText, SelectModule, FormsModule, AppCode],
     template: `

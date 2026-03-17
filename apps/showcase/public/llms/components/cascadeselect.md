@@ -24,7 +24,7 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
 })
-export class CascadeselectBasicDemo implements OnInit {
+export class CascadeSelectBasicDemo implements OnInit {
     countries: any[] | undefined;
     selectedCity: any;
 
@@ -134,7 +134,7 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
 })
-export class CascadeselectCleariconDemo implements OnInit {
+export class CascadeSelectClearIconDemo implements OnInit {
     countries: any[] | undefined;
     selectedCity: any;
 
@@ -234,7 +234,7 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
     standalone: true,
     imports: [CascadeSelectModule]
 })
-export class CascadeselectDisabledDemo {}
+export class CascadeSelectDisabledDemo {}
 ```
 
 ## Filled
@@ -255,7 +255,7 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
 })
-export class CascadeselectFilledDemo implements OnInit {
+export class CascadeSelectFilledDemo implements OnInit {
     countries: any[] | undefined;
     selectedCity: any;
 
@@ -368,7 +368,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     standalone: true,
     imports: [CascadeSelectModule, FloatLabelModule, FormsModule]
 })
-export class CascadeselectFloatlabelDemo implements OnInit {
+export class CascadeSelectFloatLabelDemo implements OnInit {
     value1: string | undefined;
     value2: string | undefined;
     value3: string | undefined;
@@ -470,7 +470,7 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
 })
-export class CascadeselectFluidDemo implements OnInit {
+export class CascadeSelectFluidDemo implements OnInit {
     countries: any[] | undefined;
     selectedCity: any;
 
@@ -575,7 +575,7 @@ import { IftaLabelModule } from 'primeng/iftalabel';
     standalone: true,
     imports: [CascadeSelectModule, IftaLabelModule, FormsModule]
 })
-export class CascadeselectIftalabelDemo implements OnInit {
+export class CascadeSelectIftaLabelDemo implements OnInit {
     countries: any[] | undefined;
     selectedCity: any;
 
@@ -696,7 +696,7 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
 })
-export class CascadeselectInvalidDemo implements OnInit {
+export class CascadeSelectInvalidDemo implements OnInit {
     countries: any[] | undefined;
     selectedCity1: any;
     selectedCity2: any;
@@ -797,7 +797,7 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
     standalone: true,
     imports: [CascadeSelectModule]
 })
-export class CascadeselectLoadingDemo {}
+export class CascadeSelectLoadingDemo {}
 ```
 
 ## reactiveforms-doc
@@ -838,7 +838,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [CascadeSelectModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
-export class CascadeselectReactiveformsDemo {
+export class CascadeSelectReactiveFormsDemo {
     countries: any[] | undefined;
     formGroup: FormGroup | undefined;
     messageService = inject(MessageService);
@@ -961,7 +961,7 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
     standalone: true,
     imports: [CascadeSelectModule, FormsModule]
 })
-export class CascadeselectSizesDemo implements OnInit {
+export class CascadeSelectSizesDemo implements OnInit {
     countries: any[] | undefined;
     value1: any;
     value2: any;
@@ -1091,7 +1091,7 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
     standalone: true,
     imports: [ButtonModule, CascadeSelectModule, FormsModule]
 })
-export class CascadeselectTemplateDemo implements OnInit {
+export class CascadeSelectTemplateDemo implements OnInit {
     countries: any[] | undefined;
     selectedCity: any;
 
@@ -1213,7 +1213,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [CascadeSelectModule, MessageModule, ButtonModule, FormsModule]
 })
-export class CascadeselectTemplatedrivenformsDemo {
+export class CascadeSelectTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     countries: any[] | undefined;
     selectedCity: any = null;

@@ -19,7 +19,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [InputTextModule]
 })
-export class AutofocusBasicDemo {}
+export class AutoFocusBasicDemo {}
 ```
 
 ## Auto Focus

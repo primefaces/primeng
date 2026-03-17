@@ -142,7 +142,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [MessageModule, SliderModule, ButtonModule, ReactiveFormsModule]
 })
-export class SliderReactiveformsDemo {
+export class SliderReactiveFormsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
@@ -219,7 +219,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [MessageModule, SliderModule, ButtonModule, FormsModule]
 })
-export class SliderTemplatedrivenformsDemo {
+export class SliderTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     value: any;
 

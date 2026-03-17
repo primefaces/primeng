@@ -42,7 +42,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [InputNumberModule, FormsModule]
 })
-export class InputnumberButtonsDemo {
+export class InputNumberButtonsDemo {
     value1: number = 20;
     value2: number = 10.5;
     value3: number = 25;
@@ -67,7 +67,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [InputNumberModule, FormsModule]
 })
-export class InputnumberCleariconDemo {
+export class InputNumberClearIconDemo {
     value: number | undefined;
 }
 ```
@@ -105,7 +105,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [InputNumberModule, FormsModule]
 })
-export class InputnumberCurrencyDemo {
+export class InputNumberCurrencyDemo {
     value1: number = 1500;
     value2: number = 2500;
     value3: number = 4250;
@@ -131,7 +131,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [InputNumberModule, FormsModule]
 })
-export class InputnumberDisabledDemo {
+export class InputNumberDisabledDemo {
     value1: number = 50;
 }
 ```
@@ -154,7 +154,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [InputNumberModule, FormsModule]
 })
-export class InputnumberFilledDemo {
+export class InputNumberFilledDemo {
     value1!: number;
 }
 ```
@@ -189,7 +189,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [FloatLabelModule, InputNumberModule, FormsModule]
 })
-export class InputnumberFloatlabelDemo {
+export class InputNumberFloatLabelDemo {
     value1: number | undefined;
     value2: number | undefined;
     value3: number | undefined;
@@ -212,7 +212,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [InputNumberModule, FormsModule]
 })
-export class InputnumberFluidDemo {
+export class InputNumberFluidDemo {
     value: number | undefined;
 }
 ```
@@ -239,7 +239,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [IftaLabelModule, InputNumberModule, FormsModule]
 })
-export class InputnumberIftalabelDemo {
+export class InputNumberIftaLabelDemo {
     value: number | undefined;
 }
 ```
@@ -263,7 +263,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [InputNumberModule, FormsModule]
 })
-export class InputnumberInvalidDemo {
+export class InputNumberInvalidDemo {
     value1!: number;
     value2!: number;
 }
@@ -302,7 +302,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [InputNumberModule, FormsModule]
 })
-export class InputnumberLocaleDemo {
+export class InputNumberLocaleDemo {
     value1: number = 151351;
     value2: number = 115744;
     value3: number = 635524;
@@ -343,7 +343,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [InputNumberModule, FormsModule]
 })
-export class InputnumberNumeralsDemo {
+export class InputNumberNumeralsDemo {
     value1: number = 42723;
     value2: number = 58151;
     value3: number = 2351.35;
@@ -384,7 +384,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [InputNumberModule, FormsModule]
 })
-export class InputnumberPrefixsuffixDemo {
+export class InputNumberPrefixSuffixDemo {
     value1: number = 20;
     value2: number = 50;
     value3: number = 10;
@@ -421,7 +421,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [InputNumberModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
-export class InputnumberReactiveformsDemo {
+export class InputNumberReactiveFormsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
@@ -468,7 +468,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [InputNumberModule, FormsModule]
 })
-export class InputnumberSizesDemo {
+export class InputNumberSizesDemo {
     value1!: number;
     value2!: number;
     value3!: number;
@@ -502,7 +502,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [InputNumberModule, MessageModule, ButtonModule, FormsModule]
 })
-export class InputnumberTemplatedrivenformsDemo {
+export class InputNumberTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     value: any;
 
@@ -540,7 +540,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [InputNumberModule, FormsModule]
 })
-export class InputnumberVerticalDemo {
+export class InputNumberVerticalDemo {
     value1: number = 50;
 }
 ```

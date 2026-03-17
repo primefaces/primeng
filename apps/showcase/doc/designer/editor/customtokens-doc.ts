@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'customtokens-doc',
+    selector: 'custom-tokens-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText],
     template: `<app-docsectiontext>

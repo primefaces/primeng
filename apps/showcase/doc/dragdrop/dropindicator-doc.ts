@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 import { DragDropModule } from 'primeng/dragdrop';
 
 @Component({
-    selector: 'dropindicator-doc',
+    selector: 'drop-indicator-doc',
     standalone: true,
     imports: [DragDropModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

@@ -164,7 +164,7 @@ import { TabsModule } from 'primeng/tabs';
     standalone: true,
     imports: [AvatarModule, BadgeModule, TabsModule]
 })
-export class TabsCustomtemplateDemo {}
+export class TabsCustomTemplateDemo {}
 ```
 
 ## Disabled
@@ -358,7 +358,7 @@ import { TabsModule } from 'primeng/tabs';
     standalone: true,
     imports: [TabsModule]
 })
-export class TabsTabmenuDemo {
+export class TabsTabMenuDemo {
     tabs: any[] = [
         { route: 'dashboard', label: 'Dashboard', icon: 'pi pi-home' },
         { route: 'transactions', label: 'Transactions', icon: 'pi pi-chart-line' },

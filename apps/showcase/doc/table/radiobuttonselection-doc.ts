@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'radiobuttonselection-doc',
+    selector: 'radio-button-selection-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

@@ -15,7 +15,7 @@ interface City {
 }
 
 @Component({
-    selector: 'reactiveforms-doc',
+    selector: 'reactive-forms-doc',
     standalone: true,
     imports: [ReactiveFormsModule, ListboxModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

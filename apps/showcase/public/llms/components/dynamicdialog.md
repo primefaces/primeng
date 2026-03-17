@@ -31,7 +31,7 @@ import { Dialog } from 'primeng/dialog';
     imports: [ButtonModule],
     providers: [DialogService, MessageService]
 })
-export class DynamicdialogExampleDemo {
+export class DynamicDialogExampleDemo {
     private dialogService = inject(DialogService);
     private messageService = inject(MessageService);
 

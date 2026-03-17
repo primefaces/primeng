@@ -10,7 +10,7 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'selectionevents-doc',
+    selector: 'selection-events-doc',
     standalone: true,
     imports: [TableModule, ToastModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

@@ -10,7 +10,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
-    selector: 'reactiveforms-doc',
+    selector: 'reactive-forms-doc',
     standalone: true,
     imports: [ReactiveFormsModule, PasswordModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText, AppDemoWrapper],
     providers: [MessageService],

@@ -11,7 +11,7 @@ interface City {
 }
 
 @Component({
-    selector: 'checkmark-doc',
+    selector: 'check-mark-doc',
     standalone: true,
     imports: [FormsModule, ListboxModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

@@ -8,7 +8,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'loadingskeleton-doc',
+    selector: 'loading-skeleton-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper, SkeletonModule],
     template: ` <app-docsectiontext>

@@ -63,7 +63,7 @@ import { ImageModule } from 'primeng/image';
     standalone: true,
     imports: [ImageModule]
 })
-export class ImagePreviewimagesourceDemo {}
+export class ImagePreviewImageSourceDemo {}
 ```
 
 ## Template

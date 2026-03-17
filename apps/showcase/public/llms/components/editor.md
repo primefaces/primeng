@@ -51,7 +51,7 @@ import { EditorModule } from 'primeng/editor';
     standalone: true,
     imports: [EditorModule, FormsModule]
 })
-export class EditorCustomtoolbarDemo {
+export class EditorCustomToolbarDemo {
     text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
 }
 ```
@@ -87,7 +87,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [EditorModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
-export class EditorReactiveformsDemo {
+export class EditorReactiveFormsDemo {
     messageService = inject(MessageService);
     items: any[] | undefined;
     exampleForm: FormGroup | undefined;
@@ -161,7 +161,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [EditorModule, MessageModule, ButtonModule, FormsModule]
 })
-export class EditorTemplatedrivenformsDemo {
+export class EditorTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     text: string | undefined;
 

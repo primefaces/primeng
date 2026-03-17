@@ -25,7 +25,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SplitButtonModule],
     providers: [MessageService]
 })
-export class SplitbuttonBasicDemo {
+export class SplitButtonBasicDemo {
     private messageService = inject(MessageService);
 
     constructor() {
@@ -81,7 +81,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SplitButtonModule],
     providers: [MessageService]
 })
-export class SplitbuttonDisabledDemo {
+export class SplitButtonDisabledDemo {
     private messageService = inject(MessageService);
 
     constructor() {
@@ -137,7 +137,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SplitButtonModule],
     providers: [MessageService]
 })
-export class SplitbuttonIconsDemo {
+export class SplitButtonIconsDemo {
     private messageService = inject(MessageService);
     items: MenuItem[];
 
@@ -191,7 +191,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SplitButtonModule],
     providers: [MessageService]
 })
-export class SplitbuttonNestedDemo {
+export class SplitButtonNestedDemo {
     private messageService = inject(MessageService);
     items: MenuItem[];
 
@@ -356,7 +356,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SplitButtonModule],
     providers: [MessageService]
 })
-export class SplitbuttonOutlinedDemo {
+export class SplitButtonOutlinedDemo {
     private messageService = inject(MessageService);
     items: MenuItem[];
 
@@ -420,7 +420,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SplitButtonModule],
     providers: [MessageService]
 })
-export class SplitbuttonRaisedDemo {
+export class SplitButtonRaisedDemo {
     private messageService = inject(MessageService);
     items: MenuItem[];
 
@@ -484,7 +484,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SplitButtonModule],
     providers: [MessageService]
 })
-export class SplitbuttonRaisedtextDemo {
+export class SplitButtonRaisedTextDemo {
     private messageService = inject(MessageService);
     items: MenuItem[];
 
@@ -526,7 +526,7 @@ export class SplitbuttonRaisedtextDemo {
 
 Following keys are reserved in the preset scheme and cannot be used as a token name; primitive , semantic , components , directives , colorscheme , light , dark , common , root , states and extend .
 
-## Rounded
+## rounded-doc
 
 Rounded buttons have a circular border radius.
 
@@ -552,7 +552,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SplitButtonModule],
     providers: [MessageService]
 })
-export class SplitbuttonRoundedDemo {
+export class SplitButtonRoundedDemo {
     private messageService = inject(MessageService);
     items: MenuItem[];
 
@@ -616,7 +616,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SplitButtonModule],
     providers: [MessageService]
 })
-export class SplitbuttonSeverityDemo {
+export class SplitButtonSeverityDemo {
     private messageService = inject(MessageService);
     items: MenuItem[];
 
@@ -675,7 +675,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SplitButtonModule],
     providers: [MessageService]
 })
-export class SplitbuttonSizesDemo {
+export class SplitButtonSizesDemo {
     private messageService = inject(MessageService);
 
     constructor() {
@@ -738,7 +738,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SplitButtonModule],
     providers: [MessageService]
 })
-export class SplitbuttonTemplateDemo {
+export class SplitButtonTemplateDemo {
     private messageService = inject(MessageService);
     items: MenuItem[];
 
@@ -802,7 +802,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SplitButtonModule],
     providers: [MessageService]
 })
-export class SplitbuttonTextDemo {
+export class SplitButtonTextDemo {
     private messageService = inject(MessageService);
     items: MenuItem[];
 

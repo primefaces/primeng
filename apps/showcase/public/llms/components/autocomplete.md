@@ -60,7 +60,7 @@ import { Product } from '@/domain/product';
     imports: [AutoCompleteModule, FormsModule],
     providers: [ProductService]
 })
-export class AutocompleteAdvancedChipsDemo implements OnInit {
+export class AutoCompleteAdvancedChipsDemo implements OnInit {
     private productService = inject(ProductService);
     products = signal<Product[]>([]);
 
@@ -128,7 +128,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
 })
-export class AutocompleteBasicChipsDemo {
+export class AutoCompleteBasicChipsDemo {
     valueBlur: any[] = [];
     valueTab: any[] = [];
     valueSeparator: any[] = [];
@@ -159,7 +159,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
 })
-export class AutocompleteBasicDemo {
+export class AutoCompleteBasicDemo {
     items: any[] = [];
     value: any;
 
@@ -192,7 +192,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
 })
-export class AutocompleteClearIconDemo {
+export class AutoCompleteClearIconDemo {
     items: any[] = [];
     value: any;
 
@@ -225,7 +225,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
 })
-export class AutocompleteDisabledDemo {
+export class AutoCompleteDisabledDemo {
     items: any[] | undefined;
     selectedItem: any;
     suggestions: any[] | undefined;
@@ -259,7 +259,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
 })
-export class AutocompleteDropdownDemo {
+export class AutoCompleteDropdownDemo {
     items: any[] | undefined;
     value: any;
 
@@ -294,7 +294,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
 })
-export class AutocompleteFilledDemo {
+export class AutoCompleteFilledDemo {
     items: any[] | undefined;
     selectedItem: any;
     suggestions: any[] | undefined;
@@ -340,7 +340,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
     imports: [AutoCompleteModule, FloatLabelModule, FormsModule]
 })
-export class AutocompleteFloatLabelDemo {
+export class AutoCompleteFloatLabelDemo {
     value1: string | undefined;
     value2: string | undefined;
     value3: string | undefined;
@@ -375,7 +375,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
 })
-export class AutocompleteFluidDemo {
+export class AutoCompleteFluidDemo {
     items: any[] = [];
     value: any;
 
@@ -410,7 +410,7 @@ interface AutoCompleteCompleteEvent {
     imports: [AutoCompleteModule, FormsModule],
     providers: [CountryService]
 })
-export class AutocompleteForceSelectionDemo implements OnInit {
+export class AutoCompleteForceSelectionDemo implements OnInit {
     private countryService = inject(CountryService);
     countries: any[] | undefined;
     selectedCountry: any;
@@ -469,7 +469,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
 })
-export class AutocompleteGroupDemo implements OnInit {
+export class AutoCompleteGroupDemo implements OnInit {
     selectedCity: any;
     filteredGroups: any[] | undefined;
     groupedCities: SelectItemGroup[] | undefined;
@@ -556,7 +556,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
     imports: [AutoCompleteModule, IftaLabelModule, FormsModule]
 })
-export class AutocompleteIftaLabelDemo {
+export class AutoCompleteIftaLabelDemo {
     items: any[] | undefined;
     value: any;
 
@@ -590,7 +590,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
 })
-export class AutocompleteInvalidDemo {
+export class AutoCompleteInvalidDemo {
     value1: any;
     value2: any;
     suggestions: any[] | undefined;
@@ -627,7 +627,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
 })
-export class AutocompleteMultipleDemo {
+export class AutoCompleteMultipleDemo {
     value1: any[] | undefined;
     value2: any[] | undefined;
     items: any[] | undefined;
@@ -664,7 +664,7 @@ interface AutoCompleteCompleteEvent {
     imports: [AutoCompleteModule, FormsModule],
     providers: [CountryService]
 })
-export class AutocompleteObjectsDemo implements OnInit {
+export class AutoCompleteObjectsDemo implements OnInit {
     private countryService = inject(CountryService);
     countries: any[] | undefined;
     selectedCountry: any;
@@ -726,7 +726,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
     imports: [AutoCompleteModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
-export class AutocompleteReactiveFormsDemo {
+export class AutoCompleteReactiveFormsDemo {
     messageService = inject(MessageService);
     items: any[] | undefined;
     exampleForm: FormGroup | undefined;
@@ -778,7 +778,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
 })
-export class AutocompleteSizesDemo {
+export class AutoCompleteSizesDemo {
     items: any[] | undefined;
     value1: any;
     value2: any;
@@ -831,7 +831,7 @@ interface AutoCompleteCompleteEvent {
     imports: [AutoCompleteModule, ButtonModule, FormsModule],
     providers: [CountryService]
 })
-export class AutocompleteTemplateDemo implements OnInit {
+export class AutoCompleteTemplateDemo implements OnInit {
     private countryService = inject(CountryService);
     countries: any[] | undefined;
     selectedCountryAdvanced: any[] | undefined;
@@ -885,7 +885,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [AutoCompleteModule, MessageModule, ButtonModule, FormsModule]
 })
-export class AutocompleteTemplateDrivenFormsDemo {
+export class AutoCompleteTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     items: any[] = [];
     value: any;
@@ -926,7 +926,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
     imports: [AutoCompleteModule, FormsModule]
 })
-export class AutocompleteVirtualScrollDemo implements OnInit {
+export class AutoCompleteVirtualScrollDemo implements OnInit {
     selectedItem: any;
     filteredItems: any[] | undefined;
     items: any[] | undefined;

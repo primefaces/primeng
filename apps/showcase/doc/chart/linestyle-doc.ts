@@ -8,7 +8,7 @@ import { ChartModule } from 'primeng/chart';
 import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
-    selector: 'linestyle-doc',
+    selector: 'line-style-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ChartModule, AppDemoWrapper],
     template: `

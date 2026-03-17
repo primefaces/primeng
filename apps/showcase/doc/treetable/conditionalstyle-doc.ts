@@ -14,7 +14,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'conditionalstyle-doc',
+    selector: 'conditional-style-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

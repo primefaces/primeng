@@ -200,7 +200,7 @@ import { PhotoService } from '@/service/photoservice';
     imports: [GalleriaModule],
     providers: [PhotoService]
 })
-export class GalleriaAutoplayDemo implements OnInit {
+export class GalleriaAutoPlayDemo implements OnInit {
     private photoService = inject(PhotoService);
     images: any = model([]);
     responsiveOptions: any[] = [

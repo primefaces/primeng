@@ -25,7 +25,7 @@ import { PanelMenu } from 'primeng/panelmenu';
     standalone: true,
     imports: [PanelMenuModule]
 })
-export class PanelmenuBasicDemo implements OnInit {
+export class PanelMenuBasicDemo implements OnInit {
     items: MenuItem[];
 
     ngOnInit() {
@@ -131,7 +131,7 @@ import { PanelMenu } from 'primeng/panelmenu';
     imports: [PanelMenuModule],
     providers: [MessageService]
 })
-export class PanelmenuCommandDemo implements OnInit {
+export class PanelMenuCommandDemo implements OnInit {
     private messageService = inject(MessageService);
     items: MenuItem[];
 
@@ -227,7 +227,7 @@ import { PanelMenu } from 'primeng/panelmenu';
     standalone: true,
     imports: [ButtonModule, PanelMenuModule]
 })
-export class PanelmenuControlledDemo implements OnInit {
+export class PanelMenuControlledDemo implements OnInit {
     items: MenuItem[];
 
     ngOnInit() {
@@ -324,7 +324,7 @@ import { PanelMenu } from 'primeng/panelmenu';
     standalone: true,
     imports: [PanelMenuModule]
 })
-export class PanelmenuMultipleDemo implements OnInit {
+export class PanelMenuMultipleDemo implements OnInit {
     items: MenuItem[];
 
     ngOnInit() {
@@ -430,7 +430,7 @@ import { PanelMenu } from 'primeng/panelmenu';
     imports: [PanelMenuModule],
     providers: [MessageService]
 })
-export class PanelmenuRouterDemo implements OnInit {
+export class PanelMenuRouterDemo implements OnInit {
     private messageService = inject(MessageService);
     items: MenuItem[];
 
@@ -514,7 +514,7 @@ import { PanelMenu } from 'primeng/panelmenu';
     standalone: true,
     imports: [BadgeModule, PanelMenuModule, RippleModule]
 })
-export class PanelmenuTemplateDemo implements OnInit {
+export class PanelMenuTemplateDemo implements OnInit {
     items: MenuItem[];
 
     ngOnInit() {

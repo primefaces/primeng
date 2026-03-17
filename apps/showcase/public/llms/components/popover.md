@@ -164,7 +164,7 @@ import { Product } from '@/domain/product';
     imports: [ButtonModule, PopoverModule, TableModule, TagModule],
     providers: [ProductService, MessageService]
 })
-export class PopoverDatatableDemo implements OnInit {
+export class PopoverDataTableDemo implements OnInit {
     private productService = inject(ProductService);
     private messageService = inject(MessageService);
     products = signal<Product[]>([]);
@@ -248,7 +248,7 @@ import { Popover, PopoverModule } from 'primeng/popover';
     standalone: true,
     imports: [ButtonModule, PopoverModule]
 })
-export class PopoverSelectdataDemo {
+export class PopoverSelectDataDemo {
     selectedMember: any = null;
     members: any[] = [
         { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },

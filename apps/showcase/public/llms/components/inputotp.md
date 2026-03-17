@@ -24,7 +24,7 @@ import { InputOtpModule } from 'primeng/inputotp';
     standalone: true,
     imports: [InputOtpModule, FormsModule]
 })
-export class InputotpBasicDemo {
+export class InputOtpBasicDemo {
     value: any;
 }
 ```
@@ -47,7 +47,7 @@ import { InputOtpModule } from 'primeng/inputotp';
     standalone: true,
     imports: [InputOtpModule, FormsModule]
 })
-export class InputotpIntegeronlyDemo {
+export class InputOtpIntegerOnlyDemo {
     value: any;
 }
 ```
@@ -70,7 +70,7 @@ import { InputOtpModule } from 'primeng/inputotp';
     standalone: true,
     imports: [InputOtpModule, FormsModule]
 })
-export class InputotpMaskDemo {
+export class InputOtpMaskDemo {
     value: any;
 }
 ```
@@ -104,7 +104,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [InputOtpModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
-export class InputotpReactiveformsDemo {
+export class InputOtpReactiveFormsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
@@ -167,7 +167,7 @@ import { InputOtpModule } from 'primeng/inputotp';
     standalone: true,
     imports: [ButtonModule, InputOtpModule, FormsModule]
 })
-export class InputotpSampleDemo {
+export class InputOtpSampleDemo {
     value: any;
 }
 ```
@@ -192,7 +192,7 @@ import { InputOtpModule } from 'primeng/inputotp';
     standalone: true,
     imports: [InputOtpModule, FormsModule]
 })
-export class InputotpSizesDemo {
+export class InputOtpSizesDemo {
     value1: any;
     value2: any;
     value3: any;
@@ -221,7 +221,7 @@ import { InputOtpModule } from 'primeng/inputotp';
     standalone: true,
     imports: [InputOtpModule, FormsModule]
 })
-export class InputotpTemplateDemo {
+export class InputOtpTemplateDemo {
     value: any;
 }
 ```
@@ -253,7 +253,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [InputOtpModule, MessageModule, ButtonModule, FormsModule]
 })
-export class InputotpTemplatedrivenformsDemo {
+export class InputOtpTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     value: any;
 

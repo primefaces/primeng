@@ -52,7 +52,7 @@ interface City {
     standalone: true,
     imports: [SelectModule, InputGroupModule, InputNumberModule, InputTextModule, FormsModule]
 })
-export class InputgroupBasicDemo {
+export class InputGroupBasicDemo {
     text1: string | undefined;
     text2: string | undefined;
     number: string | undefined;
@@ -107,7 +107,7 @@ import { MenuItem } from 'primeng/api';
     standalone: true,
     imports: [ButtonModule, InputGroupModule, MenuModule, InputTextModule]
 })
-export class InputgroupButtonDemo implements OnInit {
+export class InputGroupButtonDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     ngOnInit() {
@@ -149,7 +149,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [CheckboxModule, InputGroupModule, RadioButtonModule, InputTextModule, FormsModule]
 })
-export class InputgroupCheckboxDemo {
+export class InputGroupCheckboxDemo {
     radioValue1: boolean = false;
     checked1: boolean = false;
     checked2: boolean = false;
@@ -200,7 +200,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [FloatLabelModule, InputGroupModule, InputTextModule, FormsModule]
 })
-export class InputgroupFloatlabelDemo {
+export class InputGroupFloatLabelDemo {
     value1: string | undefined;
     value2: string | undefined;
     value3: string | undefined;
@@ -235,7 +235,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     standalone: true,
     imports: [IftaLabelModule, InputGroupModule, InputNumberModule, FormsModule]
 })
-export class InputgroupIftalabelDemo {
+export class InputGroupIftaLabelDemo {
     value: number = 10;
 }
 ```
@@ -268,7 +268,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [InputGroupModule, InputTextModule]
 })
-export class InputgroupMultipleDemo {}
+export class InputGroupMultipleDemo {}
 ```
 
 ## Input Group

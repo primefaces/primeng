@@ -65,7 +65,7 @@ import { Product } from '@/domain/product';
     imports: [ButtonModule, DataViewModule, TagModule],
     providers: [ProductService]
 })
-export class DataviewBasicDemo implements OnInit {
+export class DataViewBasicDemo implements OnInit {
     private productService = inject(ProductService);
     products = signal<any>([]);
     productService = inject(ProductService);
@@ -207,7 +207,7 @@ import { Product } from '@/domain/product';
     imports: [DataViewModule, SelectButtonModule, TagModule, ButtonModule, FormsModule],
     providers: [ProductService]
 })
-export class DataviewLayoutDemo implements OnInit {
+export class DataViewLayoutDemo implements OnInit {
     private productService = inject(ProductService);
     products = signal<any>([]);
     options: any[] = ['list', 'grid'];
@@ -299,7 +299,7 @@ import { Product } from '@/domain/product';
     imports: [DataViewModule, SelectButtonModule, SkeletonModule, FormsModule],
     providers: [ProductService]
 })
-export class DataviewLoadingDemo implements OnInit {
+export class DataViewLoadingDemo implements OnInit {
     private productService = inject(ProductService);
     products = signal<any>([]);
     options: string[] = ['list', 'grid'];
@@ -373,7 +373,7 @@ import { Product } from '@/domain/product';
     imports: [ButtonModule, DataViewModule, TagModule],
     providers: [ProductService]
 })
-export class DataviewPaginationDemo implements OnInit {
+export class DataViewPaginationDemo implements OnInit {
     private productService = inject(ProductService);
     products = signal<any>([]);
 
@@ -452,7 +452,7 @@ import { Product } from '@/domain/product';
     imports: [ButtonModule, DataViewModule, SelectModule, TagModule, FormsModule],
     providers: [ProductService]
 })
-export class DataviewSortingDemo implements OnInit {
+export class DataViewSortingDemo implements OnInit {
     private productService = inject(ProductService);
     sortOptions!: SelectItem[];
     sortOrder!: number;

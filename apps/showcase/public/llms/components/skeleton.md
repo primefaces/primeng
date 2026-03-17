@@ -71,7 +71,7 @@ import { TableModule } from 'primeng/table';
     standalone: true,
     imports: [SkeletonModule, TableModule]
 })
-export class SkeletonDatatableDemo implements OnInit {
+export class SkeletonDataTableDemo implements OnInit {
     products: any[] | undefined;
 
     ngOnInit() {

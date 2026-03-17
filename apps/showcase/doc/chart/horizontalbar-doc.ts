@@ -8,7 +8,7 @@ import { ChartModule } from 'primeng/chart';
 import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
-    selector: 'horizontalbar-doc',
+    selector: 'horizontal-bar-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ChartModule, AppDemoWrapper],
     template: `

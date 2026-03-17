@@ -14,7 +14,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'sortmultiplecolumns-doc',
+    selector: 'sort-multiple-columns-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

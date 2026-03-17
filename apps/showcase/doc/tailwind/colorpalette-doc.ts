@@ -3,7 +3,7 @@ import { NgClass, NgStyle } from '@angular/common';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'colorpalette-doc',
+    selector: 'color-palette-doc',
     standalone: true,
     imports: [NgClass, NgStyle, AppDocSectionText],
     template: `

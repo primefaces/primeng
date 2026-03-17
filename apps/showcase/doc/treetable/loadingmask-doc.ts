@@ -8,7 +8,7 @@ import { TreeNode } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
-    selector: 'loadingmask-doc',
+    selector: 'loading-mask-doc',
     standalone: true,
     imports: [TreeTableModule, AppDocSectionText, AppCode, AppDemoWrapper, DeferredDemo],
     template: ` <app-docsectiontext>

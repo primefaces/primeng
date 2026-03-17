@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'confirmationapi-doc',
+    selector: 'confirmation-api-doc',
     standalone: true,
     imports: [],
     template: `

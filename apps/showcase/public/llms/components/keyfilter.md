@@ -48,7 +48,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [InputTextModule]
 })
-export class KeyfilterPresetsDemo {}
+export class KeyFilterPresetsDemo {}
 ```
 
 ## Regex
@@ -75,7 +75,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [InputTextModule]
 })
-export class KeyfilterRegexDemo {
+export class KeyFilterRegexDemo {
     blockSpace: RegExp = /^[^\s]+$/;
     blockChars: RegExp = /^[^<>*!]+$/;
 }

@@ -32,7 +32,7 @@ interface UploadEvent {
     imports: [FileUploadModule],
     providers: [MessageService]
 })
-export class FileuploadAdvancedDemo {
+export class FileUploadAdvancedDemo {
     private messageService = inject(MessageService);
     uploadedFiles: any[] = [];
 }
@@ -62,7 +62,7 @@ interface UploadEvent {
     imports: [FileUploadModule],
     providers: [MessageService]
 })
-export class FileuploadAutoDemo {
+export class FileUploadAutoDemo {
     private messageService = inject(MessageService);
 }
 ```
@@ -93,7 +93,7 @@ interface UploadEvent {
     imports: [ButtonModule, FileUploadModule],
     providers: [MessageService]
 })
-export class FileuploadBasicDemo {
+export class FileUploadBasicDemo {
     private messageService = inject(MessageService);
 }
 ```
@@ -117,7 +117,7 @@ import { MessageService } from 'primeng/api';
     imports: [FileUploadModule],
     providers: [MessageService]
 })
-export class FileuploadCustomDemo {
+export class FileUploadCustomDemo {
     private messageService = inject(MessageService);
 }
 ```
@@ -201,7 +201,7 @@ import { MessageService } from 'primeng/api';
     imports: [BadgeModule, ButtonModule, FileUploadModule, ProgressBarModule],
     providers: [MessageService]
 })
-export class FileuploadTemplateDemo {
+export class FileUploadTemplateDemo {
     private messageService = inject(MessageService);
     files: any[] = [];
     totalSize: number = 0;

@@ -32,7 +32,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [IconFieldModule, InputIconModule, InputTextModule]
 })
-export class IconfieldBasicDemo {}
+export class IconFieldBasicDemo {}
 ```
 
 ## floatlabel-doc
@@ -76,7 +76,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [FloatLabelModule, IconFieldModule, InputIconModule, InputTextModule, FormsModule]
 })
-export class IconfieldFloatlabelDemo {
+export class IconFieldFloatLabelDemo {
     value1: string | undefined;
     value2: string | undefined;
     value3: string | undefined;
@@ -110,7 +110,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [IconFieldModule, IftaLabelModule, InputIconModule, InputTextModule, FormsModule]
 })
-export class IconfieldIftalabelDemo {
+export class IconFieldIftaLabelDemo {
     value: string | undefined;
 }
 ```
@@ -147,7 +147,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [IconFieldModule, InputIconModule, InputTextModule, FormsModule]
 })
-export class IconfieldSizesDemo {
+export class IconFieldSizesDemo {
     value1: any = null;
     value2: any = null;
     value3: any = null;
@@ -206,7 +206,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [IconFieldModule, InputIconModule, InputTextModule]
 })
-export class IconfieldTemplateDemo {}
+export class IconFieldTemplateDemo {}
 ```
 
 ## Icon Field

@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'markdownextension-doc',
+    selector: 'markdown-extension-doc',
     standalone: true,
     imports: [AppDocSectionText, ButtonModule],
     template: `

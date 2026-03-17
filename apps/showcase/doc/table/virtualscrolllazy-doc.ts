@@ -15,7 +15,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'virtualscrolllazy-doc',
+    selector: 'virtual-scroll-lazy-doc',
     standalone: true,
     imports: [NgStyle, TableModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper, SkeletonModule],
     template: ` <app-docsectiontext>

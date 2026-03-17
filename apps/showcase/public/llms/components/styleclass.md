@@ -40,7 +40,7 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [ButtonModule]
 })
-export class StyleclassAnimationDemo {}
+export class StyleClassAnimationDemo {}
 ```
 
 ## Hide On Resize
@@ -97,7 +97,7 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [ButtonModule]
 })
-export class StyleclassHideonresizeDemo {}
+export class StyleClassHideOnResizeDemo {}
 ```
 
 ## Toggle Class
@@ -119,6 +119,6 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [ButtonModule, InputTextModule]
 })
-export class StyleclassToggleclassDemo {}
+export class StyleClassToggleClassDemo {}
 ```
 

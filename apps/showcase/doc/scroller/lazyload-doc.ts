@@ -10,7 +10,7 @@ interface LazyEvent {
     last: number;
 }
 @Component({
-    selector: 'lazyload-doc',
+    selector: 'lazy-load-doc',
     standalone: true,
     imports: [ScrollerModule, AppCode, AppDemoWrapper, AppDocSectionText, CommonModule],
     template: `

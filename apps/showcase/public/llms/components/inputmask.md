@@ -25,7 +25,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
 })
-export class InputmaskBasicDemo {
+export class InputMaskBasicDemo {
     value: string | undefined;
 }
 ```
@@ -48,7 +48,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     standalone: true,
     imports: [InputMaskModule, FormsModule]
 })
-export class InputmaskCleariconDemo {
+export class InputMaskClearIconDemo {
     value: string | undefined;
 }
 ```
@@ -72,7 +72,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
 })
-export class InputmaskDisabledDemo {
+export class InputMaskDisabledDemo {
     value: string | undefined;
 }
 ```
@@ -96,7 +96,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
 })
-export class InputmaskFilledDemo {
+export class InputMaskFilledDemo {
     value: string | undefined;
 }
 ```
@@ -132,7 +132,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     standalone: true,
     imports: [FloatLabelModule, InputTextModule, InputMaskModule, FormsModule]
 })
-export class InputmaskFloatlabelDemo {
+export class InputMaskFloatLabelDemo {
     value1: string | undefined;
     value2: string | undefined;
     value3: string | undefined;
@@ -156,7 +156,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
 })
-export class InputmaskFluidDemo {
+export class InputMaskFluidDemo {
     value: string | undefined;
 }
 ```
@@ -184,7 +184,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     standalone: true,
     imports: [IftaLabelModule, InputTextModule, InputMaskModule, FormsModule]
 })
-export class InputmaskIftalabelDemo {
+export class InputMaskIftaLabelDemo {
     value: string | undefined;
 }
 ```
@@ -209,7 +209,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
 })
-export class InputmaskInvalidDemo {
+export class InputMaskInvalidDemo {
     value1: string | undefined;
     value2: string | undefined;
 }
@@ -245,7 +245,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
 })
-export class InputmaskMaskDemo {
+export class InputMaskMaskDemo {
     value1: string | undefined;
     value2: string | undefined;
     value3: string | undefined;
@@ -271,7 +271,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
 })
-export class InputmaskOptionalDemo {
+export class InputMaskOptionalDemo {
     value: string | undefined;
 }
 ```
@@ -306,7 +306,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [MessageModule, ButtonModule, InputTextModule, InputMaskModule, ReactiveFormsModule]
 })
-export class InputmaskReactiveformsDemo {
+export class InputMaskReactiveFormsDemo {
     messageService = inject(MessageService);
     items: any[] | undefined;
     exampleForm: FormGroup | undefined;
@@ -355,7 +355,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
 })
-export class InputmaskSizesDemo {
+export class InputMaskSizesDemo {
     value1: string | undefined;
     value2: string | undefined;
     value3: string | undefined;
@@ -381,7 +381,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     standalone: true,
     imports: [InputTextModule, InputMaskModule, FormsModule]
 })
-export class InputmaskSlotcharDemo {
+export class InputMaskSlotCharDemo {
     value: string | undefined;
 }
 ```
@@ -414,7 +414,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [MessageModule, ButtonModule, InputTextModule, InputMaskModule, FormsModule]
 })
-export class InputmaskTemplatedrivenformsDemo {
+export class InputMaskTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     items: any[] = [];
     value: any;

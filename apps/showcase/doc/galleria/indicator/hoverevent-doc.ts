@@ -7,7 +7,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'hoverevent-doc',
+    selector: 'hover-event-doc',
     standalone: true,
     imports: [CommonModule, GalleriaModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

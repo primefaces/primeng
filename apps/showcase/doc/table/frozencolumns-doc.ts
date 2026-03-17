@@ -11,7 +11,7 @@ import { TableModule } from 'primeng/table';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
-    selector: 'frozencolumns-doc',
+    selector: 'frozen-columns-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, ToggleButtonModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

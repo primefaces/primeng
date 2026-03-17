@@ -8,7 +8,7 @@ import { ToastModule } from 'primeng/toast';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'semicircle-doc',
+    selector: 'semi-circle-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, AppDemoWrapper, SpeedDialModule, ToastModule, RouterModule],
     template: `

@@ -12,7 +12,7 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'contextmenu-doc',
+    selector: 'context-menu-doc',
     standalone: true,
     imports: [CommonModule, TableModule, ContextMenuModule, ToastModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

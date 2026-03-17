@@ -26,7 +26,7 @@ import { ContextMenu } from 'primeng/contextmenu';
     standalone: true,
     imports: [ContextMenuModule]
 })
-export class ContextmenuBasicDemo implements OnInit {
+export class ContextMenuBasicDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     ngOnInit() {
@@ -81,7 +81,7 @@ interface Users {
     imports: [ContextMenuModule, TagModule],
     providers: [MessageService]
 })
-export class ContextmenuCommandDemo implements OnInit {
+export class ContextMenuCommandDemo implements OnInit {
     private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
     selectedUser: Users;
@@ -172,7 +172,7 @@ import { ContextMenu } from 'primeng/contextmenu';
     standalone: true,
     imports: [ContextMenuModule]
 })
-export class ContextmenuDocumentDemo implements OnInit {
+export class ContextMenuDocumentDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     ngOnInit() {
@@ -256,7 +256,7 @@ import { MenuItem } from 'primeng/api';
     standalone: true,
     imports: [ContextMenuModule]
 })
-export class ContextmenuRouterDemo implements OnInit {
+export class ContextMenuRouterDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     ngOnInit() {
@@ -346,7 +346,7 @@ import { ContextMenu } from 'primeng/contextmenu';
     standalone: true,
     imports: [BadgeModule, ContextMenuModule, RippleModule]
 })
-export class ContextmenuTemplateDemo implements OnInit {
+export class ContextMenuTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;
     selectedId!: string;
     data: any[] = [

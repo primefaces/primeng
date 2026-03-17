@@ -9,7 +9,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'floatlabel-doc',
+    selector: 'float-label-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, TreeSelectModule, FloatLabelModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

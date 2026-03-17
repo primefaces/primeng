@@ -68,7 +68,7 @@ interface City {
     standalone: true,
     imports: [SelectModule, FormsModule]
 })
-export class SelectCheckmarkDemo implements OnInit {
+export class SelectCheckMarkDemo implements OnInit {
     cities: City[];
     selectedCity: City | undefined;
 
@@ -107,7 +107,7 @@ interface City {
     standalone: true,
     imports: [SelectModule, FormsModule]
 })
-export class SelectCleariconDemo implements OnInit {
+export class SelectClearIconDemo implements OnInit {
     cities: City[];
     selectedCity: City | undefined;
 
@@ -172,7 +172,7 @@ interface City {
     standalone: true,
     imports: [ButtonModule, SelectModule, InputGroupModule, InputTextModule, FormsModule]
 })
-export class SelectCustomfilterDemo implements OnInit {
+export class SelectCustomFilterDemo implements OnInit {
     countries: City[] | undefined;
     selectedCountry: string | undefined;
     filterValue: string | undefined = '';
@@ -408,7 +408,7 @@ interface City {
     standalone: true,
     imports: [SelectModule, FloatLabelModule, FormsModule]
 })
-export class SelectFloatlabelDemo implements OnInit {
+export class SelectFloatLabelDemo implements OnInit {
     cities: City[] | undefined;
     value1: City | undefined;
     value2: City | undefined;
@@ -557,7 +557,7 @@ interface City {
     standalone: true,
     imports: [SelectModule, IftaLabelModule, FormsModule]
 })
-export class SelectIftalabelDemo implements OnInit {
+export class SelectIftaLabelDemo implements OnInit {
     cities: City[] | undefined;
     selectedCity: City | undefined;
 
@@ -629,7 +629,7 @@ import { SelectItem } from 'primeng/api';
     standalone: true,
     imports: [SelectModule, FormsModule]
 })
-export class SelectLazyvirtualscrollDemo {
+export class SelectLazyVirtualScrollDemo {
     items: SelectItem[];
     selectedItem: string | undefined;
     loading: boolean = false;
@@ -697,7 +697,7 @@ interface City {
     standalone: true,
     imports: [SelectModule, FormsModule]
 })
-export class SelectLoadingstateDemo implements OnInit {
+export class SelectLoadingStateDemo implements OnInit {
     cities: City[];
     selectedCity: City | undefined;
 
@@ -747,7 +747,7 @@ interface City {
     standalone: true,
     imports: [SelectModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
-export class SelectReactiveformsDemo {
+export class SelectReactiveFormsDemo {
     messageService = inject(MessageService);
     cities: City[] = [
         { name: 'New York', code: 'NY' },
@@ -932,7 +932,7 @@ interface City {
     standalone: true,
     imports: [SelectModule, MessageModule, ButtonModule, FormsModule]
 })
-export class SelectTemplatedrivenformsDemo {
+export class SelectTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     cities: City[] = [
         { name: 'New York', code: 'NY' },
@@ -971,7 +971,7 @@ import { SelectItem } from 'primeng/api';
     standalone: true,
     imports: [SelectModule, FormsModule]
 })
-export class SelectVirtualscrollDemo {
+export class SelectVirtualScrollDemo {
     items: SelectItem[];
     selectedItem: string | undefined;
 

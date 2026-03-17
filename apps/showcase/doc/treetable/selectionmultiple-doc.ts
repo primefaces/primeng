@@ -16,7 +16,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'selectionmultiple-doc',
+    selector: 'selection-multiple-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, TreeTableModule, ToggleSwitchModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

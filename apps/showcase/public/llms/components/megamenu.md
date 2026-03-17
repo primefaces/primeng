@@ -23,7 +23,7 @@ import { Table } from 'primeng/table';
     standalone: true,
     imports: [MegaMenuModule]
 })
-export class MegamenuBasicDemo implements OnInit {
+export class MegaMenuBasicDemo implements OnInit {
     items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
@@ -147,7 +147,7 @@ import { MegaMenuItem } from 'primeng/api';
     standalone: true,
     imports: [MegaMenuModule]
 })
-export class MegamenuRouterDemo implements OnInit {
+export class MegaMenuRouterDemo implements OnInit {
     items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
@@ -275,7 +275,7 @@ import { MegaMenuItem } from 'primeng/api';
     standalone: true,
     imports: [AvatarModule, ButtonModule, MegaMenuModule, RippleModule]
 })
-export class MegamenuTemplateDemo implements OnInit {
+export class MegaMenuTemplateDemo implements OnInit {
     items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
@@ -355,7 +355,7 @@ import { MegaMenu } from 'primeng/megamenu';
     standalone: true,
     imports: [MegaMenuModule]
 })
-export class MegamenuVerticalDemo implements OnInit {
+export class MegaMenuVerticalDemo implements OnInit {
     items: MegaMenuItem[] | undefined;
 
     ngOnInit() {

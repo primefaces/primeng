@@ -7,7 +7,7 @@ import { Component, inject, model, OnInit } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
-    selector: 'clickevent-doc',
+    selector: 'click-event-doc',
     standalone: true,
     imports: [CommonModule, GalleriaModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

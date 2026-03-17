@@ -28,7 +28,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [FloatLabelModule, InputTextModule, FormsModule]
 })
-export class FloatlabelBasicDemo {
+export class FloatLabelBasicDemo {
     value: string | undefined;
 }
 ```
@@ -63,7 +63,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [FloatLabelModule, InputTextModule, FormsModule]
 })
-export class FloatlabelInvalidDemo {
+export class FloatLabelInvalidDemo {
     value1: string | undefined;
     value2: string | undefined;
     value3: string | undefined;
@@ -96,7 +96,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [FloatLabelModule, InputTextModule, FormsModule]
 })
-export class FloatlabelVariantsDemo {
+export class FloatLabelVariantsDemo {
     value1: string | undefined;
     value2: string | undefined;
 }

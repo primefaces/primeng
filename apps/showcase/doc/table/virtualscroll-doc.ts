@@ -14,7 +14,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'virtualscroll-doc',
+    selector: 'virtual-scroll-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

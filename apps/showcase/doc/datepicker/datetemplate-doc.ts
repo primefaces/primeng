@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datetemplate-doc',
+    selector: 'date-template-doc',
     standalone: true,
     imports: [FormsModule, DatePickerModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

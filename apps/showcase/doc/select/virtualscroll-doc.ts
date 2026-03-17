@@ -7,7 +7,7 @@ import { SelectItem } from 'primeng/api';
 import { SelectModule } from 'primeng/select';
 
 @Component({
-    selector: 'virtualscroll-doc',
+    selector: 'virtual-scroll-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, AppDemoWrapper, FormsModule, SelectModule],
     template: `

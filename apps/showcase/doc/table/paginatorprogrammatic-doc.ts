@@ -9,7 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'paginatorprogrammatic-doc',
+    selector: 'paginator-programmatic-doc',
     standalone: true,
     imports: [TableModule, ButtonModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

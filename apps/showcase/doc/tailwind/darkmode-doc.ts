@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'darkmode-doc',
+    selector: 'dark-mode-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText],
     template: `

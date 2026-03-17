@@ -60,7 +60,7 @@ import { PaginatorModule } from 'primeng/paginator';
     standalone: true,
     imports: [PaginatorModule]
 })
-export class PaginatorCurrentpagereportDemo {
+export class PaginatorCurrentPageReportDemo {
     first: number = 0;
     rows: number = 10;
 

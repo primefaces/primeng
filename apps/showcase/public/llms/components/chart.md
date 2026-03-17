@@ -264,7 +264,7 @@ import { ChartModule } from 'primeng/chart';
     standalone: true,
     imports: [ChartModule]
 })
-export class ChartHorizontalbarDemo implements OnInit {
+export class ChartHorizontalBarDemo implements OnInit {
     data: any;
     options: any;
     platformId = inject(PLATFORM_ID);
@@ -446,7 +446,7 @@ import { ChartModule } from 'primeng/chart';
     standalone: true,
     imports: [ChartModule]
 })
-export class ChartLinestyleDemo implements OnInit {
+export class ChartLineStyleDemo implements OnInit {
     data: any;
     options: any;
     platformId = inject(PLATFORM_ID);
@@ -585,7 +585,7 @@ import { ChartModule } from 'primeng/chart';
     standalone: true,
     imports: [ChartModule]
 })
-export class ChartMultiaxisDemo implements OnInit {
+export class ChartMultiAxisDemo implements OnInit {
     data: any;
     options: any;
     platformId = inject(PLATFORM_ID);
@@ -753,7 +753,7 @@ import { ChartModule } from 'primeng/chart';
     standalone: true,
     imports: [ChartModule]
 })
-export class ChartPolarareaDemo implements OnInit {
+export class ChartPolarAreaDemo implements OnInit {
     data: any;
     options: any;
     platformId = inject(PLATFORM_ID);
@@ -980,7 +980,7 @@ import { ChartModule } from 'primeng/chart';
     standalone: true,
     imports: [ChartModule]
 })
-export class ChartStackedbarDemo implements OnInit {
+export class ChartStackedBarDemo implements OnInit {
     data: any;
     options: any;
     platformId = inject(PLATFORM_ID);
@@ -1080,7 +1080,7 @@ import { ChartModule } from 'primeng/chart';
     standalone: true,
     imports: [ChartModule]
 })
-export class ChartVerticalbarDemo implements OnInit {
+export class ChartVerticalBarDemo implements OnInit {
     data: any;
     options: any;
     platformId = inject(PLATFORM_ID);

@@ -107,7 +107,7 @@ interface City {
     standalone: true,
     imports: [ListboxModule, FormsModule]
 })
-export class ListboxCheckmarkDemo implements OnInit {
+export class ListboxCheckMarkDemo implements OnInit {
     cities!: City[];
     selectedCity!: City;
 
@@ -180,7 +180,7 @@ import { ListboxModule } from 'primeng/listbox';
     standalone: true,
     imports: [ListboxModule, FormsModule]
 })
-export class ListboxDragdropDemo implements OnInit {
+export class ListboxDragDropDemo implements OnInit {
     cities!: any[];
     selectedCity!: any;
 
@@ -420,7 +420,7 @@ interface City {
     standalone: true,
     imports: [ListboxModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
-export class ListboxReactiveformsDemo {
+export class ListboxReactiveFormsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
@@ -539,7 +539,7 @@ interface City {
     standalone: true,
     imports: [ListboxModule, MessageModule, ButtonModule, FormsModule]
 })
-export class ListboxTemplatedrivenformsDemo implements OnInit {
+export class ListboxTemplateDrivenFormsDemo implements OnInit {
     messageService = inject(MessageService);
     selectedCity!: City;
     cities!: City[];
@@ -597,7 +597,7 @@ import { ListboxModule } from 'primeng/listbox';
     standalone: true,
     imports: [ListboxModule, FormsModule]
 })
-export class ListboxVirtualscrollDemo {
+export class ListboxVirtualScrollDemo {
     items: any = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }));
     selectedItems!: any[];
     selectAll: boolean = false;

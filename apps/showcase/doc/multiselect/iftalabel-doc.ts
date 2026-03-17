@@ -13,7 +13,7 @@ interface City {
 }
 
 @Component({
-    selector: 'iftalabel-doc',
+    selector: 'ifta-label-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, MultiSelectModule, IftaLabelModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

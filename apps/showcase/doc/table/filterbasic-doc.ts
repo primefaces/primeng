@@ -16,7 +16,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
-    selector: 'filterbasic-doc',
+    selector: 'filter-basic-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, TagModule, IconFieldModule, InputIconModule, InputTextModule, MultiSelectModule, SelectModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

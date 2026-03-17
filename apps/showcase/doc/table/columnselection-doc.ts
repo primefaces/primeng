@@ -12,7 +12,7 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'columnselection-doc',
+    selector: 'column-selection-doc',
     standalone: true,
     imports: [CommonModule, TableModule, ButtonModule, ToastModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

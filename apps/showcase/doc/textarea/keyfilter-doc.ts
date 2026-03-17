@@ -6,7 +6,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { TextareaModule } from 'primeng/textarea';
 
 @Component({
-    selector: 'keyfilter-doc',
+    selector: 'key-filter-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, AppDemoWrapper, KeyFilterModule, TextareaModule],
     template: `

@@ -25,7 +25,7 @@ import { TooltipModule } from 'primeng/tooltip';
     standalone: true,
     imports: [InputTextModule, TooltipModule]
 })
-export class TooltipAutohideDemo {}
+export class TooltipAutoHideDemo {}
 ```
 
 ## Custom

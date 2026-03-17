@@ -14,7 +14,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'columnresizescrollable-doc',
+    selector: 'column-resize-scrollable-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

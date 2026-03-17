@@ -5,7 +5,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
-    selector: 'scopedtokens-doc',
+    selector: 'scoped-tokens-doc',
     standalone: true,
     imports: [FormsModule, AppCode, AppDocSectionText, ToggleSwitchModule],
     template: `

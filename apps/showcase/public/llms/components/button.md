@@ -68,7 +68,7 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [ButtonModule]
 })
-export class ButtonButtongroupDemo {}
+export class ButtonButtonGroupDemo {}
 ```
 
 ## buttonset-doc
@@ -93,7 +93,7 @@ import { RippleModule } from 'primeng/ripple';
     standalone: true,
     imports: [ButtonModule, RippleModule]
 })
-export class ButtonButtonsetDemo {}
+export class ButtonButtonSetDemo {}
 ```
 
 ## Directive
@@ -226,7 +226,7 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [ButtonModule]
 })
-export class ButtonIconsonlyDemo {}
+export class ButtonIconsOnlyDemo {}
 ```
 
 ## Link
@@ -363,10 +363,10 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [ButtonModule]
 })
-export class ButtonRaisedtextDemo {}
+export class ButtonRaisedTextDemo {}
 ```
 
-## Rounded
+## rounded-doc
 
 Rounded buttons have a circular border radius.
 

@@ -8,7 +8,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 
 @Component({
-    selector: 'dragdrop-doc',
+    selector: 'drag-drop-doc',
     standalone: true,
     imports: [CommonModule, OrderListModule, AppCode, AppDemoWrapper, AppDocSectionText],
     providers: [ProductService],

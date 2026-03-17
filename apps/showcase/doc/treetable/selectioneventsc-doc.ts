@@ -20,7 +20,7 @@ interface NodeEvent {
 }
 
 @Component({
-    selector: 'selectioneventsc-doc',
+    selector: 'selection-events-c-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, ToastModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

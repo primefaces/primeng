@@ -24,7 +24,7 @@ import { ColorPickerModule } from 'primeng/colorpicker';
     standalone: true,
     imports: [ColorPickerModule, FormsModule]
 })
-export class ColorpickerBasicDemo {
+export class ColorPickerBasicDemo {
     color: string | undefined;
 }
 ```
@@ -47,7 +47,7 @@ import { ColorPickerModule } from 'primeng/colorpicker';
     standalone: true,
     imports: [ColorPickerModule, FormsModule]
 })
-export class ColorpickerDisabledDemo {
+export class ColorPickerDisabledDemo {
     color: string | undefined;
 }
 ```
@@ -84,7 +84,7 @@ import { ColorPickerModule } from 'primeng/colorpicker';
     standalone: true,
     imports: [ColorPickerModule, FormsModule]
 })
-export class ColorpickerFormatDemo {
+export class ColorPickerFormatDemo {
     color: string = '#6466f1';
     colorRGB: any = { r: 100, g: 102, b: 241 };
     colorHSB: any = { h: 239, s: 59, b: 95 };
@@ -109,7 +109,7 @@ import { ColorPickerModule } from 'primeng/colorpicker';
     standalone: true,
     imports: [ColorPickerModule, FormsModule]
 })
-export class ColorpickerInlineDemo {
+export class ColorPickerInlineDemo {
     color: string | undefined;
 }
 ```
@@ -143,7 +143,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [ColorPickerModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
-export class ColorpickerReactiveformsDemo {
+export class ColorPickerReactiveFormsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup;
     formSubmitted: boolean = false;
@@ -197,7 +197,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [ColorPickerModule, MessageModule, ButtonModule, FormsModule]
 })
-export class ColorpickerTemplatedrivenformsDemo {
+export class ColorPickerTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     color: string | undefined;
 

@@ -21,7 +21,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
     standalone: true,
     imports: [ProgressBarModule]
 })
-export class ProgressbarBasicDemo {}
+export class ProgressBarBasicDemo {}
 ```
 
 ## Dynamic
@@ -41,7 +41,7 @@ import { MessageService } from 'primeng/api';
     imports: [ProgressBarModule],
     providers: [MessageService]
 })
-export class ProgressbarDynamicDemo implements OnInit {
+export class ProgressBarDynamicDemo implements OnInit {
     private messageService = inject(MessageService);
     value: number = 0;
     interval: any;
@@ -86,7 +86,7 @@ import { MessageService } from 'primeng/api';
     imports: [ProgressBarModule],
     providers: [MessageService]
 })
-export class ProgressbarIndeterminateDemo {
+export class ProgressBarIndeterminateDemo {
     private messageService = inject(MessageService);
 }
 ```
@@ -110,7 +110,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
     standalone: true,
     imports: [ProgressBarModule]
 })
-export class ProgressbarTemplateDemo {}
+export class ProgressBarTemplateDemo {}
 ```
 
 ## Progress Bar

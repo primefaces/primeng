@@ -13,7 +13,7 @@ interface City {
 }
 
 @Component({
-    selector: 'overlaysinside-doc',
+    selector: 'overlays-inside-doc',
     standalone: true,
     imports: [FormsModule, DialogModule, ButtonModule, SelectModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

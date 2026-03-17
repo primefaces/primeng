@@ -8,7 +8,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'floatlabel-doc',
+    selector: 'float-label-doc',
     standalone: true,
     imports: [FormsModule, InputTextModule, FloatLabelModule, RouterModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

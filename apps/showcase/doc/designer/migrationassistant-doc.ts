@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'migrationassistant-doc',
+    selector: 'migration-assistant-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, RouterModule],
     template: `<app-docsectiontext>

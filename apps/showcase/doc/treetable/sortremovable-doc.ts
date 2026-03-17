@@ -13,7 +13,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'sortremovable-doc',
+    selector: 'sort-removable-doc',
     standalone: true,
     imports: [TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

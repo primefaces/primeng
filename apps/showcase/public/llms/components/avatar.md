@@ -30,7 +30,7 @@ import { AvatarModule } from 'primeng/avatar';
     standalone: true,
     imports: [AvatarModule]
 })
-export class AvatarAvatargroupDemo {}
+export class AvatarAvatarGroupDemo {}
 ```
 
 ## avatargroupstyle-doc
@@ -60,7 +60,7 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: []
 })
-export class AvatarAvatargroupstyleDemo {}
+export class AvatarAvatarGroupStyleDemo {}
 ```
 
 ## avatarstyle-doc
@@ -116,7 +116,7 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: []
 })
-export class AvatarAvatarstyleDemo {}
+export class AvatarAvatarStyleDemo {}
 ```
 
 ## Badge

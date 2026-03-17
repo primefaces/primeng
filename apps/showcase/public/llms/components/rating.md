@@ -70,7 +70,7 @@ import { RatingModule } from 'primeng/rating';
     standalone: true,
     imports: [RatingModule, FormsModule]
 })
-export class RatingNumberofstarsDemo {
+export class RatingNumberOfStarsDemo {
     value: number = 5;
 }
 ```
@@ -105,7 +105,7 @@ import { MessageService } from 'primeng/api';
     imports: [MessageModule, RatingModule, ButtonModule, ReactiveFormsModule],
     providers: [MessageService]
 })
-export class RatingReactiveformsDemo {
+export class RatingReactiveFormsDemo {
     private messageService = inject(MessageService);
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
@@ -214,7 +214,7 @@ import { MessageService } from 'primeng/api';
     imports: [MessageModule, RatingModule, ButtonModule, FormsModule],
     providers: [MessageService]
 })
-export class RatingTemplatedrivenformsDemo {
+export class RatingTemplateDrivenFormsDemo {
     private messageService = inject(MessageService);
     messageService = inject(MessageService);
     value: any;
@@ -246,7 +246,7 @@ import { RatingModule } from 'primeng/rating';
     standalone: true,
     imports: [RatingModule, FormsModule]
 })
-export class RatingWithoutcancelDemo {
+export class RatingWithoutCancelDemo {
     value!: number;
 }
 ```

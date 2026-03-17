@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'reversedkeys-doc',
+    selector: 'reversed-keys-doc',
     standalone: true,
     imports: [AppDocSectionText],
     template: `

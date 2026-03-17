@@ -6,7 +6,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'passingdata-doc',
+    selector: 'passing-data-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
     template: `

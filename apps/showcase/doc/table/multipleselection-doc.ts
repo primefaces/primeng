@@ -11,7 +11,7 @@ import { TableModule } from 'primeng/table';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
-    selector: 'multipleselection-doc',
+    selector: 'multiple-selection-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, ToggleSwitchModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

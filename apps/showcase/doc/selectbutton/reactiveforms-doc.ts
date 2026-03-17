@@ -11,7 +11,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'reactiveforms-doc',
+    selector: 'reactive-forms-doc',
     standalone: true,
     imports: [ReactiveFormsModule, SelectButtonModule, ToastModule, ButtonModule, MessageModule, AppCode, AppDemoWrapper, AppDocSectionText, CommonModule],
     template: `

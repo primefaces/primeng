@@ -6,7 +6,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'helptext-doc',
+    selector: 'help-text-doc',
     standalone: true,
     imports: [FormsModule, InputTextModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

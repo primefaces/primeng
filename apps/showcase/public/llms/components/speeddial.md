@@ -18,14 +18,14 @@ import { MenuItem, MessageService } from 'primeng/api';
 @Component({
     template: `
         <div style="position:relative; height: 500px;" class="flex items-center justify-center">
-            <p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warn', rounded-sm: true }" />
+            <p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warn', rounded: true }" />
         </div>
     `,
     standalone: true,
     imports: [SpeedDialModule],
     providers: [MessageService]
 })
-export class SpeeddialCircleDemo implements OnInit {
+export class SpeedDialCircleDemo implements OnInit {
     private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
 
@@ -85,7 +85,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SpeedDialModule],
     providers: [MessageService]
 })
-export class SpeeddialLinearDemo implements OnInit {
+export class SpeedDialLinearDemo implements OnInit {
     private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
 
@@ -144,7 +144,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SpeedDialModule],
     providers: [MessageService]
 })
-export class SpeeddialMaskDemo implements OnInit {
+export class SpeedDialMaskDemo implements OnInit {
     private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
 
@@ -204,7 +204,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SpeedDialModule],
     providers: [MessageService]
 })
-export class SpeeddialQuartercircleDemo implements OnInit {
+export class SpeedDialQuarterCircleDemo implements OnInit {
     private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
 
@@ -264,7 +264,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [SpeedDialModule],
     providers: [MessageService]
 })
-export class SpeeddialSemicircleDemo implements OnInit {
+export class SpeedDialSemiCircleDemo implements OnInit {
     private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
 
@@ -364,7 +364,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [ButtonModule, SpeedDialModule],
     providers: [MessageService]
 })
-export class SpeeddialTemplateDemo implements OnInit {
+export class SpeedDialTemplateDemo implements OnInit {
     private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
 
@@ -422,15 +422,15 @@ import { MenuItem, MessageService } from 'primeng/api';
 @Component({
     template: `
         <div [style]="{ position: 'relative', height: '350px' }">
-            <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', right: 0, bottom: 0 }" [buttonProps]="{ severity: 'help', rounded-sm: true }" [tooltipOptions]="{ tooltipPosition: 'left' }" />
-            <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 0, bottom: 0 }" [buttonProps]="{ severity: 'danger', rounded-sm: true }" [tooltipOptions]="{ tooltipPosition: 'right' }" />
+            <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', right: 0, bottom: 0 }" [buttonProps]="{ severity: 'help', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'left' }" />
+            <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 0, bottom: 0 }" [buttonProps]="{ severity: 'danger', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'right' }" />
         </div>
     `,
     standalone: true,
     imports: [SpeedDialModule],
     providers: [MessageService]
 })
-export class SpeeddialTooltipDemo implements OnInit {
+export class SpeedDialTooltipDemo implements OnInit {
     private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
 

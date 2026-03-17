@@ -7,7 +7,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'virtualscroll-doc',
+    selector: 'virtual-scroll-doc',
     standalone: true,
     imports: [NgStyle, FormsModule, MultiSelectModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

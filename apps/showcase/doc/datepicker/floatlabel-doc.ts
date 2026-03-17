@@ -8,7 +8,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
-    selector: 'floatlabel-doc',
+    selector: 'float-label-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, DatePickerModule, FloatLabelModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

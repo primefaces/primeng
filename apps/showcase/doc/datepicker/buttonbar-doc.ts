@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'buttonbar-doc',
+    selector: 'button-bar-doc',
     standalone: true,
     imports: [FormsModule, DatePickerModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

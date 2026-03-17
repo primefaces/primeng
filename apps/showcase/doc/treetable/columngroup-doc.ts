@@ -6,7 +6,7 @@ import { TreeNode } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
-    selector: 'columngroup-doc',
+    selector: 'column-group-doc',
     standalone: true,
     imports: [TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper],
     template: `

@@ -13,7 +13,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'lazyload-doc',
+    selector: 'lazy-load-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

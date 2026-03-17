@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'colormanager-doc',
+    selector: 'color-manager-doc',
     standalone: true,
     imports: [AppDocSectionText],
     template: `

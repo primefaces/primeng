@@ -9,7 +9,7 @@ import { ToastModule } from 'primeng/toast';
 import { TreeModule } from 'primeng/tree';
 
 @Component({
-    selector: 'contextmenu-doc',
+    selector: 'context-menu-doc',
     standalone: true,
     imports: [TreeModule, ContextMenuModule, ToastModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

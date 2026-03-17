@@ -267,12 +267,20 @@ function toHyphenatedName(name) {
 /**
  * Get code examples from demos.json for a specific component section
  */
-function getCodeExamplesFromDemos(componentName, sectionId) {
+function getCodeExamplesFromDemos(componentName, sectionId, docSelector) {
     if (!demosData || !demosData.demos) return null;
 
     // Try different selector patterns
     const hyphenated = toHyphenatedName(componentName);
     const selectors = [`${componentName}-${sectionId}-demo`, `${hyphenated}-${sectionId}-demo`];
+
+    // If the doc file has a selector, derive the demo key from it (matches build-demo-code.mjs logic)
+    if (docSelector) {
+        const base = docSelector.replace(/-doc$/, '');
+        const routeName = hyphenated;
+        selectors.push(`${routeName}-${base}-demo`);
+        selectors.push(`${componentName}-${base}-demo`);
+    }
 
     for (const selector of selectors) {
         const demo = demosData.demos[selector];
@@ -335,6 +343,10 @@ function extractCodeFromFile(content) {
 function parseDocFile(filePath) {
     const content = fs.readFileSync(filePath, 'utf-8');
 
+    // Extract component selector from @Component decorator
+    const selectorMatch = content.match(/selector:\s*'([^']+)'/);
+    const selector = selectorMatch ? selectorMatch[1] : null;
+
     // Extract template from @Component decorator
     const templateMatch = content.match(/template:\s*`([\s\S]*?)`(?=\s*(?:,|\}))/);
     const template = templateMatch ? templateMatch[1] : '';
@@ -349,6 +361,7 @@ function parseDocFile(filePath) {
     const inlineCode = extractCodeFromFile(content);
 
     return {
+        selector,
         description,
         appCodeSelector,
         inlineCode
@@ -479,7 +492,7 @@ function processComponent(componentName, componentDir) {
             codeExamples = docData.inlineCode;
         } else {
             // For regular demo sections, get code from demos.json
-            codeExamples = getCodeExamplesFromDemos(componentName, sectionId);
+            codeExamples = getCodeExamplesFromDemos(componentName, sectionId, docData.selector);
         }
 
         if (docData.description || codeExamples) {
@@ -1162,7 +1175,7 @@ function processGuidePage(pageConfig) {
                 }
                 if (!codeExamples) {
                     const pageName = pageConfig.route.split('/').pop();
-                    codeExamples = getCodeExamplesFromDemos(pageName, sectionId);
+                    codeExamples = getCodeExamplesFromDemos(pageName, sectionId, docData.selector);
                 }
 
                 if (docData.description || codeExamples) {

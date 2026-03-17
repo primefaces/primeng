@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'builtinconstraints-doc',
+    selector: 'built-in-constraints-doc',
     standalone: true,
     template: `
         <div class="doc-tablewrapper">

@@ -24,7 +24,7 @@ import { MenuItem } from 'primeng/api';
     standalone: true,
     imports: [TieredMenuModule]
 })
-export class TieredmenuBasicDemo implements OnInit {
+export class TieredMenuBasicDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     ngOnInit() {
@@ -120,7 +120,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     imports: [TieredMenuModule],
     providers: [MessageService]
 })
-export class TieredmenuCommandDemo implements OnInit {
+export class TieredMenuCommandDemo implements OnInit {
     private messageService = inject(MessageService);
     items: MenuItem[] | undefined;
 
@@ -206,7 +206,7 @@ import { MenuItem } from 'primeng/api';
     standalone: true,
     imports: [ButtonModule, TieredMenuModule]
 })
-export class TieredmenuPopupDemo implements OnInit {
+export class TieredMenuPopupDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     ngOnInit() {
@@ -301,7 +301,7 @@ import { MenuItem } from 'primeng/api';
     standalone: true,
     imports: [TieredMenuModule]
 })
-export class TieredmenuRouterDemo implements OnInit {
+export class TieredMenuRouterDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     ngOnInit() {
@@ -382,7 +382,7 @@ import { MenuItem } from 'primeng/api';
     standalone: true,
     imports: [BadgeModule, TieredMenuModule, RippleModule]
 })
-export class TieredmenuTemplateDemo implements OnInit {
+export class TieredMenuTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     ngOnInit() {

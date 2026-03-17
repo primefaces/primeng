@@ -6,7 +6,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'numberofstars-doc',
+    selector: 'number-of-stars-doc',
     standalone: true,
     imports: [FormsModule, RatingModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

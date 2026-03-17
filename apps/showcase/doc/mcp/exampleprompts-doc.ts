@@ -4,7 +4,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'exampleprompts-doc',
+    selector: 'example-prompts-doc',
     standalone: true,
     imports: [AppCodeModule, AppDocSectionText],
     template: `

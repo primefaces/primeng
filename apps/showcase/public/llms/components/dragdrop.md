@@ -39,7 +39,7 @@ import { Product } from '@/domain/product';
     standalone: true,
     imports: []
 })
-export class DragdropBasicDemo implements OnInit {
+export class DragDropBasicDemo implements OnInit {
     availableProducts: Product[] | undefined;
     selectedProducts: Product[] | undefined;
     draggedProduct: Product | undefined | null;
@@ -142,7 +142,7 @@ import { Product } from '@/domain/product';
     imports: [TableModule, TagModule],
     providers: [ProductService]
 })
-export class DragdropDatatableDemo implements OnInit {
+export class DragDropDataTableDemo implements OnInit {
     private productService = inject(ProductService);
     availableProducts: Product[] | undefined;
     selectedProducts: Product[] | undefined;
@@ -212,7 +212,7 @@ import { Product } from '@/domain/product';
     standalone: true,
     imports: [PanelModule]
 })
-export class DragdropDraghandleDemo {}
+export class DragDropDragHandleDemo {}
 ```
 
 ## Drop Indicator
@@ -252,7 +252,7 @@ import { Product } from '@/domain/product';
     standalone: true,
     imports: []
 })
-export class DragdropDropindicatorDemo implements OnInit {
+export class DragDropDropIndicatorDemo implements OnInit {
     availableProducts: Product[] | undefined;
     selectedProducts: Product[] | undefined;
     draggedProduct: Product | undefined | null;

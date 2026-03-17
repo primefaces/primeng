@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'addingprimeicons-doc',
+    selector: 'adding-prime-icons-doc',
     standalone: true,
     imports: [AppDocSectionText],
     template: `<app-docsectiontext>

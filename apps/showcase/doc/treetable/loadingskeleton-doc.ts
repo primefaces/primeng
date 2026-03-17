@@ -9,7 +9,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
-    selector: 'loadingskeleton-doc',
+    selector: 'loading-skeleton-doc',
     standalone: true,
     imports: [TreeTableModule, AppDocSectionText, AppCode, AppDemoWrapper, DeferredDemo, SkeletonModule],
     template: ` <app-docsectiontext>

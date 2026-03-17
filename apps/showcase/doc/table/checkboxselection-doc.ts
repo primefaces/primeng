@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'checkboxselection-doc',
+    selector: 'checkbox-selection-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

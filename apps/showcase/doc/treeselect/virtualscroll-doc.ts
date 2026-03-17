@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
-    selector: 'virtualscroll-doc',
+    selector: 'virtual-scroll-doc',
     standalone: true,
     imports: [FormsModule, TreeSelectModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: ` <app-docsectiontext>

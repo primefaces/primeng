@@ -25,7 +25,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     standalone: true,
     imports: [RadioButtonModule, FormsModule]
 })
-export class RadiobuttonDisabledDemo {
+export class RadioButtonDisabledDemo {
     value: number = 2;
 }
 ```
@@ -55,7 +55,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     standalone: true,
     imports: [RadioButtonModule, FormsModule]
 })
-export class RadiobuttonDynamicDemo implements OnInit {
+export class RadioButtonDynamicDemo implements OnInit {
     selectedCategory: any = null;
     categories: any[] = [
         { name: 'Accounting', key: 'A' },
@@ -88,7 +88,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     standalone: true,
     imports: [RadioButtonModule, FormsModule]
 })
-export class RadiobuttonFilledDemo {
+export class RadioButtonFilledDemo {
     checked: boolean = false;
 }
 ```
@@ -128,7 +128,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     standalone: true,
     imports: [RadioButtonModule, FormsModule]
 })
-export class RadiobuttonGroupDemo {
+export class RadioButtonGroupDemo {
     ingredient!: string;
 }
 ```
@@ -151,7 +151,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     standalone: true,
     imports: [RadioButtonModule, FormsModule]
 })
-export class RadiobuttonInvalidDemo {
+export class RadioButtonInvalidDemo {
     value: boolean = false;
 }
 ```
@@ -193,7 +193,7 @@ import { MessageService } from 'primeng/api';
     imports: [MessageModule, RadioButtonModule, ButtonModule, ReactiveFormsModule],
     providers: [MessageService]
 })
-export class RadiobuttonReactiveformsDemo {
+export class RadioButtonReactiveFormsDemo {
     private messageService = inject(MessageService);
     messageService = inject(MessageService);
     formSubmitted: boolean = false;
@@ -266,7 +266,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     standalone: true,
     imports: [RadioButtonModule, FormsModule]
 })
-export class RadiobuttonSizesDemo {
+export class RadioButtonSizesDemo {
     size: any = false;
 }
 ```
@@ -306,7 +306,7 @@ import { MessageService } from 'primeng/api';
     imports: [MessageModule, RadioButtonModule, ButtonModule, FormsModule],
     providers: [MessageService]
 })
-export class RadiobuttonTemplatedrivenformsDemo {
+export class RadioButtonTemplateDrivenFormsDemo {
     private messageService = inject(MessageService);
     messageService = inject(MessageService);
     formSubmitted: boolean = false;

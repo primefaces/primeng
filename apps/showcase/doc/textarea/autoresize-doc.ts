@@ -5,7 +5,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { TextareaModule } from 'primeng/textarea';
 
 @Component({
-    selector: 'autoresize-doc',
+    selector: 'auto-resize-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, AppDemoWrapper, TextareaModule],
     template: `

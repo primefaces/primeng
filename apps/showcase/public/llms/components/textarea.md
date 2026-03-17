@@ -22,7 +22,7 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: []
 })
-export class TextareaAutoresizeDemo {}
+export class TextareaAutoResizeDemo {}
 ```
 
 ## Basic
@@ -117,7 +117,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     standalone: true,
     imports: [FloatLabelModule, FormsModule]
 })
-export class TextareaFloatlabelDemo {
+export class TextareaFloatLabelDemo {
     value1: string = '';
     value2: string = '';
     value3: string = '';
@@ -165,7 +165,7 @@ import { IftaLabelModule } from 'primeng/iftalabel';
     standalone: true,
     imports: [IftaLabelModule, FormsModule]
 })
-export class TextareaIftalabelDemo {
+export class TextareaIftaLabelDemo {
     value: string = '';
 }
 ```
@@ -208,7 +208,7 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: []
 })
-export class TextareaKeyfilterDemo {}
+export class TextareaKeyFilterDemo {}
 ```
 
 ## reactiveforms-doc
@@ -239,7 +239,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [MessageModule, ButtonModule, ReactiveFormsModule]
 })
-export class TextareaReactiveformsDemo {
+export class TextareaReactiveFormsDemo {
     messageService = inject(MessageService);
     items: any[] | undefined;
     exampleForm: FormGroup | undefined;
@@ -319,7 +319,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [MessageModule, ButtonModule, FormsModule]
 })
-export class TextareaTemplatedrivenformsDemo {
+export class TextareaTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     items: any[] = [];
     value: any;

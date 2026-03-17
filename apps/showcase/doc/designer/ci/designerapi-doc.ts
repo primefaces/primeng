@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'designerapi-doc',
+    selector: 'designer-api-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, RouterModule, AppCode],
     template: `<app-docsectiontext>

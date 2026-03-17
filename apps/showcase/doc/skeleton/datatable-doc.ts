@@ -7,7 +7,7 @@ import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'datatable-doc',
+    selector: 'data-table-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, AppDemoWrapper, SkeletonModule, TableModule, CommonModule],
     template: `

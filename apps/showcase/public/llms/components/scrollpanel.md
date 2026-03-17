@@ -34,7 +34,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
     standalone: true,
     imports: [ScrollPanelModule]
 })
-export class ScrollpanelBasicDemo {}
+export class ScrollPanelBasicDemo {}
 ```
 
 ## Custom
@@ -77,7 +77,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
     standalone: true,
     imports: [ScrollPanelModule]
 })
-export class ScrollpanelCustomDemo {}
+export class ScrollPanelCustomDemo {}
 ```
 
 ## Scroll Panel

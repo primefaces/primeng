@@ -16,7 +16,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'contextmenu-doc',
+    selector: 'context-menu-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, ToastModule, ContextMenuModule, AppCode, AppDemoWrapper, AppDocSectionText, DeferredDemo],
     template: `

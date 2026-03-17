@@ -14,7 +14,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'dynamiccolumns-doc',
+    selector: 'dynamic-columns-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, AppCode, AppDemoWrapper, AppDocSectionText, DeferredDemo],
     template: `

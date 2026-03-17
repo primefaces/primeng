@@ -11,7 +11,7 @@ interface City {
 }
 
 @Component({
-    selector: 'clearicon-doc',
+    selector: 'clear-icon-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, AppDemoWrapper, FormsModule, Select],
     template: `

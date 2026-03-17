@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 
 @Component({
-    selector: 'clearicon-doc',
+    selector: 'clear-icon-doc',
     standalone: true,
     imports: [FormsModule, PasswordModule, AppCode, AppDocSectionText, AppDemoWrapper],
     template: `

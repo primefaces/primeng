@@ -26,7 +26,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     imports: [ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmpopupBasicDemo {
+export class ConfirmPopupBasicDemo {
     private confirmationService = inject(ConfirmationService);
     private messageService = inject(MessageService);
 
@@ -164,7 +164,7 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: []
 })
-export class ConfirmpopupConfirmationapiDemo {}
+export class ConfirmPopupConfirmationApiDemo {}
 ```
 
 ## Headless
@@ -186,7 +186,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     imports: [ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmpopupHeadlessDemo {
+export class ConfirmPopupHeadlessDemo {
     private confirmationService = inject(ConfirmationService);
     private messageService = inject(MessageService);
 }
@@ -247,7 +247,7 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: []
 })
-export class ConfirmpopupPropsDemo {}
+export class ConfirmPopupPropsDemo {}
 ```
 
 ## Template
@@ -269,7 +269,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     imports: [ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmpopupTemplateDemo {
+export class ConfirmPopupTemplateDemo {
     private confirmationService = inject(ConfirmationService);
     private messageService = inject(MessageService);
 }
@@ -306,7 +306,7 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: []
 })
-export class ConfirmpopupTemplatesDemo {}
+export class ConfirmPopupTemplatesDemo {}
 ```
 
 ## Confirm Popup

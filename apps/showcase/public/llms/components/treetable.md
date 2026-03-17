@@ -44,7 +44,7 @@ import { TreeNode } from 'primeng/api';
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableBasicDemo implements OnInit {
+export class TreeTableBasicDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
 
@@ -107,7 +107,7 @@ import { Product } from '@/domain/product';
     standalone: true,
     imports: [TreeTableModule]
 })
-export class TreetableColumngroupDemo implements OnInit {
+export class TreeTableColumnGroupDemo implements OnInit {
     sales!: TreeNode[];
 
     ngOnInit() {
@@ -416,7 +416,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableColumnresizeexpandDemo implements OnInit {
+export class TreeTableColumnResizeExpandDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
@@ -481,7 +481,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableColumnresizefitDemo implements OnInit {
+export class TreeTableColumnResizeFitDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
@@ -554,7 +554,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableColumnresizescrollableDemo implements OnInit {
+export class TreeTableColumnResizeScrollableDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
@@ -626,7 +626,7 @@ interface Column {
     imports: [MultiSelectModule, TreeTableModule, FormsModule],
     providers: [NodeService]
 })
-export class TreetableColumntoggleDemo implements OnInit {
+export class TreeTableColumnToggleDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
@@ -693,7 +693,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableConditionalstyleDemo implements OnInit {
+export class TreeTableConditionalStyleDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
@@ -759,7 +759,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService, MessageService]
 })
-export class TreetableContextmenuDemo implements OnInit {
+export class TreeTableContextMenuDemo implements OnInit {
     private nodeService = inject(NodeService);
     private messageService = inject(MessageService);
     files!: TreeNode[];
@@ -829,7 +829,7 @@ import { TreeNode } from 'primeng/api';
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableControlledDemo implements OnInit {
+export class TreeTableControlledDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
 
@@ -898,7 +898,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableDynamiccolumnsDemo implements OnInit {
+export class TreeTableDynamicColumnsDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
@@ -966,7 +966,7 @@ interface Column {
     imports: [TreeTableModule, InputTextModule, FormsModule],
     providers: [NodeService]
 })
-export class TreetableEditDemo implements OnInit {
+export class TreeTableEditDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
@@ -1054,7 +1054,7 @@ interface Column {
     imports: [IconFieldModule, InputIconModule, TreeTableModule, InputTextModule],
     providers: [NodeService]
 })
-export class TreetableFilterDemo implements OnInit {
+export class TreeTableFilterDemo implements OnInit {
     private nodeService = inject(NodeService);
     filterMode: string = 'lenient';
     filterModes: any[] = [
@@ -1123,7 +1123,7 @@ import { TreeNode } from 'primeng/api';
     imports: [ButtonModule, DialogModule, TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableFlexiblescrollDemo implements OnInit {
+export class TreeTableFlexibleScrollDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     dialogVisible: boolean = false;
@@ -1174,7 +1174,7 @@ import { TreeNode } from 'primeng/api';
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableGridlinesDemo implements OnInit {
+export class TreeTableGridLinesDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
 
@@ -1245,7 +1245,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableLazyloadDemo implements OnInit {
+export class TreeTableLazyLoadDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
@@ -1354,7 +1354,7 @@ import { TreeNode } from 'primeng/api';
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableLoadingmaskDemo implements OnInit {
+export class TreeTableLoadingMaskDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
 
@@ -1398,7 +1398,7 @@ import { TreeNode } from 'primeng/api';
     imports: [SkeletonModule, TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableLoadingskeletonDemo implements OnInit {
+export class TreeTableLoadingSkeletonDemo implements OnInit {
     private nodeService = inject(NodeService);
     files = signal<TreeNode[]>([]);
 
@@ -1455,7 +1455,7 @@ interface Column {
     standalone: true,
     imports: [TreeTableModule]
 })
-export class TreetablePaginatorbasicDemo implements OnInit {
+export class TreeTablePaginatorBasicDemo implements OnInit {
     files!: TreeNode[];
     cols!: Column[];
 
@@ -1544,7 +1544,7 @@ interface Column {
     standalone: true,
     imports: [ButtonModule, TreeTableModule]
 })
-export class TreetablePaginatortemplateDemo implements OnInit {
+export class TreeTablePaginatorTemplateDemo implements OnInit {
     files!: TreeNode[];
     cols!: Column[];
 
@@ -1627,7 +1627,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableReorderDemo implements OnInit {
+export class TreeTableReorderDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
@@ -1702,7 +1702,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableScrollfrozencolumnsDemo implements OnInit {
+export class TreeTableScrollFrozenColumnsDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
@@ -1785,7 +1785,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableScrollhorizontalDemo implements OnInit {
+export class TreeTableScrollHorizontalDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
@@ -1850,7 +1850,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableScrollverticalDemo implements OnInit {
+export class TreeTableScrollVerticalDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
@@ -1916,7 +1916,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableSelectioncheckboxDemo implements OnInit {
+export class TreeTableSelectionCheckboxDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     selectionKeys: any = {};
@@ -2017,7 +2017,7 @@ interface NodeEvent {
     imports: [TreeTableModule],
     providers: [NodeService, MessageService]
 })
-export class TreetableSelectioneventscDemo implements OnInit {
+export class TreeTableSelectionEventsCDemo implements OnInit {
     private nodeService = inject(NodeService);
     private messageService = inject(MessageService);
     files!: TreeNode[];
@@ -2093,7 +2093,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableSelectionmultipleDemo implements OnInit {
+export class TreeTableSelectionMultipleDemo implements OnInit {
     private nodeService = inject(NodeService);
     metaKeySelection: boolean = true;
     files!: TreeNode[];
@@ -2160,7 +2160,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableSelectionsingleDemo implements OnInit {
+export class TreeTableSelectionSingleDemo implements OnInit {
     private nodeService = inject(NodeService);
     metaKeySelection: boolean = true;
     files!: TreeNode[];
@@ -2216,7 +2216,7 @@ import { TreeNode } from 'primeng/api';
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableSizeDemo implements OnInit {
+export class TreeTableSizeDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     sizes!: any[];
@@ -2285,7 +2285,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableSortmultiplecolumnsDemo implements OnInit {
+export class TreeTableSortMultipleColumnsDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
@@ -2360,7 +2360,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableSortremovableDemo implements OnInit {
+export class TreeTableSortRemovableDemo implements OnInit {
     private nodeService = inject(NodeService);
     metaKeySelection: boolean = true;
     files!: TreeNode[];
@@ -2464,7 +2464,7 @@ interface Column {
     imports: [TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableSortsinglecolumnDemo implements OnInit {
+export class TreeTableSortSingleColumnDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];
@@ -2541,7 +2541,7 @@ interface Column {
     imports: [ButtonModule, TreeTableModule],
     providers: [NodeService]
 })
-export class TreetableTemplateDemo implements OnInit {
+export class TreeTableTemplateDemo implements OnInit {
     private nodeService = inject(NodeService);
     files!: TreeNode[];
     cols!: Column[];

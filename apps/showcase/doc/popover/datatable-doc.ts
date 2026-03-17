@@ -11,7 +11,7 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 
 @Component({
-    selector: 'datatable-doc',
+    selector: 'data-table-doc',
     standalone: true,
     imports: [PopoverModule, TableModule, ButtonModule, TagModule, AppCode, AppDemoWrapper, AppDocSectionText],
     providers: [MessageService, ProductService],

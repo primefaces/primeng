@@ -8,7 +8,7 @@ import { ChartModule } from 'primeng/chart';
 import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
-    selector: 'multiaxis-doc',
+    selector: 'multi-axis-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ChartModule, AppDemoWrapper],
     template: `

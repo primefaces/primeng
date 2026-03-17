@@ -8,7 +8,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { IftaLabelModule } from 'primeng/iftalabel';
 
 @Component({
-    selector: 'iftalabel-doc',
+    selector: 'ifta-label-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, DatePickerModule, IftaLabelModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

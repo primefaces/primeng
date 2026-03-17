@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
-    selector: 'clearicon-doc',
+    selector: 'clear-icon-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, InputNumberModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

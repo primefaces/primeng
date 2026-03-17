@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'columnresizescrollablemode-doc',
+    selector: 'column-resize-scrollable-mode-doc',
     standalone: true,
     imports: [CommonModule, TableModule, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-demo-wrapper>

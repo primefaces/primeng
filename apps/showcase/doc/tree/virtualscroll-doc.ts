@@ -7,7 +7,7 @@ import { TreeNode } from 'primeng/api';
 import { TreeModule } from 'primeng/tree';
 
 @Component({
-    selector: 'virtualscroll-doc',
+    selector: 'virtual-scroll-doc',
     standalone: true,
     imports: [TreeModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

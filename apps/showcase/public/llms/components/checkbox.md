@@ -261,7 +261,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [CheckboxModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
-export class CheckboxReactiveformsDemo {
+export class CheckboxReactiveFormsDemo {
     messageService = inject(MessageService);
     formSubmitted: boolean = false;
     exampleForm: FormGroup;
@@ -385,7 +385,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [CheckboxModule, MessageModule, ButtonModule, FormsModule]
 })
-export class CheckboxTemplatedrivenformsDemo {
+export class CheckboxTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     formSubmitted: boolean = false;
     formModel: any = {

@@ -5,7 +5,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'minmax-doc',
+    selector: 'min-max-doc',
     standalone: true,
     imports: [MeterGroupModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

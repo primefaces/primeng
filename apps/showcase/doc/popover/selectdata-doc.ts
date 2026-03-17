@@ -6,7 +6,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'selectdata-doc',
+    selector: 'select-data-doc',
     standalone: true,
     imports: [PopoverModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

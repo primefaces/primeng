@@ -6,7 +6,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'integeronly-doc',
+    selector: 'integer-only-doc',
     standalone: true,
     imports: [FormsModule, InputOtpModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

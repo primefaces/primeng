@@ -14,7 +14,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'selectioncheckbox-doc',
+    selector: 'selection-checkbox-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

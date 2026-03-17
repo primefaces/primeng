@@ -42,7 +42,7 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [ButtonModule, CheckboxModule, IconFieldModule, InputIconModule, InputTextModule, FormsModule]
 })
-export class FocustrapBasicDemo {
+export class FocusTrapBasicDemo {
     name: string = '';
     email: string = '';
     accept: boolean = false;

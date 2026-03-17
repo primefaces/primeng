@@ -17,7 +17,7 @@ interface City {
 }
 
 @Component({
-    selector: 'customfilter-doc',
+    selector: 'custom-filter-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, AppCode, AppDemoWrapper, FormsModule, SelectModule, InputGroupModule, InputGroupAddonModule, ButtonModule, InputTextModule],
     template: `

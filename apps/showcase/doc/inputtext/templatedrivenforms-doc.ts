@@ -9,7 +9,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 
 @Component({
-    selector: 'templatedrivenforms-doc',
+    selector: 'template-driven-forms-doc',
     standalone: true,
     imports: [FormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDemoWrapper],
     template: `

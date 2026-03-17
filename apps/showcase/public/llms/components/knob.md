@@ -93,7 +93,7 @@ import { KnobModule } from 'primeng/knob';
     standalone: true,
     imports: [KnobModule, FormsModule]
 })
-export class KnobMinmaxDemo {
+export class KnobMinMaxDemo {
     value: number = 10;
 }
 ```
@@ -155,7 +155,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [KnobModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
-export class KnobReactiveformsDemo {
+export class KnobReactiveFormsDemo {
     messageService = inject(MessageService);
     items: any[] | undefined;
     exampleForm: FormGroup | undefined;
@@ -344,7 +344,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [KnobModule, MessageModule, ButtonModule, FormsModule]
 })
-export class KnobTemplatedrivenformsDemo {
+export class KnobTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     value: number = 15;
     formSubmitted: boolean = false;

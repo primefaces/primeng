@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'livepreview-doc',
+    selector: 'live-preview-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, RouterModule],
     template: `<app-docsectiontext>

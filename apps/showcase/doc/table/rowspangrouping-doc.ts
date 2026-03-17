@@ -10,7 +10,7 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 
 @Component({
-    selector: 'rowspangrouping-doc',
+    selector: 'row-span-grouping-doc',
     standalone: true,
     imports: [TableModule, TagModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

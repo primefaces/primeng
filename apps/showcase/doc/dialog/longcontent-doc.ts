@@ -6,7 +6,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'longcontent-doc',
+    selector: 'long-content-doc',
     standalone: true,
     imports: [DialogModule, ButtonModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

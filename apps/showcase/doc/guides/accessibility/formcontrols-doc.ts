@@ -4,7 +4,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'formcontrols-doc',
+    selector: 'form-controls-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule],
     template: `

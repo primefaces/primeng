@@ -88,7 +88,7 @@ import { ContextMenu } from 'primeng/contextmenu';
     imports: [ContextMenuModule, TreeModule],
     providers: [NodeService, MessageService]
 })
-export class TreeContextmenuDemo implements OnInit {
+export class TreeContextMenuDemo implements OnInit {
     private nodeService = inject(NodeService);
     private messageService = inject(MessageService);
     files = signal<TreeNode[]>([]);
@@ -486,7 +486,7 @@ import { TreeNode } from 'primeng/api';
     imports: [TreeModule],
     providers: [NodeService]
 })
-export class TreeVirtualscrollDemo implements OnInit {
+export class TreeVirtualScrollDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes = signal<TreeNode[]>(undefined);
 
@@ -514,7 +514,7 @@ import { TreeNode } from 'primeng/api';
     imports: [TreeModule],
     providers: [NodeService]
 })
-export class TreeVirtualscrolllazyDemo implements OnInit {
+export class TreeVirtualScrollLazyDemo implements OnInit {
     private nodeService = inject(NodeService);
     loading = signal<boolean>(false);
     nodes = signal<TreeNode[]>(undefined);

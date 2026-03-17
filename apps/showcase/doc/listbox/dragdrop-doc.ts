@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ListboxModule } from 'primeng/listbox';
 
 @Component({
-    selector: 'dragdrop-doc',
+    selector: 'drag-drop-doc',
     standalone: true,
     imports: [FormsModule, ListboxModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

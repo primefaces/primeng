@@ -29,7 +29,7 @@ interface City {
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
 })
-export class MultiselectBasicDemo implements OnInit {
+export class MultiSelectBasicDemo implements OnInit {
     cities!: City[];
     selectedCities!: any[];
 
@@ -68,7 +68,7 @@ interface City {
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
 })
-export class MultiselectChipsDemo implements OnInit {
+export class MultiSelectChipsDemo implements OnInit {
     cities!: City[];
     selectedCities!: City[];
 
@@ -107,7 +107,7 @@ interface City {
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
 })
-export class MultiselectCleariconDemo implements OnInit {
+export class MultiSelectClearIconDemo implements OnInit {
     cities!: City[];
     selectedCities!: any[];
 
@@ -146,7 +146,7 @@ interface City {
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
 })
-export class MultiselectDisabledDemo implements OnInit {
+export class MultiSelectDisabledDemo implements OnInit {
     cities!: City[];
     selectedCities!: City[];
 
@@ -185,7 +185,7 @@ interface City {
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
 })
-export class MultiselectFilledDemo implements OnInit {
+export class MultiSelectFilledDemo implements OnInit {
     cities!: City[];
     selectedCities!: any[];
 
@@ -224,7 +224,7 @@ interface City {
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
 })
-export class MultiselectFilterDemo implements OnInit {
+export class MultiSelectFilterDemo implements OnInit {
     cities!: City[];
     selectedCities!: City[];
 
@@ -275,7 +275,7 @@ interface City {
     standalone: true,
     imports: [FloatLabelModule, MultiSelectModule, FormsModule]
 })
-export class MultiselectFloatlabelDemo implements OnInit {
+export class MultiSelectFloatLabelDemo implements OnInit {
     cities!: City[];
     value1!: City[];
     value2!: City[];
@@ -316,7 +316,7 @@ interface City {
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
 })
-export class MultiselectFluidDemo implements OnInit {
+export class MultiSelectFluidDemo implements OnInit {
     cities!: City[];
     selectedCities!: any[];
 
@@ -363,7 +363,7 @@ interface City {
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
 })
-export class MultiselectGroupDemo {
+export class MultiSelectGroupDemo {
     groupedCities!: SelectItemGroup[];
     selectedCities!: City[];
 
@@ -431,7 +431,7 @@ interface City {
     standalone: true,
     imports: [IftaLabelModule, MultiSelectModule, FormsModule]
 })
-export class MultiselectIftalabelDemo implements OnInit {
+export class MultiSelectIftaLabelDemo implements OnInit {
     cities!: City[];
     selectedCities!: City[];
 
@@ -471,7 +471,7 @@ interface City {
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
 })
-export class MultiselectInvalidDemo {
+export class MultiSelectInvalidDemo {
     value1: boolean = true;
     value2: boolean = true;
     cities: City[] = [
@@ -509,7 +509,7 @@ interface City {
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
 })
-export class MultiselectLoadingstateDemo implements OnInit {
+export class MultiSelectLoadingStateDemo implements OnInit {
     cities!: City[];
     selectedCities!: any[];
 
@@ -560,7 +560,7 @@ interface City {
     imports: [MessageModule, MultiSelectModule, ButtonModule, ReactiveFormsModule],
     providers: [MessageService]
 })
-export class MultiselectReactiveformsDemo {
+export class MultiSelectReactiveFormsDemo {
     private messageService = inject(MessageService);
     messageService = inject(MessageService);
     cities: City[] = [
@@ -620,7 +620,7 @@ interface City {
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
 })
-export class MultiselectSizesDemo implements OnInit {
+export class MultiSelectSizesDemo implements OnInit {
     cities!: City[];
     value1: any[];
     value2: any[];
@@ -685,7 +685,7 @@ interface Country {
     standalone: true,
     imports: [ButtonModule, MultiSelectModule, FormsModule]
 })
-export class MultiselectTemplateDemo implements OnInit {
+export class MultiSelectTemplateDemo implements OnInit {
     countries!: Country[];
     selectedCountries!: Country[];
 
@@ -750,7 +750,7 @@ interface City {
     imports: [MessageModule, MultiSelectModule, ButtonModule, FormsModule],
     providers: [MessageService]
 })
-export class MultiselectTemplatedrivenformsDemo {
+export class MultiSelectTemplateDrivenFormsDemo {
     private messageService = inject(MessageService);
     messageService = inject(MessageService);
     cities: City[] = [
@@ -811,7 +811,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     standalone: true,
     imports: [MultiSelectModule, FormsModule]
 })
-export class MultiselectVirtualscrollDemo {
+export class MultiSelectVirtualScrollDemo {
     items: any = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }));
     selectedItems!: any[];
     selectAll: boolean = false;

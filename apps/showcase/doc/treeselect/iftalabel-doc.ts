@@ -9,7 +9,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'iftalabel-doc',
+    selector: 'ifta-label-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, TreeSelectModule, IftaLabelModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

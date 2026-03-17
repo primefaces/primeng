@@ -31,7 +31,7 @@ import { PanelModule } from 'primeng/panel';
     standalone: true,
     imports: [BlockUIModule, ButtonModule, PanelModule]
 })
-export class BlockuiBasicDemo {
+export class BlockUIBasicDemo {
     blockedPanel: boolean = false;
 }
 ```
@@ -53,7 +53,7 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [BlockUIModule, ButtonModule]
 })
-export class BlockuiDocumentDemo {
+export class BlockUIDocumentDemo {
     blockedDocument: boolean = false;
 }
 ```

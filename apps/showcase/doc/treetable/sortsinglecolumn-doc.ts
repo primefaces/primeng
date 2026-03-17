@@ -14,7 +14,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'sortsinglecolumn-doc',
+    selector: 'sort-single-column-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

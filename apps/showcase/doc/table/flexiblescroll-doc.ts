@@ -10,7 +10,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'flexiblescroll-doc',
+    selector: 'flexible-scroll-doc',
     standalone: true,
     imports: [TableModule, ButtonModule, DialogModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

@@ -23,7 +23,7 @@ import { TreeNode } from 'primeng/api';
     standalone: true,
     imports: []
 })
-export class OrganizationchartBasicDemo {
+export class OrganizationChartBasicDemo {
     data: TreeNode[] = [
         {
             label: 'Argentina',
@@ -88,7 +88,7 @@ import { TreeNode } from 'primeng/api';
     standalone: true,
     imports: []
 })
-export class OrganizationchartColoredDemo {
+export class OrganizationChartColoredDemo {
     data: TreeNode[] = [
         {
             expanded: true,
@@ -175,7 +175,7 @@ import { TreeNode } from 'primeng/api';
     standalone: true,
     imports: []
 })
-export class OrganizationchartSelectionDemo {
+export class OrganizationChartSelectionDemo {
     selectedNodes!: TreeNode[];
     data: TreeNode[] = [
         {
@@ -251,7 +251,7 @@ import { TreeNode } from 'primeng/api';
     standalone: true,
     imports: []
 })
-export class OrganizationchartTemplateDemo {
+export class OrganizationChartTemplateDemo {
     data: TreeNode[] = [
         {
             label: 'Argentina',

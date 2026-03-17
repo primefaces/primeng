@@ -16,7 +16,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'columntoggle-doc',
+    selector: 'column-toggle-doc',
     standalone: true,
     imports: [FormsModule, TableModule, MultiSelectModule, AppDocSectionText, AppCode, DeferredDemo, AppDemoWrapper],
     template: ` <app-docsectiontext>

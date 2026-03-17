@@ -21,7 +21,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
     standalone: true,
     imports: [MeterGroupModule]
 })
-export class MetergroupBasicDemo {
+export class MeterGroupBasicDemo {
     value: any[] = [{ label: 'Space used', value: 15, color: 'var(--p-primary-color)' }];
 }
 ```
@@ -41,7 +41,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
     standalone: true,
     imports: [MeterGroupModule]
 })
-export class MetergroupIconDemo {
+export class MeterGroupIconDemo {
     value: any[] = [
         { label: 'Apps', color: '#34d399', value: 16, icon: 'pi pi-table' },
         { label: 'Messages', color: '#fbbf24', value: 8, icon: 'pi pi-inbox' },
@@ -66,7 +66,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
     standalone: true,
     imports: [MeterGroupModule]
 })
-export class MetergroupLabelDemo {
+export class MeterGroupLabelDemo {
     value: any[] = [
         { label: 'Apps', color: '#34d399', value: 16 },
         { label: 'Messages', color: '#fbbf24', value: 8 },
@@ -91,7 +91,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
     standalone: true,
     imports: [MeterGroupModule]
 })
-export class MetergroupMinmaxDemo {
+export class MeterGroupMinMaxDemo {
     value: any[] = [
         { label: 'Apps', color: '#34d399', value: 16 },
         { label: 'Messages', color: '#fbbf24', value: 8 },
@@ -116,7 +116,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
     standalone: true,
     imports: [MeterGroupModule]
 })
-export class MetergroupMultipleDemo {
+export class MeterGroupMultipleDemo {
     value: any[] = [
         { label: 'Apps', color: '#34d399', value: 16 },
         { label: 'Messages', color: '#fbbf24', value: 8 },
@@ -177,7 +177,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
     standalone: true,
     imports: [ButtonModule, CardModule, MeterGroupModule]
 })
-export class MetergroupTemplateDemo {
+export class MeterGroupTemplateDemo {
     value: any[] = [
         { label: 'Apps', color1: '#34d399', color2: '#fbbf24', value: 25, icon: 'pi pi-table' },
         { label: 'Messages', color1: '#fbbf24', color2: '#60a5fa', value: 15, icon: 'pi pi-inbox' },
@@ -204,7 +204,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
     standalone: true,
     imports: [MeterGroupModule]
 })
-export class MetergroupVerticalDemo {
+export class MeterGroupVerticalDemo {
     value: any[] = [
         { label: 'Apps', color: '#34d399', value: 16 },
         { label: 'Messages', color: '#fbbf24', value: 8 },

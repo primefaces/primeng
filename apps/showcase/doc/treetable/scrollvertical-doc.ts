@@ -14,7 +14,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'scrollvertical-doc',
+    selector: 'scroll-vertical-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

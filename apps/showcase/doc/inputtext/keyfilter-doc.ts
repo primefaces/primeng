@@ -7,7 +7,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'keyfilter-doc',
+    selector: 'key-filter-doc',
     standalone: true,
     imports: [FormsModule, InputTextModule, KeyFilterModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

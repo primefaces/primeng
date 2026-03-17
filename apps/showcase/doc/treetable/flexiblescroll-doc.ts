@@ -10,7 +10,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
-    selector: 'flexiblescroll-doc',
+    selector: 'flexible-scroll-doc',
     standalone: true,
     imports: [TreeTableModule, ButtonModule, DialogModule, AppCode, AppDemoWrapper, AppDocSectionText, DeferredDemo],
     template: ` <app-docsectiontext>

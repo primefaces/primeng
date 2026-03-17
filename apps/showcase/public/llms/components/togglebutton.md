@@ -24,7 +24,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     standalone: true,
     imports: [ToggleButtonModule, FormsModule]
 })
-export class TogglebuttonBasicDemo {
+export class ToggleButtonBasicDemo {
     checked: boolean = false;
 }
 ```
@@ -47,7 +47,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     standalone: true,
     imports: [ToggleButtonModule, FormsModule]
 })
-export class TogglebuttonCustomizedDemo {
+export class ToggleButtonCustomizedDemo {
     checked: boolean = false;
 }
 ```
@@ -70,7 +70,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     standalone: true,
     imports: [ToggleButtonModule, FormsModule]
 })
-export class TogglebuttonDisabledDemo {
+export class ToggleButtonDisabledDemo {
     checked: boolean = false;
 }
 ```
@@ -93,7 +93,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     standalone: true,
     imports: [ToggleButtonModule, FormsModule]
 })
-export class TogglebuttonFluidDemo {
+export class ToggleButtonFluidDemo {
     checked: boolean = false;
 }
 ```
@@ -116,7 +116,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     standalone: true,
     imports: [ToggleButtonModule, FormsModule]
 })
-export class TogglebuttonInvalidDemo {
+export class ToggleButtonInvalidDemo {
     checked: boolean = false;
 }
 ```
@@ -150,7 +150,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [MessageModule, ToggleButtonModule, ButtonModule, ReactiveFormsModule]
 })
-export class TogglebuttonReactiveformsDemo {
+export class ToggleButtonReactiveFormsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
@@ -197,7 +197,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     standalone: true,
     imports: [ToggleButtonModule, FormsModule]
 })
-export class TogglebuttonSizesDemo {
+export class ToggleButtonSizesDemo {
     value1: boolean = false;
     value2: boolean = false;
     value3: boolean = false;
@@ -233,7 +233,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [MessageModule, ToggleButtonModule, ButtonModule, FormsModule]
 })
-export class TogglebuttonTemplatedrivenformsDemo {
+export class ToggleButtonTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     checked: boolean;
 

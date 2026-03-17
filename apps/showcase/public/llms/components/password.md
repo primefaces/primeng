@@ -47,7 +47,7 @@ import { PasswordModule } from 'primeng/password';
     standalone: true,
     imports: [PasswordModule, FormsModule]
 })
-export class PasswordCleariconDemo {
+export class PasswordClearIconDemo {
     value!: string;
 }
 ```
@@ -128,7 +128,7 @@ import { PasswordModule } from 'primeng/password';
     standalone: true,
     imports: [FloatLabelModule, PasswordModule, FormsModule]
 })
-export class PasswordFloatlabelDemo {
+export class PasswordFloatLabelDemo {
     value1!: string;
     value2!: string;
     value3!: string;
@@ -178,7 +178,7 @@ import { PasswordModule } from 'primeng/password';
     standalone: true,
     imports: [IftaLabelModule, PasswordModule, FormsModule]
 })
-export class PasswordIftalabelDemo {
+export class PasswordIftaLabelDemo {
     value!: string;
 }
 ```
@@ -284,7 +284,7 @@ import { MessageService } from 'primeng/api';
     imports: [MessageModule, PasswordModule, ButtonModule, ReactiveFormsModule],
     providers: [MessageService]
 })
-export class PasswordReactiveformsDemo {
+export class PasswordReactiveFormsDemo {
     private messageService = inject(MessageService);
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
@@ -404,7 +404,7 @@ import { MessageService } from 'primeng/api';
     imports: [MessageModule, PasswordModule, ButtonModule, FormsModule],
     providers: [MessageService]
 })
-export class PasswordTemplatedrivenformsDemo {
+export class PasswordTemplateDrivenFormsDemo {
     private messageService = inject(MessageService);
     messageService = inject(MessageService);
     value: any;
@@ -436,7 +436,7 @@ import { PasswordModule } from 'primeng/password';
     standalone: true,
     imports: [PasswordModule, FormsModule]
 })
-export class PasswordTogglemaskDemo {
+export class PasswordToggleMaskDemo {
     value!: string;
 }
 ```

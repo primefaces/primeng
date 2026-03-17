@@ -14,7 +14,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'columnresizeexpand-doc',
+    selector: 'column-resize-expand-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

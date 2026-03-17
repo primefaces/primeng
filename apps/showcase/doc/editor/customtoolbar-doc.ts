@@ -6,7 +6,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'customtoolbar-doc',
+    selector: 'custom-toolbar-doc',
     standalone: true,
     imports: [FormsModule, EditorModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

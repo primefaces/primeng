@@ -6,7 +6,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'preselection-doc',
+    selector: 'pre-selection-doc',
     standalone: true,
     imports: [FormsModule, ToggleSwitchModule, AppCode, AppDemoWrapper, AppDocSectionText],
     template: `

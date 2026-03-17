@@ -213,11 +213,67 @@ const SELECTOR_TO_MODULE = {
     'p-virtualscroller': 'VirtualScrollerModule'
 };
 
+// Compound component names that need proper casing when converting to PascalCase
+const COMPOUND_NAMES = {
+    animateonscroll: 'AnimateOnScroll',
+    autocomplete: 'AutoComplete',
+    autofocus: 'AutoFocus',
+    blockui: 'BlockUI',
+    cascadeselect: 'CascadeSelect',
+    colorpicker: 'ColorPicker',
+    confirmdialog: 'ConfirmDialog',
+    confirmpopup: 'ConfirmPopup',
+    confirmationapi: 'ConfirmationApi',
+    contextmenu: 'ContextMenu',
+    dataview: 'DataView',
+    datepicker: 'DatePicker',
+    dragdrop: 'DragDrop',
+    dynamicdialog: 'DynamicDialog',
+    fileupload: 'FileUpload',
+    filterservice: 'FilterService',
+    floatlabel: 'FloatLabel',
+    focustrap: 'FocusTrap',
+    iconfield: 'IconField',
+    iftalabel: 'IftaLabel',
+    imagecompare: 'ImageCompare',
+    inputcolor: 'InputColor',
+    inputgroup: 'InputGroup',
+    inputmask: 'InputMask',
+    inputnumber: 'InputNumber',
+    inputotp: 'InputOtp',
+    inputtext: 'InputText',
+    keyfilter: 'KeyFilter',
+    megamenu: 'MegaMenu',
+    metergroup: 'MeterGroup',
+    multiselect: 'MultiSelect',
+    orderlist: 'OrderList',
+    organizationchart: 'OrganizationChart',
+    overlaybadge: 'OverlayBadge',
+    panelmenu: 'PanelMenu',
+    picklist: 'PickList',
+    progressbar: 'ProgressBar',
+    progressspinner: 'ProgressSpinner',
+    radiobutton: 'RadioButton',
+    scrollpanel: 'ScrollPanel',
+    scrolltop: 'ScrollTop',
+    selectbutton: 'SelectButton',
+    speeddial: 'SpeedDial',
+    splitbutton: 'SplitButton',
+    styleclass: 'StyleClass',
+    tabmenu: 'TabMenu',
+    tieredmenu: 'TieredMenu',
+    togglebutton: 'ToggleButton',
+    toggleswitch: 'ToggleSwitch',
+    treeselect: 'TreeSelect',
+    treetable: 'TreeTable',
+    virtualscroller: 'VirtualScroller'
+};
+
 // Component name to PascalCase mapping
 function toPascalCase(str) {
     return str
         .split(/[-_]/)
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .map((word) => COMPOUND_NAMES[word] || word.charAt(0).toUpperCase() + word.slice(1))
         .join('');
 }
 
@@ -1278,6 +1334,26 @@ function deriveSelectorFromFilename(fileName, componentDir) {
     return `${routeName}-${section}-demo`;
 }
 
+// Extract the actual selector from a component file's @Component decorator
+function extractSelector(content) {
+    const match = content.match(/selector:\s*['"]([^'"]+)['"]/);
+    return match ? match[1] : null;
+}
+
+// Derive demo key from the actual selector in the file
+// e.g., selector "template-driven-forms-doc" -> "select-template-driven-forms-demo"
+function deriveDemoKey(content, fileName, componentDir) {
+    const selector = extractSelector(content);
+    if (selector) {
+        // Replace -doc suffix with -demo, prepend component dir
+        const base = selector.replace(/-doc$/, '');
+        const routeName = DIR_TO_ROUTE[componentDir] || componentDir;
+        return `${routeName}-${base}-demo`;
+    }
+    // Fallback to filename-based derivation
+    return deriveSelectorFromFilename(fileName, componentDir);
+}
+
 // Parse a single doc file
 function parseDocFile(filePath, componentDir) {
     const content = fs.readFileSync(filePath, 'utf-8');
@@ -1299,8 +1375,8 @@ function parseDocFile(filePath, componentDir) {
     // Remove doc suffix (handles both "basicdoc" and "basic-doc" patterns)
     const section = fileName.replace(/-?doc$/, '');
 
-    // Derive selector from filename - no need for app-code selector attribute
-    const uniqueKey = deriveSelectorFromFilename(fileName, componentDir);
+    // Derive demo key from actual selector in file, falling back to filename
+    const uniqueKey = deriveDemoKey(content, fileName, componentDir);
 
     // Get component name from selector (properly hyphenated) for correct PascalCase
     // e.g., "tree-table-sort-multiple-columns-demo" -> "TreeTableSortMultipleColumns"

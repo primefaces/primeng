@@ -6,7 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
-    selector: 'autohide-doc',
+    selector: 'auto-hide-doc',
     standalone: true,
     imports: [AppCode, AppDemoWrapper, AppDocSectionText, InputTextModule, TooltipModule],
     template: `

@@ -27,7 +27,7 @@ import { TreeNode } from 'primeng/api';
     imports: [TreeSelectModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectBasicDemo implements OnInit {
+export class TreeSelectBasicDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
@@ -61,7 +61,7 @@ import { NodeService } from '@/service/nodeservice';
     imports: [TreeSelectModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectCheckboxDemo implements OnInit {
+export class TreeSelectCheckboxDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
@@ -95,7 +95,7 @@ import { NodeService } from '@/service/nodeservice';
     imports: [TreeSelectModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectCleariconDemo implements OnInit {
+export class TreeSelectClearIconDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
@@ -129,7 +129,7 @@ import { NodeService } from '@/service/nodeservice';
     imports: [TreeSelectModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectDisabledDemo implements OnInit {
+export class TreeSelectDisabledDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
@@ -163,7 +163,7 @@ import { NodeService } from '@/service/nodeservice';
     imports: [TreeSelectModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectFilledDemo implements OnInit {
+export class TreeSelectFilledDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
@@ -197,7 +197,7 @@ import { NodeService } from '@/service/nodeservice';
     imports: [TreeSelectModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectFilterDemo implements OnInit {
+export class TreeSelectFilterDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
@@ -243,7 +243,7 @@ import { NodeService } from '@/service/nodeservice';
     imports: [FloatLabelModule, TreeSelectModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectFloatlabelDemo implements OnInit {
+export class TreeSelectFloatLabelDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes!: any[];
     value1: any;
@@ -277,7 +277,7 @@ import { NodeService } from '@/service/nodeservice';
     imports: [TreeSelectModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectFluidDemo implements OnInit {
+export class TreeSelectFluidDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
@@ -315,7 +315,7 @@ import { NodeService } from '@/service/nodeservice';
     imports: [IftaLabelModule, TreeSelectModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectIftalabelDemo implements OnInit {
+export class TreeSelectIftaLabelDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes!: any[];
     selectedValue: any;
@@ -350,7 +350,7 @@ import { NodeService } from '@/service/nodeservice';
     imports: [TreeSelectModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectInvalidDemo implements OnInit {
+export class TreeSelectInvalidDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes!: any[];
     selectedValue1: any;
@@ -395,7 +395,7 @@ import { TreeNode } from 'primeng/api';
     standalone: true,
     imports: [TreeSelectModule, FormsModule]
 })
-export class TreeselectLazyDemo implements OnInit {
+export class TreeSelectLazyDemo implements OnInit {
     selectedNodes: TreeNode[] = [];
     nodes = signal<TreeNode[]>(undefined);
     loading = signal<boolean>(false);
@@ -473,7 +473,7 @@ import { NodeService } from '@/service/nodeservice';
     imports: [TreeSelectModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectMultipleDemo implements OnInit {
+export class TreeSelectMultipleDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
@@ -518,7 +518,7 @@ import { MessageService } from 'primeng/api';
     imports: [MessageModule, TreeSelectModule, ButtonModule, ReactiveFormsModule],
     providers: [NodeService]
 })
-export class TreeselectReactiveformsDemo implements OnInit {
+export class TreeSelectReactiveFormsDemo implements OnInit {
     private nodeService = inject(NodeService);
     messageService = inject(MessageService);
     nodes!: any[];
@@ -573,7 +573,7 @@ import { NodeService } from '@/service/nodeservice';
     imports: [TreeSelectModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectSizesDemo implements OnInit {
+export class TreeSelectSizesDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes!: any[];
     value1: any;
@@ -623,7 +623,7 @@ import { NodeService } from '@/service/nodeservice';
     imports: [ButtonModule, TreeSelectModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectTemplateDemo implements OnInit {
+export class TreeSelectTemplateDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;
@@ -666,7 +666,7 @@ import { MessageService } from 'primeng/api';
     imports: [MessageModule, TreeSelectModule, ButtonModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectTemplatedrivenformsDemo implements OnInit {
+export class TreeSelectTemplateDrivenFormsDemo implements OnInit {
     private nodeService = inject(NodeService);
     messageService = inject(MessageService);
     selectedNodes: any;
@@ -719,7 +719,7 @@ import { NodeService } from '@/service/nodeservice';
     imports: [TreeSelectModule, FormsModule],
     providers: [NodeService]
 })
-export class TreeselectVirtualscrollDemo implements OnInit {
+export class TreeSelectVirtualScrollDemo implements OnInit {
     private nodeService = inject(NodeService);
     nodes!: any[];
     selectedNodes: any;

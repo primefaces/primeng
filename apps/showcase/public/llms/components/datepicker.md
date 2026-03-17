@@ -24,7 +24,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerBasicDemo {
+export class DatePickerBasicDemo {
     date: Date | undefined;
 }
 ```
@@ -62,7 +62,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [ButtonModule, DatePickerModule, FormsModule]
 })
-export class DatepickerButtonbarDemo {
+export class DatePickerButtonBarDemo {
     date: Date | undefined;
     dates: Date[] | undefined;
 }
@@ -86,7 +86,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerCleariconDemo {
+export class DatePickerClearIconDemo {
     date: Date | undefined;
 }
 ```
@@ -117,7 +117,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerDatetemplateDemo {
+export class DatePickerDateTemplateDemo {
     date: Date[] | undefined;
 }
 ```
@@ -140,7 +140,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerDisabledDemo {
+export class DatePickerDisabledDemo {
     date: Date | undefined;
 }
 ```
@@ -237,7 +237,7 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: []
 })
-export class DatepickerEventsDemo {}
+export class DatePickerEventsDemo {}
 ```
 
 ## Filled
@@ -258,7 +258,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerFilledDemo {
+export class DatePickerFilledDemo {
     date: Date[] | undefined;
 }
 ```
@@ -293,7 +293,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     standalone: true,
     imports: [DatePickerModule, FloatLabelModule, FormsModule]
 })
-export class DatepickerFloatlabelDemo {
+export class DatePickerFloatLabelDemo {
     value1: Date | undefined;
     value2: Date | undefined;
     value3: Date | undefined;
@@ -316,7 +316,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerFluidDemo {
+export class DatePickerFluidDemo {
     date: Date | undefined;
 }
 ```
@@ -339,7 +339,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerFormatDemo {
+export class DatePickerFormatDemo {
     date: Date | undefined;
 }
 ```
@@ -377,7 +377,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerIconDemo {
+export class DatePickerIconDemo {
     date1: Date | undefined;
     date2: Date | undefined;
     date3: Date | undefined;
@@ -406,7 +406,7 @@ import { IftaLabelModule } from 'primeng/iftalabel';
     standalone: true,
     imports: [DatePickerModule, IftaLabelModule, FormsModule]
 })
-export class DatepickerIftalabelDemo {
+export class DatePickerIftaLabelDemo {
     value: Date | undefined;
 }
 ```
@@ -429,7 +429,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerInlineDemo {
+export class DatePickerInlineDemo {
     date: Date[] | undefined;
 }
 ```
@@ -453,7 +453,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerInvalidDemo {
+export class DatePickerInvalidDemo {
     date1: Date | undefined;
     date2: Date | undefined;
 }
@@ -482,7 +482,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     standalone: true,
     imports: [DatePickerModule, InputMaskModule, FormsModule]
 })
-export class DatepickerMaskDemo {
+export class DatePickerMaskDemo {
     date: Date | undefined;
 }
 ```
@@ -518,7 +518,7 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: []
 })
-export class DatepickerMethodsDemo {}
+export class DatePickerMethodsDemo {}
 ```
 
 ## Min / Max
@@ -539,7 +539,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerMinmaxDemo implements OnInit {
+export class DatePickerMinMaxDemo implements OnInit {
     date: Date | undefined;
     minDate: Date | undefined;
     maxDate: Date | undefined;
@@ -580,7 +580,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerMonthDemo {
+export class DatePickerMonthDemo {
     date: Date[] | undefined;
 }
 ```
@@ -603,7 +603,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerMultipleDemo {
+export class DatePickerMultipleDemo {
     dates: Date[] | undefined;
 }
 ```
@@ -626,7 +626,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerMultiplemonthsDemo {
+export class DatePickerMultipleMonthsDemo {
     date: Date[] | undefined;
 }
 ```
@@ -649,7 +649,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerRangeDemo {
+export class DatePickerRangeDemo {
     rangeDates: Date[] | undefined;
 }
 ```
@@ -683,7 +683,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [DatePickerModule, MessageModule, ButtonModule, ReactiveFormsModule]
 })
-export class DatepickerReactiveformsDemo {
+export class DatePickerReactiveFormsDemo {
     messageService = inject(MessageService);
     exampleForm: FormGroup | undefined;
     formSubmitted: boolean = false;
@@ -730,7 +730,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerSizesDemo {
+export class DatePickerSizesDemo {
     value1: Date | undefined;
     value2: Date | undefined;
     value3: Date | undefined;
@@ -757,7 +757,7 @@ import { FormsModule } from '@angular/forms';
     standalone: true,
     imports: [FormsModule]
 })
-export class DatepickerTemplateDemo {
+export class DatePickerTemplateDemo {
     date: Date[] | undefined;
 }
 ```
@@ -789,7 +789,7 @@ import { MessageService } from 'primeng/api';
     standalone: true,
     imports: [DatePickerModule, MessageModule, ButtonModule, FormsModule]
 })
-export class DatepickerTemplatedrivenformsDemo {
+export class DatePickerTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
     date: Date | undefined;
 
@@ -865,7 +865,7 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: []
 })
-export class DatepickerTemplatesDemo {}
+export class DatePickerTemplatesDemo {}
 ```
 
 ## Time
@@ -897,7 +897,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerTimeDemo {
+export class DatePickerTimeDemo {
     datetime12h: Date[] | undefined;
     datetime24h: Date[] | undefined;
     time: Date[] | undefined;
@@ -922,7 +922,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerTouchuiDemo {
+export class DatePickerTouchUiDemo {
     date: Date[] | undefined;
 }
 ```
@@ -945,7 +945,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     standalone: true,
     imports: [DatePickerModule, FormsModule]
 })
-export class DatepickerYearDemo {
+export class DatePickerYearDemo {
     date: Date[] | undefined;
 }
 ```
