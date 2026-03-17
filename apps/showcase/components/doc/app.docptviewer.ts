@@ -32,7 +32,17 @@ export const getPTOptions = (name) => {
         accordionheader: 'accordion',
         accordioncontent: 'accordion',
         contextmenusub: 'contextmenu',
-        columnfilter: 'table'
+        columnfilter: 'table',
+        inputcolorarea: 'inputcolor',
+        inputcolorareabackground: 'inputcolor',
+        inputcolorareathumb: 'inputcolor',
+        inputcolorslider: 'inputcolor',
+        inputcolorslidertrack: 'inputcolor',
+        inputcolorsliderthumb: 'inputcolor',
+        inputcolorswatch: 'inputcolor',
+        inputcolorswatchbackground: 'inputcolor',
+        inputcolortransparencygrid: 'inputcolor',
+        inputcoloreyedropper: 'inputcolor'
     };
 
     const passthroughNameMapping = {

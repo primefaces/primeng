@@ -20373,7 +20373,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<any>",
+                            "type": "InputSignal<InputColorPassThrough>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20462,7 +20462,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<any>",
+                            "type": "InputSignal<InputColorAreaBackgroundPassThrough>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20502,7 +20502,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<any>",
+                            "type": "InputSignal<InputColorAreaThumbPassThrough>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20542,7 +20542,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<any>",
+                            "type": "InputSignal<InputColorAreaPassThrough>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20582,7 +20582,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<any>",
+                            "type": "InputSignal<InputColorEyeDropperPassThrough>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20670,7 +20670,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<any>",
+                            "type": "InputSignal<InputColorSliderThumbPassThrough>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20710,7 +20710,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<any>",
+                            "type": "InputSignal<InputColorSliderTrackPassThrough>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20750,7 +20750,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<any>",
+                            "type": "InputSignal<InputColorSliderPassThrough>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20806,7 +20806,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<any>",
+                            "type": "InputSignal<InputColorSwatchBackgroundPassThrough>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20846,7 +20846,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<any>",
+                            "type": "InputSignal<InputColorSwatchPassThrough>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20886,7 +20886,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<any>",
+                            "type": "InputSignal<InputColorTransparencyGridPassThrough>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -20993,6 +20993,117 @@
                                 "readonly": false,
                                 "type": "PassThroughOption<HTMLElement, I>",
                                 "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputColorAreaBackgroundPassThroughOptions",
+                        "description": "Defines valid pass-through options in InputColorAreaBackground component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputColorAreaThumbPassThroughOptions",
+                        "description": "Defines valid pass-through options in InputColorAreaThumb component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputColorSliderTrackPassThroughOptions",
+                        "description": "Defines valid pass-through options in InputColorSliderTrack component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputColorSliderThumbPassThroughOptions",
+                        "description": "Defines valid pass-through options in InputColorSliderThumb component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputColorSwatchPassThroughOptions",
+                        "description": "Defines valid pass-through options in InputColorSwatch component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputColorSwatchBackgroundPassThroughOptions",
+                        "description": "Defines valid pass-through options in InputColorSwatchBackground component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputColorTransparencyGridPassThroughOptions",
+                        "description": "Defines valid pass-through options in InputColorTransparencyGrid component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputColorEyeDropperPassThroughOptions",
+                        "description": "Defines valid pass-through options in InputColorEyeDropper component.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "pcButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the Button component."
                             }
                         ]
                     },

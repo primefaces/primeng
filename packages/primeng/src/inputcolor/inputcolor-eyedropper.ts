@@ -6,6 +6,7 @@ import { Bind } from 'primeng/bind';
 import { ButtonDirective, ButtonIcon } from 'primeng/button';
 import { parseColor } from './color-manager';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
+import type { InputColorEyeDropperPassThrough } from 'primeng/types/inputcolor';
 
 /**
  * InputColorEyeDropper is a helper component for InputColor component.
@@ -17,7 +18,19 @@ import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
     imports: [ButtonDirective, ButtonIcon, NgTemplateOutlet],
     template: `
         <ng-template #contentTpl><ng-content /></ng-template>
-        <button pButton type="button" [text]="text()" [rounded]="rounded()" [outlined]="outlined()" [severity]="severity()" [size]="size()" [disabled]="$pc.$disabled()" (click)="onPickColor($event)" [attr.aria-label]="'Pick a color'">
+        <button
+            pButton
+            type="button"
+            [pButtonPT]="ptm('pcButton')"
+            [text]="text()"
+            [rounded]="rounded()"
+            [outlined]="outlined()"
+            [severity]="severity()"
+            [size]="size()"
+            [disabled]="$pc.$disabled()"
+            (click)="onPickColor($event)"
+            [attr.aria-label]="'Pick a color'"
+        >
             @if (iconOnly()) {
                 <span pButtonIcon>
                     <ng-container *ngTemplateOutlet="contentTpl" />
@@ -35,7 +48,7 @@ import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
     providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorEyeDropper }],
     hostDirectives: [Bind]
 })
-export class InputColorEyeDropper extends BaseComponent {
+export class InputColorEyeDropper extends BaseComponent<InputColorEyeDropperPassThrough> {
     componentName = 'InputColorEyeDropper';
 
     bindDirectiveInstance = inject(Bind, { self: true });

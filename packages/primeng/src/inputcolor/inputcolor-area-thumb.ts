@@ -3,6 +3,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ColorChannel, getChannelRange } from './color-manager';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
+import type { InputColorAreaThumbPassThrough } from 'primeng/types/inputcolor';
 
 /**
  * InputColorAreaThumb is a helper component for InputColor component.
@@ -30,7 +31,7 @@ import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
     providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorAreaThumb }],
     hostDirectives: [Bind]
 })
-export class InputColorAreaThumb extends BaseComponent {
+export class InputColorAreaThumb extends BaseComponent<InputColorAreaThumbPassThrough> {
     componentName = 'InputColorAreaThumb';
 
     bindDirectiveInstance = inject(Bind, { self: true });

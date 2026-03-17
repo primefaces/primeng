@@ -8,6 +8,7 @@ import { TemplateDrivenFormsDoc } from '@/doc/inputcolor/templatedrivenforms-doc
 import { ColorManagerDoc } from '@/doc/inputcolor/colormanager-doc';
 import { AccessibilityDoc } from '@/doc/inputcolor/accessibility-doc';
 import { UsageDoc } from '@/doc/inputcolor/usage-doc';
+import { PTComponent } from '@/doc/inputcolor/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
@@ -19,12 +20,14 @@ import { Component } from '@angular/core';
         [docs]="docs"
         [heroDoc]="heroDoc"
         [apiDocs]="['InputColor', 'InputColorArea', 'InputColorAreaThumb', 'InputColorSlider', 'InputColorSliderThumb', 'InputColorSliderTrack', 'InputColorSwatch', 'InputColorEyeDropper']"
+        [ptDocs]="ptComponent"
         themeDocs="inputcolor"
     ></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class InputColorDemo {
+    ptComponent = PTComponent;
     heroDoc = BasicDoc;
 
     docs = [

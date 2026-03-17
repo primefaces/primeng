@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
+import type { InputColorSwatchBackgroundPassThrough } from 'primeng/types/inputcolor';
 
 /**
  * InputColorSwatchBackground is a helper component for InputColor component.
@@ -20,7 +21,7 @@ import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
     providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorSwatchBackground }],
     hostDirectives: [Bind]
 })
-export class InputColorSwatchBackground extends BaseComponent {
+export class InputColorSwatchBackground extends BaseComponent<InputColorSwatchBackgroundPassThrough> {
     componentName = 'InputColorSwatchBackground';
 
     bindDirectiveInstance = inject(Bind, { self: true });

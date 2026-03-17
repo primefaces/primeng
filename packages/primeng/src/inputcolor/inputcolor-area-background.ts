@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
+import type { InputColorAreaBackgroundPassThrough } from 'primeng/types/inputcolor';
 
 /**
  * InputColorAreaBackground is a helper component for InputColor component.
@@ -19,7 +20,7 @@ import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
     providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorAreaBackground }],
     hostDirectives: [Bind]
 })
-export class InputColorAreaBackground extends BaseComponent {
+export class InputColorAreaBackground extends BaseComponent<InputColorAreaBackgroundPassThrough> {
     componentName = 'InputColorAreaBackground';
 
     bindDirectiveInstance = inject(Bind, { self: true });

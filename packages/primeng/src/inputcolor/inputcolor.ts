@@ -17,6 +17,7 @@ import { InputColorSwatchBackground } from './inputcolor-swatch-background';
 import { InputColorTransparencyGrid } from './inputcolor-transparency-grid';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
 import { InputColorStyle } from './style/inputcolorstyle';
+import type { InputColorPassThrough } from 'primeng/types/inputcolor';
 
 export const INPUT_COLOR_VALUE_ACCESSOR: Provider = {
     provide: NG_VALUE_ACCESSOR,
@@ -43,7 +44,7 @@ export const INPUT_COLOR_VALUE_ACCESSOR: Provider = {
     },
     hostDirectives: [Bind]
 })
-export class InputColor extends BaseComponent implements ControlValueAccessor {
+export class InputColor extends BaseComponent<InputColorPassThrough> implements ControlValueAccessor {
     componentName = 'InputColor';
 
     bindDirectiveInstance = inject(Bind, { self: true });

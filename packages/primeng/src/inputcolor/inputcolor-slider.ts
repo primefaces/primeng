@@ -3,6 +3,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ColorChannel, ColorSliderChannel, getChannelRange, snapValue } from './color-manager';
 import { INPUT_COLOR_INSTANCE, INPUT_COLOR_SLIDER_INSTANCE } from './inputcolor.token';
+import type { InputColorSliderPassThrough } from 'primeng/types/inputcolor';
 
 /**
  * InputColorSlider is a helper component for InputColor component.
@@ -27,7 +28,7 @@ import { INPUT_COLOR_INSTANCE, INPUT_COLOR_SLIDER_INSTANCE } from './inputcolor.
     ],
     hostDirectives: [Bind]
 })
-export class InputColorSlider extends BaseComponent implements OnDestroy {
+export class InputColorSlider extends BaseComponent<InputColorSliderPassThrough> implements OnDestroy {
     componentName = 'InputColorSlider';
 
     bindDirectiveInstance = inject(Bind, { self: true });

@@ -3,6 +3,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { getChannelGradient } from './color-manager';
 import { INPUT_COLOR_INSTANCE, INPUT_COLOR_SLIDER_INSTANCE } from './inputcolor.token';
+import type { InputColorSliderTrackPassThrough } from 'primeng/types/inputcolor';
 
 /**
  * InputColorSliderTrack is a helper component for InputColor component.
@@ -21,7 +22,7 @@ import { INPUT_COLOR_INSTANCE, INPUT_COLOR_SLIDER_INSTANCE } from './inputcolor.
     providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorSliderTrack }],
     hostDirectives: [Bind]
 })
-export class InputColorSliderTrack extends BaseComponent {
+export class InputColorSliderTrack extends BaseComponent<InputColorSliderTrackPassThrough> {
     componentName = 'InputColorSliderTrack';
 
     bindDirectiveInstance = inject(Bind, { self: true });

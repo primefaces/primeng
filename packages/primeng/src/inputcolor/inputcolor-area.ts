@@ -3,6 +3,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ColorChannel, getAreaGradient, getChannelRange, snapValue } from './color-manager';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
+import type { InputColorAreaPassThrough } from 'primeng/types/inputcolor';
 
 /**
  * InputColorArea is a helper component for InputColor component.
@@ -25,7 +26,7 @@ import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
     providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorArea }],
     hostDirectives: [Bind]
 })
-export class InputColorArea extends BaseComponent implements OnDestroy {
+export class InputColorArea extends BaseComponent<InputColorAreaPassThrough> implements OnDestroy {
     componentName = 'InputColorArea';
 
     bindDirectiveInstance = inject(Bind, { self: true });
