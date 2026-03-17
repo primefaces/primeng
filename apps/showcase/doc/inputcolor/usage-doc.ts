@@ -32,7 +32,7 @@ export class UsageDoc {
         <p-inputcolor-swatch-background />
     </p-inputcolor-swatch>
     <p-inputcolor-eyedropper>
-        <svg data-p-icon="eye-dropper" />
+        <svg data-p-icon="eye-dropper"></svg>
     </p-inputcolor-eyedropper>
     <input pInputText pInputColorInput channel="hex" />
 </p-inputcolor>`

@@ -51,7 +51,7 @@ export class AppCode {
     hideCodeSandbox = input(true, { transform: (v: boolean | string) => v === '' || v === true });
     hideStackBlitz = input(false, { transform: (v: boolean | string) => v === '' || v === true });
     importCode = input(false, { transform: (v: boolean | string) => v === '' || v === true });
-    codeHeight = computed(() => (this.fullCodeVisible() ? '50rem' : '20rem'));
+    codeHeight = computed(() => (this.hideToggleCode() ? 'none' : this.fullCodeVisible() ? '50rem' : '20rem'));
 
     copied = signal(false);
     fullCodeVisible = signal(false);
