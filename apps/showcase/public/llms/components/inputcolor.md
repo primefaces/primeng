@@ -2,6 +2,10 @@
 
 InputColor is a composable color picker component.
 
+## Accessibility
+
+InputColorArea Screen Reader Support aria-label is used to describe the component. aria-roledescription is used to describe the role of the component. aria-valuemin , aria-valuemax , aria-valuenow , aria-valuetext are used to describe the value of the component. Keyboard Support Key Function tab Moves focus to the area thumb. right arrow Moves the area thumb to the right. left arrow Moves the area thumb to the left. up arrow Moves the area thumb to the up. down arrow Moves the area thumb to the down. InputColorSlider Screen Reader Support aria-label is used to describe the component. aria-valuemin , aria-valuemax , aria-valuenow , aria-valuetext are used to describe the value of the component. Keyboard Support Key Function tab Moves focus to the slider thumb. up arrow || left arrow Decrements the slider thumb. down arrow || right arrow Increments the slider thumb.
+
 ## Advanced
 
 Advanced color picker with per-format channel sliders, input groups for RGBA, HSBA, HSLA, OKLCH channels, and a CSS output.

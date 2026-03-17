@@ -20502,38 +20502,6 @@
                             "description": "Used to configure passthrough(pt) options of the component."
                         },
                         {
-                            "name": "required",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "There must be a value (if set)."
-                        },
-                        {
-                            "name": "invalid",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "When present, it specifies that the component should have invalid state style."
-                        },
-                        {
-                            "name": "disabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "When present, it specifies that the component should have disabled state style."
-                        },
-                        {
-                            "name": "name",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "undefined",
-                            "description": "When present, it specifies that the name of the input."
-                        },
-                        {
                             "name": "format",
                             "optional": false,
                             "readonly": false,
@@ -20548,6 +20516,14 @@
                             "type": "InputSignal<string | ColorInstance>",
                             "default": "...",
                             "description": "Default color value."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "...",
+                            "description": "When present, it specifies that the component should be disabled."
                         }
                     ]
                 },
@@ -20694,61 +20670,6 @@
                     }
                 ]
             }
-        }
-    },
-    "inputcolorareabackground": {
-        "style": {
-            "components": {}
-        }
-    },
-    "inputcolorarea": {
-        "style": {
-            "components": {}
-        }
-    },
-    "inputcolorareathumb": {
-        "style": {
-            "components": {}
-        }
-    },
-    "inputcoloreyedropper": {
-        "style": {
-            "components": {}
-        }
-    },
-    "inputcolorinput": {
-        "style": {
-            "components": {}
-        }
-    },
-    "inputcolorslider": {
-        "style": {
-            "components": {}
-        }
-    },
-    "inputcolorsliderthumb": {
-        "style": {
-            "components": {}
-        }
-    },
-    "inputcolorslidertrack": {
-        "style": {
-            "components": {}
-        }
-    },
-    "inputcolorswatchbackground": {
-        "style": {
-            "components": {}
-        }
-    },
-    "inputcolorswatch": {
-        "style": {
-            "components": {}
-        }
-    },
-    "inputcolortransparencygrid": {
-        "style": {
-            "components": {}
         }
     },
     "inputgroup": {

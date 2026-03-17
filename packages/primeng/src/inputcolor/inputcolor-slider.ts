@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ColorChannel, ColorSliderChannel, getChannelRange, snapValue } from './color-manager';
@@ -23,7 +23,7 @@ import { INPUT_COLOR_INSTANCE, INPUT_COLOR_SLIDER_INSTANCE } from './inputcolor.
     ],
     hostDirectives: [Bind]
 })
-export class InputColorSlider extends BaseComponent {
+export class InputColorSlider extends BaseComponent implements OnDestroy {
     componentName = 'InputColorSlider';
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -43,6 +43,7 @@ export class InputColorSlider extends BaseComponent {
     orientation = input<'horizontal' | 'vertical'>('horizontal');
 
     private dragging = false;
+    private cleanupDrag: (() => void) | null = null;
 
     onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
@@ -66,11 +67,14 @@ export class InputColorSlider extends BaseComponent {
 
         const cleanup = () => {
             this.dragging = false;
+            this.cleanupDrag = null;
             el.removeEventListener('pointermove', onMove);
             el.removeEventListener('pointerup', onUp);
             el.removeEventListener('pointercancel', onCancel);
             el.removeEventListener('lostpointercapture', onLostCapture);
         };
+
+        this.cleanupDrag = cleanup;
 
         const onUp = (e: PointerEvent) => {
             if (!this.dragging) return;
@@ -90,6 +94,10 @@ export class InputColorSlider extends BaseComponent {
         el.addEventListener('pointerup', onUp);
         el.addEventListener('pointercancel', onCancel);
         el.addEventListener('lostpointercapture', onLostCapture);
+    }
+
+    ngOnDestroy() {
+        this.cleanupDrag?.();
     }
 
     private updateFromPointer(event: PointerEvent, isEnd: boolean = false) {

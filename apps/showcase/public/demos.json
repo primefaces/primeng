@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-16T12:45:28.060Z",
-  "totalDemos": 811,
+  "generatedAt": "2026-03-17T06:51:09.449Z",
+  "totalDemos": 812,
   "demos": {
     "accordion-template-demo": {
       "key": "accordion-template-demo",
@@ -5427,6 +5427,21 @@
           "InputTextModule",
           "FormsModule"
         ]
+      }
+    },
+    "inputcolor-accessibility-demo": {
+      "key": "inputcolor-accessibility-demo",
+      "selector": "inputcolor-accessibility-demo",
+      "component": "inputcolor",
+      "section": "accessibility",
+      "code": {
+        "typescript": "import { Component } from '@angular/core';\n\n@Component({\n    template: `\n        <div>\n        </div>\n    `,\n    standalone: true,\n    imports: []\n})\nexport class InputcolorAccessibilityDemo {}"
+      },
+      "metadata": {
+        "services": [],
+        "primeNGServices": [],
+        "extFiles": [],
+        "imports": []
       }
     },
     "inputgroup-multiple-demo": {

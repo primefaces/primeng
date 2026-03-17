@@ -13,7 +13,7 @@ import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
     imports: [ButtonDirective, ButtonIcon, NgTemplateOutlet],
     template: `
         <ng-template #contentTpl><ng-content /></ng-template>
-        <button pButton type="button" [text]="text()" [rounded]="rounded()" [outlined]="outlined()" [severity]="severity()" [size]="size()" (click)="onPickColor($event)" [attr.aria-label]="'Pick a color'">
+        <button pButton type="button" [text]="text()" [rounded]="rounded()" [outlined]="outlined()" [severity]="severity()" [size]="size()" [disabled]="$pc.$disabled()" (click)="onPickColor($event)" [attr.aria-label]="'Pick a color'">
             @if (iconOnly()) {
                 <span pButtonIcon>
                     <ng-container *ngTemplateOutlet="contentTpl" />

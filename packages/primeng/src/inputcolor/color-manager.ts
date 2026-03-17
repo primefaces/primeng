@@ -184,6 +184,8 @@ export abstract class Color implements ColorOutput {
                 return this.toHsbString();
             case 'oklch':
                 return this.toOKLCH().toString('oklch');
+            case 'oklcha':
+                return this.toOKLCH().toString('oklcha');
             case 'css':
                 return this.toHex();
             default:

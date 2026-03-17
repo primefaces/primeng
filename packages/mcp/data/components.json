@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-16",
+  "generatedAt": "2026-03-17",
   "components": [
     {
       "name": "accordion",
@@ -17197,6 +17197,12 @@
       "description": "InputColor is a composable color picker component.",
       "sections": [
         {
+          "id": "accessibility",
+          "label": "Accessibility",
+          "description": "InputColorArea Screen Reader Support aria-label is used to describe the component. aria-roledescription is used to describe the role of the component. aria-valuemin , aria-valuemax , aria-valuenow , aria-valuetext are used to describe the value of the component. Keyboard Support Key Function tab Moves focus to the area thumb. right arrow Moves the area thumb to the right. left arrow Moves the area thumb to the left. up arrow Moves the area thumb to the up. down arrow Moves the area thumb to the down. InputColorSlider Screen Reader Support aria-label is used to describe the component. aria-valuemin , aria-valuemax , aria-valuenow , aria-valuetext are used to describe the value of the component. Keyboard Support Key Function tab Moves focus to the slider thumb. up arrow || left arrow Decrements the slider thumb. down arrow || right arrow Increments the slider thumb.",
+          "examples": null
+        },
+        {
           "id": "advanced",
           "label": "Advanced",
           "description": "Advanced color picker with per-format channel sliders, input groups for RGBA, HSBA, HSLA, OKLCH channels, and a CSS output.",
@@ -17292,34 +17298,6 @@
             "deprecated": ""
           },
           {
-            "name": "required",
-            "type": "InputSignalWithTransform<boolean, unknown>",
-            "default": "false",
-            "description": "There must be a value (if set).",
-            "deprecated": ""
-          },
-          {
-            "name": "invalid",
-            "type": "InputSignalWithTransform<boolean, unknown>",
-            "default": "false",
-            "description": "When present, it specifies that the component should have invalid state style.",
-            "deprecated": ""
-          },
-          {
-            "name": "disabled",
-            "type": "InputSignalWithTransform<boolean, unknown>",
-            "default": "false",
-            "description": "When present, it specifies that the component should have disabled state style.",
-            "deprecated": ""
-          },
-          {
-            "name": "name",
-            "type": "InputSignal<string>",
-            "default": "undefined",
-            "description": "When present, it specifies that the name of the input.",
-            "deprecated": ""
-          },
-          {
             "name": "format",
             "type": "InputSignal<ColorSpace>",
             "default": "...",
@@ -17331,6 +17309,13 @@
             "type": "InputSignal<string | ColorInstance>",
             "default": "...",
             "description": "Default color value.",
+            "deprecated": ""
+          },
+          {
+            "name": "disabled",
+            "type": "InputSignalWithTransform<boolean, unknown>",
+            "default": "...",
+            "description": "When present, it specifies that the component should be disabled.",
             "deprecated": ""
           }
         ],

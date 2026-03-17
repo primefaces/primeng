@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ColorChannel, getAreaGradient, getChannelRange, snapValue } from './color-manager';
@@ -21,7 +21,7 @@ import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
     providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorArea }],
     hostDirectives: [Bind]
 })
-export class InputColorArea extends BaseComponent {
+export class InputColorArea extends BaseComponent implements OnDestroy {
     componentName = 'InputColorArea';
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -58,6 +58,8 @@ export class InputColorArea extends BaseComponent {
     });
 
     private dragging = false;
+    private dragOffset = { x: 0, y: 0 };
+    private cleanupDrag: (() => void) | null = null;
 
     onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
@@ -71,6 +73,17 @@ export class InputColorArea extends BaseComponent {
         const el = this.el.nativeElement as HTMLElement;
         el.setPointerCapture(event.pointerId);
 
+        const thumb = (event.target as HTMLElement)?.closest('[data-pc-section="areathumb"], .p-inputcolor-area-thumb') as HTMLElement | null;
+        if (thumb) {
+            const thumbRect = thumb.getBoundingClientRect();
+            this.dragOffset = {
+                x: event.clientX - (thumbRect.left + thumbRect.width / 2),
+                y: event.clientY - (thumbRect.top + thumbRect.height / 2)
+            };
+        } else {
+            this.dragOffset = { x: 0, y: 0 };
+        }
+
         this.updateFromPointer(event);
 
         const onMove = (e: PointerEvent) => {
@@ -81,15 +94,19 @@ export class InputColorArea extends BaseComponent {
 
         const cleanup = () => {
             this.dragging = false;
+            this.cleanupDrag = null;
             el.removeEventListener('pointermove', onMove);
             el.removeEventListener('pointerup', onUp);
             el.removeEventListener('pointercancel', onCancel);
             el.removeEventListener('lostpointercapture', onLostCapture);
         };
 
+        this.cleanupDrag = cleanup;
+
         const onUp = (e: PointerEvent) => {
             if (!this.dragging) return;
             this.updateFromPointer(e, true);
+            this.dragOffset = { x: 0, y: 0 };
             cleanup();
         };
 
@@ -107,12 +124,16 @@ export class InputColorArea extends BaseComponent {
         el.addEventListener('lostpointercapture', onLostCapture);
     }
 
+    ngOnDestroy() {
+        this.cleanupDrag?.();
+    }
+
     private updateFromPointer(event: PointerEvent, isEnd: boolean = false) {
         const el = this.el.nativeElement as HTMLElement;
         const rect = el.getBoundingClientRect();
 
-        const xPercent = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
-        const yPercent = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+        const xPercent = Math.max(0, Math.min(1, (event.clientX - this.dragOffset.x - rect.left) / rect.width));
+        const yPercent = Math.max(0, Math.min(1, (event.clientY - this.dragOffset.y - rect.top) / rect.height));
 
         const xCh = this.$xChannel();
         const yCh = this.$yChannel();

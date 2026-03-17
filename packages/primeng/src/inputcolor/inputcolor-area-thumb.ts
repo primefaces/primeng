@@ -13,11 +13,14 @@ import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
     host: {
         '[class]': '$pc.cx("areaThumb")',
         '[attr.role]': "'slider'",
-        '[attr.tabindex]': '0',
+        '[attr.tabindex]': '$pc.$disabled() ? -1 : 0',
+        '[attr.aria-label]': "'Color'",
         '[attr.aria-roledescription]': "'2d slider'",
+        '[attr.aria-disabled]': '$pc.$disabled() || undefined',
         '[attr.aria-valuemin]': '$xMin()',
         '[attr.aria-valuemax]': '$xMax()',
         '[attr.aria-valuenow]': '$xValue()',
+        '[attr.aria-valuetext]': '$ariaValueText()',
         '(keydown)': 'onKeyDown($event)'
     },
     providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorAreaThumb }],
@@ -41,6 +44,12 @@ export class InputColorAreaThumb extends BaseComponent {
 
     $xMin = computed(() => this.$xRange().minValue);
     $xMax = computed(() => this.$xRange().maxValue);
+
+    $ariaValueText = computed(() => {
+        const xCh = this.$xChannel();
+        const yCh = this.$yChannel();
+        return `${xCh} ${this.$xValue()}, ${yCh} ${this.$yValue()}`;
+    });
 
     onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
