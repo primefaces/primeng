@@ -19,7 +19,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
         <app-demo-wrapper>
             <div class="flex justify-center">
-                <p-inputgroup class="md:!w-80">
+                <p-inputgroup class="md:w-80!">
                     <p-inputgroup-addon>
                         <i class="pi pi-shopping-cart"></i>
                     </p-inputgroup-addon>

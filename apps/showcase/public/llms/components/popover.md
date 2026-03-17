@@ -22,11 +22,11 @@ import { InputTextModule } from 'primeng/inputtext';
         <div class="flex justify-center">
             <p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
             <p-popover #op>
-                <div class="flex flex-col gap-4 w-[25rem]">
+                <div class="flex flex-col gap-4 w-100">
                     <div>
                         <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2 text-sm">Share this document</span>
                         <p-inputgroup>
-                            <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
+                            <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-100" />
                             <p-inputgroup-addon>
                                 <i class="pi pi-copy"></i>
                             </p-inputgroup-addon>
@@ -112,7 +112,7 @@ import { Product } from '@/domain/product';
                     <td>{{ product.name }}</td>
                     <td>$ {{ product.price }}</td>
                     <td>
-                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="w-16 shadow-sm" />
+                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="w-16 shadow-xs" />
                     </td>
                     <td>
                         <p-button (onClick)="displayProduct($event, product)" icon="pi pi-search" severity="secondary" rounded />
@@ -123,11 +123,11 @@ import { Product } from '@/domain/product';
         <p-popover #op (onHide)="selectedProduct.set(null)">
             <ng-template #content>
                 @if (selectedProduct()) {
-                    <div class="rounded flex flex-col">
-                        <div class="flex justify-center rounded">
+                    <div class="rounded-sm flex flex-col">
+                        <div class="flex justify-center rounded-sm">
                             <div class="relative mx-auto">
-                                <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
-                                <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                <img class="rounded-sm w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
+                                <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:bg-surface-900!" [style.left.px]="4" [style.top.px]="4" />
                             </div>
                         </div>
                         <div class="pt-4">

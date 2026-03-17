@@ -39,7 +39,7 @@ export class DiamondPage {
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-hero-pattern.png',
-        patternClass: 'select-none absolute z-[6] w-[62rem] h-[44rem] -top-8 -left-36 md:-left-12',
+        patternClass: 'select-none absolute z-6 w-248 h-176 -top-8 -left-36 md:-left-12',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-remastered-hero-dashboard-1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-remastered-hero-dashboard-2.png',
         description: 'An amazing application template for Angular based on CLI featuring light-dark modes with 8 surface colors, 7 menu layouts, various menu themes, sample apps, ready to use template pages and 3 presets.',

@@ -177,7 +177,7 @@ import { TagModule } from 'primeng/tag';
                 <div class="grid grid-cols-12 gap-4">
                     <div class="col-span-12 lg:col-span-6">
                         <div class="p-3 h-full">
-                            <div class="shadow p-7 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
+                            <div class="shadow-sm p-7 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
                                 <div class="text-surface-900 dark:text-surface-0 font-medium text-lg mb-2">Basic License</div>
                                 <div class="text-surface-600 dark:text-surface-200 font-medium text-sm">Annual</div>
                                 <hr class="my-4 mx-0 border-t border-0 border-surface" />
@@ -217,7 +217,7 @@ import { TagModule } from 'primeng/tag';
 
                     <div class="col-span-12 lg:col-span-6">
                         <div class="p-3 h-full">
-                            <div class="shadow p-7 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
+                            <div class="shadow-sm p-7 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
                                 <div class="text-surface-900 dark:text-surface-0 font-medium text-lg mb-2">Extended License</div>
                                 <div class="text-surface-600 dark:text-surface-200 font-medium text-sm">Perpetual</div>
                                 <hr class="my-4 mx-0 border-t border-0 border-surface" />

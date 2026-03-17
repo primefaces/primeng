@@ -160,7 +160,7 @@ import { RippleModule } from 'primeng/ripple';
                                                 <span class="font-medium text-sm">Reports</span>
                                                 <i class="pi pi-chevron-down ml-auto"></i>
                                             </a>
-                                            <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
+                                            <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-400 ease-in-out">
                                                 <li>
                                                     <a
                                                         pRipple
@@ -175,7 +175,7 @@ import { RippleModule } from 'primeng/ripple';
                                                         <span class="font-medium text-sm">Revenue</span>
                                                         <i class="pi pi-chevron-down ml-auto"></i>
                                                     </a>
-                                                    <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
+                                                    <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-400 ease-in-out">
                                                         <li>
                                                             <a
                                                                 pRipple
@@ -362,7 +362,7 @@ import { DrawerModule } from 'primeng/drawer';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-drawer header="Drawer" [(visible)]="visible" styleClass="!w-full md:!w-80 lg:!w-[30rem]">
+            <p-drawer header="Drawer" [(visible)]="visible" styleClass="w-full! md:w-80! lg:w-120!">
                 <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.

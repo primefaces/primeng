@@ -46,14 +46,14 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     >
                         <div class="relative">
                             @if (chat.active !== undefined) {
-                                <p-badge [severity]="chat.active ? 'success' : 'danger'" class="absolute top-0 right-0 p-[1px] bg-surface-0 dark:bg-surface-950 rounded-full flex items-center justify-center" />
+                                <p-badge [severity]="chat.active ? 'success' : 'danger'" class="absolute top-0 right-0 p-px bg-surface-0 dark:bg-surface-950 rounded-full flex items-center justify-center" />
                             }
 
                             <p-avatar
                                 [image]="chat.image"
                                 [label]="!chat.image ? chat.capName : ''"
                                 [ngClass]="{
-                                    '!bg-primary-100 !text-primary-950': !chat.image
+                                    'bg-primary-100! text-primary-950!': !chat.image
                                 }"
                                 styleClass="text-sm font-medium flex"
                                 size="large"

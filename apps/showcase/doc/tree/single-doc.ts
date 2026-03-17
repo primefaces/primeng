@@ -16,7 +16,7 @@ import { TreeModule } from 'primeng/tree';
             <p>Single node selection is configured by setting <i>selectionMode</i> as <i>single</i> along with <i>selection</i> properties to manage the selection value binding.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
+            <p-tree [value]="files()" class="w-full md:w-120" selectionMode="single" [(selection)]="selectedFile" />
             <app-code></app-code>
         </app-demo-wrapper>
     `

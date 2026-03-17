@@ -19,7 +19,7 @@ import { Component } from '@angular/core';
                             <div class="flex gap-4 flex-auto flex-col sm:flex-row">
                                 @for (shade of shades; track shade) {
                                     <div class="flex flex-col items-center gap-1 flex-1">
-                                        <div class="rounded h-8 w-full" [style]="'background-color: var(--p-' + color + '-' + shade + ')'"></div>
+                                        <div class="rounded-sm h-8 w-full" [style]="'background-color: var(--p-' + color + '-' + shade + ')'"></div>
                                         <span class="text-sm text-surface-500 dark:text-surface-400 font-medium">{{ shade }}</span>
                                     </div>
                                 }

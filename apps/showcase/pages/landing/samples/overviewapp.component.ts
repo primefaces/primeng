@@ -56,7 +56,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         <input type="text" pInputText placeholder="Search" />
                     </p-iconfield>
                     <p-button severity="secondary" outlined>
-                        <p-overlaybadge severity="danger" styleClass="!min-w-0 !w-2.5 !h-2.5">
+                        <p-overlaybadge severity="danger" styleClass="min-w-0! w-2.5! h-2.5!">
                             <i class="pi pi-bell"></i>
                         </p-overlaybadge>
                     </p-button>
@@ -102,7 +102,7 @@ import { TooltipModule } from 'primeng/tooltip';
                             [tableStyle]="{ 'min-width': '50rem' }"
                             [showFirstLastIcon]="false"
                             [dt]="tableTokens"
-                            paginatorStyleClass="!bg-transparent"
+                            paginatorStyleClass="bg-transparent!"
                         >
                             <ng-template #header>
                                 <tr>
@@ -130,8 +130,8 @@ import { TooltipModule } from 'primeng/tooltip';
                                             <i
                                                 class="pi"
                                                 [ngClass]="{
-                                                    'pi-bitcoin text-yellow-500 !text-2xl': item.coin !== 'btc',
-                                                    'pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-6 h-6 rounded-full !flex items-center justify-center': item.coin !== 'eth'
+                                                    'pi-bitcoin text-yellow-500 text-2xl!': item.coin !== 'btc',
+                                                    'pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-6 h-6 rounded-full flex! items-center justify-center': item.coin !== 'eth'
                                                 }"
                                             ></i>
                                         </div>
@@ -421,7 +421,7 @@ export class OverviewApp {
                                 'opacity-100',
                                 'absolute',
                                 'transition-all',
-                                'duration-[0.1s]',
+                                'duration-100',
                                 'pointer-events-none',
                                 'shadow-[0px_25px_20px_-5px_rgba(0,0,0,0.10),0px_10px_8px_-6px_rgba(0,0,0,0.10)]'
                             );

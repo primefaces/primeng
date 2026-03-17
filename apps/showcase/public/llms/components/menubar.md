@@ -274,7 +274,7 @@ import { MenuItem } from 'primeng/api';
                         <p-badge [ngClass]="{ 'ms-auto': !root }" [value]="item.badge" />
                     }
                     @if (item.shortcut) {
-                        <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        <span class="ms-auto border border-surface rounded-sm bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                     }
                     @if (item.items) {
                         <i [ngClass]="['ms-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>

@@ -17,7 +17,7 @@ import { TreeModule } from 'primeng/tree';
             </p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
+            <p-tree class="w-full md:w-120" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
             <app-code></app-code>
         </app-demo-wrapper>
     `

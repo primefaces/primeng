@@ -102,7 +102,7 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+        <p-chart type="line" [data]="data" [options]="options" class="h-120" />
     `,
     standalone: true,
     imports: [ChartModule]
@@ -200,7 +200,7 @@ import { ChartModule } from 'primeng/chart';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-120" />
         </div>
     `,
     standalone: true,
@@ -259,7 +259,7 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+        <p-chart type="bar" [data]="data" [options]="options" class="h-120" />
     `,
     standalone: true,
     imports: [ChartModule]
@@ -351,7 +351,7 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+        <p-chart type="line" [data]="data" [options]="options" class="h-120" />
     `,
     standalone: true,
     imports: [ChartModule]
@@ -441,7 +441,7 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+        <p-chart type="line" [data]="data" [options]="options" class="h-120" />
     `,
     standalone: true,
     imports: [ChartModule]
@@ -580,7 +580,7 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+        <p-chart type="line" [data]="data" [options]="options" class="h-120" />
     `,
     standalone: true,
     imports: [ChartModule]
@@ -687,7 +687,7 @@ import { ChartModule } from 'primeng/chart';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-120" />
         </div>
     `,
     standalone: true,
@@ -747,7 +747,7 @@ import { ChartModule } from 'primeng/chart';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-120" />
         </div>
     `,
     standalone: true,
@@ -896,7 +896,7 @@ import { ChartModule } from 'primeng/chart';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-120" />
         </div>
     `,
     standalone: true,
@@ -975,7 +975,7 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+        <p-chart type="bar" [data]="data" [options]="options" class="h-120" />
     `,
     standalone: true,
     imports: [ChartModule]
@@ -1075,7 +1075,7 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+        <p-chart type="bar" [data]="data" [options]="options" class="h-120" />
     `,
     standalone: true,
     imports: [ChartModule]

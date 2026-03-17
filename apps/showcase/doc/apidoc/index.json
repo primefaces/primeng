@@ -4266,7 +4266,7 @@
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
                             "default": "false",
-                            "description": "Whether to add an item on blur event if the input has value and typeahead is false with multiple mode."
+                            "description": "Whether to add an item on blur-sm event if the input has value and typeahead is false with multiple mode."
                         },
                         {
                             "name": "separator",
@@ -6189,7 +6189,7 @@
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
                             "default": "...",
-                            "description": "Add a shadow to indicate elevation."
+                            "description": "Add a shadow-sm to indicate elevation."
                         },
                         {
                             "name": "size",
@@ -6208,7 +6208,7 @@
                             "description": "Add a border class without a background initially."
                         },
                         {
-                            "name": "rounded",
+                            "name": "rounded-sm",
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
@@ -6309,10 +6309,10 @@
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
                             "default": "...",
-                            "description": "Add a shadow to indicate elevation."
+                            "description": "Add a shadow-sm to indicate elevation."
                         },
                         {
-                            "name": "rounded",
+                            "name": "rounded-sm",
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
@@ -12551,7 +12551,7 @@
                                     "type": "Event"
                                 }
                             ],
-                            "description": "Callback to invoke on blur of input field."
+                            "description": "Callback to invoke on blur-sm of input field."
                         },
                         {
                             "name": "onClose",
@@ -16162,14 +16162,14 @@
                     },
                     {
                         "name": "EditorBlurEvent",
-                        "description": "Custom blur event.",
+                        "description": "Custom blur-sm event.",
                         "props": [
                             {
                                 "name": "source",
                                 "optional": false,
                                 "readonly": false,
                                 "type": "\"user\" | \"api\" | \"silent\"",
-                                "description": "Source of the blur event."
+                                "description": "Source of the blur-sm event."
                             }
                         ]
                     },
@@ -20603,12 +20603,12 @@
                             "description": "Whether to display button as text."
                         },
                         {
-                            "name": "rounded",
+                            "name": "rounded-sm",
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<boolean>",
                             "default": "...",
-                            "description": "Whether to display a rounded button."
+                            "description": "Whether to display a rounded-sm button."
                         },
                         {
                             "name": "outlined",
@@ -22961,7 +22961,7 @@
                                 "description": "Focus event handler."
                             },
                             {
-                                "name": "blur",
+                                "name": "blur-sm",
                                 "optional": false,
                                 "readonly": false,
                                 "type": "(event: Event) => void",
@@ -28681,7 +28681,7 @@
                     },
                     {
                         "name": "MultiSelectBlurEvent",
-                        "description": "Custom blur event.",
+                        "description": "Custom blur-sm event.",
                         "props": [
                             {
                                 "name": "originalEvent",
@@ -39673,10 +39673,10 @@
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
                             "default": "...",
-                            "description": "Add a shadow to indicate elevation."
+                            "description": "Add a shadow-sm to indicate elevation."
                         },
                         {
-                            "name": "rounded",
+                            "name": "rounded-sm",
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
@@ -42155,7 +42155,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<TableFilterButtonPropsOptions>",
-                            "default": "{\n     filter: { severity: 'secondary', text: true, rounded: true },\n     inline: {\n        clear: { severity: 'secondary', text: true, rounded: true }\n     },\n     popover: {\n         addRule: { severity: 'info', text: true, size: 'small' },\n         removeRule: { severity: 'danger', text: true, size: 'small' },\n         apply: { size: 'small' },\n         clear: { outlined: true, size: 'small' }\n        }\n     }",
+                            "default": "{\n     filter: { severity: 'secondary', text: true, rounded-sm: true },\n     inline: {\n        clear: { severity: 'secondary', text: true, rounded-sm: true }\n     },\n     popover: {\n         addRule: { severity: 'info', text: true, size: 'small' },\n         removeRule: { severity: 'danger', text: true, size: 'small' },\n         apply: { size: 'small' },\n         clear: { outlined: true, size: 'small' }\n        }\n     }",
                             "description": "Used to pass all filter button property object"
                         }
                     ]
@@ -44135,7 +44135,7 @@
                             "description": "Icon of the tag to display next to the value."
                         },
                         {
-                            "name": "rounded",
+                            "name": "rounded-sm",
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",

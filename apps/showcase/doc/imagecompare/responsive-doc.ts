@@ -14,7 +14,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
         <app-demo-wrapper>
             <div class="flex justify-center">
-                <p-imagecompare class="sm:!w-96 shadow-lg rounded-2xl">
+                <p-imagecompare class="sm:w-96! shadow-lg rounded-2xl">
                     <ng-template #left>
                         <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
                     </ng-template>

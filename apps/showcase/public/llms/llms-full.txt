@@ -437,7 +437,7 @@ export const appConfig: ApplicationConfig = {
                 button: {
                     root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2',
                     label: 'text-white font-bold text-lg',
-                    icon: 'text-white !text-xl'
+                    icon: 'text-white text-xl!'
                 }
             }
         })
@@ -1391,7 +1391,7 @@ import { AvatarModule } from 'primeng/avatar';
                     <i class="pi pi-arrow-down"></i>
                 </span>
             </div>
-            <div class="h-[40rem]"></div>
+            <div class="h-160"></div>
             <div class="flex flex-wrap justify-center gap-7">
                 <div
                     pAnimateOnScroll
@@ -1400,7 +1400,7 @@ import { AvatarModule } from 'primeng/avatar';
                     class="flex flex-col border border-surface shadow-lg justify-center items-center max-w-72 rounded-2xl p-7 gap-4"
                 >
                     <div class="rounded-full bg-primary text-primary-contrast w-12 h-12 flex items-center justify-center">
-                        <i class="pi pi-user !text-xl"></i>
+                        <i class="pi pi-user text-xl!"></i>
                     </div>
                     <span class="text-xl font-bold">Individual</span>
                     <span class="text-muted-color text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
@@ -1412,7 +1412,7 @@ import { AvatarModule } from 'primeng/avatar';
                     class="flex flex-col border border-surface shadow-lg justify-center items-center max-w-72 rounded-2xl p-7 gap-4"
                 >
                     <div class="rounded-full bg-primary text-primary-contrast w-12 h-12 flex items-center justify-center">
-                        <i class="pi pi-users !text-xl"></i>
+                        <i class="pi pi-users text-xl!"></i>
                     </div>
                     <span class="text-xl font-bold">Team</span>
                     <span class="text-muted-color text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
@@ -1424,13 +1424,13 @@ import { AvatarModule } from 'primeng/avatar';
                     class="flex flex-col border border-surface shadow-lg justify-center items-center max-w-72 rounded-2xl p-7 gap-4"
                 >
                     <div class="rounded-full bg-primary text-primary-contrast w-12 h-12 flex items-center justify-center">
-                        <i class="pi pi-building !text-xl"></i>
+                        <i class="pi pi-building text-xl!"></i>
                     </div>
                     <span class="text-xl font-bold">Enterprise</span>
                     <span class="text-muted-color text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
                 </div>
             </div>
-            <div class="h-[30rem]"></div>
+            <div class="h-120"></div>
             <div class="flex flex-wrap justify-center gap-7">
                 <div
                     pAnimateOnScroll
@@ -1453,7 +1453,7 @@ import { AvatarModule } from 'primeng/avatar';
                     <span class="text-muted-color text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
                 </div>
             </div>
-            <div class="h-[30rem]"></div>
+            <div class="h-120"></div>
             <div class="flex flex-wrap justify-center gap-7">
                 <div
                     pAnimateOnScroll
@@ -1482,25 +1482,25 @@ import { AvatarModule } from 'primeng/avatar';
                     <span class="text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
                 </div>
             </div>
-            <div class="h-[30rem]"></div>
+            <div class="h-120"></div>
             <div class="flex flex-wrap justify-center gap-7">
                 <div pAnimateOnScroll enterClass="animate-enter fade-in-10 zoom-in-50 animate-duration-1000" class="flex flex-col bg-purple-500 text-white border-purple-500 shadow-lg justify-center items-center max-w-72 rounded-2xl p-7 gap-4">
                     <div class="rounded-full border-2 border-white w-12 h-12 flex items-center justify-center">
-                        <i class="pi pi-wifi !text-xl"></i>
+                        <i class="pi pi-wifi text-xl!"></i>
                     </div>
                     <span class="text-xl font-bold">Bandwidth</span>
                     <span class="text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
                 </div>
                 <div pAnimateOnScroll enterClass="animate-enter fade-in-10 zoom-in-75 animate-duration-1000" class="flex flex-col bg-teal-500 text-white border-teal-500 shadow-lg justify-center items-center max-w-72 rounded-2xl p-7 gap-4">
                     <div class="rounded-full border-2 border-white w-12 h-12 flex items-center justify-center">
-                        <i class="pi pi-database !text-xl"></i>
+                        <i class="pi pi-database text-xl!"></i>
                     </div>
                     <span class="text-xl font-bold">Storage</span>
                     <span class="text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
                 </div>
                 <div pAnimateOnScroll enterClass="animate-enter fade-in-10 zoom-in-50 animate-duration-1000" class="flex flex-col bg-indigo-500 text-white border-indigo-500 shadow-lg justify-center items-center max-w-72 rounded-2xl p-7 gap-4">
                     <div class="rounded-full border-2 border-white w-12 h-12 flex items-center justify-center">
-                        <i class="pi pi-arrows-v !text-xl"></i>
+                        <i class="pi pi-arrows-v text-xl!"></i>
                     </div>
                     <span class="text-xl font-bold">Requests</span>
                     <span class="text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
@@ -1574,7 +1574,7 @@ import { Product } from '@/domain/product';
             >
                 <ng-template let-product #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
+                        <img class="w-12 shrink-0 rounded-sm" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
                         <div class="flex-1 flex flex-col">
                             <span class="font-medium text-sm">{{ product.name }}</span>
                             <span class="text-sm text-surface-500 dark:text-surface-400">{{ product.category }}</span>
@@ -4805,7 +4805,7 @@ import { Product } from '@/domain/product';
                     <div class="mb-4">
                         <div class="relative mx-auto">
                             <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:bg-surface-900!" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                         </div>
                     </div>
                     <div class="mb-4 font-medium text-sm">{{ product.name }}</div>
@@ -4888,11 +4888,11 @@ import { Product } from '@/domain/product';
     template: `
         <p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
             <ng-template let-product #item>
-                <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
+                <div class="border border-surface-200 dark:border-surface-700 rounded-sm m-2 p-4">
                     <div class="mb-4">
                         <div class="relative mx-auto">
                             <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:bg-surface-900!" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                         </div>
                     </div>
                     <div class="mb-4 font-medium text-sm">{{ product.name }}</div>
@@ -4975,11 +4975,11 @@ import { Product } from '@/domain/product';
     template: `
         <p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
             <ng-template let-product #item>
-                <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
+                <div class="border border-surface-200 dark:border-surface-700 rounded-sm m-2 p-4">
                     <div class="mb-4">
                         <div class="relative mx-auto">
                             <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:bg-surface-900!" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                         </div>
                     </div>
                     <div class="mb-4 font-medium text-sm">{{ product.name }}</div>
@@ -5062,11 +5062,11 @@ import { Product } from '@/domain/product';
     template: `
         <p-carousel [value]="products()" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
             <ng-template let-product #item>
-                <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
+                <div class="border border-surface-200 dark:border-surface-700 rounded-sm m-2 p-4">
                     <div class="mb-4">
                         <div class="relative mx-auto">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded" />
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-sm" />
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:bg-surface-900!" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                         </div>
                     </div>
                     <div class="mb-4 font-medium text-sm">{{ product.name }}</div>
@@ -6844,7 +6844,7 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+        <p-chart type="line" [data]="data" [options]="options" class="h-120" />
     `,
     standalone: true,
     imports: [ChartModule]
@@ -6944,7 +6944,7 @@ import { ChartModule } from 'primeng/chart';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-120" />
         </div>
     `,
     standalone: true,
@@ -7005,7 +7005,7 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+        <p-chart type="bar" [data]="data" [options]="options" class="h-120" />
     `,
     standalone: true,
     imports: [ChartModule]
@@ -7099,7 +7099,7 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+        <p-chart type="line" [data]="data" [options]="options" class="h-120" />
     `,
     standalone: true,
     imports: [ChartModule]
@@ -7191,7 +7191,7 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+        <p-chart type="line" [data]="data" [options]="options" class="h-120" />
     `,
     standalone: true,
     imports: [ChartModule]
@@ -7334,7 +7334,7 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+        <p-chart type="line" [data]="data" [options]="options" class="h-120" />
     `,
     standalone: true,
     imports: [ChartModule]
@@ -7443,7 +7443,7 @@ import { ChartModule } from 'primeng/chart';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-120" />
         </div>
     `,
     standalone: true,
@@ -7505,7 +7505,7 @@ import { ChartModule } from 'primeng/chart';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-120" />
         </div>
     `,
     standalone: true,
@@ -7658,7 +7658,7 @@ import { ChartModule } from 'primeng/chart';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-120" />
         </div>
     `,
     standalone: true,
@@ -7739,7 +7739,7 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+        <p-chart type="bar" [data]="data" [options]="options" class="h-120" />
     `,
     standalone: true,
     imports: [ChartModule]
@@ -7841,7 +7841,7 @@ import { ChartModule } from 'primeng/chart';
 
 @Component({
     template: `
-        <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+        <p-chart type="bar" [data]="data" [options]="options" class="h-120" />
     `,
     standalone: true,
     imports: [ChartModule]
@@ -8624,7 +8624,7 @@ import { ChipModule } from 'primeng/chip';
 
 @Component({
     template: `
-        <p-chip class="!py-0 !pl-0 !pr-4">
+        <p-chip class="py-0! pl-0! pr-4!">
             <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">P</span>
             <span class="ml-2 font-medium">PRIME</span>
         </p-chip>
@@ -9725,7 +9725,7 @@ import { ContextMenu } from 'primeng/contextmenu';
 @Component({
     template: `
         <div class="flex justify-center">
-            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
+            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-120 rounded-sm shadow-lg" />
             <p-contextmenu [target]="img" [model]="items" />
         </div>
     `,
@@ -9767,10 +9767,10 @@ interface Users {
 @Component({
     template: `
         <div class="flex sm:justify-center">
-            <ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
+            <ul class="m-0 list-none border border-surface rounded-sm p-4 flex flex-col gap-2 w-full sm:w-96">
                 @for (user of users; track user.id) {
                     <li
-                        class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
+                        class="p-2 hover:bg-emphasis rounded-sm border border-transparent transition-all duration-200 flex items-center justify-content-between"
                         [ngClass]="{ 'border-primary': selectedId === user.id }"
                         (contextmenu)="onContextMenu($event, user)"
                     >
@@ -9931,7 +9931,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
     template: `
         <div class="flex justify-center">
-            <span #span class="inline-flex items-center justify-center border-2 border-primary rounded w-16 h-16" aria-haspopup="true">
+            <span #span class="inline-flex items-center justify-center border-2 border-primary rounded-sm w-16 h-16" aria-haspopup="true">
                 <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                     <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
                     <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -10017,15 +10017,15 @@ import { ContextMenu } from 'primeng/contextmenu';
 @Component({
     template: `
         <div class="flex md:justify-center">
-            <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded p-3 flex flex-col gap-2 w-full md:w-[30rem]">
+            <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded-sm p-3 flex flex-col gap-2 w-full md:w-120">
                 @for (product of data; track product.id) {
                     <li
-                        class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
+                        class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-sm border border-transparent transition-all transition-duration-200"
                         [ngClass]="{ 'border-primary': selectedId === product.id }"
                         (contextmenu)="onContextMenu($event)"
                     >
                         <div class="flex flex-wrap p-2 items-center gap-4">
-                            <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
+                            <img class="w-16 shrink-0 rounded-sm" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
                             <div class="flex-1 flex flex-col gap-1">
                                 <span class="font-bold text-sm">{{ product.name }}</span>
                                 <div class="flex items-center gap-2">
@@ -10047,7 +10047,7 @@ import { ContextMenu } from 'primeng/contextmenu';
                             <p-badge class="ms-auto" [value]="item.badge" />
                         }
                         @if (item.shortcut) {
-                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                            <span class="ms-auto border border-surface rounded-sm bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                         }
                         @if (item.items) {
                             <i class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
@@ -10313,7 +10313,7 @@ import { Product } from '@/domain/product';
                             <div class="flex flex-col sm:flex-row sm:items-center p-5 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                                 <div class="md:w-40 relative">
                                     <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:bg-surface-900!" [style.left.px]="4" [style.top.px]="4" />
                                 </div>
                                 <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-5">
                                     <div class="flex flex-row md:flex-col justify-between items-start gap-2">
@@ -10413,8 +10413,8 @@ import { Product } from '@/domain/product';
                     <div>
                         <div class="flex flex-col sm:flex-row sm:items-center p-5 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                             <div class="md:w-40 relative">
-                                <img class="block xl:block mx-auto rounded w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-                                <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                <img class="block xl:block mx-auto rounded-sm w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
+                                <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:bg-surface-900!" [style.left.px]="4" [style.top.px]="4" />
                             </div>
                             <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-5">
                                 <div class="flex flex-row md:flex-col justify-between items-start gap-2">
@@ -10450,11 +10450,11 @@ import { Product } from '@/domain/product';
                 <div class="grid grid-cols-12 gap-4">
                     @for (product of items; track product.id) {
                         <div class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2">
-                            <div class="p-5 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded flex flex-col">
-                                <div class="bg-surface-50 flex justify-center rounded p-4">
+                            <div class="p-5 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded-sm flex flex-col">
+                                <div class="bg-surface-50 flex justify-center rounded-sm p-4">
                                     <div class="relative mx-auto">
-                                        <img class="rounded w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" style="max-width: 300px" />
-                                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                        <img class="rounded-sm w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" style="max-width: 300px" />
+                                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)" class="absolute dark:bg-surface-900!" [style.left.px]="4" [style.top.px]="4" />
                                     </div>
                                 </div>
                                 <div class="pt-5">
@@ -10539,7 +10539,7 @@ import { Product } from '@/domain/product';
                     @for (i of counterArray(6); track $index; let first = $first) {
                         <div>
                             <div class="flex flex-col xl:flex-row xl:items-start p-5 gap-5" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
-                                <p-skeleton class="!w-9/12 sm:!w-64 xl:!w-40 !h-24 mx-auto" />
+                                <p-skeleton class="w-9/12! sm:w-64! xl:w-40! h-24! mx-auto" />
                                 <div class="flex flex-col sm:flex-row justify-between items-center xl:items-start flex-1 gap-5">
                                     <div class="flex flex-col items-center sm:items-start gap-4">
                                         <p-skeleton width="8rem" height="2rem" />
@@ -10563,7 +10563,7 @@ import { Product } from '@/domain/product';
                 <div class="grid grid-cols-12 gap-4">
                     @for (i of counterArray(6); track $index) {
                         <div class="col-span-12 sm:col-span-6 xl:col-span-4 p-2">
-                            <div class="p-5 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded">
+                            <div class="p-5 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded-sm">
                                 <div class="flex flex-wrap items-center justify-between gap-2">
                                     <p-skeleton width="6rem" height="2rem" />
                                     <p-skeleton width="3rem" height="1rem" />
@@ -10627,7 +10627,7 @@ import { Product } from '@/domain/product';
                             <div class="flex flex-col sm:flex-row sm:items-center p-5 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                                 <div class="md:w-40 relative">
                                     <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:bg-surface-900!" [style.left.px]="4" [style.top.px]="4" />
                                 </div>
                                 <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-5">
                                     <div class="flex flex-row md:flex-col justify-between items-start gap-2">
@@ -10708,7 +10708,7 @@ import { Product } from '@/domain/product';
                             <div class="flex flex-col sm:flex-row sm:items-center p-5 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                                 <div class="md:w-40 relative">
                                     <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="dark:!bg-surface-900 absolute" [style.left.px]="4" [style.top.px]="4" />
+                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="dark:bg-surface-900! absolute" [style.left.px]="4" [style.top.px]="4" />
                                 </div>
                                 <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-5">
                                     <div class="flex flex-row md:flex-col justify-between items-start gap-2">
@@ -12309,7 +12309,7 @@ import { InputTextModule } from 'primeng/inputtext';
     template: `
         <div class="flex justify-center">
             <p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
-            <p-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="visible" styleClass="!border-0 !bg-transparent">
+            <p-dialog maskStyleClass="backdrop-blur-xs" [(visible)]="visible" styleClass="border-0! bg-transparent!">
                 <ng-template #headless>
                     <div class="flex flex-col px-8 py-8 gap-5 rounded-2xl" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--p-primary-400), var(--p-primary-700))">
                         <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
@@ -12343,15 +12343,15 @@ import { InputTextModule } from 'primeng/inputtext';
                         </svg>
                         <div class="inline-flex flex-col gap-2">
                             <label for="username" class="text-primary-50 font-semibold text-sm">Username</label>
-                            <input pInputText id="username" class="!bg-white/20 !border-0 !p-3 !text-primary-50 w-80" />
+                            <input pInputText id="username" class="bg-white/20! border-0! p-3! text-primary-50! w-80" />
                         </div>
                         <div class="inline-flex flex-col gap-2">
                             <label for="password" class="text-primary-50 font-semibold text-sm">Password</label>
-                            <input pInputText id="password" class="!bg-white/20 !border-0 !p-3 !text-primary-50 w-80" type="password" />
+                            <input pInputText id="password" class="bg-white/20! border-0! p-3! text-primary-50! w-80" type="password" />
                         </div>
                         <div class="flex items-center gap-4">
-                            <p-button label="Cancel" (click)="closeDialog()" [text]="true" styleClass="!p-3 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10" class="w-full" />
-                            <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="!p-3 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10" class="w-full" />
+                            <p-button label="Cancel" (click)="closeDialog()" [text]="true" styleClass="p-3! w-full text-primary-50! border! border-white/30! hover:bg-white/10!" class="w-full" />
+                            <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="p-3! w-full text-primary-50! border! border-white/30! hover:bg-white/10!" class="w-full" />
                         </div>
                     </div>
                 </ng-template>
@@ -12995,8 +12995,8 @@ import { InputTextModule } from 'primeng/inputtext';
                 </div>
             </div>
             <div class="w-full md:w-2/12">
-                <p-divider layout="vertical" class="!hidden md:!flex"><b>OR</b></p-divider>
-                <p-divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></p-divider>
+                <p-divider layout="vertical" class="hidden! md:flex!"><b>OR</b></p-divider>
+                <p-divider layout="horizontal" class="flex! md:hidden!" align="center"><b>OR</b></p-divider>
             </div>
             <div class="w-full md:w-5/12 flex items-center justify-center py-5">
                 <p-button label="Sign Up" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
@@ -13673,7 +13673,7 @@ import { Product } from '@/domain/product';
             <div class="p-2 border border-surface rounded-border w-60">
                 <ul class="list-none flex flex-col gap-2 p-0 m-0">
                     @for (product of availableProducts; track product.id) {
-                        <li class="p-2 rounded-border shadow-sm" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
+                        <li class="p-2 rounded-border shadow-xs" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                             {{ product.name }}
                         </li>
                     }
@@ -13684,7 +13684,7 @@ import { Product } from '@/domain/product';
                 @if (selectedProducts) {
                     <ul class="list-none flex flex-col gap-2 p-0 m-0">
                         @for (product of selectedProducts; track product.id) {
-                            <li class="p-2 rounded-border shadow-sm">
+                            <li class="p-2 rounded-border shadow-xs">
                                 {{ product.name }}
                             </li>
                         }
@@ -13892,7 +13892,7 @@ import { Product } from '@/domain/product';
             <div class="p-2 border border-surface rounded-border w-60 h-40">
                 <ul class="list-none flex flex-col gap-2 p-0 m-0">
                     @for (product of availableProducts; track product.id) {
-                        <li class="p-2 rounded-border shadow-sm" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
+                        <li class="p-2 rounded-border shadow-xs" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                             {{ product.name }}
                         </li>
                     }
@@ -13903,7 +13903,7 @@ import { Product } from '@/domain/product';
                 @if (selectedProducts) {
                     <ul class="list-none flex flex-col gap-2 p-0 m-0">
                         @for (product of selectedProducts; track product.id) {
-                            <li class="p-2 rounded-border shadow-sm">
+                            <li class="p-2 rounded-border shadow-xs">
                                 {{ product.name }}
                             </li>
                         }
@@ -14166,7 +14166,7 @@ import { RippleModule } from 'primeng/ripple';
                                                 <span class="font-medium text-sm">Reports</span>
                                                 <i class="pi pi-chevron-down ml-auto"></i>
                                             </a>
-                                            <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
+                                            <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-400 ease-in-out">
                                                 <li>
                                                     <a
                                                         pRipple
@@ -14181,7 +14181,7 @@ import { RippleModule } from 'primeng/ripple';
                                                         <span class="font-medium text-sm">Revenue</span>
                                                         <i class="pi pi-chevron-down ml-auto"></i>
                                                     </a>
-                                                    <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
+                                                    <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-400 ease-in-out">
                                                         <li>
                                                             <a
                                                                 pRipple
@@ -14372,7 +14372,7 @@ import { DrawerModule } from 'primeng/drawer';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-drawer header="Drawer" [(visible)]="visible" styleClass="!w-full md:!w-80 lg:!w-[30rem]">
+            <p-drawer header="Drawer" [(visible)]="visible" styleClass="w-full! md:w-80! lg:w-120!">
                 <p class="text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
@@ -15380,7 +15380,7 @@ import { MessageService } from 'primeng/api';
             <ng-template #file></ng-template>
             <ng-template #empty>
                 <div class="flex items-center justify-center flex-col">
-                    <i class="pi pi-cloud-upload !border-2 !rounded-full !p-7 !text-3xl !text-muted-color"></i>
+                    <i class="pi pi-cloud-upload border-2! rounded-full! p-7! text-3xl! text-muted-color!"></i>
                     <p class="mt-5 mb-0 text-sm">Drag and drop files to here to upload.</p>
                 </div>
             </ng-template>
@@ -17279,7 +17279,7 @@ import { ImageCompareModule } from 'primeng/imagecompare';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-imagecompare class="sm:!w-96 shadow-lg rounded-2xl">
+            <p-imagecompare class="sm:w-96! shadow-lg rounded-2xl">
                 <ng-template #left>
                     <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
                 </ng-template>
@@ -18479,7 +18479,7 @@ import { MenuItem } from 'primeng/api';
                     <p-button icon="pi pi-search" severity="secondary" variant="text" (click)="menu.toggle($event)" />
                 </p-inputgroup-addon>
             </p-inputgroup>
-            <p-menu #menu [model]="items" popup styleClass="!min-w-fit" />
+            <p-menu #menu [model]="items" popup styleClass="min-w-fit!" />
             <p-inputgroup>
                 <p-inputgroup-addon>
                     <p-button icon="pi pi-check" severity="secondary" />
@@ -18614,7 +18614,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-inputgroup class="md:!w-80">
+            <p-inputgroup class="md:w-80!">
                 <p-inputgroup-addon>
                     <i class="pi pi-shopping-cart"></i>
                 </p-inputgroup-addon>
@@ -18647,7 +18647,7 @@ import { InputTextModule } from 'primeng/inputtext';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-inputgroup class="w-full md:!w-[30rem]">
+            <p-inputgroup class="w-full md:w-120!">
                 <p-inputgroup-addon>
                     <i class="pi pi-clock"></i>
                 </p-inputgroup-addon>
@@ -23252,7 +23252,7 @@ import { MenuItem } from 'primeng/api';
                         <p-badge class="ms-auto" [value]="item.badge" />
                     }
                     @if (item.shortcut) {
-                        <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs px-1 py-0.5">{{ item.shortcut }}</span>
+                        <span class="ms-auto border border-surface rounded-sm bg-emphasis text-muted-color text-xs px-1 py-0.5">{{ item.shortcut }}</span>
                     }
                 </a>
             </ng-template>
@@ -23310,7 +23310,7 @@ export class MenuTemplateDemo implements OnInit {
                         label: 'Logout',
                         icon: 'pi pi-sign-out',
                         shortcut: '⌘+Q',
-                        linkClass: '!text-red-500 dark:!text-red-400'
+                        linkClass: 'text-red-500! dark:text-red-400!'
                     }
                 ]
             },
@@ -23724,7 +23724,7 @@ import { MenuItem } from 'primeng/api';
                         <p-badge [ngClass]="{ 'ms-auto': !root }" [value]="item.badge" />
                     }
                     @if (item.shortcut) {
-                        <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        <span class="ms-auto border border-surface rounded-sm bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                     }
                     @if (item.items) {
                         <i [ngClass]="['ms-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
@@ -25866,7 +25866,7 @@ import { Product } from '@/domain/product';
             <p-orderlist [value]="products()" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                        <img class="w-12 shrink-0 rounded-sm" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
                         <div class="flex-1 flex flex-col">
                             <span class="font-medium text-sm">{{ option.name }}</span>
                             <span
@@ -25930,7 +25930,7 @@ import { Product } from '@/domain/product';
             <p-orderlist [value]="products()" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                        <img class="w-12 shrink-0 rounded-sm" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
                         <div class="flex-1 flex flex-col">
                             <span class="font-medium text-sm">{{ option.name }}</span>
                             <span
@@ -25994,7 +25994,7 @@ import { Product } from '@/domain/product';
             <p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                        <img class="w-12 shrink-0 rounded-sm" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
                         <div class="flex-1 flex flex-col">
                             <span class="font-medium text-sm">{{ option.name }}</span>
                             <span
@@ -26242,7 +26242,7 @@ export class OrganizationchartColoredDemo {
         {
             expanded: true,
             type: 'person',
-            styleClass: '!bg-indigo-100 !text-indigo-900 rounded-xl',
+            styleClass: 'bg-indigo-100! text-indigo-900! rounded-xl',
             data: {
                 image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png',
                 name: 'Amy Elsner',
@@ -26252,7 +26252,7 @@ export class OrganizationchartColoredDemo {
                 {
                     expanded: true,
                     type: 'person',
-                    styleClass: '!bg-purple-100 !text-purple-900 rounded-xl',
+                    styleClass: 'bg-purple-100! text-purple-900! rounded-xl',
                     data: {
                         image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png',
                         name: 'Anna Fali',
@@ -26261,18 +26261,18 @@ export class OrganizationchartColoredDemo {
                     children: [
                         {
                             label: 'Sales',
-                            styleClass: '!bg-purple-100 !text-purple-900 rounded-xl'
+                            styleClass: 'bg-purple-100! text-purple-900! rounded-xl'
                         },
                         {
                             label: 'Marketing',
-                            styleClass: '!bg-purple-100 !text-purple-900 rounded-xl'
+                            styleClass: 'bg-purple-100! text-purple-900! rounded-xl'
                         }
                     ]
                 },
                 {
                     expanded: true,
                     type: 'person',
-                    styleClass: '!bg-teal-100 !text-teal-900 rounded-xl',
+                    styleClass: 'bg-teal-100! text-teal-900! rounded-xl',
                     data: {
                         image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png',
                         name: 'Stephen Shaw',
@@ -26281,11 +26281,11 @@ export class OrganizationchartColoredDemo {
                     children: [
                         {
                             label: 'Development',
-                            styleClass: '!bg-teal-100 !text-teal-900 rounded-xl'
+                            styleClass: 'bg-teal-100! text-teal-900! rounded-xl'
                         },
                         {
                             label: 'UI/UX Design',
-                            styleClass: '!bg-teal-100 !text-teal-900 rounded-xl'
+                            styleClass: 'bg-teal-100! text-teal-900! rounded-xl'
                         }
                     ]
                 }
@@ -26585,7 +26585,7 @@ import { ButtonModule } from 'primeng/button';
     template: `
         <div class="flex justify-center">
             <p-button (click)="toggle()" label="Show Overlay"></p-button>
-            <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border"> Content </p-overlay>
+            <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow-sm rounded-border"> Content </p-overlay>
         </div>
     `,
     standalone: true,
@@ -26704,7 +26704,7 @@ import { ButtonModule } from 'primeng/button';
     template: `
         <div class="flex justify-center">
             <p-button (click)="toggle()" label="Show Overlay"></p-button>
-            <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
+            <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow-sm rounded-border">
                 <ng-template #content let-option> Content - {{ option.mode }} </ng-template>
             </p-overlay>
         </div>
@@ -27852,7 +27852,7 @@ import { PanelMenu } from 'primeng/panelmenu';
                             <p-badge class="ms-auto" [value]="item.badge" />
                         }
                         @if (item.shortcut) {
-                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                            <span class="ms-auto border border-surface rounded-sm bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                         }
                     </a>
                 </ng-template>
@@ -28751,7 +28751,7 @@ import { Product } from '@/domain/product';
         >
             <ng-template let-option let-selected="selected" #option>
                 <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                    <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                    <img class="w-12 shrink-0 rounded-sm" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
                     <div class="flex-1 flex flex-col">
                         <span class="font-medium text-sm">{{ option.name }}</span>
                         <span
@@ -28802,7 +28802,7 @@ import { Product } from '@/domain/product';
         <p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
             <ng-template let-option let-selected="selected" #item>
                 <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                    <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                    <img class="w-12 shrink-0 rounded-sm" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
                     <div class="flex-1 flex flex-col">
                         <span class="font-medium text-sm">{{ option.name }}</span>
                         <span
@@ -29128,11 +29128,11 @@ import { InputTextModule } from 'primeng/inputtext';
         <div class="flex justify-center">
             <p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
             <p-popover #op>
-                <div class="flex flex-col gap-4 w-[25rem]">
+                <div class="flex flex-col gap-4 w-100">
                     <div>
                         <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2 text-sm">Share this document</span>
                         <p-inputgroup>
-                            <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
+                            <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-100" />
                             <p-inputgroup-addon>
                                 <i class="pi pi-copy"></i>
                             </p-inputgroup-addon>
@@ -29220,7 +29220,7 @@ import { Product } from '@/domain/product';
                     <td>{{ product.name }}</td>
                     <td>$ {{ product.price }}</td>
                     <td>
-                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="w-16 shadow-sm" />
+                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="w-16 shadow-xs" />
                     </td>
                     <td>
                         <p-button (onClick)="displayProduct($event, product)" icon="pi pi-search" severity="secondary" rounded />
@@ -29231,11 +29231,11 @@ import { Product } from '@/domain/product';
         <p-popover #op (onHide)="selectedProduct.set(null)">
             <ng-template #content>
                 @if (selectedProduct()) {
-                    <div class="rounded flex flex-col">
-                        <div class="flex justify-center rounded">
+                    <div class="rounded-sm flex flex-col">
+                        <div class="flex justify-center rounded-sm">
                             <div class="relative mx-auto">
-                                <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
-                                <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                <img class="rounded-sm w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
+                                <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:bg-surface-900!" [style.left.px]="4" [style.top.px]="4" />
                             </div>
                         </div>
                         <div class="pt-4">
@@ -31004,7 +31004,7 @@ import { ScrollTopModule } from 'primeng/scrolltop';
                     nisl purus. Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada fames ac turpis egestas. Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas ultricies mi eget mauris. Eget egestas purus
                     viverra accumsan in nisl nisi. Suscipit adipiscing bibendum est ultricies integer. Mattis aliquam faucibus purus in massa tempor nec.
                 </p>
-                <p-scrolltop target="parent" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ severity: 'contrast', raised: true, rounded: true }" />
+                <p-scrolltop target="parent" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ severity: 'contrast', raised: true, rounded-sm: true }" />
             </div>
         </div>
     `,
@@ -32761,7 +32761,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     template: `
-        <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
+        <div class="rounded-sm border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
             <div class="flex mb-4">
                 <p-skeleton shape="circle" size="4rem" class="mr-2" />
                 <div>
@@ -32839,7 +32839,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     template: `
-        <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
+        <div class="rounded-sm border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
             <ul class="m-0 p-0 list-none">
                 <li class="mb-4">
                     <div class="flex">
@@ -33034,7 +33034,7 @@ import { SliderModule } from 'primeng/slider';
     template: `
         <div class="flex justify-center">
             <div class="flex flex-col items-center">
-                <img alt="user header" class="w-full md:w-80 rounded mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
+                <img alt="user header" class="w-full md:w-80 rounded-sm mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
                 <p-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
                 <p-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
             </div>
@@ -33362,7 +33362,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 @Component({
     template: `
         <div style="position:relative; height: 500px;" class="flex items-center justify-center">
-            <p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warn', rounded: true }" />
+            <p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warn', rounded-sm: true }" />
         </div>
     `,
     standalone: true,
@@ -33704,7 +33704,7 @@ import { MenuItem, MessageService } from 'primeng/api';
                     </p-button>
                 </ng-template>
                 <ng-template #item let-item let-toggleCallback="toggleCallback">
-                    <div class="flex flex-col items-center justify-between gap-2 p-2 border rounded border-surface-200 dark:border-surface-700 w-20 cursor-pointer" (click)="toggleCallback($event, item)">
+                    <div class="flex flex-col items-center justify-between gap-2 p-2 border rounded-sm border-surface-200 dark:border-surface-700 w-20 cursor-pointer" (click)="toggleCallback($event, item)">
                         <span [class]="item.icon"></span>
                         <span class="text-sm">
                             {{ item.label }}
@@ -33778,8 +33778,8 @@ import { MenuItem, MessageService } from 'primeng/api';
 @Component({
     template: `
         <div [style]="{ position: 'relative', height: '350px' }">
-            <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', right: 0, bottom: 0 }" [buttonProps]="{ severity: 'help', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'left' }" />
-            <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 0, bottom: 0 }" [buttonProps]="{ severity: 'danger', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'right' }" />
+            <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', right: 0, bottom: 0 }" [buttonProps]="{ severity: 'help', rounded-sm: true }" [tooltipOptions]="{ tooltipPosition: 'left' }" />
+            <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 0, bottom: 0 }" [buttonProps]="{ severity: 'danger', rounded-sm: true }" [tooltipOptions]="{ tooltipPosition: 'right' }" />
         </div>
     `,
     standalone: true,
@@ -34919,7 +34919,7 @@ import { SplitterModule } from 'primeng/splitter';
             <ng-template #panel>
                 <p-splitter layout="vertical" [panelSizes]="[50, 50]">
                     <ng-template #panel>
-                        <div style="flex-grow: 1;" class="flex items-center justify-center text-sm">Panel 2</div>
+                        <div style="grow: 1;" class="flex items-center justify-center text-sm">Panel 2</div>
                     </ng-template>
                     <ng-template #panel>
                         <p-splitter [panelSizes]="[20, 80]">
@@ -35085,7 +35085,7 @@ import { StepperModule } from 'primeng/stepper';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-stepper [value]="1" class="basis-[50rem]">
+            <p-stepper [value]="1" class="basis-200">
                 <p-step-list>
                     <p-step [value]="1">Header I</p-step>
                     <p-step [value]="2">Header II</p-step>
@@ -35095,7 +35095,7 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="1">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
                             </div>
                             <div class="flex pt-5 justify-end">
                                 <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
@@ -35105,7 +35105,7 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="2">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
                             </div>
                             <div class="flex pt-5 justify-between">
                                 <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
@@ -35116,7 +35116,7 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="3">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
                             </div>
                             <div class="flex pt-5 justify-start">
                                 <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
@@ -35147,7 +35147,7 @@ import { StepperModule } from 'primeng/stepper';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
+            <p-stepper [value]="1" class="basis-200" [linear]="true">
                 <p-step-list>
                     <p-step [value]="1">Header I</p-step>
                     <p-step [value]="2">Header II</p-step>
@@ -35157,7 +35157,7 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="1">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
                             </div>
                             <div class="flex pt-5 justify-end">
                                 <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
@@ -35167,7 +35167,7 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="2">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
                             </div>
                             <div class="flex pt-5 justify-between">
                                 <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
@@ -35178,7 +35178,7 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="3">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
                             </div>
                             <div class="flex pt-5 justify-start">
                                 <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
@@ -35217,7 +35217,7 @@ import { InputTextModule } from 'primeng/inputtext';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-stepper [(value)]="activeStep" class="basis-[40rem]">
+            <p-stepper [(value)]="activeStep" class="basis-160">
                 <p-step-list>
                     <p-step [value]="1" class="flex flex-row flex-auto gap-2">
                         <ng-template #content let-activateCallback="activateCallback" let-value="value">
@@ -35365,7 +35365,7 @@ import { StepperModule } from 'primeng/stepper';
                 <p-step-panel>
                     <ng-template #content let-activateCallback="activateCallback">
                         <div class="flex flex-col h-48">
-                            <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
+                            <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
                         </div>
                         <div class="py-5">
                             <p-button label="Next" (onClick)="activateCallback(2)" />
@@ -35378,7 +35378,7 @@ import { StepperModule } from 'primeng/stepper';
                 <p-step-panel>
                     <ng-template #content let-activateCallback="activateCallback">
                         <div class="flex flex-col h-48">
-                            <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
+                            <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
                         </div>
                         <div class="flex py-5 gap-2">
                             <p-button label="Back" severity="secondary" (onClick)="activateCallback(1)" />
@@ -35392,7 +35392,7 @@ import { StepperModule } from 'primeng/stepper';
                 <p-step-panel>
                     <ng-template #content let-activateCallback="activateCallback">
                         <div class="flex flex-col h-48">
-                            <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
+                            <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
                         </div>
                         <div class="py-5">
                             <p-button label="Back" severity="secondary" (onClick)="activateCallback(2)" />
@@ -35610,7 +35610,7 @@ import { ButtonModule } from 'primeng/button';
 @Component({
     template: `
         <div class="flex flex-wrap justify-center gap-4">
-            <div class="flex flex-col items-center gap-4 w-[25rem]">
+            <div class="flex flex-col items-center gap-4 w-100">
                 <p-button
                     pStyleClass=".window-responsive-box"
                     enterFromClass="hidden"
@@ -35629,7 +35629,7 @@ import { ButtonModule } from 'primeng/button';
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col items-center gap-4 w-[25rem]">
+            <div class="flex flex-col items-center gap-4 w-100">
                 <p-button
                     pStyleClass=".resizable-container"
                     enterFromClass="hidden"
@@ -38213,7 +38213,7 @@ interface ExportColumn {
                     <td style="min-width: 12rem">{{ product.code }}</td>
                     <td style="min-width: 16rem">{{ product.name }}</td>
                     <td>
-                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" style="width: 64px" class="rounded" />
+                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" style="width: 64px" class="rounded-sm" />
                     </td>
                     <td>{{ product.price | currency: 'USD' }}</td>
                     <td>{{ product.category }}</td>
@@ -39808,7 +39808,7 @@ interface Column {
                 <tr>
                     <td>{{ product.name }}</td>
                     <td>
-                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" class="w-24 rounded" />
+                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" class="w-24 rounded-sm" />
                     </td>
                     <td>{{ product.price | currency: 'USD' }}</td>
                     <td>{{ product.category }}</td>
@@ -40480,15 +40480,15 @@ import { TabsModule } from 'primeng/tabs';
                 <ng-template #previcon>
                     <i class="pi pi-minus"></i>
                 </ng-template>
-                <p-tab value="0" class="flex items-center !gap-2">
+                <p-tab value="0" class="flex items-center gap-2!">
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                     <span class="font-bold whitespace-nowrap">Amy Elsner</span>
                 </p-tab>
-                <p-tab value="1" class="flex items-center !gap-2">
+                <p-tab value="1" class="flex items-center gap-2!">
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" shape="circle" />
                     <span class="font-bold whitespace-nowrap">Onyama Limba</span>
                 </p-tab>
-                <p-tab value="2" class="flex items-center !gap-2">
+                <p-tab value="2" class="flex items-center gap-2!">
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" shape="circle" />
                     <span class="font-bold whitespace-nowrap">Ioni Bowcher</span>
                     <p-badge value="2" />
@@ -40715,7 +40715,7 @@ import { TabsModule } from 'primeng/tabs';
         <p-tabs value="dashboard">
             <p-tablist>
                 @for (tab of tabs; track tab.route) {
-                    <p-tab [value]="tab.route" class="flex items-center !gap-2 text-inherit">
+                    <p-tab [value]="tab.route" class="flex items-center gap-2! text-inherit">
                         <i [class]="tab.icon"></i>
                         <span>{{ tab.label }}</span>
                     </p-tab>
@@ -42053,7 +42053,7 @@ import { MenuItem } from 'primeng/api';
                             <p-badge class="ml-auto" [value]="item.badge" />
                         }
                         @if (item.shortcut) {
-                            <span class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                            <span class="ml-auto border border-surface rounded-sm bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                         }
                         @if (hasSubmenu) {
                             <i class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
@@ -42484,14 +42484,14 @@ interface EventItem {
     template: `
         <p-timeline [value]="events" align="alternate" class="customized-timeline">
             <ng-template #marker let-event>
-                <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
+                <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-xs" [style]="{ 'background-color': event.color }">
                     <i [class]="event.icon"></i>
                 </span>
             </ng-template>
             <ng-template #content let-event>
                 <p-card [header]="event.status" [subheader]="event.date">
                     @if (event.image) {
-                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
+                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow-sm" />
                     }
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
@@ -43710,7 +43710,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         <div class="flex justify-center gap-4">
             <p-toggleswitch [(ngModel)]="checked">
                 <ng-template #handle let-checked="checked">
-                    <i [ngClass]="['!text-xs', 'pi', checked ? 'pi-check' : 'pi-times']"></i>
+                    <i [ngClass]="['text-xs!', 'pi', checked ? 'pi-check' : 'pi-times']"></i>
                 </ng-template>
             </p-toggleswitch>
         </div>
@@ -44328,7 +44328,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <p-tree [value]="files()" class="w-full md:w-[30rem]" />
+        <p-tree [value]="files()" class="w-full md:w-120" />
     `,
     standalone: true,
     imports: [TreeModule],
@@ -44360,7 +44360,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <p-tree [value]="files()" selectionMode="checkbox" class="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
+        <p-tree [value]="files()" selectionMode="checkbox" class="w-full md:w-120" [(selection)]="selectedFiles" />
     `,
     standalone: true,
     imports: [TreeModule],
@@ -44463,7 +44463,7 @@ import { TreeNode } from 'primeng/api';
             <p-button icon="pi pi-plus" label="Expand all" (click)="expandAll()" />
             <p-button icon="pi pi-minus" label="Collapse all" (click)="collapseAll()" />
         </div>
-        <p-tree [value]="files()" class="w-full md:w-[30rem]" />
+        <p-tree [value]="files()" class="w-full md:w-120" />
     `,
     standalone: true,
     imports: [ButtonModule, TreeModule],
@@ -44507,7 +44507,7 @@ import { TreeNode, MessageService } from 'primeng/api';
     template: `
         <p-tree
             [value]="files()"
-            class="w-full md:w-[30rem]"
+            class="w-full md:w-120"
             selectionMode="single"
             [(selection)]="selectedFile"
             (onNodeExpand)="nodeExpand($event)"
@@ -44604,7 +44604,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <p-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
+        <p-tree class="w-full md:w-120" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
     `,
     standalone: true,
     imports: [TreeModule]
@@ -44687,7 +44687,7 @@ import { TreeNode } from 'primeng/api';
             <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
             <label for="input-metakey">MetaKey</label>
         </div>
-        <p-tree [metaKeySelection]="metaKeySelection" [value]="files()" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
+        <p-tree [metaKeySelection]="metaKeySelection" [value]="files()" class="w-full md:w-120" selectionMode="multiple" [(selection)]="selectedFiles" />
     `,
     standalone: true,
     imports: [ToggleSwitchModule, TreeModule, FormsModule],
@@ -44721,7 +44721,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
+        <p-tree [value]="files()" class="w-full md:w-120" selectionMode="single" [(selection)]="selectedFile" />
     `,
     standalone: true,
     imports: [TreeModule],
@@ -44753,7 +44753,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <p-tree [value]="nodes()" class="w-full md:w-[30rem]">
+        <p-tree [value]="nodes()" class="w-full md:w-120">
             <ng-template #node let-node>
                 @if (node.type === 'url') {
                     <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">{{ node.label }}</a>
@@ -46688,7 +46688,7 @@ interface Column {
                 </tr>
             </ng-template>
             <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode" [ngClass]="{ '!bg-surface-100 dark:!bg-surface-800': rowData.size.endsWith('kb') }">
+                <tr [ttRow]="rowNode" [ngClass]="{ 'bg-surface-100! dark:bg-surface-800!': rowData.size.endsWith('kb') }">
                     @for (col of columns; let first = $first; track col) {
                         <td [class]="{ 'line-through': col.field === 'size' && rowData.size.endsWith('kb') }">
                             @if (first) {

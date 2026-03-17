@@ -122,19 +122,19 @@ import { TooltipModule } from 'primeng/tooltip';
                     </div>
                     <div class="mt-4 flex flex-col gap-1">
                         <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
-                            <i class="pi pi-envelope w-6 h-6 !flex items-center justify-center"></i>
+                            <i class="pi pi-envelope w-6 h-6 flex! items-center justify-center"></i>
                             <div class="text-sm font-medium leading-normal flex-1 text-left">Messages</div>
                         </button>
                         <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
-                            <i class="pi pi-cog w-6 h-6 !flex items-center justify-center"></i>
+                            <i class="pi pi-cog w-6 h-6 flex! items-center justify-center"></i>
                             <div class="text-sm font-medium leading-normal flex-1 text-left">Settings</div>
                         </button>
                         <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
-                            <i class="pi pi-sync w-6 h-6 !flex items-center justify-center"></i>
+                            <i class="pi pi-sync w-6 h-6 flex! items-center justify-center"></i>
                             <div class="text-sm font-medium leading-normal flex-1 text-left">Switch Accounts</div>
                         </button>
                         <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
-                            <i class="pi pi-sign-in w-6 h-6 !flex items-center justify-center"></i>
+                            <i class="pi pi-sign-in w-6 h-6 flex! items-center justify-center"></i>
                             <div class="text-sm font-medium leading-normal flex-1 text-left">Log out</div>
                         </button>
                     </div>
@@ -183,7 +183,7 @@ import { TooltipModule } from 'primeng/tooltip';
                     </div>
                     <div class="p-1 mt-3.5">
                         <button class="p-3.5 rounded-2xl w-full bg-emphasis transition-all text-color hover:text-color-emphasis flex items-center gap-2 justify-between cursor-pointer">
-                            <div class="flex items-center [&>*]:-mr-2">
+                            <div class="flex items-center *:-mr-2">
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" shape="circle" />
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg" shape="circle" />
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg" shape="circle" />
@@ -236,7 +236,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                         <h5 class="m-0 mb-2">Pending</h5>
                                         <div class="flex flex-wrap gap-2 grow overflow-auto max-h-[210px]">
                                             @for (file of files; track $index; let i = $index) {
-                                                <div class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center">
+                                                <div class="card max-w-[120px] p-2! m-0 flex flex-col border surface-border items-center gap-2 text-center">
                                                     <div>
                                                         <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
                                                     </div>
@@ -244,7 +244,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                                     <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
                                                     <div class="grow flex flex-col gap-2 justify-end">
                                                         <p-badge value="Pending" severity="warn" />
-                                                        <p-button icon="pi pi-times text-sm leading-none" (click)="onRemoveTemplatingFile(file, removeCallback, i)" class="!text-sm !leading-none" label="Cancel" text severity="danger" />
+                                                        <p-button icon="pi pi-times text-sm leading-none" (click)="onRemoveTemplatingFile(file, removeCallback, i)" class="text-sm! leading-none!" label="Cancel" text severity="danger" />
                                                     </div>
                                                 </div>
                                             }
@@ -257,7 +257,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                         <h5 class="m-0 mb-2">Completed</h5>
                                         <div class="flex flex-wrap gap-2">
                                             @for (file of uploadedFiles; track $index) {
-                                                <div class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center">
+                                                <div class="card max-w-[120px] p-2! m-0 flex flex-col border surface-border items-center gap-2 text-center">
                                                     <div>
                                                         <img role="presentation" [alt]="file.name" :src="file.objectURL" width="100" height="50" />
                                                     </div>
@@ -265,7 +265,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                                     <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
                                                     <div class="grow flex flex-col gap-2 justify-end">
                                                         <p-badge value="Completed" class="mt-2.5" severity="success" />
-                                                        <p-button icon="pi pi-times text-sm leading-none" class="!text-sm !leading-none" label="Cancel" text severity="danger" />
+                                                        <p-button icon="pi pi-times text-sm leading-none" class="text-sm! leading-none!" label="Cancel" text severity="danger" />
                                                     </div>
                                                 </div>
                                             }
@@ -334,7 +334,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                     <div class="text-xs font-medium text-color leading-4">Brook Simmons</div>
                                     <div class="text-xs text-muted-color leading-4 line-clamp-4">brook.sim42&#64;primeng.org</div>
                                 </div>
-                                <p-select [(ngModel)]="memberSelectedTypes[0]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!border-0 !shadow-none" />
+                                <p-select [(ngModel)]="memberSelectedTypes[0]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="border-0! shadow-none!" />
                             </div>
                             <div class="flex items-center gap-2 justify-between">
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg" class="w-8 h-8" shape="circle" />
@@ -342,7 +342,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                     <div class="text-xs font-medium text-color leading-4">Dianne Russell</div>
                                     <div class="text-xs text-muted-color leading-4 line-clamp-4">di.russ23&#64;primeng.org</div>
                                 </div>
-                                <p-select [(ngModel)]="memberSelectedTypes[1]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!border-0 !shadow-none" />
+                                <p-select [(ngModel)]="memberSelectedTypes[1]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="border-0! shadow-none!" />
                             </div>
                             <div class="flex items-center gap-2 justify-between">
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg" class="w-8 h-8" shape="circle" />
@@ -350,7 +350,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                     <div class="text-xs font-medium text-color leading-4">Jacob Jones</div>
                                     <div class="text-xs text-muted-color leading-4 line-clamp-4">jac.jon87&#64;primeng.org</div>
                                 </div>
-                                <p-select [(ngModel)]="memberSelectedTypes[2]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!border-0 !shadow-none" />
+                                <p-select [(ngModel)]="memberSelectedTypes[2]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="border-0! shadow-none!" />
                             </div>
                         </div>
                     </div>
@@ -413,7 +413,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         <p-button label="Resend" text />
                     </div>
                     <div class="flex items-center justify-center">
-                        <p-inputotp [(ngModel)]="forgotPasswordOTP" [length]="6" [integerOnly]="true" class="w-full [&>*]:flex-1 [&>*]:min-h-10 [&>*]:text-lg" />
+                        <p-inputotp [(ngModel)]="forgotPasswordOTP" [length]="6" [integerOnly]="true" class="w-full *:flex-1 *:min-h-10 *:text-lg" />
                     </div>
                     <button pButton class="w-full"><span pButtonLabel>Change password</span></button>
                 </div>
@@ -443,7 +443,7 @@ import { TooltipModule } from 'primeng/tooltip';
                             }
                         </div>
                     </div>
-                    <div class="flex items-center gap-2.5 flex-wrap [&>*]:flex-1 mt-4">
+                    <div class="flex items-center gap-2.5 flex-wrap *:flex-1 mt-4">
                         <button pButton outlined class="w-full"><span pButtonLabel>Undo</span></button>
                         <button pButton class="w-full"><span pButtonLabel>Random</span></button>
                     </div>

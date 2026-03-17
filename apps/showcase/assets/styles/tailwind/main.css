@@ -1,17 +1,48 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-@layer components {
-    .btn-design {
-        @apply px-2.5 py-1.5 text-sm bg-zinc-950 disabled:hover:bg-zinc-950 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:disabled:hover:bg-white dark:text-black rounded-md font-medium cursor-pointer disabled:cursor-auto transition-colors duration-200 focus:outline focus:outline-offset-2 focus:outline-zinc-950 dark:focus:outline-white disabled:opacity-60;
-    }
+@plugin 'tailwindcss-primeui';
 
-    .btn-design-outlined {
-        @apply px-2.5 py-1.5 text-sm bg-transparent border border-gray-200 dark:border-gray-700 hover:border-gray-800 dark:hover:border-gray-500 text-black dark:text-white rounded-md font-medium cursor-pointer disabled:cursor-auto transition-colors duration-200 focus:outline focus:outline-offset-2 focus:outline-zinc-950 dark:focus:outline-white disabled:opacity-60 disabled:hover:border-gray-200 dark:disabled:hover:border-gray-700;
-    }
+@source '../../../components/**/*.{html,ts,scss,css}';
+@source '../../../doc/**/*.{html,ts,scss,css}';
+@source '../../../pages/**/*.{html,ts,scss,css}';
 
-    .icon-btn {
-        @apply h-7 w-7 rounded-full inline-flex justify-center items-center hover:bg-surface-100 dark:hover:bg-surface-800 text-zinc-500 dark:text-zinc-400 transition-colors duration-200;
-    }
+@custom-variant dark (&:where([class="p-dark"], [class="p-dark"] *));
+
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-2xl: 1920px;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility btn-design {
+  @apply px-2.5 py-1.5 text-sm bg-zinc-950 disabled:hover:bg-zinc-950 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:disabled:hover:bg-white dark:text-black rounded-md font-medium cursor-pointer disabled:cursor-auto transition-colors duration-200 focus:outline-solid focus:outline-offset-2 focus:outline-zinc-950 dark:focus:outline-white disabled:opacity-60;
+}
+
+@utility btn-design-outlined {
+  @apply px-2.5 py-1.5 text-sm bg-transparent border border-gray-200 dark:border-gray-700 hover:border-gray-800 dark:hover:border-gray-500 text-black dark:text-white rounded-md font-medium cursor-pointer disabled:cursor-auto transition-colors duration-200 focus:outline-solid focus:outline-offset-2 focus:outline-zinc-950 dark:focus:outline-white disabled:opacity-60 disabled:hover:border-gray-200 dark:disabled:hover:border-gray-700;
+}
+
+@utility icon-btn {
+  @apply h-7 w-7 rounded-full inline-flex justify-center items-center hover:bg-surface-100 dark:hover:bg-surface-800 text-zinc-500 dark:text-zinc-400 transition-colors duration-200;
 }

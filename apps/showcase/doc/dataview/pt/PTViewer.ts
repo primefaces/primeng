@@ -32,7 +32,7 @@ interface Product {
                             <div>
                                 <div class="flex flex-col sm:flex-row sm:items-center gap-4">
                                     <div class="md:w-40 relative">
-                                        <img class="rounded w-36" [src]="'https://primefaces.org/cdn/primevue/images/product/' + item.image" [alt]="item.name" />
+                                        <img class="rounded-sm w-36" [src]="'https://primefaces.org/cdn/primevue/images/product/' + item.image" [alt]="item.name" />
                                         <div class="dark:bg-surface-900 absolute rounded-border" style="left: 4px; top: 4px">
                                             <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" />
                                         </div>

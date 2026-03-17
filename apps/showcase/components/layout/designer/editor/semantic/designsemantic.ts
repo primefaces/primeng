@@ -49,7 +49,7 @@ const SEMANTIC_ORDER = ['primary', 'surface', 'focusRing', 'formField', 'list', 
                                 <p-tab value="cs-0">Light</p-tab>
                                 <p-tab value="cs-1">Dark</p-tab>
                             </p-tablist>
-                            <p-tabpanels class="!px-0">
+                            <p-tabpanels class="px-0!">
                                 <p-tabpanel value="cs-0">
                                     <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
                                         @if (hasLightPrimitives()) {

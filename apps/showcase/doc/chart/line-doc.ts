@@ -16,7 +16,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
             <p>A line chart or line graph is a type of chart which displays information as a series of data points called 'markers' connected by straight line segments.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+            <p-chart type="line" [data]="data" [options]="options" class="h-120" />
             <app-code></app-code>
         </app-demo-wrapper>
     `

@@ -24,11 +24,11 @@ import { PanelModule } from 'primeng/panel';
                 variant="outlined"
                 severity="secondary"
                 [pt]="{
-                    root: '!px-3 !py-2',
-                    icon: '!text-lg !text-violet-500 dark:!text-violet-400',
-                    label: '!text-violet-500 dark:!text-violet-400',
+                    root: 'px-3! py-2!',
+                    icon: 'text-lg! text-violet-500! dark:text-violet-400!',
+                    label: 'text-violet-500! dark:text-violet-400!',
                     pcBadge: {
-                        root: '!bg-violet-500 dark:!bg-violet-400 !text-white dark:!text-black'
+                        root: 'bg-violet-500! dark:bg-violet-400! text-white! dark:text-black!'
                     }
                 }"
             />

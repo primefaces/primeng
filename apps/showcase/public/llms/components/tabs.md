@@ -121,15 +121,15 @@ import { TabsModule } from 'primeng/tabs';
                 <ng-template #previcon>
                     <i class="pi pi-minus"></i>
                 </ng-template>
-                <p-tab value="0" class="flex items-center !gap-2">
+                <p-tab value="0" class="flex items-center gap-2!">
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                     <span class="font-bold whitespace-nowrap">Amy Elsner</span>
                 </p-tab>
-                <p-tab value="1" class="flex items-center !gap-2">
+                <p-tab value="1" class="flex items-center gap-2!">
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" shape="circle" />
                     <span class="font-bold whitespace-nowrap">Onyama Limba</span>
                 </p-tab>
-                <p-tab value="2" class="flex items-center !gap-2">
+                <p-tab value="2" class="flex items-center gap-2!">
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" shape="circle" />
                     <span class="font-bold whitespace-nowrap">Ioni Bowcher</span>
                     <p-badge value="2" />
@@ -346,7 +346,7 @@ import { TabsModule } from 'primeng/tabs';
         <p-tabs value="dashboard">
             <p-tablist>
                 @for (tab of tabs; track tab.route) {
-                    <p-tab [value]="tab.route" class="flex items-center !gap-2 text-inherit">
+                    <p-tab [value]="tab.route" class="flex items-center gap-2! text-inherit">
                         <i [class]="tab.icon"></i>
                         <span>{{ tab.label }}</span>
                     </p-tab>

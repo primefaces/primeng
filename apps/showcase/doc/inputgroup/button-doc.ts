@@ -30,7 +30,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         <p-button icon="pi pi-search" severity="secondary" variant="text" (click)="menu.toggle($event)" />
                     </p-inputgroup-addon>
                 </p-inputgroup>
-                <p-menu #menu [model]="items" popup styleClass="!min-w-fit" />
+                <p-menu #menu [model]="items" popup styleClass="min-w-fit!" />
 
                 <p-inputgroup>
                     <p-inputgroup-addon>

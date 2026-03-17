@@ -20,81 +20,81 @@ import { Meta, Title } from '@angular/platform-browser';
                 <div style="min-width: 1200px">
                     <div class="flex gap-4 mb-4">
                         <div class="shrink-0 w-56"></div>
-                        <div class="flex-1 bg-gray-500 text-white font-bold text-center p-4 text-xl rounded">Q1</div>
-                        <div class="flex-1 bg-gray-500 text-white font-bold text-center p-4 text-xl rounded">Q2</div>
-                        <div class="flex-1 bg-gray-500 text-white font-bold text-center p-4 text-xl rounded">Q3</div>
-                        <div class="flex-1 bg-gray-500 text-white font-bold text-center p-4 text-xl rounded">Q4</div>
+                        <div class="flex-1 bg-gray-500 text-white font-bold text-center p-4 text-xl rounded-sm">Q1</div>
+                        <div class="flex-1 bg-gray-500 text-white font-bold text-center p-4 text-xl rounded-sm">Q2</div>
+                        <div class="flex-1 bg-gray-500 text-white font-bold text-center p-4 text-xl rounded-sm">Q3</div>
+                        <div class="flex-1 bg-gray-500 text-white font-bold text-center p-4 text-xl rounded-sm">Q4</div>
                     </div>
                     <div class="flex flex-col gap-4">
                         <div class="flex gap-4 border-b border-surface-200 dark:border-surface-700 pb-4">
-                            <div class="shrink-0 p-4 bg-blue-500 text-white rounded font-bold text-lg flex items-center justify-center w-56">COMPONENTS</div>
+                            <div class="shrink-0 p-4 bg-blue-500 text-white rounded-sm font-bold text-lg flex items-center justify-center w-56">COMPONENTS</div>
                             <div class="flex-1 flex gap-4 flex-col">
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-blue-500 border-l-4 ">
                                     <h2 class="text-lg font-bold mt-0 mb-2">Internal Refactor</h2>
                                     <p class="mt-0 mb-4 leading-normal">Refactor of internal component implementations with modern Angular APIs.</p>
                                 </div>
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-blue-500 border-l-4 ">
                                     <h2 class="text-lg font-bold mt-0 mb-2">Component Updates</h2>
                                     <p class="mt-0 mb-4 leading-normal">Enhanced Menus, ColorPicker, Org Chart, Toast. Brand new CommandMenu component.</p>
                                 </div>
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-blue-500 border-l-4 ">
                                     <h2 class="text-lg font-bold mt-0 mb-2">PrimeUI+</h2>
                                     <p class="mt-0 mb-4 leading-normal">New TextEditor and Event Calendar components.</p>
                                 </div>
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-blue-500 border-l-4 ">
                                     <h2 class="text-lg font-bold mt-0 mb-2">Theming API Enhancements</h2>
                                     <p class="mt-0 mb-4 leading-normal">Significant performance and devex updates.</p>
                                 </div>
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-blue-500 border-l-4 ">
                                     <h2 class="text-lg font-bold mt-0 mb-2">PrimeIcons Update</h2>
                                     <p class="mt-0 mb-4 leading-normal">100+ new icons.</p>
                                 </div>
                             </div>
                             <div class="flex-1 flex gap-4 flex-col">
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-blue-500 border-l-4">
                                     <h2 class="text-lg font-bold mt-0 mb-2">PrimeUI+</h2>
                                     <p class="mt-0 mb-4 leading-normal">PrimeCharts, Advanced DataGrid, PDF Viewer and Gantt Chart.</p>
                                 </div>
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-blue-500 border-l-4 ">
                                     <h2 class="text-lg font-bold mt-0 mb-2">Internal Refactor</h2>
                                     <p class="mt-0 mb-4 leading-normal">Refactor of internal component implementations with modern Angular APIs.</p>
                                 </div>
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-blue-500 border-l-4">
                                     <h2 class="text-lg font-bold mt-0 mb-2">PrimeNG v22</h2>
                                     <p class="mt-0 mb-4 leading-normal">Angular v22 compatible version.</p>
                                 </div>
                             </div>
                             <div class="flex-1 flex gap-4 flex-col">
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-blue-500 border-l-4">
                                     <h2 class="text-lg font-bold mt-0 mb-2">PrimeUI+</h2>
                                     <p class="mt-0 mb-4 leading-normal">Timeline, Diagram and File Manager.</p>
                                 </div>
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-blue-500 border-l-4 ">
                                     <h2 class="text-lg font-bold mt-0 mb-2">Internal Refactor</h2>
                                     <p class="mt-0 mb-4 leading-normal">Refactor of internal component implementations with modern Angular APIs.</p>
                                 </div>
                             </div>
                             <div class="flex-1 flex gap-4 flex-col">
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-blue-500 border-l-4 ">
                                     <h2 class="text-lg font-bold mt-0 mb-2">Internal Refactor</h2>
                                     <p class="mt-0 mb-4 leading-normal">Refactor of internal component implementations with modern Angular APIs.</p>
                                 </div>
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-blue-500 border-l-4">
                                     <h2 class="text-lg font-bold mt-0 mb-2">PrimeNG v23</h2>
                                     <p class="mt-0 mb-4 leading-normal">Angular v23 compatible version.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="flex gap-4 border-b border-surface pb-4">
-                            <div class="shrink-0 p-4 bg-indigo-500 text-white rounded font-bold text-lg flex items-center justify-center w-56">FIGMA UI Kit</div>
+                            <div class="shrink-0 p-4 bg-indigo-500 text-white rounded-sm font-bold text-lg flex items-center justify-center w-56">FIGMA UI Kit</div>
                             <div class="flex-1 flex gap-4 flex-col">
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-indigo-500 border-l-4">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-indigo-500 border-l-4">
                                     <h2 class="text-lg font-bold mt-0 mb-2">UI Kit v4</h2>
                                     <p class="mt-0 leading-normal">Migration from Tokens Studio to Figma Variables.</p>
                                 </div>
                             </div>
                             <div class="flex-1 flex gap-4 flex-col">
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-indigo-500 border-l-4">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-indigo-500 border-l-4">
                                     <h2 class="text-lg font-bold mt-0 mb-2">New Design Tokens</h2>
                                     <p class="mt-0 leading-normal">New tokens such as typography and spacing.</p>
                                 </div>
@@ -103,24 +103,24 @@ import { Meta, Title } from '@angular/platform-browser';
                             <div class="flex-1 flex gap-4 flex-col"></div>
                         </div>
                         <div class="flex gap-4 border-b border-surface pb-4">
-                            <div class="shrink-0 p-4 bg-violet-500 text-white rounded font-bold text-lg flex items-center justify-center w-56">TEMPLATES</div>
+                            <div class="shrink-0 p-4 bg-violet-500 text-white rounded-sm font-bold text-lg flex items-center justify-center w-56">TEMPLATES</div>
                             <div class="flex-1 flex gap-4 flex-col">
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-violet-500 border-l-4">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-violet-500 border-l-4">
                                     <h2 class="text-lg font-bold mt-0 mb-2">Maintenance and Quality</h2>
                                     <p class="mt-0 leading-normal">Focus on improving the quality with maintenance updates.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="flex gap-4 border-b border-surface pb-4">
-                            <div class="shrink-0 p-4 bg-orange-500 text-white rounded font-bold text-lg flex items-center justify-center w-56">PRIMEBLOCKS</div>
+                            <div class="shrink-0 p-4 bg-orange-500 text-white rounded-sm font-bold text-lg flex items-center justify-center w-56">PRIMEBLOCKS</div>
                             <div class="flex-1 flex gap-4 flex-col">
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-orange-500 border-l-4">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-orange-500 border-l-4">
                                     <h2 class="text-lg font-bold mt-0 mb-2">Maintenance and Quality</h2>
                                     <p class="mt-0 leading-normal">Focus on improving the quality with maintenance updates.</p>
                                 </div>
                             </div>
                             <div class="flex-1 flex gap-4 flex-col">
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-orange-500 border-l-4">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded-sm border-orange-500 border-l-4">
                                     <h2 class="text-lg font-bold mt-0 mb-2">Block Builder</h2>
                                     <p class="mt-0 leading-normal">AI Based PrimeBlock builder.</p>
                                 </div>

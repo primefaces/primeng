@@ -47,19 +47,19 @@ import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
 })
 export class IntroductionDoc {
     pt: PanelPassThrough<Panel> = {
-        root: '!border !border-transparent !rounded-2xl !p-4 !bg-gradient-to-br !from-indigo-600 !to-indigo-400',
+        root: 'border! border-transparent! rounded-2xl! p-4! bg-linear-to-br! from-indigo-600! to-indigo-400!',
         header: {
             id: 'myPanelHeader',
             'data-custom': 'prime',
             style: {
                 userSelect: 'none'
             },
-            class: ['!text-white font-bold !p-0 !bg-transparent !border-none'],
+            class: ['text-white! font-bold p-0! bg-transparent! border-none!'],
             onclick: () => {
                 console.log('Header Clicked');
             }
         },
-        content: { class: '!text-white dark:text-primary-200 !p-0 mt-2 !font-medium' },
+        content: { class: 'text-white! dark:text-primary-200 p-0! mt-2 font-medium!' },
         title: 'text-xl'
     };
 }

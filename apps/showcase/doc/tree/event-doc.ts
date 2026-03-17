@@ -20,7 +20,7 @@ import { TreeModule } from 'primeng/tree';
         <app-demo-wrapper>
             <p-tree
                 [value]="files()"
-                class="w-full md:w-[30rem]"
+                class="w-full md:w-120"
                 selectionMode="single"
                 [(selection)]="selectedFile"
                 (onNodeExpand)="nodeExpand($event)"

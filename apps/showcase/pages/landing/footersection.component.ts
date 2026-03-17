@@ -14,14 +14,14 @@ import { RouterModule } from '@angular/router';
                         <ul class="list-none p-0 m-0">
                             <li class="text-sm font-bold mb-7">General</li>
                             <li class="mb-4">
-                                <a [routerLink]="['installation']" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"> Get Started </a>
+                                <a [routerLink]="['installation']" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded-sm transition-all duration-300"> Get Started </a>
                             </li>
                             <li class="mb-4">
                                 <a
                                     href="https://github.com/primefaces/primeng-examples"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
+                                    class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded-sm transition-all duration-300"
                                     >Examples</a
                                 >
                             </li>
@@ -35,15 +35,15 @@ import { RouterModule } from '@angular/router';
                                     href="https://github.com/orgs/primefaces/discussions"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
+                                    class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded-sm transition-all duration-300"
                                     >Forum</a
                                 >
                             </li>
                             <li class="mb-4">
-                                <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Discord</a>
+                                <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded-sm transition-all duration-300">Discord</a>
                             </li>
                             <li class="mb-4">
-                                <a [routerLink]="['support']" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">PRO Support </a>
+                                <a [routerLink]="['support']" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded-sm transition-all duration-300">PRO Support </a>
                             </li>
                         </ul>
                     </div>
@@ -51,7 +51,7 @@ import { RouterModule } from '@angular/router';
                         <ul class="list-none p-0 m-0">
                             <li class="text-sm font-bold mt-7 lg:mt-0 mb-7">Theming</li>
                             <li class="mb-4">
-                                <a [routerLink]="'/theming'" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Styled Mode</a>
+                                <a [routerLink]="'/theming'" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded-sm transition-all duration-300">Styled Mode</a>
                             </li>
                         </ul>
                     </div>
@@ -63,31 +63,33 @@ import { RouterModule } from '@angular/router';
                                     href="https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
+                                    class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded-sm transition-all duration-300"
                                     >PrimeTV</a
                                 >
                             </li>
                             <li class="mb-4">
-                                <a href="https://primeui.store" target="_blank" rel="noopener noreferrer" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Store</a>
+                                <a href="https://primeui.store" target="_blank" rel="noopener noreferrer" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded-sm transition-all duration-300">Store</a>
                             </li>
                             <li class="mb-4">
-                                <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
+                                <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded-sm transition-all duration-300"
                                     >Source Code</a
                                 >
                             </li>
                             <li class="mb-4">
-                                <a href="https://twitter.com/prime_ng" target="_blank" rel="noopener noreferrer" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Twitter</a>
+                                <a href="https://twitter.com/prime_ng" target="_blank" rel="noopener noreferrer" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded-sm transition-all duration-300">Twitter</a>
                             </li>
                             <li class="mb-4">
-                                <a href="https://www.primefaces.org/newsletter" target="_blank" rel="noopener noreferrer" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
+                                <a href="https://www.primefaces.org/newsletter" target="_blank" rel="noopener noreferrer" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded-sm transition-all duration-300"
                                     >Newsletter</a
                                 >
                             </li>
                             <li class="mb-4">
-                                <a href="https://gear.primefaces.org/" target="_blank" rel="noopener noreferrer" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">PrimeGear</a>
+                                <a href="https://gear.primefaces.org/" target="_blank" rel="noopener noreferrer" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded-sm transition-all duration-300"
+                                    >PrimeGear</a
+                                >
                             </li>
                             <li class="mb-4">
-                                <a href="mailto:contact@primetek.com.tr" target="_blank" rel="noopener noreferrer" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
+                                <a href="mailto:contact@primetek.com.tr" target="_blank" rel="noopener noreferrer" class="text-sm text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded-sm transition-all duration-300"
                                     >Contact Us</a
                                 >
                             </li>

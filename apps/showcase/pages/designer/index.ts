@@ -13,7 +13,7 @@ import { RippleModule } from 'primeng/ripple';
             <img alt="PrimeNG Designer" [src]="coverImage()" class="w-full" />
         </div>
 
-        <div class="card !mb-7" style="border-radius: 50px">
+        <div class="card mb-7!" style="border-radius: 50px">
             <div class="flex flex-col md:flex-row items-center gap-5 md:gap-18 mb-18">
                 <div class="w-full md:w-6/12">
                     <img
@@ -162,7 +162,7 @@ import { RippleModule } from 'primeng/ripple';
             </div>
         </div>
 
-        <div class="card !mb-7" style="border-radius: 50px">
+        <div class="card mb-7!" style="border-radius: 50px">
             <div class="font-bold text-4xl mb-5 text-center">Pricing</div>
             <div class="mb-2 text-center leading-normal text-sm">Choose the right plan for your business. Whether you are an individual or a member of a team, Designer is available for affordable prices.</div>
             <div class="text-center mb-7">
@@ -172,7 +172,7 @@ import { RippleModule } from 'primeng/ripple';
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-12 lg:col-span-4">
                     <div class="p-3 h-full">
-                        <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000" class="shadow p-7 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
+                        <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000" class="shadow-sm p-7 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
                             <div class="font-medium text-lg mb-2">Basic</div>
                             <div class="text-surface-500 dark:text-surface-400 font-medium text-sm">For small teams</div>
                             <hr class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700" />
@@ -212,14 +212,14 @@ import { RippleModule } from 'primeng/ripple';
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700 mt-auto" />
-                            <a pRipple href="https://primeui.store/designer" class="bg-blue-500 text-white hover:bg-blue-400 p-3 w-full rounded text-center transition-colors duration-300 font-bold p-ripple">Buy Now</a>
+                            <a pRipple href="https://primeui.store/designer" class="bg-blue-500 text-white hover:bg-blue-400 p-3 w-full rounded-sm text-center transition-colors duration-300 font-bold p-ripple">Buy Now</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-span-12 lg:col-span-4">
                     <div class="p-3 h-full">
-                        <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000" class="shadow p-7 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
+                        <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000" class="shadow-sm p-7 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
                             <div class="font-medium text-lg mb-2">Extended</div>
                             <div class="text-surface-500 dark:text-surface-400 font-medium text-sm">For teams with UI/UX designers</div>
                             <hr class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700" />
@@ -259,14 +259,14 @@ import { RippleModule } from 'primeng/ripple';
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700" />
-                            <a pRipple href="https://primeui.store/designer" class="bg-purple-500 text-white hover:bg-purple-400 p-3 w-full rounded text-center transition-colors duration-300 font-bold p-ripple">Buy Now</a>
+                            <a pRipple href="https://primeui.store/designer" class="bg-purple-500 text-white hover:bg-purple-400 p-3 w-full rounded-sm text-center transition-colors duration-300 font-bold p-ripple">Buy Now</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-span-12 lg:col-span-4">
                     <div class="p-3 h-full">
-                        <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000" class="shadow p-7 flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
+                        <div pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000" class="shadow-sm p-7 flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
                             <div class="font-medium text-lg mb-2">Enterprise</div>
                             <div class="text-surface-500 dark:text-surface-400 font-medium text-sm">For custom requirements</div>
                             <hr class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700" />
@@ -305,7 +305,7 @@ import { RippleModule } from 'primeng/ripple';
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700" />
-                            <a pRipple href="mailto:contact@primetek.com.tr" class="bg-gray-500 text-white hover:bg-gray-400 p-3 w-full rounded text-center transition-colors duration-300 font-bold p-ripple">Contact Us</a>
+                            <a pRipple href="mailto:contact@primetek.com.tr" class="bg-gray-500 text-white hover:bg-gray-400 p-3 w-full rounded-sm text-center transition-colors duration-300 font-bold p-ripple">Contact Us</a>
                         </div>
                     </div>
                 </div>

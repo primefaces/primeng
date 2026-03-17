@@ -17,15 +17,15 @@ import { Ripple } from 'primeng/ripple';
         </app-docsectiontext>
         <app-demo-wrapper>
             <div class="flex md:justify-center">
-                <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded p-3 flex flex-col gap-2 w-full md:w-[30rem]">
+                <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded-sm p-3 flex flex-col gap-2 w-full md:w-120">
                     @for (product of data; track product.id) {
                         <li
-                            class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
+                            class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-sm border border-transparent transition-all transition-duration-200"
                             [ngClass]="{ 'border-primary': selectedId === product.id }"
                             (contextmenu)="onContextMenu($event)"
                         >
                             <div class="flex flex-wrap p-2 items-center gap-4">
-                                <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
+                                <img class="w-16 shrink-0 rounded-sm" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
                                 <div class="flex-1 flex flex-col gap-1">
                                     <span class="font-bold text-sm">{{ product.name }}</span>
                                     <div class="flex items-center gap-2">
@@ -48,7 +48,7 @@ import { Ripple } from 'primeng/ripple';
                                 <p-badge class="ms-auto" [value]="item.badge" />
                             }
                             @if (item.shortcut) {
-                                <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                                <span class="ms-auto border border-surface rounded-sm bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                             }
                             @if (item.items) {
                                 <i class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>

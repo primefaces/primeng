@@ -111,8 +111,8 @@ import { InputTextModule } from 'primeng/inputtext';
                 </div>
             </div>
             <div class="w-full md:w-2/12">
-                <p-divider layout="vertical" class="!hidden md:!flex"><b>OR</b></p-divider>
-                <p-divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></p-divider>
+                <p-divider layout="vertical" class="hidden! md:flex!"><b>OR</b></p-divider>
+                <p-divider layout="horizontal" class="flex! md:hidden!" align="center"><b>OR</b></p-divider>
             </div>
             <div class="w-full md:w-5/12 flex items-center justify-center py-5">
                 <p-button label="Sign Up" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />

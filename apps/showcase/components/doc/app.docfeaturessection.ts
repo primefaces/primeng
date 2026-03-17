@@ -10,7 +10,7 @@ import { DEMO_MODE } from './demo-mode.token';
     standalone: true,
     imports: [CommonModule, AppDocSection, AppDocSectionNav, AppDocCopyMarkdown],
     template: ` <div class="doc-main">
-            <div class="doc-intro" [class.!mb-0]="heroDoc">
+            <div class="doc-intro" [class.mb-0!]="heroDoc">
                 <div class="grid grid-cols-[1fr_auto] gap-2 items-start">
                     <h1 class="m-0">{{ header }}</h1>
                     @if (componentName || docType === 'page') {

@@ -21,7 +21,7 @@ import { FieldsetModule } from 'primeng/fieldset';
                             (blur)="onBlur()"
                             type="color"
                             [disabled]="designerService.isThemeViewOnly()"
-                            [class]="{ '!cursor-not-allowed': designerService.isThemeViewOnly() }"
+                            [class]="{ 'cursor-not-allowed!': designerService.isThemeViewOnly() }"
                         />
                     </div>
                     <design-color-palette [value]="designerService.designer().theme?.preset?.primitive[key]" />

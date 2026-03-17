@@ -35,7 +35,7 @@ interface City {
                     [pt]="{
                         root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-3 rounded-full border-0 flex gap-2',
                         label: 'text-white font-bold',
-                        icon: 'text-white !text-lg'
+                        icon: 'text-white text-lg!'
                     }"
                 />
             </div>
@@ -52,7 +52,7 @@ export class ExampleDoc {
     [pt]="{ 
         root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-3 rounded-full border-0 flex gap-2',
         label: 'text-white font-bold',
-        icon: 'text-white !text-lg' 
+        icon: 'text-white text-lg!' 
     }"
 />`
     };

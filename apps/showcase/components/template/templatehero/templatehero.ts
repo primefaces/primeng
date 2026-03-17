@@ -8,7 +8,7 @@ import { TemplateHeroRectangle } from './templateherorectangle';
     standalone: true,
     imports: [CommonModule, TemplateHeroLight, TemplateHeroRectangle],
     template: `
-        <div class="w-full h-[49rem] md:h-[28rem] xl:h-[31.719rem] bg-primary rounded-3xl overflow-hidden relative">
+        <div class="w-full h-196 md:h-112 xl:h-[31.719rem] bg-primary rounded-3xl overflow-hidden relative">
             @if (!!templateHeroData?.pattern) {
                 <img [class]="templateHeroData?.patternClass" width="1344" [src]="templateHeroData.pattern" alt="Template Hero Pattern" priority />
             }
@@ -18,7 +18,7 @@ import { TemplateHeroRectangle } from './templateherorectangle';
             @if (!!templateHeroData?.rectangle) {
                 <template-hero-rectangle></template-hero-rectangle>
             }
-            <div class="absolute left-1/2 top-20 -translate-x-1/2 md:translate-x-0 md:top-1/2 md:-translate-y-1/2 md:left-10 lg:left-20 xl:left-36 z-20 w-[92%] max-w-md md:w-[22.75rem] lg:w-[24.5rem] xl:w-[25.375rem] rounded-3xl p-6 lg:px-8 lg:py-6">
+            <div class="absolute left-1/2 top-20 -translate-x-1/2 md:translate-x-0 md:top-1/2 md:-translate-y-1/2 md:left-10 lg:left-20 xl:left-36 z-20 w-[92%] max-w-md md:w-91 lg:w-98 xl:w-101.5 rounded-3xl p-6 lg:px-8 lg:py-6">
                 <div
                     class="absolute top-0 left-0 w-full h-full backdrop-blur-[2px] rounded-3xl border border-[rgba(255,255,255,0.24)] [background:linear-gradient(180deg,rgba(170,140,255,0.00)_0%,var(--p-primary-400)/0.8_100%),rgba(255,255,255,0.10)] shadow-[0px_2px_4px_0px_rgba(255,255,255,0.24)_inset,0px_48px_80px_0px_rgba(0,0,0,0.08),0px_-5px_13px_-2px_rgba(255,255,255,0.55)_inset]"
                 ></div>
@@ -64,7 +64,7 @@ import { TemplateHeroRectangle } from './templateherorectangle';
             </div>
             @if (!!templateHeroData?.dashboard1) {
                 <img
-                    class="select-none flex z-20 absolute top-[24.5rem] left-52 md:top-7 md:left-[36.75rem] lg:left-[43.75rem] xl:left-[52.5rem] w-[33.141rem] shadow-[0px_0px_43.64997px_0px_rgba(0,0,0,0.12)] rounded-sm"
+                    class="select-none flex z-20 absolute top-98 left-52 md:top-7 md:left-147 lg:left-175 xl:left-210 w-[33.141rem] shadow-[0px_0px_43.64997px_0px_rgba(0,0,0,0.12)] rounded-xs"
                     eager
                     [src]="templateHeroData?.dashboard1"
                     alt="Template Dashboard Image 1"
@@ -72,7 +72,7 @@ import { TemplateHeroRectangle } from './templateherorectangle';
             }
             @if (!!templateHeroData?.dashboard2) {
                 <img
-                    class="select-none flex z-10 absolute top-[24.5rem] left-6 md:top-7 md:left-[28rem] lg:left-[31.5rem] xl:left-[36.75rem] w-[33.141rem] shadow-[0px_0px_43.64997px_0px_rgba(0,0,0,0.12)] rounded-sm"
+                    class="select-none flex z-10 absolute top-98 left-6 md:top-7 md:left-112 lg:left-126 xl:left-147 w-[33.141rem] shadow-[0px_0px_43.64997px_0px_rgba(0,0,0,0.12)] rounded-xs"
                     eager
                     [src]="templateHeroData?.dashboard2"
                     alt="Template Dashboard Image 2"

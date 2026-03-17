@@ -71,7 +71,7 @@ export class ExamplesDoc {
             {
                 'bg-primary-100 text-primary-800': !this.active2()
             },
-            ['shadow-sm hover:shadow-lg', 'transition-all']
+            ['shadow-xs hover:shadow-lg', 'transition-all']
         ]
     ]);
 

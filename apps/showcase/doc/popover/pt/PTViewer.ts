@@ -22,11 +22,11 @@ interface Member {
         <app-docptviewer [docs]="docs">
             <p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
             <p-popover #op>
-                <div class="flex flex-col gap-4 w-[25rem]">
+                <div class="flex flex-col gap-4 w-100">
                     <div>
                         <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Share this document</span>
                         <p-inputgroup>
-                            <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
+                            <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-100" />
                             <p-inputgroup-addon>
                                 <i class="pi pi-copy"></i>
                             </p-inputgroup-addon>

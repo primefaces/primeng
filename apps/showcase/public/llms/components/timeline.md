@@ -199,14 +199,14 @@ interface EventItem {
     template: `
         <p-timeline [value]="events" align="alternate" class="customized-timeline">
             <ng-template #marker let-event>
-                <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
+                <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-xs" [style]="{ 'background-color': event.color }">
                     <i [class]="event.icon"></i>
                 </span>
             </ng-template>
             <ng-template #content let-event>
                 <p-card [header]="event.status" [subheader]="event.date">
                     @if (event.image) {
-                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
+                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow-sm" />
                     }
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate

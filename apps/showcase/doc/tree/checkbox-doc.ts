@@ -16,7 +16,7 @@ import { TreeModule } from 'primeng/tree';
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-tree [value]="files()" selectionMode="checkbox" class="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
+            <p-tree [value]="files()" selectionMode="checkbox" class="w-full md:w-120" [(selection)]="selectedFiles" />
             <app-code></app-code>
         </app-demo-wrapper>
     `

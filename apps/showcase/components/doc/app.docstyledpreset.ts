@@ -32,7 +32,7 @@ import { AppDocSectionText } from './app.docsectiontext';
                                     class="inline-flex rounded-full px-3 py-1 bg-surface-200 hover:bg-surface-300 transition-all duration-200 gap-2 items-center text-sm dark:bg-surface-800 dark:hover:bg-surface-700"
                                 >
                                     <span class="text-surface-900 dark:text-surface-50 font-medium">{{ preset }}</span>
-                                    <i class="pi pi-external-link !text-xs text-surface-900 dark:text-surface-50"></i>
+                                    <i class="pi pi-external-link text-xs! text-surface-900 dark:text-surface-50"></i>
                                 </a>
                             </td>
                             <td [class]="'doc-option-preset-type-{{preset.toLowerCase()}}'">
@@ -43,7 +43,7 @@ import { AppDocSectionText } from './app.docsectiontext';
                                     class="inline-flex rounded-full px-3 py-1 bg-surface-200 hover:bg-surface-300 transition-all duration-200 gap-2 items-center text-sm dark:bg-surface-800 dark:hover:bg-surface-700"
                                 >
                                     <span class="text-surface-900 dark:text-surface-50 font-medium">{{ preset }}</span>
-                                    <i class="pi pi-external-link !text-xs text-surface-900 dark:text-surface-50"></i>
+                                    <i class="pi pi-external-link text-xs! text-surface-900 dark:text-surface-50"></i>
                                 </a>
                             </td>
                         </tr>

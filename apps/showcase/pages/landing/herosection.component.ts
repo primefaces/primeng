@@ -229,7 +229,7 @@ import { OverviewApp } from './samples/overviewapp.component';
                     }
                 </div>
             </div>
-            <p-drawer [(visible)]="dashboardSidebarVisible" position="right" closeIcon="pi pi-sign-out" styleClass="!max-w-2xl !w-full !h-screen rounded-l-2xl">
+            <p-drawer [(visible)]="dashboardSidebarVisible" position="right" closeIcon="pi pi-sign-out" styleClass="max-w-2xl! w-full! h-screen! rounded-l-2xl">
                 <ng-template #headless>
                     <div class="flex flex-col h-screen overflow-auto">
                         <div class="">
@@ -252,7 +252,7 @@ import { OverviewApp } from './samples/overviewapp.component';
                                 <div class="h-1/3 flex flex-col p-2.5 rounded-xl bg-emphasis">
                                     <div class="flex items-start justify-between">
                                         <div class="text-sm leading-5 font-medium text-color">Call Logs</div>
-                                        <p-button icon="pi pi-download text-sm" styleClass="w-7 h-7 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all" severity="secondary" text />
+                                        <p-button icon="pi pi-download text-sm" styleClass="w-7 h-7 border-surface! bg-surface-0! dark:bg-surface-900! hover:opacity-75 transition-all" severity="secondary" text />
                                     </div>
                                     <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
                                         @for (data of callLogs; track $index) {
@@ -273,7 +273,7 @@ import { OverviewApp } from './samples/overviewapp.component';
                                 <div class="h-1/3 flex flex-col p-2.5 rounded-xl bg-emphasis">
                                     <div class="flex items-start justify-between">
                                         <div class="text-sm leading-5 font-medium text-color">Email Records</div>
-                                        <p-button icon="pi pi-download text-sm" styleClass="w-7 h-7 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all" severity="secondary" text />
+                                        <p-button icon="pi pi-download text-sm" styleClass="w-7 h-7 border-surface! bg-surface-0! dark:bg-surface-900! hover:opacity-75 transition-all" severity="secondary" text />
                                     </div>
                                     <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
                                         @for (data of emailRecords; track $index) {
@@ -301,7 +301,7 @@ import { OverviewApp } from './samples/overviewapp.component';
                                 <div class="h-1/3 flex flex-col p-2.5 rounded-xl bg-emphasis">
                                     <div class="flex items-start justify-between">
                                         <div class="text-sm leading-5 font-medium text-color">Meeting Notes</div>
-                                        <p-button icon="pi pi-download text-sm" styleClass="w-7 h-7 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all leading-none" severity="secondary" text />
+                                        <p-button icon="pi pi-download text-sm" styleClass="w-7 h-7 border-surface! bg-surface-0! dark:bg-surface-900! hover:opacity-75 transition-all leading-none" severity="secondary" text />
                                     </div>
                                     <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-3.5 flex flex-col rounded-lg overflow-hidden">
                                         <div class="flex items-start justify-between gap-1">
@@ -353,7 +353,7 @@ import { OverviewApp } from './samples/overviewapp.component';
                                         <div class="flex items-start justify-between gap-2">
                                             <div class="text-sm font-medium text-color mt-0.5">{{ data.title }}</div>
                                             <a [href]="data.link" target="_blank" rel="noopener">
-                                                <p-button icon="pi pi-arrow-up-right text-sm !leading-none" styleClass="w-7 h-7 !border-surface !bg-surface-0 dark:!bg-surface-900" severity="secondary" text />
+                                                <p-button icon="pi pi-arrow-up-right text-sm leading-none!" styleClass="w-7 h-7 border-surface! bg-surface-0! dark:bg-surface-900!" severity="secondary" text />
                                             </a>
                                         </div>
                                         <img class="w-full rounded-lg mt-2 block" [src]="data.image" alt="Opportunutiy Image" />
@@ -371,7 +371,7 @@ import { OverviewApp } from './samples/overviewapp.component';
                                         <div class="flex items-center justify-between gap-2">
                                             <div class="text-sm font-medium text-color p-2">Customer Satisfaction Score</div>
                                         </div>
-                                        <div class="flex-1 py-3.5 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                        <div class="flex-1 py-3.5 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-xs">
                                             <p-knob [(ngModel)]="customerSatisfaction" [size]="150" [strokeWidth]="8" valueTemplate="{value}%" class="pointer-events-none" />
                                         </div>
                                     </div>
@@ -379,7 +379,7 @@ import { OverviewApp } from './samples/overviewapp.component';
                                         <div class="flex items-center justify-between gap-2">
                                             <div class="text-sm font-medium text-color p-2">Estimated Lifetime Value</div>
                                         </div>
-                                        <div class="flex-1 flex items-center gap-2 justify-center mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                        <div class="flex-1 flex items-center gap-2 justify-center mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-xs">
                                             <div class="text-sm font-semibold leading-none text-color border border-surface py-3.5 px-2 rounded-lg">$</div>
                                             <div class="text-sm font-semibold leading-none text-color border border-surface py-3.5 px-2 rounded-lg">272</div>
                                             <div class="text-sm font-semibold leading-none text-color border border-surface py-3.5 px-2 rounded-lg">123</div>
@@ -390,20 +390,20 @@ import { OverviewApp } from './samples/overviewapp.component';
                                         <div class="flex items-center justify-between gap-2">
                                             <div class="text-sm font-medium text-color p-2">Product Usage</div>
                                         </div>
-                                        <div class="flex-1 mt-2 py-3.5 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                        <div class="flex-1 mt-2 py-3.5 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-xs">
                                             <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions" styleClass="min-h-40 w-full" width="100%" height="11rem" />
                                         </div>
                                     </div>
                                     <div class="w-full h-full flex flex-col p-2.5 rounded-xl bg-emphasis">
                                         <div class="text-sm font-medium text-color p-2">Churn Risk</div>
-                                        <div class="flex-1 py-3.5 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                        <div class="flex-1 py-3.5 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-xs">
                                             <p-knob [(ngModel)]="churnRisk" [size]="150" [strokeWidth]="8" valueTemplate="{value}%" class="pointer-events-none" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mt-3.5 w-full flex flex-col p-2.5 rounded-xl bg-emphasis">
                                     <div class="text-sm font-medium text-color p-2">Total Purchases</div>
-                                    <div class="flex-1 py-3.5 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                    <div class="flex-1 py-3.5 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-xs">
                                         <p-chart type="bar" [data]="chartData2" [options]="chartOptions2" height="15rem" class="w-full" />
                                     </div>
                                 </div>

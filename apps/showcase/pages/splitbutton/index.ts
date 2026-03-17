@@ -76,7 +76,7 @@ export class SplitButtonDemo {
                     component: RaisedDoc
                 },
                 {
-                    id: 'rounded',
+                    id: 'rounded-sm',
                     label: 'Rounded',
                     component: RoundedDoc
                 },

@@ -17,7 +17,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
         </app-docsectiontext>
         <app-demo-wrapper>
             <div class="flex justify-center">
-                <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+                <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-120" />
             </div>
             <app-code></app-code>
         </app-demo-wrapper>

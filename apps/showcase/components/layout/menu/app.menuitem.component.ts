@@ -52,7 +52,7 @@ import { MenuItem } from './app.menu.component';
             <span class="menu-child-category">{{ item.name }}</span>
         }
         @if (item.children) {
-            <div class="overflow-y-hidden transition-all duration-[400ms] ease-in-out" [ngClass]="{ hidden: item.children && root && isActiveRootMenuItem(item) }">
+            <div class="overflow-y-hidden transition-all duration-400 ease-in-out" [ngClass]="{ hidden: item.children && root && isActiveRootMenuItem(item) }">
                 <ol>
                     @for (child of item.children; track $index) {
                         <li app-menuitem [root]="false" [item]="child"></li>

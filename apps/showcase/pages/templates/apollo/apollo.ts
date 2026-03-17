@@ -39,7 +39,7 @@ export class ApolloPage {
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-pattern.png',
-        patternClass: 'select-none absolute md:bottom-0 bottom-80 left-0 z-[6] md:w-[95rem] h-auto w-[90rem] opacity-60',
+        patternClass: 'select-none absolute md:bottom-0 bottom-80 left-0 z-6 md:w-380 h-auto w-360 opacity-60',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-dashboard2.png',
         description: 'A spectacular application template for Angular based on CLI featuring light-dark modes with 8 surface colors, 7 menu layouts, various menu themes, sample apps, ready to use template pages and 3 presets.',

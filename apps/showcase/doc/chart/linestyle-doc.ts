@@ -16,7 +16,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
             <p>Various styles of a line series can be customized to display customizations like an area chart.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+            <p-chart type="line" [data]="data" [options]="options" class="h-120" />
             <app-code></app-code>
         </app-demo-wrapper>
     `

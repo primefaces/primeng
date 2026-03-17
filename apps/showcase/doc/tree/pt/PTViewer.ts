@@ -12,7 +12,7 @@ import { NodeService } from '@/service/nodeservice';
     providers: [NodeService],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-tree [value]="nodes()" [(selection)]="selectedKey" filter selectionMode="checkbox" class="w-full md:w-[30rem]" />
+            <p-tree [value]="nodes()" [(selection)]="selectedKey" filter selectionMode="checkbox" class="w-full md:w-120" />
         </app-docptviewer>
     `
 })

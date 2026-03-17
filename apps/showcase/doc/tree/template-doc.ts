@@ -14,7 +14,7 @@ import { TreeModule } from 'primeng/tree';
             <p>Custom node content instead of a node label is defined with the <i>#node</i> template reference.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-tree [value]="nodes()" class="w-full md:w-[30rem]">
+            <p-tree [value]="nodes()" class="w-full md:w-120">
                 <ng-template #node let-node>
                     @if (node.type === 'url') {
                         <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">{{ node.label }}</a>

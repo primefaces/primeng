@@ -20,7 +20,7 @@ import { InputTextModule } from 'primeng/inputtext';
         </app-docsectiontext>
         <app-demo-wrapper>
             <div class="flex justify-center">
-                <p-stepper [(value)]="activeStep" class="basis-[40rem]">
+                <p-stepper [(value)]="activeStep" class="basis-160">
                     <p-step-list>
                         <p-step [value]="1" class="flex flex-row flex-auto gap-2">
                             <ng-template #content let-activateCallback="activateCallback" let-value="value">

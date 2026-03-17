@@ -54,7 +54,7 @@ import { ButtonModule } from 'primeng/button';
 @Component({
     template: `
         <div class="flex flex-wrap justify-center gap-4">
-            <div class="flex flex-col items-center gap-4 w-[25rem]">
+            <div class="flex flex-col items-center gap-4 w-100">
                 <p-button
                     pStyleClass=".window-responsive-box"
                     enterFromClass="hidden"
@@ -73,7 +73,7 @@ import { ButtonModule } from 'primeng/button';
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col items-center gap-4 w-[25rem]">
+            <div class="flex flex-col items-center gap-4 w-100">
                 <p-button
                     pStyleClass=".resizable-container"
                     enterFromClass="hidden"

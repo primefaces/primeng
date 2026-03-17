@@ -15,7 +15,7 @@ import { TreeModule } from 'primeng/tree';
             <p>Tree component requires an array of <i>TreeNode</i> objects as its <i>value</i>.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-tree [value]="files()" class="w-full md:w-[30rem]" />
+            <p-tree [value]="files()" class="w-full md:w-120" />
             <app-code></app-code>
         </app-demo-wrapper>
     `

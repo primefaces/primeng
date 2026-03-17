@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-primary">
                 <span class="font-bold text-9xl"> 4 </span>
                 <div class="flex items-center justify-center bg-primary text-primary-contrast rounded-full w-28 h-28">
-                    <i class="pi pi-prime !text-6xl"></i>
+                    <i class="pi pi-prime text-6xl!"></i>
                 </div>
                 <span class="font-bold text-9xl"> 4 </span>
             </div>

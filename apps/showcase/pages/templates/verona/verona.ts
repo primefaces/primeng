@@ -39,7 +39,7 @@ export class VeronaPage {
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-pattern.png',
-        patternClass: 'select-none absolute z-[6] opacity-90 w-[110rem] h-auto bottom-80 left-0 md:-bottom-8 md:-left-4',
+        patternClass: 'select-none absolute z-6 opacity-90 w-440 h-auto bottom-80 left-0 md:-bottom-8 md:-left-4',
         description: 'Prepare to be amazed by the remastered Verona for PrimeNG featuring a gorgeous dark mode for the entire layout, 4 menu modes, reusable css widgets, utilities, modern icons and many more.',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-dashboard2.png',

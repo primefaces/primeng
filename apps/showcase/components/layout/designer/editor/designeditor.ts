@@ -21,7 +21,7 @@ import { Subscription } from 'rxjs';
             <p-tab [value]="1"> Semantic </p-tab>
             <p-tab [value]="2" [disabled]="!isComponentRoute()">Component</p-tab>
             <p-tab [value]="3">Custom</p-tab>
-            <p-tab [value]="4" class="!ml-auto">Settings</p-tab>
+            <p-tab [value]="4" class="ml-auto!">Settings</p-tab>
         </p-tablist>
         <p-tabpanels>
             <p-tabpanel [value]="0">

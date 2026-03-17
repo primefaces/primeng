@@ -41,7 +41,7 @@ export class OverrideDoc {
     };
 
     code2 = {
-        html: `<input pInputText placeholder="Overriden" class="!p-8" />`
+        html: `<input pInputText placeholder="Overriden" class="p-8!" />`
     };
 
     code3 = {

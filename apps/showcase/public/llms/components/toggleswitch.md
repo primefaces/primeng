@@ -168,7 +168,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         <div class="flex justify-center gap-4">
             <p-toggleswitch [(ngModel)]="checked">
                 <ng-template #handle let-checked="checked">
-                    <i [ngClass]="['!text-xs', 'pi', checked ? 'pi-check' : 'pi-times']"></i>
+                    <i [ngClass]="['text-xs!', 'pi', checked ? 'pi-check' : 'pi-times']"></i>
                 </ng-template>
             </p-toggleswitch>
         </div>

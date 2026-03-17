@@ -27,7 +27,8 @@ const dependencies = {
     primeng: `${version}`,
     quill: '2.0.2',
     rxjs: '~7.8.0',
-    tailwindcss: '^3.4.10',
+    '@tailwindcss/postcss': '^4.2.0',
+    tailwindcss: '^4.2.1',
     'tailwindcss-primeui': '^0.6.1',
     tslib: '^2.3.0',
     'zone.js': '~0.15.0'
@@ -47,9 +48,8 @@ const devDependencies = {
     'karma-jasmine': '~5.0.0',
     'karma-jasmine-html-reporter': '~2.1.0',
     typescript: '~5.9.2',
-    tailwindcss: '^3.4.10',
-    autoprefixer: '^10.4.20',
-    postcss: '^8.4.41'
+    '@tailwindcss/postcss': '^4.2.0',
+    tailwindcss: '^4.2.1'
 };
 
 const getComponentName = (selector: string) => {
@@ -72,9 +72,8 @@ const getExternalFiles = (files: ExtFile[]) => {
 };
 
 const staticStyles = {
-    global: `@tailwind base;
-@tailwind components;
-@tailwind utilities;
+    global: `@import "tailwindcss";
+@import "tailwindcss-primeui";
 @import "primeicons/primeicons.css";
 
 :root {
@@ -361,25 +360,11 @@ const tsconfig_spec_json = `{
     ]
 }`;
 
-const tailwind_config = `
-/** @type {import('tailwindcss').Config} */
-import PrimeUI from 'tailwindcss-primeui';
-
-export default {
-    darkMode: ['selector', '[class="p-dark"]'],
-    content: ['./src/**/*.{html,ts}'],
-    plugins: [PrimeUI],
-    theme: {
-        screens: {
-            sm: '576px',
-            md: '768px',
-            lg: '992px',
-            xl: '1200px',
-            '2xl': '1920px'
-        }
+const postcss_config_json = `{
+    "plugins": {
+        "@tailwindcss/postcss": {}
     }
-};
-
+}
 `;
 
 const theme_switcher = `
@@ -418,7 +403,7 @@ export interface ThemeState {
     template: \` <div class="card flex justify-end p-2 mb-4">
         <ul class="flex list-none m-0 p-0 gap-2 items-center">
             <li>
-                <button type="button" class="inline-flex w-8 h-8 p-0 items-center justify-center surface-0 dark:surface-800 border border-surface-200 dark:border-surface-600 rounded" (click)="onThemeToggler()">
+                <button type="button" class="inline-flex w-8 h-8 p-0 items-center justify-center surface-0 dark:surface-800 border border-surface-200 dark:border-surface-600 rounded-sm" (click)="onThemeToggler()">
                     <i [ngClass]="'pi ' + iconClass()" class="dark:text-white"></i>
                 </button>
             </li>
@@ -431,11 +416,11 @@ export interface ThemeState {
                     leaveActiveClass="animate-fadeout"
                     [hideOnOutsideClick]="true"
                     type="button"
-                    class="inline-flex w-8 h-8 p-0 items-center justify-center surface-0 dark:surface-800 border border-surface-200 dark:border-surface-600 rounded"
+                    class="inline-flex w-8 h-8 p-0 items-center justify-center surface-0 dark:surface-800 border border-surface-200 dark:border-surface-600 rounded-sm"
                 >
                     <i class="pi pi-palette dark:text-white"></i>
                 </button>
-                <div class="absolute top-[2.5rem] right-0 hidden w-[18rem] p-3 bg-white dark:bg-surface-800 rounded-md shadow border border-surface-200 dark:border-surface-700 flex-col justify-start items-start gap-3.5 inline-flex origin-top z-10">
+                <div class="absolute top-10 right-0 hidden w-[18rem] p-3 bg-white dark:bg-surface-800 rounded-md shadow-sm border border-surface-200 dark:border-surface-700 flex-col justify-start items-start gap-3.5 inline-flex origin-top z-10">
                     <div class="flex-col justify-start items-start gap-2 inline-flex pr-4">
                         <span class="text-sm font-medium">Primary Colors</span>
                         <div class="self-stretch justify-start items-start gap-2 inline-flex flex-wrap">
@@ -444,7 +429,7 @@ export interface ThemeState {
                                     type="button"
                                     [title]="primaryColor.name"
                                     (click)="updateColors($event, 'primary', primaryColor)"
-                                    class="outline outline-2 outline-offset-1 outline-transparent cursor-pointer p-0 rounded-[50%] w-5 h-5"
+                                    class="outline-solid outline-2 outline-offset-1 outline-transparent cursor-pointer p-0 rounded-[50%] w-5 h-5"
                                     [ngStyle]="{
                                         'background-color': primaryColor.name === 'noir' ? 'var(--text-color)' : primaryColor.palette['500'],
                                         'outline-color': selectedPrimaryColor() === primaryColor.name ? 'var(--p-primary-color)' : ''
@@ -461,7 +446,7 @@ export interface ThemeState {
                                     type="button"
                                     [title]="surface.name"
                                     (click)="updateColors($event, 'surface', surface)"
-                                    class="outline outline-2 outline-offset-1 outline-transparent cursor-pointer p-0 rounded-[50%] w-5 h-5"
+                                    class="outline-solid outline-2 outline-offset-1 outline-transparent cursor-pointer p-0 rounded-[50%] w-5 h-5"
                                     [ngStyle]="{
                                         'background-color': surface.palette['500'],
                                         'outline-color': selectedSurfaceColor() === surface.name ? 'var(--p-primary-color)' : ''
@@ -1042,7 +1027,7 @@ import Aura from '@primeuix/themes/aura';
         'src/styles.scss': { content: staticStyles.global },
         'src/flags.css': { content: staticStyles.flags },
         'src/app/themeswitcher.ts': { content: theme_switcher },
-        'tailwind.config.js': { content: tailwind_config }
+        'postcss.config.json': { content: postcss_config_json }
     };
 
     const files = {

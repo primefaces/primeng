@@ -30,7 +30,7 @@ import { ButtonModule } from 'primeng/button';
     template: `
         <div class="flex justify-center">
             <p-button (click)="toggle()" label="Show Overlay"></p-button>
-            <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border"> Content </p-overlay>
+            <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow-sm rounded-border"> Content </p-overlay>
         </div>
     `,
     standalone: true,
@@ -141,7 +141,7 @@ import { ButtonModule } from 'primeng/button';
     template: `
         <div class="flex justify-center">
             <p-button (click)="toggle()" label="Show Overlay"></p-button>
-            <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
+            <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow-sm rounded-border">
                 <ng-template #content let-option> Content - {{ option.mode }} </ng-template>
             </p-overlay>
         </div>

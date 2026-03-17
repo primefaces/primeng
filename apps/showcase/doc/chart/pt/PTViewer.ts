@@ -12,7 +12,7 @@ import { ChartModule } from 'primeng/chart';
     imports: [CommonModule, AppDocPtViewer, FormsModule, ChartModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-chart type="bar" [data]="basicData" [options]="basicOptions" class="w-full md:w-[30rem]" />
+            <p-chart type="bar" [data]="basicData" [options]="basicOptions" class="w-full md:w-120" />
         </app-docptviewer>
     `
 })

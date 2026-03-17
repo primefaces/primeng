@@ -73,7 +73,7 @@ import { ToastModule } from 'primeng/toast';
                     >
                         <span class="text-xl uppercase font-bold">{{ abbrThemeName(theme) }}</span>
                         @if (theme.t_origin !== 'web') {
-                            <span class="absolute bottom-2 start-0 text-xs text-muted-color ms-start w-full">View Only</span>
+                            <span class="absolute bottom-2 inset-s-0 text-xs text-muted-color ms-start w-full">View Only</span>
                         }
                     </button>
                     <div class="flex flex-col items-center gap-1">
@@ -90,7 +90,7 @@ import { ToastModule } from 'primeng/toast';
                                 (keydown.escape)="onThemeNameEscape($event)"
                             />
                             @if (theme.t_origin === 'web') {
-                                <i class="!hidden group-hover:!block pi pi-pencil !text-xs absolute top-50 text-muted-color" style="right: 2px"></i>
+                                <i class="hidden! group-hover:block! pi pi-pencil text-xs! absolute top-50 text-muted-color" style="right: 2px"></i>
                             }
                         </div>
                         <span class="text-muted-color text-xs">{{ formatTimestamp(theme.t_last_updated) }}</span>
@@ -100,7 +100,7 @@ import { ToastModule } from 'primeng/toast';
                         (click)="toggleMenuOptions($event, theme)"
                         class="hover:bg-surface-100 dark:hover:bg-surface-800 text-surface-500 dark:text-surface-400 flex absolute top-1 right-1 w-8 h-8 rounded-lg items-center justify-center"
                     >
-                        <i class="pi pi-ellipsis-h !text-xs"></i>
+                        <i class="pi pi-ellipsis-h text-xs!"></i>
                     </button>
                 </div>
             }

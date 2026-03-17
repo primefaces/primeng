@@ -16,7 +16,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
             <p>A bar chart or bar graph is a chart that presents grouped data with rectangular bars with lengths proportional to the values that they represent.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+            <p-chart type="bar" [data]="data" [options]="options" class="h-120" />
             <app-code></app-code>
         </app-demo-wrapper>
     `

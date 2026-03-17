@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
     template: `
         <div>
             <div class="flex flex-col md:flex-row mb-7 gap-7">
-                <div class="card flex-1 !m-0 relative overflow-hidden">
+                <div class="card flex-1 m-0! relative overflow-hidden">
                     <i class="pi pi-github absolute opacity-20" style="bottom: -50px; right: -50px; font-size: 200px; transform: rotateX(45deg) rotateY(0deg) rotateZ(-45deg)"></i>
                     <div class="text-xl font-semibold mb-3 relative">Community Support</div>
                     <p class="m-0 leading-normal relative">
@@ -18,7 +18,7 @@ import { Component } from '@angular/core';
                         instead.
                     </p>
                 </div>
-                <div class="card !m-0 flex-1 !bg-primary !text-primary-contrast font-medium">
+                <div class="card m-0! flex-1 bg-primary! text-primary-contrast! font-medium">
                     <div class="text-xl font-semibold mb-3">Professional Support</div>
                     <p class="m-0 leading-normal">
                         With PRO support, it's easy to support, tune, and add features to PrimeNG as an in-house library. With the exclusive services of a PRO account, you no longer need to post questions in the community forum and the community
@@ -28,7 +28,7 @@ import { Component } from '@angular/core';
             </div>
 
             <div class="grid grid-cols-3 gap-7 mb-7">
-                <div class="card !m-0 col-span-full lg:col-span-1">
+                <div class="card m-0! col-span-full lg:col-span-1">
                     <div class="flex items-center justify-between mb-3">
                         <div class="text-xl font-semibold">Service Features</div>
                         <span class="font-bold">$200/h</span>
@@ -85,7 +85,7 @@ import { Component } from '@angular/core';
                     </a>
                 </div>
 
-                <div class="card !m-0 col-span-full lg:col-span-2">
+                <div class="card m-0! col-span-full lg:col-span-2">
                     <div class="text-xl font-semibold mb-3">How It Works</div>
                     <ul class="flex flex-col gap-3 list-none m-0 p-0">
                         <li>
@@ -122,7 +122,7 @@ import { Component } from '@angular/core';
                 </div>
             </div>
 
-            <div class="card !mb-7">
+            <div class="card mb-7!">
                 <div class="text-xl font-semibold mb-3">Consulting</div>
 
                 <p class="m-0 leading-normal mb-7">
@@ -133,20 +133,20 @@ import { Component } from '@angular/core';
                 <div class="flex flex-col md:flex-row gap-7 mb-7">
                     <div class="flex-1">
                         <div class="font-semibold mb-2 text-lg">Deep Expertise</div>
-                        <p class="!m-0 leading-normal mb-3">
+                        <p class="m-0! leading-normal mb-3">
                             Our consultants are experts with extensive experience in various aspects of software development, including design, architecture, coding, testing, and deployment. They bring a wealth of knowledge and best practices to your
                             project.
                         </p>
                     </div>
                     <div class="flex-1">
                         <div class="font-semibold mb-2 text-lg">Customized Solutions</div>
-                        <p class="!m-0 leading-normal mb-3">
+                        <p class="m-0! leading-normal mb-3">
                             We understand that every project is unique. Our consultants work closely with you to understand your specific requirements and challenges, delivering solutions that are perfectly aligned with your business goals..
                         </p>
                     </div>
                     <div class="flex-1">
                         <div class="font-semibold mb-2 text-lg">Scalable Engagements</div>
-                        <p class="!m-0 leading-normal mb-3">Whether you need short-term advice for a specific problem or long-term strategic guidance, our consulting services are flexible and scalable to meet your needs.</p>
+                        <p class="m-0! leading-normal mb-3">Whether you need short-term advice for a specific problem or long-term strategic guidance, our consulting services are flexible and scalable to meet your needs.</p>
                     </div>
                 </div>
 
@@ -257,55 +257,55 @@ import { Component } from '@angular/core';
                     <div class="flex-1 flex flex-col gap-7">
                         <div>
                             <div class="leading-normal mb-2 font-semibold">How many issue tracker accounts do we get?</div>
-                            <p class="!m-0 leading-normal">We provide at most 5 accounts per organization.</p>
+                            <p class="m-0! leading-normal">We provide at most 5 accounts per organization.</p>
                         </div>
                         <div>
                             <div class="leading-normal mb-2 font-semibold">What is the duration of the service?</div>
-                            <p class="!m-0 leading-normal">Service ends either when all support hours are used or after 1 year.</p>
+                            <p class="m-0! leading-normal">Service ends either when all support hours are used or after 1 year.</p>
                         </div>
                         <div>
                             <div class="leading-normal mb-2 font-semibold">What happens if we extend after 1 year and we have unused hours?</div>
-                            <p class="!m-0 leading-normal">Unused hours expire and are not transferred to the new term.</p>
+                            <p class="m-0! leading-normal">Unused hours expire and are not transferred to the new term.</p>
                         </div>
                         <div>
                             <div class="leading-normal mb-2 font-semibold">What are hours used for?</div>
-                            <p class="!m-0 leading-normal">Hours are utilized when creating tickets, filing defects, requesting enhancements, POC implementations of a use case and questions.</p>
+                            <p class="m-0! leading-normal">Hours are utilized when creating tickets, filing defects, requesting enhancements, POC implementations of a use case and questions.</p>
                         </div>
                     </div>
                     <div class="flex-1 flex flex-col gap-7">
                         <div>
                             <div class="leading-normal mb-2 font-semibold">Are the changes delivered with a custom build?</div>
-                            <p class="!m-0 leading-normal">No, changes become part of the PrimeNG core and pushed to the public npm package on next update.</p>
+                            <p class="m-0! leading-normal">No, changes become part of the PrimeNG core and pushed to the public npm package on next update.</p>
                         </div>
                         <div>
                             <div class="leading-normal mb-2 font-semibold">Who provides the support service?</div>
-                            <p class="!m-0 leading-normal">Support service is provided by the PrimeNG team at PrimeTek.</p>
+                            <p class="m-0! leading-normal">Support service is provided by the PrimeNG team at PrimeTek.</p>
                         </div>
                         <div>
                             <div class="leading-normal mb-2 font-semibold">Is there a minimum hour requirement?</div>
-                            <p class="!m-0 leading-normal">At least 25 hours are required to initiate the service.</p>
+                            <p class="m-0! leading-normal">At least 25 hours are required to initiate the service.</p>
                         </div>
                         <div>
                             <div class="leading-normal mb-2 font-semibold">What happens if the issue takes longer or shorter than the approved estimate?</div>
-                            <p class="!m-0 leading-normal">The confirmed estimate is still used even if it takes longer to resolve the issue.</p>
+                            <p class="m-0! leading-normal">The confirmed estimate is still used even if it takes longer to resolve the issue.</p>
                         </div>
                     </div>
                     <div class="flex-1 flex flex-col gap-7">
                         <div>
                             <div class="leading-normal mb-2 font-semibold">Can we request new features and enhancements?</div>
-                            <p class="!m-0 leading-normal">Yes, initially the request needs to be approved by PrimeTek based on project roadmap fit. As a result, not all requests may be accepted.</p>
+                            <p class="m-0! leading-normal">Yes, initially the request needs to be approved by PrimeTek based on project roadmap fit. As a result, not all requests may be accepted.</p>
                         </div>
                         <div>
                             <div class="leading-normal mb-2 font-semibold">What are the payment terms?</div>
-                            <p class="!m-0 leading-normal">Payment in advance is required to initiate the service.</p>
+                            <p class="m-0! leading-normal">Payment in advance is required to initiate the service.</p>
                         </div>
                         <div>
                             <div class="leading-normal mb-2 font-semibold">What payment methods are available?</div>
-                            <p class="!m-0 leading-normal">Credit card and bank wire transfers are the available options.</p>
+                            <p class="m-0! leading-normal">Credit card and bank wire transfers are the available options.</p>
                         </div>
                         <div>
                             <div class="leading-normal mb-2 font-semibold">We are a reseller, can we purchase this support for our client?</div>
-                            <p class="!m-0 leading-normal">That is possible, the service will be provided to your client even if you are the contact in purchase process.</p>
+                            <p class="m-0! leading-normal">That is possible, the service will be provided to your client even if you are the contact in purchase process.</p>
                         </div>
                     </div>
                 </div>

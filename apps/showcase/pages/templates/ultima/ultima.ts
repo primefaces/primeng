@@ -39,7 +39,7 @@ export class UltimaPage {
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-pattern.png',
-        patternClass: 'select-none absolute z-[6] opacity-75 w-[80rem] h-auto bottom-8 -left-64 md:-bottom-[26rem] md:-left-[22rem]',
+        patternClass: 'select-none absolute z-6 opacity-75 w-7xl h-auto bottom-8 -left-64 md:-bottom-104 md:-left-88',
         description: 'A highly customizable premium application template featuring 7 menu modes, various themes, light and dark modes based on Material Design.',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-dashboard2.png',

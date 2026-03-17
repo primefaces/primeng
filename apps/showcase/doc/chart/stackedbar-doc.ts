@@ -16,7 +16,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
             <p>Bars can be stacked on top of each other when <i>stacked</i> option of a scale is enabled.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+            <p-chart type="bar" [data]="data" [options]="options" class="h-120" />
             <app-code></app-code>
         </app-demo-wrapper>
     `

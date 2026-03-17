@@ -18,7 +18,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <p-tree [value]="files()" class="w-full md:w-[30rem]" />
+        <p-tree [value]="files()" class="w-full md:w-120" />
     `,
     standalone: true,
     imports: [TreeModule],
@@ -48,7 +48,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <p-tree [value]="files()" selectionMode="checkbox" class="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
+        <p-tree [value]="files()" selectionMode="checkbox" class="w-full md:w-120" [(selection)]="selectedFiles" />
     `,
     standalone: true,
     imports: [TreeModule],
@@ -147,7 +147,7 @@ import { TreeNode } from 'primeng/api';
             <p-button icon="pi pi-plus" label="Expand all" (click)="expandAll()" />
             <p-button icon="pi pi-minus" label="Collapse all" (click)="collapseAll()" />
         </div>
-        <p-tree [value]="files()" class="w-full md:w-[30rem]" />
+        <p-tree [value]="files()" class="w-full md:w-120" />
     `,
     standalone: true,
     imports: [ButtonModule, TreeModule],
@@ -189,7 +189,7 @@ import { TreeNode, MessageService } from 'primeng/api';
     template: `
         <p-tree
             [value]="files()"
-            class="w-full md:w-[30rem]"
+            class="w-full md:w-120"
             selectionMode="single"
             [(selection)]="selectedFile"
             (onNodeExpand)="nodeExpand($event)"
@@ -282,7 +282,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <p-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
+        <p-tree class="w-full md:w-120" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
     `,
     standalone: true,
     imports: [TreeModule]
@@ -363,7 +363,7 @@ import { TreeNode } from 'primeng/api';
             <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
             <label for="input-metakey">MetaKey</label>
         </div>
-        <p-tree [metaKeySelection]="metaKeySelection" [value]="files()" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
+        <p-tree [metaKeySelection]="metaKeySelection" [value]="files()" class="w-full md:w-120" selectionMode="multiple" [(selection)]="selectedFiles" />
     `,
     standalone: true,
     imports: [ToggleSwitchModule, TreeModule, FormsModule],
@@ -395,7 +395,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
+        <p-tree [value]="files()" class="w-full md:w-120" selectionMode="single" [(selection)]="selectedFile" />
     `,
     standalone: true,
     imports: [TreeModule],
@@ -425,7 +425,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     template: `
-        <p-tree [value]="nodes()" class="w-full md:w-[30rem]">
+        <p-tree [value]="nodes()" class="w-full md:w-120">
             <ng-template #node let-node>
                 @if (node.type === 'url') {
                     <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">{{ node.label }}</a>

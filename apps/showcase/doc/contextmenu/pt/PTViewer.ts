@@ -9,7 +9,7 @@ import { ContextMenuModule } from 'primeng/contextmenu';
     imports: [CommonModule, AppDocPtViewer, ContextMenuModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <img #image src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-80 rounded shadow-lg" (contextmenu)="cm.show($event)" />
+            <img #image src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-80 rounded-sm shadow-lg" (contextmenu)="cm.show($event)" />
             <p-contextmenu #cm [target]="image" [model]="items" />
         </app-docptviewer>
     `

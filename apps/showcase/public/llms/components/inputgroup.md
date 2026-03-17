@@ -92,7 +92,7 @@ import { MenuItem } from 'primeng/api';
                     <p-button icon="pi pi-search" severity="secondary" variant="text" (click)="menu.toggle($event)" />
                 </p-inputgroup-addon>
             </p-inputgroup>
-            <p-menu #menu [model]="items" popup styleClass="!min-w-fit" />
+            <p-menu #menu [model]="items" popup styleClass="min-w-fit!" />
             <p-inputgroup>
                 <p-inputgroup-addon>
                     <p-button icon="pi pi-check" severity="secondary" />
@@ -221,7 +221,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-inputgroup class="md:!w-80">
+            <p-inputgroup class="md:w-80!">
                 <p-inputgroup-addon>
                     <i class="pi pi-shopping-cart"></i>
                 </p-inputgroup-addon>
@@ -252,7 +252,7 @@ import { InputTextModule } from 'primeng/inputtext';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-inputgroup class="w-full md:!w-[30rem]">
+            <p-inputgroup class="w-full md:w-120!">
                 <p-inputgroup-addon>
                     <i class="pi pi-clock"></i>
                 </p-inputgroup-addon>

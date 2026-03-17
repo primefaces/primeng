@@ -16,7 +16,7 @@ import { Product } from '@/domain/product';
             <div class="p-2 border border-surface rounded-border w-60">
                 <ul class="list-none flex flex-col gap-2 p-0 m-0">
                     @for (product of availableProducts; track product.id) {
-                        <li class="p-2 rounded-border shadow-sm" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
+                        <li class="p-2 rounded-border shadow-xs" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                             {{ product.name }}
                         </li>
                     }
@@ -27,7 +27,7 @@ import { Product } from '@/domain/product';
                 @if (selectedProducts) {
                     <ul class="list-none flex flex-col gap-2 p-0 m-0">
                         @for (product of selectedProducts; track product.id) {
-                            <li class="p-2 rounded-border shadow-sm">
+                            <li class="p-2 rounded-border shadow-xs">
                                 {{ product.name }}
                             </li>
                         }
@@ -229,7 +229,7 @@ import { Product } from '@/domain/product';
             <div class="p-2 border border-surface rounded-border w-60 h-40">
                 <ul class="list-none flex flex-col gap-2 p-0 m-0">
                     @for (product of availableProducts; track product.id) {
-                        <li class="p-2 rounded-border shadow-sm" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
+                        <li class="p-2 rounded-border shadow-xs" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                             {{ product.name }}
                         </li>
                     }
@@ -240,7 +240,7 @@ import { Product } from '@/domain/product';
                 @if (selectedProducts) {
                     <ul class="list-none flex flex-col gap-2 p-0 m-0">
                         @for (product of selectedProducts; track product.id) {
-                            <li class="p-2 rounded-border shadow-sm">
+                            <li class="p-2 rounded-border shadow-xs">
                                 {{ product.name }}
                             </li>
                         }

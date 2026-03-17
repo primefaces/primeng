@@ -16,13 +16,13 @@ import { Component, ElementRef, Input, numberAttribute } from '@angular/core';
             </div>
         }
         @if (level === 3) {
-            <h3 class="doc-section-label !mt-6">
+            <h3 class="doc-section-label mt-6!">
                 {{ title }}
                 <a (click)="navigate($event)" class="cursor-pointer" [id]="id">#</a>
             </h3>
         }
         @if (level === 4) {
-            <h4 class="doc-section-label !mt-6">
+            <h4 class="doc-section-label mt-6!">
                 {{ title }}
                 <a (click)="navigate($event)" class="cursor-pointer" [id]="id">#</a>
             </h4>

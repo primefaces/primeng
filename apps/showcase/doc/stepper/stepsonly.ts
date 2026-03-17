@@ -14,7 +14,7 @@ import { StepperModule } from 'primeng/stepper';
         </app-docsectiontext>
         <app-demo-wrapper>
             <div class="flex justify-center">
-                <p-stepper [value]="1" class="basis-[50rem]">
+                <p-stepper [value]="1" class="basis-200">
                     <p-step-list>
                         <p-step [value]="1">Design</p-step>
                         <p-step [value]="2">Development</p-step>

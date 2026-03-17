@@ -38,7 +38,7 @@ export class FreyaPage {
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-pattern.png',
-        patternClass: 'select-none absolute z-[6] w-[58rem] md:w-[50rem] h-auto top-12 md:top-32 -left-24 md:-left-12 opacity-75',
+        patternClass: 'select-none absolute z-6 w-232 md:w-200 h-auto top-12 md:top-32 -left-24 md:-left-12 opacity-75',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-dashboard2.png',
         description: 'Freya is a modern and clean application template for PrimeNG featuring a dark mode, attractive themes, customizable menu orientations, widgets, apps and template pages.',

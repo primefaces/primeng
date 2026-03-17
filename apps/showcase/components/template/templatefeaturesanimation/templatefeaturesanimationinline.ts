@@ -14,7 +14,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inje
                         (mouseleave)="leaveCardArea(data.id)"
                         (click)="handleBtnClick(data.id)"
                         [ngClass]="{
-                            'flex-1 py-1 px-1 lg:px-2 rounded-full text-surface-900 dark:text-surface-0 border-none outline-none text-xs font-medium transition-all hover:bg-surface-200 dark:hover:bg-surface-700 cursor-pointer': true,
+                            'flex-1 py-1 px-1 lg:px-2 rounded-full text-surface-900 dark:text-surface-0 border-none outline-hidden text-xs font-medium transition-all hover:bg-surface-200 dark:hover:bg-surface-700 cursor-pointer': true,
                             'bg-surface-200 dark:bg-surface-700': data.id === selectedID,
                             'bg-transparent': data.id !== selectedID
                         }"

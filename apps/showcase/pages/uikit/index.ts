@@ -182,7 +182,7 @@ import { TooltipModule } from 'primeng/tooltip';
 
         <a
             href="https://www.figma.com/design/iKOqMjb5gBhqMQ0bZyzD0Y/Preview-%7C-PrimeOne-%7C-4.0.0?node-id=806-36648&t=PfCXfPrG4kKRW1jB-1"
-            class="flex flex-col md:flex-row items-center justify-center gap-7 p-11 mb-7 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 border-2 border-transparent hover:border-primary transition-colors duration-300"
+            class="flex flex-col md:flex-row items-center justify-center gap-7 p-11 mb-7 bg-linear-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 border-2 border-transparent hover:border-primary transition-colors duration-300"
             target="_blank"
             rel="noopener noreferrer"
             style="border-radius: 50px"
@@ -211,7 +211,7 @@ import { TooltipModule } from 'primeng/tooltip';
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-12 lg:col-span-4">
                     <div class="p-3 h-full">
-                        <div class="shadow p-7 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
+                        <div class="shadow-sm p-7 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
                             <div class="text-surface-900 dark:text-surface-0 font-medium text-lg mb-2">Single Designer</div>
                             <div class="text-surface-600 dark:text-surface-200 font-medium text-sm">For individual designers</div>
                             <hr class="my-4 mx-0 border-t border-0 border-surface" />
@@ -253,7 +253,7 @@ import { TooltipModule } from 'primeng/tooltip';
 
                 <div class="col-span-12 lg:col-span-4">
                     <div class="p-3 h-full">
-                        <div class="shadow p-7 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
+                        <div class="shadow-sm p-7 h-full flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
                             <div class="text-surface-900 dark:text-surface-0 font-medium text-lg mb-2">Team</div>
                             <div class="text-surface-600 dark:text-surface-200 font-medium text-sm">For small teams</div>
                             <hr class="my-4 mx-0 border-t border-0 border-surface" />
@@ -297,7 +297,7 @@ import { TooltipModule } from 'primeng/tooltip';
 
                 <div class="col-span-12 lg:col-span-4">
                     <div class="p-3 h-full">
-                        <div class="shadow p-7 flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
+                        <div class="shadow-sm p-7 flex flex-col bg-surface-0 dark:bg-surface-900" style="border-radius: 6px">
                             <div class="text-surface-900 dark:text-surface-0 font-medium text-lg mb-2">Enterprise</div>
                             <div class="text-surface-600 dark:text-surface-200 font-medium text-sm">For large teams</div>
                             <hr class="my-4 mx-0 border-t border-0 border-surface" />

@@ -672,7 +672,7 @@ interface Column {
                 </tr>
             </ng-template>
             <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode" [ngClass]="{ '!bg-surface-100 dark:!bg-surface-800': rowData.size.endsWith('kb') }">
+                <tr [ttRow]="rowNode" [ngClass]="{ 'bg-surface-100! dark:bg-surface-800!': rowData.size.endsWith('kb') }">
                     @for (col of columns; let first = $first; track col) {
                         <td [class]="{ 'line-through': col.field === 'size' && rowData.size.endsWith('kb') }">
                             @if (first) {

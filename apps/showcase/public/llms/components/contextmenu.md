@@ -19,7 +19,7 @@ import { ContextMenu } from 'primeng/contextmenu';
 @Component({
     template: `
         <div class="flex justify-center">
-            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
+            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-120 rounded-sm shadow-lg" />
             <p-contextmenu [target]="img" [model]="items" />
         </div>
     `,
@@ -59,10 +59,10 @@ interface Users {
 @Component({
     template: `
         <div class="flex sm:justify-center">
-            <ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
+            <ul class="m-0 list-none border border-surface rounded-sm p-4 flex flex-col gap-2 w-full sm:w-96">
                 @for (user of users; track user.id) {
                     <li
-                        class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
+                        class="p-2 hover:bg-emphasis rounded-sm border border-transparent transition-all duration-200 flex items-center justify-content-between"
                         [ngClass]="{ 'border-primary': selectedId === user.id }"
                         (contextmenu)="onContextMenu($event, user)"
                     >
@@ -219,7 +219,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
     template: `
         <div class="flex justify-center">
-            <span #span class="inline-flex items-center justify-center border-2 border-primary rounded w-16 h-16" aria-haspopup="true">
+            <span #span class="inline-flex items-center justify-center border-2 border-primary rounded-sm w-16 h-16" aria-haspopup="true">
                 <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                     <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
                     <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -303,15 +303,15 @@ import { ContextMenu } from 'primeng/contextmenu';
 @Component({
     template: `
         <div class="flex md:justify-center">
-            <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded p-3 flex flex-col gap-2 w-full md:w-[30rem]">
+            <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded-sm p-3 flex flex-col gap-2 w-full md:w-120">
                 @for (product of data; track product.id) {
                     <li
-                        class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
+                        class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-sm border border-transparent transition-all transition-duration-200"
                         [ngClass]="{ 'border-primary': selectedId === product.id }"
                         (contextmenu)="onContextMenu($event)"
                     >
                         <div class="flex flex-wrap p-2 items-center gap-4">
-                            <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
+                            <img class="w-16 shrink-0 rounded-sm" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
                             <div class="flex-1 flex flex-col gap-1">
                                 <span class="font-bold text-sm">{{ product.name }}</span>
                                 <div class="flex items-center gap-2">
@@ -333,7 +333,7 @@ import { ContextMenu } from 'primeng/contextmenu';
                             <p-badge class="ms-auto" [value]="item.badge" />
                         }
                         @if (item.shortcut) {
-                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                            <span class="ms-auto border border-surface rounded-sm bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                         }
                         @if (item.items) {
                             <i class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>

@@ -369,7 +369,7 @@ import { MenuItem } from 'primeng/api';
                             <p-badge class="ml-auto" [value]="item.badge" />
                         }
                         @if (item.shortcut) {
-                            <span class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                            <span class="ml-auto border border-surface rounded-sm bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                         }
                         @if (hasSubmenu) {
                             <i class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>

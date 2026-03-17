@@ -43,7 +43,7 @@ import { ToastModule } from 'primeng/toast';
                                 type="button"
                                 [disabled]="designerService.isThemeViewOnly()"
                                 (click)="removeToken(idx)"
-                                class="cursor-pointer inline-flex items-center justify-center ms-auto w-8 h-8 rounded-full bg-red-50 hover:bg-red-100 text-red-600 dark:bg-red-400/10 dark:hover:bg-red-400/20 dark:text-red-400 transition-colors duration-200 focus:outline focus:outline-offset-2 focus:outline-red-600 focus:dark:outline-red-400"
+                                class="cursor-pointer inline-flex items-center justify-center ms-auto w-8 h-8 rounded-full bg-red-50 hover:bg-red-100 text-red-600 dark:bg-red-400/10 dark:hover:bg-red-400/20 dark:text-red-400 transition-colors duration-200 focus:outline-solid focus:outline-offset-2 focus:outline-red-600 dark:focus:outline-red-400"
                             >
                                 <i class="pi pi-times"></i>
                             </button>

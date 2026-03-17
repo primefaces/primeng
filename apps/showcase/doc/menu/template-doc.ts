@@ -66,7 +66,7 @@ import { Ripple } from 'primeng/ripple';
                             <p-badge class="ms-auto" [value]="item.badge" />
                         }
                         @if (item.shortcut) {
-                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs px-1 py-0.5">{{ item.shortcut }}</span>
+                            <span class="ms-auto border border-surface rounded-sm bg-emphasis text-muted-color text-xs px-1 py-0.5">{{ item.shortcut }}</span>
                         }
                     </a>
                 </ng-template>
@@ -124,7 +124,7 @@ export class TemplateDoc implements OnInit {
                         label: 'Logout',
                         icon: 'pi pi-sign-out',
                         shortcut: '⌘+Q',
-                        linkClass: '!text-red-500 dark:!text-red-400'
+                        linkClass: 'text-red-500! dark:text-red-400!'
                     }
                 ]
             },

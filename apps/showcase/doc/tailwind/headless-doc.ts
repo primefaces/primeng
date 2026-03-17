@@ -15,7 +15,7 @@ import { InputTextModule } from 'primeng/inputtext';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
-            <p-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="visible" styleClass="!border-0 !bg-transparent">
+            <p-dialog maskStyleClass="backdrop-blur-xs" [(visible)]="visible" styleClass="border-0! bg-transparent!">
                 <ng-template #headless>
                     <div class="flex flex-col px-8 py-8 gap-6 rounded-2xl" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--p-primary-400), var(--p-primary-700))">
                         <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
@@ -49,15 +49,15 @@ import { InputTextModule } from 'primeng/inputtext';
                         </svg>
                         <div class="inline-flex flex-col gap-2">
                             <label for="username" class="text-primary-50 font-semibold">Username</label>
-                            <input pInputText id="username" class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80" />
+                            <input pInputText id="username" class="bg-white/20! border-0! p-4! text-primary-50! w-80" />
                         </div>
                         <div class="inline-flex flex-col gap-2">
                             <label for="password" class="text-primary-50 font-semibold">Password</label>
-                            <input pInputText id="password" class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80" type="password" />
+                            <input pInputText id="password" class="bg-white/20! border-0! p-4! text-primary-50! w-80" type="password" />
                         </div>
                         <div class="flex items-center gap-4">
-                            <p-button label="Cancel" (click)="closeDialog()" [text]="true" styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10" class="w-full" />
-                            <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10" class="w-full" />
+                            <p-button label="Cancel" (click)="closeDialog()" [text]="true" styleClass="p-4! w-full text-primary-50! border! border-white/30! hover:bg-white/10!" class="w-full" />
+                            <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="p-4! w-full text-primary-50! border! border-white/30! hover:bg-white/10!" class="w-full" />
                         </div>
                     </div>
                 </ng-template>

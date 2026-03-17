@@ -191,7 +191,7 @@ import { MessageService } from 'primeng/api';
             <ng-template #file></ng-template>
             <ng-template #empty>
                 <div class="flex items-center justify-center flex-col">
-                    <i class="pi pi-cloud-upload !border-2 !rounded-full !p-7 !text-3xl !text-muted-color"></i>
+                    <i class="pi pi-cloud-upload border-2! rounded-full! p-7! text-3xl! text-muted-color!"></i>
                     <p class="mt-5 mb-0 text-sm">Drag and drop files to here to upload.</p>
                 </div>
             </ng-template>

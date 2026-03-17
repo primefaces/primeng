@@ -25,10 +25,10 @@ interface Users {
         <p-toast />
         <app-demo-wrapper>
             <div class="flex sm:justify-center">
-                <ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
+                <ul class="m-0 list-none border border-surface rounded-sm p-4 flex flex-col gap-2 w-full sm:w-96">
                     @for (user of users; track user.id) {
                         <li
-                            class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
+                            class="p-2 hover:bg-emphasis rounded-sm border border-transparent transition-all duration-200 flex items-center justify-content-between"
                             [ngClass]="{ 'border-primary': selectedId === user.id }"
                             (contextmenu)="onContextMenu($event, user)"
                         >

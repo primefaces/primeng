@@ -81,7 +81,7 @@ import { Tag } from 'primeng/tag';
                             <p-button icon="pi pi-filter" outlined severity="secondary" />
                             <p-divider layout="vertical" styleClass="m-0" />
                             <p-button icon="pi pi-refresh" outlined severity="secondary" />
-                            <p-button label="1 of 15" class="!whitespace-nowrap" outlined severity="secondary" />
+                            <p-button label="1 of 15" class="whitespace-nowrap!" outlined severity="secondary" />
                             <p-button icon="pi pi-chevron-left" outlined severity="secondary" />
                             <p-button icon="pi pi-chevron-right" outlined severity="secondary" />
                         </div>

@@ -20,7 +20,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
                         <div
                             (mouseenter)="enterCardArea(data.id)"
                             (mouseleave)="leaveCardArea(data.id)"
-                            class="template-features-animation-card group template-features-animation-left-card p-4 flex items-start gap-2 md:gap-4 xl:gap-6 cursor-pointer rounded-xl transition-all hover:!bg-primary-50 dark:hover:!bg-primary/15"
+                            class="template-features-animation-card group template-features-animation-left-card p-4 flex items-start gap-2 md:gap-4 xl:gap-6 cursor-pointer rounded-xl transition-all hover:bg-primary-50! dark:hover:bg-primary/15!"
                             [ngClass]="{
                                 'template-features-animation-card-active rounded-xl bg-primary-50 dark:bg-primary/15 transition-all': selectedID === data.id
                             }"
@@ -47,7 +47,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
                         </div>
                     }
                 </div>
-                <div class="flex-1 w-full lg:w-fit rounded-2xl bg-surface-100 dark:bg-surface-800 overflow-hidden flex sm:min-w-[26.25rem]">
+                <div class="flex-1 w-full lg:w-fit rounded-2xl bg-surface-100 dark:bg-surface-800 overflow-hidden flex sm:min-w-105">
                     @if (featuresData[selectedID - 1]?.type === 'inline-animation') {
                         <template-features-animation-inline
                             [inlineFeaturesData]="featuresData[selectedID - 1]?.inlineFeaturesData"

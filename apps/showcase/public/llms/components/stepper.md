@@ -18,7 +18,7 @@ import { StepperModule } from 'primeng/stepper';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-stepper [value]="1" class="basis-[50rem]">
+            <p-stepper [value]="1" class="basis-200">
                 <p-step-list>
                     <p-step [value]="1">Header I</p-step>
                     <p-step [value]="2">Header II</p-step>
@@ -28,7 +28,7 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="1">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
                             </div>
                             <div class="flex pt-5 justify-end">
                                 <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
@@ -38,7 +38,7 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="2">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
                             </div>
                             <div class="flex pt-5 justify-between">
                                 <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
@@ -49,7 +49,7 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="3">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
                             </div>
                             <div class="flex pt-5 justify-start">
                                 <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
@@ -78,7 +78,7 @@ import { StepperModule } from 'primeng/stepper';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
+            <p-stepper [value]="1" class="basis-200" [linear]="true">
                 <p-step-list>
                     <p-step [value]="1">Header I</p-step>
                     <p-step [value]="2">Header II</p-step>
@@ -88,7 +88,7 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="1">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
                             </div>
                             <div class="flex pt-5 justify-end">
                                 <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
@@ -98,7 +98,7 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="2">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
                             </div>
                             <div class="flex pt-5 justify-between">
                                 <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
@@ -109,7 +109,7 @@ import { StepperModule } from 'primeng/stepper';
                     <p-step-panel [value]="3">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
                             </div>
                             <div class="flex pt-5 justify-start">
                                 <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
@@ -146,7 +146,7 @@ import { InputTextModule } from 'primeng/inputtext';
 @Component({
     template: `
         <div class="flex justify-center">
-            <p-stepper [(value)]="activeStep" class="basis-[40rem]">
+            <p-stepper [(value)]="activeStep" class="basis-160">
                 <p-step-list>
                     <p-step [value]="1" class="flex flex-row flex-auto gap-2">
                         <ng-template #content let-activateCallback="activateCallback" let-value="value">
@@ -292,7 +292,7 @@ import { StepperModule } from 'primeng/stepper';
                 <p-step-panel>
                     <ng-template #content let-activateCallback="activateCallback">
                         <div class="flex flex-col h-48">
-                            <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
+                            <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content I</div>
                         </div>
                         <div class="py-5">
                             <p-button label="Next" (onClick)="activateCallback(2)" />
@@ -305,7 +305,7 @@ import { StepperModule } from 'primeng/stepper';
                 <p-step-panel>
                     <ng-template #content let-activateCallback="activateCallback">
                         <div class="flex flex-col h-48">
-                            <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
+                            <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content II</div>
                         </div>
                         <div class="flex py-5 gap-2">
                             <p-button label="Back" severity="secondary" (onClick)="activateCallback(1)" />
@@ -319,7 +319,7 @@ import { StepperModule } from 'primeng/stepper';
                 <p-step-panel>
                     <ng-template #content let-activateCallback="activateCallback">
                         <div class="flex flex-col h-48">
-                            <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
+                            <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-sm bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium text-sm">Content III</div>
                         </div>
                         <div class="py-5">
                             <p-button label="Back" severity="secondary" (onClick)="activateCallback(2)" />

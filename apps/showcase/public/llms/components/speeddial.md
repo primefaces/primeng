@@ -18,7 +18,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 @Component({
     template: `
         <div style="position:relative; height: 500px;" class="flex items-center justify-center">
-            <p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warn', rounded: true }" />
+            <p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warn', rounded-sm: true }" />
         </div>
     `,
     standalone: true,
@@ -350,7 +350,7 @@ import { MenuItem, MessageService } from 'primeng/api';
                     </p-button>
                 </ng-template>
                 <ng-template #item let-item let-toggleCallback="toggleCallback">
-                    <div class="flex flex-col items-center justify-between gap-2 p-2 border rounded border-surface-200 dark:border-surface-700 w-20 cursor-pointer" (click)="toggleCallback($event, item)">
+                    <div class="flex flex-col items-center justify-between gap-2 p-2 border rounded-sm border-surface-200 dark:border-surface-700 w-20 cursor-pointer" (click)="toggleCallback($event, item)">
                         <span [class]="item.icon"></span>
                         <span class="text-sm">
                             {{ item.label }}
@@ -422,8 +422,8 @@ import { MenuItem, MessageService } from 'primeng/api';
 @Component({
     template: `
         <div [style]="{ position: 'relative', height: '350px' }">
-            <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', right: 0, bottom: 0 }" [buttonProps]="{ severity: 'help', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'left' }" />
-            <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 0, bottom: 0 }" [buttonProps]="{ severity: 'danger', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'right' }" />
+            <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', right: 0, bottom: 0 }" [buttonProps]="{ severity: 'help', rounded-sm: true }" [tooltipOptions]="{ tooltipPosition: 'left' }" />
+            <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 0, bottom: 0 }" [buttonProps]="{ severity: 'danger', rounded-sm: true }" [tooltipOptions]="{ tooltipPosition: 'right' }" />
         </div>
     `,
     standalone: true,

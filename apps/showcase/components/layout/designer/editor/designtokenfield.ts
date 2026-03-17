@@ -15,7 +15,7 @@ import { UniqueComponentId } from 'primeng/utils';
             <label for="inputId" class="text-xs text-zinc-700 dark:text-white/70 block capitalize text-ellipsis overflow-hidden w-full whitespace-nowrap mb-px" title="label">{{ label }}</label>
             @if (switchable) {
                 <button type="button" (click)="transfer($event)" tabindex="-1" style="line-height:12px;">
-                    <i class="pi pi-sort-alt text-zinc-500 dark:text-white/50 !hidden group-hover:!inline-block animate-fadein" title="Transfer between color scheme and common" style="font-size: .75rem !important; line-height: 12px;"></i>
+                    <i class="pi pi-sort-alt text-zinc-500 dark:text-white/50 hidden! group-hover:inline-block! animate-fadein" title="Transfer between color scheme and common" style="font-size: .75rem !important; line-height: 12px;"></i>
                 </button>
             }
         </div>
@@ -46,7 +46,7 @@ import { UniqueComponentId } from 'primeng/utils';
                     listContainer: 'max-h-40 overflow-auto',
                     list: 'm-0 py-1.5 px-1.5 list-none',
                     loader: 'hidden',
-                    option: 'cursor-pointer py-0.5 text-xs text-surface-700 dark:text-white/80 data-[p-focused=true]:bg-surface-100 data-[p-focused=true]:dark:bg-surface-800 rounded-md'
+                    option: 'cursor-pointer py-0.5 text-xs text-surface-700 dark:text-white/80 data-[p-focused=true]:bg-surface-100 dark:data-[p-focused=true]:bg-surface-800 rounded-md'
                 }"
                 [showEmptyMessage]="false"
                 (completeMethod)="search($event)"
@@ -108,7 +108,7 @@ export class DesignTokenField implements OnInit {
 
     inputStyleClass = computed(() => {
         const styleClass = this.isInvalid() ? 'border-red-500 dark:border-red-400 bg-red-50 dark:bg-red-500/30' : 'border-surface-300 dark:border-surface-600';
-        return this.isColorType() ? `!text-xs !pr-7 ${styleClass}` : `!text-xs ${styleClass}`;
+        return this.isColorType() ? `text-xs! pr-7! ${styleClass}` : `text-xs! ${styleClass}`;
     });
 
     isInvalid = computed(() => {

@@ -13,7 +13,7 @@ import { ChipModule } from 'primeng/chip';
             <p>Content can easily be customized with the dynamic content instead of using the built-in modes.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-chip class="!py-0 !pl-0 !pr-4">
+            <p-chip class="py-0! pl-0! pr-4!">
                 <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">P</span>
                 <span class="ml-2 font-medium">PRIME</span>
             </p-chip>

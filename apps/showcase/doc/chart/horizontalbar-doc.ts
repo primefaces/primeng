@@ -16,7 +16,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
             <p>A bar chart is rendered horizontally when <i>indexAxis</i> option is set as <i>y</i>.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+            <p-chart type="bar" [data]="data" [options]="options" class="h-120" />
             <app-code></app-code>
         </app-demo-wrapper>
     `

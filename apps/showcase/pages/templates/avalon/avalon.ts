@@ -33,7 +33,7 @@ export class AvalonPage {
     avalonLogo = AvalonLogo;
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-hero-pattern.png',
-        patternClass: 'select-none absolute md:w-[60rem] h-auto md:bottom-0 bottom-40 -left-32 xl:-left-12 md:-left-32 z-[6] opacity-75',
+        patternClass: 'select-none absolute md:w-240 h-auto md:bottom-0 bottom-40 -left-32 xl:-left-12 md:-left-32 z-6 opacity-75',
         light: true,
         rectangle: true,
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-hero-dashboard1.png',

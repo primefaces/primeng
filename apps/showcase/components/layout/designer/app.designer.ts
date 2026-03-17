@@ -16,7 +16,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
     selector: 'app-designer',
     standalone: true,
     imports: [CommonModule, DrawerModule, ToastModule, ConfirmDialogModule, DesignDashboard, DesignCreateTheme, DesignEditor, DesignEditorFooter, ConfirmPopupModule],
-    template: `<p-drawer #drawer [(visible)]="visible" position="right" styleClass="designer !w-screen md:!w-[42rem]" [modal]="false" [dismissible]="false">
+    template: `<p-drawer #drawer [(visible)]="visible" position="right" styleClass="designer w-screen! md:w-2xl!" [modal]="false" [dismissible]="false">
             <ng-template #headless>
                 <div class="flex items-center justify-between p-5">
                     <div class="flex items-center gap-2">

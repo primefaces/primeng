@@ -28,15 +28,15 @@ import { PanelModule } from 'primeng/panel';
 })
 export class BasicDoc {
     pt = {
-        root: '!border !border-primary !rounded-xl p-4',
+        root: 'border! border-primary! rounded-xl! p-4',
         header: (options) => ({
             id: 'myPanelHeader',
             style: {
                 'user-select': 'none'
             },
-            class: ['!text-primary font-bold !p-0']
+            class: ['text-primary! font-bold p-0!']
         }),
-        content: { class: 'text-primary-700 dark:text-primary-200 !p-0 mt-2' },
+        content: { class: 'text-primary-700 dark:text-primary-200 p-0! mt-2' },
         title: 'text-xl',
         pcToggleButton: {
             icon: {

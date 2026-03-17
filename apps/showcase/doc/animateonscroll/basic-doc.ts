@@ -22,7 +22,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         <i class="pi pi-arrow-down"></i>
                     </span>
                 </div>
-                <div class="h-[40rem]"></div>
+                <div class="h-160"></div>
                 <div class="flex flex-wrap justify-center gap-7">
                     <div
                         pAnimateOnScroll
@@ -31,7 +31,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         class="flex flex-col border border-surface shadow-lg justify-center items-center max-w-72 rounded-2xl p-7 gap-4"
                     >
                         <div class="rounded-full bg-primary text-primary-contrast w-12 h-12 flex items-center justify-center">
-                            <i class="pi pi-user !text-xl"></i>
+                            <i class="pi pi-user text-xl!"></i>
                         </div>
                         <span class="text-xl font-bold">Individual</span>
                         <span class="text-muted-color text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
@@ -43,7 +43,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         class="flex flex-col border border-surface shadow-lg justify-center items-center max-w-72 rounded-2xl p-7 gap-4"
                     >
                         <div class="rounded-full bg-primary text-primary-contrast w-12 h-12 flex items-center justify-center">
-                            <i class="pi pi-users !text-xl"></i>
+                            <i class="pi pi-users text-xl!"></i>
                         </div>
                         <span class="text-xl font-bold">Team</span>
                         <span class="text-muted-color text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
@@ -55,13 +55,13 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         class="flex flex-col border border-surface shadow-lg justify-center items-center max-w-72 rounded-2xl p-7 gap-4"
                     >
                         <div class="rounded-full bg-primary text-primary-contrast w-12 h-12 flex items-center justify-center">
-                            <i class="pi pi-building !text-xl"></i>
+                            <i class="pi pi-building text-xl!"></i>
                         </div>
                         <span class="text-xl font-bold">Enterprise</span>
                         <span class="text-muted-color text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
                     </div>
                 </div>
-                <div class="h-[30rem]"></div>
+                <div class="h-120"></div>
                 <div class="flex flex-wrap justify-center gap-7">
                     <div
                         pAnimateOnScroll
@@ -85,7 +85,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         <span class="text-muted-color text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
                     </div>
                 </div>
-                <div class="h-[30rem]"></div>
+                <div class="h-120"></div>
                 <div class="flex flex-wrap justify-center gap-7">
                     <div
                         pAnimateOnScroll
@@ -114,25 +114,25 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         <span class="text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
                     </div>
                 </div>
-                <div class="h-[30rem]"></div>
+                <div class="h-120"></div>
                 <div class="flex flex-wrap justify-center gap-7">
                     <div pAnimateOnScroll enterClass="animate-enter fade-in-10 zoom-in-50 animate-duration-1000" class="flex flex-col bg-purple-500 text-white border-purple-500 shadow-lg justify-center items-center max-w-72 rounded-2xl p-7 gap-4">
                         <div class="rounded-full border-2 border-white w-12 h-12 flex items-center justify-center">
-                            <i class="pi pi-wifi !text-xl"></i>
+                            <i class="pi pi-wifi text-xl!"></i>
                         </div>
                         <span class="text-xl font-bold">Bandwidth</span>
                         <span class="text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
                     </div>
                     <div pAnimateOnScroll enterClass="animate-enter fade-in-10 zoom-in-75 animate-duration-1000" class="flex flex-col bg-teal-500 text-white border-teal-500 shadow-lg justify-center items-center max-w-72 rounded-2xl p-7 gap-4">
                         <div class="rounded-full border-2 border-white w-12 h-12 flex items-center justify-center">
-                            <i class="pi pi-database !text-xl"></i>
+                            <i class="pi pi-database text-xl!"></i>
                         </div>
                         <span class="text-xl font-bold">Storage</span>
                         <span class="text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
                     </div>
                     <div pAnimateOnScroll enterClass="animate-enter fade-in-10 zoom-in-50 animate-duration-1000" class="flex flex-col bg-indigo-500 text-white border-indigo-500 shadow-lg justify-center items-center max-w-72 rounded-2xl p-7 gap-4">
                         <div class="rounded-full border-2 border-white w-12 h-12 flex items-center justify-center">
-                            <i class="pi pi-arrows-v !text-xl"></i>
+                            <i class="pi pi-arrows-v text-xl!"></i>
                         </div>
                         <span class="text-xl font-bold">Requests</span>
                         <span class="text-center text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>

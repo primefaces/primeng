@@ -504,7 +504,7 @@ import { PanelMenu } from 'primeng/panelmenu';
                             <p-badge class="ms-auto" [value]="item.badge" />
                         }
                         @if (item.shortcut) {
-                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                            <span class="ms-auto border border-surface rounded-sm bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                         }
                     </a>
                 </ng-template>
