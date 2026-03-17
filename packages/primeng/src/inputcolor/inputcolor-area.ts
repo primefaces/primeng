@@ -4,6 +4,10 @@ import { Bind } from 'primeng/bind';
 import { ColorChannel, getAreaGradient, getChannelRange, snapValue } from './color-manager';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
 
+/**
+ * InputColorArea is a helper component for InputColor component.
+ * @group Components
+ */
 @Component({
     selector: 'p-inputcolor-area',
     standalone: true,

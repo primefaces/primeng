@@ -9,6 +9,10 @@ import { AccordionPanel } from './accordion-panel';
 import { ACCORDION_INSTANCE, ACCORDION_CONTENT_INSTANCE, ACCORDION_PANEL_INSTANCE } from './accordion-token';
 import { AccordionStyle } from './style/accordionstyle';
 
+/**
+ * AccordionContent is a helper component for Accordion component.
+ * @group Components
+ */
 @Component({
     selector: 'p-accordion-content, p-accordioncontent',
     imports: [BindModule, MotionModule],

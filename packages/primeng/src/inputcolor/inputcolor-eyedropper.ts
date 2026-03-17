@@ -7,6 +7,10 @@ import { ButtonDirective, ButtonIcon } from 'primeng/button';
 import { parseColor } from './color-manager';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
 
+/**
+ * InputColorEyeDropper is a helper component for InputColor component.
+ * @group Components
+ */
 @Component({
     selector: 'p-inputcolor-eyedropper',
     standalone: true,

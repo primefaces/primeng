@@ -4,6 +4,10 @@ import { Bind } from 'primeng/bind';
 import { ColorChannel, ColorSliderChannel, getChannelRange, snapValue } from './color-manager';
 import { INPUT_COLOR_INSTANCE, INPUT_COLOR_SLIDER_INSTANCE } from './inputcolor.token';
 
+/**
+ * InputColorSlider is a helper component for InputColor component.
+ * @group Components
+ */
 @Component({
     selector: 'p-inputcolor-slider',
     standalone: true,

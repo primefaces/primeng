@@ -12954,7 +12954,281 @@
         }
       ],
       "api": {
-        "props": null,
+        "props": [
+          {
+            "name": "data",
+            "type": "DataType",
+            "default": "-",
+            "description": "An object to pass to the component loaded inside the Dialog.",
+            "deprecated": ""
+          },
+          {
+            "name": "inputValues",
+            "type": "InputValuesType",
+            "default": "-",
+            "description": "An object to pass to the component loaded inside the Dialog.",
+            "deprecated": ""
+          },
+          {
+            "name": "header",
+            "type": "string",
+            "default": "-",
+            "description": "Header text of the dialog.",
+            "deprecated": ""
+          },
+          {
+            "name": "ariaLabelledBy",
+            "type": "string",
+            "default": "-",
+            "description": "Identifies the element (or elements) that labels the element it is applied to.",
+            "deprecated": ""
+          },
+          {
+            "name": "footer",
+            "type": "string",
+            "default": "-",
+            "description": "Footer text of the dialog.",
+            "deprecated": ""
+          },
+          {
+            "name": "width",
+            "type": "string",
+            "default": "-",
+            "description": "Width of the dialog.",
+            "deprecated": ""
+          },
+          {
+            "name": "height",
+            "type": "string",
+            "default": "-",
+            "description": "Height of the dialog.",
+            "deprecated": ""
+          },
+          {
+            "name": "closeOnEscape",
+            "type": "boolean",
+            "default": "false",
+            "description": "Specifies if pressing escape key should hide the dialog.",
+            "deprecated": ""
+          },
+          {
+            "name": "focusOnShow",
+            "type": "boolean",
+            "default": "true",
+            "description": "Specifies if autofocus should happen on show.",
+            "deprecated": ""
+          },
+          {
+            "name": "focusTrap",
+            "type": "boolean",
+            "default": "true",
+            "description": "When enabled, can only focus on elements inside the dialog.",
+            "deprecated": ""
+          },
+          {
+            "name": "baseZIndex",
+            "type": "number",
+            "default": "-",
+            "description": "Base zIndex value to use in layering.",
+            "deprecated": ""
+          },
+          {
+            "name": "autoZIndex",
+            "type": "boolean",
+            "default": "false",
+            "description": "Whether to re-enforce layering through applying zIndex.",
+            "deprecated": ""
+          },
+          {
+            "name": "dismissableMask",
+            "type": "boolean",
+            "default": "false",
+            "description": "Specifies if clicking the modal background should hide the dialog.",
+            "deprecated": ""
+          },
+          {
+            "name": "rtl",
+            "type": "boolean",
+            "default": "false",
+            "description": "Inline style of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "style",
+            "type": "{ [klass: string]: any }",
+            "default": "-",
+            "description": "Inline style of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "contentStyle",
+            "type": "{ [klass: string]: any }",
+            "default": "-",
+            "description": "Inline style of the content.",
+            "deprecated": ""
+          },
+          {
+            "name": "styleClass",
+            "type": "string",
+            "default": "-",
+            "description": "Style class of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "MotionOptions",
+            "default": "-",
+            "description": "The motion options for the dialog.",
+            "deprecated": ""
+          },
+          {
+            "name": "maskMotionOptions",
+            "type": "MotionOptions",
+            "default": "-",
+            "description": "The motion options for the mask.",
+            "deprecated": ""
+          },
+          {
+            "name": "closable",
+            "type": "boolean",
+            "default": "false",
+            "description": "Adds a close icon to the header to hide the dialog.",
+            "deprecated": ""
+          },
+          {
+            "name": "showHeader",
+            "type": "boolean",
+            "default": "false",
+            "description": "Whether to show the header or not.",
+            "deprecated": ""
+          },
+          {
+            "name": "modal",
+            "type": "boolean",
+            "default": "false",
+            "description": "Defines if background should be blocked when dialog is displayed.",
+            "deprecated": ""
+          },
+          {
+            "name": "maskStyleClass",
+            "type": "string",
+            "default": "-",
+            "description": "Style class of the mask.",
+            "deprecated": ""
+          },
+          {
+            "name": "resizable",
+            "type": "boolean",
+            "default": "false",
+            "description": "Enables resizing of the content.",
+            "deprecated": ""
+          },
+          {
+            "name": "draggable",
+            "type": "boolean",
+            "default": "false",
+            "description": "Enables dragging to change the position using header.",
+            "deprecated": ""
+          },
+          {
+            "name": "keepInViewport",
+            "type": "boolean",
+            "default": "false",
+            "description": "Keeps dialog in the viewport.",
+            "deprecated": ""
+          },
+          {
+            "name": "minX",
+            "type": "number",
+            "default": "-",
+            "description": "Minimum value for the left coordinate of dialog in dragging.",
+            "deprecated": ""
+          },
+          {
+            "name": "minY",
+            "type": "number",
+            "default": "-",
+            "description": "Minimum value for the top coordinate of dialog in dragging.",
+            "deprecated": ""
+          },
+          {
+            "name": "maximizable",
+            "type": "boolean",
+            "default": "false",
+            "description": "Whether the dialog can be displayed full screen.",
+            "deprecated": ""
+          },
+          {
+            "name": "maximizeIcon",
+            "type": "string",
+            "default": "-",
+            "description": "Name of the maximize icon.",
+            "deprecated": ""
+          },
+          {
+            "name": "minimizeIcon",
+            "type": "string",
+            "default": "-",
+            "description": "Name of the minimize icon.",
+            "deprecated": ""
+          },
+          {
+            "name": "position",
+            "type": "DialogPosition",
+            "default": "-",
+            "description": "Position of the dialog.",
+            "deprecated": ""
+          },
+          {
+            "name": "closeAriaLabel",
+            "type": "string",
+            "default": "-",
+            "description": "Defines a string that labels the close button for accessibility.",
+            "deprecated": ""
+          },
+          {
+            "name": "appendTo",
+            "type": "any",
+            "default": "-",
+            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
+            "deprecated": ""
+          },
+          {
+            "name": "duplicate",
+            "type": "boolean",
+            "default": "false",
+            "description": "A boolean to determine if it can be duplicate.",
+            "deprecated": ""
+          },
+          {
+            "name": "breakpoints",
+            "type": "any",
+            "default": "-",
+            "description": "Object literal to define widths per screen size.",
+            "deprecated": ""
+          },
+          {
+            "name": "templates",
+            "type": "DynamicDialogTemplates",
+            "default": "-",
+            "description": "Dialog templates.",
+            "deprecated": ""
+          },
+          {
+            "name": "pt",
+            "type": "DialogPassThrough",
+            "default": "-",
+            "description": "Used to pass attributes to DOM elements inside the Dialog component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          }
+        ],
         "templates": null,
         "emits": null,
         "methods": null,

@@ -4,6 +4,10 @@ import { Bind } from 'primeng/bind';
 import { getChannelGradient } from './color-manager';
 import { INPUT_COLOR_INSTANCE, INPUT_COLOR_SLIDER_INSTANCE } from './inputcolor.token';
 
+/**
+ * InputColorSliderTrack is a helper component for InputColor component.
+ * @group Components
+ */
 @Component({
     selector: 'p-inputcolor-slider-track',
     standalone: true,

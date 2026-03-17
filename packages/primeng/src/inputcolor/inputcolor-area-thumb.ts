@@ -4,6 +4,10 @@ import { Bind } from 'primeng/bind';
 import { ColorChannel, getChannelRange } from './color-manager';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
 
+/**
+ * InputColorAreaThumb is a helper component for InputColor component.
+ * @group Components
+ */
 @Component({
     selector: 'p-inputcolor-area-thumb',
     standalone: true,

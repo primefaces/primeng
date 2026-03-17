@@ -527,9 +527,23 @@ async function main() {
         // Identify sub-components based on module paths
         const subComponentMap = {};
 
+        // Strip common prefix (e.g., "src/") from module paths
+        const stripPrefix = (name) => name.replace(/^src\//, '');
+
+        // Collect all parent module names (modules that have a direct child with the same name)
+        const parentModuleNames = new Set();
         modules.children.forEach((module) => {
-            const fullPath = module.name;
-            const pathParts = fullPath.split('/');
+            const stripped = stripPrefix(module.name);
+            const pathParts = stripped.split('/');
+            // Pattern: accordion/accordion -> "accordion" is a parent module
+            if (pathParts.length === 2 && pathParts[0] === pathParts[1]) {
+                parentModuleNames.add(pathParts[0]);
+            }
+        });
+
+        modules.children.forEach((module) => {
+            const stripped = stripPrefix(module.name);
+            const pathParts = stripped.split('/');
 
             // Pattern: stepper/style/stepitemstyle -> stepitem is a sub-component of stepper
             if (pathParts.length === 3 && pathParts[1] === 'style') {
@@ -538,6 +552,18 @@ async function main() {
 
                 if (parentName !== childStyleName) {
                     subComponentMap[childStyleName] = parentName;
+                }
+            }
+
+            // Pattern: accordion/accordion-panel -> accordion-panel is a sub-component of accordion
+            if (pathParts.length === 2 && pathParts[0] !== pathParts[1] && parentModuleNames.has(pathParts[0])) {
+                const parentName = pathParts[0];
+                const childName = pathParts[1];
+                // Skip style, public_api, token, spec files
+                if (!childName.includes('style') && childName !== 'public_api' && !childName.includes('token') && !childName.includes('spec')) {
+                    if (!subComponentMap[childName]) {
+                        subComponentMap[childName] = parentName;
+                    }
                 }
             }
         });
@@ -555,6 +581,17 @@ async function main() {
                 mergedDocs[targetParentKey] = {
                     ...doc[targetParentKey]
                 };
+            }
+
+            // Merge sub-component's components into parent
+            if (isSubComponent && !key.includes('style') && !key.includes('.interface') && !key.includes('.types')) {
+                const subDoc = doc[key];
+                if (subDoc && subDoc.components) {
+                    if (!mergedDocs[targetParentKey].components) {
+                        mergedDocs[targetParentKey].components = {};
+                    }
+                    Object.assign(mergedDocs[targetParentKey].components, subDoc.components);
+                }
             }
 
             if (key.includes('style')) {
@@ -608,6 +645,13 @@ async function main() {
                         }
                     };
                 }
+            }
+        }
+
+        // Remove standalone entries for sub-components that were merged into their parent
+        for (const childName in subComponentMap) {
+            if (mergedDocs[childName] && subComponentMap[childName] !== childName) {
+                delete mergedDocs[childName];
             }
         }
 

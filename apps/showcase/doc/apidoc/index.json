@@ -1,125 +1,4 @@
 {
-    "accordion-content": {
-        "components": {}
-    },
-    "accordion-header": {
-        "components": {
-            "AccordionHeader": {
-                "description": "AccordionHeader is a helper component for Accordion component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<Object>",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "unstyled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<boolean>",
-                            "default": "undefined",
-                            "description": "Indicates whether the component should be rendered without styles."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<AccordionHeaderPassThrough>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<PassThroughOptions>",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        }
-                    ]
-                },
-                "templates": {
-                    "description": "Defines the templates used by the component.",
-                    "values": [
-                        {
-                            "name": "toggleicon",
-                            "description": "Toggle icon template.",
-                            "type": "Signal<TemplateRef<AccordionToggleIconTemplateContext>>",
-                            "parameters": []
-                        }
-                    ]
-                }
-            }
-        }
-    },
-    "accordion-panel": {
-        "components": {
-            "AccordionPanel": {
-                "description": "AccordionPanel is a helper component for Accordion component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "value",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "ModelSignal<AccordionValue>",
-                            "default": "undefined",
-                            "description": "Value of the active tab."
-                        },
-                        {
-                            "name": "disabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "Disables the tab when enabled."
-                        },
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<Object>",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "unstyled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<boolean>",
-                            "default": "undefined",
-                            "description": "Indicates whether the component should be rendered without styles."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<AccordionPanelPassThrough>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<PassThroughOptions>",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        }
-                    ]
-                }
-            }
-        }
-    },
-    "accordion-token": {
-        "components": {}
-    },
     "accordion": {
         "components": {
             "Accordion": {
@@ -231,6 +110,153 @@
                                 }
                             ],
                             "description": "Callback to invoke when a tab gets expanded."
+                        }
+                    ]
+                }
+            },
+            "AccordionContent": {
+                "description": "AccordionContent is a helper component for Accordion component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<AccordionContentPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
+            },
+            "AccordionHeader": {
+                "description": "AccordionHeader is a helper component for Accordion component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<AccordionHeaderPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "toggleicon",
+                            "description": "Toggle icon template.",
+                            "type": "Signal<TemplateRef<AccordionToggleIconTemplateContext>>",
+                            "parameters": []
+                        }
+                    ]
+                }
+            },
+            "AccordionPanel": {
+                "description": "AccordionPanel is a helper component for Accordion component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ModelSignal<AccordionValue>",
+                            "default": "undefined",
+                            "description": "Value of the active tab."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "false",
+                            "description": "Disables the tab when enabled."
+                        },
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<AccordionPanelPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
                         }
                     ]
                 }
@@ -418,6 +444,9 @@
                 ]
             }
         }
+    },
+    "accordion-token": {
+        "components": {}
     },
     "animateonscroll": {
         "components": {
@@ -7435,12 +7464,6 @@
             }
         }
     },
-    "cascadeselect-sub": {
-        "components": {}
-    },
-    "cascadeselect-token": {
-        "components": {}
-    },
     "cascadeselect": {
         "components": {
             "CascadeSelect": {
@@ -8394,6 +8417,9 @@
                 ]
             }
         }
+    },
+    "cascadeselect-token": {
+        "components": {}
     },
     "chart": {
         "components": {
@@ -10637,12 +10663,6 @@
             }
         }
     },
-    "contextmenu-sub": {
-        "components": {}
-    },
-    "contextmenu-token": {
-        "components": {}
-    },
     "contextmenu": {
         "components": {
             "ContextMenu": {
@@ -11041,6 +11061,9 @@
                 ]
             }
         }
+    },
+    "contextmenu-token": {
+        "components": {}
     },
     "dataview": {
         "components": {
@@ -15346,44 +15369,7 @@
             }
         }
     },
-    "dialogservice": {
-        "description": "Defines the service used by the component",
-        "methods": {
-            "description": "Methods used in service.",
-            "values": [
-                {
-                    "name": "open",
-                    "parameters": [
-                        {
-                            "name": "componentType",
-                            "type": "Type<T>",
-                            "description": "Dynamic component for content template."
-                        },
-                        {
-                            "name": "config",
-                            "type": "DynamicDialogConfig<DataType, InputValuesType>",
-                            "description": "DynamicDialog object."
-                        }
-                    ],
-                    "returnType": "DynamicDialogRef<T>",
-                    "description": "Displays the dialog using the dynamic dialog object options."
-                },
-                {
-                    "name": "getInstance",
-                    "parameters": [
-                        {
-                            "name": "ref",
-                            "type": "DynamicDialogRef<any>",
-                            "description": "DynamicDialog instance."
-                        }
-                    ],
-                    "returnType": "DynamicDialog",
-                    "description": "Returns the dynamic dialog component instance."
-                }
-            ]
-        }
-    },
-    "dynamicdialog-config": {
+    "dynamicdialog": {
         "components": {
             "DynamicDialogConfig": {
                 "description": "Dialogs can be created dynamically with any component as the content using a DialogService.",
@@ -15680,49 +15666,7 @@
                         }
                     ]
                 }
-            }
-        },
-        "templates": {
-            "description": "Defines the templates used by the component.",
-            "values": [
-                {
-                    "parent": "dynamicdialog",
-                    "name": "header",
-                    "parameters": []
-                },
-                {
-                    "parent": "dynamicdialog",
-                    "name": "content",
-                    "parameters": []
-                },
-                {
-                    "parent": "dynamicdialog",
-                    "name": "footer",
-                    "parameters": []
-                },
-                {
-                    "parent": "dynamicdialog",
-                    "name": "minimizeicon",
-                    "parameters": []
-                },
-                {
-                    "parent": "dynamicdialog",
-                    "name": "maximizeicon",
-                    "parameters": []
-                },
-                {
-                    "parent": "dynamicdialog",
-                    "name": "closeicon",
-                    "parameters": []
-                }
-            ]
-        }
-    },
-    "dynamicdialog-injector": {
-        "components": {}
-    },
-    "dynamicdialog-ref": {
-        "components": {
+            },
             "DynamicDialogRef": {
                 "description": "Dynamic Dialog instance.",
                 "methods": {
@@ -15838,10 +15782,7 @@
                     ]
                 }
             }
-        }
-    },
-    "dynamicdialog": {
-        "components": {},
+        },
         "style": {
             "components": {},
             "classes": {
@@ -15885,9 +15826,6 @@
                 ]
             }
         }
-    },
-    "dynamicdialogcontent": {
-        "components": {}
     },
     "editor": {
         "components": {
@@ -16724,12 +16662,6 @@
                 ]
             }
         }
-    },
-    "file-content": {
-        "components": {}
-    },
-    "fileupload-token": {
-        "components": {}
     },
     "fileupload": {
         "components": {
@@ -18022,6 +17954,9 @@
             }
         }
     },
+    "fileupload-token": {
+        "components": {}
+    },
     "floatlabel": {
         "components": {
             "FloatLabel": {
@@ -18251,21 +18186,6 @@
                 }
             }
         }
-    },
-    "galleria-content": {
-        "components": {}
-    },
-    "galleria-item-slot": {
-        "components": {}
-    },
-    "galleria-item": {
-        "components": {}
-    },
-    "galleria-thumbnails": {
-        "components": {}
-    },
-    "galleria-token": {
-        "components": {}
     },
     "galleria": {
         "components": {
@@ -19139,6 +19059,9 @@
                 ]
             }
         }
+    },
+    "galleria-token": {
+        "components": {}
     },
     "iconfield": {
         "components": {
@@ -20423,45 +20346,6 @@
             }
         }
     },
-    "color-manager": {
-        "components": {}
-    },
-    "inputcolor-area-background": {
-        "components": {}
-    },
-    "inputcolor-area-thumb": {
-        "components": {}
-    },
-    "inputcolor-area": {
-        "components": {}
-    },
-    "inputcolor-eyedropper": {
-        "components": {}
-    },
-    "inputcolor-input": {
-        "components": {}
-    },
-    "inputcolor-slider-thumb": {
-        "components": {}
-    },
-    "inputcolor-slider-track": {
-        "components": {}
-    },
-    "inputcolor-slider": {
-        "components": {}
-    },
-    "inputcolor-swatch-background": {
-        "components": {}
-    },
-    "inputcolor-swatch": {
-        "components": {}
-    },
-    "inputcolor-transparency-grid": {
-        "components": {}
-    },
-    "inputcolor.token": {
-        "components": {}
-    },
     "inputcolor": {
         "components": {
             "InputColor": {
@@ -20549,6 +20433,470 @@
                                 }
                             ],
                             "description": "Callback when interaction ends (mouseup/touchend/keyup)."
+                        }
+                    ]
+                }
+            },
+            "InputColorAreaBackground": {
+                "description": "InputColorAreaBackground is a helper component for InputColor component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
+            },
+            "InputColorAreaThumb": {
+                "description": "InputColorAreaThumb is a helper component for InputColor component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
+            },
+            "InputColorArea": {
+                "description": "InputColorArea is a helper component for InputColor component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
+            },
+            "InputColorEyeDropper": {
+                "description": "InputColorEyeDropper is a helper component for InputColor component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "text",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "...",
+                            "description": "Whether to display button as text."
+                        },
+                        {
+                            "name": "rounded",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "...",
+                            "description": "Whether to display a rounded button."
+                        },
+                        {
+                            "name": "outlined",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "...",
+                            "description": "Whether to display button as outlined."
+                        },
+                        {
+                            "name": "iconOnly",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "...",
+                            "description": "Whether to display an icon-only button."
+                        },
+                        {
+                            "name": "severity",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Defines the color severity of the button."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Defines the size of the button."
+                        }
+                    ]
+                }
+            },
+            "InputColorSliderThumb": {
+                "description": "InputColorSliderThumb is a helper component for InputColor component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
+            },
+            "InputColorSliderTrack": {
+                "description": "InputColorSliderTrack is a helper component for InputColor component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
+            },
+            "InputColorSlider": {
+                "description": "InputColorSlider is a helper component for InputColor component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "channel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ColorSliderChannel>",
+                            "default": "...",
+                            "description": "The color channel this slider controls."
+                        },
+                        {
+                            "name": "orientation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<\"vertical\" | \"horizontal\">",
+                            "default": "...",
+                            "description": "Orientation of the slider."
+                        }
+                    ]
+                }
+            },
+            "InputColorSwatchBackground": {
+                "description": "InputColorSwatchBackground is a helper component for InputColor component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
+            },
+            "InputColorSwatch": {
+                "description": "InputColorSwatch is a helper component for InputColor component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
+            },
+            "InputColorTransparencyGrid": {
+                "description": "InputColorTransparencyGrid is a helper component for InputColor component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
                         }
                     ]
                 }
@@ -20671,6 +21019,9 @@
                 ]
             }
         }
+    },
+    "inputcolor.token": {
+        "components": {}
     },
     "inputgroup": {
         "components": {
@@ -24293,12 +24644,6 @@
             }
         }
     },
-    "megamenu-sub": {
-        "components": {}
-    },
-    "megamenu-token": {
-        "components": {}
-    },
     "megamenu": {
         "components": {
             "MegaMenu": {
@@ -24806,10 +25151,7 @@
             }
         }
     },
-    "menu-item-content": {
-        "components": {}
-    },
-    "menu-token": {
+    "megamenu-token": {
         "components": {}
     },
     "menu": {
@@ -25286,10 +25628,7 @@
             }
         }
     },
-    "menubar-sub": {
-        "components": {}
-    },
-    "menubar.service": {
+    "menu-token": {
         "components": {}
     },
     "menubar": {
@@ -27157,6 +27496,21 @@
     },
     "motion": {
         "components": {},
+        "style": {
+            "components": {
+                "motion.": {
+                    "components": {},
+                    "classes": {
+                        "values": [
+                            {
+                                "class": "p-motion",
+                                "description": "Class name of the root element"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
         "types": {
             "components": {},
             "interfaces": {
@@ -27185,25 +27539,6 @@
                 ]
             }
         }
-    },
-    "motion.": {
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-motion",
-                        "description": "Class name of the root element"
-                    }
-                ]
-            }
-        }
-    },
-    "multiselect-item": {
-        "components": {}
-    },
-    "multiselect-token": {
-        "components": {}
     },
     "multiselect": {
         "components": {
@@ -28825,6 +29160,9 @@
             }
         }
     },
+    "multiselect-token": {
+        "components": {}
+    },
     "orderlist": {
         "components": {
             "OrderList": {
@@ -29506,12 +29844,6 @@
             }
         }
     },
-    "organizationchart-node": {
-        "components": {}
-    },
-    "organizationchart-token": {
-        "components": {}
-    },
     "organizationchart": {
         "components": {
             "OrganizationChart": {
@@ -29935,6 +30267,9 @@
                 ]
             }
         }
+    },
+    "organizationchart-token": {
+        "components": {}
     },
     "overlay": {
         "components": {
@@ -31422,15 +31757,6 @@
             }
         }
     },
-    "panelmenu-list": {
-        "components": {}
-    },
-    "panelmenu-sub": {
-        "components": {}
-    },
-    "panelmenu-token": {
-        "components": {}
-    },
     "panelmenu": {
         "components": {
             "PanelMenu": {
@@ -31827,6 +32153,9 @@
                 ]
             }
         }
+    },
+    "panelmenu-token": {
+        "components": {}
     },
     "password": {
         "components": {
@@ -37867,9 +38196,6 @@
             }
         }
     },
-    "select-item": {
-        "components": {}
-    },
     "select-token": {
         "components": {}
     },
@@ -39895,10 +40221,306 @@
                         }
                     ]
                 }
+            },
+            "StepItem": {
+                "description": "StepItem is a helper component for Stepper component used in vertical orientation.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<StepItemPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ModelSignal<number>",
+                            "default": "undefined",
+                            "description": "Value of step."
+                        }
+                    ]
+                }
+            },
+            "StepPanel": {
+                "description": "StepPanel is a helper component for Stepper component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<StepPanelPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ModelSignal<number>",
+                            "default": "undefined",
+                            "description": "Active value of stepper."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "content",
+                            "description": "Content template.",
+                            "type": "Signal<TemplateRef<StepPanelContentTemplateContext>>",
+                            "parameters": [
+                                {
+                                    "name": "context",
+                                    "description": "Context of the template",
+                                    "type": "StepPanelContentTemplateContext>"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "Step": {
+                "description": "Step is a helper component for Stepper component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<StepPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ModelSignal<number>",
+                            "default": "undefined",
+                            "description": "Active value of stepper."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "false",
+                            "description": "Whether the step is disabled."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "content",
+                            "description": "Content template.",
+                            "type": "Signal<TemplateRef<StepContentTemplateContext>>",
+                            "parameters": []
+                        }
+                    ]
+                }
+            },
+            "StepperSeparator": {
+                "description": "StepperSeparator is a helper component for Stepper component used in vertical orientation.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<StepperSeparatorPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             }
         },
         "style": {
-            "components": {},
+            "components": {
+                "stepitem": {
+                    "components": {},
+                    "classes": {
+                        "values": [
+                            {
+                                "class": "p-stepitem",
+                                "description": "Class name of the root element"
+                            }
+                        ]
+                    }
+                },
+                "steplist": {
+                    "components": {},
+                    "classes": {
+                        "values": [
+                            {
+                                "class": "p-stepitem",
+                                "description": "Class name of the root element"
+                            }
+                        ]
+                    }
+                },
+                "steppanels": {
+                    "components": {},
+                    "classes": {
+                        "values": [
+                            {
+                                "class": "p-steppanels",
+                                "description": "Class name of the root element"
+                            }
+                        ]
+                    }
+                },
+                "steppanel": {
+                    "components": {},
+                    "classes": {
+                        "values": [
+                            {
+                                "class": "p-steppanel",
+                                "description": "Class name of the root element"
+                            },
+                            {
+                                "class": "p-steppanel-content-wrapper",
+                                "description": "Class name of the content wrapper element"
+                            },
+                            {
+                                "class": "p-steppanel-content",
+                                "description": "Class name of the content element"
+                            }
+                        ]
+                    }
+                },
+                "step": {
+                    "components": {},
+                    "classes": {
+                        "values": [
+                            {
+                                "class": "p-step",
+                                "description": "Class name of the root element"
+                            },
+                            {
+                                "class": "p-step-header",
+                                "description": "Class name of the header element"
+                            },
+                            {
+                                "class": "p-step-number",
+                                "description": "Class name of the number element"
+                            },
+                            {
+                                "class": "p-step-title",
+                                "description": "Class name of the title element"
+                            }
+                        ]
+                    }
+                }
+            },
             "classes": {
                 "values": [
                     {
@@ -40108,333 +40730,8 @@
             }
         }
     },
-    "step-item": {
-        "components": {
-            "StepItem": {
-                "description": "StepItem is a helper component for Stepper component used in vertical orientation.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<Object>",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "unstyled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<boolean>",
-                            "default": "undefined",
-                            "description": "Indicates whether the component should be rendered without styles."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<StepItemPassThrough>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<PassThroughOptions>",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        },
-                        {
-                            "name": "value",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "ModelSignal<number>",
-                            "default": "undefined",
-                            "description": "Value of step."
-                        }
-                    ]
-                }
-            }
-        }
-    },
-    "step-list": {
-        "components": {}
-    },
-    "step-panel": {
-        "components": {
-            "StepPanel": {
-                "description": "StepPanel is a helper component for Stepper component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<Object>",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "unstyled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<boolean>",
-                            "default": "undefined",
-                            "description": "Indicates whether the component should be rendered without styles."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<StepPanelPassThrough>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<PassThroughOptions>",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        },
-                        {
-                            "name": "value",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "ModelSignal<number>",
-                            "default": "undefined",
-                            "description": "Active value of stepper."
-                        }
-                    ]
-                },
-                "templates": {
-                    "description": "Defines the templates used by the component.",
-                    "values": [
-                        {
-                            "name": "content",
-                            "description": "Content template.",
-                            "type": "Signal<TemplateRef<StepPanelContentTemplateContext>>",
-                            "parameters": [
-                                {
-                                    "name": "context",
-                                    "description": "Context of the template",
-                                    "type": "StepPanelContentTemplateContext>"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
-        }
-    },
-    "step-panels": {
-        "components": {}
-    },
-    "step": {
-        "components": {
-            "Step": {
-                "description": "Step is a helper component for Stepper component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<Object>",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "unstyled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<boolean>",
-                            "default": "undefined",
-                            "description": "Indicates whether the component should be rendered without styles."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<StepPassThrough>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<PassThroughOptions>",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        },
-                        {
-                            "name": "value",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "ModelSignal<number>",
-                            "default": "undefined",
-                            "description": "Active value of stepper."
-                        },
-                        {
-                            "name": "disabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "Whether the step is disabled."
-                        }
-                    ]
-                },
-                "templates": {
-                    "description": "Defines the templates used by the component.",
-                    "values": [
-                        {
-                            "name": "content",
-                            "description": "Content template.",
-                            "type": "Signal<TemplateRef<StepContentTemplateContext>>",
-                            "parameters": []
-                        }
-                    ]
-                }
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-step",
-                        "description": "Class name of the root element"
-                    },
-                    {
-                        "class": "p-step-header",
-                        "description": "Class name of the header element"
-                    },
-                    {
-                        "class": "p-step-number",
-                        "description": "Class name of the number element"
-                    },
-                    {
-                        "class": "p-step-title",
-                        "description": "Class name of the title element"
-                    }
-                ]
-            }
-        }
-    },
-    "stepper-separator": {
-        "components": {
-            "StepperSeparator": {
-                "description": "StepperSeparator is a helper component for Stepper component used in vertical orientation.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<Object>",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "unstyled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<boolean>",
-                            "default": "undefined",
-                            "description": "Indicates whether the component should be rendered without styles."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<StepperSeparatorPassThrough>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<PassThroughOptions>",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        }
-                    ]
-                }
-            }
-        }
-    },
     "stepper-token": {
         "components": {}
-    },
-    "stepitem": {
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-stepitem",
-                        "description": "Class name of the root element"
-                    }
-                ]
-            }
-        }
-    },
-    "steplist": {
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-stepitem",
-                        "description": "Class name of the root element"
-                    }
-                ]
-            }
-        }
-    },
-    "steppanels": {
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-steppanels",
-                        "description": "Class name of the root element"
-                    }
-                ]
-            }
-        }
-    },
-    "steppanel": {
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-steppanel",
-                        "description": "Class name of the root element"
-                    },
-                    {
-                        "class": "p-steppanel-content-wrapper",
-                        "description": "Class name of the content wrapper element"
-                    },
-                    {
-                        "class": "p-steppanel-content",
-                        "description": "Class name of the content element"
-                    }
-                ]
-            }
-        }
     },
     "class": {
         "style": {
@@ -40545,364 +40842,6 @@
                 }
             }
         }
-    },
-    "cancel-editable-row": {
-        "components": {}
-    },
-    "cell-editor": {
-        "components": {}
-    },
-    "column-filter-form-element": {
-        "components": {}
-    },
-    "column-filter": {
-        "components": {
-            "ColumnFilter": {
-                "description": "Column Filter Component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<Object>",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "unstyled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<boolean>",
-                            "default": "undefined",
-                            "description": "Indicates whether the component should be rendered without styles."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<PassThroughOptions>",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        },
-                        {
-                            "name": "field",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "...",
-                            "description": "Property represented by the column."
-                        },
-                        {
-                            "name": "type",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "...",
-                            "description": "Type of the input."
-                        },
-                        {
-                            "name": "display",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "...",
-                            "description": "Filter display."
-                        },
-                        {
-                            "name": "showMenu",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
-                            "description": "Decides whether to display filter menu popup."
-                        },
-                        {
-                            "name": "matchMode",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "...",
-                            "description": "Filter match mode."
-                        },
-                        {
-                            "name": "operator",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "ModelSignal<string>",
-                            "default": "'AND'",
-                            "description": "Filter operator."
-                        },
-                        {
-                            "name": "showOperator",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
-                            "description": "Decides whether to display filter operator."
-                        },
-                        {
-                            "name": "showClearButton",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "true",
-                            "description": "Decides whether to display clear filter button when display is menu."
-                        },
-                        {
-                            "name": "showApplyButton",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
-                            "description": "Decides whether to display apply filter button when display is menu."
-                        },
-                        {
-                            "name": "showMatchModes",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
-                            "description": "Decides whether to display filter match modes when display is menu."
-                        },
-                        {
-                            "name": "showAddButton",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
-                            "description": "Decides whether to display add filter button when display is menu."
-                        },
-                        {
-                            "name": "hideOnClear",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
-                            "description": "Decides whether to close popup on clear button click."
-                        },
-                        {
-                            "name": "placeholder",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "...",
-                            "description": "Filter placeholder."
-                        },
-                        {
-                            "name": "matchModeOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<SelectItem<any>[]>",
-                            "default": "...",
-                            "description": "Filter match mode options."
-                        },
-                        {
-                            "name": "maxConstraints",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<number, unknown>",
-                            "default": "...",
-                            "description": "Defines maximum amount of constraints."
-                        },
-                        {
-                            "name": "minFractionDigits",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<number, unknown>",
-                            "default": "...",
-                            "description": "Defines minimum fraction of digits."
-                        },
-                        {
-                            "name": "maxFractionDigits",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<number, unknown>",
-                            "default": "...",
-                            "description": "Defines maximum fraction of digits."
-                        },
-                        {
-                            "name": "prefix",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "...",
-                            "description": "Defines prefix of the filter."
-                        },
-                        {
-                            "name": "suffix",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "...",
-                            "description": "Defines suffix of the filter."
-                        },
-                        {
-                            "name": "locale",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "...",
-                            "description": "Defines filter locale."
-                        },
-                        {
-                            "name": "localeMatcher",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "...",
-                            "description": "Defines filter locale matcher."
-                        },
-                        {
-                            "name": "currency",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "...",
-                            "description": "Enables currency input."
-                        },
-                        {
-                            "name": "currencyDisplay",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "...",
-                            "description": "Defines the display of the currency input."
-                        },
-                        {
-                            "name": "filterOn",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "enter",
-                            "description": "Default trigger to run filtering on built-in text and numeric filters, valid values are 'enter' and 'input'."
-                        },
-                        {
-                            "name": "useGrouping",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
-                            "description": "Defines if filter grouping will be enabled."
-                        },
-                        {
-                            "name": "showButtons",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
-                            "description": "Defines the visibility of buttons."
-                        },
-                        {
-                            "name": "ariaLabel",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "...",
-                            "description": "Defines the aria-label of the form element."
-                        },
-                        {
-                            "name": "filterButtonProps",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<TableFilterButtonPropsOptions>",
-                            "default": "{\n     filter: { severity: 'secondary', text: true, rounded: true },\n     inline: {\n        clear: { severity: 'secondary', text: true, rounded: true }\n     },\n     popover: {\n         addRule: { severity: 'info', text: true, size: 'small' },\n         removeRule: { severity: 'danger', text: true, size: 'small' },\n         apply: { size: 'small' },\n         clear: { outlined: true, size: 'small' }\n        }\n     }",
-                            "description": "Used to pass all filter button property object"
-                        }
-                    ]
-                },
-                "emits": {
-                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
-                    "values": [
-                        {
-                            "name": "onShow",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "{ originalEvent: AnimationEvent }"
-                                }
-                            ],
-                            "description": "Callback to invoke on overlay is shown."
-                        },
-                        {
-                            "name": "onHide",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "{ originalEvent: AnimationEvent }"
-                                }
-                            ],
-                            "description": "Callback to invoke on overlay is hidden."
-                        }
-                    ]
-                },
-                "templates": {
-                    "description": "Defines the templates used by the component.",
-                    "values": [
-                        {
-                            "name": "header",
-                            "description": "Custom header template.",
-                            "type": "Signal<TemplateRef<any>>",
-                            "parameters": []
-                        },
-                        {
-                            "name": "filter",
-                            "description": "Custom filter template.",
-                            "type": "Signal<TemplateRef<any>>",
-                            "parameters": []
-                        },
-                        {
-                            "name": "footer",
-                            "description": "Custom footer template.",
-                            "type": "Signal<TemplateRef<any>>",
-                            "parameters": []
-                        },
-                        {
-                            "name": "filtericon",
-                            "description": "Custom filter icon template.",
-                            "type": "Signal<TemplateRef<any>>",
-                            "parameters": []
-                        },
-                        {
-                            "name": "removeruleicon",
-                            "description": "Custom remove rule button icon template.",
-                            "type": "Signal<TemplateRef<any>>",
-                            "parameters": []
-                        },
-                        {
-                            "name": "addruleicon",
-                            "description": "Custom add rule button icon template.",
-                            "type": "Signal<TemplateRef<any>>",
-                            "parameters": []
-                        }
-                    ]
-                }
-            }
-        }
-    },
-    "context-menu-row": {
-        "components": {}
-    },
-    "editable-column": {
-        "components": {}
-    },
-    "editable-row": {
-        "components": {}
-    },
-    "frozen-column": {
-        "components": {}
-    },
-    "init-editable-row": {
-        "components": {}
     },
     "table": {
         "components": {
@@ -41831,6 +41770,336 @@
                                 }
                             ],
                             "description": "Scrolls to given index."
+                        }
+                    ]
+                }
+            },
+            "ColumnFilter": {
+                "description": "Column Filter Component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "field",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Property represented by the column."
+                        },
+                        {
+                            "name": "type",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Type of the input."
+                        },
+                        {
+                            "name": "display",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Filter display."
+                        },
+                        {
+                            "name": "showMenu",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "...",
+                            "description": "Decides whether to display filter menu popup."
+                        },
+                        {
+                            "name": "matchMode",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Filter match mode."
+                        },
+                        {
+                            "name": "operator",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ModelSignal<string>",
+                            "default": "'AND'",
+                            "description": "Filter operator."
+                        },
+                        {
+                            "name": "showOperator",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "...",
+                            "description": "Decides whether to display filter operator."
+                        },
+                        {
+                            "name": "showClearButton",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "true",
+                            "description": "Decides whether to display clear filter button when display is menu."
+                        },
+                        {
+                            "name": "showApplyButton",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "...",
+                            "description": "Decides whether to display apply filter button when display is menu."
+                        },
+                        {
+                            "name": "showMatchModes",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "...",
+                            "description": "Decides whether to display filter match modes when display is menu."
+                        },
+                        {
+                            "name": "showAddButton",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "...",
+                            "description": "Decides whether to display add filter button when display is menu."
+                        },
+                        {
+                            "name": "hideOnClear",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "...",
+                            "description": "Decides whether to close popup on clear button click."
+                        },
+                        {
+                            "name": "placeholder",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Filter placeholder."
+                        },
+                        {
+                            "name": "matchModeOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<SelectItem<any>[]>",
+                            "default": "...",
+                            "description": "Filter match mode options."
+                        },
+                        {
+                            "name": "maxConstraints",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<number, unknown>",
+                            "default": "...",
+                            "description": "Defines maximum amount of constraints."
+                        },
+                        {
+                            "name": "minFractionDigits",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<number, unknown>",
+                            "default": "...",
+                            "description": "Defines minimum fraction of digits."
+                        },
+                        {
+                            "name": "maxFractionDigits",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<number, unknown>",
+                            "default": "...",
+                            "description": "Defines maximum fraction of digits."
+                        },
+                        {
+                            "name": "prefix",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Defines prefix of the filter."
+                        },
+                        {
+                            "name": "suffix",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Defines suffix of the filter."
+                        },
+                        {
+                            "name": "locale",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Defines filter locale."
+                        },
+                        {
+                            "name": "localeMatcher",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Defines filter locale matcher."
+                        },
+                        {
+                            "name": "currency",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Enables currency input."
+                        },
+                        {
+                            "name": "currencyDisplay",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Defines the display of the currency input."
+                        },
+                        {
+                            "name": "filterOn",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "enter",
+                            "description": "Default trigger to run filtering on built-in text and numeric filters, valid values are 'enter' and 'input'."
+                        },
+                        {
+                            "name": "useGrouping",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "...",
+                            "description": "Defines if filter grouping will be enabled."
+                        },
+                        {
+                            "name": "showButtons",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "...",
+                            "description": "Defines the visibility of buttons."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "...",
+                            "description": "Defines the aria-label of the form element."
+                        },
+                        {
+                            "name": "filterButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TableFilterButtonPropsOptions>",
+                            "default": "{\n     filter: { severity: 'secondary', text: true, rounded: true },\n     inline: {\n        clear: { severity: 'secondary', text: true, rounded: true }\n     },\n     popover: {\n         addRule: { severity: 'info', text: true, size: 'small' },\n         removeRule: { severity: 'danger', text: true, size: 'small' },\n         apply: { size: 'small' },\n         clear: { outlined: true, size: 'small' }\n        }\n     }",
+                            "description": "Used to pass all filter button property object"
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onShow",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "{ originalEvent: AnimationEvent }"
+                                }
+                            ],
+                            "description": "Callback to invoke on overlay is shown."
+                        },
+                        {
+                            "name": "onHide",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "{ originalEvent: AnimationEvent }"
+                                }
+                            ],
+                            "description": "Callback to invoke on overlay is hidden."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "header",
+                            "description": "Custom header template.",
+                            "type": "Signal<TemplateRef<any>>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "filter",
+                            "description": "Custom filter template.",
+                            "type": "Signal<TemplateRef<any>>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Custom footer template.",
+                            "type": "Signal<TemplateRef<any>>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "filtericon",
+                            "description": "Custom filter icon template.",
+                            "type": "Signal<TemplateRef<any>>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "removeruleicon",
+                            "description": "Custom remove rule button icon template.",
+                            "type": "Signal<TemplateRef<any>>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "addruleicon",
+                            "description": "Custom add rule button icon template.",
+                            "type": "Signal<TemplateRef<any>>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -43151,57 +43420,6 @@
             }
         }
     },
-    "reorderable-column": {
-        "components": {}
-    },
-    "reorderable-row-handle": {
-        "components": {}
-    },
-    "reorderable-row": {
-        "components": {}
-    },
-    "resizable-column": {
-        "components": {}
-    },
-    "row-group-header": {
-        "components": {}
-    },
-    "row-toggler": {
-        "components": {}
-    },
-    "save-editable-row": {
-        "components": {}
-    },
-    "selectable-row-dbl-click": {
-        "components": {}
-    },
-    "selectable-row": {
-        "components": {}
-    },
-    "sort-icon": {
-        "components": {}
-    },
-    "sortable-column": {
-        "components": {}
-    },
-    "table-body": {
-        "components": {}
-    },
-    "table-checkbox": {
-        "components": {}
-    },
-    "table-header-checkbox": {
-        "components": {}
-    },
-    "table-radio-button": {
-        "components": {}
-    },
-    "table-service": {
-        "components": {}
-    },
-    "table.module": {
-        "components": {}
-    },
     "tabs": {
         "components": {
             "Tabs": {
@@ -43291,10 +43509,295 @@
                         }
                     ]
                 }
+            },
+            "Tab": {
+                "description": "Defines valid properties in Tab component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TabPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ModelSignal<string | number>",
+                            "default": "undefined",
+                            "description": "Value of tab."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "false",
+                            "description": "Whether the tab is disabled."
+                        }
+                    ]
+                }
+            },
+            "TabList": {
+                "description": "TabList is a helper component for Tabs component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TabListPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "previcon",
+                            "description": "A template reference variable that represents the previous icon in a UI component.",
+                            "type": "Signal<TemplateRef<any>>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "nexticon",
+                            "description": "A template reference variable that represents the next icon in a UI component.",
+                            "type": "Signal<TemplateRef<any>>",
+                            "parameters": []
+                        }
+                    ]
+                }
+            },
+            "TabPanel": {
+                "description": "TabPanel is a helper component for Tabs component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TabPanelPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "lazy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "false",
+                            "description": "When enabled, tab is not rendered until activation."
+                        },
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ModelSignal<string | number>",
+                            "default": "undefined",
+                            "description": "Value of the active tab."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "content",
+                            "description": "Template for initializing complex content when lazy is enabled.",
+                            "type": "Signal<unknown>",
+                            "parameters": []
+                        }
+                    ]
+                }
+            },
+            "TabPanels": {
+                "description": "TabPanels is a helper component for Tabs component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "unstyled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<boolean>",
+                            "default": "undefined",
+                            "description": "Indicates whether the component should be rendered without styles."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TabPanelsPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             }
         },
         "style": {
-            "components": {},
+            "components": {
+                "tablist": {
+                    "components": {},
+                    "classes": {
+                        "values": [
+                            {
+                                "class": "p-tablist",
+                                "description": "Class name of the root element"
+                            },
+                            {
+                                "class": "p-tablist-content",
+                                "description": "Class name of the content element"
+                            },
+                            {
+                                "class": "p-tablist-tab-list",
+                                "description": "Class name of the tabs element"
+                            },
+                            {
+                                "class": "p-tablist-active-bar",
+                                "description": "Class name of the activebar element"
+                            },
+                            {
+                                "class": "p-tablist-prev-button",
+                                "description": "Class name of the previous button element"
+                            },
+                            {
+                                "class": "p-tablist-next-button",
+                                "description": "Class name of the next button element"
+                            }
+                        ]
+                    }
+                },
+                "tabpanels": {
+                    "components": {},
+                    "classes": {
+                        "values": [
+                            {
+                                "class": "p-tabpanels",
+                                "description": "Class name of the root element"
+                            }
+                        ]
+                    }
+                },
+                "tabpanel": {
+                    "components": {},
+                    "classes": {
+                        "values": [
+                            {
+                                "class": "p-tabpanel",
+                                "description": "Class name of the root element"
+                            }
+                        ]
+                    }
+                },
+                "tab": {
+                    "components": {},
+                    "classes": {
+                        "values": [
+                            {
+                                "class": "p-tab",
+                                "description": "Class name of the tab list element"
+                            }
+                        ]
+                    }
+                }
+            },
             "classes": {
                 "values": [
                     {
@@ -43444,309 +43947,6 @@
                 ]
             }
         }
-    },
-    "tablist": {
-        "components": {
-            "TabList": {
-                "description": "TabList is a helper component for Tabs component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<Object>",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "unstyled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<boolean>",
-                            "default": "undefined",
-                            "description": "Indicates whether the component should be rendered without styles."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<TabListPassThrough>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<PassThroughOptions>",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        }
-                    ]
-                },
-                "templates": {
-                    "description": "Defines the templates used by the component.",
-                    "values": [
-                        {
-                            "name": "previcon",
-                            "description": "A template reference variable that represents the previous icon in a UI component.",
-                            "type": "Signal<TemplateRef<any>>",
-                            "parameters": []
-                        },
-                        {
-                            "name": "nexticon",
-                            "description": "A template reference variable that represents the next icon in a UI component.",
-                            "type": "Signal<TemplateRef<any>>",
-                            "parameters": []
-                        }
-                    ]
-                }
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-tablist",
-                        "description": "Class name of the root element"
-                    },
-                    {
-                        "class": "p-tablist-content",
-                        "description": "Class name of the content element"
-                    },
-                    {
-                        "class": "p-tablist-tab-list",
-                        "description": "Class name of the tabs element"
-                    },
-                    {
-                        "class": "p-tablist-active-bar",
-                        "description": "Class name of the activebar element"
-                    },
-                    {
-                        "class": "p-tablist-prev-button",
-                        "description": "Class name of the previous button element"
-                    },
-                    {
-                        "class": "p-tablist-next-button",
-                        "description": "Class name of the next button element"
-                    }
-                ]
-            }
-        }
-    },
-    "tabpanels": {
-        "components": {
-            "TabPanels": {
-                "description": "TabPanels is a helper component for Tabs component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<Object>",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "unstyled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<boolean>",
-                            "default": "undefined",
-                            "description": "Indicates whether the component should be rendered without styles."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<TabPanelsPassThrough>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<PassThroughOptions>",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        }
-                    ]
-                }
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-tabpanels",
-                        "description": "Class name of the root element"
-                    }
-                ]
-            }
-        }
-    },
-    "tabpanel": {
-        "components": {
-            "TabPanel": {
-                "description": "TabPanel is a helper component for Tabs component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<Object>",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "unstyled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<boolean>",
-                            "default": "undefined",
-                            "description": "Indicates whether the component should be rendered without styles."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<TabPanelPassThrough>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<PassThroughOptions>",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        },
-                        {
-                            "name": "lazy",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "When enabled, tab is not rendered until activation."
-                        },
-                        {
-                            "name": "value",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "ModelSignal<string | number>",
-                            "default": "undefined",
-                            "description": "Value of the active tab."
-                        }
-                    ]
-                },
-                "templates": {
-                    "description": "Defines the templates used by the component.",
-                    "values": [
-                        {
-                            "name": "content",
-                            "description": "Template for initializing complex content when lazy is enabled.",
-                            "type": "Signal<unknown>",
-                            "parameters": []
-                        }
-                    ]
-                }
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-tabpanel",
-                        "description": "Class name of the root element"
-                    }
-                ]
-            }
-        }
-    },
-    "tab": {
-        "components": {
-            "Tab": {
-                "description": "Defines valid properties in Tab component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<Object>",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "unstyled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<boolean>",
-                            "default": "undefined",
-                            "description": "Indicates whether the component should be rendered without styles."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<TabPassThrough>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<PassThroughOptions>",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        },
-                        {
-                            "name": "value",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "ModelSignal<string | number>",
-                            "default": "undefined",
-                            "description": "Value of tab."
-                        },
-                        {
-                            "name": "disabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "Whether the tab is disabled."
-                        }
-                    ]
-                }
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-tab",
-                        "description": "Class name of the tab list element"
-                    }
-                ]
-            }
-        }
-    },
-    "tabs.module": {
-        "components": {}
     },
     "tag": {
         "components": {
@@ -44101,9 +44301,6 @@
                 ]
             }
         }
-    },
-    "terminalservice": {
-        "components": {}
     },
     "textarea": {
         "components": {
@@ -44786,9 +44983,6 @@
             }
         }
     },
-    "tieredmenu-sub": {
-        "components": {}
-    },
     "tieredmenu-token": {
         "components": {}
     },
@@ -45442,9 +45636,6 @@
                 ]
             }
         }
-    },
-    "toast-item": {
-        "components": {}
     },
     "togglebutton": {
         "components": {
@@ -47764,9 +47955,6 @@
                 ]
             }
         }
-    },
-    "tree-node": {
-        "components": {}
     },
     "tree-token": {
         "components": {}
@@ -51047,30 +51235,6 @@
                 ]
             }
         }
-    },
-    "treetable-body": {
-        "components": {}
-    },
-    "treetable-checkbox": {
-        "components": {}
-    },
-    "treetable-header-checkbox": {
-        "components": {}
-    },
-    "treetable-row": {
-        "components": {}
-    },
-    "treetable-scrollable-view": {
-        "components": {}
-    },
-    "treetable-service": {
-        "components": {}
-    },
-    "treetable-toggler": {
-        "components": {}
-    },
-    "treetable.module": {
-        "components": {}
     },
     "ts-helpers": {
         "components": {}

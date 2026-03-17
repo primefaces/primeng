@@ -1255,6 +1255,53 @@ Accordion groups a collection of contents in tabs.
 | onClose | event: AccordionTabCloseEvent | Callback to invoke when an active tab is collapsed by clicking on the header. |
 | onOpen | event: AccordionTabOpenEvent | Callback to invoke when a tab gets expanded. |
 
+## Accordion Content
+
+AccordionContent is a helper component for Accordion component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<AccordionContentPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+
+## Accordion Header
+
+AccordionHeader is a helper component for Accordion component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<AccordionHeaderPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| toggleicon | Signal<TemplateRef<AccordionToggleIconTemplateContext>> | Toggle icon template. |
+
+## Accordion Panel
+
+AccordionPanel is a helper component for Accordion component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| value | ModelSignal<AccordionValue> | undefined | Value of the active tab. |
+| disabled | InputSignalWithTransform<boolean, unknown> | false | Disables the tab when enabled. |
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<AccordionPanelPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+
 ## Pass Through Options
 
 | Name | Type | Description |
@@ -14574,6 +14621,70 @@ To pass data to a dynamically loaded component, you can use either the data or i
 
 Following is the list of structural style classes, for theming classes visit theming page.
 
+## Dynamic Dialog Config
+
+Dialogs can be created dynamically with any component as the content using a DialogService.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| data | DataType | - | An object to pass to the component loaded inside the Dialog. |
+| inputValues | InputValuesType | - | An object to pass to the component loaded inside the Dialog. |
+| header | string | - | Header text of the dialog. |
+| ariaLabelledBy | string | - | Identifies the element (or elements) that labels the element it is applied to. |
+| footer | string | - | Footer text of the dialog. |
+| width | string | - | Width of the dialog. |
+| height | string | - | Height of the dialog. |
+| closeOnEscape | boolean | false | Specifies if pressing escape key should hide the dialog. |
+| focusOnShow | boolean | true | Specifies if autofocus should happen on show. |
+| focusTrap | boolean | true | When enabled, can only focus on elements inside the dialog. |
+| baseZIndex | number | - | Base zIndex value to use in layering. |
+| autoZIndex | boolean | false | Whether to re-enforce layering through applying zIndex. |
+| dismissableMask | boolean | false | Specifies if clicking the modal background should hide the dialog. |
+| rtl | boolean | false | Inline style of the component. |
+| style | { [klass: string]: any } | - | Inline style of the component. |
+| contentStyle | { [klass: string]: any } | - | Inline style of the content. |
+| styleClass | string | - | Style class of the component. |
+| motionOptions | MotionOptions | - | The motion options for the dialog. |
+| maskMotionOptions | MotionOptions | - | The motion options for the mask. |
+| closable | boolean | false | Adds a close icon to the header to hide the dialog. |
+| showHeader | boolean | false | Whether to show the header or not. |
+| modal | boolean | false | Defines if background should be blocked when dialog is displayed. |
+| maskStyleClass | string | - | Style class of the mask. |
+| resizable | boolean | false | Enables resizing of the content. |
+| draggable | boolean | false | Enables dragging to change the position using header. |
+| keepInViewport | boolean | false | Keeps dialog in the viewport. |
+| minX | number | - | Minimum value for the left coordinate of dialog in dragging. |
+| minY | number | - | Minimum value for the top coordinate of dialog in dragging. |
+| maximizable | boolean | false | Whether the dialog can be displayed full screen. |
+| maximizeIcon | string | - | Name of the maximize icon. |
+| minimizeIcon | string | - | Name of the minimize icon. |
+| position | DialogPosition | - | Position of the dialog. |
+| closeAriaLabel | string | - | Defines a string that labels the close button for accessibility. |
+| appendTo | any | - | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| duplicate | boolean | false | A boolean to determine if it can be duplicate. |
+| breakpoints | any | - | Object literal to define widths per screen size. |
+| templates | DynamicDialogTemplates | - | Dialog templates. |
+| pt | DialogPassThrough | - | Used to pass attributes to DOM elements inside the Dialog component. |
+| unstyled | boolean | false | Indicates whether the component should be rendered without styles. |
+
+## Dynamic Dialog Ref
+
+Dynamic Dialog instance.
+
+### Methods
+
+| Name | Parameters | Return Type | Description |
+|------|------------|-------------|-------------|
+| close | result: any | void | Closes dialog. |
+| destroy |  | void | Destroys the dialog instance. |
+| dragStart | event: MouseEvent | void | Callback to invoke on drag start. |
+| dragEnd | event: MouseEvent | void | Callback to invoke on drag end. |
+| resizeInit | event: MouseEvent | void | Callback to invoke on resize start. |
+| resizeEnd | event: MouseEvent | void | Callback to invoke on resize start. |
+| maximize | value: any | void | Callback to invoke on dialog is maximized. |
+
 ## Theming
 
 ### CSS Classes
@@ -18103,6 +18214,144 @@ InputColor is a composable color picker component.
 |------|------------|-------------|
 | onValueChange | event: { color: ColorInstance; originalEvent?: Event } | Callback on value change (during interaction). |
 | onValueChangeEnd | event: { color: ColorInstance; originalEvent?: Event } | Callback when interaction ends (mouseup/touchend/keyup). |
+
+## Input Color Area Background
+
+InputColorAreaBackground is a helper component for InputColor component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+
+## Input Color Area Thumb
+
+InputColorAreaThumb is a helper component for InputColor component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+
+## Input Color Area
+
+InputColorArea is a helper component for InputColor component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+
+## Input Color Eye Dropper
+
+InputColorEyeDropper is a helper component for InputColor component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+| text | InputSignal<boolean> | ... | Whether to display button as text. |
+| rounded | InputSignal<boolean> | ... | Whether to display a rounded button. |
+| outlined | InputSignal<boolean> | ... | Whether to display button as outlined. |
+| iconOnly | InputSignal<boolean> | ... | Whether to display an icon-only button. |
+| severity | InputSignal<string> | ... | Defines the color severity of the button. |
+| size | InputSignal<string> | ... | Defines the size of the button. |
+
+## Input Color Slider Thumb
+
+InputColorSliderThumb is a helper component for InputColor component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+
+## Input Color Slider Track
+
+InputColorSliderTrack is a helper component for InputColor component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+
+## Input Color Slider
+
+InputColorSlider is a helper component for InputColor component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+| channel | InputSignal<ColorSliderChannel> | ... | The color channel this slider controls. |
+| orientation | InputSignal<"vertical" \| "horizontal"> | ... | Orientation of the slider. |
+
+## Input Color Swatch Background
+
+InputColorSwatchBackground is a helper component for InputColor component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+
+## Input Color Swatch
+
+InputColorSwatch is a helper component for InputColor component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+
+## Input Color Transparency Grid
+
+InputColorTransparencyGrid is a helper component for InputColor component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Pass Through Options
 
@@ -35175,6 +35424,74 @@ Stepper is a component that streamlines a wizard-like workflow, organizing conte
 | linear | InputSignalWithTransform<boolean, unknown> | false | A boolean variable that captures user input. |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
+## Step Item
+
+StepItem is a helper component for Stepper component used in vertical orientation.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<StepItemPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+| value | ModelSignal<number> | undefined | Value of step. |
+
+## Step Panel
+
+StepPanel is a helper component for Stepper component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<StepPanelPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+| value | ModelSignal<number> | undefined | Active value of stepper. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| content | Signal<TemplateRef<StepPanelContentTemplateContext>> | Content template. |
+
+## Step
+
+Step is a helper component for Stepper component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<StepPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+| value | ModelSignal<number> | undefined | Active value of stepper. |
+| disabled | InputSignalWithTransform<boolean, unknown> | false | Whether the step is disabled. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| content | Signal<TemplateRef<StepContentTemplateContext>> | Content template. |
+
+## Stepper Separator
+
+StepperSeparator is a helper component for Stepper component used in vertical orientation.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<StepperSeparatorPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+
 ## Pass Through Options
 
 | Name | Type | Description |
@@ -39872,6 +40189,76 @@ Table displays data in tabular format.
 | scrollToVirtualIndex | index: number | void | Scrolls to given index when using virtual scroll. |
 | scrollTo | options: any | void | Scrolls to given index. |
 
+## Column Filter
+
+Column Filter Component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+| field | InputSignal<string> | ... | Property represented by the column. |
+| type | InputSignal<string> | ... | Type of the input. |
+| display | InputSignal<string> | ... | Filter display. |
+| showMenu | InputSignalWithTransform<boolean, unknown> | ... | Decides whether to display filter menu popup. |
+| matchMode | InputSignal<string> | ... | Filter match mode. |
+| operator | ModelSignal<string> | 'AND' | Filter operator. |
+| showOperator | InputSignalWithTransform<boolean, unknown> | ... | Decides whether to display filter operator. |
+| showClearButton | InputSignalWithTransform<boolean, unknown> | true | Decides whether to display clear filter button when display is menu. |
+| showApplyButton | InputSignalWithTransform<boolean, unknown> | ... | Decides whether to display apply filter button when display is menu. |
+| showMatchModes | InputSignalWithTransform<boolean, unknown> | ... | Decides whether to display filter match modes when display is menu. |
+| showAddButton | InputSignalWithTransform<boolean, unknown> | ... | Decides whether to display add filter button when display is menu. |
+| hideOnClear | InputSignalWithTransform<boolean, unknown> | ... | Decides whether to close popup on clear button click. |
+| placeholder | InputSignal<string> | ... | Filter placeholder. |
+| matchModeOptions | InputSignal<SelectItem<any>[]> | ... | Filter match mode options. |
+| maxConstraints | InputSignalWithTransform<number, unknown> | ... | Defines maximum amount of constraints. |
+| minFractionDigits | InputSignalWithTransform<number, unknown> | ... | Defines minimum fraction of digits. |
+| maxFractionDigits | InputSignalWithTransform<number, unknown> | ... | Defines maximum fraction of digits. |
+| prefix | InputSignal<string> | ... | Defines prefix of the filter. |
+| suffix | InputSignal<string> | ... | Defines suffix of the filter. |
+| locale | InputSignal<string> | ... | Defines filter locale. |
+| localeMatcher | InputSignal<string> | ... | Defines filter locale matcher. |
+| currency | InputSignal<string> | ... | Enables currency input. |
+| currencyDisplay | InputSignal<string> | ... | Defines the display of the currency input. |
+| filterOn | InputSignal<string> | enter | Default trigger to run filtering on built-in text and numeric filters, valid values are 'enter' and 'input'. |
+| useGrouping | InputSignalWithTransform<boolean, unknown> | ... | Defines if filter grouping will be enabled. |
+| showButtons | InputSignalWithTransform<boolean, unknown> | ... | Defines the visibility of buttons. |
+| ariaLabel | InputSignal<string> | ... | Defines the aria-label of the form element. |
+| filterButtonProps | InputSignal<TableFilterButtonPropsOptions> | {
+     filter: { severity: 'secondary', text: true, rounded: true },
+     inline: {
+        clear: { severity: 'secondary', text: true, rounded: true }
+     },
+     popover: {
+         addRule: { severity: 'info', text: true, size: 'small' },
+         removeRule: { severity: 'danger', text: true, size: 'small' },
+         apply: { size: 'small' },
+         clear: { outlined: true, size: 'small' }
+        }
+     } | Used to pass all filter button property object |
+
+### Emits
+
+| Name | Parameters | Description |
+|------|------------|-------------|
+| onShow | event: { originalEvent: AnimationEvent } | Callback to invoke on overlay is shown. |
+| onHide | event: { originalEvent: AnimationEvent } | Callback to invoke on overlay is hidden. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| header | Signal<TemplateRef<any>> | Custom header template. |
+| filter | Signal<TemplateRef<any>> | Custom filter template. |
+| footer | Signal<TemplateRef<any>> | Custom footer template. |
+| filtericon | Signal<TemplateRef<any>> | Custom filter icon template. |
+| removeruleicon | Signal<TemplateRef<any>> | Custom remove rule button icon template. |
+| addruleicon | Signal<TemplateRef<any>> | Custom add rule button icon template. |
+
 ## Pass Through Options
 
 | Name | Type | Description |
@@ -40368,6 +40755,75 @@ Tabs facilitates seamless switching between different views.
 | selectOnFocus | InputSignalWithTransform<boolean, unknown> | false | When enabled, the focused tab is activated. |
 | showNavigators | InputSignalWithTransform<boolean, unknown> | true | Whether to display navigation buttons in container when scrollable is enabled. |
 | tabindex | InputSignalWithTransform<number, unknown> | 0 | Tabindex of the tab buttons. |
+
+## Tab
+
+Defines valid properties in Tab component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<TabPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+| value | ModelSignal<string \| number> | undefined | Value of tab. |
+| disabled | InputSignalWithTransform<boolean, unknown> | false | Whether the tab is disabled. |
+
+## Tab List
+
+TabList is a helper component for Tabs component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<TabListPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| previcon | Signal<TemplateRef<any>> | A template reference variable that represents the previous icon in a UI component. |
+| nexticon | Signal<TemplateRef<any>> | A template reference variable that represents the next icon in a UI component. |
+
+## Tab Panel
+
+TabPanel is a helper component for Tabs component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<TabPanelPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+| lazy | InputSignalWithTransform<boolean, unknown> | false | When enabled, tab is not rendered until activation. |
+| value | ModelSignal<string \| number> | undefined | Value of the active tab. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| content | Signal<unknown> | Template for initializing complex content when lazy is enabled. |
+
+## Tab Panels
+
+TabPanels is a helper component for Tabs component.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| pt | InputSignal<TabPanelsPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 
 ## Pass Through Options
 

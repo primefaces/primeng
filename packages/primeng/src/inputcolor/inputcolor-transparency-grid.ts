@@ -3,6 +3,10 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
 
+/**
+ * InputColorTransparencyGrid is a helper component for InputColor component.
+ * @group Components
+ */
 @Component({
     selector: 'p-inputcolor-transparency-grid',
     standalone: true,
