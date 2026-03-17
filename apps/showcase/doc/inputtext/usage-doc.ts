@@ -17,6 +17,6 @@ export class UsageDoc {
     };
 
     usageCode: Code = {
-        html: `<p-inputtext />`
+        html: `<input pInputText />`
     };
 }
