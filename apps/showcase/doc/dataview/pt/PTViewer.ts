@@ -40,8 +40,8 @@ interface Product {
                                     <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
                                         <div class="flex flex-row md:flex-col justify-between items-start gap-2">
                                             <div>
-                                                <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ item.category }}</span>
-                                                <div class="text-lg font-medium mt-1">{{ item.name }}</div>
+                                                <span class="font-medium text-surface-500 dark:text-surface-400 text-xs">{{ item.category }}</span>
+                                                <div class="font-medium mt-1">{{ item.name }}</div>
                                             </div>
                                             <div class="bg-surface-100 p-1" style="border-radius: 30px">
                                                 <div
@@ -59,7 +59,7 @@ interface Product {
                                             </div>
                                         </div>
                                         <div class="flex flex-col md:items-end gap-8">
-                                            <span class="text-xl font-semibold">\${{ item.price }}</span>
+                                            <span class="text-lg font-semibold">\${{ item.price }}</span>
                                             <div class="flex flex-row-reverse md:flex-row gap-2">
                                                 <p-button icon="pi pi-heart" variant="outlined" />
                                                 <p-button icon="pi pi-shopping-cart" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto md:flex-initial whitespace-nowrap" />

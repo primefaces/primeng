@@ -11,8 +11,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     providers: [ConfirmationService],
     template: `
         <app-docptviewer [docs]="docs">
-            <span style="visiblity: hidden;" #anchorElement></span>
-            <p-confirmdialog [style]="{ width: '25rem' }" maskStyleClass="relative! rounded-4xl!" styleClass="relative!" [draggable]="false" [appendTo]="anchorElement" [autoZIndex]="false" [baseZIndex]="2" [modal]="false"></p-confirmdialog>
+            <p-confirmdialog [style]="{ width: '25rem' }" maskStyleClass="relative! rounded-4xl!" styleClass="relative!" [draggable]="false" appendTo="self" [autoZIndex]="false" [baseZIndex]="2" [modal]="false"></p-confirmdialog>
         </app-docptviewer>
     `
 })

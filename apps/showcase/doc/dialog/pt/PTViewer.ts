@@ -13,13 +13,13 @@ import { InputTextModule } from 'primeng/inputtext';
     template: `
         <app-docptviewer [docs]="docs">
             <p-dialog [(visible)]="visible" header="Edit Profile" [maximizable]="true" maskStyleClass="relative!" [draggable]="false" class="my-auto! w-full">
-                <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
+                <span class="text-surface-500 dark:text-surface-400 block mb-8 text-sm">Update your information.</span>
                 <div class="flex items-center gap-4 mb-4">
-                    <label for="username" class="font-semibold w-24">Username</label>
+                    <label for="username" class="font-semibold w-24 text-sm">Username</label>
                     <input pInputText id="username" class="flex-auto" autocomplete="off" />
                 </div>
                 <div class="flex items-center gap-4 mb-8">
-                    <label for="email" class="font-semibold w-24">Email</label>
+                    <label for="email" class="font-semibold w-24 text-sm">Email</label>
                     <input pInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
                 <ng-template #footer>

@@ -24,7 +24,6 @@ interface Product {
         <app-docptviewer [docs]="docs">
             <p-table
                 [value]="products"
-                [tableStyle]="{ 'min-width': '50rem' }"
                 [pt]="{
                     root: { class: 'custom-table-root' },
                     table: { class: 'custom-table' },

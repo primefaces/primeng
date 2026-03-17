@@ -11,10 +11,10 @@ import { SplitterModule } from 'primeng/splitter';
         <app-docptviewer [docs]="docs">
             <p-splitter [style]="{ height: '300px' }" class="w-full">
                 <ng-template #panel>
-                    <div class="flex items-center justify-center h-full">Panel 1</div>
+                    <div class="flex items-center justify-center h-full text-sm">Panel 1</div>
                 </ng-template>
                 <ng-template #panel>
-                    <div class="flex items-center justify-center h-full">Panel 2</div>
+                    <div class="flex items-center justify-center h-full text-sm">Panel 2</div>
                 </ng-template>
             </p-splitter>
         </app-docptviewer>

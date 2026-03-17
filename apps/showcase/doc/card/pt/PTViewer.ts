@@ -13,14 +13,18 @@ import { CardModule } from 'primeng/card';
             <p-card [style]="{ width: '25rem' }">
                 <ng-template #title>Advanced Card</ng-template>
                 <ng-template #subtitle>Card subtitle</ng-template>
-                <p class="m-0">
+                <p class="m-0 text-sm">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
                     quas!
                 </p>
                 <ng-template #footer>
                     <div class="flex gap-4 mt-1">
-                        <button pButton label="Cancel" severity="secondary" [outlined]="true" class="w-full"></button>
-                        <button pButton label="Save" class="w-full"></button>
+                        <button pButton label="Cancel" severity="secondary" [outlined]="true" class="w-full">
+                            <span pButtonLabel>Cancel</span>
+                        </button>
+                        <button pButton label="Save" class="w-full">
+                            <span pButtonLabel>Save</span>
+                        </button>
                     </div>
                 </ng-template>
             </p-card>

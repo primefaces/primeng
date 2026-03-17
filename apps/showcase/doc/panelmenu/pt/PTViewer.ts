@@ -9,7 +9,7 @@ import { PanelMenuModule } from 'primeng/panelmenu';
     imports: [CommonModule, AppDocPtViewer, PanelMenuModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-panelmenu [model]="items" styleClass="w-full md:w-80" />
+            <p-panelmenu [model]="items" class="w-full md:w-80" />
         </app-docptviewer>
     `
 })

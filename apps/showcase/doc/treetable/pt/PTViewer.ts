@@ -11,7 +11,7 @@ import { TreeTableModule } from 'primeng/treetable';
     imports: [CommonModule, AppDocPtViewer, TreeTableModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-treetable [value]="nodes" [tableStyle]="{ 'min-width': '50rem' }">
+            <p-treetable [value]="nodes">
                 <ng-template #header>
                     <tr>
                         <th>Name</th>
