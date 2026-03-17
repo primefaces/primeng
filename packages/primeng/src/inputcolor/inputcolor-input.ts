@@ -1,5 +1,6 @@
-import { computed, Directive, effect, inject, input } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, inject, input } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { InputText } from 'primeng/inputtext';
 import { ColorChannel, ColorInputChannel, ColorSliderChannel, getChannelRange, getInputChannelValue, parseColor } from './color-manager';
 import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
 
@@ -7,13 +8,19 @@ import { INPUT_COLOR_INSTANCE } from './inputcolor.token';
     selector: '[pInputColorInput]',
     standalone: true,
     host: {
-        '[attr.disabled]': '$pc.$disabled() || null',
+        '[attr.disabled]': '$disabled() || null',
         '[attr.data-channel]': 'channel()',
         '(input)': 'onInput($event)',
         '(blur)': 'onBlur($event)',
         '(keydown.enter)': 'onEnter($event)'
     },
-    providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorInput }]
+    providers: [{ provide: PARENT_INSTANCE, useExisting: InputColorInput }],
+    hostDirectives: [
+        {
+            directive: InputText,
+            inputs: ['pSize', 'fluid', 'variant', 'invalid']
+        }
+    ]
 })
 export class InputColorInput extends BaseComponent {
     componentName = 'InputColorInput';
@@ -31,6 +38,14 @@ export class InputColorInput extends BaseComponent {
      * @group Props
      */
     type = input<string>();
+
+    /**
+     * When present, it specifies that the input should be disabled.
+     * @group Props
+     */
+    disabled = input(false, { transform: booleanAttribute });
+
+    $disabled = computed(() => this.disabled() || this.$pc.$disabled());
 
     $inputType = computed(() => {
         const t = this.type();

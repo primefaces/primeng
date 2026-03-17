@@ -34,7 +34,7 @@ export class UsageDoc {
     <p-inputcolor-eyedropper>
         <svg data-p-icon="eye-dropper"></svg>
     </p-inputcolor-eyedropper>
-    <input pInputText pInputColorInput channel="hex" />
+    <input pInputColorInput channel="hex" />
 </p-inputcolor>`
     };
 }

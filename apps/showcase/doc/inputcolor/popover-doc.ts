@@ -14,7 +14,6 @@ import {
     InputColorInput,
     InputColorEyeDropper
 } from 'primeng/inputcolor';
-import { InputText } from 'primeng/inputtext';
 import { Popover } from 'primeng/popover';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -38,7 +37,6 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
         InputColorTransparencyGrid,
         InputColorInput,
         InputColorEyeDropper,
-        InputText,
         Popover,
         AppDocSectionText,
         AppCode,
@@ -73,7 +71,7 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
                                 <p-inputcolor-slider-thumb />
                             </p-inputcolor-slider>
                             <div class="flex items-center gap-2">
-                                <input pInputText pInputColorInput channel="hex" class="flex-1" />
+                                <input pInputColorInput channel="hex" class="flex-1" />
                                 <p-inputcolor-eyedropper [iconOnly]="true" [outlined]="true" severity="secondary">
                                     <svg data-p-icon="eye-dropper" />
                                 </p-inputcolor-eyedropper>

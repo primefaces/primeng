@@ -14,7 +14,6 @@ import {
     InputColorInput,
     InputColorEyeDropper
 } from 'primeng/inputcolor';
-import { InputText } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddon } from 'primeng/inputgroupaddon';
@@ -41,7 +40,6 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
         InputColorTransparencyGrid,
         InputColorInput,
         InputColorEyeDropper,
-        InputText,
         SelectModule,
         InputGroupModule,
         InputGroupAddon,
@@ -122,83 +120,83 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
                         <p-inputcolor-eyedropper [iconOnly]="true" [outlined]="true" severity="secondary">
                             <svg data-p-icon="eye-dropper" />
                         </p-inputcolor-eyedropper>
-                        <input pInputText pInputColorInput [fluid]="true" channel="hex" />
+                        <input pInputColorInput [fluid]="true" channel="hex" />
                     </div>
                     <p-inputgroup>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="red" type="text" pSize="small" />
+                            <input pInputColorInput channel="red" type="text" pSize="small" />
                             <label>Red</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="green" type="text" pSize="small" />
+                            <input pInputColorInput channel="green" type="text" pSize="small" />
                             <label>Green</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="blue" type="text" pSize="small" />
+                            <input pInputColorInput channel="blue" type="text" pSize="small" />
                             <label>Blue</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="alpha" type="text" pSize="small" />
+                            <input pInputColorInput channel="alpha" type="text" pSize="small" />
                             <label>Alpha</label>
                         </p-floatlabel>
                     </p-inputgroup>
                     <p-inputgroup>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="hue" type="text" pSize="small" />
+                            <input pInputColorInput channel="hue" type="text" pSize="small" />
                             <label>Hue</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="saturation" type="text" pSize="small" />
+                            <input pInputColorInput channel="saturation" type="text" pSize="small" />
                             <label>Saturation</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="brightness" type="text" pSize="small" />
+                            <input pInputColorInput channel="brightness" type="text" pSize="small" />
                             <label>Brightness</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="alpha" type="text" pSize="small" />
+                            <input pInputColorInput channel="alpha" type="text" pSize="small" />
                             <label>Alpha</label>
                         </p-floatlabel>
                     </p-inputgroup>
                     <p-inputgroup>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="hue" type="text" pSize="small" />
+                            <input pInputColorInput channel="hue" type="text" pSize="small" />
                             <label>Hue</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="saturation" type="text" pSize="small" />
+                            <input pInputColorInput channel="saturation" type="text" pSize="small" />
                             <label>Saturation</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="lightness" type="text" pSize="small" />
+                            <input pInputColorInput channel="lightness" type="text" pSize="small" />
                             <label>Lightness</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="alpha" type="text" pSize="small" />
+                            <input pInputColorInput channel="alpha" type="text" pSize="small" />
                             <label>Alpha</label>
                         </p-floatlabel>
                     </p-inputgroup>
                     <p-inputgroup>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="L" type="text" pSize="small" />
+                            <input pInputColorInput channel="L" type="text" pSize="small" />
                             <label>Lightness</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="C" type="text" pSize="small" />
+                            <input pInputColorInput channel="C" type="text" pSize="small" />
                             <label>Chroma</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="H" type="text" pSize="small" />
+                            <input pInputColorInput channel="H" type="text" pSize="small" />
                             <label>Hue</label>
                         </p-floatlabel>
                         <p-floatlabel variant="in">
-                            <input pInputText pInputColorInput channel="alpha" type="text" pSize="small" />
+                            <input pInputColorInput channel="alpha" type="text" pSize="small" />
                             <label>Alpha</label>
                         </p-floatlabel>
                     </p-inputgroup>
                     <p-inputgroup>
                         <p-inputgroup-addon>CSS</p-inputgroup-addon>
-                        <input pInputText pInputColorInput channel="css" type="text" [fluid]="true" />
+                        <input pInputColorInput channel="css" type="text" [fluid]="true" />
                     </p-inputgroup>
                 </p-inputcolor>
             </div>

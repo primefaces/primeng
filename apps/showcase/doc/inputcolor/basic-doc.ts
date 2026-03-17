@@ -14,7 +14,6 @@ import {
     InputColorInput,
     InputColorEyeDropper
 } from 'primeng/inputcolor';
-import { InputText } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -39,7 +38,6 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
         InputColorTransparencyGrid,
         InputColorInput,
         InputColorEyeDropper,
-        InputText,
         SelectModule,
         InputGroupModule,
         AppDocSectionText,
@@ -82,34 +80,34 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
                     <p-select [(ngModel)]="format" [options]="formatOptions" optionLabel="label" optionValue="value" class="w-28" />
                     <div class="flex-1">
                         @if (format === 'hex') {
-                            <input pInputText pInputColorInput [fluid]="true" channel="hex" />
+                            <input pInputColorInput [fluid]="true" channel="hex" />
                         }
                         @if (format === 'rgba') {
                             <p-inputgroup>
-                                <input pInputText pInputColorInput [fluid]="true" channel="red" />
-                                <input pInputText pInputColorInput [fluid]="true" channel="green" />
-                                <input pInputText pInputColorInput [fluid]="true" channel="blue" />
-                                <input pInputText pInputColorInput [fluid]="true" channel="alpha" />
+                                <input pInputColorInput [fluid]="true" channel="red" />
+                                <input pInputColorInput [fluid]="true" channel="green" />
+                                <input pInputColorInput [fluid]="true" channel="blue" />
+                                <input pInputColorInput [fluid]="true" channel="alpha" />
                             </p-inputgroup>
                         }
                         @if (format === 'hsba') {
                             <p-inputgroup>
-                                <input pInputText pInputColorInput [fluid]="true" channel="hue" />
-                                <input pInputText pInputColorInput [fluid]="true" channel="saturation" />
-                                <input pInputText pInputColorInput [fluid]="true" channel="brightness" />
-                                <input pInputText pInputColorInput [fluid]="true" channel="alpha" />
+                                <input pInputColorInput [fluid]="true" channel="hue" />
+                                <input pInputColorInput [fluid]="true" channel="saturation" />
+                                <input pInputColorInput [fluid]="true" channel="brightness" />
+                                <input pInputColorInput [fluid]="true" channel="alpha" />
                             </p-inputgroup>
                         }
                         @if (format === 'hsla') {
                             <p-inputgroup>
-                                <input pInputText pInputColorInput [fluid]="true" channel="hue" />
-                                <input pInputText pInputColorInput [fluid]="true" channel="saturation" />
-                                <input pInputText pInputColorInput [fluid]="true" channel="lightness" />
-                                <input pInputText pInputColorInput [fluid]="true" channel="alpha" />
+                                <input pInputColorInput [fluid]="true" channel="hue" />
+                                <input pInputColorInput [fluid]="true" channel="saturation" />
+                                <input pInputColorInput [fluid]="true" channel="lightness" />
+                                <input pInputColorInput [fluid]="true" channel="alpha" />
                             </p-inputgroup>
                         }
                         @if (format === 'oklcha') {
-                            <input pInputText pInputColorInput [fluid]="true" channel="css" />
+                            <input pInputColorInput [fluid]="true" channel="css" />
                         }
                     </div>
                 </div>
