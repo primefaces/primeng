@@ -14,7 +14,7 @@ import { AppDemoWrapper } from '@/components/doc/app.demowrapper';
             <p>Sliders support vertical orientation, displayed alongside the color area.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <div class="flex justify-center">
+            <div class="flex items-center justify-center">
                 <p-inputcolor [(ngModel)]="color" format="hsba" class="w-full max-w-md">
                     <div class="flex gap-4 w-full">
                         <p-inputcolor-area class="flex-1">

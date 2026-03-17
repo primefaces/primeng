@@ -50,7 +50,7 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
             <p>InputColor is a composable color picker with area, slider, swatch, and input sub-components.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <p-inputcolor [(ngModel)]="color" [format]="activeFormat" defaultValue="#276def" class="w-80 mx-auto space-y-3">
+            <p-inputcolor [(ngModel)]="color" [format]="activeFormat" defaultValue="#276def" class="max-w-xs mx-auto space-y-3">
                 <p-inputcolor-area>
                     <p-inputcolor-area-background />
                     <p-inputcolor-area-thumb />
@@ -77,7 +77,7 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
                     </p-inputcolor-eyedropper>
                 </div>
                 <div class="flex items-center gap-2">
-                    <p-select [(ngModel)]="format" [options]="formatOptions" optionLabel="label" optionValue="value" class="w-28" />
+                    <p-select [(ngModel)]="format" [options]="formatOptions" optionLabel="label" optionValue="value" class="w-full md:w-26" />
                     <div class="flex-1">
                         @if (format === 'hex') {
                             <input pInputColorInput [fluid]="true" channel="hex" />

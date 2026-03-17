@@ -55,7 +55,7 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
                         <p-inputcolor-swatch-background />
                     </p-inputcolor-swatch>
                     <p-popover #op>
-                        <div class="w-72 space-y-3">
+                        <div class="w-72 p-3 space-y-3">
                             <p-inputcolor-area>
                                 <p-inputcolor-area-background />
                                 <p-inputcolor-area-thumb />

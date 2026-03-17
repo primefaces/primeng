@@ -48,9 +48,9 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
             <p>Demonstrates tracking color value changes during interaction and when interaction ends.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <div class="w-80 mx-auto">
-                <div class="text-center font-mono text-sm text-surface-500 mb-4">onValueChange: {{ value.toString('hex') }}</div>
-                <div class="text-center font-mono text-sm text-surface-500 mb-4">onValueChangeEnd: {{ endValue.toString('hex') }}</div>
+            <div class="max-w-xs mx-auto space-y-3">
+                <div class="text-center font-mono text-sm text-surface-500">onValueChange: {{ value.toString('hex') }}</div>
+                <div class="text-center font-mono text-sm text-surface-500">onValueChangeEnd: {{ endValue.toString('hex') }}</div>
                 <p-inputcolor [(ngModel)]="value" (onValueChange)="onColorChange($event)" (onValueChangeEnd)="onColorChangeEnd($event)" class="space-y-3">
                     <p-inputcolor-area>
                         <p-inputcolor-area-background />

@@ -54,7 +54,7 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
             <p>Advanced color picker with per-format channel sliders, input groups for RGBA, HSBA, HSLA, OKLCH channels, and a CSS output.</p>
         </app-docsectiontext>
         <app-demo-wrapper>
-            <div class="w-80 mx-auto space-y-3">
+            <div class="max-w-xs mx-auto space-y-3">
                 <p-select [(ngModel)]="format" [options]="formatOptions" optionLabel="label" optionValue="value" [fluid]="true" />
                 <p-inputcolor [(ngModel)]="color" [format]="activeFormat" class="space-y-3">
                     <p-inputcolor-area>
