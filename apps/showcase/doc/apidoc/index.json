@@ -20907,40 +20907,52 @@
             "classes": {
                 "values": [
                     {
-                        "class": "p-inputcolor"
+                        "class": "p-inputcolor",
+                        "description": "Class name of the root element"
                     },
                     {
-                        "class": "p-inputcolor-area"
+                        "class": "p-inputcolor-area",
+                        "description": "Class name of the area element"
                     },
                     {
-                        "class": "p-inputcolor-area-background"
+                        "class": "p-inputcolor-area-background",
+                        "description": "Class name of the area background element"
                     },
                     {
-                        "class": "p-inputcolor-area-thumb"
+                        "class": "p-inputcolor-area-thumb",
+                        "description": "Class name of the area thumb element"
                     },
                     {
-                        "class": "p-inputcolor-slider"
+                        "class": "p-inputcolor-slider",
+                        "description": "Class name of the slider element"
                     },
                     {
-                        "class": "p-inputcolor-slider-track"
+                        "class": "p-inputcolor-slider-track",
+                        "description": "Class name of the slider track element"
                     },
                     {
-                        "class": "p-inputcolor-slider-thumb"
+                        "class": "p-inputcolor-slider-thumb",
+                        "description": "Class name of the slider thumb element"
                     },
                     {
-                        "class": "p-inputcolor-swatch"
+                        "class": "p-inputcolor-swatch",
+                        "description": "Class name of the swatch element"
                     },
                     {
-                        "class": "p-inputcolor-swatch-background"
+                        "class": "p-inputcolor-swatch-background",
+                        "description": "Class name of the swatch background element"
                     },
                     {
-                        "class": "p-inputcolor-transparency-grid"
+                        "class": "p-inputcolor-transparency-grid",
+                        "description": "Class name of the transparency grid element"
                     },
                     {
-                        "class": "p-inputcolor-input"
+                        "class": "p-inputcolor-input",
+                        "description": "Class name of the input element"
                     },
                     {
-                        "class": "p-inputcolor-eyedropper"
+                        "class": "p-inputcolor-eyedropper",
+                        "description": "Class name of the eye dropper element"
                     }
                 ]
             }

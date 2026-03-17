@@ -180,18 +180,63 @@ export class InputColorStyle extends BaseStyle {
     classes = classes;
 }
 
+/**
+ *
+ * InputColor is a composable color picker component.
+ *
+ * [Live Demo](https://www.primeng.org/inputcolor/)
+ *
+ * @module inputcolorstyle
+ *
+ */
 export enum InputColorClasses {
+    /**
+     * Class name of the root element
+     */
     root = 'p-inputcolor',
+    /**
+     * Class name of the area element
+     */
     area = 'p-inputcolor-area',
+    /**
+     * Class name of the area background element
+     */
     areaBackground = 'p-inputcolor-area-background',
+    /**
+     * Class name of the area thumb element
+     */
     areaThumb = 'p-inputcolor-area-thumb',
+    /**
+     * Class name of the slider element
+     */
     slider = 'p-inputcolor-slider',
+    /**
+     * Class name of the slider track element
+     */
     sliderTrack = 'p-inputcolor-slider-track',
+    /**
+     * Class name of the slider thumb element
+     */
     sliderThumb = 'p-inputcolor-slider-thumb',
+    /**
+     * Class name of the swatch element
+     */
     swatch = 'p-inputcolor-swatch',
+    /**
+     * Class name of the swatch background element
+     */
     swatchBackground = 'p-inputcolor-swatch-background',
+    /**
+     * Class name of the transparency grid element
+     */
     transparencyGrid = 'p-inputcolor-transparency-grid',
+    /**
+     * Class name of the input element
+     */
     input = 'p-inputcolor-input',
+    /**
+     * Class name of the eye dropper element
+     */
     eyeDropper = 'p-inputcolor-eyedropper'
 }
 
