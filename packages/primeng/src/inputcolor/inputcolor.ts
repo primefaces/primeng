@@ -58,12 +58,6 @@ export class InputColor extends BaseComponent<InputColorPassThrough> implements 
     format = input<ColorSpace>('hsba');
 
     /**
-     * Default color value.
-     * @group Props
-     */
-    defaultValue = input<string | ColorInstance | null>(null);
-
-    /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
@@ -88,9 +82,9 @@ export class InputColor extends BaseComponent<InputColorPassThrough> implements 
     // Internal color state
     _color = signal<ColorInstance | null>(null);
 
-    // Computed color - resolved from internal state or default
+    // Computed color - resolved from internal state or fallback
     $color = computed<ColorInstance>(() => {
-        return this._color() || parseColor(this.defaultValue() as any) || (parseColor('#ff0000') as ColorInstance).toFormat(this.format());
+        return this._color() || (parseColor('#ff0000') as ColorInstance).toFormat(this.format());
     });
 
     // Computed 2D axes based on format

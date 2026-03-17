@@ -53,7 +53,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <div class="flex justify-center">
                 <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
                     <div class="flex flex-col items-center gap-2">
-                        <p-inputcolor name="color" [(ngModel)]="color" #colorModel="ngModel" required defaultValue="#276def" class="w-80 space-y-3">
+                        <p-inputcolor name="color" [(ngModel)]="color" #colorModel="ngModel" required class="w-80 space-y-3">
                             <p-inputcolor-area>
                                 <p-inputcolor-area-background />
                                 <p-inputcolor-area-thumb />

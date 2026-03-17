@@ -39,7 +39,7 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
     ],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-inputcolor defaultValue="#276def" class="w-80 mx-auto space-y-3">
+            <p-inputcolor [(ngModel)]="color" class="w-80 mx-auto space-y-3">
                 <p-inputcolor-area>
                     <p-inputcolor-area-background />
                     <p-inputcolor-area-thumb />
@@ -70,6 +70,8 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
     `
 })
 export class PTViewer {
+    color: string = '#276def';
+
     docs = [
         {
             data: getPTOptions('InputColor'),

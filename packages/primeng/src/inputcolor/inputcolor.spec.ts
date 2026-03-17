@@ -39,7 +39,7 @@ import { InputColorEyeDropper } from './inputcolor-eyedropper';
 @Component({
     standalone: false,
     template: `
-        <p-inputcolor [(ngModel)]="color" [format]="format" [defaultValue]="defaultValue" (onValueChange)="onValueChange($event)" (onValueChangeEnd)="onValueChangeEnd($event)">
+        <p-inputcolor [(ngModel)]="color" [format]="format" (onValueChange)="onValueChange($event)" (onValueChangeEnd)="onValueChangeEnd($event)">
             <p-inputcolor-slider [channel]="sliderChannel" [orientation]="sliderOrientation">
                 <p-inputcolor-slider-track />
                 <p-inputcolor-slider-thumb />
@@ -57,7 +57,6 @@ import { InputColorEyeDropper } from './inputcolor-eyedropper';
 class TestBasicComponent {
     color: string | null = null;
     format: ColorSpace = 'hsba';
-    defaultValue: string | ColorInstance | null = null;
     sliderChannel: ColorSliderChannel = 'hue';
     sliderOrientation: 'horizontal' | 'vertical' = 'horizontal';
 
@@ -1266,35 +1265,11 @@ describe('InputColor Component Tests', () => {
                 expect(inputColor.format()).toBe('hsba');
             });
 
-            it('should default defaultValue to null', () => {
-                expect(inputColor.defaultValue()).toBeNull();
-            });
-
-            it('should fallback to red when no value or defaultValue', () => {
+            it('should fallback to red when no value is set', () => {
                 const color = inputColor.$color();
                 expect(color).toBeTruthy();
                 const hex = color.toHex();
                 expect(hex).toBe('#ff0000');
-            });
-        });
-
-        describe('defaultValue', () => {
-            it('should use defaultValue string when ngModel is null', async () => {
-                component.defaultValue = '#00ff00';
-                component.color = null;
-                fixture.detectChanges();
-                await fixture.whenStable();
-                const hex = inputColor.$color().toHex();
-                expect(hex).toBe('#00ff00');
-            });
-
-            it('should use defaultValue ColorInstance', async () => {
-                component.defaultValue = new HSBColor(240, 100, 100);
-                component.color = null;
-                fixture.detectChanges();
-                await fixture.whenStable();
-                const hex = inputColor.$color().toHex();
-                expect(hex).toBe('#0000ff');
             });
         });
 

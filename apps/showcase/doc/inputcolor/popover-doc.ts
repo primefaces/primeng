@@ -49,7 +49,7 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
         </app-docsectiontext>
         <app-demo-wrapper>
             <div class="flex items-center justify-center">
-                <p-inputcolor [(ngModel)]="color" defaultValue="#0099ff">
+                <p-inputcolor [(ngModel)]="color">
                     <p-inputcolor-swatch (click)="op.toggle($event)" style="cursor: pointer">
                         <p-inputcolor-transparency-grid />
                         <p-inputcolor-swatch-background />
@@ -86,5 +86,5 @@ import { EyeDropper } from '@primeicons/angular/eye-dropper';
     `
 })
 export class PopoverDoc {
-    color: string = '';
+    color: string = '#0099ff';
 }
