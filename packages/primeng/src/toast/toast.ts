@@ -492,6 +492,8 @@ export class Toast extends BaseComponent<ToastPassThrough> {
     }
 
     add(messages: ToastMessageOptions[]): void {
+        this.clearAllTrigger.set(null);
+
         this.messages = this.messages ? [...this.messages, ...messages] : [...messages];
 
         if (this.preventDuplicates) {
